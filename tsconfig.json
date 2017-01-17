@@ -1,0 +1,16 @@
+{
+    "compilerOptions": {
+        "module": "es6",
+        "target": "es6",
+        "moduleResolution": "node",
+        "baseUrl": "ts",
+        "allowSyntheticDefaultImports": true,
+        "noImplicitAny": false,
+        "sourceMap": true,
+        "outDir": "js",
+        "jsx": "preserve"
+    },
+      "exclude": [
+        "node_modules"
+      ]
+}
