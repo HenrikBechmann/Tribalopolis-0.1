@@ -1,9 +1,14 @@
 // index.tsx
+'use strict'
+
 import * as React from 'react';
 import { render } from 'react-dom'
+import injectTapEventPlugin from 'react-tap-event-plugin'
 
-render(
-    <div>Hello world it's Henrik</div>,
-    document.getElementById('app')
-)
+injectTapEventPlugin()
+require('isomorphic-fetch')
+
+import Main from './core/containers/main'
+
+render( <Main />, document.getElementById('app') )
 
