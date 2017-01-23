@@ -4,6 +4,7 @@
 import * as React from 'react'
 
 import configureStore from '../configurestore'
+import Radium from 'radium'
 // import Root from '../common/root'
 
 // import { autoLoginUser } from '../actions/actions'
@@ -20,28 +21,37 @@ const store = configureStore()
 // }
 
 //TODO: assign version to state (DEVELOPMENT|STAGING|PRODUCTION)
-    // <Root store={store} />
-const Main = () => (
+    // <Root store={store} globalmessage={globalmessage} routes={routes}/>
+var Main = () => (
     <div>
-        <div style={{backgroundColor:'lightgray',minHeight:'40px'}} >Toolbar</div>
-        <div style={{backgroundColor:'palegoldenrod',minHeight:'16px'}} >Title</div>
-        <div style={{minHeight:'300px'}} >
-            <div style={
-                {
-                    float:'left',
-                    minWidth:'60px',
-                    minHeight:'60px',
-                    border:'1px solid silver',
-                    backgroundColor:'lightblue',
-                }
-            }>
+        <div style={styles.toolbar} >Toolbar</div>
+        <div style={styles.title} >Title</div>
+        <div style={styles.graph} >
+            <div style={styles.origin}
+            >
                 Origin
             </div>
             Graph
         </div>
-        <div style={{backgroundColor:'lightgreen',minHeight:'120px'}} >List</div>
+        <div style={styles.list} >List</div>
     </div>
 )
+
+let styles = {
+    origin:{
+        float:'left',
+        minWidth:'60px',
+        minHeight:'60px',
+        border:'1px solid silver',
+        backgroundColor:'lightblue',
+    },
+    toolbar:{backgroundColor:'lightgray',minHeight:'40px'},
+    title:{backgroundColor:'palegoldenrod',minHeight:'16px'},
+    graph:{minHeight:'300px'},
+    list:{backgroundColor:'lightgreen',minHeight:'120px'},
+}
+
+Main = Radium(Main)
 
 export default Main
 
