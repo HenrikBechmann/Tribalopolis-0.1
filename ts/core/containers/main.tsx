@@ -23,21 +23,23 @@ const store = configureStore()
     // <Root store={store} />
 const Main = () => (
     <div>
-    <div style={{backgroundColor:'lightgray',minHeight:'40px'}} >Toolbar</div>
-    <div style={{backgroundColor:'palegoldenrod',minHeight:'16px'}} >Title</div>
-    <div style={{minHeight:'300px'}} >
-    <div style={
-        {
-            float:'left',
-            minWidth:'60px',
-            minHeight:'60px',
-            border:'1px solid silver',
-            backgroundColor:'lightblue',
-        }
-    }>Origin
-    </div>
-    Graph</div>
-    <div style={{backgroundColor:'lightgreen',minHeight:'120px'}} >List</div>
+        <div style={{backgroundColor:'lightgray',minHeight:'40px'}} >Toolbar</div>
+        <div style={{backgroundColor:'palegoldenrod',minHeight:'16px'}} >Title</div>
+        <div style={{minHeight:'300px'}} >
+            <div style={
+                {
+                    float:'left',
+                    minWidth:'60px',
+                    minHeight:'60px',
+                    border:'1px solid silver',
+                    backgroundColor:'lightblue',
+                }
+            }>
+                Origin
+            </div>
+            Graph
+        </div>
+        <div style={{backgroundColor:'lightgreen',minHeight:'120px'}} >List</div>
     </div>
 )
 
