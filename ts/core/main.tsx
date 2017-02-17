@@ -3,8 +3,10 @@
 
 import * as React from 'react'
 
-import configureStore from '../configurestore'
+import configureStore from './utilities/configurestore'
 import Radium from 'radium'
+import routes from './containers/routes'
+
 // import Root from '../common/root'
 
 // import { autoLoginUser } from '../actions/actions'

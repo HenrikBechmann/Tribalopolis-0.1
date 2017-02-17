@@ -1,7 +1,10 @@
 // webpack.config.js
 var webpack = require('webpack');
 var path = require('path');
+
 // var WebpackNotifierPlugin = require('webpack-notifier');
+
+console.log('processing webpack');
 
 module.exports = {
   devtool: 'eval',
@@ -16,14 +19,14 @@ module.exports = {
   },
   resolve: {
     // Look for modules in .ts(x) files first, then .js(x)
-    extensions: ['', '.ts', '.tsx', '.js', '.jsx'],
+    extensions: ['.ts', '.tsx', '.js', '.jsx'],
     // Add 'src' to our modulesDirectories, as all our app code will live in there, so Webpack should look in there for modules
-    modulesDirectories: ['ts', 'node_modules'],
+    modules: ['ts', 'node_modules'],
   },
   module: {
-    loaders: [
+    rules: [
       // .ts(x) files should first pass through the Typescript loader, and then through babel
-      { test: /\.tsx?$/, loaders: ['babel', 'ts-loader'] }
+      { test: /\.tsx?$/, use:['babel-loader','ts-loader'] }
     ]
   },
   plugins: [
