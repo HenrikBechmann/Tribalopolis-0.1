@@ -25,6 +25,7 @@ var Main = () => (<div>
             </div>
             Graph
         </div>
+        <div style={styles.status}>Status</div>
         <div style={styles.list}>List</div>
     </div>);
 let styles = {
@@ -37,6 +38,7 @@ let styles = {
     },
     toolbar: { backgroundColor: 'lightgray', minHeight: '40px' },
     title: { backgroundColor: 'palegoldenrod', minHeight: '16px' },
+    status: { backgroundColor: 'palegoldenrod', minHeight: '16px' },
     graph: { minHeight: '300px' },
     list: { backgroundColor: 'lightgreen', minHeight: '120px' },
 };
