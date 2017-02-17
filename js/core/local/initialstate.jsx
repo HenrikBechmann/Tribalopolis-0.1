@@ -38,7 +38,7 @@ import theme from 'material-ui/styles/baseThemes/lightBaseTheme';
 /* ======================================== */
 import * as colors from 'material-ui/styles/colors';
 let appnavbar = {
-    title: 'Tribalhubs v0.1.1',
+    title: 'Tribalopolis v0.1.1',
     username: 'anonymous',
     accountoptions: [],
     menuoptions: [],

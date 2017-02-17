@@ -28,6 +28,8 @@ var Main = () => (
     <div>
         <div style={styles.toolbar} >Toolbar</div>
         <div style={styles.title} >Title</div>
+        <div>Nodes: </div>
+        <div>Links: </div>
         <div style={styles.graph} >
             <div style={styles.origin}
             >
