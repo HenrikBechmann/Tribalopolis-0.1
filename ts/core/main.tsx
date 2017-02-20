@@ -2,12 +2,12 @@
 'use strict'
 
 import * as React from 'react'
+import Radium from 'radium'
 
 import configureStore from './utilities/configurestore'
-import Radium from 'radium'
 import routes from './containers/routes'
 
-// import Root from '../common/root'
+import Root from './containers/root'
 
 // import { autoLoginUser } from '../actions/actions'
 
@@ -24,7 +24,7 @@ const store = configureStore()
 
 //TODO: assign version to state (DEVELOPMENT|STAGING|PRODUCTION)
     // <Root store={store} globalmessage={globalmessage} routes={routes}/>
-var Main = () => (
+const Main = () => (
     <div>
         <div style={styles.toolbar} >Toolbar</div>
         <div style={styles.title} >Title</div>
@@ -57,7 +57,5 @@ let styles = {
     list:{backgroundColor:'lightgreen',minHeight:'120px'},
 }
 
-Main = Radium(Main)
-
-export default Main
+export default Radium(Main)
 

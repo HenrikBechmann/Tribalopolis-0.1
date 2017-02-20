@@ -10,5 +10,5 @@ require('isomorphic-fetch')
 
 import Main from './core/main'
 
-render( <Main />, document.getElementById('app') )
+render( <Main />, document.getElementById('main') )
 

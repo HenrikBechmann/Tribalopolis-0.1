@@ -6,5 +6,5 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 injectTapEventPlugin();
 require('isomorphic-fetch');
 import Main from './core/main';
-render(<Main />, document.getElementById('app'));
+render(<Main />, document.getElementById('main'));
 //# sourceMappingURL=index.jsx.map

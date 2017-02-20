@@ -1,8 +1,7 @@
 'use strict';
 import * as React from 'react';
-import configureStore from './utilities/configurestore';
 import Radium from 'radium';
-// import Root from '../common/root'
+import configureStore from './utilities/configurestore';
 // import { autoLoginUser } from '../actions/actions'
 const store = configureStore();
 // let { auth } = store.getState().login
@@ -14,7 +13,7 @@ const store = configureStore();
 // }
 //TODO: assign version to state (DEVELOPMENT|STAGING|PRODUCTION)
 // <Root store={store} globalmessage={globalmessage} routes={routes}/>
-var Main = () => (<div>
+const Main = () => (<div>
         <div style={styles.toolbar}>Toolbar</div>
         <div style={styles.title}>Title</div>
         <div>Nodes: </div>
@@ -42,6 +41,5 @@ let styles = {
     graph: { minHeight: '300px' },
     list: { backgroundColor: 'lightgreen', minHeight: '120px' },
 };
-Main = Radium(Main);
-export default Main;
+export default Radium(Main);
 //# sourceMappingURL=main.jsx.map
