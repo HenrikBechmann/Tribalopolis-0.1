@@ -15,9 +15,16 @@ import {reducer as toastrReducer} from 'react-redux-toastr'
 // // ----------[ app settings ]----------------------
 // import explorer from '../../addins/explorer/reducers'
 
+let spaces = (state = null, actions) => {
+    return state
+}
+
 let mainReducerCore = combineReducers(
-    { 
-})
+    {
+        spaces,
+        toastr:toastrReducer,
+    }
+)
 
 let mainReducer = (state,action) => {
     if (!isFSA( action )) {

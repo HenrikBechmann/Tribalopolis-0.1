@@ -7,21 +7,44 @@ import ReduxToastr from 'react-redux-toastr'
 // import { render } from 'react-dom'
 import { Provider } from 'react-redux'
 // custom...
-import MainBar from '../containers/mainbar'
+// import MainToolBar from '../containers/maintoolbar'
 // import { MainToolbar } from './maintoolbar'
 import routes from './routes'
+
+const MainBar = (props) => (<div style= {props.style}>Toolbar</div>)
+
+let styles = {
+    origin:{
+        float:'left',
+        minWidth:'60px',
+        minHeight:'60px',
+        border:'1px solid silver',
+        backgroundColor:'lightblue',
+    },
+    toolbar:{backgroundColor:'lightgray',minHeight:'40px'},
+    title:{backgroundColor:'palegoldenrod',minHeight:'16px'},
+    status:{backgroundColor:'palegoldenrod',minHeight:'16px'},
+    graph:{minHeight:'300px'},
+    list:{backgroundColor:'lightgreen',minHeight:'120px'},
+}
 
 const Root = ({store, globalmessage}) => (
     <MuiThemeProvider muiTheme = {getMuiTheme()}>
         <Provider store={ store }>
             <div >
-                <MainBar />
-                <div style={{ height: "64px" }} > {/* space for top fixed appbar */}
+                <MainBar style={styles.toolbar} />
+                <div style={styles.title} >Title</div>
+                <div>Nodes: </div>
+                <div>Links: </div>
+                <div style={styles.graph} >
+                    <div style={styles.origin}
+                    >
+                        Origin
+                    </div>
+                    Graph
                 </div>
-
-                {globalmessage}
-
-                { routes }
+                <div style={styles.status} >Status</div>
+                <div style={styles.list} >List</div>
                 
                 <ReduxToastr
                       timeOut={4000}
