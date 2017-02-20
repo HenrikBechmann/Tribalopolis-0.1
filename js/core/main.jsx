@@ -1,6 +1,6 @@
 'use strict';
 import * as React from 'react';
-import Radium from 'radium';
+// import Radium from 'radium'
 import configureStore from './utilities/configurestore';
 import Root from './containers/root';
 // import { autoLoginUser } from '../actions/actions'
@@ -16,5 +16,5 @@ let globalmessage = null;
 //TODO: assign version to state (DEVELOPMENT|STAGING|PRODUCTION)
 // <Root store={store} globalmessage={globalmessage} routes={routes}/>
 const Main = () => (<Root store={store} globalmessage={globalmessage}/>);
-export default Radium(Main);
+export default Main;
 //# sourceMappingURL=main.jsx.map

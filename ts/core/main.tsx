@@ -2,10 +2,9 @@
 'use strict'
 
 import * as React from 'react'
-import Radium from 'radium'
+// import Radium from 'radium'
 
 import configureStore from './utilities/configurestore'
-import routes from './containers/routes'
 
 import Root from './containers/root'
 
@@ -30,5 +29,5 @@ const Main = () => (
     <Root store = {store} globalmessage = {globalmessage}/>
 )
 
-export default Radium(Main)
+export default Main
 
