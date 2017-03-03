@@ -1,5 +1,14 @@
-.mainpage-enter { opacity: 0; transition: opacity 300ms ease-in; }
-.mainpage-enter.mainpage-enter-active { opacity: 1; transition: opacity 300ms ease-in; }
+/*
+.mainpage-enter { opacity: 0; transition: opacity 3000ms ease-in; }
+.mainpage-enter.mainpage-enter-active { opacity: 1; transition: opacity 3000ms ease-in; }
+*/
+.base-appear { opacity: 0.01 }
+.base-appear.base-appear-active { opacity: 1; transition: opacity 1s ease-in; }
+/*
+.base-enter { opacity: 0; transition: opacity 3s ease-in; }
+.base-enter.mainpage-base-active { opacity: 1; transition: opacity 3s ease-in; }
+*/
 /* not used: */
-.mainpage-leave { opacity: 1; transition: opacity 300ms ease-in; }
+/*.mainpage-leave { opacity: 1; transition: opacity 3000ms ease-in; }
 .mainpage-leave.mainpage-leave-active { opacity: 0; transition: opacity 300ms ease-in; }
+*/

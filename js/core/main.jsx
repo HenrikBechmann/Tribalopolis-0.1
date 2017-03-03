@@ -2,8 +2,9 @@
 import * as React from 'react';
 // import Radium from 'radium'
 import configureStore from './utilities/configurestore';
-import Base from './generic/base';
-import { styles } from './utilities/styles';
+import Base from './bootstrap/base';
+import Router from './bootstrap/router';
+import routes from './routes';
 // import { autoLoginUser } from '../actions/actions'
 const store = configureStore();
 // let { auth } = store.getState().login
@@ -13,23 +14,11 @@ const store = configureStore();
 //         store.dispatch(autoLoginUser(token))
 //     }
 // }
-let globalmessage = null; // 'This is a global message'
-const MainBar = (props) => (<div style={props.style}>Toolbar</div>);
 //TODO: assign version to state (DEVELOPMENT|STAGING|PRODUCTION)
-// <Root store={store} globalmessage={globalmessage} routes={routes}/>
-const Main = () => (<Base store={store} globalmessage={globalmessage}>
-        <MainBar style={styles.toolbar}/>
-        <div style={styles.title}>Title</div>
-        <div>Nodes: </div>
-        <div>Links: </div>
-        <div style={styles.graph}>
-            <div style={styles.origin}>
-                Origin
-            </div>
-            Graph
-        </div>
-        <div style={styles.status}>Status</div>
-        <div style={styles.list}>List</div>
+const Main = (props) => (<Base store={store} globalmessage={props.globalmessage}>
+        <Router>
+            {routes}
+        </Router>
     </Base>);
 export default Main;
 //# sourceMappingURL=main.jsx.map

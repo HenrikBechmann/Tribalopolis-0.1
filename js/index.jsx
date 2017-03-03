@@ -6,5 +6,6 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 injectTapEventPlugin();
 require('isomorphic-fetch');
 import Main from './core/main';
-render(<Main />, document.getElementById('main'));
+let globalmessage = null; // 'This is a global message'
+render(<Main globalmessage={globalmessage}/>, document.getElementById('main'));
 //# sourceMappingURL=index.jsx.map
