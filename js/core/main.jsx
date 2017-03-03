@@ -1,6 +1,4 @@
-'use strict';
 import * as React from 'react';
-// import Radium from 'radium'
 import configureStore from './utilities/configurestore';
 import Base from './bootstrap/base';
 import Router from './bootstrap/router';

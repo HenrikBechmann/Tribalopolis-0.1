@@ -1,8 +1,3 @@
-// copyright (c) 2016 Henrik Bechmann, Toronto, MIT Licence
-// routes.tsx
-
-'use strict'
-
 import * as React from 'react'
 
 import { Router as BaseRouter, Route, browserHistory } from 'react-router'

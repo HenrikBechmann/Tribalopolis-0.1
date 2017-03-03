@@ -1,5 +1,3 @@
-// index.tsx
-'use strict';
 import * as React from 'react';
 import { render } from 'react-dom';
 import injectTapEventPlugin from 'react-tap-event-plugin';
