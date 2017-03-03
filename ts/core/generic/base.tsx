@@ -4,23 +4,14 @@ import * as React from 'react'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
 import ReduxToastr from 'react-redux-toastr'
-// import { render } from 'react-dom'
 import { Provider } from 'react-redux'
-// custom...
-// import MainBar from '../containers/mainbar'
-// import { MainToolbar } from './maintoolbar'
 
-const Root = ({store, globalmessage, routes}) => (
+const Base = (props) => (
     <MuiThemeProvider muiTheme = {getMuiTheme()}>
-        <Provider store={ store }>
-            <div >
-                <div style={{ height: "64px" }} > {/* space for top fixed appbar */}
-                </div>
-
-                {globalmessage}
-
-                { routes }
-                
+        <Provider store={ props.store }>
+            <div>
+                {props.globalmessage?<div>{props.globalmessage}</div>:null}
+                {props.children}
                 <ReduxToastr
                       timeOut={4000}
                       newestOnTop={false}
@@ -30,4 +21,4 @@ const Root = ({store, globalmessage, routes}) => (
     </MuiThemeProvider>
 )
 
-export default Root
+export default Base

@@ -7,11 +7,11 @@ import ReduxToastr from 'react-redux-toastr';
 // import Radium from 'radium'
 // import { render } from 'react-dom'
 import { Provider } from 'react-redux';
-const Root = ({ store, globalmessage }) => (<MuiThemeProvider muiTheme={getMuiTheme()}>
+const Base = ({ store, globalmessage }) => (<MuiThemeProvider muiTheme={getMuiTheme()}>
         <Provider store={store}>
             {this.props.children}
             <ReduxToastr timeOut={4000} newestOnTop={false} position="top-left"/>
         </Provider>
     </MuiThemeProvider>);
-export default Root;
-//# sourceMappingURL=root.jsx.map
+export default Base;
+//# sourceMappingURL=base.jsx.map

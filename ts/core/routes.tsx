@@ -23,7 +23,7 @@ ReactGA.initialize('UA-4105209-11')
 // import approutes from '../../addins/approutes'
 
 let logPageView = () => {
-    if (window.location.hostname == 'budgetpedia.ca') {
+    if (window.location.hostname == 'tribalopolis.ca') {
         ReactGA.set({ page: window.location.pathname });
         ReactGA.pageview(window.location.pathname);
     }

@@ -36,7 +36,7 @@
     "rebound": "0.0.13",
     "redux-actions": "^1.2.1",
     "redux-thunk": "^2.2.0",
-    "victory": "^0.17.0",
+    "victory": "^0.18.0",
     "victory-force": "0.0.1"
   },
   "devDependencies": {
