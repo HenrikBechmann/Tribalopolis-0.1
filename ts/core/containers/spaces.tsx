@@ -5,7 +5,7 @@ import { styles } from '../utilities/styles'
 
 const MainBar = (props) => (<div style= {props.style}>Toolbar</div>)
 
-// TODO: add handle to adjust split between graph and list
+// TODO: make show/hide card panel tab; make show/hide graph panel tab
 const Spaces = (props) =>(
     <div style={styles.frame}>
         <div style={styles.topframe}>
@@ -25,7 +25,7 @@ const Spaces = (props) =>(
             </div>
         </div>
         <div style={styles.bottomframe}>
-            <div style={styles.list} >List</div>
+            <div style={styles.list} >Card</div>
         </div>
     </div>
 )
