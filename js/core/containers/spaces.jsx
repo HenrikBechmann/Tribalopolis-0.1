@@ -7,11 +7,14 @@ const Spaces = (props) => (<div style={styles.frame}>
         <div style={styles.topframe}>
             <MainBar style={styles.toolbar}/>
             <div style={styles.title}>Title</div>
-            <div style={styles.filter}>
+            <div style={styles.filterbox}>
             <div>Nodes:  </div>
             <div>Links: </div>
             </div>
             <div style={styles.graph}>
+                <div style={styles.origin}>
+                    Origin
+                </div>
                 <div style={styles.origin}>
                     Origin
                 </div>
