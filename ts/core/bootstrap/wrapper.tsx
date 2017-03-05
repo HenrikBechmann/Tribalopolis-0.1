@@ -5,7 +5,7 @@ import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 
 class Wrapper extends Component<any, any> {
     render() {
-        console.log(this.props.location, this.props.children)
+        // console.log(this.props.location, this.props.children)
         return (
             <ReactCSSTransitionGroup
                 component = "div"

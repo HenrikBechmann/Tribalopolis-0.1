@@ -2,7 +2,11 @@
 import * as React from 'react'
 import { Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle } from 'material-ui/Toolbar'
 import IconButton from 'material-ui/IconButton'
+import IconMenu from 'material-ui/IconMenu'
+import MenuItem from 'material-ui/MenuItem'
 import FontIcon from 'material-ui/FontIcon'
+import SvgIcon from 'material-ui/SvgIcon'
+import Drawer from 'material-ui/Drawer'
 
 import { styles } from '../utilities/styles'
 
@@ -21,12 +25,38 @@ import { styles } from '../utilities/styles'
                         <FontIcon className='material-icons'>refresh</FontIcon>
                     </IconButton>
 */
-const Spaces = (props) =>(
-    <div style={styles.frame}>
+class Spaces extends React.Component<any,any> {
+    state = {
+        menuopen:false
+    }
+
+    handleMenuToggle = () => this.setState({menuopen: !this.state.menuopen});
+
+    handleMenuClose = () => this.setState({menuopen: false});
+
+    render() {
+    return <div style={styles.frame}>
+        <Drawer
+            docked={false}
+            width={200}
+            open={this.state.menuopen}
+            onRequestChange={(open) => this.setState({menuopen:open})}
+        >
+            <MenuItem 
+                leftIcon = {
+                    <img
+                        src='/public/icons/campfire.svg'
+                    />
+                }
+                primaryText = "About"
+                onTouchTap={this.handleMenuClose}            />
+        </Drawer>
         <div style={styles.topframe}>
             <Toolbar style={styles.toolbar}>
                 <ToolbarGroup>
-                    <IconButton>
+                    <IconButton
+                        onTouchTap = {this.handleMenuToggle}
+                    >
                         <FontIcon className='material-icons'>menu</FontIcon>
                     </IconButton>
                 </ToolbarGroup>
@@ -72,6 +102,7 @@ const Spaces = (props) =>(
             <div style={styles.list} >Card</div>
         </div>
     </div>
-)
+    }
+}
 
 export default Spaces

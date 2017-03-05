@@ -2,7 +2,9 @@
 import * as React from 'react';
 import { Toolbar, ToolbarGroup } from 'material-ui/Toolbar';
 import IconButton from 'material-ui/IconButton';
+import MenuItem from 'material-ui/MenuItem';
 import FontIcon from 'material-ui/FontIcon';
+import Drawer from 'material-ui/Drawer';
 import { styles } from '../utilities/styles';
 // TODO: make show/hide card panel tab; make show/hide graph panel tab
 /*
@@ -19,11 +21,24 @@ import { styles } from '../utilities/styles';
                         <FontIcon className='material-icons'>refresh</FontIcon>
                     </IconButton>
 */
-const Spaces = (props) => (<div style={styles.frame}>
+class Spaces extends React.Component {
+    constructor() {
+        super(...arguments);
+        this.state = {
+            menuopen: false
+        };
+        this.handleMenuToggle = () => this.setState({ menuopen: !this.state.menuopen });
+        this.handleMenuClose = () => this.setState({ menuopen: false });
+    }
+    render() {
+        return <div style={styles.frame}>
+        <Drawer docked={false} width={200} open={this.state.menuopen} onRequestChange={(open) => this.setState({ menuopen: open })}>
+            <MenuItem leftIcon={<img src='/public/icons/campfire.svg'/>} primaryText="About" onTouchTap={this.handleMenuClose}/>
+        </Drawer>
         <div style={styles.topframe}>
             <Toolbar style={styles.toolbar}>
                 <ToolbarGroup>
-                    <IconButton>
+                    <IconButton onTouchTap={this.handleMenuToggle}>
                         <FontIcon className='material-icons'>menu</FontIcon>
                     </IconButton>
                 </ToolbarGroup>
@@ -66,6 +81,8 @@ const Spaces = (props) => (<div style={styles.frame}>
         <div style={styles.bottomframe}>
             <div style={styles.list}>Card</div>
         </div>
-    </div>);
+    </div>;
+    }
+}
 export default Spaces;
 //# sourceMappingURL=spaces.jsx.map
