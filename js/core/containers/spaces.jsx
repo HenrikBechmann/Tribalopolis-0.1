@@ -1,11 +1,15 @@
 // spaces.tsx
 import * as React from 'react';
+import { Toolbar, ToolbarGroup, ToolbarTitle } from 'material-ui/Toolbar';
 import { styles } from '../utilities/styles';
-const MainBar = (props) => (<div style={props.style}>Toolbar</div>);
 // TODO: make show/hide card panel tab; make show/hide graph panel tab
 const Spaces = (props) => (<div style={styles.frame}>
         <div style={styles.topframe}>
-            <MainBar style={styles.toolbar}/>
+            <Toolbar style={styles.toolbar}>
+                <ToolbarGroup>
+                    <ToolbarTitle text="Toolbar"/>
+                </ToolbarGroup>
+            </Toolbar>
             <div style={styles.title}>Title</div>
             <div style={styles.filterbox}>
             <div>Nodes:  </div>
