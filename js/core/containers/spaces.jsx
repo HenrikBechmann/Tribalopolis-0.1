@@ -6,6 +6,7 @@ import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import FontIcon from 'material-ui/FontIcon';
 import Drawer from 'material-ui/Drawer';
+import Divider from 'material-ui/Divider';
 import { styles } from '../utilities/styles';
 // TODO: make show/hide card panel tab; make show/hide graph panel tab
 /*
@@ -21,7 +22,7 @@ class Spaces extends React.Component {
     }
     render() {
         return <div style={styles.frame}>
-        <Drawer docked={false} width={200} open={this.state.menuopen} onRequestChange={(open) => this.setState({ menuopen: open })}>
+        <Drawer docked={false} open={this.state.menuopen} onRequestChange={(open) => this.setState({ menuopen: open })}>
             <MenuItem leftIcon={<img src='/public/icons/campfire.svg'/>} primaryText="About" onTouchTap={this.handleMenuClose}/>
         </Drawer>
         <div style={styles.topframe}>
@@ -43,13 +44,17 @@ class Spaces extends React.Component {
                     </IconButton>
                 </ToolbarGroup>
                 <ToolbarGroup>
-                    <IconButton>
-                        <FontIcon className='material-icons'>account_circle</FontIcon>
-                    </IconButton>
+                    <IconMenu iconButtonElement={<IconButton>
+                                <FontIcon className='material-icons'>account_circle</FontIcon>
+                            </IconButton>} anchorOrigin={{ vertical: "top", horizontal: "right" }} targetOrigin={{ vertical: "top", horizontal: "right" }}>
+                        <MenuItem primaryText="Login (existing users)"/>
+                        <Divider />
+                        <MenuItem primaryText="Register (new users)"/>
+                    </IconMenu>
                     <IconMenu iconButtonElement={<IconButton>
                                 <FontIcon className='material-icons'>more_vert</FontIcon>
-                            </IconButton>} anchorOrigin={{ vertical: "top", horizontal: "right" }}>
-                        <MenuItem leftIcon={<FontIcon className='material-icons'>home</FontIcon>} primaryText="Home graph"/>
+                            </IconButton>} anchorOrigin={{ vertical: "top", horizontal: "right" }} targetOrigin={{ vertical: "top", horizontal: "right" }}>
+                        <MenuItem leftIcon={<FontIcon className='material-icons'>home</FontIcon>} primaryText="Home space"/>
                         <MenuItem leftIcon={<FontIcon className='material-icons'>settings</FontIcon>} primaryText="Settings"/>
                         <MenuItem leftIcon={<FontIcon className='material-icons'>refresh</FontIcon>} primaryText="Refresh"/>
                     </IconMenu>

@@ -7,6 +7,7 @@ import MenuItem from 'material-ui/MenuItem'
 import FontIcon from 'material-ui/FontIcon'
 import SvgIcon from 'material-ui/SvgIcon'
 import Drawer from 'material-ui/Drawer'
+import Divider from 'material-ui/Divider'
 
 import { styles } from '../utilities/styles'
 
@@ -26,7 +27,6 @@ class Spaces extends React.Component<any,any> {
     return <div style={styles.frame}>
         <Drawer
             docked={false}
-            width={200}
             open={this.state.menuopen}
             onRequestChange={(open) => this.setState({menuopen:open})}
         >
@@ -60,9 +60,23 @@ class Spaces extends React.Component<any,any> {
                     </IconButton>
                 </ToolbarGroup>
                 <ToolbarGroup>
-                    <IconButton>
-                        <FontIcon className='material-icons'>account_circle</FontIcon>
-                    </IconButton>
+                    <IconMenu
+                        iconButtonElement = {
+                            <IconButton>
+                                <FontIcon className='material-icons'>account_circle</FontIcon>
+                            </IconButton>
+                        }
+                        anchorOrigin = {{vertical:"top",horizontal:"right"}}
+                        targetOrigin = {{vertical:"top",horizontal:"right"}}
+                    >
+                        <MenuItem
+                            primaryText = "Login (existing users)"
+                        />
+                        <Divider />
+                        <MenuItem
+                            primaryText = "Register (new users)"
+                        />
+                    </IconMenu>
                     <IconMenu
                         iconButtonElement = {
                             <IconButton>
@@ -70,10 +84,11 @@ class Spaces extends React.Component<any,any> {
                             </IconButton>
                         }
                         anchorOrigin = {{vertical:"top",horizontal:"right"}}
+                        targetOrigin = {{vertical:"top",horizontal:"right"}}
                     >
                         <MenuItem
                             leftIcon = {<FontIcon className='material-icons'>home</FontIcon>}
-                            primaryText = "Home graph"
+                            primaryText = "Home space"
                         />
                         <MenuItem
                             leftIcon = {<FontIcon className='material-icons'>settings</FontIcon>}
