@@ -87,16 +87,16 @@ class Spaces extends React.Component<any,any> {
                         targetOrigin = {{vertical:"top",horizontal:"right"}}
                     >
                         <MenuItem
+                            leftIcon = {<FontIcon className='material-icons'>refresh</FontIcon>}
+                            primaryText = "Refresh"
+                        />
+                        <MenuItem
                             leftIcon = {<FontIcon className='material-icons'>home</FontIcon>}
                             primaryText = "Home space"
                         />
                         <MenuItem
                             leftIcon = {<FontIcon className='material-icons'>settings</FontIcon>}
                             primaryText = "Settings"
-                        />
-                        <MenuItem
-                            leftIcon = {<FontIcon className='material-icons'>refresh</FontIcon>}
-                            primaryText = "Refresh"
                         />
                     </IconMenu>
                 </ToolbarGroup>
