@@ -48,7 +48,7 @@ class Spaces extends React.Component {
                     </IconButton>
                     <IconMenu iconButtonElement={<IconButton>
                                 <FontIcon className='material-icons'>more_vert</FontIcon>
-                            </IconButton>}>
+                            </IconButton>} anchorOrigin={{ vertical: "top", horizontal: "right" }}>
                         <MenuItem leftIcon={<FontIcon className='material-icons'>home</FontIcon>} primaryText="Home graph"/>
                         <MenuItem leftIcon={<FontIcon className='material-icons'>settings</FontIcon>} primaryText="Settings"/>
                         <MenuItem leftIcon={<FontIcon className='material-icons'>refresh</FontIcon>} primaryText="Refresh"/>
