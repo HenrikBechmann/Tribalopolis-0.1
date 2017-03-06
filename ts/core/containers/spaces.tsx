@@ -58,6 +58,9 @@ class Spaces extends React.Component<any,any> {
                     <IconButton>
                         <FontIcon className='material-icons'>filter_list</FontIcon>
                     </IconButton>
+                    <IconButton>
+                        <FontIcon className='material-icons'>search</FontIcon>
+                    </IconButton>
                 </ToolbarGroup>
                 <ToolbarGroup>
                     <IconMenu
@@ -96,24 +99,30 @@ class Spaces extends React.Component<any,any> {
                         />
                         <MenuItem
                             leftIcon = {<FontIcon className='material-icons'>settings</FontIcon>}
-                            primaryText = "Settings"
+                            primaryText = "Options"
+                        />
+                        <MenuItem
+                            leftIcon = {<FontIcon className='material-icons'>help</FontIcon>}
+                            primaryText = "Help"
                         />
                     </IconMenu>
                 </ToolbarGroup>
             </Toolbar>
             <div style={styles.title} >Title</div>
             <div style={styles.filterbox}>
-            <div>Nodes:  </div>
-            <div>Links: </div>
+                <div>Nodes:  </div>
+                <div>Links: </div>
             </div>
             <div style={styles.graph} >
-                <div style={styles.origin}
-                >
-                    Origin
-                </div>
-                <div style={styles.origin}
-                >
-                    Origin
+                <div style={styles.originframe}>
+                    <div style={styles.origin}
+                    >
+                        Origin
+                    </div>
+                    <div style={styles.origin}
+                    >
+                        Origin
+                    </div>
                 </div>
                 Graph
                 <div style={styles.status} >Status</div>

@@ -42,6 +42,9 @@ class Spaces extends React.Component {
                     <IconButton>
                         <FontIcon className='material-icons'>filter_list</FontIcon>
                     </IconButton>
+                    <IconButton>
+                        <FontIcon className='material-icons'>search</FontIcon>
+                    </IconButton>
                 </ToolbarGroup>
                 <ToolbarGroup>
                     <IconMenu iconButtonElement={<IconButton>
@@ -56,21 +59,24 @@ class Spaces extends React.Component {
                             </IconButton>} anchorOrigin={{ vertical: "top", horizontal: "right" }} targetOrigin={{ vertical: "top", horizontal: "right" }}>
                         <MenuItem leftIcon={<FontIcon className='material-icons'>refresh</FontIcon>} primaryText="Refresh"/>
                         <MenuItem leftIcon={<FontIcon className='material-icons'>home</FontIcon>} primaryText="Home space"/>
-                        <MenuItem leftIcon={<FontIcon className='material-icons'>settings</FontIcon>} primaryText="Settings"/>
+                        <MenuItem leftIcon={<FontIcon className='material-icons'>settings</FontIcon>} primaryText="Options"/>
+                        <MenuItem leftIcon={<FontIcon className='material-icons'>help</FontIcon>} primaryText="Help"/>
                     </IconMenu>
                 </ToolbarGroup>
             </Toolbar>
             <div style={styles.title}>Title</div>
             <div style={styles.filterbox}>
-            <div>Nodes:  </div>
-            <div>Links: </div>
+                <div>Nodes:  </div>
+                <div>Links: </div>
             </div>
             <div style={styles.graph}>
-                <div style={styles.origin}>
-                    Origin
-                </div>
-                <div style={styles.origin}>
-                    Origin
+                <div style={styles.originframe}>
+                    <div style={styles.origin}>
+                        Origin
+                    </div>
+                    <div style={styles.origin}>
+                        Origin
+                    </div>
                 </div>
                 Graph
                 <div style={styles.status}>Status</div>
