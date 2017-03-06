@@ -2,24 +2,13 @@
 import * as React from 'react';
 import { Toolbar, ToolbarGroup } from 'material-ui/Toolbar';
 import IconButton from 'material-ui/IconButton';
+import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import FontIcon from 'material-ui/FontIcon';
 import Drawer from 'material-ui/Drawer';
 import { styles } from '../utilities/styles';
 // TODO: make show/hide card panel tab; make show/hide graph panel tab
 /*
-                    <IconButton>
-                        <img src='/public/icons/campfire.svg' />
-                    </IconButton>
-                    <IconButton>
-                        <FontIcon className='material-icons'>home</FontIcon>
-                    </IconButton>
-                    <IconButton>
-                        <FontIcon className='material-icons'>settings</FontIcon>
-                    </IconButton>
-                    <IconButton>
-                        <FontIcon className='material-icons'>refresh</FontIcon>
-                    </IconButton>
 */
 class Spaces extends React.Component {
     constructor() {
@@ -57,9 +46,13 @@ class Spaces extends React.Component {
                     <IconButton>
                         <FontIcon className='material-icons'>account_circle</FontIcon>
                     </IconButton>
-                    <IconButton>
-                        <FontIcon className='material-icons'>more_vert</FontIcon>
-                    </IconButton>
+                    <IconMenu iconButtonElement={<IconButton>
+                                <FontIcon className='material-icons'>more_vert</FontIcon>
+                            </IconButton>}>
+                        <MenuItem leftIcon={<FontIcon className='material-icons'>home</FontIcon>} primaryText="Home graph"/>
+                        <MenuItem leftIcon={<FontIcon className='material-icons'>settings</FontIcon>} primaryText="Settings"/>
+                        <MenuItem leftIcon={<FontIcon className='material-icons'>refresh</FontIcon>} primaryText="Refresh"/>
+                    </IconMenu>
                 </ToolbarGroup>
             </Toolbar>
             <div style={styles.title}>Title</div>
