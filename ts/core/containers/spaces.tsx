@@ -268,13 +268,8 @@ class Spaces extends React.Component<any,any> {
                     >
                         Origin
                     </div>
-                    <div style={styles.origin}
-                    >
-                        Origin
-                    </div>
                 </div>
                 Graph
-                <div style={styles.status} >Status</div>
             </div>
         </div>
         <div style = {styles.splitter}>
@@ -284,6 +279,7 @@ class Spaces extends React.Component<any,any> {
         <div style={styles.bottomframe}>
             <div style={styles.list} >Card</div>
         </div>
+        <div style={styles.status} >Status</div>
     </div>
     }
 }
