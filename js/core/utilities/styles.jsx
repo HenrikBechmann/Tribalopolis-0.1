@@ -1,3 +1,5 @@
+import theme from 'material-ui/styles/baseThemes/lightBaseTheme';
+console.log(theme);
 export let styles = {
     origin: {
         float: 'left',
@@ -9,7 +11,7 @@ export let styles = {
         overflow: 'hidden',
     },
     toolbar: { height: '56px' },
-    title: { backgroundColor: 'palegoldenrod', height: '16px' },
+    title: { backgroundColor: 'palegoldenrod', height: '16px', fontFamily: theme.fontFamily, textColor: theme.palette.textColor, fontSize: '.8em', whiteSpace: 'nowrap', overflow: 'hidden', padding: '3px' },
     filterbox: { display: 'none', backgroundColor: 'black', color: 'white', position: 'absolute', top: '10px', right: '10px', left: '10px' },
     status: { backgroundColor: 'palegoldenrod', height: '1.5em', width: 'calc(100% - 6px)', position: 'absolute', bottom: 0, border: '3px ridge gray', borderRadius: '6px' },
     graph: { backgroundColor: 'lightcyan', position: 'relative', height: 'calc(100% - 72px' },
