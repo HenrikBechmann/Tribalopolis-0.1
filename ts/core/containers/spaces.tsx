@@ -137,7 +137,7 @@ class Spaces extends React.Component<any,any> {
 
     handleMenuClose = () => this.setState({menuopen: false});
 
-    menudrawer = <Drawer
+    menudrawer = () => (<Drawer
             docked={false}
             open={this.state.menuopen}
             onRequestChange={(open) => this.setState({menuopen:open})}
@@ -166,6 +166,7 @@ class Spaces extends React.Component<any,any> {
                 onTouchTap={this.handleMenuClose}
             />
         </Drawer>
+    )
 
     accountmenu = <IconMenu
             iconButtonElement = {
@@ -233,7 +234,7 @@ class Spaces extends React.Component<any,any> {
 
     render() {
     return <div style={styles.frame}>
-        { this.menudrawer }
+        { this.menudrawer() }
         { this.filterDialog(null) }
         { this.searchDialog(null) }
         <div style={styles.topframe}>

@@ -93,11 +93,11 @@ class Spaces extends React.Component {
         // ---------------------[ Menus ]-----------------------
         this.handleMenuToggle = () => this.setState({ menuopen: !this.state.menuopen });
         this.handleMenuClose = () => this.setState({ menuopen: false });
-        this.menudrawer = <Drawer docked={false} open={this.state.menuopen} onRequestChange={(open) => this.setState({ menuopen: open })}>
+        this.menudrawer = () => (<Drawer docked={false} open={this.state.menuopen} onRequestChange={(open) => this.setState({ menuopen: open })}>
             <MenuItem leftIcon={<img src='/public/icons/campfire.svg'/>} primaryText="About" onTouchTap={this.handleMenuClose}/>
             <MenuItem leftIcon={<FontIcon className='material-icons'>local_library</FontIcon>} primaryText="Tutorials" onTouchTap={this.handleMenuClose}/>
             <MenuItem leftIcon={<FontIcon className='material-icons'>build</FontIcon>} primaryText="Build" onTouchTap={this.handleMenuClose}/>
-        </Drawer>;
+        </Drawer>);
         this.accountmenu = <IconMenu iconButtonElement={<IconButton>
                     <FontIcon className='material-icons'>account_circle</FontIcon>
                 </IconButton>} anchorOrigin={{ vertical: "bottom", horizontal: "right" }} targetOrigin={{ vertical: "top", horizontal: "right" }}>
@@ -130,7 +130,7 @@ class Spaces extends React.Component {
     }
     render() {
         return <div style={styles.frame}>
-        {this.menudrawer}
+        {this.menudrawer()}
         {this.filterDialog(null)}
         {this.searchDialog(null)}
         <div style={styles.topframe}>
