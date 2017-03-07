@@ -18,8 +18,8 @@ export let styles = {
     originframe:{float:'left',backgroundColor:'lightgreen',borderRadius:'8px'},
     topframe:{backgroundColor:'red',position:'absolute',top:0,right:0,left:0,bottom:'calc(45% + 2px'}, 
     splitter:{position:'absolute',bottom:'45%',width:'100%',height:0,borderTop:'2px solid gray'}, 
-    collapsetabtop:{position:'absolute',height:'24px',width:'48px',bottom:'1px',right:'10px',backgroundColor:'white',zIndex:1,textAlign:'center',border:'1px solid gray'},
-    collapsetabbottom:{position:'absolute',height:'24px',width:'48px',top:'-1px',right:'10px',backgroundColor:'white',zIndex:1,textAlign:'center',border:'1px solid gray'},
+    collapsetabtop:{position:'absolute',height:'24px',width:'48px',bottom:'1px',right:'10px',backgroundColor:'white',zIndex:1,textAlign:'center',border:'1px solid gray',cursor:'pointer'},
+    collapsetabbottom:{position:'absolute',height:'24px',width:'48px',top:'-1px',right:'10px',backgroundColor:'white',zIndex:1,textAlign:'center',border:'1px solid gray',cursor:'pointer'},
     bottomframe:{overflow:'scroll',backgroundColor:'green',position:'absolute',bottom:0,right:0,left:0,top:'55%'},
     frame:{position:'absolute',top:0,right:0,bottom:0,left:0}
 }
