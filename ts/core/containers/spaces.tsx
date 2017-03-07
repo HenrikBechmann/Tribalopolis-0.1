@@ -8,6 +8,8 @@ import FontIcon from 'material-ui/FontIcon'
 import SvgIcon from 'material-ui/SvgIcon'
 import Drawer from 'material-ui/Drawer'
 import Divider from 'material-ui/Divider'
+import Dialog from 'material-ui/Dialog'
+import FlatButton from 'material-ui/FlatButton'
 
 import { styles } from '../utilities/styles'
 
@@ -15,17 +17,90 @@ import { styles } from '../utilities/styles'
 /*
 */
 class Spaces extends React.Component<any,any> {
+
     state = {
-        menuopen:false
+        menuopen:false,
+        filterdialogopen:false,
+        searchdialogopen:false,
     }
+
+    // ---------------------[ Filter Dialog ]-----------------------
+
+    handleFilterDialogOpen = () => {
+        this.setState({filterdialogopen: true});
+    };
+
+    handleFilterDialogClose = () => {
+        this.setState({filterdialogopen: false});
+    };
+
+
+    filterDialog = (data) => {
+        return <Dialog
+            title = "Filter Space Components"
+            actions = { this.filterdialogactions }
+            open = { this.state.filterdialogopen }
+            onRequestClose={this.handleFilterDialogClose}
+        >
+        <div>dialog content</div>
+        </Dialog>
+    }
+
+    filterdialogactions = [
+      <FlatButton
+        label="Cancel"
+        primary={true}
+        onTouchTap={this.handleFilterDialogClose}
+      />,
+      <FlatButton
+        label="Submit"
+        primary={true}
+        onTouchTap={this.handleFilterDialogClose}
+      />,
+    ];
+
+    // ---------------------[ Search Dialog ]-----------------------
+
+    handleSearchDialogOpen = () => {
+        this.setState({searchdialogopen: true});
+    };
+
+    handleSearchDialogClose = () => {
+        this.setState({searchdialogopen: false});
+    };
+
+
+    searchDialog = (data) => {
+        return <Dialog
+            title = "Search Space Components"
+            actions = { this.searchdialogactions }
+            open = { this.state.searchdialogopen }
+            onRequestClose={this.handleSearchDialogClose}
+        >
+        <div>dialog content</div>
+        </Dialog>
+    }
+
+    searchdialogactions = [
+      <FlatButton
+        label="Cancel"
+        primary={true}
+        onTouchTap={this.handleSearchDialogClose}
+      />,
+      <FlatButton
+        label="Submit"
+        primary={true}
+        onTouchTap={this.handleSearchDialogClose}
+      />,
+    ];
+
+    // ---------------------[ Menus ]-----------------------
 
     handleMenuToggle = () => this.setState({menuopen: !this.state.menuopen});
 
     handleMenuClose = () => this.setState({menuopen: false});
 
-    render() {
-    return <div style={styles.frame}>
-        <Drawer
+    menudrawer = <Drawer
             docked={false}
             open={this.state.menuopen}
             onRequestChange={(open) => this.setState({menuopen:open})}
@@ -37,8 +112,93 @@ class Spaces extends React.Component<any,any> {
                     />
                 }
                 primaryText = "About"
-                onTouchTap={this.handleMenuClose}            />
+                onTouchTap={this.handleMenuClose}
+            />
+            <MenuItem 
+                leftIcon = {
+                    <FontIcon className='material-icons'>local_library</FontIcon>
+                }
+                primaryText = "Tutorials"
+                onTouchTap={this.handleMenuClose}
+            />
+            <MenuItem 
+                leftIcon = {
+                    <FontIcon className='material-icons'>build</FontIcon>
+                }
+                primaryText = "Build"
+                onTouchTap={this.handleMenuClose}
+            />
         </Drawer>
+
+    accountmenu = <IconMenu
+            iconButtonElement = {
+                <IconButton>
+                    <FontIcon className='material-icons'>account_circle</FontIcon>
+                </IconButton>
+            }
+            anchorOrigin = {{vertical:"bottom",horizontal:"right"}}
+            targetOrigin = {{vertical:"top",horizontal:"right"}}
+        >
+            <MenuItem
+                primaryText = "Login (existing users)"
+            />
+            <Divider />
+            <MenuItem
+                primaryText = "Register (new users)"
+            />
+        </IconMenu>
+
+    spacemenu = <div>
+            <IconButton>
+                <FontIcon className='material-icons'>arrow_back</FontIcon>
+            </IconButton>
+            <IconButton>
+                <FontIcon className='material-icons'>arrow_forward</FontIcon>
+            </IconButton>
+            <IconButton
+                onTouchTap = { this.handleFilterDialogOpen }
+            >
+                <FontIcon className='material-icons'>filter_list</FontIcon>
+            </IconButton>
+            <IconButton
+                onTouchTap = { this.handleSearchDialogOpen }
+            >
+                <FontIcon className='material-icons'>search</FontIcon>
+            </IconButton>
+        </div>
+
+    spaceoverflowmenu = <IconMenu
+            iconButtonElement = {
+                <IconButton>
+                    <FontIcon className='material-icons'>more_vert</FontIcon>
+                </IconButton>
+            }
+            anchorOrigin = {{vertical:"bottom",horizontal:"right"}}
+            targetOrigin = {{vertical:"top",horizontal:"right"}}
+        >
+            <MenuItem
+                leftIcon = {<FontIcon className='material-icons'>refresh</FontIcon>}
+                primaryText = "Refresh"
+            />
+            <MenuItem
+                leftIcon = {<FontIcon className='material-icons'>home</FontIcon>}
+                primaryText = "Home space"
+            />
+            <MenuItem
+                leftIcon = {<FontIcon className='material-icons'>settings</FontIcon>}
+                primaryText = "Options"
+            />
+            <MenuItem
+                leftIcon = {<FontIcon className='material-icons'>help</FontIcon>}
+                primaryText = "Help"
+            />
+        </IconMenu>
+
+    render() {
+    return <div style={styles.frame}>
+        { this.menudrawer }
+        { this.filterDialog(null) }
+        { this.searchDialog(null) }
         <div style={styles.topframe}>
             <Toolbar style={styles.toolbar}>
                 <ToolbarGroup>
@@ -49,63 +209,11 @@ class Spaces extends React.Component<any,any> {
                     </IconButton>
                 </ToolbarGroup>
                 <ToolbarGroup>
-                    <IconButton>
-                        <FontIcon className='material-icons'>arrow_back</FontIcon>
-                    </IconButton>
-                    <IconButton>
-                        <FontIcon className='material-icons'>arrow_forward</FontIcon>
-                    </IconButton>
-                    <IconButton>
-                        <FontIcon className='material-icons'>filter_list</FontIcon>
-                    </IconButton>
-                    <IconButton>
-                        <FontIcon className='material-icons'>search</FontIcon>
-                    </IconButton>
+                    { this.spacemenu }
                 </ToolbarGroup>
                 <ToolbarGroup>
-                    <IconMenu
-                        iconButtonElement = {
-                            <IconButton>
-                                <FontIcon className='material-icons'>account_circle</FontIcon>
-                            </IconButton>
-                        }
-                        anchorOrigin = {{vertical:"top",horizontal:"right"}}
-                        targetOrigin = {{vertical:"top",horizontal:"right"}}
-                    >
-                        <MenuItem
-                            primaryText = "Login (existing users)"
-                        />
-                        <Divider />
-                        <MenuItem
-                            primaryText = "Register (new users)"
-                        />
-                    </IconMenu>
-                    <IconMenu
-                        iconButtonElement = {
-                            <IconButton>
-                                <FontIcon className='material-icons'>more_vert</FontIcon>
-                            </IconButton>
-                        }
-                        anchorOrigin = {{vertical:"top",horizontal:"right"}}
-                        targetOrigin = {{vertical:"top",horizontal:"right"}}
-                    >
-                        <MenuItem
-                            leftIcon = {<FontIcon className='material-icons'>refresh</FontIcon>}
-                            primaryText = "Refresh"
-                        />
-                        <MenuItem
-                            leftIcon = {<FontIcon className='material-icons'>home</FontIcon>}
-                            primaryText = "Home space"
-                        />
-                        <MenuItem
-                            leftIcon = {<FontIcon className='material-icons'>settings</FontIcon>}
-                            primaryText = "Options"
-                        />
-                        <MenuItem
-                            leftIcon = {<FontIcon className='material-icons'>help</FontIcon>}
-                            primaryText = "Help"
-                        />
-                    </IconMenu>
+                    { this.accountmenu }
+                    { this.spaceoverflowmenu }
                 </ToolbarGroup>
             </Toolbar>
             <div style={styles.title} >Title</div>
