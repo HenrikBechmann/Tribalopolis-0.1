@@ -11,6 +11,8 @@ import Divider from 'material-ui/Divider'
 import Dialog from 'material-ui/Dialog'
 import FlatButton from 'material-ui/FlatButton'
 import {Tabs, Tab} from 'material-ui/Tabs'
+import FloatingActionButton from 'material-ui/FloatingActionButton';
+import ContentAdd from 'material-ui/svg-icons/content/add';
 
 import { styles } from '../utilities/styles'
 
@@ -257,6 +259,9 @@ class Spaces extends React.Component<any,any> {
                 <div>Links: </div>
             </div>
             <div style={styles.graph} >
+                <FloatingActionButton mini={true} secondary={true} style={styles.addbutton}>
+                      <ContentAdd />
+                </FloatingActionButton>
                 <div style={styles.originframe}>
                     <div style={styles.origin}
                     >
@@ -270,6 +275,10 @@ class Spaces extends React.Component<any,any> {
                 Graph
                 <div style={styles.status} >Status</div>
             </div>
+        </div>
+        <div style = {styles.splitter}>
+            <div style={styles.collapsetabtop}><FontIcon className="material-icons">arrow_drop_down</FontIcon></div>
+            <div style={styles.collapsetabbottom}><FontIcon className="material-icons">arrow_drop_up</FontIcon></div>
         </div>
         <div style={styles.bottomframe}>
             <div style={styles.list} >Card</div>
