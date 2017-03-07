@@ -9,6 +9,7 @@ import Drawer from 'material-ui/Drawer';
 import Divider from 'material-ui/Divider';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
+import { Tabs, Tab } from 'material-ui/Tabs';
 import { styles } from '../utilities/styles';
 // TODO: make show/hide card panel tab; make show/hide graph panel tab
 /*
@@ -30,12 +31,29 @@ class Spaces extends React.Component {
         };
         this.filterDialog = (data) => {
             return <Dialog title="Filter Space Components" actions={this.filterdialogactions} open={this.state.filterdialogopen} onRequestClose={this.handleFilterDialogClose}>
-        <div>dialog content</div>
+        <Tabs>
+            <Tab label="Nodes">
+              <div>
+                <h2>Select Node Types</h2>
+                <p>
+                  [list of node types]
+                </p>
+              </div>
+            </Tab>
+            <Tab label="Links">
+              <div>
+                <h2>Select Link Types</h2>
+                <p>
+                  [list of link types]
+                </p>
+              </div>
+            </Tab>
+        </Tabs>
         </Dialog>;
         };
         this.filterdialogactions = [
             <FlatButton label="Cancel" primary={true} onTouchTap={this.handleFilterDialogClose}/>,
-            <FlatButton label="Submit" primary={true} onTouchTap={this.handleFilterDialogClose}/>,
+            <FlatButton label="Apply" primary={true} onTouchTap={this.handleFilterDialogClose}/>,
         ];
         // ---------------------[ Search Dialog ]-----------------------
         this.handleSearchDialogOpen = () => {
@@ -45,13 +63,30 @@ class Spaces extends React.Component {
             this.setState({ searchdialogopen: false });
         };
         this.searchDialog = (data) => {
-            return <Dialog title="Search Space Components" actions={this.searchdialogactions} open={this.state.searchdialogopen} onRequestClose={this.handleSearchDialogClose}>
-        <div>dialog content</div>
+            return <Dialog title="Search for a Space Node" actions={this.searchdialogactions} open={this.state.searchdialogopen} onRequestClose={this.handleSearchDialogClose}>
+        <Tabs>
+        <Tab label="Search">
+          <div>
+            <h2>Search for a node</h2>
+            <p>
+              [search results]
+            </p>
+          </div>
+        </Tab>
+        <Tab label="Sort">
+          <div>
+            <h2>Sort nodes, then select one</h2>
+            <p>
+              [sort results]
+            </p>
+          </div>
+        </Tab>
+        </Tabs>
         </Dialog>;
         };
         this.searchdialogactions = [
             <FlatButton label="Cancel" primary={true} onTouchTap={this.handleSearchDialogClose}/>,
-            <FlatButton label="Submit" primary={true} onTouchTap={this.handleSearchDialogClose}/>,
+            <FlatButton label="Select" primary={true} onTouchTap={this.handleSearchDialogClose}/>,
         ];
         // ---------------------[ Menus ]-----------------------
         this.handleMenuToggle = () => this.setState({ menuopen: !this.state.menuopen });

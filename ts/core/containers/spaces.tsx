@@ -10,6 +10,7 @@ import Drawer from 'material-ui/Drawer'
 import Divider from 'material-ui/Divider'
 import Dialog from 'material-ui/Dialog'
 import FlatButton from 'material-ui/FlatButton'
+import {Tabs, Tab} from 'material-ui/Tabs'
 
 import { styles } from '../utilities/styles'
 
@@ -42,7 +43,24 @@ class Spaces extends React.Component<any,any> {
             open = { this.state.filterdialogopen }
             onRequestClose={this.handleFilterDialogClose}
         >
-        <div>dialog content</div>
+        <Tabs>
+            <Tab label="Nodes" >
+              <div>
+                <h2>Select Node Types</h2>
+                <p>
+                  [list of node types]
+                </p>
+              </div>
+            </Tab>
+            <Tab label="Links" >
+              <div>
+                <h2>Select Link Types</h2>
+                <p>
+                  [list of link types]
+                </p>
+              </div>
+            </Tab>
+        </Tabs>
         </Dialog>
     }
 
@@ -53,7 +71,7 @@ class Spaces extends React.Component<any,any> {
         onTouchTap={this.handleFilterDialogClose}
       />,
       <FlatButton
-        label="Submit"
+        label="Apply"
         primary={true}
         onTouchTap={this.handleFilterDialogClose}
       />,
@@ -72,12 +90,29 @@ class Spaces extends React.Component<any,any> {
 
     searchDialog = (data) => {
         return <Dialog
-            title = "Search Space Components"
+            title = "Search for a Space Node"
             actions = { this.searchdialogactions }
             open = { this.state.searchdialogopen }
             onRequestClose={this.handleSearchDialogClose}
         >
-        <div>dialog content</div>
+        <Tabs>
+        <Tab label="Search" >
+          <div>
+            <h2>Search for a node</h2>
+            <p>
+              [search results]
+            </p>
+          </div>
+        </Tab>
+        <Tab label="Sort" >
+          <div>
+            <h2>Sort nodes, then select one</h2>
+            <p>
+              [sort results]
+            </p>
+          </div>
+        </Tab>
+        </Tabs>
         </Dialog>
     }
 
@@ -88,7 +123,7 @@ class Spaces extends React.Component<any,any> {
         onTouchTap={this.handleSearchDialogClose}
       />,
       <FlatButton
-        label="Submit"
+        label="Select"
         primary={true}
         onTouchTap={this.handleSearchDialogClose}
       />,
