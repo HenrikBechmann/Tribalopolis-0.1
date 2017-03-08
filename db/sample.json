@@ -1,0 +1,472 @@
+{
+  "records": [
+    {
+      "keys": [
+        "n"
+      ],
+      "length": 1,
+      "_fields": [
+        {
+          "identity": {
+            "low": 0,
+            "high": 0
+          },
+          "labels": [
+            "User",
+            "Person"
+          ],
+          "properties": {
+            "name": "Henrik"
+          },
+          "id": "0"
+        }
+      ],
+      "_fieldLookup": {
+        "n": 0
+      }
+    },
+    {
+      "keys": [
+        "n"
+      ],
+      "length": 1,
+      "_fields": [
+        {
+          "identity": {
+            "low": 1,
+            "high": 0
+          },
+          "labels": [
+            "Person"
+          ],
+          "properties": {
+            "name": "Jim"
+          },
+          "id": "1"
+        }
+      ],
+      "_fieldLookup": {
+        "n": 0
+      }
+    },
+    {
+      "keys": [
+        "n"
+      ],
+      "length": 1,
+      "_fields": [
+        {
+          "identity": {
+            "low": 2,
+            "high": 0
+          },
+          "labels": [
+            "Relationship"
+          ],
+          "properties": {
+            "field": "Leads",
+            "type": "IS_LEAD_OF"
+          },
+          "id": "2"
+        }
+      ],
+      "_fieldLookup": {
+        "n": 0
+      }
+    },
+    {
+      "keys": [
+        "n"
+      ],
+      "length": 1,
+      "_fields": [
+        {
+          "identity": {
+            "low": 3,
+            "high": 0
+          },
+          "labels": [
+            "Tribe",
+            "Family"
+          ],
+          "properties": {
+            "name": "Bechmann"
+          },
+          "id": "3"
+        }
+      ],
+      "_fieldLookup": {
+        "n": 0
+      }
+    },
+    {
+      "keys": [
+        "n"
+      ],
+      "length": 1,
+      "_fields": [
+        {
+          "identity": {
+            "low": 4,
+            "high": 0
+          },
+          "labels": [
+            "Relationship"
+          ],
+          "properties": {
+            "field": "Members",
+            "type": "IS_MEMBER_OF"
+          },
+          "id": "4"
+        }
+      ],
+      "_fieldLookup": {
+        "n": 0
+      }
+    },
+    {
+      "keys": [
+        "n"
+      ],
+      "length": 1,
+      "_fields": [
+        {
+          "identity": {
+            "low": 5,
+            "high": 0
+          },
+          "labels": [
+            "Tribe",
+            "CivilSociety"
+          ],
+          "properties": {
+            "name": "Civic Tech Toronto"
+          },
+          "id": "5"
+        }
+      ],
+      "_fieldLookup": {
+        "n": 0
+      }
+    },
+    {
+      "keys": [
+        "n"
+      ],
+      "length": 1,
+      "_fields": [
+        {
+          "identity": {
+            "low": 6,
+            "high": 0
+          },
+          "labels": [
+            "Project"
+          ],
+          "properties": {
+            "name": "Budgetpedia"
+          },
+          "id": "6"
+        }
+      ],
+      "_fieldLookup": {
+        "n": 0
+      }
+    },
+    {
+      "keys": [
+        "n"
+      ],
+      "length": 1,
+      "_fields": [
+        {
+          "identity": {
+            "low": 7,
+            "high": 0
+          },
+          "labels": [
+            "Team"
+          ],
+          "properties": {
+            "name": "Software Development"
+          },
+          "id": "7"
+        }
+      ],
+      "_fieldLookup": {
+        "n": 0
+      }
+    },
+    {
+      "keys": [
+        "n"
+      ],
+      "length": 1,
+      "_fields": [
+        {
+          "identity": {
+            "low": 8,
+            "high": 0
+          },
+          "labels": [
+            "FinancialJournal"
+          ],
+          "properties": {
+            "name": "Daily Transactions"
+          },
+          "id": "8"
+        }
+      ],
+      "_fieldLookup": {
+        "n": 0
+      }
+    },
+    {
+      "keys": [
+        "n"
+      ],
+      "length": 1,
+      "_fields": [
+        {
+          "identity": {
+            "low": 9,
+            "high": 0
+          },
+          "labels": [
+            "Meta"
+          ],
+          "properties": {
+            "name": "Meta"
+          },
+          "id": "9"
+        }
+      ],
+      "_fieldLookup": {
+        "n": 0
+      }
+    },
+    {
+      "keys": [
+        "n"
+      ],
+      "length": 1,
+      "_fields": [
+        {
+          "identity": {
+            "low": 10,
+            "high": 0
+          },
+          "labels": [
+            "Node"
+          ],
+          "properties": {
+            "field": "Persons",
+            "type": "Person"
+          },
+          "id": "10"
+        }
+      ],
+      "_fieldLookup": {
+        "n": 0
+      }
+    },
+    {
+      "keys": [
+        "n"
+      ],
+      "length": 1,
+      "_fields": [
+        {
+          "identity": {
+            "low": 11,
+            "high": 0
+          },
+          "labels": [
+            "Person"
+          ],
+          "properties": {
+            "name": "Iain"
+          },
+          "id": "11"
+        }
+      ],
+      "_fieldLookup": {
+        "n": 0
+      }
+    },
+    {
+      "keys": [
+        "n"
+      ],
+      "length": 1,
+      "_fields": [
+        {
+          "identity": {
+            "low": 12,
+            "high": 0
+          },
+          "labels": [
+            "Person"
+          ],
+          "properties": {
+            "name": "Robert"
+          },
+          "id": "12"
+        }
+      ],
+      "_fieldLookup": {
+        "n": 0
+      }
+    },
+    {
+      "keys": [
+        "n"
+      ],
+      "length": 1,
+      "_fields": [
+        {
+          "identity": {
+            "low": 13,
+            "high": 0
+          },
+          "labels": [
+            "Person"
+          ],
+          "properties": {
+            "name": "Kira"
+          },
+          "id": "13"
+        }
+      ],
+      "_fieldLookup": {
+        "n": 0
+      }
+    },
+    {
+      "keys": [
+        "n"
+      ],
+      "length": 1,
+      "_fields": [
+        {
+          "identity": {
+            "low": 14,
+            "high": 0
+          },
+          "labels": [
+            "Team"
+          ],
+          "properties": {
+            "name": "Management"
+          },
+          "id": "14"
+        }
+      ],
+      "_fieldLookup": {
+        "n": 0
+      }
+    },
+    {
+      "keys": [
+        "n"
+      ],
+      "length": 1,
+      "_fields": [
+        {
+          "identity": {
+            "low": 15,
+            "high": 0
+          },
+          "labels": [
+            "Team"
+          ],
+          "properties": {
+            "name": "UX"
+          },
+          "id": "15"
+        }
+      ],
+      "_fieldLookup": {
+        "n": 0
+      }
+    },
+    {
+      "keys": [
+        "n"
+      ],
+      "length": 1,
+      "_fields": [
+        {
+          "identity": {
+            "low": 16,
+            "high": 0
+          },
+          "labels": [
+            "Person"
+          ],
+          "properties": {
+            "name": "Chris"
+          },
+          "id": "16"
+        }
+      ],
+      "_fieldLookup": {
+        "n": 0
+      }
+    }
+  ],
+  "summary": {
+    "statement": {
+      "text": "match (n) return n",
+      "parameters": {}
+    },
+    "statementType": "r",
+    "counters": {
+      "_stats": {
+        "nodesCreated": 0,
+        "nodesDeleted": 0,
+        "relationshipsCreated": 0,
+        "relationshipsDeleted": 0,
+        "propertiesSet": 0,
+        "labelsAdded": 0,
+        "labelsRemoved": 0,
+        "indexesAdded": 0,
+        "indexesRemoved": 0,
+        "constraintsAdded": 0,
+        "constraintsRemoved": 0
+      }
+    },
+    "updateStatistics": {
+      "_stats": {
+        "nodesCreated": 0,
+        "nodesDeleted": 0,
+        "relationshipsCreated": 0,
+        "relationshipsDeleted": 0,
+        "propertiesSet": 0,
+        "labelsAdded": 0,
+        "labelsRemoved": 0,
+        "indexesAdded": 0,
+        "indexesRemoved": 0,
+        "constraintsAdded": 0,
+        "constraintsRemoved": 0
+      }
+    },
+    "plan": false,
+    "profile": false,
+    "notifications": [],
+    "resultConsumedAfter": {
+      "low": 64,
+      "high": 0
+    },
+    "resultAvailableAfter": {
+      "low": 42,
+      "high": 0
+    }
+  },
+  "timings": {
+    "resultAvailableAfter": 42,
+    "resultConsumedAfter": 64,
+    "type": "bolt",
+    "totalTime": 106
+  }
+}

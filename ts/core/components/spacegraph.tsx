@@ -4,11 +4,16 @@ import * as React from 'react'
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 
+import { styles as globalstyles } from '../utilities/styles'
+
+// <FloatingActionButton mini={true} secondary={true} style={styles.addbutton}>
+//       <ContentAdd />
+// </FloatingActionButton>
+
 interface SpaceGraphProps {
     data:Object
 }
 
-import { styles as globalstyles } from '../utilities/styles'
 class SpaceGraph extends React.Component<SpaceGraphProps,any> {
 
     state = {
@@ -16,9 +21,6 @@ class SpaceGraph extends React.Component<SpaceGraphProps,any> {
     render() {
         let styles = globalstyles.spacegraph
         return <div style={styles.fixedframe} >
-            <FloatingActionButton mini={true} secondary={true} style={styles.addbutton}>
-                  <ContentAdd />
-            </FloatingActionButton>
             <div style={styles.originframe}>
                 <div style={styles.origin}
                 >
