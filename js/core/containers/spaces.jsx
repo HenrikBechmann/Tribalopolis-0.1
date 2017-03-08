@@ -10,9 +10,8 @@ import Divider from 'material-ui/Divider';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import { Tabs, Tab } from 'material-ui/Tabs';
-import FloatingActionButton from 'material-ui/FloatingActionButton';
-import ContentAdd from 'material-ui/svg-icons/content/add';
 import { styles } from '../utilities/styles';
+import SpaceGraph from '../components/spacegraph';
 // TODO: make show/hide card panel tab; make show/hide graph panel tab
 /*
 */
@@ -149,21 +148,7 @@ class Spaces extends React.Component {
                 </ToolbarGroup>
             </Toolbar>
             <div style={styles.title}>Title</div>
-            <div style={styles.filterbox}>
-                <div>Nodes:  </div>
-                <div>Links: </div>
-            </div>
-            <div style={styles.graph}>
-                <FloatingActionButton mini={true} secondary={true} style={styles.addbutton}>
-                      <ContentAdd />
-                </FloatingActionButton>
-                <div style={styles.originframe}>
-                    <div style={styles.origin}>
-                        Origin
-                    </div>
-                </div>
-                Graph
-            </div>
+            <SpaceGraph data={null}/>
         </div>
         <div style={styles.splitter}>
             <div style={styles.collapsetabtop}><FontIcon className="material-icons">arrow_drop_down</FontIcon></div>
