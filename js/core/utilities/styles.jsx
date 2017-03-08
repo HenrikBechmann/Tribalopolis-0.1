@@ -8,8 +8,8 @@ import theme from 'material-ui/styles/baseThemes/lightBaseTheme';
 export let styles = {
     origin: {
         float: 'left',
-        width: '66px',
-        height: '66px',
+        width: '72px',
+        height: '72px',
         border: '1px solid silver',
         backgroundColor: 'lightblue',
         borderRadius: '50%',
