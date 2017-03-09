@@ -15,6 +15,7 @@ import {Tabs, Tab} from 'material-ui/Tabs'
 import { styles } from '../utilities/styles'
 
 import SpaceGraph from '../components/spacegraph'
+import * as utilities from '../utilities/utilities'
 // TODO: make show/hide card panel tab; make show/hide graph panel tab
 /*
 */
@@ -24,6 +25,21 @@ class Spaces extends React.Component<any,any> {
         menuopen:false,
         filterdialogopen:false,
         searchdialogopen:false,
+        sampledata:null,
+    }
+
+    componentDidMount() {
+
+        if (!this.state.sampledata) {
+            utilities.getJsonFile('/db/sample.json').then((data) =>{
+                this.setState({
+                    sampledata: data
+                })
+            }).catch((error) => {
+                console.log('error getting sample file: ',error)
+            })
+        }
+
     }
 
     // ---------------------[ Filter Dialog ]-----------------------
@@ -87,7 +103,6 @@ class Spaces extends React.Component<any,any> {
     handleSearchDialogClose = () => {
         this.setState({searchdialogopen: false});
     };
-
 
     searchDialog = (data) => {
         return <Dialog
@@ -254,7 +269,7 @@ class Spaces extends React.Component<any,any> {
                 </ToolbarGroup>
             </Toolbar>
             <div style={styles.title} >Title</div>
-            <SpaceGraph data = {null}/>
+            <SpaceGraph data = {this.state.sampledata}/>
         </div>
         <div style = {styles.splitter}>
             <div style={styles.collapsetabtop}><FontIcon className="material-icons">arrow_drop_down</FontIcon></div>

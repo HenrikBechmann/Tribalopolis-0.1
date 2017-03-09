@@ -1,5 +1,5 @@
 
-/// <reference path="../typings-custom/general.d.ts" />
+// <reference path="../typings-custom/general.d.ts" />
 
 import * as React from 'react';
 import { render } from 'react-dom'

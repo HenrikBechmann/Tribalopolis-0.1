@@ -1,4 +1,4 @@
 // general.d.ts
 
-declare var fetch
+// declare var fetch
 
