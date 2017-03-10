@@ -72,7 +72,7 @@ class Spaces extends React.Component<any,any> {
                             }
                         }
                     }
-                } else {
+                } else { // node
                     if (!nodes[field.id]) {
                         nodes[field.id] = {
                             id:field.id,
