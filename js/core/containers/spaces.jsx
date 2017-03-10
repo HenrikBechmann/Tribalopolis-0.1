@@ -25,6 +25,52 @@ class Spaces extends React.Component {
             searchdialogopen: false,
             sampledata: null,
         };
+        this.normalizeData = (data) => {
+            let nodes = {};
+            let links = {};
+            let records = data.records;
+            let record;
+            for (record of records) {
+                let fields = record._fields;
+                let field;
+                for (field of fields) {
+                    if (field.type) {
+                        if (!links[field.id]) {
+                            links[field.id] = {
+                                type: field.type,
+                                id: field.id,
+                                properties: field.properties,
+                                startNode: field.startNode,
+                                endNode: field.endNode,
+                            };
+                            if (!nodes[field.startNode].fields[field.type]) {
+                                nodes[field.startNode].fields[field.type] = {};
+                            }
+                            if (!nodes[field.startNode].fields[field.type][field.id]) {
+                                nodes[field.startNode].fields[field.type][field.id] = {
+                                    endNode: field.endNode,
+                                    properties: field.properties,
+                                };
+                            }
+                        }
+                    }
+                    else {
+                        if (!nodes[field.id]) {
+                            nodes[field.id] = {
+                                id: field.id,
+                                labels: field.labels,
+                                properties: field.properties,
+                                fields: {}
+                            };
+                        }
+                    }
+                }
+            }
+            return {
+                nodes,
+                links
+            };
+        };
         // ---------------------[ Filter Dialog ]-----------------------
         this.handleFilterDialogOpen = () => {
             this.setState({ filterdialogopen: true });
@@ -132,8 +178,10 @@ class Spaces extends React.Component {
     componentDidMount() {
         if (!this.state.sampledata) {
             utilities.getJsonFile('/db/sample.json').then((data) => {
+                let sampledata = this.normalizeData(data);
+                console.log(sampledata);
                 this.setState({
-                    sampledata: data
+                    sampledata
                 });
             }).catch((error) => {
                 console.log('error getting sample file: ', error);

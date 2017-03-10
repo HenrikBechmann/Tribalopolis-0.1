@@ -32,14 +32,62 @@ class Spaces extends React.Component<any,any> {
 
         if (!this.state.sampledata) {
             utilities.getJsonFile('/db/sample.json').then((data) =>{
+                let sampledata = this.normalizeData(data)
+                console.log(sampledata)
                 this.setState({
-                    sampledata: data
+                    sampledata
                 })
             }).catch((error) => {
                 console.log('error getting sample file: ',error)
             })
         }
 
+    }
+
+    normalizeData = (data) => {
+        let nodes:any = {}
+        let links:any = {}
+        let records = data.records
+        let record:any
+        for (record of records) {
+            let fields = record._fields
+            let field:any
+            for (field of fields) {
+                if (field.type) { // link
+                    if (!links[field.id]) {
+                        links[field.id] = {
+                            type:field.type,
+                            id: field.id,
+                            properties: field.properties,
+                            startNode: field.startNode,
+                            endNode: field.endNode,
+                        }
+                        if (!nodes[field.startNode].fields[field.type]) {
+                            nodes[field.startNode].fields[field.type] = {}
+                        }
+                        if (!nodes[field.startNode].fields[field.type][field.id]) {
+                            nodes[field.startNode].fields[field.type][field.id] = {
+                                endNode:field.endNode,
+                                properties:field.properties,
+                            }
+                        }
+                    }
+                } else {
+                    if (!nodes[field.id]) {
+                        nodes[field.id] = {
+                            id:field.id,
+                            labels:field.labels,
+                            properties:field.properties,
+                            fields:{}
+                        }
+                    }
+                }
+            }
+        }
+        return {
+            nodes,
+            links
+        }
     }
 
     // ---------------------[ Filter Dialog ]-----------------------

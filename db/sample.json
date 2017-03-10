@@ -2,9 +2,11 @@
   "records": [
     {
       "keys": [
-        "n"
+        "leftnode",
+        "link",
+        "rightnode"
       ],
-      "length": 1,
+      "length": 3,
       "_fields": [
         {
           "identity": {
@@ -19,67 +21,26 @@
             "name": "Henrik"
           },
           "id": "0"
-        }
-      ],
-      "_fieldLookup": {
-        "n": 0
-      }
-    },
-    {
-      "keys": [
-        "n"
-      ],
-      "length": 1,
-      "_fields": [
+        },
         {
           "identity": {
-            "low": 1,
+            "low": 5,
             "high": 0
           },
-          "labels": [
-            "Person"
-          ],
-          "properties": {
-            "name": "Jim"
-          },
-          "id": "1"
-        }
-      ],
-      "_fieldLookup": {
-        "n": 0
-      }
-    },
-    {
-      "keys": [
-        "n"
-      ],
-      "length": 1,
-      "_fields": [
-        {
-          "identity": {
-            "low": 2,
+          "start": {
+            "low": 0,
             "high": 0
           },
-          "labels": [
-            "Relationship"
-          ],
-          "properties": {
-            "field": "Leads",
-            "type": "IS_LEAD_OF"
+          "end": {
+            "low": 3,
+            "high": 0
           },
-          "id": "2"
-        }
-      ],
-      "_fieldLookup": {
-        "n": 0
-      }
-    },
-    {
-      "keys": [
-        "n"
-      ],
-      "length": 1,
-      "_fields": [
+          "type": "IS_MEMBER_OF",
+          "properties": {},
+          "id": "5",
+          "startNode": "0",
+          "endNode": "3"
+        },
         {
           "identity": {
             "low": 3,
@@ -96,40 +57,51 @@
         }
       ],
       "_fieldLookup": {
-        "n": 0
+        "leftnode": 0,
+        "link": 1,
+        "rightnode": 2
       }
     },
     {
       "keys": [
-        "n"
+        "leftnode",
+        "link",
+        "rightnode"
       ],
-      "length": 1,
+      "length": 3,
       "_fields": [
         {
           "identity": {
-            "low": 4,
+            "low": 12,
             "high": 0
           },
           "labels": [
-            "Relationship"
+            "Person"
           ],
           "properties": {
-            "field": "Members",
-            "type": "IS_MEMBER_OF"
+            "name": "Robert"
           },
-          "id": "4"
-        }
-      ],
-      "_fieldLookup": {
-        "n": 0
-      }
-    },
-    {
-      "keys": [
-        "n"
-      ],
-      "length": 1,
-      "_fields": [
+          "id": "12"
+        },
+        {
+          "identity": {
+            "low": 30,
+            "high": 0
+          },
+          "start": {
+            "low": 12,
+            "high": 0
+          },
+          "end": {
+            "low": 5,
+            "high": 0
+          },
+          "type": "IS_MEMBER_OF",
+          "properties": {},
+          "id": "30",
+          "startNode": "12",
+          "endNode": "5"
+        },
         {
           "identity": {
             "low": 5,
@@ -146,15 +118,480 @@
         }
       ],
       "_fieldLookup": {
-        "n": 0
+        "leftnode": 0,
+        "link": 1,
+        "rightnode": 2
       }
     },
     {
       "keys": [
-        "n"
+        "leftnode",
+        "link",
+        "rightnode"
       ],
-      "length": 1,
+      "length": 3,
       "_fields": [
+        {
+          "identity": {
+            "low": 13,
+            "high": 0
+          },
+          "labels": [
+            "Person"
+          ],
+          "properties": {
+            "name": "Kira"
+          },
+          "id": "13"
+        },
+        {
+          "identity": {
+            "low": 56,
+            "high": 0
+          },
+          "start": {
+            "low": 13,
+            "high": 0
+          },
+          "end": {
+            "low": 5,
+            "high": 0
+          },
+          "type": "IS_MEMBER_OF",
+          "properties": {},
+          "id": "56",
+          "startNode": "13",
+          "endNode": "5"
+        },
+        {
+          "identity": {
+            "low": 5,
+            "high": 0
+          },
+          "labels": [
+            "Tribe",
+            "CivilSociety"
+          ],
+          "properties": {
+            "name": "Civic Tech Toronto"
+          },
+          "id": "5"
+        }
+      ],
+      "_fieldLookup": {
+        "leftnode": 0,
+        "link": 1,
+        "rightnode": 2
+      }
+    },
+    {
+      "keys": [
+        "leftnode",
+        "link",
+        "rightnode"
+      ],
+      "length": 3,
+      "_fields": [
+        {
+          "identity": {
+            "low": 1,
+            "high": 0
+          },
+          "labels": [
+            "Person"
+          ],
+          "properties": {
+            "name": "Jim"
+          },
+          "id": "1"
+        },
+        {
+          "identity": {
+            "low": 58,
+            "high": 0
+          },
+          "start": {
+            "low": 1,
+            "high": 0
+          },
+          "end": {
+            "low": 5,
+            "high": 0
+          },
+          "type": "IS_MEMBER_OF",
+          "properties": {},
+          "id": "58",
+          "startNode": "1",
+          "endNode": "5"
+        },
+        {
+          "identity": {
+            "low": 5,
+            "high": 0
+          },
+          "labels": [
+            "Tribe",
+            "CivilSociety"
+          ],
+          "properties": {
+            "name": "Civic Tech Toronto"
+          },
+          "id": "5"
+        }
+      ],
+      "_fieldLookup": {
+        "leftnode": 0,
+        "link": 1,
+        "rightnode": 2
+      }
+    },
+    {
+      "keys": [
+        "leftnode",
+        "link",
+        "rightnode"
+      ],
+      "length": 3,
+      "_fields": [
+        {
+          "identity": {
+            "low": 0,
+            "high": 0
+          },
+          "labels": [
+            "User",
+            "Person"
+          ],
+          "properties": {
+            "name": "Henrik"
+          },
+          "id": "0"
+        },
+        {
+          "identity": {
+            "low": 54,
+            "high": 0
+          },
+          "start": {
+            "low": 0,
+            "high": 0
+          },
+          "end": {
+            "low": 5,
+            "high": 0
+          },
+          "type": "IS_MEMBER_OF",
+          "properties": {},
+          "id": "54",
+          "startNode": "0",
+          "endNode": "5"
+        },
+        {
+          "identity": {
+            "low": 5,
+            "high": 0
+          },
+          "labels": [
+            "Tribe",
+            "CivilSociety"
+          ],
+          "properties": {
+            "name": "Civic Tech Toronto"
+          },
+          "id": "5"
+        }
+      ],
+      "_fieldLookup": {
+        "leftnode": 0,
+        "link": 1,
+        "rightnode": 2
+      }
+    },
+    {
+      "keys": [
+        "leftnode",
+        "link",
+        "rightnode"
+      ],
+      "length": 3,
+      "_fields": [
+        {
+          "identity": {
+            "low": 11,
+            "high": 0
+          },
+          "labels": [
+            "Person"
+          ],
+          "properties": {
+            "name": "Iain"
+          },
+          "id": "11"
+        },
+        {
+          "identity": {
+            "low": 48,
+            "high": 0
+          },
+          "start": {
+            "low": 11,
+            "high": 0
+          },
+          "end": {
+            "low": 5,
+            "high": 0
+          },
+          "type": "IS_MEMBER_OF",
+          "properties": {},
+          "id": "48",
+          "startNode": "11",
+          "endNode": "5"
+        },
+        {
+          "identity": {
+            "low": 5,
+            "high": 0
+          },
+          "labels": [
+            "Tribe",
+            "CivilSociety"
+          ],
+          "properties": {
+            "name": "Civic Tech Toronto"
+          },
+          "id": "5"
+        }
+      ],
+      "_fieldLookup": {
+        "leftnode": 0,
+        "link": 1,
+        "rightnode": 2
+      }
+    },
+    {
+      "keys": [
+        "leftnode",
+        "link",
+        "rightnode"
+      ],
+      "length": 3,
+      "_fields": [
+        {
+          "identity": {
+            "low": 16,
+            "high": 0
+          },
+          "labels": [
+            "Person"
+          ],
+          "properties": {
+            "name": "Chris"
+          },
+          "id": "16"
+        },
+        {
+          "identity": {
+            "low": 50,
+            "high": 0
+          },
+          "start": {
+            "low": 16,
+            "high": 0
+          },
+          "end": {
+            "low": 5,
+            "high": 0
+          },
+          "type": "IS_MEMBER_OF",
+          "properties": {},
+          "id": "50",
+          "startNode": "16",
+          "endNode": "5"
+        },
+        {
+          "identity": {
+            "low": 5,
+            "high": 0
+          },
+          "labels": [
+            "Tribe",
+            "CivilSociety"
+          ],
+          "properties": {
+            "name": "Civic Tech Toronto"
+          },
+          "id": "5"
+        }
+      ],
+      "_fieldLookup": {
+        "leftnode": 0,
+        "link": 1,
+        "rightnode": 2
+      }
+    },
+    {
+      "keys": [
+        "leftnode",
+        "link",
+        "rightnode"
+      ],
+      "length": 3,
+      "_fields": [
+        {
+          "identity": {
+            "low": 0,
+            "high": 0
+          },
+          "labels": [
+            "User",
+            "Person"
+          ],
+          "properties": {
+            "name": "Henrik"
+          },
+          "id": "0"
+        },
+        {
+          "identity": {
+            "low": 14,
+            "high": 0
+          },
+          "start": {
+            "low": 0,
+            "high": 0
+          },
+          "end": {
+            "low": 5,
+            "high": 0
+          },
+          "type": "IS_ORGANIZER_OF",
+          "properties": {},
+          "id": "14",
+          "startNode": "0",
+          "endNode": "5"
+        },
+        {
+          "identity": {
+            "low": 5,
+            "high": 0
+          },
+          "labels": [
+            "Tribe",
+            "CivilSociety"
+          ],
+          "properties": {
+            "name": "Civic Tech Toronto"
+          },
+          "id": "5"
+        }
+      ],
+      "_fieldLookup": {
+        "leftnode": 0,
+        "link": 1,
+        "rightnode": 2
+      }
+    },
+    {
+      "keys": [
+        "leftnode",
+        "link",
+        "rightnode"
+      ],
+      "length": 3,
+      "_fields": [
+        {
+          "identity": {
+            "low": 6,
+            "high": 0
+          },
+          "labels": [
+            "Project"
+          ],
+          "properties": {
+            "name": "Budgetpedia"
+          },
+          "id": "6"
+        },
+        {
+          "identity": {
+            "low": 7,
+            "high": 0
+          },
+          "start": {
+            "low": 6,
+            "high": 0
+          },
+          "end": {
+            "low": 5,
+            "high": 0
+          },
+          "type": "IS_PROJECT_OF",
+          "properties": {},
+          "id": "7",
+          "startNode": "6",
+          "endNode": "5"
+        },
+        {
+          "identity": {
+            "low": 5,
+            "high": 0
+          },
+          "labels": [
+            "Tribe",
+            "CivilSociety"
+          ],
+          "properties": {
+            "name": "Civic Tech Toronto"
+          },
+          "id": "5"
+        }
+      ],
+      "_fieldLookup": {
+        "leftnode": 0,
+        "link": 1,
+        "rightnode": 2
+      }
+    },
+    {
+      "keys": [
+        "leftnode",
+        "link",
+        "rightnode"
+      ],
+      "length": 3,
+      "_fields": [
+        {
+          "identity": {
+            "low": 11,
+            "high": 0
+          },
+          "labels": [
+            "Person"
+          ],
+          "properties": {
+            "name": "Iain"
+          },
+          "id": "11"
+        },
+        {
+          "identity": {
+            "low": 29,
+            "high": 0
+          },
+          "start": {
+            "low": 11,
+            "high": 0
+          },
+          "end": {
+            "low": 6,
+            "high": 0
+          },
+          "type": "IS_MEMBER_OF",
+          "properties": {},
+          "id": "29",
+          "startNode": "11",
+          "endNode": "6"
+        },
         {
           "identity": {
             "low": 6,
@@ -170,15 +607,593 @@
         }
       ],
       "_fieldLookup": {
-        "n": 0
+        "leftnode": 0,
+        "link": 1,
+        "rightnode": 2
       }
     },
     {
       "keys": [
-        "n"
+        "leftnode",
+        "link",
+        "rightnode"
       ],
-      "length": 1,
+      "length": 3,
       "_fields": [
+        {
+          "identity": {
+            "low": 13,
+            "high": 0
+          },
+          "labels": [
+            "Person"
+          ],
+          "properties": {
+            "name": "Kira"
+          },
+          "id": "13"
+        },
+        {
+          "identity": {
+            "low": 57,
+            "high": 0
+          },
+          "start": {
+            "low": 13,
+            "high": 0
+          },
+          "end": {
+            "low": 6,
+            "high": 0
+          },
+          "type": "IS_MEMBER_OF",
+          "properties": {},
+          "id": "57",
+          "startNode": "13",
+          "endNode": "6"
+        },
+        {
+          "identity": {
+            "low": 6,
+            "high": 0
+          },
+          "labels": [
+            "Project"
+          ],
+          "properties": {
+            "name": "Budgetpedia"
+          },
+          "id": "6"
+        }
+      ],
+      "_fieldLookup": {
+        "leftnode": 0,
+        "link": 1,
+        "rightnode": 2
+      }
+    },
+    {
+      "keys": [
+        "leftnode",
+        "link",
+        "rightnode"
+      ],
+      "length": 3,
+      "_fields": [
+        {
+          "identity": {
+            "low": 1,
+            "high": 0
+          },
+          "labels": [
+            "Person"
+          ],
+          "properties": {
+            "name": "Jim"
+          },
+          "id": "1"
+        },
+        {
+          "identity": {
+            "low": 59,
+            "high": 0
+          },
+          "start": {
+            "low": 1,
+            "high": 0
+          },
+          "end": {
+            "low": 6,
+            "high": 0
+          },
+          "type": "IS_MEMBER_OF",
+          "properties": {},
+          "id": "59",
+          "startNode": "1",
+          "endNode": "6"
+        },
+        {
+          "identity": {
+            "low": 6,
+            "high": 0
+          },
+          "labels": [
+            "Project"
+          ],
+          "properties": {
+            "name": "Budgetpedia"
+          },
+          "id": "6"
+        }
+      ],
+      "_fieldLookup": {
+        "leftnode": 0,
+        "link": 1,
+        "rightnode": 2
+      }
+    },
+    {
+      "keys": [
+        "leftnode",
+        "link",
+        "rightnode"
+      ],
+      "length": 3,
+      "_fields": [
+        {
+          "identity": {
+            "low": 12,
+            "high": 0
+          },
+          "labels": [
+            "Person"
+          ],
+          "properties": {
+            "name": "Robert"
+          },
+          "id": "12"
+        },
+        {
+          "identity": {
+            "low": 53,
+            "high": 0
+          },
+          "start": {
+            "low": 12,
+            "high": 0
+          },
+          "end": {
+            "low": 6,
+            "high": 0
+          },
+          "type": "IS_MEMBER_OF",
+          "properties": {},
+          "id": "53",
+          "startNode": "12",
+          "endNode": "6"
+        },
+        {
+          "identity": {
+            "low": 6,
+            "high": 0
+          },
+          "labels": [
+            "Project"
+          ],
+          "properties": {
+            "name": "Budgetpedia"
+          },
+          "id": "6"
+        }
+      ],
+      "_fieldLookup": {
+        "leftnode": 0,
+        "link": 1,
+        "rightnode": 2
+      }
+    },
+    {
+      "keys": [
+        "leftnode",
+        "link",
+        "rightnode"
+      ],
+      "length": 3,
+      "_fields": [
+        {
+          "identity": {
+            "low": 0,
+            "high": 0
+          },
+          "labels": [
+            "User",
+            "Person"
+          ],
+          "properties": {
+            "name": "Henrik"
+          },
+          "id": "0"
+        },
+        {
+          "identity": {
+            "low": 55,
+            "high": 0
+          },
+          "start": {
+            "low": 0,
+            "high": 0
+          },
+          "end": {
+            "low": 6,
+            "high": 0
+          },
+          "type": "IS_MEMBER_OF",
+          "properties": {},
+          "id": "55",
+          "startNode": "0",
+          "endNode": "6"
+        },
+        {
+          "identity": {
+            "low": 6,
+            "high": 0
+          },
+          "labels": [
+            "Project"
+          ],
+          "properties": {
+            "name": "Budgetpedia"
+          },
+          "id": "6"
+        }
+      ],
+      "_fieldLookup": {
+        "leftnode": 0,
+        "link": 1,
+        "rightnode": 2
+      }
+    },
+    {
+      "keys": [
+        "leftnode",
+        "link",
+        "rightnode"
+      ],
+      "length": 3,
+      "_fields": [
+        {
+          "identity": {
+            "low": 16,
+            "high": 0
+          },
+          "labels": [
+            "Person"
+          ],
+          "properties": {
+            "name": "Chris"
+          },
+          "id": "16"
+        },
+        {
+          "identity": {
+            "low": 51,
+            "high": 0
+          },
+          "start": {
+            "low": 16,
+            "high": 0
+          },
+          "end": {
+            "low": 6,
+            "high": 0
+          },
+          "type": "IS_MEMBER_OF",
+          "properties": {},
+          "id": "51",
+          "startNode": "16",
+          "endNode": "6"
+        },
+        {
+          "identity": {
+            "low": 6,
+            "high": 0
+          },
+          "labels": [
+            "Project"
+          ],
+          "properties": {
+            "name": "Budgetpedia"
+          },
+          "id": "6"
+        }
+      ],
+      "_fieldLookup": {
+        "leftnode": 0,
+        "link": 1,
+        "rightnode": 2
+      }
+    },
+    {
+      "keys": [
+        "leftnode",
+        "link",
+        "rightnode"
+      ],
+      "length": 3,
+      "_fields": [
+        {
+          "identity": {
+            "low": 15,
+            "high": 0
+          },
+          "labels": [
+            "Team"
+          ],
+          "properties": {
+            "name": "UX"
+          },
+          "id": "15"
+        },
+        {
+          "identity": {
+            "low": 21,
+            "high": 0
+          },
+          "start": {
+            "low": 15,
+            "high": 0
+          },
+          "end": {
+            "low": 6,
+            "high": 0
+          },
+          "type": "IS_TEAM_OF",
+          "properties": {},
+          "id": "21",
+          "startNode": "15",
+          "endNode": "6"
+        },
+        {
+          "identity": {
+            "low": 6,
+            "high": 0
+          },
+          "labels": [
+            "Project"
+          ],
+          "properties": {
+            "name": "Budgetpedia"
+          },
+          "id": "6"
+        }
+      ],
+      "_fieldLookup": {
+        "leftnode": 0,
+        "link": 1,
+        "rightnode": 2
+      }
+    },
+    {
+      "keys": [
+        "leftnode",
+        "link",
+        "rightnode"
+      ],
+      "length": 3,
+      "_fields": [
+        {
+          "identity": {
+            "low": 14,
+            "high": 0
+          },
+          "labels": [
+            "Team"
+          ],
+          "properties": {
+            "name": "Management"
+          },
+          "id": "14"
+        },
+        {
+          "identity": {
+            "low": 28,
+            "high": 0
+          },
+          "start": {
+            "low": 14,
+            "high": 0
+          },
+          "end": {
+            "low": 6,
+            "high": 0
+          },
+          "type": "IS_TEAM_OF",
+          "properties": {},
+          "id": "28",
+          "startNode": "14",
+          "endNode": "6"
+        },
+        {
+          "identity": {
+            "low": 6,
+            "high": 0
+          },
+          "labels": [
+            "Project"
+          ],
+          "properties": {
+            "name": "Budgetpedia"
+          },
+          "id": "6"
+        }
+      ],
+      "_fieldLookup": {
+        "leftnode": 0,
+        "link": 1,
+        "rightnode": 2
+      }
+    },
+    {
+      "keys": [
+        "leftnode",
+        "link",
+        "rightnode"
+      ],
+      "length": 3,
+      "_fields": [
+        {
+          "identity": {
+            "low": 7,
+            "high": 0
+          },
+          "labels": [
+            "Team"
+          ],
+          "properties": {
+            "name": "Software Development"
+          },
+          "id": "7"
+        },
+        {
+          "identity": {
+            "low": 11,
+            "high": 0
+          },
+          "start": {
+            "low": 7,
+            "high": 0
+          },
+          "end": {
+            "low": 6,
+            "high": 0
+          },
+          "type": "IS_TEAM_OF",
+          "properties": {},
+          "id": "11",
+          "startNode": "7",
+          "endNode": "6"
+        },
+        {
+          "identity": {
+            "low": 6,
+            "high": 0
+          },
+          "labels": [
+            "Project"
+          ],
+          "properties": {
+            "name": "Budgetpedia"
+          },
+          "id": "6"
+        }
+      ],
+      "_fieldLookup": {
+        "leftnode": 0,
+        "link": 1,
+        "rightnode": 2
+      }
+    },
+    {
+      "keys": [
+        "leftnode",
+        "link",
+        "rightnode"
+      ],
+      "length": 3,
+      "_fields": [
+        {
+          "identity": {
+            "low": 0,
+            "high": 0
+          },
+          "labels": [
+            "User",
+            "Person"
+          ],
+          "properties": {
+            "name": "Henrik"
+          },
+          "id": "0"
+        },
+        {
+          "identity": {
+            "low": 10,
+            "high": 0
+          },
+          "start": {
+            "low": 0,
+            "high": 0
+          },
+          "end": {
+            "low": 6,
+            "high": 0
+          },
+          "type": "IS_LEAD_OF",
+          "properties": {},
+          "id": "10",
+          "startNode": "0",
+          "endNode": "6"
+        },
+        {
+          "identity": {
+            "low": 6,
+            "high": 0
+          },
+          "labels": [
+            "Project"
+          ],
+          "properties": {
+            "name": "Budgetpedia"
+          },
+          "id": "6"
+        }
+      ],
+      "_fieldLookup": {
+        "leftnode": 0,
+        "link": 1,
+        "rightnode": 2
+      }
+    },
+    {
+      "keys": [
+        "leftnode",
+        "link",
+        "rightnode"
+      ],
+      "length": 3,
+      "_fields": [
+        {
+          "identity": {
+            "low": 11,
+            "high": 0
+          },
+          "labels": [
+            "Person"
+          ],
+          "properties": {
+            "name": "Iain"
+          },
+          "id": "11"
+        },
+        {
+          "identity": {
+            "low": 19,
+            "high": 0
+          },
+          "start": {
+            "low": 11,
+            "high": 0
+          },
+          "end": {
+            "low": 7,
+            "high": 0
+          },
+          "type": "IS_MEMBER_OF",
+          "properties": {},
+          "id": "19",
+          "startNode": "11",
+          "endNode": "7"
+        },
         {
           "identity": {
             "low": 7,
@@ -194,15 +1209,294 @@
         }
       ],
       "_fieldLookup": {
-        "n": 0
+        "leftnode": 0,
+        "link": 1,
+        "rightnode": 2
       }
     },
     {
       "keys": [
-        "n"
+        "leftnode",
+        "link",
+        "rightnode"
       ],
-      "length": 1,
+      "length": 3,
       "_fields": [
+        {
+          "identity": {
+            "low": 1,
+            "high": 0
+          },
+          "labels": [
+            "Person"
+          ],
+          "properties": {
+            "name": "Jim"
+          },
+          "id": "1"
+        },
+        {
+          "identity": {
+            "low": 1,
+            "high": 0
+          },
+          "start": {
+            "low": 1,
+            "high": 0
+          },
+          "end": {
+            "low": 7,
+            "high": 0
+          },
+          "type": "IS_MEMBER_OF",
+          "properties": {},
+          "id": "1",
+          "startNode": "1",
+          "endNode": "7"
+        },
+        {
+          "identity": {
+            "low": 7,
+            "high": 0
+          },
+          "labels": [
+            "Team"
+          ],
+          "properties": {
+            "name": "Software Development"
+          },
+          "id": "7"
+        }
+      ],
+      "_fieldLookup": {
+        "leftnode": 0,
+        "link": 1,
+        "rightnode": 2
+      }
+    },
+    {
+      "keys": [
+        "leftnode",
+        "link",
+        "rightnode"
+      ],
+      "length": 3,
+      "_fields": [
+        {
+          "identity": {
+            "low": 1,
+            "high": 0
+          },
+          "labels": [
+            "Person"
+          ],
+          "properties": {
+            "name": "Jim"
+          },
+          "id": "1"
+        },
+        {
+          "identity": {
+            "low": 0,
+            "high": 0
+          },
+          "start": {
+            "low": 1,
+            "high": 0
+          },
+          "end": {
+            "low": 7,
+            "high": 0
+          },
+          "type": "IS_LEAD_OF",
+          "properties": {},
+          "id": "0",
+          "startNode": "1",
+          "endNode": "7"
+        },
+        {
+          "identity": {
+            "low": 7,
+            "high": 0
+          },
+          "labels": [
+            "Team"
+          ],
+          "properties": {
+            "name": "Software Development"
+          },
+          "id": "7"
+        }
+      ],
+      "_fieldLookup": {
+        "leftnode": 0,
+        "link": 1,
+        "rightnode": 2
+      }
+    },
+    {
+      "keys": [
+        "leftnode",
+        "link",
+        "rightnode"
+      ],
+      "length": 3,
+      "_fields": [
+        {
+          "identity": {
+            "low": 0,
+            "high": 0
+          },
+          "labels": [
+            "User",
+            "Person"
+          ],
+          "properties": {
+            "name": "Henrik"
+          },
+          "id": "0"
+        },
+        {
+          "identity": {
+            "low": 13,
+            "high": 0
+          },
+          "start": {
+            "low": 0,
+            "high": 0
+          },
+          "end": {
+            "low": 7,
+            "high": 0
+          },
+          "type": "IS_MEMBER_OF",
+          "properties": {},
+          "id": "13",
+          "startNode": "0",
+          "endNode": "7"
+        },
+        {
+          "identity": {
+            "low": 7,
+            "high": 0
+          },
+          "labels": [
+            "Team"
+          ],
+          "properties": {
+            "name": "Software Development"
+          },
+          "id": "7"
+        }
+      ],
+      "_fieldLookup": {
+        "leftnode": 0,
+        "link": 1,
+        "rightnode": 2
+      }
+    },
+    {
+      "keys": [
+        "leftnode",
+        "link",
+        "rightnode"
+      ],
+      "length": 3,
+      "_fields": [
+        {
+          "identity": {
+            "low": 0,
+            "high": 0
+          },
+          "labels": [
+            "User",
+            "Person"
+          ],
+          "properties": {
+            "name": "Henrik"
+          },
+          "id": "0"
+        },
+        {
+          "identity": {
+            "low": 12,
+            "high": 0
+          },
+          "start": {
+            "low": 0,
+            "high": 0
+          },
+          "end": {
+            "low": 7,
+            "high": 0
+          },
+          "type": "IS_LEAD_OF",
+          "properties": {},
+          "id": "12",
+          "startNode": "0",
+          "endNode": "7"
+        },
+        {
+          "identity": {
+            "low": 7,
+            "high": 0
+          },
+          "labels": [
+            "Team"
+          ],
+          "properties": {
+            "name": "Software Development"
+          },
+          "id": "7"
+        }
+      ],
+      "_fieldLookup": {
+        "leftnode": 0,
+        "link": 1,
+        "rightnode": 2
+      }
+    },
+    {
+      "keys": [
+        "leftnode",
+        "link",
+        "rightnode"
+      ],
+      "length": 3,
+      "_fields": [
+        {
+          "identity": {
+            "low": 0,
+            "high": 0
+          },
+          "labels": [
+            "User",
+            "Person"
+          ],
+          "properties": {
+            "name": "Henrik"
+          },
+          "id": "0"
+        },
+        {
+          "identity": {
+            "low": 15,
+            "high": 0
+          },
+          "start": {
+            "low": 0,
+            "high": 0
+          },
+          "end": {
+            "low": 8,
+            "high": 0
+          },
+          "type": "RECORDS_TRANSACTIONS_IN",
+          "properties": {},
+          "id": "15",
+          "startNode": "0",
+          "endNode": "8"
+        },
         {
           "identity": {
             "low": 8,
@@ -218,111 +1512,18 @@
         }
       ],
       "_fieldLookup": {
-        "n": 0
+        "leftnode": 0,
+        "link": 1,
+        "rightnode": 2
       }
     },
     {
       "keys": [
-        "n"
+        "leftnode",
+        "link",
+        "rightnode"
       ],
-      "length": 1,
-      "_fields": [
-        {
-          "identity": {
-            "low": 9,
-            "high": 0
-          },
-          "labels": [
-            "Meta"
-          ],
-          "properties": {
-            "name": "Meta"
-          },
-          "id": "9"
-        }
-      ],
-      "_fieldLookup": {
-        "n": 0
-      }
-    },
-    {
-      "keys": [
-        "n"
-      ],
-      "length": 1,
-      "_fields": [
-        {
-          "identity": {
-            "low": 10,
-            "high": 0
-          },
-          "labels": [
-            "Node"
-          ],
-          "properties": {
-            "field": "Persons",
-            "type": "Person"
-          },
-          "id": "10"
-        }
-      ],
-      "_fieldLookup": {
-        "n": 0
-      }
-    },
-    {
-      "keys": [
-        "n"
-      ],
-      "length": 1,
-      "_fields": [
-        {
-          "identity": {
-            "low": 11,
-            "high": 0
-          },
-          "labels": [
-            "Person"
-          ],
-          "properties": {
-            "name": "Iain"
-          },
-          "id": "11"
-        }
-      ],
-      "_fieldLookup": {
-        "n": 0
-      }
-    },
-    {
-      "keys": [
-        "n"
-      ],
-      "length": 1,
-      "_fields": [
-        {
-          "identity": {
-            "low": 12,
-            "high": 0
-          },
-          "labels": [
-            "Person"
-          ],
-          "properties": {
-            "name": "Robert"
-          },
-          "id": "12"
-        }
-      ],
-      "_fieldLookup": {
-        "n": 0
-      }
-    },
-    {
-      "keys": [
-        "n"
-      ],
-      "length": 1,
+      "length": 3,
       "_fields": [
         {
           "identity": {
@@ -336,18 +1537,26 @@
             "name": "Kira"
           },
           "id": "13"
-        }
-      ],
-      "_fieldLookup": {
-        "n": 0
-      }
-    },
-    {
-      "keys": [
-        "n"
-      ],
-      "length": 1,
-      "_fields": [
+        },
+        {
+          "identity": {
+            "low": 26,
+            "high": 0
+          },
+          "start": {
+            "low": 13,
+            "high": 0
+          },
+          "end": {
+            "low": 14,
+            "high": 0
+          },
+          "type": "IS_MEMBER_OF",
+          "properties": {},
+          "id": "26",
+          "startNode": "13",
+          "endNode": "14"
+        },
         {
           "identity": {
             "low": 14,
@@ -363,15 +1572,231 @@
         }
       ],
       "_fieldLookup": {
-        "n": 0
+        "leftnode": 0,
+        "link": 1,
+        "rightnode": 2
       }
     },
     {
       "keys": [
-        "n"
+        "leftnode",
+        "link",
+        "rightnode"
       ],
-      "length": 1,
+      "length": 3,
       "_fields": [
+        {
+          "identity": {
+            "low": 13,
+            "high": 0
+          },
+          "labels": [
+            "Person"
+          ],
+          "properties": {
+            "name": "Kira"
+          },
+          "id": "13"
+        },
+        {
+          "identity": {
+            "low": 27,
+            "high": 0
+          },
+          "start": {
+            "low": 13,
+            "high": 0
+          },
+          "end": {
+            "low": 14,
+            "high": 0
+          },
+          "type": "IS_LEAD_OF",
+          "properties": {},
+          "id": "27",
+          "startNode": "13",
+          "endNode": "14"
+        },
+        {
+          "identity": {
+            "low": 14,
+            "high": 0
+          },
+          "labels": [
+            "Team"
+          ],
+          "properties": {
+            "name": "Management"
+          },
+          "id": "14"
+        }
+      ],
+      "_fieldLookup": {
+        "leftnode": 0,
+        "link": 1,
+        "rightnode": 2
+      }
+    },
+    {
+      "keys": [
+        "leftnode",
+        "link",
+        "rightnode"
+      ],
+      "length": 3,
+      "_fields": [
+        {
+          "identity": {
+            "low": 12,
+            "high": 0
+          },
+          "labels": [
+            "Person"
+          ],
+          "properties": {
+            "name": "Robert"
+          },
+          "id": "12"
+        },
+        {
+          "identity": {
+            "low": 22,
+            "high": 0
+          },
+          "start": {
+            "low": 12,
+            "high": 0
+          },
+          "end": {
+            "low": 14,
+            "high": 0
+          },
+          "type": "IS_MEMBER_OF",
+          "properties": {},
+          "id": "22",
+          "startNode": "12",
+          "endNode": "14"
+        },
+        {
+          "identity": {
+            "low": 14,
+            "high": 0
+          },
+          "labels": [
+            "Team"
+          ],
+          "properties": {
+            "name": "Management"
+          },
+          "id": "14"
+        }
+      ],
+      "_fieldLookup": {
+        "leftnode": 0,
+        "link": 1,
+        "rightnode": 2
+      }
+    },
+    {
+      "keys": [
+        "leftnode",
+        "link",
+        "rightnode"
+      ],
+      "length": 3,
+      "_fields": [
+        {
+          "identity": {
+            "low": 12,
+            "high": 0
+          },
+          "labels": [
+            "Person"
+          ],
+          "properties": {
+            "name": "Robert"
+          },
+          "id": "12"
+        },
+        {
+          "identity": {
+            "low": 23,
+            "high": 0
+          },
+          "start": {
+            "low": 12,
+            "high": 0
+          },
+          "end": {
+            "low": 14,
+            "high": 0
+          },
+          "type": "IS_LEAD_OF",
+          "properties": {},
+          "id": "23",
+          "startNode": "12",
+          "endNode": "14"
+        },
+        {
+          "identity": {
+            "low": 14,
+            "high": 0
+          },
+          "labels": [
+            "Team"
+          ],
+          "properties": {
+            "name": "Management"
+          },
+          "id": "14"
+        }
+      ],
+      "_fieldLookup": {
+        "leftnode": 0,
+        "link": 1,
+        "rightnode": 2
+      }
+    },
+    {
+      "keys": [
+        "leftnode",
+        "link",
+        "rightnode"
+      ],
+      "length": 3,
+      "_fields": [
+        {
+          "identity": {
+            "low": 16,
+            "high": 0
+          },
+          "labels": [
+            "Person"
+          ],
+          "properties": {
+            "name": "Chris"
+          },
+          "id": "16"
+        },
+        {
+          "identity": {
+            "low": 31,
+            "high": 0
+          },
+          "start": {
+            "low": 16,
+            "high": 0
+          },
+          "end": {
+            "low": 15,
+            "high": 0
+          },
+          "type": "IS_LEAD_OF",
+          "properties": {},
+          "id": "31",
+          "startNode": "16",
+          "endNode": "15"
+        },
         {
           "identity": {
             "low": 15,
@@ -387,14 +1812,18 @@
         }
       ],
       "_fieldLookup": {
-        "n": 0
+        "leftnode": 0,
+        "link": 1,
+        "rightnode": 2
       }
     },
     {
       "keys": [
-        "n"
+        "leftnode",
+        "link",
+        "rightnode"
       ],
-      "length": 1,
+      "length": 3,
       "_fields": [
         {
           "identity": {
@@ -408,16 +1837,50 @@
             "name": "Chris"
           },
           "id": "16"
+        },
+        {
+          "identity": {
+            "low": 25,
+            "high": 0
+          },
+          "start": {
+            "low": 16,
+            "high": 0
+          },
+          "end": {
+            "low": 15,
+            "high": 0
+          },
+          "type": "IS_MEMBER_OF",
+          "properties": {},
+          "id": "25",
+          "startNode": "16",
+          "endNode": "15"
+        },
+        {
+          "identity": {
+            "low": 15,
+            "high": 0
+          },
+          "labels": [
+            "Team"
+          ],
+          "properties": {
+            "name": "UX"
+          },
+          "id": "15"
         }
       ],
       "_fieldLookup": {
-        "n": 0
+        "leftnode": 0,
+        "link": 1,
+        "rightnode": 2
       }
     }
   ],
   "summary": {
     "statement": {
-      "text": "match (n) return n",
+      "text": "MATCH (leftnode)-[link]->(rightnode) \nWHERE type(link) <> 'IS_A'\nRETURN leftnode, link, rightnode",
       "parameters": {}
     },
     "statementType": "r",
@@ -455,18 +1918,18 @@
     "profile": false,
     "notifications": [],
     "resultConsumedAfter": {
-      "low": 64,
+      "low": 6,
       "high": 0
     },
     "resultAvailableAfter": {
-      "low": 42,
+      "low": 1,
       "high": 0
     }
   },
   "timings": {
-    "resultAvailableAfter": 42,
-    "resultConsumedAfter": 64,
+    "resultAvailableAfter": 1,
+    "resultConsumedAfter": 6,
     "type": "bolt",
-    "totalTime": 106
+    "totalTime": 7
   }
 }
