@@ -43,10 +43,10 @@
   "devDependencies": {
     "@types/draft-js": "^0.9.1",
     "@types/flux-standard-action": "^0.5.29",
-    "@types/material-ui": "^0.16.52",
-    "@types/node": "^7.0.5",
+    "@types/material-ui": "^0.16.56",
+    "@types/node": "^7.0.8",
     "@types/radium": "^0.18.20",
-    "@types/react": "^15.0.10",
+    "@types/react": "^15.0.15",
     "@types/react-addons-css-transition-group": "^15.0.1",
     "@types/react-addons-transition-group": "^0.14.19",
     "@types/react-dnd": "^2.0.32",
