@@ -10,6 +10,8 @@
   "author": "",
   "license": "GNUv3",
   "dependencies": {
+    "@types/d3-force": "^1.0.6",
+    "d3-force": "^1.0.6",
     "draft-js": "^0.10.0",
     "flux-standard-action": "^1.1.0",
     "format-number": "^2.0.2",

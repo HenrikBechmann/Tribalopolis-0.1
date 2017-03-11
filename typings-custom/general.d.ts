@@ -2,3 +2,7 @@
 
 // declare var fetch
 
+declare module 'victory-force' {
+    var VictoryForce:any 
+    export default VictoryForce
+}
