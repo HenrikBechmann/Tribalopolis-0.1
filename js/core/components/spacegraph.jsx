@@ -48,7 +48,6 @@ class SpaceGraph extends React.Component {
                 </div>
             </div>
             <div style={styles.frame}>
-            <div style={{ textAlign: 'right' }}>Demo: Click on a node to remove it</div>
                 <div style={styles.platform}>
               <VictoryForce nodes={this.state.nodes} links={this.state.links} forces={{
             charge: forceManyBody(),

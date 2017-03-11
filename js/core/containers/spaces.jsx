@@ -208,7 +208,7 @@ class Spaces extends React.Component {
                     {this.spaceoverflowmenu}
                 </ToolbarGroup>
             </Toolbar>
-            <div style={styles.title}>Title</div>
+            <div style={styles.title}>Demo: click on a node to remove it.</div>
             <SpaceGraph data={this.state.sampledata}/>
         </div>
         <div style={styles.splitter}>
