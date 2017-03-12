@@ -6,14 +6,11 @@ import theme from 'material-ui/styles/baseThemes/lightBaseTheme';
 // console.log(muiTheme)
 // TODO: register issue with 'justify-content' bad interface
 export let styles = {
-    frame: { position: 'absolute', top: 0, right: 0, bottom: 0, left: 0 },
-    header: { height: '78px' },
-    toolbar: { height: '56px' },
+    frame: { position: 'absolute', top: 0, right: 0, bottom: 0, left: 0, display: 'flex', flexDirection: 'column' },
+    header: { flex: 'none' },
+    toolbar: {},
     title: { backgroundColor: 'palegoldenrod', height: '16px', fontFamily: theme.fontFamily, textColor: theme.palette.textColor, fontSize: '.8em', whiteSpace: 'nowrap', overflow: 'hidden', padding: '3px' },
-    tail: { display: 'flex', flexDirection: 'column', height: 'calc(100% - 78px)' },
     main: { flex: 'auto', position: 'relative' },
-    footer: {},
-    status: { backgroundColor: 'palegoldenrod', height: '1.5em', width: 'calc(100% - 6px)', border: '3px ridge gray', borderRadius: '6px' },
     spacegraph: {
         fixedframe: { backgroundColor: 'lightcyan', position: 'relative', height: '100%' },
         frame: { backgroundColor: 'lightcyan', position: 'relative', height: '100%', width: '100%', overflow: 'scroll' },
@@ -28,7 +25,6 @@ export let styles = {
             borderRadius: '50%',
             overflow: 'hidden',
         },
-        addbutton: { position: 'absolute', right: '5px', top: '5px', zIndex: 1 },
     },
     list: { backgroundColor: 'lightgreen', height: '600px' },
     topframe: { position: 'absolute', top: 0, right: 0, left: 0, bottom: 'calc(45% + 2px)' },
@@ -36,5 +32,7 @@ export let styles = {
     collapsetabtop: { position: 'absolute', height: '36px', width: '48px', bottom: '1px', right: '10px', backgroundColor: '#cff', zIndex: 2, display: 'flex', 'justify-content': "center", alignItems: 'center', border: '1px solid gray', cursor: 'pointer', borderRadius: '6px 6px 0 0' },
     collapsetabbottom: { position: 'absolute', height: '36px', width: '48px', top: '-1px', right: '10px', backgroundColor: '#d3f8d3', zIndex: 2, display: 'flex', 'justify-content': "center", alignItems: 'center', border: '1px solid gray', cursor: 'pointer', borderRadius: '0 0 6px 6px' },
     bottomframe: { overflow: 'scroll', backgroundColor: 'green', position: 'absolute', bottom: 0, right: 0, left: 0, top: '55%' },
+    footer: { flex: 'none' },
+    status: { backgroundColor: 'palegoldenrod', height: '1.5em', width: 'calc(100% - 6px)', border: '3px ridge gray', borderRadius: '6px' },
 };
 //# sourceMappingURL=styles.jsx.map
