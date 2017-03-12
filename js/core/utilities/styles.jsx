@@ -33,6 +33,11 @@ export let styles = {
         flex: 'auto',
         position: 'relative'
     },
+    splitterframe: {
+        height: '100%',
+        width: '100%',
+        position: 'absolute',
+    },
     topframe: {
         position: 'absolute',
         top: 0,
