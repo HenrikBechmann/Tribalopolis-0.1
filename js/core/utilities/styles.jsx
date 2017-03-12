@@ -6,11 +6,40 @@ import theme from 'material-ui/styles/baseThemes/lightBaseTheme';
 // console.log(muiTheme)
 // TODO: register issue with 'justify-content' bad interface
 export let styles = {
-    frame: { position: 'absolute', top: 0, right: 0, bottom: 0, left: 0, display: 'flex', flexDirection: 'column' },
-    header: { flex: 'none' },
+    frame: {
+        display: 'flex',
+        flexDirection: 'column',
+        position: 'absolute',
+        top: 0,
+        right: 0,
+        bottom: 0,
+        left: 0,
+    },
+    header: {
+        flex: 'none'
+    },
     toolbar: {},
-    title: { backgroundColor: 'palegoldenrod', height: '16px', fontFamily: theme.fontFamily, textColor: theme.palette.textColor, fontSize: '.8em', whiteSpace: 'nowrap', overflow: 'hidden', padding: '3px' },
-    main: { flex: 'auto', position: 'relative' },
+    title: {
+        backgroundColor: 'palegoldenrod',
+        height: '16px',
+        fontFamily: theme.fontFamily,
+        textColor: theme.palette.textColor,
+        fontSize: '.8em',
+        whiteSpace: 'nowrap',
+        overflow: 'hidden',
+        padding: '3px'
+    },
+    main: {
+        flex: 'auto',
+        position: 'relative'
+    },
+    topframe: {
+        position: 'absolute',
+        top: 0,
+        right: 0,
+        left: 0,
+        bottom: 'calc(50% + 2px)',
+    },
     spacegraph: {
         fixedframe: { backgroundColor: 'lightcyan', position: 'relative', height: '100%' },
         frame: { backgroundColor: 'lightcyan', position: 'relative', height: '100%', width: '100%', overflow: 'scroll' },
@@ -26,13 +55,29 @@ export let styles = {
             overflow: 'hidden',
         },
     },
-    list: { backgroundColor: 'lightgreen', height: '600px' },
-    topframe: { position: 'absolute', top: 0, right: 0, left: 0, bottom: 'calc(45% + 2px)' },
-    splitter: { position: 'absolute', bottom: '45%', width: '100%', height: 0, borderTop: '2px solid gray' },
+    splitter: {
+        position: 'absolute',
+        bottom: '50%',
+        width: '100%',
+        height: 0,
+        borderTop: '2px solid gray',
+    },
     collapsetabtop: { position: 'absolute', height: '36px', width: '48px', bottom: '1px', right: '10px', backgroundColor: '#cff', zIndex: 2, display: 'flex', 'justify-content': "center", alignItems: 'center', border: '1px solid gray', cursor: 'pointer', borderRadius: '6px 6px 0 0' },
     collapsetabbottom: { position: 'absolute', height: '36px', width: '48px', top: '-1px', right: '10px', backgroundColor: '#d3f8d3', zIndex: 2, display: 'flex', 'justify-content': "center", alignItems: 'center', border: '1px solid gray', cursor: 'pointer', borderRadius: '0 0 6px 6px' },
-    bottomframe: { overflow: 'scroll', backgroundColor: 'green', position: 'absolute', bottom: 0, right: 0, left: 0, top: '55%' },
+    bottomframe: {
+        overflow: 'scroll',
+        backgroundColor: 'green',
+        position: 'absolute',
+        bottom: 0, right: 0, left: 0, top: '50%',
+    },
+    list: { backgroundColor: 'lightgreen', height: '600px' },
     footer: { flex: 'none' },
-    status: { backgroundColor: 'palegoldenrod', height: '1.5em', width: 'calc(100% - 6px)', border: '3px ridge gray', borderRadius: '6px' },
+    status: {
+        backgroundColor: 'palegoldenrod',
+        height: '1.5em',
+        width: 'calc(100% - 6px)',
+        border: '3px ridge gray',
+        borderRadius: '6px',
+    },
 };
 //# sourceMappingURL=styles.jsx.map
