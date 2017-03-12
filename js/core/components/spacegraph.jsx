@@ -36,7 +36,6 @@ class SpaceGraph extends React.Component {
         const containerStyle = {};
         const parentStyle = {
             backgroundColor: "#f7f7f7",
-            border: "1px solid #ccc",
             maxWidth: 5000,
             maxHeight: 5000
         };
@@ -48,7 +47,6 @@ class SpaceGraph extends React.Component {
                 </div>
             </div>
             <div style={styles.frame}>
-                <div style={styles.platform}>
               <VictoryForce nodes={this.state.nodes} links={this.state.links} height={2000} width={2000} forces={{
             charge: forceManyBody(),
             link: forceLink(this.state.links).distance(72).strength(1),
@@ -70,7 +68,6 @@ class SpaceGraph extends React.Component {
                 }
             }
         ]}/>
-                </div>
             </div>
         </div>;
     }

@@ -63,7 +63,6 @@ class SpaceGraph extends React.Component<SpaceGraphProps,any> {
 
         const parentStyle = {
           backgroundColor: "#f7f7f7",
-          border: "1px solid #ccc",
           maxWidth: 5000,
           maxHeight: 5000
         };
@@ -76,7 +75,6 @@ class SpaceGraph extends React.Component<SpaceGraphProps,any> {
                 </div>
             </div>
             <div style = {styles.frame}>
-                <div style={styles.platform}>
               <VictoryForce
                 nodes={this.state.nodes}
                 links={this.state.links}
@@ -107,7 +105,6 @@ class SpaceGraph extends React.Component<SpaceGraphProps,any> {
                   }
                 ]}
               />
-                </div>
             </div>
         </div>        
     }

@@ -299,7 +299,7 @@ class Spaces extends React.Component<any,any> {
         { this.menudrawer() }
         { this.filterDialog(null) }
         { this.searchDialog(null) }
-        <div style={styles.topframe}>
+        <div style={styles.header}>
             <Toolbar style={styles.toolbar}>
                 <ToolbarGroup>
                     <IconButton
@@ -317,16 +317,24 @@ class Spaces extends React.Component<any,any> {
                 </ToolbarGroup>
             </Toolbar>
             <div style={styles.title} >Demo: click on a node to remove it.</div>
-            <SpaceGraph data = {this.state.sampledata}/>
         </div>
-        <div style = {styles.splitter}>
-            <div style={styles.collapsetabtop}><FontIcon className="material-icons">arrow_drop_down</FontIcon></div>
-            <div style={styles.collapsetabbottom}><FontIcon className="material-icons">arrow_drop_up</FontIcon></div>
+        <div style={styles.tail}>
+            <div style = {styles.main}>
+                <div style={styles.topframe}>
+                    <SpaceGraph data = {this.state.sampledata}/>
+                </div>
+                <div style = {styles.splitter}>
+                    <div style={styles.collapsetabtop}><FontIcon className="material-icons">arrow_drop_down</FontIcon></div>
+                    <div style={styles.collapsetabbottom}><FontIcon className="material-icons">arrow_drop_up</FontIcon></div>
+                </div>
+                <div style={styles.bottomframe}>
+                    <div style={styles.list} >Card</div>
+                </div>
+            </div>
+            <div style={styles.footer}>
+                <div style={styles.status} >Status</div>
+            </div>
         </div>
-        <div style={styles.bottomframe}>
-            <div style={styles.list} >Card</div>
-        </div>
-        <div style={styles.status} >Status</div>
     </div>
     }
 }
