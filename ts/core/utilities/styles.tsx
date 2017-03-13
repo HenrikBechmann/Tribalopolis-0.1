@@ -9,6 +9,7 @@ import theme from 'material-ui/styles/baseThemes/lightBaseTheme'
 // TODO: register issue with 'justify-content' bad interface
 
 export let styles = {
+    // the main scaffold
     frame:{
         display:'flex',
         flexDirection:'column',
@@ -21,6 +22,12 @@ export let styles = {
     header:{
         flex:'none'
     },
+    main:{
+        flex:'auto',
+        position:'relative'
+    },
+    footer:{flex:'none'},
+    // header content
     toolbar:{},
     title:{
         backgroundColor:'palegoldenrod',
@@ -32,19 +39,41 @@ export let styles = {
         overflow:'hidden',
         padding:'3px'
     },
+    // main content
+    spacegraph:
+        {
+            fixedframe:{backgroundColor:'lightcyan',position:'relative',height:'100%'},
+            frame:{backgroundColor:'lightcyan',position:'relative',height:'100%',width:'100%',overflow:'scroll'},
+            platform:{height:'600px',minWidth:'100%',width:'600px',backgroundColor:'yellow'},
+            originframe:{zIndex:1,position:'absolute',top:0,left:0,backgroundColor:'lightgreen',borderRadius:'8px',border:'3px ridge gray',boxShadow:'rgba(0, 0, 0, 0.156863) 0px 3px 10px, rgba(0, 0, 0, 0.227451) 0px 3px 10px'},
+            origin:{
+                float:'left',
+                width:'72px',
+                height:'72px',
+                border:'1px solid silver',
+                backgroundColor:'lightblue',
+                borderRadius:'50%',
+                overflow:'hidden',
+            },
+        },
 
-    main:{
-        flex:'auto',
-        position:'relative'
+    list:{backgroundColor:'lightgreen',height:'600px'},
+    // footer content
+    status:{
+        backgroundColor:'palegoldenrod',
+        height:'1.5em',
+        width:'calc(100% - 6px)',
+        border:'3px ridge gray',
+        borderRadius:'6px',
     },
 
+    // splitter
     splitter:{
         splitterframe: {
             height:'100%',
             width:'100%',
             position:'absolute',
         },
-
         topframe:{
             position:'absolute',
             top:0,
@@ -68,32 +97,5 @@ export let styles = {
             position:'absolute',
             bottom:0,right:0,left:0,top:'calc(50% + 1px)',
         },
-    },
-    spacegraph:
-        {
-            fixedframe:{backgroundColor:'lightcyan',position:'relative',height:'100%'},
-            frame:{backgroundColor:'lightcyan',position:'relative',height:'100%',width:'100%',overflow:'scroll'},
-            platform:{height:'600px',minWidth:'100%',width:'600px',backgroundColor:'yellow'},
-            originframe:{zIndex:1,position:'absolute',top:0,left:0,backgroundColor:'lightgreen',borderRadius:'8px',border:'3px ridge gray',boxShadow:'rgba(0, 0, 0, 0.156863) 0px 3px 10px, rgba(0, 0, 0, 0.227451) 0px 3px 10px'},
-            origin:{
-                float:'left',
-                width:'72px',
-                height:'72px',
-                border:'1px solid silver',
-                backgroundColor:'lightblue',
-                borderRadius:'50%',
-                overflow:'hidden',
-            },
-        },
-
-    list:{backgroundColor:'lightgreen',height:'600px'},
-
-    footer:{flex:'none'},
-    status:{
-        backgroundColor:'palegoldenrod',
-        height:'1.5em',
-        width:'calc(100% - 6px)',
-        border:'3px ridge gray',
-        borderRadius:'6px',
     },
 }
