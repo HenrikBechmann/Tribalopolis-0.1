@@ -74,6 +74,7 @@ export let styles = {
             right: '0px',
             left: '0px',
             bottom: 'calc(50% + 1px)',
+            transition: 'bottom .5s ease-out',
         },
         splitter: {
             position: 'absolute',
@@ -81,6 +82,7 @@ export let styles = {
             width: '100%',
             height: '0px',
             borderTop: '2px solid gray',
+            transition: 'bottom .5s ease-out',
         },
         collapsetabtop: { position: 'absolute', height: '36px', width: '48px', bottom: '1px', right: '10px', backgroundColor: '#cff', zIndex: 2, display: 'flex', 'justify-content': "center", alignItems: 'center', border: '1px solid gray', cursor: 'pointer', borderRadius: '6px 6px 0 0' },
         collapsetabbottom: { position: 'absolute', height: '36px', width: '48px', top: '-1px', right: '10px', backgroundColor: '#d3f8d3', zIndex: 2, display: 'flex', 'justify-content': "center", alignItems: 'center', border: '1px solid gray', cursor: 'pointer', borderRadius: '0 0 6px 6px' },
@@ -92,6 +94,7 @@ export let styles = {
             right: '0px',
             left: '0px',
             top: 'calc(50% + 1px)',
+            transition: 'top .5s ease-out',
         },
     },
 };
