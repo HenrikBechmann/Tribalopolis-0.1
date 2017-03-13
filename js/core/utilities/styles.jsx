@@ -33,17 +33,34 @@ export let styles = {
         flex: 'auto',
         position: 'relative'
     },
-    splitterframe: {
-        height: '100%',
-        width: '100%',
-        position: 'absolute',
-    },
-    topframe: {
-        position: 'absolute',
-        top: 0,
-        right: 0,
-        left: 0,
-        bottom: 'calc(50% + 2px)',
+    splitter: {
+        splitterframe: {
+            height: '100%',
+            width: '100%',
+            position: 'absolute',
+        },
+        topframe: {
+            position: 'absolute',
+            top: 0,
+            right: 0,
+            left: 0,
+            bottom: 'calc(50% + 1px)',
+        },
+        splitter: {
+            position: 'absolute',
+            bottom: 'calc(50% - 1px)',
+            width: '100%',
+            height: 0,
+            borderTop: '2px solid gray',
+        },
+        collapsetabtop: { position: 'absolute', height: '36px', width: '48px', bottom: '1px', right: '10px', backgroundColor: '#cff', zIndex: 2, display: 'flex', 'justify-content': "center", alignItems: 'center', border: '1px solid gray', cursor: 'pointer', borderRadius: '6px 6px 0 0' },
+        collapsetabbottom: { position: 'absolute', height: '36px', width: '48px', top: '-1px', right: '10px', backgroundColor: '#d3f8d3', zIndex: 2, display: 'flex', 'justify-content': "center", alignItems: 'center', border: '1px solid gray', cursor: 'pointer', borderRadius: '0 0 6px 6px' },
+        bottomframe: {
+            overflow: 'scroll',
+            backgroundColor: 'green',
+            position: 'absolute',
+            bottom: 0, right: 0, left: 0, top: 'calc(50% + 1px)',
+        },
     },
     spacegraph: {
         fixedframe: { backgroundColor: 'lightcyan', position: 'relative', height: '100%' },
@@ -59,21 +76,6 @@ export let styles = {
             borderRadius: '50%',
             overflow: 'hidden',
         },
-    },
-    splitter: {
-        position: 'absolute',
-        bottom: '50%',
-        width: '100%',
-        height: 0,
-        borderTop: '2px solid gray',
-    },
-    collapsetabtop: { position: 'absolute', height: '36px', width: '48px', bottom: '1px', right: '10px', backgroundColor: '#cff', zIndex: 2, display: 'flex', 'justify-content': "center", alignItems: 'center', border: '1px solid gray', cursor: 'pointer', borderRadius: '6px 6px 0 0' },
-    collapsetabbottom: { position: 'absolute', height: '36px', width: '48px', top: '-1px', right: '10px', backgroundColor: '#d3f8d3', zIndex: 2, display: 'flex', 'justify-content': "center", alignItems: 'center', border: '1px solid gray', cursor: 'pointer', borderRadius: '0 0 6px 6px' },
-    bottomframe: {
-        overflow: 'scroll',
-        backgroundColor: 'green',
-        position: 'absolute',
-        bottom: 0, right: 0, left: 0, top: '50%',
     },
     list: { backgroundColor: 'lightgreen', height: '600px' },
     footer: { flex: 'none' },

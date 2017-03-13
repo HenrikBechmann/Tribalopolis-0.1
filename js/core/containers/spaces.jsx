@@ -12,6 +12,7 @@ import FlatButton from 'material-ui/FlatButton';
 import { Tabs, Tab } from 'material-ui/Tabs';
 import { styles } from '../utilities/styles';
 import SpaceGraph from '../components/spacegraph';
+import Splitter from '../components/splitter';
 import * as utilities from '../utilities/utilities';
 // TODO: make show/hide card panel tab; make show/hide graph panel tab
 /*
@@ -211,18 +212,7 @@ class Spaces extends React.Component {
             <div style={styles.title}>Demo: click on a node to remove it.</div>
         </div>
         <div style={styles.main}>
-            <div style={styles.splitterframe}>
-                <div style={styles.topframe}>
-                    <SpaceGraph data={this.state.sampledata}/>
-                </div>
-                <div style={styles.splitter}>
-                    <div style={styles.collapsetabtop}><FontIcon className="material-icons">arrow_drop_down</FontIcon></div>
-                    <div style={styles.collapsetabbottom}><FontIcon className="material-icons">arrow_drop_up</FontIcon></div>
-                </div>
-                <div style={styles.bottomframe}>
-                    <div style={styles.list}>Card</div>
-                </div>
-            </div>
+            <Splitter primaryPane={<SpaceGraph data={this.state.sampledata}/>} secondaryPane={<div style={styles.list}>Card</div>}/>
         </div>
         <div style={styles.footer}>
             <div style={styles.status}>Status</div>
