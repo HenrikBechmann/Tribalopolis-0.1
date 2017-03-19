@@ -1,7 +1,9 @@
 // splitter.tsx
 import * as React from 'react'
-import { styles as globalstyles } from '../utilities/styles'
 import FontIcon from 'material-ui/FontIcon'
+
+import { styles as globalstyles } from '../utilities/styles'
+import DragHandle from './draghandle'
 
 let styles = globalstyles.splitter
 
@@ -61,11 +63,7 @@ class Splitter extends React.Component<SplitterProps,any> {
                 {this.props.primaryPane}
             </div>
             <div style = {splitter}>
-                <div style = {draghandle}>
-                    <FontIcon className="material-icons">
-                        drag_handle
-                    </FontIcon>
-                </div>
+                <DragHandle />
                 <div 
                     onClick = { e => {
                         this.onCollapseCall('primary')
