@@ -2,19 +2,46 @@
 import * as React from 'react'
 import { styles as globalstyles } from '../utilities/styles'
 import FontIcon from 'material-ui/FontIcon'
+import { DragSource } from 'react-dnd'
 
 let styles = globalstyles.splitter
+
+var handleSource = {
+  beginDrag: function (props) {
+    console.log('beginning drag')
+    return {
+      text: 'something'
+    };
+  }
+}
+
+function collect(connect, monitor) {
+  console.log('collect function',connect,monitor)
+  return {
+    connectDragSource: connect.dragSource(),
+    isDragging: monitor.isDragging()
+  };
+}
 
 class DragHandle extends React.Component<any,any> {
 
     render() {
         const draghandle = Object.assign({},styles.draghandle)
-        return <div style = {draghandle}>
+    var isDragging = this.props.isDragging;
+    var connectDragSource = this.props.connectDragSource;
+    // var text = this.props.text;
+    console.log('values',isDragging,connectDragSource)
+
+    return connectDragSource(
+      <div style={{ opacity: isDragging ? 0.5 : 1 }}>
+         return <div style = {draghandle}>
             <FontIcon className="material-icons">
                 drag_handle
             </FontIcon>
         </div>
+      </div>
+    );
     }
 }
 
-export default DragHandle
+export default DragSource("something",handleSource,collect)(DragHandle)

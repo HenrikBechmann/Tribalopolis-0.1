@@ -3,6 +3,8 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import ReduxToastr from 'react-redux-toastr';
 import { Provider } from 'react-redux';
+import { DragDropContext } from 'react-dnd';
+import DnDBackend from 'react-dnd-html5-backend';
 // TODO copy muiTheme to global state at this point
 const Base = (props) => (<MuiThemeProvider muiTheme={getMuiTheme()}>
         <Provider store={props.store}>
@@ -13,5 +15,5 @@ const Base = (props) => (<MuiThemeProvider muiTheme={getMuiTheme()}>
             </div>
         </Provider>
     </MuiThemeProvider>);
-export default Base;
+export default DragDropContext(DnDBackend)(Base);
 //# sourceMappingURL=base.jsx.map
