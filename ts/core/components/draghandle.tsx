@@ -26,21 +26,20 @@ function collect(connect, monitor) {
 class DragHandle extends React.Component<any,any> {
 
     render() {
+        var isDragging = this.props.isDragging;
+        var connectDragSource = this.props.connectDragSource;
+        styles.draghandle.opacity = isDragging?0.5:1
         const draghandle = Object.assign({},styles.draghandle)
-    var isDragging = this.props.isDragging;
-    var connectDragSource = this.props.connectDragSource;
-    // var text = this.props.text;
-    console.log('values',isDragging,connectDragSource)
+        // var text = this.props.text;
+        console.log('isDragging',isDragging)
 
-    return connectDragSource(
-      <div style={{ opacity: isDragging ? 0.5 : 1 }}>
-         return <div style = {draghandle}>
-            <FontIcon className="material-icons">
-                drag_handle
-            </FontIcon>
-        </div>
-      </div>
-    );
+        return connectDragSource(
+            <div style = {draghandle}>
+                <FontIcon className="material-icons">
+                    drag_handle
+                </FontIcon>
+            </div>
+        )
     }
 }
 

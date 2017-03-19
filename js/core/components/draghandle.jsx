@@ -21,18 +21,17 @@ function collect(connect, monitor) {
 }
 class DragHandle extends React.Component {
     render() {
-        const draghandle = Object.assign({}, styles.draghandle);
         var isDragging = this.props.isDragging;
         var connectDragSource = this.props.connectDragSource;
+        styles.draghandle.opacity = isDragging ? 0.5 : 1;
+        const draghandle = Object.assign({}, styles.draghandle);
         // var text = this.props.text;
-        console.log('values', isDragging, connectDragSource);
-        return connectDragSource(<div style={{ opacity: isDragging ? 0.5 : 1 }}>
-         return <div style={draghandle}>
-            <FontIcon className="material-icons">
-                drag_handle
-            </FontIcon>
-        </div>
-      </div>);
+        console.log('isDragging', isDragging);
+        return connectDragSource(<div style={draghandle}>
+                <FontIcon className="material-icons">
+                    drag_handle
+                </FontIcon>
+            </div>);
     }
 }
 export default DragSource("something", handleSource, collect)(DragHandle);

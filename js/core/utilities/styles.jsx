@@ -85,6 +85,7 @@ export let styles = {
             transition: 'bottom .5s ease-out',
         },
         draghandle: {
+            opacity: 1,
             position: 'absolute',
             width: '36px',
             height: '36px',
