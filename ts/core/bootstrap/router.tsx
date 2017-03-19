@@ -5,6 +5,8 @@ let ReactGA = require('react-ga')
 ReactGA.initialize('UA-4105209-11')
 import Wrapper from './wrapper'
 
+console.log('browserHistory',browserHistory)
+
 let logPageView = () => {
     if (window.location.hostname == 'tribalopolis.ca') {
         ReactGA.set({ page: window.location.pathname });

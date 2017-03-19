@@ -53,6 +53,7 @@ class Splitter extends React.Component<SplitterProps,any> {
         const collapsetabtop = Object.assign({},styles.collapsetabtop)
         const collapsetabbottom = Object.assign({},styles.collapsetabbottom)
         const bottomframe = Object.assign({},styles.bottomframe)
+        const draghandle = Object.assign({},styles.draghandle)
         return <div style = {styles.splitterframe}>
             <div 
                 style = {topframe}
@@ -60,6 +61,11 @@ class Splitter extends React.Component<SplitterProps,any> {
                 {this.props.primaryPane}
             </div>
             <div style = {splitter}>
+                <div style = {draghandle}>
+                    <FontIcon className="material-icons">
+                        drag_handle
+                    </FontIcon>
+                </div>
                 <div 
                     onClick = { e => {
                         this.onCollapseCall('primary')
