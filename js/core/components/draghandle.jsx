@@ -6,14 +6,12 @@ import { DragSource } from 'react-dnd';
 let styles = globalstyles.splitter;
 var handleSource = {
     beginDrag: function (props) {
-        console.log('beginning drag');
         return {
             text: 'something'
         };
     }
 };
 function collect(connect, monitor) {
-    console.log('collect function', connect, monitor);
     return {
         connectDragSource: connect.dragSource(),
         isDragging: monitor.isDragging()
@@ -26,7 +24,6 @@ class DragHandle extends React.Component {
         styles.draghandle.opacity = isDragging ? 0.5 : 1;
         const draghandle = Object.assign({}, styles.draghandle);
         // var text = this.props.text;
-        console.log('isDragging', isDragging);
         return connectDragSource(<div style={draghandle}>
                 <FontIcon className="material-icons">
                     drag_handle
