@@ -6,26 +6,27 @@ import { DragSource } from 'react-dnd'
 
 let styles = globalstyles.splitter
 
-var handleSource = {
-  beginDrag: function (props) {
+let handleSource = {
+  beginDrag(props) {
     return {
       text: 'something'
-    };
+    }
   }
 }
 
-function collect(connect, monitor) {
+const collect = (connect, monitor) => {
   return {
     connectDragSource: connect.dragSource(),
     isDragging: monitor.isDragging()
   };
 }
 
+@DragSource('draghandle',handleSource,collect)
 class DragHandle extends React.Component<any,any> {
 
     render() {
-        var isDragging = this.props.isDragging;
-        var connectDragSource = this.props.connectDragSource;
+        let isDragging = this.props.isDragging;
+        let connectDragSource = this.props.connectDragSource;
         styles.draghandle.opacity = isDragging?0.5:1
         const draghandle = Object.assign({},styles.draghandle)
         // var text = this.props.text;
@@ -40,4 +41,4 @@ class DragHandle extends React.Component<any,any> {
     }
 }
 
-export default DragSource("something",handleSource,collect)(DragHandle)
+export default DragHandle

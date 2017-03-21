@@ -6,6 +6,9 @@ import { Provider } from 'react-redux';
 import { DragDropContext } from 'react-dnd';
 import DnDBackend from 'react-dnd-html5-backend';
 // TODO copy muiTheme to global state at this point
+// if ( navigator.userAgent.match(/Mobi/) ) {
+//     // We are in a mobile device
+// }
 const Base = (props) => (<MuiThemeProvider muiTheme={getMuiTheme()}>
         <Provider store={props.store}>
             <div>
