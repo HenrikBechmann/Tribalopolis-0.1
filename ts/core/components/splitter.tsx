@@ -1,4 +1,6 @@
 // splitter.tsx
+
+/// refer
 import * as React from 'react'
 import FontIcon from 'material-ui/FontIcon'
 
@@ -8,6 +10,10 @@ import DragHandle from './draghandle'
 import MoveDraghandleLayer from './movedraghandlelayer'
 
 let styles = globalstyles.splitter
+
+window['tribalopolis_global'] = 5
+
+console.log('window.var',window['tribalopolis_global'])
 
 interface SplitterProps {
     primaryPane:any,
@@ -19,6 +25,10 @@ class Splitter extends React.Component<SplitterProps,any> {
         orientation:'horizontal',
         collapse:0, // 0 = no, -1 = primary, 1 = secondary
         division:50, // %
+    }
+
+    dragUpdate = (args) => {
+        console.log('dragupdate args',args)
     }
 
     onCollapseCall = (selection) => {
@@ -66,7 +76,8 @@ class Splitter extends React.Component<SplitterProps,any> {
             </div>
             <div style = {splitter}>
                 <DragHandle />
-                <MoveDraghandleLayer />
+                <MoveDraghandleLayer 
+                 />
                 <div 
                     onClick = { e => {
                         this.onCollapseCall('primary')

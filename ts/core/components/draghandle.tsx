@@ -32,6 +32,7 @@ class DragHandle extends React.Component<any,any> {
     }
 
     render() {
+        console.log('from draghandle',window['tribalopolis_global'])
         let isDragging = this.props.isDragging;
         let connectDragSource = this.props.connectDragSource;
         // styles.draghandle.opacity = isDragging?0.5:1

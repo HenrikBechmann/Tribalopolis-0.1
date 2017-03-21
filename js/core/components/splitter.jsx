@@ -1,10 +1,13 @@
 // splitter.tsx
+/// refer
 import * as React from 'react';
 import FontIcon from 'material-ui/FontIcon';
 import { styles as globalstyles } from '../utilities/styles';
 import DragHandle from './draghandle';
 import MoveDraghandleLayer from './movedraghandlelayer';
 let styles = globalstyles.splitter;
+window['tribalopolis_global'] = 5;
+console.log('window.var', window['tribalopolis_global']);
 class Splitter extends React.Component {
     constructor() {
         super(...arguments);
@@ -12,6 +15,9 @@ class Splitter extends React.Component {
             orientation: 'horizontal',
             collapse: 0,
             division: 50,
+        };
+        this.dragUpdate = (args) => {
+            console.log('dragupdate args', args);
         };
         this.onCollapseCall = (selection) => {
             let collapse = this.state.collapse;

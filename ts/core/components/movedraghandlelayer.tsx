@@ -30,22 +30,38 @@ const getItemStyles = (props) => {
   };
 }
 
-const collect = monitor => ({
-  item: monitor.getItem(),
-  itemType: monitor.getItemType(),
-  initialOffset: monitor.getInitialSourceClientOffset(),
-  currentOffset: monitor.getSourceClientOffset(),
-  isDragging: monitor.isDragging(),
-})
+const collect = monitor => {
+  let itemstate = {
+    item: monitor.getItem(),
+    itemType: monitor.getItemType(),
+    initialOffset: monitor.getInitialSourceClientOffset(),
+    currentOffset: monitor.getSourceClientOffset(),
+    isDragging: monitor.isDragging(),
+  }
+  // console.log('offsets',itemstate.initialOffset,itemstate.currentOffset)
+  return itemstate
+}
 
 interface MoveDraghandleLayerProps {
     item?:any,
     itemType?:any,
     isDragging?:any,
     children?:any,
+    dragUpdate?:any,
 }
 
-class MoveDraghandleLayer extends React.Component<MoveDraghandleLayerProps,any> {
+class MoveDraghandleLayer extends React.Component<any,any> {
+
+  static propTypes
+
+  componentWillReceiveProps(nextProps) {
+    let { initialOffset, currentOffset, isDragging } = nextProps
+    // this.props.dragUpdate({
+    //   initialOffset,
+    //   currentOffset,
+    //   isDragging,
+    // })
+  }
 
   renderItem(type, item) {
     switch (type) {
@@ -58,7 +74,7 @@ class MoveDraghandleLayer extends React.Component<MoveDraghandleLayerProps,any> 
 
   render() {
     const { item, itemType, isDragging } = this.props;
-
+    console.log('movedraghandlelayer.props',this.props)
     if (!isDragging) {
       return null;
     }
@@ -71,6 +87,16 @@ class MoveDraghandleLayer extends React.Component<MoveDraghandleLayerProps,any> 
       </div>
     );
   }
+}
+
+MoveDraghandleLayer.propTypes = {
+    item:React.PropTypes.object,
+    itemType:React.PropTypes.string,
+    isDragging:React.PropTypes.bool,
+    children:React.PropTypes.any,
+    dragUpdate:React.PropTypes.func,
+    x:React.PropTypes.number,
+
 }
 
 export default DragLayer(collect)(MoveDraghandleLayer)
