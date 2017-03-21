@@ -3,6 +3,7 @@ import * as React from 'react';
 import FontIcon from 'material-ui/FontIcon';
 import { styles as globalstyles } from '../utilities/styles';
 import DragHandle from './draghandle';
+import MoveDraghandleLayer from './movedraghandlelayer';
 let styles = globalstyles.splitter;
 class Splitter extends React.Component {
     constructor() {
@@ -57,6 +58,7 @@ class Splitter extends React.Component {
             </div>
             <div style={splitter}>
                 <DragHandle />
+                <MoveDraghandleLayer />
                 <div onClick={e => {
             this.onCollapseCall('primary');
         }} style={collapsetabtop}>

@@ -11,7 +11,7 @@ const layerStyles = {
     width: '100%',
     height: '100%',
 };
-function getItemStyles(props) {
+const getItemStyles = (props) => {
     const { initialOffset, currentOffset } = props;
     if (!initialOffset || !currentOffset) {
         return {
@@ -24,7 +24,7 @@ function getItemStyles(props) {
         transform,
         WebkitTransform: transform,
     };
-}
+};
 const collect = monitor => ({
     item: monitor.getItem(),
     itemType: monitor.getItemType(),

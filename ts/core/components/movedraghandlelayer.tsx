@@ -13,7 +13,7 @@ const layerStyles = {
   height: '100%',
 };
 
-function getItemStyles(props) {
+const getItemStyles = (props) => {
   const { initialOffset, currentOffset } = props;
   if (!initialOffset || !currentOffset) {
     return {
@@ -39,9 +39,10 @@ const collect = monitor => ({
 })
 
 interface MoveDraghandleLayerProps {
-    item:any,
-    itemType:any,
-    isDragging:any,
+    item?:any,
+    itemType?:any,
+    isDragging?:any,
+    children?:any,
 }
 
 class MoveDraghandleLayer extends React.Component<MoveDraghandleLayerProps,any> {
