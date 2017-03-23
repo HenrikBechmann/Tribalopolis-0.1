@@ -11,10 +11,6 @@ import MoveDraghandleLayer from './movedraghandlelayer'
 
 let styles = globalstyles.splitter
 
-window['tribalopolis_global'] = 5
-
-console.log('window.var',window['tribalopolis_global'])
-
 interface SplitterProps {
     primaryPane:any,
     secondaryPane:any,
@@ -75,9 +71,10 @@ class Splitter extends React.Component<SplitterProps,any> {
                 {this.props.primaryPane}
             </div>
             <div style = {splitter}>
-                <DragHandle />
-                <MoveDraghandleLayer 
-                 />
+                <DragHandle 
+                    dragUpdate = {this.dragUpdate}
+                />
+                <MoveDraghandleLayer />
                 <div 
                     onClick = { e => {
                         this.onCollapseCall('primary')

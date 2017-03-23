@@ -47,20 +47,19 @@ interface MoveDraghandleLayerProps {
     itemType?:any,
     isDragging?:any,
     children?:any,
-    dragUpdate?:any,
 }
 
-class MoveDraghandleLayer extends React.Component<any,any> {
-
-  static propTypes
+class MoveDraghandleLayer extends React.Component<MoveDraghandleLayerProps,any> {
 
   componentWillReceiveProps(nextProps) {
-    let { initialOffset, currentOffset, isDragging } = nextProps
-    // this.props.dragUpdate({
-    //   initialOffset,
-    //   currentOffset,
-    //   isDragging,
-    // })
+    let { initialOffset, currentOffset, isDragging, item } = nextProps
+    if (isDragging) {
+      item.dragUpdate({
+        initialOffset,
+        currentOffset,
+        isDragging,
+      })
+    }
   }
 
   renderItem(type, item) {
@@ -74,7 +73,7 @@ class MoveDraghandleLayer extends React.Component<any,any> {
 
   render() {
     const { item, itemType, isDragging } = this.props;
-    console.log('movedraghandlelayer.props',this.props)
+    // console.log('movedraghandlelayer.props',this.props)
     if (!isDragging) {
       return null;
     }
@@ -87,16 +86,6 @@ class MoveDraghandleLayer extends React.Component<any,any> {
       </div>
     );
   }
-}
-
-MoveDraghandleLayer.propTypes = {
-    item:React.PropTypes.object,
-    itemType:React.PropTypes.string,
-    isDragging:React.PropTypes.bool,
-    children:React.PropTypes.any,
-    dragUpdate:React.PropTypes.func,
-    x:React.PropTypes.number,
-
 }
 
 export default DragLayer(collect)(MoveDraghandleLayer)

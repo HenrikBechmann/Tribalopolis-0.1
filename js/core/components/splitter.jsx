@@ -6,8 +6,6 @@ import { styles as globalstyles } from '../utilities/styles';
 import DragHandle from './draghandle';
 import MoveDraghandleLayer from './movedraghandlelayer';
 let styles = globalstyles.splitter;
-window['tribalopolis_global'] = 5;
-console.log('window.var', window['tribalopolis_global']);
 class Splitter extends React.Component {
     constructor() {
         super(...arguments);
@@ -63,7 +61,7 @@ class Splitter extends React.Component {
                 {this.props.primaryPane}
             </div>
             <div style={splitter}>
-                <DragHandle />
+                <DragHandle dragUpdate={this.dragUpdate}/>
                 <MoveDraghandleLayer />
                 <div onClick={e => {
             this.onCollapseCall('primary');
