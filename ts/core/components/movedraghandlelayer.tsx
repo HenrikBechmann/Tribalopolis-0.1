@@ -36,6 +36,7 @@ const collect = monitor => {
     itemType: monitor.getItemType(),
     initialOffset: monitor.getInitialSourceClientOffset(),
     currentOffset: monitor.getSourceClientOffset(),
+    diffOffset:monitor.getDifferenceFromInitialOffset(),
     isDragging: monitor.isDragging(),
   }
   // console.log('offsets',itemstate.initialOffset,itemstate.currentOffset)
@@ -52,11 +53,12 @@ interface MoveDraghandleLayerProps {
 class MoveDraghandleLayer extends React.Component<MoveDraghandleLayerProps,any> {
 
   componentWillReceiveProps(nextProps) {
-    let { initialOffset, currentOffset, isDragging, item } = nextProps
+    let { initialOffset, currentOffset, diffOffset, isDragging, item } = nextProps
     if (isDragging) {
       item.dragUpdate({
         initialOffset,
         currentOffset,
+        diffOffset,
         isDragging,
       })
     }

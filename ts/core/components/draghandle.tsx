@@ -25,7 +25,15 @@ const collect = (connect, monitor) => {
   };
 }
 
-class DragHandle extends React.Component<any,any> {
+interface DragHandleProps {
+    dragUpdate:Function,
+    connectDragPreview:any,
+    isDragging:boolean,
+    connectDragSource:any,
+    children:React.ReactNode,
+}
+
+class DragHandle extends React.Component<DragHandleProps,any> {
 
     componentDidMount() {
         this.props.connectDragPreview(getEmptyImage(),

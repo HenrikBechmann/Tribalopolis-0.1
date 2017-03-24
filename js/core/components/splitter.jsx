@@ -35,9 +35,9 @@ class Splitter extends React.Component {
                 }
             }
             else {
-                styles.topframe.bottom = 'calc(50% + 1px)';
-                styles.bottomframe.top = 'calc(50% + 1px)';
-                styles.splitter.bottom = 'calc(50% - 1px)';
+                styles.topframe.bottom = `calc(${this.state.division}% + 1px)`;
+                styles.bottomframe.top = `calc(${this.state.division}% + 1px)`;
+                styles.splitter.bottom = `calc(${this.state.division}% - 1px)`;
                 newcollapse = 0;
             }
             this.setState({
