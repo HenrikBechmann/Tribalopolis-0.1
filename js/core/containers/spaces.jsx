@@ -170,6 +170,7 @@ class Spaces extends React.Component {
         this.spaceoverflowmenu = <IconMenu iconButtonElement={<IconButton>
                     <FontIcon className='material-icons'>more_vert</FontIcon>
                 </IconButton>} anchorOrigin={{ vertical: "bottom", horizontal: "right" }} targetOrigin={{ vertical: "top", horizontal: "right" }}>
+            <MenuItem leftIcon={<FontIcon className='material-icons'>layers</FontIcon>} primaryText="Workspaces"/>
             <MenuItem leftIcon={<FontIcon className='material-icons'>refresh</FontIcon>} primaryText="Refresh"/>
             <MenuItem leftIcon={<FontIcon className='material-icons'>home</FontIcon>} primaryText="Home space"/>
             <MenuItem leftIcon={<FontIcon className='material-icons'>settings</FontIcon>} primaryText="Options"/>

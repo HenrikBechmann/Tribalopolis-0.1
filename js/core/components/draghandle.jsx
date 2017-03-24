@@ -9,8 +9,8 @@ let styles = globalstyles.splitter;
 let handleSource = {
     beginDrag(props) {
         return {
+            frameDimensions: props.getFrameDimensions(),
             dragUpdate: props.dragUpdate,
-            text: 'something'
         };
     }
 };

@@ -278,6 +278,10 @@ class Spaces extends React.Component<any,any> {
             targetOrigin = {{vertical:"top",horizontal:"right"}}
         >
             <MenuItem
+                leftIcon = {<FontIcon className='material-icons'>layers</FontIcon>}
+                primaryText = "Workspaces"
+            />
+            <MenuItem
                 leftIcon = {<FontIcon className='material-icons'>refresh</FontIcon>}
                 primaryText = "Refresh"
             />

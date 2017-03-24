@@ -12,10 +12,30 @@ class Splitter extends React.Component {
         this.state = {
             orientation: 'horizontal',
             collapse: 0,
-            division: 50,
+            division: 70,
         };
         this.dragUpdate = (args) => {
-            console.log('dragupdate args', args);
+            let newdivision = (((args.frameDimensions.reference + args.diffOffset.y)
+                / args.frameDimensions.height) * 100);
+            if (newdivision > 100)
+                newdivision = 100;
+            if (newdivision < 0)
+                newdivision = 0;
+            // console.log('dragupdate args',args,newdivision)
+            styles.topframe.bottom = `calc(${100 - newdivision}% + 1px)`;
+            styles.bottomframe.top = `calc(${newdivision}% + 1px)`;
+            styles.splitter.bottom = `calc(${100 - newdivision}% - 1px)`;
+            this.setState({
+                division: newdivision
+            });
+        };
+        this.getFrameDimensions = () => {
+            let el = document.getElementById('splitterframe');
+            return {
+                height: el.clientHeight,
+                width: el.clientWidth,
+                reference: (el.clientHeight * (this.state.division / 100))
+            };
         };
         this.onCollapseCall = (selection) => {
             let collapse = this.state.collapse;
@@ -35,15 +55,20 @@ class Splitter extends React.Component {
                 }
             }
             else {
-                styles.topframe.bottom = `calc(${this.state.division}% + 1px)`;
+                styles.topframe.bottom = `calc(${100 - this.state.division}% + 1px)`;
                 styles.bottomframe.top = `calc(${this.state.division}% + 1px)`;
-                styles.splitter.bottom = `calc(${this.state.division}% - 1px)`;
+                styles.splitter.bottom = `calc(${100 - this.state.division}% - 1px)`;
                 newcollapse = 0;
             }
             this.setState({
                 collapse: newcollapse
             });
         };
+    }
+    componentWillMount() {
+        styles.topframe.bottom = `calc(${100 - this.state.division}% + 1px)`;
+        styles.bottomframe.top = `calc(${this.state.division}% + 1px)`;
+        styles.splitter.bottom = `calc(${100 - this.state.division}% - 1px)`;
     }
     render() {
         let collapse = this.state.collapse;
@@ -56,12 +81,12 @@ class Splitter extends React.Component {
         const collapsetabbottom = Object.assign({}, styles.collapsetabbottom);
         const bottomframe = Object.assign({}, styles.bottomframe);
         const draghandle = Object.assign({}, styles.draghandle);
-        return <div style={styles.splitterframe}>
+        return <div id='splitterframe' style={styles.splitterframe}>
             <div style={topframe}>
                 {this.props.primaryPane}
             </div>
             <div style={splitter}>
-                <DragHandle dragUpdate={this.dragUpdate}/>
+                <DragHandle dragUpdate={this.dragUpdate} getFrameDimensions={this.getFrameDimensions}/>
                 <MoveDraghandleLayer />
                 <div onClick={e => {
             this.onCollapseCall('primary');

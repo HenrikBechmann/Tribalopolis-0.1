@@ -60,6 +60,7 @@ class MoveDraghandleLayer extends React.Component<MoveDraghandleLayerProps,any> 
         currentOffset,
         diffOffset,
         isDragging,
+        frameDimensions:item.frameDimensions,
       })
     }
   }
@@ -67,7 +68,7 @@ class MoveDraghandleLayer extends React.Component<MoveDraghandleLayerProps,any> 
   renderItem(type, item) {
     switch (type) {
       case ITEM_TYPES.DRAGHANDLE:
-        return (<div style={{height:'36px',width:'36px',backgroundColor:'red'}}></div>);
+        return (<div style={{height:'36px',width:'36px'}}></div>);
       default:
         return null;
     }
