@@ -90,11 +90,11 @@ class Spaces extends React.Component {
                 </p>
               </div>
             </Tab>
-            <Tab label="Links">
+            <Tab label="Fields">
               <div>
-                <h2>Select Link Types</h2>
+                <h2>Select Field Types</h2>
                 <p>
-                  [list of link types]
+                  [list of field types]
                 </p>
               </div>
             </Tab>
@@ -153,6 +153,11 @@ class Spaces extends React.Component {
             <Divider />
             <MenuItem primaryText="Register (new users)"/>
         </IconMenu>;
+        // <IconButton
+        //     onTouchTap = { this.handleSearchDialogOpen }
+        // >
+        //     <FontIcon className='material-icons'>search</FontIcon>
+        // </IconButton>
         this.spacemenu = <div>
             <IconButton>
                 <FontIcon className='material-icons'>arrow_back</FontIcon>
@@ -162,9 +167,6 @@ class Spaces extends React.Component {
             </IconButton>
             <IconButton onTouchTap={this.handleFilterDialogOpen}>
                 <FontIcon className='material-icons'>filter_list</FontIcon>
-            </IconButton>
-            <IconButton onTouchTap={this.handleSearchDialogOpen}>
-                <FontIcon className='material-icons'>search</FontIcon>
             </IconButton>
         </div>;
         this.spaceoverflowmenu = <IconMenu iconButtonElement={<IconButton>
@@ -181,7 +183,7 @@ class Spaces extends React.Component {
         if (!this.state.sampledata) {
             utilities.getJsonFile('/db/sample.json').then((data) => {
                 let sampledata = this.normalizeData(data);
-                console.log(sampledata);
+                console.log('sampledata', sampledata);
                 this.setState({
                     sampledata
                 });
@@ -213,7 +215,7 @@ class Spaces extends React.Component {
             <div style={styles.title}>Demo: click on a node to remove it.</div>
         </div>
         <div style={styles.main}>
-            <Splitter primaryPane={<SpaceGraph data={this.state.sampledata}/>} secondaryPane={<div style={styles.list}>Card</div>}/>
+            <Splitter primaryPane={<SpaceGraph data={this.state.sampledata}/>} secondaryPane={<div style={styles.list}>Card</div>} division="50%"/>
         </div>
         <div style={styles.footer}>
             <div style={styles.status}>Status</div>

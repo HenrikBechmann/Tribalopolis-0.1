@@ -12,7 +12,7 @@ class Splitter extends React.Component {
         this.state = {
             orientation: 'horizontal',
             collapse: 0,
-            division: 70,
+            division: null,
         };
         this.dragUpdate = (args) => {
             let newdivision = (((args.frameDimensions.reference + args.diffOffset.y)
@@ -66,9 +66,13 @@ class Splitter extends React.Component {
         };
     }
     componentWillMount() {
-        styles.topframe.bottom = `calc(${100 - this.state.division}% + 1px)`;
-        styles.bottomframe.top = `calc(${this.state.division}% + 1px)`;
-        styles.splitter.bottom = `calc(${100 - this.state.division}% - 1px)`;
+        let division = parseInt(this.props.division) || 70;
+        this.setState({
+            division: division
+        });
+        styles.topframe.bottom = `calc(${100 - division}% + 1px)`;
+        styles.bottomframe.top = `calc(${division}% + 1px)`;
+        styles.splitter.bottom = `calc(${100 - division}% - 1px)`;
     }
     render() {
         let collapse = this.state.collapse;

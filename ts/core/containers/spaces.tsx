@@ -32,9 +32,9 @@ class Spaces extends React.Component<any,any> {
     componentDidMount() {
 
         if (!this.state.sampledata) {
-            utilities.getJsonFile('/db/sample.json').then((data) =>{
+            utilities.getJsonFile('/db/sample.json').then((data) => {
                 let sampledata = this.normalizeData(data)
-                console.log(sampledata)
+                console.log('sampledata', sampledata)
                 this.setState({
                     sampledata
                 })
@@ -118,11 +118,11 @@ class Spaces extends React.Component<any,any> {
                 </p>
               </div>
             </Tab>
-            <Tab label="Links" >
+            <Tab label="Fields" >
               <div>
-                <h2>Select Link Types</h2>
+                <h2>Select Field Types</h2>
                 <p>
-                  [list of link types]
+                  [list of field types]
                 </p>
               </div>
             </Tab>
@@ -249,6 +249,11 @@ class Spaces extends React.Component<any,any> {
             />
         </IconMenu>
 
+        // <IconButton
+        //     onTouchTap = { this.handleSearchDialogOpen }
+        // >
+        //     <FontIcon className='material-icons'>search</FontIcon>
+        // </IconButton>
     spacemenu = <div>
             <IconButton>
                 <FontIcon className='material-icons'>arrow_back</FontIcon>
@@ -260,11 +265,6 @@ class Spaces extends React.Component<any,any> {
                 onTouchTap = { this.handleFilterDialogOpen }
             >
                 <FontIcon className='material-icons'>filter_list</FontIcon>
-            </IconButton>
-            <IconButton
-                onTouchTap = { this.handleSearchDialogOpen }
-            >
-                <FontIcon className='material-icons'>search</FontIcon>
             </IconButton>
         </div>
 
@@ -331,6 +331,7 @@ class Spaces extends React.Component<any,any> {
                 secondaryPane = {
                     <div style={styles.list} >Card</div>
                 }
+                division = "50%"
             />
         </div>
         <div style={styles.footer}>

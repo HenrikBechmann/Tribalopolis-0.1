@@ -12,21 +12,26 @@ import MoveDraghandleLayer from './movedraghandlelayer'
 let styles = globalstyles.splitter
 
 interface SplitterProps {
-    primaryPane:any,
-    secondaryPane:any,
+    primaryPane:JSX.Element,
+    secondaryPane:JSX.Element,
+    division:string,
 }
 class Splitter extends React.Component<SplitterProps,any> {
 
     state = {
         orientation:'horizontal',
         collapse:0, // 0 = no, -1 = primary, 1 = secondary
-        division:70, // %
+        division:null, // %
     }
 
     componentWillMount() {
-        styles.topframe.bottom = `calc(${100-this.state.division}% + 1px)`
-        styles.bottomframe.top = `calc(${this.state.division}% + 1px)`
-        styles.splitter.bottom = `calc(${100-this.state.division}% - 1px)`
+        let division = parseInt(this.props.division) || 70
+        this.setState({
+            division:division
+        })
+        styles.topframe.bottom = `calc(${100-division}% + 1px)`
+        styles.bottomframe.top = `calc(${division}% + 1px)`
+        styles.splitter.bottom = `calc(${100-division}% - 1px)`
     }
 
     dragUpdate = (args) => {
