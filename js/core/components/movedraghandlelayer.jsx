@@ -18,7 +18,8 @@ const getItemStyles = (props) => {
             display: 'none',
         };
     }
-    let { x, y } = currentOffset;
+    let { y } = currentOffset;
+    let { x } = initialOffset;
     const transform = `translate(${x}px, ${y}px)`;
     return {
         transform,
