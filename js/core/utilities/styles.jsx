@@ -9,7 +9,7 @@ export let styles = {
     // the main scaffold
     frame: {
         display: 'flex',
-        flexDirection: 'column',
+        "flex-direction": 'column',
         position: 'absolute',
         top: 0,
         right: 0,

@@ -5,6 +5,10 @@ import FontIcon from 'material-ui/FontIcon';
 import { DragSource } from 'react-dnd';
 import { getEmptyImage } from 'react-dnd-html5-backend';
 import { ITEM_TYPES } from '../local/constants';
+/*
+  TODO: onDragStart set svg overflow to hidden
+  onDragEnd set svg overflow back to scroll
+*/
 let styles = globalstyles.splitter;
 let handleSource = {
     beginDrag(props) {
