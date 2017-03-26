@@ -334,6 +334,7 @@ class Spaces extends React.Component<any,any> {
                 orientation = "horizontal"
                 division = {30}
                 collapse = {0}
+                threshold = {100}
             />
         </div>
         <div style={styles.footer}>

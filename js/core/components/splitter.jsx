@@ -1,6 +1,8 @@
 // splitter.tsx
 /*
-    TODO: bug showing tabs when collapse is not 0
+    TODO: - bug showing tabs when collapse is not 0
+    - implement all control properties
+    - make work on mobile devices
 */
 import * as React from 'react';
 import FontIcon from 'material-ui/FontIcon';
@@ -83,18 +85,34 @@ class Splitter extends React.Component {
                 styles.splitter.bottom = `calc(${100 - division}% - 1px)`;
             }
         };
-        let { division, collapse, orientation } = this.props;
+        let { division, collapse, orientation, threshold, showHandle, showTabs } = this.props;
         if (division < 0)
             division = 0;
         if (division > 100)
             division = 100;
         orientation = orientation || 'horizontal';
+        division = division || 50;
+        collapse = collapse || 0;
+        threshold = threshold || 100;
+        showHandle = (showHandle == undefined) ? true : showHandle;
+        showTabs = (showTabs == undefined) ? false : showTabs;
+        if (!(showHandle || showTabs))
+            showHandle = true;
+        this.showHandle = showHandle;
+        this.showTabs = showTabs;
+        this.threshold = threshold;
         this.state = {
             division,
             collapse,
             orientation,
         };
         this.setCollapseStyles(collapse, division);
+    }
+    componentDidMount() {
+        let el = document.getElementById('splitterframe');
+        let height = el.clientHeight;
+        if ((this.threshold / height) > .25)
+            this.threshold = height * .25;
     }
     // update state if division or collapse changes
     componentWillReceiveProps(nextProps) {

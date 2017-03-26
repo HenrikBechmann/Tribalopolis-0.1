@@ -1,7 +1,9 @@
 // splitter.tsx
 
 /*
-    TODO: bug showing tabs when collapse is not 0
+    TODO: - bug showing tabs when collapse is not 0
+    - implement all control properties
+    - make work on mobile devices
 */
 
 import * as React from 'react'
@@ -17,24 +19,47 @@ let styles = globalstyles.splitter
 interface SplitterProps {
     primaryPane:JSX.Element,
     secondaryPane:JSX.Element,
-    division:number,
-    collapse:1 | -1 | 0,
-    orientation: "horizontal" | "vertical"
+    division?:number, // 0-100
+    collapse?:1 | -1 | 0,
+    orientation?: "horizontal" | "vertical",
+    threshold?:number, // pixels
+    showTabs?:boolean,
+    showHandle?:boolean,
 }
 class Splitter extends React.Component<SplitterProps,any> {
 
     constructor(props) {
         super(props)
-        let { division, collapse, orientation } = this.props
+        let { division, collapse, orientation, threshold, showHandle, showTabs } = this.props
         if (division < 0) division = 0
         if (division > 100) division = 100
         orientation = orientation || 'horizontal'
+        division = division || 50
+        collapse = collapse || 0
+        threshold = threshold || 100
+        showHandle = (showHandle == undefined)?true:showHandle
+        showTabs = (showTabs == undefined)?false:showTabs
+        if (!(showHandle || showTabs)) showHandle = true
+        this.showHandle = showHandle
+        this.showTabs = showTabs
+        this.threshold = threshold
         this.state = {
             division,
             collapse,
             orientation,
         }
         this.setCollapseStyles(collapse,division)
+    }
+
+    threshold:number
+    showTabs:boolean
+    showHandle:boolean
+
+    componentDidMount() {
+        let el = document.getElementById('splitterframe')
+        let height = el.clientHeight
+        if ((this.threshold / height) > .25)
+            this.threshold = height * .25   
     }
 
     // update state if division or collapse changes
