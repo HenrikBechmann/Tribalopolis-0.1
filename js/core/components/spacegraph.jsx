@@ -40,6 +40,7 @@ class SpaceGraph extends React.Component {
             maxHeight: 5000
         };
         let styles = globalstyles.spacegraph;
+        console.log('spacegraph styles', styles);
         return <div style={styles.fixedframe}>
             <div style={styles.originframe}>
                 <div style={styles.origin}>

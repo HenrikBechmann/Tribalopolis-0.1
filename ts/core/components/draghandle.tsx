@@ -10,8 +10,6 @@ import { ITEM_TYPES } from '../local/constants'
   TODO: - onDragStart set svg overflow to hidden
   onDragEnd set svg overflow back to scroll
   - set collapse when splitter below threshold (on dragend)
-  - ondragstart remove pane transition
-  - ondragend restore pane transition
   - vertical splitter
 */
 

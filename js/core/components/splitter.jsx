@@ -20,7 +20,7 @@ class Splitter extends React.Component {
                     topframe: styles.topframe.transition,
                     splitter: styles.splitter.transition,
                     bottomframe: styles.bottomframe.transition,
-                }
+                },
             };
             this.stylememo = stylememo;
             styles.topframe.transition = 'unset';
@@ -157,7 +157,7 @@ class Splitter extends React.Component {
         const draghandle = Object.assign({}, styles.draghandle);
         return <div id='splitterframe' style={styles.splitterframe}>
             <div style={topframe}>
-                {this.props.primaryPane}
+                {this.props.primaryPane.node}
             </div>
             <div style={splitter}>
                 <DragHandle dragStart={this.dragStart} dragEnd={this.dragEnd} dragUpdate={this.dragUpdate} getFrameDimensions={this.getFrameDimensions}/>
@@ -182,7 +182,7 @@ class Splitter extends React.Component {
                 </div>
             </div>
             <div style={bottomframe}>
-                {this.props.secondaryPane}
+                {this.props.secondaryPane.node}
             </div>
         </div>;
     }

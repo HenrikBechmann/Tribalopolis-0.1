@@ -17,8 +17,14 @@ import MoveDraghandleLayer from './movedraghandlelayer'
 let styles = globalstyles.splitter
 
 interface SplitterProps {
-    primaryPane:JSX.Element,
-    secondaryPane:JSX.Element,
+    primaryPane:{
+        callbacks?:string[],
+        node:JSX.Element,
+    },
+    secondaryPane:{
+        callbacks?:string[],
+        node:JSX.Element,
+    },
     division?:number, // 0-100
     collapse?:1 | -1 | 0,
     orientation?: "horizontal" | "vertical",
@@ -85,7 +91,7 @@ class Splitter extends React.Component<SplitterProps,any> {
                 topframe:styles.topframe.transition,
                 splitter:styles.splitter.transition,
                 bottomframe:styles.bottomframe.transition,
-            }
+            },
         }
         this.stylememo = stylememo
         styles.topframe.transition = 'unset'
@@ -184,7 +190,7 @@ class Splitter extends React.Component<SplitterProps,any> {
             <div 
                 style = {topframe}
             >
-                {this.props.primaryPane}
+                {this.props.primaryPane.node}
             </div>
             <div style = {splitter}>
                 <DragHandle 
@@ -225,7 +231,7 @@ class Splitter extends React.Component<SplitterProps,any> {
             </div>
             <div 
                 style={bottomframe}>
-                {this.props.secondaryPane}
+                {this.props.secondaryPane.node}
             </div>
         </div>
     }

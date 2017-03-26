@@ -327,10 +327,17 @@ class Spaces extends React.Component<any,any> {
         <div style = {styles.main}>
             <Splitter 
                 primaryPane = {
-                    <SpaceGraph data = {this.state.sampledata}/>
+                    {
+                        callbacks:
+                            ['changeStylesForDrag','restoreStylesForDrag']
+                        ,
+                        node:<SpaceGraph data = {this.state.sampledata}/>
+                    }
                 }
                 secondaryPane = {
-                    <div style={styles.list} >Card</div>
+                    {
+                        node:<div style={styles.list} >Card</div>
+                    }
                 }
                 orientation = "horizontal"
                 division = {30}
