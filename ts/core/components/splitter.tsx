@@ -1,6 +1,9 @@
 // splitter.tsx
 
-/// refer
+/*
+    TODO: bug showing tabs when collapse is not 0
+*/
+
 import * as React from 'react'
 import FontIcon from 'material-ui/FontIcon'
 
@@ -14,24 +17,29 @@ let styles = globalstyles.splitter
 interface SplitterProps {
     primaryPane:JSX.Element,
     secondaryPane:JSX.Element,
-    division:string,
+    division:number,
+    collapse:1 | -1 | 0,
+    orientation: "horizontal" | "vertical"
 }
 class Splitter extends React.Component<SplitterProps,any> {
 
-    state = {
-        orientation:'horizontal',
-        collapse:0, // 0 = no, -1 = primary, 1 = secondary
-        division:null, // %
+    constructor(props) {
+        super(props)
+        let { division, collapse, orientation } = this.props
+        if (division < 0) division = 0
+        if (division > 100) division = 100
+        orientation = orientation || 'horizontal'
+        this.state = {
+            division,
+            collapse,
+            orientation,
+        }
+        this.setCollapseStyles(collapse)
     }
 
-    componentWillMount() {
-        let division = parseInt(this.props.division) || 70
-        this.setState({
-            division:division
-        })
-        styles.topframe.bottom = `calc(${100-division}% + 1px)`
-        styles.bottomframe.top = `calc(${division}% + 1px)`
-        styles.splitter.bottom = `calc(${100-division}% - 1px)`
+    // update state if division or collapse changes
+    componentWillReceiveProps(nextProps) {
+
     }
 
     dragUpdate = (args) => {
@@ -45,17 +53,28 @@ class Splitter extends React.Component<SplitterProps,any> {
         styles.bottomframe.top = `calc(${newdivision}% + 1px)`
         styles.splitter.bottom = `calc(${100-newdivision}% - 1px)`
         this.setState({
-            division:newdivision
+            division:newdivision,
+            collapse:0
         })
     }
 
     getFrameDimensions = () => {
         let el = document.getElementById('splitterframe')
-        return {
-            height:el.clientHeight,
-            width:el.clientWidth,
-            reference:(el.clientHeight * (this.state.division/100))
+        let { collapse } = this.state
+        let reference 
+        if (collapse) {
+            reference = (collapse == -1)? 0:el.clientHeight
+        } else {
+            reference = (el.clientHeight * (this.state.division/100))
         }
+        let frameDimensions = 
+            {
+                height:el.clientHeight,
+                width:el.clientWidth,
+                reference,
+            }
+        console.log('frameDimensions',frameDimensions)
+        return frameDimensions
     }
 
     onCollapseCall = (selection) => {
@@ -63,31 +82,41 @@ class Splitter extends React.Component<SplitterProps,any> {
         let newcollapse = null
         if (!collapse) {
             if (selection == 'primary') {
-                styles.topframe.bottom = '2px'
-                styles.bottomframe.top = '100%'
-                styles.splitter.bottom = '0px'
-                newcollapse = -1
-            } else {
-                styles.topframe.bottom = '100%'
-                styles.bottomframe.top = '2px'
-                styles.splitter.bottom = 'calc(100% - 2px)'
                 newcollapse = 1
+            } else {
+                newcollapse = -1
             } 
         } else {
-            styles.topframe.bottom = `calc(${100-this.state.division}% + 1px)`
-            styles.bottomframe.top = `calc(${this.state.division}% + 1px)`
-            styles.splitter.bottom = `calc(${100-this.state.division}% - 1px)`
             newcollapse = 0
         }
+        this.setCollapseStyles(newcollapse)
         this.setState({
             collapse:newcollapse
         })
     }
 
+    setCollapseStyles = (collapse) => {
+        if (collapse) {
+            if (collapse == 1) {
+                styles.topframe.bottom = '2px'
+                styles.bottomframe.top = '100%'
+                styles.splitter.bottom = '0px'
+            } else {
+                styles.topframe.bottom = '100%'
+                styles.bottomframe.top = '2px'
+                styles.splitter.bottom = 'calc(100% - 2px)'
+            } 
+        } else {
+            styles.topframe.bottom = `calc(${100-this.state.division}% + 1px)`
+            styles.bottomframe.top = `calc(${this.state.division}% + 1px)`
+            styles.splitter.bottom = `calc(${100-this.state.division}% - 1px)`
+        }
+    }
+
     render() {
         let collapse = this.state.collapse
-        styles.collapsetabtop.display = (collapse == 1)?'none':'flex'
-        styles.collapsetabbottom.display = (collapse == -1)?'none':'flex'
+        styles.collapsetabtop.display = (collapse == -1)?'none':'flex'
+        styles.collapsetabbottom.display = (collapse == 1)?'none':'flex'
         // mutated values not allowed (deprectated by React); make fresh clones
         const topframe = Object.assign({},styles.topframe)
         const splitter = Object.assign({},styles.splitter)
@@ -116,7 +145,7 @@ class Splitter extends React.Component<SplitterProps,any> {
                     <FontIcon className="material-icons">
                         {
                             !collapse?'arrow_drop_down':
-                            (collapse == -1)?'arrow_drop_up':
+                            (collapse == 1)?'arrow_drop_up':
                             'arrow_drop_down'
                         }
                     </FontIcon>
@@ -130,7 +159,7 @@ class Splitter extends React.Component<SplitterProps,any> {
                     <FontIcon className="material-icons">
                         {
                             !collapse?'arrow_drop_up':
-                            (collapse == 1)?'arrow_drop_down':
+                            (collapse == -1)?'arrow_drop_down':
                             'arrow_drop_up'
                         }
                     </FontIcon>

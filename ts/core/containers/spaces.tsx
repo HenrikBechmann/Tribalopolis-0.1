@@ -331,7 +331,9 @@ class Spaces extends React.Component<any,any> {
                 secondaryPane = {
                     <div style={styles.list} >Card</div>
                 }
-                division = "50%"
+                orientation = "horizontal"
+                division = {30}
+                collapse = {0}
             />
         </div>
         <div style={styles.footer}>
