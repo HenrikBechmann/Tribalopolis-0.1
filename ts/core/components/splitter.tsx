@@ -34,11 +34,20 @@ class Splitter extends React.Component<SplitterProps,any> {
             collapse,
             orientation,
         }
-        this.setCollapseStyles(collapse)
+        this.setCollapseStyles(collapse,division)
     }
 
     // update state if division or collapse changes
     componentWillReceiveProps(nextProps) {
+        if ((nextProps.division !== this.props.division) ||
+            (nextProps.collapse !== this.props.collapse)) {
+            let { division, collapse } = nextProps
+            this.setState({
+                division,
+                collapse,
+            })
+            this.setCollapseStyles(collapse,division)
+        }
 
     }
 
@@ -89,13 +98,13 @@ class Splitter extends React.Component<SplitterProps,any> {
         } else {
             newcollapse = 0
         }
-        this.setCollapseStyles(newcollapse)
+        this.setCollapseStyles(newcollapse, this.state.division)
         this.setState({
             collapse:newcollapse
         })
     }
 
-    setCollapseStyles = (collapse) => {
+    setCollapseStyles = (collapse, division) => {
         if (collapse) {
             if (collapse == 1) {
                 styles.topframe.bottom = '2px'
@@ -107,9 +116,9 @@ class Splitter extends React.Component<SplitterProps,any> {
                 styles.splitter.bottom = 'calc(100% - 2px)'
             } 
         } else {
-            styles.topframe.bottom = `calc(${100-this.state.division}% + 1px)`
-            styles.bottomframe.top = `calc(${this.state.division}% + 1px)`
-            styles.splitter.bottom = `calc(${100-this.state.division}% - 1px)`
+            styles.topframe.bottom = `calc(${100-division}% + 1px)`
+            styles.bottomframe.top = `calc(${division}% + 1px)`
+            styles.splitter.bottom = `calc(${100-division}% - 1px)`
         }
     }
 
