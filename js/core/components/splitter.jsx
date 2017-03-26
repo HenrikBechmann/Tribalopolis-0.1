@@ -13,6 +13,27 @@ let styles = globalstyles.splitter;
 class Splitter extends React.Component {
     constructor(props) {
         super(props);
+        this.stylememo = null;
+        this.dragStart = () => {
+            let stylememo = {
+                transitions: {
+                    topframe: styles.topframe.transition,
+                    splitter: styles.splitter.transition,
+                    bottomframe: styles.bottomframe.transition,
+                }
+            };
+            this.stylememo = stylememo;
+            styles.topframe.transition = 'unset';
+            styles.splitter.transition = 'unset';
+            styles.bottomframe.transition = 'unset';
+        };
+        this.dragEnd = () => {
+            let stylememo = this.stylememo;
+            this.stylememo = null;
+            styles.topframe.transition = stylememo.transitions.topframe;
+            styles.splitter.transition = stylememo.transitions.splitter;
+            styles.bottomframe.transition = stylememo.transitions.bottomframe;
+        };
         this.dragUpdate = (args) => {
             let newdivision = (((args.frameDimensions.reference + args.diffOffset.y)
                 / args.frameDimensions.height) * 100);
@@ -20,10 +41,7 @@ class Splitter extends React.Component {
                 newdivision = 100;
             if (newdivision < 0)
                 newdivision = 0;
-            // console.log('dragupdate args',args,newdivision)
-            styles.topframe.bottom = `calc(${100 - newdivision}% + 1px)`;
-            styles.bottomframe.top = `calc(${newdivision}% + 1px)`;
-            styles.splitter.bottom = `calc(${100 - newdivision}% - 1px)`;
+            this.setCollapseStyles(0, newdivision);
             this.setState({
                 division: newdivision,
                 collapse: 0
@@ -142,7 +160,7 @@ class Splitter extends React.Component {
                 {this.props.primaryPane}
             </div>
             <div style={splitter}>
-                <DragHandle dragStart={() => { console.log('dragStart'); }} dragEnd={() => { console.log('dragEnd'); }} dragUpdate={this.dragUpdate} getFrameDimensions={this.getFrameDimensions}/>
+                <DragHandle dragStart={this.dragStart} dragEnd={this.dragEnd} dragUpdate={this.dragUpdate} getFrameDimensions={this.getFrameDimensions}/>
                 <MoveDraghandleLayer />
                 <div onClick={e => {
             this.onCollapseCall('primary');
