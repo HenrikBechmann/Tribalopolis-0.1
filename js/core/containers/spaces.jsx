@@ -1,4 +1,7 @@
 // spaces.tsx
+/*
+TODO: make show/hide card panel tab; make show/hide graph panel tab
+*/
 import * as React from 'react';
 import { Toolbar, ToolbarGroup } from 'material-ui/Toolbar';
 import IconButton from 'material-ui/IconButton';
@@ -14,9 +17,6 @@ import { styles } from '../utilities/styles';
 import SpaceGraph from '../components/spacegraph';
 import Splitter from '../components/splitter';
 import * as utilities from '../utilities/utilities';
-// TODO: make show/hide card panel tab; make show/hide graph panel tab
-/*
-*/
 class Spaces extends React.Component {
     constructor() {
         super(...arguments);
@@ -215,7 +215,7 @@ class Spaces extends React.Component {
             <div style={styles.title}>Demo: click on a node to remove it.</div>
         </div>
         <div style={styles.main}>
-            <Splitter primaryPane={<SpaceGraph data={this.state.sampledata}/>} secondaryPane={<div style={styles.list}>Card</div>} orientation="horizontal" division={30} collapse={0} threshold={100}/>
+            <Splitter primaryPane={<SpaceGraph data={this.state.sampledata}/>} secondaryPane={<div style={styles.list}>Card</div>} orientation="horizontal" division={30} collapse={0} threshold={100} showTabs={false} showHandle={true}/>
         </div>
         <div style={styles.footer}>
             <div style={styles.status}>Status</div>

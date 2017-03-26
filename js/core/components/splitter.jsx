@@ -101,10 +101,10 @@ class Splitter extends React.Component {
         this.showHandle = showHandle;
         this.showTabs = showTabs;
         this.threshold = threshold;
+        this.orientation = orientation;
         this.state = {
             division,
             collapse,
-            orientation,
         };
         this.setCollapseStyles(collapse, division);
     }
@@ -142,7 +142,7 @@ class Splitter extends React.Component {
                 {this.props.primaryPane}
             </div>
             <div style={splitter}>
-                <DragHandle dragUpdate={this.dragUpdate} getFrameDimensions={this.getFrameDimensions}/>
+                <DragHandle dragStart={() => { console.log('dragStart'); }} dragEnd={() => { console.log('dragEnd'); }} dragUpdate={this.dragUpdate} getFrameDimensions={this.getFrameDimensions}/>
                 <MoveDraghandleLayer />
                 <div onClick={e => {
             this.onCollapseCall('primary');

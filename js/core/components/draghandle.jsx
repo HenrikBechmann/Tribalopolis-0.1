@@ -16,10 +16,19 @@ import { ITEM_TYPES } from '../local/constants';
 let styles = globalstyles.splitter;
 let handleSource = {
     beginDrag(props) {
-        return {
+        if (props.dragStart)
+            props.dragStart();
+        let item = {
             frameDimensions: props.getFrameDimensions(),
             dragUpdate: props.dragUpdate,
         };
+        console.log('beginDrag item', item);
+        return item;
+    },
+    endDrag(props) {
+        if (props.dragEnd)
+            props.dragEnd();
+        console.log('endDrag props', props);
     }
 };
 const collect = (connect, monitor) => {

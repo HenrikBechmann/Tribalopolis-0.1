@@ -43,14 +43,15 @@ class Splitter extends React.Component<SplitterProps,any> {
         this.showHandle = showHandle
         this.showTabs = showTabs
         this.threshold = threshold
+        this.orientation = orientation
         this.state = {
             division,
             collapse,
-            orientation,
         }
         this.setCollapseStyles(collapse,division)
     }
 
+    orientation:string
     threshold:number
     showTabs:boolean
     showHandle:boolean
@@ -166,6 +167,8 @@ class Splitter extends React.Component<SplitterProps,any> {
             </div>
             <div style = {splitter}>
                 <DragHandle 
+                    dragStart = {()=>{console.log('dragStart')}}
+                    dragEnd = {()=>{console.log('dragEnd')}}
                     dragUpdate = {this.dragUpdate}
                     getFrameDimensions = {this.getFrameDimensions}
                 />

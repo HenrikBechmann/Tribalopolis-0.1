@@ -18,11 +18,18 @@ import { ITEM_TYPES } from '../local/constants'
 let styles = globalstyles.splitter
 
 let handleSource = {
-  beginDrag(props) {
-    return {
+  beginDrag(props) { // source props
+    if (props.dragStart) props.dragStart()
+    let item = {
       frameDimensions:props.getFrameDimensions(),
       dragUpdate:props.dragUpdate,
     }
+    console.log('beginDrag item',item)
+    return item
+  },
+  endDrag(props) { // source props
+    if (props.dragEnd) props.dragEnd()
+    console.log('endDrag props',props)
   }
 }
 
@@ -40,6 +47,8 @@ interface DragHandleProps {
     isDragging:boolean,
     connectDragSource:any,
     children:React.ReactNode,
+    dragStart?:Function,
+    dragEnd?:Function,
 }
 
 class DragHandle extends React.Component<DragHandleProps,any> {

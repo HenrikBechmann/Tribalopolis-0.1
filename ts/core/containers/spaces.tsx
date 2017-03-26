@@ -1,4 +1,7 @@
 // spaces.tsx
+/*
+TODO: make show/hide card panel tab; make show/hide graph panel tab
+*/
 import * as React from 'react'
 import { Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle } from 'material-ui/Toolbar'
 import IconButton from 'material-ui/IconButton'
@@ -17,9 +20,7 @@ import { styles } from '../utilities/styles'
 import SpaceGraph from '../components/spacegraph'
 import Splitter from '../components/splitter'
 import * as utilities from '../utilities/utilities'
-// TODO: make show/hide card panel tab; make show/hide graph panel tab
-/*
-*/
+
 class Spaces extends React.Component<any,any> {
 
     state = {
@@ -335,6 +336,8 @@ class Spaces extends React.Component<any,any> {
                 division = {30}
                 collapse = {0}
                 threshold = {100}
+                showTabs = {false}
+                showHandle = {true}
             />
         </div>
         <div style={styles.footer}>
