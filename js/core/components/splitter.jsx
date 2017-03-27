@@ -15,7 +15,7 @@ class Splitter extends React.Component {
     constructor(props) {
         super(props);
         this.triggerlist = ['onStartSplitterDrag', 'onEndSplitterDrag'];
-        this.getPaneTriggers = (paneid, triggers) => {
+        this.getTriggers = (paneid, triggers) => {
             // console.log('paneid,triggers',paneid,triggers)
             this.triggers[paneid] = triggers;
         };
@@ -148,12 +148,12 @@ class Splitter extends React.Component {
         this.primaryPane = React.cloneElement(props.primaryPane, {
             paneid: 'primaryPane',
             triggers: this.triggerlist,
-            getPaneTriggers: this.getPaneTriggers,
+            getTriggers: this.getTriggers,
         });
         this.secondaryPane = React.cloneElement(props.secondaryPane, {
             paneid: 'secondaryPane',
             triggers: this.triggerlist,
-            getPaneTriggers: this.getPaneTriggers,
+            getTriggers: this.getTriggers,
         });
     }
     componentDidMount() {

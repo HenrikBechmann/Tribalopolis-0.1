@@ -36,7 +36,7 @@ interface SpaceGraphProps {
     data:Object,
     paneid?:string,
     triggers?:string[],
-    getPaneTriggers?:Function,
+    getTriggers?:Function,
 }
 
 class SpaceGraph extends React.Component<SpaceGraphProps,any> {
@@ -47,14 +47,14 @@ class SpaceGraph extends React.Component<SpaceGraphProps,any> {
     }
 
     componentWillMount() {
-      if (this.props.getPaneTriggers) {
+      if (this.props.getTriggers) {
           let triggers = {}
           for (let trigger of this.props.triggers) {
              if (this[trigger]) {
                triggers[trigger] = this[trigger]
              }
           }
-          this.props.getPaneTriggers(this.props.paneid,triggers)
+          this.props.getTriggers(this.props.paneid,triggers)
       }
       // console.log('SpaceGraph props',this.props)
     }

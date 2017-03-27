@@ -55,7 +55,7 @@ class Splitter extends React.Component<SplitterProps,any> {
             {
                 paneid:'primaryPane',
                 triggers:this.triggerlist,
-                getPaneTriggers:this.getPaneTriggers,
+                getTriggers:this.getTriggers,
             }
         )
         this.secondaryPane = React.cloneElement(
@@ -63,14 +63,14 @@ class Splitter extends React.Component<SplitterProps,any> {
             {
                 paneid:'secondaryPane',
                 triggers:this.triggerlist,
-                getPaneTriggers:this.getPaneTriggers,
+                getTriggers:this.getTriggers,
             }
         )
     }
 
     triggerlist = ['onStartSplitterDrag','onEndSplitterDrag']
 
-    getPaneTriggers = (paneid,triggers) => {
+    getTriggers = (paneid,triggers) => {
         // console.log('paneid,triggers',paneid,triggers)
         this.triggers[paneid] = triggers
     }

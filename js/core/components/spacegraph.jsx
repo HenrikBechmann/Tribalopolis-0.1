@@ -44,14 +44,14 @@ class SpaceGraph extends React.Component {
         };
     }
     componentWillMount() {
-        if (this.props.getPaneTriggers) {
+        if (this.props.getTriggers) {
             let triggers = {};
             for (let trigger of this.props.triggers) {
                 if (this[trigger]) {
                     triggers[trigger] = this[trigger];
                 }
             }
-            this.props.getPaneTriggers(this.props.paneid, triggers);
+            this.props.getTriggers(this.props.paneid, triggers);
         }
         // console.log('SpaceGraph props',this.props)
     }
