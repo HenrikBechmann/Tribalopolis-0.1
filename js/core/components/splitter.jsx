@@ -3,6 +3,7 @@
     TODO: - bug showing tabs when collapse is not 0
     - implement all control properties
     - make work on mobile devices
+    - use visible property for tabs to allow fade
 */
 import * as React from 'react';
 import FontIcon from 'material-ui/FontIcon';
@@ -149,7 +150,11 @@ class Splitter extends React.Component {
             triggers: this.triggerlist,
             getPaneTriggers: this.getPaneTriggers,
         });
-        this.secondaryPane = React.cloneElement(props.secondaryPane);
+        this.secondaryPane = React.cloneElement(props.secondaryPane, {
+            paneid: 'secondaryPane',
+            triggers: this.triggerlist,
+            getPaneTriggers: this.getPaneTriggers,
+        });
     }
     componentDidMount() {
         let el = document.getElementById('splitterframe');

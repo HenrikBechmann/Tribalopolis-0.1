@@ -1,5 +1,7 @@
 // spacegraph.tsx
 import * as React from 'react';
+// import FloatingActionButton from 'material-ui/FloatingActionButton';
+// import ContentAdd from 'material-ui/svg-icons/content/add';
 import { styles as globalstyles } from '../utilities/styles';
 let styles = globalstyles.spacegraph;
 import { range } from "lodash";

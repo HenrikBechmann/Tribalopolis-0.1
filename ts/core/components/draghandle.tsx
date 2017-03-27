@@ -7,8 +7,7 @@ import { getEmptyImage } from 'react-dnd-html5-backend';
 import { ITEM_TYPES } from '../local/constants'
 
 /*
-  TODO: - onDragStart set svg overflow to hidden
-  onDragEnd set svg overflow back to scroll
+  TODO: 
   - set collapse when splitter below threshold (on dragend)
   - vertical splitter
 */

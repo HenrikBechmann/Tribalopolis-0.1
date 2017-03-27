@@ -18,6 +18,7 @@ import {Tabs, Tab} from 'material-ui/Tabs'
 import { styles } from '../utilities/styles'
 
 import SpaceGraph from '../components/spacegraph'
+import SpaceList from '../components/spacelist'
 import Splitter from '../components/splitter'
 import * as utilities from '../utilities/utilities'
 
@@ -331,7 +332,7 @@ class Spaces extends React.Component<any,any> {
         <div style = {styles.main}>
             <Splitter 
                 primaryPane = {<SpaceGraph data = {this.state.sampledata} />}
-                secondaryPane = {<div style={styles.list} >Card</div>}
+                secondaryPane = {<SpaceList />}
                 orientation = "horizontal"
                 division = {30}
                 collapse = {0}
