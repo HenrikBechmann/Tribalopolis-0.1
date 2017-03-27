@@ -1,6 +1,7 @@
 // spaces.tsx
 /*
-TODO: make show/hide card panel tab; make show/hide graph panel tab
+TODO: 
+
 */
 import * as React from 'react'
 import { Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle } from 'material-ui/Toolbar'

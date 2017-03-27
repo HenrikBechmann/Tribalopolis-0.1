@@ -1,6 +1,7 @@
 // splitter.tsx
 /*
-    TODO: - bug showing tabs when collapse is not 0
+    TODO:
+    - bug showing tabs when collapse is not 0
     - implement all control properties
     - make work on mobile devices
     - use visible property for tabs to allow fade
@@ -134,8 +135,7 @@ class Splitter extends React.Component {
         threshold = threshold || 100;
         showHandle = (showHandle == undefined) ? true : showHandle;
         showTabs = (showTabs == undefined) ? false : showTabs;
-        if (!(showHandle || showTabs))
-            showHandle = true;
+        // if (!(showHandle || showTabs)) showHandle = true
         this.showHandle = showHandle;
         this.showTabs = showTabs;
         this.threshold = threshold;
@@ -190,9 +190,9 @@ class Splitter extends React.Component {
                 {this.primaryPane}
             </div>
             <div style={splitter}>
-                <DragHandle dragStart={this.dragStart} dragEnd={this.dragEnd} dragUpdate={this.dragUpdate} getFrameDimensions={this.getFrameDimensions}/>
-                <MoveDraghandleLayer />
-                <div onClick={e => {
+                {this.showHandle ? <DragHandle dragStart={this.dragStart} dragEnd={this.dragEnd} dragUpdate={this.dragUpdate} getFrameDimensions={this.getFrameDimensions}/> : null}
+                {this.showHandle ? <MoveDraghandleLayer /> : null}
+                {this.showTabs ? <div onClick={e => {
             this.onCollapseCall('primary');
         }} style={collapsetabtop}>
                     <FontIcon className="material-icons">
@@ -200,8 +200,8 @@ class Splitter extends React.Component {
             (collapse == 1) ? 'arrow_drop_up' :
                 'arrow_drop_down'}
                     </FontIcon>
-                </div>
-                <div onClick={e => {
+                </div> : null}
+                {this.showTabs ? <div onClick={e => {
             this.onCollapseCall('secondary');
         }} style={collapsetabbottom}>
                     <FontIcon className="material-icons">
@@ -209,7 +209,7 @@ class Splitter extends React.Component {
             (collapse == -1) ? 'arrow_drop_down' :
                 'arrow_drop_up'}
                     </FontIcon>
-                </div>
+                </div> : null}
             </div>
             <div style={bottomframe}>
                 {this.secondaryPane}
