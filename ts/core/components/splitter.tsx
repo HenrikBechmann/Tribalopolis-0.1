@@ -17,14 +17,8 @@ import MoveDraghandleLayer from './movedraghandlelayer'
 let styles = globalstyles.splitter
 
 interface SplitterProps {
-    primaryPane:{
-        callbacks?:string[],
-        node:JSX.Element,
-    },
-    secondaryPane:{
-        callbacks?:string[],
-        node:JSX.Element,
-    },
+    primaryPane:JSX.Element,
+    secondaryPane:JSX.Element,
     division?:number, // 0-100
     collapse?:1 | -1 | 0,
     orientation?: "horizontal" | "vertical",
@@ -34,7 +28,7 @@ interface SplitterProps {
 }
 class Splitter extends React.Component<SplitterProps,any> {
 
-    constructor(props) {
+    constructor(props:SplitterProps) {
         super(props)
         let { division, collapse, orientation, threshold, showHandle, showTabs } = this.props
         if (division < 0) division = 0
@@ -55,7 +49,38 @@ class Splitter extends React.Component<SplitterProps,any> {
             collapse,
         }
         this.setCollapseStyles(collapse,division)
+        this.primaryPane = React.cloneElement(
+            props.primaryPane,
+            {
+                paneid:'primaryPane',
+                triggers:this.triggerlist,
+                getPaneTriggers:this.getPaneTriggers,
+            }
+        )
+        this.secondaryPane = React.cloneElement(
+            props.secondaryPane,
+            // {
+            //     paneid:'secondaryPane',
+            //     triggers:this.triggerlist,
+            //     getPaneTriggers:this.getPaneTriggers,
+            // }
+        )
     }
+
+    triggerlist = ['startDragChangeStyles','endDragRestoreStyles']
+
+    getPaneTriggers = (paneid,triggers) => {
+        // console.log('paneid,triggers',paneid,triggers)
+        this.triggers[paneid] = triggers
+    }
+
+    triggers = {
+        primaryPane:Object,
+        secondaryPane:Object,
+    }
+
+    primaryPane:JSX.Element
+    secondaryPane:JSX.Element
 
     orientation:string
     threshold:number
@@ -97,6 +122,12 @@ class Splitter extends React.Component<SplitterProps,any> {
         styles.topframe.transition = 'unset'
         styles.splitter.transition = 'unset'
         styles.bottomframe.transition = 'unset'
+        for (let trigger in this.triggers) {
+            if (this.triggers[trigger]['startDragChangeStyles']) {
+                // console.log('startDragChangeStyles',this.triggers[trigger]['startDragChangeStyles'])
+                this.triggers[trigger]['startDragChangeStyles']()
+            }
+        }
     }
 
     dragEnd = () => {
@@ -105,6 +136,11 @@ class Splitter extends React.Component<SplitterProps,any> {
         styles.topframe.transition = stylememo.transitions.topframe
         styles.splitter.transition = stylememo.transitions.splitter
         styles.bottomframe.transition = stylememo.transitions.bottomframe
+        for (let trigger in this.triggers) {
+            if (this.triggers[trigger]['endDragRestoreStyles']) {
+                this.triggers[trigger]['endDragRestoreStyles']()
+            }
+        }
     }
 
     dragUpdate = (args) => {
@@ -135,7 +171,7 @@ class Splitter extends React.Component<SplitterProps,any> {
                 width:el.clientWidth,
                 reference,
             }
-        console.log('frameDimensions',frameDimensions)
+        // console.log('frameDimensions',frameDimensions)
         return frameDimensions
     }
 
@@ -190,7 +226,7 @@ class Splitter extends React.Component<SplitterProps,any> {
             <div 
                 style = {topframe}
             >
-                {this.props.primaryPane.node}
+                {this.primaryPane}
             </div>
             <div style = {splitter}>
                 <DragHandle 
@@ -231,7 +267,7 @@ class Splitter extends React.Component<SplitterProps,any> {
             </div>
             <div 
                 style={bottomframe}>
-                {this.props.secondaryPane.node}
+                {this.secondaryPane}
             </div>
         </div>
     }

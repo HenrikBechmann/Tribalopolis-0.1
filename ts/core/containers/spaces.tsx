@@ -35,7 +35,7 @@ class Spaces extends React.Component<any,any> {
         if (!this.state.sampledata) {
             utilities.getJsonFile('/db/sample.json').then((data) => {
                 let sampledata = this.normalizeData(data)
-                console.log('sampledata', sampledata)
+                // console.log('sampledata', sampledata)
                 this.setState({
                     sampledata
                 })
@@ -44,6 +44,10 @@ class Spaces extends React.Component<any,any> {
             })
         }
 
+    }
+
+    private callFunc = (self,funcname,args = null) => {
+        return self[funcname](args)
     }
 
     normalizeData = (data) => {
@@ -326,19 +330,8 @@ class Spaces extends React.Component<any,any> {
         </div>
         <div style = {styles.main}>
             <Splitter 
-                primaryPane = {
-                    {
-                        callbacks:
-                            ['changeStylesForDrag','restoreStylesForDrag']
-                        ,
-                        node:<SpaceGraph data = {this.state.sampledata}/>
-                    }
-                }
-                secondaryPane = {
-                    {
-                        node:<div style={styles.list} >Card</div>
-                    }
-                }
+                primaryPane = {<SpaceGraph data = {this.state.sampledata} />}
+                secondaryPane = {<div style={styles.list} >Card</div>}
                 orientation = "horizontal"
                 division = {30}
                 collapse = {0}

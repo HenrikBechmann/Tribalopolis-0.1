@@ -26,6 +26,9 @@ class Spaces extends React.Component {
             searchdialogopen: false,
             sampledata: null,
         };
+        this.callFunc = (self, funcname, args = null) => {
+            return self[funcname](args);
+        };
         this.normalizeData = (data) => {
             let nodes = {};
             let links = {};
@@ -183,7 +186,7 @@ class Spaces extends React.Component {
         if (!this.state.sampledata) {
             utilities.getJsonFile('/db/sample.json').then((data) => {
                 let sampledata = this.normalizeData(data);
-                console.log('sampledata', sampledata);
+                // console.log('sampledata', sampledata)
                 this.setState({
                     sampledata
                 });
@@ -215,12 +218,7 @@ class Spaces extends React.Component {
             <div style={styles.title}>Demo: click on a node to remove it.</div>
         </div>
         <div style={styles.main}>
-            <Splitter primaryPane={{
-            callbacks: ['changeStylesForDrag', 'restoreStylesForDrag'],
-            node: <SpaceGraph data={this.state.sampledata}/>
-        }} secondaryPane={{
-            node: <div style={styles.list}>Card</div>
-        }} orientation="horizontal" division={30} collapse={0} threshold={100} showTabs={false} showHandle={true}/>
+            <Splitter primaryPane={<SpaceGraph data={this.state.sampledata}/>} secondaryPane={<div style={styles.list}>Card</div>} orientation="horizontal" division={30} collapse={0} threshold={100} showTabs={false} showHandle={true}/>
         </div>
         <div style={styles.footer}>
             <div style={styles.status}>Status</div>

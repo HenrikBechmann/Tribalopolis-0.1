@@ -22,12 +22,12 @@ let handleSource = {
       frameDimensions:props.getFrameDimensions(),
       dragUpdate:props.dragUpdate,
     }
-    console.log('beginDrag item',item)
+    // console.log('beginDrag item',item)
     return item
   },
   endDrag(props) { // source props
     if (props.dragEnd) props.dragEnd()
-    console.log('endDrag props',props)
+    // console.log('endDrag props',props)
   }
 }
 

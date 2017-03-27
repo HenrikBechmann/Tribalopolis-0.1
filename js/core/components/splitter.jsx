@@ -13,6 +13,15 @@ let styles = globalstyles.splitter;
 class Splitter extends React.Component {
     constructor(props) {
         super(props);
+        this.triggerlist = ['startDragChangeStyles', 'endDragRestoreStyles'];
+        this.getPaneTriggers = (paneid, triggers) => {
+            // console.log('paneid,triggers',paneid,triggers)
+            this.triggers[paneid] = triggers;
+        };
+        this.triggers = {
+            primaryPane: Object,
+            secondaryPane: Object,
+        };
         this.stylememo = null;
         this.dragStart = () => {
             let stylememo = {
@@ -26,6 +35,12 @@ class Splitter extends React.Component {
             styles.topframe.transition = 'unset';
             styles.splitter.transition = 'unset';
             styles.bottomframe.transition = 'unset';
+            for (let trigger in this.triggers) {
+                if (this.triggers[trigger]['startDragChangeStyles']) {
+                    // console.log('startDragChangeStyles',this.triggers[trigger]['startDragChangeStyles'])
+                    this.triggers[trigger]['startDragChangeStyles']();
+                }
+            }
         };
         this.dragEnd = () => {
             let stylememo = this.stylememo;
@@ -33,6 +48,11 @@ class Splitter extends React.Component {
             styles.topframe.transition = stylememo.transitions.topframe;
             styles.splitter.transition = stylememo.transitions.splitter;
             styles.bottomframe.transition = stylememo.transitions.bottomframe;
+            for (let trigger in this.triggers) {
+                if (this.triggers[trigger]['endDragRestoreStyles']) {
+                    this.triggers[trigger]['endDragRestoreStyles']();
+                }
+            }
         };
         this.dragUpdate = (args) => {
             let newdivision = (((args.frameDimensions.reference + args.diffOffset.y)
@@ -62,7 +82,7 @@ class Splitter extends React.Component {
                 width: el.clientWidth,
                 reference,
             };
-            console.log('frameDimensions', frameDimensions);
+            // console.log('frameDimensions',frameDimensions)
             return frameDimensions;
         };
         this.onCollapseCall = (selection) => {
@@ -125,6 +145,12 @@ class Splitter extends React.Component {
             collapse,
         };
         this.setCollapseStyles(collapse, division);
+        this.primaryPane = React.cloneElement(props.primaryPane, {
+            paneid: 'primaryPane',
+            triggers: this.triggerlist,
+            getPaneTriggers: this.getPaneTriggers,
+        });
+        this.secondaryPane = React.cloneElement(props.secondaryPane);
     }
     componentDidMount() {
         let el = document.getElementById('splitterframe');
@@ -157,7 +183,7 @@ class Splitter extends React.Component {
         const draghandle = Object.assign({}, styles.draghandle);
         return <div id='splitterframe' style={styles.splitterframe}>
             <div style={topframe}>
-                {this.props.primaryPane.node}
+                {this.primaryPane}
             </div>
             <div style={splitter}>
                 <DragHandle dragStart={this.dragStart} dragEnd={this.dragEnd} dragUpdate={this.dragUpdate} getFrameDimensions={this.getFrameDimensions}/>
@@ -182,7 +208,7 @@ class Splitter extends React.Component {
                 </div>
             </div>
             <div style={bottomframe}>
-                {this.props.secondaryPane.node}
+                {this.secondaryPane}
             </div>
         </div>;
     }
