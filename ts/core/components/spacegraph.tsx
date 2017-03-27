@@ -63,17 +63,21 @@ class SpaceGraph extends React.Component<SpaceGraphProps,any> {
       overflow:null
     }
 
-    startDragChangeStyles = () => {
-      // console.log('running startDragChangeStyles')
-      this.stylesmemo.overflow = styles.frame.overflow
-      styles.frame.overflow = 'hidden'
-      this.forceUpdate()
+    frameElement:HTMLElement = null
+
+    onStartSplitterDrag = () => {
+      // console.log('running onStartSplitterDrag')
+      this.stylesmemo.overflow = this.frameElement.style.overflow
+      this.frameElement.style.overflow = 'hidden'
+      // styles.frame.overflow = 'hidden'
+      // this.forceUpdate()
     }
 
-    endDragRestoreStyles = () => {
-      styles.frame.overflow = this.stylesmemo.overflow
+    onEndSplitterDrag = () => {
+      this.frameElement.style.overflow = this.stylesmemo.overflow
+      // styles.frame.overflow = this.stylesmemo.overflow
       this.stylesmemo.overflow = null
-      this.forceUpdate()
+      // this.forceUpdate()
     }
 
     removeNode(datum) {
@@ -109,7 +113,11 @@ class SpaceGraph extends React.Component<SpaceGraphProps,any> {
                     Origin
                 </div>
             </div>
-            <div style = {frame}>
+            <div 
+              ref = {(node) => {
+                this.frameElement = node
+              }}
+              style = {frame}>
               <VictoryForce
                 nodes={this.state.nodes}
                 links={this.state.links}

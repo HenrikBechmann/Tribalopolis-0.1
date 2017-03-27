@@ -67,7 +67,7 @@ class Splitter extends React.Component<SplitterProps,any> {
         )
     }
 
-    triggerlist = ['startDragChangeStyles','endDragRestoreStyles']
+    triggerlist = ['onStartSplitterDrag','onEndSplitterDrag']
 
     getPaneTriggers = (paneid,triggers) => {
         // console.log('paneid,triggers',paneid,triggers)
@@ -123,9 +123,8 @@ class Splitter extends React.Component<SplitterProps,any> {
         styles.splitter.transition = 'unset'
         styles.bottomframe.transition = 'unset'
         for (let trigger in this.triggers) {
-            if (this.triggers[trigger]['startDragChangeStyles']) {
-                // console.log('startDragChangeStyles',this.triggers[trigger]['startDragChangeStyles'])
-                this.triggers[trigger]['startDragChangeStyles']()
+            if (this.triggers[trigger]['onStartSplitterDrag']) {
+                this.triggers[trigger]['onStartSplitterDrag']()
             }
         }
     }
@@ -137,8 +136,8 @@ class Splitter extends React.Component<SplitterProps,any> {
         styles.splitter.transition = stylememo.transitions.splitter
         styles.bottomframe.transition = stylememo.transitions.bottomframe
         for (let trigger in this.triggers) {
-            if (this.triggers[trigger]['endDragRestoreStyles']) {
-                this.triggers[trigger]['endDragRestoreStyles']()
+            if (this.triggers[trigger]['onEndSplitterDrag']) {
+                this.triggers[trigger]['onEndSplitterDrag']()
             }
         }
     }

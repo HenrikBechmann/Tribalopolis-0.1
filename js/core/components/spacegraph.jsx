@@ -26,16 +26,19 @@ class SpaceGraph extends React.Component {
         this.stylesmemo = {
             overflow: null
         };
-        this.startDragChangeStyles = () => {
-            // console.log('running startDragChangeStyles')
-            this.stylesmemo.overflow = styles.frame.overflow;
-            styles.frame.overflow = 'hidden';
-            this.forceUpdate();
+        this.frameElement = null;
+        this.onStartSplitterDrag = () => {
+            // console.log('running onStartSplitterDrag')
+            this.stylesmemo.overflow = this.frameElement.style.overflow;
+            this.frameElement.style.overflow = 'hidden';
+            // styles.frame.overflow = 'hidden'
+            // this.forceUpdate()
         };
-        this.endDragRestoreStyles = () => {
-            styles.frame.overflow = this.stylesmemo.overflow;
+        this.onEndSplitterDrag = () => {
+            this.frameElement.style.overflow = this.stylesmemo.overflow;
+            // styles.frame.overflow = this.stylesmemo.overflow
             this.stylesmemo.overflow = null;
-            this.forceUpdate();
+            // this.forceUpdate()
         };
     }
     componentWillMount() {
@@ -74,7 +77,9 @@ class SpaceGraph extends React.Component {
                     Origin
                 </div>
             </div>
-            <div style={frame}>
+            <div ref={(node) => {
+            this.frameElement = node;
+        }} style={frame}>
               <VictoryForce nodes={this.state.nodes} links={this.state.links} height={2000} width={2000} forces={{
             charge: forceManyBody(),
             link: forceLink(this.state.links).distance(72).strength(1),
