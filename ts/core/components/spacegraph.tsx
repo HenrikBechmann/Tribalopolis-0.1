@@ -6,8 +6,6 @@ import * as React from 'react'
 
 import { styles as globalstyles } from '../utilities/styles'
 
-let styles = globalstyles.spacegraph
-
 import { range } from "lodash";
 
 import {forceLink, forceManyBody, forceX, forceY} from "d3-force";
@@ -45,6 +43,8 @@ class SpaceGraph extends React.Component<SpaceGraphProps,any> {
         nodes,
         links,
     }
+
+    styles = JSON.parse(JSON.stringify(globalstyles.spacegraph))
 
     componentWillMount() {
       if (this.props.getTriggers) {
@@ -104,6 +104,7 @@ class SpaceGraph extends React.Component<SpaceGraphProps,any> {
           maxWidth: 5000,
           maxHeight: 5000
         };
+        let styles = this.styles
         let frame = Object.assign({},styles.frame)
         // console.log('spacegraph styles',styles)
         return <div style={styles.fixedframe} >

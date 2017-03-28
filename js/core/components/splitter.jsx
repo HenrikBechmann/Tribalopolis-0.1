@@ -12,10 +12,10 @@ import FontIcon from 'material-ui/FontIcon';
 import { styles as globalstyles } from '../utilities/styles';
 import DragHandle from './draghandle';
 import MoveDraghandleLayer from './movedraghandlelayer';
-let styles = globalstyles.splitter;
 class Splitter extends React.Component {
     constructor(props) {
         super(props);
+        this.styles = JSON.parse(JSON.stringify(globalstyles.splitter));
         this.triggerlist = ['onStartSplitterDrag', 'onEndSplitterDrag'];
         this.getTriggers = (paneid, triggers) => {
             // console.log('paneid,triggers',paneid,triggers)
@@ -27,6 +27,7 @@ class Splitter extends React.Component {
         };
         this.stylememo = null;
         this.dragStart = () => {
+            let styles = this.styles;
             let stylememo = {
                 transitions: {
                     topframe: styles.topframe.transition,
@@ -47,6 +48,7 @@ class Splitter extends React.Component {
         this.dragEnd = () => {
             let stylememo = this.stylememo;
             this.stylememo = null;
+            let styles = this.styles;
             styles.topframe.transition = stylememo.transitions.topframe;
             styles.splitter.transition = stylememo.transitions.splitter;
             styles.bottomframe.transition = stylememo.transitions.bottomframe;
@@ -134,6 +136,7 @@ class Splitter extends React.Component {
             });
         };
         this.setCollapseStyles = (collapse, division) => {
+            let styles = this.styles;
             if (collapse) {
                 if (collapse == 1) {
                     styles.topframe.bottom = '2px';
@@ -204,6 +207,7 @@ class Splitter extends React.Component {
     }
     render() {
         let collapse = this.state.collapse;
+        let styles = this.styles;
         styles.collapsetabtop.display = (collapse == -1) ? 'none' : 'flex';
         styles.collapsetabbottom.display = (collapse == 1) ? 'none' : 'flex';
         // mutated values not allowed (deprectated by React); make fresh clones

@@ -8,7 +8,6 @@ import { ITEM_TYPES } from '../local/constants';
 /*
   TODO:
 */
-let styles = globalstyles.splitter;
 let handleSource = {
     beginDrag(props) {
         if (props.dragStart)
@@ -35,6 +34,10 @@ const collect = (connect, monitor) => {
     };
 };
 class DragHandle extends React.Component {
+    constructor() {
+        super(...arguments);
+        this.styles = JSON.parse(JSON.stringify(globalstyles.splitter.draghandle));
+    }
     componentDidMount() {
         this.props.connectDragPreview(getEmptyImage(), { captureDraggingState: true });
     }
@@ -42,7 +45,7 @@ class DragHandle extends React.Component {
         let isDragging = this.props.isDragging;
         let connectDragSource = this.props.connectDragSource;
         // styles.draghandle.opacity = isDragging?0.5:1
-        const draghandle = Object.assign({}, styles.draghandle);
+        const draghandle = Object.assign({}, this.styles);
         // var text = this.props.text;
         return connectDragSource(<div style={draghandle}>
                 <FontIcon className="material-icons">

@@ -6,8 +6,6 @@ import * as React from 'react'
 
 import { styles as globalstyles } from '../utilities/styles'
 
-let styles = globalstyles.item
-
 interface SpaceItemProps {
     // data:Object,
     paneid?:string,
@@ -17,7 +15,10 @@ interface SpaceItemProps {
 
 class SpaceItem extends React.Component<SpaceItemProps,any> {
 
+    styles = JSON.parse(JSON.stringify(globalstyles.item))
+
     render() {
+        let styles = this.styles
         return <div style = {styles.frame}>
             <div style={styles.content} >Item</div>
         </div>

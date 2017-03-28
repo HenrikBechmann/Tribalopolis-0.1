@@ -16,7 +16,9 @@ import Dialog from 'material-ui/Dialog'
 import FlatButton from 'material-ui/FlatButton'
 import {Tabs, Tab} from 'material-ui/Tabs'
 
-import { styles } from '../utilities/styles'
+import { styles as globalstyles } from '../utilities/styles'
+
+let styles = JSON.parse(JSON.stringify(globalstyles))
 
 import SpaceGraph from '../components/spacegraph'
 import SpaceList from '../components/spacelist'
