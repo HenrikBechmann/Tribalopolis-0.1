@@ -249,6 +249,16 @@ class Splitter extends React.Component<SplitterProps,any> {
                 left: '0px',
                 transition: 'top .5s ease-out',
             })
+            // // TODO belongs in draghandle component
+            // styles.draghandle = Object.assign(styles.draghandle, {
+            //     transform:'none',
+            // })
+            styles.collapsetabtop = Object.assign(styles.collapsetabtop, {
+                transform:'none',
+            })
+            styles.collapsetabbottom = Object.assign(styles.collapsetabbottom, {
+                transform:'none',
+            })
         } else {
 
         }

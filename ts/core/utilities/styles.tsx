@@ -124,6 +124,7 @@ export let styles = {
             'justify-content':"center",
             alignItems:'center',
             cursor:'row-resize',
+            // transform:'rotate(90deg)'
         },
         collapsetabtop:   {
             position:'absolute',
@@ -139,6 +140,7 @@ export let styles = {
             border:'1px solid gray',
             cursor:'pointer',
             borderRadius:'6px 6px 0 0',
+            // transform:'rotate(90deg)'
         },
         collapsetabbottom:{
             position:'absolute',
@@ -153,6 +155,7 @@ export let styles = {
             border:'1px solid gray',
             cursor:'pointer',
             borderRadius:'0 0 6px 6px',
+            // transform:'rotate(90deg)'
         },
 
         bottomframe:{
