@@ -235,10 +235,20 @@ class Splitter extends React.Component<SplitterProps,any> {
     initStyles = () => {
         let styles = this.styles
         if (this.isHorizontal()) {
-            styles.topframe.left = '0px'
-            styles.splitter.width = '100%'
-            styles.splitter.height = '0px'
-            styles.bottomframe.left = '0px'
+            styles.topframe = Object.assign(styles.topframe,{
+                left: '0px',
+                transition: 'bottom .5s ease-out',
+            })
+            styles.splitter = Object.assign(styles.splitter,{
+                width: '100%',
+                height: '0px',
+                borderTop: '2px solid gray',
+                transition: 'bottom .5s ease-out',
+            })
+            styles.bottomframe = Object.assign(styles.bottomframe,{
+                left: '0px',
+                transition: 'top .5s ease-out',
+            })
         } else {
 
         }
