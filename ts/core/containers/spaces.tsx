@@ -340,7 +340,7 @@ class Spaces extends React.Component<any,any> {
                     <Splitter
                         primaryPane = {<SpaceList />}
                         secondaryPane = {<SpaceItem />}
-                        orientation = "vertical"
+                        orientation = "horizontal"
                         showTabs = {true}
                     />
                 }

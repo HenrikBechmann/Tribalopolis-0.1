@@ -97,17 +97,17 @@ export let styles = {
             position:'absolute',
             top:'0px',
             right:'0px',
-            left:'0px',
-            bottom:'calc(50% + 1px)',
-            transition: 'bottom .5s ease-out',
+            // left:'0px',
+            // bottom:'calc(50% + 1px)', // set by splitter
+            transition: 'bottom .5s ease-out, left .5s ease-out',
         }, 
         splitter:{
             position:'absolute',
-            bottom:'calc(50% - 1px)',
-            width:'100%',
-            height:'0px',
+            // bottom:'calc(50% - 1px)', // set by splitter
+            // width:'100%',
+            // height:'0px',
             borderTop:'2px solid gray',
-            transition: 'bottom .5s ease-out',
+            transition: 'bottom .5s ease-out, left .5s ease-out',
         },
         draghandle: {
             opacity:1,
@@ -160,9 +160,9 @@ export let styles = {
             position:'absolute',
             bottom:'0px',
             right:'0px',
-            left:'0px',
-            top:'calc(50% + 1px)',
-            transition: 'top .5s ease-out',
+            // left:'0px',
+            // top:'calc(50% + 1px)', // set by splitter
+            transition: 'top .5s ease-out, right .5s ease-out',
         },
     },
 }

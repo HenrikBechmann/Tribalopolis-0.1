@@ -6,6 +6,7 @@
     - use visible property for tabs to allow fade
     - implement nested splitters
     - vertical splitter
+    - find way for tabs and handles to stay out of way of nested splitters
 */
 import * as React from 'react';
 import FontIcon from 'material-ui/FontIcon';
@@ -24,6 +25,9 @@ class Splitter extends React.Component {
         this.triggers = {
             primaryPane: Object,
             secondaryPane: Object,
+        };
+        this.isHorizontal = () => {
+            return (this.orientation == 'horizontal') ? true : false;
         };
         this.stylememo = null;
         this.dragStart = () => {
@@ -102,11 +106,12 @@ class Splitter extends React.Component {
             let el = this.splitterframe;
             let { collapse } = this.state;
             let reference;
+            let offset = this.isHorizontal() ? el.clientHeight : el.clientWidth;
             if (collapse) {
-                reference = (collapse == -1) ? 0 : el.clientHeight;
+                reference = (collapse == -1) ? 0 : offset;
             }
             else {
-                reference = (el.clientHeight * (this.state.division / 100));
+                reference = (offset * (this.state.division / 100));
             }
             let frameDimensions = {
                 height: el.clientHeight,
@@ -135,24 +140,39 @@ class Splitter extends React.Component {
                 collapse: newcollapse
             });
         };
+        this.initStyles = () => {
+            let styles = this.styles;
+            if (this.isHorizontal()) {
+                styles.topframe.left = '0px';
+                styles.splitter.width = '100%';
+                styles.splitter.height = '0px';
+                styles.bottomframe.left = '0px';
+            }
+            else {
+            }
+        };
         this.setCollapseStyles = (collapse, division) => {
             let styles = this.styles;
-            if (collapse) {
-                if (collapse == 1) {
-                    styles.topframe.bottom = '2px';
-                    styles.bottomframe.top = '100%';
-                    styles.splitter.bottom = '0px';
+            if (this.isHorizontal()) {
+                if (collapse) {
+                    if (collapse == 1) {
+                        styles.topframe.bottom = '2px';
+                        styles.bottomframe.top = '100%';
+                        styles.splitter.bottom = '0px';
+                    }
+                    else {
+                        styles.topframe.bottom = '100%';
+                        styles.bottomframe.top = '2px';
+                        styles.splitter.bottom = 'calc(100% - 2px)';
+                    }
                 }
                 else {
-                    styles.topframe.bottom = '100%';
-                    styles.bottomframe.top = '2px';
-                    styles.splitter.bottom = 'calc(100% - 2px)';
+                    styles.topframe.bottom = `calc(${100 - division}% + 1px)`;
+                    styles.bottomframe.top = `calc(${division}% + 1px)`;
+                    styles.splitter.bottom = `calc(${100 - division}% - 1px)`;
                 }
             }
             else {
-                styles.topframe.bottom = `calc(${100 - division}% + 1px)`;
-                styles.bottomframe.top = `calc(${division}% + 1px)`;
-                styles.splitter.bottom = `calc(${100 - division}% - 1px)`;
             }
         };
         let { division, collapse, orientation, threshold, showHandle, showTabs } = this.props;
@@ -175,6 +195,7 @@ class Splitter extends React.Component {
             division,
             collapse,
         };
+        this.initStyles();
         this.setCollapseStyles(collapse, division);
         this.primaryPane = React.cloneElement(props.primaryPane, {
             paneid: 'primaryPane',
@@ -189,9 +210,10 @@ class Splitter extends React.Component {
     }
     componentDidMount() {
         let el = this.splitterframe;
-        let height = el.clientHeight;
-        if ((this.threshold / height) > .25)
-            this.threshold = height * .25;
+        let primarylength = this.isHorizontal() ? el.clientHeight : el.clientWidth;
+        // let primarylength = el.clientHeight
+        if ((this.threshold / primarylength) > .25)
+            this.threshold = primarylength * .25;
     }
     // update state if division or collapse changes
     componentWillReceiveProps(nextProps) {
