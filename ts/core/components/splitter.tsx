@@ -92,7 +92,7 @@ class Splitter extends React.Component<SplitterProps,any> {
     showHandle:boolean
 
     componentDidMount() {
-        let el = document.getElementById('splitterframe')
+        let el = this.splitterframe
         let height = el.clientHeight
         if ((this.threshold / height) > .25)
             this.threshold = height * .25   
@@ -188,7 +188,7 @@ class Splitter extends React.Component<SplitterProps,any> {
     }
 
     getFrameDimensions = () => {
-        let el = document.getElementById('splitterframe')
+        let el = this.splitterframe
         let { collapse } = this.state
         let reference 
         if (collapse) {
@@ -243,6 +243,8 @@ class Splitter extends React.Component<SplitterProps,any> {
         }
     }
 
+    splitterframe:HTMLElement
+
     render() {
         let collapse = this.state.collapse
         let styles = this.styles
@@ -255,7 +257,7 @@ class Splitter extends React.Component<SplitterProps,any> {
         const collapsetabbottom = Object.assign({},styles.collapsetabbottom)
         const bottomframe = Object.assign({},styles.bottomframe)
         const draghandle = Object.assign({},styles.draghandle)
-        return <div id = 'splitterframe' style = {styles.splitterframe}>
+        return <div ref = {(node) => {this.splitterframe = node}} style = {styles.splitterframe}>
             <div 
                 style = {topframe}
             >
