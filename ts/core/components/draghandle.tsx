@@ -24,9 +24,9 @@ let handleSource = {
     // console.log('beginDrag item',item)
     return item
   },
-  endDrag(props) { // source props
+  endDrag(props, monitor) { // source props
     if (props.dragEnd) props.dragEnd()
-    // console.log('endDrag props',props)
+    if (props.afterDrag) props.afterDrag(props,monitor)
   }
 }
 
@@ -46,6 +46,7 @@ interface DragHandleProps {
     children:React.ReactNode,
     dragStart?:Function,
     dragEnd?:Function,
+    afterDrag?:Function,
 }
 
 class DragHandle extends React.Component<DragHandleProps,any> {

@@ -22,10 +22,11 @@ let handleSource = {
         // console.log('beginDrag item',item)
         return item;
     },
-    endDrag(props) {
+    endDrag(props, monitor) {
         if (props.dragEnd)
             props.dragEnd();
-        // console.log('endDrag props',props)
+        if (props.afterDrag)
+            props.afterDrag(props, monitor);
     }
 };
 const collect = (connect, monitor) => {

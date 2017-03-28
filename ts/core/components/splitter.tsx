@@ -159,6 +159,32 @@ class Splitter extends React.Component<SplitterProps,any> {
         })
     }
 
+    afterDrag = (props,monitor) => {
+        let item = monitor.getItem()
+        let lastOffset = monitor.getDifferenceFromInitialOffset()
+        let newreference = item.frameDimensions.reference + lastOffset.y
+        let height = item.frameDimensions.height
+        let bottomdiff = height - newreference
+        let topdiff = newreference
+        let threshold = this.threshold
+        let collapse = this.state.collapse
+        let newcollapse
+        // console.log('endDrag props',props,item,lastOffset, newreference, topdiff, bottomdiff)
+        if (topdiff < threshold) {
+            newcollapse = -1
+        } else if (bottomdiff < threshold){
+            newcollapse = 1
+        } else {
+            newcollapse = 0
+        }
+        if (newcollapse || (newcollapse != collapse)) {
+            this.setCollapseStyles(newcollapse, this.state.division)
+            this.setState({
+                collapse:newcollapse
+            })
+        } 
+    }
+
     getFrameDimensions = () => {
         let el = document.getElementById('splitterframe')
         let { collapse } = this.state
@@ -236,6 +262,7 @@ class Splitter extends React.Component<SplitterProps,any> {
                     dragStart = {this.dragStart}
                     dragEnd = {this.dragEnd}
                     dragUpdate = {this.dragUpdate}
+                    afterDrag = {this.afterDrag}
                     getFrameDimensions = {this.getFrameDimensions}
                 />:null}
                 {this.showHandle?<MoveDraghandleLayer />:null}
