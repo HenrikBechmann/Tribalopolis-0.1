@@ -1,11 +1,11 @@
 // splitter.tsx
 /*
     TODO:
-    - bug showing tabs when collapse is not 0
-    - implement all control properties
+    - implement all control properties (orientation)
     - make work on mobile devices
     - use visible property for tabs to allow fade
     - implement nested splitters
+    - vertical splitter
 */
 import * as React from 'react';
 import FontIcon from 'material-ui/FontIcon';

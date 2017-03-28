@@ -38,7 +38,7 @@ export let styles = {
     },
     // main content
     spacegraph: {
-        fixedframe: { backgroundColor: 'lightcyan', position: 'relative', height: '100%' },
+        fixedframe: { backgroundColor: 'lightcyan', position: 'relative', height: '100%', width: '100%' },
         frame: { backgroundColor: 'lightcyan', position: 'relative', height: '100%', width: '100%', overflow: 'scroll' },
         platform: { height: '600px', minWidth: '100%', width: '600px', backgroundColor: 'yellow' },
         originframe: { zIndex: 1, position: 'absolute', top: 0, left: 0, backgroundColor: 'lightgreen', borderRadius: '8px', border: '3px ridge gray', boxShadow: 'rgba(0, 0, 0, 0.156863) 0px 3px 10px, rgba(0, 0, 0, 0.227451) 0px 3px 10px' },
@@ -52,7 +52,26 @@ export let styles = {
             overflow: 'hidden',
         },
     },
-    list: { backgroundColor: 'lightgreen', height: '600px' },
+    list: {
+        frame: {
+            position: 'relative',
+            height: '100%',
+            overflow: 'scroll'
+        },
+        content: {
+            backgroundColor: 'lightgreen', height: '600px'
+        },
+    },
+    item: {
+        frame: {
+            position: 'relative',
+            height: '100%',
+            overflow: 'scroll',
+        },
+        content: {
+            backgroundColor: 'cyan', height: '600px',
+        }
+    },
     // footer content
     status: {
         backgroundColor: 'palegoldenrod',
@@ -130,7 +149,6 @@ export let styles = {
             borderRadius: '0 0 6px 6px',
         },
         bottomframe: {
-            overflow: 'scroll',
             backgroundColor: 'green',
             position: 'absolute',
             bottom: '0px',

@@ -8,8 +8,6 @@ import { ITEM_TYPES } from '../local/constants'
 
 /*
   TODO: 
-  - set collapse when splitter below threshold (on dragend)
-  - vertical splitter
 */
 
 let styles = globalstyles.splitter

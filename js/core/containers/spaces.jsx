@@ -17,6 +17,7 @@ import { Tabs, Tab } from 'material-ui/Tabs';
 import { styles } from '../utilities/styles';
 import SpaceGraph from '../components/spacegraph';
 import SpaceList from '../components/spacelist';
+import SpaceItem from '../components/spaceitem';
 import Splitter from '../components/splitter';
 import * as utilities from '../utilities/utilities';
 class Spaces extends React.Component {
@@ -220,7 +221,7 @@ class Spaces extends React.Component {
             <div style={styles.title}>Demo: click on a node to remove it.</div>
         </div>
         <div style={styles.main}>
-            <Splitter primaryPane={<SpaceGraph data={this.state.sampledata}/>} secondaryPane={<SpaceList />} orientation="horizontal" division={30} collapse={0} threshold={80} showTabs={true} showHandle={true}/>
+            <Splitter primaryPane={<SpaceGraph data={this.state.sampledata}/>} secondaryPane={<Splitter primaryPane={<SpaceList />} secondaryPane={<SpaceItem />} orientation="vertical" showTabs={true}/>} orientation="horizontal" division={30} collapse={0} threshold={80} showTabs={true} showHandle={true}/>
         </div>
         <div style={styles.footer}>
             <div style={styles.status}>Status</div>

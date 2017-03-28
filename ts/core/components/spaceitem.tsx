@@ -6,22 +6,22 @@ import * as React from 'react'
 
 import { styles as globalstyles } from '../utilities/styles'
 
-let styles = globalstyles.list
+let styles = globalstyles.item
 
-interface SpaceListProps {
+interface SpaceItemProps {
     // data:Object,
     paneid?:string,
     triggers?:string[],
     getTriggers?:Function,
 }
 
-class SpaceList extends React.Component<SpaceListProps,any> {
+class SpaceItem extends React.Component<SpaceItemProps,any> {
 
     render() {
         return <div style = {styles.frame}>
-            <div style={styles.content} >List</div>
+            <div style={styles.content} >Item</div>
         </div>
     }
 }
 
-export default SpaceList
+export default SpaceItem
