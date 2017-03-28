@@ -338,7 +338,7 @@ class Spaces extends React.Component<any,any> {
                 division = {30}
                 collapse = {0}
                 threshold = {100}
-                showTabs = {false}
+                showTabs = {true}
                 showHandle = {true}
             />
         </div>

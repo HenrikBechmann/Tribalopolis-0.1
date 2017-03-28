@@ -5,6 +5,7 @@
     - implement all control properties
     - make work on mobile devices
     - use visible property for tabs to allow fade
+    - implement nested splitters
 */
 import * as React from 'react';
 import FontIcon from 'material-ui/FontIcon';
