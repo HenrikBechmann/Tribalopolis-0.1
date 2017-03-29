@@ -89,8 +89,6 @@ export let styles = {
         },
         topframe: {
             position: 'absolute',
-            top: '0px',
-            right: '0px',
         },
         splitter: {
             position: 'absolute',
@@ -143,8 +141,6 @@ export let styles = {
         bottomframe: {
             backgroundColor: 'green',
             position: 'absolute',
-            bottom: '0px',
-            right: '0px',
         },
     },
 };

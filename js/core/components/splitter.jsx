@@ -145,6 +145,8 @@ class Splitter extends React.Component {
             if (this.isHorizontal()) {
                 styles.topframe = Object.assign(styles.topframe, {
                     left: '0px',
+                    right: '0px',
+                    top: '0px',
                     transition: 'bottom .5s ease-out',
                 });
                 styles.splitter = Object.assign(styles.splitter, {
@@ -155,7 +157,9 @@ class Splitter extends React.Component {
                 });
                 styles.bottomframe = Object.assign(styles.bottomframe, {
                     left: '0px',
+                    right: '0px',
                     transition: 'top .5s ease-out',
+                    bottom: '0px',
                 });
                 // // TODO belongs in draghandle component
                 // styles.draghandle = Object.assign(styles.draghandle, {
@@ -169,6 +173,34 @@ class Splitter extends React.Component {
                 });
             }
             else {
+                styles.topframe = Object.assign(styles.topframe, {
+                    left: '0px',
+                    transition: 'right .5s ease-out',
+                    top: '0px',
+                    bottom: '0px',
+                });
+                styles.splitter = Object.assign(styles.splitter, {
+                    height: '100%',
+                    width: '0px',
+                    borderLeft: '2px solid gray',
+                    transition: 'right .5s ease-out',
+                });
+                styles.bottomframe = Object.assign(styles.bottomframe, {
+                    transition: 'left .5s ease-out',
+                    right: '0px',
+                    top: '0px',
+                    bottom: '0px',
+                });
+                // // TODO belongs in draghandle component
+                // styles.draghandle = Object.assign(styles.draghandle, {
+                //     transform:'none',
+                // })
+                styles.collapsetabtop = Object.assign(styles.collapsetabtop, {
+                    transform: 'rotate(90deg)',
+                });
+                styles.collapsetabbottom = Object.assign(styles.collapsetabbottom, {
+                    transform: 'rotate(90deg)',
+                });
             }
         };
         this.setCollapseStyles = (collapse, division) => {
@@ -193,6 +225,23 @@ class Splitter extends React.Component {
                 }
             }
             else {
+                if (collapse) {
+                    if (collapse == 1) {
+                        styles.topframe.right = '2px';
+                        styles.bottomframe.left = '100%';
+                        styles.splitter.right = '0px';
+                    }
+                    else {
+                        styles.topframe.right = '100%';
+                        styles.bottomframe.left = '2px';
+                        styles.splitter.right = 'calc(100% - 2px)';
+                    }
+                }
+                else {
+                    styles.topframe.right = `calc(${100 - division}% + 1px)`;
+                    styles.bottomframe.left = `calc(${division}% + 1px)`;
+                    styles.splitter.right = `calc(${100 - division}% - 1px)`;
+                }
             }
         };
         let { division, collapse, orientation, threshold, showHandle, showTabs } = this.props;

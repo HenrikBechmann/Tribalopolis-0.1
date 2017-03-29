@@ -95,14 +95,15 @@ export let styles = {
         },
         topframe:{
             position:'absolute',
-            top:'0px',
-            right:'0px',
+            // top:'0px',
             // left:'0px',
+            // right:'0px', // can be over-ridden
             // bottom:'calc(50% + 1px)', // set by splitter
             // transition: 'bottom .5s ease-out, left .5s ease-out',
         }, 
         splitter:{
             position:'absolute',
+            backgroundColor:'lightgoldenrodyellow',
             // bottom:'calc(50% - 1px)', // set by splitter
             // width:'100%',
             // height:'0px',
@@ -161,8 +162,8 @@ export let styles = {
         bottomframe:{
             backgroundColor:'green',
             position:'absolute',
-            bottom:'0px',
-            right:'0px',
+            // bottom:'0px',
+            // right:'0px',
             // left:'0px',
             // top:'calc(50% + 1px)', // set by splitter
             // transition: 'top .5s ease-out, right .5s ease-out',
