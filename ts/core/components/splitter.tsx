@@ -258,9 +258,13 @@ class Splitter extends React.Component<SplitterProps,any> {
             //     transform:'none',
             // })
             styles.collapsetabtop = Object.assign(styles.collapsetabtop, {
+                bottom:'1px',
+                right:'10px',
                 transform:'none',
             })
             styles.collapsetabbottom = Object.assign(styles.collapsetabbottom, {
+                top:'-1px',  
+                right:'10px',
                 transform:'none',
             })
         } else { // vertical
@@ -287,10 +291,14 @@ class Splitter extends React.Component<SplitterProps,any> {
             //     transform:'none',
             // })
             styles.collapsetabtop = Object.assign(styles.collapsetabtop, {
-                transform:'rotate(90deg)',
+                right:'1px',
+                top:'10px',
+                transform:'rotate(-90deg)',
             })
             styles.collapsetabbottom = Object.assign(styles.collapsetabbottom, {
-                transform:'rotate(90deg)',
+                left:'-1px',  
+                top:'10px',
+                transform:'rotate(-90deg)',
             })
         }
     }
