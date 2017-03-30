@@ -161,10 +161,6 @@ class Splitter extends React.Component {
                     transition: 'top .5s ease-out',
                     bottom: '0px',
                 });
-                // // TODO belongs in draghandle component
-                // styles.draghandle = Object.assign(styles.draghandle, {
-                //     transform:'none',
-                // })
                 styles.collapsetabtop = Object.assign(styles.collapsetabtop, {
                     bottom: '1px',
                     right: '10px',
@@ -321,7 +317,7 @@ class Splitter extends React.Component {
                 {this.primaryPane}
             </div>
             <div style={splitter}>
-                {this.showHandle ? <DragHandle dragStart={this.dragStart} dragEnd={this.dragEnd} dragUpdate={this.dragUpdate} afterDrag={this.afterDrag} getFrameDimensions={this.getFrameDimensions}/> : null}
+                {this.showHandle ? <DragHandle dragStart={this.dragStart} dragEnd={this.dragEnd} dragUpdate={this.dragUpdate} afterDrag={this.afterDrag} getFrameDimensions={this.getFrameDimensions} orientation={this.props.orientation}/> : null}
                 {this.showHandle ? <MoveDraghandleLayer /> : null}
                 {this.showTabs ? <div onClick={e => {
             this.onCollapseCall('primary');

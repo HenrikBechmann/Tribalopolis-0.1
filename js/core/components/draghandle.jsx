@@ -38,6 +38,24 @@ class DragHandle extends React.Component {
         super(...arguments);
         this.styles = JSON.parse(JSON.stringify(globalstyles.splitter.draghandle));
     }
+    componentWillMount() {
+        if (this.props.orientation == 'horizontal') {
+            this.styles = Object.assign(this.styles, {
+                left: 'calc(50% - 18px)',
+                bottom: 'calc(-18px)',
+                transform: 'none',
+                cursor: 'row-resize',
+            });
+        }
+        else {
+            this.styles = Object.assign(this.styles, {
+                bottom: 'calc(50% - 18px)',
+                right: 'calc(-18px)',
+                transform: 'rotate(-90deg)',
+                cursor: 'col-resize',
+            });
+        }
+    }
     componentDidMount() {
         this.props.connectDragPreview(getEmptyImage(), { captureDraggingState: true });
     }

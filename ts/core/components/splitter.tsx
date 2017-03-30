@@ -253,10 +253,6 @@ class Splitter extends React.Component<SplitterProps,any> {
                 transition: 'top .5s ease-out',
                 bottom:'0px',
             })
-            // // TODO belongs in draghandle component
-            // styles.draghandle = Object.assign(styles.draghandle, {
-            //     transform:'none',
-            // })
             styles.collapsetabtop = Object.assign(styles.collapsetabtop, {
                 bottom:'1px',
                 right:'10px',
@@ -367,6 +363,7 @@ class Splitter extends React.Component<SplitterProps,any> {
                     dragUpdate = {this.dragUpdate}
                     afterDrag = {this.afterDrag}
                     getFrameDimensions = {this.getFrameDimensions}
+                    orientation = {this.props.orientation}
                 />:null}
                 {this.showHandle?<MoveDraghandleLayer />:null}
                 {this.showTabs?<div 
