@@ -19,7 +19,6 @@ class Splitter extends React.Component {
         this.styles = JSON.parse(JSON.stringify(globalstyles.splitter));
         this.triggerlist = ['onStartSplitterDrag', 'onEndSplitterDrag'];
         this.getTriggers = (paneid, triggers) => {
-            // console.log('paneid,triggers',paneid,triggers)
             this.triggers[paneid] = triggers;
         };
         this.triggers = {
@@ -63,8 +62,10 @@ class Splitter extends React.Component {
             }
         };
         this.dragUpdate = (args) => {
-            let newdivision = (((args.frameDimensions.reference + args.diffOffset.y)
-                / args.frameDimensions.height) * 100);
+            let offset = this.isHorizontal() ? args.diffOffset.y : args.diffOffset.x;
+            let height = this.isHorizontal() ? args.frameDimensions.height : args.frameDimensions.width;
+            let newdivision = (((args.frameDimensions.reference + offset)
+                / height) * 100);
             if (newdivision > 100)
                 newdivision = 100;
             if (newdivision < 0)
@@ -77,15 +78,15 @@ class Splitter extends React.Component {
         };
         this.afterDrag = (props, monitor) => {
             let item = monitor.getItem();
-            let lastOffset = monitor.getDifferenceFromInitialOffset();
-            let newreference = item.frameDimensions.reference + lastOffset.y;
-            let height = item.frameDimensions.height;
+            let lastDifferences = monitor.getDifferenceFromInitialOffset();
+            let lastOffset = this.isHorizontal() ? lastDifferences.y : lastDifferences.x;
+            let newreference = item.frameDimensions.reference + lastOffset;
+            let height = this.isHorizontal() ? item.frameDimensions.height : item.frameDimensions.width;
             let bottomdiff = height - newreference;
             let topdiff = newreference;
             let threshold = this.threshold;
             let collapse = this.state.collapse;
             let newcollapse;
-            // console.log('endDrag props',props,item,lastOffset, newreference, topdiff, bottomdiff)
             if (topdiff < threshold) {
                 newcollapse = -1;
             }
@@ -118,7 +119,6 @@ class Splitter extends React.Component {
                 width: el.clientWidth,
                 reference,
             };
-            // console.log('frameDimensions',frameDimensions)
             return frameDimensions;
         };
         this.onCollapseCall = (selection) => {
@@ -191,10 +191,6 @@ class Splitter extends React.Component {
                     top: '0px',
                     bottom: '0px',
                 });
-                // // TODO belongs in draghandle component
-                // styles.draghandle = Object.assign(styles.draghandle, {
-                //     transform:'none',
-                // })
                 styles.collapsetabtop = Object.assign(styles.collapsetabtop, {
                     right: '1px',
                     top: '10px',

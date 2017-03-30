@@ -16,7 +16,6 @@ let handleSource = {
             frameDimensions: props.getFrameDimensions(),
             dragUpdate: props.dragUpdate,
         };
-        // console.log('beginDrag item',item)
         return item;
     },
     endDrag(props, monitor) {
