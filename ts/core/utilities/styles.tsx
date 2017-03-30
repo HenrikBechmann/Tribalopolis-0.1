@@ -117,8 +117,6 @@ export let styles = {
             height:'36px',
             border:'1px solid gray',
             borderRadius:'6px',
-            // left:'calc(50% - 18px)',
-            // bottom:'calc(-18px)',
             backgroundColor:'palegoldenrod',
             zIndex:2,
             display:'flex',

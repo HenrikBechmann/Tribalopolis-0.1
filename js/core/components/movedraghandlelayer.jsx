@@ -18,8 +18,15 @@ const getItemStyles = (props) => {
             display: 'none',
         };
     }
-    let { y } = currentOffset;
-    let { x } = initialOffset;
+    let x, y;
+    if (props.item.isHorizontal) {
+        y = currentOffset.y;
+        x = initialOffset.x;
+    }
+    else {
+        x = currentOffset.x;
+        y = initialOffset.y;
+    }
     const transform = `translate(${x}px, ${y}px)`;
     return {
         transform,
@@ -54,6 +61,7 @@ class MoveDraghandleLayer extends React.Component {
     renderItem(type, item) {
         switch (type) {
             case ITEM_TYPES.DRAGHANDLE:
+                let cursor;
                 return (<div style={{ height: '36px', width: '36px' }}></div>);
             default:
                 return null;
@@ -61,7 +69,6 @@ class MoveDraghandleLayer extends React.Component {
     }
     render() {
         const { item, itemType, isDragging } = this.props;
-        // console.log('movedraghandlelayer.props',this.props)
         if (!isDragging) {
             return null;
         }

@@ -15,6 +15,7 @@ let handleSource = {
         let item = {
             frameDimensions: props.getFrameDimensions(),
             dragUpdate: props.dragUpdate,
+            isHorizontal: (props.orientation == 'horizontal')
         };
         return item;
     },
