@@ -30,12 +30,29 @@ interface SplitterProps {
     threshold?:number, // pixels
     showTabs?:boolean,
     showHandle?:boolean,
+    minLengthTriggers?:{
+        tabs?:number,
+        handle?:number,
+    },
+    getTriggers?:Function,
+    triggers?:string[],
+    paneid?:string,
 }
 class Splitter extends React.Component<SplitterProps,any> {
 
     constructor(props:SplitterProps) {
         super(props)
-        let { division, collapse, orientation, threshold, showHandle, showTabs } = this.props
+
+        let { 
+            division, 
+            collapse, 
+            orientation, 
+            threshold, 
+            showHandle, 
+            showTabs, 
+            minLengthTriggers
+        } = this.props
+
         if (division < 0) division = 0
         if (division > 100) division = 100
         orientation = orientation || 'horizontal'
@@ -45,7 +62,14 @@ class Splitter extends React.Component<SplitterProps,any> {
         showHandle = (showHandle == undefined)?true:showHandle
         showTabs = (showTabs == undefined)?false:showTabs
 
-        // if (!(showHandle || showTabs)) showHandle = true
+        if (minLengthTriggers) {
+            if (minLengthTriggers.handle) {
+                this.minLengthTriggers.handle = minLengthTriggers.handle
+            }
+            if (minLengthTriggers.tabs) {
+                this.minLengthTriggers.tabs = minLengthTriggers.tabs
+            }
+        }
         this.showHandle = showHandle
         this.showTabs = showTabs
         this.threshold = threshold
@@ -76,15 +100,31 @@ class Splitter extends React.Component<SplitterProps,any> {
 
     styles = JSON.parse(JSON.stringify(globalstyles.splitter))
 
-    triggerlist = ['onStartSplitterDrag','onEndSplitterDrag']
+    triggerlist = ['onStartSplitterDrag','onEndSplitterDrag','onSplitterResize']
 
     getTriggers = (paneid,triggers) => {
         this.triggers[paneid] = triggers
+        // console.log('paneid,triggers',paneid,triggers)
+    }
+
+    onSplitterResize = () => {
+        let length
+        if (this.isHorizontal()) {
+            length = this.splitterElement.clientWidth
+        } else {
+            length = this.splitterElement.clientHeight
+        }
+        console.log('onSplitterResize,length',length)
     }
 
     triggers = {
         primaryPane:Object,
         secondaryPane:Object,
+    }
+
+    minLengthTriggers = {
+        tabs:130,
+        handle: 60,
     }
 
     primaryPane:JSX.Element
@@ -98,6 +138,19 @@ class Splitter extends React.Component<SplitterProps,any> {
     isHorizontal = () => {
         return (this.orientation == 'horizontal')?true:false
     }
+
+    componentWillMount() {
+        if (this.props.getTriggers) {
+            let triggers = {}
+            for (let trigger of this.props.triggers) {
+                if (this[trigger]) {
+                    triggers[trigger] = this[trigger]
+                }
+            }
+            this.props.getTriggers(this.props.paneid,triggers)
+        }
+    }
+
 
     componentDidMount() {
         let el = this.splitterframe
@@ -169,6 +222,15 @@ class Splitter extends React.Component<SplitterProps,any> {
         this.setState({
             division:newdivision,
             collapse:0
+        })
+        let self = this
+        // wait for redraw to finish
+        setTimeout(() => {
+            for (let trigger in self.triggers) {
+                if (self.triggers[trigger]['onSplitterResize']) {
+                    self.triggers[trigger]['onSplitterResize']()
+                }
+            }
         })
     }
 
@@ -337,6 +399,7 @@ class Splitter extends React.Component<SplitterProps,any> {
     }
 
     splitterframe:HTMLElement
+    splitterElement:HTMLElement
 
     render() {
         let collapse = this.state.collapse
@@ -356,7 +419,10 @@ class Splitter extends React.Component<SplitterProps,any> {
             >
                 {this.primaryPane}
             </div>
-            <div style = {splitter}>
+            <div ref = {node => {
+                this.splitterElement = node
+            }}
+                style = {splitter}>
                 {this.showHandle?<DragHandle 
                     dragStart = {this.dragStart}
                     dragEnd = {this.dragEnd}

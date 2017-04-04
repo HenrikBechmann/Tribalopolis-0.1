@@ -56,7 +56,6 @@ class SpaceGraph extends React.Component<SpaceGraphProps,any> {
           }
           this.props.getTriggers(this.props.paneid,triggers)
       }
-      // console.log('SpaceGraph props',this.props)
     }
 
     stylesmemo = {

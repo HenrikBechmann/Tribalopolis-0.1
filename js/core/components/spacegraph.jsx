@@ -53,7 +53,6 @@ class SpaceGraph extends React.Component {
             }
             this.props.getTriggers(this.props.paneid, triggers);
         }
-        // console.log('SpaceGraph props',this.props)
     }
     removeNode(datum) {
         const { nodes, links } = this.state;

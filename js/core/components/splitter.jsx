@@ -2,11 +2,14 @@
 /*
     TODO:
     - implement all control properties (orientation)
+    - hide handle and tabs below parent threshold
+    - add min and max props (in pixels) for splitter
     - make work on mobile devices
     - use visible property for tabs to allow fade
     - implement nested splitters
     - vertical splitter
     - find way for tabs and handles to stay out of way of nested splitters
+    - provide cue for being inside or outside threshold
 */
 import * as React from 'react';
 import FontIcon from 'material-ui/FontIcon';
@@ -17,13 +20,28 @@ class Splitter extends React.Component {
     constructor(props) {
         super(props);
         this.styles = JSON.parse(JSON.stringify(globalstyles.splitter));
-        this.triggerlist = ['onStartSplitterDrag', 'onEndSplitterDrag'];
+        this.triggerlist = ['onStartSplitterDrag', 'onEndSplitterDrag', 'onSplitterResize'];
         this.getTriggers = (paneid, triggers) => {
             this.triggers[paneid] = triggers;
+            // console.log('paneid,triggers',paneid,triggers)
+        };
+        this.onSplitterResize = () => {
+            let length;
+            if (this.isHorizontal()) {
+                length = this.splitterElement.clientWidth;
+            }
+            else {
+                length = this.splitterElement.clientHeight;
+            }
+            console.log('onSplitterResize,length', length);
         };
         this.triggers = {
             primaryPane: Object,
             secondaryPane: Object,
+        };
+        this.minLengthTriggers = {
+            tabs: 130,
+            handle: 60,
         };
         this.isHorizontal = () => {
             return (this.orientation == 'horizontal') ? true : false;
@@ -74,6 +92,15 @@ class Splitter extends React.Component {
             this.setState({
                 division: newdivision,
                 collapse: 0
+            });
+            let self = this;
+            // wait for redraw to finish
+            setTimeout(() => {
+                for (let trigger in self.triggers) {
+                    if (self.triggers[trigger]['onSplitterResize']) {
+                        self.triggers[trigger]['onSplitterResize']();
+                    }
+                }
             });
         };
         this.afterDrag = (props, monitor) => {
@@ -244,7 +271,7 @@ class Splitter extends React.Component {
                 }
             }
         };
-        let { division, collapse, orientation, threshold, showHandle, showTabs } = this.props;
+        let { division, collapse, orientation, threshold, showHandle, showTabs, minLengthTriggers } = this.props;
         if (division < 0)
             division = 0;
         if (division > 100)
@@ -255,7 +282,14 @@ class Splitter extends React.Component {
         threshold = threshold || 100;
         showHandle = (showHandle == undefined) ? true : showHandle;
         showTabs = (showTabs == undefined) ? false : showTabs;
-        // if (!(showHandle || showTabs)) showHandle = true
+        if (minLengthTriggers) {
+            if (minLengthTriggers.handle) {
+                this.minLengthTriggers.handle = minLengthTriggers.handle;
+            }
+            if (minLengthTriggers.tabs) {
+                this.minLengthTriggers.tabs = minLengthTriggers.tabs;
+            }
+        }
         this.showHandle = showHandle;
         this.showTabs = showTabs;
         this.threshold = threshold;
@@ -276,6 +310,17 @@ class Splitter extends React.Component {
             triggers: this.triggerlist,
             getTriggers: this.getTriggers,
         });
+    }
+    componentWillMount() {
+        if (this.props.getTriggers) {
+            let triggers = {};
+            for (let trigger of this.props.triggers) {
+                if (this[trigger]) {
+                    triggers[trigger] = this[trigger];
+                }
+            }
+            this.props.getTriggers(this.props.paneid, triggers);
+        }
     }
     componentDidMount() {
         let el = this.splitterframe;
@@ -312,7 +357,9 @@ class Splitter extends React.Component {
             <div style={topframe}>
                 {this.primaryPane}
             </div>
-            <div style={splitter}>
+            <div ref={node => {
+            this.splitterElement = node;
+        }} style={splitter}>
                 {this.showHandle ? <DragHandle dragStart={this.dragStart} dragEnd={this.dragEnd} dragUpdate={this.dragUpdate} afterDrag={this.afterDrag} getFrameDimensions={this.getFrameDimensions} orientation={this.props.orientation}/> : null}
                 {this.showHandle ? <MoveDraghandleLayer /> : null}
                 {this.showTabs ? <div onClick={e => {
