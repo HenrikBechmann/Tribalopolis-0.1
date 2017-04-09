@@ -30,6 +30,7 @@ interface SplitterProps {
     collapse?:1 | -1 | 0,
     orientation?: "horizontal" | "vertical",
     threshold?:number, // pixels
+    fadeThreshold?:number, //pixes for when controls fade
     showTabs?:boolean,
     showHandle?:boolean,
     minLengthTriggers?:{
@@ -50,6 +51,7 @@ class Splitter extends React.Component<SplitterProps,any> {
             collapse, 
             orientation, 
             threshold, 
+            fadeThreshold,
             showHandle, 
             showTabs, 
             minLengthTriggers
@@ -61,6 +63,7 @@ class Splitter extends React.Component<SplitterProps,any> {
         division = division || 50
         collapse = collapse || 0
         threshold = threshold || 100
+        fadeThreshold = fadeThreshold || 100
         showHandle = (showHandle == undefined)?true:showHandle
         showTabs = (showTabs == undefined)?false:showTabs
 
@@ -75,6 +78,7 @@ class Splitter extends React.Component<SplitterProps,any> {
         this.showHandle = showHandle
         this.showTabs = showTabs
         this.threshold = threshold
+        this.fadeThreshold = fadeThreshold
         this.orientation = orientation
         this.state = {
             division,
@@ -118,9 +122,9 @@ class Splitter extends React.Component<SplitterProps,any> {
             length = this.splitterElement.clientHeight
         }
 
-        let {threshold} = this
+        let {fadeThreshold} = this
 
-        let isBelowThreshold = length < threshold
+        let isBelowThreshold = length < fadeThreshold
 
         if (isBelowThreshold !== this.isBelowTreshold) {
 
@@ -160,6 +164,7 @@ class Splitter extends React.Component<SplitterProps,any> {
 
     orientation:string
     threshold:number
+    fadeThreshold:number
     showTabs:boolean
     showHandle:boolean
 

@@ -37,8 +37,8 @@ class Splitter extends React.Component {
             else {
                 length = this.splitterElement.clientHeight;
             }
-            let { threshold } = this;
-            let isBelowThreshold = length < threshold;
+            let { fadeThreshold } = this;
+            let isBelowThreshold = length < fadeThreshold;
             if (isBelowThreshold !== this.isBelowTreshold) {
                 this.isBelowTreshold = isBelowThreshold;
                 if (isBelowThreshold) {
@@ -351,7 +351,7 @@ class Splitter extends React.Component {
                 }
             }
         };
-        let { division, collapse, orientation, threshold, showHandle, showTabs, minLengthTriggers } = this.props;
+        let { division, collapse, orientation, threshold, fadeThreshold, showHandle, showTabs, minLengthTriggers } = this.props;
         if (division < 0)
             division = 0;
         if (division > 100)
@@ -360,6 +360,7 @@ class Splitter extends React.Component {
         division = division || 50;
         collapse = collapse || 0;
         threshold = threshold || 100;
+        fadeThreshold = fadeThreshold || 100;
         showHandle = (showHandle == undefined) ? true : showHandle;
         showTabs = (showTabs == undefined) ? false : showTabs;
         if (minLengthTriggers) {
@@ -373,6 +374,7 @@ class Splitter extends React.Component {
         this.showHandle = showHandle;
         this.showTabs = showTabs;
         this.threshold = threshold;
+        this.fadeThreshold = fadeThreshold;
         this.orientation = orientation;
         this.state = {
             division,
