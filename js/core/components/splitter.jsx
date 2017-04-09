@@ -10,6 +10,7 @@
     - vertical splitter
     - find way for tabs and handles to stay out of way of nested splitters
     - provide cue for being inside or outside threshold
+    - cascade and test multi-layer nesting calls of splitters for control hiding/showing
 */
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
@@ -24,6 +25,7 @@ class Splitter extends React.Component {
             this.triggers[paneid] = triggers;
             // console.log('paneid,triggers',paneid,triggers)
         };
+        this.isBelowTreshold = null;
         this.onSplitterResize = () => {
             let { primaryTabNode, secondaryTabNode, splitterHandleNode } = this;
             if (!(primaryTabNode || secondaryTabNode || splitterHandleNode))
@@ -35,7 +37,17 @@ class Splitter extends React.Component {
             else {
                 length = this.splitterElement.clientHeight;
             }
-            console.log('onSplitterResize,length', length);
+            let { threshold } = this;
+            let isBelowThreshold = length < threshold;
+            if (isBelowThreshold !== this.isBelowTreshold) {
+                this.isBelowTreshold = isBelowThreshold;
+                if (isBelowThreshold) {
+                    this.onHide();
+                }
+                else {
+                    this.onShow();
+                }
+            }
         };
         this.styles = JSON.parse(JSON.stringify(globalstyles.splitter));
         this.triggerlist = ['onStartSplitterDrag', 'onEndSplitterDrag', 'onSplitterResize', 'onHide', 'onShow'];
@@ -297,33 +309,46 @@ class Splitter extends React.Component {
         };
         this.onShow = () => {
             if (this.primaryTabNode && this.secondaryTabNode) {
-                let { primaryTabNode, secondaryTabNode } = this;
-                primaryTabNode.style.visibility = 'visible';
-                primaryTabNode.style.opacity = '1';
-                secondaryTabNode.style.visibility = 'visible';
-                secondaryTabNode.style.opacity = '1';
+                if (this.primaryTabNode.style.visibility == 'hidden') {
+                    let { primaryTabNode, secondaryTabNode } = this;
+                    primaryTabNode.style.transition = 'opacity .5s ease-out,visibility 0s 0s',
+                        primaryTabNode.style.visibility = 'visible';
+                    primaryTabNode.style.opacity = '1';
+                    secondaryTabNode.style.transition = 'opacity .5s ease-out,visibility 0s 0s',
+                        secondaryTabNode.style.visibility = 'visible';
+                    secondaryTabNode.style.opacity = '1';
+                }
             }
             if (this.splitterHandleNode) {
                 let { splitterHandleNode } = this; // this is a wrapped DragSource object
                 splitterHandleNode = ReactDOM.findDOMNode(splitterHandleNode);
-                splitterHandleNode.style.visibility = 'visible';
-                splitterHandleNode.style.opacity = '1';
+                if (splitterHandleNode.style.visibility == 'hidden') {
+                    splitterHandleNode.style.transition = 'opacity .5s ease-out,visibility 0s 0s',
+                        splitterHandleNode.style.visibility = 'visible';
+                    splitterHandleNode.style.opacity = '1';
+                }
             }
         };
         this.onHide = () => {
             if (this.primaryTabNode && this.secondaryTabNode) {
-                let { primaryTabNode, secondaryTabNode } = this;
-                primaryTabNode.style.visibility = 'hidden';
-                primaryTabNode.style.opacity = '0';
-                secondaryTabNode.style.visibility = 'hidden';
-                secondaryTabNode.style.opacity = '0';
+                if (this.primaryTabNode.style.visibility == 'visible') {
+                    let { primaryTabNode, secondaryTabNode } = this;
+                    primaryTabNode.style.transition = 'opacity .5s ease-out,visibility 0s .5s',
+                        primaryTabNode.style.visibility = 'hidden';
+                    primaryTabNode.style.opacity = '0';
+                    secondaryTabNode.style.transition = 'opacity .5s ease-out,visibility 0s .5s',
+                        secondaryTabNode.style.visibility = 'hidden';
+                    secondaryTabNode.style.opacity = '0';
+                }
             }
             if (this.splitterHandleNode) {
                 let { splitterHandleNode } = this;
                 splitterHandleNode = ReactDOM.findDOMNode(splitterHandleNode);
-                console.log('splitterHandleNode', splitterHandleNode);
-                splitterHandleNode.style.visibility = 'hidden';
-                splitterHandleNode.style.opacity = '0';
+                if (splitterHandleNode.style.visibility == 'visible') {
+                    splitterHandleNode.style.transition = 'opacity .5s ease-out,visibility 0s .5s',
+                        splitterHandleNode.style.visibility = 'hidden';
+                    splitterHandleNode.style.opacity = '0';
+                }
             }
         };
         let { division, collapse, orientation, threshold, showHandle, showTabs, minLengthTriggers } = this.props;

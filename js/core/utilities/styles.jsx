@@ -107,6 +107,7 @@ export let styles = {
             'justify-content': "center",
             alignItems: 'center',
             visibility: 'visible',
+            transition: 'opacity .5s ease-out,visibility 0s .5s',
         },
         collapsetabtop: {
             position: 'absolute',
@@ -124,6 +125,7 @@ export let styles = {
             borderRadius: '6px 6px 0 0',
             visibility: 'visible',
             opacity: 1,
+            transition: 'opacity .5s ease-out,visibility 0s .5s',
         },
         collapsetabbottom: {
             position: 'absolute',
@@ -140,6 +142,7 @@ export let styles = {
             borderRadius: '0 0 6px 6px',
             visibility: 'visible',
             opacity: 1,
+            transition: 'opacity .5s ease-out,visibility 0s .5s',
         },
         bottomframe: {
             backgroundColor: 'green',
