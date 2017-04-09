@@ -12,6 +12,7 @@
     - provide cue for being inside or outside threshold
 */
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import FontIcon from 'material-ui/FontIcon';
 import { styles as globalstyles } from '../utilities/styles';
 import DragHandle from './draghandle';
@@ -19,13 +20,14 @@ import MoveDraghandleLayer from './movedraghandlelayer';
 class Splitter extends React.Component {
     constructor(props) {
         super(props);
-        this.styles = JSON.parse(JSON.stringify(globalstyles.splitter));
-        this.triggerlist = ['onStartSplitterDrag', 'onEndSplitterDrag', 'onSplitterResize'];
         this.getTriggers = (paneid, triggers) => {
             this.triggers[paneid] = triggers;
             // console.log('paneid,triggers',paneid,triggers)
         };
         this.onSplitterResize = () => {
+            let { primaryTabNode, secondaryTabNode, splitterHandleNode } = this;
+            if (!(primaryTabNode || secondaryTabNode || splitterHandleNode))
+                return;
             let length;
             if (this.isHorizontal()) {
                 length = this.splitterElement.clientWidth;
@@ -35,6 +37,8 @@ class Splitter extends React.Component {
             }
             console.log('onSplitterResize,length', length);
         };
+        this.styles = JSON.parse(JSON.stringify(globalstyles.splitter));
+        this.triggerlist = ['onStartSplitterDrag', 'onEndSplitterDrag', 'onSplitterResize', 'onHide', 'onShow'];
         this.triggers = {
             primaryPane: Object,
             secondaryPane: Object,
@@ -148,18 +152,38 @@ class Splitter extends React.Component {
             };
             return frameDimensions;
         };
-        this.onCollapseCall = (selection) => {
+        this.onCollapseToggle = (selection) => {
             let collapse = this.state.collapse;
             let newcollapse = null;
             if (!collapse) {
                 if (selection == 'primary') {
                     newcollapse = 1;
+                    for (let trigger in this.triggers) {
+                        if (this.triggers['secondaryPane']['onHide']) {
+                            this.triggers['secondaryPane']['onHide']();
+                        }
+                    }
                 }
                 else {
                     newcollapse = -1;
+                    for (let trigger in this.triggers) {
+                        if (this.triggers['primaryPane']['onHide']) {
+                            this.triggers['primaryPane']['onHide']();
+                        }
+                    }
                 }
             }
             else {
+                for (let trigger in this.triggers) {
+                    if (this.triggers['primaryPane']['onShow']) {
+                        this.triggers['primaryPane']['onShow']();
+                    }
+                }
+                for (let trigger in this.triggers) {
+                    if (this.triggers['secondaryPane']['onShow']) {
+                        this.triggers['secondaryPane']['onShow']();
+                    }
+                }
                 newcollapse = 0;
             }
             this.setCollapseStyles(newcollapse, this.state.division);
@@ -271,6 +295,37 @@ class Splitter extends React.Component {
                 }
             }
         };
+        this.onShow = () => {
+            if (this.primaryTabNode && this.secondaryTabNode) {
+                let { primaryTabNode, secondaryTabNode } = this;
+                primaryTabNode.style.visibility = 'visible';
+                primaryTabNode.style.opacity = '1';
+                secondaryTabNode.style.visibility = 'visible';
+                secondaryTabNode.style.opacity = '1';
+            }
+            if (this.splitterHandleNode) {
+                let { splitterHandleNode } = this; // this is a wrapped DragSource object
+                splitterHandleNode = ReactDOM.findDOMNode(splitterHandleNode);
+                splitterHandleNode.style.visibility = 'visible';
+                splitterHandleNode.style.opacity = '1';
+            }
+        };
+        this.onHide = () => {
+            if (this.primaryTabNode && this.secondaryTabNode) {
+                let { primaryTabNode, secondaryTabNode } = this;
+                primaryTabNode.style.visibility = 'hidden';
+                primaryTabNode.style.opacity = '0';
+                secondaryTabNode.style.visibility = 'hidden';
+                secondaryTabNode.style.opacity = '0';
+            }
+            if (this.splitterHandleNode) {
+                let { splitterHandleNode } = this;
+                splitterHandleNode = ReactDOM.findDOMNode(splitterHandleNode);
+                console.log('splitterHandleNode', splitterHandleNode);
+                splitterHandleNode.style.visibility = 'hidden';
+                splitterHandleNode.style.opacity = '0';
+            }
+        };
         let { division, collapse, orientation, threshold, showHandle, showTabs, minLengthTriggers } = this.props;
         if (division < 0)
             division = 0;
@@ -360,10 +415,14 @@ class Splitter extends React.Component {
             <div ref={node => {
             this.splitterElement = node;
         }} style={splitter}>
-                {this.showHandle ? <DragHandle dragStart={this.dragStart} dragEnd={this.dragEnd} dragUpdate={this.dragUpdate} afterDrag={this.afterDrag} getFrameDimensions={this.getFrameDimensions} orientation={this.props.orientation}/> : null}
+                {this.showHandle ? <DragHandle ref={node => {
+            this.splitterHandleNode = node;
+        }} dragStart={this.dragStart} dragEnd={this.dragEnd} dragUpdate={this.dragUpdate} afterDrag={this.afterDrag} getFrameDimensions={this.getFrameDimensions} orientation={this.props.orientation}/> : null}
                 {this.showHandle ? <MoveDraghandleLayer /> : null}
                 {this.showTabs ? <div onClick={e => {
-            this.onCollapseCall('primary');
+            this.onCollapseToggle('primary');
+        }} ref={node => {
+            this.primaryTabNode = node;
         }} style={collapsetabtop}>
                     <FontIcon className="material-icons">
                         {!collapse ? 'arrow_drop_down' :
@@ -372,7 +431,9 @@ class Splitter extends React.Component {
                     </FontIcon>
                 </div> : null}
                 {this.showTabs ? <div onClick={e => {
-            this.onCollapseCall('secondary');
+            this.onCollapseToggle('secondary');
+        }} ref={node => {
+            this.secondaryTabNode = node;
         }} style={collapsetabbottom}>
                     <FontIcon className="material-icons">
                         {!collapse ? 'arrow_drop_up' :

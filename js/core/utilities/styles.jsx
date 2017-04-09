@@ -106,6 +106,7 @@ export let styles = {
             display: 'flex',
             'justify-content': "center",
             alignItems: 'center',
+            visibility: 'visible',
         },
         collapsetabtop: {
             position: 'absolute',
@@ -121,6 +122,8 @@ export let styles = {
             border: '1px solid gray',
             cursor: 'pointer',
             borderRadius: '6px 6px 0 0',
+            visibility: 'visible',
+            opacity: 1,
         },
         collapsetabbottom: {
             position: 'absolute',
@@ -135,6 +138,8 @@ export let styles = {
             border: '1px solid gray',
             cursor: 'pointer',
             borderRadius: '0 0 6px 6px',
+            visibility: 'visible',
+            opacity: 1,
         },
         bottomframe: {
             backgroundColor: 'green',
