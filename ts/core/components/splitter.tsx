@@ -109,9 +109,105 @@ class Splitter extends React.Component<SplitterProps,any> {
         // console.log('paneid,triggers',paneid,triggers)
     }
 
-    isBelowTreshold = null
+    isPrimaryBelowTreshold = null
+    isSecondaryBelowTreshold = null
 
-    onSplitterResize = () => {
+    onSplitterResize = (offset,height) => {
+        let {primaryTabNode, secondaryTabNode} = this
+
+        if (!(primaryTabNode||secondaryTabNode)) return
+
+        let {threshold} = this
+
+        let isPrimaryBelowThreshold = (offset) < threshold
+        let isSecondaryBelowThreshold = (height - offset) < threshold
+        if (isPrimaryBelowThreshold !== this.isPrimaryBelowTreshold) {
+
+            this.isPrimaryBelowTreshold = isPrimaryBelowThreshold
+            if (isPrimaryBelowThreshold) {
+                this.onTabHide('primary')
+            } else {
+                this.onTabShow('primary')
+            }
+
+        }
+
+        if (isSecondaryBelowThreshold !== this.isSecondaryBelowTreshold) {
+
+            this.isSecondaryBelowTreshold = isSecondaryBelowThreshold
+            if (isSecondaryBelowThreshold) {
+                this.onTabHide('secondary')
+            } else {
+                this.onTabShow('secondary')
+            }
+
+        }
+    }
+
+    onTabShow = (tabid) => {
+        if (this.primaryTabNode && this.secondaryTabNode) {
+            let {primaryTabNode,secondaryTabNode} = this
+
+            if (tabid == 'primary') {
+
+                if (primaryTabNode.style.visibility == 'hidden') {
+
+                    primaryTabNode.style.transition = 'opacity .5s ease-out,visibility 0s 0s',
+                    primaryTabNode.style.visibility = 'visible'
+                    primaryTabNode.style.opacity = '1'
+
+                }
+
+            } else {
+
+                if (secondaryTabNode.style.visibility == 'hidden') {
+
+                    secondaryTabNode.style.transition = 'opacity .5s ease-out,visibility 0s 0s',
+                    secondaryTabNode.style.visibility = 'visible'
+                    secondaryTabNode.style.opacity = '1'
+
+                }
+            }
+
+         }
+
+    }
+
+    onTabHide = (tabid) => {
+
+        if (this.primaryTabNode && this.secondaryTabNode) {
+
+            let {primaryTabNode,secondaryTabNode} = this
+
+            if (tabid == 'primary') {
+
+                if (primaryTabNode.style.visibility == 'visible') {
+
+                    primaryTabNode.style.transition = 'opacity .5s ease-out,visibility 0s .5s',
+                    primaryTabNode.style.visibility = 'hidden'
+                    primaryTabNode.style.opacity = '0'
+
+                } 
+
+            }
+
+            if (tabid == 'secondary') {
+
+                if (secondaryTabNode.style.visibility == 'visible') {
+
+                    secondaryTabNode.style.transition = 'opacity .5s ease-out,visibility 0s .5s',
+                    secondaryTabNode.style.visibility = 'hidden'
+                    secondaryTabNode.style.opacity = '0'
+
+                }
+
+            }
+        }
+    }
+
+    isContainingBelowTreshold = null
+
+    onContainingSplitterResize = () => {
         let {primaryTabNode, secondaryTabNode, splitterHandleNode} = this
         if (!(primaryTabNode||secondaryTabNode||splitterHandleNode)) return
 
@@ -126,9 +222,9 @@ class Splitter extends React.Component<SplitterProps,any> {
 
         let isBelowThreshold = length < fadeThreshold
 
-        if (isBelowThreshold !== this.isBelowTreshold) {
+        if (isBelowThreshold !== this.isContainingBelowTreshold) {
 
-            this.isBelowTreshold = isBelowThreshold
+            this.isContainingBelowTreshold = isBelowThreshold
             if (isBelowThreshold) {
                 this.onHide()
             } else {
@@ -141,7 +237,7 @@ class Splitter extends React.Component<SplitterProps,any> {
 
     styles = JSON.parse(JSON.stringify(globalstyles.splitter))
 
-    triggerlist = ['onStartSplitterDrag','onEndSplitterDrag','onSplitterResize','onHide','onShow']
+    triggerlist = ['onStartSplitterDrag','onEndSplitterDrag','onContainingSplitterResize','onHide','onShow']
 
     triggers = {
         primaryPane:Object,
@@ -246,9 +342,9 @@ class Splitter extends React.Component<SplitterProps,any> {
     dragUpdate = (args) => {
         let offset = this.isHorizontal()? args.diffOffset.y: args.diffOffset.x
         let height = this.isHorizontal()?args.frameDimensions.height:args.frameDimensions.width
-        let newdivision = 
-            (((args.frameDimensions.reference + offset)
-            / height) * 100)
+        let position = args.frameDimensions.reference + offset
+        this.onSplitterResize(position,height)
+        let newdivision = ((position / height) * 100)
         if (newdivision > 100) newdivision = 100
         if (newdivision < 0) newdivision = 0
         this.setCollapseStyles(0,newdivision)
@@ -260,8 +356,8 @@ class Splitter extends React.Component<SplitterProps,any> {
         // wait for redraw to finish
         setTimeout(() => {
             for (let trigger in self.triggers) {
-                if (self.triggers[trigger]['onSplitterResize']) {
-                    self.triggers[trigger]['onSplitterResize']()
+                if (self.triggers[trigger]['onContainingSplitterResize']) {
+                    self.triggers[trigger]['onContainingSplitterResize']()
                 }
             }
         })
@@ -317,22 +413,49 @@ class Splitter extends React.Component<SplitterProps,any> {
         let collapse = this.state.collapse
         let newcollapse = null
         if (!collapse) {
-            if (selection == 'primary') {
+            if (selection == 'primary') { // collapse secondary
                 newcollapse = 1
                 for (let trigger in this.triggers) {
                     if (this.triggers['secondaryPane']['onHide']) {
                         this.triggers['secondaryPane']['onHide']()
                     }
                 }
-            } else {
+                let {secondaryTabNode} = this
+                if (secondaryTabNode) {
+                    secondaryTabNode.style.transition = 'opacity .5s ease-out,visibility 0s .5s',
+                    secondaryTabNode.style.visibility = 'hidden'
+                    secondaryTabNode.style.opacity = '0'
+                }
+            } else { // collapse primary
                 newcollapse = -1
                 for (let trigger in this.triggers) {
                     if (this.triggers['primaryPane']['onHide']) {
                         this.triggers['primaryPane']['onHide']()
                     }
                 }
+                let {primaryTabNode} = this
+                if (primaryTabNode) {
+                    primaryTabNode.style.transition = 'opacity .5s ease-out,visibility 0s .5s',
+                    primaryTabNode.style.visibility = 'hidden'
+                    primaryTabNode.style.opacity = '0'
+                }
             } 
-        } else {
+        } else { // restore collapsed
+            if (selection == 'primary') { // restore secondary
+                let {secondaryTabNode} = this
+                if (secondaryTabNode) {
+                    secondaryTabNode.style.transition = 'opacity .5s ease-out,visibility 0s 0s',
+                    secondaryTabNode.style.visibility = 'visible'
+                    secondaryTabNode.style.opacity = '1'
+                }
+            } else { // restore primary
+                let {primaryTabNode} = this
+                if (primaryTabNode) {
+                    primaryTabNode.style.transition = 'opacity .5s ease-out,visibility 0s 0s',
+                    primaryTabNode.style.visibility = 'visible'
+                    primaryTabNode.style.opacity = '1'
+                }
+            }
             for (let trigger in this.triggers) {
                 if (this.triggers['primaryPane']['onShow']) {
                     this.triggers['primaryPane']['onShow']()
@@ -418,32 +541,32 @@ class Splitter extends React.Component<SplitterProps,any> {
         let styles = this.styles
         if (this.isHorizontal()) {
             if (collapse) {
-                if (collapse == 1) {
+                if (collapse == 1) { // collapse top pane
                     styles.topframe.bottom = '2px'
                     styles.bottomframe.top = '100%'
                     styles.splitter.bottom = '0px'
-                } else {
+                } else { // collapse bottom frame
                     styles.topframe.bottom = '100%'
                     styles.bottomframe.top = '2px'
                     styles.splitter.bottom = 'calc(100% - 2px)'
                 } 
-            } else {
+            } else { // restore collapsed frame
                 styles.topframe.bottom = `calc(${100-division}% + 1px)`
                 styles.bottomframe.top = `calc(${division}% + 1px)`
                 styles.splitter.bottom = `calc(${100-division}% - 1px)`
             }
         } else { // vertical
-            if (collapse) {
+            if (collapse) { // collapse left frame
                 if (collapse == 1) {
                     styles.topframe.right = '2px'
                     styles.bottomframe.left = '100%'
                     styles.splitter.right = '0px'
-                } else {
+                } else { // collapse right frame
                     styles.topframe.right = '100%'
                     styles.bottomframe.left = '2px'
                     styles.splitter.right = 'calc(100% - 2px)'
                 } 
-            } else {
+            } else { // restore collapsed frame
                 styles.topframe.right = `calc(${100-division}% + 1px)`
                 styles.bottomframe.left = `calc(${division}% + 1px)`
                 styles.splitter.right = `calc(${100-division}% - 1px)`
@@ -515,8 +638,8 @@ class Splitter extends React.Component<SplitterProps,any> {
     render() {
         let collapse = this.state.collapse
         let styles = this.styles
-        styles.collapsetabtop.display = (collapse == -1)?'none':'flex'
-        styles.collapsetabbottom.display = (collapse == 1)?'none':'flex'
+        // styles.collapsetabtop.display = (collapse == -1)?'none':'flex'
+        // styles.collapsetabbottom.display = (collapse == 1)?'none':'flex'
         // mutated values not allowed (deprectated by React); make fresh clones
         const topframe = Object.assign({},styles.topframe)
         const splitter = Object.assign({},styles.splitter)
