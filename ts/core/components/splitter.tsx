@@ -3,12 +3,9 @@
 /*
     TODO: 
     - implement all control properties (orientation)
-    - hide handle and tabs below parent threshold
     - add min and max props (in pixels) for splitter
     - make work on mobile devices
-    - use visible property for tabs to allow fade
     - implement nested splitters
-    - vertical splitter
     - find way for tabs and handles to stay out of way of nested splitters
     - provide cue for being inside or outside threshold
     - cascade and test multi-layer nesting calls of splitters for control hiding/showing
