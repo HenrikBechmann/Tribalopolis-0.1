@@ -4,8 +4,11 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme'
 import ReduxToastr from 'react-redux-toastr'
 import { Provider } from 'react-redux'
 import { DragDropContext } from 'react-dnd'
-import DnDBackend from 'react-dnd-html5-backend'
+import DnDHTMLBackend from 'react-dnd-html5-backend'
+import DnDTouchBackend from 'react-dnd-touch-backend'
 
+// let DnDBackend = DnDHTMLBackend
+let DnDBackend = DnDTouchBackend({ enableMouseEvents: true })
 // TODO copy muiTheme to global state at this point
 // if ( navigator.userAgent.match(/Mobi/) ) {
 //     // We are in a mobile device

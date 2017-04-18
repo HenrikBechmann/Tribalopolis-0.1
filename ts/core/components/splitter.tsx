@@ -3,7 +3,6 @@
 /*
     TODO: 
     - add min and max props (in pixels) for splitter
-    - make work on mobile devices
     - find way for tabs and handles to stay out of way of nested splitters
     - provide cue for being inside or outside threshold
     - identify and resolve remaining nested splitter issues

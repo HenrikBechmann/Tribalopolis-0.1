@@ -2,10 +2,10 @@
 /*
     TODO:
     - add min and max props (in pixels) for splitter
-    - make work on mobile devices
     - find way for tabs and handles to stay out of way of nested splitters
     - provide cue for being inside or outside threshold
     - identify and resolve remaining nested splitter issues
+    - drag handle should be invisible when total scope of move (ie height) is below threshold
 */
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
