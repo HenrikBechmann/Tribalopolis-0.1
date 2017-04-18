@@ -3,7 +3,17 @@ import * as React from 'react';
 import { DragLayer } from 'react-dnd';
 import { ITEM_TYPES } from '../local/constants';
 
-const layerStyles = {
+interface layerStylesInterface {
+  position:any,
+  pointerEvents: string,
+  zIndex: number,
+  left: number,
+  top: number,
+  width: string,
+  height: string,
+}
+
+const layerStyles:layerStylesInterface = {
   position: 'fixed',
   pointerEvents: 'none',
   zIndex: 100,

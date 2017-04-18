@@ -1,16 +1,11 @@
 // splitter.tsx
 /*
     TODO:
-    - implement all control properties (orientation)
-    - hide handle and tabs below parent threshold
     - add min and max props (in pixels) for splitter
     - make work on mobile devices
-    - use visible property for tabs to allow fade
-    - implement nested splitters
-    - vertical splitter
     - find way for tabs and handles to stay out of way of nested splitters
     - provide cue for being inside or outside threshold
-    - cascade and test multi-layer nesting calls of splitters for control hiding/showing
+    - identify and resolve remaining nested splitter issues
 */
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
@@ -25,8 +20,8 @@ class Splitter extends React.Component {
             this.triggers[paneid] = triggers;
             // console.log('paneid,triggers',paneid,triggers)
         };
-        this.isPrimaryBelowTreshold = null;
-        this.isSecondaryBelowTreshold = null;
+        this.isPrimaryBelowThreshold = null;
+        this.isSecondaryBelowThreshold = null;
         this.onSplitterResize = (offset, height) => {
             let { primaryTabNode, secondaryTabNode } = this;
             if (!(primaryTabNode || secondaryTabNode))
@@ -34,8 +29,8 @@ class Splitter extends React.Component {
             let { threshold } = this;
             let isPrimaryBelowThreshold = (offset) < threshold;
             let isSecondaryBelowThreshold = (height - offset) < threshold;
-            if (isPrimaryBelowThreshold !== this.isPrimaryBelowTreshold) {
-                this.isPrimaryBelowTreshold = isPrimaryBelowThreshold;
+            if (isPrimaryBelowThreshold !== this.isPrimaryBelowThreshold) {
+                this.isPrimaryBelowThreshold = isPrimaryBelowThreshold;
                 if (isPrimaryBelowThreshold) {
                     this.onTabHide('primary');
                 }
@@ -43,8 +38,8 @@ class Splitter extends React.Component {
                     this.onTabShow('primary');
                 }
             }
-            if (isSecondaryBelowThreshold !== this.isSecondaryBelowTreshold) {
-                this.isSecondaryBelowTreshold = isSecondaryBelowThreshold;
+            if (isSecondaryBelowThreshold !== this.isSecondaryBelowThreshold) {
+                this.isSecondaryBelowThreshold = isSecondaryBelowThreshold;
                 if (isSecondaryBelowThreshold) {
                     this.onTabHide('secondary');
                 }
@@ -103,6 +98,7 @@ class Splitter extends React.Component {
             else {
                 length = this.splitterElement.clientHeight;
             }
+            // console.log('inside onContainingSplitterResize for', this.props.name, length)
             let { fadeThreshold } = this;
             let isBelowThreshold = length < fadeThreshold;
             if (isBelowThreshold !== this.isContainingBelowTreshold) {
@@ -114,6 +110,19 @@ class Splitter extends React.Component {
                     this.onShow();
                 }
             }
+            let self = this;
+            setTimeout(() => {
+                let frameDimensions = this.getFrameDimensions();
+                let height = this.isHorizontal() ? frameDimensions.height : frameDimensions.width;
+                let position = frameDimensions.reference;
+                this.onSplitterResize(position, height);
+                // console.log(self.props.name + 'calling triggers', self.triggers)
+                for (let trigger in self.triggers) {
+                    if (self.triggers[trigger]['onContainingSplitterResize']) {
+                        self.triggers[trigger]['onContainingSplitterResize']();
+                    }
+                }
+            });
         };
         this.styles = JSON.parse(JSON.stringify(globalstyles.splitter));
         this.triggerlist = ['onStartSplitterDrag', 'onEndSplitterDrag', 'onContainingSplitterResize', 'onHide', 'onShow'];
@@ -497,6 +506,7 @@ class Splitter extends React.Component {
                 }
             }
             this.props.getTriggers(this.props.paneid, triggers);
+            // console.log(this.props.name + ' got triggers',triggers)
         }
     }
     componentDidMount() {

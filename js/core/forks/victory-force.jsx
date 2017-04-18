@@ -1,11 +1,3 @@
-var __assign = (this && this.__assign) || Object.assign || function(t) {
-    for (var s, i = 1, n = arguments.length; i < n; i++) {
-        s = arguments[i];
-        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-            t[p] = s[p];
-    }
-    return t;
-};
 // victory-force.tsx
 import * as React from "react";
 let { PropTypes } = React;
@@ -54,7 +46,7 @@ class VictoryForce extends React.Component {
     getProps(props) {
         const { nodes: data, domain, x, y } = props;
         const modifiedProps = { data, domain, x, y };
-        return __assign({}, props, { domain: {
+        return Object.assign({}, props, { domain: {
                 x: Domain.getDomain(modifiedProps, "x"),
                 y: Domain.getDomain(modifiedProps, "y")
             } });
@@ -77,7 +69,7 @@ class VictoryForce extends React.Component {
         const scatterProps = pick(props, [
             "groupComponent", "height", "width", "domain", "theme"
         ]);
-        const linkComponent = React.cloneElement(props.linkComponent, __assign({}, props.linkComponent.props, { accessor: {
+        const linkComponent = React.cloneElement(props.linkComponent, Object.assign({}, props.linkComponent.props, { accessor: {
                 x: Helpers.createAccessor(props.x),
                 y: Helpers.createAccessor(props.y)
             } }));

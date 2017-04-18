@@ -2,13 +2,12 @@
 
 /*
     TODO: 
-    - implement all control properties (orientation)
     - add min and max props (in pixels) for splitter
     - make work on mobile devices
-    - implement nested splitters
     - find way for tabs and handles to stay out of way of nested splitters
     - provide cue for being inside or outside threshold
-    - cascade and test multi-layer nesting calls of splitters for control hiding/showing
+    - identify and resolve remaining nested splitter issues
+    - drag handle should be invisible when total scope of move (ie height) is below threshold
 */
 
 import * as React from 'react'
@@ -37,6 +36,7 @@ interface SplitterProps {
     getTriggers?:Function,
     triggers?:string[],
     paneid?:string,
+    name?:string,
 }
 class Splitter extends React.Component<SplitterProps,any> {
 
@@ -106,8 +106,8 @@ class Splitter extends React.Component<SplitterProps,any> {
         // console.log('paneid,triggers',paneid,triggers)
     }
 
-    isPrimaryBelowTreshold = null
-    isSecondaryBelowTreshold = null
+    isPrimaryBelowThreshold = null
+    isSecondaryBelowThreshold = null
 
     onSplitterResize = (offset,height) => {
         let {primaryTabNode, secondaryTabNode} = this
@@ -118,9 +118,9 @@ class Splitter extends React.Component<SplitterProps,any> {
 
         let isPrimaryBelowThreshold = (offset) < threshold
         let isSecondaryBelowThreshold = (height - offset) < threshold
-        if (isPrimaryBelowThreshold !== this.isPrimaryBelowTreshold) {
+        if (isPrimaryBelowThreshold !== this.isPrimaryBelowThreshold) {
 
-            this.isPrimaryBelowTreshold = isPrimaryBelowThreshold
+            this.isPrimaryBelowThreshold = isPrimaryBelowThreshold
             if (isPrimaryBelowThreshold) {
                 this.onTabHide('primary')
             } else {
@@ -129,9 +129,9 @@ class Splitter extends React.Component<SplitterProps,any> {
 
         }
 
-        if (isSecondaryBelowThreshold !== this.isSecondaryBelowTreshold) {
+        if (isSecondaryBelowThreshold !== this.isSecondaryBelowThreshold) {
 
-            this.isSecondaryBelowTreshold = isSecondaryBelowThreshold
+            this.isSecondaryBelowThreshold = isSecondaryBelowThreshold
             if (isSecondaryBelowThreshold) {
                 this.onTabHide('secondary')
             } else {
@@ -215,6 +215,8 @@ class Splitter extends React.Component<SplitterProps,any> {
             length = this.splitterElement.clientHeight
         }
 
+        // console.log('inside onContainingSplitterResize for', this.props.name, length)
+
         let {fadeThreshold} = this
 
         let isBelowThreshold = length < fadeThreshold
@@ -229,6 +231,19 @@ class Splitter extends React.Component<SplitterProps,any> {
             }
 
         }
+        let self = this
+        setTimeout(() =>{
+            let frameDimensions = this.getFrameDimensions()
+            let height = this.isHorizontal()?frameDimensions.height:frameDimensions.width
+            let position = frameDimensions.reference
+            this.onSplitterResize(position,height)
+            // console.log(self.props.name + 'calling triggers', self.triggers)
+            for (let trigger in self.triggers) {
+                if (self.triggers[trigger]['onContainingSplitterResize']) {
+                    self.triggers[trigger]['onContainingSplitterResize']()
+                }
+            }
+        })
 
     }
 
@@ -274,6 +289,7 @@ class Splitter extends React.Component<SplitterProps,any> {
                 }
             }
             this.props.getTriggers(this.props.paneid,triggers)
+            // console.log(this.props.name + ' got triggers',triggers)
         }
     }
 

@@ -335,11 +335,23 @@ class Spaces extends React.Component<any,any> {
         </div>
         <div style = {styles.main}>
             <Splitter 
+                name = "First"
                 primaryPane = {<SpaceGraph data = {this.state.sampledata} />}
                 secondaryPane = {
                     <Splitter
+                        name = "Second"
                         primaryPane = {<SpaceList />}
-                        secondaryPane = {<SpaceItem />}
+                        secondaryPane = {
+                            <Splitter 
+                                name = "Third"
+                                primaryPane = {
+                                    <SpaceItem />
+                                  }
+                                secondaryPane = {<SpaceItem />}
+                                orientation = "horizontal"
+                                showTabs = {true}
+                            />
+                        }
                         orientation = "vertical"
                         showTabs = {true}
                     />
