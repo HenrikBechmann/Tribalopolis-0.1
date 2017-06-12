@@ -2,11 +2,12 @@
 import * as React from 'react';
 class NodeComponent extends React.Component {
     render() {
-        let x = this.props.x;
-        let y = this.props.y;
-        let index = this.props.index;
+        let { x, y, index, data } = this.props;
+        let nodeData = data[index];
+        let { nodeType } = nodeData;
+        // console.log(this.props)
         let component;
-        if ((index % 2) == 0) {
+        if (nodeType == 'item') {
             // item
             component = <svg x={x - (53.6 / 2)} y={y - (65.13 / 2)} viewBox="0 0 13000 13000" xmlns="http://www.w3.org/2000/svg">
             <g>

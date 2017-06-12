@@ -17,10 +17,11 @@ import NodeComponent from './nodecomponent'
 const nodes = range(120).map((i) => {
   return {
     index: i,
+    nodeType: ((i % 2)==0)?'item':'list'
   };
 });
 
-console.log('nodes',nodes)
+// console.log('nodes',nodes)
 
 const links = range(nodes.length - 1).map((i) => {
   return {
@@ -29,7 +30,7 @@ const links = range(nodes.length - 1).map((i) => {
   };
 });
 
-console.log('links',links)
+// console.log('links',links)
 
 // <FloatingActionButton mini={true} secondary={true} style={styles.addbutton}>
 //       <ContentAdd />
