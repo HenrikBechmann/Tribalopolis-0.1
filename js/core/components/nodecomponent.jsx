@@ -9,7 +9,7 @@ class NodeComponent extends React.Component {
         let component;
         if (nodeType == 'item') {
             // item
-            component = <svg x={x - (80 / 2)} y={y - (80 / 2)} height="80px" width="80px" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+            component = <svg x={x - (80 / 2)} y={y - (80 / 2)} height="80" width="80" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
             <g>
               <path d="M 49 392.769 L 49.048 392.769 C 51.423 423.069 140.438 447.428 249.899 447.428 C 359.36 447.428 448.375 423.069 450.75 392.769 L 451.001 392.769 L 451.001 437.281 L 450.736 437.281 C 450.778 437.751 450.799 438.222 450.799 438.694 C 450.799 469.568 360.853 494.596 249.899 494.596 C 138.945 494.596 48.999 469.568 48.999 438.694 C 48.999 438.222 49.02 437.751 49.062 437.281 L 49 437.281 Z"/>
               <ellipse style={{ fill: "rgb(216, 216, 216)" }} cx="250" cy="393.486" rx="200.9" ry="55.902"/>
@@ -26,7 +26,7 @@ class NodeComponent extends React.Component {
         }
         else {
             // list
-            component = <svg x={x - (60 / 2)} y={y - (60 / 2)} height="60px" width="60px" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+            component = <svg x={x - (60 / 2)} y={y - (60 / 2)} height="60" width="60" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
           <defs>
             <pattern id="pattern-0" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse" viewBox="0 0 100 100">
               <path d="M 0 0 L 50 0 L 50 100 L 0 100 Z" style={{ fill: "black" }}/>
