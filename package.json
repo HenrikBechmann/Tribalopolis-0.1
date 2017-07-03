@@ -48,7 +48,7 @@
     "@types/d3-force": "^1.0.7",
     "@types/draft-js": "^0.10.5",
     "@types/flux-standard-action": "^0.5.30",
-    "@types/material-ui": "^0.17.11",
+    "@types/material-ui": "^0.17.14",
     "@types/node": "^8.0.7",
     "@types/radium": "^0.18.22",
     "@types/react": "^15.0.34",
