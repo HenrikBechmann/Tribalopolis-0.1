@@ -4,7 +4,7 @@
 import { combineReducers } from 'redux'
 import { isFSA } from 'flux-standard-action'
 import { handleActions } from 'redux-actions'; // handleAction doesn't work with combineReducers
-import { routerReducer } from 'react-router-redux'
+// import { routerReducer } from 'react-router-redux'
 import {reducer as toastrReducer} from 'react-redux-toastr'
 
 // -------------[ app resources ]---------------
