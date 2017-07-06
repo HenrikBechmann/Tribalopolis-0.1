@@ -1,8 +1,9 @@
 import * as React from 'react';
 import configureStore from './utilities/configurestore';
 import Base from './bootstrap/base';
-import Router from './bootstrap/router';
-import routes from './routes';
+import AppRouter from './bootstrap/approuter';
+import routes from "./routes";
+// console.log(routes)
 // import { autoLoginUser } from '../actions/actions'
 const store = configureStore();
 // let { auth } = store.getState().login
@@ -14,9 +15,9 @@ const store = configureStore();
 // }
 //TODO: assign version to state (DEVELOPMENT|STAGING|PRODUCTION)
 const Main = (props) => (<Base store={store} globalmessage={props.globalmessage}>
-        <Router>
+        <AppRouter>
             {routes}
-        </Router>
+        </AppRouter>
     </Base>);
 export default Main;
 //# sourceMappingURL=main.jsx.map

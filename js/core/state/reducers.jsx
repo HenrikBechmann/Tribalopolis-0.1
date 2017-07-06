@@ -2,7 +2,6 @@
 'use strict';
 import { combineReducers } from 'redux';
 import { isFSA } from 'flux-standard-action';
-// import { routerReducer } from 'react-router-redux'
 import { reducer as toastrReducer } from 'react-redux-toastr';
 // -------------[ app resources ]---------------
 // import * as Actions from '../actions/actions'

@@ -1,7 +1,7 @@
 // routes.tsx
 'use strict';
 import * as React from 'react';
-import { Route, IndexRoute } from 'react-router';
+import { Route } from 'react-router-dom';
 import Spaces from './containers/spaces';
 // import ResetPassword from '../containers/resetpassword'
 // import Register from '../containers/register'
@@ -12,7 +12,7 @@ import Spaces from './containers/spaces';
 // import approutes from '../../addins/approutes'
 let routedata = [];
 let coreroutes = routedata.map((item, index) => (<Route key={'coreroute' + index} path={item.path} component={item.component}/>));
-let indexroute = <IndexRoute key="_INDEX_" component={Spaces}/>;
-const routes = [indexroute, ...coreroutes];
+let indexroute = <Route key="_INDEX_" path="/" component={Spaces}/>;
+const routes = [indexroute];
 export default routes;
 //# sourceMappingURL=routes.jsx.map

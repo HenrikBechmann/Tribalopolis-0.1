@@ -6,13 +6,11 @@ import theme from 'material-ui/styles/baseThemes/lightBaseTheme'
 // let muiTheme = getMuiTheme()
 // console.log(muiTheme)
 
-// TODO: register issue with 'justify-content' bad interface
-
 export let styles = {
     // the main scaffold
     frame:{
         display:'flex',
-        "flex-direction":'column',
+        flexDirection:'column',
         position:'absolute',
         top:0,
         right:0,
@@ -120,7 +118,7 @@ export let styles = {
             backgroundColor:'palegoldenrod',
             zIndex:2,
             display:'flex',
-            'justify-content':"center",
+            justifyContent:"center",
             alignItems:'center',
             visibility:'visible',
             transition:'opacity .5s ease-out,visibility 0s .5s',
@@ -134,7 +132,7 @@ export let styles = {
             backgroundColor:'#cff',   
             zIndex:2,
             display:'flex',
-            'justify-content':"center",
+            justifyContent:"center",
             alignItems:'center',
             border:'1px solid gray',
             cursor:'pointer',
@@ -152,7 +150,7 @@ export let styles = {
             // right:'10px',
             backgroundColor:'#d3f8d3',
             zIndex:2,display:'flex',
-            'justify-content':"center",
+            justifyContent:"center",
             alignItems:'center',
             border:'1px solid gray',
             cursor:'pointer',
