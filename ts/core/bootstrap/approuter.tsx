@@ -2,6 +2,7 @@
     TODO: 
     - implement automatic top of page
     - implement call to googla analytics
+    - integrate Wrapper
 */
 
 import * as React from 'react'
@@ -24,7 +25,7 @@ let logPageView = () => {
 //         window.scrollTo(0, 0)
 //         logPageView()
 //     }
-            // <Route path="/" component={ Wrapper } />
+// <Route path="/" component={ Wrapper } />
 
 
 let AppRouter = (props) => (
