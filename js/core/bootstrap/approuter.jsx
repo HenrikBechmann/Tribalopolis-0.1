@@ -2,6 +2,7 @@
     TODO:
     - implement automatic top of page
     - implement call to googla analytics
+    - integrate Wrapper
 */
 import * as React from 'react';
 import { BrowserRouter, Switch } from 'react-router-dom';
