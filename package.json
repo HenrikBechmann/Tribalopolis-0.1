@@ -40,7 +40,6 @@
     "redux-thunk": "^2.2.0",
     "uuid": "^3.1.0",
     "victory": "^0.21.2",
-    "victory-chart": "^21.3.0",
     "victory-force": "0.0.1"
   },
   "devDependencies": {
@@ -62,7 +61,6 @@
     "@types/react-tap-event-plugin": "0.0.30",
     "@types/redux-actions": "^1.2.6",
     "@types/victory": "^0.9.10",
-    "ajv": "^5.2.2",
     "babel-core": "^6.25.0",
     "babel-loader": "^7.1.1",
     "babel-plugin-syntax-trailing-function-commas": "^6.22.0",

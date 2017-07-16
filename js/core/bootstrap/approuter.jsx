@@ -6,6 +6,7 @@
 */
 import * as React from 'react';
 import { BrowserRouter, Switch } from 'react-router-dom';
+import Wrapper from './wrapper';
 let ReactGA = require('react-ga');
 ReactGA.initialize('UA-4105209-11');
 let logPageView = () => {
@@ -20,10 +21,15 @@ let logPageView = () => {
 //         logPageView()
 //     }
 // <Route path="/" component={ Wrapper } />
-let AppRouter = (props) => (<BrowserRouter>
-        <Switch>
-            {props.children}
-        </Switch>
+let AppRouter = (props) => {
+    // console.log('AppRouter props',props)
+    return (<BrowserRouter>
+        <Wrapper>
+            <Switch>
+                {props.children}
+            </Switch>
+        </Wrapper>
     </BrowserRouter>);
+};
 export default AppRouter;
 //# sourceMappingURL=approuter.jsx.map
