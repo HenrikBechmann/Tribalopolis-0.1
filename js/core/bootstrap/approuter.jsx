@@ -2,11 +2,10 @@
     TODO:
     - implement automatic top of page
     - implement call to googla analytics
-    - integrate Wrapper
 */
 import * as React from 'react';
 import { BrowserRouter, Switch } from 'react-router-dom';
-import Wrapper from './wrapper';
+import TransitionWrapper from './transitionwrapper';
 let ReactGA = require('react-ga');
 ReactGA.initialize('UA-4105209-11');
 let logPageView = () => {
@@ -20,15 +19,14 @@ let logPageView = () => {
 //         window.scrollTo(0, 0)
 //         logPageView()
 //     }
-// <Route path="/" component={ Wrapper } />
 let AppRouter = (props) => {
     // console.log('AppRouter props',props)
     return (<BrowserRouter>
-        <Wrapper>
+        <TransitionWrapper>
             <Switch>
                 {props.children}
             </Switch>
-        </Wrapper>
+        </TransitionWrapper>
     </BrowserRouter>);
 };
 export default AppRouter;
