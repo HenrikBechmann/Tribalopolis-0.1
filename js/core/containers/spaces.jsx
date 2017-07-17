@@ -185,15 +185,20 @@ class Spaces extends React.Component {
             <MenuItem leftIcon={<FontIcon className='material-icons'>settings</FontIcon>} primaryText="Options"/>
             <MenuItem leftIcon={<FontIcon className='material-icons'>help</FontIcon>} primaryText="Help"/>
         </IconMenu>;
+        this.getSpaceGraph = () => {
+            console.log('getSpaceGraph', this.state.sampledata);
+            return (<SpaceGraph data={this.state.sampledata || {}}/>);
+        };
     }
     componentDidMount() {
         if (!this.state.sampledata) {
             utilities.getJsonFile('/db/sample.json').then((data) => {
                 let sampledata = this.normalizeData(data);
-                // console.log('sampledata', sampledata)
+                console.log('sampledata', sampledata);
                 this.setState({
                     sampledata
                 });
+                // this.forceUpdate()
             }).catch((error) => {
                 console.log('error getting sample file: ', error);
             });
@@ -222,7 +227,7 @@ class Spaces extends React.Component {
             <div style={styles.title}>Demo: click on a node to remove it.</div>
         </div>
         <div style={styles.main}>
-            <Splitter name="First" primaryPane={<SpaceGraph data={this.state.sampledata}/>} secondaryPane={<Splitter name="Second" primaryPane={<SpaceList />} secondaryPane={<Splitter name="Third" primaryPane={<SpaceItem />} secondaryPane={<SpaceItem />} orientation="horizontal" showTabs={true}/>} orientation="vertical" showTabs={true}/>} orientation="horizontal" division={30} collapse={0} showTabs={true} showHandle={true}/>
+            <Splitter name="First" primaryPane={this.getSpaceGraph()} secondaryPane={<Splitter name="Second" primaryPane={<SpaceList />} secondaryPane={<Splitter name="Third" primaryPane={<SpaceItem />} secondaryPane={<SpaceItem />} orientation="horizontal" showTabs={true}/>} orientation="vertical" showTabs={true}/>} orientation="horizontal" division={70} collapse={1} showTabs={true} showHandle={true}/>
         </div>
         <div style={styles.footer}>
             <div style={styles.status}>Status</div>

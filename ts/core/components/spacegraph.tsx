@@ -8,7 +8,7 @@ import { styles as globalstyles } from '../utilities/styles'
 
 import { range } from "lodash";
 
-import {forceLink, forceManyBody, forceX, forceY} from "d3-force";
+import { forceLink, forceManyBody, forceX, forceY } from "d3-force";
 
 import VictoryForce from '../forks/victory-force'
 
@@ -21,7 +21,7 @@ const nodes = range(120).map((i) => {
   };
 });
 
-// console.log('nodes',nodes)
+console.log('nodes',nodes)
 
 const links = range(nodes.length - 1).map((i) => {
   return {
@@ -30,14 +30,17 @@ const links = range(nodes.length - 1).map((i) => {
   };
 });
 
-// console.log('links',links)
+console.log('links',links)
 
 // <FloatingActionButton mini={true} secondary={true} style={styles.addbutton}>
 //       <ContentAdd />
 // </FloatingActionButton>
 
 interface SpaceGraphProps {
-    data:Object,
+    data:{
+      nodes?:Object,
+      links?:Object
+    },
     paneid?:string,
     triggers?:string[],
     getTriggers?:Function,
@@ -46,8 +49,8 @@ interface SpaceGraphProps {
 class SpaceGraph extends React.Component<SpaceGraphProps,any> {
 
     state = {
-        nodes,
-        links,
+        nodes:null,
+        links:null,
     }
 
     styles = JSON.parse(JSON.stringify(globalstyles.spacegraph))
@@ -61,6 +64,37 @@ class SpaceGraph extends React.Component<SpaceGraphProps,any> {
              }
           }
           this.props.getTriggers(this.props.paneid,triggers)
+      }
+    }
+
+    componentDidMount() {
+      console.log('props',this.props)
+      let { data } = this.props
+      if (data.nodes) {
+        let {nodes:sourcenodes, links:sourcelinks} = this.props.data
+
+        console.log('data',sourcenodes,sourcelinks)
+
+        this.setState({
+          nodes,
+          links
+        })
+      }
+
+    }
+
+    componentDidUpdate() {
+      let { data } = this.props
+      console.log('data after did update', data)
+      if (data.nodes) {
+        let {nodes:sourcenodes, links:sourcelinks} = this.props.data
+
+        console.log('updatedata',sourcenodes,sourcelinks)
+
+        this.setState({
+          nodes,
+          links
+        })
       }
     }
 

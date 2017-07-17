@@ -40,10 +40,11 @@ class Spaces extends React.Component<any,any> {
         if (!this.state.sampledata) {
             utilities.getJsonFile('/db/sample.json').then((data) => {
                 let sampledata = this.normalizeData(data)
-                // console.log('sampledata', sampledata)
+                console.log('sampledata', sampledata)
                 this.setState({
                     sampledata
                 })
+                // this.forceUpdate()
             }).catch((error) => {
                 console.log('error getting sample file: ',error)
             })
@@ -309,6 +310,11 @@ class Spaces extends React.Component<any,any> {
             />
         </IconMenu>
 
+    getSpaceGraph = () => {
+        console.log('getSpaceGraph',this.state.sampledata)
+        return (<SpaceGraph data = {this.state.sampledata || {}} />)
+    }
+
     render() {
     return <div style={styles.frame}>
         { this.menudrawer() }
@@ -336,7 +342,7 @@ class Spaces extends React.Component<any,any> {
         <div style = {styles.main}>
             <Splitter 
                 name = "First"
-                primaryPane = {<SpaceGraph data = {this.state.sampledata} />}
+                primaryPane = {this.getSpaceGraph()}
                 secondaryPane = {
                     <Splitter
                         name = "Second"
@@ -357,8 +363,8 @@ class Spaces extends React.Component<any,any> {
                     />
                 }
                 orientation = "horizontal"
-                division = {30}
-                collapse = {0}
+                division = {70}
+                collapse = {1}
                 showTabs = {true}
                 showHandle = {true}
             />

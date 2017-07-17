@@ -137,6 +137,7 @@ class Splitter extends React.Component {
         this.isHorizontal = () => {
             return (this.orientation == 'horizontal') ? true : false;
         };
+        this.updatecount = 0;
         this.stylememo = null;
         this.dragStart = () => {
             let styles = this.styles;
@@ -515,6 +516,9 @@ class Splitter extends React.Component {
         // let primarylength = el.clientHeight
         if ((this.threshold / primarylength) > .25)
             this.threshold = primarylength * .25;
+    }
+    componentDidUpdate() {
+        console.log('splitter componentDidUpdate', this.props.primaryPane);
     }
     // update state if division or collapse changes
     componentWillReceiveProps(nextProps) {

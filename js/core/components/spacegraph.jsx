@@ -13,19 +13,20 @@ const nodes = range(120).map((i) => {
         nodeType: ((i % 2) == 0) ? 'item' : 'list'
     };
 });
-// console.log('nodes',nodes)
+console.log('nodes', nodes);
 const links = range(nodes.length - 1).map((i) => {
     return {
         source: Math.floor(Math.sqrt(i)),
         target: i + 1
     };
 });
+console.log('links', links);
 class SpaceGraph extends React.Component {
     constructor() {
         super(...arguments);
         this.state = {
-            nodes,
-            links,
+            nodes: null,
+            links: null,
         };
         this.styles = JSON.parse(JSON.stringify(globalstyles.spacegraph));
         this.stylesmemo = {
@@ -55,6 +56,30 @@ class SpaceGraph extends React.Component {
                 }
             }
             this.props.getTriggers(this.props.paneid, triggers);
+        }
+    }
+    componentDidMount() {
+        console.log('props', this.props);
+        let { data } = this.props;
+        if (data.nodes) {
+            let { nodes: sourcenodes, links: sourcelinks } = this.props.data;
+            console.log('data', sourcenodes, sourcelinks);
+            this.setState({
+                nodes,
+                links
+            });
+        }
+    }
+    componentDidUpdate() {
+        let { data } = this.props;
+        console.log('data after did update', data);
+        if (data.nodes) {
+            let { nodes: sourcenodes, links: sourcelinks } = this.props.data;
+            console.log('updatedata', sourcenodes, sourcelinks);
+            this.setState({
+                nodes,
+                links
+            });
         }
     }
     removeNode(datum) {

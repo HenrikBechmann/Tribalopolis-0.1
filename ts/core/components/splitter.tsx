@@ -301,6 +301,11 @@ class Splitter extends React.Component<SplitterProps,any> {
             this.threshold = primarylength * .25   
     }
 
+    updatecount = 0
+    componentDidUpdate() {
+        console.log('splitter componentDidUpdate', this.props.primaryPane)
+    }
+
     // update state if division or collapse changes
     componentWillReceiveProps(nextProps) {
         if ((nextProps.division !== this.props.division) ||
