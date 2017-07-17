@@ -517,8 +517,17 @@ class Splitter extends React.Component {
         if ((this.threshold / primarylength) > .25)
             this.threshold = primarylength * .25;
     }
-    componentDidUpdate() {
-        console.log('splitter componentDidUpdate', this.props.primaryPane);
+    componentWillUpdate(newProps) {
+        if (this.updatecount == 0) {
+            this.updatecount++;
+            console.log('splitter componentWillUpdate', newProps.primaryPane, this.primaryPane);
+            this.primaryPane = React.cloneElement(newProps.primaryPane, {
+                paneid: 'primaryPane',
+                triggers: this.triggerlist,
+                getTriggers: this.getTriggers,
+            });
+            console.log('splitter componentDidUpdate', this.updatecount, newProps.primaryPane, this.primaryPane);
+        }
     }
     // update state if division or collapse changes
     componentWillReceiveProps(nextProps) {

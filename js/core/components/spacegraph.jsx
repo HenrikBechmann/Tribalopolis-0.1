@@ -29,6 +29,7 @@ class SpaceGraph extends React.Component {
             links: null,
         };
         this.styles = JSON.parse(JSON.stringify(globalstyles.spacegraph));
+        this.updatecount = 0;
         this.stylesmemo = {
             overflow: null
         };
@@ -73,7 +74,8 @@ class SpaceGraph extends React.Component {
     componentDidUpdate() {
         let { data } = this.props;
         console.log('data after did update', data);
-        if (data.nodes) {
+        if (data.nodes && (this.updatecount == 0)) {
+            this.updatecount++;
             let { nodes: sourcenodes, links: sourcelinks } = this.props.data;
             console.log('updatedata', sourcenodes, sourcelinks);
             this.setState({

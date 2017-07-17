@@ -28,7 +28,10 @@ class Spaces extends React.Component {
             menuopen: false,
             filterdialogopen: false,
             searchdialogopen: false,
-            sampledata: null,
+            graphdata: {
+                links: null,
+                nodes: null,
+            },
         };
         this.callFunc = (self, funcname, args = null) => {
             return self[funcname](args);
@@ -186,17 +189,17 @@ class Spaces extends React.Component {
             <MenuItem leftIcon={<FontIcon className='material-icons'>help</FontIcon>} primaryText="Help"/>
         </IconMenu>;
         this.getSpaceGraph = () => {
-            console.log('getSpaceGraph', this.state.sampledata);
-            return (<SpaceGraph data={this.state.sampledata || {}}/>);
+            console.log('getSpaceGraph', this.state.graphdata);
+            return (<SpaceGraph data={this.state.graphdata}/>);
         };
     }
     componentDidMount() {
-        if (!this.state.sampledata) {
+        if (!this.state.graphdata.nodes) {
             utilities.getJsonFile('/db/sample.json').then((data) => {
-                let sampledata = this.normalizeData(data);
-                console.log('sampledata', sampledata);
+                let graphdata = this.normalizeData(data);
+                console.log('graphdata', graphdata);
                 this.setState({
-                    sampledata
+                    graphdata
                 });
                 // this.forceUpdate()
             }).catch((error) => {
