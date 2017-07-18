@@ -137,7 +137,7 @@ class Splitter extends React.Component {
         this.isHorizontal = () => {
             return (this.orientation == 'horizontal') ? true : false;
         };
-        this.updatecount = 0;
+        this.updatecount = 0; // TODO: THIS IS A HACK to pass loaded data file to spacegraph
         this.stylememo = null;
         this.dragStart = () => {
             let styles = this.styles;
@@ -520,13 +520,12 @@ class Splitter extends React.Component {
     componentWillUpdate(newProps) {
         if (this.updatecount == 0) {
             this.updatecount++;
-            console.log('splitter componentWillUpdate', newProps.primaryPane, this.primaryPane);
             this.primaryPane = React.cloneElement(newProps.primaryPane, {
                 paneid: 'primaryPane',
                 triggers: this.triggerlist,
                 getTriggers: this.getTriggers,
             });
-            console.log('splitter componentDidUpdate', this.updatecount, newProps.primaryPane, this.primaryPane);
+            console.log('splitter componentWillUpdate', this.updatecount, newProps.primaryPane, this.primaryPane);
         }
     }
     // update state if division or collapse changes

@@ -21,7 +21,7 @@ const nodes = range(120).map((i) => {
   };
 });
 
-console.log('nodes',nodes)
+// console.log('nodes',nodes)
 
 const links = range(nodes.length - 1).map((i) => {
   return {
@@ -30,7 +30,7 @@ const links = range(nodes.length - 1).map((i) => {
   };
 });
 
-console.log('links',links)
+// console.log('links',links)
 
 // <FloatingActionButton mini={true} secondary={true} style={styles.addbutton}>
 //       <ContentAdd />
@@ -38,8 +38,8 @@ console.log('links',links)
 
 interface SpaceGraphProps {
     data:{
-      nodes?:Object,
-      links?:Object
+      nodes:Object,
+      links:Object
     },
     paneid?:string,
     triggers?:string[],
@@ -68,12 +68,12 @@ class SpaceGraph extends React.Component<SpaceGraphProps,any> {
     }
 
     componentDidMount() {
-      console.log('props',this.props)
+      // console.log('props',this.props)
       let { data } = this.props
       if (data.nodes) {
         let {nodes:sourcenodes, links:sourcelinks} = this.props.data
 
-        console.log('data',sourcenodes,sourcelinks)
+        // console.log('data',sourcenodes,sourcelinks)
 
         this.setState({
           nodes,
@@ -86,18 +86,47 @@ class SpaceGraph extends React.Component<SpaceGraphProps,any> {
     updatecount = 0
     componentDidUpdate() {
       let { data } = this.props
-      console.log('data after did update', data)
+      // console.log('data after did update', data)
       if (data.nodes && ( this.updatecount == 0 )) {
         this.updatecount++
         let {nodes:sourcenodes, links:sourcelinks} = this.props.data
 
-        console.log('updatedata',sourcenodes,sourcelinks)
+        let graphdata = this.transformSourceGraph(sourcenodes,sourcelinks)
+
+        console.log('updatedata',graphdata.nodes, nodes, graphdata.links, links)
 
         this.setState({
-          nodes,
-          links
+          nodes,//:graphdata.nodes,
+          links,//:graphdata.links,
         })
       }
+    }
+
+    transformSourceGraph = (nodes, links) => {
+      console.log('transformSourceGraph', nodes, links)
+      let data = {
+        links:null,
+        nodes:null,
+      }
+      let graphlinks = []
+      let graphnodes = []
+
+      for (let index in nodes) {
+        graphnodes[parseInt(index)] = {
+          index:parseInt(index),
+          nodeType:'item',
+          name:nodes[index].properties.name
+        }
+      }
+      data.nodes = graphnodes
+      for (let index in links) {
+        graphlinks[parseInt(index)] = {
+          source:parseInt(links[index].startNode),
+          target:parseInt(links[index].endNode),
+        }
+      }
+      data.links = graphlinks
+      return data
     }
 
     stylesmemo = {

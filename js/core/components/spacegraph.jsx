@@ -13,14 +13,13 @@ const nodes = range(120).map((i) => {
         nodeType: ((i % 2) == 0) ? 'item' : 'list'
     };
 });
-console.log('nodes', nodes);
+// console.log('nodes',nodes)
 const links = range(nodes.length - 1).map((i) => {
     return {
         source: Math.floor(Math.sqrt(i)),
         target: i + 1
     };
 });
-console.log('links', links);
 class SpaceGraph extends React.Component {
     constructor() {
         super(...arguments);
@@ -30,6 +29,31 @@ class SpaceGraph extends React.Component {
         };
         this.styles = JSON.parse(JSON.stringify(globalstyles.spacegraph));
         this.updatecount = 0;
+        this.transformSourceGraph = (nodes, links) => {
+            console.log('transformSourceGraph', nodes, links);
+            let data = {
+                links: null,
+                nodes: null,
+            };
+            let graphlinks = [];
+            let graphnodes = [];
+            for (let index in nodes) {
+                graphnodes[parseInt(index)] = {
+                    index: parseInt(index),
+                    nodeType: 'item',
+                    name: nodes[index].properties.name
+                };
+            }
+            data.nodes = graphnodes;
+            for (let index in links) {
+                graphlinks[parseInt(index)] = {
+                    source: parseInt(links[index].startNode),
+                    target: parseInt(links[index].endNode),
+                };
+            }
+            data.links = graphlinks;
+            return data;
+        };
         this.stylesmemo = {
             overflow: null
         };
@@ -60,11 +84,11 @@ class SpaceGraph extends React.Component {
         }
     }
     componentDidMount() {
-        console.log('props', this.props);
+        // console.log('props',this.props)
         let { data } = this.props;
         if (data.nodes) {
             let { nodes: sourcenodes, links: sourcelinks } = this.props.data;
-            console.log('data', sourcenodes, sourcelinks);
+            // console.log('data',sourcenodes,sourcelinks)
             this.setState({
                 nodes,
                 links
@@ -73,14 +97,15 @@ class SpaceGraph extends React.Component {
     }
     componentDidUpdate() {
         let { data } = this.props;
-        console.log('data after did update', data);
+        // console.log('data after did update', data)
         if (data.nodes && (this.updatecount == 0)) {
             this.updatecount++;
             let { nodes: sourcenodes, links: sourcelinks } = this.props.data;
-            console.log('updatedata', sourcenodes, sourcelinks);
+            let graphdata = this.transformSourceGraph(sourcenodes, sourcelinks);
+            console.log('updatedata', graphdata.nodes, nodes, graphdata.links, links);
             this.setState({
                 nodes,
-                links
+                links,
             });
         }
     }
