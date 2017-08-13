@@ -525,7 +525,7 @@ class Splitter extends React.Component {
                 triggers: this.triggerlist,
                 getTriggers: this.getTriggers,
             });
-            console.log('splitter componentWillUpdate', this.updatecount, newProps.primaryPane, this.primaryPane);
+            console.log('splitter componentWillUpdate: this.updatecount, newProps.primaryPane, this.PrimaryPane', this.updatecount, newProps.primaryPane, this.primaryPane);
         }
     }
     // update state if division or collapse changes

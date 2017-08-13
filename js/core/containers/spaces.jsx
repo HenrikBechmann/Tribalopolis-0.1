@@ -189,7 +189,7 @@ class Spaces extends React.Component {
             <MenuItem leftIcon={<FontIcon className='material-icons'>help</FontIcon>} primaryText="Help"/>
         </IconMenu>;
         this.getSpaceGraph = () => {
-            console.log('getSpaceGraph', this.state.graphdata);
+            console.log('getSpaceGraph: this.state.graphdata', this.state.graphdata);
             return (<SpaceGraph data={this.state.graphdata}/>);
         };
     }
@@ -197,7 +197,7 @@ class Spaces extends React.Component {
         if (!this.state.graphdata.nodes) {
             utilities.getJsonFile('/db/sample.json').then((data) => {
                 let graphdata = this.normalizeData(data);
-                console.log('graphdata', graphdata);
+                console.log('graphdata from sample file', graphdata);
                 this.setState({
                     graphdata
                 });

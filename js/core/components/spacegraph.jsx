@@ -26,30 +26,49 @@ class SpaceGraph extends React.Component {
         this.state = {
             nodes: null,
             links: null,
+            maps: null,
         };
         this.styles = JSON.parse(JSON.stringify(globalstyles.spacegraph));
         this.updatecount = 0;
         this.transformSourceGraph = (nodes, links) => {
-            console.log('transformSourceGraph', nodes, links);
+            console.log('transformSourceGraph: nodes, links', nodes, links);
             let data = {
                 links: null,
                 nodes: null,
+                maps: {
+                    linkindextoidmap: null,
+                    linkidtoindexmap: null,
+                    nodeindextoidmap: null,
+                    nodeidtoindexmap: null,
+                }
             };
             let graphlinks = [];
             let graphnodes = [];
-            for (let index in nodes) {
-                graphnodes[parseInt(index)] = {
-                    index: parseInt(index),
+            let linkindextoidmap = [];
+            let linkidtoindexmap = {};
+            let nodeindextoidmap = [];
+            let nodeidtoindexmap = {};
+            let index = 0;
+            for (let id in nodes) {
+                graphnodes[index] = {
+                    index,
                     nodeType: 'item',
-                    name: nodes[index].properties.name
+                    name: nodes[id].properties.name
                 };
+                nodeindextoidmap[index] = id;
+                nodeidtoindexmap[id] = index;
+                index++;
             }
             data.nodes = graphnodes;
-            for (let index in links) {
-                graphlinks[parseInt(index)] = {
-                    source: parseInt(links[index].startNode),
-                    target: parseInt(links[index].endNode),
+            index = 0;
+            for (let id in links) {
+                graphlinks[index] = {
+                    source: nodeidtoindexmap[links[id].startNode],
+                    target: nodeidtoindexmap[links[id].endNode],
                 };
+                linkindextoidmap[index] = id;
+                linkidtoindexmap[id] = index;
+                index++;
             }
             data.links = graphlinks;
             return data;
@@ -102,10 +121,11 @@ class SpaceGraph extends React.Component {
             this.updatecount++;
             let { nodes: sourcenodes, links: sourcelinks } = this.props.data;
             let graphdata = this.transformSourceGraph(sourcenodes, sourcelinks);
-            console.log('updatedata', graphdata.nodes, nodes, graphdata.links, links);
+            console.log('update space data: graphdata.nodes, nodes, graphdata.links, links', graphdata.nodes, nodes, graphdata.links, links);
             this.setState({
-                nodes,
-                links,
+                maps: graphdata.maps,
+                nodes: graphdata.nodes,
+                links: graphdata.links,
             });
         }
     }

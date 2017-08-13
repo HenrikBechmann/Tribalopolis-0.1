@@ -43,7 +43,7 @@ class Spaces extends React.Component<any,any> {
         if (!this.state.graphdata.nodes) {
             utilities.getJsonFile('/db/sample.json').then((data) => {
                 let graphdata = this.normalizeData(data)
-                console.log('graphdata', graphdata)
+                console.log('graphdata from sample file', graphdata)
                 this.setState({
                     graphdata
                 })
@@ -314,11 +314,12 @@ class Spaces extends React.Component<any,any> {
         </IconMenu>
 
     getSpaceGraph = () => {
-        console.log('getSpaceGraph',this.state.graphdata)
+        console.log('getSpaceGraph: this.state.graphdata',this.state.graphdata)
         return (<SpaceGraph data = {this.state.graphdata} />)
     }
 
     render() {
+
     return <div style={styles.frame}>
         { this.menudrawer() }
         { this.filterDialog(null) }
@@ -376,6 +377,7 @@ class Spaces extends React.Component<any,any> {
             <div style={styles.status} >Status</div>
         </div>
     </div>
+    
     }
 }
 
