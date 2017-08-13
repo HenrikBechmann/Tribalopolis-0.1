@@ -70,6 +70,12 @@ class SpaceGraph extends React.Component {
                 linkidtoindexmap[id] = index;
                 index++;
             }
+            data.maps = {
+                linkindextoidmap,
+                linkidtoindexmap,
+                nodeindextoidmap,
+                nodeidtoindexmap,
+            };
             data.links = graphlinks;
             return data;
         };
