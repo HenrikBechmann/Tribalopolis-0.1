@@ -11,9 +11,6 @@ class NodeComponent extends React.Component {
             // item
             component = <svg x={x - (80 / 2)} y={y - (80 / 2)} height="80" width="80" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
             <g>
-              <text x="20" y="20" fontFamily="sans-serif" fill="green">{name}</text>
-            </g>
-            <g>
               <path d="M 49 392.769 L 49.048 392.769 C 51.423 423.069 140.438 447.428 249.899 447.428 C 359.36 447.428 448.375 423.069 450.75 392.769 L 451.001 392.769 L 451.001 437.281 L 450.736 437.281 C 450.778 437.751 450.799 438.222 450.799 438.694 C 450.799 469.568 360.853 494.596 249.899 494.596 C 138.945 494.596 48.999 469.568 48.999 438.694 C 48.999 438.222 49.02 437.751 49.062 437.281 L 49 437.281 Z"/>
               <ellipse style={{ fill: "rgb(216, 216, 216)" }} cx="250" cy="393.486" rx="200.9" ry="55.902"/>
             </g>
@@ -24,6 +21,11 @@ class NodeComponent extends React.Component {
             <g transform="matrix(1.233934, 0, 0, 1, -59.793827, 0)">
               <ellipse cx="250" cy="183.491" rx="177.358" ry="177.358" style={{ fill: "rgb(158, 158, 158)" }}/>
               <ellipse cx="250" cy="183.491" rx="167.126" ry="167.125" style={{ fill: "rgb(216, 216, 216)" }}/>
+            </g>
+            <g>
+                <text id="Testing" textAnchor="middle" fill="#010101" fontFamily="Arial-BoldMT, Arial" fontSize="100" fontWeight="bold">
+                    <tspan x="250" y="100">{name}</tspan>
+                </text>
             </g>
           </svg>;
         }
