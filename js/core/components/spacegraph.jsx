@@ -1,4 +1,8 @@
 // spacegraph.tsx
+/*
+    TODO:
+    Incorporate ROLES as a filter somehow
+*/
 import * as React from 'react';
 // import FloatingActionButton from 'material-ui/FloatingActionButton';
 // import ContentAdd from 'material-ui/svg-icons/content/add';
@@ -58,7 +62,8 @@ class SpaceGraph extends React.Component {
                     index: nodeindex,
                     nodeType: 'item',
                     name: nodes[id].properties.name,
-                    fields: {}
+                    fields: {},
+                    collections: {},
                 };
                 nodeindextoidmap[nodeindex] = id;
                 nodeidtoindexmap[id] = nodeindex;
@@ -67,7 +72,7 @@ class SpaceGraph extends React.Component {
                 let fields = nodes[id].fields;
                 for (let fieldType in fields) {
                     let fieldnode = graphnodes[nodeindex] = {
-                        nodeindex,
+                        index: nodeindex,
                         nodeType: 'field',
                         itemid: id,
                         fieldType,
@@ -84,9 +89,31 @@ class SpaceGraph extends React.Component {
             data.nodes = graphnodes;
             // create graph link for each imported link
             for (let id in links) {
+                let link = links[id];
+                let linktargetid = link.endNode;
+                // create target collection if necessary
+                let linktargetnode = graphnodes[nodeidtoindexmap[linktargetid]];
+                if (!linktargetnode.collections[link.type]) {
+                    graphnodes[nodeindex] = {
+                        index: nodeindex,
+                        nodeType: 'collection',
+                        itemid: linktargetid,
+                        fieldType: link.type,
+                    };
+                    linktargetnode.collections[link.type] = nodeindex;
+                    graphlinks[linkindex] = {
+                        source: linktargetnode.index,
+                        target: nodeindex,
+                    };
+                    nodeindex++;
+                    linkindex++;
+                }
+                // get target link
+                let targetlink = linktargetnode.collections[link.type];
+                // create link
                 graphlinks[linkindex] = {
                     source: graphnodes[nodeidtoindexmap[links[id].startNode]].fields[links[id].type],
-                    target: nodeidtoindexmap[links[id].endNode],
+                    target: targetlink,
                 };
                 linkindextoidmap[linkindex] = id;
                 linkidtoindexmap[id] = linkindex;
