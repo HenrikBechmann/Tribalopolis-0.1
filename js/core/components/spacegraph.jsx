@@ -81,6 +81,8 @@ class SpaceGraph extends React.Component {
                     graphlinks[linkindex] = {
                         source: nodeidtoindexmap[fieldnode.itemid],
                         target: nodeindex,
+                        strokeWidth: 2,
+                        stroke: "black",
                     };
                     linkindex++;
                     nodeindex++;
@@ -104,6 +106,8 @@ class SpaceGraph extends React.Component {
                     graphlinks[linkindex] = {
                         source: linktargetnode.index,
                         target: nodeindex,
+                        strokeWidth: 2,
+                        stroke: "black",
                     };
                     nodeindex++;
                     linkindex++;
