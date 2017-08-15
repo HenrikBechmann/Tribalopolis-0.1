@@ -104,6 +104,8 @@ class SpaceGraph extends React.Component<SpaceGraphProps,any> {
       }
     }
 
+// TODO: define links that are reciprocated as "bonds" so that they
+// can be presented as bold lines
     transformSourceGraph = (nodes, links) => {
       console.log('transformSourceGraph: nodes, links', nodes, links)
       let data = {
@@ -123,28 +125,49 @@ class SpaceGraph extends React.Component<SpaceGraphProps,any> {
       let nodeindextoidmap = []
       let nodeidtoindexmap = {}
 
-      let index = 0
+      let nodeindex = 0
+      let linkindex = 0
+      // create graph node for each imported node
       for (let id in nodes) {
-        graphnodes[index] = {
-          index,
+        let node = graphnodes[nodeindex] = {
+          index:nodeindex,
           nodeType:'item',
-          name:nodes[id].properties.name
+          name:nodes[id].properties.name,
+          fields:{},
+          collections:{},
         }
-        nodeindextoidmap[index]=id
-        nodeidtoindexmap[id] = index
-        index++
+        nodeindextoidmap[nodeindex]=id
+        nodeidtoindexmap[id] = nodeindex
+        nodeindex++
+        // create graph node for each field of each node
+        let fields = nodes[id].fields
+        for (let fieldType in fields) {
+          let fieldnode = graphnodes[nodeindex] = {
+            nodeindex,
+            nodeType:'field',
+            itemid:id,
+            fieldType,
+          }
+          node.fields[fieldType] = nodeindex
+          graphlinks[linkindex] = {
+            source:nodeidtoindexmap[fieldnode.itemid],
+            target:nodeindex,
+          }
+          linkindex++
+          nodeindex++
+        }
       }
       data.nodes = graphnodes
 
-      index = 0
+      // create graph link for each imported link
       for (let id in links) {
-        graphlinks[index] = {
-          source:nodeidtoindexmap[links[id].startNode],
+        graphlinks[linkindex] = {
+          source:graphnodes[nodeidtoindexmap[links[id].startNode]].fields[links[id].type],
           target:nodeidtoindexmap[links[id].endNode],
         }
-        linkindextoidmap[index] = id
-        linkidtoindexmap[id] = index
-        index++
+        linkindextoidmap[linkindex] = id
+        linkidtoindexmap[id] = linkindex
+        linkindex++
       }
       data.maps = {
         linkindextoidmap,

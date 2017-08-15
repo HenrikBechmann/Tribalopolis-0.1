@@ -4,7 +4,7 @@ class NodeComponent extends React.Component {
     render() {
         let { x, y, index, data } = this.props;
         let nodeData = data[index];
-        let { nodeType, name } = nodeData;
+        let { nodeType, name, fieldType } = nodeData;
         // console.log('nodeType',nodeType)
         if (!nodeType)
             return <div></div>;
@@ -25,7 +25,7 @@ class NodeComponent extends React.Component {
             <ellipse cx="250" cy="183.491" rx="167.126" ry="167.125" style={{ fill: "rgb(216, 216, 216)" }}/>
           </g>
           <g>
-              <text id="Testing" textAnchor="middle" fill="#010101" fontFamily="Arial-BoldMT, Arial" fontSize="100" fontWeight="bold">
+              <text id="Name" textAnchor="middle" fill="#010101" fontFamily="Arial-BoldMT, Arial" fontSize="100" fontWeight="bold">
                   <tspan x="250" y="100">{name}</tspan>
               </text>
           </g>
@@ -50,6 +50,11 @@ class NodeComponent extends React.Component {
           <rect x="45.928" y="43.867" width="400.223" height="337.804" style={{ fill: "rgb(158, 158, 158)" }}/>
           <rect style={{ fill: "rgb(216, 216, 216)" }} x="57.861" y="57.636" width="375.104" height="311.184"/>
         </g>
+          <g>
+              <text id="FieldType" textAnchor="middle" fill="#010101" fontFamily="Arial-BoldMT, Arial" fontSize="50" fontWeight="bold">
+                  <tspan x="250" y="100">{fieldType}</tspan>
+              </text>
+          </g>
     </svg>;
         }
         else if (nodeType == 'collection') {
