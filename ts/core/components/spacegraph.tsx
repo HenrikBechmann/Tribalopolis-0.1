@@ -149,6 +149,7 @@ class SpaceGraph extends React.Component<SpaceGraphProps,any> {
             fieldType,
           }
           node.fields[fieldType] = nodeindex
+
           graphlinks[linkindex] = {
             source:nodeidtoindexmap[fieldnode.itemid],
             target:nodeindex,
@@ -161,6 +162,9 @@ class SpaceGraph extends React.Component<SpaceGraphProps,any> {
 
       // create graph link for each imported link
       for (let id in links) {
+        let link = links[id]
+        // create target collection if necessary
+        // get target link
         graphlinks[linkindex] = {
           source:graphnodes[nodeidtoindexmap[links[id].startNode]].fields[links[id].type],
           target:nodeidtoindexmap[links[id].endNode],
