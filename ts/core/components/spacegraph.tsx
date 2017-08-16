@@ -12,7 +12,7 @@ import { styles as globalstyles } from '../utilities/styles'
 
 import { range } from "lodash";
 
-import { forceLink, forceManyBody, forceX, forceY } from "d3-force";
+import { forceLink, forceManyBody, forceCenter, forceX, forceY } from "d3-force";
 
 import VictoryForce from '../forks/victory-force'
 
@@ -158,6 +158,7 @@ class SpaceGraph extends React.Component<SpaceGraphProps,any> {
             source:nodeidtoindexmap[fieldnode.itemid],
             target:nodeindex,
             strokeWidth:2,
+            root:true,
             stroke:"black",
           }
           linkindex++
@@ -184,6 +185,7 @@ class SpaceGraph extends React.Component<SpaceGraphProps,any> {
             source:linktargetnode.index,
             target:nodeindex,
             strokeWidth:2,
+            root:true,
             stroke:"black",
           }
           nodeindex++
@@ -277,7 +279,14 @@ class SpaceGraph extends React.Component<SpaceGraphProps,any> {
                 width = {2000}
                 forces={{
                   charge: forceManyBody(),
-                  link: forceLink(this.state.links).distance(72).strength(1),
+                  link: forceLink(this.state.links).distance((link)=>{
+                    return link["root"]?1:72
+                  }).strength((link)=>{
+                    // console.log('link',link)
+                    return link["root"]? 5:0.1
+                  } ),
+                  // gravity: 3,
+                  center: forceCenter(1000,1000),
                   x: forceX(),
                   y: forceY()
                 }}
