@@ -35,10 +35,13 @@ class Link extends React.Component {
         let y2 = scale.y(accessor.y(datum.target));
         console.log('line props, x2, y2', this.props, x2, y2);
         let angleRadians = Math.atan2(y2 - y, x2 - x);
-        let cx = (Math.cos(angleRadians) * 50) + x;
-        let cy = (Math.sin(angleRadians) * 50) + y;
+        let cx1 = (Math.cos(angleRadians) * 50) + x;
+        let cy1 = (Math.sin(angleRadians) * 50) + y;
+        let cx2 = -(Math.cos(angleRadians) * 50) + x2;
+        let cy2 = -(Math.sin(angleRadians) * 50) + y2;
         return (<g>
-      <circle cx={cx} cy={cy} r="3" fill={style.stroke}/>
+      <circle cx={cx1} cy={cy1} r="3" fill={style.stroke}/>
+      <circle cx={cx2} cy={cy2} r="3" fill={style.stroke}/>
       <line style={style} x1={x} x2={x2} y1={y} y2={y2}/>
       </g>);
     }
