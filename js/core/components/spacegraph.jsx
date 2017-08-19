@@ -24,6 +24,25 @@ const links = range(nodes.length - 1).map((i) => {
         target: i + 1
     };
 });
+// console.log('links',links)
+// <FloatingActionButton mini={true} secondary={true} style={styles.addbutton}>
+//       <ContentAdd />
+// </FloatingActionButton>
+class Link extends React.Component {
+    render() {
+        let { x, y, style, datum, scale, accessor } = this.props;
+        let x2 = scale.x(accessor.x(datum.target));
+        let y2 = scale.y(accessor.y(datum.target));
+        console.log('line props, x2, y2', this.props, x2, y2);
+        let angleRadians = Math.atan2(y2 - y, x2 - x);
+        let cx = (Math.cos(angleRadians) * 50) + x;
+        let cy = (Math.sin(angleRadians) * 50) + y;
+        return (<g>
+      <circle cx={cx} cy={cy} r="3" fill={style.stroke}/>
+      <line style={style} x1={x} x2={x2} y1={y} y2={y2}/>
+      </g>);
+    }
+}
 class SpaceGraph extends React.Component {
     constructor() {
         super(...arguments);
@@ -221,10 +240,10 @@ class SpaceGraph extends React.Component {
               <VictoryForce nodes={this.state.nodes} links={this.state.links} height={2000} width={2000} forces={{
             charge: forceManyBody(),
             link: forceLink(this.state.links).distance((link) => {
-                return link["root"] ? 1 : 72;
+                return link["root"] ? 2 : 72;
             }).strength((link) => {
                 // console.log('link',link)
-                return link["root"] ? 5 : 0.1;
+                return link["root"] ? 5 : 1;
             }),
             // gravity: 3,
             center: forceCenter(1000, 1000),
@@ -234,9 +253,9 @@ class SpaceGraph extends React.Component {
             parent: parentStyle,
             links: {
                 stroke: "rgba(0, 0, 0, 0.2)",
-                strokeWidth: 1
+                strokeWidth: 1,
             }
-        }} size={72} nodeComponent={<NodeComponent />} events={[
+        }} size={72} nodeComponent={<NodeComponent />} linkComponent={<Link />} events={[
             {
                 target: "data",
                 eventHandlers: {

@@ -29,6 +29,9 @@ class NodeComponent extends React.Component {
                   <tspan x="250" y="100">{name}</tspan>
               </text>
           </g>
+          <g id="Rectangle">
+              <rect stroke="#42DEFF" strokeWidth="12" x="0" y="0" width="500" height="500" fill="none"></rect>
+          </g>
         </svg>;
         }
         else if (nodeType == 'field') {
@@ -50,15 +53,18 @@ class NodeComponent extends React.Component {
           <rect x="45.928" y="43.867" width="400.223" height="337.804" style={{ fill: "rgb(158, 158, 158)" }}/>
           <rect style={{ fill: "rgb(216, 216, 216)" }} x="57.861" y="57.636" width="375.104" height="311.184"/>
         </g>
-          <g>
-              <text id="FieldType" textAnchor="middle" fill="#010101" fontFamily="Arial-BoldMT, Arial" fontSize="50" fontWeight="bold">
-                  <tspan x="250" y="100">{fieldType}</tspan>
-              </text>
-          </g>
+        <g>
+            <text id="FieldType" textAnchor="middle" fill="#010101" fontFamily="Arial-BoldMT, Arial" fontSize="50" fontWeight="bold">
+                <tspan x="250" y="100">{fieldType}</tspan>
+            </text>
+        </g>
+        <g id="Rectangle">
+            <rect stroke="#42DEFF" strokeWidth="12" x="0" y="0" width="500" height="500" fill="none"></rect>
+        </g>
     </svg>;
         }
         else if (nodeType == 'collection') {
-            component = <svg x={x - (60 / 2)} y={y - (60 / 2)} height="60" width="60" viewBox="0 0 500 500" version="1.1" xmlns="http://www.w3.org/2000/svg">
+            component = <svg x={x - (70 / 2)} y={y - (70 / 2)} height="70" width="70" viewBox="0 0 500 500" version="1.1" xmlns="http://www.w3.org/2000/svg">
         <title>collection</title>
         <desc>Created with Sketch.</desc>
         <defs>
@@ -73,7 +79,8 @@ class NodeComponent extends React.Component {
             </filter>
         </defs>
         <g id="Page-1" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
-            <g id="collection">
+        <g id="collection">
+            <g id="collectionimg">
                 <g filter="url(#filter-1)" transform="translate(12.000000, 0.000000)">
                     <g id="Group" transform="translate(0.000000, 17.000000)" fillRule="nonzero">
                         <rect id="Rectangle-path" fill="#9E9E9E" x="0.0761553814" y="0.92470888" width="474.923845" height="360.115079"></rect>
@@ -90,6 +97,10 @@ class NodeComponent extends React.Component {
                     </g>
                 </g>
             </g>
+            <g id="Rectangle">
+                <rect stroke="#42DEFF" fill="none" strokeWidth="12" x="0" y="0" width="500" height="500"></rect>
+            </g>
+        </g>
         </g>
     </svg>;
         }
