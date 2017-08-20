@@ -49,7 +49,7 @@ class Link extends React.Component<any,any> {
     let x2 = scale.x(accessor.x(datum.target))
     let y2 = scale.y(accessor.y(datum.target))
 
-    console.log('line props, x2, y2',this.props, x2, y2)
+    // console.log('line props, x2, y2',this.props, x2, y2)
 
     let angleRadians = Math.atan2(y2 - y, x2 - x)
 
