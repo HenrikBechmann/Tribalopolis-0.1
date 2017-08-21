@@ -271,15 +271,21 @@ class Spaces extends React.Component<any,any> {
         // </IconButton>
     spacemenu = <div>
             <IconButton>
-                <FontIcon className='material-icons'>arrow_back</FontIcon>
+                <FontIcon className='material-icons'>undo</FontIcon>
             </IconButton>
             <IconButton>
-                <FontIcon className='material-icons'>arrow_forward</FontIcon>
+                <FontIcon className='material-icons'>redo</FontIcon>
             </IconButton>
             <IconButton
                 onTouchTap = { this.handleFilterDialogOpen }
             >
                 <FontIcon className='material-icons'>filter_list</FontIcon>
+            </IconButton>
+            <IconButton>
+                <FontIcon className='material-icons'>arrow_back</FontIcon>
+            </IconButton>
+            <IconButton>
+                <FontIcon className='material-icons'>arrow_forward</FontIcon>
             </IconButton>
         </div>
 
