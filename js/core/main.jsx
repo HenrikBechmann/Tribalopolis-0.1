@@ -6,6 +6,8 @@ import routes from "./routes";
 // console.log(routes)
 // import { autoLoginUser } from '../actions/actions'
 const store = configureStore();
+// TODO: implement login default for anonymous user
+// TODO: work out permission system
 // let { auth } = store.getState().login
 // if (!auth.isAuthenticated) {
 //     let token = localStorage.getItem('jsonwebtoken')

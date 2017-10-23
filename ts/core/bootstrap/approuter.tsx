@@ -11,15 +11,17 @@ import { BrowserRouter, Switch } from 'react-router-dom'
 import TransitionWrapper from './transitionwrapper'
 
 
-let ReactGA = require('react-ga')
-ReactGA.initialize('UA-4105209-11')
+// current release of react-ga 2.31 is broken
+// let ReactGA = require('react-ga')
+// console.log('ReactGA',ReactGA)
+// ReactGA.initialize('UA-4105209-11')
 
-let logPageView = () => {
-    if (window.location.hostname == 'tribalopolis.ca') {
-        ReactGA.set({ page: window.location.pathname });
-        ReactGA.pageview(window.location.pathname);
-    }
-}
+// let logPageView = () => {
+//     if (window.location.hostname == 'tribalopolis.ca') {
+//         ReactGA.set({ page: window.location.pathname });
+//         ReactGA.pageview(window.location.pathname);
+//     }
+// }
 
 // onUpdate={ () => 
 //     { 

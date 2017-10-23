@@ -2,7 +2,7 @@
 'use strict';
 import * as React from 'react';
 import { Route } from 'react-router-dom';
-import Spaces from './containers/spaces';
+import Spaces from './controllers/spaces';
 // import ResetPassword from '../containers/resetpassword'
 // import Register from '../containers/register'
 // import RegisterPending from '../containers/registerpending'

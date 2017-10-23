@@ -2,6 +2,10 @@
 /*
     TODO:
     Incorporate ROLES as a filter somehow
+    redo three base icons, with frame component
+    complete calculations for connection nodes
+    add metadata
+    inherit data source
 */
 import * as React from 'react'
 

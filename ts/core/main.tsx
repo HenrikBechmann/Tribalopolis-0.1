@@ -12,6 +12,9 @@ import routes from "./routes"
 
 const store = configureStore()
 
+// TODO: implement login default for anonymous user
+// TODO: work out permission system
+
 // let { auth } = store.getState().login
 
 // if (!auth.isAuthenticated) {
