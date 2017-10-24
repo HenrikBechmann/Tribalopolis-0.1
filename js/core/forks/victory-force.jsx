@@ -1,6 +1,7 @@
 // victory-force.tsx
 import * as React from "react";
-let { PropTypes } = React;
+import PropTypes from 'prop-types';
+// let {PropTypes} = React
 import { VictoryScatter } from "victory-chart";
 import Domain from "victory-core/lib/victory-util/domain";
 import { PropTypes as CustomPropTypes, VictoryContainer, Helpers } from "victory-core";
@@ -11,7 +12,7 @@ function Link(props) {
 }
 class VictoryForce extends React.Component {
     constructor() {
-        super(...arguments);
+        super();
         this.simulation = null;
     }
     componentWillMount() {

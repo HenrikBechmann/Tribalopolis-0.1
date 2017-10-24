@@ -1,6 +1,7 @@
 // victory-force.tsx
 import * as React from "react";
-let {PropTypes} = React
+import PropTypes from 'prop-types'
+// let {PropTypes} = React
 import { VictoryScatter } from "victory-chart";
 import Domain from "victory-core/lib/victory-util/domain";
 import {
@@ -29,6 +30,9 @@ function Link(props:LinkInterface) {
 }
 
 class VictoryForce extends React.Component<any,any> {
+  constructor() {
+    super()
+  }
   static propTypes = {
     forces: PropTypes.object,
     nodes: PropTypes.array,
