@@ -14,11 +14,6 @@ class TransitionWrapper extends Component<any, any> {
                 transitionAppearTimeout={1000}
                 transitionEnter={false}
                 transitionLeave={false} >
-                {
-                    React.cloneElement(this.props.children, {
-                        key: this.props.children.path
-                    })
-                }
             </ReactCSSTransitionGroup>
         )
     }

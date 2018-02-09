@@ -5,9 +5,6 @@ class TransitionWrapper extends Component {
     render() {
         // console.log(this.props)
         return (<ReactCSSTransitionGroup component="div" transitionName="base" transitionAppear={true} transitionAppearTimeout={1000} transitionEnter={false} transitionLeave={false}>
-                {React.cloneElement(this.props.children, {
-            key: this.props.children.path
-        })}
             </ReactCSSTransitionGroup>);
     }
 }

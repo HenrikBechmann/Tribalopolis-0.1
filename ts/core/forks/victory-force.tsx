@@ -30,8 +30,8 @@ function Link(props:LinkInterface) {
 }
 
 class VictoryForce extends React.Component<any,any> {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
   }
   static propTypes = {
     forces: PropTypes.object,

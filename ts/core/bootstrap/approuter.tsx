@@ -34,11 +34,9 @@ let AppRouter = (props) => {
     // console.log('AppRouter props',props)
     return (
     <BrowserRouter >
-        <TransitionWrapper>
             <Switch>
                 {props.children}
             </Switch>
-        </TransitionWrapper>
     </BrowserRouter> )
 }
     

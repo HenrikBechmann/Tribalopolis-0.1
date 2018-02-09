@@ -11,8 +11,8 @@ function Link(props) {
     return (<line style={props.style} x1={props.x} x2={props.scale.x(props.accessor.x(props.datum.target))} y1={props.y} y2={props.scale.y(props.accessor.y(props.datum.target))}/>);
 }
 class VictoryForce extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.simulation = null;
     }
     componentWillMount() {

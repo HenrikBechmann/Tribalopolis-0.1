@@ -5,7 +5,6 @@
 */
 import * as React from 'react';
 import { BrowserRouter, Switch } from 'react-router-dom';
-import TransitionWrapper from './transitionwrapper';
 // current release of react-ga 2.31 is broken
 // let ReactGA = require('react-ga')
 // console.log('ReactGA',ReactGA)
@@ -24,11 +23,9 @@ import TransitionWrapper from './transitionwrapper';
 let AppRouter = (props) => {
     // console.log('AppRouter props',props)
     return (<BrowserRouter>
-        <TransitionWrapper>
             <Switch>
                 {props.children}
             </Switch>
-        </TransitionWrapper>
     </BrowserRouter>);
 };
 export default AppRouter;
