@@ -12,8 +12,11 @@
   "dependencies": {
     "d3-force": "^1.1.0",
     "draft-js": "^0.10.5",
+    "firebase": "^4.9.1",
+    "firebaseui": "^2.6.0",
     "flux-standard-action": "^2.0.1",
     "format-number": "^3.0.0",
+    "hammerjs": "^2.0.8",
     "isomorphic-fetch": "^2.2.1",
     "lodash": "^4.17.5",
     "material-ui": "^0.20.0",
@@ -22,6 +25,7 @@
     "prop-types": "^15.6.0",
     "react": "^16.2.0",
     "react-animations": "^1.0.0",
+    "react-beautiful-dnd": "^4.0.1",
     "react-dnd": "^2.5.4",
     "react-dnd-html5-backend": "^2.5.4",
     "react-dnd-touch-backend": "^0.3.20",
@@ -36,7 +40,7 @@
     "redux-actions": "^2.2.1",
     "redux-thunk": "^2.2.0",
     "uuid": "^3.2.1",
-    "victory": "^0.24.5",
+    "victory": "^0.25.6",
     "victory-force": "0.0.1"
   },
   "devDependencies": {

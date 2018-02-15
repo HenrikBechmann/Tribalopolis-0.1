@@ -113,8 +113,8 @@ class Spaces extends React.Component {
         </Dialog>;
         };
         this.filterdialogactions = [
-            <FlatButton label="Cancel" primary={true} onTouchTap={this.handleFilterDialogClose}/>,
-            <FlatButton label="Apply" primary={true} onTouchTap={this.handleFilterDialogClose}/>,
+            <FlatButton label="Cancel" primary={true} onClick={this.handleFilterDialogClose}/>,
+            <FlatButton label="Apply" primary={true} onClick={this.handleFilterDialogClose}/>,
         ];
         // ---------------------[ Search Dialog ]-----------------------
         this.handleSearchDialogOpen = () => {
@@ -146,16 +146,16 @@ class Spaces extends React.Component {
         </Dialog>;
         };
         this.searchdialogactions = [
-            <FlatButton label="Cancel" primary={true} onTouchTap={this.handleSearchDialogClose}/>,
-            <FlatButton label="Select" primary={true} onTouchTap={this.handleSearchDialogClose}/>,
+            <FlatButton label="Cancel" primary={true} onClick={this.handleSearchDialogClose}/>,
+            <FlatButton label="Select" primary={true} onClick={this.handleSearchDialogClose}/>,
         ];
         // ---------------------[ Menus ]-----------------------
         this.handleMenuToggle = () => this.setState({ menuopen: !this.state.menuopen });
         this.handleMenuClose = () => this.setState({ menuopen: false });
         this.menudrawer = () => (<Drawer docked={false} open={this.state.menuopen} onRequestChange={(open) => this.setState({ menuopen: open })}>
-            <MenuItem leftIcon={<img src='/public/icons/campfire.svg'/>} primaryText="About" onTouchTap={this.handleMenuClose}/>
-            <MenuItem leftIcon={<FontIcon className='material-icons'>local_library</FontIcon>} primaryText="Tutorials" onTouchTap={this.handleMenuClose}/>
-            <MenuItem leftIcon={<FontIcon className='material-icons'>build</FontIcon>} primaryText="Build" onTouchTap={this.handleMenuClose}/>
+            <MenuItem leftIcon={<img src='/public/icons/campfire.svg'/>} primaryText="About" onClick={this.handleMenuClose}/>
+            <MenuItem leftIcon={<FontIcon className='material-icons'>local_library</FontIcon>} primaryText="Tutorials" onClick={this.handleMenuClose}/>
+            <MenuItem leftIcon={<FontIcon className='material-icons'>build</FontIcon>} primaryText="Build" onClick={this.handleMenuClose}/>
         </Drawer>);
         this.accountmenu = <IconMenu iconButtonElement={<IconButton>
                     <FontIcon className='material-icons'>account_circle</FontIcon>
@@ -165,7 +165,7 @@ class Spaces extends React.Component {
             <MenuItem primaryText="Register (new users)"/>
         </IconMenu>;
         // <IconButton
-        //     onTouchTap = { this.handleSearchDialogOpen }
+        //     onClick = { this.handleSearchDialogOpen }
         // >
         //     <FontIcon className='material-icons'>search</FontIcon>
         // </IconButton>
@@ -176,7 +176,7 @@ class Spaces extends React.Component {
             <IconButton>
                 <FontIcon className='material-icons'>redo</FontIcon>
             </IconButton>
-            <IconButton onTouchTap={this.handleFilterDialogOpen}>
+            <IconButton onClick={this.handleFilterDialogOpen}>
                 <FontIcon className='material-icons'>filter_list</FontIcon>
             </IconButton>
             <IconButton>
@@ -222,7 +222,7 @@ class Spaces extends React.Component {
         <div style={styles.header}>
             <Toolbar style={styles.toolbar}>
                 <ToolbarGroup>
-                    <IconButton onTouchTap={this.handleMenuToggle}>
+                    <IconButton onClick={this.handleMenuToggle}>
                         <FontIcon className='material-icons'>menu</FontIcon>
                     </IconButton>
                 </ToolbarGroup>

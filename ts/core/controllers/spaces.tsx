@@ -149,12 +149,12 @@ class Spaces extends React.Component<any,any> {
       <FlatButton
         label="Cancel"
         primary={true}
-        onTouchTap={this.handleFilterDialogClose}
+        onClick={this.handleFilterDialogClose}
       />,
       <FlatButton
         label="Apply"
         primary={true}
-        onTouchTap={this.handleFilterDialogClose}
+        onClick={this.handleFilterDialogClose}
       />,
     ];
 
@@ -200,12 +200,12 @@ class Spaces extends React.Component<any,any> {
       <FlatButton
         label="Cancel"
         primary={true}
-        onTouchTap={this.handleSearchDialogClose}
+        onClick={this.handleSearchDialogClose}
       />,
       <FlatButton
         label="Select"
         primary={true}
-        onTouchTap={this.handleSearchDialogClose}
+        onClick={this.handleSearchDialogClose}
       />,
     ];
 
@@ -227,21 +227,21 @@ class Spaces extends React.Component<any,any> {
                     />
                 }
                 primaryText = "About"
-                onTouchTap={this.handleMenuClose}
+                onClick={this.handleMenuClose}
             />
             <MenuItem 
                 leftIcon = {
                     <FontIcon className='material-icons'>local_library</FontIcon>
                 }
                 primaryText = "Tutorials"
-                onTouchTap={this.handleMenuClose}
+                onClick={this.handleMenuClose}
             />
             <MenuItem 
                 leftIcon = {
                     <FontIcon className='material-icons'>build</FontIcon>
                 }
                 primaryText = "Build"
-                onTouchTap={this.handleMenuClose}
+                onClick={this.handleMenuClose}
             />
         </Drawer>
     )
@@ -265,7 +265,7 @@ class Spaces extends React.Component<any,any> {
         </IconMenu>
 
         // <IconButton
-        //     onTouchTap = { this.handleSearchDialogOpen }
+        //     onClick = { this.handleSearchDialogOpen }
         // >
         //     <FontIcon className='material-icons'>search</FontIcon>
         // </IconButton>
@@ -277,7 +277,7 @@ class Spaces extends React.Component<any,any> {
                 <FontIcon className='material-icons'>redo</FontIcon>
             </IconButton>
             <IconButton
-                onTouchTap = { this.handleFilterDialogOpen }
+                onClick = { this.handleFilterDialogOpen }
             >
                 <FontIcon className='material-icons'>filter_list</FontIcon>
             </IconButton>
@@ -335,7 +335,7 @@ class Spaces extends React.Component<any,any> {
             <Toolbar style={styles.toolbar}>
                 <ToolbarGroup>
                     <IconButton
-                        onTouchTap = {this.handleMenuToggle}
+                        onClick = {this.handleMenuToggle}
                     >
                         <FontIcon className='material-icons'>menu</FontIcon>
                     </IconButton>
