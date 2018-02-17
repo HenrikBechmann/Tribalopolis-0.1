@@ -2,7 +2,7 @@
 // copyright (c) 2018 Henrik Bechmann, Toronto, MIT Licence
 'use strict';
 import * as React from 'react';
-const Toolstrip = props => {
+const QuadToolsStrip = props => {
     return <div style={{
         height: '48px',
         backgroundColor: 'silver',
@@ -10,7 +10,7 @@ const Toolstrip = props => {
         top: '0',
         left: '0',
         right: '96px'
-    }}>toolstrip</div>;
+    }}>tools strip</div>;
 };
-export default Toolstrip;
+export default QuadToolsStrip;
 //# sourceMappingURL=toolstrip.view.jsx.map

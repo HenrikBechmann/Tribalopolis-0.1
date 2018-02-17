@@ -4,7 +4,7 @@
 
 import * as React from 'react'
 
-const Toolstrip = props => {
+const QuadToolsStrip = props => {
 
     return <div 
         style = {
@@ -16,8 +16,8 @@ const Toolstrip = props => {
                 left:'0',
                 right:'96px'
             }
-        } >toolstrip</div>
+        } >tools strip</div>
 
 }
 
-export default Toolstrip
+export default QuadToolsStrip
