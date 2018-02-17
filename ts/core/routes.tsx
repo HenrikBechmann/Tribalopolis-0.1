@@ -5,7 +5,7 @@ import * as React from 'react'
 
 import { Route } from 'react-router-dom'
 
-import Spaces from './controllers/spaces'
+import Spaces from './control/spaces'
 
 // import ResetPassword from '../containers/resetpassword'
 // import Register from '../containers/register'
