@@ -4,18 +4,19 @@
 
 import * as React from 'react'
 
-const QuadBasket = props => {
+const QuadOrigin = props => {
     return (
-        <div id="quadbasket" 
+        <div 
             style = {
                 {
                     position:'absolute',
-                    top:'0',
-                    right:'0',
+                    top:'32px',
+                    left:'10px',
                     width:'96px',
-                    height:'48px',
-                    backgroundColor:'brown',
+                    height:'96px',
+                    backgroundColor:'green',
                     zIndex:1,
+                    borderRadius:'50%',
                 }
             }>
             
@@ -23,4 +24,4 @@ const QuadBasket = props => {
     )
 }
 
-export default QuadBasket
+export default QuadOrigin

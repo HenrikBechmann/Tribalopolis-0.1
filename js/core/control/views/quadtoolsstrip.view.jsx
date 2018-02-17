@@ -13,4 +13,4 @@ const QuadToolsStrip = props => {
     }}>tools strip</div>;
 };
 export default QuadToolsStrip;
-//# sourceMappingURL=toolstrip.view.jsx.map
+//# sourceMappingURL=quadtoolsstrip.view.jsx.map

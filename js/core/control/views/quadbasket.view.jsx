@@ -3,7 +3,15 @@
 'use strict';
 import * as React from 'react';
 const QuadBasket = props => {
-    return (<div id="quadbasket" style={{ position: 'absolute', top: '0', right: '0', width: '96px', height: '96px', backgroundColor: 'black', zIndex: 1, }}>
+    return (<div id="quadbasket" style={{
+        position: 'absolute',
+        top: '0',
+        right: '0',
+        width: '96px',
+        height: '48px',
+        backgroundColor: 'brown',
+        zIndex: 1,
+    }}>
             
         </div>);
 };
