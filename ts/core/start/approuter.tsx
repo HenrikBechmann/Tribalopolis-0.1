@@ -5,8 +5,10 @@
 */
 
 import * as React from 'react'
-
-import { BrowserRouter, Switch } from 'react-router-dom'
+import { ConnectedRouter } from 'react-router-redux'
+import { Switch, Route, Redirect, Router } from 'react-router-dom'
+import { connect } from 'react-redux'
+import routes from "./routes"
 
 // import TransitionWrapper from './transitionwrapper'
 
@@ -30,15 +32,27 @@ import { BrowserRouter, Switch } from 'react-router-dom'
 //     }
 
 
-let AppRouter = (props) => {
+let AppRouter = class extends React.Component<any,any> {
     // console.log('AppRouter props',props)
-    return (
-    <BrowserRouter >
-        <Switch>
-            {props.children}
-        </Switch>
-    </BrowserRouter> )
+    render() {
+        let location = this.props.router.location || {}
+        return (
+            <ConnectedRouter history = {this.props.history}>
+                <Switch location = {location}>
+                    { routes }
+                </Switch>
+            </ConnectedRouter>
+        )
+    }
 }
     
+let mapStateToProps = state => {
+    let { router } = state
+    return { 
+        router,
+    }
+}
 
-export default AppRouter
+AppRouter = connect(mapStateToProps)(AppRouter)
+
+export  { AppRouter }
