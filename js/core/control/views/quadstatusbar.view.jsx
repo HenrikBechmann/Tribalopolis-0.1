@@ -6,10 +6,12 @@ const QuadStatusBar = props => {
     return (<div style={{
         position: 'absolute',
         height: '24px',
+        boxSizing: 'border-box',
         backgroundColor: 'cyan',
         width: '100%',
         bottom: '0',
         padding: '3px',
+        borderRadius: '0 0 8px 8px',
     }}>
             {props.status}
         </div>);

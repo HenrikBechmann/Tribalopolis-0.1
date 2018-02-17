@@ -6,8 +6,10 @@ const QuadTitleBar = props => {
     return (<div style={{
         height: '24px',
         backgroundColor: 'cyan',
+        boxSizing: 'border-box',
         width: '100%',
         padding: '3px',
+        borderRadius: '8px 8px 0 0',
     }}>
             {props.title}
         </div>);
