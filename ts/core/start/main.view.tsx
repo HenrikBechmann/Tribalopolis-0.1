@@ -1,7 +1,9 @@
-// copyright (c) 2016 Henrik Bechmann, Toronto, MIT Licence
-// app.tsx
+// copyright (c) 2018 Henrik Bechmann, Toronto, MIT Licence
+// main.view.tsx
 
 // display the app
+
+'use strict'
 
 import * as React from 'react'
 

@@ -6,7 +6,7 @@ import * as React from 'react'
 import { Route } from 'react-router-dom'
 
 // import Spaces from './control/spaces'
-import Quad from '../control/quad.controller'
+import QuadController from '../control/quad.controller'
 
 // import ResetPassword from '../containers/resetpassword'
 // import Register from '../containers/register'
@@ -31,7 +31,7 @@ let coreroutes = routedata.map((item, index) => (
    <Route key = {'coreroute'+index} path={item.path} component = {item.component} />
 ))
 
-let indexroute = <Route key = "_INDEX_" path = "/" component={ Quad } />
+let indexroute = <Route key = "_INDEX_" path = "/" component={ QuadController } />
 
 
 const routes = [indexroute]
