@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { Route } from 'react-router-dom';
 // import Spaces from './control/spaces'
-import Quad from './control/quad.controller';
+import Quad from '../control/quad.controller';
 // import ResetPassword from '../containers/resetpassword'
 // import Register from '../containers/register'
 // import RegisterPending from '../containers/registerpending'

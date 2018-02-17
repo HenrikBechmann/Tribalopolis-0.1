@@ -11,7 +11,7 @@ import ReduxToastr from 'react-redux-toastr'
 
 // import { RoutesController } from './routes.controller'
 import AppRouter from './approuter'
-import routes from "../routes"
+import routes from "./routes"
 
 const MainView = ({globalmessage, history}) => (
     <div>
