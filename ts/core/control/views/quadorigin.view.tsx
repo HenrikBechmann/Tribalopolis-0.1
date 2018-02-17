@@ -10,8 +10,8 @@ const QuadOrigin = props => {
             style = {
                 {
                     position:'absolute',
-                    top:'32px',
-                    left:'10px',
+                    top:'24px',
+                    left:'0',
                     width:'96px',
                     height:'96px',
                     backgroundColor:'green',

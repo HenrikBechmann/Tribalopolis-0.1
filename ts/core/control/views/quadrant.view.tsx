@@ -51,6 +51,7 @@ const Quadrant = props => {
             <div style = {
                 {
                     border: '3px outset gray',
+                    position:'relative',
                     backgroundColor:color,
                     borderRadius:'8px',
                     width:'100%',

@@ -11,7 +11,8 @@ const QuadTitleBar = props => {
                 {
                     height:'24px',
                     backgroundColor:'cyan',
-                    width:'100%'
+                    width:'100%',
+                    padding: '3px',
                 }
             }
         >

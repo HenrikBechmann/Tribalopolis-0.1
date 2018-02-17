@@ -9,6 +9,7 @@ const QuadStatusBar = props => {
         backgroundColor: 'cyan',
         width: '100%',
         bottom: '0',
+        padding: '3px',
     }}>
             {props.status}
         </div>);
