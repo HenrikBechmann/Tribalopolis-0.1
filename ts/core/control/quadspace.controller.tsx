@@ -40,7 +40,7 @@ class QuadspaceController extends React.Component<any,any> {
         <Quadrant 
             key = '4'
             quadrant = 'bottomright' 
-            color = 'lightyellow' 
+            color = 'papayawhip' 
             title = "fourth" 
             status = "bad"
         />,

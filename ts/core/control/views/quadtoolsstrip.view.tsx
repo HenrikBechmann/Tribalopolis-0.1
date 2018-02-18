@@ -10,11 +10,19 @@ import IconMenu from 'material-ui/IconMenu'
 import Divider from 'material-ui/Divider'
 import MenuItem from 'material-ui/MenuItem'
 import Drawer from 'material-ui/Drawer'
+import ScrollControlsView from './scrollcontrols.view'
 
 class QuadToolsStrip extends React.Component<any,any> {
 
     state = {
         menuopen:false,
+        scroller:null,
+    }
+
+    componentDidMount() {
+        this.setState({
+            scroller:this.scroller
+        })
     }
 
     handleMenuToggle = () => {
@@ -31,35 +39,29 @@ class QuadToolsStrip extends React.Component<any,any> {
         }
     >
         <IconButton
-            tooltip = 'reset back to first origin'
         >
             <FontIcon className='material-icons'>home</FontIcon>
         </IconButton>
         <IconButton
             disabled
-            tooltip = 'navigate back one step to origin fields'
         >
             <FontIcon className='material-icons'>undo</FontIcon>
         </IconButton>
         <IconButton
             disabled
-            tooltip = 'navigate forward one step to previously selected field list'
         >
             <FontIcon className='material-icons'>redo</FontIcon>
         </IconButton>
         <IconButton
             disabled
-            tooltip = 'fitler current field list'
         >
             <FontIcon className='material-icons'>filter_list</FontIcon>
         </IconButton>
         <IconButton
-            tooltip = 'swap current quadrant horizontally'
         >
             <FontIcon className='material-icons'>swap_horiz</FontIcon>
         </IconButton>
         <IconButton
-            tooltip = 'swap current quadrant vertically'
         >
             <FontIcon className='material-icons'>swap_vert</FontIcon>
         </IconButton>
@@ -137,6 +139,8 @@ class QuadToolsStrip extends React.Component<any,any> {
             />
         </IconMenu>
 
+    scroller = null
+
     render() {
         return (
             <div 
@@ -151,22 +155,42 @@ class QuadToolsStrip extends React.Component<any,any> {
                     }
                 } 
             >
-                <div style = {{display:'inline-block',whiteSpace:'nowrap'}}>
-                    <IconButton
-                        onClick = {this.handleMenuToggle}
+                <ScrollControlsView id='scrollcontrolsview' scroller = {this.scroller} >
+                    <div style = {
+                        {
+                            display:'flex',
+                            flexWrap:'nowrap',
+                            overflow:'auto',
+                        }
+                    }
+                        
+                        ref = {el => {
+                            this.scroller = el
+                        }}
                     >
-                        <FontIcon className='material-icons'>menu</FontIcon>
-                    </IconButton>
+                        <div style = {
+                            {
+                                display:'inline-block',
+                                whiteSpace:'nowrap',
+                            }
+                        }
+                        >
+                            <IconButton
+                                onClick = {this.handleMenuToggle}
+                            >
+                                <FontIcon className='material-icons'>menu</FontIcon>
+                            </IconButton>
 
-                    { this.spacemenu }
+                            { this.spacemenu }
 
-                    { this.spaceoverflowmenu }
+                            { this.spaceoverflowmenu }
 
-                    { this.accountmenu }
+                            { this.accountmenu }
 
-                    {this.menudrawer()}
-                </div>
-
+                            {this.menudrawer()}
+                        </div>
+                    </div>
+                </ScrollControlsView>
             </div>
         )
     }

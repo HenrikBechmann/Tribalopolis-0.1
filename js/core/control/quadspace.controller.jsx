@@ -17,7 +17,7 @@ class QuadspaceController extends React.Component {
             <Quadrant key='1' quadrant='topleft' color='lightgreen' title="first" status="not bad"/>,
             <Quadrant key='2' quadrant='topright' color='mistyrose' title="second" status="OK"/>,
             <Quadrant key='3' quadrant='bottomleft' color='lightblue' title="third" status="Good"/>,
-            <Quadrant key='4' quadrant='bottomright' color='lightyellow' title="fourth" status="bad"/>,
+            <Quadrant key='4' quadrant='bottomright' color='papayawhip' title="fourth" status="bad"/>,
         ];
     }
     render() {

@@ -8,11 +8,13 @@ import IconMenu from 'material-ui/IconMenu';
 import Divider from 'material-ui/Divider';
 import MenuItem from 'material-ui/MenuItem';
 import Drawer from 'material-ui/Drawer';
+import ScrollControlsView from './scrollcontrols.view';
 class QuadToolsStrip extends React.Component {
     constructor() {
         super(...arguments);
         this.state = {
             menuopen: false,
+            scroller: null,
         };
         this.handleMenuToggle = () => {
             this.setState({ menuopen: !this.state.menuopen });
@@ -22,22 +24,22 @@ class QuadToolsStrip extends React.Component {
             display: 'inline-block',
             whiteSpace: 'nowrap'
         }}>
-        <IconButton tooltip='reset back to first origin'>
+        <IconButton>
             <FontIcon className='material-icons'>home</FontIcon>
         </IconButton>
-        <IconButton disabled tooltip='navigate back one step to origin fields'>
+        <IconButton disabled>
             <FontIcon className='material-icons'>undo</FontIcon>
         </IconButton>
-        <IconButton disabled tooltip='navigate forward one step to previously selected field list'>
+        <IconButton disabled>
             <FontIcon className='material-icons'>redo</FontIcon>
         </IconButton>
-        <IconButton disabled tooltip='fitler current field list'>
+        <IconButton disabled>
             <FontIcon className='material-icons'>filter_list</FontIcon>
         </IconButton>
-        <IconButton tooltip='swap current quadrant horizontally'>
+        <IconButton>
             <FontIcon className='material-icons'>swap_horiz</FontIcon>
         </IconButton>
-        <IconButton tooltip='swap current quadrant vertically'>
+        <IconButton>
             <FontIcon className='material-icons'>swap_vert</FontIcon>
         </IconButton>
     </div>;
@@ -60,6 +62,12 @@ class QuadToolsStrip extends React.Component {
             <Divider />
             <MenuItem primaryText="Register (new user)"/>
         </IconMenu>;
+        this.scroller = null;
+    }
+    componentDidMount() {
+        this.setState({
+            scroller: this.scroller
+        });
     }
     render() {
         return (<div style={{
@@ -70,20 +78,32 @@ class QuadToolsStrip extends React.Component {
             left: '0',
             right: '96px'
         }}>
-                <div style={{ display: 'inline-block', whiteSpace: 'nowrap' }}>
-                    <IconButton onClick={this.handleMenuToggle}>
-                        <FontIcon className='material-icons'>menu</FontIcon>
-                    </IconButton>
+                <ScrollControlsView id='scrollcontrolsview' scroller={this.scroller}>
+                    <div style={{
+            display: 'flex',
+            flexWrap: 'nowrap',
+            overflow: 'auto',
+        }} ref={el => {
+            this.scroller = el;
+        }}>
+                        <div style={{
+            display: 'inline-block',
+            whiteSpace: 'nowrap',
+        }}>
+                            <IconButton onClick={this.handleMenuToggle}>
+                                <FontIcon className='material-icons'>menu</FontIcon>
+                            </IconButton>
 
-                    {this.spacemenu}
+                            {this.spacemenu}
 
-                    {this.spaceoverflowmenu}
+                            {this.spaceoverflowmenu}
 
-                    {this.accountmenu}
+                            {this.accountmenu}
 
-                    {this.menudrawer()}
-                </div>
-
+                            {this.menudrawer()}
+                        </div>
+                    </div>
+                </ScrollControlsView>
             </div>);
     }
 }
