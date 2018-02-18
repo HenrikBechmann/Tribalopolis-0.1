@@ -5,19 +5,20 @@
 import { combineReducers } from 'redux';
 import { routerReducer as router } from 'react-router-redux';
 import { reducer as toastr } from 'react-redux-toastr';
+import initialstate from '../local/initialstate';
 // -------------[ app resources ]---------------
 // import * as Actions from './actions'
 // import masterModel from "../../legacy/budgetpedia.model"
 // ----------[ app settings ]----------------------
 // import explorer from '../../addons/explorer/reducers'
 // -----------[ system resource reducers ]------------
-let theme = (state = {}) => {
+let theme = (state = initialstate.theme) => {
     return state;
 };
 // let system = (state:any = masterModel.system) => {
 //     return state
 // }
-let colors = (state = {}) => {
+let colors = (state = initialstate.colors) => {
     return state;
 };
 let resources = combineReducers({

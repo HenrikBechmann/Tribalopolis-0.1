@@ -10,6 +10,7 @@ import { handleActions } from 'redux-actions'; // handleAction doesn't work with
 import { routerReducer as router} from 'react-router-redux'
 import {reducer as toastr} from 'react-redux-toastr'
 
+import initialstate from '../local/initialstate'
 // -------------[ app resources ]---------------
 // import * as Actions from './actions'
 
@@ -19,7 +20,7 @@ import {reducer as toastr} from 'react-redux-toastr'
 // import explorer from '../../addons/explorer/reducers'
 // -----------[ system resource reducers ]------------
 
-let theme = (state: any = {}) => {
+let theme = (state = initialstate.theme) => {
     return state
 }
 
@@ -27,7 +28,7 @@ let theme = (state: any = {}) => {
 //     return state
 // }
 
-let colors = (state: any = {}) => {
+let colors = (state = initialstate.colors) => {
     return state
 }
 
