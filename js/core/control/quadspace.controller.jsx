@@ -15,7 +15,7 @@ class QuadspaceController extends React.Component {
         // these can be re-arranged; quadrant attribute needs to be updated
         this.quadrants = [
             <Quadrant key='1' quadrant='topleft' color='lightgreen' title="first" status="not bad"/>,
-            <Quadrant key='2' quadrant='topright' color='pink' title="second" status="OK"/>,
+            <Quadrant key='2' quadrant='topright' color='mistyrose' title="second" status="OK"/>,
             <Quadrant key='3' quadrant='bottomleft' color='lightblue' title="third" status="Good"/>,
             <Quadrant key='4' quadrant='bottomright' color='lightyellow' title="fourth" status="bad"/>,
         ];
