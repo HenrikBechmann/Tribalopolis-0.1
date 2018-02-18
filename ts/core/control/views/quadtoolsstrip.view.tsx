@@ -42,6 +42,7 @@ class QuadToolsStrip extends React.Component<any,any> {
         >
             <FontIcon className='material-icons'>home</FontIcon>
         </IconButton>
+        <FontIcon style = {{color:'rgba(0, 0, 0, 0.3)'}} className='material-icons'>border_all</FontIcon>
         <IconButton
             disabled
         >

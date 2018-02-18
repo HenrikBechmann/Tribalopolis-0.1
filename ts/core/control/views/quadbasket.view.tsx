@@ -18,7 +18,7 @@ const QuadBasket = props => {
                     zIndex:1,
                 }
             }>
-            
+            {props.children}
         </div>    
     )
 }

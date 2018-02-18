@@ -19,7 +19,7 @@ const QuadOrigin = props => {
                     borderRadius:'50%',
                 }
             }>
-            
+            {props.children}
         </div>    
     )
 }

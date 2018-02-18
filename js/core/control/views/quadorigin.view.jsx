@@ -13,7 +13,7 @@ const QuadOrigin = props => {
         zIndex: 1,
         borderRadius: '50%',
     }}>
-            
+            {props.children}
         </div>);
 };
 export default QuadOrigin;

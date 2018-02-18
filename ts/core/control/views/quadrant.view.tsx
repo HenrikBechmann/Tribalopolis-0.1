@@ -7,6 +7,7 @@ import * as React from 'react'
 import QuadOrigin from './quadorigin.view'
 import QuadTitleBar from './quadtitlebar.view'
 import QuadStatusBar from './quadstatusbar.view'
+import QuadBadge from './quadbadge.view'
 
 class Quadrant extends React.Component<any,any>  {
     state = {
@@ -99,7 +100,7 @@ class Quadrant extends React.Component<any,any>  {
                     }
                 } >
                     <QuadTitleBar title = {this.props.title} infocus = {this.state.infocus}/>
-                    <QuadOrigin />
+                    <QuadOrigin><QuadBadge quantity = {this.props.badgequantity} /></QuadOrigin>
                     <QuadStatusBar status = {this.props.status} />
                 </div>
             </div>

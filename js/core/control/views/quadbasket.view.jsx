@@ -12,7 +12,7 @@ const QuadBasket = props => {
         backgroundColor: 'brown',
         zIndex: 1,
     }}>
-            
+            {props.children}
         </div>);
 };
 export default QuadBasket;
