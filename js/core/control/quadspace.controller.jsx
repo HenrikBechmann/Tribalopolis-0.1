@@ -36,11 +36,11 @@ class QuadspaceController extends React.Component {
     render() {
         let quadrantindexes = this.state.quadrantindexes;
         return (<QuadFrame>
-                <QuadBasket><QuadBadge quantity={0} style={{ left: '-12px' }}/></QuadBasket>
                 <QuadToolsStrip />
+                <QuadBasket><QuadBadge quantity={3000} style={{ left: '-12px' }}/></QuadBasket>
                 <QuadViewport>
                     <QuadPlatform>
-                        <Quadrant key='1' sessionid={0} binding={this.binding} quadrant={this.positions[quadrantindexes[0]]} color='lightgreen' title='first' badgequantity={50} status='not bad'/>
+                        <Quadrant key='1' sessionid={0} binding={this.binding} quadrant={this.positions[quadrantindexes[0]]} color='lightgreen' title='first' badgequantity={500} status='not bad'/>
                         <Quadrant key='2' sessionid={1} binding={this.binding} quadrant={this.positions[quadrantindexes[1]]} color='mistyrose' title="second" badgequantity={0} status="OK"/>
                         <Quadrant key='3' sessionid={2} binding={this.binding} quadrant={this.positions[quadrantindexes[2]]} color='lightblue' title="third" badgequantity={12} status="Good"/>
                         <Quadrant key='4' sessionid={3} binding={this.binding} quadrant={this.positions[quadrantindexes[3]]} color='papayawhip' title="fourth" badgequantity={0} status="bad"/>

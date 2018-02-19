@@ -45,8 +45,8 @@ class QuadspaceController extends React.Component<any,any> {
         let quadrantindexes = this.state.quadrantindexes
         return (
             <QuadFrame>
-                <QuadBasket><QuadBadge quantity = {0} style = {{left:'-12px'}} /></QuadBasket>
                 <QuadToolsStrip />
+                <QuadBasket><QuadBadge quantity = {3000} style = {{left:'-12px'}} /></QuadBasket>
                 <QuadViewport>
                     <QuadPlatform>
                         <Quadrant 
@@ -56,7 +56,7 @@ class QuadspaceController extends React.Component<any,any> {
                             quadrant = {this.positions[quadrantindexes[0]]}
                             color = 'lightgreen' 
                             title = 'first'
-                            badgequantity = {50}
+                            badgequantity = {500}
                             status = 'not bad'
                         />
                         <Quadrant 

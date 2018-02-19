@@ -17,7 +17,7 @@ const QuadBadge = props => {
         fontSize: 'x-small',
         padding: '3px',
         boxSizing: 'border-box',
-        zIndex: 30,
+        zIndex: 1,
     };
     let style = props.style || {};
     let badgestyles = Object.assign({}, defaultstyles, style);
