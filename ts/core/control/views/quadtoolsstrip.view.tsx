@@ -20,9 +20,11 @@ class QuadToolsStrip extends React.Component<any,any> {
     }
 
     componentDidMount() {
-        this.setState({
-            scroller:this.scroller
-        })
+        setTimeout(()=>{
+            this.setState({
+                scroller:this.scroller
+            })
+        },500) // substantial timeout required to give scroll client time to right-size
     }
 
     handleMenuToggle = () => {
@@ -31,42 +33,8 @@ class QuadToolsStrip extends React.Component<any,any> {
 
     handleMenuClose = () => this.setState({menuopen: false});
 
-    spacemenu = <div style = {
-            {
-                display:'inline-block',
-                whiteSpace:'nowrap'
-            }
-        }
-    >
-        <IconButton
-        >
-            <FontIcon className='material-icons'>home</FontIcon>
-        </IconButton>
-        <FontIcon style = {{color:'rgba(0, 0, 0, 0.3)'}} className='material-icons'>border_all</FontIcon>
-        <IconButton
-            disabled
-        >
-            <FontIcon className='material-icons'>undo</FontIcon>
-        </IconButton>
-        <IconButton
-            disabled
-        >
-            <FontIcon className='material-icons'>redo</FontIcon>
-        </IconButton>
-        <IconButton
-            disabled
-        >
-            <FontIcon className='material-icons'>filter_list</FontIcon>
-        </IconButton>
-        <IconButton
-        >
-            <FontIcon className='material-icons'>swap_horiz</FontIcon>
-        </IconButton>
-        <IconButton
-        >
-            <FontIcon className='material-icons'>swap_vert</FontIcon>
-        </IconButton>
-    </div>
+    spacemenu = <span>
+    </span>
 
     spaceoverflowmenu = <IconMenu
             iconButtonElement = {
@@ -156,7 +124,7 @@ class QuadToolsStrip extends React.Component<any,any> {
                     }
                 } 
             >
-                <ScrollControlsView id='scrollcontrolsview' scroller = {this.scroller} >
+                <ScrollControlsView id='scrollcontrolsview' scroller = {this.state.scroller} >
                     <div style = {
                         {
                             display:'flex',
@@ -169,12 +137,13 @@ class QuadToolsStrip extends React.Component<any,any> {
                             this.scroller = el
                         }}
                     >
-                        <div style = {
-                            {
-                                display:'inline-block',
-                                whiteSpace:'nowrap',
+                        <div 
+                            style = {
+                                {
+                                    display:'inline',
+                                    whiteSpace:'nowrap',
+                                }
                             }
-                        }
                         >
                             <IconButton
                                 onClick = {this.handleMenuToggle}
@@ -182,13 +151,44 @@ class QuadToolsStrip extends React.Component<any,any> {
                                 <FontIcon className='material-icons'>menu</FontIcon>
                             </IconButton>
 
-                            { this.spacemenu }
+                            <IconButton
+                            >
+                                <FontIcon className='material-icons'>home</FontIcon>
+                            </IconButton>
+
+                            <FontIcon style = {{color:'rgba(0, 0, 0, 0.3)'}} className='material-icons'>border_all</FontIcon>
+
+                            <IconButton
+                                disabled
+                            >
+                                <FontIcon className='material-icons'>undo</FontIcon>
+                            </IconButton>
+
+                            <IconButton
+                                disabled
+                            >
+                                <FontIcon className='material-icons'>redo</FontIcon>
+                            </IconButton>
+                            <IconButton
+                                disabled
+                            >
+                                <FontIcon className='material-icons'>filter_list</FontIcon>
+                            </IconButton>
+                            <IconButton
+                            >
+                                <FontIcon className='material-icons'>swap_horiz</FontIcon>
+                            </IconButton>
+                            <IconButton
+                            >
+                                <FontIcon className='material-icons'>swap_vert</FontIcon>
+                            </IconButton>
 
                             { this.spaceoverflowmenu }
 
                             { this.accountmenu }
 
                             {this.menudrawer()}
+
                         </div>
                     </div>
                 </ScrollControlsView>
@@ -197,5 +197,7 @@ class QuadToolsStrip extends React.Component<any,any> {
     }
 
 }
+
+
 
 export default QuadToolsStrip

@@ -30,29 +30,39 @@ class QuadspaceController extends React.Component<any,any> {
         'bottomright',
     ]
 
+    statebindings = [null,null,null,null]
 
-    quadrantlookup = null
+    binding = (sessionid,state) => {
+        this.statebindings[sessionid] = state
+    }
+
+    componentDidMount() {
+        this.forceUpdate()
+        console.log('binding after mount',this.statebindings)
+    }
 
     render() {
         let quadrantindexes = this.state.quadrantindexes
         return (
             <QuadFrame>
-                <QuadToolsStrip />
                 <QuadBasket><QuadBadge quantity = {0} style = {{left:'-12px'}} /></QuadBasket>
+                <QuadToolsStrip />
                 <QuadViewport>
                     <QuadPlatform>
                         <Quadrant 
                             key = '1'
                             sessionid = {0}
+                            binding = {this.binding}
                             quadrant = {this.positions[quadrantindexes[0]]}
                             color = 'lightgreen' 
                             title = 'first'
-                            badgequantity = {0}
+                            badgequantity = {50}
                             status = 'not bad'
                         />
                         <Quadrant 
                             key = '2'
                             sessionid = {1}
+                            binding = {this.binding}
                             quadrant = {this.positions[quadrantindexes[1]]}
                             color = 'mistyrose' 
                             title = "second" 
@@ -62,15 +72,17 @@ class QuadspaceController extends React.Component<any,any> {
                         <Quadrant 
                             key = '3'
                             sessionid = {2}
+                            binding = {this.binding}
                             quadrant = {this.positions[quadrantindexes[2]]}
                             color = 'lightblue' 
                             title = "third" 
-                            badgequantity = {0}
+                            badgequantity = {12}
                             status = "Good"
                         />
                         <Quadrant 
                             key = '4'
                             sessionid = {3}
+                            binding = {this.binding}
                             quadrant = {this.positions[quadrantindexes[3]]}
                             color = 'papayawhip' 
                             title = "fourth" 

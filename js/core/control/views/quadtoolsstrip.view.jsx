@@ -20,30 +20,8 @@ class QuadToolsStrip extends React.Component {
             this.setState({ menuopen: !this.state.menuopen });
         };
         this.handleMenuClose = () => this.setState({ menuopen: false });
-        this.spacemenu = <div style={{
-            display: 'inline-block',
-            whiteSpace: 'nowrap'
-        }}>
-        <IconButton>
-            <FontIcon className='material-icons'>home</FontIcon>
-        </IconButton>
-        <FontIcon style={{ color: 'rgba(0, 0, 0, 0.3)' }} className='material-icons'>border_all</FontIcon>
-        <IconButton disabled>
-            <FontIcon className='material-icons'>undo</FontIcon>
-        </IconButton>
-        <IconButton disabled>
-            <FontIcon className='material-icons'>redo</FontIcon>
-        </IconButton>
-        <IconButton disabled>
-            <FontIcon className='material-icons'>filter_list</FontIcon>
-        </IconButton>
-        <IconButton>
-            <FontIcon className='material-icons'>swap_horiz</FontIcon>
-        </IconButton>
-        <IconButton>
-            <FontIcon className='material-icons'>swap_vert</FontIcon>
-        </IconButton>
-    </div>;
+        this.spacemenu = <span>
+    </span>;
         this.spaceoverflowmenu = <IconMenu iconButtonElement={<IconButton>
                     <FontIcon className='material-icons'>more_vert</FontIcon>
                 </IconButton>} anchorOrigin={{ vertical: "bottom", horizontal: "right" }} targetOrigin={{ vertical: "top", horizontal: "right" }}>
@@ -66,9 +44,11 @@ class QuadToolsStrip extends React.Component {
         this.scroller = null;
     }
     componentDidMount() {
-        this.setState({
-            scroller: this.scroller
-        });
+        setTimeout(() => {
+            this.setState({
+                scroller: this.scroller
+            });
+        }, 500); // substantial timeout required to give scroll client time to right-size
     }
     render() {
         return (<div style={{
@@ -79,7 +59,7 @@ class QuadToolsStrip extends React.Component {
             left: '0',
             right: '96px'
         }}>
-                <ScrollControlsView id='scrollcontrolsview' scroller={this.scroller}>
+                <ScrollControlsView id='scrollcontrolsview' scroller={this.state.scroller}>
                     <div style={{
             display: 'flex',
             flexWrap: 'nowrap',
@@ -88,20 +68,42 @@ class QuadToolsStrip extends React.Component {
             this.scroller = el;
         }}>
                         <div style={{
-            display: 'inline-block',
+            display: 'inline',
             whiteSpace: 'nowrap',
         }}>
                             <IconButton onClick={this.handleMenuToggle}>
                                 <FontIcon className='material-icons'>menu</FontIcon>
                             </IconButton>
 
-                            {this.spacemenu}
+                            <IconButton>
+                                <FontIcon className='material-icons'>home</FontIcon>
+                            </IconButton>
+
+                            <FontIcon style={{ color: 'rgba(0, 0, 0, 0.3)' }} className='material-icons'>border_all</FontIcon>
+
+                            <IconButton disabled>
+                                <FontIcon className='material-icons'>undo</FontIcon>
+                            </IconButton>
+
+                            <IconButton disabled>
+                                <FontIcon className='material-icons'>redo</FontIcon>
+                            </IconButton>
+                            <IconButton disabled>
+                                <FontIcon className='material-icons'>filter_list</FontIcon>
+                            </IconButton>
+                            <IconButton>
+                                <FontIcon className='material-icons'>swap_horiz</FontIcon>
+                            </IconButton>
+                            <IconButton>
+                                <FontIcon className='material-icons'>swap_vert</FontIcon>
+                            </IconButton>
 
                             {this.spaceoverflowmenu}
 
                             {this.accountmenu}
 
                             {this.menudrawer()}
+
                         </div>
                     </div>
                 </ScrollControlsView>

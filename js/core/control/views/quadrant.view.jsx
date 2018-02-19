@@ -33,6 +33,9 @@ class Quadrant extends React.Component {
         };
         this.element = null;
     }
+    componentWillMount() {
+        this.props.binding(this.props.sessionid, this.state);
+    }
     render() {
         let { quadrant, color } = this.props;
         let top = 'auto';
