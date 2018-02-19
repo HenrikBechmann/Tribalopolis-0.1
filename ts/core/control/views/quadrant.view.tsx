@@ -10,12 +10,19 @@ import QuadStatusBar from './quadstatusbar.view'
 import QuadBadge from './quadbadge.view'
 
 class Quadrant extends React.Component<any,any>  {
+
+    constructor(props) {
+        super(props)
+        this.state.quadrant = this.props.quadrant
+    }
+    
     state = {
         infocus:false,
+        quadrant:null,
     }
 
     componentWillMount() {
-        this.props.binding(this.props.sessionid,this.state)
+        this.props.binding(this.props.sessionid,this)
     }
 
     onfocusin = () => {

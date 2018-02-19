@@ -17,6 +17,7 @@ class QuadToolsStrip extends React.Component<any,any> {
     state = {
         menuopen:false,
         scroller:null,
+        currentquad:null,
     }
 
     componentDidMount() {
@@ -25,6 +26,25 @@ class QuadToolsStrip extends React.Component<any,any> {
                 scroller:this.scroller
             })
         },500) // substantial timeout required to give scroll client time to right-size
+    }
+
+    quadbindings = null
+
+    lookupbyquadrant = {}
+
+    componentDidUpdate() {
+        if (!this.quadbindings && this.props.quadbindings) {
+            let quadbindings = this.quadbindings = this.props.quadbindings
+            for (let index in quadbindings) {
+                let quad = quadbindings[index]
+                this.lookupbyquadrant[quad.state.quadrant] = quad
+            }
+        }
+        if (this.props.currentquad !== this.state.currentquad) {
+            this.setState({
+                currentquad:this.props.currentquad
+            })
+        }
     }
 
     handleMenuToggle = () => {

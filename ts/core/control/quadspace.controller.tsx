@@ -18,7 +18,8 @@ import QuadBadge from './views/quadbadge.view'
 class QuadspaceController extends React.Component<any,any> {
 
     state = {
-        quadrantindexes:[0,1,2,3]
+        quadrantindexes:[0,1,2,3],
+        currentquad:null,
     }
 
     // quadrants can be re-arranged; quadrant attribute needs to be updated
@@ -30,22 +31,22 @@ class QuadspaceController extends React.Component<any,any> {
         'bottomright',
     ]
 
-    statebindings = [null,null,null,null]
+    quadbindings = [null,null,null,null]
 
-    binding = (sessionid,state) => {
-        this.statebindings[sessionid] = state
+    binding = (sessionid,quad) => {
+        this.quadbindings[sessionid] = quad
     }
 
     componentDidMount() {
         this.forceUpdate()
-        console.log('binding after mount',this.statebindings)
+        console.log('quads after mount',this.quadbindings)
     }
 
     render() {
         let quadrantindexes = this.state.quadrantindexes
         return (
             <QuadFrame>
-                <QuadToolsStrip />
+                <QuadToolsStrip bindings = {this.quadbindings} currentquad = {this.state.currentquad}/>
                 <QuadBasket><QuadBadge quantity = {3000} style = {{left:'-12px'}} /></QuadBasket>
                 <QuadViewport>
                     <QuadPlatform>

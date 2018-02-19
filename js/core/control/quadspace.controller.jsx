@@ -15,7 +15,8 @@ class QuadspaceController extends React.Component {
     constructor() {
         super(...arguments);
         this.state = {
-            quadrantindexes: [0, 1, 2, 3]
+            quadrantindexes: [0, 1, 2, 3],
+            currentquad: null,
         };
         // quadrants can be re-arranged; quadrant attribute needs to be updated
         this.positions = [
@@ -24,19 +25,19 @@ class QuadspaceController extends React.Component {
             'bottomleft',
             'bottomright',
         ];
-        this.statebindings = [null, null, null, null];
-        this.binding = (sessionid, state) => {
-            this.statebindings[sessionid] = state;
+        this.quadbindings = [null, null, null, null];
+        this.binding = (sessionid, quad) => {
+            this.quadbindings[sessionid] = quad;
         };
     }
     componentDidMount() {
         this.forceUpdate();
-        console.log('binding after mount', this.statebindings);
+        console.log('quads after mount', this.quadbindings);
     }
     render() {
         let quadrantindexes = this.state.quadrantindexes;
         return (<QuadFrame>
-                <QuadToolsStrip />
+                <QuadToolsStrip bindings={this.quadbindings} currentquad={this.state.currentquad}/>
                 <QuadBasket><QuadBadge quantity={3000} style={{ left: '-12px' }}/></QuadBasket>
                 <QuadViewport>
                     <QuadPlatform>

@@ -7,10 +7,11 @@ import QuadTitleBar from './quadtitlebar.view';
 import QuadStatusBar from './quadstatusbar.view';
 import QuadBadge from './quadbadge.view';
 class Quadrant extends React.Component {
-    constructor() {
-        super(...arguments);
+    constructor(props) {
+        super(props);
         this.state = {
             infocus: false,
+            quadrant: null,
         };
         this.onfocusin = () => {
             if (!this.state.infocus) {
@@ -32,9 +33,10 @@ class Quadrant extends React.Component {
             }
         };
         this.element = null;
+        this.state.quadrant = this.props.quadrant;
     }
     componentWillMount() {
-        this.props.binding(this.props.sessionid, this.state);
+        this.props.binding(this.props.sessionid, this);
     }
     render() {
         let { quadrant, color } = this.props;
