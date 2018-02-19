@@ -14,6 +14,7 @@ import QuadPlatform from './views/quadplatform.view'
 import Quadrant from './views/quadrant.view'
 import QuadDiamond from './views/quaddiamond.view'
 import QuadBadge from './views/quadbadge.view'
+import QuadStatusBar from './views/quadstatusbar.view'
 
 class QuadspaceController extends React.Component<any,any> {
 
@@ -58,7 +59,6 @@ class QuadspaceController extends React.Component<any,any> {
                             color = 'lightgreen' 
                             title = 'first'
                             badgequantity = {500}
-                            status = 'not bad'
                         />
                         <Quadrant 
                             key = '2'
@@ -68,7 +68,6 @@ class QuadspaceController extends React.Component<any,any> {
                             color = 'mistyrose' 
                             title = "second" 
                             badgequantity = {0}
-                            status = "OK"
                         />
                         <Quadrant 
                             key = '3'
@@ -78,7 +77,6 @@ class QuadspaceController extends React.Component<any,any> {
                             color = 'lightblue' 
                             title = "third" 
                             badgequantity = {12}
-                            status = "Good"
                         />
                         <Quadrant 
                             key = '4'
@@ -88,11 +86,11 @@ class QuadspaceController extends React.Component<any,any> {
                             color = 'papayawhip' 
                             title = "fourth" 
                             badgequantity = {0}
-                            status = "bad"
                         />
                         <QuadDiamond />
                     </QuadPlatform>
                 </QuadViewport>
+                <QuadStatusBar status = 'Something' />
             </QuadFrame>
         )
     }

@@ -6,7 +6,19 @@ import * as React from 'react'
 
 const QuadViewport = props => {
     return (
-        <div id="quadviewport" style = {{position:'absolute',top:'48px',left:'0',right:'0',bottom:'0',backgroundColor:'tan',overflow:'scroll'}} >
+        <div id="quadviewport" 
+            style = 
+            {
+                {
+                    position:'absolute',
+                    top:'48px',
+                    left:'0',
+                    right:'0',
+                    bottom:'25px',
+                    backgroundColor:'tan',
+                    overflow:'scroll'
+                }
+            } >
             { props.children }
         </div>
     )

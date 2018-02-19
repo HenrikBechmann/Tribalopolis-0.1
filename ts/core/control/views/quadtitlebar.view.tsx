@@ -10,7 +10,7 @@ const QuadTitleBar = props => {
         <div
             style = {
                 {
-                    height:'24px',
+                    height:'25px',
                     backgroundColor:infocus?'lightgray':'darkgray',
                     boxSizing:'border-box',
                     width:'100%',

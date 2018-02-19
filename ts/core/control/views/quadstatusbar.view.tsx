@@ -10,14 +10,14 @@ const QuadStatusBar = props => {
             style = {
                 {
                     position: 'absolute',
-                    height:'24px',
+                    height:'25px',
                     boxSizing:'border-box',
                     backgroundColor:'paleturquoise',
                     width:'100%',
                     bottom:'0',
                     padding:'3px',
                     borderRadius:'0 0 5px 5px',
-                    borderTop:'1px solid silver',
+                    borderTop:'2px solid gray',
                 }
             }
         >

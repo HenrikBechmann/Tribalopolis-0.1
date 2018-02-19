@@ -176,23 +176,26 @@ class QuadToolsStrip extends React.Component<any,any> {
                                 <FontIcon className='material-icons'>home</FontIcon>
                             </IconButton>
 
-                            <FontIcon style = {{color:'rgba(0, 0, 0, 0.3)'}} className='material-icons'>border_all</FontIcon>
-
                             <IconButton
                                 disabled
                             >
-                                <FontIcon className='material-icons'>undo</FontIcon>
+                                <FontIcon className='material-icons'>arrow_back</FontIcon>
                             </IconButton>
 
                             <IconButton
                                 disabled
                             >
-                                <FontIcon className='material-icons'>redo</FontIcon>
+                                <FontIcon className='material-icons'>arrow_forward</FontIcon>
                             </IconButton>
                             <IconButton
                                 disabled
                             >
                                 <FontIcon className='material-icons'>filter_list</FontIcon>
+                            </IconButton>
+                            <IconButton
+                                disabled
+                            >
+                                <FontIcon className='material-icons'>sort</FontIcon>
                             </IconButton>
                             <IconButton
                             >
@@ -207,6 +210,11 @@ class QuadToolsStrip extends React.Component<any,any> {
 
                             { this.accountmenu }
 
+                            <IconButton
+                            >
+                                <FontIcon className='material-icons'>help_outline</FontIcon>
+                            </IconButton>
+
                             {this.menudrawer()}
 
                         </div>
@@ -217,6 +225,10 @@ class QuadToolsStrip extends React.Component<any,any> {
     }
 
 }
+
+                            // <FontIcon 
+                            //     style = {{color:'rgba(0, 0, 0, 0.3)'}} 
+                            //     className='material-icons'>border_all</FontIcon>
 
 
 

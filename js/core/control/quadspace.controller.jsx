@@ -11,6 +11,7 @@ import QuadPlatform from './views/quadplatform.view';
 import Quadrant from './views/quadrant.view';
 import QuadDiamond from './views/quaddiamond.view';
 import QuadBadge from './views/quadbadge.view';
+import QuadStatusBar from './views/quadstatusbar.view';
 class QuadspaceController extends React.Component {
     constructor() {
         super(...arguments);
@@ -41,13 +42,14 @@ class QuadspaceController extends React.Component {
                 <QuadBasket><QuadBadge quantity={3000} style={{ left: '-12px' }}/></QuadBasket>
                 <QuadViewport>
                     <QuadPlatform>
-                        <Quadrant key='1' sessionid={0} binding={this.binding} quadrant={this.positions[quadrantindexes[0]]} color='lightgreen' title='first' badgequantity={500} status='not bad'/>
-                        <Quadrant key='2' sessionid={1} binding={this.binding} quadrant={this.positions[quadrantindexes[1]]} color='mistyrose' title="second" badgequantity={0} status="OK"/>
-                        <Quadrant key='3' sessionid={2} binding={this.binding} quadrant={this.positions[quadrantindexes[2]]} color='lightblue' title="third" badgequantity={12} status="Good"/>
-                        <Quadrant key='4' sessionid={3} binding={this.binding} quadrant={this.positions[quadrantindexes[3]]} color='papayawhip' title="fourth" badgequantity={0} status="bad"/>
+                        <Quadrant key='1' sessionid={0} binding={this.binding} quadrant={this.positions[quadrantindexes[0]]} color='lightgreen' title='first' badgequantity={500}/>
+                        <Quadrant key='2' sessionid={1} binding={this.binding} quadrant={this.positions[quadrantindexes[1]]} color='mistyrose' title="second" badgequantity={0}/>
+                        <Quadrant key='3' sessionid={2} binding={this.binding} quadrant={this.positions[quadrantindexes[2]]} color='lightblue' title="third" badgequantity={12}/>
+                        <Quadrant key='4' sessionid={3} binding={this.binding} quadrant={this.positions[quadrantindexes[3]]} color='papayawhip' title="fourth" badgequantity={0}/>
                         <QuadDiamond />
                     </QuadPlatform>
                 </QuadViewport>
+                <QuadStatusBar status='Something'/>
             </QuadFrame>);
     }
 }

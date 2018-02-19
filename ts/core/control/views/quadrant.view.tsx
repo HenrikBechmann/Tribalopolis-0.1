@@ -83,11 +83,12 @@ class Quadrant extends React.Component<any,any>  {
                         boxSizing:'border-box',
                         width:'50%',
                         height:'50%',
-                        padding:'8px',
+                        padding:'3px',
                         top,
                         left,
                         bottom,
                         right,
+                        border:'1px solid transparent',
                         outline:'none',
                     }
 
@@ -102,6 +103,7 @@ class Quadrant extends React.Component<any,any>  {
             >
                 <div style = {
                     {
+                        boxSizing: 'border-box',
                         border: '3px outset gray',
                         position:'relative',
                         backgroundColor:color,
@@ -112,7 +114,6 @@ class Quadrant extends React.Component<any,any>  {
                 } >
                     <QuadTitleBar title = {this.props.title} infocus = {this.state.infocus}/>
                     <QuadOrigin><QuadBadge quantity = {this.props.badgequantity} /></QuadOrigin>
-                    <QuadStatusBar status = {this.props.status} />
                 </div>
             </div>
         )

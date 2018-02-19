@@ -4,7 +4,6 @@
 import * as React from 'react';
 import QuadOrigin from './quadorigin.view';
 import QuadTitleBar from './quadtitlebar.view';
-import QuadStatusBar from './quadstatusbar.view';
 import QuadBadge from './quadbadge.view';
 class Quadrant extends React.Component {
     constructor(props) {
@@ -69,16 +68,18 @@ class Quadrant extends React.Component {
             boxSizing: 'border-box',
             width: '50%',
             height: '50%',
-            padding: '8px',
+            padding: '3px',
             top,
             left,
             bottom,
             right,
+            border: '1px solid transparent',
             outline: 'none',
         }} ref={(el) => {
             this.element = el;
         }} tabIndex={0} onFocus={this.onfocusin} onBlur={this.onfocusout} onClick={this.onclick}>
                 <div style={{
+            boxSizing: 'border-box',
             border: '3px outset gray',
             position: 'relative',
             backgroundColor: color,
@@ -88,7 +89,6 @@ class Quadrant extends React.Component {
         }}>
                     <QuadTitleBar title={this.props.title} infocus={this.state.infocus}/>
                     <QuadOrigin><QuadBadge quantity={this.props.badgequantity}/></QuadOrigin>
-                    <QuadStatusBar status={this.props.status}/>
                 </div>
             </div>);
     }
