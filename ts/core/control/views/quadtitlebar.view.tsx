@@ -15,7 +15,7 @@ const QuadTitleBar = props => {
                     boxSizing:'border-box',
                     width:'100%',
                     padding: '3px',
-                    borderRadius:'8px 8px 0 0',
+                    borderRadius:'5px 5px 0 0',
                     borderBottom:'1px solid silver',
                 }
             }

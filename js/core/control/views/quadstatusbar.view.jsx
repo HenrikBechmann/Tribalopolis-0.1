@@ -11,7 +11,7 @@ const QuadStatusBar = props => {
         width: '100%',
         bottom: '0',
         padding: '3px',
-        borderRadius: '0 0 8px 8px',
+        borderRadius: '0 0 5px 5px',
         borderTop: '1px solid silver',
     }}>
             {props.status}
