@@ -55,8 +55,8 @@ class QuadToolsStrip extends React.Component {
             height: '48px',
             backgroundColor: 'silver',
             position: 'absolute',
-            top: '0',
-            left: '0',
+            top: 0,
+            left: 0,
             right: '96px'
         }}>
                 <ScrollControlsView id='scrollcontrolsview' scroller={this.state.scroller}>

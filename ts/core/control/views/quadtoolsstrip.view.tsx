@@ -118,8 +118,8 @@ class QuadToolsStrip extends React.Component<any,any> {
                         height:'48px',
                         backgroundColor:'silver',
                         position:'absolute',
-                        top:'0',
-                        left:'0',
+                        top:0,
+                        left:0,
                         right:'96px'
                     }
                 } 

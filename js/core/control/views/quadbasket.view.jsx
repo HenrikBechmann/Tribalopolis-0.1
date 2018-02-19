@@ -5,8 +5,8 @@ import * as React from 'react';
 const QuadBasket = props => {
     return (<div id="quadbasket" style={{
         position: 'absolute',
-        top: '0',
-        right: '0',
+        top: 0,
+        right: 0,
         width: '96px',
         height: '48px',
         backgroundColor: 'brown',
