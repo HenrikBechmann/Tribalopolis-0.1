@@ -1,0 +1,1 @@
+// boxplatform.view.tsx
