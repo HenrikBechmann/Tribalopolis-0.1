@@ -33,7 +33,7 @@
     "react-ga": "^2.4.1",
     "react-list": "^0.8.8",
     "react-redux": "^5.0.7",
-    "react-redux-toastr": "^7.2.1",
+    "react-redux-toastr": "^7.2.3",
     "react-router-dom": "^4.2.2",
     "react-router-redux": "^5.0.0-alpha.9",
     "react-tap-event-plugin": "^3.0.2",
