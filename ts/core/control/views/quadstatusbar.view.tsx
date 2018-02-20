@@ -25,6 +25,9 @@ const QuadStatusBar = props => {
             <div style = {{position:'absolute',top:'-4px',right:'0', backgroundColor:'lightgray',border:'1px solid silver'}} > 
                 <FontIcon className='material-icons'>delete</FontIcon>
             </div>
+            <div style = {{float:'left',position:'relative',top:'-3px'}}>
+                <FontIcon className='material-icons'>view_list</FontIcon>
+            </div>
             <div style = {{display:'inline-block',whiteSpace:'nowrap'}} >
                 {props.status}
             </div>
