@@ -56,28 +56,28 @@ class QuadToolsStrip extends React.Component<any,any> {
     spacemenu = <span>
     </span>
 
-    spaceoverflowmenu = <IconMenu
-            iconButtonElement = {
-                <IconButton>
-                    <FontIcon className='material-icons'>more_vert</FontIcon>
-                </IconButton>
-            }
-            anchorOrigin = {{vertical:"bottom",horizontal:"right"}}
-            targetOrigin = {{vertical:"top",horizontal:"right"}}
-        >
-            <MenuItem
-                leftIcon = {<FontIcon className='material-icons'>refresh</FontIcon>}
-                primaryText = "Refresh"
-            />
-            <MenuItem
-                leftIcon = {<FontIcon className='material-icons'>settings</FontIcon>}
-                primaryText = "Options"
-            />
-            <MenuItem
-                leftIcon = {<FontIcon className='material-icons'>help</FontIcon>}
-                primaryText = "Help"
-            />
-        </IconMenu>
+    // spaceoverflowmenu = <IconMenu
+    //         iconButtonElement = {
+    //             <IconButton>
+    //                 <FontIcon className='material-icons'>more_vert</FontIcon>
+    //             </IconButton>
+    //         }
+    //         anchorOrigin = {{vertical:"bottom",horizontal:"right"}}
+    //         targetOrigin = {{vertical:"top",horizontal:"right"}}
+    //     >
+    //         <MenuItem
+    //             leftIcon = {<FontIcon className='material-icons'>refresh</FontIcon>}
+    //             primaryText = "Refresh"
+    //         />
+    //         <MenuItem
+    //             leftIcon = {<FontIcon className='material-icons'>settings</FontIcon>}
+    //             primaryText = "Options"
+    //         />
+    //         <MenuItem
+    //             leftIcon = {<FontIcon className='material-icons'>help</FontIcon>}
+    //             primaryText = "Help"
+    //         />
+    //     </IconMenu>
 
     menudrawer = () => (<Drawer
                 docked={false}
@@ -196,8 +196,6 @@ class QuadToolsStrip extends React.Component<any,any> {
                                 <FontIcon className='material-icons'>swap_vert</FontIcon>
                             </IconButton>
 
-                            { this.spaceoverflowmenu }
-
                             { this.accountmenu }
 
                             <IconButton 
@@ -210,6 +208,11 @@ class QuadToolsStrip extends React.Component<any,any> {
                                 <FontIcon className='material-icons'>help_outline</FontIcon>
                             </IconButton>
 
+                            <IconButton
+                            >
+                                <FontIcon className='material-icons'>settings</FontIcon>}
+                            </IconButton>
+
                             {this.menudrawer()}
 
                         </div>
@@ -220,6 +223,9 @@ class QuadToolsStrip extends React.Component<any,any> {
     }
 
 }
+
+// { this.spaceoverflowmenu }
+
 // <IconButton
 //     disabled
 // >

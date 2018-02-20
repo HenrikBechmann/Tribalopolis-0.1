@@ -25,13 +25,28 @@ class QuadToolsStrip extends React.Component {
         this.handleMenuClose = () => this.setState({ menuopen: false });
         this.spacemenu = <span>
     </span>;
-        this.spaceoverflowmenu = <IconMenu iconButtonElement={<IconButton>
-                    <FontIcon className='material-icons'>more_vert</FontIcon>
-                </IconButton>} anchorOrigin={{ vertical: "bottom", horizontal: "right" }} targetOrigin={{ vertical: "top", horizontal: "right" }}>
-            <MenuItem leftIcon={<FontIcon className='material-icons'>refresh</FontIcon>} primaryText="Refresh"/>
-            <MenuItem leftIcon={<FontIcon className='material-icons'>settings</FontIcon>} primaryText="Options"/>
-            <MenuItem leftIcon={<FontIcon className='material-icons'>help</FontIcon>} primaryText="Help"/>
-        </IconMenu>;
+        // spaceoverflowmenu = <IconMenu
+        //         iconButtonElement = {
+        //             <IconButton>
+        //                 <FontIcon className='material-icons'>more_vert</FontIcon>
+        //             </IconButton>
+        //         }
+        //         anchorOrigin = {{vertical:"bottom",horizontal:"right"}}
+        //         targetOrigin = {{vertical:"top",horizontal:"right"}}
+        //     >
+        //         <MenuItem
+        //             leftIcon = {<FontIcon className='material-icons'>refresh</FontIcon>}
+        //             primaryText = "Refresh"
+        //         />
+        //         <MenuItem
+        //             leftIcon = {<FontIcon className='material-icons'>settings</FontIcon>}
+        //             primaryText = "Options"
+        //         />
+        //         <MenuItem
+        //             leftIcon = {<FontIcon className='material-icons'>help</FontIcon>}
+        //             primaryText = "Help"
+        //         />
+        //     </IconMenu>
         this.menudrawer = () => (<Drawer docked={false} open={this.state.menuopen} onRequestChange={(open) => this.setState({ menuopen: open })}>
                 <MenuItem leftIcon={<img src='/public/icons/campfire.svg'/>} primaryText="About" onClick={this.handleMenuClose}/>
                 <MenuItem leftIcon={<FontIcon className='material-icons'>local_library</FontIcon>} primaryText="Tutorials" onClick={this.handleMenuClose}/>
@@ -110,8 +125,6 @@ class QuadToolsStrip extends React.Component {
                                 <FontIcon className='material-icons'>swap_vert</FontIcon>
                             </IconButton>
 
-                            {this.spaceoverflowmenu}
-
                             {this.accountmenu}
 
                             <IconButton>
@@ -122,6 +135,10 @@ class QuadToolsStrip extends React.Component {
                                 <FontIcon className='material-icons'>help_outline</FontIcon>
                             </IconButton>
 
+                            <IconButton>
+                                <FontIcon className='material-icons'>settings</FontIcon>}
+                            </IconButton>
+
                             {this.menudrawer()}
 
                         </div>
@@ -130,6 +147,7 @@ class QuadToolsStrip extends React.Component {
             </div>);
     }
 }
+// { this.spaceoverflowmenu }
 // <IconButton
 //     disabled
 // >
