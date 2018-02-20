@@ -22,7 +22,18 @@ const QuadStatusBar = props => {
                 }
             }
         >
-            <div style = {{position:'absolute',top:'-4px',right:'0', backgroundColor:'lightgray',border:'1px solid silver'}} > 
+            <div 
+                style = 
+                {
+                    {
+                        position:'absolute',
+                        top:'-4px',
+                        right:'0', 
+                        backgroundColor:'lightgray',
+                        border:'1px solid silver',
+                        overflow:'hidden',
+                    }
+                } > 
                 <FontIcon className='material-icons'>delete</FontIcon>
             </div>
             <div style = {{float:'left',position:'relative',top:'-3px'}}>

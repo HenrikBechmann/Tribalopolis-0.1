@@ -38,6 +38,12 @@ class QuadspaceController extends React.Component<any,any> {
         this.quadbindings[sessionid] = quad
     }
 
+    takingfocus = (sessionid, quadrantname) => {
+        this.setState({
+            currentquad:quadrantname,
+        })
+    }
+
     componentDidMount() {
         this.forceUpdate()
         console.log('quads after mount',this.quadbindings)
@@ -58,6 +64,7 @@ class QuadspaceController extends React.Component<any,any> {
                             quadrant = {this.positions[quadrantindexes[0]]}
                             color = 'lightgreen' 
                             title = 'first'
+                            takingfocus = {this.takingfocus}
                             badgequantity = {500}
                         />
                         <Quadrant 
@@ -67,6 +74,7 @@ class QuadspaceController extends React.Component<any,any> {
                             quadrant = {this.positions[quadrantindexes[1]]}
                             color = 'mistyrose' 
                             title = "second" 
+                            takingfocus = {this.takingfocus}
                             badgequantity = {0}
                         />
                         <Quadrant 
@@ -76,6 +84,7 @@ class QuadspaceController extends React.Component<any,any> {
                             quadrant = {this.positions[quadrantindexes[2]]}
                             color = 'lightblue' 
                             title = "third" 
+                            takingfocus = {this.takingfocus}
                             badgequantity = {12}
                         />
                         <Quadrant 
@@ -85,6 +94,7 @@ class QuadspaceController extends React.Component<any,any> {
                             quadrant = {this.positions[quadrantindexes[3]]}
                             color = 'papayawhip' 
                             title = "fourth" 
+                            takingfocus = {this.takingfocus}
                             badgequantity = {0}
                         />
                         <QuadDiamond />

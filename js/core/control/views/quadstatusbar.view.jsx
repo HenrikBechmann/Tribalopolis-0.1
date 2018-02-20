@@ -15,7 +15,14 @@ const QuadStatusBar = props => {
         borderRadius: '0 0 5px 5px',
         borderTop: '2px solid gray',
     }}>
-            <div style={{ position: 'absolute', top: '-4px', right: '0', backgroundColor: 'lightgray', border: '1px solid silver' }}> 
+            <div style={{
+        position: 'absolute',
+        top: '-4px',
+        right: '0',
+        backgroundColor: 'lightgray',
+        border: '1px solid silver',
+        overflow: 'hidden',
+    }}> 
                 <FontIcon className='material-icons'>delete</FontIcon>
             </div>
             <div style={{ float: 'left', position: 'relative', top: '-3px' }}>

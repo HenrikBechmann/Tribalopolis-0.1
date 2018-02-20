@@ -14,6 +14,7 @@ class Quadrant extends React.Component {
         };
         this.onfocusin = () => {
             if (!this.state.infocus) {
+                this.props.takingfocus(this.props.sessionid, this.state.quadrant);
                 this.setState({
                     infocus: true,
                 });
