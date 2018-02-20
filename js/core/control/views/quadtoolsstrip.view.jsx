@@ -127,7 +127,7 @@ class QuadToolsStrip extends React.Component {
 
                             {this.accountmenu}
 
-                            <IconButton>
+                            <IconButton disabled>
                                 <FontIcon className='material-icons'>new_releases</FontIcon>
                             </IconButton>
 
