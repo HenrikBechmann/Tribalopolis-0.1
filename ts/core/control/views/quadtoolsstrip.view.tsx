@@ -187,14 +187,6 @@ class QuadToolsStrip extends React.Component<any,any> {
                             >
                                 <FontIcon className='material-icons'>arrow_forward</FontIcon>
                             </IconButton>
-                            <IconButton
-                            >
-                                <FontIcon className='material-icons'>swap_horiz</FontIcon>
-                            </IconButton>
-                            <IconButton
-                            >
-                                <FontIcon className='material-icons'>swap_vert</FontIcon>
-                            </IconButton>
 
                             { this.accountmenu }
 
@@ -224,6 +216,15 @@ class QuadToolsStrip extends React.Component<any,any> {
     }
 
 }
+
+// <IconButton
+// >
+//     <FontIcon className='material-icons'>swap_horiz</FontIcon>
+// </IconButton>
+// <IconButton
+// >
+//     <FontIcon className='material-icons'>swap_vert</FontIcon>
+// </IconButton>
 
 // { this.spaceoverflowmenu }
 
