@@ -3,6 +3,7 @@
 'use strict'
 
 import * as React from 'react'
+import FontIcon from 'material-ui/FontIcon'
 
 const QuadStatusBar = props => {
     return (
@@ -21,7 +22,12 @@ const QuadStatusBar = props => {
                 }
             }
         >
-            {props.status}
+            <div style = {{position:'absolute',top:'-4px',right:'0', backgroundColor:'lightgray',border:'1px solid silver'}} > 
+                <FontIcon className='material-icons'>delete</FontIcon>
+            </div>
+            <div style = {{display:'inline-block',whiteSpace:'nowrap'}} >
+                {props.status}
+            </div>
         </div>
     )
 }
