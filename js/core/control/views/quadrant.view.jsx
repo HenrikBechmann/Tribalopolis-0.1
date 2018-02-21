@@ -5,6 +5,7 @@ import * as React from 'react';
 import QuadOrigin from './quadorigin.view';
 import QuadTitleBar from './quadtitlebar.view';
 import QuadBadge from './quadbadge.view';
+import InfiniteScroll from './infinitescroll.view';
 class Quadrant extends React.Component {
     constructor(props) {
         super(props);
@@ -90,6 +91,7 @@ class Quadrant extends React.Component {
         }}>
                     <QuadTitleBar title={this.props.title} infocus={this.state.infocus}/>
                     <QuadOrigin><QuadBadge quantity={this.props.badgequantity}/></QuadOrigin>
+                    <InfiniteScroll />
                 </div>
             </div>);
     }
