@@ -4,8 +4,25 @@
 
 import * as React from 'react'
 
-const QuadPlatform = props => {
-    let currentquad = props.currentquad || 'topleft'
+class QuadPlatform extends React.Component<any,any> {
+
+    state = {
+        currentquad: this.props.currentquad,
+    }
+
+    element = null
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.currentquad != this.state.currentquad) {
+            this.setState({
+                currentquad:nextProps.currentquad
+            })
+        }
+    }
+
+    render() {
+    let currentquad = this.state.currentquad
+    console.log('platform currentquad',currentquad)
     let top = 'auto'
     let left = 'auto'
     let right = 'auto'
@@ -44,10 +61,15 @@ const QuadPlatform = props => {
                 right,
                 transition: 'top 1s ease-in,left 1s ease-in,bottom 1s ease-in,right 1s ease-in'
             }
-        } >
-            { props.children }
+        } 
+        ref = {el => {
+            this.element = el
+        }}
+        >
+            { this.props.children }
         </div>        
     )
+    }
 }
 
 export default QuadPlatform
