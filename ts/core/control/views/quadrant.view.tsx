@@ -12,44 +12,11 @@ import InfiniteScroll from './infinitescroll.view'
 
 class Quadrant extends React.Component<any,any>  {
 
-    constructor(props) {
-        super(props)
-        this.state.quadrant = this.props.quadrant
-    }
-    
-    state = {
-        infocus:false,
-        quadrant:null,
-    }
+    quadrant = this.props.quadrant
 
     componentWillMount() {
         this.props.binding(this.props.sessionid,this)
     }
-
-    onfocusin = () => {
-        if (!this.state.infocus) {
-            this.props.takingfocus(this.props.sessionid,this.state.quadrant)
-            this.setState({
-                infocus:true,
-            })
-        }
-    }
-
-    onfocusout = () => {
-        if (this.state.infocus) {
-            this.setState({
-                infocus:false,
-            })
-        }
-    }
-
-    onclick = () => {
-        if (!this.state.infocus) {
-            this.element.focus()
-        }
-    }
-
-    element = null
 
     render() {
         let { quadrant, color } = this.props
@@ -95,13 +62,6 @@ class Quadrant extends React.Component<any,any>  {
                     }
 
                 }
-                ref = {(el) => {
-                    this.element = el
-                }}
-                tabIndex = {0}
-                onFocus = {this.onfocusin}
-                onBlur = {this.onfocusout}
-                onClick = {this.onclick}
             >
                 <div style = {
                     {
@@ -114,7 +74,7 @@ class Quadrant extends React.Component<any,any>  {
                         height:'100%',
                     }
                 } >
-                    <QuadTitleBar title = {this.props.title} infocus = {this.state.infocus}/>
+                    <QuadTitleBar title = {this.props.title}/>
                     <QuadOrigin><QuadBadge quantity = {this.props.badgequantity} /></QuadOrigin>
                     <InfiniteScroll />
                 </div>

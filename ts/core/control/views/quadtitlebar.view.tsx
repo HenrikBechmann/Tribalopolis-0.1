@@ -5,13 +5,12 @@
 import * as React from 'react'
 
 const QuadTitleBar = props => {
-    let {infocus} = props
     return (
         <div
             style = {
                 {
                     height:'25px',
-                    backgroundColor:infocus?'lightgray':'darkgray',
+                    backgroundColor:'lightgray',
                     boxSizing:'border-box',
                     width:'100%',
                     padding: '3px',

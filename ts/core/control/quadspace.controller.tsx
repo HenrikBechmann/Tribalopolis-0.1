@@ -21,7 +21,7 @@ class QuadspaceController extends React.Component<any,any> {
 
     state = {
         quadrantindexes:[0,1,2,3],
-        currentquad:null,
+        currentquad:'topleft',
     }
 
     // quadrants can be re-arranged; quadrant attribute needs to be updated
@@ -39,7 +39,8 @@ class QuadspaceController extends React.Component<any,any> {
         this.quadbindings[sessionid] = quad
     }
 
-    takingfocus = (sessionid, quadrantname) => {
+    takingfocus = (quadrantname) => {
+        console.log('setting currentquad in controller',quadrantname)
         this.setState({
             currentquad:quadrantname,
         })
@@ -54,10 +55,11 @@ class QuadspaceController extends React.Component<any,any> {
         let quadrantindexes = this.state.quadrantindexes
         return (
             <QuadFrame>
-                <QuadToolsStrip bindings = {this.quadbindings} currentquad = {this.state.currentquad}/>
+                <QuadToolsStrip bindings = {this.quadbindings} currentquad = {this.state.currentquad}
+                takingfocus = {this.takingfocus}/>
                 <QuadBasket><QuadBadge quantity = {3000} style = {{left:'-12px'}} /></QuadBasket>
                 <QuadViewport>
-                    <QuadPlatform>
+                    <QuadPlatform currentquad = {this.state.currentquad}>
                         <Quadrant 
                             key = '1'
                             sessionid = {0}
@@ -65,7 +67,6 @@ class QuadspaceController extends React.Component<any,any> {
                             quadrant = {this.positions[quadrantindexes[0]]}
                             color = 'lightgreen' 
                             title = 'first'
-                            takingfocus = {this.takingfocus}
                             badgequantity = {500}
                         />
                         <Quadrant 
@@ -75,7 +76,6 @@ class QuadspaceController extends React.Component<any,any> {
                             quadrant = {this.positions[quadrantindexes[1]]}
                             color = 'mistyrose' 
                             title = "second" 
-                            takingfocus = {this.takingfocus}
                             badgequantity = {0}
                         />
                         <Quadrant 
@@ -85,7 +85,6 @@ class QuadspaceController extends React.Component<any,any> {
                             quadrant = {this.positions[quadrantindexes[2]]}
                             color = 'lightblue' 
                             title = "third" 
-                            takingfocus = {this.takingfocus}
                             badgequantity = {12}
                         />
                         <Quadrant 
@@ -95,7 +94,6 @@ class QuadspaceController extends React.Component<any,any> {
                             quadrant = {this.positions[quadrantindexes[3]]}
                             color = 'papayawhip' 
                             title = "fourth" 
-                            takingfocus = {this.takingfocus}
                             badgequantity = {0}
                         />
                         <QuadDiamond />

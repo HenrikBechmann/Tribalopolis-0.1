@@ -17,8 +17,10 @@ class QuadToolsStrip extends React.Component<any,any> {
     state = {
         menuopen:false,
         scroller:null,
-        currentquad:null,
+        currentquad:this.props.currentquad,
     }
+
+    takingfocus = this.props.takingfocus
 
     componentDidMount() {
         setTimeout(()=>{
@@ -131,6 +133,7 @@ class QuadToolsStrip extends React.Component<any,any> {
     scroller = null
 
     render() {
+        let currentquad = this.state.currentquad
         return (
             <div 
                 style = {
@@ -189,7 +192,15 @@ class QuadToolsStrip extends React.Component<any,any> {
                             </IconButton>
 
                             <IconButton
-                                style = {{verticalAlign:'bottom'}}
+                                style = {{verticalAlign:'bottom',}}
+                                onClick = {() => {
+                                    this.takingfocus('topleft')
+                                }}
+                                iconStyle = {
+                                    {
+                                        backgroundColor:(currentquad == 'topleft')?'red':'transparent'
+                                    }
+                                }
                             >
                                 <img 
                                     src = '/public/icons/ic_border_all_black_24px_topleft.svg'/>
@@ -197,6 +208,14 @@ class QuadToolsStrip extends React.Component<any,any> {
 
                             <IconButton
                                 style = {{verticalAlign:'bottom'}}
+                                onClick = {() => {
+                                    this.takingfocus('topright')
+                                }}
+                                iconStyle = {
+                                    {
+                                        backgroundColor:(currentquad == 'topright')?'red':'transparent'
+                                    }
+                                }
                             >
                                 <img 
                                     src = '/public/icons/ic_border_all_black_24px_topright.svg'/>
@@ -204,6 +223,14 @@ class QuadToolsStrip extends React.Component<any,any> {
 
                             <IconButton
                                 style = {{verticalAlign:'bottom'}}
+                                onClick = {() => {
+                                    this.takingfocus('bottomleft')
+                                }}
+                                iconStyle = {
+                                    {
+                                        backgroundColor:(currentquad == 'bottomleft')?'red':'transparent'
+                                    }
+                                }
                             >
                                 <img 
                                     src = '/public/icons/ic_border_all_black_24px_bottomleft.svg'/>
@@ -211,6 +238,14 @@ class QuadToolsStrip extends React.Component<any,any> {
 
                             <IconButton
                                 style = {{verticalAlign:'bottom'}}
+                                onClick = {() => {
+                                    this.takingfocus('bottomright')
+                                }}
+                                iconStyle = {
+                                    {
+                                        backgroundColor:(currentquad == 'bottomright')?'red':'transparent'
+                                    }
+                                }
                             >
                                 <img 
                                     src = '/public/icons/ic_border_all_black_24px_bottomright.svg'/>

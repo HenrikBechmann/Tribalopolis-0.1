@@ -10,7 +10,7 @@ const QuadViewport = props => {
         right: '0',
         bottom: '25px',
         backgroundColor: 'tan',
-        overflow: 'scroll'
+        overflow: 'hidden',
     }}>
             {props.children}
         </div>);

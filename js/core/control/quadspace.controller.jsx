@@ -17,7 +17,7 @@ class QuadspaceController extends React.Component {
         super(...arguments);
         this.state = {
             quadrantindexes: [0, 1, 2, 3],
-            currentquad: null,
+            currentquad: 'topleft',
         };
         // quadrants can be re-arranged; quadrant attribute needs to be updated
         this.positions = [
@@ -30,7 +30,8 @@ class QuadspaceController extends React.Component {
         this.binding = (sessionid, quad) => {
             this.quadbindings[sessionid] = quad;
         };
-        this.takingfocus = (sessionid, quadrantname) => {
+        this.takingfocus = (quadrantname) => {
+            console.log('setting currentquad in controller', quadrantname);
             this.setState({
                 currentquad: quadrantname,
             });
@@ -43,14 +44,14 @@ class QuadspaceController extends React.Component {
     render() {
         let quadrantindexes = this.state.quadrantindexes;
         return (<QuadFrame>
-                <QuadToolsStrip bindings={this.quadbindings} currentquad={this.state.currentquad}/>
+                <QuadToolsStrip bindings={this.quadbindings} currentquad={this.state.currentquad} takingfocus={this.takingfocus}/>
                 <QuadBasket><QuadBadge quantity={3000} style={{ left: '-12px' }}/></QuadBasket>
                 <QuadViewport>
-                    <QuadPlatform>
-                        <Quadrant key='1' sessionid={0} binding={this.binding} quadrant={this.positions[quadrantindexes[0]]} color='lightgreen' title='first' takingfocus={this.takingfocus} badgequantity={500}/>
-                        <Quadrant key='2' sessionid={1} binding={this.binding} quadrant={this.positions[quadrantindexes[1]]} color='mistyrose' title="second" takingfocus={this.takingfocus} badgequantity={0}/>
-                        <Quadrant key='3' sessionid={2} binding={this.binding} quadrant={this.positions[quadrantindexes[2]]} color='lightblue' title="third" takingfocus={this.takingfocus} badgequantity={12}/>
-                        <Quadrant key='4' sessionid={3} binding={this.binding} quadrant={this.positions[quadrantindexes[3]]} color='papayawhip' title="fourth" takingfocus={this.takingfocus} badgequantity={0}/>
+                    <QuadPlatform currentquad={this.state.currentquad}>
+                        <Quadrant key='1' sessionid={0} binding={this.binding} quadrant={this.positions[quadrantindexes[0]]} color='lightgreen' title='first' badgequantity={500}/>
+                        <Quadrant key='2' sessionid={1} binding={this.binding} quadrant={this.positions[quadrantindexes[1]]} color='mistyrose' title="second" badgequantity={0}/>
+                        <Quadrant key='3' sessionid={2} binding={this.binding} quadrant={this.positions[quadrantindexes[2]]} color='lightblue' title="third" badgequantity={12}/>
+                        <Quadrant key='4' sessionid={3} binding={this.binding} quadrant={this.positions[quadrantindexes[3]]} color='papayawhip' title="fourth" badgequantity={0}/>
                         <QuadDiamond />
                     </QuadPlatform>
                 </QuadViewport>
