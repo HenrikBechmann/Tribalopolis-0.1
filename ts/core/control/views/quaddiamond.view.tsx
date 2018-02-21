@@ -14,7 +14,7 @@ const QuadDiamond = props => {
                     left:'calc(50% - 48px)',
                     width:'96px',
                     height:'96px',
-                    backgroundColor:'gray',
+                    backgroundColor:'green',
                     borderRadius:'8px',
                     transform: 'rotate(45deg)',
                     opacity:0.5,

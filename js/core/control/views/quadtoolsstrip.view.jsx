@@ -119,6 +119,22 @@ class QuadToolsStrip extends React.Component {
                                 <FontIcon className='material-icons'>arrow_forward</FontIcon>
                             </IconButton>
 
+                            <IconButton style={{ verticalAlign: 'bottom' }}>
+                                <img src='/public/icons/ic_border_all_black_24px_topleft.svg'/>
+                            </IconButton>
+
+                            <IconButton style={{ verticalAlign: 'bottom' }}>
+                                <img src='/public/icons/ic_border_all_black_24px_topright.svg'/>
+                            </IconButton>
+
+                            <IconButton style={{ verticalAlign: 'bottom' }}>
+                                <img src='/public/icons/ic_border_all_black_24px_bottomleft.svg'/>
+                            </IconButton>
+
+                            <IconButton style={{ verticalAlign: 'bottom' }}>
+                                <img src='/public/icons/ic_border_all_black_24px_bottomright.svg'/>
+                            </IconButton>
+
                             {this.accountmenu}
 
                             <IconButton disabled>
