@@ -31,7 +31,6 @@ class QuadspaceController extends React.Component {
             this.quadbindings[sessionid] = quad;
         };
         this.takingfocus = (quadrantname) => {
-            console.log('setting currentquad in controller', quadrantname);
             this.setState({
                 currentquad: quadrantname,
             });

@@ -40,7 +40,6 @@ class QuadspaceController extends React.Component<any,any> {
     }
 
     takingfocus = (quadrantname) => {
-        console.log('setting currentquad in controller',quadrantname)
         this.setState({
             currentquad:quadrantname,
         })

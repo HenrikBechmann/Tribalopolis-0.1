@@ -19,15 +19,13 @@ class QuadPlatform extends React.Component<any,any> {
     nextquad = this.props.currentquad
 
     componentWillReceiveProps(nextProps) {
+        // set properties to prepare for animation
         if (nextProps.currentquad != this.state.currentquad) {
             this.nextquad = nextProps.currentquad
             let top = this.element.offsetTop + 'px'
             let left = this.element.offsetLeft + 'px'
             let bottom = 'auto'
             let right = 'auto'
-            // let right = (this.element.parentElement.offsetWidth + this.element.offsetLeft) + 'px'
-            // let bottom = (this.element.parentElement.offsetHeight + this.element.offsetTop) + 'px'
-            console.log('settings on will receive props',top,left, bottom, right)
             this.setState({
                 top,
                 left,
@@ -39,6 +37,7 @@ class QuadPlatform extends React.Component<any,any> {
 
     componentDidUpdate() {
         let nextquad = this.nextquad
+        // set values for animation
         if (nextquad != this.state.currentquad) {
             let currentquad = nextquad
             let top = 'auto'
@@ -78,14 +77,50 @@ class QuadPlatform extends React.Component<any,any> {
                     left,
                     right,
                     bottom,
-                })
+                },() => { // restore settings to respond to user resize of window
+                        setTimeout(()=> {
+                            switch (currentquad) {
+                                case 'topleft': {
+                                    top = '0'
+                                    left = '0'
+                                    break
+                                }
+                                case 'topright': {
+                                    top = '0'
+                                    left = 'auto'
+                                    right = '0'
+                                    break
+                                }
+                                case 'bottomleft': {
+                                    bottom = '0'
+                                    top = 'auto'
+                                    left = '0'
+                                    break
+                                }
+                                case 'bottomright': {
+                                    top = 'auto'
+                                    left = 'auto'
+                                    bottom = '0'
+                                    right = '0'
+                                    break
+                                }
+                            }
+                            this.setState({
+                                currentquad:nextquad,
+                                top,
+                                left,
+                                right,
+                                bottom,
+                                  })
+                        },600)
+                    }
+                )
             })
         }
     }
 
     render() {
     let { currentquad, left, right, top, bottom } = this.state
-    console.log('platform state before render',this.state)
 
     return (
         <div id = "quadplatform" style={
