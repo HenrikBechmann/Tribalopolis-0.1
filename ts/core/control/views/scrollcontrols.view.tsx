@@ -215,9 +215,11 @@ class ScrollControlsView extends React.Component<any,any> {
 
         this.updateControlVisibility()
 
+        let wrapperstyle = {...{ position:'relative' },...this.props.style}
+
         return (
 
-            <div style = {{ position:'relative' }}>{/* frame */}
+            <div style = {wrapperstyle}>{/* frame */}
 
                 { /* left control */ }
                 <div 

@@ -138,7 +138,8 @@ class ScrollControlsView extends React.Component {
         let leftStyle = Object.assign({}, this.leftArrowStyle, { top: verticalpos + 'px' });
         let rightStyle = Object.assign({}, this.rightArrowStyle, { top: verticalpos + 'px' });
         this.updateControlVisibility();
-        return (<div style={{ position: 'relative' }}>
+        let wrapperstyle = Object.assign({ position: 'relative' }, this.props.style);
+        return (<div style={wrapperstyle}>
 
                 
                 <div style={leftStyle} ref="leftcontrol" onClick={this.scrollToLeft}>

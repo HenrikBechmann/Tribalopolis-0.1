@@ -2,12 +2,14 @@
 // copyright (c) 2018 Henrik Bechmann, Toronto, MIT Licence
 'use strict';
 import * as React from 'react';
+import ScrollControlsView from './scrollcontrols.view';
 class InfiniteScroll extends React.Component {
     constructor() {
         super(...arguments);
         this.state = {
             children: this.props.startset,
             scrolling: false,
+            scroller: null,
         };
         this.orientation = this.props.orientation || 'vertical';
         this.buffersize = this.props.buffersize || 5;
@@ -19,6 +21,7 @@ class InfiniteScroll extends React.Component {
         this.direction = null; // 'back' || 'forward'
         this.headaddprop = null;
         this.tailaddprop = null;
+        this.scroller = null;
         // TODO turn off parent and sibling scrolling
         this.onScroll = (e) => {
         };
@@ -56,19 +59,30 @@ class InfiniteScroll extends React.Component {
             width: '200%',
         };
     }
+    componentDidMount() {
+        // setTimeout(()=>{
+        this.setState({
+            scroller: this.scroller
+        });
+        // },500) // substantial timeout required to give scroll client time to right-size
+    }
     // determine change in headadd or tailadd props
     // objects {id:string,item:ReactElement}
     componentWillReceiveProps(nextProps) {
     }
     render() {
         return <div className='CS_viewportframe' style={this.viewportFrameStyle}>
-            <div className='CS_viewport' style={this.viewportStyle} onScroll={this.onScroll}>
-                <div className='CS_platform' style={this.platformStyle}>
-                    <div className='CS_list' style={{}}>
-                        {this.state.children}
+            <ScrollControlsView id='scrollcontrolsview' scroller={this.state.scroller} style={{ width: '100%', height: '100%', position: 'relative' }}>
+                <div className='CS_viewport' style={this.viewportStyle} onScroll={this.onScroll} ref={el => {
+            this.scroller = el;
+        }}>
+                    <div className='CS_platform' style={this.platformStyle}>
+                        <div className='CS_list' style={{}}>
+                            {this.state.children}
+                        </div>
                     </div>
                 </div>
-            </div>
+            </ScrollControlsView>
         </div>;
     }
 }

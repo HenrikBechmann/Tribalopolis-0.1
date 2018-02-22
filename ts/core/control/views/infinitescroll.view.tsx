@@ -4,12 +4,14 @@
 'use strict'
 
 import * as React from 'react'
+import ScrollControlsView from './scrollcontrols.view'
 
 class InfiniteScroll extends React.Component<any,any> {
 
     state = {
         children:this.props.startset,
         scrolling:false,
+        scroller:null,
     }
 
     orientation = this.props.orientation || 'vertical'
@@ -24,6 +26,16 @@ class InfiniteScroll extends React.Component<any,any> {
 
     headaddprop = null
     tailaddprop = null
+
+    scroller = null
+
+    componentDidMount() {
+        // setTimeout(()=>{
+            this.setState({
+                scroller:this.scroller
+            })
+        // },500) // substantial timeout required to give scroll client time to right-size
+    }
 
     // determine change in headadd or tailadd props
     // objects {id:string,item:ReactElement}
@@ -88,15 +100,23 @@ class InfiniteScroll extends React.Component<any,any> {
 
     render () {
         return <div className = 'CS_viewportframe' style = {this.viewportFrameStyle as any} >
-            <div className = 'CS_viewport' style = {this.viewportStyle as any} 
-                onScroll = {this.onScroll}
+            <ScrollControlsView id='scrollcontrolsview' 
+                scroller = {this.state.scroller} 
+                style = {{width:'100%',height:'100%',position:'relative'}}
             >
-                <div className = 'CS_platform' style = {this.platformStyle as any}>
-                    <div className = 'CS_list' style = {{}}>
-                        { this.state.children }
+                <div className = 'CS_viewport' style = {this.viewportStyle as any} 
+                    onScroll = {this.onScroll}
+                    ref = {el => {
+                        this.scroller = el
+                    }}
+                >
+                    <div className = 'CS_platform' style = {this.platformStyle as any}>
+                        <div className = 'CS_list' style = {{}}>
+                            { this.state.children }
+                        </div>
                     </div>
                 </div>
-            </div>
+            </ScrollControlsView>
         </div>
     }
 }
