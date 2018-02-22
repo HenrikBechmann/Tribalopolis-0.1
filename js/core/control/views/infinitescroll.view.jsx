@@ -41,10 +41,10 @@ class InfiniteScroll extends React.Component {
         };
         this.viewportFrameStyle = {
             position: 'absolute',
-            top: '50px',
-            left: '25px',
-            bottom: '25px',
-            right: '25px',
+            top: 'calc(25px + 2%)',
+            left: '2%',
+            bottom: '2%',
+            right: '2%',
             borderRadius: '8px',
             overflow: 'hidden',
         };
