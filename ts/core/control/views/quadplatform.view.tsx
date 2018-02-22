@@ -21,11 +21,18 @@ class QuadPlatform extends React.Component<any,any> {
     componentWillReceiveProps(nextProps) {
         if (nextProps.currentquad != this.state.currentquad) {
             this.nextquad = nextProps.currentquad
+            let top = this.element.offsetTop + 'px'
+            let left = this.element.offsetLeft + 'px'
+            let bottom = 'auto'
+            let right = 'auto'
+            // let right = (this.element.parentElement.offsetWidth + this.element.offsetLeft) + 'px'
+            // let bottom = (this.element.parentElement.offsetHeight + this.element.offsetTop) + 'px'
+            console.log('settings on will receive props',top,left, bottom, right)
             this.setState({
-                top:this.element.offsetTop + 'px',
-                left:this.element.offsetLeft + 'px',
-                right:(this.element.parentElement.offsetWidth + this.element.offsetLeft) + 'px',
-                bottom:(this.element.parentElement.offsetHeight + this.element.offsetTop) + 'px',
+                top,
+                left,
+                bottom,
+                right,
             })
         }
     }
@@ -46,17 +53,21 @@ class QuadPlatform extends React.Component<any,any> {
                 }
                 case 'topright': {
                     top = '0'
-                    right = '0'
+                    left = -this.element.parentElement.offsetWidth + 'px'
+                    // right = '0'
                     break
                 }
                 case 'bottomleft': {
-                    bottom = '0'
+                    // bottom = '0'
+                    top = -this.element.parentElement.offsetHeight + 'px'
                     left = '0'
                     break
                 }
                 case 'bottomright': {
-                    bottom = '0'
-                    right = '0'
+                    top = -this.element.parentElement.offsetHeight + 'px'
+                    left = -this.element.parentElement.offsetWidth + 'px'
+                    // bottom = '0'
+                    // right = '0'
                     break
                 }
             }
@@ -74,7 +85,7 @@ class QuadPlatform extends React.Component<any,any> {
 
     render() {
     let { currentquad, left, right, top, bottom } = this.state
-    console.log('platform state',this.state)
+    console.log('platform state before render',this.state)
 
     return (
         <div id = "quadplatform" style={
@@ -86,7 +97,7 @@ class QuadPlatform extends React.Component<any,any> {
                 left,
                 bottom,
                 right,
-                transition: 'all 1s ease'
+                transition: 'top .5s ease,left .5s ease'
             }
         } 
         ref = {el => {

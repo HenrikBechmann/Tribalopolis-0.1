@@ -38,10 +38,12 @@ class Quadrant extends React.Component<any,any>  {
             case "bottomleft": {
                 bottom = 0
                 left = 0
+                break;
             }
             case "bottomright": {
                 bottom = 0
                 right = 0
+                break;
             }
         } 
         return (
