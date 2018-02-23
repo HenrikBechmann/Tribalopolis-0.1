@@ -109,18 +109,6 @@ class QuadToolsStrip extends React.Component {
                                 <FontIcon className='material-icons'>menu</FontIcon>
                             </IconButton>
 
-                            <IconButton>
-                                <FontIcon className='material-icons'>home</FontIcon>
-                            </IconButton>
-
-                            <IconButton disabled>
-                                <FontIcon className='material-icons'>arrow_back</FontIcon>
-                            </IconButton>
-
-                            <IconButton disabled>
-                                <FontIcon className='material-icons'>arrow_forward</FontIcon>
-                            </IconButton>
-
                             <IconButton style={{ verticalAlign: 'bottom', }} onClick={() => {
             this.takingfocus('topleft');
         }} iconStyle={{
@@ -175,6 +163,20 @@ class QuadToolsStrip extends React.Component {
             </div>);
     }
 }
+// <IconButton
+// >
+//     <FontIcon className='material-icons'>home</FontIcon>
+// </IconButton>
+// <IconButton
+//     disabled
+// >
+//     <FontIcon className='material-icons'>arrow_back</FontIcon>
+// </IconButton>
+// <IconButton
+//     disabled
+// >
+//     <FontIcon className='material-icons'>arrow_forward</FontIcon>
+// </IconButton>
 // <IconButton
 // >
 //     <FontIcon className='material-icons'>swap_horiz</FontIcon>

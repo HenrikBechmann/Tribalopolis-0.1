@@ -3,6 +3,7 @@
 'use strict'
 
 import * as React from 'react'
+import OriginMenu from './originmenu.view'
 
 const QuadOrigin = props => {
     return (
@@ -12,14 +13,15 @@ const QuadOrigin = props => {
                     position:'absolute',
                     top:'24px',
                     left:'0',
-                    width:'96px',
-                    height:'96px',
+                    width:'60px',
+                    height:'60px',
                     backgroundColor:'green',
+                    borderBottomRightRadius:'8px',
                     zIndex:1,
-                    borderRadius:'50%',
                 }
             }>
             {props.children}
+            <OriginMenu />
         </div>    
     )
 }

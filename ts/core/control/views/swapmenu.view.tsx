@@ -5,7 +5,6 @@
 import * as React from 'react'
 
 import FontIcon from 'material-ui/FontIcon'
-import IconButton from 'material-ui/IconButton'
 
 const SwapMenu = ({ quadrant }) => {
 
@@ -24,10 +23,11 @@ const SwapMenu = ({ quadrant }) => {
                 right:'0',
                 top:'0',
                 border:'1px solid silver',
-                borderRadius:'0 8px 0 8px',
+                borderRadius:'0 0 0 8px',
                 backgroundColor:'lightgray',
                 zIndex:1,
                 padding:'3px',
+                opacity:0.7,
             }
         } 
     >
