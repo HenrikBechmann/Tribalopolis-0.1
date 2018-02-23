@@ -139,7 +139,6 @@ class Quadrant extends React.Component<any,any>  {
                         bottom,
                         right,
                         border:'1px solid transparent',
-                        outline:'none',
                         transition:'all .5s ease'
                     }
 

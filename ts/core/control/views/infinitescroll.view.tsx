@@ -87,7 +87,7 @@ class InfiniteScroll extends React.Component<any,any> {
     viewportStyle = { // borderRadius on scroller breaks scrollbar
         width:'100%',
         height:'100%',
-        overflowX:'auto',
+        overflow:'auto',
     }
 
     platformStyle = {

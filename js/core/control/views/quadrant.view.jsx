@@ -121,7 +121,6 @@ class Quadrant extends React.Component {
             bottom,
             right,
             border: '1px solid transparent',
-            outline: 'none',
             transition: 'all .5s ease'
         }} ref={(element) => {
             this.element = element;

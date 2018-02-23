@@ -18,14 +18,15 @@ class QuadspaceController extends React.Component {
         this.state = {
             quadrantpositions: [0, 1, 2, 3],
             currentquad: 'topleft',
+            split: 'none',
         };
-        // quadrants can be re-arranged; quadrant attribute needs to be updated
         this.positions = [
             'topleft',
             'topright',
             'bottomleft',
             'bottomright',
         ];
+        // for swap
         this.quadmap = {
             topleft: {
                 vertical: 'bottomleft',
