@@ -149,12 +149,6 @@ class QuadToolsStrip extends React.Component {
                                 <img src='/public/icons/ic_border_all_black_24px_split.svg'/>
                             </IconButton>
 
-                            {this.accountmenu}
-
-                            <IconButton disabled>
-                                <FontIcon className='material-icons'>new_releases</FontIcon>
-                            </IconButton>
-
                             <IconButton>
                                 <FontIcon className='material-icons'>help_outline</FontIcon>
                             </IconButton>
@@ -162,6 +156,12 @@ class QuadToolsStrip extends React.Component {
                             <IconButton>
                                 <FontIcon className='material-icons'>settings</FontIcon>}
                             </IconButton>
+
+                            <IconButton>
+                                <FontIcon className='material-icons'>new_releases</FontIcon>
+                            </IconButton>
+
+                            {this.accountmenu}
 
                             {this.menudrawer()}
 

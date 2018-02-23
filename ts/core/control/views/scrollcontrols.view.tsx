@@ -20,17 +20,25 @@ class ScrollControlsView extends React.Component<any,any> {
         // received on second render
         if (!this.scroller && next.scroller) {
 
-            let scroller = this.scroller = next.scroller
-            let { scrollerData } = this
 
-            scrollerData.height = scroller.clientHeight
-            scrollerData.offsetLeft = scroller.scrollLeft
-            scrollerData.offsetRight = this.calcScrollRight()
+            let scroller = this.scroller = next.scroller
+            this.calcScrollerData()
 
             scroller.addEventListener('scroll',this.onScroll)
             window.addEventListener('resize',this.onResize)
 
         }
+    }
+
+    calcScrollerData = () => {
+        let { scrollerData, scroller } = this
+
+        if (!scroller) return
+
+        scrollerData.height = scroller.clientHeight
+        scrollerData.offsetLeft = scroller.scrollLeft
+        scrollerData.offsetRight = this.calcScrollRight()
+        // console.log('calculated scrollerData',scrollerData)
     }
 
     componentWillUnmount() {
@@ -50,6 +58,7 @@ class ScrollControlsView extends React.Component<any,any> {
 
     onResize = () => {
 
+        // this.calcScrollerData()
         this.onScroll()
 
     }
@@ -210,8 +219,10 @@ class ScrollControlsView extends React.Component<any,any> {
             verticalpos = (this.scrollerData.height / 2) - 20
         }
 
-        let leftStyle = {...this.leftArrowStyle,top: verticalpos + 'px',}
-        let rightStyle = {...this.rightArrowStyle,top: verticalpos + 'px',}
+        // console.log('verticalpos',verticalpos)
+
+        let leftStyle = {...this.leftArrowStyle,top: 'calc(50% - 20px)',}
+        let rightStyle = {...this.rightArrowStyle,top: 'calc(50% - 20px)',}
 
         this.updateControlVisibility()
 

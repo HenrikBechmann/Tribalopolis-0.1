@@ -11,12 +11,22 @@ class ScrollControlsView extends React.Component {
             offsetLeft: null,
             offsetRight: null,
         };
+        this.calcScrollerData = () => {
+            let { scrollerData, scroller } = this;
+            if (!scroller)
+                return;
+            scrollerData.height = scroller.clientHeight;
+            scrollerData.offsetLeft = scroller.scrollLeft;
+            scrollerData.offsetRight = this.calcScrollRight();
+            // console.log('calculated scrollerData',scrollerData)
+        };
         this.calcScrollRight = () => {
             let { scrollLeft, scrollWidth, clientWidth } = this.scroller;
             // console.log('calcScrollRight',scrollWidth,scrollLeft,clientWidth)
             return (scrollWidth - (scrollLeft + clientWidth));
         };
         this.onResize = () => {
+            // this.calcScrollerData()
             this.onScroll();
         };
         this.onScroll = () => {
@@ -118,10 +128,7 @@ class ScrollControlsView extends React.Component {
         // received on second render
         if (!this.scroller && next.scroller) {
             let scroller = this.scroller = next.scroller;
-            let { scrollerData } = this;
-            scrollerData.height = scroller.clientHeight;
-            scrollerData.offsetLeft = scroller.scrollLeft;
-            scrollerData.offsetRight = this.calcScrollRight();
+            this.calcScrollerData();
             scroller.addEventListener('scroll', this.onScroll);
             window.addEventListener('resize', this.onResize);
         }
@@ -135,8 +142,9 @@ class ScrollControlsView extends React.Component {
         if (this.scroller) {
             verticalpos = (this.scrollerData.height / 2) - 20;
         }
-        let leftStyle = Object.assign({}, this.leftArrowStyle, { top: verticalpos + 'px' });
-        let rightStyle = Object.assign({}, this.rightArrowStyle, { top: verticalpos + 'px' });
+        // console.log('verticalpos',verticalpos)
+        let leftStyle = Object.assign({}, this.leftArrowStyle, { top: 'calc(50% - 20px)' });
+        let rightStyle = Object.assign({}, this.rightArrowStyle, { top: 'calc(50% - 20px)' });
         this.updateControlVisibility();
         let wrapperstyle = Object.assign({ position: 'relative' }, this.props.style);
         return (<div style={wrapperstyle}>
