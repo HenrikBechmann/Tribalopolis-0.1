@@ -14,9 +14,48 @@ class Quadrant extends React.Component {
             quadrant: this.props.quadrant,
         };
         this.sessionid = this.props.sessionid;
+        this.calculatePosition = (quadrant) => {
+            let top = 'auto';
+            let left = 'auto';
+            let bottom = 'auto';
+            let right = 'auto';
+            switch (quadrant) {
+                case "topleft": {
+                    top = 0;
+                    left = 0;
+                    break;
+                }
+                case "topright": {
+                    top = 0;
+                    right = 0;
+                    break;
+                }
+                case "bottomleft": {
+                    bottom = 0;
+                    left = 0;
+                    break;
+                }
+                case "bottomright": {
+                    bottom = 0;
+                    right = 0;
+                    break;
+                }
+            }
+            this.position = {
+                top,
+                left,
+                bottom,
+                right,
+            };
+        };
+        this.position = null;
+    }
+    componentWillMount() {
+        this.calculatePosition(this.state.quadrant);
     }
     componentWillReceiveProps(nextProps) {
         if (nextProps.quadrant != this.state.quadrant) {
+            this.calculatePosition(nextProps.quadrant);
             this.setState({
                 quadrant: nextProps.quadrant
             });
@@ -25,32 +64,7 @@ class Quadrant extends React.Component {
     render() {
         let { color } = this.props;
         let { quadrant } = this.state;
-        let top = 'auto';
-        let left = 'auto';
-        let bottom = 'auto';
-        let right = 'auto';
-        switch (quadrant) {
-            case "topleft": {
-                top = 0;
-                left = 0;
-                break;
-            }
-            case "topright": {
-                top = 0;
-                right = 0;
-                break;
-            }
-            case "bottomleft": {
-                bottom = 0;
-                left = 0;
-                break;
-            }
-            case "bottomright": {
-                bottom = 0;
-                right = 0;
-                break;
-            }
-        }
+        let { top, left, bottom, right } = this.position;
         return (<div style={{
             position: 'absolute',
             boxSizing: 'border-box',
@@ -73,7 +87,7 @@ class Quadrant extends React.Component {
             width: '100%',
             height: '100%',
         }}>
-                    <SwapMenu quadrant={this.props.quadrant} handleswap={this.props.handleswap}/>
+                    <SwapMenu quadrant={this.state.quadrant} handleswap={this.props.handleswap}/>
                     <QuadTitleBar title={this.props.title}/>
                     <QuadOrigin><QuadBadge quantity={this.props.badgequantity}/></QuadOrigin>
                     <InfiniteScroll />

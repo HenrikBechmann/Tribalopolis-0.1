@@ -19,17 +19,22 @@ class Quadrant extends React.Component<any,any>  {
 
     sessionid = this.props.sessionid
 
+    componentWillMount() {
+        this.calculatePosition(this.state.quadrant)
+    }
+
     componentWillReceiveProps(nextProps) {
         if (nextProps.quadrant != this.state.quadrant) {
+
+            this.calculatePosition(nextProps.quadrant)
             this.setState({
                 quadrant:nextProps.quadrant
             })
+
         }
     }
 
-    render() {
-        let { color } = this.props
-        let { quadrant } = this.state
+    calculatePosition = (quadrant) => {
         let top:any = 'auto'
         let left:any = 'auto'
         let bottom:any = 'auto'
@@ -55,7 +60,21 @@ class Quadrant extends React.Component<any,any>  {
                 right = 0
                 break;
             }
-        } 
+        }
+        this.position = {
+            top,
+            left,
+            bottom,
+            right,
+        }       
+    }
+
+    position = null
+
+    render() {
+        let { color } = this.props
+        let { quadrant } = this.state
+        let {top, left, bottom, right} = this.position
         return (
             <div 
                 style = {
@@ -86,7 +105,7 @@ class Quadrant extends React.Component<any,any>  {
                         height:'100%',
                     }
                 } >
-                    <SwapMenu quadrant = {this.props.quadrant} handleswap = {this.props.handleswap}/>
+                    <SwapMenu quadrant = {this.state.quadrant} handleswap = {this.props.handleswap}/>
                     <QuadTitleBar title = {this.props.title}/>
                     <QuadOrigin><QuadBadge quantity = {this.props.badgequantity} /></QuadOrigin>
                     <InfiniteScroll />

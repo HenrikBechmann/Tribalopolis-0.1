@@ -55,24 +55,27 @@ class QuadspaceController extends React.Component {
         };
         this.handleSwap = (quadrant, direction) => {
             let { quadrantpositions } = this.state;
-            console.log('handling swap', quadrant, direction, quadrantpositions);
             let sourcequadindex = this.positions.indexOf(quadrant);
             let targetquad = this.quadmap[quadrant][direction];
             let targetquadindex = this.positions.indexOf(targetquad);
             let sourceidindex = quadrantpositions[sourcequadindex];
             let targetidindex = quadrantpositions[targetquadindex];
+            // the swap
             quadrantpositions[sourcequadindex] = targetidindex;
             quadrantpositions[targetquadindex] = sourceidindex;
-            console.log('after swap', quadrantpositions);
             this.setState({
                 quadrantpositions
             });
         };
+        this.calcQuadrant = (sessionid) => {
+            let pos = this.state.quadrantpositions.indexOf(sessionid);
+            return this.positions[pos];
+        };
         this.quadrants = () => [
-            <Quadrant key='1' sessionid={0} handleswap={this.handleSwap} quadrant={this.positions[this.state.quadrantpositions[0]]} color='lightgreen' title='first' badgequantity={500}/>,
-            <Quadrant key='2' sessionid={1} handleswap={this.handleSwap} quadrant={this.positions[this.state.quadrantpositions[1]]} color='mistyrose' title="second" badgequantity={0}/>,
-            <Quadrant key='3' sessionid={2} handleswap={this.handleSwap} quadrant={this.positions[this.state.quadrantpositions[2]]} color='lightblue' title="third" badgequantity={12}/>,
-            <Quadrant key='4' sessionid={3} handleswap={this.handleSwap} quadrant={this.positions[this.state.quadrantpositions[3]]} color='papayawhip' title="fourth" badgequantity={0}/>,
+            <Quadrant key='1' sessionid={0} handleswap={this.handleSwap} quadrant={this.calcQuadrant(0)} color='lightgreen' title='first' badgequantity={500}/>,
+            <Quadrant key='2' sessionid={1} handleswap={this.handleSwap} quadrant={this.calcQuadrant(1)} color='mistyrose' title="second" badgequantity={0}/>,
+            <Quadrant key='3' sessionid={2} handleswap={this.handleSwap} quadrant={this.calcQuadrant(2)} color='lightblue' title="third" badgequantity={12}/>,
+            <Quadrant key='4' sessionid={3} handleswap={this.handleSwap} quadrant={this.calcQuadrant(3)} color='papayawhip' title="fourth" badgequantity={0}/>,
         ];
     }
     render() {
