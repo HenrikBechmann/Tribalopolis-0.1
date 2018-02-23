@@ -6,6 +6,7 @@ import QuadOrigin from './quadorigin.view';
 import QuadTitleBar from './quadtitlebar.view';
 import QuadBadge from './quadbadge.view';
 import InfiniteScroll from './infinitescroll.view';
+import SwapMenu from './swapmenu.view';
 class Quadrant extends React.Component {
     constructor() {
         super(...arguments);
@@ -64,6 +65,7 @@ class Quadrant extends React.Component {
             width: '100%',
             height: '100%',
         }}>
+                    <SwapMenu quadrant={this.props.quadrant}/>
                     <QuadTitleBar title={this.props.title}/>
                     <QuadOrigin><QuadBadge quantity={this.props.badgequantity}/></QuadOrigin>
                     <InfiniteScroll />
