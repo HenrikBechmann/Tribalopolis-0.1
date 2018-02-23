@@ -20,7 +20,7 @@ import QuadStatusBar from './views/quadstatusbar.view'
 class QuadspaceController extends React.Component<any,any> {
 
     state = {
-        quadrantindexes:[0,1,2,3],
+        quadrantpositions:[0,1,2,3],
         currentquad:'topleft',
     }
 
@@ -33,68 +33,64 @@ class QuadspaceController extends React.Component<any,any> {
         'bottomright',
     ]
 
-    quadbindings = [null,null,null,null]
-
-    binding = (sessionid,quad) => {
-        this.quadbindings[sessionid] = quad
-    }
-
     takingfocus = (quadrantname) => {
         this.setState({
             currentquad:quadrantname,
         })
     }
 
-    componentDidMount() {
-        this.forceUpdate()
-        console.log('quads after mount',this.quadbindings)
+    handleSwap = (quadrant,direction) => {
+        console.log('swaprequested',quadrant, direction)
     }
 
+    quadrants = [
+        <Quadrant 
+            key = '1'
+            sessionid = {0}
+            handleswap = {this.handleSwap}
+            quadrant = {this.positions[this.state.quadrantpositions[0]]}
+            color = 'lightgreen' 
+            title = 'first'
+            badgequantity = {500}
+        />,
+        <Quadrant 
+            key = '2'
+            sessionid = {1}
+            handleswap = {this.handleSwap}
+            quadrant = {this.positions[this.state.quadrantpositions[1]]}
+            color = 'mistyrose' 
+            title = "second" 
+            badgequantity = {0}
+        />,
+        <Quadrant 
+            key = '3'
+            sessionid = {2}
+            handleswap = {this.handleSwap}
+            quadrant = {this.positions[this.state.quadrantpositions[2]]}
+            color = 'lightblue' 
+            title = "third" 
+            badgequantity = {12}
+        />,
+        <Quadrant 
+            key = '4'
+            sessionid = {3}
+            handleswap = {this.handleSwap}
+            quadrant = {this.positions[this.state.quadrantpositions[3]]}
+            color = 'papayawhip' 
+            title = "fourth" 
+            badgequantity = {0}
+        />,
+    ]
+
     render() {
-        let quadrantindexes = this.state.quadrantindexes
         return (
             <QuadFrame>
-                <QuadToolsStrip bindings = {this.quadbindings} currentquad = {this.state.currentquad}
+                <QuadToolsStrip currentquad = {this.state.currentquad}
                 takingfocus = {this.takingfocus}/>
                 <QuadBasket><QuadBadge quantity = {3000} style = {{left:'-12px'}} /></QuadBasket>
                 <QuadViewport>
                     <QuadPlatform currentquad = {this.state.currentquad}>
-                        <Quadrant 
-                            key = '1'
-                            sessionid = {0}
-                            binding = {this.binding}
-                            quadrant = {this.positions[quadrantindexes[0]]}
-                            color = 'lightgreen' 
-                            title = 'first'
-                            badgequantity = {500}
-                        />
-                        <Quadrant 
-                            key = '2'
-                            sessionid = {1}
-                            binding = {this.binding}
-                            quadrant = {this.positions[quadrantindexes[1]]}
-                            color = 'mistyrose' 
-                            title = "second" 
-                            badgequantity = {0}
-                        />
-                        <Quadrant 
-                            key = '3'
-                            sessionid = {2}
-                            binding = {this.binding}
-                            quadrant = {this.positions[quadrantindexes[2]]}
-                            color = 'lightblue' 
-                            title = "third" 
-                            badgequantity = {12}
-                        />
-                        <Quadrant 
-                            key = '4'
-                            sessionid = {3}
-                            binding = {this.binding}
-                            quadrant = {this.positions[quadrantindexes[3]]}
-                            color = 'papayawhip' 
-                            title = "fourth" 
-                            badgequantity = {0}
-                        />
+                        {this.quadrants}
                         <QuadDiamond />
                     </QuadPlatform>
                 </QuadViewport>

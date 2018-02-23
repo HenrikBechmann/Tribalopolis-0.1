@@ -13,14 +13,23 @@ import SwapMenu from './swapmenu.view'
 
 class Quadrant extends React.Component<any,any>  {
 
-    quadrant = this.props.quadrant
+    state = {
+        quadrant:this.props.quadrant,
+    }
 
-    componentWillMount() {
-        this.props.binding(this.props.sessionid,this)
+    sessionid = this.props.sessionid
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.quadrant != this.state.quadrant) {
+            this.setState({
+                quadrant:nextProps.quadrant
+            })
+        }
     }
 
     render() {
-        let { quadrant, color } = this.props
+        let { color } = this.props
+        let { quadrant } = this.state
         let top:any = 'auto'
         let left:any = 'auto'
         let bottom:any = 'auto'
@@ -77,7 +86,7 @@ class Quadrant extends React.Component<any,any>  {
                         height:'100%',
                     }
                 } >
-                    <SwapMenu quadrant = {this.props.quadrant}/>
+                    <SwapMenu quadrant = {this.props.quadrant} handleswap = {this.props.handleswap}/>
                     <QuadTitleBar title = {this.props.title}/>
                     <QuadOrigin><QuadBadge quantity = {this.props.badgequantity} /></QuadOrigin>
                     <InfiniteScroll />

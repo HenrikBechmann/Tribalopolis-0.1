@@ -30,11 +30,9 @@ class InfiniteScroll extends React.Component<any,any> {
     scroller = null
 
     componentDidMount() {
-        // setTimeout(()=>{
-            this.setState({
-                scroller:this.scroller
-            })
-        // },500) // substantial timeout required to give scroll client time to right-size
+        this.setState({
+            scroller:this.scroller
+        })
     }
 
     // determine change in headadd or tailadd props

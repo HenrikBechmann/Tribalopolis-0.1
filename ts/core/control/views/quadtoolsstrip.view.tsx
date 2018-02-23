@@ -30,18 +30,7 @@ class QuadToolsStrip extends React.Component<any,any> {
         },500) // substantial timeout required to give scroll client time to right-size
     }
 
-    quadbindings = null
-
-    lookupbyquadrant = {}
-
     componentDidUpdate() {
-        if (!this.quadbindings && this.props.quadbindings) {
-            let quadbindings = this.quadbindings = this.props.quadbindings
-            for (let index in quadbindings) {
-                let quad = quadbindings[index]
-                this.lookupbyquadrant[quad.state.quadrant] = quad
-            }
-        }
         if (this.props.currentquad !== this.state.currentquad) {
             this.setState({
                 currentquad:this.props.currentquad
@@ -53,33 +42,7 @@ class QuadToolsStrip extends React.Component<any,any> {
         this.setState({menuopen: !this.state.menuopen}
     )}
 
-    handleMenuClose = () => this.setState({menuopen: false});
-
-    spacemenu = <span>
-    </span>
-
-    // spaceoverflowmenu = <IconMenu
-    //         iconButtonElement = {
-    //             <IconButton>
-    //                 <FontIcon className='material-icons'>more_vert</FontIcon>
-    //             </IconButton>
-    //         }
-    //         anchorOrigin = {{vertical:"bottom",horizontal:"right"}}
-    //         targetOrigin = {{vertical:"top",horizontal:"right"}}
-    //     >
-    //         <MenuItem
-    //             leftIcon = {<FontIcon className='material-icons'>refresh</FontIcon>}
-    //             primaryText = "Refresh"
-    //         />
-    //         <MenuItem
-    //             leftIcon = {<FontIcon className='material-icons'>settings</FontIcon>}
-    //             primaryText = "Options"
-    //         />
-    //         <MenuItem
-    //             leftIcon = {<FontIcon className='material-icons'>help</FontIcon>}
-    //             primaryText = "Help"
-    //         />
-    //     </IconMenu>
+    handleMenuClose = () => this.setState({menuopen: false})
 
     menudrawer = () => (<Drawer
                 docked={false}
@@ -276,48 +239,5 @@ class QuadToolsStrip extends React.Component<any,any> {
     }
 
 }
-
-// <IconButton
-// >
-//     <FontIcon className='material-icons'>home</FontIcon>
-// </IconButton>
-
-// <IconButton
-//     disabled
-// >
-//     <FontIcon className='material-icons'>arrow_back</FontIcon>
-// </IconButton>
-
-// <IconButton
-//     disabled
-// >
-//     <FontIcon className='material-icons'>arrow_forward</FontIcon>
-// </IconButton>
-
-// <IconButton
-// >
-//     <FontIcon className='material-icons'>swap_horiz</FontIcon>
-// </IconButton>
-// <IconButton
-// >
-//     <FontIcon className='material-icons'>swap_vert</FontIcon>
-// </IconButton>
-
-// { this.spaceoverflowmenu }
-
-// <IconButton
-//     disabled
-// >
-//     <FontIcon className='material-icons'>filter_list</FontIcon>
-// </IconButton>
-// <IconButton
-//     disabled
-// >
-//     <FontIcon className='material-icons'>sort</FontIcon>
-// </IconButton>
-
-// <FontIcon 
-//     style = {{color:'rgba(0, 0, 0, 0.3)'}} 
-//     className='material-icons'>border_all</FontIcon>
 
 export default QuadToolsStrip

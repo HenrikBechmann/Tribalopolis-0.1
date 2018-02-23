@@ -77,7 +77,7 @@ class QuadPlatform extends React.Component<any,any> {
                     left,
                     right,
                     bottom,
-                },() => { // restore settings to respond to user resize of window
+                },() => { // restore settings to be able to respond to user resize of window
                         setTimeout(()=> {
                             switch (currentquad) {
                                 case 'topleft': {
