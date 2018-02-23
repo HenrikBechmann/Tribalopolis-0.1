@@ -54,6 +54,12 @@ class QuadspaceController extends React.Component {
                 currentquad: quadrantname,
             });
         };
+        this.changeSplit = (split) => {
+            console.log('changesplit', split);
+            this.setState({
+                split,
+            });
+        };
         this.handleSwap = (quadrant, direction) => {
             let { quadrantpositions } = this.state;
             let sourcequadindex = this.positions.indexOf(quadrant);
@@ -81,7 +87,7 @@ class QuadspaceController extends React.Component {
     }
     render() {
         return (<QuadFrame>
-                <QuadToolsStrip currentquad={this.state.currentquad} takingfocus={this.takingfocus}/>
+                <QuadToolsStrip currentquad={this.state.currentquad} takingfocus={this.takingfocus} split={this.state.split} changeSplit={this.changeSplit}/>
                 <QuadBasket><QuadBadge quantity={3000} style={{ left: '-12px' }}/></QuadBasket>
                 <QuadViewport>
                     <QuadPlatform currentquad={this.state.currentquad}>

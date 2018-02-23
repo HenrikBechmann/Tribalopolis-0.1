@@ -18,9 +18,22 @@ class QuadToolsStrip extends React.Component<any,any> {
         menuopen:false,
         scroller:null,
         currentquad:this.props.currentquad,
+        split:this.props.split,
     }
 
+    changeSplit = this.props.changeSplit
+
     takingfocus = this.props.takingfocus
+
+    changeSplitFrom = (toggleIndex) => {
+        let newIndex = null
+        if (toggleIndex == this.state.split) {
+            newIndex = 'none'
+        } else {
+            newIndex = toggleIndex
+        }
+        this.changeSplit(newIndex)
+    }
 
     componentDidMount() {
         setTimeout(()=>{
@@ -30,10 +43,12 @@ class QuadToolsStrip extends React.Component<any,any> {
         },500) // substantial timeout required to give scroll client time to right-size
     }
 
-    componentDidUpdate() {
-        if (this.props.currentquad !== this.state.currentquad) {
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.currentquad !== this.state.currentquad ||
+            nextProps.split != this.state.split) {
             this.setState({
-                currentquad:this.props.currentquad
+                currentquad:nextProps.currentquad,
+                split:nextProps.split,
             })
         }
     }
@@ -199,17 +214,29 @@ class QuadToolsStrip extends React.Component<any,any> {
 
                             <IconButton
                                 style = {{verticalAlign:'bottom'}}
+                                onClick = {() => this.changeSplitFrom('horizontal')}
                             >
                                 <img 
-                                    src = '/public/icons/ic_border_all_black_24px_split.svg'/>
+                                    src = {
+                                        (this.state.split == 'horizontal')?
+                                            '/public/icons/ic_border_all_black_24px_split_red.svg':
+                                            '/public/icons/ic_border_all_black_24px_split.svg'
+                                    }
+                                />
                             </IconButton>
 
                             <IconButton
                                 iconStyle = {{transform:'rotate(90deg)'}}
                                 style = {{verticalAlign:'bottom'}}
+                                onClick = {() => this.changeSplitFrom('vertical')}
                             >
                                 <img 
-                                    src = '/public/icons/ic_border_all_black_24px_split.svg'/>
+                                    src = {
+                                        (this.state.split == 'vertical')?
+                                            '/public/icons/ic_border_all_black_24px_split_red.svg':
+                                            '/public/icons/ic_border_all_black_24px_split.svg'
+                                    }
+                                />
                             </IconButton>
 
                             <IconButton
