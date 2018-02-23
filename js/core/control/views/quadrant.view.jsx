@@ -14,6 +14,41 @@ class Quadrant extends React.Component {
             quadrant: this.props.quadrant,
         };
         this.sessionid = this.props.sessionid;
+        this.calculateTransitionPosition = (quadrant) => {
+            let top = 'auto';
+            let left = 'auto';
+            let bottom = 'auto';
+            let right = 'auto';
+            let element = this.element;
+            switch (quadrant) {
+                case "topleft": {
+                    top = 0;
+                    left = 0;
+                    break;
+                }
+                case "topright": {
+                    top = 0;
+                    left = element.parentElement.offsetWidth / 2;
+                    break;
+                }
+                case "bottomleft": {
+                    top = element.parentElement.offsetHeight / 2;
+                    left = 0;
+                    break;
+                }
+                case "bottomright": {
+                    top = element.parentElement.offsetHeight / 2;
+                    left = element.parentElement.offsetWidth / 2;
+                    break;
+                }
+            }
+            this.position = {
+                top,
+                left,
+                bottom,
+                right,
+            };
+        };
         this.calculatePosition = (quadrant) => {
             let top = 'auto';
             let left = 'auto';
@@ -49,15 +84,25 @@ class Quadrant extends React.Component {
             };
         };
         this.position = null;
+        this.element = null;
     }
     componentWillMount() {
         this.calculatePosition(this.state.quadrant);
     }
     componentWillReceiveProps(nextProps) {
         if (nextProps.quadrant != this.state.quadrant) {
-            this.calculatePosition(nextProps.quadrant);
-            this.setState({
-                quadrant: nextProps.quadrant
+            let self = this;
+            this.calculateTransitionPosition(this.state.quadrant);
+            this.forceUpdate(() => {
+                this.calculateTransitionPosition(nextProps.quadrant);
+                this.setState({
+                    quadrant: nextProps.quadrant
+                }, () => {
+                    setTimeout(() => {
+                        self.calculatePosition(this.state.quadrant);
+                        self.forceUpdate();
+                    }, 600);
+                });
             });
         }
     }
@@ -77,6 +122,9 @@ class Quadrant extends React.Component {
             right,
             border: '1px solid transparent',
             outline: 'none',
+            transition: 'all .5s ease'
+        }} ref={(element) => {
+            this.element = element;
         }}>
                 <div style={{
             boxSizing: 'border-box',
