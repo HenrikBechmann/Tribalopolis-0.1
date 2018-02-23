@@ -238,7 +238,7 @@ class QuadToolsStrip extends React.Component<any,any> {
                                 style = {{verticalAlign:'bottom'}}
                             >
                                 <img 
-                                    src = '/public/icons/ic_border_all_black_24px_split_horiz1.svg'/>
+                                    src = '/public/icons/ic_border_all_black_24px_split.svg'/>
                             </IconButton>
 
                             <IconButton
@@ -246,7 +246,7 @@ class QuadToolsStrip extends React.Component<any,any> {
                                 style = {{verticalAlign:'bottom'}}
                             >
                                 <img 
-                                    src = '/public/icons/ic_border_all_black_24px_split_horiz1.svg'/>
+                                    src = '/public/icons/ic_border_all_black_24px_split.svg'/>
                             </IconButton>
 
                             { this.accountmenu }

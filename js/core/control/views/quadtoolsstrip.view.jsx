@@ -142,11 +142,11 @@ class QuadToolsStrip extends React.Component {
                             </IconButton>
 
                             <IconButton style={{ verticalAlign: 'bottom' }}>
-                                <img src='/public/icons/ic_border_all_black_24px_split_horiz1.svg'/>
+                                <img src='/public/icons/ic_border_all_black_24px_split.svg'/>
                             </IconButton>
 
                             <IconButton iconStyle={{ transform: 'rotate(90deg)' }} style={{ verticalAlign: 'bottom' }}>
-                                <img src='/public/icons/ic_border_all_black_24px_split_horiz1.svg'/>
+                                <img src='/public/icons/ic_border_all_black_24px_split.svg'/>
                             </IconButton>
 
                             {this.accountmenu}
