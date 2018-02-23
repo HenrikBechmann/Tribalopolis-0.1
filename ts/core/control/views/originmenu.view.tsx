@@ -25,9 +25,9 @@ const OriginMenu = (props) => {
             }
         } 
     >
-        <FontIcon color = 'green' style = {{marginBottom:'4px',border:'1px solid silver',borderRadius:'50%',}} className='material-icons'>home</FontIcon>
-        <FontIcon color = 'green' style = {{margin:'4px 0',border:'1px solid silver',borderRadius:'50%',}} className='material-icons'>arrow_back</FontIcon>
-        <FontIcon color = 'green' style = {{marginTop:'4px',border:'1px solid silver',borderRadius:'50%',}} className='material-icons'>arrow_forward</FontIcon>
+        <FontIcon color = 'green' style = {{marginBottom:'4px',border:'1px solid silver',borderRadius:'50%',}} className='material-icons'>arrow_back</FontIcon>
+        <FontIcon color = 'green' style = {{margin:'4px 0',border:'1px solid silver',borderRadius:'50%',}} className='material-icons'>arrow_forward</FontIcon>
+        <FontIcon color = 'green' style = {{marginTop:'4px',border:'1px solid silver',borderRadius:'50%',}} className='material-icons'>home</FontIcon>
     </div>
 }
 
