@@ -33,6 +33,29 @@ class QuadspaceController extends React.Component<any,any> {
         'bottomright',
     ]
 
+    quadmap = {
+        topleft:{
+            vertical:'bottomleft',
+            horizontal:'topright',
+            diagonal:'bottomright',
+        },
+        topright:{
+            vertical:'bottomright',
+            horizontal:'topleft',
+            diagonal:'bottomleft',
+        },
+        bottomleft:{
+            vertical:'topleft',
+            horizontal:'bottomright',
+            diagonal:'topright',
+        },
+        bottomright:{
+            vertical:'topright',
+            horizontal:'bottomleft',
+            diagonal:'topleft',
+        },
+    }
+
     takingfocus = (quadrantname) => {
         this.setState({
             currentquad:quadrantname,
@@ -40,10 +63,24 @@ class QuadspaceController extends React.Component<any,any> {
     }
 
     handleSwap = (quadrant,direction) => {
-        console.log('swaprequested',quadrant, direction)
+        let { quadrantpositions } = this.state
+        console.log('handling swap',quadrant, direction, quadrantpositions)
+        let sourcequadindex = this.positions.indexOf(quadrant)
+        let targetquad = this.quadmap[quadrant][direction]
+        let targetquadindex = this.positions.indexOf(targetquad)
+        let sourceidindex = quadrantpositions[sourcequadindex]
+        let targetidindex = quadrantpositions[targetquadindex]
+        quadrantpositions[sourcequadindex] = targetidindex
+        quadrantpositions[targetquadindex] = sourceidindex
+
+        console.log('after swap',quadrantpositions)
+
+        this.setState({
+            quadrantpositions
+        })
     }
 
-    quadrants = [
+    quadrants = () => [
         <Quadrant 
             key = '1'
             sessionid = {0}
@@ -90,7 +127,7 @@ class QuadspaceController extends React.Component<any,any> {
                 <QuadBasket><QuadBadge quantity = {3000} style = {{left:'-12px'}} /></QuadBasket>
                 <QuadViewport>
                     <QuadPlatform currentquad = {this.state.currentquad}>
-                        {this.quadrants}
+                        {this.quadrants()}
                         <QuadDiamond />
                     </QuadPlatform>
                 </QuadViewport>

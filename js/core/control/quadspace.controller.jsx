@@ -26,15 +26,49 @@ class QuadspaceController extends React.Component {
             'bottomleft',
             'bottomright',
         ];
+        this.quadmap = {
+            topleft: {
+                vertical: 'bottomleft',
+                horizontal: 'topright',
+                diagonal: 'bottomright',
+            },
+            topright: {
+                vertical: 'bottomright',
+                horizontal: 'topleft',
+                diagonal: 'bottomleft',
+            },
+            bottomleft: {
+                vertical: 'topleft',
+                horizontal: 'bottomright',
+                diagonal: 'topright',
+            },
+            bottomright: {
+                vertical: 'topright',
+                horizontal: 'bottomleft',
+                diagonal: 'topleft',
+            },
+        };
         this.takingfocus = (quadrantname) => {
             this.setState({
                 currentquad: quadrantname,
             });
         };
         this.handleSwap = (quadrant, direction) => {
-            console.log('swaprequested', quadrant, direction);
+            let { quadrantpositions } = this.state;
+            console.log('handling swap', quadrant, direction, quadrantpositions);
+            let sourcequadindex = this.positions.indexOf(quadrant);
+            let targetquad = this.quadmap[quadrant][direction];
+            let targetquadindex = this.positions.indexOf(targetquad);
+            let sourceidindex = quadrantpositions[sourcequadindex];
+            let targetidindex = quadrantpositions[targetquadindex];
+            quadrantpositions[sourcequadindex] = targetidindex;
+            quadrantpositions[targetquadindex] = sourceidindex;
+            console.log('after swap', quadrantpositions);
+            this.setState({
+                quadrantpositions
+            });
         };
-        this.quadrants = [
+        this.quadrants = () => [
             <Quadrant key='1' sessionid={0} handleswap={this.handleSwap} quadrant={this.positions[this.state.quadrantpositions[0]]} color='lightgreen' title='first' badgequantity={500}/>,
             <Quadrant key='2' sessionid={1} handleswap={this.handleSwap} quadrant={this.positions[this.state.quadrantpositions[1]]} color='mistyrose' title="second" badgequantity={0}/>,
             <Quadrant key='3' sessionid={2} handleswap={this.handleSwap} quadrant={this.positions[this.state.quadrantpositions[2]]} color='lightblue' title="third" badgequantity={12}/>,
@@ -47,7 +81,7 @@ class QuadspaceController extends React.Component {
                 <QuadBasket><QuadBadge quantity={3000} style={{ left: '-12px' }}/></QuadBasket>
                 <QuadViewport>
                     <QuadPlatform currentquad={this.state.currentquad}>
-                        {this.quadrants}
+                        {this.quadrants()}
                         <QuadDiamond />
                     </QuadPlatform>
                 </QuadViewport>
