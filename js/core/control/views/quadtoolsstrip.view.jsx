@@ -93,9 +93,9 @@ class QuadToolsStrip extends React.Component {
                             <IconButton style={{ verticalAlign: 'bottom', }} onClick={() => {
             this.takingfocus('topleft');
         }} iconStyle={{
-            backgroundColor: (currentquad == 'topleft' ||
-                (split == 'vertical' && currentquad == 'bottomleft') ||
-                (split == 'horizontal' && currentquad == 'topright')) ? 'red' : 'transparent'
+            backgroundColor: (currentquad == 'topleft') ? 'red' :
+                ((split == 'vertical' && currentquad == 'bottomleft') ||
+                    (split == 'horizontal' && currentquad == 'topright')) ? 'orange' : 'transparent'
         }}>
                                 <img src='/public/icons/ic_border_all_black_24px_topleft.svg'/>
                             </IconButton>
@@ -103,9 +103,9 @@ class QuadToolsStrip extends React.Component {
                             <IconButton style={{ verticalAlign: 'bottom' }} onClick={() => {
             this.takingfocus('topright');
         }} iconStyle={{
-            backgroundColor: (currentquad == 'topright' ||
-                (split == 'vertical' && currentquad == 'bottomright') ||
-                (split == 'horizontal' && currentquad == 'topleft')) ? 'red' : 'transparent'
+            backgroundColor: (currentquad == 'topright') ? 'red' :
+                ((split == 'vertical' && currentquad == 'bottomright') ||
+                    (split == 'horizontal' && currentquad == 'topleft')) ? 'orange' : 'transparent'
         }}>
                                 <img src='/public/icons/ic_border_all_black_24px_topright.svg'/>
                             </IconButton>
@@ -113,9 +113,9 @@ class QuadToolsStrip extends React.Component {
                             <IconButton style={{ verticalAlign: 'bottom' }} onClick={() => {
             this.takingfocus('bottomleft');
         }} iconStyle={{
-            backgroundColor: (currentquad == 'bottomleft' ||
-                (split == 'vertical' && currentquad == 'topleft') ||
-                (split == 'horizontal' && currentquad == 'bottomright')) ? 'red' : 'transparent'
+            backgroundColor: (currentquad == 'bottomleft') ? 'red' :
+                ((split == 'vertical' && currentquad == 'topleft') ||
+                    (split == 'horizontal' && currentquad == 'bottomright')) ? 'orange' : 'transparent'
         }}>
                                 <img src='/public/icons/ic_border_all_black_24px_bottomleft.svg'/>
                             </IconButton>
@@ -123,9 +123,9 @@ class QuadToolsStrip extends React.Component {
                             <IconButton style={{ verticalAlign: 'bottom' }} onClick={() => {
             this.takingfocus('bottomright');
         }} iconStyle={{
-            backgroundColor: (currentquad == 'bottomright' ||
-                (split == 'vertical' && currentquad == 'topright') ||
-                (split == 'horizontal' && currentquad == 'bottomleft')) ? 'red' : 'transparent'
+            backgroundColor: (currentquad == 'bottomright') ? 'red' :
+                ((split == 'vertical' && currentquad == 'topright') ||
+                    (split == 'horizontal' && currentquad == 'bottomleft')) ? 'orange' : 'transparent'
         }}>
                                 <img src='/public/icons/ic_border_all_black_24px_bottomright.svg'/>
                             </IconButton>

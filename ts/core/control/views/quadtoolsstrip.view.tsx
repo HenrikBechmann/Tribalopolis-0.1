@@ -160,10 +160,10 @@ class QuadToolsStrip extends React.Component<any,any> {
                                 iconStyle = {
                                     {
                                         backgroundColor:(
-                                            currentquad == 'topleft' ||
-                                            (split == 'vertical' && currentquad == 'bottomleft') ||
+                                            currentquad == 'topleft')?'red':
+                                            ((split == 'vertical' && currentquad == 'bottomleft') ||
                                             (split == 'horizontal' && currentquad == 'topright')
-                                        )?'red':'transparent'
+                                        )?'orange':'transparent'
                                     }
                                 }
                             >
@@ -179,10 +179,10 @@ class QuadToolsStrip extends React.Component<any,any> {
                                 iconStyle = {
                                     {
                                         backgroundColor:(
-                                            currentquad == 'topright' ||
-                                            (split == 'vertical' && currentquad == 'bottomright') ||
+                                            currentquad == 'topright')?'red':
+                                            ((split == 'vertical' && currentquad == 'bottomright') ||
                                             (split == 'horizontal' && currentquad == 'topleft')
-                                        )?'red':'transparent'
+                                        )?'orange':'transparent'
                                     }
                                 }
                             >
@@ -198,10 +198,10 @@ class QuadToolsStrip extends React.Component<any,any> {
                                 iconStyle = {
                                     {
                                         backgroundColor:(
-                                            currentquad == 'bottomleft' ||
-                                            (split == 'vertical' && currentquad == 'topleft') ||
+                                            currentquad == 'bottomleft')?'red': 
+                                            ((split == 'vertical' && currentquad == 'topleft') ||
                                             (split == 'horizontal' && currentquad == 'bottomright')
-                                        )?'red':'transparent'
+                                        )?'orange':'transparent'
                                     }
                                 }
                             >
@@ -217,10 +217,10 @@ class QuadToolsStrip extends React.Component<any,any> {
                                 iconStyle = {
                                     {
                                         backgroundColor:(
-                                            currentquad == 'bottomright' ||
-                                            (split == 'vertical' && currentquad == 'topright') ||
+                                            currentquad == 'bottomright')?'red':
+                                            ((split == 'vertical' && currentquad == 'topright') ||
                                             (split == 'horizontal' && currentquad == 'bottomleft')
-                                        )?'red':'transparent'
+                                        )?'orange':'transparent'
                                     }
                                 }
                             >
