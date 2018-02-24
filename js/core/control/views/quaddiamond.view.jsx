@@ -5,11 +5,11 @@ import * as React from 'react';
 const QuadDiamond = props => {
     return (<div id="quaddiamond" style={{
         position: 'absolute',
-        top: 'calc(50% - 48px)',
-        left: 'calc(50% - 48px)',
-        width: '96px',
-        height: '96px',
-        backgroundColor: 'green',
+        top: 'calc(50% - 36px)',
+        left: 'calc(50% - 36px)',
+        width: '72px',
+        height: '72px',
+        backgroundColor: 'peru',
         borderRadius: '8px',
         transform: 'rotate(45deg)',
         opacity: 0.5,
