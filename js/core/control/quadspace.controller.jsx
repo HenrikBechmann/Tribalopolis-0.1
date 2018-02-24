@@ -55,7 +55,6 @@ class QuadspaceController extends React.Component {
             });
         };
         this.changeSplit = (split) => {
-            console.log('changesplit', split);
             this.setState({
                 split,
             });
@@ -90,7 +89,7 @@ class QuadspaceController extends React.Component {
                 <QuadToolsStrip currentquad={this.state.currentquad} takingfocus={this.takingfocus} split={this.state.split} changeSplit={this.changeSplit}/>
                 <QuadBasket><QuadBadge quantity={3000} style={{ left: '-12px' }}/></QuadBasket>
                 <QuadViewport>
-                    <QuadPlatform currentquad={this.state.currentquad}>
+                    <QuadPlatform currentquad={this.state.currentquad} split={this.state.split}>
                         {this.quadrants()}
                         <QuadDiamond />
                     </QuadPlatform>

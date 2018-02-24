@@ -63,7 +63,6 @@ class QuadspaceController extends React.Component<any,any> {
     }
 
     changeSplit = (split) => {
-        console.log('changesplit',split)
         this.setState({
             split,
         })
@@ -144,7 +143,10 @@ class QuadspaceController extends React.Component<any,any> {
                 />
                 <QuadBasket><QuadBadge quantity = {3000} style = {{left:'-12px'}} /></QuadBasket>
                 <QuadViewport>
-                    <QuadPlatform currentquad = {this.state.currentquad}>
+                    <QuadPlatform 
+                        currentquad = {this.state.currentquad}
+                        split = {this.state.split}
+                    >
                         {this.quadrants()}
                         <QuadDiamond />
                     </QuadPlatform>

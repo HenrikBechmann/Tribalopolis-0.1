@@ -8,140 +8,202 @@ class QuadPlatform extends React.Component<any,any> {
 
     state = {
         currentquad: this.props.currentquad,
-        top:'auto',
-        left:'auto',
-        bottom:'auto',
-        right:'auto',
+        split:this.props.split,
     }
+
+    positions = null
+
+    dimensions = null
 
     element = null
 
-    nextquad = this.props.currentquad
+    componentWillMount() {
+
+        this.calculateDimensions(this.state.split)
+        this.calculatePosition(this.state.currentquad)
+
+    }
 
     componentWillReceiveProps(nextProps) {
-        // set properties to prepare for animation
+
+        if (nextProps.split != this.state.split) {
+            this.calculateDimensions(nextProps.split)
+            this.setState({
+                split:nextProps.split
+            })
+        }
+
         if (nextProps.currentquad != this.state.currentquad) {
-            this.nextquad = nextProps.currentquad
+            // set top left for animation
+            let nextquad = nextProps.currentquad
             let top = this.element.offsetTop + 'px'
             let left = this.element.offsetLeft + 'px'
             let bottom = 'auto'
             let right = 'auto'
-            this.setState({
+            this.positions = {
                 top,
-                left,
-                bottom,
                 right,
-            })
+                bottom,
+                left,
+            }
+            this.forceUpdate(
+
+                () => {
+
+                    setTimeout(()=> {
+
+                        // prepare for animation transition
+                        this.calculateTransitionPosition(nextquad)
+
+                        this.setState({
+
+                            currentquad:nextquad,
+
+                        },() => { // restore settings to be able to respond to user resize of window
+
+                                setTimeout(()=> {
+
+                                    this.calculatePosition(nextquad)
+
+                                    this.setState({
+                                        currentquad:nextquad,
+                                    })
+
+                                },600)
+
+                            }
+                        )
+                    })
+                }
+
+            )
         }
     }
 
-    componentDidUpdate() {
-        let nextquad = this.nextquad
-        // set values for animation
-        if (nextquad != this.state.currentquad) {
-            let currentquad = nextquad
-            let top = 'auto'
-            let left = 'auto'
-            let right = 'auto'
-            let bottom = 'auto'
-            switch (currentquad) {
-                case 'topleft': {
-                    top = '0'
-                    left = '0'
-                    break
-                }
-                case 'topright': {
-                    top = '0'
-                    left = -this.element.parentElement.offsetWidth + 'px'
-                    // right = '0'
-                    break
-                }
-                case 'bottomleft': {
-                    // bottom = '0'
-                    top = -this.element.parentElement.offsetHeight + 'px'
-                    left = '0'
-                    break
-                }
-                case 'bottomright': {
-                    top = -this.element.parentElement.offsetHeight + 'px'
-                    left = -this.element.parentElement.offsetWidth + 'px'
-                    // bottom = '0'
-                    // right = '0'
-                    break
-                }
+    calculateTransitionPosition = quadrant => {
+
+        let top = 'auto'
+        let left = 'auto'
+        let right = 'auto'
+        let bottom = 'auto'
+        switch (quadrant) {
+            case 'topleft': {
+                top = '0'
+                left = '0'
+                break
             }
-            setTimeout(()=> {
-                this.setState({
-                    currentquad:nextquad,
-                    top,
-                    left,
-                    right,
-                    bottom,
-                },() => { // restore settings to be able to respond to user resize of window
-                        setTimeout(()=> {
-                            switch (currentquad) {
-                                case 'topleft': {
-                                    top = '0'
-                                    left = '0'
-                                    break
-                                }
-                                case 'topright': {
-                                    top = '0'
-                                    left = 'auto'
-                                    right = '0'
-                                    break
-                                }
-                                case 'bottomleft': {
-                                    bottom = '0'
-                                    top = 'auto'
-                                    left = '0'
-                                    break
-                                }
-                                case 'bottomright': {
-                                    top = 'auto'
-                                    left = 'auto'
-                                    bottom = '0'
-                                    right = '0'
-                                    break
-                                }
-                            }
-                            this.setState({
-                                currentquad:nextquad,
-                                top,
-                                left,
-                                right,
-                                bottom,
-                                  })
-                        },600)
-                    }
-                )
-            })
+            case 'topright': {
+                top = '0'
+                left = -this.element.parentElement.offsetWidth + 'px'
+                break
+            }
+            case 'bottomleft': {
+                top = -this.element.parentElement.offsetHeight + 'px'
+                left = '0'
+                break
+            }
+            case 'bottomright': {
+                top = -this.element.parentElement.offsetHeight + 'px'
+                left = -this.element.parentElement.offsetWidth + 'px'
+                break
+            }
         }
+        this.positions = {
+            top,
+            left,
+            right,
+            bottom,
+        }
+
+    }
+
+    calculatePosition = (quadrant) => {
+        let top = 'auto'
+        let left = 'auto'
+        let right = 'auto'
+        let bottom = 'auto'
+        switch (quadrant) {
+            case 'topleft': {
+                top = '0'
+                left = '0'
+                break
+            }
+            case 'topright': {
+                top = '0'
+                right = '0'
+                break
+            }
+            case 'bottomleft': {
+                bottom = '0'
+                left = '0'
+                break
+            }
+            case 'bottomright': {
+                bottom = '0'
+                right = '0'
+                break
+            }
+        }
+        this.positions = {
+            top,
+            left,
+            right,
+            bottom,
+        }
+    }
+
+    calculateDimensions = (split) => {
+        let width = null
+        let height = null
+        switch (split) {
+            case 'none':{
+                width = '200%'
+                height = '200%'
+                break
+            }
+            case 'horizontal': {
+                width = '100%'
+                height = '200%'
+                break
+            }
+            case 'vertical': {
+                width = '200%'
+                height = '100%'
+            }
+        }
+
+        this.dimensions = {
+            width,
+            height,
+        }
+
     }
 
     render() {
-    let { currentquad, left, right, top, bottom } = this.state
+        let { left, right, top, bottom } = this.positions
 
-    return (
-        <div id = "quadplatform" style={
-            {
-                position:'absolute',
-                width:'200%',
-                height:'200%',
-                top,
-                left,
-                bottom,
-                right,
-                transition: 'top .5s ease,left .5s ease'
-            }
-        } 
-        ref = {el => {
-            this.element = el
-        }}
-        >
-            { this.props.children }
-        </div>        
-    )
+        let {width, height} = this.dimensions
+
+        return (
+            <div id = "quadplatform" style={
+                {
+                    position:'absolute',
+                    width,
+                    height,
+                    top,
+                    left,
+                    bottom,
+                    right,
+                    transition: 'top .5s ease,left .5s ease'
+                }
+            } 
+            ref = {el => {
+                this.element = el
+            }}
+            >
+                { this.props.children }
+            </div>        
+        )
     }
 }
 

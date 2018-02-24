@@ -7,40 +7,17 @@ class QuadPlatform extends React.Component {
         super(...arguments);
         this.state = {
             currentquad: this.props.currentquad,
-            top: 'auto',
-            left: 'auto',
-            bottom: 'auto',
-            right: 'auto',
+            split: this.props.split,
         };
+        this.positions = null;
+        this.dimensions = null;
         this.element = null;
-        this.nextquad = this.props.currentquad;
-    }
-    componentWillReceiveProps(nextProps) {
-        // set properties to prepare for animation
-        if (nextProps.currentquad != this.state.currentquad) {
-            this.nextquad = nextProps.currentquad;
-            let top = this.element.offsetTop + 'px';
-            let left = this.element.offsetLeft + 'px';
-            let bottom = 'auto';
-            let right = 'auto';
-            this.setState({
-                top,
-                left,
-                bottom,
-                right,
-            });
-        }
-    }
-    componentDidUpdate() {
-        let nextquad = this.nextquad;
-        // set values for animation
-        if (nextquad != this.state.currentquad) {
-            let currentquad = nextquad;
+        this.calculateTransitionPosition = quadrant => {
             let top = 'auto';
             let left = 'auto';
             let right = 'auto';
             let bottom = 'auto';
-            switch (currentquad) {
+            switch (quadrant) {
                 case 'topleft': {
                     top = '0';
                     left = '0';
@@ -49,11 +26,9 @@ class QuadPlatform extends React.Component {
                 case 'topright': {
                     top = '0';
                     left = -this.element.parentElement.offsetWidth + 'px';
-                    // right = '0'
                     break;
                 }
                 case 'bottomleft': {
-                    // bottom = '0'
                     top = -this.element.parentElement.offsetHeight + 'px';
                     left = '0';
                     break;
@@ -61,64 +36,124 @@ class QuadPlatform extends React.Component {
                 case 'bottomright': {
                     top = -this.element.parentElement.offsetHeight + 'px';
                     left = -this.element.parentElement.offsetWidth + 'px';
-                    // bottom = '0'
-                    // right = '0'
                     break;
                 }
             }
-            setTimeout(() => {
-                this.setState({
-                    currentquad: nextquad,
-                    top,
-                    left,
-                    right,
-                    bottom,
-                }, () => {
-                    setTimeout(() => {
-                        switch (currentquad) {
-                            case 'topleft': {
-                                top = '0';
-                                left = '0';
-                                break;
-                            }
-                            case 'topright': {
-                                top = '0';
-                                left = 'auto';
-                                right = '0';
-                                break;
-                            }
-                            case 'bottomleft': {
-                                bottom = '0';
-                                top = 'auto';
-                                left = '0';
-                                break;
-                            }
-                            case 'bottomright': {
-                                top = 'auto';
-                                left = 'auto';
-                                bottom = '0';
-                                right = '0';
-                                break;
-                            }
-                        }
-                        this.setState({
-                            currentquad: nextquad,
-                            top,
-                            left,
-                            right,
-                            bottom,
-                        });
-                    }, 600);
+            this.positions = {
+                top,
+                left,
+                right,
+                bottom,
+            };
+        };
+        this.calculatePosition = (quadrant) => {
+            let top = 'auto';
+            let left = 'auto';
+            let right = 'auto';
+            let bottom = 'auto';
+            switch (quadrant) {
+                case 'topleft': {
+                    top = '0';
+                    left = '0';
+                    break;
+                }
+                case 'topright': {
+                    top = '0';
+                    right = '0';
+                    break;
+                }
+                case 'bottomleft': {
+                    bottom = '0';
+                    left = '0';
+                    break;
+                }
+                case 'bottomright': {
+                    bottom = '0';
+                    right = '0';
+                    break;
+                }
+            }
+            this.positions = {
+                top,
+                left,
+                right,
+                bottom,
+            };
+        };
+        this.calculateDimensions = (split) => {
+            let width = null;
+            let height = null;
+            switch (split) {
+                case 'none': {
+                    width = '200%';
+                    height = '200%';
+                    break;
+                }
+                case 'horizontal': {
+                    width = '100%';
+                    height = '200%';
+                    break;
+                }
+                case 'vertical': {
+                    width = '200%';
+                    height = '100%';
+                }
+            }
+            this.dimensions = {
+                width,
+                height,
+            };
+        };
+    }
+    componentWillMount() {
+        this.calculateDimensions(this.state.split);
+        this.calculatePosition(this.state.currentquad);
+    }
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.split != this.state.split) {
+            this.calculateDimensions(nextProps.split);
+            this.setState({
+                split: nextProps.split
+            });
+        }
+        if (nextProps.currentquad != this.state.currentquad) {
+            // set top left for animation
+            let nextquad = nextProps.currentquad;
+            let top = this.element.offsetTop + 'px';
+            let left = this.element.offsetLeft + 'px';
+            let bottom = 'auto';
+            let right = 'auto';
+            this.positions = {
+                top,
+                right,
+                bottom,
+                left,
+            };
+            this.forceUpdate(() => {
+                setTimeout(() => {
+                    // prepare for animation transition
+                    this.calculateTransitionPosition(nextquad);
+                    this.setState({
+                        currentquad: nextquad,
+                    }, () => {
+                        setTimeout(() => {
+                            this.calculatePosition(nextquad);
+                            this.setState({
+                                currentquad: nextquad,
+                            });
+                        }, 600);
+                    });
                 });
             });
         }
     }
     render() {
-        let { currentquad, left, right, top, bottom } = this.state;
+        let { left, right, top, bottom } = this.positions;
+        let { width, height } = this.dimensions;
         return (<div id="quadplatform" style={{
             position: 'absolute',
-            width: '200%',
-            height: '200%',
+            width,
+            height,
             top,
             left,
             bottom,
@@ -127,8 +162,8 @@ class QuadPlatform extends React.Component {
         }} ref={el => {
             this.element = el;
         }}>
-            {this.props.children}
-        </div>);
+                {this.props.children}
+            </div>);
     }
 }
 export default QuadPlatform;
