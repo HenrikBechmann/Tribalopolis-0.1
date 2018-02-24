@@ -14,8 +14,8 @@ class QuadPlatform extends React.Component {
         this.element = null;
         this.calculateTransitionPosition = quadrant => {
             let { split } = this.state;
-            let top = '0';
-            let left = '0';
+            let top = null;
+            let left = null;
             let right = 'auto';
             let bottom = 'auto';
             switch (quadrant) {
@@ -25,11 +25,13 @@ class QuadPlatform extends React.Component {
                             top = '0';
                             left = '0';
                             break;
-                        case 'vertical':
-                            left = '0';
-                            break;
                         case 'horizontal':
                             top = '0';
+                            left = '0';
+                            break;
+                        case 'vertical':
+                            top = '0';
+                            left = '0';
                             break;
                     }
                     break;
@@ -40,11 +42,13 @@ class QuadPlatform extends React.Component {
                             top = '0';
                             left = -this.element.parentElement.offsetWidth + 'px';
                             break;
-                        case 'vertical':
-                            left = -this.element.parentElement.offsetWidth + 'px';
-                            break;
                         case 'horizontal':
                             top = '0';
+                            left = '0';
+                            break;
+                        case 'vertical':
+                            top = '0';
+                            left = -this.element.parentElement.offsetWidth + 'px';
                             break;
                     }
                     break;
@@ -55,11 +59,13 @@ class QuadPlatform extends React.Component {
                             top = -this.element.parentElement.offsetHeight + 'px';
                             left = '0';
                             break;
-                        case 'vertical':
-                            left = '0';
-                            break;
                         case 'horizontal':
                             top = -this.element.parentElement.offsetHeight + 'px';
+                            left = '0';
+                            break;
+                        case 'vertical':
+                            top = '0';
+                            left = '0';
                             break;
                     }
                     break;
@@ -70,11 +76,13 @@ class QuadPlatform extends React.Component {
                             top = -this.element.parentElement.offsetHeight + 'px';
                             left = -this.element.parentElement.offsetWidth + 'px';
                             break;
-                        case 'vertical':
-                            left = -this.element.parentElement.offsetWidth + 'px';
-                            break;
                         case 'horizontal':
                             top = -this.element.parentElement.offsetHeight + 'px';
+                            left = '0';
+                            break;
+                        case 'vertical':
+                            top = '0';
+                            left = -this.element.parentElement.offsetWidth + 'px';
                             break;
                     }
                     break;
