@@ -168,7 +168,12 @@ class QuadToolsStrip extends React.Component<any,any> {
                                 }
                             >
                                 <img 
-                                    src = '/public/icons/ic_border_all_black_24px_topleft.svg'/>
+                                    src = {
+                                        (split == 'none')?'/public/icons/ic_border_all_black_24px_topleft.svg':
+                                        (split == 'vertical')?'/public/icons/ic_border_all_black_24px_topleft_leftsplit.svg':
+                                        '/public/icons/ic_border_all_black_24px_topleft_topsplit.svg'
+                                    }
+                                />
                             </IconButton>
 
                             <IconButton
@@ -187,7 +192,12 @@ class QuadToolsStrip extends React.Component<any,any> {
                                 }
                             >
                                 <img 
-                                    src = '/public/icons/ic_border_all_black_24px_topright.svg'/>
+                                    src = {
+                                        (split == 'none')?'/public/icons/ic_border_all_black_24px_topright.svg':
+                                        (split == 'vertical')?'/public/icons/ic_border_all_black_24px_topright_rightsplit.svg':
+                                        '/public/icons/ic_border_all_black_24px_topright_topsplit.svg'
+                                    }
+                                    />
                             </IconButton>
 
                             <IconButton
@@ -206,7 +216,12 @@ class QuadToolsStrip extends React.Component<any,any> {
                                 }
                             >
                                 <img 
-                                    src = '/public/icons/ic_border_all_black_24px_bottomleft.svg'/>
+                                    src = {
+                                        (split == 'none')?'/public/icons/ic_border_all_black_24px_bottomleft.svg':
+                                        (split == 'vertical')?'/public/icons/ic_border_all_black_24px_bottomleft_leftsplit.svg':
+                                        '/public/icons/ic_border_all_black_24px_bottomleft_bottomsplit.svg'
+                                    }
+                                />
                             </IconButton>
 
                             <IconButton
@@ -225,7 +240,12 @@ class QuadToolsStrip extends React.Component<any,any> {
                                 }
                             >
                                 <img 
-                                    src = '/public/icons/ic_border_all_black_24px_bottomright.svg'/>
+                                    src = {
+                                        (split == 'none')?'/public/icons/ic_border_all_black_24px_bottomright.svg':
+                                        (split == 'vertical')?'/public/icons/ic_border_all_black_24px_bottomright_rightsplit.svg':
+                                        '/public/icons/ic_border_all_black_24px_bottomright_bottomsplit.svg'
+                                    }
+                                />
                             </IconButton>
 
                             <IconButton

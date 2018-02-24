@@ -97,7 +97,9 @@ class QuadToolsStrip extends React.Component {
                 ((split == 'vertical' && currentquad == 'bottomleft') ||
                     (split == 'horizontal' && currentquad == 'topright')) ? 'orange' : 'transparent'
         }}>
-                                <img src='/public/icons/ic_border_all_black_24px_topleft.svg'/>
+                                <img src={(split == 'none') ? '/public/icons/ic_border_all_black_24px_topleft.svg' :
+            (split == 'vertical') ? '/public/icons/ic_border_all_black_24px_topleft_leftsplit.svg' :
+                '/public/icons/ic_border_all_black_24px_topleft_topsplit.svg'}/>
                             </IconButton>
 
                             <IconButton style={{ verticalAlign: 'bottom' }} onClick={() => {
@@ -107,7 +109,9 @@ class QuadToolsStrip extends React.Component {
                 ((split == 'vertical' && currentquad == 'bottomright') ||
                     (split == 'horizontal' && currentquad == 'topleft')) ? 'orange' : 'transparent'
         }}>
-                                <img src='/public/icons/ic_border_all_black_24px_topright.svg'/>
+                                <img src={(split == 'none') ? '/public/icons/ic_border_all_black_24px_topright.svg' :
+            (split == 'vertical') ? '/public/icons/ic_border_all_black_24px_topright_rightsplit.svg' :
+                '/public/icons/ic_border_all_black_24px_topright_topsplit.svg'}/>
                             </IconButton>
 
                             <IconButton style={{ verticalAlign: 'bottom' }} onClick={() => {
@@ -117,7 +121,9 @@ class QuadToolsStrip extends React.Component {
                 ((split == 'vertical' && currentquad == 'topleft') ||
                     (split == 'horizontal' && currentquad == 'bottomright')) ? 'orange' : 'transparent'
         }}>
-                                <img src='/public/icons/ic_border_all_black_24px_bottomleft.svg'/>
+                                <img src={(split == 'none') ? '/public/icons/ic_border_all_black_24px_bottomleft.svg' :
+            (split == 'vertical') ? '/public/icons/ic_border_all_black_24px_bottomleft_leftsplit.svg' :
+                '/public/icons/ic_border_all_black_24px_bottomleft_bottomsplit.svg'}/>
                             </IconButton>
 
                             <IconButton style={{ verticalAlign: 'bottom' }} onClick={() => {
@@ -127,7 +133,9 @@ class QuadToolsStrip extends React.Component {
                 ((split == 'vertical' && currentquad == 'topright') ||
                     (split == 'horizontal' && currentquad == 'bottomleft')) ? 'orange' : 'transparent'
         }}>
-                                <img src='/public/icons/ic_border_all_black_24px_bottomright.svg'/>
+                                <img src={(split == 'none') ? '/public/icons/ic_border_all_black_24px_bottomright.svg' :
+            (split == 'vertical') ? '/public/icons/ic_border_all_black_24px_bottomright_rightsplit.svg' :
+                '/public/icons/ic_border_all_black_24px_bottomright_bottomsplit.svg'}/>
                             </IconButton>
 
                             <IconButton style={{ verticalAlign: 'bottom' }} onClick={() => this.changeSplitFrom('horizontal')}>
