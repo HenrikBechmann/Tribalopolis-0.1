@@ -15,12 +15,14 @@ class Quadrant extends React.Component<any,any>  {
 
     state = {
         quadrant:this.props.quadrant,
+        data:this.props.data
     }
 
     sessionid = this.props.sessionid
 
     componentWillMount() {
         this.calculatePosition(this.state.quadrant)
+        console.log('data',this.state.data)
     }
 
     componentWillReceiveProps(nextProps) {
@@ -121,6 +123,22 @@ class Quadrant extends React.Component<any,any>  {
 
     element = null
 
+    getFieldComponents = fields => {
+
+    }
+
+    getProfileComponent = profile => {
+
+    }
+
+    getBacklinks = links => {
+        
+    }
+
+    getBoxes = () => {
+        return []
+    }
+
     render() {
         let { color } = this.props
         let { quadrant } = this.state
@@ -161,7 +179,7 @@ class Quadrant extends React.Component<any,any>  {
                     <SwapMenu quadrant = {this.state.quadrant} handleswap = {this.props.handleswap}/>
                     <QuadTitleBar title = {this.props.title}/>
                     <QuadOrigin><QuadBadge quantity = {this.props.badgequantity} /></QuadOrigin>
-                    <InfiniteScroll />
+                    <InfiniteScroll items = {this.getBoxes()}/>
                 </div>
             </div>
         )

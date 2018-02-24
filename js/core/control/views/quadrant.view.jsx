@@ -12,6 +12,7 @@ class Quadrant extends React.Component {
         super(...arguments);
         this.state = {
             quadrant: this.props.quadrant,
+            data: this.props.data
         };
         this.sessionid = this.props.sessionid;
         this.calculateTransitionPosition = (quadrant) => {
@@ -85,9 +86,19 @@ class Quadrant extends React.Component {
         };
         this.position = null;
         this.element = null;
+        this.getFieldComponents = fields => {
+        };
+        this.getProfileComponent = profile => {
+        };
+        this.getBacklinks = links => {
+        };
+        this.getBoxes = () => {
+            return [];
+        };
     }
     componentWillMount() {
         this.calculatePosition(this.state.quadrant);
+        console.log('data', this.state.data);
     }
     componentWillReceiveProps(nextProps) {
         if (nextProps.quadrant != this.state.quadrant) {
@@ -137,7 +148,7 @@ class Quadrant extends React.Component {
                     <SwapMenu quadrant={this.state.quadrant} handleswap={this.props.handleswap}/>
                     <QuadTitleBar title={this.props.title}/>
                     <QuadOrigin><QuadBadge quantity={this.props.badgequantity}/></QuadOrigin>
-                    <InfiniteScroll />
+                    <InfiniteScroll items={this.getBoxes()}/>
                 </div>
             </div>);
     }

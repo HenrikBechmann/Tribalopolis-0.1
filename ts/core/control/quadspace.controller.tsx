@@ -17,12 +17,103 @@ import QuadDiamond from './views/quaddiamond.view'
 import QuadBadge from './views/quadbadge.view'
 import QuadStatusBar from './views/quadstatusbar.view'
 
+let data = [
+    [
+        {
+            sessionid:0,
+            type:'object',
+            tribe:'__owner__',
+            id:'henrik',
+            profile:{
+                tag:'Henrik',
+                name:'Henrik Bechmann',
+                title:null,
+                description:'Creator of Tribalopolis',
+                birthdate:'1950-08-23',
+                location:'Toronto',
+                locationid:'Toronto',
+            },
+            fields:
+            {
+                set:{
+                    connections:{
+                        active:true,
+                        count:23,
+                        name:'Connections',
+                    },
+                    roles:{
+                        active:true,
+                        count:4,
+                        name:'Roles',
+                    },
+                    programs:{
+                        active:true,
+                        count:5,
+                        name:'Programs',
+                    },
+                    projects:{
+                        active:true,
+                        count:3,
+                        name:'Projects',
+                    },
+                    tasks:{
+                        active:true,
+                        count:20,
+                        name:'Tasks',
+                    },
+                    messengers:{
+                        active:true,
+                        count:3,
+                        name:'Messengers',
+                    },
+                    resources:{
+                        active:true,
+                        count:64,
+                        name:'Resources',
+                    },
+                    calendar:{
+                        active:true,
+                        count:67,
+                        name:'Calendar',
+                    },
+                    accounting:{
+                        active:true,
+                        count:6000,
+                        name:'Accounting',
+                    },
+                },
+                order:[
+                    'connections',
+                    'roles:',
+                    'programs',
+                    'projects',
+                    'tasks',
+                    'messengers',
+                    'resources',
+                    'calendar',
+                    'accounting',
+                ]
+            },
+            backlinks:{
+                set:{
+                },
+                order:[
+                ]
+            }
+        }
+    ],
+    null,
+    null,
+    null,
+]
+
 class QuadspaceController extends React.Component<any,any> {
 
     state = {
         quadrantpositions:[0,1,2,3],
         currentquad:'topleft',
         split:'none',
+        data:data,
     }
 
     positions = [
@@ -103,6 +194,7 @@ class QuadspaceController extends React.Component<any,any> {
             color = 'lightgreen' 
             title = 'first'
             badgequantity = {500}
+            data = {this.state.data[0]}
         />,
         <Quadrant 
             key = '2'
@@ -112,6 +204,7 @@ class QuadspaceController extends React.Component<any,any> {
             color = 'mistyrose' 
             title = "second" 
             badgequantity = {0}
+            data = {this.state.data[1]}
         />,
         <Quadrant 
             key = '3'
@@ -121,6 +214,7 @@ class QuadspaceController extends React.Component<any,any> {
             color = 'lightblue' 
             title = "third" 
             badgequantity = {12}
+            data = {this.state.data[2]}
         />,
         <Quadrant 
             key = '4'
@@ -130,6 +224,7 @@ class QuadspaceController extends React.Component<any,any> {
             color = 'papayawhip' 
             title = "fourth" 
             badgequantity = {0}
+            data = {this.state.data[3]}
         />,
     ]
 
@@ -141,7 +236,7 @@ class QuadspaceController extends React.Component<any,any> {
                     split = {this.state.split}
                     changeSplit = {this.changeSplit}
                 />
-                <QuadBasket><QuadBadge quantity = {3000} style = {{left:'-12px'}} /></QuadBasket>
+                <QuadBasket><QuadBadge quantity = {0} style = {{left:'-12px'}} /></QuadBasket>
                 <QuadViewport>
                     <QuadPlatform 
                         currentquad = {this.state.currentquad}

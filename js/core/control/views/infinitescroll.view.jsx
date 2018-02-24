@@ -4,13 +4,9 @@
 import * as React from 'react';
 import ScrollControlsView from './scrollcontrols.view';
 class InfiniteScroll extends React.Component {
-    constructor() {
-        super(...arguments);
-        this.state = {
-            children: this.props.startset,
-            scrolling: false,
-            scroller: null,
-        };
+    constructor(props) {
+        super(props);
+        this.state = null;
         this.orientation = this.props.orientation || 'vertical';
         this.buffersize = this.props.buffersize || 5;
         this.headRequestCallback = this.props.headRequest; // (count)
@@ -57,6 +53,17 @@ class InfiniteScroll extends React.Component {
             backgroundColor: 'white',
             height: '100%',
             width: '200%',
+            padding: '2%',
+            boxSizing: 'border-box',
+        };
+        this.listStyle = {
+            height: '100%',
+        };
+        this.state = {
+            items: this.props.items,
+            scrolling: false,
+            scroller: null,
+            continuous: !!props.continuous
         };
     }
     componentDidMount() {
@@ -75,8 +82,8 @@ class InfiniteScroll extends React.Component {
             this.scroller = el;
         }}>
                     <div className='CS_platform' style={this.platformStyle}>
-                        <div className='CS_list' style={{}}>
-                            {this.state.children}
+                        <div className='CS_list' style={this.listStyle}>
+                            {this.state.items}
                         </div>
                     </div>
                 </div>

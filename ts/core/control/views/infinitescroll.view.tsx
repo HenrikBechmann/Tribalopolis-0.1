@@ -8,11 +8,17 @@ import ScrollControlsView from './scrollcontrols.view'
 
 class InfiniteScroll extends React.Component<any,any> {
 
-    state = {
-        children:this.props.startset,
-        scrolling:false,
-        scroller:null,
+    constructor(props) {
+        super(props)
+        this.state = {
+            items:this.props.items,
+            scrolling:false,
+            scroller:null,
+            continuous:!!props.continuous
+        }
     }
+
+    state = null
 
     orientation = this.props.orientation || 'vertical'
     buffersize = this.props.buffersize || 5
@@ -94,6 +100,12 @@ class InfiniteScroll extends React.Component<any,any> {
         backgroundColor:'white',
         height:'100%',
         width:'200%',
+        padding:'2%',
+        boxSizing:'border-box',
+    }
+
+    listStyle = {
+        height:'100%',
     }
 
     render () {
@@ -109,8 +121,8 @@ class InfiniteScroll extends React.Component<any,any> {
                     }}
                 >
                     <div className = 'CS_platform' style = {this.platformStyle as any}>
-                        <div className = 'CS_list' style = {{}}>
-                            { this.state.children }
+                        <div className = 'CS_list' style = {this.listStyle}>
+                            { this.state.items }
                         </div>
                     </div>
                 </div>
