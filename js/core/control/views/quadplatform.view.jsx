@@ -199,7 +199,7 @@ class QuadPlatform extends React.Component {
             left,
             bottom,
             right,
-            transition: 'top .5s ease,left .5s ease'
+            transition: 'top .5s ease,left .5s ease, width .5s ease, height .5s ease'
         }} ref={el => {
             this.element = el;
         }}>
