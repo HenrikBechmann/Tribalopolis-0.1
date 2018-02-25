@@ -224,7 +224,9 @@ class QuadspaceController extends React.Component {
             this.setState({
                 split,
             }, () => {
-                this.forceUpdate();
+                setTimeout(() => {
+                    this.forceUpdate(); // for scroll icons
+                }, 500);
             });
         };
         this.handleSwap = (quadrant, direction) => {
