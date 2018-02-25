@@ -6,6 +6,9 @@ import * as React from 'react'
 
 import BoxHeader from './boxheader.view'
 import BoxToolbar from './boxtoolbar.view'
+import ProfileBar from './profilebar.view'
+import CategoriesBar from './categoriesbar.view'
+import BacklinksBar from './backlinksbar.view'
 
 class DataBox extends React.Component<any,any> {
 
@@ -26,8 +29,13 @@ class DataBox extends React.Component<any,any> {
 
         return <div style = {frameStyle as any}>
             <div>
+
                 <BoxToolbar />
-                <BoxHeader item = {this.props.item}/>
+                <BoxHeader item = {this.props.item} />
+                <ProfileBar item = {this.props.item} />
+                <CategoriesBar item = {this.props.item} />
+                <BacklinksBar item = {this.props.item} />
+
             </div>
         </div>
     }

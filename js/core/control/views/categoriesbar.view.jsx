@@ -2,9 +2,9 @@
 // copyright (c) 2018 Henrik Bechmann, Toronto, MIT Licence
 'use strict';
 import * as React from 'react';
-const BoxHeader = props => {
+import FontIcon from 'material-ui/FontIcon';
+const CategoriesBar = props => {
     let { item } = props;
-    let boxicon = '/public/icons/databox.svg';
     let styles = {
         width: '100%',
         border: '1px solid silver',
@@ -13,11 +13,13 @@ const BoxHeader = props => {
         whitespace: 'nowrap',
         overflow: 'hidden',
         boxSizing: 'border-box',
+        fontSize: 'smaller',
         marginBottom: '3px',
     };
     return <div style={styles}>
-        <img style={{ verticalAlign: 'bottom' }} src={boxicon}/> {item.profile.name}
+        <FontIcon style={{ verticalAlign: 'middle' }} className='material-icons'>list</FontIcon> 
+        <span style={{ verticalAlign: 'middle' }}>Categories</span>
     </div>;
 };
-export default BoxHeader;
-//# sourceMappingURL=boxheader.view.jsx.map
+export default CategoriesBar;
+//# sourceMappingURL=categoriesbar.view.jsx.map

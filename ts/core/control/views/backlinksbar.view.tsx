@@ -4,11 +4,11 @@
 
 import * as React from 'react'
 
-const BoxHeader = props => {
+import FontIcon from 'material-ui/FontIcon'
+
+const BacklinksBar = props => {
 
     let { item } = props
-
-    let boxicon = '/public/icons/databox.svg'
 
     let styles = {
         width:'100%',
@@ -18,12 +18,14 @@ const BoxHeader = props => {
         whitespace:'nowrap',
         overflow:'hidden',
         boxSizing:'border-box',
+        fontSize:'smaller',
         marginBottom: '3px',
     }
 
     return <div style = {styles as any}>
-        <img style = {{verticalAlign:'bottom'}} src = {boxicon} /> {item.profile.name}
+        <FontIcon style = {{verticalAlign:'middle'}} className='material-icons'>link</FontIcon> 
+        <span style = {{verticalAlign:'middle'}} >Backlinks</span>
     </div>
 }
 
-export default BoxHeader
+export default BacklinksBar
