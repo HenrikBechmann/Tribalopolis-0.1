@@ -279,6 +279,10 @@ class QuadspaceController extends React.Component<any,any> {
             setTimeout(() =>{
                 this.setState({
                     split:'none',
+                },() => {
+                    setTimeout(()=>{
+                        this.forceUpdate()
+                    },600)
                 })
             },600)
         })
