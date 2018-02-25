@@ -18,7 +18,7 @@ const CategoriesBar = props => {
     };
     return <div style={styles}>
         <FontIcon style={{ verticalAlign: 'middle' }} className='material-icons'>list</FontIcon> 
-        <span style={{ verticalAlign: 'middle', color: 'gray' }}>Data Categories</span>
+        <span style={{ verticalAlign: 'middle', color: 'gray' }}>Data</span>
     </div>;
 };
 export default CategoriesBar;
