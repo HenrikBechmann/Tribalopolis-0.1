@@ -25,8 +25,10 @@ class DataBox extends React.Component<any,any> {
         }
 
         return <div style = {frameStyle as any}>
-            <BoxToolbar />
-            <BoxHeader item = {this.props.item}/>
+            <div>
+                <BoxToolbar />
+                <BoxHeader item = {this.props.item}/>
+            </div>
         </div>
     }
 }

@@ -15,25 +15,23 @@ const BoxToolbar = props => {
     return <div style={styles}>
 
         <div style={{
-        padding: '5px 0 0 3px',
+        padding: '6px 0 0 3px',
         boxSizing: 'border-box',
         width: '32px',
         height: '32px',
         display: 'inline-block',
         borderRadius: '50%',
-        backgroundColor: 'rgba(192,192,192,0.5)',
     }}> 
             <img src='/public/icons/ic_splay_24px.svg'/>
         </div>
         <div style={{
-        padding: '3px',
+        padding: '4px',
         boxSizing: 'border-box',
         width: '32px',
         height: '32px',
         display: 'inline-block',
         float: 'right',
         borderRadius: '50%',
-        backgroundColor: 'rgba(192,192,192,0.5)',
     }}>
             <FontIcon className='material-icons'>zoom_out_map</FontIcon>
         </div>

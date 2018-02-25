@@ -20,8 +20,10 @@ class DataBox extends React.Component {
             marginRight: '16px',
         };
         return <div style={frameStyle}>
-            <BoxToolbar />
-            <BoxHeader item={this.props.item}/>
+            <div>
+                <BoxToolbar />
+                <BoxHeader item={this.props.item}/>
+            </div>
         </div>;
     }
 }
