@@ -152,6 +152,7 @@ class Quadrant extends React.Component {
             borderRadius: '8px',
             width: '100%',
             height: '100%',
+            overflow: 'hidden',
         }}>
                     <SwapMenu quadrant={this.state.quadrant} handleswap={this.props.handleswap}/>
                     <QuadTitleBar title={this.props.title}/>
