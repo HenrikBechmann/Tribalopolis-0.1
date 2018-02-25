@@ -27,6 +27,7 @@ const BoxToolbar = props => {
                 height:'32px',
                 display:'inline-block',
                 borderRadius:'50%',
+                border:'1px solid silver',
             }
         }> 
             <img src = '/public/icons/ic_splay_24px.svg' />
@@ -40,6 +41,7 @@ const BoxToolbar = props => {
                 display:'inline-block',
                 float:'right',
                 borderRadius:'50%',
+                border:'1px solid silver',
             }
         } >
             <FontIcon className='material-icons'>zoom_out_map</FontIcon>
