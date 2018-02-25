@@ -95,9 +95,10 @@ class QuadToolsStrip extends React.Component {
         }} iconStyle={{
             backgroundColor: (currentquad == 'topleft') ? 'red' :
                 ((split == 'vertical' && currentquad == 'bottomleft') ||
-                    (split == 'horizontal' && currentquad == 'topright')) ? 'orange' : 'transparent'
+                    (split == 'horizontal' && currentquad == 'topright') ||
+                    (split == 'matrix')) ? 'orange' : 'transparent'
         }}>
-                                <img src={(split == 'none') ? '/public/icons/ic_border_all_black_24px_topleft.svg' :
+                                <img src={(split == 'none' || split == 'matrix') ? '/public/icons/ic_border_all_black_24px_topleft.svg' :
             (split == 'vertical') ? '/public/icons/ic_border_all_black_24px_topleft_leftsplit.svg' :
                 '/public/icons/ic_border_all_black_24px_topleft_topsplit.svg'}/>
                             </IconButton>
@@ -107,9 +108,10 @@ class QuadToolsStrip extends React.Component {
         }} iconStyle={{
             backgroundColor: (currentquad == 'topright') ? 'red' :
                 ((split == 'vertical' && currentquad == 'bottomright') ||
-                    (split == 'horizontal' && currentquad == 'topleft')) ? 'orange' : 'transparent'
+                    (split == 'horizontal' && currentquad == 'topleft') ||
+                    (split == 'matrix')) ? 'orange' : 'transparent'
         }}>
-                                <img src={(split == 'none') ? '/public/icons/ic_border_all_black_24px_topright.svg' :
+                                <img src={(split == 'none' || split == 'matrix') ? '/public/icons/ic_border_all_black_24px_topright.svg' :
             (split == 'vertical') ? '/public/icons/ic_border_all_black_24px_topright_rightsplit.svg' :
                 '/public/icons/ic_border_all_black_24px_topright_topsplit.svg'}/>
                             </IconButton>
@@ -119,9 +121,10 @@ class QuadToolsStrip extends React.Component {
         }} iconStyle={{
             backgroundColor: (currentquad == 'bottomleft') ? 'red' :
                 ((split == 'vertical' && currentquad == 'topleft') ||
-                    (split == 'horizontal' && currentquad == 'bottomright')) ? 'orange' : 'transparent'
+                    (split == 'horizontal' && currentquad == 'bottomright') ||
+                    (split == 'matrix')) ? 'orange' : 'transparent'
         }}>
-                                <img src={(split == 'none') ? '/public/icons/ic_border_all_black_24px_bottomleft.svg' :
+                                <img src={(split == 'none' || split == 'matrix') ? '/public/icons/ic_border_all_black_24px_bottomleft.svg' :
             (split == 'vertical') ? '/public/icons/ic_border_all_black_24px_bottomleft_leftsplit.svg' :
                 '/public/icons/ic_border_all_black_24px_bottomleft_bottomsplit.svg'}/>
                             </IconButton>
@@ -131,9 +134,10 @@ class QuadToolsStrip extends React.Component {
         }} iconStyle={{
             backgroundColor: (currentquad == 'bottomright') ? 'red' :
                 ((split == 'vertical' && currentquad == 'topright') ||
-                    (split == 'horizontal' && currentquad == 'bottomleft')) ? 'orange' : 'transparent'
+                    (split == 'horizontal' && currentquad == 'bottomleft') ||
+                    (split == 'matrix')) ? 'orange' : 'transparent'
         }}>
-                                <img src={(split == 'none') ? '/public/icons/ic_border_all_black_24px_bottomright.svg' :
+                                <img src={(split == 'none' || split == 'matrix') ? '/public/icons/ic_border_all_black_24px_bottomright.svg' :
             (split == 'vertical') ? '/public/icons/ic_border_all_black_24px_bottomright_rightsplit.svg' :
                 '/public/icons/ic_border_all_black_24px_bottomright_bottomsplit.svg'}/>
                             </IconButton>
@@ -148,6 +152,12 @@ class QuadToolsStrip extends React.Component {
                                 <img src={(this.state.split == 'vertical') ?
             '/public/icons/ic_border_all_black_24px_split_red.svg' :
             '/public/icons/ic_border_all_black_24px_split.svg'}/>
+                            </IconButton>
+
+                            <IconButton style={{ verticalAlign: 'bottom' }} onClick={() => this.changeSplitFrom('matrix')}>
+                                <img src={(this.state.split == 'matrix') ?
+            '/public/icons/ic_border_all_black_24px_split_matrix_red.svg' :
+            '/public/icons/ic_border_all_black_24px_split_matrix.svg'}/>
                             </IconButton>
 
                             <IconButton>

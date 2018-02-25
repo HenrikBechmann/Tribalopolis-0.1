@@ -33,6 +33,10 @@ class QuadPlatform extends React.Component {
                             top = '0';
                             left = '0';
                             break;
+                        case 'matrix':
+                            top = '0';
+                            left = '0';
+                            break;
                     }
                     break;
                 }
@@ -50,6 +54,10 @@ class QuadPlatform extends React.Component {
                             top = '0';
                             left = -this.element.parentElement.offsetWidth + 'px';
                             break;
+                        case 'matrix':
+                            top = '0';
+                            left = '0';
+                            break;
                     }
                     break;
                 }
@@ -64,6 +72,10 @@ class QuadPlatform extends React.Component {
                             left = '0';
                             break;
                         case 'vertical':
+                            top = '0';
+                            left = '0';
+                            break;
+                        case 'matrix':
                             top = '0';
                             left = '0';
                             break;
@@ -83,6 +95,10 @@ class QuadPlatform extends React.Component {
                         case 'vertical':
                             top = '0';
                             left = -this.element.parentElement.offsetWidth + 'px';
+                            break;
+                        case 'matrix':
+                            top = '0';
+                            left = '0';
                             break;
                     }
                     break;
@@ -146,6 +162,12 @@ class QuadPlatform extends React.Component {
                 case 'vertical': {
                     width = '200%';
                     height = '100%';
+                    break;
+                }
+                case 'matrix': {
+                    width = '100%';
+                    height = '100%';
+                    break;
                 }
             }
             this.dimensions = {

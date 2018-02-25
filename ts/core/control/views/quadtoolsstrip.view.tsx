@@ -162,14 +162,15 @@ class QuadToolsStrip extends React.Component<any,any> {
                                         backgroundColor:(
                                             currentquad == 'topleft')?'red':
                                             ((split == 'vertical' && currentquad == 'bottomleft') ||
-                                            (split == 'horizontal' && currentquad == 'topright')
+                                            (split == 'horizontal' && currentquad == 'topright') ||
+                                            (split == 'matrix')
                                         )?'orange':'transparent'
                                     }
                                 }
                             >
                                 <img 
                                     src = {
-                                        (split == 'none')?'/public/icons/ic_border_all_black_24px_topleft.svg':
+                                        (split == 'none' || split == 'matrix')?'/public/icons/ic_border_all_black_24px_topleft.svg':
                                         (split == 'vertical')?'/public/icons/ic_border_all_black_24px_topleft_leftsplit.svg':
                                         '/public/icons/ic_border_all_black_24px_topleft_topsplit.svg'
                                     }
@@ -186,14 +187,15 @@ class QuadToolsStrip extends React.Component<any,any> {
                                         backgroundColor:(
                                             currentquad == 'topright')?'red':
                                             ((split == 'vertical' && currentquad == 'bottomright') ||
-                                            (split == 'horizontal' && currentquad == 'topleft')
+                                            (split == 'horizontal' && currentquad == 'topleft') ||
+                                            (split == 'matrix')
                                         )?'orange':'transparent'
                                     }
                                 }
                             >
                                 <img 
                                     src = {
-                                        (split == 'none')?'/public/icons/ic_border_all_black_24px_topright.svg':
+                                        (split == 'none' || split == 'matrix')?'/public/icons/ic_border_all_black_24px_topright.svg':
                                         (split == 'vertical')?'/public/icons/ic_border_all_black_24px_topright_rightsplit.svg':
                                         '/public/icons/ic_border_all_black_24px_topright_topsplit.svg'
                                     }
@@ -210,14 +212,15 @@ class QuadToolsStrip extends React.Component<any,any> {
                                         backgroundColor:(
                                             currentquad == 'bottomleft')?'red': 
                                             ((split == 'vertical' && currentquad == 'topleft') ||
-                                            (split == 'horizontal' && currentquad == 'bottomright')
+                                            (split == 'horizontal' && currentquad == 'bottomright') ||
+                                            (split == 'matrix')
                                         )?'orange':'transparent'
                                     }
                                 }
                             >
                                 <img 
                                     src = {
-                                        (split == 'none')?'/public/icons/ic_border_all_black_24px_bottomleft.svg':
+                                        (split == 'none' || split == 'matrix')?'/public/icons/ic_border_all_black_24px_bottomleft.svg':
                                         (split == 'vertical')?'/public/icons/ic_border_all_black_24px_bottomleft_leftsplit.svg':
                                         '/public/icons/ic_border_all_black_24px_bottomleft_bottomsplit.svg'
                                     }
@@ -234,14 +237,15 @@ class QuadToolsStrip extends React.Component<any,any> {
                                         backgroundColor:(
                                             currentquad == 'bottomright')?'red':
                                             ((split == 'vertical' && currentquad == 'topright') ||
-                                            (split == 'horizontal' && currentquad == 'bottomleft')
+                                            (split == 'horizontal' && currentquad == 'bottomleft') ||
+                                            (split == 'matrix')
                                         )?'orange':'transparent'
                                     }
                                 }
                             >
                                 <img 
                                     src = {
-                                        (split == 'none')?'/public/icons/ic_border_all_black_24px_bottomright.svg':
+                                        (split == 'none' || split == 'matrix')?'/public/icons/ic_border_all_black_24px_bottomright.svg':
                                         (split == 'vertical')?'/public/icons/ic_border_all_black_24px_bottomright_rightsplit.svg':
                                         '/public/icons/ic_border_all_black_24px_bottomright_bottomsplit.svg'
                                     }
@@ -271,6 +275,19 @@ class QuadToolsStrip extends React.Component<any,any> {
                                         (this.state.split == 'vertical')?
                                             '/public/icons/ic_border_all_black_24px_split_red.svg':
                                             '/public/icons/ic_border_all_black_24px_split.svg'
+                                    }
+                                />
+                            </IconButton>
+
+                            <IconButton
+                                style = {{verticalAlign:'bottom'}}
+                                onClick = {() => this.changeSplitFrom('matrix')}
+                            >
+                                <img 
+                                    src = {
+                                        (this.state.split == 'matrix')?
+                                            '/public/icons/ic_border_all_black_24px_split_matrix_red.svg':
+                                            '/public/icons/ic_border_all_black_24px_split_matrix.svg'
                                     }
                                 />
                             </IconButton>
