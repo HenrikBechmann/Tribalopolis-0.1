@@ -102,7 +102,7 @@ let data = [
             }
         },
         {
-            sessionid:0,
+            sessionid:1,
             type:'object',
             tribe:'__owner__',
             id:'paul',
@@ -271,15 +271,30 @@ class QuadspaceController extends React.Component<any,any> {
         return this.positions[pos]
     }
 
+    quadselection = quadrant => {
+        console.log('quadselection',quadrant)
+        this.setState({
+            currentquad:quadrant,
+        },() => {
+            setTimeout(() =>{
+                this.setState({
+                    split:'none',
+                })
+            },600)
+        })
+    }
+
     quadrants = () => [
         <Quadrant 
             key = '1'
             sessionid = {0}
             handleswap = {this.handleSwap}
             quadrant = {this.calcQuadrant(0)}
+            split = {this.state.split}
+            quadselection = {this.quadselection}
             color = 'lightgreen' 
             title = 'first'
-            badgequantity = {500}
+            badgequantity = {0}
             data = {this.state.data[0]}
         />,
         <Quadrant 
@@ -287,6 +302,8 @@ class QuadspaceController extends React.Component<any,any> {
             sessionid = {1}
             handleswap = {this.handleSwap}
             quadrant = {this.calcQuadrant(1)}
+            split = {this.state.split}
+            quadselection = {this.quadselection}
             color = 'mistyrose' 
             title = "second" 
             badgequantity = {0}
@@ -297,9 +314,11 @@ class QuadspaceController extends React.Component<any,any> {
             sessionid = {2}
             handleswap = {this.handleSwap}
             quadrant = {this.calcQuadrant(2)}
+            split = {this.state.split}
+            quadselection = {this.quadselection}
             color = 'lightblue' 
             title = "third" 
-            badgequantity = {12}
+            badgequantity = {0}
             data = {this.state.data[2]}
         />,
         <Quadrant 
@@ -307,6 +326,8 @@ class QuadspaceController extends React.Component<any,any> {
             sessionid = {3}
             handleswap = {this.handleSwap}
             quadrant = {this.calcQuadrant(3)}
+            split = {this.state.split}
+            quadselection = {this.quadselection}
             color = 'papayawhip' 
             title = "fourth" 
             badgequantity = {0}

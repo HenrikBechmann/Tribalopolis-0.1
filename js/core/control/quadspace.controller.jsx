@@ -94,7 +94,7 @@ let data = [
             }
         },
         {
-            sessionid: 0,
+            sessionid: 1,
             type: 'object',
             tribe: '__owner__',
             id: 'paul',
@@ -247,11 +247,23 @@ class QuadspaceController extends React.Component {
             let pos = this.state.quadrantpositions.indexOf(sessionid);
             return this.positions[pos];
         };
+        this.quadselection = quadrant => {
+            console.log('quadselection', quadrant);
+            this.setState({
+                currentquad: quadrant,
+            }, () => {
+                setTimeout(() => {
+                    this.setState({
+                        split: 'none',
+                    });
+                }, 600);
+            });
+        };
         this.quadrants = () => [
-            <Quadrant key='1' sessionid={0} handleswap={this.handleSwap} quadrant={this.calcQuadrant(0)} color='lightgreen' title='first' badgequantity={500} data={this.state.data[0]}/>,
-            <Quadrant key='2' sessionid={1} handleswap={this.handleSwap} quadrant={this.calcQuadrant(1)} color='mistyrose' title="second" badgequantity={0} data={this.state.data[1]}/>,
-            <Quadrant key='3' sessionid={2} handleswap={this.handleSwap} quadrant={this.calcQuadrant(2)} color='lightblue' title="third" badgequantity={12} data={this.state.data[2]}/>,
-            <Quadrant key='4' sessionid={3} handleswap={this.handleSwap} quadrant={this.calcQuadrant(3)} color='papayawhip' title="fourth" badgequantity={0} data={this.state.data[3]}/>,
+            <Quadrant key='1' sessionid={0} handleswap={this.handleSwap} quadrant={this.calcQuadrant(0)} split={this.state.split} quadselection={this.quadselection} color='lightgreen' title='first' badgequantity={0} data={this.state.data[0]}/>,
+            <Quadrant key='2' sessionid={1} handleswap={this.handleSwap} quadrant={this.calcQuadrant(1)} split={this.state.split} quadselection={this.quadselection} color='mistyrose' title="second" badgequantity={0} data={this.state.data[1]}/>,
+            <Quadrant key='3' sessionid={2} handleswap={this.handleSwap} quadrant={this.calcQuadrant(2)} split={this.state.split} quadselection={this.quadselection} color='lightblue' title="third" badgequantity={0} data={this.state.data[2]}/>,
+            <Quadrant key='4' sessionid={3} handleswap={this.handleSwap} quadrant={this.calcQuadrant(3)} split={this.state.split} quadselection={this.quadselection} color='papayawhip' title="fourth" badgequantity={0} data={this.state.data[3]}/>,
         ];
     }
     render() {

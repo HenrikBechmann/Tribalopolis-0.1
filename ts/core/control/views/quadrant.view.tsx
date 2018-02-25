@@ -11,6 +11,7 @@ import QuadBadge from './quadbadge.view'
 import InfiniteScroll from './infinitescroll.view'
 import SwapMenu from './swapmenu.view'
 import DataBox from './databox.view'
+import QuadSelector from './quadselector.view'
 
 class Quadrant extends React.Component<any,any>  {
 
@@ -190,6 +191,11 @@ class Quadrant extends React.Component<any,any>  {
                     <QuadTitleBar title = {this.props.title}/>
                     <QuadOrigin><QuadBadge quantity = {this.props.badgequantity} /></QuadOrigin>
                     <InfiniteScroll items = {this.getBoxes()}/>
+                    <QuadSelector 
+                        quadrant = {this.state.quadrant} 
+                        split = {this.props.split} 
+                        quadselection = {this.props.quadselection}
+                    />
                 </div>
             </div>
         )
