@@ -56,19 +56,22 @@ class InfiniteScroll extends React.Component {
             display: 'flex',
             height: '100%',
             minWidth: '100%',
-            flexFlow: 'row',
+            // flexFlow:'row',
+            flexWrap: 'nowrap',
             boxSizing: 'border-box',
             backgroundColor: 'white',
         };
         this.listStyle = {
             display: 'flex',
-            flexFlow: 'row',
+            // flexFlow:'row',
             flexWrap: 'nowrap',
             height: '100%',
             marginLeft: '30px',
-            padding: '1%',
+            // padding:'1%',
+            boxSizing: 'border-box',
             // whiteSpace:'nowrap',
             borderRadius: '6px',
+            backgroundColor: 'white',
         };
         this.state = {
             items: this.props.items,
