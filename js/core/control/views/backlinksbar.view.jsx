@@ -18,7 +18,7 @@ const BacklinksBar = props => {
     };
     return <div style={styles}>
         <FontIcon style={{ verticalAlign: 'middle' }} className='material-icons'>link</FontIcon> 
-        <span style={{ verticalAlign: 'middle' }}>Backlinks</span>
+        <span style={{ verticalAlign: 'middle', color: 'gray' }}>Backlink Categories</span>
     </div>;
 };
 export default BacklinksBar;
