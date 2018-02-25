@@ -133,6 +133,9 @@ class ScrollControlsView extends React.Component {
             window.addEventListener('resize', this.onResize);
         }
     }
+    componentDidUpdate() {
+        this.onScroll();
+    }
     componentWillUnmount() {
         this.scroller.removeEventListener('scroll', this.onScroll);
         window.removeEventListener('resize', this.onResize);

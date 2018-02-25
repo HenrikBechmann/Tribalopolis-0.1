@@ -238,6 +238,8 @@ class QuadspaceController extends React.Component<any,any> {
     changeSplit = (split) => {
         this.setState({
             split,
+        },() => {
+            this.forceUpdate()
         })
     }
 

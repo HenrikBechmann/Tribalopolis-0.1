@@ -30,6 +30,10 @@ class ScrollControlsView extends React.Component<any,any> {
         }
     }
 
+    componentDidUpdate() {
+        this.onScroll()
+    }
+
     calcScrollerData = () => {
         let { scrollerData, scroller } = this
 

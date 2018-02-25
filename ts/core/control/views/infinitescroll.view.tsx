@@ -95,15 +95,13 @@ class InfiniteScroll extends React.Component<any,any> {
         height:'100%',
         overflowX:'auto',
         display:'flex',
-        flexFlow:'row',
         flexWrap:'nowrap',
     }
 
     platformStyle = {
+        position:'relative',
         display:'flex',
         height:'100%',
-        minWidth:'100%',
-        // flexFlow:'row',
         flexWrap:'nowrap',
         boxSizing:'border-box',
         backgroundColor:'white',
@@ -111,15 +109,14 @@ class InfiniteScroll extends React.Component<any,any> {
 
     listStyle = {
         display:'flex',
-        // flexFlow:'row',
+        position:'relative',
         flexWrap:'nowrap',
         height:'100%',
         marginLeft:'30px',
-        // padding:'1%',
         boxSizing:'border-box',
-        // whiteSpace:'nowrap',
         borderRadius:'6px',
         backgroundColor:'white',
+        padding:'2% 0 0 0',
     }
 
     render () {

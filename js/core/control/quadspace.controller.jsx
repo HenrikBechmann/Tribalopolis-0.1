@@ -223,6 +223,8 @@ class QuadspaceController extends React.Component {
         this.changeSplit = (split) => {
             this.setState({
                 split,
+            }, () => {
+                this.forceUpdate();
             });
         };
         this.handleSwap = (quadrant, direction) => {
