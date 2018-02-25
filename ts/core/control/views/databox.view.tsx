@@ -5,6 +5,7 @@
 import * as React from 'react'
 
 import BoxHeader from './boxheader.view'
+import BoxToolbar from './boxtoolbar.view'
 
 class DataBox extends React.Component<any,any> {
 
@@ -24,6 +25,7 @@ class DataBox extends React.Component<any,any> {
         }
 
         return <div style = {frameStyle as any}>
+            <BoxToolbar />
             <BoxHeader item = {this.props.item}/>
         </div>
     }

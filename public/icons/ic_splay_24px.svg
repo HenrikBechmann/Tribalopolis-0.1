@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="10px" viewBox="0 0 24 10" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 48.2 (47327) - http://www.bohemiancoding.com/sketch -->
+    <title>ic_zoom_out_map_black_24px</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <polygon id="path-1" points="0 0 24 0 24 24 0 24"></polygon>
+        <polygon id="path-3" points="0 0 24 0 24 24 0 24"></polygon>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="ic_zoom_out_map_black_24px" transform="translate(0.000000, -7.000000)">
+            <g id="Clipped">
+                <mask id="mask-2" fill="white">
+                    <use xlink:href="#path-1"></use>
+                </mask>
+                <g id="a"></g>
+                <path d="M3.70710678,9.70710678 L6.00710678,7.40710678 L8.87710678,10.2971068 L10.2971068,8.87710678 L7.40710678,6.00710678 L9.70710678,3.70710678 L3.70710678,3.70710678 L3.70710678,9.70710678 Z M20.2928932,14.2928932 L17.9928932,16.5928932 L15.1228932,13.7028932 L13.7028932,15.1228932 L16.5928932,17.9928932 L14.2928932,20.2928932 L20.2928932,20.2928932 L20.2928932,14.2928932 Z" id="Shape" fill="#000000" fill-rule="nonzero" mask="url(#mask-2)" transform="translate(12.000000, 12.000000) rotate(-45.000000) translate(-12.000000, -12.000000) "></path>
+            </g>
+            <g id="Clipped">
+                <mask id="mask-4" fill="white">
+                    <use xlink:href="#path-3"></use>
+                </mask>
+                <g id="a"></g>
+                <polygon id="Shape" mask="url(#mask-4)" points="0 0 24 0 24 24 0 24"></polygon>
+            </g>
+        </g>
+    </g>
+</svg>

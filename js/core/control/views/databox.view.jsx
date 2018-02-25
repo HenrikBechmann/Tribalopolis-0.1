@@ -3,6 +3,7 @@
 'use strict';
 import * as React from 'react';
 import BoxHeader from './boxheader.view';
+import BoxToolbar from './boxtoolbar.view';
 class DataBox extends React.Component {
     render() {
         console.log('item', this.props.item);
@@ -19,6 +20,7 @@ class DataBox extends React.Component {
             marginRight: '16px',
         };
         return <div style={frameStyle}>
+            <BoxToolbar />
             <BoxHeader item={this.props.item}/>
         </div>;
     }
