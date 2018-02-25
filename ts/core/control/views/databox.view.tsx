@@ -1,13 +1,15 @@
 // databox.view.tsx
-
 // copyright (c) 2018 Henrik Bechmann, Toronto, MIT Licence
 'use strict'
 
 import * as React from 'react'
 
+import BoxHeader from './boxheader.view'
+
 class DataBox extends React.Component<any,any> {
 
     render() {
+        console.log('item',this.props.item)
         let frameStyle = {
             width:'280px',
             backgroundColor:'lightblue',
@@ -22,9 +24,7 @@ class DataBox extends React.Component<any,any> {
         }
 
         return <div style = {frameStyle as any}>
-            <div style = {{width:'100%',borderRadius:'6px'}}>
-                data box
-            </div>
+            <BoxHeader item = {this.props.item}/>
         </div>
     }
 }

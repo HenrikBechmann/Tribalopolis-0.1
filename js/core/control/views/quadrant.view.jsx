@@ -99,7 +99,7 @@ class Quadrant extends React.Component {
             let { data } = this.state;
             if (data) {
                 boxes = this.state.data.map((item) => {
-                    return <DataBox key={item.sessionid}/>;
+                    return <DataBox key={item.sessionid} item={item}/>;
                 });
             }
             return boxes;

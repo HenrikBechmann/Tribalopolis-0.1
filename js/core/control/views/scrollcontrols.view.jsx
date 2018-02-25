@@ -118,7 +118,7 @@ class ScrollControlsView extends React.Component {
             overflow: 'hidden',
             backgroundColor: 'rgba(240,248,255,.7)',
             opacity: 0,
-            transition: 'opacity 1s',
+            transition: 'opacity .5s',
             cursor: 'pointer',
         };
         this.leftArrowStyle = Object.assign({}, this.arrowStyle, { left: 0, borderBottomRightRadius: '20px', borderTopRightRadius: '20px', borderLeft: 0 });

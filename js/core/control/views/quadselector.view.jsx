@@ -52,7 +52,7 @@ class QuadSelector extends React.Component {
                 border: '2px solid silver',
                 borderRadius: '8px',
                 backgroundColor: 'gray',
-                fontSize: 'smaller',
+                fontSize: 'x-small',
                 padding: '8px',
             }}>
                     working...

@@ -191,7 +191,7 @@ class ScrollControlsView extends React.Component<any,any> {
         overflow:'hidden',
         backgroundColor:'rgba(240,248,255,.7)',
         opacity:0,
-        transition: 'opacity 1s',
+        transition: 'opacity .5s',
         cursor:'pointer',
 
     }

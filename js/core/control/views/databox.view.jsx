@@ -2,8 +2,10 @@
 // copyright (c) 2018 Henrik Bechmann, Toronto, MIT Licence
 'use strict';
 import * as React from 'react';
+import BoxHeader from './boxheader.view';
 class DataBox extends React.Component {
     render() {
+        console.log('item', this.props.item);
         let frameStyle = {
             width: '280px',
             backgroundColor: 'lightblue',
@@ -17,9 +19,7 @@ class DataBox extends React.Component {
             marginRight: '16px',
         };
         return <div style={frameStyle}>
-            <div style={{ width: '100%', borderRadius: '6px' }}>
-                data box
-            </div>
+            <BoxHeader item={this.props.item}/>
         </div>;
     }
 }
