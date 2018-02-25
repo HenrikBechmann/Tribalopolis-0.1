@@ -93,19 +93,30 @@ class InfiniteScroll extends React.Component<any,any> {
     viewportStyle = { // borderRadius on scroller breaks scrollbar
         width:'100%',
         height:'100%',
-        overflow:'auto',
+        overflowX:'auto',
+        display:'flex',
+        flexFlow:'row',
+        flexWrap:'nowrap',
     }
 
     platformStyle = {
-        backgroundColor:'white',
+        display:'flex',
         height:'100%',
-        width:'200%',
-        padding:'2%',
+        minWidth:'100%',
+        flexFlow:'row',
         boxSizing:'border-box',
+        backgroundColor:'white',
     }
 
     listStyle = {
+        display:'flex',
+        flexFlow:'row',
+        flexWrap:'nowrap',
         height:'100%',
+        marginLeft:'30px',
+        padding:'1%',
+        // whiteSpace:'nowrap',
+        borderRadius:'6px',
     }
 
     render () {
@@ -121,7 +132,7 @@ class InfiniteScroll extends React.Component<any,any> {
                     }}
                 >
                     <div className = 'CS_platform' style = {this.platformStyle as any}>
-                        <div className = 'CS_list' style = {this.listStyle}>
+                        <div className = 'CS_list' style = {this.listStyle as any}>
                             { this.state.items }
                         </div>
                     </div>

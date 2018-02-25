@@ -7,6 +7,7 @@ import QuadTitleBar from './quadtitlebar.view';
 import QuadBadge from './quadbadge.view';
 import InfiniteScroll from './infinitescroll.view';
 import SwapMenu from './swapmenu.view';
+import DataBox from './databox.view';
 class Quadrant extends React.Component {
     constructor() {
         super(...arguments);
@@ -93,7 +94,14 @@ class Quadrant extends React.Component {
         this.getBacklinks = links => {
         };
         this.getBoxes = () => {
-            return [];
+            let boxes = [];
+            let { data } = this.state;
+            if (data) {
+                boxes = this.state.data.map((item) => {
+                    return <DataBox key={item.sessionid}/>;
+                });
+            }
+            return boxes;
         };
     }
     componentWillMount() {
