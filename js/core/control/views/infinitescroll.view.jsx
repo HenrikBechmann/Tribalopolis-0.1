@@ -58,6 +58,7 @@ class InfiniteScroll extends React.Component {
             height: '100%',
             flexWrap: 'nowrap',
             boxSizing: 'border-box',
+            margin: '0 auto 0 auto',
         };
         this.listStyle = {
             display: 'flex',
@@ -67,7 +68,6 @@ class InfiniteScroll extends React.Component {
             marginLeft: '30px',
             boxSizing: 'border-box',
             borderRadius: '6px',
-            // backgroundColor:'white',
             padding: '2% 0 0 0',
         };
         this.state = {
