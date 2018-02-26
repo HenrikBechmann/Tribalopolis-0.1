@@ -4,14 +4,14 @@
 
 import * as React from 'react'
 
-import QuadOrigin from './quadorigin.view'
-import QuadTitleBar from './quadtitlebar.view'
-import QuadStatusBar from './quadstatusbar.view'
-import QuadBadge from './quadbadge.view'
-import InfiniteScroll from '../common/infinitescroll.view'
-import SwapMenu from './quadswapmenu.view'
-import DataBox from '../databox/databox.view'
-import QuadSelector from './quadselector.view'
+import QuadOrigin from './views/quadspace/quadorigin.view'
+import QuadTitleBar from './views/quadspace/quadtitlebar.view'
+import QuadStatusBar from './views/quadspace/quadstatusbar.view'
+import QuadBadge from './views/quadspace/quadbadge.view'
+import InfiniteScroll from './views/common/infinitescroll.view'
+import SwapMenu from './views/quadspace/quadswapmenu.view'
+import DataBox from './views/databox/databox.view'
+import QuadSelector from './views/quadspace/quadselector.view'
 
 class Quadrant extends React.Component<any,any>  {
 

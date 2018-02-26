@@ -8,7 +8,7 @@ import QuadFrame from './views/quadspace/quadframe.view';
 import QuadBasket from './views/quadspace/quadbasket.view';
 import QuadViewport from './views/quadspace/quadviewport.view';
 import QuadPlatform from './views/quadspace/quadplatform.view';
-import Quadrant from './views/quadspace/quadrant.view';
+import Quadrant from './quadrant.controller';
 import QuadDiamond from './views/quadspace/quaddiamond.view';
 import QuadBadge from './views/quadspace/quadbadge.view';
 import QuadStatusBar from './views/quadspace/quadstatusbar.view';
