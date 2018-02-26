@@ -23,6 +23,7 @@ let data = [
             sessionid:0,
             type:'object',
             class:'person',
+            schema:'common',
             tribe:'__owner__',
             id:'henrik',
             profile:{
@@ -37,61 +38,84 @@ let data = [
             fields:
             {
                 set:{
+                    requesting:{
+                        active:true,
+                        count:23,
+                        name:'Outgoing requests',
+                        schema:'common',
+                    },
+                    pending:{
+                        active:true,
+                        count:23,
+                        name:'Incoming requests',
+                        schema:'common',
+                    },
                     connections:{
                         active:true,
                         count:23,
                         name:'Connections',
+                        schema:'common',
                     },
                     roles:{
                         active:true,
                         count:4,
                         name:'Roles',
+                        schema:'common',
                     },
                     programs:{
                         active:true,
                         count:5,
                         name:'Programs',
+                        schema:'common',
                     },
                     projects:{
                         active:true,
                         count:3,
                         name:'Projects',
+                        schema:'common',
                     },
                     tasks:{
                         active:true,
                         count:20,
                         name:'Tasks',
+                        schema:'common',
                     },
                     messengers:{
                         active:true,
                         count:3,
                         name:'Messengers',
+                        schema:'common',
                     },
                     resources:{
                         active:true,
                         count:64,
                         name:'Resources',
+                        schema:'common',
                     },
                     calendar:{
                         active:true,
                         count:67,
                         name:'Calendar',
+                        schema:'common',
                     },
                     accounting:{
                         active:true,
                         count:6000,
                         name:'Accounting',
+                        schema:'common',
                     },
                 },
                 order:[
+                    'requesting',
+                    'pending',
                     'connections',
                     'roles:',
                     'programs',
                     'projects',
+                    'resources',
                     'tasks',
                     'messengers',
-                    'resources',
-                    'calendar',
+                    'calendars',
                     'accounting',
                 ]
             },

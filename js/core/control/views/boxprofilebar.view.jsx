@@ -17,7 +17,7 @@ const ProfileBar = props => {
         marginBottom: '3px',
     };
     return <div style={styles}>
-        <FontIcon style={{ verticalAlign: 'middle', float: 'right' }} className='material-icons'>expand_more</FontIcon> 
+        <FontIcon style={{ verticalAlign: 'middle', float: 'right', transform: 'rotate(180deg)' }} className='material-icons'>expand_less</FontIcon> 
         <FontIcon style={{ verticalAlign: 'middle' }} className='material-icons'>subject</FontIcon> 
         <span style={{ verticalAlign: 'middle' }}>Profile</span>
     </div>;
