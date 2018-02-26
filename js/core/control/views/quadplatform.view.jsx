@@ -15,7 +15,6 @@ class QuadPlatform extends React.Component {
         this.changeCurrentQuad = nextProps => {
             let element = this.element;
             // set top left for animation
-            // console.log('platform element BEFORE',this.element)
             let nextquad = nextProps.currentquad;
             let top = this.element.offsetTop + 'px';
             let left = this.element.offsetLeft + 'px';
@@ -32,9 +31,6 @@ class QuadPlatform extends React.Component {
             element.style.left = left;
             element.style.bottom = bottom;
             element.style.right = right;
-            // console.log('platform element AFTER',this.element, this.positions)
-            // this.forceUpdate(
-            //     () => {
             setTimeout(() => {
                 // prepare for animation transition
                 this.calculateTransitionPosition(nextquad);
@@ -49,8 +45,6 @@ class QuadPlatform extends React.Component {
                     }, 600);
                 });
             }, 50);
-            //     }
-            // )
         };
         this.calculateTransitionPosition = quadrant => {
             let { split } = this.state;
@@ -221,6 +215,7 @@ class QuadPlatform extends React.Component {
         this.calculatePosition(this.state.currentquad);
     }
     componentWillReceiveProps(nextProps) {
+        // should be either one or the other
         if (nextProps.split != this.state.split) {
             this.calculateDimensions(nextProps.split);
             this.setState({

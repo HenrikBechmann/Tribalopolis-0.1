@@ -27,7 +27,6 @@ class QuadPlatform extends React.Component<any,any> {
     changeCurrentQuad = nextProps => {
         let element = this.element
         // set top left for animation
-        // console.log('platform element BEFORE',this.element)
 
         let nextquad = nextProps.currentquad
         let top = this.element.offsetTop + 'px'
@@ -46,43 +45,35 @@ class QuadPlatform extends React.Component<any,any> {
         element.style.bottom = bottom
         element.style.right = right
 
-        // console.log('platform element AFTER',this.element, this.positions)
+        setTimeout(()=> {
 
-        // this.forceUpdate(
+            // prepare for animation transition
+            this.calculateTransitionPosition(nextquad)
 
-        //     () => {
+            this.setState({
 
-                setTimeout(()=> {
+                currentquad:nextquad,
 
-                    // prepare for animation transition
-                    this.calculateTransitionPosition(nextquad)
+            },() => { // restore settings to be able to respond to user resize of window
 
-                    this.setState({
+                    setTimeout(()=> {
 
-                        currentquad:nextquad,
+                        this.calculatePosition(nextquad)
 
-                    },() => { // restore settings to be able to respond to user resize of window
+                        this.setState({
+                            currentquad:nextquad,
+                        })
 
-                            setTimeout(()=> {
+                    },600)
 
-                                this.calculatePosition(nextquad)
-
-                                this.setState({
-                                    currentquad:nextquad,
-                                })
-
-                            },600)
-
-                        }
-                    )
-                },50)
-        //     }
-
-        // )
-
+                }
+            )
+        },50)
     }
 
     componentWillReceiveProps(nextProps) {
+
+        // should be either one or the other
 
         if (nextProps.split != this.state.split) {
             this.calculateDimensions(nextProps.split)

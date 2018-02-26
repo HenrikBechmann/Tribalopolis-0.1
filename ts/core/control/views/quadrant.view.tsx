@@ -24,7 +24,16 @@ class Quadrant extends React.Component<any,any>  {
 
     componentWillMount() {
         this.calculatePosition(this.state.quadrant)
-        console.log('data',this.state.data)
+        // console.log('data',this.state.data)
+    }
+
+    applyTransitionPosition = () => {
+        let element = this.element
+        let { top, right, bottom, left } = this.position
+        element.style.top = top
+        element.style.right = right
+        element.style.bottom = bottom
+        element.style.left = left
     }
 
     componentWillReceiveProps(nextProps) {
@@ -32,21 +41,26 @@ class Quadrant extends React.Component<any,any>  {
 
             let self = this
             this.calculateTransitionPosition(this.state.quadrant)
-            this.forceUpdate(() => {
-                this.calculateTransitionPosition(nextProps.quadrant)
-                this.setState({
-                    quadrant:nextProps.quadrant
-                },
 
-                    () => {
-                        setTimeout(() => {
-                            self.calculatePosition(this.state.quadrant)
-                            self.forceUpdate()
-                        },600)
-                    }
+            this.applyTransitionPosition()
+            setTimeout(()=>{// give time for styles to apply
+                // this.forceUpdate(() => {
+                    this.calculateTransitionPosition(nextProps.quadrant)
+                    this.setState({
+                        quadrant:nextProps.quadrant
+                    },
 
-                )
-            })
+                        () => {
+                            setTimeout(() => { // give time for animation
+                                self.calculatePosition(this.state.quadrant)
+                                this.applyTransitionPosition()
+                                // self.forceUpdate()
+                            },600)
+                        }
+
+                    )
+                // })
+            },50)
         }
     }
 

@@ -13,7 +13,7 @@ import BacklinksBar from './backlinksbar.view'
 class DataBox extends React.Component<any,any> {
 
     render() {
-        console.log('item',this.props.item)
+        // console.log('item',this.props.item)
         let frameStyle = {
             width:'280px',
             backgroundColor:'lightblue',
