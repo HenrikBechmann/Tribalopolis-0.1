@@ -9,6 +9,7 @@ import FontIcon from 'material-ui/FontIcon'
 const BoxToolbar = props => {
 
     let styles = {
+        position:'relative',
         width:'100%',
         borderRadius:'8px',
         padding:'3px',
@@ -26,6 +27,7 @@ const BoxToolbar = props => {
                 width:'32px',
                 height:'32px',
                 display:'inline-block',
+                float:'left',
                 borderRadius:'50%',
                 border:'1px solid silver',
             }
@@ -45,6 +47,24 @@ const BoxToolbar = props => {
             }
         } >
             <FontIcon className='material-icons'>zoom_out_map</FontIcon>
+        </div>
+
+        <div style = {
+            {
+                margin:'0 auto 0 auto',
+                height:'32px',
+                boxSizing:'border-box',
+                border:'1px solid silver',
+                borderRadius:'8px',
+                padding:'5px 3px 3px',
+                width:'70%',
+                textAlign:'center',
+                fontStyle:'italic',
+                position:'relative',
+            }
+        }>
+            <FontIcon style = {{position:'absolute',top:'0',right:'0',marginTop:'2px'}} className='material-icons'>arrow_drop_down</FontIcon>
+            {props.item.class}
         </div>
 
     </div>

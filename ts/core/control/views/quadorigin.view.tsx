@@ -3,7 +3,7 @@
 'use strict'
 
 import * as React from 'react'
-import OriginMenu from './originmenu.view'
+import OriginMenu from './quadoriginmenu.view'
 
 const QuadOrigin = props => {
     return (

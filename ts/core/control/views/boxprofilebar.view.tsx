@@ -6,7 +6,7 @@ import * as React from 'react'
 
 import FontIcon from 'material-ui/FontIcon'
 
-const BacklinksBar = props => {
+const ProfileBar = props => {
 
     let { item } = props
 
@@ -23,9 +23,10 @@ const BacklinksBar = props => {
     }
 
     return <div style = {styles as any}>
-        <FontIcon style = {{verticalAlign:'middle'}} className='material-icons'>link</FontIcon> 
-        <span style = {{verticalAlign:'middle',color:'gray'}} >Backlinks</span>
+        <FontIcon style = {{verticalAlign:'middle',float:'right'}} className='material-icons'>expand_more</FontIcon> 
+        <FontIcon style = {{verticalAlign:'middle'}} className='material-icons'>subject</FontIcon> 
+        <span style = {{verticalAlign:'middle'}} >Profile</span>
     </div>
 }
 
-export default BacklinksBar
+export default ProfileBar

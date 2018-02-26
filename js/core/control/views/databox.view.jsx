@@ -4,9 +4,8 @@
 import * as React from 'react';
 import BoxHeader from './boxheader.view';
 import BoxToolbar from './boxtoolbar.view';
-import ProfileBar from './profilebar.view';
-import CategoriesBar from './categoriesbar.view';
-import BacklinksBar from './backlinksbar.view';
+import ProfileBar from './boxprofilebar.view';
+import CategoriesBar from './boxcategoriesbar.view';
 class DataBox extends React.Component {
     render() {
         // console.log('item',this.props.item)
@@ -25,11 +24,10 @@ class DataBox extends React.Component {
         return <div style={frameStyle}>
             <div>
 
-                <BoxToolbar />
+                <BoxToolbar item={this.props.item}/>
                 <BoxHeader item={this.props.item}/>
                 <ProfileBar item={this.props.item}/>
                 <CategoriesBar item={this.props.item}/>
-                <BacklinksBar item={this.props.item}/>
 
             </div>
         </div>;

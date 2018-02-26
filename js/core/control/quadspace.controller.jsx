@@ -17,6 +17,7 @@ let data = [
         {
             sessionid: 0,
             type: 'object',
+            class: 'person',
             tribe: '__owner__',
             id: 'henrik',
             profile: {
@@ -93,85 +94,6 @@ let data = [
                 order: []
             }
         },
-        {
-            sessionid: 1,
-            type: 'object',
-            tribe: '__owner__',
-            id: 'paul',
-            profile: {
-                tag: 'Paul',
-                name: 'Paul Bliss',
-                title: null,
-                description: 'User of Tribalopolis',
-                birthdate: '1980-08-23',
-                location: 'Toronto',
-                locationid: 'Toronto',
-            },
-            fields: {
-                set: {
-                    connections: {
-                        active: true,
-                        count: 23,
-                        name: 'Connections',
-                    },
-                    roles: {
-                        active: true,
-                        count: 4,
-                        name: 'Roles',
-                    },
-                    programs: {
-                        active: true,
-                        count: 5,
-                        name: 'Programs',
-                    },
-                    projects: {
-                        active: true,
-                        count: 3,
-                        name: 'Projects',
-                    },
-                    tasks: {
-                        active: true,
-                        count: 20,
-                        name: 'Tasks',
-                    },
-                    messengers: {
-                        active: true,
-                        count: 3,
-                        name: 'Messengers',
-                    },
-                    resources: {
-                        active: true,
-                        count: 64,
-                        name: 'Resources',
-                    },
-                    calendar: {
-                        active: true,
-                        count: 67,
-                        name: 'Calendar',
-                    },
-                    accounting: {
-                        active: true,
-                        count: 6000,
-                        name: 'Accounting',
-                    },
-                },
-                order: [
-                    'connections',
-                    'roles:',
-                    'programs',
-                    'projects',
-                    'tasks',
-                    'messengers',
-                    'resources',
-                    'calendar',
-                    'accounting',
-                ]
-            },
-            backlinks: {
-                set: {},
-                order: []
-            }
-        }
     ],
     null,
     null,
