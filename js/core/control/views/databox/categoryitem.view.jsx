@@ -9,7 +9,8 @@ const CategoryItem = props => {
     return <div style={{
         padding: '3px',
     }}>
-        <FontIcon style={{ verticalAlign: 'middle' }} className='material-icons'>list</FontIcon> {name}
+        <FontIcon style={{ verticalAlign: 'middle' }} className='material-icons'>list</FontIcon> 
+        {name + ` (${count})`}
     </div>;
 };
 export default CategoryItem;

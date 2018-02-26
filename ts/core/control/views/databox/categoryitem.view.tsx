@@ -15,7 +15,8 @@ const CategoryItem = props => {
             padding:'3px',
         }
     }>
-        <FontIcon style = {{verticalAlign:'middle'}} className='material-icons'>list</FontIcon> {name}
+        <FontIcon style = {{verticalAlign:'middle'}} className='material-icons'>list</FontIcon> 
+        {name + ` (${count})`}
     </div>
 }
 

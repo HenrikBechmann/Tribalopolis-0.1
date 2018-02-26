@@ -34,14 +34,14 @@ let data = [
                 set: {
                     requesting: {
                         active: true,
-                        count: 23,
-                        name: 'Outgoing requests',
+                        count: 12,
+                        name: 'Outgoing action requests',
                         schema: 'common',
                     },
                     pending: {
                         active: true,
                         count: 23,
-                        name: 'Incoming requests',
+                        name: 'Incoming action requests',
                         schema: 'common',
                     },
                     connections: {
@@ -103,14 +103,14 @@ let data = [
                     'requesting',
                     'pending',
                     'connections',
-                    'roles',
-                    'programs',
-                    'projects',
-                    'resources',
                     'tasks',
                     'messengers',
                     'calendars',
                     'accounting',
+                    'roles',
+                    'programs',
+                    'projects',
+                    'resources',
                 ]
             },
         },
