@@ -29,16 +29,19 @@ class QuadPlatform extends React.Component<any,any> {
         // set top left for animation
 
         let nextquad = nextProps.currentquad
-        let top = this.element.offsetTop + 'px'
-        let left = this.element.offsetLeft + 'px'
-        let bottom = 'auto'
-        let right = 'auto'
-        this.positions = {
-            top,
-            left,
-            right,
-            bottom,
-        }
+        // let top = this.element.offsetTop + 'px'
+        // let left = this.element.offsetLeft + 'px'
+        // let bottom = 'auto'
+        // let right = 'auto'
+        // this.positions = {
+        //     top,
+        //     left,
+        //     right,
+        //     bottom,
+        // }
+
+        this.calculateTransitionPosition(this.state.currentquad)
+        // console.log('BASE changing from quad',this.state.currentquad,this.positions)
 
         this.forceUpdate(() =>{
 
@@ -46,6 +49,7 @@ class QuadPlatform extends React.Component<any,any> {
 
                 // prepare for animation transition
                 this.calculateTransitionPosition(nextquad)
+                // console.log('TRANSITION changing to quad',nextquad,this.positions)
 
                 this.setState({
 
@@ -59,13 +63,16 @@ class QuadPlatform extends React.Component<any,any> {
 
                             this.setState({
                                 currentquad:nextquad,
+                            },
+                            ()=>{
+                                // console.log('DONE changing quad',nextquad,this.positions)
                             })
 
                         },600)
 
                     }
                 )
-            })
+            },50)
         })
     }
 
