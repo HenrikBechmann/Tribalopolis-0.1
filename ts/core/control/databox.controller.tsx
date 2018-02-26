@@ -4,10 +4,10 @@
 
 import * as React from 'react'
 
-import BoxHeader from './boxheader.view'
-import BoxToolbar from './boxtoolbar.view'
-import ProfileBar from './boxprofilebar.view'
-import CategoriesBar from './boxcategoriesbar.view'
+import BoxHeader from './views/databox/boxheader.view'
+import BoxToolbar from './views/databox/boxtoolbar.view'
+import ProfileBar from './views/databox/boxprofilebar.view'
+import CategoriesBar from './views/databox/boxcategoriesbar.view'
 
 class DataBox extends React.Component<any,any> {
 
@@ -22,15 +22,18 @@ class DataBox extends React.Component<any,any> {
             padding:'3px',
             boxSizing:'border-box',
             borderRadius:'8px',
-            overflow:'auto',
             marginRight:'16px',
         }
 
         return <div style = {frameStyle as any}>
-            <div>
+            <BoxToolbar item = {this.props.item} />
+            <BoxHeader item = {this.props.item} />
+            <div style = {
+                {
+                    overflow:'auto',
+                }
+            } >
 
-                <BoxToolbar item = {this.props.item} />
-                <BoxHeader item = {this.props.item} />
                 <ProfileBar item = {this.props.item} />
                 <CategoriesBar item = {this.props.item} />
 

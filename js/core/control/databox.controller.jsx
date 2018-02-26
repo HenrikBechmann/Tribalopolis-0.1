@@ -2,10 +2,10 @@
 // copyright (c) 2018 Henrik Bechmann, Toronto, MIT Licence
 'use strict';
 import * as React from 'react';
-import BoxHeader from './boxheader.view';
-import BoxToolbar from './boxtoolbar.view';
-import ProfileBar from './boxprofilebar.view';
-import CategoriesBar from './boxcategoriesbar.view';
+import BoxHeader from './views/databox/boxheader.view';
+import BoxToolbar from './views/databox/boxtoolbar.view';
+import ProfileBar from './views/databox/boxprofilebar.view';
+import CategoriesBar from './views/databox/boxcategoriesbar.view';
 class DataBox extends React.Component {
     render() {
         // console.log('item',this.props.item)
@@ -35,4 +35,4 @@ class DataBox extends React.Component {
     }
 }
 export default DataBox;
-//# sourceMappingURL=databox.view.jsx.map
+//# sourceMappingURL=databox.controller.jsx.map
