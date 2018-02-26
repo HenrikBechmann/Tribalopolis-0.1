@@ -4,6 +4,8 @@
 
 import * as React from 'react'
 
+import FontIcon from 'material-ui/FontIcon'
+
 const BoxHeader = props => {
 
     let { item } = props
@@ -11,6 +13,7 @@ const BoxHeader = props => {
     let boxicon = '/public/icons/databox.svg'
 
     let styles = {
+        position:'relative',
         width:'100%',
         border:'1px solid silver',
         borderRadius:'8px',
@@ -22,6 +25,7 @@ const BoxHeader = props => {
     }
 
     return <div style = {styles as any}>
+            <FontIcon style = {{position:'absolute',top:'0',right:'0',marginTop:'3px',marginRight:'3px'}} className='material-icons'>menu</FontIcon>
         <img style = {{verticalAlign:'bottom'}} src = {boxicon} /> {item.profile.name}
     </div>
 }

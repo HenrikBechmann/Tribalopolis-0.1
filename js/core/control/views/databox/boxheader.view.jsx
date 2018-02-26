@@ -2,10 +2,12 @@
 // copyright (c) 2018 Henrik Bechmann, Toronto, MIT Licence
 'use strict';
 import * as React from 'react';
+import FontIcon from 'material-ui/FontIcon';
 const BoxHeader = props => {
     let { item } = props;
     let boxicon = '/public/icons/databox.svg';
     let styles = {
+        position: 'relative',
         width: '100%',
         border: '1px solid silver',
         borderRadius: '8px',
@@ -16,6 +18,7 @@ const BoxHeader = props => {
         marginBottom: '3px',
     };
     return <div style={styles}>
+            <FontIcon style={{ position: 'absolute', top: '0', right: '0', marginTop: '3px', marginRight: '3px' }} className='material-icons'>menu</FontIcon>
         <img style={{ verticalAlign: 'bottom' }} src={boxicon}/> {item.profile.name}
     </div>;
 };
