@@ -3,7 +3,12 @@
 'use strict';
 import * as React from 'react';
 const QuadFrame = props => {
-    return (<div id="quadframe" style={{ position: 'fixed', height: '100%', width: '100%' }}>
+    return (<div id="quadframe" style={{
+        position: 'fixed',
+        height: '100%',
+        width: '100%',
+        backgroundColor: 'silver',
+    }}>
             {props.children}
         </div>);
 };

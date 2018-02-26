@@ -16,6 +16,7 @@ const QuadBasket = props => {
                     height:'48px',
                     backgroundColor:'brown',
                     zIndex:1,
+                    borderRadius: '8px',
                 }
             }>
             {props.children}

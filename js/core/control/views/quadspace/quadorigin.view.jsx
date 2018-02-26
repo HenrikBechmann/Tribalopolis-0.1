@@ -11,7 +11,7 @@ const QuadOrigin = props => {
         width: '40px',
         height: '60px',
         backgroundColor: 'green',
-        borderBottomRightRadius: '8px',
+        borderRadius: '8px',
         zIndex: 2,
     }}>
             {props.children}
