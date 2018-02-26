@@ -46,7 +46,7 @@ const BoxToolbar = props => {
                 border:'1px solid silver',
             }
         } >
-            <FontIcon className='material-icons'>zoom_out_map</FontIcon>
+            <FontIcon className='material-icons'>menu</FontIcon>
         </div>
 
         <div style = {

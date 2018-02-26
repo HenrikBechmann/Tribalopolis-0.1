@@ -18,7 +18,7 @@ const BoxHeader = props => {
         marginBottom: '3px',
     };
     return <div style={styles}>
-            <FontIcon style={{ position: 'absolute', top: '0', right: '0', marginTop: '3px', marginRight: '3px' }} className='material-icons'>menu</FontIcon>
+            <FontIcon style={{ position: 'absolute', top: '0', right: '0', marginTop: '3px', marginRight: '3px' }} className='material-icons'>zoom_out_map</FontIcon>
         <img style={{ verticalAlign: 'bottom' }} src={boxicon}/> {item.profile.name}
     </div>;
 };

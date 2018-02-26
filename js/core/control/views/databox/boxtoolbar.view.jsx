@@ -37,7 +37,7 @@ const BoxToolbar = props => {
         borderRadius: '50%',
         border: '1px solid silver',
     }}>
-            <FontIcon className='material-icons'>zoom_out_map</FontIcon>
+            <FontIcon className='material-icons'>menu</FontIcon>
         </div>
 
         <div style={{
