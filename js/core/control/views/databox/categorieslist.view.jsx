@@ -6,11 +6,9 @@ import CategoryItem from './categoryitem.view';
 let getCategoryItems = item => {
     let categories = item.categories.set;
     let order = item.categories.order;
-    console.log('item in getCategoryItems', item, categories, order);
     let catitems = [];
     for (let id of order) {
         let data = categories[id];
-        console.log('category in list', id, data);
         let catitem = <CategoryItem key={id} id={id} data={data}/>;
         catitems.push(catitem);
     }

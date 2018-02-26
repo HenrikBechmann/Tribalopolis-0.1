@@ -39,36 +39,34 @@ class QuadPlatform extends React.Component<any,any> {
             right,
             bottom,
         }
-        // apply equivalent start value for animation directly to save some time
-        element.style.top = top
-        element.style.left = left
-        element.style.bottom = bottom
-        element.style.right = right
 
-        setTimeout(()=> {
+        this.forceUpdate(() =>{
 
-            // prepare for animation transition
-            this.calculateTransitionPosition(nextquad)
+            setTimeout(()=> {
 
-            this.setState({
+                // prepare for animation transition
+                this.calculateTransitionPosition(nextquad)
 
-                currentquad:nextquad,
+                this.setState({
 
-            },() => { // restore settings to be able to respond to user resize of window
+                    currentquad:nextquad,
 
-                    setTimeout(()=> {
+                },() => { // restore settings to be able to respond to user resize of window
 
-                        this.calculatePosition(nextquad)
+                        setTimeout(()=> {
 
-                        this.setState({
-                            currentquad:nextquad,
-                        })
+                            this.calculatePosition(nextquad)
 
-                    },600)
+                            this.setState({
+                                currentquad:nextquad,
+                            })
 
-                }
-            )
-        },50)
+                        },600)
+
+                    }
+                )
+            })
+        })
     }
 
     componentWillReceiveProps(nextProps) {

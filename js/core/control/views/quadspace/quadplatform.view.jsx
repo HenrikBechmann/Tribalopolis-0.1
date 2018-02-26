@@ -26,25 +26,22 @@ class QuadPlatform extends React.Component {
                 right,
                 bottom,
             };
-            // apply equivalent start value for animation directly to save some time
-            element.style.top = top;
-            element.style.left = left;
-            element.style.bottom = bottom;
-            element.style.right = right;
-            setTimeout(() => {
-                // prepare for animation transition
-                this.calculateTransitionPosition(nextquad);
-                this.setState({
-                    currentquad: nextquad,
-                }, () => {
-                    setTimeout(() => {
-                        this.calculatePosition(nextquad);
-                        this.setState({
-                            currentquad: nextquad,
-                        });
-                    }, 600);
+            this.forceUpdate(() => {
+                setTimeout(() => {
+                    // prepare for animation transition
+                    this.calculateTransitionPosition(nextquad);
+                    this.setState({
+                        currentquad: nextquad,
+                    }, () => {
+                        setTimeout(() => {
+                            this.calculatePosition(nextquad);
+                            this.setState({
+                                currentquad: nextquad,
+                            });
+                        }, 600);
+                    });
                 });
-            }, 50);
+            });
         };
         this.calculateTransitionPosition = quadrant => {
             let { split } = this.state;

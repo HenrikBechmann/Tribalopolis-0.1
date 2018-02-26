@@ -17,14 +17,6 @@ class Quadrant extends React.Component {
             data: this.props.data
         };
         this.sessionid = this.props.sessionid;
-        this.applyTransitionPosition = () => {
-            let element = this.element;
-            let { top, right, bottom, left } = this.position;
-            element.style.top = top;
-            element.style.right = right;
-            element.style.bottom = bottom;
-            element.style.left = left;
-        };
         this.calculateTransitionPosition = (quadrant) => {
             let top = 'auto';
             let left = 'auto';
@@ -115,27 +107,24 @@ class Quadrant extends React.Component {
     }
     componentWillMount() {
         this.calculatePosition(this.state.quadrant);
-        // console.log('data',this.state.data)
     }
     componentWillReceiveProps(nextProps) {
         if (nextProps.quadrant != this.state.quadrant) {
             let self = this;
             this.calculateTransitionPosition(this.state.quadrant);
-            this.applyTransitionPosition();
-            setTimeout(() => {
-                // this.forceUpdate(() => {
-                this.calculateTransitionPosition(nextProps.quadrant);
-                this.setState({
-                    quadrant: nextProps.quadrant
-                }, () => {
-                    setTimeout(() => {
-                        self.calculatePosition(this.state.quadrant);
-                        this.applyTransitionPosition();
-                        // self.forceUpdate()
-                    }, 600);
+            this.forceUpdate(() => {
+                setTimeout(() => {
+                    this.calculateTransitionPosition(nextProps.quadrant);
+                    this.setState({
+                        quadrant: nextProps.quadrant
+                    }, () => {
+                        setTimeout(() => {
+                            self.calculatePosition(this.state.quadrant);
+                            self.forceUpdate();
+                        }, 600);
+                    });
                 });
-                // })
-            }, 50);
+            });
         }
     }
     render() {
