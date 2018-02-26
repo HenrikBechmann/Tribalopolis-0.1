@@ -13,8 +13,8 @@ const ProfileBar = props => {
         whitespace: 'nowrap',
         overflow: 'hidden',
         boxSizing: 'border-box',
-        fontSize: 'smaller',
         marginBottom: '3px',
+        fontSize: 'larger',
     };
     return <div style={styles}>
         <FontIcon style={{ verticalAlign: 'middle', float: 'right', transform: 'rotate(180deg)' }} className='material-icons'>expand_less</FontIcon> 

@@ -10,6 +10,7 @@ const BoxHeader = props => {
 
     let { item } = props
 
+
     let boxicon = '/public/icons/databox.svg'
 
     let styles = {
@@ -22,6 +23,7 @@ const BoxHeader = props => {
         overflow:'hidden',
         boxSizing:'border-box',
         marginBottom: '3px',
+        fontSize:'larger',
     }
 
     return <div style = {styles as any}>

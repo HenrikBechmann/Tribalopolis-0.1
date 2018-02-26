@@ -18,8 +18,8 @@ const ProfileBar = props => {
         whitespace:'nowrap',
         overflow:'hidden',
         boxSizing:'border-box',
-        fontSize:'smaller',
         marginBottom: '3px',
+        fontSize:'larger',
     }
 
     return <div style = {styles as any}>

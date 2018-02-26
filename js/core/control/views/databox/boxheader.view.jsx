@@ -16,6 +16,7 @@ const BoxHeader = props => {
         overflow: 'hidden',
         boxSizing: 'border-box',
         marginBottom: '3px',
+        fontSize: 'larger',
     };
     return <div style={styles}>
             <FontIcon style={{ position: 'absolute', top: '0', right: '0', marginTop: '3px', marginRight: '3px' }} className='material-icons'>zoom_out_map</FontIcon>

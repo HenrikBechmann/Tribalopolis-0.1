@@ -7,7 +7,9 @@ import * as React from 'react'
 import BoxHeader from './views/databox/boxheader.view'
 import BoxToolbar from './views/databox/boxtoolbar.view'
 import ProfileBar from './views/databox/boxprofilebar.view'
+import ProfileForm from './views/databox/profileform.view'
 import CategoriesBar from './views/databox/boxcategoriesbar.view'
+import CategoriesList from './views/databox/categorieslist.view'
 
 class DataBox extends React.Component<any,any> {
 
@@ -23,19 +25,26 @@ class DataBox extends React.Component<any,any> {
             boxSizing:'border-box',
             borderRadius:'8px',
             marginRight:'16px',
+            fontSize:'smaller',
         }
 
+        let { item } = this.props
+
         return <div style = {frameStyle as any}>
-            <BoxToolbar item = {this.props.item} />
-            <BoxHeader item = {this.props.item} />
+            <BoxToolbar item = {item} />
+            <BoxHeader item = {item} />
             <div style = {
                 {
                     overflow:'auto',
+                    height:'calc(100% - 70px)'
                 }
             } >
-
-                <ProfileBar item = {this.props.item} />
-                <CategoriesBar item = {this.props.item} />
+                <div>
+                    <ProfileBar item = {item} />
+                    <ProfileForm item = {item} />
+                    <CategoriesBar item = {item} />
+                    <CategoriesList item = {item } />
+                </div>
 
             </div>
         </div>

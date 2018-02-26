@@ -13,7 +13,7 @@ const QuadOrigin = props => {
                     position:'absolute',
                     top:'24px',
                     left:'0',
-                    width:'60px',
+                    width:'40px',
                     height:'60px',
                     backgroundColor:'green',
                     borderBottomRightRadius:'8px',

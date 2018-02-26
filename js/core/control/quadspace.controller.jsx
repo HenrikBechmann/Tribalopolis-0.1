@@ -30,7 +30,7 @@ let data = [
                 location: 'Toronto',
                 locationid: 'Toronto',
             },
-            fields: {
+            categories: {
                 set: {
                     requesting: {
                         active: true,
@@ -86,7 +86,7 @@ let data = [
                         name: 'Resources',
                         schema: 'common',
                     },
-                    calendar: {
+                    calendars: {
                         active: true,
                         count: 67,
                         name: 'Calendar',
@@ -103,7 +103,7 @@ let data = [
                     'requesting',
                     'pending',
                     'connections',
-                    'roles:',
+                    'roles',
                     'programs',
                     'projects',
                     'resources',
@@ -113,10 +113,6 @@ let data = [
                     'accounting',
                 ]
             },
-            backlinks: {
-                set: {},
-                order: []
-            }
         },
     ],
     null,

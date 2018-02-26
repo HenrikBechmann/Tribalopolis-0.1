@@ -15,6 +15,7 @@ const BoxToolbar = props => {
         padding:'3px',
         whitespace:'nowrap',
         overflow:'hidden',
+        fontSize:'larger',
         boxSizing:'border-box',
     }
 
