@@ -286,7 +286,7 @@ class QuadspaceController extends React.Component<any,any> {
     }
 
     quadselection = quadrant => {
-        console.log('quadselection',quadrant)
+        // console.log('quadselection',quadrant)
         this.setState({
             currentquad:quadrant,
         },() => {

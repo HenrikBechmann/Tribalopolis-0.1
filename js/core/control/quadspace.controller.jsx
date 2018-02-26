@@ -190,7 +190,7 @@ class QuadspaceController extends React.Component {
             return this.positions[pos];
         };
         this.quadselection = quadrant => {
-            console.log('quadselection', quadrant);
+            // console.log('quadselection',quadrant)
             this.setState({
                 currentquad: quadrant,
             }, () => {
