@@ -10,7 +10,7 @@ import IconMenu from 'material-ui/IconMenu'
 import Divider from 'material-ui/Divider'
 import MenuItem from 'material-ui/MenuItem'
 import Drawer from 'material-ui/Drawer'
-import ScrollControlsView from './scrollcontrols.view'
+import ScrollControlsView from '../common/scrollcontrols.view'
 
 class QuadToolsStrip extends React.Component<any,any> {
 

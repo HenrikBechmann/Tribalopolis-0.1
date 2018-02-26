@@ -8,9 +8,9 @@ import QuadOrigin from './quadorigin.view'
 import QuadTitleBar from './quadtitlebar.view'
 import QuadStatusBar from './quadstatusbar.view'
 import QuadBadge from './quadbadge.view'
-import InfiniteScroll from './infinitescroll.view'
+import InfiniteScroll from '../common/infinitescroll.view'
 import SwapMenu from './quadswapmenu.view'
-import DataBox from './databox.view'
+import DataBox from '../databox/databox.view'
 import QuadSelector from './quadselector.view'
 
 class Quadrant extends React.Component<any,any>  {

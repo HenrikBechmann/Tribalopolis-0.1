@@ -3,15 +3,15 @@
 'use strict';
 import * as React from 'react';
 import { connect } from 'react-redux';
-import QuadToolsStrip from './views/quadtoolsstrip.view';
-import QuadFrame from './views/quadframe.view';
-import QuadBasket from './views/quadbasket.view';
-import QuadViewport from './views/quadviewport.view';
-import QuadPlatform from './views/quadplatform.view';
-import Quadrant from './views/quadrant.view';
-import QuadDiamond from './views/quaddiamond.view';
-import QuadBadge from './views/quadbadge.view';
-import QuadStatusBar from './views/quadstatusbar.view';
+import QuadToolsStrip from './views/quadspace/quadtoolsstrip.view';
+import QuadFrame from './views/quadspace/quadframe.view';
+import QuadBasket from './views/quadspace/quadbasket.view';
+import QuadViewport from './views/quadspace/quadviewport.view';
+import QuadPlatform from './views/quadspace/quadplatform.view';
+import Quadrant from './views/quadspace/quadrant.view';
+import QuadDiamond from './views/quadspace/quaddiamond.view';
+import QuadBadge from './views/quadspace/quadbadge.view';
+import QuadStatusBar from './views/quadspace/quadstatusbar.view';
 let data = [
     [
         {
