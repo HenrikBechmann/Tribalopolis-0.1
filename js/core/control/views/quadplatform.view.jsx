@@ -12,6 +12,46 @@ class QuadPlatform extends React.Component {
         this.positions = null;
         this.dimensions = null;
         this.element = null;
+        this.changeCurrentQuad = nextProps => {
+            let element = this.element;
+            // set top left for animation
+            // console.log('platform element BEFORE',this.element)
+            let nextquad = nextProps.currentquad;
+            let top = this.element.offsetTop + 'px';
+            let left = this.element.offsetLeft + 'px';
+            let bottom = 'auto';
+            let right = 'auto';
+            this.positions = {
+                top,
+                left,
+                right,
+                bottom,
+            };
+            // apply equivalent start value for animation directly to save some time
+            element.style.top = top;
+            element.style.left = left;
+            element.style.bottom = bottom;
+            element.style.right = right;
+            // console.log('platform element AFTER',this.element, this.positions)
+            // this.forceUpdate(
+            //     () => {
+            setTimeout(() => {
+                // prepare for animation transition
+                this.calculateTransitionPosition(nextquad);
+                this.setState({
+                    currentquad: nextquad,
+                }, () => {
+                    setTimeout(() => {
+                        this.calculatePosition(nextquad);
+                        this.setState({
+                            currentquad: nextquad,
+                        });
+                    }, 600);
+                });
+            }, 50);
+            //     }
+            // )
+        };
         this.calculateTransitionPosition = quadrant => {
             let { split } = this.state;
             let top = null;
@@ -188,33 +228,8 @@ class QuadPlatform extends React.Component {
             });
         }
         if (nextProps.currentquad != this.state.currentquad) {
-            // set top left for animation
-            let nextquad = nextProps.currentquad;
-            let top = this.element.offsetTop + 'px';
-            let left = this.element.offsetLeft + 'px';
-            let bottom = 'auto';
-            let right = 'auto';
-            this.positions = {
-                top,
-                right,
-                bottom,
-                left,
-            };
-            this.forceUpdate(() => {
-                setTimeout(() => {
-                    // prepare for animation transition
-                    this.calculateTransitionPosition(nextquad);
-                    this.setState({
-                        currentquad: nextquad,
-                    }, () => {
-                        setTimeout(() => {
-                            this.calculatePosition(nextquad);
-                            this.setState({
-                                currentquad: nextquad,
-                            });
-                        }, 600);
-                    });
-                });
+            setTimeout(() => {
+                this.changeCurrentQuad(nextProps);
             });
         }
     }
