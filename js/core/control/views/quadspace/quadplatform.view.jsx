@@ -16,16 +16,6 @@ class QuadPlatform extends React.Component {
             let element = this.element;
             // set top left for animation
             let nextquad = nextProps.currentquad;
-            // let top = this.element.offsetTop + 'px'
-            // let left = this.element.offsetLeft + 'px'
-            // let bottom = 'auto'
-            // let right = 'auto'
-            // this.positions = {
-            //     top,
-            //     left,
-            //     right,
-            //     bottom,
-            // }
             this.calculateTransitionPosition(this.state.currentquad);
             // console.log('BASE changing from quad',this.state.currentquad,this.positions)
             this.forceUpdate(() => {
@@ -121,16 +111,16 @@ class QuadPlatform extends React.Component {
                 case 'bottomright': {
                     switch (split) {
                         case 'none':
-                            top = -this.element.parentElement.offsetHeight + 'px';
-                            left = -this.element.parentElement.offsetWidth + 'px';
+                            top = -this.element.parentElement.clientHeight + 'px'; //offsetHeight + 'px'
+                            left = -this.element.parentElement.clientWidth + 'px'; //offsetWidth + 'px'
                             break;
                         case 'horizontal':
-                            top = -this.element.parentElement.offsetHeight + 'px';
+                            top = -this.element.parentElement.clientHeight + 'px'; //offsetHeight + 'px'
                             left = '0';
                             break;
                         case 'vertical':
                             top = '0';
-                            left = -this.element.parentElement.offsetWidth + 'px';
+                            left = -this.element.parentElement.clientWidth + 'px'; //offsetWidth + 'px'
                             break;
                         case 'matrix':
                             top = '0';
@@ -222,7 +212,15 @@ class QuadPlatform extends React.Component {
             this.calculateDimensions(nextProps.split);
             this.setState({
                 split: nextProps.split
-            });
+            } //,
+            // () => {
+            //     setTimeout(()=> {
+            //         this.element.style.display = 'none'
+            //         let a = this.element.style.offsetHeight
+            //         this.element.style.display = 'block'
+            //     },2000)
+            // }
+            );
         }
         if (nextProps.currentquad != this.state.currentquad) {
             setTimeout(() => {
@@ -233,6 +231,7 @@ class QuadPlatform extends React.Component {
     render() {
         let { left, right, top, bottom } = this.positions;
         let { width, height } = this.dimensions;
+        // console.log('render quadplatform',this.positions,this.dimensions)
         return (<div id="quadplatform" style={{
             position: 'absolute',
             width,

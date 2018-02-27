@@ -29,16 +29,6 @@ class QuadPlatform extends React.Component<any,any> {
         // set top left for animation
 
         let nextquad = nextProps.currentquad
-        // let top = this.element.offsetTop + 'px'
-        // let left = this.element.offsetLeft + 'px'
-        // let bottom = 'auto'
-        // let right = 'auto'
-        // this.positions = {
-        //     top,
-        //     left,
-        //     right,
-        //     bottom,
-        // }
 
         this.calculateTransitionPosition(this.state.currentquad)
         // console.log('BASE changing from quad',this.state.currentquad,this.positions)
@@ -84,7 +74,17 @@ class QuadPlatform extends React.Component<any,any> {
             this.calculateDimensions(nextProps.split)
             this.setState({
                 split:nextProps.split
-            })
+            } //,
+
+            // () => {
+            //     setTimeout(()=> {
+            //         this.element.style.display = 'none'
+            //         let a = this.element.style.offsetHeight
+            //         this.element.style.display = 'block'
+            //     },2000)
+            // }
+
+            )
         }
 
         if (nextProps.currentquad != this.state.currentquad) {
@@ -127,7 +127,7 @@ class QuadPlatform extends React.Component<any,any> {
                 switch (split) {
                     case 'none':
                         top = '0'
-                        left = -this.element.parentElement.offsetWidth + 'px'
+                        left = -this.element.parentElement.offsetWidth + 'px' 
                         break
                     case 'horizontal':
                         top = '0'
@@ -135,7 +135,7 @@ class QuadPlatform extends React.Component<any,any> {
                         break
                     case 'vertical':
                         top = '0'
-                        left = -this.element.parentElement.offsetWidth + 'px'
+                        left = -this.element.parentElement.offsetWidth + 'px' 
                         break
                     case 'matrix':
                         top = '0'
@@ -147,11 +147,11 @@ class QuadPlatform extends React.Component<any,any> {
             case 'bottomleft': {
                 switch (split) {
                     case 'none':
-                        top = -this.element.parentElement.offsetHeight + 'px'
+                        top = -this.element.parentElement.offsetHeight + 'px' 
                         left = '0'
                         break
                     case 'horizontal':
-                        top = -this.element.parentElement.offsetHeight + 'px'
+                        top = -this.element.parentElement.offsetHeight + 'px' 
                         left = '0'
                         break
                     case 'vertical':
@@ -168,16 +168,16 @@ class QuadPlatform extends React.Component<any,any> {
             case 'bottomright': {
                 switch (split) {
                     case 'none':
-                        top = -this.element.parentElement.offsetHeight + 'px'
-                        left = -this.element.parentElement.offsetWidth + 'px'
+                        top = -this.element.parentElement.clientHeight + 'px' //offsetHeight + 'px'
+                        left = -this.element.parentElement.clientWidth + 'px' //offsetWidth + 'px'
                         break
                     case 'horizontal':
-                        top = -this.element.parentElement.offsetHeight + 'px'
+                        top = -this.element.parentElement.clientHeight + 'px' //offsetHeight + 'px'
                         left = '0'
                         break
                     case 'vertical':
                         top = '0'
-                        left = -this.element.parentElement.offsetWidth + 'px'
+                        left = -this.element.parentElement.clientWidth + 'px' //offsetWidth + 'px'
                         break
                     case 'matrix':
                         top = '0'
@@ -268,6 +268,8 @@ class QuadPlatform extends React.Component<any,any> {
         let { left, right, top, bottom } = this.positions
 
         let {width, height} = this.dimensions
+
+        // console.log('render quadplatform',this.positions,this.dimensions)
 
         return (
             <div id = "quadplatform" style={

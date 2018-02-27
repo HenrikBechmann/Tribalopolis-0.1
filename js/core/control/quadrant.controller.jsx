@@ -31,17 +31,17 @@ class Quadrant extends React.Component {
                 }
                 case "topright": {
                     top = 0;
-                    left = element.parentElement.offsetWidth / 2;
+                    left = (element.parentElement.offsetWidth / 2) + 'px';
                     break;
                 }
                 case "bottomleft": {
-                    top = element.parentElement.offsetHeight / 2;
+                    top = (element.parentElement.offsetHeight / 2) + 'px';
                     left = 0;
                     break;
                 }
                 case "bottomright": {
-                    top = element.parentElement.offsetHeight / 2;
-                    left = element.parentElement.offsetWidth / 2;
+                    top = (element.parentElement.offsetHeight / 2) + 'px';
+                    left = (element.parentElement.offsetWidth / 2) + 'px';
                     break;
                 }
             }
