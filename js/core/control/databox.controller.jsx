@@ -9,8 +9,20 @@ import ProfileForm from './views/databox/profileform.view';
 import CategoriesBar from './views/databox/boxcategoriesbar.view';
 import CategoriesList from './views/databox/categorieslist.view';
 class DataBox extends React.Component {
+    constructor() {
+        super(...arguments);
+        this.state = {
+            opacity: 0,
+        };
+    }
+    componentDidMount() {
+        this.setState({
+            opacity: 1,
+        });
+    }
     render() {
         // console.log('item',this.props.item)
+        let opacity = this.state.opacity;
         let frameStyle = {
             width: '280px',
             backgroundColor: 'lightblue',
@@ -22,6 +34,8 @@ class DataBox extends React.Component {
             borderRadius: '8px',
             marginRight: '16px',
             fontSize: 'smaller',
+            opacity: opacity,
+            transition: 'opacity .5s ease-out',
         };
         let { item } = this.props;
         return <div style={frameStyle}>
