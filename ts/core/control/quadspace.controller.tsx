@@ -368,7 +368,6 @@ class QuadspaceController extends React.Component<any,any> {
                         split = {this.state.split}
                     >
                         {this.quadrants()}
-                        <QuadDiamond />
                     </QuadPlatform>
                 </QuadViewport>
                 <QuadStatusBar status = 'Something' />
@@ -376,6 +375,8 @@ class QuadspaceController extends React.Component<any,any> {
         )
     }
 }
+
+                        // <QuadDiamond />
 
 let mapStateToProps = state => {
     let { resources } = state
