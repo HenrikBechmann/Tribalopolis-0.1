@@ -19,7 +19,20 @@ const BoxHeader = props => {
         fontSize: 'larger',
     };
     return <div style={styles}>
-            <FontIcon style={{ position: 'absolute', top: '0', right: '0', marginTop: '3px', marginRight: '3px' }} className='material-icons'>zoom_out_map</FontIcon>
+        <div style={{
+        position: 'absolute',
+        top: '0',
+        right: '0',
+        marginRight: '3px',
+        padding: '3px',
+        boxSizing: 'border-box',
+        width: '32px',
+        height: '32px',
+        borderRadius: '50%',
+        border: '1px solid silver',
+    }}>
+            <FontIcon className='material-icons'>zoom_out_map</FontIcon>
+        </div>
         <img style={{ verticalAlign: 'bottom' }} src={boxicon}/> {item.profile.name}
     </div>;
 };

@@ -23,7 +23,7 @@ const BoxToolbar = props => {
 
         <div style = {
             {
-                padding:'6px 0 0 3px',
+                padding:'3px',
                 boxSizing:'border-box',
                 width:'32px',
                 height:'32px',
@@ -32,12 +32,12 @@ const BoxToolbar = props => {
                 borderRadius:'50%',
                 border:'1px solid silver',
             }
-        }> 
-            <img src = '/public/icons/ic_splay_24px.svg' />
+        } >
+            <FontIcon className='material-icons'>menu</FontIcon>
         </div>
         <div style = {
             {
-                padding:'4px',
+                padding:'6px 0 0 3px',
                 boxSizing:'border-box',
                 width:'32px',
                 height:'32px',
@@ -46,8 +46,8 @@ const BoxToolbar = props => {
                 borderRadius:'50%',
                 border:'1px solid silver',
             }
-        } >
-            <FontIcon className='material-icons'>menu</FontIcon>
+        }> 
+            <img src = '/public/icons/ic_splay_24px.svg' />
         </div>
 
         <div style = {
