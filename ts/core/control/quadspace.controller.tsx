@@ -22,7 +22,7 @@ let data = [
         {
             sessionid:0,
             type:'object',
-            class:'person',
+            class:'member',
             schema:'common',
             tribe:'__owner__',
             id:'henrik',
