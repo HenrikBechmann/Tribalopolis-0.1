@@ -4,11 +4,11 @@
 
 import * as React from 'react'
 
-import BoxHeader from './views/databox/boxheader.view'
-import BoxToolbar from './views/databox/boxtoolbar.view'
-import ProfileBar from './views/databox/boxprofilebar.view'
+import BoxHeader from './views/databox/header.view'
+import BoxToolbar from './views/databox/toolbar.view'
+import ProfileBar from './views/databox/profilebar.view'
 import ProfileForm from './views/databox/profileform.view'
-import CategoriesBar from './views/databox/boxcategoriesbar.view'
+import CategoriesBar from './views/databox/categoriesbar.view'
 import CategoriesList from './views/databox/categorieslist.view'
 
 class DataBox extends React.Component<any,any> {

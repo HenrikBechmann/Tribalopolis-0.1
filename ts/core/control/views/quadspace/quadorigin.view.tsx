@@ -4,6 +4,7 @@
 
 import * as React from 'react'
 import OriginMenu from './quadoriginmenu.view'
+import FontIcon from 'material-ui/FontIcon'
 
 const QuadOrigin = props => {
     return (
@@ -19,7 +20,22 @@ const QuadOrigin = props => {
                     borderRadius:'8px',
                     zIndex:2,
                 }
-            }>
+            }
+        >
+            <div style = {
+                {
+                    position:'absolute',
+                    margin:'auto',
+                    top:'14px',
+                    left:'0',
+                    opacity:.3,
+                    width:'100%',
+                    textAlign:'center',
+                }
+            }
+            >
+                <FontIcon style = {{fontSize:'32px'}} className='material-icons'>filter_none</FontIcon> 
+            </div>
             {props.children}
             <OriginMenu />
         </div>    
