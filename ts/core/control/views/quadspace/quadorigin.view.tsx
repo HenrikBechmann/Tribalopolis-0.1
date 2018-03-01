@@ -26,7 +26,7 @@ const QuadOrigin = props => {
                 {
                     position:'absolute',
                     margin:'auto',
-                    top:'14px',
+                    top:'10px',
                     left:'0',
                     opacity:.3,
                     width:'100%',
@@ -34,12 +34,13 @@ const QuadOrigin = props => {
                 }
             }
             >
-                <FontIcon style = {{fontSize:'32px'}} className='material-icons'>filter_none</FontIcon> 
+                <img style = {{width:'40px'}} src = '/public/icons/OriginStack.svg' />
             </div>
             {props.children}
             <OriginMenu />
         </div>    
     )
 }
+                // <FontIcon style = {{fontSize:'32px'}} className='material-icons'>filter_none</FontIcon> 
 
 export default QuadOrigin
