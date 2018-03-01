@@ -4,6 +4,7 @@
 import * as React from 'react';
 import FontIcon from 'material-ui/FontIcon';
 const OriginMenu = (props) => {
+    let { pointer, depth } = props;
     return <div style={{
         position: 'absolute',
         height: '96px',
@@ -16,8 +17,20 @@ const OriginMenu = (props) => {
         opacity: 0.7,
         width: '26px',
     }}>
-        <FontIcon color='green' style={{ marginBottom: '4px', border: '1px solid silver', borderRadius: '50%', }} className='material-icons'>arrow_back</FontIcon>
-        <FontIcon color='green' style={{ margin: '4px 0', border: '1px solid silver', borderRadius: '50%', }} className='material-icons'>arrow_forward</FontIcon>
+        <FontIcon color='green' style={{
+        marginBottom: '4px',
+        border: '1px solid silver',
+        borderRadius: '50%',
+    }} className='material-icons'>
+            arrow_back
+        </FontIcon>
+        <FontIcon color='green' style={{
+        margin: '4px 0',
+        border: '1px solid silver',
+        borderRadius: '50%',
+    }} className='material-icons'>
+            arrow_forward
+        </FontIcon>
         <FontIcon color='green' style={{ marginTop: '4px', border: '1px solid silver', borderRadius: '50%', }} className='material-icons'>home</FontIcon>
     </div>;
 };

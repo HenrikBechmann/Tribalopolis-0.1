@@ -4,16 +4,16 @@
 import * as React from 'react';
 const QuadBadge = props => {
     let defaultstyles = {
-        display: 'inline-block',
-        position: 'relative',
+        display: 'block',
+        position: 'absolute',
         top: '-2px',
         left: '0',
-        backgroundColor: '#ff4081',
+        backgroundColor: 'gold',
         height: '16px',
         borderRadius: '8px',
         minWidth: '16px',
         textAlign: 'center',
-        color: 'white',
+        color: 'black',
         fontSize: 'x-small',
         padding: '3px',
         boxSizing: 'border-box',

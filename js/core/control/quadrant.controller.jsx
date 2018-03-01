@@ -4,7 +4,6 @@
 import * as React from 'react';
 import QuadOrigin from './views/quadspace/quadorigin.view';
 import QuadTitleBar from './views/quadspace/quadtitlebar.view';
-import QuadBadge from './views/quadspace/quadbadge.view';
 import InfiniteScroll from './views/common/infinitescroll.view';
 import SwapMenu from './views/quadspace/quadswapmenu.view';
 import DataBox from './databox.controller';
@@ -14,7 +13,8 @@ class Quadrant extends React.Component {
         super(...arguments);
         this.state = {
             quadrant: this.props.quadrant,
-            data: this.props.data
+            datastack: this.props.datastack,
+            stackpointer: 0,
         };
         this.sessionid = this.props.sessionid;
         this.calculateTransitionPosition = (quadrant) => {
@@ -96,9 +96,9 @@ class Quadrant extends React.Component {
         };
         this.getBoxes = () => {
             let boxes = [];
-            let { data } = this.state;
-            if (data) {
-                boxes = this.state.data.map((item) => {
+            let { datastack, stackpointer } = this.state;
+            if (datastack && datastack[stackpointer]) {
+                boxes = this.state.datastack[stackpointer].map((item) => {
                     return <DataBox key={item.sessionid} item={item}/>;
                 });
             }
@@ -158,7 +158,7 @@ class Quadrant extends React.Component {
         }}>
                     <SwapMenu quadrant={this.state.quadrant} handleswap={this.props.handleswap}/>
                     <QuadTitleBar title={this.props.title}/>
-                    <QuadOrigin><QuadBadge quantity={this.props.badgequantity}/></QuadOrigin>
+                    <QuadOrigin stackpointer={this.state.stackpointer} stackdepth={this.state.datastack.length}></QuadOrigin>
                     <InfiniteScroll items={this.getBoxes()}/>
                     <QuadSelector quadrant={this.state.quadrant} split={this.props.split} quadselection={this.props.quadselection}/>
                 </div>

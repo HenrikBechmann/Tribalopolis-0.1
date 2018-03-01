@@ -17,8 +17,8 @@ import QuadDiamond from './views/quadspace/quaddiamond.view'
 import QuadBadge from './views/quadspace/quadbadge.view'
 import QuadStatusBar from './views/quadspace/quadstatusbar.view'
 
-let data = [
-    [
+let datastacks = [
+    [[
         {
             sessionid:0,
             type:'object',
@@ -197,8 +197,8 @@ let data = [
         //         ]
         //     },
         // }
-    ],
-    [
+    ]],
+    [[
         {
             sessionid:0,
             type:'object',
@@ -300,8 +300,8 @@ let data = [
                 ]
             },
         },
-    ],
-    [
+    ]],
+    [[
         {
             sessionid:0,
             type:'object',
@@ -403,8 +403,8 @@ let data = [
                 ]
             },
         },
-    ],
-    [
+    ]],
+    [[
         {
             sessionid:0,
             type:'object',
@@ -506,7 +506,7 @@ let data = [
                 ]
             },
         },
-    ],
+    ]],
 ]
 
 class QuadspaceController extends React.Component<any,any> {
@@ -515,7 +515,7 @@ class QuadspaceController extends React.Component<any,any> {
         quadrantpositions:[0,1,2,3],
         currentquad:'topleft',
         split:'none',
-        data:data,
+        datastacks:datastacks,
     }
 
     positions = [
@@ -619,7 +619,7 @@ class QuadspaceController extends React.Component<any,any> {
             color = 'lightgreen' 
             title = 'first'
             badgequantity = {0}
-            data = {this.state.data[0]}
+            datastack = {this.state.datastacks[0]}
         />,
         <Quadrant 
             key = '2'
@@ -631,7 +631,7 @@ class QuadspaceController extends React.Component<any,any> {
             color = 'mistyrose' 
             title = "second" 
             badgequantity = {0}
-            data = {this.state.data[1]}
+            datastack = {this.state.datastacks[1]}
         />,
         <Quadrant 
             key = '3'
@@ -643,7 +643,7 @@ class QuadspaceController extends React.Component<any,any> {
             color = 'lightblue' 
             title = "third" 
             badgequantity = {0}
-            data = {this.state.data[2]}
+            datastack = {this.state.datastacks[2]}
         />,
         <Quadrant 
             key = '4'
@@ -655,7 +655,7 @@ class QuadspaceController extends React.Component<any,any> {
             color = 'papayawhip' 
             title = "fourth" 
             badgequantity = {0}
-            data = {this.state.data[3]}
+            datastack = {this.state.datastacks[3]}
         />,
     ]
 
