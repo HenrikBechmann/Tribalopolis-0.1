@@ -11,414 +11,119 @@ import QuadPlatform from './views/quadspace/quadplatform.view';
 import Quadrant from './quadrant.controller';
 import QuadBadge from './views/quadspace/quadbadge.view';
 import QuadStatusBar from './views/quadspace/quadstatusbar.view';
+let datamap = {
+    henrik: 0,
+};
+let datastore = [
+    {
+        sessionid: 0,
+        type: 'object',
+        class: 'member',
+        schema: 'common',
+        tribe: '__owner__',
+        id: 'henrik',
+        profile: {
+            tag: 'Henrik',
+            name: 'Henrik Bechmann',
+            title: null,
+            description: 'Creator of Tribalopolis',
+            birthdate: '1950-08-23',
+            location: 'Toronto',
+            locationid: 'Toronto',
+        },
+        categories: {
+            set: {
+                requesting: {
+                    active: true,
+                    count: 12,
+                    name: 'Outgoing action requests',
+                    schema: 'common',
+                },
+                pending: {
+                    active: true,
+                    count: 23,
+                    name: 'Incoming action requests',
+                    schema: 'common',
+                },
+                connections: {
+                    active: true,
+                    count: 23,
+                    name: 'Connections',
+                    schema: 'common',
+                },
+                roles: {
+                    active: true,
+                    count: 4,
+                    name: 'Roles',
+                    schema: 'common',
+                },
+                programs: {
+                    active: true,
+                    count: 5,
+                    name: 'Programs',
+                    schema: 'common',
+                },
+                projects: {
+                    active: true,
+                    count: 3,
+                    name: 'Projects',
+                    schema: 'common',
+                },
+                tasks: {
+                    active: true,
+                    count: 20,
+                    name: 'Tasks',
+                    schema: 'common',
+                },
+                messengers: {
+                    active: true,
+                    count: 3,
+                    name: 'Messengers',
+                    schema: 'common',
+                },
+                resources: {
+                    active: true,
+                    count: 64,
+                    name: 'Resources',
+                    schema: 'common',
+                },
+                calendars: {
+                    active: true,
+                    count: 67,
+                    name: 'Calendar',
+                    schema: 'common',
+                },
+                accounting: {
+                    active: true,
+                    count: 6000,
+                    name: 'Accounting',
+                    schema: 'common',
+                },
+            },
+            order: [
+                'requesting',
+                'pending',
+                'connections',
+                'tasks',
+                'messengers',
+                'calendars',
+                'accounting',
+                'roles',
+                'programs',
+                'projects',
+                'resources',
+            ]
+        },
+    },
+];
 let datastacks = [
-    [[
-            {
-                sessionid: 0,
-                type: 'object',
-                class: 'member',
-                schema: 'common',
-                tribe: '__owner__',
-                id: 'henrik',
-                profile: {
-                    tag: 'Henrik',
-                    name: 'Henrik Bechmann',
-                    title: null,
-                    description: 'Creator of Tribalopolis',
-                    birthdate: '1950-08-23',
-                    location: 'Toronto',
-                    locationid: 'Toronto',
-                },
-                categories: {
-                    set: {
-                        requesting: {
-                            active: true,
-                            count: 12,
-                            name: 'Outgoing action requests',
-                            schema: 'common',
-                        },
-                        pending: {
-                            active: true,
-                            count: 23,
-                            name: 'Incoming action requests',
-                            schema: 'common',
-                        },
-                        connections: {
-                            active: true,
-                            count: 23,
-                            name: 'Connections',
-                            schema: 'common',
-                        },
-                        roles: {
-                            active: true,
-                            count: 4,
-                            name: 'Roles',
-                            schema: 'common',
-                        },
-                        programs: {
-                            active: true,
-                            count: 5,
-                            name: 'Programs',
-                            schema: 'common',
-                        },
-                        projects: {
-                            active: true,
-                            count: 3,
-                            name: 'Projects',
-                            schema: 'common',
-                        },
-                        tasks: {
-                            active: true,
-                            count: 20,
-                            name: 'Tasks',
-                            schema: 'common',
-                        },
-                        messengers: {
-                            active: true,
-                            count: 3,
-                            name: 'Messengers',
-                            schema: 'common',
-                        },
-                        resources: {
-                            active: true,
-                            count: 64,
-                            name: 'Resources',
-                            schema: 'common',
-                        },
-                        calendars: {
-                            active: true,
-                            count: 67,
-                            name: 'Calendar',
-                            schema: 'common',
-                        },
-                        accounting: {
-                            active: true,
-                            count: 6000,
-                            name: 'Accounting',
-                            schema: 'common',
-                        },
-                    },
-                    order: [
-                        'requesting',
-                        'pending',
-                        'connections',
-                        'tasks',
-                        'messengers',
-                        'calendars',
-                        'accounting',
-                        'roles',
-                        'programs',
-                        'projects',
-                        'resources',
-                    ]
-                },
-            },
+    [[{ sessionid: 0, config: 'base' },
         ]],
-    [[
-            {
-                sessionid: 0,
-                type: 'object',
-                class: 'member',
-                schema: 'common',
-                tribe: '__owner__',
-                id: 'henrik',
-                profile: {
-                    tag: 'Henrik',
-                    name: 'Henrik Bechmann',
-                    title: null,
-                    description: 'Creator of Tribalopolis',
-                    birthdate: '1950-08-23',
-                    location: 'Toronto',
-                    locationid: 'Toronto',
-                },
-                categories: {
-                    set: {
-                        requesting: {
-                            active: true,
-                            count: 12,
-                            name: 'Outgoing action requests',
-                            schema: 'common',
-                        },
-                        pending: {
-                            active: true,
-                            count: 23,
-                            name: 'Incoming action requests',
-                            schema: 'common',
-                        },
-                        connections: {
-                            active: true,
-                            count: 23,
-                            name: 'Connections',
-                            schema: 'common',
-                        },
-                        roles: {
-                            active: true,
-                            count: 4,
-                            name: 'Roles',
-                            schema: 'common',
-                        },
-                        programs: {
-                            active: true,
-                            count: 5,
-                            name: 'Programs',
-                            schema: 'common',
-                        },
-                        projects: {
-                            active: true,
-                            count: 3,
-                            name: 'Projects',
-                            schema: 'common',
-                        },
-                        tasks: {
-                            active: true,
-                            count: 20,
-                            name: 'Tasks',
-                            schema: 'common',
-                        },
-                        messengers: {
-                            active: true,
-                            count: 3,
-                            name: 'Messengers',
-                            schema: 'common',
-                        },
-                        resources: {
-                            active: true,
-                            count: 64,
-                            name: 'Resources',
-                            schema: 'common',
-                        },
-                        calendars: {
-                            active: true,
-                            count: 67,
-                            name: 'Calendar',
-                            schema: 'common',
-                        },
-                        accounting: {
-                            active: true,
-                            count: 6000,
-                            name: 'Accounting',
-                            schema: 'common',
-                        },
-                    },
-                    order: [
-                        'requesting',
-                        'pending',
-                        'connections',
-                        'tasks',
-                        'messengers',
-                        'calendars',
-                        'accounting',
-                        'roles',
-                        'programs',
-                        'projects',
-                        'resources',
-                    ]
-                },
-            },
+    [[{ sessionid: 0, config: 'base' },
         ]],
-    [[
-            {
-                sessionid: 0,
-                type: 'object',
-                class: 'member',
-                schema: 'common',
-                tribe: '__owner__',
-                id: 'henrik',
-                profile: {
-                    tag: 'Henrik',
-                    name: 'Henrik Bechmann',
-                    title: null,
-                    description: 'Creator of Tribalopolis',
-                    birthdate: '1950-08-23',
-                    location: 'Toronto',
-                    locationid: 'Toronto',
-                },
-                categories: {
-                    set: {
-                        requesting: {
-                            active: true,
-                            count: 12,
-                            name: 'Outgoing action requests',
-                            schema: 'common',
-                        },
-                        pending: {
-                            active: true,
-                            count: 23,
-                            name: 'Incoming action requests',
-                            schema: 'common',
-                        },
-                        connections: {
-                            active: true,
-                            count: 23,
-                            name: 'Connections',
-                            schema: 'common',
-                        },
-                        roles: {
-                            active: true,
-                            count: 4,
-                            name: 'Roles',
-                            schema: 'common',
-                        },
-                        programs: {
-                            active: true,
-                            count: 5,
-                            name: 'Programs',
-                            schema: 'common',
-                        },
-                        projects: {
-                            active: true,
-                            count: 3,
-                            name: 'Projects',
-                            schema: 'common',
-                        },
-                        tasks: {
-                            active: true,
-                            count: 20,
-                            name: 'Tasks',
-                            schema: 'common',
-                        },
-                        messengers: {
-                            active: true,
-                            count: 3,
-                            name: 'Messengers',
-                            schema: 'common',
-                        },
-                        resources: {
-                            active: true,
-                            count: 64,
-                            name: 'Resources',
-                            schema: 'common',
-                        },
-                        calendars: {
-                            active: true,
-                            count: 67,
-                            name: 'Calendar',
-                            schema: 'common',
-                        },
-                        accounting: {
-                            active: true,
-                            count: 6000,
-                            name: 'Accounting',
-                            schema: 'common',
-                        },
-                    },
-                    order: [
-                        'requesting',
-                        'pending',
-                        'connections',
-                        'tasks',
-                        'messengers',
-                        'calendars',
-                        'accounting',
-                        'roles',
-                        'programs',
-                        'projects',
-                        'resources',
-                    ]
-                },
-            },
+    [[{ sessionid: 0, config: 'base' },
         ]],
-    [[
-            {
-                sessionid: 0,
-                type: 'object',
-                class: 'member',
-                schema: 'common',
-                tribe: '__owner__',
-                id: 'henrik',
-                profile: {
-                    tag: 'Henrik',
-                    name: 'Henrik Bechmann',
-                    title: null,
-                    description: 'Creator of Tribalopolis',
-                    birthdate: '1950-08-23',
-                    location: 'Toronto',
-                    locationid: 'Toronto',
-                },
-                categories: {
-                    set: {
-                        requesting: {
-                            active: true,
-                            count: 12,
-                            name: 'Outgoing action requests',
-                            schema: 'common',
-                        },
-                        pending: {
-                            active: true,
-                            count: 23,
-                            name: 'Incoming action requests',
-                            schema: 'common',
-                        },
-                        connections: {
-                            active: true,
-                            count: 23,
-                            name: 'Connections',
-                            schema: 'common',
-                        },
-                        roles: {
-                            active: true,
-                            count: 4,
-                            name: 'Roles',
-                            schema: 'common',
-                        },
-                        programs: {
-                            active: true,
-                            count: 5,
-                            name: 'Programs',
-                            schema: 'common',
-                        },
-                        projects: {
-                            active: true,
-                            count: 3,
-                            name: 'Projects',
-                            schema: 'common',
-                        },
-                        tasks: {
-                            active: true,
-                            count: 20,
-                            name: 'Tasks',
-                            schema: 'common',
-                        },
-                        messengers: {
-                            active: true,
-                            count: 3,
-                            name: 'Messengers',
-                            schema: 'common',
-                        },
-                        resources: {
-                            active: true,
-                            count: 64,
-                            name: 'Resources',
-                            schema: 'common',
-                        },
-                        calendars: {
-                            active: true,
-                            count: 67,
-                            name: 'Calendar',
-                            schema: 'common',
-                        },
-                        accounting: {
-                            active: true,
-                            count: 6000,
-                            name: 'Accounting',
-                            schema: 'common',
-                        },
-                    },
-                    order: [
-                        'requesting',
-                        'pending',
-                        'connections',
-                        'tasks',
-                        'messengers',
-                        'calendars',
-                        'accounting',
-                        'roles',
-                        'programs',
-                        'projects',
-                        'resources',
-                    ]
-                },
-            },
+    [[{ sessionid: 0, config: 'base' },
         ]],
 ];
 class QuadspaceController extends React.Component {
@@ -507,11 +212,14 @@ class QuadspaceController extends React.Component {
                 }, 600);
             });
         };
+        this.getDatastore = (sessionid) => {
+            return datastore[sessionid];
+        };
         this.quadrants = () => [
-            <Quadrant key='1' sessionid={0} handleswap={this.handleSwap} quadrant={this.calcQuadrant(0)} split={this.state.split} quadselection={this.quadselection} color='lightgreen' title='first' badgequantity={0} datastack={this.state.datastacks[0]}/>,
-            <Quadrant key='2' sessionid={1} handleswap={this.handleSwap} quadrant={this.calcQuadrant(1)} split={this.state.split} quadselection={this.quadselection} color='mistyrose' title="second" badgequantity={0} datastack={this.state.datastacks[1]}/>,
-            <Quadrant key='3' sessionid={2} handleswap={this.handleSwap} quadrant={this.calcQuadrant(2)} split={this.state.split} quadselection={this.quadselection} color='lightblue' title="third" badgequantity={0} datastack={this.state.datastacks[2]}/>,
-            <Quadrant key='4' sessionid={3} handleswap={this.handleSwap} quadrant={this.calcQuadrant(3)} split={this.state.split} quadselection={this.quadselection} color='papayawhip' title="fourth" badgequantity={0} datastack={this.state.datastacks[3]}/>,
+            <Quadrant key='1' sessionid={0} handleswap={this.handleSwap} quadrant={this.calcQuadrant(0)} split={this.state.split} quadselection={this.quadselection} color='lightgreen' title='first' badgequantity={0} datastack={this.state.datastacks[0]} getDatastore={this.getDatastore}/>,
+            <Quadrant key='2' sessionid={1} handleswap={this.handleSwap} quadrant={this.calcQuadrant(1)} split={this.state.split} quadselection={this.quadselection} color='mistyrose' title="second" badgequantity={0} datastack={this.state.datastacks[1]} getDatastore={this.getDatastore}/>,
+            <Quadrant key='3' sessionid={2} handleswap={this.handleSwap} quadrant={this.calcQuadrant(2)} split={this.state.split} quadselection={this.quadselection} color='lightblue' title="third" badgequantity={0} datastack={this.state.datastacks[2]} getDatastore={this.getDatastore}/>,
+            <Quadrant key='4' sessionid={3} handleswap={this.handleSwap} quadrant={this.calcQuadrant(3)} split={this.state.split} quadselection={this.quadselection} color='papayawhip' title="fourth" badgequantity={0} datastack={this.state.datastacks[3]} getDatastore={this.getDatastore}/>,
         ];
     }
     render() {

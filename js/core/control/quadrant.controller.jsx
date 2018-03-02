@@ -98,7 +98,8 @@ class Quadrant extends React.Component {
             let boxes = [];
             let { datastack, stackpointer } = this.state;
             if (datastack && datastack[stackpointer]) {
-                boxes = this.state.datastack[stackpointer].map((item) => {
+                boxes = this.state.datastack[stackpointer].map((sessionProxy) => {
+                    let item = this.getDatastore(sessionProxy.sessionid);
                     return <DataBox key={item.sessionid} item={item}/>;
                 });
             }
@@ -107,6 +108,7 @@ class Quadrant extends React.Component {
     }
     componentWillMount() {
         this.calculatePosition(this.state.quadrant);
+        this.getDatastore = this.props.getDatastore;
     }
     componentWillReceiveProps(nextProps) {
         if (nextProps.quadrant != this.state.quadrant) {
