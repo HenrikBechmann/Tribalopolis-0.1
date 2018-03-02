@@ -12,7 +12,7 @@ import Quadrant from './quadrant.controller';
 import QuadBadge from './views/quadspace/quadbadge.view';
 import QuadStatusBar from './views/quadspace/quadstatusbar.view';
 let datamap = {
-    henrik: 0,
+    henrik: { sessionid: 0, path: '', },
 };
 let datastore = [
     {

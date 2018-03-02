@@ -11,12 +11,19 @@ const OriginMenu = (props) => {
 
     let { pointer, depth } = props
 
+    let buttonStyle = {padding:'0',width:'24px',height:'24px'}
+    let iconStyle = {
+        marginBottom:'4px',
+        border:'1px solid silver',
+        borderRadius:'50%',
+    }
+
     return <div 
         style = {
             {
                 position:'absolute',
-                height:'96px',
-                bottom:'-104px',
+                height:'84px',
+                bottom:'-92px',
                 border:'1px solid silver',
                 borderRadius:'0 0 8px 0',
                 backgroundColor:'lightgray',
@@ -27,33 +34,38 @@ const OriginMenu = (props) => {
             }
         } 
     >
-        <FontIcon 
-            color = 'green' 
-            style = {
-                {
-                    marginBottom:'4px',
-                    border:'1px solid silver',
-                    borderRadius:'50%',
-                }
-            } 
-            className='material-icons'
+        <IconButton style = {buttonStyle}
+            iconStyle = {iconStyle}
+            disabled = {pointer == 0}
         >
-            arrow_back
-        </FontIcon>
-        <FontIcon 
-            color = 'green' 
-            style = {
-                {
-                    margin:'4px 0',
-                    border:'1px solid silver',
-                    borderRadius:'50%',
-                }
-            } 
-            className='material-icons'
+            <FontIcon 
+                color = 'green' 
+                className='material-icons'
+            >
+                arrow_back
+            </FontIcon>
+        </IconButton>
+        <IconButton style = {buttonStyle}
+            iconStyle = {iconStyle}
+            disabled = {(pointer + 1) == depth}
         >
-            arrow_forward
-        </FontIcon>
-        <FontIcon color = 'green' style = {{marginTop:'4px',border:'1px solid silver',borderRadius:'50%',}} className='material-icons'>home</FontIcon>
+            <FontIcon 
+                color = 'green' 
+                className='material-icons'
+            >
+                arrow_forward
+            </FontIcon>
+        </IconButton>
+        <IconButton style = {buttonStyle}
+            iconStyle = {iconStyle}
+        >
+            <FontIcon 
+                color = 'green' 
+                className='material-icons'
+            >
+                home
+            </FontIcon>
+        </IconButton>
     </div>
 }
 
