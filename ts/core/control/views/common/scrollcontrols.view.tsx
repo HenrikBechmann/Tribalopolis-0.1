@@ -185,7 +185,7 @@ class ScrollControlsView extends React.Component<any,any> {
         width: '20px',
         height: '40px',
         border: '1px solid gray',
-        zIndex: 1,
+        zIndex: 2,
         fontSize: '30px',
         color:'darkslategray',
         overflow:'hidden',
