@@ -39,7 +39,7 @@ class CategoriesBar extends React.Component {
         };
         let iconStyle = {
             transform: 'rotate(' + (this.state.open ? '0deg' : '180deg') + ')',
-            transition: 'transform 0.5s ease-out',
+            transition: 'transform 0.5s .1s ease-out',
         };
         return <div>
             <div style={styles}>

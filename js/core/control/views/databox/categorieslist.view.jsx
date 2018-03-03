@@ -48,15 +48,15 @@ class CategoriesList extends React.Component {
                 setTimeout(() => {
                     this.setState({
                         listheight: targetheight,
+                        open: willbeopen,
                     }, () => {
                         setTimeout(() => {
                             this.setState({
                                 listheight: finalheight,
-                                open: willbeopen,
                             });
                         }, 600);
                     });
-                });
+                }, 50);
             });
             this.setState({
                 open,
