@@ -22,8 +22,7 @@ const OriginMenu = (props) => {
         style = {
             {
                 position:'absolute',
-                height:'84px',
-                bottom:'-92px',
+                top:'100%',
                 border:'1px solid silver',
                 borderRadius:'0 0 8px 0',
                 backgroundColor:'lightgray',
@@ -54,6 +53,16 @@ const OriginMenu = (props) => {
                 className='material-icons'
             >
                 arrow_forward
+            </FontIcon>
+        </IconButton>
+        <IconButton style = {buttonStyle}
+            iconStyle = {iconStyle}
+        >
+            <FontIcon 
+                color = 'green' 
+                className='material-icons'
+            >
+                person
             </FontIcon>
         </IconButton>
         <IconButton style = {buttonStyle}
