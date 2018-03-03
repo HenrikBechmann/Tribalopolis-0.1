@@ -41,6 +41,18 @@ let datastore = [
         categories:
         {
             set:{
+                tribes:{
+                    active:true,
+                    count:5,
+                    name:'Tribes',
+                    schema:'common',
+                },
+                connections:{
+                    active:true,
+                    count:23,
+                    name:'Connections',
+                    schema:'common',
+                },
                 requesting:{
                     active:true,
                     count:12,
@@ -51,12 +63,6 @@ let datastore = [
                     active:true,
                     count:23,
                     name:'Incoming action requests',
-                    schema:'common',
-                },
-                connections:{
-                    active:true,
-                    count:23,
-                    name:'Connections',
                     schema:'common',
                 },
                 roles:{
@@ -109,9 +115,10 @@ let datastore = [
                 },
             },
             order:[
+                'tribes',
+                'connections',
                 'requesting',
                 'pending',
-                'connections',
                 'tasks',
                 'messengers',
                 'calendars',
