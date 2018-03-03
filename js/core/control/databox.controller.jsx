@@ -7,7 +7,7 @@ import BoxToolbar from './views/databox/toolbar.view';
 import ProfileBar from './views/databox/profilebar.view';
 import ProfileForm from './views/databox/profileform.view';
 import CategoriesBar from './views/databox/categoriesbar.view';
-import CategoriesList from './views/databox/categorieslist.view';
+import ScanBar from './views/databox/scanbar.view';
 class DataBox extends React.Component {
     constructor() {
         super(...arguments);
@@ -36,6 +36,7 @@ class DataBox extends React.Component {
             fontSize: 'smaller',
             opacity: opacity,
             transition: 'opacity .5s ease-out',
+            cursor: 'default',
         };
         let { node } = this.props;
         return <div style={frameStyle}>
@@ -49,7 +50,7 @@ class DataBox extends React.Component {
                     <ProfileBar node={node}/>
                     <ProfileForm node={node}/>
                     <CategoriesBar node={node}/>
-                    <CategoriesList node={node}/>
+                    <ScanBar node={node}/>
                 </div>
 
             </div>
