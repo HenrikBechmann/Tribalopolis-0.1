@@ -2,6 +2,7 @@
 // copyright (c) 2018 Henrik Bechmann, Toronto, MIT Licence
 'use strict';
 import * as React from 'react';
+import IconButton from 'material-ui/IconButton';
 import FontIcon from 'material-ui/FontIcon';
 import CategoriesList from './categorieslist.view';
 class CategoriesBar extends React.Component {
@@ -9,6 +10,11 @@ class CategoriesBar extends React.Component {
         super(...arguments);
         this.state = {
             open: true,
+        };
+        this.toggleList = () => {
+            this.setState({
+                open: !this.state.open,
+            });
         };
     }
     render() {
@@ -24,15 +30,22 @@ class CategoriesBar extends React.Component {
             marginBottom: '3px',
             fontSize: 'larger',
         };
-        let iconStyle = {
-            verticalAlign: 'middle',
+        let buttonStyle = {
+            padding: '0',
+            width: '24px',
+            height: '24px',
             float: 'right',
             marginRight: '4px',
-            transform: 'rotate(' + (this.state.open ? '0deg' : '180deg') + ')'
+        };
+        let iconStyle = {
+            transform: 'rotate(' + (this.state.open ? '0deg' : '180deg') + ')',
+            transition: 'transform 0.5s ease-out',
         };
         return <div>
             <div style={styles}>
-                <FontIcon style={iconStyle} className='material-icons'>expand_less</FontIcon> 
+                <IconButton style={buttonStyle} iconStyle={iconStyle} onClick={() => { this.toggleList(); }}>
+                    <FontIcon className='material-icons'>expand_less</FontIcon> 
+                </IconButton>
                 <FontIcon style={{ verticalAlign: 'middle' }} className='material-icons'>list</FontIcon> 
                 <span style={{ verticalAlign: 'middle' }}>Activity Categories {`(${node.categories.order.length})`}</span>
             </div>

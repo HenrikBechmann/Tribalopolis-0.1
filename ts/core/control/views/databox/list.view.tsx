@@ -1,1 +1,0 @@
-// boxlist.view.tsx

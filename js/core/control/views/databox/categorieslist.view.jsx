@@ -7,7 +7,8 @@ class CategoriesList extends React.Component {
     constructor() {
         super(...arguments);
         this.state = {
-            open: this.props.open
+            open: this.props.open,
+            listheight: this.props.open ? 'auto' : '0',
         };
         this.listelement = null;
         this.getCategoryNodes = node => {
@@ -24,10 +25,42 @@ class CategoriesList extends React.Component {
             }}>{catitems}</div>;
         };
     }
-    componentWillGetProps(nextProps) {
-        let { open } = nextProps;
-        if (open !== this.state.open) {
-            console.log('cat list open changing to ', open);
+    componentWillReceiveProps(nextProps) {
+        let { open: willbeopen } = nextProps;
+        if (willbeopen !== this.state.open) {
+            let targetheight = null;
+            let startheight = null;
+            let finalheight = null;
+            let subheight = this.listelement.offsetHeight + 'px';
+            if (this.state.open) {
+                targetheight = '0',
+                    startheight = subheight;
+                finalheight = '0';
+            }
+            else {
+                targetheight = subheight;
+                startheight = '0';
+                finalheight = 'auto';
+            }
+            this.setState({
+                listheight: startheight
+            }, () => {
+                setTimeout(() => {
+                    this.setState({
+                        listheight: targetheight,
+                    }, () => {
+                        setTimeout(() => {
+                            this.setState({
+                                listheight: finalheight,
+                                open: willbeopen,
+                            });
+                        }, 600);
+                    });
+                });
+            });
+            this.setState({
+                open,
+            });
         }
     }
     render() {
@@ -35,8 +68,9 @@ class CategoriesList extends React.Component {
         let list = this.getCategoryNodes(node);
         return <div style={{
             paddingLeft: '6px',
-            height: this.state.open ? 'auto' : '0',
+            height: this.state.listheight,
             overflow: 'hidden',
+            transition: 'height 0.5s ease-out'
         }}>
             {list}
         </div>;
