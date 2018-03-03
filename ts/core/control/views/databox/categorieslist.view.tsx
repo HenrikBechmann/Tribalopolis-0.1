@@ -6,32 +6,50 @@ import * as React from 'react'
 
 import CategoryNode from './categorynode.view'
 
-let getCategoryNodes = node => {
-
-
-    let categories = node.categories.set 
-    let order = node.categories.order
-
-    let catitems = []
-    for (let id of order) {
-        let data = categories[id]
-
-        let catitem = <CategoryNode key = {id} id = {id} data = {data} />
-
-        catitems.push(catitem)
+class CategoriesList extends React.Component<any,any> {
+    state = {
+        open:this.props.open
     }
-    return catitems
-}
 
-const CategoriesList = props => {
+    listelement = null
 
-    let { node } = props
+    getCategoryNodes = node => {
 
-    let list = getCategoryNodes(node)
 
-    return <div style = {{paddingLeft:'6px'}} >
-        {list}
-    </div>
+        let categories = node.categories.set 
+        let order = node.categories.order
+
+        let catitems = []
+        for (let id of order) {
+            let data = categories[id]
+
+            let catitem = <CategoryNode key = {id} id = {id} data = {data} />
+
+            catitems.push(catitem)
+        }
+        return <div
+            ref = {element => {
+                this.listelement = element
+            }}
+        >{catitems}</div>
+    }
+
+    render() {
+
+        let { node } = this.props
+
+        let list = this.getCategoryNodes(node)
+
+        return <div style = {
+            {
+                paddingLeft:'6px',
+                height:this.state.open?'auto':'0',
+                overflow:'hidden',
+            }
+        }>
+            {list}
+        </div>
+    }
 }
 
 export default CategoriesList
