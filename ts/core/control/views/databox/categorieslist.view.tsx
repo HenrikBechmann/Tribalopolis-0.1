@@ -50,9 +50,6 @@ class CategoriesList extends React.Component<any,any> {
                     },50)
                 }
             )
-            this.setState({
-                open,
-            })
         }
     }
 

@@ -58,9 +58,6 @@ class CategoriesList extends React.Component {
                     });
                 }, 50);
             });
-            this.setState({
-                open,
-            });
         }
     }
     render() {
