@@ -38,6 +38,7 @@ class CategoriesBar extends React.Component<any,any> {
             position:'sticky',
             top:'0',
             backgroundColor:'lightblue',
+            zIndex:1,
         }
 
         let buttonStyle:React.CSSProperties = {
@@ -46,6 +47,13 @@ class CategoriesBar extends React.Component<any,any> {
             height:'24px',
             float:'right',
             marginRight:'4px',
+        }
+
+        let actionButtonStyle:React.CSSProperties = {
+            ...buttonStyle,
+            border:'1px solid silver',
+            borderRadius:'50%',
+            boxSizing:'border-box',
         }
 
         let iconStyle:React.CSSProperties = {
@@ -62,6 +70,11 @@ class CategoriesBar extends React.Component<any,any> {
                     }
                 >
                     <FontIcon className='material-icons'>expand_less</FontIcon> 
+                </IconButton>
+                <IconButton style = {actionButtonStyle}
+                    iconStyle = {{fontSize:'20px'}}
+                >
+                    <FontIcon color = 'green' className='material-icons'>build</FontIcon> 
                 </IconButton>
                 <FontIcon style = {{verticalAlign:'middle'}} className='material-icons'>list</FontIcon> 
                 <span style = {{verticalAlign:'middle'}} >Activity Categories {`(${node.categories.order.length})`}</span>

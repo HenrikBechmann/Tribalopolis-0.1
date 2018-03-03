@@ -32,6 +32,7 @@ class CategoriesBar extends React.Component {
             position: 'sticky',
             top: '0',
             backgroundColor: 'lightblue',
+            zIndex: 1,
         };
         let buttonStyle = {
             padding: '0',
@@ -40,6 +41,7 @@ class CategoriesBar extends React.Component {
             float: 'right',
             marginRight: '4px',
         };
+        let actionButtonStyle = Object.assign({}, buttonStyle, { border: '1px solid silver', borderRadius: '50%', boxSizing: 'border-box' });
         let iconStyle = {
             transform: 'rotate(' + (this.state.open ? '0deg' : '180deg') + ')',
             transition: 'transform 0.5s .1s ease-out',
@@ -48,6 +50,9 @@ class CategoriesBar extends React.Component {
             <div style={styles}>
                 <IconButton style={buttonStyle} iconStyle={iconStyle} onClick={() => { this.toggleList(); }}>
                     <FontIcon className='material-icons'>expand_less</FontIcon> 
+                </IconButton>
+                <IconButton style={actionButtonStyle} iconStyle={{ fontSize: '20px' }}>
+                    <FontIcon color='green' className='material-icons'>build</FontIcon> 
                 </IconButton>
                 <FontIcon style={{ verticalAlign: 'middle' }} className='material-icons'>list</FontIcon> 
                 <span style={{ verticalAlign: 'middle' }}>Activity Categories {`(${node.categories.order.length})`}</span>

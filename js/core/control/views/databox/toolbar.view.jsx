@@ -26,7 +26,7 @@ const BoxToolbar = props => {
         borderRadius: '50%',
         border: '1px solid silver',
     }}>
-            <FontIcon color='green' className='material-icons'>build</FontIcon>
+            <FontIcon className='material-icons'>menu</FontIcon>
         </div>
         <div style={{
         padding: '6px 0 0 3px',

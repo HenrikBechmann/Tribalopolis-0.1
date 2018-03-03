@@ -42,17 +42,17 @@ const ScanBar = props => {
             iconStyle = {iconStyle}
             disabled
         >
-            <FontIcon className='material-icons'>close</FontIcon> 
+            <FontIcon color = 'green' className='material-icons'>close</FontIcon> 
         </IconButton>
         <IconButton style = {buttonStyle}
             iconStyle = {iconStyle}
         >
-            <FontIcon className='material-icons'>play_arrow</FontIcon> 
+            <FontIcon color = 'green' className='material-icons'>play_arrow</FontIcon> 
         </IconButton>
         <IconButton style = {buttonStyle}
             iconStyle = {iconStyle}
         >
-            <FontIcon className='material-icons'>settings</FontIcon> 
+            <FontIcon color = 'green' className='material-icons'>settings</FontIcon> 
         </IconButton>
             <FontIcon style = {{verticalAlign:'middle'}} className='material-icons'>list</FontIcon> 
             <span style = {{verticalAlign:'middle'}} >Scan Activity Records</span>

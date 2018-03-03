@@ -33,7 +33,7 @@ const BoxToolbar = props => {
                 border:'1px solid silver',
             }
         } >
-            <FontIcon color = 'green' className='material-icons'>build</FontIcon>
+            <FontIcon className='material-icons'>menu</FontIcon>
         </div>
         <div style = {
             {
