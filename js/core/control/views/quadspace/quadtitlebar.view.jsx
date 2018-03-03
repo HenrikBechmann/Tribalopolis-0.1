@@ -13,6 +13,7 @@ const QuadTitleBar = props => {
         borderRadius: '5px 5px 0 0',
         borderBottom: '1px solid silver',
         overflow: 'hidden',
+        fontSize: 'smaller',
     }}>
             <div style={{
         position: 'absolute',

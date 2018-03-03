@@ -311,7 +311,7 @@ class QuadspaceController extends React.Component<any,any> {
                         {this.quadrants()}
                     </QuadPlatform>
                 </QuadViewport>
-                <QuadStatusBar status = 'Something' />
+                <QuadStatusBar status = 'Something Something Something Something Something Something Something Something Something Something Something Something Something Something Something Something Something ' />
             </QuadFrame>
         )
     }

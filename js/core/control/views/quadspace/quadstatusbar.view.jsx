@@ -7,29 +7,51 @@ const QuadStatusBar = props => {
     return (<div style={{
         position: 'absolute',
         height: '25px',
-        boxSizing: 'border-box',
         backgroundColor: 'paleturquoise',
+        boxSizing: 'border-box',
         width: '100%',
-        bottom: '0',
-        padding: '3px',
         borderRadius: '0 0 5px 5px',
         borderTop: '2px solid gray',
+        overflow: 'hidden',
+        fontSize: 'smaller',
+        bottom: '0',
     }}>
             <div style={{
         position: 'absolute',
         top: '-4px',
         right: '0',
+        zIndex: 3,
         backgroundColor: 'lightgray',
         border: '1px solid silver',
-        overflow: 'hidden',
+        boxSizing: 'border-box',
     }}> 
                 <FontIcon className='material-icons'>delete</FontIcon>
             </div>
-            <div style={{ float: 'left', position: 'relative', top: '-3px' }}>
+            <div style={{
+        position: 'absolute',
+        top: '0',
+        left: '0',
+        zIndex: 3,
+        backgroundColor: 'lightgray',
+        border: '1px solid gray',
+        boxSizing: 'border-box',
+    }}>
                 <FontIcon className='material-icons'>view_list</FontIcon>
             </div>
-            <div style={{ display: 'inline-block', whiteSpace: 'nowrap' }}>
-                {props.status}
+            <div style={{
+        position: 'absolute',
+        top: '0',
+        width: '100%',
+        height: '42px',
+        overflow: 'auto',
+        display: 'flex',
+        flexWrap: 'nowrap',
+        boxSizing: 'border-box',
+        padding: '3px 0 0 30px',
+    }}>
+                <div style={{ whiteSpace: 'nowrap' }}>
+                    {props.status}
+                </div>
             </div>
         </div>);
 };
