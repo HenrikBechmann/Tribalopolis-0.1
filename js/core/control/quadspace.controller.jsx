@@ -18,7 +18,7 @@ let datastore = [
     {
         sessionid: 0,
         type: 'object',
-        class: 'member',
+        class: 'primary owner',
         schema: 'common',
         tribe: '__owner__',
         id: 'henrik',
