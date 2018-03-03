@@ -179,7 +179,7 @@ class ScrollControlsView extends React.Component<any,any> {
         }
     }
 
-    arrowStyle = {
+    arrowStyle:React.CSSProperties = {
 
         position:'absolute',
         width: '20px',
@@ -196,7 +196,7 @@ class ScrollControlsView extends React.Component<any,any> {
 
     }
 
-    leftArrowStyle = {
+    leftArrowStyle:React.CSSProperties = {
 
         ...this.arrowStyle,
         left:0,
@@ -206,7 +206,7 @@ class ScrollControlsView extends React.Component<any,any> {
 
     }
 
-    rightArrowStyle = {
+    rightArrowStyle:React.CSSProperties = {
 
         ...this.arrowStyle,
         right:0,
@@ -238,7 +238,7 @@ class ScrollControlsView extends React.Component<any,any> {
 
                 { /* left control */ }
                 <div 
-                    style = { leftStyle as any }
+                    style = { leftStyle }
                     ref = "leftcontrol"
                     onClick = { this.scrollToLeft }
                 >
@@ -267,7 +267,7 @@ class ScrollControlsView extends React.Component<any,any> {
 
                 { /* right control */ }
                 <div 
-                    style = { rightStyle as any }
+                    style = { rightStyle }
                     ref = "rightcontrol"
                     onClick = { this.scrollToRight }
                 >

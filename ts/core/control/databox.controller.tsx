@@ -28,7 +28,7 @@ class DataBox extends React.Component<any,any> {
 
         let opacity = this.state.opacity
 
-        let frameStyle = {
+        let frameStyle:React.CSSProperties = {
             width:'300px',
             backgroundColor:'lightblue',
             border:'1px solid silver',
@@ -41,12 +41,11 @@ class DataBox extends React.Component<any,any> {
             fontSize:'smaller',
             opacity:opacity,
             transition:'opacity .5s ease-out',
-            cursor:'default',
         }
 
         let { node } = this.props
 
-        return <div style = {frameStyle as any}>
+        return <div style = {frameStyle}>
             <BoxToolbar node = {node} />
             <BoxHeader node = {node} />
             <div style = {

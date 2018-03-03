@@ -13,7 +13,7 @@ const BoxHeader = props => {
 
     let boxicon = '/public/icons/databox.svg'
 
-    let styles = {
+    let styles:React.CSSProperties = {
         position:'relative',
         width:'100%',
         border:'1px solid silver',
@@ -26,7 +26,7 @@ const BoxHeader = props => {
         fontSize:'larger',
     }
 
-    return <div style = {styles as any}>
+    return <div style = {styles}>
         <div style = {
             {
                 position:'absolute',

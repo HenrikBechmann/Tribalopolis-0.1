@@ -18,7 +18,7 @@ class CategoriesBar extends React.Component<any,any> {
 
         let { node } = this.props
 
-        let styles = {
+        let styles:React.CSSProperties = {
             width:'100%',
             border:'1px solid silver',
             borderRadius:'8px',
@@ -30,16 +30,16 @@ class CategoriesBar extends React.Component<any,any> {
             fontSize:'larger',
         }
 
+        let iconStyle:React.CSSProperties = {
+            verticalAlign:'middle',
+            float:'right',
+            marginRight:'4px',
+            transform:'rotate(' + (this.state.open?'0deg':'180deg') + ')'
+        }
+
         return <div>
-            <div style = {styles as any}>
-                <FontIcon style = {
-                    {
-                        verticalAlign:'middle',
-                        float:'right',
-                        marginRight:'4px',
-                        transform:'rotate(' + (this.state.open?'0deg':'180deg') + ')'
-                    }
-                } className='material-icons'>expand_less</FontIcon> 
+            <div style = {styles}>
+                <FontIcon style = { iconStyle } className='material-icons'>expand_less</FontIcon> 
                 <FontIcon style = {{verticalAlign:'middle'}} className='material-icons'>list</FontIcon> 
                 <span style = {{verticalAlign:'middle'}} >Activity Categories {`(${node.categories.order.length})`}</span>
             </div>

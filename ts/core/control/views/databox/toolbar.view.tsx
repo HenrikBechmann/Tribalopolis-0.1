@@ -8,7 +8,7 @@ import FontIcon from 'material-ui/FontIcon'
 
 const BoxToolbar = props => {
 
-    let styles = {
+    let styles:React.CSSProperties = {
         position:'relative',
         width:'100%',
         borderRadius:'8px',
@@ -19,7 +19,7 @@ const BoxToolbar = props => {
         boxSizing:'border-box',
     }
 
-    return <div style = {styles as any}>
+    return <div style = {styles}>
 
         <div style = {
             {

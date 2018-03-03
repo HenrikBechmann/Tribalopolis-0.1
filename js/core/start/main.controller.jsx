@@ -16,9 +16,12 @@ import MainView from './main.view';
 class Main extends React.Component {
     render() {
         let { globalmessage, version } = this.props;
+        let mainviewstyle = {
+            fontFamily,
+        };
         return (<Provider store={store}>
                 <MuiThemeProvider muiTheme={muiTheme}>
-                    <MainView history={history} globalmessage={globalmessage} style={{ fontFamily }}/>
+                    <MainView history={history} globalmessage={globalmessage} style={mainviewstyle}/>
                 </MuiThemeProvider>
             </Provider>);
     }

@@ -24,6 +24,12 @@ class CategoriesList extends React.Component {
             }}>{catitems}</div>;
         };
     }
+    componentWillGetProps(nextProps) {
+        let { open } = nextProps;
+        if (open !== this.state.open) {
+            console.log('cat list open changing to ', open);
+        }
+    }
     render() {
         let { node } = this.props;
         let list = this.getCategoryNodes(node);

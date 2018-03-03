@@ -36,7 +36,6 @@ class DataBox extends React.Component {
             fontSize: 'smaller',
             opacity: opacity,
             transition: 'opacity .5s ease-out',
-            cursor: 'default',
         };
         let { node } = this.props;
         return <div style={frameStyle}>

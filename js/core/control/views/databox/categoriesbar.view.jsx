@@ -24,14 +24,15 @@ class CategoriesBar extends React.Component {
             marginBottom: '3px',
             fontSize: 'larger',
         };
-        return <div>
-            <div style={styles}>
-                <FontIcon style={{
+        let iconStyle = {
             verticalAlign: 'middle',
             float: 'right',
             marginRight: '4px',
             transform: 'rotate(' + (this.state.open ? '0deg' : '180deg') + ')'
-        }} className='material-icons'>expand_less</FontIcon> 
+        };
+        return <div>
+            <div style={styles}>
+                <FontIcon style={iconStyle} className='material-icons'>expand_less</FontIcon> 
                 <FontIcon style={{ verticalAlign: 'middle' }} className='material-icons'>list</FontIcon> 
                 <span style={{ verticalAlign: 'middle' }}>Activity Categories {`(${node.categories.order.length})`}</span>
             </div>

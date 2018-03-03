@@ -31,11 +31,15 @@ class Main extends React.Component<any,any> {
     render() {
         let { globalmessage, version } = this.props
 
+        let mainviewstyle:React.CSSProperties = {
+            fontFamily,
+        }
+
         return (
             <Provider store={ store }>
                 <MuiThemeProvider muiTheme = {muiTheme}>
                     <MainView history = {history} globalmessage={globalmessage}
-                        style = {{fontFamily} as any} />
+                        style = {mainviewstyle} />
                 </MuiThemeProvider>
             </Provider>
         )

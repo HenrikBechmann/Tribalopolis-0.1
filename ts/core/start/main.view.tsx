@@ -14,7 +14,7 @@ import ReduxToastr from 'react-redux-toastr'
 // import { RoutesController } from './routes.controller'
 import { AppRouter } from './approuter'
 
-const MainView = ({globalmessage, history, style = {}}) => (
+const MainView = ({globalmessage, history, style}) => (
     <div style = {style}>
         {globalmessage}
 

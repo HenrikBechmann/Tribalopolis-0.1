@@ -80,7 +80,7 @@ class InfiniteScroll extends React.Component<any,any> {
         
     }
 
-    viewportFrameStyle = {
+    viewportFrameStyle:React.CSSProperties = {
         position:'absolute',
         top:'calc(25px + 2%)',
         left:'2%',
@@ -90,7 +90,7 @@ class InfiniteScroll extends React.Component<any,any> {
         overflow:'hidden',
     }
 
-    viewportStyle = { // borderRadius on scroller breaks scrollbar
+    viewportStyle:React.CSSProperties = { // borderRadius on scroller breaks scrollbar
         width:'100%',
         height:'100%',
         overflowX:'auto',
@@ -99,7 +99,7 @@ class InfiniteScroll extends React.Component<any,any> {
         backgroundColor:'white',
     }
 
-    platformStyle = {
+    platformStyle:React.CSSProperties = {
         position:'relative',
         display:'flex',
         height:'100%',
@@ -108,7 +108,7 @@ class InfiniteScroll extends React.Component<any,any> {
         margin:'0 auto 0 auto',
     }
 
-    listStyle = {
+    listStyle:React.CSSProperties = {
         display:'flex',
         position:'relative',
         flexWrap:'nowrap',
@@ -120,19 +120,19 @@ class InfiniteScroll extends React.Component<any,any> {
     }
 
     render () {
-        return <div className = 'CS_viewportframe' style = {this.viewportFrameStyle as any} >
+        return <div className = 'CS_viewportframe' style = {this.viewportFrameStyle} >
             <ScrollControlsView id='scrollcontrolsview' 
                 scroller = {this.state.scroller} 
                 style = {{width:'100%',height:'100%',position:'relative'}}
             >
-                <div className = 'CS_viewport' style = {this.viewportStyle as any} 
+                <div className = 'CS_viewport' style = {this.viewportStyle} 
                     onScroll = {this.onScroll}
                     ref = {el => {
                         this.scroller = el
                     }}
                 >
-                    <div className = 'CS_platform' style = {this.platformStyle as any}>
-                        <div className = 'CS_list' style = {this.listStyle as any}>
+                    <div className = 'CS_platform' style = {this.platformStyle}>
+                        <div className = 'CS_list' style = {this.listStyle}>
                             { this.state.items }
                         </div>
                     </div>

@@ -11,7 +11,7 @@ const ScanBar = props => {
 
     let { node } = props
 
-    let barStyle = {
+    let barStyle:React.CSSProperties = {
         width:'100%',
         border:'1px solid silver',
         borderRadius:'8px',
@@ -23,21 +23,21 @@ const ScanBar = props => {
         fontSize:'larger',
     }
 
-    let buttonStyle = {
+    let buttonStyle:React.CSSProperties = {
         padding:'0',
         width:'24px',
         height:'24px',
         float:'right',
         marginRight:'4px',
     }
-    let iconStyle = {
+    let iconStyle:React.CSSProperties = {
         border:'1px solid silver',
         borderRadius:'50%',
         verticalAlign:'middle',
     }
 
     return <div>
-        <div style = {barStyle as any}>
+        <div style = {barStyle}>
         <IconButton style = {buttonStyle}
             iconStyle = {iconStyle}
         >

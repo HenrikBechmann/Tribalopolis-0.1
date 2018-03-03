@@ -13,6 +13,13 @@ class CategoriesList extends React.Component<any,any> {
 
     listelement = null
 
+    componentWillGetProps(nextProps) {
+        let { open } = nextProps
+        if ( open !== this.state.open ) {
+            console.log('cat list open changing to ',open)
+        }
+    }
+
     getCategoryNodes = node => {
 
 

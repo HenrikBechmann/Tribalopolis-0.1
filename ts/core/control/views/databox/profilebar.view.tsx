@@ -10,7 +10,7 @@ const ProfileBar = props => {
 
     let { node } = props
 
-    let styles = {
+    let styles:React.CSSProperties = {
         width:'100%',
         border:'1px solid silver',
         borderRadius:'8px',
@@ -22,7 +22,7 @@ const ProfileBar = props => {
         fontSize:'larger',
     }
 
-    return <div style = {styles as any}>
+    return <div style = {styles}>
         <FontIcon style = {
             {
                 verticalAlign:'middle',
