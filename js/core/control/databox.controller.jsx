@@ -24,7 +24,7 @@ class DataBox extends React.Component {
         // console.log('item',this.props.item)
         let opacity = this.state.opacity;
         let frameStyle = {
-            width: '280px',
+            width: '300px',
             backgroundColor: 'lightblue',
             border: '1px solid silver',
             maxHeight: '96%',

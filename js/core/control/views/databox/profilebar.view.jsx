@@ -17,7 +17,12 @@ const ProfileBar = props => {
         fontSize: 'larger',
     };
     return <div style={styles}>
-        <FontIcon style={{ verticalAlign: 'middle', float: 'right', transform: 'rotate(180deg)' }} className='material-icons'>expand_less</FontIcon> 
+        <FontIcon style={{
+        verticalAlign: 'middle',
+        float: 'right',
+        transform: 'rotate(180deg)',
+        marginRight: '4px',
+    }} className='material-icons'>expand_less</FontIcon> 
         <FontIcon style={{ verticalAlign: 'middle' }} className='material-icons'>subject</FontIcon> 
         <span style={{ verticalAlign: 'middle' }}>Profile</span>
     </div>;

@@ -19,7 +19,11 @@ const CategoriesBar = props => {
     };
     return <div>
         <div style={styles}>
-            <FontIcon style={{ verticalAlign: 'middle', float: 'right' }} className='material-icons'>expand_less</FontIcon> 
+            <FontIcon style={{
+        verticalAlign: 'middle',
+        float: 'right',
+        marginRight: '4px',
+    }} className='material-icons'>expand_less</FontIcon> 
             <FontIcon style={{ verticalAlign: 'middle' }} className='material-icons'>list</FontIcon> 
             <span style={{ verticalAlign: 'middle' }}>Activity Categories {`(${node.categories.order.length})`}</span>
         </div>
