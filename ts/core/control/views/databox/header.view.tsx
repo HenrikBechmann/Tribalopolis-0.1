@@ -8,7 +8,7 @@ import FontIcon from 'material-ui/FontIcon'
 
 const BoxHeader = props => {
 
-    let { item } = props
+    let { node } = props
 
 
     let boxicon = '/public/icons/databox.svg'
@@ -43,7 +43,7 @@ const BoxHeader = props => {
         } >
             <FontIcon className='material-icons'>zoom_out_map</FontIcon>
         </div>
-        <img style = {{verticalAlign:'bottom'}} src = {boxicon} /> {item.profile.name}
+        <img style = {{verticalAlign:'bottom'}} src = {boxicon} /> {node.profile.name}
     </div>
 }
 

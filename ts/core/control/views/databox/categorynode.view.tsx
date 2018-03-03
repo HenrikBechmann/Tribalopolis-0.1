@@ -6,7 +6,7 @@ import * as React from 'react'
 
 import FontIcon from 'material-ui/FontIcon'
 
-const CategoryItem = props => {
+const CategoryNode = props => {
     let { id,data } = props
     let {name, count} = data
 
@@ -20,4 +20,4 @@ const CategoryItem = props => {
     </div>
 }
 
-export default CategoryItem
+export default CategoryNode

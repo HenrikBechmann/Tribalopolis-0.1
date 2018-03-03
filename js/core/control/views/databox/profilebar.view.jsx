@@ -4,7 +4,7 @@
 import * as React from 'react';
 import FontIcon from 'material-ui/FontIcon';
 const ProfileBar = props => {
-    let { item } = props;
+    let { node } = props;
     let styles = {
         width: '100%',
         border: '1px solid silver',

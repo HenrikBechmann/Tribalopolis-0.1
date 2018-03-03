@@ -37,19 +37,19 @@ class DataBox extends React.Component {
             opacity: opacity,
             transition: 'opacity .5s ease-out',
         };
-        let { item } = this.props;
+        let { node } = this.props;
         return <div style={frameStyle}>
-            <BoxToolbar item={item}/>
-            <BoxHeader item={item}/>
+            <BoxToolbar node={node}/>
+            <BoxHeader node={node}/>
             <div style={{
             overflow: 'auto',
             height: 'calc(100% - 70px)'
         }}>
                 <div>
-                    <ProfileBar item={item}/>
-                    <ProfileForm item={item}/>
-                    <CategoriesBar item={item}/>
-                    <CategoriesList item={item}/>
+                    <ProfileBar node={node}/>
+                    <ProfileForm node={node}/>
+                    <CategoriesBar node={node}/>
+                    <CategoriesList node={node}/>
                 </div>
 
             </div>

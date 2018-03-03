@@ -4,7 +4,7 @@
 import * as React from 'react';
 import FontIcon from 'material-ui/FontIcon';
 const CategoriesBar = props => {
-    let { item } = props;
+    let { node } = props;
     let styles = {
         width: '100%',
         border: '1px solid silver',
@@ -19,7 +19,7 @@ const CategoriesBar = props => {
     return <div style={styles}>
         <FontIcon style={{ verticalAlign: 'middle', float: 'right' }} className='material-icons'>expand_less</FontIcon> 
         <FontIcon style={{ verticalAlign: 'middle' }} className='material-icons'>list</FontIcon> 
-        <span style={{ verticalAlign: 'middle' }}>Activities {`(${item.categories.order.length})`}</span>
+        <span style={{ verticalAlign: 'middle' }}>Activities {`(${node.categories.order.length})`}</span>
     </div>;
 };
 export default CategoriesBar;

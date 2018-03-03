@@ -113,6 +113,12 @@ let datastore = [
                     name:'Accounting',
                     schema:'common',
                 },
+                other:{
+                    active:true,
+                    count:2,
+                    name:'Other',
+                    schema:'common',
+                },
             },
             order:[
                 'tribes',
@@ -127,6 +133,7 @@ let datastore = [
                 'programs',
                 'projects',
                 'resources',
+                'other',
             ]
         },
     },

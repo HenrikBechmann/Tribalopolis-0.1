@@ -65,7 +65,7 @@ const BoxToolbar = props => {
             }
         }>
             <FontIcon style = {{position:'absolute',top:'0',right:'0',marginTop:'2px'}} className='material-icons'>arrow_drop_down</FontIcon>
-            {props.item.class}
+            {props.node.class}
         </div>
 
     </div>
