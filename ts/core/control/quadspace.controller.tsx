@@ -248,7 +248,7 @@ class QuadspaceController extends React.Component<any,any> {
             split = {this.state.split}
             quadselection = {this.quadselection}
             color = 'lightgreen' 
-            title = 'first'
+            title = 'first first first first first first first first first first first first first first first first first first first first first first first first first first first first first first first first first '
             badgequantity = {0}
             datastack = {this.state.datastacks[0]}
             getDatastore = {this.getDatastore}

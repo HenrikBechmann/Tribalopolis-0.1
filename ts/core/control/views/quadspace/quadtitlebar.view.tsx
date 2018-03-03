@@ -15,14 +15,42 @@ const QuadTitleBar = props => {
                     backgroundColor:'lightgray',
                     boxSizing:'border-box',
                     width:'100%',
-                    padding: '3px 0 0 27px',
                     borderRadius:'5px 5px 0 0',
                     borderBottom:'1px solid silver',
+                    overflow:'hidden',
                 }
             }
         >
-            <FontIcon style = {{position:'absolute',top:'0',left:'0',zIndex:3}}className='material-icons'>menu</FontIcon> 
-            {props.title}
+            <div
+                style = {
+                    {
+                        position:'absolute',
+                        top:'0',
+                        left:'0',
+                        zIndex:3,
+                        backgroundColor:'lightgray',
+                        border:'1px solid gray',
+                        boxSizing:'border-box',
+                    }
+                }
+            >
+                <FontIcon className='material-icons'>menu</FontIcon> 
+            </div>
+            <div style = {{
+                position:'absolute',
+                top:'0',
+                width:'100%',
+                height:'42px',
+                overflow:'auto',
+                display:'flex',
+                flexWrap:'nowrap',
+                boxSizing:'border-box',
+                padding: '3px 0 0 30px',
+            }}>
+                <div style = {{whiteSpace:'nowrap'}}>
+                    {props.title}
+                </div>
+            </div>
         </div>
     )
 }
