@@ -40,6 +40,7 @@ const ScanBar = props => {
         <div style = {barStyle}>
         <IconButton style = {buttonStyle}
             iconStyle = {iconStyle}
+            disabled
         >
             <FontIcon className='material-icons'>close</FontIcon> 
         </IconButton>

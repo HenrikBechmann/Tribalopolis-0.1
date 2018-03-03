@@ -31,7 +31,7 @@ const ScanBar = props => {
     };
     return <div>
         <div style={barStyle}>
-        <IconButton style={buttonStyle} iconStyle={iconStyle}>
+        <IconButton style={buttonStyle} iconStyle={iconStyle} disabled>
             <FontIcon className='material-icons'>close</FontIcon> 
         </IconButton>
         <IconButton style={buttonStyle} iconStyle={iconStyle}>

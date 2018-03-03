@@ -29,6 +29,9 @@ class CategoriesBar extends React.Component {
             boxSizing: 'border-box',
             marginBottom: '3px',
             fontSize: 'larger',
+            position: 'sticky',
+            top: '0',
+            backgroundColor: 'lightblue',
         };
         let buttonStyle = {
             padding: '0',
