@@ -41,6 +41,12 @@ let datastore = [
         categories:
         {
             set:{
+                diaries:{
+                    active:true,
+                    count:3,
+                    name:'Diaries',
+                    schema:'common',
+                },
                 tribes:{
                     active:true,
                     count:5,
@@ -125,6 +131,7 @@ let datastore = [
                 'connections',
                 'requesting',
                 'pending',
+                'diaries',
                 'tasks',
                 'messengers',
                 'calendars',
