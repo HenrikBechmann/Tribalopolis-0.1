@@ -67,7 +67,7 @@ class QuadToolsStrip extends React.Component<any,any> {
                 <MenuItem 
                     leftIcon = {
                         <img
-                            src='/public/icons/campfire.svg'
+                            src='/public/icons/fire.svg'
                         />
                     }
                     primaryText = "About"

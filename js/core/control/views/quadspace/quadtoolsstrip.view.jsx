@@ -35,7 +35,7 @@ class QuadToolsStrip extends React.Component {
         };
         this.handleMenuClose = () => this.setState({ menuopen: false });
         this.menudrawer = () => (<Drawer docked={false} open={this.state.menuopen} onRequestChange={(open) => this.setState({ menuopen: open })}>
-                <MenuItem leftIcon={<img src='/public/icons/campfire.svg'/>} primaryText="About" onClick={this.handleMenuClose}/>
+                <MenuItem leftIcon={<img src='/public/icons/fire.svg'/>} primaryText="About" onClick={this.handleMenuClose}/>
                 <MenuItem leftIcon={<FontIcon className='material-icons'>local_library</FontIcon>} primaryText="Tutorials" onClick={this.handleMenuClose}/>
                 <MenuItem leftIcon={<FontIcon className='material-icons'>build</FontIcon>} primaryText="Build" onClick={this.handleMenuClose}/>
             </Drawer>);
