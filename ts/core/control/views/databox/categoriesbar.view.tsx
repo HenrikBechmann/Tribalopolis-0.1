@@ -61,23 +61,38 @@ class CategoriesBar extends React.Component<any,any> {
             transition:'transform 0.5s .1s ease-out',
         }
 
+        let checkIconStyle:React.CSSProperties = {
+
+        }
+
         return <div>
             <div style = {styles}>
-                <IconButton style = {buttonStyle}
-                    iconStyle = {iconStyle}
-                    onClick = {
-                        () => {this.toggleList()}
-                    }
-                >
-                    <FontIcon className='material-icons'>expand_less</FontIcon> 
-                </IconButton>
-                <IconButton style = {actionButtonStyle}
-                    iconStyle = {{fontSize:'20px'}}
-                >
-                    <FontIcon color = 'green' className='material-icons'>build</FontIcon> 
-                </IconButton>
-                <FontIcon style = {{verticalAlign:'middle'}} className='material-icons'>list</FontIcon> 
-                <span style = {{verticalAlign:'middle'}} >Activity Categories {`(${node.categories.order.length})`}</span>
+                <div>
+                    <IconButton style = {buttonStyle}
+                        iconStyle = {iconStyle}
+                        onClick = {
+                            () => {this.toggleList()}
+                        }
+                    >
+                        <FontIcon className='material-icons'>expand_less</FontIcon> 
+                    </IconButton>
+                    <IconButton style = {actionButtonStyle}
+                        iconStyle = {{fontSize:'20px'}}
+                    >
+                        <FontIcon color = 'green' className='material-icons'>build</FontIcon> 
+                    </IconButton>
+                    <FontIcon style = {{verticalAlign:'middle'}} className='material-icons'>list</FontIcon> 
+                    <span style = {{verticalAlign:'middle'}} >Activity Categories {`(${node.categories.order.length})`}</span>
+                </div>
+                <div style = {{fontSize:'smaller',width:'65%'}}>
+                    <IconButton style = {actionButtonStyle} >
+                        <FontIcon color = 'green' className = 'material-icons'>edit</FontIcon>
+                    </IconButton>
+                    <div style = {{display:'inline-block',margin:'4px 4px 0 0'}}>
+                        <img src = './public/icons/checklist.svg' />
+                    </div>
+                     Included Roles (5/5)
+                </div>
             </div>
             <CategoriesList open = {this.state.open} node = {node } />
         </div>

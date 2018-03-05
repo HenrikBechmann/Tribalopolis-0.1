@@ -11,142 +11,7 @@ import QuadPlatform from './views/quadspace/quadplatform.view';
 import Quadrant from './quadrant.controller';
 import QuadBadge from './views/quadspace/quadbadge.view';
 import QuadStatusBar from './views/quadspace/quadstatusbar.view';
-let datamap = {
-    henrik: { sessionid: 0, path: '', },
-};
-let datastore = [
-    {
-        sessionid: 0,
-        type: 'object',
-        class: 'primary owner',
-        schema: 'common',
-        tribe: '__owner__',
-        id: 'henrik',
-        profile: {
-            tag: 'Henrik',
-            name: 'Henrik Bechmann',
-            title: null,
-            description: 'Creator of Tribalopolis',
-            birthdate: '1950-08-23',
-            location: 'Toronto',
-            locationid: 'Toronto',
-        },
-        categories: {
-            set: {
-                diaries: {
-                    active: true,
-                    count: 3,
-                    name: 'Diaries',
-                    schema: 'common',
-                },
-                tribes: {
-                    active: true,
-                    count: 5,
-                    name: 'Tribes',
-                    schema: 'common',
-                },
-                connections: {
-                    active: true,
-                    count: 23,
-                    name: 'Connections',
-                    schema: 'common',
-                },
-                requesting: {
-                    active: true,
-                    count: 12,
-                    name: 'Outgoing action requests',
-                    schema: 'common',
-                },
-                pending: {
-                    active: true,
-                    count: 23,
-                    name: 'Incoming action requests',
-                    schema: 'common',
-                },
-                roles: {
-                    active: true,
-                    count: 4,
-                    name: 'Roles',
-                    schema: 'common',
-                },
-                programs: {
-                    active: true,
-                    count: 5,
-                    name: 'Programs',
-                    schema: 'common',
-                },
-                projects: {
-                    active: true,
-                    count: 3,
-                    name: 'Projects',
-                    schema: 'common',
-                },
-                tasks: {
-                    active: true,
-                    count: 20,
-                    name: 'Tasks',
-                    schema: 'common',
-                },
-                messengers: {
-                    active: true,
-                    count: 3,
-                    name: 'Messengers',
-                    schema: 'common',
-                },
-                resources: {
-                    active: true,
-                    count: 64,
-                    name: 'Resources',
-                    schema: 'common',
-                },
-                calendars: {
-                    active: true,
-                    count: 67,
-                    name: 'Calendar',
-                    schema: 'common',
-                },
-                accounting: {
-                    active: true,
-                    count: 6000,
-                    name: 'Accounting',
-                    schema: 'common',
-                },
-                other: {
-                    active: true,
-                    count: 2,
-                    name: 'Other',
-                    schema: 'common',
-                },
-            },
-            order: [
-                'tribes',
-                'connections',
-                'requesting',
-                'pending',
-                'diaries',
-                'tasks',
-                'messengers',
-                'calendars',
-                'accounting',
-                'roles',
-                'programs',
-                'projects',
-                'resources',
-                'other',
-            ]
-        },
-    },
-];
-let datastacks = [
-    [[{ sessionid: 0, config: 'base' },
-        ]],
-    [[{ sessionid: 0, config: 'base' },
-        ]],
-    [[{ sessionid: 0, config: 'base' },
-        ]],
-    [[{ sessionid: 0, config: 'base' },
-        ]],
-];
+import { dataheap, datastacks } from '../../data/data';
 class QuadspaceController extends React.Component {
     constructor() {
         super(...arguments);
@@ -234,7 +99,7 @@ class QuadspaceController extends React.Component {
             });
         };
         this.getDatastore = (sessionid) => {
-            return datastore[sessionid];
+            return dataheap[sessionid];
         };
         this.quadrants = () => [
             <Quadrant key='1' sessionid={0} handleswap={this.handleSwap} quadrant={this.calcQuadrant(0)} split={this.state.split} quadselection={this.quadselection} color='lightgreen' title='first first first first first first first first first first first first first first first first first first first first first first first first first first first first first first first first first ' badgequantity={0} datastack={this.state.datastacks[0]} getDatastore={this.getDatastore}/>,
