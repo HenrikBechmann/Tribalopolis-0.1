@@ -84,14 +84,11 @@ class CategoriesBar extends React.Component<any,any> {
                     <FontIcon style = {{verticalAlign:'middle'}} className='material-icons'>list</FontIcon> 
                     <span style = {{verticalAlign:'middle'}} >Activity Categories {`(${node.categories.order.length})`}</span>
                 </div>
-                <div style = {{fontSize:'smaller',width:'65%'}}>
-                    <IconButton style = {actionButtonStyle} >
-                        <FontIcon color = 'green' className = 'material-icons'>edit</FontIcon>
+                <div style = {{fontSize:'smaller'}}>
+                    <span>for all roles</span>
+                    <IconButton style = {{...buttonStyle,float:'none', verticalAlign:'middle'}} >
+                        <FontIcon color = 'green' className = 'material-icons'>arrow_drop_down</FontIcon>
                     </IconButton>
-                    <div style = {{display:'inline-block',margin:'4px 4px 0 0'}}>
-                        <img src = './public/icons/checklist.svg' />
-                    </div>
-                     Included Roles (5/5)
                 </div>
             </div>
             <CategoriesList open = {this.state.open} node = {node } />
