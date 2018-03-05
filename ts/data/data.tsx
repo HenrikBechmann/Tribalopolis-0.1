@@ -30,6 +30,7 @@ let nodeheap = [
                     count:5,
                     name:'Tribes',
                     schema:'common',
+                    sysnode:true,
                 },
                 connections:{
                     active:true,
@@ -88,7 +89,7 @@ let nodeheap = [
                 calendars:{
                     active:true,
                     count:67,
-                    name:'Calendar',
+                    name:'Calendars',
                     schema:'common',
                 },
                 accounting:{
@@ -102,6 +103,7 @@ let nodeheap = [
                     count:2,
                     name:'Other',
                     schema:'common',
+                    sysnode:true,
                 },
             },
             order:[

@@ -49,26 +49,24 @@ class CategoriesBar extends React.Component {
         let checkIconStyle = {};
         return <div>
             <div style={styles}>
-                <div>
-                    <IconButton style={buttonStyle} iconStyle={iconStyle} onClick={() => { this.toggleList(); }}>
-                        <FontIcon className='material-icons'>expand_less</FontIcon> 
-                    </IconButton>
-                    <IconButton style={actionButtonStyle} iconStyle={{ fontSize: '20px' }}>
-                        <FontIcon color='green' className='material-icons'>build</FontIcon> 
-                    </IconButton>
-                    <FontIcon style={{ verticalAlign: 'middle' }} className='material-icons'>list</FontIcon> 
-                    <span style={{ verticalAlign: 'middle' }}>Activity Categories {`(${node.categories.order.length})`}</span>
-                </div>
-                <div style={{ fontSize: 'smaller' }}>
-                    <span>for all roles</span>
-                    <IconButton style={Object.assign({}, buttonStyle, { float: 'none', verticalAlign: 'middle' })}>
-                        <FontIcon color='green' className='material-icons'>arrow_drop_down</FontIcon>
-                    </IconButton>
-                </div>
+                <IconButton style={buttonStyle} iconStyle={iconStyle} onClick={() => { this.toggleList(); }}>
+                    <FontIcon className='material-icons'>expand_less</FontIcon> 
+                </IconButton>
+                <IconButton style={actionButtonStyle} iconStyle={{ fontSize: '20px' }}>
+                    <FontIcon color='green' className='material-icons'>build</FontIcon> 
+                </IconButton>
+                <FontIcon style={{ verticalAlign: 'middle' }} className='material-icons'>list</FontIcon> 
+                <span style={{ verticalAlign: 'middle' }}>Activity Categories {`(${node.categories.order.length})`}</span>
             </div>
             <CategoriesList open={this.state.open} node={node}/>
         </div>;
     }
 }
+// <div style = {{fontSize:'smaller'}}>
+//     <span>for all roles</span>
+//     <IconButton style = {{...buttonStyle,float:'none', verticalAlign:'middle'}} >
+//         <FontIcon color = 'green' className = 'material-icons'>arrow_drop_down</FontIcon>
+//     </IconButton>
+// </div>
 export default CategoriesBar;
 //# sourceMappingURL=categoriesbar.view.jsx.map

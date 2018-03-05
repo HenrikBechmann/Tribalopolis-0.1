@@ -8,14 +8,14 @@ import FontIcon from 'material-ui/FontIcon'
 
 const CategoryNode = props => {
     let { id,data } = props
-    let {name, count} = data
+    let {name, count, sysnode} = data
 
     return <div style = {
         {
             padding:'3px',
         }
     }>
-        <FontIcon style = {{verticalAlign:'middle'}} className='material-icons'>list</FontIcon> 
+        <FontIcon color = {sysnode?'green':'black'} style = {{verticalAlign:'middle'}} className='material-icons'>list</FontIcon> 
         {name + ` (${count})`}
     </div>
 }
