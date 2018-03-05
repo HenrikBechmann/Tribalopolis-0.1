@@ -1,8 +1,5 @@
 // data.tsx
-let datamap = {
-    henrik: { sessionid: 0, path: '', },
-};
-let dataheap = [
+let nodeheap = [
     {
         sessionid: 0,
         type: 'object',
@@ -135,5 +132,5 @@ let datastacks = [
     [[{ sessionid: 0, config: 'base' },
         ]],
 ];
-export { datamap, dataheap, datastacks };
+export { nodeheap, datastacks };
 //# sourceMappingURL=data.jsx.map

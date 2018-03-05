@@ -1,9 +1,5 @@
 // data.tsx
-let datamap = {
-    henrik:{sessionid:0,path:'',},
-}
-
-let dataheap = [
+let nodeheap = [
     {
         sessionid:0,
         type:'object',
@@ -139,4 +135,4 @@ let datastacks = [
     ]],
 ]
 
-export {datamap,dataheap,datastacks}
+export {nodeheap,datastacks}

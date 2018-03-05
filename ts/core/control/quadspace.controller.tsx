@@ -17,7 +17,7 @@ import QuadDiamond from './views/quadspace/quaddiamond.view'
 import QuadBadge from './views/quadspace/quadbadge.view'
 import QuadStatusBar from './views/quadspace/quadstatusbar.view'
 
-import {dataheap,datamap,datastacks} from '../../data/data'
+import {nodeheap,datastacks} from '../../data/data'
 
 class QuadspaceController extends React.Component<any,any> {
 
@@ -118,8 +118,8 @@ class QuadspaceController extends React.Component<any,any> {
         })
     }
 
-    getDatastore = (sessionid) => {
-        return dataheap[sessionid]
+    getNode = (sessionid) => {
+        return nodeheap[sessionid]
     }
 
     quadrants = () => [
@@ -134,7 +134,7 @@ class QuadspaceController extends React.Component<any,any> {
             title = 'first first first first first first first first first first first first first first first first first first first first first first first first first first first first first first first first first '
             badgequantity = {0}
             datastack = {this.state.datastacks[0]}
-            getDatastore = {this.getDatastore}
+            getNode = {this.getNode}
         />,
         <Quadrant 
             key = '2'
@@ -147,7 +147,7 @@ class QuadspaceController extends React.Component<any,any> {
             title = "second" 
             badgequantity = {0}
             datastack = {this.state.datastacks[1]}
-            getDatastore = {this.getDatastore}
+            getNode = {this.getNode}
         />,
         <Quadrant 
             key = '3'
@@ -160,7 +160,7 @@ class QuadspaceController extends React.Component<any,any> {
             title = "third" 
             badgequantity = {0}
             datastack = {this.state.datastacks[2]}
-            getDatastore = {this.getDatastore}
+            getNode = {this.getNode}
         />,
         <Quadrant 
             key = '4'
@@ -173,7 +173,7 @@ class QuadspaceController extends React.Component<any,any> {
             title = "fourth" 
             badgequantity = {0}
             datastack = {this.state.datastacks[3]}
-            getDatastore = {this.getDatastore}
+            getNode = {this.getNode}
         />,
     ]
 
