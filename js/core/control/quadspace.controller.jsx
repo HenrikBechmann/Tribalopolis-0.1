@@ -11,7 +11,7 @@ import QuadPlatform from './views/quadspace/quadplatform.view';
 import Quadrant from './quadrant.controller';
 import QuadBadge from './views/quadspace/quadbadge.view';
 import QuadStatusBar from './views/quadspace/quadstatusbar.view';
-import { nodeheap, datastacks } from '../../data/data';
+import { nodeheap, datastacks, linkcategoryheap } from '../../data/data';
 class QuadspaceController extends React.Component {
     constructor() {
         super(...arguments);
@@ -101,11 +101,14 @@ class QuadspaceController extends React.Component {
         this.getNode = (sessionid) => {
             return nodeheap[sessionid];
         };
+        this.getCategory = (categoryid) => {
+            return linkcategoryheap[categoryid];
+        };
         this.quadrants = () => [
-            <Quadrant key='1' sessionid={0} handleswap={this.handleSwap} quadrant={this.calcQuadrant(0)} split={this.state.split} quadselection={this.quadselection} color='lightgreen' title='first first first first first first first first first first first first first first first first first first first first first first first first first first first first first first first first first ' badgequantity={0} datastack={this.state.datastacks[0]} getNode={this.getNode}/>,
-            <Quadrant key='2' sessionid={1} handleswap={this.handleSwap} quadrant={this.calcQuadrant(1)} split={this.state.split} quadselection={this.quadselection} color='mistyrose' title="second" badgequantity={0} datastack={this.state.datastacks[1]} getNode={this.getNode}/>,
-            <Quadrant key='3' sessionid={2} handleswap={this.handleSwap} quadrant={this.calcQuadrant(2)} split={this.state.split} quadselection={this.quadselection} color='lightblue' title="third" badgequantity={0} datastack={this.state.datastacks[2]} getNode={this.getNode}/>,
-            <Quadrant key='4' sessionid={3} handleswap={this.handleSwap} quadrant={this.calcQuadrant(3)} split={this.state.split} quadselection={this.quadselection} color='papayawhip' title="fourth" badgequantity={0} datastack={this.state.datastacks[3]} getNode={this.getNode}/>,
+            <Quadrant key='1' sessionid={0} handleswap={this.handleSwap} quadrant={this.calcQuadrant(0)} split={this.state.split} quadselection={this.quadselection} color='lightgreen' title='first first first first first first first first first first first first first first first first first first first first first first first first first first first first first first first first first ' badgequantity={0} datastack={this.state.datastacks[0]} getNode={this.getNode} getCategory={this.getCategory}/>,
+            <Quadrant key='2' sessionid={1} handleswap={this.handleSwap} quadrant={this.calcQuadrant(1)} split={this.state.split} quadselection={this.quadselection} color='mistyrose' title="second" badgequantity={0} datastack={this.state.datastacks[1]} getNode={this.getNode} getCategory={this.getCategory}/>,
+            <Quadrant key='3' sessionid={2} handleswap={this.handleSwap} quadrant={this.calcQuadrant(2)} split={this.state.split} quadselection={this.quadselection} color='lightblue' title="third" badgequantity={0} datastack={this.state.datastacks[2]} getNode={this.getNode} getCategory={this.getCategory}/>,
+            <Quadrant key='4' sessionid={3} handleswap={this.handleSwap} quadrant={this.calcQuadrant(3)} split={this.state.split} quadselection={this.quadselection} color='papayawhip' title="fourth" badgequantity={0} datastack={this.state.datastacks[3]} getNode={this.getNode} getCategory={this.getCategory}/>,
         ];
     }
     render() {

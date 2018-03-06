@@ -17,7 +17,7 @@ import QuadDiamond from './views/quadspace/quaddiamond.view'
 import QuadBadge from './views/quadspace/quadbadge.view'
 import QuadStatusBar from './views/quadspace/quadstatusbar.view'
 
-import {nodeheap,datastacks} from '../../data/data'
+import {nodeheap,datastacks,linkcategoryheap} from '../../data/data'
 
 class QuadspaceController extends React.Component<any,any> {
 
@@ -122,6 +122,10 @@ class QuadspaceController extends React.Component<any,any> {
         return nodeheap[sessionid]
     }
 
+    getCategory = (categoryid) => {
+        return linkcategoryheap[categoryid]
+    }
+
     quadrants = () => [
         <Quadrant 
             key = '1'
@@ -135,6 +139,7 @@ class QuadspaceController extends React.Component<any,any> {
             badgequantity = {0}
             datastack = {this.state.datastacks[0]}
             getNode = {this.getNode}
+            getCategory = {this.getCategory}
         />,
         <Quadrant 
             key = '2'
@@ -148,6 +153,7 @@ class QuadspaceController extends React.Component<any,any> {
             badgequantity = {0}
             datastack = {this.state.datastacks[1]}
             getNode = {this.getNode}
+            getCategory = {this.getCategory}
         />,
         <Quadrant 
             key = '3'
@@ -161,6 +167,7 @@ class QuadspaceController extends React.Component<any,any> {
             badgequantity = {0}
             datastack = {this.state.datastacks[2]}
             getNode = {this.getNode}
+            getCategory = {this.getCategory}
         />,
         <Quadrant 
             key = '4'
@@ -174,6 +181,7 @@ class QuadspaceController extends React.Component<any,any> {
             badgequantity = {0}
             datastack = {this.state.datastacks[3]}
             getNode = {this.getNode}
+            getCategory = {this.getCategory}
         />,
     ]
 

@@ -48,7 +48,7 @@ class DataBox extends React.Component {
                 <div>
                     <ProfileBar node={node}/>
                     <ProfileForm node={node}/>
-                    <CategoriesBar node={node}/>
+                    <CategoriesBar node={node} getCategory={this.props.getCategory}/>
                     <ScanBar node={node}/>
                 </div>
 

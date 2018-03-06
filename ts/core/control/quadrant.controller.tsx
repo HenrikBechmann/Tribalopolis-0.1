@@ -25,9 +25,11 @@ class Quadrant extends React.Component<any,any>  {
     componentWillMount() {
         this.calculatePosition(this.state.quadrant)
         this.getNode = this.props.getNode
+        this.getCategory = this.props.getCategory
     }
 
     getNode
+    getCategory
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.quadrant != this.state.quadrant) {
@@ -148,7 +150,7 @@ class Quadrant extends React.Component<any,any>  {
         if (datastack && datastack[stackpointer]) {
             boxes = this.state.datastack[stackpointer].map((sessionProxy) => {
                 let node = this.getNode(sessionProxy.sessionid)
-                return <DataBox key = {node.sessionid} node = {node}/>
+                return <DataBox key = {node.sessionid} node = {node} getCategory = {this.getCategory}/>
             })
         }
 

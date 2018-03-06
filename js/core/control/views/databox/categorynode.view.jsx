@@ -5,7 +5,8 @@ import * as React from 'react';
 import FontIcon from 'material-ui/FontIcon';
 const CategoryNode = props => {
     let { id, data } = props;
-    let { name, count, sysnode } = data;
+    let { name, sysnode } = data;
+    let count = data.aggregates.childcount.amount;
     return <div style={{
         padding: '3px',
     }}>
