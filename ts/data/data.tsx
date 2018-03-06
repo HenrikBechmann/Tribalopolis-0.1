@@ -1,12 +1,43 @@
 // data.tsx
+let linkcategoryheap = [
+    {
+        sessionid:0,
+        nodeid:'x',
+        nodekey:'home:henrik::henrik',
+        class:'diaries',
+        parent_class_index:'notes.timelogs',
+        class_schema:'common',
+        aggregates:{
+            leftcount:{
+                amount:10,
+                timestamp:1,
+            },
+            rightcount:{
+                amount:8,
+                timestamp:1,
+            },
+            childcount:{
+                amount:23,
+                timestamp:1
+            },
+        },
+    }
+]
+
+let objectcategoryheap = [
+]
+
+let linkheap = [
+]
+
 let nodeheap = [
     {
         sessionid:0,
-        type:'object',
-        class:'primary owner',
-        schema:'common',
-        tribe:'__owner__',
-        id:'henrik',
+        class:'primary_owner',
+        parent_class:'person',
+        class_schema:'common',
+        tribe:'home:henrik',
+        recordid:'home:henrik::henrik',
         profile:{
             tag:'Henrik',
             name:'Henrik Bechmann',
