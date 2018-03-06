@@ -10,10 +10,12 @@ let linkcategoryheap = [
         aggregates:{
             leftcount:{
                 amount:10,
+                pending:3,
                 timestamp:1,
             },
             rightcount:{
                 amount:8,
+                pending:3,
                 timestamp:1,
             },
             childcount:{
