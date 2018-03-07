@@ -31,7 +31,7 @@ class CategoriesBar extends React.Component {
             fontSize: 'larger',
             position: 'sticky',
             top: '0',
-            backgroundColor: 'lightblue',
+            backgroundColor: 'white',
             zIndex: 1,
         };
         let buttonStyle = {

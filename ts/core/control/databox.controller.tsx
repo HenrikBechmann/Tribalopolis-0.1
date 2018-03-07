@@ -30,8 +30,8 @@ class DataBox extends React.Component<any,any> {
 
         let frameStyle:React.CSSProperties = {
             width:'300px',
-            backgroundColor:'lightblue',
-            border:'1px solid silver',
+            backgroundColor:'white',
+            border:'1px solid gray',
             maxHeight:'96%',
             minHeight:'60%',
             padding:'3px',

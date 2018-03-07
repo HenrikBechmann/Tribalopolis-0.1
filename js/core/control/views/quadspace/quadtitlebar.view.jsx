@@ -7,7 +7,7 @@ const QuadTitleBar = props => {
     return (<div style={{
         position: 'relative',
         height: '25px',
-        backgroundColor: 'lightgray',
+        backgroundColor: 'white',
         boxSizing: 'border-box',
         width: '100%',
         borderRadius: '5px 5px 0 0',
@@ -20,7 +20,7 @@ const QuadTitleBar = props => {
         top: '0',
         left: '0',
         zIndex: 3,
-        backgroundColor: 'lightgray',
+        backgroundColor: 'white',
         border: '1px solid gray',
         boxSizing: 'border-box',
     }}>

@@ -96,7 +96,7 @@ class InfiniteScroll extends React.Component<any,any> {
         overflowX:'auto',
         display:'flex',
         flexWrap:'nowrap',
-        backgroundColor:'white',
+        backgroundColor:'silver',
     }
 
     platformStyle:React.CSSProperties = {
