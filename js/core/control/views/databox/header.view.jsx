@@ -15,8 +15,9 @@ const BoxHeader = props => {
         whitespace: 'nowrap',
         overflow: 'hidden',
         boxSizing: 'border-box',
-        marginBottom: '3px',
+        marginBottom: '1px',
         fontSize: 'larger',
+        backgroundColor: '#f2f2f2',
     };
     return <div style={styles}>
         <div style={{

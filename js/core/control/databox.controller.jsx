@@ -26,7 +26,7 @@ class DataBox extends React.Component {
         let frameStyle = {
             width: '300px',
             backgroundColor: 'white',
-            border: '1px solid gray',
+            border: '1px solid silver',
             maxHeight: '96%',
             minHeight: '60%',
             padding: '3px',

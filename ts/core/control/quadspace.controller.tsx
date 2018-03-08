@@ -134,7 +134,7 @@ class QuadspaceController extends React.Component<any,any> {
             quadrant = {this.calcQuadrant(0)}
             split = {this.state.split}
             quadselection = {this.quadselection}
-            color = 'lightgreen' 
+            color = '#e8e8e8' 
             title = 'first first first first first first first first first first first first first first first first first first first first first first first first first first first first first first first first first '
             badgequantity = {0}
             datastack = {this.state.datastacks[0]}
@@ -148,7 +148,7 @@ class QuadspaceController extends React.Component<any,any> {
             quadrant = {this.calcQuadrant(1)}
             split = {this.state.split}
             quadselection = {this.quadselection}
-            color = 'mistyrose' 
+            color = '#e8e8e8' 
             title = "second" 
             badgequantity = {0}
             datastack = {this.state.datastacks[1]}
@@ -162,7 +162,7 @@ class QuadspaceController extends React.Component<any,any> {
             quadrant = {this.calcQuadrant(2)}
             split = {this.state.split}
             quadselection = {this.quadselection}
-            color = 'lightblue' 
+            color = '#e8e8e8' 
             title = "third" 
             badgequantity = {0}
             datastack = {this.state.datastacks[2]}
@@ -176,7 +176,7 @@ class QuadspaceController extends React.Component<any,any> {
             quadrant = {this.calcQuadrant(3)}
             split = {this.state.split}
             quadselection = {this.quadselection}
-            color = 'papayawhip' 
+            color = '#e8e8e8' 
             title = "fourth" 
             badgequantity = {0}
             datastack = {this.state.datastacks[3]}

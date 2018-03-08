@@ -50,7 +50,10 @@ class InfiniteScroll extends React.Component {
             overflowX: 'auto',
             display: 'flex',
             flexWrap: 'nowrap',
-            backgroundColor: 'silver',
+            backgroundColor: '#e8e8e8',
+            border: '1px solid gray',
+            boxSizing: 'border-box',
+            borderRadius: '8px',
         };
         this.platformStyle = {
             position: 'relative',
