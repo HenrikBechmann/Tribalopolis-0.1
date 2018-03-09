@@ -37,7 +37,7 @@ const BoxToolbar = props => {
         </div>
         <div style = {
             {
-                padding:'6px 0 0 3px',
+                padding:'4px 0 0 3px',
                 boxSizing:'border-box',
                 width:'32px',
                 height:'32px',
@@ -47,7 +47,7 @@ const BoxToolbar = props => {
                 border:'1px solid silver',
             }
         }> 
-            <img src = '/public/icons/ic_splay_24px.svg' />
+            <img style = {{verticalAlign:'middle'}} src = '/public/icons/ic_splay_24px.svg' />
         </div>
 
         <div style = {

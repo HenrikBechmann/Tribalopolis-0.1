@@ -177,7 +177,7 @@ let linkcategoryheap = {
         nodesystemid:'x',
         nodekey:'home:henrik::henrik',
         class:'resources',
-        name:'Rsources',
+        name:'Resources',
         parent_class_index:'notes.timelogs',
         class_schema:'common',
         aggregates:{
@@ -247,7 +247,7 @@ let linkheap = [
 let nodeheap = [
     {
         sessionid:0,
-        class:'primary_owner',
+        class:'primary owner',
         parent_class:'person',
         class_schema:'common',
         tribe:'home:henrik',
