@@ -103,33 +103,13 @@ class QuadToolsStrip extends React.Component<any,any> {
                             color = 'green' 
                             className='material-icons'
                         >
-                            label
-                        </FontIcon>
-                    }
-                    primaryText = "Schemes"
-                    onClick={this.handleMenuClose}
-                />
-                <MenuItem 
-                    leftIcon = {
-                        <FontIcon 
-                            color = 'green' 
-                            className='material-icons'
-                        >
                             monetization_on
                         </FontIcon>
                     }
                     primaryText = "Markets"
                     onClick={this.handleMenuClose}
                 />
-                <MenuItem 
-                    leftIcon = {
-                        <img
-                            src='/public/icons/fire.svg'
-                        />
-                    }
-                    primaryText = "About"
-                    onClick={this.handleMenuClose}
-                />
+                <Divider />
                 <MenuItem 
                     leftIcon = {
                         <FontIcon className='material-icons'>local_library</FontIcon>
@@ -139,9 +119,31 @@ class QuadToolsStrip extends React.Component<any,any> {
                 />
                 <MenuItem 
                     leftIcon = {
+                        <FontIcon 
+                            color = 'green' 
+                            className='material-icons'
+                        >
+                            label
+                        </FontIcon>
+                    }
+                    primaryText = "Schemes"
+                    onClick={this.handleMenuClose}
+                />
+                <MenuItem 
+                    leftIcon = {
                         <FontIcon className='material-icons'>build</FontIcon>
                     }
                     primaryText = "Build"
+                    onClick={this.handleMenuClose}
+                />
+                <Divider />
+                <MenuItem 
+                    leftIcon = {
+                        <img
+                            src='/public/icons/fire.svg'
+                        />
+                    }
+                    primaryText = "About"
                     onClick={this.handleMenuClose}
                 />
             </Drawer>
