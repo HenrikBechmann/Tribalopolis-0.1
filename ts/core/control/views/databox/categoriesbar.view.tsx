@@ -81,7 +81,7 @@ class CategoriesBar extends React.Component<any,any> {
                     <FontIcon color = 'green' className='material-icons'>build</FontIcon> 
                 </IconButton>
                 <FontIcon style = {{verticalAlign:'middle'}} className='material-icons'>list</FontIcon> 
-                <span style = {{verticalAlign:'middle'}} >Activity Categories {`(${node.categories.length})`}</span>
+                <span style = {{verticalAlign:'middle'}} >Activities {`(${node.categories.length})`}</span>
             </div>
             <CategoriesList open = {this.state.open} node = {node } getCategory = {this.props.getCategory} />
         </div>

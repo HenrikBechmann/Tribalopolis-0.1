@@ -11,7 +11,14 @@ import QuadspaceController from '../control/quadspace.controller';
 // import UserProfile from '../containers/userprofile'
 // import NoMatch  from '../containers/nomatch'
 // import approutes from '../../addins/approutes'
-let routedata = [];
+let routedata = [
+// { path: "resetpassword", component: ResetPassword },
+// { path: "register", component: Register },
+// { path: "register/pending", component: RegisterPending },
+// { path: "register/confirm", component: RegisterConfirm },
+// { path: "userprofile", component: UserProfile },
+// { path: "*", component: NoMatch }, // must be LAST, or else will pre-empt other paths
+];
 let coreroutes = routedata.map((item, index) => (<Route key={'coreroute' + index} path={item.path} component={item.component}/>));
 let indexroute = <Route key="_INDEX_" path="/" component={QuadspaceController}/>;
 const routes = [indexroute];

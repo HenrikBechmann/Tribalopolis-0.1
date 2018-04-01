@@ -35,6 +35,19 @@ class QuadToolsStrip extends React.Component {
         };
         this.handleMenuClose = () => this.setState({ menuopen: false });
         this.menudrawer = () => (<Drawer docked={false} open={this.state.menuopen} onRequestChange={(open) => this.setState({ menuopen: open })}>
+                <MenuItem leftIcon={<FontIcon color='green' className='material-icons'>
+                            home
+                        </FontIcon>} primaryText="Home" onClick={this.handleMenuClose}/>
+                <MenuItem leftIcon={<img src='/public/icons/OriginStack.svg'/>} primaryText="Stacks" onClick={this.handleMenuClose}/>
+                <MenuItem leftIcon={<FontIcon color='green' className='material-icons'>
+                            reorder
+                        </FontIcon>} primaryText="Ports" onClick={this.handleMenuClose}/>
+                <MenuItem leftIcon={<FontIcon color='green' className='material-icons'>
+                            label
+                        </FontIcon>} primaryText="Schemes" onClick={this.handleMenuClose}/>
+                <MenuItem leftIcon={<FontIcon color='green' className='material-icons'>
+                            monetization_on
+                        </FontIcon>} primaryText="Markets" onClick={this.handleMenuClose}/>
                 <MenuItem leftIcon={<img src='/public/icons/fire.svg'/>} primaryText="About" onClick={this.handleMenuClose}/>
                 <MenuItem leftIcon={<FontIcon className='material-icons'>local_library</FontIcon>} primaryText="Tutorials" onClick={this.handleMenuClose}/>
                 <MenuItem leftIcon={<FontIcon className='material-icons'>build</FontIcon>} primaryText="Build" onClick={this.handleMenuClose}/>

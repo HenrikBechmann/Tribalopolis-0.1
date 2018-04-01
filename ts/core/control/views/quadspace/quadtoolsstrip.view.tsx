@@ -66,6 +66,63 @@ class QuadToolsStrip extends React.Component<any,any> {
             >
                 <MenuItem 
                     leftIcon = {
+                        <FontIcon 
+                            color = 'green' 
+                            className='material-icons'
+                        >
+                            home
+                        </FontIcon>
+                    }
+                    primaryText = "Home"
+                    onClick={this.handleMenuClose}
+                />
+                <MenuItem 
+                    leftIcon = {
+                        <img
+                            src='/public/icons/OriginStack.svg'
+                        />
+                    }
+                    primaryText = "Stacks"
+                    onClick={this.handleMenuClose}
+                />
+                <MenuItem 
+                    leftIcon = {
+                        <FontIcon 
+                            color = 'green' 
+                            className='material-icons'
+                        >
+                            reorder
+                        </FontIcon>
+                    }
+                    primaryText = "Ports"
+                    onClick={this.handleMenuClose}
+                />
+                <MenuItem 
+                    leftIcon = {
+                        <FontIcon 
+                            color = 'green' 
+                            className='material-icons'
+                        >
+                            label
+                        </FontIcon>
+                    }
+                    primaryText = "Schemes"
+                    onClick={this.handleMenuClose}
+                />
+                <MenuItem 
+                    leftIcon = {
+                        <FontIcon 
+                            color = 'green' 
+                            className='material-icons'
+                        >
+                            monetization_on
+                        </FontIcon>
+                    }
+                    primaryText = "Markets"
+                    onClick={this.handleMenuClose}
+                />
+                <MenuItem 
+                    leftIcon = {
                         <img
                             src='/public/icons/fire.svg'
                         />
