@@ -35,11 +35,11 @@ class QuadToolsStrip extends React.Component {
         };
         this.handleMenuClose = () => this.setState({ menuopen: false });
         this.menudrawer = () => (<Drawer docked={false} open={this.state.menuopen} onRequestChange={(open) => this.setState({ menuopen: open })}>
-                <MenuItem leftIcon={<FontIcon color='green' className='material-icons'>
-                            home
+                <MenuItem leftIcon={<FontIcon color='brown' className='material-icons'>
+                            weekend
                         </FontIcon>} primaryText="Home" onClick={this.handleMenuClose}/>
                 <MenuItem leftIcon={<img src='/public/icons/OriginStack.svg'/>} primaryText="Stacks" onClick={this.handleMenuClose}/>
-                <MenuItem leftIcon={<FontIcon color='green' className='material-icons'>
+                <MenuItem leftIcon={<FontIcon color='steelblue' className='material-icons'>
                             reorder
                         </FontIcon>} primaryText="Ports" onClick={this.handleMenuClose}/>
                 <MenuItem leftIcon={<FontIcon color='green' className='material-icons'>
@@ -47,7 +47,7 @@ class QuadToolsStrip extends React.Component {
                         </FontIcon>} primaryText="Markets" onClick={this.handleMenuClose}/>
                 <Divider />
                 <MenuItem leftIcon={<FontIcon className='material-icons'>local_library</FontIcon>} primaryText="Tutorials" onClick={this.handleMenuClose}/>
-                <MenuItem leftIcon={<FontIcon color='green' className='material-icons'>
+                <MenuItem leftIcon={<FontIcon color='orange' className='material-icons'>
                             label
                         </FontIcon>} primaryText="Schemes" onClick={this.handleMenuClose}/>
                 <MenuItem leftIcon={<FontIcon className='material-icons'>build</FontIcon>} primaryText="Build" onClick={this.handleMenuClose}/>
@@ -176,15 +176,15 @@ class QuadToolsStrip extends React.Component {
                             </IconButton>
 
                             <IconButton>
+                                <FontIcon className='material-icons'>new_releases</FontIcon>
+                            </IconButton>
+
+                            <IconButton>
                                 <FontIcon className='material-icons'>help_outline</FontIcon>
                             </IconButton>
 
                             <IconButton>
                                 <FontIcon className='material-icons'>settings</FontIcon>}
-                            </IconButton>
-
-                            <IconButton>
-                                <FontIcon className='material-icons'>new_releases</FontIcon>
                             </IconButton>
 
                             {this.accountmenu}

@@ -67,10 +67,10 @@ class QuadToolsStrip extends React.Component<any,any> {
                 <MenuItem 
                     leftIcon = {
                         <FontIcon 
-                            color = 'green' 
+                            color = 'brown' 
                             className='material-icons'
                         >
-                            home
+                            weekend
                         </FontIcon>
                     }
                     primaryText = "Home"
@@ -88,7 +88,7 @@ class QuadToolsStrip extends React.Component<any,any> {
                 <MenuItem 
                     leftIcon = {
                         <FontIcon 
-                            color = 'green' 
+                            color = 'steelblue' 
                             className='material-icons'
                         >
                             reorder
@@ -120,7 +120,7 @@ class QuadToolsStrip extends React.Component<any,any> {
                 <MenuItem 
                     leftIcon = {
                         <FontIcon 
-                            color = 'green' 
+                            color = 'orange' 
                             className='material-icons'
                         >
                             label
@@ -351,6 +351,11 @@ class QuadToolsStrip extends React.Component<any,any> {
                                 />
                             </IconButton>
 
+                            <IconButton 
+                            >
+                                <FontIcon className='material-icons'>new_releases</FontIcon>
+                            </IconButton>
+
                             <IconButton
                             >
                                 <FontIcon className='material-icons'>help_outline</FontIcon>
@@ -359,11 +364,6 @@ class QuadToolsStrip extends React.Component<any,any> {
                             <IconButton
                             >
                                 <FontIcon className='material-icons'>settings</FontIcon>}
-                            </IconButton>
-
-                            <IconButton 
-                            >
-                                <FontIcon className='material-icons'>new_releases</FontIcon>
                             </IconButton>
 
                             { this.accountmenu }
