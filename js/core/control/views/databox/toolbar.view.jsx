@@ -9,7 +9,7 @@ const BoxToolbar = props => {
         width: '100%',
         borderRadius: '8px',
         padding: '3px',
-        whitespace: 'nowrap',
+        whiteSpace: 'nowrap',
         overflow: 'hidden',
         fontSize: 'larger',
         boxSizing: 'border-box',

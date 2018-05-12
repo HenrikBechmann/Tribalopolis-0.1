@@ -30,7 +30,7 @@ class CategoriesBar extends React.Component<any,any> {
             border:'1px solid silver',
             borderRadius:'8px',
             padding:'3px',
-            whitespace:'nowrap',
+            whiteSpace:'nowrap',
             overflow:'hidden',
             boxSizing:'border-box',
             marginBottom: '1px',

@@ -105,6 +105,8 @@ class QuadToolsStrip extends React.Component {
                                 <FontIcon className='material-icons'>menu</FontIcon>
                             </IconButton>
 
+                            <div style={{ display: 'inline-block', height: '1.5em', borderLeft: '1px solid gray' }}></div>
+
                             <IconButton style={{ verticalAlign: 'bottom', }} onClick={() => {
             this.takingfocus('topleft');
         }} iconStyle={{
@@ -157,6 +159,8 @@ class QuadToolsStrip extends React.Component {
                 '/public/icons/ic_border_all_black_24px_bottomright_bottomsplit.svg'}/>
                             </IconButton>
 
+                            <div style={{ display: 'inline-block', height: '1.5em', borderLeft: '1px solid gray' }}></div>
+
                             <IconButton style={{ verticalAlign: 'bottom' }} onClick={() => this.changeSplitFrom('horizontal')}>
                                 <img src={(this.state.split == 'horizontal') ?
             '/public/icons/ic_border_all_black_24px_split_red.svg' :
@@ -174,6 +178,8 @@ class QuadToolsStrip extends React.Component {
             '/public/icons/ic_border_all_black_24px_split_matrix_red.svg' :
             '/public/icons/ic_border_all_black_24px_split_matrix.svg'}/>
                             </IconButton>
+
+                            <div style={{ display: 'inline-block', height: '1.5em', borderLeft: '1px solid gray' }}></div>
 
                             <IconButton>
                                 <FontIcon className='material-icons'>new_releases</FontIcon>

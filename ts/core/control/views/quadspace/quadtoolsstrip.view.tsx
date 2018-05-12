@@ -211,6 +211,8 @@ class QuadToolsStrip extends React.Component<any,any> {
                                 <FontIcon className='material-icons'>menu</FontIcon>
                             </IconButton>
 
+                            <div style = {{display:'inline-block',height:'1.5em',borderLeft:'1px solid gray'}}></div>
+
                             <IconButton
                                 style = {{verticalAlign:'bottom',}}
                                 onClick = {() => {
@@ -311,6 +313,8 @@ class QuadToolsStrip extends React.Component<any,any> {
                                 />
                             </IconButton>
 
+                            <div style = {{display:'inline-block',height:'1.5em',borderLeft:'1px solid gray'}}></div>
+
                             <IconButton
                                 style = {{verticalAlign:'bottom'}}
                                 onClick = {() => this.changeSplitFrom('horizontal')}
@@ -350,6 +354,8 @@ class QuadToolsStrip extends React.Component<any,any> {
                                     }
                                 />
                             </IconButton>
+
+                            <div style = {{display:'inline-block',height:'1.5em',borderLeft:'1px solid gray'}}></div>
 
                             <IconButton 
                             >
