@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { render } from 'react-dom';
 import injectTapEventPlugin from 'react-tap-event-plugin';
+import 'react-redux-toastr/lib/css/react-redux-toastr.min.css';
 injectTapEventPlugin();
 require('isomorphic-fetch');
 import MainController from './core/start/main.controller';
