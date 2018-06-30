@@ -21,7 +21,7 @@ class CategoriesBar extends React.Component {
         let { node } = this.props;
         let styles = {
             width: '100%',
-            border: '1px solid silver',
+            border: '1px solid transparent',
             borderRadius: '8px',
             padding: '3px',
             whiteSpace: 'nowrap',
@@ -41,7 +41,7 @@ class CategoriesBar extends React.Component {
             float: 'right',
             marginRight: '4px',
         };
-        let actionButtonStyle = Object.assign({}, buttonStyle, { border: '1px solid silver', borderRadius: '50%', boxSizing: 'border-box' });
+        let actionButtonStyle = Object.assign({}, buttonStyle, { boxSizing: 'border-box' });
         let iconStyle = {
             transform: 'rotate(' + (this.state.open ? '0deg' : '180deg') + ')',
             transition: 'transform 0.5s .1s ease-out',
@@ -53,10 +53,10 @@ class CategoriesBar extends React.Component {
                     <FontIcon className='material-icons'>expand_less</FontIcon> 
                 </IconButton>
                 <IconButton style={actionButtonStyle} iconStyle={{ fontSize: '20px' }}>
-                    <FontIcon color='green' className='material-icons'>build</FontIcon> 
+                    <FontIcon color='green' className='material-icons'>edit</FontIcon> 
                 </IconButton>
                 <FontIcon style={{ verticalAlign: 'middle' }} className='material-icons'>list</FontIcon> 
-                <span style={{ verticalAlign: 'middle' }}>Activities {`(${node.categories.length})`}</span>
+                <span style={{ verticalAlign: 'middle' }}>Links (6558)</span>
             </div>
             <CategoriesList open={this.state.open} node={node} getCategory={this.props.getCategory}/>
         </div>;

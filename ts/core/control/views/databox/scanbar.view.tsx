@@ -13,7 +13,7 @@ const ScanBar = props => {
 
     let barStyle:React.CSSProperties = {
         width:'100%',
-        border:'1px solid silver',
+        border:'1px solid transparent',
         borderRadius:'8px',
         padding:'3px',
         whiteSpace:'nowrap',
@@ -32,7 +32,7 @@ const ScanBar = props => {
         marginRight:'4px',
     }
     let iconStyle:React.CSSProperties = {
-        border:'1px solid silver',
+        border:'1px solid transparent',
         borderRadius:'50%',
         verticalAlign:'middle',
     }
@@ -56,7 +56,7 @@ const ScanBar = props => {
             <FontIcon color = 'green' className='material-icons'>settings</FontIcon> 
         </IconButton>
             <FontIcon style = {{verticalAlign:'middle'}} className='material-icons'>list</FontIcon> 
-            <span style = {{verticalAlign:'middle'}} >Scan Activity Records</span>
+            <span style = {{verticalAlign:'middle'}} >Scan Links</span>
         </div>
     </div>
 }

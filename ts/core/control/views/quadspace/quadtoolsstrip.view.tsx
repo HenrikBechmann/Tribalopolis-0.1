@@ -78,11 +78,36 @@ class QuadToolsStrip extends React.Component<any,any> {
                 />
                 <MenuItem 
                     leftIcon = {
+                        <FontIcon 
+                            color = 'brown' 
+                            className='material-icons'
+                        >
+                            work
+                        </FontIcon>
+                    }
+                    primaryText = "My Workspace"
+                    onClick={this.handleMenuClose}
+                />
+                <Divider />
+                <MenuItem 
+                    leftIcon = {
+                        <FontIcon 
+                            color = 'steelblue' 
+                            className='material-icons'
+                        >
+                            group
+                        </FontIcon>
+                    }
+                    primaryText = "Members"
+                    onClick={this.handleMenuClose}
+                />
+                <MenuItem 
+                    leftIcon = {
                         <img
-                            src='/public/icons/OriginStack.svg'
+                           src='/public/icons/fire.svg'
                         />
                     }
-                    primaryText = "Stacks"
+                    primaryText = "Tribes"
                     onClick={this.handleMenuClose}
                 />
                 <MenuItem 
@@ -91,10 +116,10 @@ class QuadToolsStrip extends React.Component<any,any> {
                             color = 'steelblue' 
                             className='material-icons'
                         >
-                            reorder
+                            share
                         </FontIcon>
                     }
-                    primaryText = "Ports"
+                    primaryText = "Networks"
                     onClick={this.handleMenuClose}
                 />
                 <MenuItem 
@@ -119,21 +144,9 @@ class QuadToolsStrip extends React.Component<any,any> {
                 />
                 <MenuItem 
                     leftIcon = {
-                        <FontIcon 
-                            color = 'orange' 
-                            className='material-icons'
-                        >
-                            label
-                        </FontIcon>
-                    }
-                    primaryText = "Schemes"
-                    onClick={this.handleMenuClose}
-                />
-                <MenuItem 
-                    leftIcon = {
                         <FontIcon className='material-icons'>build</FontIcon>
                     }
-                    primaryText = "Build"
+                    primaryText = "Tools"
                     onClick={this.handleMenuClose}
                 />
                 <Divider />

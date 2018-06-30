@@ -8,7 +8,7 @@ let linkcategoryheap = {
         class:'diaries',
         name:'Diaries',
         parent_class_index:'notes.timelogs',
-        class_schema:'common',
+        class_scheme:'common',
         aggregates:{
             // leftcount:{
             //     amount:10,
@@ -26,6 +26,22 @@ let linkcategoryheap = {
             },
         },
     },
+    notes:
+    {
+        sessionid:0,
+        nodesystemid:'x',
+        nodekey:'home:henrik::henrik',
+        class:'notes',
+        name:'Notes',
+        parent_class_index:'notes.timelogs',
+        class_scheme:'common',
+        aggregates:{
+            childcount:{
+                amount:310,
+                timestamp:1
+            },
+        },
+    },
     tribes:
     {
         sessionid:1,
@@ -34,7 +50,7 @@ let linkcategoryheap = {
         class:'tribes',
         name:'Tribes',
         parent_class_index:'notes.timelogs',
-        class_schema:'common',
+        class_scheme:'common',
         sysnode:true,
         aggregates:{
             childcount:{
@@ -51,7 +67,7 @@ let linkcategoryheap = {
         class:'connections',
         name:'Connections',
         parent_class_index:'notes.timelogs',
-        class_schema:'common',
+        class_scheme:'common',
         aggregates:{
             childcount:{
                 amount:23,
@@ -67,7 +83,7 @@ let linkcategoryheap = {
         class:'requesting',
         name:'Outgoing action requests',
         parent_class_index:'notes.timelogs',
-        class_schema:'common',
+        class_scheme:'common',
         aggregates:{
             childcount:{
                 amount:12,
@@ -83,7 +99,7 @@ let linkcategoryheap = {
         class:'pending',
         name:'Incoming action requests',
         parent_class_index:'notes.timelogs',
-        class_schema:'common',
+        class_scheme:'common',
         aggregates:{
             childcount:{
                 amount:23,
@@ -99,7 +115,7 @@ let linkcategoryheap = {
         class:'roles',
         name:'Roles',
         parent_class_index:'notes.timelogs',
-        class_schema:'common',
+        class_scheme:'common',
         aggregates:{
             childcount:{
                 amount:4,
@@ -115,7 +131,7 @@ let linkcategoryheap = {
         class:'programs',
         name:'Programs',
         parent_class_index:'notes.timelogs',
-        class_schema:'common',
+        class_scheme:'common',
         aggregates:{
             childcount:{
                 amount:5,
@@ -131,7 +147,7 @@ let linkcategoryheap = {
         class:'projects',
         name:'Projects',
         parent_class_index:'notes.timelogs',
-        class_schema:'common',
+        class_scheme:'common',
         aggregates:{
             childcount:{
                 amount:3,
@@ -147,7 +163,7 @@ let linkcategoryheap = {
         class:'tasks',
         name:'Tasks',
         parent_class_index:'notes.timelogs',
-        class_schema:'common',
+        class_scheme:'common',
         aggregates:{
             childcount:{
                 amount:20,
@@ -163,7 +179,7 @@ let linkcategoryheap = {
         class:'messengers',
         name:'Messengers',
         parent_class_index:'notes.timelogs',
-        class_schema:'common',
+        class_scheme:'common',
         aggregates:{
             childcount:{
                 amount:3,
@@ -179,7 +195,7 @@ let linkcategoryheap = {
         class:'resources',
         name:'Resources',
         parent_class_index:'notes.timelogs',
-        class_schema:'common',
+        class_scheme:'common',
         aggregates:{
             childcount:{
                 amount:64,
@@ -195,7 +211,7 @@ let linkcategoryheap = {
         class:'calendars',
         name:'Calendars',
         parent_class_index:'notes.timelogs',
-        class_schema:'common',
+        class_scheme:'common',
         aggregates:{
             childcount:{
                 amount:67,
@@ -211,7 +227,7 @@ let linkcategoryheap = {
         class:'accounting',
         name:'Accounting',
         parent_class_index:'notes.timelogs',
-        class_schema:'common',
+        class_scheme:'common',
         aggregates:{
             childcount:{
                 amount:6000,
@@ -225,9 +241,9 @@ let linkcategoryheap = {
         nodesystemid:'x',
         nodekey:'home:henrik::henrik',
         class:'other',
-        name:'Other',
+        name:'More...',
         parent_class_index:'notes.timelogs',
-        class_schema:'common',
+        class_scheme:'common',
         sysnode:true,
         aggregates:{
             childcount:{
@@ -249,7 +265,7 @@ let nodeheap = [
         sessionid:0,
         class:'primary owner',
         parent_class:'person',
-        class_schema:'common',
+        class_scheme:'common',
         tribe:'home:henrik',
         recordid:'home:henrik::henrik',
         profile:{
@@ -267,6 +283,7 @@ let nodeheap = [
             'requesting',
             'pending',
             'diaries',
+            'notes',
             'tasks',
             'messengers',
             'calendars',

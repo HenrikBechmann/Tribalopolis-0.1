@@ -30,7 +30,7 @@ const BoxToolbar = props => {
                 display:'inline-block',
                 float:'left',
                 borderRadius:'50%',
-                border:'1px solid silver',
+                border:'1px solid transparent',
             }
         } >
             <FontIcon className='material-icons'>menu</FontIcon>
@@ -44,7 +44,7 @@ const BoxToolbar = props => {
                 display:'inline-block',
                 float:'right',
                 borderRadius:'50%',
-                border:'1px solid silver',
+                border:'1px solid transparent',
             }
         }> 
             <img style = {{verticalAlign:'middle'}} src = '/public/icons/ic_splay_24px.svg' />
@@ -55,7 +55,7 @@ const BoxToolbar = props => {
                 margin:'0 auto 0 auto',
                 height:'32px',
                 boxSizing:'border-box',
-                border:'1px solid silver',
+                border:'1px solid transparent',
                 borderRadius:'8px',
                 padding:'5px 3px 3px',
                 width:'70%',

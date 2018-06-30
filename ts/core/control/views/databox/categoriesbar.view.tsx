@@ -27,7 +27,7 @@ class CategoriesBar extends React.Component<any,any> {
 
         let styles:React.CSSProperties = {
             width:'100%',
-            border:'1px solid silver',
+            border:'1px solid transparent',
             borderRadius:'8px',
             padding:'3px',
             whiteSpace:'nowrap',
@@ -51,8 +51,6 @@ class CategoriesBar extends React.Component<any,any> {
 
         let actionButtonStyle:React.CSSProperties = {
             ...buttonStyle,
-            border:'1px solid silver',
-            borderRadius:'50%',
             boxSizing:'border-box',
         }
 
@@ -78,10 +76,10 @@ class CategoriesBar extends React.Component<any,any> {
                 <IconButton style = {actionButtonStyle}
                     iconStyle = {{fontSize:'20px'}}
                 >
-                    <FontIcon color = 'green' className='material-icons'>build</FontIcon> 
+                    <FontIcon color = 'green' className='material-icons'>edit</FontIcon> 
                 </IconButton>
                 <FontIcon style = {{verticalAlign:'middle'}} className='material-icons'>list</FontIcon> 
-                <span style = {{verticalAlign:'middle'}} >Activities {`(${node.categories.length})`}</span>
+                <span style = {{verticalAlign:'middle'}} >Links (6558)</span>
             </div>
             <CategoriesList open = {this.state.open} node = {node } getCategory = {this.props.getCategory} />
         </div>

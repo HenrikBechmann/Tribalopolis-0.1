@@ -9,7 +9,7 @@ const BoxHeader = props => {
     let styles = {
         position: 'relative',
         width: '100%',
-        border: '1px solid silver',
+        border: '1px solid transparent',
         borderRadius: '8px',
         padding: '3px',
         whiteSpace: 'nowrap',
@@ -30,7 +30,7 @@ const BoxHeader = props => {
         width: '32px',
         height: '32px',
         borderRadius: '50%',
-        border: '1px solid silver',
+        border: '1px solid transparent',
     }}>
             <FontIcon className='material-icons'>zoom_out_map</FontIcon>
         </div>

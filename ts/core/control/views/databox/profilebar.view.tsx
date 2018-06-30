@@ -12,7 +12,7 @@ const ProfileBar = props => {
 
     let styles:React.CSSProperties = {
         width:'100%',
-        border:'1px solid silver',
+        border:'1px solid transparent',
         borderRadius:'8px',
         padding:'3px',
         whiteSpace:'nowrap',
