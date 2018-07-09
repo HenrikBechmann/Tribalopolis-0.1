@@ -7,10 +7,10 @@
 
 import { combineReducers } from 'redux'
 import { handleActions } from 'redux-actions'; // handleAction doesn't work with combineReducers
-import { routerReducer as router} from 'react-router-redux'
+// import { routerReducer as router} from 'react-router-redux'
 import {reducer as toastr} from 'react-redux-toastr'
 
-import initialstate from '../local/initialstate'
+import initialstate from '../../data/local/initialstate'
 // -------------[ app resources ]---------------
 // import * as Actions from './actions'
 
@@ -69,7 +69,7 @@ let mainReducerCore =
         // system data
         resources,
         
-        router, // import
+        // router, // import
 
         // page model
         pages,
