@@ -1,4 +1,4 @@
-// store.tsx
+// datamodel.tsx
 /*
     This is the runtime data model
     It is accessed by controllers (containers)
@@ -149,4 +149,4 @@ export let datamodel = {
         },
     }
 };
-//# sourceMappingURL=store.jsx.map
+//# sourceMappingURL=datamodel.jsx.map
