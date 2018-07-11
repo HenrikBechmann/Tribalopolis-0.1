@@ -27,9 +27,9 @@
     "prop-types": "^15.6.2",
     "react": "^16.4.1",
     "react-animations": "^1.0.0",
-    "react-dnd": "^2.6.0",
-    "react-dnd-html5-backend": "^2.6.0",
-    "react-dnd-touch-backend": "^0.4.0",
+    "react-dnd": "^5.0.0",
+    "react-dnd-html5-backend": "^5.0.1",
+    "react-dnd-touch-backend": "^0.5.1",
     "react-dom": "^16.4.1",
     "react-ga": "^2.5.3",
     "react-list": "^0.8.10",
@@ -42,7 +42,6 @@
     "redux-actions": "^2.4.0",
     "redux-thunk": "^2.3.0",
     "uuid": "^3.3.2",
-    "victory": "^0.26.1",
     "victory-force": "0.0.1"
   },
   "devDependencies": {
@@ -62,7 +61,6 @@
     "@types/react-router-redux": "^5.0.15",
     "@types/react-tap-event-plugin": "0.0.30",
     "@types/redux-actions": "^2.3.0",
-    "@types/victory": "^0.9.17",
     "babel-core": "^6.26.3",
     "babel-loader": "^7.1.5",
     "babel-plugin-syntax-trailing-function-commas": "^6.22.0",
@@ -75,7 +73,7 @@
     "style-loader": "^0.21.0",
     "ts-loader": "^4.4.2",
     "typescript": "^2.9.2",
-    "webpack": "^4.15.1",
+    "webpack": "^4.16.0",
     "webpack-cli": "^3.0.8",
     "webpack-sources": "^1.1.0"
   }
