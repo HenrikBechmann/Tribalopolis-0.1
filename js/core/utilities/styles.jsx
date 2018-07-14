@@ -35,22 +35,6 @@ export let styles = {
         overflow: 'hidden',
         padding: '3px'
     },
-    // main content
-    spacegraph: {
-        fixedframe: { backgroundColor: 'lightcyan', position: 'relative', height: '100%', width: '100%' },
-        frame: { backgroundColor: 'lightcyan', position: 'relative', height: '100%', width: '100%', overflow: 'scroll' },
-        platform: { height: '600px', minWidth: '100%', width: '600px', backgroundColor: 'yellow' },
-        originframe: { zIndex: 1, position: 'absolute', top: 0, left: 0, backgroundColor: 'lightgreen', borderRadius: '8px', border: '3px ridge gray', boxShadow: 'rgba(0, 0, 0, 0.156863) 0px 3px 10px, rgba(0, 0, 0, 0.227451) 0px 3px 10px' },
-        origin: {
-            float: 'left',
-            width: '72px',
-            height: '72px',
-            border: '1px solid silver',
-            backgroundColor: 'lightblue',
-            borderRadius: '50%',
-            overflow: 'hidden',
-        },
-    },
     list: {
         frame: {
             position: 'relative',

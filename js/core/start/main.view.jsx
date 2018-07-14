@@ -7,10 +7,10 @@ import * as React from 'react';
 // import GlobalBarController from '../global/globalbar.controller'
 // import { RoutesController } from './routes.controller'
 import { AppRouter } from './approuter';
-const MainView = ({ globalmessage, history, style }) => (<div style={style}>
+const MainView = ({ globalmessage, style }) => (<div style={style}>
         {globalmessage}
 
-        <AppRouter history={history}/>
+        <AppRouter />
 
     </div>);
 export default MainView;

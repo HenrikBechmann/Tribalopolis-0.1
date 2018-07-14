@@ -14,11 +14,11 @@ import * as React from 'react'
 // import { RoutesController } from './routes.controller'
 import { AppRouter } from './approuter'
 
-const MainView = ({globalmessage, history, style}) => (
+const MainView = ({globalmessage, style}) => (
     <div style = {style}>
         {globalmessage}
 
-        <AppRouter history = {history} />
+        <AppRouter />
 
     </div>
 )

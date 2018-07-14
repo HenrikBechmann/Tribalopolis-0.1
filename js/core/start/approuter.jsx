@@ -8,6 +8,8 @@ import * as React from 'react';
 import { Switch, Router } from 'react-router-dom';
 // import { connect } from 'react-redux'
 import routes from "./routes";
+import createBrowserHistory from 'history/createBrowserHistory';
+const customHistory = createBrowserHistory();
 // import TransitionWrapper from './transitionwrapper'
 // current release of react-ga 2.31 is broken
 // let ReactGA = require('react-ga')
@@ -28,7 +30,7 @@ let AppRouter = class extends React.Component {
     // console.log('AppRouter props',props)
     render() {
         // let location = this.props.router.location || {}
-        return (<Router history={this.props.history}>
+        return (<Router history={customHistory}>
                 <Switch>
                     {routes}
                 </Switch>

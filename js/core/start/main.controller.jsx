@@ -2,11 +2,11 @@
 import * as React from 'react';
 // import configureStore from '../utilities/configurestore'
 // import Base from './base'
-import { history } from './globaldataconfig.utility';
+// import {history} from './globaldataconfig.utility'
 import coredata from '../actions/reducers';
 let state = coredata; // get font-family for non material-ui components
 let fontFamily = state.theme.fontFamily;
-console.log(coredata, state);
+// console.log(coredata,state)
 // import { Provider } from 'react-redux'
 import { DragDropContext } from 'react-dnd';
 import DnDTouchBackend from 'react-dnd-touch-backend';
@@ -22,7 +22,7 @@ class Main extends React.Component {
             fontFamily,
         };
         return (<MuiThemeProvider muiTheme={muiTheme}>
-                <MainView history={history} globalmessage={globalmessage} style={mainviewstyle}/>
+                <MainView globalmessage={globalmessage} style={mainviewstyle}/>
             </MuiThemeProvider>);
     }
 }

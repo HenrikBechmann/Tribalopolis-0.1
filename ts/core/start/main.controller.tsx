@@ -6,14 +6,14 @@ import * as React from 'react'
 
 // import Base from './base'
 
-import {history} from './globaldataconfig.utility'
+// import {history} from './globaldataconfig.utility'
 
 import coredata from  '../actions/reducers'
 
 let state:any = coredata // get font-family for non material-ui components
 let fontFamily = state.theme.fontFamily
 
-console.log(coredata,state)
+// console.log(coredata,state)
 
 // import { Provider } from 'react-redux'
 
@@ -41,7 +41,7 @@ class Main extends React.Component<any,any> {
 
         return (
             <MuiThemeProvider muiTheme = {muiTheme}>
-                <MainView history = {history} globalmessage={globalmessage}
+                <MainView globalmessage={globalmessage}
                     style = {mainviewstyle} />
             </MuiThemeProvider>
         )
