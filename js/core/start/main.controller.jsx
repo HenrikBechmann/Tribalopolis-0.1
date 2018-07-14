@@ -2,10 +2,12 @@
 import * as React from 'react';
 // import configureStore from '../utilities/configurestore'
 // import Base from './base'
-import { store, history } from './globaldataconfig.utility';
-let state = store.getState(); // get font-family for non material-ui components
-let fontFamily = state.resources.theme.fontFamily;
-import { Provider } from 'react-redux';
+import { history } from './globaldataconfig.utility';
+import coredata from '../actions/reducers';
+let state = coredata; // get font-family for non material-ui components
+let fontFamily = state.theme.fontFamily;
+console.log(coredata, state);
+// import { Provider } from 'react-redux'
 import { DragDropContext } from 'react-dnd';
 import DnDTouchBackend from 'react-dnd-touch-backend';
 let DnDBackend = DnDTouchBackend({ enableMouseEvents: true });
@@ -19,11 +21,9 @@ class Main extends React.Component {
         let mainviewstyle = {
             fontFamily,
         };
-        return (<Provider store={store}>
-                <MuiThemeProvider muiTheme={muiTheme}>
-                    <MainView history={history} globalmessage={globalmessage} style={mainviewstyle}/>
-                </MuiThemeProvider>
-            </Provider>);
+        return (<MuiThemeProvider muiTheme={muiTheme}>
+                <MainView history={history} globalmessage={globalmessage} style={mainviewstyle}/>
+            </MuiThemeProvider>);
     }
 }
 export default DragDropContext(DnDBackend)(Main);

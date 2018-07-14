@@ -2,7 +2,7 @@
 // copyright (c) 2018 Henrik Bechmann, Toronto, MIT Licence
 'use strict';
 import * as React from 'react';
-import { connect } from 'react-redux';
+// import { connect } from 'react-redux'
 import QuadToolsStrip from './views/quadspace/quadtoolsstrip.view';
 import QuadFrame from './views/quadspace/quadframe.view';
 import QuadBasket from './views/quadspace/quadbasket.view';
@@ -125,11 +125,11 @@ class QuadspaceController extends React.Component {
     }
 }
 // <QuadDiamond />
-let mapStateToProps = state => {
-    let { resources } = state;
-    return {
-        resources,
-    };
-};
-export default connect(mapStateToProps)(QuadspaceController);
+// let mapStateToProps = state => {
+//     let { resources } = state
+//     return { 
+//         resources,
+//     }
+// }
+export default QuadspaceController;
 //# sourceMappingURL=quadspace.controller.jsx.map

@@ -5,7 +5,7 @@
 
 import * as React from 'react'
 
-import { connect } from 'react-redux'
+// import { connect } from 'react-redux'
 
 import QuadToolsStrip from './views/quadspace/quadtoolsstrip.view'
 import QuadFrame from './views/quadspace/quadframe.view'
@@ -210,11 +210,11 @@ class QuadspaceController extends React.Component<any,any> {
 
                         // <QuadDiamond />
 
-let mapStateToProps = state => {
-    let { resources } = state
-    return { 
-        resources,
-    }
-}
+// let mapStateToProps = state => {
+//     let { resources } = state
+//     return { 
+//         resources,
+//     }
+// }
 
-export default connect(mapStateToProps)(QuadspaceController)
+export default QuadspaceController

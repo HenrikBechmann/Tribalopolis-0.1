@@ -5,10 +5,10 @@
 
 'use strict'
 
-import { combineReducers } from 'redux'
-import { handleActions } from 'redux-actions'; // handleAction doesn't work with combineReducers
+// import { combineReducers } from 'redux'
+// import { handleActions } from 'redux-actions'; // handleAction doesn't work with combineReducers
 // import { routerReducer as router} from 'react-router-redux'
-import {reducer as toastr} from 'react-redux-toastr'
+// import {reducer as toastr} from 'react-redux-toastr'
 
 import initialstate from '../../data/local/initialstate'
 // -------------[ app resources ]---------------
@@ -32,52 +32,54 @@ let colors = (state = initialstate.colors) => {
     return state
 }
 
-let resources = combineReducers({
-    theme,
-    colors,
-})
+// let resources = combineReducers({
+//     theme,
+//     colors,
+// })
 
 // ---------------------[ ui core services reducers ]------------------------
 
-let globalbar = (state: any = {}, action) => {
+let globalbar = (state: any = {}) => {
     return state
 }
 
-let global = combineReducers({
-    globalbar,
-})
+// let global = combineReducers({
+//     globalbar,
+// })
 
 // ---------------------[ home grid reducers ]------------------------
 
-let homepage = (state:any = {},action) => {
+let homepage = (state:any = {}) => {
     return state
 }
 
-let pagetargets = (state: any = {}, action) => {
+let pagetargets = (state: any = {}) => {
     return state
 }
 
-let pages = combineReducers({
-    homepage,
-    pagetargets,
-})
+// let pages = combineReducers({
+//     homepage,
+//     pagetargets,
+// })
 
 // ---------------------------[ main reducer ]--------------------------------
 
-let mainReducerCore = 
+let coredata = 
     { 
         // system data
-        resources,
-        
+        theme:theme(),
+        colors:colors(),
         // router, // import
 
         // page model
-        pages,
+        homepage:homepage(),
 
-        toastr,
+        pagetargets:pagetargets(),
+
+        // toastr,
 
         // global ui management
-        global,
+        global:globalbar(),
     }
 
-export default mainReducerCore
+export default coredata

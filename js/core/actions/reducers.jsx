@@ -2,9 +2,10 @@
 // reducers.tsx
 // TODO: co-locate selectors here: get...(...)
 'use strict';
-import { combineReducers } from 'redux';
+// import { combineReducers } from 'redux'
+// import { handleActions } from 'redux-actions'; // handleAction doesn't work with combineReducers
 // import { routerReducer as router} from 'react-router-redux'
-import { reducer as toastr } from 'react-redux-toastr';
+// import {reducer as toastr} from 'react-redux-toastr'
 import initialstate from '../../data/local/initialstate';
 // -------------[ app resources ]---------------
 // import * as Actions from './actions'
@@ -21,38 +22,40 @@ let theme = (state = initialstate.theme) => {
 let colors = (state = initialstate.colors) => {
     return state;
 };
-let resources = combineReducers({
-    theme,
-    colors,
-});
+// let resources = combineReducers({
+//     theme,
+//     colors,
+// })
 // ---------------------[ ui core services reducers ]------------------------
-let globalbar = (state = {}, action) => {
+let globalbar = (state = {}) => {
     return state;
 };
-let global = combineReducers({
-    globalbar,
-});
+// let global = combineReducers({
+//     globalbar,
+// })
 // ---------------------[ home grid reducers ]------------------------
-let homepage = (state = {}, action) => {
+let homepage = (state = {}) => {
     return state;
 };
-let pagetargets = (state = {}, action) => {
+let pagetargets = (state = {}) => {
     return state;
 };
-let pages = combineReducers({
-    homepage,
-    pagetargets,
-});
+// let pages = combineReducers({
+//     homepage,
+//     pagetargets,
+// })
 // ---------------------------[ main reducer ]--------------------------------
-let mainReducerCore = {
+let coredata = {
     // system data
-    resources,
+    theme: theme(),
+    colors: colors(),
     // router, // import
     // page model
-    pages,
-    toastr,
+    homepage: homepage(),
+    pagetargets: pagetargets(),
+    // toastr,
     // global ui management
-    global,
+    global: globalbar(),
 };
-export default mainReducerCore;
+export default coredata;
 //# sourceMappingURL=reducers.jsx.map

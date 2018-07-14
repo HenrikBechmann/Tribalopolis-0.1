@@ -4,9 +4,9 @@
     - implement call to googla analytics
 */
 import * as React from 'react';
-import { ConnectedRouter } from 'react-router-redux';
-import { Switch } from 'react-router-dom';
-import { connect } from 'react-redux';
+// import { ConnectedRouter } from 'react-router-redux'
+import { Switch, Router } from 'react-router-dom';
+// import { connect } from 'react-redux'
 import routes from "./routes";
 // import TransitionWrapper from './transitionwrapper'
 // current release of react-ga 2.31 is broken
@@ -27,12 +27,12 @@ import routes from "./routes";
 let AppRouter = class extends React.Component {
     // console.log('AppRouter props',props)
     render() {
-        let location = this.props.router.location || {};
-        return (<ConnectedRouter history={this.props.history}>
-                <Switch location={location}>
+        // let location = this.props.router.location || {}
+        return (<Router history={this.props.history}>
+                <Switch>
                     {routes}
                 </Switch>
-            </ConnectedRouter>);
+            </Router>);
     }
 };
 let mapStateToProps = state => {
@@ -41,6 +41,6 @@ let mapStateToProps = state => {
         router,
     };
 };
-AppRouter = connect(mapStateToProps)(AppRouter);
+// AppRouter = connect(mapStateToProps)(AppRouter)
 export { AppRouter };
 //# sourceMappingURL=approuter.jsx.map

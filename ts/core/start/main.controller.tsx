@@ -6,12 +6,16 @@ import * as React from 'react'
 
 // import Base from './base'
 
-import {store, history} from './globaldataconfig.utility'
+import {history} from './globaldataconfig.utility'
 
-let state:any = store.getState() // get font-family for non material-ui components
-let fontFamily = state.resources.theme.fontFamily
+import coredata from  '../actions/reducers'
 
-import { Provider } from 'react-redux'
+let state:any = coredata // get font-family for non material-ui components
+let fontFamily = state.theme.fontFamily
+
+console.log(coredata,state)
+
+// import { Provider } from 'react-redux'
 
 import { DragDropContext } from 'react-dnd'
 import DnDHTMLBackend from 'react-dnd-html5-backend'
@@ -36,12 +40,10 @@ class Main extends React.Component<any,any> {
         }
 
         return (
-            <Provider store={ store }>
-                <MuiThemeProvider muiTheme = {muiTheme}>
-                    <MainView history = {history} globalmessage={globalmessage}
-                        style = {mainviewstyle} />
-                </MuiThemeProvider>
-            </Provider>
+            <MuiThemeProvider muiTheme = {muiTheme}>
+                <MainView history = {history} globalmessage={globalmessage}
+                    style = {mainviewstyle} />
+            </MuiThemeProvider>
         )
     }
 }
