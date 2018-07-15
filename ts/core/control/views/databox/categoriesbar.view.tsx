@@ -21,59 +21,60 @@ class CategoriesBar extends React.Component<any,any> {
         })
     }
 
+    styles:React.CSSProperties = {
+        width:'100%',
+        border:'1px solid transparent',
+        borderRadius:'8px',
+        padding:'3px',
+        whiteSpace:'nowrap',
+        overflow:'hidden',
+        boxSizing:'border-box',
+        marginBottom: '1px',
+        fontSize:'larger',
+        position:'sticky',
+        top:'0',
+        backgroundColor:'#f2f2f2',
+        zIndex:1,
+    }
+
+    buttonStyle:React.CSSProperties = {
+        padding:'0',
+        width:'24px',
+        height:'24px',
+        float:'right',
+        marginRight:'4px',
+    }
+
+    actionButtonStyle:React.CSSProperties = {
+        ...this.buttonStyle,
+        boxSizing:'border-box',
+    }
+
+    iconStyle:React.CSSProperties = {
+        transform:'rotate(' + (this.state.open?'0deg':'180deg') + ')',
+        transition:'transform 0.5s .1s ease-out',
+    }
+
+    checkIconStyle:React.CSSProperties = {
+
+    }
+
     render() {
 
         let { node } = this.props
 
-        let styles:React.CSSProperties = {
-            width:'100%',
-            border:'1px solid transparent',
-            borderRadius:'8px',
-            padding:'3px',
-            whiteSpace:'nowrap',
-            overflow:'hidden',
-            boxSizing:'border-box',
-            marginBottom: '1px',
-            fontSize:'larger',
-            position:'sticky',
-            top:'0',
-            backgroundColor:'#f2f2f2',
-            zIndex:1,
-        }
-
-        let buttonStyle:React.CSSProperties = {
-            padding:'0',
-            width:'24px',
-            height:'24px',
-            float:'right',
-            marginRight:'4px',
-        }
-
-        let actionButtonStyle:React.CSSProperties = {
-            ...buttonStyle,
-            boxSizing:'border-box',
-        }
-
-        let iconStyle:React.CSSProperties = {
-            transform:'rotate(' + (this.state.open?'0deg':'180deg') + ')',
-            transition:'transform 0.5s .1s ease-out',
-        }
-
-        let checkIconStyle:React.CSSProperties = {
-
-        }
 
         return <div>
-            <div style = {styles}>
-                <IconButton style = {buttonStyle}
-                    iconStyle = {iconStyle}
+            <div style = {this.styles}>
+                <IconButton style = {this.buttonStyle}
+                    iconStyle = {this.iconStyle}
                     onClick = {
                         () => {this.toggleList()}
                     }
                 >
                     <FontIcon className='material-icons'>expand_less</FontIcon> 
                 </IconButton>
-                <IconButton style = {actionButtonStyle}
+                <IconButton style = {this.actionButtonStyle}
                     iconStyle = {{fontSize:'20px'}}
                 >
                     <FontIcon color = 'green' className='material-icons'>edit</FontIcon> 
