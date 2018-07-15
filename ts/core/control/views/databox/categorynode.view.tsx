@@ -16,7 +16,7 @@ const CategoryNode = props => {
             padding:'3px',
         }
     }>
-        <FontIcon color = {sysnode?'green':'black'} style = {{verticalAlign:'middle'}} className='material-icons'>list</FontIcon> 
+        <FontIcon color = {sysnode?'green':'gray'} style = {{verticalAlign:'middle'}} className='material-icons'>folder</FontIcon> 
         {name + ` (${count})`}
     </div>
 }
