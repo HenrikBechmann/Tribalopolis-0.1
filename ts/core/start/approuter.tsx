@@ -6,7 +6,7 @@
 
 import * as React from 'react'
 // import { ConnectedRouter } from 'react-router-redux'
-import { Switch, Route, Redirect, Router } from 'react-router-dom'
+import { Switch, Router } from 'react-router-dom'
 // import { connect } from 'react-redux'
 import routes from "./routes"
 
@@ -37,9 +37,8 @@ const customHistory = createBrowserHistory()
 
 
 let AppRouter = class extends React.Component<any,any> {
-    // console.log('AppRouter props',props)
+
     render() {
-        // let location = this.props.router.location || {}
         return (
             <Router history = {customHistory}>
                 <Switch>

@@ -27,9 +27,7 @@ const customHistory = createBrowserHistory();
 //         logPageView()
 //     }
 let AppRouter = class extends React.Component {
-    // console.log('AppRouter props',props)
     render() {
-        // let location = this.props.router.location || {}
         return (<Router history={customHistory}>
                 <Switch>
                     {routes}
