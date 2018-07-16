@@ -5,7 +5,7 @@
 import * as React from 'react'
 import OriginMenu from './quadoriginmenu.view'
 import FontIcon from 'material-ui/FontIcon'
-import QuadBadge from './quadbadge.view'
+import QuantityBadge from '../common/quantitybadge.view'
 
 const QuadOrigin = props => {
     return (
@@ -23,8 +23,8 @@ const QuadOrigin = props => {
                 }
             }
         >
-            <QuadBadge quantity = {props.stackdepth} />
-            <QuadBadge quantity = {props.stackpointer + 1} 
+            <QuantityBadge quantity = {props.stackdepth} />
+            <QuantityBadge quantity = {props.stackpointer + 1} 
                 style = {{
                     top:'auto',
                     bottom:'0',

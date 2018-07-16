@@ -3,7 +3,7 @@
 'use strict';
 import * as React from 'react';
 import OriginMenu from './quadoriginmenu.view';
-import QuadBadge from './quadbadge.view';
+import QuantityBadge from '../common/quantitybadge.view';
 const QuadOrigin = props => {
     return (<div style={{
         position: 'absolute',
@@ -15,8 +15,8 @@ const QuadOrigin = props => {
         borderRadius: '8px',
         zIndex: 2,
     }}>
-            <QuadBadge quantity={props.stackdepth}/>
-            <QuadBadge quantity={props.stackpointer + 1} style={{
+            <QuantityBadge quantity={props.stackdepth}/>
+            <QuantityBadge quantity={props.stackpointer + 1} style={{
         top: 'auto',
         bottom: '0',
         right: 'auto',

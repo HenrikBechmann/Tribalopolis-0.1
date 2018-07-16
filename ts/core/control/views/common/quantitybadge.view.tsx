@@ -1,13 +1,18 @@
-// quadbadge.view.tsx
+// quantitybadge.view.tsx
 
 // copyright (c) 2018 Henrik Bechmann, Toronto, MIT Licence
 'use strict'
 
 import * as React from 'react'
 
-const QuadBadge = props => {
+interface propsInterface {
+    style?:React.CSSProperties,
+    quantity:number,
+}
 
-    let defaultstyles = {
+const QuantityBadge = (props:propsInterface) => {
+
+    let defaultstyles:React.CSSProperties = {
         display:'block',
         position:'absolute',
         top:'-2px',
@@ -22,6 +27,7 @@ const QuadBadge = props => {
         padding:'3px',
         boxSizing:'border-box',
         zIndex:1,
+        opacity:.7,
     }
     let style = props.style || {}
     let badgestyles = {...defaultstyles, ...style}
@@ -30,4 +36,4 @@ const QuadBadge = props => {
     return <div style = {badgestyles}>{quantity}</div>
 }
 
-export default QuadBadge
+export default QuantityBadge

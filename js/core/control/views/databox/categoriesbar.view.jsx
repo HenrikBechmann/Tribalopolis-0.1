@@ -5,11 +5,13 @@ import * as React from 'react';
 import IconButton from 'material-ui/IconButton';
 import FontIcon from 'material-ui/FontIcon';
 import CategoriesList from './categorieslist.view';
+import QuantityBadge from '../common/quantitybadge.view';
 class CategoriesBar extends React.Component {
     constructor() {
         super(...arguments);
         this.state = {
             open: true,
+            count: 6558,
         };
         this.toggleList = () => {
             this.setState({
@@ -56,7 +58,21 @@ class CategoriesBar extends React.Component {
                     <FontIcon color='green' className='material-icons'>edit</FontIcon> 
                 </IconButton>
                 <FontIcon style={{ verticalAlign: 'middle' }} className='material-icons'>list</FontIcon> 
-                <span style={{ verticalAlign: 'middle' }}>Links (6558)</span>
+                <div style={{
+            display: 'inline-block',
+            verticalAlign: 'middle',
+        }}>
+                    Links
+                </div>
+                <div style={{
+            display: 'inline-block',
+            position: 'relative',
+            verticalAlign: 'middle',
+            height: '24px',
+            width: '10px',
+        }}>
+                    <QuantityBadge quantity={this.state.count} style={{ left: 0 }}/>
+                </div>
             </div>
             <CategoriesList open={this.state.open} node={node} getCategory={this.props.getCategory}/>
         </div>;

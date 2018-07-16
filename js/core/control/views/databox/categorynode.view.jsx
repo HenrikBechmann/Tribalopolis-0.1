@@ -3,6 +3,7 @@
 'use strict';
 import * as React from 'react';
 import FontIcon from 'material-ui/FontIcon';
+import QuantityBadge from '../common/quantitybadge.view';
 const CategoryNode = props => {
     let { id, data } = props;
     let { name, sysnode } = data;
@@ -23,6 +24,7 @@ const CategoryNode = props => {
     };
     let tabstyle = {
         display: 'inline-block',
+        position: 'relative',
         verticalAlign: 'middle',
         borderWidth: '1px',
         borderRadius: '6px 6px 0 0',
@@ -41,10 +43,14 @@ const CategoryNode = props => {
                 <FontIcon color={sysnode ? 'green' : 'gray'} style={{ verticalAlign: 'middle' }} className='material-icons'>
                     folder
                 </FontIcon> 
-                {name + ` (${count})`}
+                {name}
                 <FontIcon color={'gray'} style={{ verticalAlign: 'middle' }} className='material-icons'>
                     arrow_forward
                 </FontIcon> 
+                <QuantityBadge quantity={count} style={{
+        left: '-10px',
+        top: '-5px',
+    }}/>
             </div>
         </div>
     </div>;

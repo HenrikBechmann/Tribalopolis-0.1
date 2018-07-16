@@ -4,8 +4,8 @@
 
 import * as React from 'react'
 
-import BoxHeader from './views/databox/header.view'
-import BoxToolbar from './views/databox/toolbar.view'
+import BoxIdentifier from './views/databox/identifier.view'
+import BoxTypebar from './views/databox/typebar.view'
 import ProfileBar from './views/databox/profilebar.view'
 import ProfileForm from './views/databox/profileform.view'
 import CategoriesBar from './views/databox/categoriesbar.view'
@@ -46,8 +46,8 @@ class DataBox extends React.Component<any,any> {
         let { node } = this.props
 
         return <div style = {frameStyle}>
-            <BoxToolbar node = {node} />
-            <BoxHeader node = {node} />
+            <BoxTypebar node = {node} />
+            <BoxIdentifier node = {node} />
             <div style = {
                 {
                     overflow:'auto',

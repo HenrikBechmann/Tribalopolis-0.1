@@ -9,7 +9,7 @@ import QuadBasket from './views/quadspace/quadbasket.view';
 import QuadViewport from './views/quadspace/quadviewport.view';
 import QuadPlatform from './views/quadspace/quadplatform.view';
 import Quadrant from './quadrant.controller';
-import QuadBadge from './views/quadspace/quadbadge.view';
+import QuantityBadge from './views/common/quantitybadge.view';
 import QuadStatusBar from './views/quadspace/quadstatusbar.view';
 import { nodeheap, datastacks, linkcategoryheap } from '../../data/data';
 class QuadspaceController extends React.Component {
@@ -114,7 +114,7 @@ class QuadspaceController extends React.Component {
     render() {
         return (<QuadFrame>
                 <QuadToolsStrip currentquad={this.state.currentquad} takingfocus={this.takingfocus} split={this.state.split} changeSplit={this.changeSplit}/>
-                <QuadBasket><QuadBadge quantity={0} style={{ left: '-12px' }}/></QuadBasket>
+                <QuadBasket><QuantityBadge quantity={0} style={{ left: '-12px' }}/></QuadBasket>
                 <QuadViewport>
                     <QuadPlatform currentquad={this.state.currentquad} split={this.state.split}>
                         {this.quadrants()}

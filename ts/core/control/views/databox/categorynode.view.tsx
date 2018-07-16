@@ -5,6 +5,7 @@
 import * as React from 'react'
 
 import FontIcon from 'material-ui/FontIcon'
+import QuantityBadge from '../common/quantitybadge.view'
 
 const CategoryNode = props => {
     let { id,data } = props
@@ -31,6 +32,7 @@ const CategoryNode = props => {
 
     let tabstyle:React.CSSProperties = {
         display:'inline-block',
+        position:'relative',
         verticalAlign:'middle',
         borderWidth:'1px',
         borderRadius:'6px 6px 0 0',
@@ -56,7 +58,7 @@ const CategoryNode = props => {
                 >
                     folder
                 </FontIcon> 
-                {name + ` (${count})`}
+                {name}
                 <FontIcon 
                     color = {'gray'} 
                     style = {{verticalAlign:'middle'}} 
@@ -64,6 +66,12 @@ const CategoryNode = props => {
                 >
                     arrow_forward
                 </FontIcon> 
+                <QuantityBadge quantity = {count} style = {
+                    {
+                        left:'-10px',
+                        top:'-5px',
+                    }
+                }/>
             </div>
         </div>
     </div>
