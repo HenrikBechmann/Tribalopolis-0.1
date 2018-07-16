@@ -57,6 +57,13 @@ const CategoryNode = props => {
                     folder
                 </FontIcon> 
                 {name + ` (${count})`}
+                <FontIcon 
+                    color = {'gray'} 
+                    style = {{verticalAlign:'middle'}} 
+                    className='material-icons'
+                >
+                    arrow_forward
+                </FontIcon> 
             </div>
         </div>
     </div>
