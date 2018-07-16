@@ -17,7 +17,7 @@ const CategoryNode = props => {
         }
 
     let tabwrapperstyle:React.CSSProperties = {
-        borderBottom:'1px solid silver',
+        borderBottom:'1px solid #e2e6e9',
         position:'relative',
         height:'24px',
     }
@@ -34,7 +34,7 @@ const CategoryNode = props => {
         verticalAlign:'middle',
         borderWidth:'1px',
         borderRadius:'6px 6px 0 0',
-        borderColor:'silver',
+        borderColor:'#e2e6e9',
         borderBottomColor:'white',
         borderStyle:'solid',
         paddingRight:'3px',

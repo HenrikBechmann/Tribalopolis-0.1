@@ -11,7 +11,7 @@ const CategoryNode = props => {
         padding: '3px',
     };
     let tabwrapperstyle = {
-        borderBottom: '1px solid silver',
+        borderBottom: '1px solid #e2e6e9',
         position: 'relative',
         height: '24px',
     };
@@ -26,7 +26,7 @@ const CategoryNode = props => {
         verticalAlign: 'middle',
         borderWidth: '1px',
         borderRadius: '6px 6px 0 0',
-        borderColor: 'silver',
+        borderColor: '#e2e6e9',
         borderBottomColor: 'white',
         borderStyle: 'solid',
         paddingRight: '3px',
