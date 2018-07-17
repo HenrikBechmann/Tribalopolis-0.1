@@ -14,6 +14,7 @@ const BoxToolbar = props => {
         // fontSize:'larger',
         boxSizing: 'border-box',
     };
+    let boxicon = '/public/icons/databox.svg';
     return <div style={styles}>
 
         <div style={{
@@ -26,7 +27,7 @@ const BoxToolbar = props => {
         borderRadius: '50%',
         border: '1px solid transparent',
     }}>
-            <FontIcon className='material-icons'>menu</FontIcon>
+            <img style={{ verticalAlign: 'bottom' }} src={boxicon}/>
         </div>
         <div style={{
         padding: '4px 0 0 3px',

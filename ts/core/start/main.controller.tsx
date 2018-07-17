@@ -2,7 +2,7 @@
 
 import * as React from 'react'
 
-import coredata from  '../actions/reducers'
+import coredata from  '../../data/coredata'
 
 let state:any = coredata // get font-family for non material-ui components
 let fontFamily = state.theme.fontFamily

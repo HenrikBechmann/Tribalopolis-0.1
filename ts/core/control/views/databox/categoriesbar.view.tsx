@@ -7,7 +7,7 @@ import * as React from 'react'
 import IconButton from 'material-ui/IconButton'
 import FontIcon from 'material-ui/FontIcon'
 
-import CategoriesList from './categorieslist.view'
+import CategoriesList from './categorylist.view'
 import QuantityBadge from '../common/quantitybadge.view'
 import ActionButton from '../common/actionbutton.view'
 
@@ -79,6 +79,7 @@ class CategoriesBar extends React.Component<any,any> {
                     iconStyle = {{fontSize:'20px',color:'green'}}
                 />
                 <FontIcon style = {{verticalAlign:'middle'}} className='material-icons'>list</FontIcon> 
+                <QuantityBadge quantity = {this.state.count} style = {{left:'-2px',top:'-4px'}}/>
                 <div style = {
                     {
                         display:'inline-block',
@@ -96,7 +97,6 @@ class CategoriesBar extends React.Component<any,any> {
                         width:'10px',
                     }
                 } >
-                    <QuantityBadge quantity = {this.state.count} style = {{left:0}}/>
                 </div>
             </div>
             <CategoriesList open = {this.state.open} node = { node } getCategory = {this.props.getCategory} />

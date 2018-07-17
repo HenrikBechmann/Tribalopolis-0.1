@@ -3,7 +3,7 @@
 'use strict';
 import * as React from 'react';
 import FontIcon from 'material-ui/FontIcon';
-import CategoriesList from './categorieslist.view';
+import CategoriesList from './categorylist.view';
 import QuantityBadge from '../common/quantitybadge.view';
 import ActionButton from '../common/actionbutton.view';
 class CategoriesBar extends React.Component {
@@ -54,6 +54,7 @@ class CategoriesBar extends React.Component {
                 <ActionButton icon='expand_less' iconStyle={this.iconStyle()} action={this.toggleList}/>
                 <ActionButton icon='edit' iconStyle={{ fontSize: '20px', color: 'green' }}/>
                 <FontIcon style={{ verticalAlign: 'middle' }} className='material-icons'>list</FontIcon> 
+                <QuantityBadge quantity={this.state.count} style={{ left: '-2px', top: '-4px' }}/>
                 <div style={{
             display: 'inline-block',
             verticalAlign: 'middle',
@@ -67,7 +68,6 @@ class CategoriesBar extends React.Component {
             height: '24px',
             width: '10px',
         }}>
-                    <QuantityBadge quantity={this.state.count} style={{ left: 0 }}/>
                 </div>
             </div>
             <CategoriesList open={this.state.open} node={node} getCategory={this.props.getCategory}/>

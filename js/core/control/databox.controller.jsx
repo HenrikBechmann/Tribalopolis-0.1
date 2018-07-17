@@ -2,7 +2,7 @@
 // copyright (c) 2018 Henrik Bechmann, Toronto, MIT Licence
 'use strict';
 import * as React from 'react';
-import BoxIdentifier from './views/databox/identifier.view';
+import BoxIdentifier from './views/databox/identybar.view';
 import BoxTypebar from './views/databox/typebar.view';
 import ProfileBar from './views/databox/profilebar.view';
 import ProfileForm from './views/databox/profileform.view';

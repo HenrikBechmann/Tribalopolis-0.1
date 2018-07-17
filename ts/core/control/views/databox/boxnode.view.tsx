@@ -1,0 +1,1 @@
+// boxnode.view.tsx

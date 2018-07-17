@@ -10,8 +10,7 @@ const BoxHeader = props => {
 
     let { node } = props
 
-
-    let boxicon = '/public/icons/databox.svg'
+    let avatar = '/public/avatars/henrik_in_circle.png'
 
     let styles:React.CSSProperties = {
         position:'relative',
@@ -44,7 +43,7 @@ const BoxHeader = props => {
         } >
             <FontIcon className='material-icons'>zoom_out_map</FontIcon>
         </div>
-        <img style = {{verticalAlign:'bottom'}} src = {boxicon} /> {node.profile.name}
+        <img style = {{verticalAlign:'middle',width:'32px'}} src = {avatar} /> {node.profile.name}
     </div>
 }
 

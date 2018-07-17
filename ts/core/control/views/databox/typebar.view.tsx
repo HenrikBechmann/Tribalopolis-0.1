@@ -19,6 +19,8 @@ const BoxToolbar = props => {
         boxSizing:'border-box',
     }
 
+    let boxicon = '/public/icons/databox.svg'
+
     return <div style = {styles}>
 
         <div style = {
@@ -33,7 +35,7 @@ const BoxToolbar = props => {
                 border:'1px solid transparent',
             }
         } >
-            <FontIcon className='material-icons'>menu</FontIcon>
+            <img style = {{verticalAlign:'bottom'}} src = {boxicon} />
         </div>
         <div style = {
             {
