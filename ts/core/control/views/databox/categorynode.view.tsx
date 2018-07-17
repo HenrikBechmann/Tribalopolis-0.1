@@ -43,6 +43,7 @@ const CategoryNode = props => {
         marginLeft:'-1px',
         marginBottom:'-1px',
         backgroundColor:'white',
+        cursor:'pointer',
     }
 
     return <div style = {
