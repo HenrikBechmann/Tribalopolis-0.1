@@ -22,12 +22,12 @@ const ActionButton = (props:propsInterface) => {
         width:'24px',
         height:'24px',
         float:'right',
-        marginRight:'4px',
-
+        verticalAlign:'bottom',
+        marginRight:'3px'
     }
 
     let defaultIconStyle:React.CSSProperties = {
-        ...defaultButtonStyle,
+        // ...defaultButtonStyle,
     }
 
     let {buttonStyle, iconStyle, action, icon} = props
