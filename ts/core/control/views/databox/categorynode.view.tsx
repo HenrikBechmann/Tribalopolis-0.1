@@ -59,13 +59,6 @@ const CategoryNode = props => {
                     folder
                 </FontIcon> 
                 {name}
-                <FontIcon 
-                    color = {'gray'} 
-                    style = {{verticalAlign:'middle'}} 
-                    className='material-icons'
-                >
-                    arrow_forward
-                </FontIcon> 
                 <QuantityBadge quantity = {count} style = {
                     {
                         left:'-10px',
