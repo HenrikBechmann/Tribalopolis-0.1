@@ -3,6 +3,7 @@
 'use strict';
 import * as React from 'react';
 import FontIcon from 'material-ui/FontIcon';
+import ActionButton from '../common/actionbutton.view';
 const BoxToolbar = props => {
     let styles = {
         position: 'relative',
@@ -29,18 +30,7 @@ const BoxToolbar = props => {
     }}>
             <img style={{ verticalAlign: 'bottom' }} src={boxicon}/>
         </div>
-        <div style={{
-        padding: '4px 0 0 3px',
-        boxSizing: 'border-box',
-        width: '32px',
-        height: '32px',
-        display: 'inline-block',
-        float: 'right',
-        borderRadius: '50%',
-        border: '1px solid transparent',
-    }}> 
-            <img style={{ verticalAlign: 'middle' }} src='/public/icons/ic_splay_24px.svg'/>
-        </div>
+        <ActionButton img='/public/icons/ic_splay_24px.svg'/>
 
         <div style={{
         margin: '0 auto 0 auto',

@@ -40,18 +40,18 @@ class CategoriesBar extends React.Component<any,any> {
         zIndex:1,
     }
 
-    buttonStyle:React.CSSProperties = {
-        padding:'0',
-        width:'24px',
-        height:'24px',
-        float:'right',
-        marginRight:'4px',
-    }
+    // buttonStyle:React.CSSProperties = {
+    //     padding:'0',
+    //     width:'24px',
+    //     height:'24px',
+    //     float:'right',
+    //     marginRight:'4px',
+    // }
 
-    actionButtonStyle:React.CSSProperties = {
-        ...this.buttonStyle,
-        boxSizing:'border-box',
-    }
+    // actionButtonStyle:React.CSSProperties = {
+    //     ...this.buttonStyle,
+    //     boxSizing:'border-box',
+    // }
 
     iconStyle = ():React.CSSProperties => ({
             transform:'rotate(' + (this.state.open?'0deg':'180deg') + ')',

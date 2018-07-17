@@ -26,7 +26,6 @@ const QuantityBadge = (props:propsInterface) => {
         fontSize:'x-small',
         padding:'3px',
         boxSizing:'border-box',
-        zIndex:1,
         opacity:.7,
     }
     let style = props.style || {}

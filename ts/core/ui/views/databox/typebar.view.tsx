@@ -6,6 +6,8 @@ import * as React from 'react'
 
 import FontIcon from 'material-ui/FontIcon'
 
+import ActionButton from '../common/actionbutton.view'
+
 const BoxToolbar = props => {
 
     let styles:React.CSSProperties = {
@@ -37,20 +39,13 @@ const BoxToolbar = props => {
         } >
             <img style = {{verticalAlign:'bottom'}} src = {boxicon} />
         </div>
-        <div style = {
-            {
-                padding:'4px 0 0 3px',
-                boxSizing:'border-box',
-                width:'32px',
-                height:'32px',
-                display:'inline-block',
-                float:'right',
-                borderRadius:'50%',
-                border:'1px solid transparent',
-            }
-        }> 
-            <img style = {{verticalAlign:'middle'}} src = '/public/icons/ic_splay_24px.svg' />
-        </div>
+        <ActionButton 
+            img = '/public/icons/ic_splay_24px.svg' 
+        />
+
+        <ActionButton 
+            icon = 'arrow_drop_down'
+        />
 
         <div style = {
             {
@@ -66,11 +61,10 @@ const BoxToolbar = props => {
                 position:'relative',
             }
         }>
-            <FontIcon style = {{position:'absolute',top:'0',right:'0',marginTop:'2px'}} className='material-icons'>arrow_drop_down</FontIcon>
             {props.node.class}
         </div>
-
     </div>
 }
+
 
 export default BoxToolbar

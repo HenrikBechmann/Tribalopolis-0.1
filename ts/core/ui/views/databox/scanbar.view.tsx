@@ -7,6 +7,8 @@ import * as React from 'react'
 import FontIcon from 'material-ui/FontIcon'
 import IconButton from 'material-ui/IconButton'
 
+import ActionButton from '../common/actionbutton.view'
+
 const ScanBar = props => {
 
     let { node } = props
@@ -39,22 +41,18 @@ const ScanBar = props => {
 
     return <div>
         <div style = {barStyle}>
-        <IconButton style = {buttonStyle}
-            iconStyle = {iconStyle}
-            disabled
-        >
-            <FontIcon color = 'green' className='material-icons'>close</FontIcon> 
-        </IconButton>
-        <IconButton style = {buttonStyle}
-            iconStyle = {iconStyle}
-        >
-            <FontIcon color = 'green' className='material-icons'>play_arrow</FontIcon> 
-        </IconButton>
-        <IconButton style = {buttonStyle}
-            iconStyle = {iconStyle}
-        >
-            <FontIcon color = 'green' className='material-icons'>settings</FontIcon> 
-        </IconButton>
+            <ActionButton 
+                icon = 'close'
+                disabled 
+            />
+            <ActionButton 
+                icon = 'play_arrow'
+                iconStyle = {{color:'green'}}
+            />
+            <ActionButton 
+                icon = 'settings'
+                iconStyle = {{color:'green'}}
+            />
             <FontIcon style = {{verticalAlign:'middle'}} className='material-icons'>list</FontIcon> 
             <span style = {{verticalAlign:'middle'}} >Scan Links</span>
         </div>

@@ -12,7 +12,9 @@ interface propsInterface {
     buttonStyle?:React.CSSProperties,
     iconStyle?:React.CSSProperties
     action?:Function,
-    icon:string,
+    icon?:string,
+    img?:string,
+    disabled?:boolean,
 }
 
 const ActionButton = (props:propsInterface) => {
@@ -30,11 +32,14 @@ const ActionButton = (props:propsInterface) => {
         // ...defaultButtonStyle,
     }
 
-    let {buttonStyle, iconStyle, action, icon} = props
+    let {buttonStyle, iconStyle, action, icon, img, disabled} = props
 
     let theButtonStyle = {...defaultButtonStyle, ...buttonStyle}    
 
-    let theIconStyle = {...defaultIconStyle, ...iconStyle}    
+    let theIconStyle = {...defaultIconStyle, ...iconStyle}
+
+    let iconcomponent = icon?<FontIcon className='material-icons'>{icon}</FontIcon>:
+    <img style = {{verticalAlign:'middle'}} src = {img} />
 
     return (
         <IconButton style = {theButtonStyle}
@@ -42,8 +47,9 @@ const ActionButton = (props:propsInterface) => {
             onClick = {
                 () => {action()}
             }
+            disabled = {disabled}
         >
-            <FontIcon className='material-icons'>{icon}</FontIcon> 
+            {iconcomponent}
         </IconButton>
     )
 }

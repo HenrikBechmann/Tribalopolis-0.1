@@ -41,6 +41,7 @@ class DataBox extends React.Component<any,any> {
             fontSize:'smaller',
             opacity:opacity,
             transition:'opacity .5s ease-out',
+            overflow:'hidden',
         }
 
         let { node } = this.props

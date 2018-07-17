@@ -6,11 +6,16 @@ import * as React from 'react'
 
 import FontIcon from 'material-ui/FontIcon'
 
-const ProfileBar = props => {
+import ActionButton from '../common/actionbutton.view'
+
+const BoxHeader = props => {
 
     let { node } = props
 
+    let avatar = '/public/avatars/henrik_in_circle.png'
+
     let styles:React.CSSProperties = {
+        position:'relative',
         width:'100%',
         border:'1px solid transparent',
         borderRadius:'8px',
@@ -24,17 +29,11 @@ const ProfileBar = props => {
     }
 
     return <div style = {styles}>
-        <FontIcon style = {
-            {
-                verticalAlign:'middle',
-                float:'right',
-                transform:'rotate(180deg)',
-                marginRight:'4px',
-            }
-        } className='material-icons'>expand_less</FontIcon> 
-        <FontIcon style = {{verticalAlign:'middle'}} className='material-icons'>subject</FontIcon> 
-        <span style = {{verticalAlign:'middle'}} >Profile</span>
+        <ActionButton 
+            icon = 'zoom_out_map' 
+        />
+        <img style = {{verticalAlign:'middle',width:'32px', margin:'-3px 0 -3px -3px'}} src = {avatar} /> {node.profile.name}
     </div>
 }
 
-export default ProfileBar
+export default BoxHeader
