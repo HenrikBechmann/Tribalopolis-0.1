@@ -2,8 +2,23 @@
 // copyright (c) 2018 Henrik Bechmann, Toronto, MIT Licence
 'use strict';
 import * as React from 'react';
-import FontIcon from 'material-ui/FontIcon';
 const QuadTitleBar = props => {
+    let { id } = props;
+    let alias;
+    switch (id) {
+        case 'topleft':
+            alias = '1';
+            break;
+        case 'topright':
+            alias = '2';
+            break;
+        case 'bottomleft':
+            alias = '3';
+            break;
+        case 'bottomright':
+            alias = '4';
+            break;
+    }
     return (<div style={{
         position: 'relative',
         height: '25px',
@@ -23,8 +38,14 @@ const QuadTitleBar = props => {
         backgroundColor: 'white',
         border: '1px solid gray',
         boxSizing: 'border-box',
+        height: '24px',
+        width: '24px',
+        fontSize: '20px',
+        textAlign: 'center',
+        fontWeight: 'bold',
+        color: 'gray',
     }}>
-                <FontIcon className='material-icons'>menu</FontIcon> 
+                {alias} 
             </div>
             <div style={{
         position: 'absolute',

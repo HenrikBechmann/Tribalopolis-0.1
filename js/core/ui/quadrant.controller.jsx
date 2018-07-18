@@ -15,6 +15,7 @@ class Quadrant extends React.Component {
             quadrant: this.props.quadrant,
             datastack: this.props.datastack,
             stackpointer: 0,
+            startquadrant: this.props.quadrant,
         };
         this.sessionid = this.props.sessionid;
         this.calculateTransitionPosition = (quadrant) => {
@@ -160,7 +161,7 @@ class Quadrant extends React.Component {
             overflow: 'hidden',
         }}>
                     <SwapMenu quadrant={this.state.quadrant} handleswap={this.props.handleswap}/>
-                    <QuadTitleBar title={this.props.title}/>
+                    <QuadTitleBar title={this.props.title} id={this.state.startquadrant}/>
                     <QuadOrigin stackpointer={this.state.stackpointer} stackdepth={this.state.datastack.length}></QuadOrigin>
                     <InfiniteScroll items={this.getBoxes()}/>
                     <QuadSelector quadrant={this.state.quadrant} split={this.props.split} quadselection={this.props.quadselection}/>
