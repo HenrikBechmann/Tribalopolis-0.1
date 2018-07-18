@@ -171,18 +171,34 @@ let linkcategoryheap = {
             },
         },
     },
-    messengers:
+    messages:
     {
         sessionid:9,
         nodesystemid:'x',
         nodekey:'home:henrik::henrik',
         class:'messengers',
-        name:'Messengers',
+        name:'Direct Messages ',
         parent_class_index:'notes.timelogs',
         class_scheme:'common',
         aggregates:{
             childcount:{
                 amount:3,
+                timestamp:1
+            },
+        },
+    },
+    streams:
+    {
+        sessionid:9,
+        nodesystemid:'x',
+        nodekey:'home:henrik::henrik',
+        class:'messengers',
+        name:'Message Streams ',
+        parent_class_index:'notes.timelogs',
+        class_scheme:'common',
+        aggregates:{
+            childcount:{
+                amount:100,
                 timestamp:1
             },
         },
@@ -285,7 +301,8 @@ let nodeheap = [
             'diaries',
             'notes',
             'tasks',
-            'messengers',
+            'messages',
+            'streams',
             'calendars',
             'accounting',
             'roles',
