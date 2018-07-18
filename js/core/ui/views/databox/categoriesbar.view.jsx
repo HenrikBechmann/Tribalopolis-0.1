@@ -33,22 +33,10 @@ class CategoriesBar extends React.Component {
             backgroundColor: '#f2f2f2',
             zIndex: 1,
         };
-        // buttonStyle:React.CSSProperties = {
-        //     padding:'0',
-        //     width:'24px',
-        //     height:'24px',
-        //     float:'right',
-        //     marginRight:'4px',
-        // }
-        // actionButtonStyle:React.CSSProperties = {
-        //     ...this.buttonStyle,
-        //     boxSizing:'border-box',
-        // }
         this.iconStyle = () => ({
             transform: 'rotate(' + (this.state.open ? '0deg' : '180deg') + ')',
             transition: 'transform 0.5s .1s ease-out',
         });
-        this.checkIconStyle = {};
     }
     render() {
         let { node } = this.props;
@@ -56,21 +44,15 @@ class CategoriesBar extends React.Component {
             <div style={this.styles}>
                 <ActionButton icon='expand_less' iconStyle={this.iconStyle()} action={this.toggleList}/>
                 <ActionButton icon='edit' iconStyle={{ fontSize: '20px', color: 'green' }}/>
+
                 <FontIcon style={{ verticalAlign: 'middle' }} className='material-icons'>list</FontIcon> 
                 <QuantityBadge quantity={this.state.count} style={{ left: '-2px', top: '-4px' }}/>
+
                 <div style={{
             display: 'inline-block',
             verticalAlign: 'middle',
         }}>
                     Links
-                </div>
-                <div style={{
-            display: 'inline-block',
-            position: 'relative',
-            verticalAlign: 'middle',
-            height: '24px',
-            width: '10px',
-        }}>
                 </div>
             </div>
             <CategoriesList open={this.state.open} node={node} getCategory={this.props.getCategory}/>

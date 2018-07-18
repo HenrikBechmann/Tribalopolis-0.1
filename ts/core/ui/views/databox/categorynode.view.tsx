@@ -7,30 +7,34 @@ import * as React from 'react'
 import FontIcon from 'material-ui/FontIcon'
 import QuantityBadge from '../common/quantitybadge.view'
 
-const CategoryNode = props => {
-    let { id,data } = props
-    let {name, sysnode} = data
-    let count = data.aggregates.childcount.amount
+class CategoryNode extends React.Component<any,any> {
 
-    let barstyle = 
+    constructor(props) {
+        super(props)
+        this.barelementref = React.createRef()
+    }
+
+    barelementref
+
+    barstyle = 
         {
             padding:'3px',
         }
 
-    let tabwrapperstyle:React.CSSProperties = {
+    tabwrapperstyle:React.CSSProperties = {
         borderBottom:'1px solid #e2e6e9',
         position:'relative',
         height:'24px',
     }
 
-    let pretabstyle:React.CSSProperties = {
+    pretabstyle:React.CSSProperties = {
         display:'inline-block',
         height:'24px',
         width:'5px',
         verticalAlign:'middle',
     }
 
-    let tabstyle:React.CSSProperties = {
+    tabstyle:React.CSSProperties = {
         display:'inline-block',
         position:'relative',
         verticalAlign:'middle',
@@ -46,29 +50,55 @@ const CategoryNode = props => {
         cursor:'pointer',
     }
 
-    return <div style = {
-        barstyle
-    }>
-        <div style = {tabwrapperstyle}>
-            <div style = {pretabstyle}></div>
-            <div style = {tabstyle}> 
-                <FontIcon 
-                    color = {sysnode?'green':'gray'} 
-                    style = {{verticalAlign:'middle'}} 
-                    className='material-icons'
-                >
-                    folder
-                </FontIcon> 
-                {name}
-                <QuantityBadge quantity = {count} style = {
-                    {
-                        left:'-10px',
-                        top:'-5px',
-                    }
-                }/>
+    barcomponent = () => (
+        <div 
+            style = {
+                this.barstyle
+            }
+            ref = {this.barelementref}
+        >
+            <div style = {this.tabwrapperstyle}>
+                <div style = {this.pretabstyle}></div>
+                <div style = {this.tabstyle}> 
+                    <FontIcon 
+                        color = {this.props.data.sysnode?'green':'gray'} 
+                        style = {{verticalAlign:'middle'}} 
+                        className='material-icons'
+                    >
+                        folder
+                    </FontIcon> 
+                    {this.props.data.name}
+                    <QuantityBadge quantity = {this.props.data.aggregates.childcount.amount} style = {
+                        {
+                            left:'-10px',
+                            top:'-5px',
+                        }
+                    }/>
+                </div>
             </div>
         </div>
-    </div>
+    )
+
+    // barelement = () => (this.barcomponent) 
+
+    render() {
+
+        console.log('barelementref',this.barelementref)
+
+        // // let newelement
+
+        // // let barelement = this.barcomponent()
+
+        // let newelement = React.cloneElement(this.barcomponent())
+
+        // console.log('newelement',newelement)
+
+        // let { id,data } = this.props
+        // let {name, sysnode} = data
+        // let count = data.aggregates.childcount.amount
+
+        return this.barcomponent()
+    }
 }
 
 export default CategoryNode

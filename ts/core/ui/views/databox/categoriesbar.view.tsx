@@ -40,28 +40,11 @@ class CategoriesBar extends React.Component<any,any> {
         zIndex:1,
     }
 
-    // buttonStyle:React.CSSProperties = {
-    //     padding:'0',
-    //     width:'24px',
-    //     height:'24px',
-    //     float:'right',
-    //     marginRight:'4px',
-    // }
-
-    // actionButtonStyle:React.CSSProperties = {
-    //     ...this.buttonStyle,
-    //     boxSizing:'border-box',
-    // }
-
     iconStyle = ():React.CSSProperties => ({
             transform:'rotate(' + (this.state.open?'0deg':'180deg') + ')',
             transition:'transform 0.5s .1s ease-out',
         }
     )
-
-    checkIconStyle:React.CSSProperties = {
-
-    }
 
     render() {
 
@@ -78,8 +61,10 @@ class CategoriesBar extends React.Component<any,any> {
                     icon = 'edit' 
                     iconStyle = {{fontSize:'20px',color:'green'}}
                 />
+
                 <FontIcon style = {{verticalAlign:'middle'}} className='material-icons'>list</FontIcon> 
                 <QuantityBadge quantity = {this.state.count} style = {{left:'-2px',top:'-4px'}}/>
+
                 <div style = {
                     {
                         display:'inline-block',
@@ -87,16 +72,6 @@ class CategoriesBar extends React.Component<any,any> {
                     }
                 } >
                     Links
-                </div>
-                <div style = {
-                    {
-                        display:'inline-block',
-                        position:'relative',
-                        verticalAlign:'middle',
-                        height:'24px',
-                        width:'10px',
-                    }
-                } >
                 </div>
             </div>
             <CategoriesList open = {this.state.open} node = { node } getCategory = {this.props.getCategory} />
