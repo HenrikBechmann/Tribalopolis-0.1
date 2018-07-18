@@ -31,6 +31,8 @@ const BoxToolbar = props => {
         </div>
         <ActionButton img='/public/icons/ic_splay_24px.svg'/>
 
+        <ActionButton iconStyle={{ transform: 'rotate(90deg)', opacity: 0.3 }} disabled img='/public/icons/ic_splay_24px.svg'/>
+
         <ActionButton icon='arrow_drop_down'/>
 
         <div style={{
@@ -40,7 +42,7 @@ const BoxToolbar = props => {
         border: '1px solid transparent',
         borderRadius: '8px',
         padding: '5px 3px 3px',
-        width: '70%',
+        width: '60%',
         textAlign: 'center',
         fontStyle: 'italic',
         position: 'relative',
