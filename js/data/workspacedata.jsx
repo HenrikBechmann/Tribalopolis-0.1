@@ -1,4 +1,4 @@
-// data.tsx
+// workspacedata.tsx
 let lists = {
     diaries: {
         sessionid: 0,
@@ -303,4 +303,4 @@ let stacks = [
         ]],
 ];
 export { lists, links, nodes, schemes, stacks };
-//# sourceMappingURL=data.jsx.map
+//# sourceMappingURL=workspacedata.jsx.map

@@ -39,7 +39,7 @@ class CategoryNode extends React.Component {
         this.barcomponent = () => (<div style={this.barstyle} ref={this.barelementref}>
             <div style={this.tabwrapperstyle}>
                 <div style={this.pretabstyle}></div>
-                <div style={this.tabstyle}> 
+                <div style={this.tabstyle} onClick={this.props.ExpandCategory}> 
                     <FontIcon color={this.props.data.sysnode ? 'green' : 'gray'} style={{ verticalAlign: 'middle' }} className='material-icons'>
                         folder
                     </FontIcon> 
@@ -53,9 +53,9 @@ class CategoryNode extends React.Component {
         </div>);
         this.barelementref = React.createRef();
     }
-    // barelement = () => (this.barcomponent) 
     render() {
-        console.log('barelementref', this.barelementref);
+        // console.log('barelementref',this.barelementref)
+        // console.log('props',this.props)
         // // let newelement
         // // let barelement = this.barcomponent()
         // let newelement = React.cloneElement(this.barcomponent())

@@ -174,7 +174,7 @@ let findtargetstore = (containerpath:string|string[], themodel = datamodel) => {
 
 }
 
-export let datamodel = {
+let datamodel = {
     endpoints:StoreEndpoints,
     subscribe,
     getstore,
@@ -201,3 +201,5 @@ export let datamodel = {
         },
     }
 }
+
+export default datamodel

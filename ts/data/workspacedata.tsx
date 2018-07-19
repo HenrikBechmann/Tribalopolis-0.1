@@ -1,5 +1,5 @@
-// data.tsx
-let linkcategoryheap = {
+// workspacedata.tsx
+let lists = {
     diaries:
     {
         sessionid:0,
@@ -28,7 +28,7 @@ let linkcategoryheap = {
     },
     notes:
     {
-        sessionid:0,
+        sessionid:1,
         nodesystemid:'x',
         nodekey:'home:henrik::henrik',
         class:'notes',
@@ -44,7 +44,7 @@ let linkcategoryheap = {
     },
     tribes:
     {
-        sessionid:1,
+        sessionid:2,
         nodesystemid:'x',
         nodekey:'home:henrik::henrik',
         class:'tribes',
@@ -61,7 +61,7 @@ let linkcategoryheap = {
     },
     connections:
     {
-        sessionid:2,
+        sessionid:3,
         nodesystemid:'x',
         nodekey:'home:henrik::henrik',
         class:'connections',
@@ -77,7 +77,7 @@ let linkcategoryheap = {
     },
     requesting:
     {
-        sessionid:3,
+        sessionid:4,
         nodesystemid:'x',
         nodekey:'home:henrik::henrik',
         class:'requesting',
@@ -93,7 +93,7 @@ let linkcategoryheap = {
     },
     pending:
     {
-        sessionid:4,
+        sessionid:5,
         nodesystemid:'x',
         nodekey:'home:henrik::henrik',
         class:'pending',
@@ -109,7 +109,7 @@ let linkcategoryheap = {
     },
     roles:
     {
-        sessionid:5,
+        sessionid:6,
         nodesystemid:'x',
         nodekey:'home:henrik::henrik',
         class:'roles',
@@ -125,7 +125,7 @@ let linkcategoryheap = {
     },
     programs:
     {
-        sessionid:6,
+        sessionid:7,
         nodesystemid:'x',
         nodekey:'home:henrik::henrik',
         class:'programs',
@@ -141,7 +141,7 @@ let linkcategoryheap = {
     },
     projects:
     {
-        sessionid:7,
+        sessionid:8,
         nodesystemid:'x',
         nodekey:'home:henrik::henrik',
         class:'projects',
@@ -157,7 +157,7 @@ let linkcategoryheap = {
     },
     tasks:
     {
-        sessionid:8,
+        sessionid:9,
         nodesystemid:'x',
         nodekey:'home:henrik::henrik',
         class:'tasks',
@@ -173,7 +173,7 @@ let linkcategoryheap = {
     },
     messages:
     {
-        sessionid:9,
+        sessionid:10,
         nodesystemid:'x',
         nodekey:'home:henrik::henrik',
         class:'messengers',
@@ -189,7 +189,7 @@ let linkcategoryheap = {
     },
     streams:
     {
-        sessionid:9,
+        sessionid:11,
         nodesystemid:'x',
         nodekey:'home:henrik::henrik',
         class:'messengers',
@@ -205,7 +205,7 @@ let linkcategoryheap = {
     },
     resources:
     {
-        sessionid:10,
+        sessionid:12,
         nodesystemid:'x',
         nodekey:'home:henrik::henrik',
         class:'resources',
@@ -221,7 +221,7 @@ let linkcategoryheap = {
     },
     calendars:
     {
-        sessionid:11,
+        sessionid:12,
         nodesystemid:'x',
         nodekey:'home:henrik::henrik',
         class:'calendars',
@@ -237,7 +237,7 @@ let linkcategoryheap = {
     },
     accounting:
     {
-        sessionid:12,
+        sessionid:13,
         nodesystemid:'x',
         nodekey:'home:henrik::henrik',
         class:'accounting',
@@ -253,7 +253,7 @@ let linkcategoryheap = {
     },
     other:
     {
-        sessionid:13,
+        sessionid:14,
         nodesystemid:'x',
         nodekey:'home:henrik::henrik',
         class:'other',
@@ -270,13 +270,10 @@ let linkcategoryheap = {
     },
 }
 
-let objectcategoryheap = [
+let links = [
 ]
 
-let linkheap = [
-]
-
-let nodeheap = [
+let nodes = [
     {
         sessionid:0,
         class:'primary owner',
@@ -314,7 +311,9 @@ let nodeheap = [
     },
 ]
 
-let datastacks = [
+let schemes = []
+
+let stacks = [
     [[{sessionid:0,config:'base'},
     ]],
     [[{sessionid:0,config:'base'},
@@ -325,4 +324,4 @@ let datastacks = [
     ]],
 ]
 
-export {nodeheap,datastacks,linkcategoryheap}
+export {lists,links, nodes, schemes, stacks}

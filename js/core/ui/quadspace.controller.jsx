@@ -11,7 +11,7 @@ import QuadPlatform from './views/quadspace/quadplatform.view';
 import Quadrant from './quadrant.controller';
 import QuantityBadge from './views/common/quantitybadge.view';
 import QuadStatusBar from './views/quadspace/quadstatusbar.view';
-import { nodeheap, datastacks, linkcategoryheap } from '../../data/data';
+import { lists, nodes, stacks } from '../../data/workspacedata';
 class QuadspaceController extends React.Component {
     constructor() {
         super(...arguments);
@@ -19,7 +19,7 @@ class QuadspaceController extends React.Component {
             quadrantpositions: [0, 1, 2, 3],
             currentquad: 'topleft',
             split: 'none',
-            datastacks: datastacks,
+            stacks,
         };
         this.positions = [
             'topleft',
@@ -99,16 +99,16 @@ class QuadspaceController extends React.Component {
             });
         };
         this.getNode = (sessionid) => {
-            return nodeheap[sessionid];
+            return nodes[sessionid];
         };
-        this.getCategory = (categoryid) => {
-            return linkcategoryheap[categoryid];
+        this.getList = (listid) => {
+            return lists[listid];
         };
         this.quadrants = () => [
-            <Quadrant key='1' sessionid={0} handleswap={this.handleSwap} quadrant={this.calcQuadrant(0)} split={this.state.split} quadselection={this.quadselection} color='#e8e8e8' title='first first first first first first first first first first first first first first first first first first first first first first first first first first first first first first first first first ' badgequantity={0} datastack={this.state.datastacks[0]} getNode={this.getNode} getCategory={this.getCategory}/>,
-            <Quadrant key='2' sessionid={1} handleswap={this.handleSwap} quadrant={this.calcQuadrant(1)} split={this.state.split} quadselection={this.quadselection} color='#e8e8e8' title="second" badgequantity={0} datastack={this.state.datastacks[1]} getNode={this.getNode} getCategory={this.getCategory}/>,
-            <Quadrant key='3' sessionid={2} handleswap={this.handleSwap} quadrant={this.calcQuadrant(2)} split={this.state.split} quadselection={this.quadselection} color='#e8e8e8' title="third" badgequantity={0} datastack={this.state.datastacks[2]} getNode={this.getNode} getCategory={this.getCategory}/>,
-            <Quadrant key='4' sessionid={3} handleswap={this.handleSwap} quadrant={this.calcQuadrant(3)} split={this.state.split} quadselection={this.quadselection} color='#e8e8e8' title="fourth" badgequantity={0} datastack={this.state.datastacks[3]} getNode={this.getNode} getCategory={this.getCategory}/>,
+            <Quadrant key='1' sessionid={0} handleswap={this.handleSwap} quadrant={this.calcQuadrant(0)} split={this.state.split} quadselection={this.quadselection} color='#e8e8e8' title='first first first first first first first first first first first first first first first first first first first first first first first first first first first first first first first first first ' badgequantity={0} datastack={this.state.stacks[0]} getNode={this.getNode} getList={this.getList}/>,
+            <Quadrant key='2' sessionid={1} handleswap={this.handleSwap} quadrant={this.calcQuadrant(1)} split={this.state.split} quadselection={this.quadselection} color='#e8e8e8' title="second" badgequantity={0} datastack={this.state.stacks[1]} getNode={this.getNode} getList={this.getList}/>,
+            <Quadrant key='3' sessionid={2} handleswap={this.handleSwap} quadrant={this.calcQuadrant(2)} split={this.state.split} quadselection={this.quadselection} color='#e8e8e8' title="third" badgequantity={0} datastack={this.state.stacks[2]} getNode={this.getNode} getList={this.getList}/>,
+            <Quadrant key='4' sessionid={3} handleswap={this.handleSwap} quadrant={this.calcQuadrant(3)} split={this.state.split} quadselection={this.quadselection} color='#e8e8e8' title="fourth" badgequantity={0} datastack={this.state.stacks[3]} getNode={this.getNode} getList={this.getList}/>,
         ];
     }
     render() {

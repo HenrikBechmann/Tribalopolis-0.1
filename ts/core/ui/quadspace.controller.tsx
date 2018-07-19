@@ -17,7 +17,7 @@ import QuadDiamond from './views/quadspace/quaddiamond.view'
 import QuantityBadge from './views/common/quantitybadge.view'
 import QuadStatusBar from './views/quadspace/quadstatusbar.view'
 
-import {nodeheap,datastacks,linkcategoryheap} from '../../data/data'
+import {lists, links, nodes, schemes, stacks} from '../../data/workspacedata'
 
 class QuadspaceController extends React.Component<any,any> {
 
@@ -25,7 +25,7 @@ class QuadspaceController extends React.Component<any,any> {
         quadrantpositions:[0,1,2,3],
         currentquad:'topleft',
         split:'none',
-        datastacks:datastacks,
+        stacks,
     }
 
     positions = [
@@ -119,11 +119,11 @@ class QuadspaceController extends React.Component<any,any> {
     }
 
     getNode = (sessionid) => {
-        return nodeheap[sessionid]
+        return nodes[sessionid]
     }
 
-    getCategory = (categoryid) => {
-        return linkcategoryheap[categoryid]
+    getList = (listid) => {
+        return lists[listid]
     }
 
     quadrants = () => [
@@ -137,9 +137,9 @@ class QuadspaceController extends React.Component<any,any> {
             color = '#e8e8e8' 
             title = 'first first first first first first first first first first first first first first first first first first first first first first first first first first first first first first first first first '
             badgequantity = {0}
-            datastack = {this.state.datastacks[0]}
+            datastack = {this.state.stacks[0]}
             getNode = {this.getNode}
-            getCategory = {this.getCategory}
+            getList = {this.getList}
         />,
         <Quadrant 
             key = '2'
@@ -151,9 +151,9 @@ class QuadspaceController extends React.Component<any,any> {
             color = '#e8e8e8' 
             title = "second" 
             badgequantity = {0}
-            datastack = {this.state.datastacks[1]}
+            datastack = {this.state.stacks[1]}
             getNode = {this.getNode}
-            getCategory = {this.getCategory}
+            getList = {this.getList}
         />,
         <Quadrant 
             key = '3'
@@ -165,9 +165,9 @@ class QuadspaceController extends React.Component<any,any> {
             color = '#e8e8e8' 
             title = "third" 
             badgequantity = {0}
-            datastack = {this.state.datastacks[2]}
+            datastack = {this.state.stacks[2]}
             getNode = {this.getNode}
-            getCategory = {this.getCategory}
+            getList = {this.getList}
         />,
         <Quadrant 
             key = '4'
@@ -179,9 +179,9 @@ class QuadspaceController extends React.Component<any,any> {
             color = '#e8e8e8' 
             title = "fourth" 
             badgequantity = {0}
-            datastack = {this.state.datastacks[3]}
+            datastack = {this.state.stacks[3]}
             getNode = {this.getNode}
-            getCategory = {this.getCategory}
+            getList = {this.getList}
         />,
     ]
 

@@ -14,8 +14,6 @@ class CategoryNode extends React.Component<any,any> {
         this.barelementref = React.createRef()
     }
 
-    barelementref
-
     barstyle = 
         {
             padding:'3px',
@@ -50,6 +48,10 @@ class CategoryNode extends React.Component<any,any> {
         cursor:'pointer',
     }
 
+    barelementref
+
+
+
     barcomponent = () => (
         <div 
             style = {
@@ -59,7 +61,10 @@ class CategoryNode extends React.Component<any,any> {
         >
             <div style = {this.tabwrapperstyle}>
                 <div style = {this.pretabstyle}></div>
-                <div style = {this.tabstyle}> 
+                <div 
+                    style = {this.tabstyle}
+                    onClick = {this.props.ExpandCategory}
+                > 
                     <FontIcon 
                         color = {this.props.data.sysnode?'green':'gray'} 
                         style = {{verticalAlign:'middle'}} 
@@ -79,11 +84,11 @@ class CategoryNode extends React.Component<any,any> {
         </div>
     )
 
-    // barelement = () => (this.barcomponent) 
-
     render() {
 
-        console.log('barelementref',this.barelementref)
+        // console.log('barelementref',this.barelementref)
+
+        // console.log('props',this.props)
 
         // // let newelement
 

@@ -55,7 +55,7 @@ class CategoriesBar extends React.Component {
                     Links
                 </div>
             </div>
-            <CategoriesList open={this.state.open} node={node} getCategory={this.props.getCategory}/>
+            <CategoriesList open={this.state.open} node={node} getList={this.props.getList}/>
         </div>;
     }
 }

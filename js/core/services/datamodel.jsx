@@ -122,7 +122,7 @@ let findtargetstore = (containerpath, themodel = datamodel) => {
     }
     return { containerstore: container, targetstore: target, targetstoreindex: index };
 };
-export let datamodel = {
+let datamodel = {
     endpoints: StoreEndpoints,
     subscribe,
     getstore,
@@ -149,4 +149,5 @@ export let datamodel = {
         },
     }
 };
+export default datamodel;
 //# sourceMappingURL=datamodel.jsx.map
