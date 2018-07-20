@@ -72,7 +72,7 @@ const OriginMenu = (props) => {
                 color = 'green' 
                 className='material-icons'
             >
-                home
+                weekend
             </FontIcon>
         </IconButton>
     </div>
