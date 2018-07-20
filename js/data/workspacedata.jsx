@@ -352,7 +352,9 @@ let lists = {
                 },
             },
         },
-        links: {},
+        links: {
+        // account, website, home
+        },
     },
     other: {
         type: {

@@ -88,6 +88,30 @@ class QuadToolsStrip extends React.Component<any,any> {
                     primaryText = "My Workspace"
                     onClick={this.handleMenuClose}
                 />
+                <MenuItem 
+                    leftIcon = {
+                        <FontIcon 
+                            color = 'brown' 
+                            className='material-icons'
+                        >
+                            account_box
+                        </FontIcon>
+                    }
+                    primaryText = "My Account"
+                    onClick={this.handleMenuClose}
+                />
+                <MenuItem 
+                    leftIcon = {
+                        <FontIcon 
+                            color = 'brown' 
+                            className='material-icons'
+                        >
+                            web
+                        </FontIcon>
+                    }
+                    primaryText = "My Website"
+                    onClick={this.handleMenuClose}
+                />
                 <Divider />
                 <MenuItem 
                     leftIcon = {
@@ -165,7 +189,7 @@ class QuadToolsStrip extends React.Component<any,any> {
     accountmenu = <IconMenu
             iconButtonElement = {
                 <IconButton>
-                    <FontIcon className='material-icons'>account_circle</FontIcon>
+                    <FontIcon className='material-icons'>account_box</FontIcon>
                 </IconButton>
             }
             anchorOrigin = {{vertical:"bottom",horizontal:"right"}}

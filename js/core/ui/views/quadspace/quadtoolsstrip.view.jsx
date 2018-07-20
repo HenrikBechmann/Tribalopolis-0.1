@@ -41,6 +41,12 @@ class QuadToolsStrip extends React.Component {
                 <MenuItem leftIcon={<FontIcon color='brown' className='material-icons'>
                             work
                         </FontIcon>} primaryText="My Workspace" onClick={this.handleMenuClose}/>
+                <MenuItem leftIcon={<FontIcon color='brown' className='material-icons'>
+                            account_box
+                        </FontIcon>} primaryText="My Account" onClick={this.handleMenuClose}/>
+                <MenuItem leftIcon={<FontIcon color='brown' className='material-icons'>
+                            web
+                        </FontIcon>} primaryText="My Website" onClick={this.handleMenuClose}/>
                 <Divider />
                 <MenuItem leftIcon={<FontIcon color='steelblue' className='material-icons'>
                             group
@@ -59,7 +65,7 @@ class QuadToolsStrip extends React.Component {
                 <MenuItem leftIcon={<img src='/public/icons/fire.svg'/>} primaryText="About" onClick={this.handleMenuClose}/>
             </Drawer>);
         this.accountmenu = <IconMenu iconButtonElement={<IconButton>
-                    <FontIcon className='material-icons'>account_circle</FontIcon>
+                    <FontIcon className='material-icons'>account_box</FontIcon>
                 </IconButton>} anchorOrigin={{ vertical: "bottom", horizontal: "right" }} targetOrigin={{ vertical: "top", horizontal: "right" }}>
             <MenuItem primaryText="Login (existing user)"/>
             <Divider />
