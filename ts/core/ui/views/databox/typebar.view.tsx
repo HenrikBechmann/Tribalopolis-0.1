@@ -67,7 +67,7 @@ const BoxToolbar = props => {
                 position:'relative',
             }
         }>
-            {props.node.class}
+            {props.node.type.name}
         </div>
     </div>
 }

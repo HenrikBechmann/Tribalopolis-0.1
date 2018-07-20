@@ -66,14 +66,14 @@ class CategoryNode extends React.Component<any,any> {
                     onClick = {this.props.ExpandCategory}
                 > 
                     <FontIcon 
-                        color = {this.props.data.sysnode?'green':'gray'} 
+                        color = {this.props.data.properties.sysnode?'green':'gray'} 
                         style = {{verticalAlign:'middle'}} 
                         className='material-icons'
                     >
                         folder
                     </FontIcon> 
-                    {this.props.data.name}
-                    <QuantityBadge quantity = {this.props.data.aggregates.childcount.amount} style = {
+                    {this.props.data.properties.name}
+                    <QuantityBadge quantity = {this.props.data.properties.aggregates.childcount.amount} style = {
                         {
                             left:'-10px',
                             top:'-5px',

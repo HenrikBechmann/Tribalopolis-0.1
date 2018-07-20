@@ -56,12 +56,12 @@ class CategoriesList extends React.Component<any,any> {
     getCategoryNodes = node => {
 
 
-        let { categories } = node
+        let { lists } = node
 
         let { getList } = this.props
 
         let catitems = []
-        for (let id of categories) {
+        for (let id of lists) {
             let data = getList(id)
 
             let catitem = <CategoryNode key = {id} id = {id} data = {data} />

@@ -1,268 +1,395 @@
 // workspacedata.tsx
 let lists = {
     diaries: {
-        sessionid: 0,
-        nodesystemid: 'x',
-        nodekey: 'home:henrik::henrik',
-        class: 'diaries',
-        name: 'Diaries',
-        parent_class_index: 'notes.timelogs',
-        class_scheme: 'common',
-        aggregates: {
-            // leftcount:{
-            //     amount:10,
-            //     pending:3,
-            //     timestamp:1,
-            // },
-            // rightcount:{
-            //     amount:8,
-            //     pending:3,
-            //     timestamp:1,
-            // },
-            childcount: {
-                amount: 3,
-                timestamp: 1
+        type: {
+            id: 'diaries',
+            parent_index: 'notes.timelogs',
+            scheme: 'common',
+        },
+        id: {
+            sessionid: 0,
+            systemid: 'x',
+            systemkey: 'home:henrik::henrik',
+        },
+        properties: {
+            name: 'Diaries',
+            aggregates: {
+                childcount: {
+                    amount: 3,
+                    timestamp: 1
+                },
             },
         },
+        links: {}
     },
     notes: {
-        sessionid: 1,
-        nodesystemid: 'x',
-        nodekey: 'home:henrik::henrik',
-        class: 'notes',
-        name: 'Notes',
-        parent_class_index: 'notes.timelogs',
-        class_scheme: 'common',
-        aggregates: {
-            childcount: {
-                amount: 310,
-                timestamp: 1
+        type: {
+            id: 'notes',
+            parent_index: 'notes.timelogs',
+            scheme: 'common',
+        },
+        id: {
+            sessionid: 1,
+            systemid: 'x',
+            systemkey: 'home:henrik::henrik',
+        },
+        properties: {
+            name: 'Notes',
+            aggregates: {
+                childcount: {
+                    amount: 310,
+                    timestamp: 1
+                },
             },
         },
+        links: {},
     },
     tribes: {
-        sessionid: 2,
-        nodesystemid: 'x',
-        nodekey: 'home:henrik::henrik',
-        class: 'tribes',
-        name: 'Tribes',
-        parent_class_index: 'notes.timelogs',
-        class_scheme: 'common',
-        sysnode: true,
-        aggregates: {
-            childcount: {
-                amount: 5,
-                timestamp: 1
+        type: {
+            id: 'tribes',
+            parent_index: 'notes.timelogs',
+            scheme: 'common',
+        },
+        id: {
+            sessionid: 2,
+            systemid: 'x',
+            systemkey: 'home:henrik::henrik',
+        },
+        properties: {
+            name: 'Tribes',
+            sysnode: true,
+            aggregates: {
+                childcount: {
+                    amount: 5,
+                    timestamp: 1
+                },
             },
         },
+        links: {},
     },
     connections: {
-        sessionid: 3,
-        nodesystemid: 'x',
-        nodekey: 'home:henrik::henrik',
-        class: 'connections',
-        name: 'Connections',
-        parent_class_index: 'notes.timelogs',
-        class_scheme: 'common',
-        aggregates: {
-            childcount: {
-                amount: 23,
-                timestamp: 1
+        type: {
+            id: 'connections',
+            parent_index: 'notes.timelogs',
+            scheme: 'common',
+        },
+        id: {
+            sessionid: 3,
+            systemid: 'x',
+            systemkey: 'home:henrik::henrik',
+        },
+        properties: {
+            name: 'Connections',
+            aggregates: {
+                childcount: {
+                    amount: 23,
+                    timestamp: 1
+                },
             },
         },
+        links: {},
     },
     requesting: {
-        sessionid: 4,
-        nodesystemid: 'x',
-        nodekey: 'home:henrik::henrik',
-        class: 'requesting',
-        name: 'Outgoing action requests',
-        parent_class_index: 'notes.timelogs',
-        class_scheme: 'common',
-        aggregates: {
-            childcount: {
-                amount: 12,
-                timestamp: 1
+        type: {
+            id: 'requesting',
+            parent_index: 'notes.timelogs',
+            scheme: 'common',
+        },
+        id: {
+            sessionid: 4,
+            systemid: 'x',
+            systemkey: 'home:henrik::henrik',
+        },
+        properties: {
+            name: 'Outgoing action requests',
+            aggregates: {
+                childcount: {
+                    amount: 12,
+                    timestamp: 1
+                },
             },
         },
+        links: {},
     },
     pending: {
-        sessionid: 5,
-        nodesystemid: 'x',
-        nodekey: 'home:henrik::henrik',
-        class: 'pending',
-        name: 'Incoming action requests',
-        parent_class_index: 'notes.timelogs',
-        class_scheme: 'common',
-        aggregates: {
-            childcount: {
-                amount: 23,
-                timestamp: 1
+        type: {
+            id: 'pending',
+            parent_index: 'notes.timelogs',
+            scheme: 'common',
+        },
+        id: {
+            sessionid: 5,
+            systemid: 'x',
+            systemkey: 'home:henrik::henrik',
+        },
+        properties: {
+            name: 'Incoming action requests',
+            aggregates: {
+                childcount: {
+                    amount: 23,
+                    timestamp: 1
+                },
             },
         },
+        links: {},
     },
     roles: {
-        sessionid: 6,
-        nodesystemid: 'x',
-        nodekey: 'home:henrik::henrik',
-        class: 'roles',
-        name: 'Roles',
-        parent_class_index: 'notes.timelogs',
-        class_scheme: 'common',
-        aggregates: {
-            childcount: {
-                amount: 4,
-                timestamp: 1
+        type: {
+            id: 'roles',
+            parent_index: 'notes.timelogs',
+            scheme: 'common',
+        },
+        id: {
+            sessionid: 6,
+            systemid: 'x',
+            systemkey: 'home:henrik::henrik',
+        },
+        properties: {
+            name: 'Roles',
+            aggregates: {
+                childcount: {
+                    amount: 4,
+                    timestamp: 1
+                },
             },
         },
+        links: {},
     },
     programs: {
-        sessionid: 7,
-        nodesystemid: 'x',
-        nodekey: 'home:henrik::henrik',
-        class: 'programs',
-        name: 'Programs',
-        parent_class_index: 'notes.timelogs',
-        class_scheme: 'common',
-        aggregates: {
-            childcount: {
-                amount: 5,
-                timestamp: 1
+        type: {
+            id: 'programs',
+            parent_index: 'notes.timelogs',
+            scheme: 'common',
+        },
+        id: {
+            sessionid: 7,
+            systemid: 'x',
+            systemkey: 'home:henrik::henrik',
+        },
+        properties: {
+            name: 'Programs',
+            aggregates: {
+                childcount: {
+                    amount: 5,
+                    timestamp: 1
+                },
             },
         },
+        links: {},
     },
     projects: {
-        sessionid: 8,
-        nodesystemid: 'x',
-        nodekey: 'home:henrik::henrik',
-        class: 'projects',
-        name: 'Projects',
-        parent_class_index: 'notes.timelogs',
-        class_scheme: 'common',
-        aggregates: {
-            childcount: {
-                amount: 3,
-                timestamp: 1
+        type: {
+            id: 'projects',
+            parent_index: 'notes.timelogs',
+            scheme: 'common',
+        },
+        id: {
+            sessionid: 8,
+            systemid: 'x',
+            systemkey: 'home:henrik::henrik',
+        },
+        properties: {
+            name: 'Projects',
+            aggregates: {
+                childcount: {
+                    amount: 3,
+                    timestamp: 1
+                },
             },
         },
+        links: {},
     },
     tasks: {
-        sessionid: 9,
-        nodesystemid: 'x',
-        nodekey: 'home:henrik::henrik',
-        class: 'tasks',
-        name: 'Tasks',
-        parent_class_index: 'notes.timelogs',
-        class_scheme: 'common',
-        aggregates: {
-            childcount: {
-                amount: 20,
-                timestamp: 1
+        type: {
+            id: 'tasks',
+            parent_index: 'notes.timelogs',
+            scheme: 'common',
+        },
+        id: {
+            sessionid: 9,
+            systemid: 'x',
+            systemkey: 'home:henrik::henrik',
+        },
+        properties: {
+            name: 'Tasks',
+            aggregates: {
+                childcount: {
+                    amount: 20,
+                    timestamp: 1
+                },
             },
         },
+        links: {},
     },
     messages: {
-        sessionid: 10,
-        nodesystemid: 'x',
-        nodekey: 'home:henrik::henrik',
-        class: 'messengers',
-        name: 'Direct Messages ',
-        parent_class_index: 'notes.timelogs',
-        class_scheme: 'common',
-        aggregates: {
-            childcount: {
-                amount: 3,
-                timestamp: 1
+        type: {
+            id: 'messengers',
+            parent_index: 'notes.timelogs',
+            scheme: 'common',
+        },
+        id: {
+            sessionid: 10,
+            systemid: 'x',
+            systemkey: 'home:henrik::henrik',
+        },
+        properties: {
+            name: 'Direct Messages ',
+            aggregates: {
+                childcount: {
+                    amount: 3,
+                    timestamp: 1
+                },
             },
         },
+        links: {},
     },
     streams: {
-        sessionid: 11,
-        nodesystemid: 'x',
-        nodekey: 'home:henrik::henrik',
-        class: 'messengers',
-        name: 'Message Streams ',
-        parent_class_index: 'notes.timelogs',
-        class_scheme: 'common',
-        aggregates: {
-            childcount: {
-                amount: 100,
-                timestamp: 1
+        type: {
+            type: 'messengers',
+            parent_type_index: 'notes.timelogs',
+            type_scheme: 'common',
+        },
+        id: {
+            sessionid: 11,
+            systemid: 'x',
+            systemkey: 'home:henrik::henrik',
+        },
+        properties: {
+            name: 'Message Streams ',
+            aggregates: {
+                childcount: {
+                    amount: 100,
+                    timestamp: 1
+                },
             },
         },
+        links: {},
     },
     resources: {
-        sessionid: 12,
-        nodesystemid: 'x',
-        nodekey: 'home:henrik::henrik',
-        class: 'resources',
-        name: 'Resources',
-        parent_class_index: 'notes.timelogs',
-        class_scheme: 'common',
-        aggregates: {
-            childcount: {
-                amount: 64,
-                timestamp: 1
+        type: {
+            id: 'resources',
+            parent_index: 'notes.timelogs',
+            scheme: 'common',
+        },
+        id: {
+            sessionid: 12,
+            systemid: 'x',
+            systemkey: 'home:henrik::henrik',
+        },
+        properties: {
+            name: 'Resources',
+            aggregates: {
+                childcount: {
+                    amount: 64,
+                    timestamp: 1
+                },
             },
         },
+        links: {},
     },
     calendars: {
-        sessionid: 12,
-        nodesystemid: 'x',
-        nodekey: 'home:henrik::henrik',
-        class: 'calendars',
-        name: 'Calendars',
-        parent_class_index: 'notes.timelogs',
-        class_scheme: 'common',
-        aggregates: {
-            childcount: {
-                amount: 67,
-                timestamp: 1
+        type: {
+            type: 'calendars',
+            parent_type_index: 'notes.timelogs',
+            type_scheme: 'common',
+        },
+        id: {
+            sessionid: 12,
+            systemid: 'x',
+            systemkey: 'home:henrik::henrik',
+        },
+        properties: {
+            name: 'Calendars',
+            aggregates: {
+                childcount: {
+                    amount: 67,
+                    timestamp: 1
+                },
             },
         },
+        links: {},
     },
     accounting: {
-        sessionid: 13,
-        nodesystemid: 'x',
-        nodekey: 'home:henrik::henrik',
-        class: 'accounting',
-        name: 'Accounting',
-        parent_class_index: 'notes.timelogs',
-        class_scheme: 'common',
-        aggregates: {
-            childcount: {
-                amount: 6000,
-                timestamp: 1
+        type: {
+            id: 'accounting',
+            parent__index: 'notes.timelogs',
+            scheme: 'common',
+        },
+        id: {
+            sessionid: 13,
+            systemid: 'x',
+            systemkey: 'home:henrik::henrik',
+        },
+        properties: {
+            name: 'Accounting',
+            aggregates: {
+                childcount: {
+                    amount: 6000,
+                    timestamp: 1
+                },
             },
         },
+        links: {},
+    },
+    membership: {
+        type: {
+            id: 'other',
+            parent_index: 'notes.timelogs',
+            scheme: 'common',
+        },
+        id: {
+            sessionid: 14,
+            systemid: 'x',
+            systemkey: 'home:henrik::henrik',
+        },
+        properties: {
+            name: 'Membership',
+            sysnode: true,
+            aggregates: {
+                childcount: {
+                    amount: 2,
+                    timestamp: 1
+                },
+            },
+        },
+        links: {},
     },
     other: {
-        sessionid: 14,
-        nodesystemid: 'x',
-        nodekey: 'home:henrik::henrik',
-        class: 'other',
-        name: 'More...',
-        parent_class_index: 'notes.timelogs',
-        class_scheme: 'common',
-        sysnode: true,
-        aggregates: {
-            childcount: {
-                amount: 2,
-                timestamp: 1
+        type: {
+            id: 'other',
+            parent_index: 'notes.timelogs',
+            scheme: 'common',
+        },
+        id: {
+            sessionid: 15,
+            systemid: 'x',
+            systemkey: 'home:henrik::henrik',
+        },
+        properties: {
+            name: 'More...',
+            sysnode: true,
+            aggregates: {
+                childcount: {
+                    amount: 2,
+                    timestamp: 1
+                },
             },
         },
+        links: {},
     },
 };
 let links = [];
 let nodes = [
     {
-        sessionid: 0,
-        class: 'primary owner',
-        parent_class: 'person',
-        class_scheme: 'common',
-        tribe: 'home:henrik',
-        recordid: 'home:henrik::henrik',
-        profile: {
+        type: {
+            id: 'member',
+            name: 'member',
+            scheme: 'common',
+        },
+        id: {
+            sessionid: 0,
+        },
+        properties: {
             tag: 'Henrik',
             name: 'Henrik Bechmann',
             title: null,
@@ -271,7 +398,8 @@ let nodes = [
             location: 'Toronto',
             locationid: 'Toronto',
         },
-        categories: [
+        lists: [
+            'membership',
             'tribes',
             'connections',
             'requesting',

@@ -40,11 +40,11 @@ class CategoryNode extends React.Component {
             <div style={this.tabwrapperstyle}>
                 <div style={this.pretabstyle}></div>
                 <div style={this.tabstyle} onClick={this.props.ExpandCategory}> 
-                    <FontIcon color={this.props.data.sysnode ? 'green' : 'gray'} style={{ verticalAlign: 'middle' }} className='material-icons'>
+                    <FontIcon color={this.props.data.properties.sysnode ? 'green' : 'gray'} style={{ verticalAlign: 'middle' }} className='material-icons'>
                         folder
                     </FontIcon> 
-                    {this.props.data.name}
-                    <QuantityBadge quantity={this.props.data.aggregates.childcount.amount} style={{
+                    {this.props.data.properties.name}
+                    <QuantityBadge quantity={this.props.data.properties.aggregates.childcount.amount} style={{
             left: '-10px',
             top: '-5px',
         }}/>

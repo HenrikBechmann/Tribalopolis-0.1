@@ -47,7 +47,7 @@ const BoxToolbar = props => {
         fontStyle: 'italic',
         position: 'relative',
     }}>
-            {props.node.class}
+            {props.node.type.name}
         </div>
     </div>;
 };
