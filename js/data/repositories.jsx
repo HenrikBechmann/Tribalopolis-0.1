@@ -379,7 +379,7 @@ let lists = {
     },
 };
 let links = {};
-let nodes = {
+let items = {
     henrik: {
         type: {
             id: 'member',
@@ -477,28 +477,28 @@ let schemes = {
 let stacks = [
     [
         {
-            ref: { repo: 'nodes', id: 'henrik' },
+            ref: { repo: 'items', id: 'henrik' },
             config: 'base',
         },
     ],
     [
         {
-            ref: { repo: 'nodes', id: 'henrik' },
+            ref: { repo: 'items', id: 'henrik' },
             config: 'base',
         },
     ],
     [
         {
-            ref: { repo: 'nodes', id: 'henrik' },
+            ref: { repo: 'items', id: 'henrik' },
             config: 'base',
         },
     ],
     [
         {
-            ref: { repo: 'nodes', id: 'henrik' },
+            ref: { repo: 'items', id: 'henrik' },
             config: 'base',
         },
     ],
 ];
-export { lists, links, nodes, schemes, stacks };
+export { lists, links, items, schemes, stacks };
 //# sourceMappingURL=repositories.jsx.map

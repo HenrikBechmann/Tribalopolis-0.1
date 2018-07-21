@@ -2,7 +2,7 @@
 // copyright (c) 2018 Henrik Bechmann, Toronto, MIT Licence
 'use strict';
 import * as React from 'react';
-import CategoryNode from './categorynode.view';
+import CategoryItem from './categorynode.view';
 class CategoriesList extends React.Component {
     constructor() {
         super(...arguments);
@@ -11,13 +11,13 @@ class CategoriesList extends React.Component {
             listheight: this.props.open ? 'auto' : '0',
         };
         this.listelement = null;
-        this.getCategoryNodes = node => {
-            let { links } = node;
+        this.getCategoryItems = item => {
+            let { links } = item;
             let { getListItem } = this.props;
             let catitems = [];
             for (let ref of links) {
                 let data = getListItem(ref);
-                let catitem = <CategoryNode key={ref.id} id={ref.id} data={data}/>;
+                let catitem = <CategoryItem key={ref.id} id={ref.id} data={data}/>;
                 catitems.push(catitem);
             }
             return <div ref={element => {
@@ -61,8 +61,9 @@ class CategoriesList extends React.Component {
         }
     }
     render() {
-        let { node } = this.props;
-        let list = this.getCategoryNodes(node);
+        let { item } = this.props;
+        console.log;
+        let list = this.getCategoryItems(item);
         return <div style={{
             paddingLeft: '6px',
             height: this.state.listheight,

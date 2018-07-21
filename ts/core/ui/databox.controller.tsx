@@ -44,11 +44,11 @@ class DataBox extends React.Component<any,any> {
             overflow:'hidden',
         }
 
-        let { node } = this.props
+        let { item } = this.props
 
         return <div style = {frameStyle}>
-            <BoxTypebar node = {node} />
-            <BoxIdentifier node = {node} />
+            <BoxTypebar item = {item} />
+            <BoxIdentifier item = {item} />
             <div style = {
                 {
                     overflow:'auto',
@@ -56,7 +56,7 @@ class DataBox extends React.Component<any,any> {
                 }
             } >
                 <div>
-                    <CategoriesBar node = {node} getListItem = {this.props.getListItem}/>
+                    <CategoriesBar item = {item} getListItem = {this.props.getListItem}/>
                 </div>
 
             </div>

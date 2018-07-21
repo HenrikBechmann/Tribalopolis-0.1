@@ -4,7 +4,7 @@
 
 import * as React from 'react'
 
-import CategoryNode from './categorynode.view'
+import CategoryItem from './categorynode.view'
 
 class CategoriesList extends React.Component<any,any> {
     state = {
@@ -53,10 +53,10 @@ class CategoriesList extends React.Component<any,any> {
         }
     }
 
-    getCategoryNodes = node => {
+    getCategoryItems = item => {
 
 
-        let { links } = node
+        let { links } = item
 
         let { getListItem } = this.props
 
@@ -64,7 +64,7 @@ class CategoriesList extends React.Component<any,any> {
         for (let ref of links) {
             let data = getListItem(ref)
 
-            let catitem = <CategoryNode key = {ref.id} id = {ref.id} data = {data} />
+            let catitem = <CategoryItem key = {ref.id} id = {ref.id} data = {data} />
 
             catitems.push(catitem)
         }
@@ -77,9 +77,11 @@ class CategoriesList extends React.Component<any,any> {
 
     render() {
 
-        let { node } = this.props
+        let { item } = this.props
 
-        let list = this.getCategoryNodes(node)
+        console.log
+
+        let list = this.getCategoryItems(item)
 
         return <div style = {
             {

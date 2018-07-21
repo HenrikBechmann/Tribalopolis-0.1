@@ -25,11 +25,11 @@ class Quadrant extends React.Component<any,any>  {
 
     componentWillMount() {
         this.calculatePosition(this.state.quadrant)
-        this.getNode = this.props.getNode
+        this.getItem = this.props.getItem
         this.getListItem = this.props.getListItem
     }
 
-    getNode
+    getItem
     getListItem
 
     componentWillReceiveProps(nextProps) {
@@ -150,9 +150,9 @@ class Quadrant extends React.Component<any,any>  {
         // console.log('quadrant state',this.state)
         let { datastack, stackpointer } = this.state
         if (datastack) {
-            boxes = this.state.datastack.map((item) => {
-                let node = this.getNode(item.ref)
-                return <DataBox key = {node.identity.sessionid} node = {node} getListItem = {this.getListItem}/>
+            boxes = this.state.datastack.map((proxy) => {
+                let item = this.getItem(proxy.ref)
+                return <DataBox key = {item.identity.sessionid} item = {item} getListItem = {this.getListItem}/>
             })
         }
 

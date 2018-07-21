@@ -39,7 +39,7 @@ class CategoriesBar extends React.Component {
         });
     }
     render() {
-        let { node } = this.props;
+        let { item } = this.props;
         return <div>
             <div style={this.styles}>
                 <ActionButton icon='more_vert'/>
@@ -55,7 +55,7 @@ class CategoriesBar extends React.Component {
                     Links
                 </div>
             </div>
-            <CategoriesList open={this.state.open} node={node} getListItem={this.props.getListItem}/>
+            <CategoriesList open={this.state.open} item={item} getListItem={this.props.getListItem}/>
         </div>;
     }
 }

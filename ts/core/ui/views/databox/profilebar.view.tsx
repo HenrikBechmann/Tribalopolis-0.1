@@ -10,7 +10,7 @@ import ActionButton from '../common/actionbutton.view'
 
 const ProfileBar = props => {
 
-    let { node } = props
+    let { item } = props
 
     let styles:React.CSSProperties = {
         width:'100%',

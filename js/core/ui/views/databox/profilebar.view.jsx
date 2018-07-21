@@ -5,7 +5,7 @@ import * as React from 'react';
 import FontIcon from 'material-ui/FontIcon';
 import ActionButton from '../common/actionbutton.view';
 const ProfileBar = props => {
-    let { node } = props;
+    let { item } = props;
     let styles = {
         width: '100%',
         border: '1px solid transparent',

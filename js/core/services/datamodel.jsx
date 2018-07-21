@@ -15,7 +15,7 @@ var StoreEndpoints;
     StoreEndpoints["meta"] = "meta";
     StoreEndpoints["controls"] = "controls";
     // data and meta
-    StoreEndpoints["nodes"] = "nodes";
+    StoreEndpoints["items"] = "items";
     StoreEndpoints["lists"] = "lists";
     StoreEndpoints["links"] = "links";
     StoreEndpoints["schemes"] = "schemes";
@@ -132,13 +132,13 @@ let datamodel = {
     readproperty,
     store: {
         data: {
-            nodes: {},
+            items: {},
             lists: {},
             links: {},
             schemes: {},
         },
         meta: {
-            nodes: {},
+            items: {},
             lists: {},
             links: {},
             schemes: {},

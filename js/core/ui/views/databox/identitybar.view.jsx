@@ -4,7 +4,7 @@
 import * as React from 'react';
 import ActionButton from '../common/actionbutton.view';
 const BoxHeader = props => {
-    let { node } = props;
+    let { item } = props;
     let avatar = '/public/avatars/henrik_in_circle.png';
     let styles = {
         position: 'relative',
@@ -22,7 +22,7 @@ const BoxHeader = props => {
     return <div style={styles}>
         <ActionButton icon='zoom_out_map'/>
         <ActionButton icon='info'/>
-        <img style={{ verticalAlign: 'middle', width: '32px', margin: '-3px 0 -3px -3px' }} src={avatar}/> {node.properties.name}
+        <img style={{ verticalAlign: 'middle', width: '32px', margin: '-3px 0 -3px -3px' }} src={avatar}/> {item.properties.name}
     </div>;
 };
 export default BoxHeader;

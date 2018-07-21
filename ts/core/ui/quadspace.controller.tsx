@@ -17,7 +17,7 @@ import QuadDiamond from './views/quadspace/quaddiamond.view'
 import QuantityBadge from './views/common/quantitybadge.view'
 import QuadStatusBar from './views/quadspace/quadstatusbar.view'
 
-import {lists, links, nodes, schemes, stacks} from '../../data/repositories'
+import {lists, links, items, schemes, stacks} from '../../data/repositories'
 
 class QuadspaceController extends React.Component<any,any> {
 
@@ -118,8 +118,8 @@ class QuadspaceController extends React.Component<any,any> {
         })
     }
 
-    getNode = (ref) => {
-        return nodes[ref.id]
+    getItem = (ref) => {
+        return items[ref.id]
     }
 
     getListItem = (ref) => {
@@ -138,7 +138,7 @@ class QuadspaceController extends React.Component<any,any> {
             title = 'first first first first first first first first first first first first first first first first first first first first first first first first first first first first first first first first first '
             badgequantity = {0}
             datastack = {this.state.stacks[0]}
-            getNode = {this.getNode}
+            getItem = {this.getItem}
             getListItem = {this.getListItem}
         />,
         <Quadrant 
@@ -152,7 +152,7 @@ class QuadspaceController extends React.Component<any,any> {
             title = "second" 
             badgequantity = {0}
             datastack = {this.state.stacks[1]}
-            getNode = {this.getNode}
+            getItem = {this.getItem}
             getListItem = {this.getListItem}
         />,
         <Quadrant 
@@ -166,7 +166,7 @@ class QuadspaceController extends React.Component<any,any> {
             title = "third" 
             badgequantity = {0}
             datastack = {this.state.stacks[2]}
-            getNode = {this.getNode}
+            getItem = {this.getItem}
             getListItem = {this.getListItem}
         />,
         <Quadrant 
@@ -180,7 +180,7 @@ class QuadspaceController extends React.Component<any,any> {
             title = "fourth" 
             badgequantity = {0}
             datastack = {this.state.stacks[3]}
-            getNode = {this.getNode}
+            getItem = {this.getItem}
             getListItem = {this.getListItem}
         />,
     ]

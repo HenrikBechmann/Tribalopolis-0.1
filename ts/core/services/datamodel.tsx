@@ -15,7 +15,7 @@ enum StoreEndpoints {
     meta = "meta",
     controls = "controls",
     // data and meta
-    nodes = "nodes",
+    items = "items",
     lists = "lists",
     links = "links",
     schemes = "schemes",
@@ -184,13 +184,13 @@ let datamodel = {
     readproperty,
     store: {
         data: {
-            nodes:{},
+            items:{},
             lists:{},
             links:{},
             schemes:{},
         },
         meta:{
-            nodes:{},
+            items:{},
             lists:{},
             links:{},
             schemes:{},
