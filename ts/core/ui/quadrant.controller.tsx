@@ -150,8 +150,8 @@ class Quadrant extends React.Component<any,any>  {
         // console.log('quadrant state',this.state)
         let { datastack, stackpointer } = this.state
         if (datastack) {
-            boxes = this.state.datastack.map((sessionProxy) => {
-                let node = this.getNode(sessionProxy.ref)
+            boxes = this.state.datastack.map((item) => {
+                let node = this.getNode(item.ref)
                 return <DataBox key = {node.id.sessionid} node = {node} getListItem = {this.getListItem}/>
             })
         }

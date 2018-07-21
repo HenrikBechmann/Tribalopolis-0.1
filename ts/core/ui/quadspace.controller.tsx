@@ -208,13 +208,4 @@ class QuadspaceController extends React.Component<any,any> {
     }
 }
 
-                        // <QuadDiamond />
-
-// let mapStateToProps = state => {
-//     let { resources } = state
-//     return { 
-//         resources,
-//     }
-// }
-
 export default QuadspaceController
