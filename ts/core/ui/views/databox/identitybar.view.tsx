@@ -32,6 +32,9 @@ const BoxHeader = props => {
         <ActionButton 
             icon = 'zoom_out_map' 
         />
+        <ActionButton 
+            icon = 'info' 
+        />
         <img style = {{verticalAlign:'middle',width:'32px', margin:'-3px 0 -3px -3px'}} src = {avatar} /> {node.properties.name}
     </div>
 }

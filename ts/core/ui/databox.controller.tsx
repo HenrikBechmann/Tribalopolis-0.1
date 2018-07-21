@@ -4,7 +4,7 @@
 
 import * as React from 'react'
 
-import BoxIdentifier from './views/databox/identybar.view'
+import BoxIdentifier from './views/databox/identitybar.view'
 import BoxTypebar from './views/databox/typebar.view'
 import ProfileBar from './views/databox/profilebar.view'
 import ProfileForm from './views/databox/profileform.view'
@@ -56,15 +56,16 @@ class DataBox extends React.Component<any,any> {
                 }
             } >
                 <div>
-                    <ProfileBar node = {node} />
-                    <ProfileForm node = {node} />
                     <CategoriesBar node = {node} getListItem = {this.props.getListItem}/>
-                    <ScanBar node = {node} />
                 </div>
 
             </div>
         </div>
     }
 }
+
+                    // <ProfileBar node = {node} />
+                    // <ProfileForm node = {node} />
+                    // <ScanBar node = {node} />
 
 export default DataBox

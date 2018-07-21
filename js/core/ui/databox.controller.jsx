@@ -2,12 +2,9 @@
 // copyright (c) 2018 Henrik Bechmann, Toronto, MIT Licence
 'use strict';
 import * as React from 'react';
-import BoxIdentifier from './views/databox/identybar.view';
+import BoxIdentifier from './views/databox/identitybar.view';
 import BoxTypebar from './views/databox/typebar.view';
-import ProfileBar from './views/databox/profilebar.view';
-import ProfileForm from './views/databox/profileform.view';
 import CategoriesBar from './views/databox/categoriesbar.view';
-import ScanBar from './views/databox/scanbar.view';
 class DataBox extends React.Component {
     constructor() {
         super(...arguments);
@@ -47,15 +44,15 @@ class DataBox extends React.Component {
             height: 'calc(100% - 70px)'
         }}>
                 <div>
-                    <ProfileBar node={node}/>
-                    <ProfileForm node={node}/>
                     <CategoriesBar node={node} getListItem={this.props.getListItem}/>
-                    <ScanBar node={node}/>
                 </div>
 
             </div>
         </div>;
     }
 }
+// <ProfileBar node = {node} />
+// <ProfileForm node = {node} />
+// <ScanBar node = {node} />
 export default DataBox;
 //# sourceMappingURL=databox.controller.jsx.map

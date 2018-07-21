@@ -42,10 +42,10 @@ class CategoriesBar extends React.Component {
         let { node } = this.props;
         return <div>
             <div style={this.styles}>
-                <ActionButton icon='expand_less' iconStyle={this.iconStyle()} action={this.toggleList}/>
-                <ActionButton icon='edit' iconStyle={{ fontSize: '20px', color: 'green' }}/>
-
-                <FontIcon style={{ verticalAlign: 'middle' }} className='material-icons'>list</FontIcon> 
+                <ActionButton icon='more_vert'/>
+                {false ? <ActionButton icon='info'/> : null}
+                {false ? <ActionButton icon='arrow_back'/> : null}
+                <FontIcon style={{ verticalAlign: 'middle' }} className='material-icons'>folder_open</FontIcon> 
                 <QuantityBadge quantity={this.state.count} style={{ left: '-2px', top: '-4px' }}/>
 
                 <div style={{
@@ -59,6 +59,15 @@ class CategoriesBar extends React.Component {
         </div>;
     }
 }
+// <ActionButton 
+//     icon = 'expand_less' 
+//     iconStyle = {this.iconStyle()}
+//     action = {this.toggleList}
+// />
+// <ActionButton 
+//     icon = 'edit' 
+//     iconStyle = {{fontSize:'20px',color:'green'}}
+// />
 // <div style = {{fontSize:'smaller'}}>
 //     <span>for all roles</span>
 //     <IconButton style = {{...buttonStyle,float:'none', verticalAlign:'middle'}} >
