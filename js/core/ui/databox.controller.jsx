@@ -51,8 +51,8 @@ class DataBox extends React.Component {
         </div>;
     }
 }
-// <ProfileBar node = {node} />
-// <ProfileForm node = {node} />
-// <ScanBar node = {node} />
+// <ProfileBar item = {item} />
+// <ProfileForm item = {item} />
+// <ScanBar item = {item} />
 export default DataBox;
 //# sourceMappingURL=databox.controller.jsx.map

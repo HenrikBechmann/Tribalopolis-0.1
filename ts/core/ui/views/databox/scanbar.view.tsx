@@ -11,7 +11,7 @@ import ActionButton from '../common/actionbutton.view'
 
 const ScanBar = props => {
 
-    let { node } = props
+    let { item } = props
 
     let barStyle:React.CSSProperties = {
         width:'100%',

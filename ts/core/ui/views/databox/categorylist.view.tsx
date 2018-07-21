@@ -4,7 +4,7 @@
 
 import * as React from 'react'
 
-import CategoryItem from './categorynode.view'
+import CategoryItem from './categoryitem.view'
 
 class CategoriesList extends React.Component<any,any> {
     state = {

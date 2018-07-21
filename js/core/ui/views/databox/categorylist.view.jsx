@@ -2,7 +2,7 @@
 // copyright (c) 2018 Henrik Bechmann, Toronto, MIT Licence
 'use strict';
 import * as React from 'react';
-import CategoryItem from './categorynode.view';
+import CategoryItem from './categoryitem.view';
 class CategoriesList extends React.Component {
     constructor() {
         super(...arguments);

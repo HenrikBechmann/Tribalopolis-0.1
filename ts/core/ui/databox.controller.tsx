@@ -64,8 +64,8 @@ class DataBox extends React.Component<any,any> {
     }
 }
 
-                    // <ProfileBar node = {node} />
-                    // <ProfileForm node = {node} />
-                    // <ScanBar node = {node} />
+                    // <ProfileBar item = {item} />
+                    // <ProfileForm item = {item} />
+                    // <ScanBar item = {item} />
 
 export default DataBox

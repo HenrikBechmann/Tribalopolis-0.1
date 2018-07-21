@@ -7,7 +7,7 @@ import * as React from 'react'
 import FontIcon from 'material-ui/FontIcon'
 import QuantityBadge from '../common/quantitybadge.view'
 
-class CategoryNode extends React.Component<any,any> {
+class CategoryItem extends React.Component<any,any> {
 
     constructor(props) {
         super(props)
@@ -106,4 +106,4 @@ class CategoryNode extends React.Component<any,any> {
     }
 }
 
-export default CategoryNode
+export default CategoryItem
