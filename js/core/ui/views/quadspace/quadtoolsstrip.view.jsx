@@ -37,7 +37,8 @@ class QuadToolsStrip extends React.Component {
         this.menudrawer = () => (<Drawer docked={false} open={this.state.menuopen} onRequestChange={(open) => this.setState({ menuopen: open })}>
                 <MenuItem leftIcon={<FontIcon color='brown' className='material-icons'>
                             weekend
-                        </FontIcon>} primaryText="Home" onClick={this.handleMenuClose}/>
+                        </FontIcon>} primaryText="Home Base" onClick={this.handleMenuClose}/>
+                <Divider />
                 <MenuItem leftIcon={<FontIcon color='brown' className='material-icons'>
                             work
                         </FontIcon>} primaryText="My Workspace" onClick={this.handleMenuClose}/>

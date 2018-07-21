@@ -73,9 +73,10 @@ class QuadToolsStrip extends React.Component<any,any> {
                             weekend
                         </FontIcon>
                     }
-                    primaryText = "Home"
+                    primaryText = "Home Base"
                     onClick={this.handleMenuClose}
                 />
+                <Divider />
                 <MenuItem 
                     leftIcon = {
                         <FontIcon 

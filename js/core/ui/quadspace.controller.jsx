@@ -124,12 +124,5 @@ class QuadspaceController extends React.Component {
             </QuadFrame>);
     }
 }
-// <QuadDiamond />
-// let mapStateToProps = state => {
-//     let { resources } = state
-//     return { 
-//         resources,
-//     }
-// }
 export default QuadspaceController;
 //# sourceMappingURL=quadspace.controller.jsx.map
