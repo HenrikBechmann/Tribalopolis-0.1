@@ -21,7 +21,10 @@ const ActionButton = (props) => {
     let theIconStyle = Object.assign({}, defaultIconStyle, iconStyle);
     let iconcomponent = icon ? <FontIcon className='material-icons'>{icon}</FontIcon> :
         <img style={{ verticalAlign: 'middle' }} src={img}/>;
-    return (<IconButton style={theButtonStyle} iconStyle={theIconStyle} onClick={() => { action(); }} disabled={disabled}>
+    let onClickVal = action
+        ? () => { action(); }
+        : () => { };
+    return (<IconButton style={theButtonStyle} iconStyle={theIconStyle} onClick={onClickVal} disabled={disabled}>
             {iconcomponent}
         </IconButton>);
 };

@@ -50,6 +50,14 @@ class CategoriesBar extends React.Component<any,any> {
 
         let { item } = this.props
 
+        let { listref } = item
+
+        let { getListItem } = this.props
+
+        let list = getListItem(listref)
+
+        let name = list.properties.name
+
         return <div>
             <div style = {this.styles}>
                 <ActionButton icon = 'more_vert'/>
@@ -64,10 +72,10 @@ class CategoriesBar extends React.Component<any,any> {
                         verticalAlign:'middle',                        
                     }
                 } >
-                    Links
+                    {name}
                 </div>
             </div>
-            <CategoriesList open = {this.state.open} item = { item } getListItem = {this.props.getListItem} />
+            <CategoriesList open = {this.state.open} list = {list} getListItem = {getListItem}/>
         </div>
     }
 }

@@ -11,9 +11,9 @@ class CategoriesList extends React.Component {
             listheight: this.props.open ? 'auto' : '0',
         };
         this.listelement = null;
-        this.getCategoryItems = item => {
-            let { links } = item;
+        this.getListItems = list => {
             let { getListItem } = this.props;
+            let { links } = list;
             let catitems = [];
             for (let ref of links) {
                 let data = getListItem(ref);
@@ -61,16 +61,15 @@ class CategoriesList extends React.Component {
         }
     }
     render() {
-        let { item } = this.props;
-        console.log;
-        let list = this.getCategoryItems(item);
+        let { list: listobject } = this.props;
+        let listitems = this.getListItems(listobject);
         return <div style={{
             paddingLeft: '6px',
             height: this.state.listheight,
             overflow: 'hidden',
             transition: 'height 0.5s ease-out'
         }}>
-            {list}
+            {listitems}
         </div>;
     }
 }

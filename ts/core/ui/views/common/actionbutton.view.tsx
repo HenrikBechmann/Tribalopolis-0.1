@@ -40,13 +40,14 @@ const ActionButton = (props:propsInterface) => {
 
     let iconcomponent = icon?<FontIcon className='material-icons'>{icon}</FontIcon>:
     <img style = {{verticalAlign:'middle'}} src = {img} />
-
+    let onClickVal = 
+        action
+            ?() => {action()}
+            :() => {}
     return (
         <IconButton style = {theButtonStyle}
             iconStyle = {theIconStyle}
-            onClick = {
-                () => {action()}
-            }
+            onClick = {onClickVal}
             disabled = {disabled}
         >
             {iconcomponent}

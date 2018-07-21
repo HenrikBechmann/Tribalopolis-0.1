@@ -377,27 +377,26 @@ let lists = {
         },
         links: [],
     },
-};
-let links = {};
-let items = {
     henrik: {
         type: {
-            id: 'member',
-            name: 'member',
+            id: 'henrik',
+            parent_index: 'notes.timelogs',
             scheme: 'common',
         },
         identity: {
-            sessionid: 0,
-            id: 'henrik',
+            sessionid: 15,
+            systemid: 'x',
+            systemkey: 'home:henrik::henrik',
         },
         properties: {
-            tag: 'Henrik',
-            name: 'Henrik Bechmann',
-            title: null,
-            description: 'Creator of Tribalopolis',
-            birthdate: '1950-08-23',
-            location: 'Toronto',
-            locationid: 'Toronto',
+            name: 'Links',
+            sysnode: true,
+            aggregates: {
+                childcount: {
+                    amount: 6558,
+                    timestamp: 1
+                },
+            },
         },
         links: [
             {
@@ -469,6 +468,30 @@ let items = {
                 id: 'other',
             },
         ],
+    },
+};
+let links = {};
+let items = {
+    henrik: {
+        type: {
+            id: 'member',
+            name: 'member',
+            scheme: 'common',
+        },
+        identity: {
+            sessionid: 0,
+            id: 'henrik',
+        },
+        properties: {
+            tag: 'Henrik',
+            name: 'Henrik Bechmann',
+            title: null,
+            description: 'Creator of Tribalopolis',
+            birthdate: '1950-08-23',
+            location: 'Toronto',
+            locationid: 'Toronto',
+        },
+        listref: { repo: 'lists', id: 'henrik' },
     },
 };
 let schemes = {

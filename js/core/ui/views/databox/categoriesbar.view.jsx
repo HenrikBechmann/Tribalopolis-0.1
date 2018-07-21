@@ -40,6 +40,10 @@ class CategoriesBar extends React.Component {
     }
     render() {
         let { item } = this.props;
+        let { listref } = item;
+        let { getListItem } = this.props;
+        let list = getListItem(listref);
+        let name = list.properties.name;
         return <div>
             <div style={this.styles}>
                 <ActionButton icon='more_vert'/>
@@ -52,10 +56,10 @@ class CategoriesBar extends React.Component {
             display: 'inline-block',
             verticalAlign: 'middle',
         }}>
-                    Links
+                    {name}
                 </div>
             </div>
-            <CategoriesList open={this.state.open} item={item} getListItem={this.props.getListItem}/>
+            <CategoriesList open={this.state.open} list={list} getListItem={getListItem}/>
         </div>;
     }
 }

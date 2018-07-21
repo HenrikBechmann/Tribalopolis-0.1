@@ -53,12 +53,11 @@ class CategoriesList extends React.Component<any,any> {
         }
     }
 
-    getCategoryItems = item => {
-
-
-        let { links } = item
+    getListItems = list => {
 
         let { getListItem } = this.props
+
+        let { links } = list
 
         let catitems = []
         for (let ref of links) {
@@ -77,11 +76,9 @@ class CategoriesList extends React.Component<any,any> {
 
     render() {
 
-        let { item } = this.props
+        let { list:listobject } = this.props
 
-        console.log
-
-        let list = this.getCategoryItems(item)
+        let listitems = this.getListItems(listobject)
 
         return <div style = {
             {
@@ -91,7 +88,7 @@ class CategoriesList extends React.Component<any,any> {
                 transition:'height 0.5s ease-out'
             }
         }>
-            {list}
+            {listitems}
         </div>
     }
 }
