@@ -152,7 +152,7 @@ class Quadrant extends React.Component<any,any>  {
         if (datastack) {
             boxes = this.state.datastack.map((item) => {
                 let node = this.getNode(item.ref)
-                return <DataBox key = {node.id.sessionid} node = {node} getListItem = {this.getListItem}/>
+                return <DataBox key = {node.identity.sessionid} node = {node} getListItem = {this.getListItem}/>
             })
         }
 
