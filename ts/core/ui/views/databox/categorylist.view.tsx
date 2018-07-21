@@ -56,15 +56,15 @@ class CategoriesList extends React.Component<any,any> {
     getCategoryNodes = node => {
 
 
-        let { lists } = node
+        let { links } = node
 
-        let { getList } = this.props
+        let { getListItem } = this.props
 
         let catitems = []
-        for (let id of lists) {
-            let data = getList(id)
+        for (let ref of links) {
+            let data = getListItem(ref)
 
-            let catitem = <CategoryNode key = {id} id = {id} data = {data} />
+            let catitem = <CategoryNode key = {ref.id} id = {ref.id} data = {data} />
 
             catitems.push(catitem)
         }

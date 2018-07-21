@@ -12,12 +12,12 @@ class CategoriesList extends React.Component {
         };
         this.listelement = null;
         this.getCategoryNodes = node => {
-            let { lists } = node;
-            let { getList } = this.props;
+            let { links } = node;
+            let { getListItem } = this.props;
             let catitems = [];
-            for (let id of lists) {
-                let data = getList(id);
-                let catitem = <CategoryNode key={id} id={id} data={data}/>;
+            for (let ref of links) {
+                let data = getListItem(ref);
+                let catitem = <CategoryNode key={ref.id} id={ref.id} data={data}/>;
                 catitems.push(catitem);
             }
             return <div ref={element => {

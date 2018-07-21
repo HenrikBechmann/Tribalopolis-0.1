@@ -378,9 +378,9 @@ let lists = {
         links: [],
     },
 };
-let links = [];
-let nodes = [
-    {
+let links = {};
+let nodes = {
+    henrik: {
         type: {
             id: 'member',
             name: 'member',
@@ -388,6 +388,7 @@ let nodes = [
         },
         id: {
             sessionid: 0,
+            id: 'henrik',
         },
         properties: {
             tag: 'Henrik',
@@ -469,17 +470,33 @@ let nodes = [
             },
         ],
     },
-];
-let schemes = [];
+};
+let schemes = {};
 let stacks = [
-    [[{ sessionid: 0, config: 'base' },
-        ]],
-    [[{ sessionid: 0, config: 'base' },
-        ]],
-    [[{ sessionid: 0, config: 'base' },
-        ]],
-    [[{ sessionid: 0, config: 'base' },
-        ]],
+    [
+        {
+            ref: { repo: 'nodes', id: 'henrik' },
+            config: 'base',
+        },
+    ],
+    [
+        {
+            ref: { repo: 'nodes', id: 'henrik' },
+            config: 'base',
+        },
+    ],
+    [
+        {
+            ref: { repo: 'nodes', id: 'henrik' },
+            config: 'base',
+        },
+    ],
+    [
+        {
+            ref: { repo: 'nodes', id: 'henrik' },
+            config: 'base',
+        },
+    ],
 ];
 export { lists, links, nodes, schemes, stacks };
-//# sourceMappingURL=workspacedata.jsx.map
+//# sourceMappingURL=repositories.jsx.map

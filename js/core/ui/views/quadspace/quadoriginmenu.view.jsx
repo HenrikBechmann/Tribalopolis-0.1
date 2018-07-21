@@ -40,7 +40,7 @@ const OriginMenu = (props) => {
         </IconButton>
         <IconButton style={buttonStyle} iconStyle={iconStyle}>
             <FontIcon color='green' className='material-icons'>
-                home
+                weekend
             </FontIcon>
         </IconButton>
     </div>;

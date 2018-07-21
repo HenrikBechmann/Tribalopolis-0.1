@@ -74,7 +74,7 @@ class CategoriesBar extends React.Component<any,any> {
                     Links
                 </div>
             </div>
-            <CategoriesList open = {this.state.open} node = { node } getList = {this.props.getList} />
+            <CategoriesList open = {this.state.open} node = { node } getListItem = {this.props.getListItem} />
         </div>
     }
 }

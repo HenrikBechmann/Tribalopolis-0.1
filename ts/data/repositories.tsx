@@ -21,9 +21,7 @@ let lists = {
                 },
             },
         },
-        links:{
-
-        }
+        links:[],
     },
     notes:
     {
@@ -46,9 +44,7 @@ let lists = {
                 },
             },
         },
-        links:{
-
-        },
+        links:[],
     },
     tribes:
     {
@@ -72,9 +68,7 @@ let lists = {
                 },
             },
         },
-        links:{
-
-        },
+        links:[],
     },
     connections:
     {
@@ -97,9 +91,7 @@ let lists = {
                 },
             },
         },
-        links:{
-
-        },
+        links:[],
     },
     requesting:
     {
@@ -122,9 +114,7 @@ let lists = {
                 },
             },
         },
-        links:{
-
-        },
+        links:[],
     },
     pending:
     {
@@ -147,9 +137,7 @@ let lists = {
                 },
             },
         },
-        links:{
-
-        },
+        links:[],
     },
     roles:
     {
@@ -172,9 +160,7 @@ let lists = {
                 },
             },
         },
-        links:{
-
-        },
+        links:[],
     },
     programs:
     {
@@ -197,9 +183,7 @@ let lists = {
                 },
             },
         },
-        links:{
-
-        },
+        links:[],
     },
     projects:
     {
@@ -222,9 +206,7 @@ let lists = {
                 },
             },
         },
-        links:{
-
-        },
+        links:[],
     },
     tasks:
     {
@@ -247,9 +229,7 @@ let lists = {
                 },
             },
         },
-        links:{
-
-        },
+        links:[],
     },
     messages:
     {
@@ -272,9 +252,7 @@ let lists = {
                 },
             },
         },
-        links:{
-
-        },
+        links:[],
     },
     streams:
     {
@@ -297,9 +275,7 @@ let lists = {
                 },
             },
         },
-        links:{
-
-        },
+        links:[],
     },
     resources:
     {
@@ -322,9 +298,7 @@ let lists = {
                 },
             },
         },
-        links:{
-
-        },
+        links:[],
     },
     calendars:
     {
@@ -347,9 +321,7 @@ let lists = {
                 },
             },
         },
-        links:{
-
-        },
+        links:[],
     },
     accounting:
     {
@@ -372,9 +344,7 @@ let lists = {
                 },
             },
         },
-        links:{
-
-        },
+        links:[],
     },
     membership:
     {
@@ -398,9 +368,8 @@ let lists = {
                 },
             },
         },
-        links:{
+        links:[],
 // account, website, home
-        },
     },
     other:
     {
@@ -424,17 +393,14 @@ let lists = {
                 },
             },
         },
-        links:{
-
-        },
+        links:[],
     },
 }
 
-let links = [
-]
+let links = {}
 
-let nodes = [
-    {
+let nodes = {
+    henrik:{
         type:{
             id:'member',
             name:'member',
@@ -442,6 +408,7 @@ let nodes = [
         },
         id:{
             sessionid:0,
+            id:'henrik',
         },
         properties:{
             tag:'Henrik',
@@ -452,39 +419,106 @@ let nodes = [
             location:'Toronto',
             locationid:'Toronto',
         },
-        lists:[
-            'membership',
-            'tribes',
-            'connections',
-            'requesting',
-            'pending',
-            'diaries',
-            'notes',
-            'tasks',
-            'messages',
-            'streams',
-            'calendars',
-            'accounting',
-            'roles',
-            'programs',
-            'projects',
-            'resources',
-            'other',
+        links:[
+            {
+                repo:'lists',
+                id:'membership',
+            },
+            {
+                repo:'lists',
+                id:'tribes',
+            },
+            {
+                repo:'lists',
+                id:'connections',
+            },
+            {
+                repo:'lists',
+                id:'requesting',
+            },
+            {
+                repo:'lists',
+                id:'pending',
+            },
+            {
+                repo:'lists',
+                id:'diaries',
+            },
+            {
+                repo:'lists',
+                id:'notes',
+            },
+            {
+                repo:'lists',
+                id:'tasks',
+            },
+            {
+                repo:'lists',
+                id:'messages',
+            },
+            {
+                repo:'lists',
+                id:'streams',
+            },
+            {
+                repo:'lists',
+                id:'calendars',
+            },
+            {
+                repo:'lists',
+                id:'accounting',
+            },
+            {
+                repo:'lists',
+                id:'roles',
+            },
+            {
+                repo:'lists',
+                id:'programs',
+            },
+            {
+                repo:'lists',
+                id:'projects',
+            },
+            {
+                repo:'lists',
+                id:'resources',
+            },
+            {
+                repo:'lists',
+                id:'other',
+            },
         ],
     },
-]
+}
 
-let schemes = []
+let schemes = {}
 
 let stacks = [
-    [[{sessionid:0,config:'base'},
-    ]],
-    [[{sessionid:0,config:'base'},
-    ]],
-    [[{sessionid:0,config:'base'},
-    ]],
-    [[{sessionid:0,config:'base'},
-    ]],
+    [
+        {
+            ref:{repo:'nodes',id:'henrik'},
+            config:'base',
+        },
+    ],
+    [
+        {
+            ref:{repo:'nodes',id:'henrik'},
+            config:'base',
+        },
+    ],
+    [
+        {
+            ref:{repo:'nodes',id:'henrik'},
+            config:'base',
+        },
+    ],
+    [
+        {
+            ref:{repo:'nodes',id:'henrik'},
+            config:'base',
+        },
+    ],
 ]
 
 export {lists,links, nodes, schemes, stacks}

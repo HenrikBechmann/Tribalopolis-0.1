@@ -17,7 +17,7 @@ import QuadDiamond from './views/quadspace/quaddiamond.view'
 import QuantityBadge from './views/common/quantitybadge.view'
 import QuadStatusBar from './views/quadspace/quadstatusbar.view'
 
-import {lists, links, nodes, schemes, stacks} from '../../data/workspacedata'
+import {lists, links, nodes, schemes, stacks} from '../../data/repositories'
 
 class QuadspaceController extends React.Component<any,any> {
 
@@ -118,12 +118,12 @@ class QuadspaceController extends React.Component<any,any> {
         })
     }
 
-    getNode = (sessionid) => {
-        return nodes[sessionid]
+    getNode = (ref) => {
+        return nodes[ref.id]
     }
 
-    getList = (listid) => {
-        return lists[listid]
+    getListItem = (ref) => {
+        return lists[ref.id]
     }
 
     quadrants = () => [
@@ -139,7 +139,7 @@ class QuadspaceController extends React.Component<any,any> {
             badgequantity = {0}
             datastack = {this.state.stacks[0]}
             getNode = {this.getNode}
-            getList = {this.getList}
+            getListItem = {this.getListItem}
         />,
         <Quadrant 
             key = '2'
@@ -153,7 +153,7 @@ class QuadspaceController extends React.Component<any,any> {
             badgequantity = {0}
             datastack = {this.state.stacks[1]}
             getNode = {this.getNode}
-            getList = {this.getList}
+            getListItem = {this.getListItem}
         />,
         <Quadrant 
             key = '3'
@@ -167,7 +167,7 @@ class QuadspaceController extends React.Component<any,any> {
             badgequantity = {0}
             datastack = {this.state.stacks[2]}
             getNode = {this.getNode}
-            getList = {this.getList}
+            getListItem = {this.getListItem}
         />,
         <Quadrant 
             key = '4'
@@ -181,7 +181,7 @@ class QuadspaceController extends React.Component<any,any> {
             badgequantity = {0}
             datastack = {this.state.stacks[3]}
             getNode = {this.getNode}
-            getList = {this.getList}
+            getListItem = {this.getListItem}
         />,
     ]
 
