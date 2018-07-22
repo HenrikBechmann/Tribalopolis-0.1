@@ -13,7 +13,6 @@ class CategoriesList extends React.Component {
         this.listelement = null;
         this.expandCategory = (ref) => {
             return () => {
-                console.log('expanding category for', ref);
                 this.props.expandCategory(ref);
             };
         };

@@ -55,7 +55,6 @@ class CategoriesList extends React.Component<any,any> {
 
     expandCategory = (ref) => {
         return () => {
-            console.log('expanding category for', ref)
             this.props.expandCategory(ref)
         }
     }

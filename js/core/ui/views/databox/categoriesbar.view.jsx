@@ -64,7 +64,6 @@ class CategoriesBar extends React.Component {
         this.barelementref = React.createRef();
     }
     render() {
-        console.log('CategoriesBar props', this.props);
         let { item, listStack, getListItem } = this.props;
         let { listref: listroot } = item;
         let listref;

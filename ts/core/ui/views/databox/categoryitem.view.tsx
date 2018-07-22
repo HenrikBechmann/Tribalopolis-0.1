@@ -51,7 +51,6 @@ class CategoryItem extends React.Component<any,any> {
     barelementref
 
     expandCategory = () => {
-        console.log('expanding category', this.props)
         this.props.expandCategory()
     }
 

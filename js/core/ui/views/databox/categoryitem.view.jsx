@@ -37,7 +37,6 @@ class CategoryItem extends React.Component {
             cursor: 'pointer',
         };
         this.expandCategory = () => {
-            console.log('expanding category', this.props);
             this.props.expandCategory();
         };
         this.barcomponent = () => (<div style={this.barstyle} ref={this.barelementref}>
