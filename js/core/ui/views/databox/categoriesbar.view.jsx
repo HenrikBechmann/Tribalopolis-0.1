@@ -81,7 +81,9 @@ class CategoriesBar extends React.Component {
                 <div style={this.tabwrapperstyle}>
                     <ActionButton icon='more_vert'/>
                     {false ? <ActionButton icon='info'/> : null}
-                    {false ? <ActionButton icon='arrow_back'/> : null}
+                    {listStack.length ?
+            <ActionButton icon='arrow_back' action={this.props.collapseCategory}/>
+            : null}
                     <div style={this.pretabstyle}></div>
                     <div style={this.tabstyle}> 
                         <FontIcon style={{ verticalAlign: 'middle' }} className='material-icons'>folder_open</FontIcon> 
