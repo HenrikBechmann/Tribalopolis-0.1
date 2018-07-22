@@ -133,26 +133,21 @@ class Quadrant extends React.Component<any,any>  {
 
     element = null
 
-    getFieldComponents = fields => {
-
-    }
-
-    getProfileComponent = profile => {
-
-    }
-
-    getBacklinks = links => {
-
-    }
-
     getBoxes = () => {
         let boxes = []
         // console.log('quadrant state',this.state)
         let { datastack, stackpointer } = this.state
         if (datastack) {
-            boxes = this.state.datastack.map((proxy) => {
-                let item = this.getItem(proxy.ref)
-                return <DataBox key = {item.identity.sessionid} item = {item} getListItem = {this.getListItem}/>
+            boxes = this.state.datastack.map((boxconfig) => {
+                let item = this.getItem(boxconfig.ref)
+                return (
+                    <DataBox 
+                        key = {item.identity.sessionid} 
+                        item = {item} 
+                        getListItem = {this.getListItem}
+                        boxConfig = {boxconfig}
+                    />
+                )
             })
         }
 

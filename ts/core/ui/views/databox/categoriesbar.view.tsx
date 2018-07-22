@@ -13,16 +13,21 @@ import ActionButton from '../common/actionbutton.view'
 
 class CategoriesBar extends React.Component<any,any> {
 
+    constructor(props) {
+        super(props)
+        this.barelementref = React.createRef()
+    }
+
     state = {
         open:true,
         count:6558,
     }
 
-    toggleList = () => {
-        this.setState({
-            open:!this.state.open,
-        })
-    }
+    // toggleList = () => {
+    //     this.setState({
+    //         open:!this.state.open,
+    //     })
+    // }
 
     barstyle:React.CSSProperties = {
         width:'100%',
@@ -77,11 +82,23 @@ class CategoriesBar extends React.Component<any,any> {
 
     render() {
 
-        let { item } = this.props
+        // console.log('CategoriesBar props', this.props)
 
-        let { listref } = item
+        let { item,listStack } = this.props
+
+        let { listref:listroot } = item
 
         let { getListItem } = this.props
+
+        let listref
+
+        if (listStack.length) {
+            listref = listStack[length-1]
+        } else {
+            listref = listroot
+        }
+
+        console.log('listref',listref)
 
         let list = getListItem(listref)
 
@@ -119,24 +136,5 @@ class CategoriesBar extends React.Component<any,any> {
         </div>
     }
 }
-
-                // <ActionButton 
-                //     icon = 'expand_less' 
-                //     iconStyle = {this.iconStyle()}
-                //     action = {this.toggleList}
-                // />
-                // <ActionButton 
-                //     icon = 'edit' 
-                //     iconStyle = {{fontSize:'20px',color:'green'}}
-                // />
-
-
-
-// <div style = {{fontSize:'smaller'}}>
-//     <span>for all roles</span>
-//     <IconButton style = {{...buttonStyle,float:'none', verticalAlign:'middle'}} >
-//         <FontIcon color = 'green' className = 'material-icons'>arrow_drop_down</FontIcon>
-//     </IconButton>
-// </div>
 
 export default CategoriesBar

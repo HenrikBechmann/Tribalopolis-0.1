@@ -10,6 +10,21 @@ class DataBox extends React.Component {
         super(...arguments);
         this.state = {
             opacity: 0,
+            boxconfig: this.props.boxConfig
+        };
+        this.expandCategory = (ref) => {
+            let boxConfig = this.state.boxconfig;
+            boxConfig.liststack.push(ref);
+            this.setState({
+                boxConfig,
+            });
+        };
+        this.collapseCategory = () => {
+            let boxConfig = this.state.boxconfig;
+            boxConfig.liststack.pop();
+            this.setState({
+                boxConfig,
+            });
         };
     }
     componentDidMount() {
@@ -44,7 +59,7 @@ class DataBox extends React.Component {
             height: 'calc(100% - 70px)'
         }}>
                 <div>
-                    <CategoriesBar item={item} getListItem={this.props.getListItem}/>
+                    <CategoriesBar item={item} getListItem={this.props.getListItem} listStack={this.state.boxconfig.liststack} expandCategory={this.expandCategory} collapseCategory={this.collapseCategory}/>
                 </div>
 
             </div>

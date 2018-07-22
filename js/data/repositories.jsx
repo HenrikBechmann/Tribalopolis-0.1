@@ -501,25 +501,25 @@ let stacks = [
     [
         {
             ref: { repo: 'items', id: 'henrik' },
-            config: 'base',
+            liststack: [],
         },
     ],
     [
         {
             ref: { repo: 'items', id: 'henrik' },
-            config: 'base',
+            liststack: [],
         },
     ],
     [
         {
             ref: { repo: 'items', id: 'henrik' },
-            config: 'base',
+            liststack: [],
         },
     ],
     [
         {
             ref: { repo: 'items', id: 'henrik' },
-            config: 'base',
+            liststack: [],
         },
     ],
 ];

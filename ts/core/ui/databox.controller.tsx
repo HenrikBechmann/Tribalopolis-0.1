@@ -15,11 +15,28 @@ class DataBox extends React.Component<any,any> {
 
     state = {
         opacity:0,
+        boxconfig:this.props.boxConfig
     }
 
     componentDidMount() {
         this.setState({
             opacity:1,
+        })
+    }
+
+    expandCategory = (ref) => {
+        let boxConfig = this.state.boxconfig
+        boxConfig.liststack.push(ref)
+        this.setState({
+            boxConfig,
+        })
+    }
+
+    collapseCategory = () => {
+        let boxConfig = this.state.boxconfig
+        boxConfig.liststack.pop()
+        this.setState({
+            boxConfig,
         })
     }
 
@@ -56,7 +73,13 @@ class DataBox extends React.Component<any,any> {
                 }
             } >
                 <div>
-                    <CategoriesBar item = {item} getListItem = {this.props.getListItem}/>
+                    <CategoriesBar 
+                        item = {item} 
+                        getListItem = {this.props.getListItem}
+                        listStack = {this.state.boxconfig.liststack}
+                        expandCategory = {this.expandCategory}
+                        collapseCategory = {this.collapseCategory}
+                    />
                 </div>
 
             </div>
@@ -64,8 +87,8 @@ class DataBox extends React.Component<any,any> {
     }
 }
 
-                    // <ProfileBar item = {item} />
-                    // <ProfileForm item = {item} />
-                    // <ScanBar item = {item} />
+// <ProfileBar item = {item} />
+// <ProfileForm item = {item} />
+// <ScanBar item = {item} />
 
 export default DataBox

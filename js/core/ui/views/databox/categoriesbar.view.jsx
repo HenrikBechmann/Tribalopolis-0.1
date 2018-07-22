@@ -7,17 +7,17 @@ import CategoriesList from './categorylist.view';
 import QuantityBadge from '../common/quantitybadge.view';
 import ActionButton from '../common/actionbutton.view';
 class CategoriesBar extends React.Component {
-    constructor() {
-        super(...arguments);
+    constructor(props) {
+        super(props);
         this.state = {
             open: true,
             count: 6558,
         };
-        this.toggleList = () => {
-            this.setState({
-                open: !this.state.open,
-            });
-        };
+        // toggleList = () => {
+        //     this.setState({
+        //         open:!this.state.open,
+        //     })
+        // }
         this.barstyle = {
             width: '100%',
             borderRadius: '8px 8px 0 0',
@@ -61,11 +61,21 @@ class CategoriesBar extends React.Component {
             transform: 'rotate(' + (this.state.open ? '0deg' : '180deg') + ')',
             transition: 'transform 0.5s .1s ease-out',
         });
+        this.barelementref = React.createRef();
     }
     render() {
-        let { item } = this.props;
-        let { listref } = item;
+        // console.log('CategoriesBar props', this.props)
+        let { item, listStack } = this.props;
+        let { listref: listroot } = item;
         let { getListItem } = this.props;
+        let listref;
+        if (listStack.length) {
+            listref = listStack[length - 1];
+        }
+        else {
+            listref = listroot;
+        }
+        console.log('listref', listref);
         let list = getListItem(listref);
         let name = list.properties.name;
         return <div>
@@ -92,20 +102,5 @@ class CategoriesBar extends React.Component {
         </div>;
     }
 }
-// <ActionButton 
-//     icon = 'expand_less' 
-//     iconStyle = {this.iconStyle()}
-//     action = {this.toggleList}
-// />
-// <ActionButton 
-//     icon = 'edit' 
-//     iconStyle = {{fontSize:'20px',color:'green'}}
-// />
-// <div style = {{fontSize:'smaller'}}>
-//     <span>for all roles</span>
-//     <IconButton style = {{...buttonStyle,float:'none', verticalAlign:'middle'}} >
-//         <FontIcon color = 'green' className = 'material-icons'>arrow_drop_down</FontIcon>
-//     </IconButton>
-// </div>
 export default CategoriesBar;
 //# sourceMappingURL=categoriesbar.view.jsx.map
