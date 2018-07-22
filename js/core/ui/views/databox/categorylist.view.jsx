@@ -11,13 +11,19 @@ class CategoriesList extends React.Component {
             listheight: this.props.open ? 'auto' : '0',
         };
         this.listelement = null;
+        this.expandCategory = (ref) => {
+            return () => {
+                console.log('expanding category for', ref);
+                this.props.expandCategory(ref);
+            };
+        };
         this.getListItems = list => {
             let { getListItem } = this.props;
             let { links } = list;
             let catitems = [];
             for (let ref of links) {
                 let data = getListItem(ref);
-                let catitem = <CategoryItem key={ref.id} id={ref.id} data={data}/>;
+                let catitem = <CategoryItem key={ref.id} id={ref.id} data={data} expandCategory={this.expandCategory(ref)}/>;
                 catitems.push(catitem);
             }
             return <div ref={element => {

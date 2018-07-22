@@ -53,6 +53,13 @@ class CategoriesList extends React.Component<any,any> {
         }
     }
 
+    expandCategory = (ref) => {
+        return () => {
+            console.log('expanding category for', ref)
+            this.props.expandCategory(ref)
+        }
+    }
+
     getListItems = list => {
 
         let { getListItem } = this.props
@@ -63,7 +70,13 @@ class CategoriesList extends React.Component<any,any> {
         for (let ref of links) {
             let data = getListItem(ref)
 
-            let catitem = <CategoryItem key = {ref.id} id = {ref.id} data = {data} />
+            let catitem = 
+                <CategoryItem 
+                    key = {ref.id} 
+                    id = {ref.id} 
+                    data = {data} 
+                    expandCategory = {this.expandCategory(ref)}
+                />
 
             catitems.push(catitem)
         }

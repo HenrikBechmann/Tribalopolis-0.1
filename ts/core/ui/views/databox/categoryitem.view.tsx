@@ -50,6 +50,11 @@ class CategoryItem extends React.Component<any,any> {
 
     barelementref
 
+    expandCategory = () => {
+        console.log('expanding category', this.props)
+        this.props.expandCategory()
+    }
+
     barcomponent = () => (
         <div 
             style = {
@@ -61,7 +66,7 @@ class CategoryItem extends React.Component<any,any> {
                 <div style = {this.pretabstyle}></div>
                 <div 
                     style = {this.tabstyle}
-                    onClick = {this.props.ExpandCategory}
+                    onClick = {this.expandCategory}
                 > 
                     <FontIcon 
                         color = {this.props.data.properties.sysnode?'green':'gray'} 

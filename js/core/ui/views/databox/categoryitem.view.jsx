@@ -36,10 +36,14 @@ class CategoryItem extends React.Component {
             backgroundColor: 'white',
             cursor: 'pointer',
         };
+        this.expandCategory = () => {
+            console.log('expanding category', this.props);
+            this.props.expandCategory();
+        };
         this.barcomponent = () => (<div style={this.barstyle} ref={this.barelementref}>
             <div style={this.tabwrapperstyle}>
                 <div style={this.pretabstyle}></div>
-                <div style={this.tabstyle} onClick={this.props.ExpandCategory}> 
+                <div style={this.tabstyle} onClick={this.expandCategory}> 
                     <FontIcon color={this.props.data.properties.sysnode ? 'green' : 'gray'} style={{ verticalAlign: 'middle' }} className='material-icons'>
                         folder
                     </FontIcon> 

@@ -64,20 +64,19 @@ class CategoriesBar extends React.Component {
         this.barelementref = React.createRef();
     }
     render() {
-        // console.log('CategoriesBar props', this.props)
-        let { item, listStack } = this.props;
+        console.log('CategoriesBar props', this.props);
+        let { item, listStack, getListItem } = this.props;
         let { listref: listroot } = item;
-        let { getListItem } = this.props;
         let listref;
         if (listStack.length) {
-            listref = listStack[length - 1];
+            listref = listStack[listStack.length - 1];
         }
         else {
             listref = listroot;
         }
-        console.log('listref', listref);
         let list = getListItem(listref);
         let name = list.properties.name;
+        let count = list.properties.aggregates.childcount.amount;
         return <div>
             <div style={this.barstyle} ref={this.barelementref}>
                 <div style={this.tabwrapperstyle}>
@@ -87,7 +86,7 @@ class CategoriesBar extends React.Component {
                     <div style={this.pretabstyle}></div>
                     <div style={this.tabstyle}> 
                         <FontIcon style={{ verticalAlign: 'middle' }} className='material-icons'>folder_open</FontIcon> 
-                        <QuantityBadge quantity={this.state.count} style={{ left: '-6px', top: '-8px' }}/>
+                        <QuantityBadge quantity={count} style={{ left: '-6px', top: '-8px' }}/>
 
                         <div style={{
             display: 'inline-block',
@@ -98,7 +97,7 @@ class CategoriesBar extends React.Component {
                     </div>
                 </div>
             </div>
-            <CategoriesList open={this.state.open} list={list} getListItem={getListItem}/>
+            <CategoriesList open={this.state.open} list={list} getListItem={getListItem} expandCategory={this.props.expandCategory}/>
         </div>;
     }
 }
