@@ -50,8 +50,6 @@ class CategoryItem extends React.Component<any,any> {
 
     barelementref
 
-
-
     barcomponent = () => (
         <div 
             style = {
