@@ -50,6 +50,13 @@ class CategoryItem extends React.Component<any,any> {
 
     barelementref
 
+    componentDidUpdate() {
+        if (this.props.highlight && this.barelementref) {
+            this.props.highlightItem(this.barelementref)
+            // console.log('scrolling into view', this.barelementref)
+        }
+    }
+
     expandCategory = () => {
         this.props.expandCategory()
     }
@@ -103,6 +110,8 @@ class CategoryItem extends React.Component<any,any> {
         // let { id,data } = this.props
         // let {name, sysnode} = data
         // let count = data.aggregates.childcount.amount
+
+        // console.log('itemprops',this.props)
 
         return this.barcomponent()
     }

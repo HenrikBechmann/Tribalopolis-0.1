@@ -139,8 +139,10 @@ class CategoriesBar extends React.Component<any,any> {
                 </div>
             </div>
             <CategoriesList 
+                refid = {this.props.refid}
                 open = {this.state.open} 
                 list = {list} 
+                highlightItem = {this.props.highlightItem}
                 getListItem = {getListItem}
                 expandCategory = {this.props.expandCategory}
             />

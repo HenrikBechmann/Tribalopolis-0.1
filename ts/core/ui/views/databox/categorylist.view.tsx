@@ -10,9 +10,22 @@ class CategoriesList extends React.Component<any,any> {
     state = {
         open:this.props.open,
         listheight:this.props.open?'auto':'0',
+        refid:null,
     }
 
     listelement = null
+
+    componentDidUpdate() {
+        // console.log('list did update',this.props)
+        if (!this.props.refid) return
+        this.setState({
+            refid:this.props.refid,
+        },() => {
+            this.setState({
+                refid:null
+            })
+        })
+    }
 
     componentWillReceiveProps(nextProps) {
         let { open:willbeopen } = nextProps
@@ -68,13 +81,16 @@ class CategoriesList extends React.Component<any,any> {
         let catitems = []
         for (let ref of links) {
             let data = getListItem(ref)
-
+            let highlight = (ref.id === this.state.refid)
+            // console.log('highlight vars',ref.id,this.state.refid)
             let catitem = 
                 <CategoryItem 
                     key = {ref.id} 
                     id = {ref.id} 
                     data = {data} 
                     expandCategory = {this.expandCategory(ref)}
+                    highlight = {highlight}
+                    highlightItem = {this.props.highlightItem}
                 />
 
             catitems.push(catitem)

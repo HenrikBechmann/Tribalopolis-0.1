@@ -56,6 +56,12 @@ class CategoryItem extends React.Component {
         </div>);
         this.barelementref = React.createRef();
     }
+    componentDidUpdate() {
+        if (this.props.highlight && this.barelementref) {
+            this.props.highlightItem(this.barelementref);
+            // console.log('scrolling into view', this.barelementref)
+        }
+    }
     render() {
         // console.log('barelementref',this.barelementref)
         // console.log('props',this.props)
@@ -66,6 +72,7 @@ class CategoryItem extends React.Component {
         // let { id,data } = this.props
         // let {name, sysnode} = data
         // let count = data.aggregates.childcount.amount
+        // console.log('itemprops',this.props)
         return this.barcomponent();
     }
 }
