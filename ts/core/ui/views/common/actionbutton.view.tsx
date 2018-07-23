@@ -15,6 +15,7 @@ interface propsInterface {
     icon?:string,
     img?:string,
     disabled?:boolean,
+    badgequantity?:number,
 }
 
 const ActionButton = (props:propsInterface) => {

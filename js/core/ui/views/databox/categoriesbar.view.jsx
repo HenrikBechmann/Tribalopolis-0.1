@@ -82,7 +82,10 @@ class CategoriesBar extends React.Component {
                     <ActionButton icon='more_vert'/>
                     {false ? <ActionButton icon='info'/> : null}
                     {listStack.length ?
-            <ActionButton icon='arrow_back' action={this.props.collapseCategory}/>
+            <div style={{ float: 'right', width: '24px', height: '24px', position: 'relative' }}>
+                            <QuantityBadge quantity={listStack.length} style={{ left: '-6px', top: '-6px' }}/>
+                            <ActionButton icon='arrow_back' action={this.props.collapseCategory}/>
+                        </div>
             : null}
                     <div style={this.pretabstyle}></div>
                     <div style={this.tabstyle}> 
