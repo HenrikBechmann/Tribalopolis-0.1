@@ -16,7 +16,10 @@ class DataBox extends React.Component<any,any> {
 
     constructor(props) {
         super(props)
+        this.categoriesbarwrapper = React.createRef()
     }
+
+    categoriesbarwrapper
 
     state = {
         opacity:0,
@@ -35,6 +38,12 @@ class DataBox extends React.Component<any,any> {
         boxConfig.liststack.push(ref)
         this.setState({
             boxConfig,
+        },() => {
+            let element:HTMLElement = this.categoriesbarwrapper.current
+            element.classList.add('outlinehighlight')
+            setTimeout(() => {
+                element.classList.remove('outlinehighlight')
+            },2000)
         })
     }
 
@@ -123,12 +132,14 @@ class DataBox extends React.Component<any,any> {
                     }
                 } 
             >
-                <CategoriesBar 
-                    item = {item} 
-                    getListItem = {this.props.getListItem}
-                    listStack = {this.state.boxconfig.liststack}
-                    collapseCategory = {this.collapseCategory}
-                />
+                <div ref = {this.categoriesbarwrapper}>
+                    <CategoriesBar 
+                        item = {item} 
+                        getListItem = {this.props.getListItem}
+                        listStack = {this.state.boxconfig.liststack}
+                        collapseCategory = {this.collapseCategory}
+                    />
+                </div>
                 <div data-marker = 'databox-scrollbox' style = {scrollbarstyle}>
                     <CategoriesList 
                         listobject = {listobject} 

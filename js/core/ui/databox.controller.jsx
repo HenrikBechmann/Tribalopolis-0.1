@@ -19,6 +19,12 @@ class DataBox extends React.Component {
             boxConfig.liststack.push(ref);
             this.setState({
                 boxConfig,
+            }, () => {
+                let element = this.categoriesbarwrapper.current;
+                element.classList.add('outlinehighlight');
+                setTimeout(() => {
+                    element.classList.remove('outlinehighlight');
+                }, 2000);
             });
         };
         this.collapseCategory = () => {
@@ -51,6 +57,7 @@ class DataBox extends React.Component {
                 itemelement.classList.remove('highlight');
             }, 2000);
         };
+        this.categoriesbarwrapper = React.createRef();
     }
     componentDidMount() {
         this.setState({
@@ -97,7 +104,9 @@ class DataBox extends React.Component {
             height: 'calc(100% - 70px)',
             position: 'relative',
         }}>
-                <CategoriesBar item={item} getListItem={this.props.getListItem} listStack={this.state.boxconfig.liststack} collapseCategory={this.collapseCategory}/>
+                <div ref={this.categoriesbarwrapper}>
+                    <CategoriesBar item={item} getListItem={this.props.getListItem} listStack={this.state.boxconfig.liststack} collapseCategory={this.collapseCategory}/>
+                </div>
                 <div data-marker='databox-scrollbox' style={scrollbarstyle}>
                     <CategoriesList listobject={listobject} getListItem={this.props.getListItem} expandCategory={this.expandCategory} highlightItem={this.highlightItem} highlightrefid={this.state.highlightrefid}/>
                 </div>

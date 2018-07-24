@@ -6,14 +6,8 @@ import FontIcon from 'material-ui/FontIcon';
 import QuantityBadge from '../common/quantitybadge.view';
 import ActionButton from '../common/actionbutton.view';
 class CategoriesBar extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {};
-        // toggleList = () => {
-        //     this.setState({
-        //         open:!this.state.open,
-        //     })
-        // }
+    constructor() {
+        super(...arguments);
         this.barstyle = {
             width: '100%',
             borderRadius: '8px 8px 0 0',
@@ -22,7 +16,6 @@ class CategoriesBar extends React.Component {
             overflow: 'hidden',
             boxSizing: 'border-box',
             marginBottom: '1px',
-            // fontSize:'larger',
             top: '0',
             backgroundColor: '#f2f2f2',
             zIndex: 1,
@@ -52,7 +45,6 @@ class CategoriesBar extends React.Component {
             backgroundColor: 'white',
             cursor: 'pointer',
         };
-        this.barelementref = React.createRef();
     }
     render() {
         let { item, listStack, getListItem } = this.props;
@@ -68,7 +60,7 @@ class CategoriesBar extends React.Component {
         let name = list.properties.name;
         let count = list.properties.aggregates.childcount.amount;
         return <div>
-            <div style={this.barstyle} ref={this.barelementref}>
+            <div style={this.barstyle}>
                 <div style={this.tabwrapperstyle}>
                     <ActionButton icon='more_vert'/>
                     {false ? <ActionButton icon='info'/> : null}

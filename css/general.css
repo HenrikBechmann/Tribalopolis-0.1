@@ -13,3 +13,16 @@
 .highlight {
     animation: highlight 2s;
 }
+
+@keyframes outlinehighlight {
+    0% {
+        outline: green 3px solid; /* lovely yellow colour */
+    }
+    100% {
+        outline: transparent 0px none;
+    }
+}
+
+.outlinehighlight {
+    animation: outlinehighlight 2s;
+}

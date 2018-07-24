@@ -12,20 +12,6 @@ import ActionButton from '../common/actionbutton.view'
 
 class CategoriesBar extends React.Component<any,any> {
 
-    constructor(props) {
-        super(props)
-        this.barelementref = React.createRef()
-    }
-
-    state = {
-    }
-
-    // toggleList = () => {
-    //     this.setState({
-    //         open:!this.state.open,
-    //     })
-    // }
-
     barstyle:React.CSSProperties = {
         width:'100%',
         borderRadius:'8px 8px 0 0',
@@ -34,7 +20,6 @@ class CategoriesBar extends React.Component<any,any> {
         overflow:'hidden',
         boxSizing:'border-box',
         marginBottom: '1px',
-        // fontSize:'larger',
         top:'0',
         backgroundColor:'#f2f2f2',
         zIndex:1,
@@ -68,8 +53,6 @@ class CategoriesBar extends React.Component<any,any> {
         cursor:'pointer',
     }
 
-    barelementref
-
     render() {
 
         let { item,listStack, getListItem } = this.props
@@ -92,7 +75,6 @@ class CategoriesBar extends React.Component<any,any> {
         return <div>
             <div 
                 style = {this.barstyle}
-                ref = {this.barelementref}
             >
                 <div style = {this.tabwrapperstyle}>
                     <ActionButton 
