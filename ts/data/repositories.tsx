@@ -1,4 +1,66 @@
 // workspacedata.tsx
+let maps = {
+    scheme:{
+        common:{
+            tribe:'tribalopolis',
+            parent:null,
+        }
+    },
+}
+
+let schemes = {
+    common:{
+        list:{
+
+        },
+        item:{
+
+        },
+        link:{
+
+        },
+    },
+}
+
+let types = {
+    list:{
+        common:{
+            __default__:{
+                type:{
+
+                },
+                identity:{
+
+                },
+                properties:{
+                    is:{},
+                    has:{},
+                },
+            },
+            member: {
+                type:{
+
+                },
+                identity: {
+
+                },
+                properties: {
+                    is:{},
+                    has:{},
+                },
+            },
+            diaries:{
+            }
+        },
+    },
+    item:{
+
+    },
+    link:{
+
+    },
+}
+
 let lists = {
     diaries:
     {
@@ -17,8 +79,6 @@ let lists = {
                     timestamp:1
                 },
             },
-            is:{},
-            has:{},
         },
         links:[],
     },
@@ -39,8 +99,6 @@ let lists = {
                     timestamp:1
                 },
             },
-            is:{},
-            has:{},
         },
         links:[],
     },
@@ -62,8 +120,6 @@ let lists = {
                     timestamp:1
                 },
             },
-            is:{},
-            has:{},
         },
         links:[],
     },
@@ -84,8 +140,6 @@ let lists = {
                     timestamp:1
                 },
             },
-            is:{},
-            has:{},
         },
         links:[],
     },
@@ -106,8 +160,6 @@ let lists = {
                     timestamp:1
                 },
             },
-            is:{},
-            has:{},
         },
         links:[],
     },
@@ -128,8 +180,6 @@ let lists = {
                     timestamp:1
                 },
             },
-            is:{},
-            has:{},
         },
         links:[],
     },
@@ -150,8 +200,6 @@ let lists = {
                     timestamp:1
                 },
             },
-            is:{},
-            has:{},
         },
         links:[],
     },
@@ -172,8 +220,6 @@ let lists = {
                     timestamp:1
                 },
             },
-            is:{},
-            has:{},
         },
         links:[],
     },
@@ -194,8 +240,6 @@ let lists = {
                     timestamp:1
                 },
             },
-            is:{},
-            has:{},
         },
         links:[],
     },
@@ -216,8 +260,6 @@ let lists = {
                     timestamp:1
                 },
             },
-            is:{},
-            has:{},
         },
         links:[],
     },
@@ -238,8 +280,6 @@ let lists = {
                     timestamp:1
                 },
             },
-            is:{},
-            has:{},
         },
         links:[],
     },
@@ -260,8 +300,6 @@ let lists = {
                     timestamp:1
                 },
             },
-            is:{},
-            has:{},
         },
         links:[],
     },
@@ -282,8 +320,6 @@ let lists = {
                     timestamp:1
                 },
             },
-            is:{},
-            has:{},
         },
         links:[],
     },
@@ -304,8 +340,6 @@ let lists = {
                     timestamp:1
                 },
             },
-            is:{},
-            has:{},
         },
         links:[],
     },
@@ -326,8 +360,6 @@ let lists = {
                     timestamp:1
                 },
             },
-            is:{},
-            has:{},
         },
         links:[],
     },
@@ -349,8 +381,6 @@ let lists = {
                     timestamp:1
                 },
             },
-            is:{},
-            has:{},
         },
         links:[],
 // account, website, home
@@ -373,15 +403,13 @@ let lists = {
                     timestamp:1
                 },
             },
-            is:{},
-            has:{},
         },
         links:[],
     },
     henrik:
     {
         type:{
-            id:'henrik',
+            id:'member',
             scheme:'common',
         },
         identity:{
@@ -396,8 +424,6 @@ let lists = {
                     timestamp:1
                 },
             },
-            is:{},
-            has:{},
         },
         links:[
             {
@@ -497,12 +523,6 @@ let items = {
     },
 }
 
-let schemes = {
-    common:{
-        
-    },
-}
-
 let stacks = [
     [
         {
@@ -530,4 +550,4 @@ let stacks = [
     ],
 ]
 
-export {lists,links, items, schemes, stacks}
+export {lists, links, items, types, schemes, stacks, maps}

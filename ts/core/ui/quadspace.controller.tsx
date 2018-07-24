@@ -17,7 +17,16 @@ import QuadDiamond from './views/quadspace/quaddiamond.view'
 import QuantityBadge from './views/common/quantitybadge.view'
 import QuadStatusBar from './views/quadspace/quadstatusbar.view'
 
-import {lists, links, items, schemes, stacks} from '../../data/repositories'
+import {lists, links, items, types, schemes, stacks, maps} from '../../data/repositories'
+
+let context = {
+    lists,
+    links,
+    items,
+    types,
+    schemes,
+    maps,
+}
 
 class QuadspaceController extends React.Component<any,any> {
 

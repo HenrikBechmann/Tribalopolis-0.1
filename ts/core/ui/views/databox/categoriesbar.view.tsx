@@ -7,7 +7,6 @@ import * as React from 'react'
 import IconButton from 'material-ui/IconButton'
 import FontIcon from 'material-ui/FontIcon'
 
-import CategoriesList from './categorylist.view'
 import QuantityBadge from '../common/quantitybadge.view'
 import ActionButton from '../common/actionbutton.view'
 
@@ -19,8 +18,6 @@ class CategoriesBar extends React.Component<any,any> {
     }
 
     state = {
-        open:true,
-        count:6558,
     }
 
     // toggleList = () => {
@@ -38,7 +35,6 @@ class CategoriesBar extends React.Component<any,any> {
         boxSizing:'border-box',
         marginBottom: '1px',
         // fontSize:'larger',
-        position:'sticky',
         top:'0',
         backgroundColor:'#f2f2f2',
         zIndex:1,
@@ -73,12 +69,6 @@ class CategoriesBar extends React.Component<any,any> {
     }
 
     barelementref
-
-    iconStyle = ():React.CSSProperties => ({
-            transform:'rotate(' + (this.state.open?'0deg':'180deg') + ')',
-            transition:'transform 0.5s .1s ease-out',
-        }
-    )
 
     render() {
 
@@ -138,14 +128,6 @@ class CategoriesBar extends React.Component<any,any> {
                     </div>
                 </div>
             </div>
-            <CategoriesList 
-                refid = {this.props.refid}
-                open = {this.state.open} 
-                list = {list} 
-                highlightItem = {this.props.highlightItem}
-                getListItem = {getListItem}
-                expandCategory = {this.props.expandCategory}
-            />
         </div>
     }
 }

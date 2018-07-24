@@ -11,7 +11,15 @@ import QuadPlatform from './views/quadspace/quadplatform.view';
 import Quadrant from './quadrant.controller';
 import QuantityBadge from './views/common/quantitybadge.view';
 import QuadStatusBar from './views/quadspace/quadstatusbar.view';
-import { lists, items, stacks } from '../../data/repositories';
+import { lists, links, items, types, schemes, stacks, maps } from '../../data/repositories';
+let context = {
+    lists,
+    links,
+    items,
+    types,
+    schemes,
+    maps,
+};
 class QuadspaceController extends React.Component {
     constructor() {
         super(...arguments);

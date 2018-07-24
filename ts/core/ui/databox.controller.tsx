@@ -9,6 +9,7 @@ import BoxTypebar from './views/databox/typebar.view'
 import ProfileBar from './views/databox/profilebar.view'
 import ProfileForm from './views/databox/profileform.view'
 import CategoriesBar from './views/databox/categoriesbar.view'
+import CategoriesList from './views/databox/categorylist.view'
 import ScanBar from './views/databox/scanbar.view'
 
 class DataBox extends React.Component<any,any> {
@@ -22,6 +23,7 @@ class DataBox extends React.Component<any,any> {
         opacity:0,
         boxconfig:this.props.boxConfig,
         refid:null,
+        open:true,
     }
 
     scrollelementref
@@ -54,9 +56,18 @@ class DataBox extends React.Component<any,any> {
     }
 
     highlightItem = (itemref) => {
-        let itemelement = itemref.current
-        let scrollelement = this.scrollelementref.current
-        console.log('do highlight item', itemelement, scrollelement)
+        let itemelement:HTMLElement = itemref.current
+        let scrollelement:HTMLElement = this.scrollelementref.current
+        let clientoffset = 0
+        let element:HTMLElement = itemelement
+        while (element && (element.getAttribute('data-marker') != 'databox-scrollbox')) {
+            clientoffset += element.offsetTop
+            console.log('marker',element.getAttribute('data-marker'),clientoffset)
+            element = element.offsetParent as HTMLElement
+            console.log('next element',element.getAttribute('data-marker'),element)
+        }
+
+        console.log('do highlight item', itemref, itemelement, scrollelement, element, clientoffset)
     }
 
     render() {
@@ -80,32 +91,49 @@ class DataBox extends React.Component<any,any> {
             overflow:'hidden',
         }
 
-        let { item } = this.props
+        let { item,getListItem } = this.props
+
+        let listStack = this.state.boxconfig.liststack
+
+        let { listref:listroot } = item
+
+        let listref
+
+        if (listStack.length) {
+            listref = listStack[listStack.length-1]
+        } else {
+            listref = listroot
+        }
+
+        let list = getListItem(listref)
 
         return <div style = {frameStyle}>
             <BoxTypebar item = {item} />
             <BoxIdentifier item = {item} />
             <div style = {
                     {
-                        overflow:'auto',
-                        height:'calc(100% - 70px)'
+                        height:'calc(100% - 70px)',
+                        position:'relative',
                     }
                 } 
-                data-marker = 'databox-scrollbox'
-                ref = {this.scrollelementref}
             >
-                <div>
-                    <CategoriesBar 
-                        item = {item} 
-                        refid = {this.state.refid}
-                        getListItem = {this.props.getListItem}
-                        listStack = {this.state.boxconfig.liststack}
-                        expandCategory = {this.expandCategory}
-                        collapseCategory = {this.collapseCategory}
+                <CategoriesBar 
+                    item = {item} 
+                    refid = {this.state.refid}
+                    getListItem = {this.props.getListItem}
+                    listStack = {this.state.boxconfig.liststack}
+                    collapseCategory = {this.collapseCategory}
+                />
+                <div style = {{height:'calc(100% - 28px)',overflow:'auto',position:'relative'}}>
+                    <CategoriesList 
+                        refid = {this.props.refid}
+                        open = {this.state.open} 
+                        list = {list} 
                         highlightItem = {this.highlightItem}
+                        getListItem = {this.props.getListItem}
+                        expandCategory = {this.expandCategory}
                     />
                 </div>
-
             </div>
         </div>
     }
