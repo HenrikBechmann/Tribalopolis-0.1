@@ -62,7 +62,7 @@ class DataBox extends React.Component {
         else {
             listref = listroot;
         }
-        let list = getListItem(listref);
+        let listobject = getListItem(listref);
         let frameStyle = {
             width: '300px',
             backgroundColor: 'white',
@@ -92,7 +92,7 @@ class DataBox extends React.Component {
         }}>
                 <CategoriesBar item={item} getListItem={this.props.getListItem} listStack={this.state.boxconfig.liststack} collapseCategory={this.collapseCategory}/>
                 <div data-marker='databox-scrollbox' style={scrollbarstyle}>
-                    <CategoriesList list={list} getListItem={this.props.getListItem} expandCategory={this.expandCategory} highlightItem={this.highlightItem} highlightrefid={this.state.highlightrefid}/>
+                    <CategoriesList listobject={listobject} getListItem={this.props.getListItem} expandCategory={this.expandCategory} highlightItem={this.highlightItem} highlightrefid={this.state.highlightrefid}/>
                 </div>
             </div>
         </div>;

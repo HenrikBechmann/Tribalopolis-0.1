@@ -67,7 +67,7 @@ class DataBox extends React.Component<any,any> {
     render() {
         // console.log('item',this.props.item)
 
-        let { item,getListItem } = this.props
+        let { item, getListItem } = this.props
 
         let listStack = this.state.boxconfig.liststack
 
@@ -81,7 +81,7 @@ class DataBox extends React.Component<any,any> {
             listref = listroot
         }
 
-        let list = getListItem(listref)
+        let listobject = getListItem(listref)
 
         let frameStyle:React.CSSProperties = {
             width:'300px',
@@ -123,7 +123,7 @@ class DataBox extends React.Component<any,any> {
                 />
                 <div data-marker = 'databox-scrollbox' style = {scrollbarstyle}>
                     <CategoriesList 
-                        list = {list} 
+                        listobject = {listobject} 
                         getListItem = {this.props.getListItem}
                         expandCategory = {this.expandCategory}
                         highlightItem = {this.highlightItem}

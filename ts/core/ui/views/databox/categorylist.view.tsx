@@ -14,7 +14,6 @@ class CategoriesList extends React.Component<any,any> {
     listelement = null
 
     componentDidUpdate() {
-        // console.log('list did update',this.props)
         if (!this.props.highlightrefid) return
         this.setState({
             highlightrefid:this.props.highlightrefid,
@@ -31,11 +30,11 @@ class CategoriesList extends React.Component<any,any> {
         }
     }
 
-    getListItems = list => {
+    getListItems = listobject => {
 
         let { getListItem } = this.props
 
-        let { links } = list
+        let { links } = listobject
 
         let catitems = []
         for (let ref of links) {
@@ -63,7 +62,7 @@ class CategoriesList extends React.Component<any,any> {
 
     render() {
 
-        let { list:listobject } = this.props
+        let { listobject } = this.props
 
         let listitems = this.getListItems(listobject)
 

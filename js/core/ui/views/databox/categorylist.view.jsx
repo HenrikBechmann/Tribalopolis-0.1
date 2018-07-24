@@ -15,9 +15,9 @@ class CategoriesList extends React.Component {
                 this.props.expandCategory(ref);
             };
         };
-        this.getListItems = list => {
+        this.getListItems = listobject => {
             let { getListItem } = this.props;
-            let { links } = list;
+            let { links } = listobject;
             let catitems = [];
             for (let ref of links) {
                 let data = getListItem(ref);
@@ -32,7 +32,6 @@ class CategoriesList extends React.Component {
         };
     }
     componentDidUpdate() {
-        // console.log('list did update',this.props)
         if (!this.props.highlightrefid)
             return;
         this.setState({
@@ -44,7 +43,7 @@ class CategoriesList extends React.Component {
         });
     }
     render() {
-        let { list: listobject } = this.props;
+        let { listobject } = this.props;
         let listitems = this.getListItems(listobject);
         return <div style={{
             paddingLeft: '6px',
