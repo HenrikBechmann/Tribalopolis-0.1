@@ -63,16 +63,6 @@ class CategoryItem extends React.Component {
         }
     }
     render() {
-        // console.log('barelementref',this.barelementref)
-        // console.log('props',this.props)
-        // // let newelement
-        // // let barelement = this.barcomponent()
-        // let newelement = React.cloneElement(this.barcomponent())
-        // console.log('newelement',newelement)
-        // let { id,data } = this.props
-        // let {name, sysnode} = data
-        // let count = data.aggregates.childcount.amount
-        // console.log('itemprops',this.props)
         return this.barcomponent();
     }
 }

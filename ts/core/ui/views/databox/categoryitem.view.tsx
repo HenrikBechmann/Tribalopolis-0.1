@@ -48,7 +48,7 @@ class CategoryItem extends React.Component<any,any> {
         cursor:'pointer',
     }
 
-    barelementref
+    barelementref:React.Ref<HTMLDivElement>
 
     componentDidUpdate() {
         if (this.props.highlight && this.barelementref) {
@@ -95,25 +95,8 @@ class CategoryItem extends React.Component<any,any> {
 
     render() {
 
-        // console.log('barelementref',this.barelementref)
-
-        // console.log('props',this.props)
-
-        // // let newelement
-
-        // // let barelement = this.barcomponent()
-
-        // let newelement = React.cloneElement(this.barcomponent())
-
-        // console.log('newelement',newelement)
-
-        // let { id,data } = this.props
-        // let {name, sysnode} = data
-        // let count = data.aggregates.childcount.amount
-
-        // console.log('itemprops',this.props)
-
         return this.barcomponent()
+
     }
 }
 
