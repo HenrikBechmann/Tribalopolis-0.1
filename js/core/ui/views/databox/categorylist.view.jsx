@@ -7,7 +7,7 @@ class CategoriesList extends React.Component {
     constructor() {
         super(...arguments);
         this.state = {
-            refid: null,
+            highlightrefid: null,
         };
         this.listelement = null;
         this.expandCategory = (ref) => {
@@ -21,7 +21,7 @@ class CategoriesList extends React.Component {
             let catitems = [];
             for (let ref of links) {
                 let data = getListItem(ref);
-                let highlight = (ref.id === this.state.refid);
+                let highlight = (ref.id === this.state.highlightrefid);
                 // console.log('highlight vars',ref.id,this.state.refid)
                 let catitem = <CategoryItem key={ref.id} id={ref.id} data={data} expandCategory={this.expandCategory(ref)} highlight={highlight} highlightItem={this.props.highlightItem}/>;
                 catitems.push(catitem);
@@ -33,13 +33,13 @@ class CategoriesList extends React.Component {
     }
     componentDidUpdate() {
         // console.log('list did update',this.props)
-        if (!this.props.refid)
+        if (!this.props.highlightrefid)
             return;
         this.setState({
-            refid: this.props.refid,
+            highlightrefid: this.props.highlightrefid,
         }, () => {
             this.setState({
-                refid: null
+                highlightrefid: null
             });
         });
     }

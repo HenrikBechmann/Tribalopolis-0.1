@@ -16,17 +16,13 @@ class DataBox extends React.Component<any,any> {
 
     constructor(props) {
         super(props)
-        this.scrollelementref = React.createRef()
     }
 
     state = {
         opacity:0,
         boxconfig:this.props.boxConfig,
-        refid:null,
-        open:true,
+        highlightrefid:null,
     }
-
-    scrollelementref
 
     componentDidMount() {
         this.setState({
@@ -47,49 +43,29 @@ class DataBox extends React.Component<any,any> {
         let ref = boxConfig.liststack.pop()
         this.setState({
             boxConfig,
-            refid:ref.id,
+            highlightrefid:ref.id,
         },() => {
             this.setState({
-                refid:null
+                highlightrefid:null
             })
         })
     }
 
     highlightItem = (itemref) => {
         let itemelement:HTMLElement = itemref.current
-        let scrollelement:HTMLElement = this.scrollelementref.current
         let clientoffset = 0
         let element:HTMLElement = itemelement
         while (element && (element.getAttribute('data-marker') != 'databox-scrollbox')) {
             clientoffset += element.offsetTop
-            console.log('marker',element.getAttribute('data-marker'),clientoffset)
             element = element.offsetParent as HTMLElement
-            console.log('next element',element.getAttribute('data-marker'),element)
         }
+        let scrollelement:Element = element
 
         console.log('do highlight item', itemref, itemelement, scrollelement, element, clientoffset)
     }
 
     render() {
         // console.log('item',this.props.item)
-
-        let opacity = this.state.opacity
-
-        let frameStyle:React.CSSProperties = {
-            width:'300px',
-            backgroundColor:'white',
-            border:'1px solid silver',
-            maxHeight:'96%',
-            minHeight:'60%',
-            padding:'3px',
-            boxSizing:'border-box',
-            borderRadius:'8px',
-            marginRight:'16px',
-            fontSize:'smaller',
-            opacity:opacity,
-            transition:'opacity .5s ease-out',
-            overflow:'hidden',
-        }
 
         let { item,getListItem } = this.props
 
@@ -107,6 +83,28 @@ class DataBox extends React.Component<any,any> {
 
         let list = getListItem(listref)
 
+        let frameStyle:React.CSSProperties = {
+            width:'300px',
+            backgroundColor:'white',
+            border:'1px solid silver',
+            maxHeight:'96%',
+            minHeight:'60%',
+            padding:'3px',
+            boxSizing:'border-box',
+            borderRadius:'8px',
+            marginRight:'16px',
+            fontSize:'smaller',
+            opacity:this.state.opacity,
+            transition:'opacity .5s ease-out',
+            overflow:'hidden',
+        }
+
+        let scrollbarstyle:React.CSSProperties = {
+            height:'calc(100% - 28px)',
+            overflow:'auto',
+            position:'relative',
+        }
+
         return <div style = {frameStyle}>
             <BoxTypebar item = {item} />
             <BoxIdentifier item = {item} />
@@ -119,19 +117,17 @@ class DataBox extends React.Component<any,any> {
             >
                 <CategoriesBar 
                     item = {item} 
-                    refid = {this.state.refid}
                     getListItem = {this.props.getListItem}
                     listStack = {this.state.boxconfig.liststack}
                     collapseCategory = {this.collapseCategory}
                 />
-                <div style = {{height:'calc(100% - 28px)',overflow:'auto',position:'relative'}}>
+                <div data-marker = 'databox-scrollbox' style = {scrollbarstyle}>
                     <CategoriesList 
-                        refid = {this.props.refid}
-                        open = {this.state.open} 
                         list = {list} 
-                        highlightItem = {this.highlightItem}
                         getListItem = {this.props.getListItem}
                         expandCategory = {this.expandCategory}
+                        highlightItem = {this.highlightItem}
+                        highlightrefid = {this.state.highlightrefid}
                     />
                 </div>
             </div>

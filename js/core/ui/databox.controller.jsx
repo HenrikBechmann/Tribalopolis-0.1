@@ -12,8 +12,7 @@ class DataBox extends React.Component {
         this.state = {
             opacity: 0,
             boxconfig: this.props.boxConfig,
-            refid: null,
-            open: true,
+            highlightrefid: null,
         };
         this.expandCategory = (ref) => {
             let boxConfig = this.state.boxconfig;
@@ -27,27 +26,24 @@ class DataBox extends React.Component {
             let ref = boxConfig.liststack.pop();
             this.setState({
                 boxConfig,
-                refid: ref.id,
+                highlightrefid: ref.id,
             }, () => {
                 this.setState({
-                    refid: null
+                    highlightrefid: null
                 });
             });
         };
         this.highlightItem = (itemref) => {
             let itemelement = itemref.current;
-            let scrollelement = this.scrollelementref.current;
             let clientoffset = 0;
             let element = itemelement;
             while (element && (element.getAttribute('data-marker') != 'databox-scrollbox')) {
                 clientoffset += element.offsetTop;
-                console.log('marker', element.getAttribute('data-marker'), clientoffset);
                 element = element.offsetParent;
-                console.log('next element', element.getAttribute('data-marker'), element);
             }
+            let scrollelement = element;
             console.log('do highlight item', itemref, itemelement, scrollelement, element, clientoffset);
         };
-        this.scrollelementref = React.createRef();
     }
     componentDidMount() {
         this.setState({
@@ -56,22 +52,6 @@ class DataBox extends React.Component {
     }
     render() {
         // console.log('item',this.props.item)
-        let opacity = this.state.opacity;
-        let frameStyle = {
-            width: '300px',
-            backgroundColor: 'white',
-            border: '1px solid silver',
-            maxHeight: '96%',
-            minHeight: '60%',
-            padding: '3px',
-            boxSizing: 'border-box',
-            borderRadius: '8px',
-            marginRight: '16px',
-            fontSize: 'smaller',
-            opacity: opacity,
-            transition: 'opacity .5s ease-out',
-            overflow: 'hidden',
-        };
         let { item, getListItem } = this.props;
         let listStack = this.state.boxconfig.liststack;
         let { listref: listroot } = item;
@@ -83,6 +63,26 @@ class DataBox extends React.Component {
             listref = listroot;
         }
         let list = getListItem(listref);
+        let frameStyle = {
+            width: '300px',
+            backgroundColor: 'white',
+            border: '1px solid silver',
+            maxHeight: '96%',
+            minHeight: '60%',
+            padding: '3px',
+            boxSizing: 'border-box',
+            borderRadius: '8px',
+            marginRight: '16px',
+            fontSize: 'smaller',
+            opacity: this.state.opacity,
+            transition: 'opacity .5s ease-out',
+            overflow: 'hidden',
+        };
+        let scrollbarstyle = {
+            height: 'calc(100% - 28px)',
+            overflow: 'auto',
+            position: 'relative',
+        };
         return <div style={frameStyle}>
             <BoxTypebar item={item}/>
             <BoxIdentifier item={item}/>
@@ -90,9 +90,9 @@ class DataBox extends React.Component {
             height: 'calc(100% - 70px)',
             position: 'relative',
         }}>
-                <CategoriesBar item={item} refid={this.state.refid} getListItem={this.props.getListItem} listStack={this.state.boxconfig.liststack} collapseCategory={this.collapseCategory}/>
-                <div style={{ height: 'calc(100% - 28px)', overflow: 'auto', position: 'relative' }}>
-                    <CategoriesList refid={this.props.refid} open={this.state.open} list={list} highlightItem={this.highlightItem} getListItem={this.props.getListItem} expandCategory={this.expandCategory}/>
+                <CategoriesBar item={item} getListItem={this.props.getListItem} listStack={this.state.boxconfig.liststack} collapseCategory={this.collapseCategory}/>
+                <div data-marker='databox-scrollbox' style={scrollbarstyle}>
+                    <CategoriesList list={list} getListItem={this.props.getListItem} expandCategory={this.expandCategory} highlightItem={this.highlightItem} highlightrefid={this.state.highlightrefid}/>
                 </div>
             </div>
         </div>;
