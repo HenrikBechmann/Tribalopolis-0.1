@@ -61,7 +61,10 @@ class DataBox extends React.Component<any,any> {
         }
         let scrollelement:Element = element
 
-        console.log('do highlight item', itemref, itemelement, scrollelement, element, clientoffset)
+        let diff = (clientoffset + itemelement.offsetHeight) - scrollelement.clientHeight
+        if (diff > 0) {
+            scrollelement.scrollTop = diff
+        }
     }
 
     render() {
