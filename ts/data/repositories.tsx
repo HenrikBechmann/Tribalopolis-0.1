@@ -4,13 +4,10 @@ let lists = {
     {
         type:{
             id:'diaries',
-            parent_index:'notes.timelogs',
             scheme:'common',
         },
         identity:{
-            sessionid:0,
-            systemid:'x',
-            systemkey:'home:henrik::henrik',
+            id:'x',
         },
         properties:{
             name:'Diaries',
@@ -20,6 +17,8 @@ let lists = {
                     timestamp:1
                 },
             },
+            is:{},
+            has:{},
         },
         links:[],
     },
@@ -27,14 +26,11 @@ let lists = {
     {
         type:{
             id:'notes',
-            parent_index:'notes.timelogs',
             scheme:'common',
         },
         identity:{
-            sessionid:1,
-            systemid:'x',
-            systemkey:'home:henrik::henrik',
-        },
+             id:'x',
+       },
         properties:{
             name:'Notes',
             aggregates:{
@@ -43,6 +39,8 @@ let lists = {
                     timestamp:1
                 },
             },
+            is:{},
+            has:{},
         },
         links:[],
     },
@@ -50,13 +48,10 @@ let lists = {
     {
         type:{
             id:'tribes',
-            parent_index:'notes.timelogs',
             scheme:'common',
         },
         identity:{
-            sessionid:2,
-            systemid:'x',
-            systemkey:'home:henrik::henrik',
+            id:'x',
         },
         properties:{
             name:'Tribes',
@@ -67,6 +62,8 @@ let lists = {
                     timestamp:1
                 },
             },
+            is:{},
+            has:{},
         },
         links:[],
     },
@@ -74,22 +71,21 @@ let lists = {
     {
         type:{
             id:'connections',
-            parent_index:'notes.timelogs',
             scheme:'common',
         },
         identity:{
-            sessionid:3,
-            systemid:'x',
-            systemkey:'home:henrik::henrik',
+            id:'x',
         },
         properties:{
-            name:'Connections',
+            name:'Contacts',
             aggregates:{
                 childcount:{
                     amount:23,
                     timestamp:1
                 },
             },
+            is:{},
+            has:{},
         },
         links:[],
     },
@@ -97,13 +93,10 @@ let lists = {
     {
         type:{
             id:'requesting',
-            parent_index:'notes.timelogs',
             scheme:'common',
         },
         identity:{
-            sessionid:4,
-            systemid:'x',
-            systemkey:'home:henrik::henrik',
+            id:'x',
         },
         properties:{
             name:'Outgoing action requests',
@@ -113,6 +106,8 @@ let lists = {
                     timestamp:1
                 },
             },
+            is:{},
+            has:{},
         },
         links:[],
     },
@@ -120,13 +115,10 @@ let lists = {
     {
         type:{
             id:'pending',
-            parent_index:'notes.timelogs',
             scheme:'common',
         },
         identity:{
-            sessionid:5,
-            systemid:'x',
-            systemkey:'home:henrik::henrik',
+            id:'x',
         },
         properties:{
             name:'Incoming action requests',
@@ -136,6 +128,8 @@ let lists = {
                     timestamp:1
                 },
             },
+            is:{},
+            has:{},
         },
         links:[],
     },
@@ -143,13 +137,10 @@ let lists = {
     {
         type:{
             id:'roles',
-            parent_index:'notes.timelogs',
             scheme:'common',
         },
         identity:{
-            sessionid:6,
-            systemid:'x',
-            systemkey:'home:henrik::henrik',
+            id:'x',
         },
         properties:{
             name:'Roles',
@@ -159,6 +150,8 @@ let lists = {
                     timestamp:1
                 },
             },
+            is:{},
+            has:{},
         },
         links:[],
     },
@@ -166,13 +159,10 @@ let lists = {
     {
         type:{
             id:'programs',
-            parent_index:'notes.timelogs',
             scheme:'common',
         },
         identity:{
-            sessionid:7,
-            systemid:'x',
-            systemkey:'home:henrik::henrik',
+            id:'x',
         },
         properties:{
             name:'Programs',
@@ -182,6 +172,8 @@ let lists = {
                     timestamp:1
                 },
             },
+            is:{},
+            has:{},
         },
         links:[],
     },
@@ -189,13 +181,10 @@ let lists = {
     {
         type:{
             id:'projects',
-            parent_index:'notes.timelogs',
             scheme:'common',
         },
         identity:{
-            sessionid:8,
-            systemid:'x',
-            systemkey:'home:henrik::henrik',
+            id:'x',
         },
         properties:{
             name:'Projects',
@@ -205,6 +194,8 @@ let lists = {
                     timestamp:1
                 },
             },
+            is:{},
+            has:{},
         },
         links:[],
     },
@@ -212,13 +203,10 @@ let lists = {
     {
         type:{
             id:'tasks',
-            parent_index:'notes.timelogs',
             scheme:'common',
         },
         identity:{
-            sessionid:9,
-            systemid:'x',
-            systemkey:'home:henrik::henrik',
+            id:'x',
         },
         properties:{
             name:'Tasks',
@@ -228,6 +216,8 @@ let lists = {
                     timestamp:1
                 },
             },
+            is:{},
+            has:{},
         },
         links:[],
     },
@@ -235,13 +225,10 @@ let lists = {
     {
         type:{
             id:'messengers',
-            parent_index:'notes.timelogs',
             scheme:'common',
         },
         identity:{
-            sessionid:10,
-            systemid:'x',
-            systemkey:'home:henrik::henrik',
+            id:'x',
         },
         properties:{
             name:'Direct Messages ',
@@ -251,6 +238,8 @@ let lists = {
                     timestamp:1
                 },
             },
+            is:{},
+            has:{},
         },
         links:[],
     },
@@ -258,13 +247,10 @@ let lists = {
     {
         type:{
             type:'messengers',
-            parent_type_index:'notes.timelogs',
             type_scheme:'common',
         },
         identity:{
-            sessionid:11,
-            systemid:'x',
-            systemkey:'home:henrik::henrik',
+            id:'x',
         },
         properties:{
             name:'Message Streams ',
@@ -274,6 +260,8 @@ let lists = {
                     timestamp:1
                 },
             },
+            is:{},
+            has:{},
         },
         links:[],
     },
@@ -281,13 +269,10 @@ let lists = {
     {
         type:{
             id:'resources',
-            parent_index:'notes.timelogs',
             scheme:'common',
         },
         identity:{
-            sessionid:12,
-            systemid:'x',
-            systemkey:'home:henrik::henrik',
+            id:'x',
         },
         properties:{
             name:'Resources',
@@ -297,6 +282,8 @@ let lists = {
                     timestamp:1
                 },
             },
+            is:{},
+            has:{},
         },
         links:[],
     },
@@ -304,13 +291,10 @@ let lists = {
     {
         type:{
             type:'calendars',
-            parent_type_index:'notes.timelogs',
             type_scheme:'common',
         },
         identity:{
-            sessionid:12,
-            systemid:'x',
-            systemkey:'home:henrik::henrik',
+            id:'x',
         },
         properties:{
             name:'Calendars',
@@ -320,6 +304,8 @@ let lists = {
                     timestamp:1
                 },
             },
+            is:{},
+            has:{},
         },
         links:[],
     },
@@ -327,13 +313,10 @@ let lists = {
     {
         type:{
             id:'accounting',
-            parent__index:'notes.timelogs',
             scheme:'common',
         },
         identity:{
-            sessionid:13,
-            systemid:'x',
-            systemkey:'home:henrik::henrik',
+            id:'x',
         },
         properties:{
             name:'Accounting',
@@ -343,6 +326,8 @@ let lists = {
                     timestamp:1
                 },
             },
+            is:{},
+            has:{},
         },
         links:[],
     },
@@ -350,13 +335,10 @@ let lists = {
     {
         type:{
             id:'other',
-            parent_index:'notes.timelogs',
             scheme:'common',
         },
         identity:{
-            sessionid:14,
-            systemid:'x',
-            systemkey:'home:henrik::henrik',
+            id:'x',
         },
         properties:{
             name:'Membership',
@@ -367,6 +349,8 @@ let lists = {
                     timestamp:1
                 },
             },
+            is:{},
+            has:{},
         },
         links:[],
 // account, website, home
@@ -375,13 +359,10 @@ let lists = {
     {
         type:{
             id:'other',
-            parent_index:'notes.timelogs',
             scheme:'common',
         },
         identity:{
-            sessionid:15,
-            systemid:'x',
-            systemkey:'home:henrik::henrik',
+            id:'x',
         },
         properties:{
             name:'More...',
@@ -392,6 +373,8 @@ let lists = {
                     timestamp:1
                 },
             },
+            is:{},
+            has:{},
         },
         links:[],
     },
@@ -399,13 +382,10 @@ let lists = {
     {
         type:{
             id:'henrik',
-            parent_index:'notes.timelogs',
             scheme:'common',
         },
         identity:{
-            sessionid:15,
-            systemid:'x',
-            systemkey:'home:henrik::henrik',
+            id:'x',
         },
         properties:{
             name:'Links',
@@ -416,6 +396,8 @@ let lists = {
                     timestamp:1
                 },
             },
+            is:{},
+            has:{},
         },
         links:[
             {
@@ -500,7 +482,6 @@ let items = {
             scheme:'common',
         },
         identity:{
-            sessionid:0,
             id:'henrik',
         },
         properties:{
