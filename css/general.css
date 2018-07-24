@@ -1,2 +1,15 @@
 .base-appear { opacity: 0.01 }
 .base-appear.base-appear-active { opacity: 1; transition: opacity 0.5s ease-in; }
+
+@keyframes highlight {
+    0% {
+        background: orange; /* lovely yellow colour */
+    }
+    100% {
+        background: none;
+    }
+}
+
+.highlight {
+    animation: highlight 2s;
+}

@@ -65,6 +65,11 @@ class DataBox extends React.Component<any,any> {
         if (diff > 0) {
             scrollelement.scrollTop = diff
         }
+
+        itemelement.classList.add('highlight')
+        setTimeout(() => {
+            itemelement.classList.remove('highlight')
+        },2000)
     }
 
     render() {
