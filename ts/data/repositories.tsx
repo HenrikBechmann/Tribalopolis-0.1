@@ -525,28 +525,36 @@ let items = {
 
 let stacks = [
     [
-        {
-            ref:{repo:'items',id:'henrik'},
-            liststack:[],
-        },
+        [
+            {
+                ref:{repo:'items',id:'henrik'},
+                liststack:[],
+            },
+        ],
     ],
     [
-        {
-            ref:{repo:'items',id:'henrik'},
-            liststack:[],
-        },
+        [
+            {
+                ref:{repo:'items',id:'henrik'},
+                liststack:[],
+            },
+        ],
     ],
     [
-        {
-            ref:{repo:'items',id:'henrik'},
-            liststack:[],
-        },
+        [
+            {
+                ref:{repo:'items',id:'henrik'},
+                liststack:[],
+            },
+        ],
     ],
     [
-        {
-            ref:{repo:'items',id:'henrik'},
-            liststack:[],
-        },
+        [
+            {
+                ref:{repo:'items',id:'henrik'},
+                liststack:[],
+            },
+        ],
     ],
 ]
 

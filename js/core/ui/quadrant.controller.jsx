@@ -89,14 +89,19 @@ class Quadrant extends React.Component {
         };
         this.position = null;
         this.element = null;
+        this.splayBox = (boxptr) => {
+            console.log('splay box for ptr', boxptr);
+        };
         this.getBoxes = () => {
             let boxes = [];
             // console.log('quadrant state',this.state)
             let { datastack, stackpointer } = this.state;
             if (datastack) {
-                boxes = this.state.datastack.map((boxconfig) => {
+                boxes = this.state.datastack[stackpointer].map((boxconfig, index) => {
                     let item = this.getItem(boxconfig.ref);
-                    return (<DataBox key={item.identity.sessionid} item={item} getListItem={this.getListItem} boxConfig={boxconfig}/>);
+                    return (<DataBox key={index} item={item} getListItem={this.getListItem} boxConfig={boxconfig} splayBox={() => {
+                        this.splayBox(index);
+                    }}/>);
                 });
             }
             return boxes;
@@ -127,6 +132,7 @@ class Quadrant extends React.Component {
         }
     }
     render() {
+        console.log('quadrant state', this.state);
         let { color } = this.props;
         let { quadrant } = this.state;
         let { top, left, bottom, right } = this.position;

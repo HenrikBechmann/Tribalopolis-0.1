@@ -97,9 +97,9 @@ class DataBox extends React.Component {
             overflow: 'auto',
             position: 'relative',
         };
-        console.log('listobject in databox', listobject);
+        // console.log('listobject in databox',listobject)
         return <div style={frameStyle}>
-            <BoxTypebar item={item} listcount={listobject.links.length}/>
+            <BoxTypebar item={item} listcount={listobject.links.length} splayBox={this.props.splayBox}/>
             <BoxIdentifier item={item}/>
             <div style={{
             height: 'calc(100% - 70px)',

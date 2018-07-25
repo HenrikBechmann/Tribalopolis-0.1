@@ -23,7 +23,7 @@ const BoxToolbar = props => {
 
     let boxicon = '/public/icons/databox.svg'
 
-    console.log('props in boxtoolbar',props, !!props.listcount)
+    // console.log('props in boxtoolbar',props, !!props.listcount)
 
     return <div style = {styles}>
 
@@ -44,6 +44,7 @@ const BoxToolbar = props => {
         <ActionButton 
             img = '/public/icons/ic_splay_24px.svg'
             disabled = {!props.listcount} 
+            action = {props.splayBox}
         />
 
         <ActionButton 

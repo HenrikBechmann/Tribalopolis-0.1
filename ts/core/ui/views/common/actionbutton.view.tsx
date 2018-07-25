@@ -36,7 +36,7 @@ const ActionButton = (props:propsInterface) => {
         opacity:disabled?.3:1
     }
 
-    console.log('disabled in actionbutton',disabled)
+    // console.log('disabled in actionbutton',disabled)
 
     let theButtonStyle = {...defaultButtonStyle, ...buttonStyle}    
 

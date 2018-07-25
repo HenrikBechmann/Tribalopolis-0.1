@@ -481,28 +481,36 @@ let items = {
 };
 let stacks = [
     [
-        {
-            ref: { repo: 'items', id: 'henrik' },
-            liststack: [],
-        },
+        [
+            {
+                ref: { repo: 'items', id: 'henrik' },
+                liststack: [],
+            },
+        ],
     ],
     [
-        {
-            ref: { repo: 'items', id: 'henrik' },
-            liststack: [],
-        },
+        [
+            {
+                ref: { repo: 'items', id: 'henrik' },
+                liststack: [],
+            },
+        ],
     ],
     [
-        {
-            ref: { repo: 'items', id: 'henrik' },
-            liststack: [],
-        },
+        [
+            {
+                ref: { repo: 'items', id: 'henrik' },
+                liststack: [],
+            },
+        ],
     ],
     [
-        {
-            ref: { repo: 'items', id: 'henrik' },
-            liststack: [],
-        },
+        [
+            {
+                ref: { repo: 'items', id: 'henrik' },
+                liststack: [],
+            },
+        ],
     ],
 ];
 export { lists, links, items, types, schemes, stacks, maps };
