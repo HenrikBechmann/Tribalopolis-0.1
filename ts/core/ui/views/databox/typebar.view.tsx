@@ -23,6 +23,8 @@ const BoxToolbar = props => {
 
     let boxicon = '/public/icons/databox.svg'
 
+    console.log('props in boxtoolbar',props, !!props.listcount)
+
     return <div style = {styles}>
 
         <div style = {
@@ -40,7 +42,8 @@ const BoxToolbar = props => {
             <img style = {{verticalAlign:'bottom'}} src = {boxicon} />
         </div>
         <ActionButton 
-            img = '/public/icons/ic_splay_24px.svg' 
+            img = '/public/icons/ic_splay_24px.svg'
+            disabled = {!props.listcount} 
         />
 
         <ActionButton 

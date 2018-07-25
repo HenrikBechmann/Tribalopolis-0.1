@@ -13,15 +13,16 @@ const ActionButton = (props) => {
         verticalAlign: 'bottom',
         marginRight: '3px'
     };
-    let defaultIconStyle = {
-    // ...defaultButtonStyle,
-    };
     let { buttonStyle, iconStyle, action, icon, img, disabled } = props;
+    let defaultIconStyle = {
+        opacity: disabled ? .3 : 1
+    };
+    console.log('disabled in actionbutton', disabled);
     let theButtonStyle = Object.assign({}, defaultButtonStyle, buttonStyle);
     let theIconStyle = Object.assign({}, defaultIconStyle, iconStyle);
     let iconcomponent = icon ? <FontIcon className='material-icons'>{icon}</FontIcon> :
         <img style={{ verticalAlign: 'middle' }} src={img}/>;
-    let onClickVal = action
+    let onClickVal = (action && !disabled)
         ? () => { action(); }
         : () => { };
     return (<IconButton style={theButtonStyle} iconStyle={theIconStyle} onClick={onClickVal} disabled={disabled}>

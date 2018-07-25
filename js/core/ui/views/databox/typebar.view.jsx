@@ -15,6 +15,7 @@ const BoxToolbar = props => {
         boxSizing: 'border-box',
     };
     let boxicon = '/public/icons/databox.svg';
+    console.log('props in boxtoolbar', props, !!props.listcount);
     return <div style={styles}>
 
         <div style={{
@@ -29,7 +30,7 @@ const BoxToolbar = props => {
     }}>
             <img style={{ verticalAlign: 'bottom' }} src={boxicon}/>
         </div>
-        <ActionButton img='/public/icons/ic_splay_24px.svg'/>
+        <ActionButton img='/public/icons/ic_splay_24px.svg' disabled={!props.listcount}/>
 
         <ActionButton iconStyle={{ transform: 'rotate(90deg)', opacity: 0.3 }} disabled img='/public/icons/ic_splay_24px.svg'/>
 

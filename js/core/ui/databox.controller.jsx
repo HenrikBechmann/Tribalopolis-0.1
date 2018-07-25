@@ -97,8 +97,9 @@ class DataBox extends React.Component {
             overflow: 'auto',
             position: 'relative',
         };
+        console.log('listobject in databox', listobject);
         return <div style={frameStyle}>
-            <BoxTypebar item={item}/>
+            <BoxTypebar item={item} listcount={listobject.links.length}/>
             <BoxIdentifier item={item}/>
             <div style={{
             height: 'calc(100% - 70px)',
@@ -108,7 +109,7 @@ class DataBox extends React.Component {
                     <CategoriesBar item={item} getListItem={this.props.getListItem} listStack={this.state.boxconfig.liststack} collapseCategory={this.collapseCategory}/>
                 </div>
                 <div data-marker='databox-scrollbox' style={scrollbarstyle}>
-                    <CategoriesList listobject={listobject} getListItem={this.props.getListItem} expandCategory={this.expandCategory} highlightItem={this.highlightItem} highlightrefid={this.state.highlightrefid}/>
+                    <CategoriesList listobject={listobject} highlightrefid={this.state.highlightrefid} getListItem={this.props.getListItem} expandCategory={this.expandCategory} highlightItem={this.highlightItem}/>
                 </div>
             </div>
         </div>;

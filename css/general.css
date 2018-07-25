@@ -3,7 +3,7 @@
 
 @keyframes highlight {
     0% {
-        background: orange; /* lovely yellow colour */
+        background: orange; 
     }
     100% {
         background: none;
@@ -16,7 +16,7 @@
 
 @keyframes outlinehighlight {
     0% {
-        outline: green 3px solid; /* lovely yellow colour */
+        outline: green 3px solid; 
     }
     100% {
         outline: transparent 0px none;

@@ -7,6 +7,7 @@ import * as React from 'react'
 
 import IconButton from 'material-ui/IconButton'
 import FontIcon from 'material-ui/FontIcon'
+import SvgIcon from 'material-ui/SvgIcon'
 
 interface propsInterface {
     buttonStyle?:React.CSSProperties,
@@ -29,11 +30,13 @@ const ActionButton = (props:propsInterface) => {
         marginRight:'3px'
     }
 
+    let {buttonStyle, iconStyle, action, icon, img, disabled} = props
+
     let defaultIconStyle:React.CSSProperties = {
-        // ...defaultButtonStyle,
+        opacity:disabled?.3:1
     }
 
-    let {buttonStyle, iconStyle, action, icon, img, disabled} = props
+    console.log('disabled in actionbutton',disabled)
 
     let theButtonStyle = {...defaultButtonStyle, ...buttonStyle}    
 
@@ -42,7 +45,7 @@ const ActionButton = (props:propsInterface) => {
     let iconcomponent = icon?<FontIcon className='material-icons'>{icon}</FontIcon>:
     <img style = {{verticalAlign:'middle'}} src = {img} />
     let onClickVal = 
-        action
+        (action && !disabled)
             ?() => {action()}
             :() => {}
     return (
