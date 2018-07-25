@@ -11,6 +11,9 @@ import ProfileForm from './views/databox/profileform.view'
 import CategoriesBar from './views/databox/categoriesbar.view'
 import CategoriesList from './views/databox/categorylist.view'
 import ScanBar from './views/databox/scanbar.view'
+import FloatingActionButton from 'material-ui/FloatingActionButton';
+import ContentAdd from 'material-ui/svg-icons/content/add'
+import ContentEdit from 'material-ui/svg-icons/image/edit'
 
 class DataBox extends React.Component<any,any> {
 
@@ -84,6 +87,16 @@ class DataBox extends React.Component<any,any> {
     render() {
         // console.log('item',this.props.item)
 
+        let modifybuttons = (
+            <div style = {{position:'absolute',bottom:'-8px',right:'0'}}>
+                <FloatingActionButton mini = {true} style={{marginRight:'12px'}}>
+                  <ContentEdit />
+                </FloatingActionButton>
+                <FloatingActionButton secondary = {true} mini = {true} style={{marginRight:'12px'}} >
+                  <ContentAdd />
+                </FloatingActionButton>
+            </div>
+        )
         let { item, getListItem } = this.props
 
         let listStack = this.state.boxconfig.liststack
@@ -113,7 +126,6 @@ class DataBox extends React.Component<any,any> {
             fontSize:'smaller',
             opacity:this.state.opacity,
             transition:'opacity .5s ease-out',
-            overflow:'hidden',
         }
 
         let scrollbarstyle:React.CSSProperties = {
@@ -155,6 +167,7 @@ class DataBox extends React.Component<any,any> {
                         highlightItem = {this.highlightItem}
                     />
                 </div>
+                {modifybuttons}
             </div>
         </div>
     }

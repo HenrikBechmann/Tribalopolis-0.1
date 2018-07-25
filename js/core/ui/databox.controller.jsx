@@ -6,6 +6,9 @@ import BoxIdentifier from './views/databox/identitybar.view';
 import BoxTypebar from './views/databox/typebar.view';
 import CategoriesBar from './views/databox/categoriesbar.view';
 import CategoriesList from './views/databox/categorylist.view';
+import FloatingActionButton from 'material-ui/FloatingActionButton';
+import ContentAdd from 'material-ui/svg-icons/content/add';
+import ContentEdit from 'material-ui/svg-icons/image/edit';
 class DataBox extends React.Component {
     constructor(props) {
         super(props);
@@ -66,6 +69,14 @@ class DataBox extends React.Component {
     }
     render() {
         // console.log('item',this.props.item)
+        let modifybuttons = (<div style={{ position: 'absolute', bottom: '-8px', right: '0' }}>
+                <FloatingActionButton mini={true} style={{ marginRight: '12px' }}>
+                  <ContentEdit />
+                </FloatingActionButton>
+                <FloatingActionButton secondary={true} mini={true} style={{ marginRight: '12px' }}>
+                  <ContentAdd />
+                </FloatingActionButton>
+            </div>);
         let { item, getListItem } = this.props;
         let listStack = this.state.boxconfig.liststack;
         let { listref: listroot } = item;
@@ -90,7 +101,6 @@ class DataBox extends React.Component {
             fontSize: 'smaller',
             opacity: this.state.opacity,
             transition: 'opacity .5s ease-out',
-            overflow: 'hidden',
         };
         let scrollbarstyle = {
             height: 'calc(100% - 28px)',
@@ -111,6 +121,7 @@ class DataBox extends React.Component {
                 <div data-marker='databox-scrollbox' style={scrollbarstyle}>
                     <CategoriesList listobject={listobject} highlightrefid={this.state.highlightrefid} getListItem={this.props.getListItem} expandCategory={this.expandCategory} highlightItem={this.highlightItem}/>
                 </div>
+                {modifybuttons}
             </div>
         </div>;
     }

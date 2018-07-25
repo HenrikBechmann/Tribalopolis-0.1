@@ -69,6 +69,7 @@ class CategoriesList extends React.Component<any,any> {
         return <div style = {
             {
                 paddingLeft:'6px',
+                paddingBottom:'32px',
             }
         }>
             {listitems}
