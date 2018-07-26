@@ -22,7 +22,6 @@ class CategoriesList extends React.Component {
             for (let ref of links) {
                 let data = getListItem(ref);
                 let highlight = (ref.id === this.state.highlightrefid);
-                // console.log('highlight vars',ref.id,this.state.refid)
                 let catitem = <CategoryItem key={ref.id} id={ref.id} data={data} expandCategory={this.expandCategory(ref)} highlight={highlight} highlightItem={this.props.highlightItem}/>;
                 catitems.push(catitem);
             }

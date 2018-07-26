@@ -13,7 +13,6 @@ import CategoriesList from './views/databox/categorylist.view'
 import ScanBar from './views/databox/scanbar.view'
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add'
-import ContentEdit from 'material-ui/svg-icons/image/edit'
 
 class DataBox extends React.Component<any,any> {
 
@@ -53,6 +52,7 @@ class DataBox extends React.Component<any,any> {
     collapseCategory = () => {
         let boxConfig = this.state.boxconfig
         let ref = boxConfig.liststack.pop()
+
         this.setState({
             boxConfig,
             highlightrefid:ref.id,
@@ -64,6 +64,7 @@ class DataBox extends React.Component<any,any> {
     }
 
     highlightItem = (itemref) => {
+
         let itemelement:HTMLElement = itemref.current
         let clientoffset = 0
         let element:HTMLElement = itemelement
@@ -87,16 +88,6 @@ class DataBox extends React.Component<any,any> {
     render() {
         // console.log('item',this.props.item)
 
-        let modifybuttons = (
-            <div style = {{position:'absolute',bottom:'-8px',right:'0'}}>
-                <FloatingActionButton mini = {true} style={{marginRight:'12px'}}>
-                  <ContentEdit />
-                </FloatingActionButton>
-                <FloatingActionButton secondary = {true} mini = {true} style={{marginRight:'12px'}} >
-                  <ContentAdd />
-                </FloatingActionButton>
-            </div>
-        )
         let { item, getListItem } = this.props
 
         let listStack = this.state.boxconfig.liststack
@@ -128,18 +119,28 @@ class DataBox extends React.Component<any,any> {
             transition:'opacity .5s ease-out',
         }
 
-        let scrollbarstyle:React.CSSProperties = {
-            height:'calc(100% - 28px)',
+        let scrollboxstyle:React.CSSProperties = {
+            height:'calc(100% - 32px)',
             overflow:'auto',
             position:'relative',
         }
 
         // console.log('listobject in databox',listobject)
 
+        let listcount = listobject.links.length
+        // placeholder logic for showing add button
+        let modifybuttons = (
+            (!listcount)?<div style = {{position:'absolute',bottom:'-8px',right:'0'}}>
+                <FloatingActionButton secondary = {true} mini = {true} style={{marginRight:'12px'}} >
+                  <ContentAdd />
+                </FloatingActionButton>
+            </div>:null
+        )
+
         return <div style = {frameStyle}>
             <BoxTypebar 
                 item = {item} 
-                listcount = {listobject.links.length}
+                listcount = {listcount}
                 splayBox = {this.props.splayBox}
             />
             <BoxIdentifier item = {item} />
@@ -148,7 +149,7 @@ class DataBox extends React.Component<any,any> {
                         height:'calc(100% - 70px)',
                         position:'relative',
                     }
-                } 
+                }
             >
                 <div ref = {this.categoriesbarwrapper}>
                     <CategoriesBar 
@@ -158,7 +159,7 @@ class DataBox extends React.Component<any,any> {
                         collapseCategory = {this.collapseCategory}
                     />
                 </div>
-                <div data-marker = 'databox-scrollbox' style = {scrollbarstyle}>
+                <div data-marker = 'databox-scrollbox' style = {scrollboxstyle}>
                     <CategoriesList 
                         listobject = {listobject} 
                         highlightrefid = {this.state.highlightrefid}
