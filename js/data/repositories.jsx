@@ -25,15 +25,16 @@ let types = {
                     has: {},
                 },
             },
-            member: {
+            outgoing: {
                 type: {},
                 identity: {},
                 properties: {
-                    is: {},
+                    is: {
+                        outgoing: true,
+                    },
                     has: {},
                 },
             },
-            diaries: {}
         },
     },
     item: {},
@@ -42,7 +43,7 @@ let types = {
 let lists = {
     diaries: {
         type: {
-            id: 'diaries',
+            id: 'outgoing',
             scheme: 'common',
         },
         identity: {
@@ -61,7 +62,7 @@ let lists = {
     },
     notes: {
         type: {
-            id: 'notes',
+            id: 'outgoing',
             scheme: 'common',
         },
         identity: {
@@ -80,7 +81,7 @@ let lists = {
     },
     tribes: {
         type: {
-            id: 'tribes',
+            id: 'outgoing',
             scheme: 'common',
         },
         identity: {
@@ -100,7 +101,7 @@ let lists = {
     },
     connections: {
         type: {
-            id: 'connections',
+            id: 'outgoing',
             scheme: 'common',
         },
         identity: {
@@ -119,7 +120,7 @@ let lists = {
     },
     requesting: {
         type: {
-            id: 'requesting',
+            id: 'outgoing',
             scheme: 'common',
         },
         identity: {
@@ -157,7 +158,7 @@ let lists = {
     },
     roles: {
         type: {
-            id: 'roles',
+            id: 'outgoing',
             scheme: 'common',
         },
         identity: {
@@ -176,7 +177,7 @@ let lists = {
     },
     programs: {
         type: {
-            id: 'programs',
+            id: 'outgoing',
             scheme: 'common',
         },
         identity: {
@@ -195,7 +196,7 @@ let lists = {
     },
     projects: {
         type: {
-            id: 'projects',
+            id: 'outgoing',
             scheme: 'common',
         },
         identity: {
@@ -214,7 +215,7 @@ let lists = {
     },
     tasks: {
         type: {
-            id: 'tasks',
+            id: 'outgoing',
             scheme: 'common',
         },
         identity: {
@@ -253,7 +254,7 @@ let lists = {
     streams: {
         type: {
             type: 'messengers',
-            type_scheme: 'common',
+            scheme: 'common',
         },
         identity: {
             id: 'x',
@@ -271,7 +272,7 @@ let lists = {
     },
     resources: {
         type: {
-            id: 'resources',
+            id: 'outgoing',
             scheme: 'common',
         },
         identity: {
@@ -291,7 +292,7 @@ let lists = {
     calendars: {
         type: {
             type: 'calendars',
-            type_scheme: 'common',
+            scheme: 'common',
         },
         identity: {
             id: 'x',
@@ -309,7 +310,7 @@ let lists = {
     },
     accounting: {
         type: {
-            id: 'accounting',
+            id: 'outgoing',
             scheme: 'common',
         },
         identity: {

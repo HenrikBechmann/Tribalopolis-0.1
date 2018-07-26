@@ -59,6 +59,19 @@ class DataBox extends React.Component {
                 itemelement.classList.remove('highlight');
             }, 2000);
         };
+        this.modifybuttons = (listItemType) => {
+            console.log('listItemType', listItemType);
+            // let incoming = false
+            // if (listItemType && listItemType.properties && listItemType.properties.is) {
+            let outgoing = listItemType.properties.is.outgoing;
+            // }
+            let retval = (outgoing) ? <div style={{ position: 'absolute', bottom: '-8px', right: '0' }}>
+            <FloatingActionButton secondary={true} mini={true} style={{ marginRight: '12px' }}>
+              <ContentAdd />
+            </FloatingActionButton>
+        </div> : null;
+            return retval;
+        };
         this.categoriesbarwrapper = React.createRef();
     }
     componentDidMount() {
@@ -98,12 +111,8 @@ class DataBox extends React.Component {
             position: 'relative',
         };
         let listcount = listobject.links.length;
+        let listItemType = this.props.getListItemType(listobject.type);
         // placeholder logic for showing add button
-        let modifybuttons = ((!listcount) ? <div style={{ position: 'absolute', bottom: '-8px', right: '0' }}>
-                <FloatingActionButton secondary={true} mini={true} style={{ marginRight: '12px' }}>
-                  <ContentAdd />
-                </FloatingActionButton>
-            </div> : null);
         return <div style={frameStyle}>
             <BoxTypebar item={item} listcount={listcount} splayBox={this.props.splayBox}/>
             <BoxIdentifier item={item}/>
@@ -117,7 +126,7 @@ class DataBox extends React.Component {
                 <div data-marker='databox-scrollbox' style={scrollboxstyle}>
                     <CategoriesList listobject={listobject} highlightrefid={this.state.highlightrefid} getListItem={this.props.getListItem} expandCategory={this.expandCategory} highlightItem={this.highlightItem}/>
                 </div>
-                {modifybuttons}
+                {this.modifybuttons(listItemType)}
             </div>
         </div>;
     }

@@ -16,6 +16,7 @@ import Quadrant from './quadrant.controller'
 import QuadDiamond from './views/quadspace/quaddiamond.view'
 import QuantityBadge from './views/common/quantitybadge.view'
 import QuadStatusBar from './views/quadspace/quadstatusbar.view'
+import { METATYPES } from '../constants'
 
 import {lists, links, items, types, schemes, stacks, maps} from '../../data/repositories'
 
@@ -135,6 +136,17 @@ class QuadspaceController extends React.Component<any,any> {
         return lists[ref.id]
     }
 
+    getTypeItem = (metatype,ref) => {
+        let retval
+        if (types[METATYPES[metatype]][ref.scheme]) {
+            retval = types[METATYPES[metatype]][ref.scheme][ref.id] ||
+                types[METATYPES[metatype]][ref.scheme]['__default__']
+
+        }
+        retval = retval || null
+        return retval
+    }
+
     quadrants = () => [
         <Quadrant 
             key = '1'
@@ -149,6 +161,7 @@ class QuadspaceController extends React.Component<any,any> {
             datastack = {this.state.stacks[0]}
             getItem = {this.getItem}
             getListItem = {this.getListItem}
+            getTypeItem = {this.getTypeItem}
         />,
         <Quadrant 
             key = '2'
@@ -163,6 +176,7 @@ class QuadspaceController extends React.Component<any,any> {
             datastack = {this.state.stacks[1]}
             getItem = {this.getItem}
             getListItem = {this.getListItem}
+            getTypeItem = {this.getTypeItem}
         />,
         <Quadrant 
             key = '3'
@@ -177,6 +191,7 @@ class QuadspaceController extends React.Component<any,any> {
             datastack = {this.state.stacks[2]}
             getItem = {this.getItem}
             getListItem = {this.getListItem}
+            getTypeItem = {this.getTypeItem}
         />,
         <Quadrant 
             key = '4'
@@ -191,6 +206,7 @@ class QuadspaceController extends React.Component<any,any> {
             datastack = {this.state.stacks[3]}
             getItem = {this.getItem}
             getListItem = {this.getListItem}
+            getTypeItem = {this.getTypeItem}
         />,
     ]
 

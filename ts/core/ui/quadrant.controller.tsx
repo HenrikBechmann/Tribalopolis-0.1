@@ -11,6 +11,7 @@ import InfiniteScroll from './views/common/infinitescroll.view'
 import SwapMenu from './views/quadspace/quadswapmenu.view'
 import DataBox from './databox.controller'
 import QuadSelector from './views/quadspace/quadselector.view'
+import { METATYPES } from '../constants'
 
 class Quadrant extends React.Component<any,any>  {
 
@@ -27,10 +28,12 @@ class Quadrant extends React.Component<any,any>  {
         this.calculatePosition(this.state.quadrant)
         this.getItem = this.props.getItem
         this.getListItem = this.props.getListItem
+        this.getTypeItem = this.props.getTypeItem
     }
 
     getItem
     getListItem
+    getTypeItem
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.quadrant != this.state.quadrant) {
@@ -135,8 +138,32 @@ class Quadrant extends React.Component<any,any>  {
 
     splayBox = (boxptr) => {
 
-        console.log('splay box for ptr', boxptr)
+        let {datastack, stackpointer} = this.state
 
+        let boxconfig = datastack[stackpointer][boxptr]
+
+        let item = this.getItem(boxconfig.ref)
+
+        let liststack = boxconfig.liststack
+
+        let listref
+
+        if (liststack.length) {
+            listref = liststack[liststack.length-1]
+        } else {
+            listref = item.listref            
+        }
+
+        let listitem = this.getListItem(listref)
+
+        console.log('splay box for ptr, boxptr, item, listitem', boxptr, boxconfig, item, listitem)
+
+    }
+
+    getListItemType = (metatype) => {
+        return (ref) => {
+            return this.getTypeItem(metatype,ref)
+        }
     }
 
     getBoxes = () => {
@@ -146,11 +173,14 @@ class Quadrant extends React.Component<any,any>  {
         if (datastack) {
             boxes = this.state.datastack[stackpointer].map((boxconfig,index) => {
                 let item = this.getItem(boxconfig.ref)
+                let itemType = this.getTypeItem(METATYPES.item,item.type)
                 return (
                     <DataBox 
                         key = {index} 
                         item = {item} 
+                        itemType = {itemType}
                         getListItem = {this.getListItem}
+                        getListItemType = {this.getListItemType(METATYPES.list)}
                         boxConfig = {boxconfig}
                         splayBox = {
                             () => {
