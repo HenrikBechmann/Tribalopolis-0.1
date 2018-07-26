@@ -86,7 +86,6 @@ class DataBox extends React.Component<any,any> {
     }
 
     render() {
-        // console.log('item',this.props.item)
 
         let { item, getListItem } = this.props
 
@@ -122,12 +121,11 @@ class DataBox extends React.Component<any,any> {
         let scrollboxstyle:React.CSSProperties = {
             height:'calc(100% - 32px)',
             overflow:'auto',
-            position:'relative',
+            position:'relative', // required for offsetParent of highlightItem search
         }
 
-        // console.log('listobject in databox',listobject)
-
         let listcount = listobject.links.length
+
         // placeholder logic for showing add button
         let modifybuttons = (
             (!listcount)?<div style = {{position:'absolute',bottom:'-8px',right:'0'}}>

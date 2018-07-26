@@ -48,14 +48,11 @@ class CategoryItem extends React.Component<any,any> {
         cursor:'pointer',
     }
 
-    barelementref //:React.Ref<HTMLDivElement>
+    barelementref:React.Ref<HTMLDivElement>
 
     componentDidUpdate() {
         if (this.props.highlight && this.barelementref) {
-            let barelementref = this.barelementref
-            if (barelementref.current) {
-                this.props.highlightItem(this.barelementref)
-            }
+            this.props.highlightItem(this.barelementref)
         }
     }
 

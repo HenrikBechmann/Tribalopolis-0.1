@@ -58,10 +58,7 @@ class CategoryItem extends React.Component {
     }
     componentDidUpdate() {
         if (this.props.highlight && this.barelementref) {
-            let barelementref = this.barelementref;
-            if (barelementref.current) {
-                this.props.highlightItem(this.barelementref);
-            }
+            this.props.highlightItem(this.barelementref);
         }
     }
     render() {

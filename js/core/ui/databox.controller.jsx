@@ -67,7 +67,6 @@ class DataBox extends React.Component {
         });
     }
     render() {
-        // console.log('item',this.props.item)
         let { item, getListItem } = this.props;
         let listStack = this.state.boxconfig.liststack;
         let { listref: listroot } = item;
@@ -98,7 +97,6 @@ class DataBox extends React.Component {
             overflow: 'auto',
             position: 'relative',
         };
-        // console.log('listobject in databox',listobject)
         let listcount = listobject.links.length;
         // placeholder logic for showing add button
         let modifybuttons = ((!listcount) ? <div style={{ position: 'absolute', bottom: '-8px', right: '0' }}>
