@@ -35,6 +35,15 @@ class DataBox extends React.Component<any,any> {
         })
     }
 
+    componentWillReceiveProps(newProps) {
+        // console.log('old and new boxconfig',this.state.boxconfig,newProps.boxConfig)
+        if (this.state.boxconfig !== newProps.boxConfig) {
+            this.setState({
+                boxconfig:newProps.boxConfig,
+            })
+        }
+    }
+
     expandCategory = (ref) => {
         let boxConfig = this.state.boxconfig
         boxConfig.liststack.push(ref)
@@ -98,6 +107,8 @@ class DataBox extends React.Component<any,any> {
     }
 
     render() {
+
+        // console.log('databox render',this.state.boxconfig)
 
         let { item, getListItem } = this.props
 

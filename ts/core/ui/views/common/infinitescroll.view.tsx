@@ -45,7 +45,7 @@ class InfiniteScroll extends React.Component<any,any> {
     // objects {id:string,item:ReactElement}
     componentWillReceiveProps(nextProps) {
         if (nextProps.items != this.state.items) {
-            console.log('changed items',nextProps.items)
+            // console.log('changed items',nextProps.items)
             this.setState({
                 items:nextProps.items
             })

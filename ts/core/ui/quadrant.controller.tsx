@@ -142,6 +142,8 @@ class Quadrant extends React.Component<any,any>  {
 
         let boxconfig = datastack[stackpointer][boxptr]
 
+        // console.log('box config template',boxconfig)
+
         let item = this.getItem(boxconfig.ref)
 
         let liststack = boxconfig.liststack
@@ -163,7 +165,7 @@ class Quadrant extends React.Component<any,any>  {
         stackpointer++
         let newstacklayer = []
 
-        console.log('new stack pointer',stackpointer)
+        // console.log('new stack pointer',stackpointer)
 
         // replace forward stack items
         datastack.splice(stackpointer,datastack.length,newstacklayer)
@@ -177,8 +179,6 @@ class Quadrant extends React.Component<any,any>  {
         this.setState({
             stackpointer,
             datastack,
-        },() => {
-            console.log('new state',this.state)
         })
         // console.log('splay box for ptr, boxconfig, item, listitem', boxptr, boxconfig, item, listitem)
 
@@ -192,7 +192,7 @@ class Quadrant extends React.Component<any,any>  {
 
     getBoxes = () => {
         let boxes = []
-        console.log('getBoxes quadrant state',this.state)
+        // console.log('getBoxes quadrant state',this.state)
         let { datastack, stackpointer } = this.state
         if (datastack) {
             boxes = this.state.datastack[stackpointer].map((boxconfig,index) => {
@@ -216,7 +216,7 @@ class Quadrant extends React.Component<any,any>  {
             })
         }
 
-        console.log('getBoxes box list',boxes)
+        // console.log('getBoxes box list',boxes)
         return boxes
     }
 
@@ -226,7 +226,7 @@ class Quadrant extends React.Component<any,any>  {
         let { quadrant } = this.state
         let {top, left, bottom, right} = this.position
         let boxlist = this.getBoxes()
-        console.log('render box list',boxlist)
+        // console.log('render box list',boxlist)
         return (
             <div 
                 style = {

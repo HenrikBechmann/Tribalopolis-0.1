@@ -75,7 +75,16 @@ class DataBox extends React.Component {
             opacity: 1,
         });
     }
+    componentWillReceiveProps(newProps) {
+        // console.log('old and new boxconfig',this.state.boxconfig,newProps.boxConfig)
+        if (this.state.boxconfig !== newProps.boxConfig) {
+            this.setState({
+                boxconfig: newProps.boxConfig,
+            });
+        }
+    }
     render() {
+        // console.log('databox render',this.state.boxconfig)
         let { item, getListItem } = this.props;
         let listStack = this.state.boxconfig.liststack;
         let { listref: listroot } = item;

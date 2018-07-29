@@ -93,6 +93,7 @@ class Quadrant extends React.Component {
         this.splayBox = (boxptr) => {
             let { datastack, stackpointer } = this.state;
             let boxconfig = datastack[stackpointer][boxptr];
+            // console.log('box config template',boxconfig)
             let item = this.getItem(boxconfig.ref);
             let liststack = boxconfig.liststack;
             let listref;
@@ -108,7 +109,7 @@ class Quadrant extends React.Component {
                 return;
             stackpointer++;
             let newstacklayer = [];
-            console.log('new stack pointer', stackpointer);
+            // console.log('new stack pointer',stackpointer)
             // replace forward stack items
             datastack.splice(stackpointer, datastack.length, newstacklayer);
             for (let ref of linkitems) {
@@ -119,8 +120,6 @@ class Quadrant extends React.Component {
             this.setState({
                 stackpointer,
                 datastack,
-            }, () => {
-                console.log('new state', this.state);
             });
             // console.log('splay box for ptr, boxconfig, item, listitem', boxptr, boxconfig, item, listitem)
         };
@@ -131,7 +130,7 @@ class Quadrant extends React.Component {
         };
         this.getBoxes = () => {
             let boxes = [];
-            console.log('getBoxes quadrant state', this.state);
+            // console.log('getBoxes quadrant state',this.state)
             let { datastack, stackpointer } = this.state;
             if (datastack) {
                 boxes = this.state.datastack[stackpointer].map((boxconfig, index) => {
@@ -142,7 +141,7 @@ class Quadrant extends React.Component {
                     }}/>);
                 });
             }
-            console.log('getBoxes box list', boxes);
+            // console.log('getBoxes box list',boxes)
             return boxes;
         };
     }
@@ -177,7 +176,7 @@ class Quadrant extends React.Component {
         let { quadrant } = this.state;
         let { top, left, bottom, right } = this.position;
         let boxlist = this.getBoxes();
-        console.log('render box list', boxlist);
+        // console.log('render box list',boxlist)
         return (<div style={{
             position: 'absolute',
             boxSizing: 'border-box',
