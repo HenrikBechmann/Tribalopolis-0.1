@@ -71,7 +71,7 @@ class InfiniteScroll extends React.Component {
             marginLeft: '30px',
             boxSizing: 'border-box',
             borderRadius: '6px',
-            padding: '2% 0 0 0',
+            padding: '6px 0 0 0',
         };
         this.state = {
             items: this.props.items,
@@ -88,6 +88,12 @@ class InfiniteScroll extends React.Component {
     // determine change in headadd or tailadd props
     // objects {id:string,item:ReactElement}
     componentWillReceiveProps(nextProps) {
+        if (nextProps.items != this.state.items) {
+            console.log('changed items', nextProps.items);
+            this.setState({
+                items: nextProps.items
+            });
+        }
     }
     render() {
         return <div className='CS_viewportframe' style={this.viewportFrameStyle}>

@@ -19,6 +19,10 @@ let types = {
         common: {
             __default__: {
                 type: {},
+                metadata: {
+                    id: null,
+                    scheme: null,
+                },
                 identity: {},
                 properties: {
                     is: {},
@@ -27,6 +31,10 @@ let types = {
             },
             outgoing: {
                 type: {},
+                metadata: {
+                    id: null,
+                    scheme: null,
+                },
                 identity: {},
                 properties: {
                     is: {
@@ -45,6 +53,10 @@ let lists = {
         type: {
             id: 'outgoing',
             scheme: 'common',
+        },
+        metadata: {
+            id: null,
+            scheme: null,
         },
         identity: {
             id: 'x',
@@ -65,6 +77,10 @@ let lists = {
             id: 'outgoing',
             scheme: 'common',
         },
+        metadata: {
+            id: null,
+            scheme: null,
+        },
         identity: {
             id: 'x',
         },
@@ -83,6 +99,10 @@ let lists = {
         type: {
             id: 'outgoing',
             scheme: 'common',
+        },
+        metadata: {
+            id: null,
+            scheme: null,
         },
         identity: {
             id: 'x',
@@ -104,6 +124,10 @@ let lists = {
             id: 'outgoing',
             scheme: 'common',
         },
+        metadata: {
+            id: null,
+            scheme: null,
+        },
         identity: {
             id: 'x',
         },
@@ -122,6 +146,10 @@ let lists = {
         type: {
             id: 'outgoing',
             scheme: 'common',
+        },
+        metadata: {
+            id: null,
+            scheme: null,
         },
         identity: {
             id: 'x',
@@ -142,6 +170,10 @@ let lists = {
             id: 'pending',
             scheme: 'common',
         },
+        metadata: {
+            id: null,
+            scheme: null,
+        },
         identity: {
             id: 'x',
         },
@@ -160,6 +192,10 @@ let lists = {
         type: {
             id: 'outgoing',
             scheme: 'common',
+        },
+        metadata: {
+            id: null,
+            scheme: null,
         },
         identity: {
             id: 'x',
@@ -180,6 +216,10 @@ let lists = {
             id: 'outgoing',
             scheme: 'common',
         },
+        metadata: {
+            id: null,
+            scheme: null,
+        },
         identity: {
             id: 'x',
         },
@@ -198,6 +238,10 @@ let lists = {
         type: {
             id: 'outgoing',
             scheme: 'common',
+        },
+        metadata: {
+            id: null,
+            scheme: null,
         },
         identity: {
             id: 'x',
@@ -218,6 +262,10 @@ let lists = {
             id: 'outgoing',
             scheme: 'common',
         },
+        metadata: {
+            id: null,
+            scheme: null,
+        },
         identity: {
             id: 'x',
         },
@@ -236,6 +284,10 @@ let lists = {
         type: {
             id: 'messengers',
             scheme: 'common',
+        },
+        metadata: {
+            id: null,
+            scheme: null,
         },
         identity: {
             id: 'x',
@@ -256,6 +308,10 @@ let lists = {
             type: 'messengers',
             scheme: 'common',
         },
+        metadata: {
+            id: null,
+            scheme: null,
+        },
         identity: {
             id: 'x',
         },
@@ -274,6 +330,10 @@ let lists = {
         type: {
             id: 'outgoing',
             scheme: 'common',
+        },
+        metadata: {
+            id: null,
+            scheme: null,
         },
         identity: {
             id: 'x',
@@ -294,6 +354,10 @@ let lists = {
             type: 'calendars',
             scheme: 'common',
         },
+        metadata: {
+            id: null,
+            scheme: null,
+        },
         identity: {
             id: 'x',
         },
@@ -313,6 +377,10 @@ let lists = {
             id: 'outgoing',
             scheme: 'common',
         },
+        metadata: {
+            id: null,
+            scheme: null,
+        },
         identity: {
             id: 'x',
         },
@@ -331,6 +399,10 @@ let lists = {
         type: {
             id: 'other',
             scheme: 'common',
+        },
+        metadata: {
+            id: null,
+            scheme: null,
         },
         identity: {
             id: 'x',
@@ -352,6 +424,10 @@ let lists = {
             id: 'other',
             scheme: 'common',
         },
+        metadata: {
+            id: null,
+            scheme: null,
+        },
         identity: {
             id: 'x',
         },
@@ -371,6 +447,10 @@ let lists = {
         type: {
             id: 'member',
             scheme: 'common',
+        },
+        metadata: {
+            id: null,
+            scheme: null,
         },
         identity: {
             id: 'x',
@@ -464,6 +544,10 @@ let items = {
             id: 'member',
             name: 'member',
             scheme: 'common',
+        },
+        metadata: {
+            id: null,
+            scheme: null,
         },
         identity: {
             id: 'henrik',

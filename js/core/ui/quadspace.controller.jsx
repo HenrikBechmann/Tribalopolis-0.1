@@ -113,6 +113,7 @@ class QuadspaceController extends React.Component {
         this.getListItem = (ref) => {
             return lists[ref.id];
         };
+        // TODO: should always return an object
         this.getTypeItem = (metatype, ref) => {
             let retval;
             if (types[METATYPES[metatype]][ref.scheme]) {

@@ -156,7 +156,31 @@ class Quadrant extends React.Component<any,any>  {
 
         let listitem = this.getListItem(listref)
 
-        console.log('splay box for ptr, boxptr, item, listitem', boxptr, boxconfig, item, listitem)
+        let linkitems = listitem.links
+
+        if (!linkitems || !linkitems.length) return
+
+        stackpointer++
+        let newstacklayer = []
+
+        console.log('new stack pointer',stackpointer)
+
+        // replace forward stack items
+        datastack.splice(stackpointer,datastack.length,newstacklayer)
+
+        for (let ref of linkitems) {
+            let newboxconfig = JSON.parse(JSON.stringify(boxconfig))
+            newboxconfig.liststack.push(ref)
+            newstacklayer.push(newboxconfig)
+        }
+
+        this.setState({
+            stackpointer,
+            datastack,
+        },() => {
+            console.log('new state',this.state)
+        })
+        // console.log('splay box for ptr, boxconfig, item, listitem', boxptr, boxconfig, item, listitem)
 
     }
 
@@ -168,7 +192,7 @@ class Quadrant extends React.Component<any,any>  {
 
     getBoxes = () => {
         let boxes = []
-        // console.log('quadrant state',this.state)
+        console.log('getBoxes quadrant state',this.state)
         let { datastack, stackpointer } = this.state
         if (datastack) {
             boxes = this.state.datastack[stackpointer].map((boxconfig,index) => {
@@ -192,14 +216,17 @@ class Quadrant extends React.Component<any,any>  {
             })
         }
 
+        console.log('getBoxes box list',boxes)
         return boxes
     }
 
     render() {
-        console.log('quadrant state',this.state)
+        // console.log('quadrant state',this.state)
         let { color } = this.props
         let { quadrant } = this.state
         let {top, left, bottom, right} = this.position
+        let boxlist = this.getBoxes()
+        console.log('render box list',boxlist)
         return (
             <div 
                 style = {
@@ -237,7 +264,7 @@ class Quadrant extends React.Component<any,any>  {
                     <SwapMenu quadrant = {this.state.quadrant} handleswap = {this.props.handleswap}/>
                     <QuadTitleBar title = {this.props.title} id={this.state.startquadrant}/>
                     <QuadOrigin stackpointer = {this.state.stackpointer} stackdepth = {this.state.datastack.length}></QuadOrigin>
-                    <InfiniteScroll items = {this.getBoxes()}/>
+                    <InfiniteScroll items = {boxlist}/>
                     <QuadSelector 
                         quadrant = {this.state.quadrant} 
                         split = {this.props.split} 

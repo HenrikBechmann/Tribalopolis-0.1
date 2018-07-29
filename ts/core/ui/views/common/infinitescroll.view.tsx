@@ -44,7 +44,12 @@ class InfiniteScroll extends React.Component<any,any> {
     // determine change in headadd or tailadd props
     // objects {id:string,item:ReactElement}
     componentWillReceiveProps(nextProps) {
-
+        if (nextProps.items != this.state.items) {
+            console.log('changed items',nextProps.items)
+            this.setState({
+                items:nextProps.items
+            })
+        }
     }
 
     // TODO turn off parent and sibling scrolling
@@ -119,7 +124,7 @@ class InfiniteScroll extends React.Component<any,any> {
         marginLeft:'30px',
         boxSizing:'border-box',
         borderRadius:'6px',
-        padding:'2% 0 0 0',
+        padding:'6px 0 0 0',
     }
 
     render () {
