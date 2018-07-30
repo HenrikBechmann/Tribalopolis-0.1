@@ -25,6 +25,8 @@ const BoxToolbar = props => {
 
     // console.log('props in boxtoolbar',props, !!props.listcount)
 
+    let haspeers = props.haspeers
+
     return <div style = {styles}>
 
         <div style = {
@@ -48,9 +50,10 @@ const BoxToolbar = props => {
         />
 
         <ActionButton 
-            iconStyle = {{transform:'rotate(90deg)',opacity:0.3}}
-            disabled
+            iconStyle = {{transform:'rotate(90deg)',opacity:haspeers?1:0.3}}
+            disabled = {!haspeers}
             img = '/public/icons/ic_splay_24px.svg' 
+            action = {props.selectFromSplay}
         />
 
         <ActionButton 

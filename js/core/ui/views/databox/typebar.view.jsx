@@ -16,6 +16,7 @@ const BoxToolbar = props => {
     };
     let boxicon = '/public/icons/databox.svg';
     // console.log('props in boxtoolbar',props, !!props.listcount)
+    let haspeers = props.haspeers;
     return <div style={styles}>
 
         <div style={{
@@ -32,7 +33,7 @@ const BoxToolbar = props => {
         </div>
         <ActionButton img='/public/icons/ic_splay_24px.svg' disabled={!props.listcount} action={props.splayBox}/>
 
-        <ActionButton iconStyle={{ transform: 'rotate(90deg)', opacity: 0.3 }} disabled img='/public/icons/ic_splay_24px.svg'/>
+        <ActionButton iconStyle={{ transform: 'rotate(90deg)', opacity: haspeers ? 1 : 0.3 }} disabled={!haspeers} img='/public/icons/ic_splay_24px.svg' action={props.selectFromSplay}/>
 
         <ActionButton icon='arrow_drop_down'/>
 

@@ -119,7 +119,7 @@ class DataBox extends React.Component {
         let listItemType = this.props.getListItemType(listobject.type);
         // placeholder logic for showing add button
         return <div style={frameStyle}>
-            <BoxTypebar item={item} listcount={listcount} splayBox={this.props.splayBox}/>
+            <BoxTypebar item={item} listcount={listcount} splayBox={this.props.splayBox} haspeers={this.props.haspeers} selectFromSplay={this.props.selectFromSplay}/>
             <BoxIdentifier item={item}/>
             <div style={{
             height: 'calc(100% - 70px)',

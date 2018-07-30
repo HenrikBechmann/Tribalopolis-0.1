@@ -123,6 +123,9 @@ class Quadrant extends React.Component {
             });
             // console.log('splay box for ptr, boxconfig, item, listitem', boxptr, boxconfig, item, listitem)
         };
+        this.selectFromSplay = (boxPtr) => {
+            console.log('selectFromSplay boxPtr', boxPtr);
+        };
         this.getListItemType = (metatype) => {
             return (ref) => {
                 return this.getTypeItem(metatype, ref);
@@ -133,11 +136,14 @@ class Quadrant extends React.Component {
             // console.log('getBoxes quadrant state',this.state)
             let { datastack, stackpointer } = this.state;
             if (datastack) {
-                boxes = this.state.datastack[stackpointer].map((boxconfig, index) => {
+                let haspeers = (datastack.length > 1);
+                boxes = datastack[stackpointer].map((boxconfig, index) => {
                     let item = this.getItem(boxconfig.ref);
                     let itemType = this.getTypeItem(METATYPES.item, item.type);
-                    return (<DataBox key={index} item={item} itemType={itemType} getListItem={this.getListItem} getListItemType={this.getListItemType(METATYPES.list)} boxConfig={boxconfig} splayBox={() => {
+                    return (<DataBox key={index} item={item} itemType={itemType} getListItem={this.getListItem} getListItemType={this.getListItemType(METATYPES.list)} boxConfig={boxconfig} haspeers={haspeers} splayBox={() => {
                         this.splayBox(index);
+                    }} selectFromSplay={() => {
+                        this.selectFromSplay(index);
                     }}/>);
                 });
             }

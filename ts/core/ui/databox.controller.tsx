@@ -157,6 +157,8 @@ class DataBox extends React.Component<any,any> {
                 item = {item} 
                 listcount = {listcount}
                 splayBox = {this.props.splayBox}
+                haspeers = {this.props.haspeers}
+                selectFromSplay = {this.props.selectFromSplay}
             />
             <BoxIdentifier item = {item} />
             <div style = {

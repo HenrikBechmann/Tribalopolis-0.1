@@ -50,7 +50,7 @@ class CategoriesBar extends React.Component<any,any> {
         marginLeft:'-1px',
         marginBottom:'-1px',
         backgroundColor:'white',
-        cursor:'pointer',
+        // cursor:'pointer',
     }
 
     render() {
