@@ -184,8 +184,26 @@ class Quadrant extends React.Component<any,any>  {
 
     }
 
-    selectFromSplay = (boxPtr) => {
-        console.log('selectFromSplay boxPtr',boxPtr)
+    selectFromSplay = (boxptr) => {
+        // console.log('selectFromSplay boxPtr',boxptr)
+
+        let {datastack, stackpointer} = this.state
+
+        let boxconfig = datastack[stackpointer][boxptr]
+
+        stackpointer++
+        let newstacklayer = []
+
+        // replace forward stack items
+        datastack.splice(stackpointer,datastack.length,newstacklayer)
+
+        let newboxconfig = JSON.parse(JSON.stringify(boxconfig))
+        newstacklayer.push(newboxconfig)
+
+        this.setState({
+            stackpointer,
+            datastack,
+        })
     }
 
     getListItemType = (metatype) => {
