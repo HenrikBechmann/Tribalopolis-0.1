@@ -35,7 +35,7 @@ const QuadOrigin = props => {
     }}>
                 <img style={{ width: '40px' }} src='/public/icons/OriginStack.svg'/>
             </div>
-            <OriginMenu depth={props.stackdepth} pointer={props.stackpointer}/>
+            <OriginMenu stackdepth={props.stackdepth} stackpointer={props.stackpointer} incrementStackSelector={props.incrementStackSelector} decrementStackSelector={props.decrementStackSelector}/>
         </div>);
 };
 // <FontIcon style = {{fontSize:'32px'}} className='material-icons'>filter_none</FontIcon> 

@@ -138,6 +138,25 @@ class Quadrant extends React.Component {
                 datastack,
             });
         };
+        this.decrementStackSelector = () => {
+            let { stackpointer } = this.state;
+            if (stackpointer > 0) {
+                stackpointer--;
+                this.setState({
+                    stackpointer,
+                });
+            }
+        };
+        this.incrementStackSelector = () => {
+            let { stackpointer } = this.state;
+            let depth = this.state.datastack.length;
+            if (stackpointer < (depth - 1)) {
+                stackpointer++;
+                this.setState({
+                    stackpointer,
+                });
+            }
+        };
         this.getListItemType = (metatype) => {
             return (ref) => {
                 return this.getTypeItem(metatype, ref);
@@ -148,7 +167,7 @@ class Quadrant extends React.Component {
             // console.log('getBoxes quadrant state',this.state)
             let { datastack, stackpointer } = this.state;
             if (datastack) {
-                let haspeers = (datastack.length > 1);
+                let haspeers = (datastack[stackpointer] && (datastack[stackpointer].length > 1));
                 boxes = datastack[stackpointer].map((boxconfig, index) => {
                     let item = this.getItem(boxconfig.ref);
                     let itemType = this.getTypeItem(METATYPES.item, item.type);
@@ -222,7 +241,7 @@ class Quadrant extends React.Component {
         }}>
                     <SwapMenu quadrant={this.state.quadrant} handleswap={this.props.handleswap}/>
                     <QuadTitleBar title={this.props.title} id={this.state.startquadrant}/>
-                    <QuadOrigin stackpointer={this.state.stackpointer} stackdepth={this.state.datastack.length}></QuadOrigin>
+                    <QuadOrigin stackpointer={this.state.stackpointer} stackdepth={this.state.datastack.length} incrementStackSelector={this.incrementStackSelector} decrementStackSelector={this.decrementStackSelector}/>
                     <InfiniteScroll items={boxlist}/>
                     <QuadSelector quadrant={this.state.quadrant} split={this.props.split} quadselection={this.props.quadselection}/>
                 </div>

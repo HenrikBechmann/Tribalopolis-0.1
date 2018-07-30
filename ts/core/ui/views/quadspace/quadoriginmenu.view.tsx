@@ -9,7 +9,7 @@ import IconButton from 'material-ui/IconButton'
 
 const OriginMenu = (props) => {
 
-    let { pointer, depth } = props
+    let { stackpointer:pointer, stackdepth:depth } = props
 
     let buttonStyle = {padding:'0',width:'24px',height:'24px'}
     let iconStyle = {
@@ -36,6 +36,7 @@ const OriginMenu = (props) => {
         <IconButton style = {buttonStyle}
             iconStyle = {iconStyle}
             disabled = {pointer == 0}
+            onClick = {props.decrementStackSelector}
         >
             <FontIcon 
                 color = 'green' 
@@ -47,6 +48,7 @@ const OriginMenu = (props) => {
         <IconButton style = {buttonStyle}
             iconStyle = {iconStyle}
             disabled = {(pointer + 1) == depth}
+            onClick = {props.incrementStackSelector}
         >
             <FontIcon 
                 color = 'green' 

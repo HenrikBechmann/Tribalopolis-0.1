@@ -5,7 +5,7 @@ import * as React from 'react';
 import FontIcon from 'material-ui/FontIcon';
 import IconButton from 'material-ui/IconButton';
 const OriginMenu = (props) => {
-    let { pointer, depth } = props;
+    let { stackpointer: pointer, stackdepth: depth } = props;
     let buttonStyle = { padding: '0', width: '24px', height: '24px' };
     let iconStyle = {
         marginBottom: '4px',
@@ -23,12 +23,12 @@ const OriginMenu = (props) => {
         opacity: 0.7,
         width: '26px',
     }}>
-        <IconButton style={buttonStyle} iconStyle={iconStyle} disabled={pointer == 0}>
+        <IconButton style={buttonStyle} iconStyle={iconStyle} disabled={pointer == 0} onClick={props.decrementStackSelector}>
             <FontIcon color='green' className='material-icons'>
                 arrow_back
             </FontIcon>
         </IconButton>
-        <IconButton style={buttonStyle} iconStyle={iconStyle} disabled={(pointer + 1) == depth}>
+        <IconButton style={buttonStyle} iconStyle={iconStyle} disabled={(pointer + 1) == depth} onClick={props.incrementStackSelector}>
             <FontIcon color='green' className='material-icons'>
                 arrow_forward
             </FontIcon>
