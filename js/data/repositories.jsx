@@ -567,53 +567,69 @@ let items = {
 };
 let stacks = [
     [
-        [
-            {
-                ref: {
-                    repo: 'items',
-                    id: 'henrik',
+        {
+            items: [
+                {
+                    ref: {
+                        repo: 'items',
+                        id: 'henrik',
+                    },
                     serialid: serializer.getid(),
+                    liststack: [],
+                    settings: {},
                 },
-                liststack: [],
-            },
-        ],
+            ],
+            settings: {},
+        },
     ],
     [
-        [
-            {
-                ref: {
-                    repo: 'items',
-                    id: 'henrik',
+        {
+            items: [
+                {
+                    ref: {
+                        repo: 'items',
+                        id: 'henrik',
+                    },
                     serialid: serializer.getid(),
+                    liststack: [],
+                    settings: {},
                 },
-                liststack: [],
-            },
-        ],
+            ],
+            settings: {},
+        },
     ],
     [
-        [
-            {
-                ref: {
-                    repo: 'items',
-                    id: 'henrik',
+        {
+            items: [
+                {
+                    ref: {
+                        repo: 'items',
+                        id: 'henrik',
+                    },
                     serialid: serializer.getid(),
+                    liststack: [],
+                    settings: {},
                 },
-                liststack: [],
-            },
-        ],
+            ],
+            settings: {},
+        },
     ],
     [
-        [
-            {
-                ref: {
-                    repo: 'items',
-                    id: 'henrik',
+        {
+            items: [
+                {
+                    ref: {
+                        repo: 'items',
+                        id: 'henrik',
+                    },
                     serialid: serializer.getid(),
+                    liststack: [],
+                    settings: {},
                 },
-                liststack: [],
-            },
-        ],
-    ],
+            ],
+            settings: {},
+        },
+    ]
 ];
 export { lists, links, items, types, schemes, stacks, maps };
 //# sourceMappingURL=repositories.jsx.map

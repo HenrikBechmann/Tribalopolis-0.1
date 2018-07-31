@@ -140,7 +140,7 @@ class Quadrant extends React.Component<any,any>  {
 
         let {datastack, stackpointer} = this.state
 
-        let boxconfig = datastack[stackpointer][boxptr]
+        let boxconfig = datastack[stackpointer].items[boxptr]
 
         // console.log('box config template',boxconfig)
 
@@ -163,7 +163,7 @@ class Quadrant extends React.Component<any,any>  {
         if (!linkitems || !linkitems.length) return
 
         stackpointer++
-        let newstacklayer = []
+        let newstacklayer = {items:[],settings:{}}
 
         // console.log('new stack pointer',stackpointer)
 
@@ -173,7 +173,7 @@ class Quadrant extends React.Component<any,any>  {
         for (let ref of linkitems) {
             let newboxconfig = JSON.parse(JSON.stringify(boxconfig))
             newboxconfig.liststack.push(ref)
-            newstacklayer.push(newboxconfig)
+            newstacklayer.items.push(newboxconfig)
         }
 
         this.setState({
@@ -189,16 +189,16 @@ class Quadrant extends React.Component<any,any>  {
 
         let {datastack, stackpointer} = this.state
 
-        let boxconfig = datastack[stackpointer][boxptr]
+        let boxconfig = datastack[stackpointer].items[boxptr]
 
         stackpointer++
-        let newstacklayer = []
+        let newstacklayer = {items:[],settings:{}}
 
         // replace forward stack items
         datastack.splice(stackpointer,datastack.length,newstacklayer)
 
         let newboxconfig = JSON.parse(JSON.stringify(boxconfig))
-        newstacklayer.push(newboxconfig)
+        newstacklayer.items.push(newboxconfig)
 
         this.setState({
             stackpointer,
@@ -238,8 +238,8 @@ class Quadrant extends React.Component<any,any>  {
         // console.log('getBoxes quadrant state',this.state)
         let { datastack, stackpointer } = this.state
         if (datastack) {
-            let haspeers = (datastack[stackpointer] && (datastack[stackpointer].length > 1))
-            boxes = datastack[stackpointer].map((boxconfig,index) => {
+            let haspeers = (datastack[stackpointer] && (datastack[stackpointer].items.length > 1))
+            boxes = datastack[stackpointer].items.map((boxconfig,index) => {
                 let item = this.getItem(boxconfig.ref)
                 let itemType = this.getTypeItem(METATYPES.item,item.type)
                 return (

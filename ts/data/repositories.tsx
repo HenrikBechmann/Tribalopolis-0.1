@@ -609,59 +609,79 @@ let items = {
     },
 }
 
-let stacks = [
-    [
-        [
-            {
-                ref:{
-                    repo:'items',
-                    id:'henrik',
+let stacks = [ // four quadrant stacks
+    [ // each quadrant stacks
+        { // each quadrant stack layer
+            items:[
+                {
+                    ref:{
+                        repo:'items',
+                        id:'henrik',
+                    },
+                    serialid:serializer.getid(),
+                    liststack:[],
+                    settings:{},
                 },
-                serialid:serializer.getid(),
-                liststack:[],
-                settings:{},
+            ],
+            settings:{
+
             },
-        ],
+        },
     ],
     [
-        [
-            {
-                ref:{
-                    repo:'items',
-                    id:'henrik',
+        {
+            items:[
+                {
+                    ref:{
+                        repo:'items',
+                        id:'henrik',
+                    },
+                    serialid:serializer.getid(),
+                    liststack:[],
+                    settings:{},
                 },
-                serialid:serializer.getid(),
-                liststack:[],
-                settings:{},
+            ],
+            settings:{
+
             },
-        ],
+        },
     ],
     [
-        [
-            {
-                ref:{
-                    repo:'items',
-                    id:'henrik',
+        {
+            items:[
+                {
+                    ref:{
+                        repo:'items',
+                        id:'henrik',
+                    },
+                    serialid:serializer.getid(),
+                    liststack:[],
+                    settings:{},
                 },
-                serialid:serializer.getid(),
-                liststack:[],
-                settings:{},
+            ],
+            settings:{
+
             },
-        ],
+        },
     ],
     [
-        [
-            {
-                ref:{
-                    repo:'items',
-                    id:'henrik',
+        {
+            items:[
+                {
+                    ref:{
+                        repo:'items',
+                        id:'henrik',
+                    },
+                    serialid:serializer.getid(),
+                    liststack:[],
+                    settings:{},
                 },
-                serialid:serializer.getid(),
-                liststack:[],
-                settings:{},
+            ],
+            settings:{
+
             },
-        ],
-    ],
+        },
+    ]
 ]
 
 export {lists, links, items, types, schemes, stacks, maps}

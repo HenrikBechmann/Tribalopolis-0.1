@@ -92,7 +92,7 @@ class Quadrant extends React.Component {
         this.element = null;
         this.splayBox = (boxptr) => {
             let { datastack, stackpointer } = this.state;
-            let boxconfig = datastack[stackpointer][boxptr];
+            let boxconfig = datastack[stackpointer].items[boxptr];
             // console.log('box config template',boxconfig)
             let item = this.getItem(boxconfig.ref);
             let liststack = boxconfig.liststack;
@@ -108,14 +108,14 @@ class Quadrant extends React.Component {
             if (!linkitems || !linkitems.length)
                 return;
             stackpointer++;
-            let newstacklayer = [];
+            let newstacklayer = { items: [], settings: {} };
             // console.log('new stack pointer',stackpointer)
             // replace forward stack items
             datastack.splice(stackpointer, datastack.length, newstacklayer);
             for (let ref of linkitems) {
                 let newboxconfig = JSON.parse(JSON.stringify(boxconfig));
                 newboxconfig.liststack.push(ref);
-                newstacklayer.push(newboxconfig);
+                newstacklayer.items.push(newboxconfig);
             }
             this.setState({
                 stackpointer,
@@ -126,13 +126,13 @@ class Quadrant extends React.Component {
         this.selectFromSplay = (boxptr) => {
             // console.log('selectFromSplay boxPtr',boxptr)
             let { datastack, stackpointer } = this.state;
-            let boxconfig = datastack[stackpointer][boxptr];
+            let boxconfig = datastack[stackpointer].items[boxptr];
             stackpointer++;
-            let newstacklayer = [];
+            let newstacklayer = { items: [], settings: {} };
             // replace forward stack items
             datastack.splice(stackpointer, datastack.length, newstacklayer);
             let newboxconfig = JSON.parse(JSON.stringify(boxconfig));
-            newstacklayer.push(newboxconfig);
+            newstacklayer.items.push(newboxconfig);
             this.setState({
                 stackpointer,
                 datastack,
@@ -167,8 +167,8 @@ class Quadrant extends React.Component {
             // console.log('getBoxes quadrant state',this.state)
             let { datastack, stackpointer } = this.state;
             if (datastack) {
-                let haspeers = (datastack[stackpointer] && (datastack[stackpointer].length > 1));
-                boxes = datastack[stackpointer].map((boxconfig, index) => {
+                let haspeers = (datastack[stackpointer] && (datastack[stackpointer].items.length > 1));
+                boxes = datastack[stackpointer].items.map((boxconfig, index) => {
                     let item = this.getItem(boxconfig.ref);
                     let itemType = this.getTypeItem(METATYPES.item, item.type);
                     return (<DataBox key={index} item={item} itemType={itemType} getListItem={this.getListItem} getListItemType={this.getListItemType(METATYPES.list)} boxConfig={boxconfig} haspeers={haspeers} splayBox={() => {
