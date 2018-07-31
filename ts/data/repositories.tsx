@@ -610,9 +610,9 @@ let items = {
 }
 
 let stacks = [ // four quadrant stacks
-    [ // each quadrant stacks
+    [ // each quadrant stack
         { // each quadrant stack layer
-            items:[
+            items:[ // items in the stack layer
                 {
                     ref:{
                         repo:'items',
@@ -620,10 +620,11 @@ let stacks = [ // four quadrant stacks
                     },
                     serialid:serializer.getid(),
                     liststack:[],
-                    settings:{},
+                    settings:{
+                    },
                 },
             ],
-            settings:{
+            settings:{ // settings for the stack layer
 
             },
         },

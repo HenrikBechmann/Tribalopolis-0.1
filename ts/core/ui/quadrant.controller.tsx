@@ -244,13 +244,13 @@ class Quadrant extends React.Component<any,any>  {
                 let itemType = this.getTypeItem(METATYPES.item,item.type)
                 return (
                     <DataBox 
-                        key = {index} 
-                        item = {item} 
-                        itemType = {itemType}
-                        getListItem = {this.getListItem}
-                        getListItemType = {this.getListItemType(METATYPES.list)}
-                        boxConfig = {boxconfig}
-                        haspeers = {haspeers}
+                        key = { index } 
+                        item = { item } 
+                        itemType = { itemType }
+                        getListItem = { this.getListItem }
+                        getListItemType = { this.getListItemType(METATYPES.list) }
+                        boxConfig = { boxconfig }
+                        haspeers = { haspeers }
                         splayBox = {
                             () => {
                                 this.splayBox(index)

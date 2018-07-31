@@ -17,7 +17,7 @@ class DataBox extends React.Component {
             highlightrefid: null,
         };
         this.expandCategory = (ref) => {
-            let boxConfig = this.state.boxconfig;
+            let { boxconfig: boxConfig } = this.state;
             boxConfig.liststack.push(ref);
             this.setState({
                 boxConfig,
@@ -26,11 +26,13 @@ class DataBox extends React.Component {
                 element.classList.add('outlinehighlight');
                 setTimeout(() => {
                     element.classList.remove('outlinehighlight');
-                }, 2000);
+                }, 2100);
             });
         };
         this.collapseCategory = () => {
             let boxConfig = this.state.boxconfig;
+            if (!boxConfig.liststack.length)
+                return;
             let ref = boxConfig.liststack.pop();
             this.setState({
                 boxConfig,

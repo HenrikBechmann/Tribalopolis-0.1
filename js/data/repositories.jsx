@@ -579,7 +579,8 @@ let stacks = [
                     settings: {},
                 },
             ],
-            settings: {},
+            settings: { // settings for the stack layer
+            },
         },
     ],
     [
