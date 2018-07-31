@@ -174,6 +174,7 @@ class DataBox extends React.Component<any,any> {
                         getListItem = {this.props.getListItem}
                         listStack = {this.state.boxconfig.liststack}
                         collapseCategory = {this.collapseCategory}
+                        haspeers = {this.props.haspeers}
                     />
                 </div>
                 <div data-marker = 'databox-scrollbox' style = {scrollboxstyle}>

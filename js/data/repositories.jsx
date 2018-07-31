@@ -1,4 +1,5 @@
 // workspacedata.tsx
+import { serializer } from '../core/utilities/serializer';
 let maps = {
     scheme: {
         common: {
@@ -469,70 +470,87 @@ let lists = {
             {
                 repo: 'lists',
                 id: 'membership',
+                serialid: serializer.getid(),
             },
             {
                 repo: 'lists',
                 id: 'tribes',
+                serialid: serializer.getid(),
             },
             {
                 repo: 'lists',
                 id: 'connections',
+                serialid: serializer.getid(),
             },
             {
                 repo: 'lists',
                 id: 'requesting',
+                serialid: serializer.getid(),
             },
             {
                 repo: 'lists',
                 id: 'pending',
+                serialid: serializer.getid(),
             },
             {
                 repo: 'lists',
                 id: 'diaries',
+                serialid: serializer.getid(),
             },
             {
                 repo: 'lists',
                 id: 'notes',
+                serialid: serializer.getid(),
             },
             {
                 repo: 'lists',
                 id: 'tasks',
+                serialid: serializer.getid(),
             },
             {
                 repo: 'lists',
                 id: 'messages',
+                serialid: serializer.getid(),
             },
             {
                 repo: 'lists',
                 id: 'streams',
+                serialid: serializer.getid(),
             },
             {
                 repo: 'lists',
                 id: 'calendars',
+                serialid: serializer.getid(),
             },
             {
                 repo: 'lists',
                 id: 'accounting',
+                serialid: serializer.getid(),
             },
             {
                 repo: 'lists',
                 id: 'roles',
+                serialid: serializer.getid(),
             },
             {
                 repo: 'lists',
                 id: 'programs',
+                serialid: serializer.getid(),
             },
             {
                 repo: 'lists',
                 id: 'projects',
+                serialid: serializer.getid(),
             },
             {
                 repo: 'lists',
                 id: 'resources',
+                serialid: serializer.getid(),
             },
             {
                 repo: 'lists',
                 id: 'other',
+                serialid: serializer.getid(),
             },
         ],
     },
@@ -568,7 +586,11 @@ let stacks = [
     [
         [
             {
-                ref: { repo: 'items', id: 'henrik' },
+                ref: {
+                    repo: 'items',
+                    id: 'henrik',
+                    serialid: serializer.getid(),
+                },
                 liststack: [],
             },
         ],
@@ -576,7 +598,11 @@ let stacks = [
     [
         [
             {
-                ref: { repo: 'items', id: 'henrik' },
+                ref: {
+                    repo: 'items',
+                    id: 'henrik',
+                    serialid: serializer.getid(),
+                },
                 liststack: [],
             },
         ],
@@ -584,7 +610,11 @@ let stacks = [
     [
         [
             {
-                ref: { repo: 'items', id: 'henrik' },
+                ref: {
+                    repo: 'items',
+                    id: 'henrik',
+                    serialid: serializer.getid(),
+                },
                 liststack: [],
             },
         ],
@@ -592,11 +622,16 @@ let stacks = [
     [
         [
             {
-                ref: { repo: 'items', id: 'henrik' },
+                ref: {
+                    repo: 'items',
+                    id: 'henrik',
+                    serialid: serializer.getid(),
+                },
                 liststack: [],
             },
         ],
     ],
 ];
+console.log(lists.henrik, stacks);
 export { lists, links, items, types, schemes, stacks, maps };
 //# sourceMappingURL=repositories.jsx.map
