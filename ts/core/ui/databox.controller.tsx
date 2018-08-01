@@ -9,7 +9,7 @@ import BoxTypebar from './views/databox/typebar.view'
 import ProfileBar from './views/databox/profilebar.view'
 import ProfileForm from './views/databox/profileform.view'
 import CategoriesBar from './views/databox/categoriesbar.view'
-import CategoriesList from './views/databox/categorylist.view'
+import CategoryList from './views/databox/categorylist.view'
 import ScanBar from './views/databox/scanbar.view'
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add'
@@ -45,6 +45,8 @@ class DataBox extends React.Component<any,any> {
     }
 
     expandCategory = (ref) => {
+
+        this.props.expandCategory(ref)
 
         let {boxconfig:boxConfig} = this.state
         boxConfig.liststack.push(ref)
@@ -181,7 +183,7 @@ class DataBox extends React.Component<any,any> {
                     />
                 </div>
                 <div data-marker = 'databox-scrollbox' style = {scrollboxstyle}>
-                    <CategoriesList 
+                    <CategoryList 
                         listobject = {listobject} 
                         highlightrefid = {this.state.highlightrefid}
                         getListItem = {this.props.getListItem}

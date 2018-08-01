@@ -5,7 +5,7 @@ import * as React from 'react';
 import BoxIdentifier from './views/databox/identitybar.view';
 import BoxTypebar from './views/databox/typebar.view';
 import CategoriesBar from './views/databox/categoriesbar.view';
-import CategoriesList from './views/databox/categorylist.view';
+import CategoryList from './views/databox/categorylist.view';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 class DataBox extends React.Component {
@@ -17,6 +17,7 @@ class DataBox extends React.Component {
             highlightrefid: null,
         };
         this.expandCategory = (ref) => {
+            this.props.expandCategory(ref);
             let { boxconfig: boxConfig } = this.state;
             boxConfig.liststack.push(ref);
             this.setState({
@@ -131,7 +132,7 @@ class DataBox extends React.Component {
                     <CategoriesBar item={item} getListItem={this.props.getListItem} listStack={this.state.boxconfig.liststack} collapseCategory={this.collapseCategory} haspeers={this.props.haspeers}/>
                 </div>
                 <div data-marker='databox-scrollbox' style={scrollboxstyle}>
-                    <CategoriesList listobject={listobject} highlightrefid={this.state.highlightrefid} getListItem={this.props.getListItem} expandCategory={this.expandCategory} highlightItem={this.highlightItem}/>
+                    <CategoryList listobject={listobject} highlightrefid={this.state.highlightrefid} getListItem={this.props.getListItem} expandCategory={this.expandCategory} highlightItem={this.highlightItem}/>
                 </div>
                 {this.modifybuttons(listItemType)}
             </div>

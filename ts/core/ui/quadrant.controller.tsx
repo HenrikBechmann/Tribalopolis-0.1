@@ -136,6 +136,12 @@ class Quadrant extends React.Component<any,any>  {
 
     element = null
 
+    expandCategory = (boxptr,listItemRef) => {
+
+        console.log('expandCategory',boxptr,listItemRef)
+
+    }
+
     splayBox = (boxptr) => {
 
         let {datastack, stackpointer} = this.state
@@ -259,6 +265,11 @@ class Quadrant extends React.Component<any,any>  {
                         selectFromSplay = {
                             () => {
                                 this.selectFromSplay(index)
+                            }
+                        }
+                        expandCategory = {
+                            (ref) => {
+                                this.expandCategory(index,ref)
                             }
                         }
                     />
