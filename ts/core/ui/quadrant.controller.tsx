@@ -43,8 +43,8 @@ class Quadrant extends React.Component<any,any>  {
 
             this.forceUpdate(() => {
                 setTimeout(()=>{// give time for styles to apply
-                        this.calculateTransitionPosition(nextProps.quadrant)
-                        this.setState({
+                        self.calculateTransitionPosition(nextProps.quadrant)
+                        self.setState({
                             quadrant:nextProps.quadrant
                         },
 
@@ -140,6 +140,31 @@ class Quadrant extends React.Component<any,any>  {
 
         console.log('expandCategory',boxptr,listItemRef)
 
+        let {datastack, stackpointer} = this.state
+
+        let boxconfig = datastack[stackpointer].items[boxptr]
+
+        stackpointer++
+        let newstacklayer = {items:[],settings:{}}
+
+        // replace forward stack items
+        datastack.splice(stackpointer,datastack.length,newstacklayer)
+
+        let newboxconfig = JSON.parse(JSON.stringify(boxconfig))
+
+        newboxconfig.liststack.push(listItemRef)
+
+        newstacklayer.items.push(newboxconfig)
+
+        this.setState({
+            stackpointer,
+            datastack,
+        })
+
+    }
+
+    collapseCategory = () => {
+        this.decrementStackSelector()
     }
 
     splayBox = (boxptr) => {
@@ -147,8 +172,6 @@ class Quadrant extends React.Component<any,any>  {
         let {datastack, stackpointer} = this.state
 
         let boxconfig = datastack[stackpointer].items[boxptr]
-
-        // console.log('box config template',boxconfig)
 
         let item = this.getItem(boxconfig.ref)
 
@@ -191,7 +214,6 @@ class Quadrant extends React.Component<any,any>  {
     }
 
     selectFromSplay = (boxptr) => {
-        // console.log('selectFromSplay boxPtr',boxptr)
 
         let {datastack, stackpointer} = this.state
 
@@ -210,6 +232,7 @@ class Quadrant extends React.Component<any,any>  {
             stackpointer,
             datastack,
         })
+
     }
 
     decrementStackSelector = () => {
@@ -271,6 +294,9 @@ class Quadrant extends React.Component<any,any>  {
                             (ref) => {
                                 this.expandCategory(index,ref)
                             }
+                        }
+                        collapseCategory = {
+                            this.collapseCategory
                         }
                     />
                 )

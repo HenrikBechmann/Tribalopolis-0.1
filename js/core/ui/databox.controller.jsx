@@ -18,31 +18,31 @@ class DataBox extends React.Component {
         };
         this.expandCategory = (ref) => {
             this.props.expandCategory(ref);
-            let { boxconfig: boxConfig } = this.state;
-            boxConfig.liststack.push(ref);
-            this.setState({
-                boxConfig,
-            }, () => {
-                let element = this.categoriesbarwrapper.current;
-                element.classList.add('outlinehighlight');
-                setTimeout(() => {
-                    element.classList.remove('outlinehighlight');
-                }, 2100);
-            });
+            // let {boxconfig:boxConfig} = this.state
+            // boxConfig.liststack.push(ref)
+            // this.setState({
+            //     boxConfig,
+            // },() => {
+            //     let element:HTMLElement = this.categoriesbarwrapper.current
+            //     element.classList.add('outlinehighlight')
+            //     setTimeout(() => {
+            //         element.classList.remove('outlinehighlight')
+            //     },2100)
+            // })
         };
         this.collapseCategory = () => {
-            let boxConfig = this.state.boxconfig;
-            if (!boxConfig.liststack.length)
-                return;
-            let ref = boxConfig.liststack.pop();
-            this.setState({
-                boxConfig,
-                highlightrefid: ref.id,
-            }, () => {
-                this.setState({
-                    highlightrefid: null
-                });
-            });
+            this.props.collapseCategory();
+            // let boxConfig = this.state.boxconfig
+            // if (!boxConfig.liststack.length) return
+            // let ref = boxConfig.liststack.pop()
+            // this.setState({
+            //     boxConfig,
+            //     highlightrefid:ref.id,
+            // },() => {
+            //     this.setState({
+            //         highlightrefid:null
+            //     })
+            // })
         };
         this.highlightItem = (itemref) => {
             let itemelement = itemref.current;

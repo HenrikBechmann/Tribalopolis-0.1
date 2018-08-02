@@ -92,11 +92,26 @@ class Quadrant extends React.Component {
         this.element = null;
         this.expandCategory = (boxptr, listItemRef) => {
             console.log('expandCategory', boxptr, listItemRef);
+            let { datastack, stackpointer } = this.state;
+            let boxconfig = datastack[stackpointer].items[boxptr];
+            stackpointer++;
+            let newstacklayer = { items: [], settings: {} };
+            // replace forward stack items
+            datastack.splice(stackpointer, datastack.length, newstacklayer);
+            let newboxconfig = JSON.parse(JSON.stringify(boxconfig));
+            newboxconfig.liststack.push(listItemRef);
+            newstacklayer.items.push(newboxconfig);
+            this.setState({
+                stackpointer,
+                datastack,
+            });
+        };
+        this.collapseCategory = () => {
+            this.decrementStackSelector();
         };
         this.splayBox = (boxptr) => {
             let { datastack, stackpointer } = this.state;
             let boxconfig = datastack[stackpointer].items[boxptr];
-            // console.log('box config template',boxconfig)
             let item = this.getItem(boxconfig.ref);
             let liststack = boxconfig.liststack;
             let listref;
@@ -127,7 +142,6 @@ class Quadrant extends React.Component {
             // console.log('splay box for ptr, boxconfig, item, listitem', boxptr, boxconfig, item, listitem)
         };
         this.selectFromSplay = (boxptr) => {
-            // console.log('selectFromSplay boxPtr',boxptr)
             let { datastack, stackpointer } = this.state;
             let boxconfig = datastack[stackpointer].items[boxptr];
             stackpointer++;
@@ -180,7 +194,7 @@ class Quadrant extends React.Component {
                         this.selectFromSplay(index);
                     }} expandCategory={(ref) => {
                         this.expandCategory(index, ref);
-                    }}/>);
+                    }} collapseCategory={this.collapseCategory}/>);
                 });
             }
             // console.log('getBoxes box list',boxes)
@@ -199,8 +213,8 @@ class Quadrant extends React.Component {
             this.calculateTransitionPosition(this.state.quadrant);
             this.forceUpdate(() => {
                 setTimeout(() => {
-                    this.calculateTransitionPosition(nextProps.quadrant);
-                    this.setState({
+                    self.calculateTransitionPosition(nextProps.quadrant);
+                    self.setState({
                         quadrant: nextProps.quadrant
                     }, () => {
                         setTimeout(() => {
