@@ -8,18 +8,18 @@ import CategoryItem from './categoryitem.view'
 
 class CategoriesList extends React.Component<any,any> {
     state = {
-        highlightrefid:null,
+        highlightrefuid:null,
     }
 
     listelement = null
 
     componentDidUpdate() {
-        if (!this.props.highlightrefid) return
+        if (!this.props.highlightrefuid) return
         this.setState({
-            highlightrefid:this.props.highlightrefid,
+            highlightrefuid:this.props.highlightrefuid,
         },() => {
             this.setState({
-                highlightrefid:null
+                highlightrefuid:null
             })
         })
     }
@@ -39,11 +39,11 @@ class CategoriesList extends React.Component<any,any> {
         let catitems = []
         for (let ref of links) {
             let data = getListItem(ref)
-            let highlight = (ref.id === this.state.highlightrefid)
+            let highlight = (ref.uid === this.state.highlightrefuid)
             let catitem = 
                 <CategoryItem 
-                    key = {ref.id} 
-                    id = {ref.id} 
+                    key = {ref.uid} 
+                    uid = {ref.uid} 
                     data = {data} 
                     expandCategory = {this.expandCategory(ref)}
                     highlight = {highlight}

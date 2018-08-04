@@ -12,6 +12,7 @@ import SwapMenu from './views/quadspace/quadswapmenu.view'
 import DataBox from './databox.controller'
 import QuadSelector from './views/quadspace/quadselector.view'
 import { METATYPES } from '../constants'
+import {serializer} from '../../core/utilities/serializer'
 
 class Quadrant extends React.Component<any,any>  {
 
@@ -138,7 +139,7 @@ class Quadrant extends React.Component<any,any>  {
 
     expandCategory = (boxptr,listItemRef) => {
 
-        console.log('expandCategory',boxptr,listItemRef)
+        // console.log('expandCategory',boxptr,listItemRef)
 
         let {datastack, stackpointer} = this.state
 
@@ -199,11 +200,16 @@ class Quadrant extends React.Component<any,any>  {
         // replace forward stack items
         datastack.splice(stackpointer,datastack.length,newstacklayer)
 
+        let template = JSON.stringify(boxconfig)
+
         for (let ref of linkitems) {
-            let newboxconfig = JSON.parse(JSON.stringify(boxconfig))
+            let newboxconfig = JSON.parse(template)
+            newboxconfig.instanceid = serializer.getid()
             newboxconfig.liststack.push(ref)
             newstacklayer.items.push(newboxconfig)
         }
+
+        // console.log('datastack',datastack[stackpointer])
 
         this.setState({
             stackpointer,
@@ -226,6 +232,8 @@ class Quadrant extends React.Component<any,any>  {
         datastack.splice(stackpointer,datastack.length,newstacklayer)
 
         let newboxconfig = JSON.parse(JSON.stringify(boxconfig))
+        newboxconfig.instanceid = serializer.getid()
+        
         newstacklayer.items.push(newboxconfig)
 
         this.setState({
@@ -349,7 +357,7 @@ class Quadrant extends React.Component<any,any>  {
                     }
                 } >
                     <SwapMenu quadrant = {this.state.quadrant} handleswap = {this.props.handleswap}/>
-                    <QuadTitleBar title = {this.props.title} id={this.state.startquadrant}/>
+                    <QuadTitleBar title = {this.props.title} uid={this.state.startquadrant}/>
                     <QuadOrigin 
                         stackpointer = {this.state.stackpointer} 
                         stackdepth = {this.state.datastack.length}

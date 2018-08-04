@@ -3,9 +3,9 @@
 'use strict';
 import * as React from 'react';
 const QuadTitleBar = props => {
-    let { id } = props;
+    let { uid } = props;
     let alias;
-    switch (id) {
+    switch (uid) {
         case 'topleft':
             alias = '1';
             break;

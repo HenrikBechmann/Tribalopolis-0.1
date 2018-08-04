@@ -129,19 +129,19 @@ class QuadspaceController extends React.Component<any,any> {
     }
 
     getItem = (ref) => {
-        return items[ref.id]
+        return items[ref.uid]
     }
 
     getListItem = (ref) => {
-        return lists[ref.id]
+        return lists[ref.uid]
     }
 
     // TODO: should always return an object
     getTypeItem = (metatype,ref) => {
         let retval
-        if (types[METATYPES[metatype]][ref.scheme]) {
-            retval = types[METATYPES[metatype]][ref.scheme][ref.id] ||
-                types[METATYPES[metatype]][ref.scheme]['__default__']
+        if (types[METATYPES[metatype]][ref.schemeuid]) {
+            retval = types[METATYPES[metatype]][ref.schemeuid][ref.uid] ||
+                types[METATYPES[metatype]][ref.schemeuid]['__default__']
 
         }
         retval = retval || null

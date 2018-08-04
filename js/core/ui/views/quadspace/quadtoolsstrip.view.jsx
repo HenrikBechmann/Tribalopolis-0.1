@@ -100,7 +100,7 @@ class QuadToolsStrip extends React.Component {
             left: 0,
             right: '96px'
         }}>
-                <ScrollControlsView id='scrollcontrolsview' scroller={this.state.scroller}>
+                <ScrollControlsView uid='scrollcontrolsview' scroller={this.state.scroller}>
                     <div style={{
             display: 'flex',
             flexWrap: 'nowrap',

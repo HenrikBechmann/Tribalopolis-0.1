@@ -86,7 +86,7 @@ class InfiniteScroll extends React.Component {
         });
     }
     // determine change in headadd or tailadd props
-    // objects {id:string,item:ReactElement}
+    // objects {uid:string,item:ReactElement}
     componentWillReceiveProps(nextProps) {
         if (nextProps.items != this.state.items) {
             // console.log('changed items',nextProps.items)
@@ -97,7 +97,7 @@ class InfiniteScroll extends React.Component {
     }
     render() {
         return <div className='CS_viewportframe' style={this.viewportFrameStyle}>
-            <ScrollControlsView id='scrollcontrolsview' scroller={this.state.scroller} style={{ width: '100%', height: '100%', position: 'relative' }}>
+            <ScrollControlsView uid='scrollcontrolsview' scroller={this.state.scroller} style={{ width: '100%', height: '100%', position: 'relative' }}>
                 <div className='CS_viewport' style={this.viewportStyle} onScroll={this.onScroll} ref={el => {
             this.scroller = el;
         }}>

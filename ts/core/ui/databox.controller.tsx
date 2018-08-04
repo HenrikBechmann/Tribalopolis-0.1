@@ -26,7 +26,7 @@ class DataBox extends React.Component<any,any> {
     state = {
         opacity:0,
         boxconfig:this.props.boxConfig,
-        highlightrefid:null,
+        highlightrefuid:null,
     }
 
     componentDidMount() {
@@ -72,10 +72,10 @@ class DataBox extends React.Component<any,any> {
 
         // this.setState({
         //     boxConfig,
-        //     highlightrefid:ref.id,
+        //     highlightrefuid:ref.uid,
         // },() => {
         //     this.setState({
-        //         highlightrefid:null
+        //         highlightrefuid:null
         //     })
         // })
     }
@@ -188,7 +188,7 @@ class DataBox extends React.Component<any,any> {
                 <div data-marker = 'databox-scrollbox' style = {scrollboxstyle}>
                     <CategoryList 
                         listobject = {listobject} 
-                        highlightrefid = {this.state.highlightrefid}
+                        highlightrefuid = {this.state.highlightrefuid}
                         getListItem = {this.props.getListItem}
                         expandCategory = {this.expandCategory}
                         highlightItem = {this.highlightItem}

@@ -108,17 +108,17 @@ class QuadspaceController extends React.Component {
             });
         };
         this.getItem = (ref) => {
-            return items[ref.id];
+            return items[ref.uid];
         };
         this.getListItem = (ref) => {
-            return lists[ref.id];
+            return lists[ref.uid];
         };
         // TODO: should always return an object
         this.getTypeItem = (metatype, ref) => {
             let retval;
-            if (types[METATYPES[metatype]][ref.scheme]) {
-                retval = types[METATYPES[metatype]][ref.scheme][ref.id] ||
-                    types[METATYPES[metatype]][ref.scheme]['__default__'];
+            if (types[METATYPES[metatype]][ref.schemeuid]) {
+                retval = types[METATYPES[metatype]][ref.schemeuid][ref.uid] ||
+                    types[METATYPES[metatype]][ref.schemeuid]['__default__'];
             }
             retval = retval || null;
             return retval;

@@ -14,7 +14,7 @@ class DataBox extends React.Component {
         this.state = {
             opacity: 0,
             boxconfig: this.props.boxConfig,
-            highlightrefid: null,
+            highlightrefuid: null,
         };
         this.expandCategory = (ref) => {
             this.props.expandCategory(ref);
@@ -37,10 +37,10 @@ class DataBox extends React.Component {
             // let ref = boxConfig.liststack.pop()
             // this.setState({
             //     boxConfig,
-            //     highlightrefid:ref.id,
+            //     highlightrefuid:ref.uid,
             // },() => {
             //     this.setState({
-            //         highlightrefid:null
+            //         highlightrefuid:null
             //     })
             // })
         };
@@ -132,7 +132,7 @@ class DataBox extends React.Component {
                     <CategoriesBar item={item} getListItem={this.props.getListItem} listStack={this.state.boxconfig.liststack} collapseCategory={this.collapseCategory} haspeers={this.props.haspeers}/>
                 </div>
                 <div data-marker='databox-scrollbox' style={scrollboxstyle}>
-                    <CategoryList listobject={listobject} highlightrefid={this.state.highlightrefid} getListItem={this.props.getListItem} expandCategory={this.expandCategory} highlightItem={this.highlightItem}/>
+                    <CategoryList listobject={listobject} highlightrefuid={this.state.highlightrefuid} getListItem={this.props.getListItem} expandCategory={this.expandCategory} highlightItem={this.highlightItem}/>
                 </div>
                 {this.modifybuttons(listItemType)}
             </div>

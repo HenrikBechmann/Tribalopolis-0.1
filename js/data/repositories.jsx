@@ -1,7 +1,7 @@
 // workspacedata.tsx
 import { serializer } from '../core/utilities/serializer';
 let maps = {
-    scheme: {
+    schemes: {
         common: {
             tribe: 'tribalopolis',
             parent: null,
@@ -21,8 +21,8 @@ let types = {
             __default__: {
                 type: {},
                 metadata: {
-                    id: null,
-                    scheme: null,
+                    uid: null,
+                    schemeuid: null,
                 },
                 identity: {},
                 properties: {
@@ -33,8 +33,8 @@ let types = {
             outgoing: {
                 type: {},
                 metadata: {
-                    id: null,
-                    scheme: null,
+                    uid: null,
+                    schemeuid: null,
                 },
                 identity: {},
                 properties: {
@@ -52,15 +52,15 @@ let types = {
 let lists = {
     diaries: {
         type: {
-            id: 'outgoing',
-            scheme: 'common',
+            uid: 'outgoing',
+            schemeuid: 'common',
         },
         metadata: {
-            id: null,
-            scheme: null,
+            uid: null,
+            schemeuid: null,
         },
         identity: {
-            id: 'x',
+            uid: 'x',
         },
         properties: {
             name: 'Diaries',
@@ -75,15 +75,15 @@ let lists = {
     },
     notes: {
         type: {
-            id: 'outgoing',
-            scheme: 'common',
+            uid: 'outgoing',
+            schemeuid: 'common',
         },
         metadata: {
-            id: null,
-            scheme: null,
+            uid: null,
+            schemeuid: null,
         },
         identity: {
-            id: 'x',
+            uid: 'x',
         },
         properties: {
             name: 'Notes',
@@ -98,15 +98,15 @@ let lists = {
     },
     tribes: {
         type: {
-            id: 'outgoing',
-            scheme: 'common',
+            uid: 'outgoing',
+            schemeuid: 'common',
         },
         metadata: {
-            id: null,
-            scheme: null,
+            uid: null,
+            schemeuid: null,
         },
         identity: {
-            id: 'x',
+            uid: 'x',
         },
         properties: {
             name: 'Tribes',
@@ -122,15 +122,15 @@ let lists = {
     },
     connections: {
         type: {
-            id: 'outgoing',
-            scheme: 'common',
+            uid: 'outgoing',
+            schemeuid: 'common',
         },
         metadata: {
-            id: null,
-            scheme: null,
+            uid: null,
+            schemeuid: null,
         },
         identity: {
-            id: 'x',
+            uid: 'x',
         },
         properties: {
             name: 'Contacts',
@@ -145,15 +145,15 @@ let lists = {
     },
     requesting: {
         type: {
-            id: 'outgoing',
-            scheme: 'common',
+            uid: 'outgoing',
+            schemeuid: 'common',
         },
         metadata: {
-            id: null,
-            scheme: null,
+            uid: null,
+            schemeuid: null,
         },
         identity: {
-            id: 'x',
+            uid: 'x',
         },
         properties: {
             name: 'Outgoing action requests',
@@ -168,15 +168,15 @@ let lists = {
     },
     pending: {
         type: {
-            id: 'pending',
-            scheme: 'common',
+            uid: 'pending',
+            schemeuid: 'common',
         },
         metadata: {
-            id: null,
-            scheme: null,
+            uid: null,
+            schemeuid: null,
         },
         identity: {
-            id: 'x',
+            uid: 'x',
         },
         properties: {
             name: 'Incoming action requests',
@@ -191,15 +191,15 @@ let lists = {
     },
     roles: {
         type: {
-            id: 'outgoing',
-            scheme: 'common',
+            uid: 'outgoing',
+            schemeuid: 'common',
         },
         metadata: {
-            id: null,
-            scheme: null,
+            uid: null,
+            schemeuid: null,
         },
         identity: {
-            id: 'x',
+            uid: 'x',
         },
         properties: {
             name: 'Roles',
@@ -214,15 +214,15 @@ let lists = {
     },
     programs: {
         type: {
-            id: 'outgoing',
-            scheme: 'common',
+            uid: 'outgoing',
+            schemeuid: 'common',
         },
         metadata: {
-            id: null,
-            scheme: null,
+            uid: null,
+            schemeuid: null,
         },
         identity: {
-            id: 'x',
+            uid: 'x',
         },
         properties: {
             name: 'Programs',
@@ -237,15 +237,15 @@ let lists = {
     },
     projects: {
         type: {
-            id: 'outgoing',
-            scheme: 'common',
+            uid: 'outgoing',
+            schemeuid: 'common',
         },
         metadata: {
-            id: null,
-            scheme: null,
+            uid: null,
+            schemeuid: null,
         },
         identity: {
-            id: 'x',
+            uid: 'x',
         },
         properties: {
             name: 'Projects',
@@ -260,15 +260,15 @@ let lists = {
     },
     tasks: {
         type: {
-            id: 'outgoing',
-            scheme: 'common',
+            uid: 'outgoing',
+            schemeuid: 'common',
         },
         metadata: {
-            id: null,
-            scheme: null,
+            uid: null,
+            schemeuid: null,
         },
         identity: {
-            id: 'x',
+            uid: 'x',
         },
         properties: {
             name: 'Tasks',
@@ -283,15 +283,15 @@ let lists = {
     },
     messages: {
         type: {
-            id: 'messengers',
-            scheme: 'common',
+            uid: 'messengers',
+            schemeuid: 'common',
         },
         metadata: {
-            id: null,
-            scheme: null,
+            uid: null,
+            schemeuid: null,
         },
         identity: {
-            id: 'x',
+            uid: 'x',
         },
         properties: {
             name: 'Direct Messages ',
@@ -307,14 +307,14 @@ let lists = {
     streams: {
         type: {
             type: 'messengers',
-            scheme: 'common',
+            schemeuid: 'common',
         },
         metadata: {
-            id: null,
-            scheme: null,
+            uid: null,
+            schemeuid: null,
         },
         identity: {
-            id: 'x',
+            uid: 'x',
         },
         properties: {
             name: 'Message Streams ',
@@ -329,15 +329,15 @@ let lists = {
     },
     resources: {
         type: {
-            id: 'outgoing',
-            scheme: 'common',
+            uid: 'outgoing',
+            schemeuid: 'common',
         },
         metadata: {
-            id: null,
-            scheme: null,
+            uid: null,
+            schemeuid: null,
         },
         identity: {
-            id: 'x',
+            uid: 'x',
         },
         properties: {
             name: 'Resources',
@@ -353,14 +353,14 @@ let lists = {
     calendars: {
         type: {
             type: 'calendars',
-            scheme: 'common',
+            schemeuid: 'common',
         },
         metadata: {
-            id: null,
-            scheme: null,
+            uid: null,
+            schemeuid: null,
         },
         identity: {
-            id: 'x',
+            uid: 'x',
         },
         properties: {
             name: 'Calendars',
@@ -375,15 +375,15 @@ let lists = {
     },
     accounting: {
         type: {
-            id: 'outgoing',
-            scheme: 'common',
+            uid: 'outgoing',
+            schemeuid: 'common',
         },
         metadata: {
-            id: null,
-            scheme: null,
+            uid: null,
+            schemeuid: null,
         },
         identity: {
-            id: 'x',
+            uid: 'x',
         },
         properties: {
             name: 'Accounting',
@@ -398,15 +398,15 @@ let lists = {
     },
     membership: {
         type: {
-            id: 'other',
-            scheme: 'common',
+            uid: 'other',
+            schemeuid: 'common',
         },
         metadata: {
-            id: null,
-            scheme: null,
+            uid: null,
+            schemeuid: null,
         },
         identity: {
-            id: 'x',
+            uid: 'x',
         },
         properties: {
             name: 'Membership',
@@ -422,15 +422,15 @@ let lists = {
     },
     other: {
         type: {
-            id: 'other',
-            scheme: 'common',
+            uid: 'other',
+            schemeuid: 'common',
         },
         metadata: {
-            id: null,
-            scheme: null,
+            uid: null,
+            schemeuid: null,
         },
         identity: {
-            id: 'x',
+            uid: 'x',
         },
         properties: {
             name: 'More...',
@@ -446,15 +446,15 @@ let lists = {
     },
     henrik: {
         type: {
-            id: 'member',
-            scheme: 'common',
+            uid: 'member',
+            schemeuid: 'common',
         },
         metadata: {
-            id: null,
-            scheme: null,
+            uid: null,
+            schemeuid: null,
         },
         identity: {
-            id: 'x',
+            uid: 'x',
         },
         properties: {
             name: 'Links',
@@ -469,71 +469,71 @@ let lists = {
         links: [
             {
                 repo: 'lists',
-                id: 'membership',
+                uid: 'membership',
             },
             {
                 repo: 'lists',
-                id: 'tribes',
+                uid: 'tribes',
             },
             {
                 repo: 'lists',
-                id: 'connections',
+                uid: 'connections',
             },
             {
                 repo: 'lists',
-                id: 'requesting',
+                uid: 'requesting',
             },
             {
                 repo: 'lists',
-                id: 'pending',
+                uid: 'pending',
             },
             {
                 repo: 'lists',
-                id: 'diaries',
+                uid: 'diaries',
             },
             {
                 repo: 'lists',
-                id: 'notes',
+                uid: 'notes',
             },
             {
                 repo: 'lists',
-                id: 'tasks',
+                uid: 'tasks',
             },
             {
                 repo: 'lists',
-                id: 'messages',
+                uid: 'messages',
             },
             {
                 repo: 'lists',
-                id: 'streams',
+                uid: 'streams',
             },
             {
                 repo: 'lists',
-                id: 'calendars',
+                uid: 'calendars',
             },
             {
                 repo: 'lists',
-                id: 'accounting',
+                uid: 'accounting',
             },
             {
                 repo: 'lists',
-                id: 'roles',
+                uid: 'roles',
             },
             {
                 repo: 'lists',
-                id: 'programs',
+                uid: 'programs',
             },
             {
                 repo: 'lists',
-                id: 'projects',
+                uid: 'projects',
             },
             {
                 repo: 'lists',
-                id: 'resources',
+                uid: 'resources',
             },
             {
                 repo: 'lists',
-                id: 'other',
+                uid: 'other',
             },
         ],
     },
@@ -542,16 +542,16 @@ let links = {};
 let items = {
     henrik: {
         type: {
-            id: 'member',
+            uid: 'member',
             name: 'member',
-            scheme: 'common',
+            schemeuid: 'common',
         },
         metadata: {
-            id: null,
-            scheme: null,
+            uid: null,
+            schemeuid: null,
         },
         identity: {
-            id: 'henrik',
+            uid: 'henrik',
         },
         properties: {
             tag: 'Henrik',
@@ -562,7 +562,7 @@ let items = {
             location: 'Toronto',
             locationid: 'Toronto',
         },
-        listref: { repo: 'lists', id: 'henrik' },
+        listref: { repo: 'lists', uid: 'henrik' },
     },
 };
 let stacks = [
@@ -572,9 +572,9 @@ let stacks = [
                 {
                     ref: {
                         repo: 'items',
-                        id: 'henrik',
+                        uid: 'henrik',
                     },
-                    serialid: serializer.getid(),
+                    instanceid: serializer.getid(),
                     liststack: [],
                     settings: {},
                 },
@@ -589,9 +589,9 @@ let stacks = [
                 {
                     ref: {
                         repo: 'items',
-                        id: 'henrik',
+                        uid: 'henrik',
                     },
-                    serialid: serializer.getid(),
+                    instanceid: serializer.getid(),
                     liststack: [],
                     settings: {},
                 },
@@ -605,9 +605,9 @@ let stacks = [
                 {
                     ref: {
                         repo: 'items',
-                        id: 'henrik',
+                        uid: 'henrik',
                     },
-                    serialid: serializer.getid(),
+                    instanceid: serializer.getid(),
                     liststack: [],
                     settings: {},
                 },
@@ -621,9 +621,9 @@ let stacks = [
                 {
                     ref: {
                         repo: 'items',
-                        id: 'henrik',
+                        uid: 'henrik',
                     },
-                    serialid: serializer.getid(),
+                    instanceid: serializer.getid(),
                     liststack: [],
                     settings: {},
                 },
