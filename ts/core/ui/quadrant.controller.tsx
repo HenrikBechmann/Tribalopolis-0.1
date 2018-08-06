@@ -16,12 +16,21 @@ import {serializer} from '../../core/utilities/serializer'
 
 class Quadrant extends React.Component<any,any>  {
 
+    constructor(props) {
+        super(props)
+        this.animationblock = React.createRef()
+        this.listviewport = React.createRef()
+    }
+
     state = {
         quadrant:this.props.quadrant,
         datastack:this.props.datastack,
         stackpointer:0,
         startquadrant:this.props.quadrant,
     }
+
+    animationblock
+    listviewport
 
     sessionid = this.props.sessionid
 
@@ -169,7 +178,9 @@ class Quadrant extends React.Component<any,any>  {
         this.decrementStackSelector()
     }
 
-    splayBox = (boxptr) => {
+    splayBox = (boxptr, domSource) => {
+
+        console.log('splayBox boxptr,domSource',boxptr,domSource)
 
         let {datastack, stackpointer} = this.state
 
@@ -220,7 +231,9 @@ class Quadrant extends React.Component<any,any>  {
 
     }
 
-    selectFromSplay = (boxptr) => {
+    selectFromSplay = (boxptr,domSource) => {
+
+        console.log('selectFromSplay boxptr,domSource',boxptr,domSource)
 
         let {datastack, stackpointer} = this.state
 
@@ -244,6 +257,25 @@ class Quadrant extends React.Component<any,any>  {
 
     }
 
+    // selectforward
+    animateElementDrill = (domSourceElement,domTargetElement) => {
+
+    }
+
+    // selectbackward
+    animateElementUnwind = (domSourceElement,domTargetElement) => {
+
+    }
+
+    // selectforward
+    animateOriginDrill = () => {
+
+    }
+
+    // selectbackward
+    animateOriginUnwind = () => {
+
+    }
     decrementStackSelector = () => {
         let { stackpointer } = this.state
         if (stackpointer > 0) {
@@ -290,13 +322,13 @@ class Quadrant extends React.Component<any,any>  {
                         boxConfig = { boxconfig }
                         haspeers = { haspeers }
                         splayBox = {
-                            () => {
-                                this.splayBox(index)
+                            (domSource) => {
+                                this.splayBox(index,domSource)
                             }
                         }
                         selectFromSplay = {
-                            () => {
-                                this.selectFromSplay(index)
+                            (domSource) => {
+                                this.selectFromSplay(index,domSource)
                             }
                         }
                         expandCategory = {
@@ -316,6 +348,7 @@ class Quadrant extends React.Component<any,any>  {
         return boxes
     }
 
+    // TODO: move style blocks out of render code
     render() {
         // console.log('quadrant state',this.state)
         let { color } = this.props
@@ -345,8 +378,12 @@ class Quadrant extends React.Component<any,any>  {
                     this.element = element
                 }}
             >
-                <div style = {
-                    {
+                <div
+                    ref = {this.animationblock}
+                >
+                </div>
+                <div style = 
+                    {{
                         boxSizing: 'border-box',
                         border: '3px outset gray',
                         position:'relative',
@@ -355,8 +392,9 @@ class Quadrant extends React.Component<any,any>  {
                         width:'100%',
                         height:'100%',
                         overflow:'hidden',
-                    }
-                } >
+                    }} 
+                    ref = {this.listviewport}
+                >
                     <SwapMenu quadrant = {this.state.quadrant} handleswap = {this.props.handleswap}/>
                     <QuadTitleBar title = {this.props.title} uid={this.state.startquadrant}/>
                     <QuadOrigin 

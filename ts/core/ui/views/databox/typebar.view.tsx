@@ -8,75 +8,107 @@ import FontIcon from 'material-ui/FontIcon'
 
 import ActionButton from '../common/actionbutton.view'
 
-const BoxToolbar = props => {
+class BoxToolbar extends React.Component<any,any> {
 
-    let styles:React.CSSProperties = {
-        position:'relative',
-        width:'100%',
-        borderRadius:'8px',
-        padding:'3px',
-        whiteSpace:'nowrap',
-        overflow:'hidden',
-        // fontSize:'larger',
-        boxSizing:'border-box',
+    constructor(props) {
+        super(props)
+        this.splaydomsource = React.createRef()
+        this.selectdomsource = React.createRef()
     }
 
-    let boxicon = '/public/icons/databox.svg'
+    splaydomsource
+    selectdomsource
 
-    // console.log('props in boxtoolbar',props, !!props.listcount)
+    selectFromSplay = () => {
+        return () => {
+            this.props.selectFromSplay(this.selectdomsource)
+        }
+    }
 
-    let haspeers = props.haspeers
+    splayBox = () => {
+        return () => {
+            this.props.splayBox(this.splaydomsource)
+        }
+    }
 
-    return <div style = {styles}>
+    render () {
 
-        <div style = {
-            {
-                padding:'3px',
-                boxSizing:'border-box',
-                width:'32px',
-                height:'32px',
-                display:'inline-block',
-                float:'left',
-                borderRadius:'50%',
-                border:'1px solid transparent',
-            }
-        } >
-            <img style = {{verticalAlign:'bottom'}} src = {boxicon} />
+        let props = this.props
+
+        let styles:React.CSSProperties = {
+            position:'relative',
+            width:'100%',
+            borderRadius:'8px',
+            padding:'3px',
+            whiteSpace:'nowrap',
+            overflow:'hidden',
+            // fontSize:'larger',
+            boxSizing:'border-box',
+        }
+
+        let boxicon = '/public/icons/databox.svg'
+
+        let haspeers = props.haspeers
+
+        return <div style = {styles}>
+
+            <div style = {
+                {
+                    padding:'3px',
+                    boxSizing:'border-box',
+                    width:'32px',
+                    height:'32px',
+                    display:'inline-block',
+                    float:'left',
+                    borderRadius:'50%',
+                    border:'1px solid transparent',
+                }
+            } >
+                <img style = {{verticalAlign:'bottom'}} src = {boxicon} />
+            </div>
+            <div style = {{float:'right'}}
+                ref = {this.splaydomsource}
+            >
+                <ActionButton 
+                    img = '/public/icons/ic_splay_24px.svg'
+                    disabled = {!props.listcount} 
+                    action = {this.splayBox()}
+                />
+            </div>
+
+            <div style = {{float:'right'}}
+                ref = {this.selectdomsource}
+            >
+                <ActionButton 
+                    iconStyle = {{transform:'rotate(90deg)',opacity:haspeers?1:0.3}}
+                    disabled = {!haspeers}
+                    img = '/public/icons/ic_splay_24px.svg' 
+                    action = {this.selectFromSplay()}
+                />
+            </div>
+
+                <ActionButton 
+                    icon = 'arrow_drop_down'
+                />
+
+            <div style = {
+                {
+                    margin:'0 auto 0 auto',
+                    height:'32px',
+                    boxSizing:'border-box',
+                    border:'1px solid transparent',
+                    borderRadius:'8px',
+                    padding:'5px 3px 3px',
+                    width:'60%',
+                    textAlign:'center',
+                    fontStyle:'italic',
+                    position:'relative',
+                }
+            }>
+                {props.item.type.name}
+            </div>
         </div>
-        <ActionButton 
-            img = '/public/icons/ic_splay_24px.svg'
-            disabled = {!props.listcount} 
-            action = {props.splayBox}
-        />
-
-        <ActionButton 
-            iconStyle = {{transform:'rotate(90deg)',opacity:haspeers?1:0.3}}
-            disabled = {!haspeers}
-            img = '/public/icons/ic_splay_24px.svg' 
-            action = {props.selectFromSplay}
-        />
-
-        <ActionButton 
-            icon = 'arrow_drop_down'
-        />
-
-        <div style = {
-            {
-                margin:'0 auto 0 auto',
-                height:'32px',
-                boxSizing:'border-box',
-                border:'1px solid transparent',
-                borderRadius:'8px',
-                padding:'5px 3px 3px',
-                width:'60%',
-                textAlign:'center',
-                fontStyle:'italic',
-                position:'relative',
-            }
-        }>
-            {props.item.type.name}
-        </div>
-    </div>
+    }
 }
 
 

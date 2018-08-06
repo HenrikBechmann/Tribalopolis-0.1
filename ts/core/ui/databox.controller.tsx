@@ -44,10 +44,6 @@ class DataBox extends React.Component<any,any> {
         }
     }
 
-    componentWillUnmount() {
-        console.log('unmounting')
-    }
-
     expandCategory = (ref) => {
 
         this.props.expandCategory(ref)

@@ -1,5 +1,32 @@
-.base-appear { opacity: 0.01 }
+/*.base-appear { opacity: 0.01 }
 .base-appear.base-appear-active { opacity: 1; transition: opacity 0.5s ease-in; }
+*/
+
+:root {
+
+}
+
+@keyframes elementdrill {
+
+}
+
+@keyframes elementunwind {
+    
+}
+
+.elementdrill {
+    position:fixed;
+    top:50px;
+    left:50px;
+    height:100px;
+    width:100px;
+    border: 6px solid silver;
+    animation: elementdrill 2s;
+}
+
+.elementunwind {
+    animation: elementunwind 2s;
+}
 
 @keyframes highlight {
     0% {

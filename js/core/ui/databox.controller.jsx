@@ -86,9 +86,6 @@ class DataBox extends React.Component {
             });
         }
     }
-    componentWillUnmount() {
-        console.log('unmounting');
-    }
     render() {
         // console.log('databox render',this.state.boxconfig)
         let { item, getListItem } = this.props;
