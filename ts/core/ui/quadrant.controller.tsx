@@ -20,6 +20,7 @@ class Quadrant extends React.Component<any,any>  {
         super(props)
         this.animationblock = React.createRef()
         this.listviewport = React.createRef()
+        this.element = React.createRef()
     }
 
     state = {
@@ -76,7 +77,7 @@ class Quadrant extends React.Component<any,any>  {
         let left:any = 'auto'
         let bottom:any = 'auto'
         let right:any = 'auto'
-        let element = this.element
+        let element = this.element.current
         switch (quadrant) {
             case "topleft": {
                 top = 0
@@ -263,7 +264,7 @@ class Quadrant extends React.Component<any,any>  {
     }
 
     // selectbackward
-    animateElementUnwind = (SourceStyle, targetStyle, adnimationBlock) => {
+    animateElementUnwind = (sourceStyle, targetStyle, adnimationBlock) => {
 
     }
 
@@ -374,9 +375,7 @@ class Quadrant extends React.Component<any,any>  {
                     }
 
                 }
-                ref = {(element) => {
-                    this.element = element
-                }}
+                ref = {this.element}
             >
                 <div
                     ref = {this.animationblock}

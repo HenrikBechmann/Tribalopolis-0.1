@@ -25,7 +25,7 @@ class Quadrant extends React.Component {
             let left = 'auto';
             let bottom = 'auto';
             let right = 'auto';
-            let element = this.element;
+            let element = this.element.current;
             switch (quadrant) {
                 case "topleft": {
                     top = 0;
@@ -164,10 +164,10 @@ class Quadrant extends React.Component {
             });
         };
         // selectforward
-        this.animateElementDrill = (domSourceElement, domTargetElement) => {
+        this.animateElementDrill = (sourceStyle, targetStyle, animationBlock) => {
         };
         // selectbackward
-        this.animateElementUnwind = (domSourceElement, domTargetElement) => {
+        this.animateElementUnwind = (sourceStyle, targetStyle, adnimationBlock) => {
         };
         // selectforward
         this.animateOriginDrill = () => {
@@ -222,6 +222,7 @@ class Quadrant extends React.Component {
         };
         this.animationblock = React.createRef();
         this.listviewport = React.createRef();
+        this.element = React.createRef();
     }
     componentWillMount() {
         this.calculatePosition(this.state.quadrant);
@@ -268,9 +269,7 @@ class Quadrant extends React.Component {
             right,
             border: '1px solid transparent',
             transition: 'all .5s ease'
-        }} ref={(element) => {
-            this.element = element;
-        }}>
+        }} ref={this.element}>
                 <div ref={this.animationblock}>
                 </div>
                 <div style={{
