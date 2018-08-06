@@ -100,6 +100,7 @@ class Quadrant extends React.Component {
             // replace forward stack items
             datastack.splice(stackpointer, datastack.length, newstacklayer);
             let newboxconfig = JSON.parse(JSON.stringify(boxconfig));
+            newboxconfig.instanceid = serializer.getid();
             newboxconfig.liststack.push(listItemRef);
             newstacklayer.items.push(newboxconfig);
             this.setState({
@@ -193,7 +194,7 @@ class Quadrant extends React.Component {
                 boxes = datastack[stackpointer].items.map((boxconfig, index) => {
                     let item = this.getItem(boxconfig.ref);
                     let itemType = this.getTypeItem(METATYPES.item, item.type);
-                    return (<DataBox key={index} item={item} itemType={itemType} getListItem={this.getListItem} getListItemType={this.getListItemType(METATYPES.list)} boxConfig={boxconfig} haspeers={haspeers} splayBox={() => {
+                    return (<DataBox key={boxconfig.instanceid} item={item} itemType={itemType} getListItem={this.getListItem} getListItemType={this.getListItemType(METATYPES.list)} boxConfig={boxconfig} haspeers={haspeers} splayBox={() => {
                         this.splayBox(index);
                     }} selectFromSplay={() => {
                         this.selectFromSplay(index);

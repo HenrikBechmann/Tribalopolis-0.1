@@ -86,6 +86,9 @@ class DataBox extends React.Component {
             });
         }
     }
+    componentWillUnmount() {
+        console.log('unmounting');
+    }
     render() {
         // console.log('databox render',this.state.boxconfig)
         let { item, getListItem } = this.props;
@@ -111,7 +114,7 @@ class DataBox extends React.Component {
             marginRight: '16px',
             fontSize: 'smaller',
             opacity: this.state.opacity,
-            transition: 'opacity .5s ease-out',
+            transition: 'opacity 1s ease-in',
         };
         let scrollboxstyle = {
             height: 'calc(100% - 32px)',

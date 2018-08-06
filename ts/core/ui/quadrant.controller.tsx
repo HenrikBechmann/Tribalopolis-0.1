@@ -152,6 +152,7 @@ class Quadrant extends React.Component<any,any>  {
         datastack.splice(stackpointer,datastack.length,newstacklayer)
 
         let newboxconfig = JSON.parse(JSON.stringify(boxconfig))
+        newboxconfig.instanceid = serializer.getid()
 
         newboxconfig.liststack.push(listItemRef)
 
@@ -281,7 +282,7 @@ class Quadrant extends React.Component<any,any>  {
                 let itemType = this.getTypeItem(METATYPES.item,item.type)
                 return (
                     <DataBox 
-                        key = { index } 
+                        key = { boxconfig.instanceid } 
                         item = { item } 
                         itemType = { itemType }
                         getListItem = { this.getListItem }

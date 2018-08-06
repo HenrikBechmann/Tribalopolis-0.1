@@ -44,6 +44,10 @@ class DataBox extends React.Component<any,any> {
         }
     }
 
+    componentWillUnmount() {
+        console.log('unmounting')
+    }
+
     expandCategory = (ref) => {
 
         this.props.expandCategory(ref)
@@ -146,7 +150,7 @@ class DataBox extends React.Component<any,any> {
             marginRight:'16px',
             fontSize:'smaller',
             opacity:this.state.opacity,
-            transition:'opacity .5s ease-out',
+            transition:'opacity 1s ease-in',
         }
 
         let scrollboxstyle:React.CSSProperties = {
