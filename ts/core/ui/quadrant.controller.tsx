@@ -178,7 +178,7 @@ class Quadrant extends React.Component<any,any>  {
         this.decrementStackSelector()
     }
 
-    splayBox = (boxptr, domSource) => {
+    splayBox = (boxptr, domSource, domTarget) => {
 
         console.log('splayBox boxptr,domSource',boxptr,domSource)
 
@@ -258,12 +258,12 @@ class Quadrant extends React.Component<any,any>  {
     }
 
     // selectforward
-    animateElementDrill = (domSourceElement,domTargetElement) => {
+    animateElementDrill = (sourceStyle, targetStyle, animationBlock) => {
 
     }
 
     // selectbackward
-    animateElementUnwind = (domSourceElement,domTargetElement) => {
+    animateElementUnwind = (SourceStyle, targetStyle, adnimationBlock) => {
 
     }
 
@@ -323,7 +323,7 @@ class Quadrant extends React.Component<any,any>  {
                         haspeers = { haspeers }
                         splayBox = {
                             (domSource) => {
-                                this.splayBox(index,domSource)
+                                this.splayBox(index,domSource,this.listviewport)
                             }
                         }
                         selectFromSplay = {

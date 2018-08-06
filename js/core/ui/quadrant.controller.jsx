@@ -111,7 +111,7 @@ class Quadrant extends React.Component {
         this.collapseCategory = () => {
             this.decrementStackSelector();
         };
-        this.splayBox = (boxptr, domSource) => {
+        this.splayBox = (boxptr, domSource, domTarget) => {
             console.log('splayBox boxptr,domSource', boxptr, domSource);
             let { datastack, stackpointer } = this.state;
             let boxconfig = datastack[stackpointer].items[boxptr];
@@ -209,7 +209,7 @@ class Quadrant extends React.Component {
                     let item = this.getItem(boxconfig.ref);
                     let itemType = this.getTypeItem(METATYPES.item, item.type);
                     return (<DataBox key={boxconfig.instanceid} item={item} itemType={itemType} getListItem={this.getListItem} getListItemType={this.getListItemType(METATYPES.list)} boxConfig={boxconfig} haspeers={haspeers} splayBox={(domSource) => {
-                        this.splayBox(index, domSource);
+                        this.splayBox(index, domSource, this.listviewport);
                     }} selectFromSplay={(domSource) => {
                         this.selectFromSplay(index, domSource);
                     }} expandCategory={(ref) => {
