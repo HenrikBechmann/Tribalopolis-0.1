@@ -150,7 +150,7 @@ class DataBox extends React.Component<any,any> {
             marginRight:'16px',
             fontSize:'smaller',
             opacity:this.state.opacity,
-            transition:'opacity 1s ease-in',
+            transition:'opacity .5s ease-in',
         }
 
         let scrollboxstyle:React.CSSProperties = {
