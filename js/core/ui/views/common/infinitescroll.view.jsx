@@ -54,6 +54,7 @@ class InfiniteScroll extends React.Component {
             border: '1px solid gray',
             boxSizing: 'border-box',
             borderRadius: '8px',
+            position: 'relative',
         };
         this.platformStyle = {
             position: 'relative',
@@ -100,7 +101,7 @@ class InfiniteScroll extends React.Component {
             <ScrollControlsView uid='scrollcontrolsview' scroller={this.state.scroller} style={{ width: '100%', height: '100%', position: 'relative' }}>
                 <div className='CS_viewport' style={this.viewportStyle} onScroll={this.onScroll} ref={el => {
             this.scroller = el;
-        }}>
+        }} data-marker='infinite-scrollbox'>
                     <div className='CS_platform' style={this.platformStyle}>
                         <div className='CS_list' style={this.listStyle}>
                             {this.state.items}

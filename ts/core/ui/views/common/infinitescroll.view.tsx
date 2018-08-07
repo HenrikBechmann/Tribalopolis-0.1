@@ -105,6 +105,7 @@ class InfiniteScroll extends React.Component<any,any> {
         border: '1px solid gray',
         boxSizing: 'border-box',
         borderRadius: '8px',
+        position:'relative',
     }
 
     platformStyle:React.CSSProperties = {
@@ -138,6 +139,7 @@ class InfiniteScroll extends React.Component<any,any> {
                     ref = {el => {
                         this.scroller = el
                     }}
+                    data-marker = 'infinite-scrollbox'
                 >
                     <div className = 'CS_platform' style = {this.platformStyle}>
                         <div className = 'CS_list' style = {this.listStyle}>

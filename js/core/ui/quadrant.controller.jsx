@@ -150,10 +150,12 @@ class Quadrant extends React.Component {
             }, 1300);
         };
         this.selectFromSplay = (boxptr, domSource) => {
-            console.log('selectFromSplay boxptr,domSource', boxptr, domSource);
+            // console.log('selectFromSplay boxptr,domSource',boxptr,domSource)
             let targetReference = this.listviewport;
             let drillanimationblock = this.drillanimationblock.current;
             let { domSourcePack: drillSourcePack, domTargetPack: drillTargetPack } = this.getAnimationSelectDrillVars(domSource.current, targetReference.current, 'quadelement');
+            let scrollBoxOffset = this._getScrollboxOffset(domSource.current);
+            drillSourcePack.left -= scrollBoxOffset;
             this.animateBlockDrill(drillSourcePack, drillTargetPack, drillanimationblock);
             let { datastack, stackpointer } = this.state;
             let boxconfig = datastack[stackpointer].items[boxptr];
@@ -212,6 +214,13 @@ class Quadrant extends React.Component {
                 height,
                 width,
             };
+        };
+        this._getScrollboxOffset = (domSourceElement) => {
+            let element = domSourceElement;
+            while (element && (element.getAttribute('data-marker') != 'infinite-scrollbox')) {
+                element = element.offsetParent;
+            }
+            return element.scrollLeft;
         };
         // selectforward
         this.animateBlockDrill = (sourceStyle, targetStyle, drillanimationBlock) => {

@@ -239,7 +239,7 @@ class Quadrant extends React.Component<any,any>  {
 
     selectFromSplay = (boxptr:number,domSource) => {
 
-        console.log('selectFromSplay boxptr,domSource',boxptr,domSource)
+        // console.log('selectFromSplay boxptr,domSource',boxptr,domSource)
 
         let targetReference = this.listviewport
 
@@ -247,6 +247,10 @@ class Quadrant extends React.Component<any,any>  {
 
         let {domSourcePack:drillSourcePack,domTargetPack:drillTargetPack} = 
             this.getAnimationSelectDrillVars(domSource.current,targetReference.current,'quadelement')
+
+        let scrollBoxOffset = this._getScrollboxOffset(domSource.current)
+
+        drillSourcePack.left -= scrollBoxOffset
 
         this.animateBlockDrill(drillSourcePack, drillTargetPack, drillanimationblock)
 
@@ -325,6 +329,15 @@ class Quadrant extends React.Component<any,any>  {
             height,
             width,
         }
+    }
+
+    _getScrollboxOffset = (domSourceElement:HTMLElement) => {
+        let element = domSourceElement
+        while (element && (element.getAttribute('data-marker') != 'infinite-scrollbox')) {
+            element = element.offsetParent as HTMLElement
+        }
+
+        return element.scrollLeft
     }
 
     // selectforward
