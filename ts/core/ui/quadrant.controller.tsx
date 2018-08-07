@@ -188,6 +188,10 @@ class Quadrant extends React.Component<any,any>  {
         let {domSourcePack:drillSourcePack,domTargetPack:drillTargetPack} = 
             this.getAnimationDrillVars(domSource.current,domTarget.current,'quadelement')
 
+        let scrollBoxOffset = this._getScrollboxOffset(domSource.current)
+
+        drillSourcePack.left -= scrollBoxOffset
+
         this.animateBlockDrill(drillSourcePack, drillTargetPack, drillanimationblock)
 
         let {datastack, stackpointer} = this.state
