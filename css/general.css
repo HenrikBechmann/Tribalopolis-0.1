@@ -3,14 +3,29 @@
 */
 
 :root {
-    --top:100px;
-    --left:50px;
-    --height:100px;
-    --width:100px;
+    --sourcetop:100px;
+    --sourceleft:50px;
+    --sourceheight:100px;
+    --sourcewidth:100px;
 }
 
 @keyframes elementdrill {
-
+    0% {
+        top:var(--sourcetop);
+        left:var(--sourceleft);
+        height:var(--sourceheight);
+        width:var(--sourcewidth);
+        background-color: green;
+        opacity:1;
+    }
+    100% {
+        top:var(--targettop);
+        left:var(--targetleft);
+        height:var(--targetheight);
+        width:var(--targetwidth);
+        background-color: orange;
+        opacity:0;
+    }
 }
 
 @keyframes elementunwind {
@@ -19,13 +34,8 @@
 
 .elementdrill {
     position:absolute;
-    top:var(--top);
-    left:var(--left);
-    height:var(--height);
-    width:var(--width);
     border: 6px solid silver;
     animation: elementdrill 2s;
-    background-color: orange;
     z-index: 5;
     border-radius: 8px;
 }

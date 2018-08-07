@@ -112,7 +112,7 @@ class Quadrant extends React.Component {
             this.decrementStackSelector();
         };
         this.splayBox = (boxptr, domSource, domTarget) => {
-            console.log('splayBox boxptr,domSource, domTarget', boxptr, domSource, domTarget);
+            // console.log('splayBox boxptr,domSource, domTarget',boxptr,domSource, domTarget)
             let animationblock = this.animationblock.current;
             let { domSourcePack, domTargetPack } = this.getAnimationDrillVars(domSource.current, domTarget.current, 'quadelement');
             this.animateBlockDrill(domSourcePack, domTargetPack, animationblock);
@@ -143,10 +143,12 @@ class Quadrant extends React.Component {
                 newboxconfig.liststack.push(ref);
                 newstacklayer.items.push(newboxconfig);
             }
-            this.setState({
-                stackpointer,
-                datastack,
-            });
+            setTimeout(() => {
+                this.setState({
+                    stackpointer,
+                    datastack,
+                });
+            }, 1300);
         };
         this.selectFromSplay = (boxptr, domSource) => {
             console.log('selectFromSplay boxptr,domSource', boxptr, domSource);
@@ -174,14 +176,11 @@ class Quadrant extends React.Component {
             return varpack;
         };
         this._getDrillVars = (domelement, referenceMarker) => {
-            console.log('domelement,referenceMarker', domelement, referenceMarker);
             let topOffset = 0;
             let leftOffset = 0;
             let height = domelement.offsetHeight;
             let width = domelement.offsetWidth;
             let searchelement = domelement;
-            console.log('domelement,searchelement', domelement, searchelement);
-            console.log('searchelement.getAttribute', searchelement.getAttribute('data-marker'));
             while (searchelement && (searchelement.getAttribute('data-marker') != referenceMarker)) {
                 topOffset += searchelement.offsetTop;
                 leftOffset += searchelement.offsetLeft;
@@ -196,9 +195,17 @@ class Quadrant extends React.Component {
         };
         // selectforward
         this.animateBlockDrill = (sourceStyle, targetStyle, animationBlock) => {
-            console.log('sourceStyle,targetStyle', sourceStyle, targetStyle);
-            animationBlock.style.setProperty('--width', '200px');
+            // console.log('sourceStyle,targetStyle',sourceStyle,targetStyle)
+            for (let property in sourceStyle) {
+                animationBlock.style.setProperty('--source' + property, sourceStyle[property] + 'px');
+            }
+            for (let property in targetStyle) {
+                animationBlock.style.setProperty('--target' + property, targetStyle[property] + 'px');
+            }
             animationBlock.classList.add('elementdrill');
+            setTimeout(() => {
+                animationBlock.classList.remove('elementdrill');
+            }, 2100);
         };
         // selectbackward
         this.animateBlockUnwind = (sourceStyle, targetStyle, adnimationBlock) => {

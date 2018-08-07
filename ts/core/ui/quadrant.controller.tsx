@@ -229,11 +229,12 @@ class Quadrant extends React.Component<any,any>  {
             newstacklayer.items.push(newboxconfig)
         }
 
-        this.setState({
-            stackpointer,
-            datastack,
-        })
-
+        setTimeout(() => {
+            this.setState({
+                stackpointer,
+                datastack,
+            })
+        },1300)
     }
 
     selectFromSplay = (boxptr,domSource) => {
@@ -299,10 +300,20 @@ class Quadrant extends React.Component<any,any>  {
     // selectforward
     animateBlockDrill = (sourceStyle, targetStyle, animationBlock) => {
 
-        console.log('sourceStyle,targetStyle',sourceStyle,targetStyle)
+        // console.log('sourceStyle,targetStyle',sourceStyle,targetStyle)
 
-        animationBlock.style.setProperty('--width','200px')
+        for (let property in sourceStyle) {
+            animationBlock.style.setProperty('--source'+property,sourceStyle[property] + 'px')
+        }
+        for (let property in targetStyle) {
+            animationBlock.style.setProperty('--target'+property,targetStyle[property] + 'px')
+        }
+
         animationBlock.classList.add('elementdrill')
+
+        setTimeout(() => {
+            animationBlock.classList.remove('elementdrill')
+        },2100)
 }
 
     // selectbackward
