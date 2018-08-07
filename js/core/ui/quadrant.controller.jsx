@@ -112,7 +112,7 @@ class Quadrant extends React.Component {
             this.decrementStackSelector();
         };
         this.splayBox = (boxptr, domSource, domTarget) => {
-            console.log('splayBox boxptr,domSource', boxptr, domSource);
+            console.log('splayBox boxptr,domSource, domTarget', boxptr, domSource, domTarget);
             let { datastack, stackpointer } = this.state;
             let boxconfig = datastack[stackpointer].items[boxptr];
             let item = this.getItem(boxconfig.ref);

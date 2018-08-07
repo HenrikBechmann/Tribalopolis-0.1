@@ -181,7 +181,7 @@ class Quadrant extends React.Component<any,any>  {
 
     splayBox = (boxptr, domSource, domTarget) => {
 
-        console.log('splayBox boxptr,domSource',boxptr,domSource)
+        console.log('splayBox boxptr,domSource, domTarget',boxptr,domSource, domTarget)
 
         let {datastack, stackpointer} = this.state
 
