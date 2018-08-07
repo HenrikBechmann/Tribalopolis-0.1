@@ -113,6 +113,9 @@ class Quadrant extends React.Component {
         };
         this.splayBox = (boxptr, domSource, domTarget) => {
             console.log('splayBox boxptr,domSource, domTarget', boxptr, domSource, domTarget);
+            let animationblock = this.animationblock.current;
+            animationblock.style.setProperty('--width', '200px');
+            animationblock.classList.add('elementdrill');
             let { datastack, stackpointer } = this.state;
             let boxconfig = datastack[stackpointer].items[boxptr];
             let item = this.getItem(boxconfig.ref);

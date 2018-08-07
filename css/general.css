@@ -3,7 +3,10 @@
 */
 
 :root {
-
+    --top:100px;
+    --left:50px;
+    --height:100px;
+    --width:100px;
 }
 
 @keyframes elementdrill {
@@ -15,13 +18,16 @@
 }
 
 .elementdrill {
-    position:fixed;
-    top:50px;
-    left:50px;
-    height:100px;
-    width:100px;
+    position:absolute;
+    top:var(--top);
+    left:var(--left);
+    height:var(--height);
+    width:var(--width);
     border: 6px solid silver;
     animation: elementdrill 2s;
+    background-color: orange;
+    z-index: 5;
+    border-radius: 8px;
 }
 
 .elementunwind {

@@ -183,6 +183,10 @@ class Quadrant extends React.Component<any,any>  {
 
         console.log('splayBox boxptr,domSource, domTarget',boxptr,domSource, domTarget)
 
+        let animationblock = this.animationblock.current
+        animationblock.style.setProperty('--width','200px')
+        animationblock.classList.add('elementdrill')
+
         let {datastack, stackpointer} = this.state
 
         let boxconfig = datastack[stackpointer].items[boxptr]
