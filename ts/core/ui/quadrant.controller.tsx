@@ -20,7 +20,7 @@ class Quadrant extends React.Component<any,any>  {
         super(props)
         this.animationblock = React.createRef()
         this.listviewport = React.createRef()
-        this.element = React.createRef()
+        this.quadelement = React.createRef()
     }
 
     state = {
@@ -77,7 +77,7 @@ class Quadrant extends React.Component<any,any>  {
         let left:any = 'auto'
         let bottom:any = 'auto'
         let right:any = 'auto'
-        let element = this.element.current
+        let quadelement = this.quadelement.current
         switch (quadrant) {
             case "topleft": {
                 top = 0
@@ -86,17 +86,17 @@ class Quadrant extends React.Component<any,any>  {
             }
             case "topright": {
                 top = 0
-                left = (element.parentElement.offsetWidth/2) + 'px' 
+                left = (quadelement.parentElement.offsetWidth/2) + 'px' 
                 break;
             }
             case "bottomleft": {
-                top = (element.parentElement.offsetHeight/2) + 'px' 
+                top = (quadelement.parentElement.offsetHeight/2) + 'px' 
                 left = 0
                 break;
             }
             case "bottomright": {
-                top = (element.parentElement.offsetHeight /2) + 'px' 
-                left = (element.parentElement.offsetWidth /2) + 'px' 
+                top = (quadelement.parentElement.offsetHeight /2) + 'px' 
+                left = (quadelement.parentElement.offsetWidth /2) + 'px' 
                 break;
             }
         }
@@ -145,7 +145,7 @@ class Quadrant extends React.Component<any,any>  {
 
     position = null
 
-    element = null
+    quadelement = null
 
     expandCategory = (boxptr,listItemRef) => {
 
@@ -181,11 +181,14 @@ class Quadrant extends React.Component<any,any>  {
 
     splayBox = (boxptr, domSource, domTarget) => {
 
-        console.log('splayBox boxptr,domSource, domTarget',boxptr,domSource, domTarget)
+        // console.log('splayBox boxptr,domSource, domTarget',boxptr,domSource, domTarget)
 
-        let animationblock = this.animationblock.current
-        animationblock.style.setProperty('--width','200px')
-        animationblock.classList.add('elementdrill')
+        let animationblock:HTMLElement = this.animationblock.current
+
+        let {domSourcePack,domTargetPack} = 
+            this.getAnimationDrillVars(domSource.current,domTarget.current,'quadelement')
+
+        this.animateBlockDrill(domSourcePack, domTargetPack, animationblock)
 
         let {datastack, stackpointer} = this.state
 
@@ -226,13 +229,10 @@ class Quadrant extends React.Component<any,any>  {
             newstacklayer.items.push(newboxconfig)
         }
 
-        // console.log('datastack',datastack[stackpointer])
-
         this.setState({
             stackpointer,
             datastack,
         })
-        // console.log('splay box for ptr, boxconfig, item, listitem', boxptr, boxconfig, item, listitem)
 
     }
 
@@ -262,13 +262,51 @@ class Quadrant extends React.Component<any,any>  {
 
     }
 
-    // selectforward
-    animateElementDrill = (sourceStyle, targetStyle, animationBlock) => {
+    getAnimationDrillVars = (domSource:HTMLElement,domTarget:HTMLElement,referenceMarker) => {
+        let varpack = {
+            domSourcePack:null,
+            domTargetPack:null,
+        }
 
+        varpack.domSourcePack = this._getDrillVars(domSource,referenceMarker)
+        varpack.domTargetPack = this._getDrillVars(domTarget,referenceMarker)
+
+        return varpack
     }
 
+    _getDrillVars = (domelement:HTMLElement, referenceMarker) => {
+
+        let topOffset = 0
+        let leftOffset = 0
+        let height = domelement.offsetHeight
+        let width = domelement.offsetWidth
+
+        let searchelement:HTMLElement = domelement
+        while (searchelement && (searchelement.getAttribute('data-marker') != referenceMarker)) {
+            topOffset += searchelement.offsetTop
+            leftOffset += searchelement.offsetLeft
+            searchelement = searchelement.offsetParent as HTMLElement
+        }
+
+        return {
+            top:topOffset,
+            left:leftOffset,
+            height,
+            width,
+        }
+    }
+
+    // selectforward
+    animateBlockDrill = (sourceStyle, targetStyle, animationBlock) => {
+
+        console.log('sourceStyle,targetStyle',sourceStyle,targetStyle)
+
+        animationBlock.style.setProperty('--width','200px')
+        animationBlock.classList.add('elementdrill')
+}
+
     // selectbackward
-    animateElementUnwind = (sourceStyle, targetStyle, adnimationBlock) => {
+    animateBlockUnwind = (sourceStyle, targetStyle, adnimationBlock) => {
 
     }
 
@@ -362,7 +400,7 @@ class Quadrant extends React.Component<any,any>  {
         let boxlist = this.getBoxes()
         // console.log('render box list',boxlist)
         return (
-            <div 
+            <div data-marker = 'quadelement'
                 style = {
                     {
                         position:'absolute',
@@ -379,7 +417,7 @@ class Quadrant extends React.Component<any,any>  {
                     }
 
                 }
-                ref = {this.element}
+                ref = {this.quadelement}
             >
                 <div
                     ref = {this.animationblock}

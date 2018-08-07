@@ -25,7 +25,7 @@ class Quadrant extends React.Component {
             let left = 'auto';
             let bottom = 'auto';
             let right = 'auto';
-            let element = this.element.current;
+            let quadelement = this.quadelement.current;
             switch (quadrant) {
                 case "topleft": {
                     top = 0;
@@ -34,17 +34,17 @@ class Quadrant extends React.Component {
                 }
                 case "topright": {
                     top = 0;
-                    left = (element.parentElement.offsetWidth / 2) + 'px';
+                    left = (quadelement.parentElement.offsetWidth / 2) + 'px';
                     break;
                 }
                 case "bottomleft": {
-                    top = (element.parentElement.offsetHeight / 2) + 'px';
+                    top = (quadelement.parentElement.offsetHeight / 2) + 'px';
                     left = 0;
                     break;
                 }
                 case "bottomright": {
-                    top = (element.parentElement.offsetHeight / 2) + 'px';
-                    left = (element.parentElement.offsetWidth / 2) + 'px';
+                    top = (quadelement.parentElement.offsetHeight / 2) + 'px';
+                    left = (quadelement.parentElement.offsetWidth / 2) + 'px';
                     break;
                 }
             }
@@ -90,7 +90,7 @@ class Quadrant extends React.Component {
             };
         };
         this.position = null;
-        this.element = null;
+        this.quadelement = null;
         this.expandCategory = (boxptr, listItemRef) => {
             // console.log('expandCategory',boxptr,listItemRef)
             let { datastack, stackpointer } = this.state;
@@ -114,8 +114,8 @@ class Quadrant extends React.Component {
         this.splayBox = (boxptr, domSource, domTarget) => {
             console.log('splayBox boxptr,domSource, domTarget', boxptr, domSource, domTarget);
             let animationblock = this.animationblock.current;
-            animationblock.style.setProperty('--width', '200px');
-            animationblock.classList.add('elementdrill');
+            let { domSourcePack, domTargetPack } = this.getAnimationDrillVars(domSource.current, domTarget.current, 'quadelement');
+            this.animateBlockDrill(domSourcePack, domTargetPack, animationblock);
             let { datastack, stackpointer } = this.state;
             let boxconfig = datastack[stackpointer].items[boxptr];
             let item = this.getItem(boxconfig.ref);
@@ -143,12 +143,10 @@ class Quadrant extends React.Component {
                 newboxconfig.liststack.push(ref);
                 newstacklayer.items.push(newboxconfig);
             }
-            // console.log('datastack',datastack[stackpointer])
             this.setState({
                 stackpointer,
                 datastack,
             });
-            // console.log('splay box for ptr, boxconfig, item, listitem', boxptr, boxconfig, item, listitem)
         };
         this.selectFromSplay = (boxptr, domSource) => {
             console.log('selectFromSplay boxptr,domSource', boxptr, domSource);
@@ -166,11 +164,44 @@ class Quadrant extends React.Component {
                 datastack,
             });
         };
+        this.getAnimationDrillVars = (domSource, domTarget, referenceMarker) => {
+            let varpack = {
+                domSourcePack: null,
+                domTargetPack: null,
+            };
+            varpack.domSourcePack = this._getDrillVars(domSource, referenceMarker);
+            varpack.domTargetPack = this._getDrillVars(domTarget, referenceMarker);
+            return varpack;
+        };
+        this._getDrillVars = (domelement, referenceMarker) => {
+            console.log('domelement,referenceMarker', domelement, referenceMarker);
+            let topOffset = 0;
+            let leftOffset = 0;
+            let height = domelement.offsetHeight;
+            let width = domelement.offsetWidth;
+            let searchelement = domelement;
+            console.log('domelement,searchelement', domelement, searchelement);
+            console.log('searchelement.getAttribute', searchelement.getAttribute('data-marker'));
+            while (searchelement && (searchelement.getAttribute('data-marker') != referenceMarker)) {
+                topOffset += searchelement.offsetTop;
+                leftOffset += searchelement.offsetLeft;
+                searchelement = searchelement.offsetParent;
+            }
+            return {
+                top: topOffset,
+                left: leftOffset,
+                height,
+                width,
+            };
+        };
         // selectforward
-        this.animateElementDrill = (sourceStyle, targetStyle, animationBlock) => {
+        this.animateBlockDrill = (sourceStyle, targetStyle, animationBlock) => {
+            console.log('sourceStyle,targetStyle', sourceStyle, targetStyle);
+            animationBlock.style.setProperty('--width', '200px');
+            animationBlock.classList.add('elementdrill');
         };
         // selectbackward
-        this.animateElementUnwind = (sourceStyle, targetStyle, adnimationBlock) => {
+        this.animateBlockUnwind = (sourceStyle, targetStyle, adnimationBlock) => {
         };
         // selectforward
         this.animateOriginDrill = () => {
@@ -225,7 +256,7 @@ class Quadrant extends React.Component {
         };
         this.animationblock = React.createRef();
         this.listviewport = React.createRef();
-        this.element = React.createRef();
+        this.quadelement = React.createRef();
     }
     componentWillMount() {
         this.calculatePosition(this.state.quadrant);
@@ -260,7 +291,7 @@ class Quadrant extends React.Component {
         let { top, left, bottom, right } = this.position;
         let boxlist = this.getBoxes();
         // console.log('render box list',boxlist)
-        return (<div style={{
+        return (<div data-marker='quadelement' style={{
             position: 'absolute',
             boxSizing: 'border-box',
             width: '50%',
@@ -272,7 +303,7 @@ class Quadrant extends React.Component {
             right,
             border: '1px solid transparent',
             transition: 'all .5s ease'
-        }} ref={this.element}>
+        }} ref={this.quadelement}>
                 <div ref={this.animationblock}>
                 </div>
                 <div style={{
