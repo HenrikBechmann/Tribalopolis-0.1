@@ -111,9 +111,14 @@ class Quadrant extends React.Component {
         this.collapseCategory = () => {
             this.decrementStackSelector();
         };
-        this.splayBox = (boxptr, domSource, domTarget) => {
+        this.splayBox = (boxptr, domSource) => {
+            let element = domSource.current;
+            while (element && (element.getAttribute('data-marker') != 'infinite-scrollbox')) {
+                element = element.offsetParent;
+            }
+            let targetElement = element;
             let drillanimationblock = this.drillanimationblock.current;
-            let { domSourcePack: drillSourcePack, domTargetPack: drillTargetPack } = this.getAnimationDrillVars(domSource.current, domTarget.current, 'quadelement');
+            let { domSourcePack: drillSourcePack, domTargetPack: drillTargetPack } = this.getAnimationDrillVars(domSource.current, targetElement, 'quadelement');
             let scrollBoxOffset = this._getScrollboxOffset(domSource.current);
             drillSourcePack.left -= scrollBoxOffset;
             this.animateBlockDrill(drillSourcePack, drillTargetPack, drillanimationblock);
@@ -149,13 +154,17 @@ class Quadrant extends React.Component {
                     stackpointer,
                     datastack,
                 });
-            }, 1300);
+            }, 500);
         };
         this.selectFromSplay = (boxptr, domSource) => {
             // console.log('selectFromSplay boxptr,domSource',boxptr,domSource)
-            let targetReference = this.listviewport;
+            let element = domSource.current;
+            while (element && (element.getAttribute('data-marker') != 'infinite-scrollbox')) {
+                element = element.offsetParent;
+            }
+            let targetReference = element;
             let drillanimationblock = this.drillanimationblock.current;
-            let { domSourcePack: drillSourcePack, domTargetPack: drillTargetPack } = this.getAnimationSelectDrillVars(domSource.current, targetReference.current, 'quadelement');
+            let { domSourcePack: drillSourcePack, domTargetPack: drillTargetPack } = this.getAnimationSelectDrillVars(domSource.current, targetReference, 'quadelement');
             let scrollBoxOffset = this._getScrollboxOffset(domSource.current);
             drillSourcePack.left -= scrollBoxOffset;
             this.animateBlockDrill(drillSourcePack, drillTargetPack, drillanimationblock);
@@ -173,7 +182,7 @@ class Quadrant extends React.Component {
                     stackpointer,
                     datastack,
                 });
-            }, 1300);
+            }, 500);
         };
         this.getAnimationDrillVars = (domSource, domTarget, referenceMarker) => {
             let varpack = {
@@ -190,9 +199,9 @@ class Quadrant extends React.Component {
                 domTargetPack: null,
             };
             let targetPack = {
-                top: domReference.offsetTop + ((domReference.offsetHeight * .04) / 2),
-                left: (domReference.offsetWidth / 2) - 150,
-                height: domReference.offsetHeight,
+                top: domReference.offsetTop + (domReference.clientHeight * .1),
+                left: (domReference.offsetWidth / 2) - 120,
+                height: domReference.clientHeight,
                 width: 300,
             };
             varpack.domSourcePack = this._getDrillElementVars(domSource, referenceMarker);
@@ -202,8 +211,8 @@ class Quadrant extends React.Component {
         this._getDrillElementVars = (domelement, referenceMarker) => {
             let topOffset = 0;
             let leftOffset = 0;
-            let height = domelement.offsetHeight;
-            let width = domelement.offsetWidth;
+            let height = domelement.clientHeight;
+            let width = domelement.clientWidth;
             let searchelement = domelement;
             while (searchelement && (searchelement.getAttribute('data-marker') != referenceMarker)) {
                 topOffset += searchelement.offsetTop;
@@ -281,7 +290,7 @@ class Quadrant extends React.Component {
                     let item = this.getItem(boxconfig.ref);
                     let itemType = this.getTypeItem(METATYPES.item, item.type);
                     return (<DataBox key={boxconfig.instanceid} item={item} itemType={itemType} getListItem={this.getListItem} getListItemType={this.getListItemType(METATYPES.list)} boxConfig={boxconfig} haspeers={haspeers} splayBox={(domSource) => {
-                        this.splayBox(index, domSource, this.listviewport);
+                        this.splayBox(index, domSource);
                     }} selectFromSplay={(domSource) => {
                         this.selectFromSplay(index, domSource);
                     }} expandCategory={(ref) => {

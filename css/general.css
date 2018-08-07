@@ -16,15 +16,35 @@
         height:var(--sourceheight);
         width:var(--sourcewidth);
         background-color: green;
+        opacity:.3;
+        box-sizing: border-box;
+    }
+    25% {
+        top:var(--targettop);
+        left:var(--targetleft);
+        height:var(--targetheight);
+        width:var(--targetwidth);
+        background-color: orange;
         opacity:1;
+        box-sizing: border-box;
+    }
+    35% {
+        top:var(--targettop);
+        left:var(--targetleft);
+        height:var(--targetheight);
+        width:var(--targetwidth);
+        background-color: orange;
+        opacity:1;
+        box-sizing: border-box;
     }
     100% {
         top:var(--targettop);
         left:var(--targetleft);
         height:var(--targetheight);
         width:var(--targetwidth);
-        background-color: orange;
-        opacity:0;
+        background-color: green;
+        opacity:.3;
+        box-sizing: border-box;
     }
 }
 

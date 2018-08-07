@@ -181,12 +181,20 @@ class Quadrant extends React.Component<any,any>  {
         this.decrementStackSelector()
     }
 
-    splayBox = (boxptr, domSource, domTarget) => {
+    splayBox = (boxptr, domSource) => {
+
+
+        let element = domSource.current
+        while (element && (element.getAttribute('data-marker') != 'infinite-scrollbox')) {
+            element = element.offsetParent as HTMLElement
+        }
+
+        let targetElement = element
 
         let drillanimationblock:HTMLElement = this.drillanimationblock.current
 
         let {domSourcePack:drillSourcePack,domTargetPack:drillTargetPack} = 
-            this.getAnimationDrillVars(domSource.current,domTarget.current,'quadelement')
+            this.getAnimationDrillVars(domSource.current,targetElement,'quadelement')
 
         let scrollBoxOffset = this._getScrollboxOffset(domSource.current)
 
@@ -238,19 +246,24 @@ class Quadrant extends React.Component<any,any>  {
                 stackpointer,
                 datastack,
             })
-        },1300)
+        },500)
     }
 
     selectFromSplay = (boxptr:number,domSource) => {
 
         // console.log('selectFromSplay boxptr,domSource',boxptr,domSource)
 
-        let targetReference = this.listviewport
+        let element = domSource.current
+        while (element && (element.getAttribute('data-marker') != 'infinite-scrollbox')) {
+            element = element.offsetParent as HTMLElement
+        }
+
+        let targetReference = element
 
         let drillanimationblock:HTMLElement = this.drillanimationblock.current
 
         let {domSourcePack:drillSourcePack,domTargetPack:drillTargetPack} = 
-            this.getAnimationSelectDrillVars(domSource.current,targetReference.current,'quadelement')
+            this.getAnimationSelectDrillVars(domSource.current,targetReference,'quadelement')
 
         let scrollBoxOffset = this._getScrollboxOffset(domSource.current)
 
@@ -279,7 +292,7 @@ class Quadrant extends React.Component<any,any>  {
                 stackpointer,
                 datastack,
             })
-        },1300)
+        },500)
     }
 
     getAnimationDrillVars = (domSource:HTMLElement,domTarget:HTMLElement,referenceMarker) => {
@@ -301,9 +314,9 @@ class Quadrant extends React.Component<any,any>  {
         }
 
         let targetPack = {
-            top:domReference.offsetTop + ((domReference.offsetHeight * .04)/2),
-            left:(domReference.offsetWidth / 2) - 150,
-            height:domReference.offsetHeight,
+            top:domReference.offsetTop + (domReference.clientHeight * .1),
+            left:(domReference.offsetWidth / 2) - 120,
+            height:domReference.clientHeight,
             width:300,
         }
 
@@ -317,8 +330,8 @@ class Quadrant extends React.Component<any,any>  {
 
         let topOffset = 0
         let leftOffset = 0
-        let height = domelement.offsetHeight
-        let width = domelement.offsetWidth
+        let height = domelement.clientHeight
+        let width = domelement.clientWidth
 
         let searchelement:HTMLElement = domelement
         while (searchelement && (searchelement.getAttribute('data-marker') != referenceMarker)) {
@@ -424,7 +437,7 @@ class Quadrant extends React.Component<any,any>  {
                         haspeers = { haspeers }
                         splayBox = {
                             (domSource) => {
-                                this.splayBox(index,domSource,this.listviewport)
+                                this.splayBox(index,domSource)
                             }
                         }
                         selectFromSplay = {
