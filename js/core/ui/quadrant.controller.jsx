@@ -112,10 +112,9 @@ class Quadrant extends React.Component {
             this.decrementStackSelector();
         };
         this.splayBox = (boxptr, domSource, domTarget) => {
-            // console.log('splayBox boxptr,domSource, domTarget',boxptr,domSource, domTarget)
-            let animationblock = this.animationblock.current;
-            let { domSourcePack, domTargetPack } = this.getAnimationDrillVars(domSource.current, domTarget.current, 'quadelement');
-            this.animateBlockDrill(domSourcePack, domTargetPack, animationblock);
+            let drillanimationblock = this.drillanimationblock.current;
+            let { domSourcePack: drillSourcePack, domTargetPack: drillTargetPack } = this.getAnimationDrillVars(domSource.current, domTarget.current, 'quadelement');
+            this.animateBlockDrill(drillSourcePack, drillTargetPack, drillanimationblock);
             let { datastack, stackpointer } = this.state;
             let boxconfig = datastack[stackpointer].items[boxptr];
             let item = this.getItem(boxconfig.ref);
@@ -152,6 +151,10 @@ class Quadrant extends React.Component {
         };
         this.selectFromSplay = (boxptr, domSource) => {
             console.log('selectFromSplay boxptr,domSource', boxptr, domSource);
+            let targetReference = this.listviewport;
+            let drillanimationblock = this.drillanimationblock.current;
+            let { domSourcePack: drillSourcePack, domTargetPack: drillTargetPack } = this.getAnimationSelectDrillVars(domSource.current, targetReference.current, 'quadelement');
+            this.animateBlockDrill(drillSourcePack, drillTargetPack, drillanimationblock);
             let { datastack, stackpointer } = this.state;
             let boxconfig = datastack[stackpointer].items[boxptr];
             stackpointer++;
@@ -161,21 +164,38 @@ class Quadrant extends React.Component {
             let newboxconfig = JSON.parse(JSON.stringify(boxconfig));
             newboxconfig.instanceid = serializer.getid();
             newstacklayer.items.push(newboxconfig);
-            this.setState({
-                stackpointer,
-                datastack,
-            });
+            setTimeout(() => {
+                this.setState({
+                    stackpointer,
+                    datastack,
+                });
+            }, 1300);
         };
         this.getAnimationDrillVars = (domSource, domTarget, referenceMarker) => {
             let varpack = {
                 domSourcePack: null,
                 domTargetPack: null,
             };
-            varpack.domSourcePack = this._getDrillVars(domSource, referenceMarker);
-            varpack.domTargetPack = this._getDrillVars(domTarget, referenceMarker);
+            varpack.domSourcePack = this._getDrillElementVars(domSource, referenceMarker);
+            varpack.domTargetPack = this._getDrillElementVars(domTarget, referenceMarker);
             return varpack;
         };
-        this._getDrillVars = (domelement, referenceMarker) => {
+        this.getAnimationSelectDrillVars = (domSource, domReference, referenceMarker) => {
+            let varpack = {
+                domSourcePack: null,
+                domTargetPack: null,
+            };
+            let targetPack = {
+                top: domReference.offsetTop + ((domReference.offsetHeight * .04) / 2),
+                left: (domReference.offsetWidth / 2) - 150,
+                height: domReference.offsetHeight,
+                width: 300,
+            };
+            varpack.domSourcePack = this._getDrillElementVars(domSource, referenceMarker);
+            varpack.domTargetPack = targetPack;
+            return varpack;
+        };
+        this._getDrillElementVars = (domelement, referenceMarker) => {
             let topOffset = 0;
             let leftOffset = 0;
             let height = domelement.offsetHeight;
@@ -194,17 +214,17 @@ class Quadrant extends React.Component {
             };
         };
         // selectforward
-        this.animateBlockDrill = (sourceStyle, targetStyle, animationBlock) => {
+        this.animateBlockDrill = (sourceStyle, targetStyle, drillanimationBlock) => {
             // console.log('sourceStyle,targetStyle',sourceStyle,targetStyle)
             for (let property in sourceStyle) {
-                animationBlock.style.setProperty('--source' + property, sourceStyle[property] + 'px');
+                drillanimationBlock.style.setProperty('--source' + property, sourceStyle[property] + 'px');
             }
             for (let property in targetStyle) {
-                animationBlock.style.setProperty('--target' + property, targetStyle[property] + 'px');
+                drillanimationBlock.style.setProperty('--target' + property, targetStyle[property] + 'px');
             }
-            animationBlock.classList.add('elementdrill');
+            drillanimationBlock.classList.add('elementdrill');
             setTimeout(() => {
-                animationBlock.classList.remove('elementdrill');
+                drillanimationBlock.classList.remove('elementdrill');
             }, 2100);
         };
         // selectbackward
@@ -261,7 +281,8 @@ class Quadrant extends React.Component {
             // console.log('getBoxes box list',boxes)
             return boxes;
         };
-        this.animationblock = React.createRef();
+        this.drillanimationblock = React.createRef();
+        this.originanimationblock = React.createRef();
         this.listviewport = React.createRef();
         this.quadelement = React.createRef();
     }
@@ -311,7 +332,9 @@ class Quadrant extends React.Component {
             border: '1px solid transparent',
             transition: 'all .5s ease'
         }} ref={this.quadelement}>
-                <div ref={this.animationblock}>
+                <div ref={this.drillanimationblock}>
+                </div>
+                <div ref={this.originanimationblock}>
                 </div>
                 <div style={{
             boxSizing: 'border-box',
