@@ -19,6 +19,7 @@ class Quadrant extends React.Component {
             stackpointer: 0,
             startquadrant: this.props.quadrant,
         };
+        // listviewport
         this.sessionid = this.props.sessionid;
         this.calculateTransitionPosition = (quadrant) => {
             let top = 'auto';
@@ -303,7 +304,7 @@ class Quadrant extends React.Component {
         };
         this.drillanimationblock = React.createRef();
         this.originanimationblock = React.createRef();
-        this.listviewport = React.createRef();
+        // this.listviewport = React.createRef()
         this.quadelement = React.createRef();
     }
     componentWillMount() {
@@ -365,7 +366,7 @@ class Quadrant extends React.Component {
             width: '100%',
             height: '100%',
             overflow: 'hidden',
-        }} ref={this.listviewport}>
+        }}>
                     <SwapMenu quadrant={this.state.quadrant} handleswap={this.props.handleswap}/>
                     <QuadTitleBar title={this.props.title} uid={this.state.startquadrant}/>
                     <QuadOrigin stackpointer={this.state.stackpointer} stackdepth={this.state.datastack.length} incrementStackSelector={this.incrementStackSelector} decrementStackSelector={this.decrementStackSelector}/>

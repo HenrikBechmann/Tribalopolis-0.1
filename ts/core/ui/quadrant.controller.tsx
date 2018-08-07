@@ -20,7 +20,7 @@ class Quadrant extends React.Component<any,any>  {
         super(props)
         this.drillanimationblock = React.createRef()
         this.originanimationblock = React.createRef()
-        this.listviewport = React.createRef()
+        // this.listviewport = React.createRef()
         this.quadelement = React.createRef()
     }
 
@@ -33,7 +33,7 @@ class Quadrant extends React.Component<any,any>  {
 
     drillanimationblock
     originanimationblock
-    listviewport
+    // listviewport
 
     sessionid = this.props.sessionid
 
@@ -509,7 +509,6 @@ class Quadrant extends React.Component<any,any>  {
                         height:'100%',
                         overflow:'hidden',
                     }} 
-                    ref = {this.listviewport}
                 >
                     <SwapMenu quadrant = {this.state.quadrant} handleswap = {this.props.handleswap}/>
                     <QuadTitleBar title = {this.props.title} uid={this.state.startquadrant}/>
