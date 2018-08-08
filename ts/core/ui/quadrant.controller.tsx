@@ -151,25 +151,8 @@ class Quadrant extends React.Component<any,any>  {
 
     expandCategory = (boxptr,listItemRef, domSource) => {
 
-        console.log('expandCategory',boxptr,listItemRef, domSource.current)
-
-        let element = domSource.current
-        while (element && (element.getAttribute('data-marker') != 'infinite-scrollbox')) {
-            element = element.offsetParent as HTMLElement
-        }
-
-        let targetReference = element
-
-        let drillanimationblock:HTMLElement = this.drillanimationblock.current
-
-        let {domSourcePack:drillSourcePack,domTargetPack:drillTargetPack} = 
-            this.getAnimationSelectDrillVars(domSource.current,targetReference,'quadelement')
-
-        let scrollBoxOffset = this._getScrollboxOffset(domSource.current)
-
-        drillSourcePack.left -= scrollBoxOffset
-
-        this.animateBlockDrill(drillSourcePack, drillTargetPack, drillanimationblock)
+        // console.log('expandCategory',boxptr,listItemRef, domSource.current)
+        this.animateToDatabox(domSource)
 
         let {datastack, stackpointer} = this.state
 
@@ -188,7 +171,7 @@ class Quadrant extends React.Component<any,any>  {
 
         newstacklayer.items.push(newboxconfig)
 
-        setTimeout(() => {
+        setTimeout(() => { // delay for animation
             this.setState({
                 stackpointer,
                 datastack,
@@ -202,23 +185,7 @@ class Quadrant extends React.Component<any,any>  {
 
     splayBox = (boxptr, domSource) => {
 
-        let element = domSource.current
-        while (element && (element.getAttribute('data-marker') != 'infinite-scrollbox')) {
-            element = element.offsetParent as HTMLElement
-        }
-
-        let targetElement = element
-
-        let drillanimationblock:HTMLElement = this.drillanimationblock.current
-
-        let {domSourcePack:drillSourcePack,domTargetPack:drillTargetPack} = 
-            this.getAnimationDrillVars(domSource.current,targetElement,'quadelement')
-
-        let scrollBoxOffset = this._getScrollboxOffset(domSource.current)
-
-        drillSourcePack.left -= scrollBoxOffset
-
-        this.animateBlockDrill(drillSourcePack, drillTargetPack, drillanimationblock)
+        this.animateToDataboxList(domSource)
 
         let {datastack, stackpointer} = this.state
 
@@ -259,7 +226,7 @@ class Quadrant extends React.Component<any,any>  {
             newstacklayer.items.push(newboxconfig)
         }
 
-        setTimeout(() => {
+        setTimeout(() => { // delay for animation
             this.setState({
                 stackpointer,
                 datastack,
@@ -271,24 +238,7 @@ class Quadrant extends React.Component<any,any>  {
 
         // console.log('selectFromSplay boxptr,domSource',boxptr,domSource)
 
-        let element = domSource.current
-        while (element && (element.getAttribute('data-marker') != 'infinite-scrollbox')) {
-            element = element.offsetParent as HTMLElement
-        }
-
-        let targetReference = element
-
-        let drillanimationblock:HTMLElement = this.drillanimationblock.current
-
-        let {domSourcePack:drillSourcePack,domTargetPack:drillTargetPack} = 
-            this.getAnimationSelectDrillVars(domSource.current,targetReference,'quadelement')
-
-        let scrollBoxOffset = this._getScrollboxOffset(domSource.current)
-
-        drillSourcePack.left -= scrollBoxOffset
-
-        this.animateBlockDrill(drillSourcePack, drillTargetPack, drillanimationblock)
-
+        this.animateToDatabox(domSource)
 
         let {datastack, stackpointer} = this.state
 
@@ -305,7 +255,7 @@ class Quadrant extends React.Component<any,any>  {
         
         newstacklayer.items.push(newboxconfig)
 
-        setTimeout(() => {
+        setTimeout(() => { // delay for animation
             this.setState({
                 stackpointer,
                 datastack,
@@ -313,19 +263,58 @@ class Quadrant extends React.Component<any,any>  {
         },500)
     }
 
-    getAnimationDrillVars = (domSource:HTMLElement,domTarget:HTMLElement,referenceMarker) => {
+    animateToDatabox = (domSource) => {
+
+        let targetReference = this._getDataboxListDomRef(domSource)
+
+        let {domSourcePack:drillSourcePack,domTargetPack:drillTargetPack} = 
+            this._getAnimationSelectDrillVars(domSource.current,targetReference,'quadelement')
+
+        let scrollBoxOffset = this._getScrollboxOffsetForAnimation(domSource.current)
+
+        drillSourcePack.left -= scrollBoxOffset
+
+        this._animateBlockDrill(drillSourcePack, drillTargetPack)
+
+    }
+
+    animateToDataboxList = (domSource) => {
+
+        let targetElement = this._getDataboxListDomRef(domSource)
+
+        let {domSourcePack:drillSourcePack,domTargetPack:drillTargetPack} = 
+            this._getAnimationDrillVars(domSource.current,targetElement,'quadelement')
+
+        let scrollBoxOffset = this._getScrollboxOffsetForAnimation(domSource.current)
+
+        drillSourcePack.left -= scrollBoxOffset
+
+        this._animateBlockDrill(drillSourcePack, drillTargetPack)
+
+    }
+
+    _getDataboxListDomRef = (domSource) => {
+
+        let element = domSource.current
+        while (element && (element.getAttribute('data-marker') != 'infinite-scrollbox')) {
+            element = element.offsetParent as HTMLElement
+        }
+        return element
+    }
+
+    _getAnimationDrillVars = (domSource:HTMLElement,domTarget:HTMLElement,referenceMarker) => {
         let varpack = {
             domSourcePack:null,
             domTargetPack:null,
         }
 
-        varpack.domSourcePack = this._getDrillElementVars(domSource,referenceMarker)
-        varpack.domTargetPack = this._getDrillElementVars(domTarget,referenceMarker)
+        varpack.domSourcePack = this._getAnimationDrillElementVars(domSource,referenceMarker)
+        varpack.domTargetPack = this._getAnimationDrillElementVars(domTarget,referenceMarker)
 
         return varpack
     }
 
-    getAnimationSelectDrillVars = (domSource:HTMLElement,domReference:HTMLElement,referenceMarker) => {
+    _getAnimationSelectDrillVars = (domSource:HTMLElement,domReference:HTMLElement,referenceMarker) => {
         let varpack = {
             domSourcePack:null,
             domTargetPack:null,
@@ -338,13 +327,13 @@ class Quadrant extends React.Component<any,any>  {
             width:300,
         }
 
-        varpack.domSourcePack = this._getDrillElementVars(domSource,referenceMarker)
+        varpack.domSourcePack = this._getAnimationDrillElementVars(domSource,referenceMarker)
         varpack.domTargetPack = targetPack
 
         return varpack
     }
 
-    _getDrillElementVars = (domelement:HTMLElement, referenceMarker) => {
+    _getAnimationDrillElementVars = (domelement:HTMLElement, referenceMarker) => {
 
         let topOffset = 0
         let leftOffset = 0
@@ -366,7 +355,7 @@ class Quadrant extends React.Component<any,any>  {
         }
     }
 
-    _getScrollboxOffset = (domSourceElement:HTMLElement) => {
+    _getScrollboxOffsetForAnimation = (domSourceElement:HTMLElement) => {
         let element = domSourceElement
         while (element && (element.getAttribute('data-marker') != 'infinite-scrollbox')) {
             element = element.offsetParent as HTMLElement
@@ -376,9 +365,11 @@ class Quadrant extends React.Component<any,any>  {
     }
 
     // selectforward
-    animateBlockDrill = (sourceStyle, targetStyle, drillanimationBlock) => {
+    _animateBlockDrill = (sourceStyle, targetStyle) => {
 
         // console.log('sourceStyle,targetStyle',sourceStyle,targetStyle)
+
+        let drillanimationBlock:HTMLElement = this.drillanimationblock.current
 
         for (let property in sourceStyle) {
             drillanimationBlock.style.setProperty('--source'+property,sourceStyle[property] + 'px')
