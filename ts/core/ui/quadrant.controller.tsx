@@ -20,8 +20,8 @@ class Quadrant extends React.Component<any,any>  {
         super(props)
         this.drillanimationblock = React.createRef()
         this.originanimationblock = React.createRef()
-        // this.listviewport = React.createRef()
         this.quadelement = React.createRef()
+        this.originelement = React.createRef()
     }
 
     state = {
@@ -33,7 +33,7 @@ class Quadrant extends React.Component<any,any>  {
 
     drillanimationblock
     originanimationblock
-    // listviewport
+    originelement
 
     sessionid = this.props.sessionid
 
@@ -265,7 +265,7 @@ class Quadrant extends React.Component<any,any>  {
 
     animateToDatabox = (domSource) => {
 
-        let targetReference = this._getDataboxListDomRef(domSource)
+        let targetReference = this._getDataboxListDomRefForAnimation(domSource)
 
         let {domSourcePack:drillSourcePack,domTargetPack:drillTargetPack} = 
             this._getAnimationSelectDrillVars(domSource.current,targetReference,'quadelement')
@@ -280,7 +280,7 @@ class Quadrant extends React.Component<any,any>  {
 
     animateToDataboxList = (domSource) => {
 
-        let targetElement = this._getDataboxListDomRef(domSource)
+        let targetElement = this._getDataboxListDomRefForAnimation(domSource)
 
         let {domSourcePack:drillSourcePack,domTargetPack:drillTargetPack} = 
             this._getAnimationDrillVars(domSource.current,targetElement,'quadelement')
@@ -293,7 +293,7 @@ class Quadrant extends React.Component<any,any>  {
 
     }
 
-    _getDataboxListDomRef = (domSource) => {
+    _getDataboxListDomRefForAnimation = (domSource) => {
 
         let element = domSource.current
         while (element && (element.getAttribute('data-marker') != 'infinite-scrollbox')) {
@@ -385,20 +385,20 @@ class Quadrant extends React.Component<any,any>  {
         },2100)
 }
 
-    // selectbackward
-    animateBlockUnwind = (sourceStyle, targetStyle, adnimationBlock) => {
+    // // selectbackward
+    // animateBlockUnwind = (sourceStyle, targetStyle, adnimationBlock) => {
 
-    }
+    // }
 
-    // selectforward
-    animateOriginDrill = () => {
+    // // selectforward
+    // animateOriginDrill = () => {
 
-    }
+    // }
 
-    // selectbackward
-    animateOriginUnwind = () => {
+    // // selectbackward
+    // animateOriginUnwind = () => {
 
-    }
+    // }
     decrementStackSelector = () => {
         let { stackpointer } = this.state
         if (stackpointer > 0) {
@@ -478,7 +478,6 @@ class Quadrant extends React.Component<any,any>  {
         let { quadrant } = this.state
         let {top, left, bottom, right} = this.position
         let boxlist = this.getBoxes()
-        // console.log('render box list',boxlist)
         return (
             <div data-marker = 'quadelement'
                 style = {
@@ -526,6 +525,7 @@ class Quadrant extends React.Component<any,any>  {
                         stackdepth = {this.state.datastack.length}
                         incrementStackSelector = {this.incrementStackSelector}
                         decrementStackSelector = {this.decrementStackSelector}
+                        ref = {this.originelement}
                     />
                     <InfiniteScroll items = {boxlist}/>
                     <QuadSelector 

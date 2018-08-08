@@ -4,7 +4,7 @@
 import * as React from 'react';
 import OriginMenu from './quadoriginmenu.view';
 import QuantityBadge from '../common/quantitybadge.view';
-const QuadOrigin = props => {
+const QuadOriginBase = props => {
     return (<div style={{
         position: 'absolute',
         top: '24px',
@@ -14,7 +14,7 @@ const QuadOrigin = props => {
         backgroundColor: 'green',
         borderRadius: '8px',
         zIndex: 2,
-    }}>
+    }} ref={props.forwardedRef}>
             <QuantityBadge quantity={props.stackdepth}/>
             <QuantityBadge quantity={props.stackpointer + 1} style={{
         top: 'auto',
@@ -38,6 +38,8 @@ const QuadOrigin = props => {
             <OriginMenu stackdepth={props.stackdepth} stackpointer={props.stackpointer} incrementStackSelector={props.incrementStackSelector} decrementStackSelector={props.decrementStackSelector}/>
         </div>);
 };
-// <FontIcon style = {{fontSize:'32px'}} className='material-icons'>filter_none</FontIcon> 
+const QuadOrigin = React.forwardRef((props, ref) => {
+    return <QuadOriginBase {...props} forwardedRef={ref}/>;
+});
 export default QuadOrigin;
 //# sourceMappingURL=quadorigin.view.jsx.map

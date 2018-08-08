@@ -19,7 +19,6 @@ class Quadrant extends React.Component {
             stackpointer: 0,
             startquadrant: this.props.quadrant,
         };
-        // listviewport
         this.sessionid = this.props.sessionid;
         this.calculateTransitionPosition = (quadrant) => {
             let top = 'auto';
@@ -171,20 +170,20 @@ class Quadrant extends React.Component {
             }, 500);
         };
         this.animateToDatabox = (domSource) => {
-            let targetReference = this._getDataboxListDomRef(domSource);
+            let targetReference = this._getDataboxListDomRefForAnimation(domSource);
             let { domSourcePack: drillSourcePack, domTargetPack: drillTargetPack } = this._getAnimationSelectDrillVars(domSource.current, targetReference, 'quadelement');
             let scrollBoxOffset = this._getScrollboxOffsetForAnimation(domSource.current);
             drillSourcePack.left -= scrollBoxOffset;
             this._animateBlockDrill(drillSourcePack, drillTargetPack);
         };
         this.animateToDataboxList = (domSource) => {
-            let targetElement = this._getDataboxListDomRef(domSource);
+            let targetElement = this._getDataboxListDomRefForAnimation(domSource);
             let { domSourcePack: drillSourcePack, domTargetPack: drillTargetPack } = this._getAnimationDrillVars(domSource.current, targetElement, 'quadelement');
             let scrollBoxOffset = this._getScrollboxOffsetForAnimation(domSource.current);
             drillSourcePack.left -= scrollBoxOffset;
             this._animateBlockDrill(drillSourcePack, drillTargetPack);
         };
-        this._getDataboxListDomRef = (domSource) => {
+        this._getDataboxListDomRefForAnimation = (domSource) => {
             let element = domSource.current;
             while (element && (element.getAttribute('data-marker') != 'infinite-scrollbox')) {
                 element = element.offsetParent;
@@ -255,15 +254,15 @@ class Quadrant extends React.Component {
                 drillanimationBlock.classList.remove('elementdrill');
             }, 2100);
         };
-        // selectbackward
-        this.animateBlockUnwind = (sourceStyle, targetStyle, adnimationBlock) => {
-        };
-        // selectforward
-        this.animateOriginDrill = () => {
-        };
-        // selectbackward
-        this.animateOriginUnwind = () => {
-        };
+        // // selectbackward
+        // animateBlockUnwind = (sourceStyle, targetStyle, adnimationBlock) => {
+        // }
+        // // selectforward
+        // animateOriginDrill = () => {
+        // }
+        // // selectbackward
+        // animateOriginUnwind = () => {
+        // }
         this.decrementStackSelector = () => {
             let { stackpointer } = this.state;
             if (stackpointer > 0) {
@@ -311,8 +310,8 @@ class Quadrant extends React.Component {
         };
         this.drillanimationblock = React.createRef();
         this.originanimationblock = React.createRef();
-        // this.listviewport = React.createRef()
         this.quadelement = React.createRef();
+        this.originelement = React.createRef();
     }
     componentWillMount() {
         this.calculatePosition(this.state.quadrant);
@@ -346,7 +345,6 @@ class Quadrant extends React.Component {
         let { quadrant } = this.state;
         let { top, left, bottom, right } = this.position;
         let boxlist = this.getBoxes();
-        // console.log('render box list',boxlist)
         return (<div data-marker='quadelement' style={{
             position: 'absolute',
             boxSizing: 'border-box',
@@ -376,7 +374,7 @@ class Quadrant extends React.Component {
         }}>
                     <SwapMenu quadrant={this.state.quadrant} handleswap={this.props.handleswap}/>
                     <QuadTitleBar title={this.props.title} uid={this.state.startquadrant}/>
-                    <QuadOrigin stackpointer={this.state.stackpointer} stackdepth={this.state.datastack.length} incrementStackSelector={this.incrementStackSelector} decrementStackSelector={this.decrementStackSelector}/>
+                    <QuadOrigin stackpointer={this.state.stackpointer} stackdepth={this.state.datastack.length} incrementStackSelector={this.incrementStackSelector} decrementStackSelector={this.decrementStackSelector} ref={this.originelement}/>
                     <InfiniteScroll items={boxlist}/>
                     <QuadSelector quadrant={this.state.quadrant} split={this.props.split} quadselection={this.props.quadselection}/>
                 </div>

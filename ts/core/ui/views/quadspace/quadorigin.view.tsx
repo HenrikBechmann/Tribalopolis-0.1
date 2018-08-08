@@ -7,7 +7,7 @@ import OriginMenu from './quadoriginmenu.view'
 import FontIcon from 'material-ui/FontIcon'
 import QuantityBadge from '../common/quantitybadge.view'
 
-const QuadOrigin = props => {
+const QuadOriginBase = props => {
     return (
         <div 
             style = {
@@ -22,6 +22,7 @@ const QuadOrigin = props => {
                     zIndex:2,
                 }
             }
+            ref = {props.forwardedRef}
         >
             <QuantityBadge quantity = {props.stackdepth} />
             <QuantityBadge quantity = {props.stackpointer + 1} 
@@ -57,6 +58,9 @@ const QuadOrigin = props => {
         </div>    
     )
 }
-                // <FontIcon style = {{fontSize:'32px'}} className='material-icons'>filter_none</FontIcon> 
+
+const QuadOrigin = React.forwardRef((props:any,ref:any) => {
+    return <QuadOriginBase {...props} forwardedRef = {ref} />
+})
 
 export default QuadOrigin
