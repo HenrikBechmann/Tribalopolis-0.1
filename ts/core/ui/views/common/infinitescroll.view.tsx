@@ -16,6 +16,7 @@ class InfiniteScroll extends React.Component<any,any> {
             scroller:null,
             continuous:!!props.continuous
         }
+        this.scroller = React.createRef()
     }
 
     state = null
@@ -33,11 +34,11 @@ class InfiniteScroll extends React.Component<any,any> {
     headaddprop = null
     tailaddprop = null
 
-    scroller = null
+    scroller
 
     componentDidMount() {
         this.setState({
-            scroller:this.scroller
+            scroller:this.scroller.current
         })
     }
 
@@ -136,9 +137,7 @@ class InfiniteScroll extends React.Component<any,any> {
             >
                 <div className = 'CS_viewport' style = {this.viewportStyle} 
                     onScroll = {this.onScroll}
-                    ref = {el => {
-                        this.scroller = el
-                    }}
+                    ref = {this.scroller}
                     data-marker = 'infinite-scrollbox'
                 >
                     <div className = 'CS_platform' style = {this.platformStyle}>

@@ -90,7 +90,6 @@ class Quadrant extends React.Component {
             };
         };
         this.position = null;
-        this.quadelement = null;
         this.expandCategory = (boxptr, listItemRef, domSource) => {
             // console.log('expandCategory',boxptr,listItemRef, domSource.current)
             this.animateToDatabox(domSource);
@@ -312,6 +311,7 @@ class Quadrant extends React.Component {
         this.originanimationblock = React.createRef();
         this.quadelement = React.createRef();
         this.originelement = React.createRef();
+        this.listelement = React.createRef();
     }
     componentWillMount() {
         this.calculatePosition(this.state.quadrant);
@@ -375,7 +375,7 @@ class Quadrant extends React.Component {
                     <SwapMenu quadrant={this.state.quadrant} handleswap={this.props.handleswap}/>
                     <QuadTitleBar title={this.props.title} uid={this.state.startquadrant}/>
                     <QuadOrigin stackpointer={this.state.stackpointer} stackdepth={this.state.datastack.length} incrementStackSelector={this.incrementStackSelector} decrementStackSelector={this.decrementStackSelector} ref={this.originelement}/>
-                    <InfiniteScroll items={boxlist}/>
+                    <InfiniteScroll items={boxlist} ref={this.listelement}/>
                     <QuadSelector quadrant={this.state.quadrant} split={this.props.split} quadselection={this.props.quadselection}/>
                 </div>
             </div>);

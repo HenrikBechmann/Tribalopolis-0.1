@@ -17,7 +17,6 @@ class InfiniteScroll extends React.Component {
         this.direction = null; // 'back' || 'forward'
         this.headaddprop = null;
         this.tailaddprop = null;
-        this.scroller = null;
         // TODO turn off parent and sibling scrolling
         this.onScroll = (e) => {
         };
@@ -80,10 +79,11 @@ class InfiniteScroll extends React.Component {
             scroller: null,
             continuous: !!props.continuous
         };
+        this.scroller = React.createRef();
     }
     componentDidMount() {
         this.setState({
-            scroller: this.scroller
+            scroller: this.scroller.current
         });
     }
     // determine change in headadd or tailadd props
@@ -99,9 +99,7 @@ class InfiniteScroll extends React.Component {
     render() {
         return <div className='CS_viewportframe' style={this.viewportFrameStyle}>
             <ScrollControlsView uid='scrollcontrolsview' scroller={this.state.scroller} style={{ width: '100%', height: '100%', position: 'relative' }}>
-                <div className='CS_viewport' style={this.viewportStyle} onScroll={this.onScroll} ref={el => {
-            this.scroller = el;
-        }} data-marker='infinite-scrollbox'>
+                <div className='CS_viewport' style={this.viewportStyle} onScroll={this.onScroll} ref={this.scroller} data-marker='infinite-scrollbox'>
                     <div className='CS_platform' style={this.platformStyle}>
                         <div className='CS_list' style={this.listStyle}>
                             {this.state.items}

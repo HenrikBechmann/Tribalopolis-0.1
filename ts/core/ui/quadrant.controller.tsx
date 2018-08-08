@@ -22,6 +22,7 @@ class Quadrant extends React.Component<any,any>  {
         this.originanimationblock = React.createRef()
         this.quadelement = React.createRef()
         this.originelement = React.createRef()
+        this.listelement = React.createRef()
     }
 
     state = {
@@ -34,6 +35,8 @@ class Quadrant extends React.Component<any,any>  {
     drillanimationblock
     originanimationblock
     originelement
+    listelement
+    quadelement
 
     sessionid = this.props.sessionid
 
@@ -146,8 +149,6 @@ class Quadrant extends React.Component<any,any>  {
     }
 
     position = null
-
-    quadelement = null
 
     expandCategory = (boxptr,listItemRef, domSource) => {
 
@@ -265,16 +266,16 @@ class Quadrant extends React.Component<any,any>  {
 
     animateToDatabox = (domSource) => {
 
-        let targetReference = this._getDataboxListDomRefForAnimation(domSource)
+        let targetReference = this._getDataboxListDomRefForAnimation( domSource )
 
-        let {domSourcePack:drillSourcePack,domTargetPack:drillTargetPack} = 
-            this._getAnimationSelectDrillVars(domSource.current,targetReference,'quadelement')
+        let { domSourcePack:drillSourcePack, domTargetPack:drillTargetPack } = 
+            this._getAnimationSelectDrillVars( domSource.current, targetReference, 'quadelement' )
 
-        let scrollBoxOffset = this._getScrollboxOffsetForAnimation(domSource.current)
+        let scrollBoxOffset = this._getScrollboxOffsetForAnimation( domSource.current )
 
         drillSourcePack.left -= scrollBoxOffset
 
-        this._animateBlockDrill(drillSourcePack, drillTargetPack)
+        this._animateBlockDrill( drillSourcePack, drillTargetPack )
 
     }
 
@@ -527,7 +528,10 @@ class Quadrant extends React.Component<any,any>  {
                         decrementStackSelector = {this.decrementStackSelector}
                         ref = {this.originelement}
                     />
-                    <InfiniteScroll items = {boxlist}/>
+                    <InfiniteScroll 
+                        items = {boxlist}
+                        ref = {this.listelement}
+                    />
                     <QuadSelector 
                         quadrant = {this.state.quadrant} 
                         split = {this.props.split} 
