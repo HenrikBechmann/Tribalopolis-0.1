@@ -169,25 +169,18 @@ class Quadrant extends React.Component {
             }, 500);
         };
         this.animateToDatabox = (domSource) => {
-            let targetReference = this._getDataboxListDomRefForAnimation(domSource);
+            let targetReference = this.listelement.current;
             let { domSourcePack: drillSourcePack, domTargetPack: drillTargetPack } = this._getAnimationSelectDrillVars(domSource.current, targetReference, 'quadelement');
-            let scrollBoxOffset = this._getScrollboxOffsetForAnimation(domSource.current);
+            let scrollBoxOffset = this.listelement.current.scrollLeft;
             drillSourcePack.left -= scrollBoxOffset;
             this._animateBlockDrill(drillSourcePack, drillTargetPack);
         };
         this.animateToDataboxList = (domSource) => {
-            let targetElement = this._getDataboxListDomRefForAnimation(domSource);
+            let targetElement = this.listelement.current;
             let { domSourcePack: drillSourcePack, domTargetPack: drillTargetPack } = this._getAnimationDrillVars(domSource.current, targetElement, 'quadelement');
-            let scrollBoxOffset = this._getScrollboxOffsetForAnimation(domSource.current);
+            let scrollBoxOffset = this.listelement.current.scrollLeft;
             drillSourcePack.left -= scrollBoxOffset;
             this._animateBlockDrill(drillSourcePack, drillTargetPack);
-        };
-        this._getDataboxListDomRefForAnimation = (domSource) => {
-            let element = domSource.current;
-            while (element && (element.getAttribute('data-marker') != 'infinite-scrollbox')) {
-                element = element.offsetParent;
-            }
-            return element;
         };
         this._getAnimationDrillVars = (domSource, domTarget, referenceMarker) => {
             let varpack = {
@@ -230,13 +223,6 @@ class Quadrant extends React.Component {
                 height,
                 width,
             };
-        };
-        this._getScrollboxOffsetForAnimation = (domSourceElement) => {
-            let element = domSourceElement;
-            while (element && (element.getAttribute('data-marker') != 'infinite-scrollbox')) {
-                element = element.offsetParent;
-            }
-            return element.scrollLeft;
         };
         // selectforward
         this._animateBlockDrill = (sourceStyle, targetStyle) => {

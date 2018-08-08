@@ -266,12 +266,12 @@ class Quadrant extends React.Component<any,any>  {
 
     animateToDatabox = (domSource) => {
 
-        let targetReference = this._getDataboxListDomRefForAnimation( domSource )
+        let targetReference = this.listelement.current
 
         let { domSourcePack:drillSourcePack, domTargetPack:drillTargetPack } = 
             this._getAnimationSelectDrillVars( domSource.current, targetReference, 'quadelement' )
 
-        let scrollBoxOffset = this._getScrollboxOffsetForAnimation( domSource.current )
+        let scrollBoxOffset = this.listelement.current.scrollLeft
 
         drillSourcePack.left -= scrollBoxOffset
 
@@ -281,26 +281,17 @@ class Quadrant extends React.Component<any,any>  {
 
     animateToDataboxList = (domSource) => {
 
-        let targetElement = this._getDataboxListDomRefForAnimation(domSource)
+        let targetElement = this.listelement.current
 
         let {domSourcePack:drillSourcePack,domTargetPack:drillTargetPack} = 
             this._getAnimationDrillVars(domSource.current,targetElement,'quadelement')
 
-        let scrollBoxOffset = this._getScrollboxOffsetForAnimation(domSource.current)
+        let scrollBoxOffset = this.listelement.current.scrollLeft
 
         drillSourcePack.left -= scrollBoxOffset
 
         this._animateBlockDrill(drillSourcePack, drillTargetPack)
 
-    }
-
-    _getDataboxListDomRefForAnimation = (domSource) => {
-
-        let element = domSource.current
-        while (element && (element.getAttribute('data-marker') != 'infinite-scrollbox')) {
-            element = element.offsetParent as HTMLElement
-        }
-        return element
     }
 
     _getAnimationDrillVars = (domSource:HTMLElement,domTarget:HTMLElement,referenceMarker) => {
@@ -354,15 +345,6 @@ class Quadrant extends React.Component<any,any>  {
             height,
             width,
         }
-    }
-
-    _getScrollboxOffsetForAnimation = (domSourceElement:HTMLElement) => {
-        let element = domSourceElement
-        while (element && (element.getAttribute('data-marker') != 'infinite-scrollbox')) {
-            element = element.offsetParent as HTMLElement
-        }
-
-        return element.scrollLeft
     }
 
     // selectforward
