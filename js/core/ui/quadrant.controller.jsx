@@ -92,8 +92,18 @@ class Quadrant extends React.Component {
         };
         this.position = null;
         this.quadelement = null;
-        this.expandCategory = (boxptr, listItemRef) => {
-            // console.log('expandCategory',boxptr,listItemRef)
+        this.expandCategory = (boxptr, listItemRef, domSource) => {
+            console.log('expandCategory', boxptr, listItemRef, domSource.current);
+            let element = domSource.current;
+            while (element && (element.getAttribute('data-marker') != 'infinite-scrollbox')) {
+                element = element.offsetParent;
+            }
+            let targetReference = element;
+            let drillanimationblock = this.drillanimationblock.current;
+            let { domSourcePack: drillSourcePack, domTargetPack: drillTargetPack } = this.getAnimationSelectDrillVars(domSource.current, targetReference, 'quadelement');
+            let scrollBoxOffset = this._getScrollboxOffset(domSource.current);
+            drillSourcePack.left -= scrollBoxOffset;
+            this.animateBlockDrill(drillSourcePack, drillTargetPack, drillanimationblock);
             let { datastack, stackpointer } = this.state;
             let boxconfig = datastack[stackpointer].items[boxptr];
             stackpointer++;
@@ -104,10 +114,12 @@ class Quadrant extends React.Component {
             newboxconfig.instanceid = serializer.getid();
             newboxconfig.liststack.push(listItemRef);
             newstacklayer.items.push(newboxconfig);
-            this.setState({
-                stackpointer,
-                datastack,
-            });
+            setTimeout(() => {
+                this.setState({
+                    stackpointer,
+                    datastack,
+                });
+            }, 500);
         };
         this.collapseCategory = () => {
             this.decrementStackSelector();
@@ -294,8 +306,8 @@ class Quadrant extends React.Component {
                         this.splayBox(index, domSource);
                     }} selectFromSplay={(domSource) => {
                         this.selectFromSplay(index, domSource);
-                    }} expandCategory={(ref) => {
-                        this.expandCategory(index, ref);
+                    }} expandCategory={(ref, domSource) => {
+                        this.expandCategory(index, ref, domSource);
                     }} collapseCategory={this.collapseCategory}/>);
                 });
             }

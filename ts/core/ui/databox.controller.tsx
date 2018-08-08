@@ -44,9 +44,9 @@ class DataBox extends React.Component<any,any> {
         }
     }
 
-    expandCategory = (ref) => {
+    expandCategory = (ref, domSource) => {
 
-        this.props.expandCategory(ref)
+        this.props.expandCategory(ref, domSource)
 
         // let {boxconfig:boxConfig} = this.state
         // boxConfig.liststack.push(ref)

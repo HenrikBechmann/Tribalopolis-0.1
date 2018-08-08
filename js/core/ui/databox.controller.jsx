@@ -16,8 +16,8 @@ class DataBox extends React.Component {
             boxconfig: this.props.boxConfig,
             highlightrefuid: null,
         };
-        this.expandCategory = (ref) => {
-            this.props.expandCategory(ref);
+        this.expandCategory = (ref, domSource) => {
+            this.props.expandCategory(ref, domSource);
             // let {boxconfig:boxConfig} = this.state
             // boxConfig.liststack.push(ref)
             // this.setState({

@@ -25,8 +25,8 @@ class CategoriesList extends React.Component<any,any> {
     }
 
     expandCategory = (ref) => {
-        return () => {
-            this.props.expandCategory(ref)
+        return (domSource) => {
+            this.props.expandCategory(ref, domSource)
         }
     }
 

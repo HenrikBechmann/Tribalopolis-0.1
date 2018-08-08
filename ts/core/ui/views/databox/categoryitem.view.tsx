@@ -57,7 +57,7 @@ class CategoryItem extends React.Component<any,any> {
     }
 
     expandCategory = () => {
-        this.props.expandCategory()
+        this.props.expandCategory(this.barelementref)
     }
 
     barcomponent = () => (

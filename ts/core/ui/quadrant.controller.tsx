@@ -149,9 +149,27 @@ class Quadrant extends React.Component<any,any>  {
 
     quadelement = null
 
-    expandCategory = (boxptr,listItemRef) => {
+    expandCategory = (boxptr,listItemRef, domSource) => {
 
-        // console.log('expandCategory',boxptr,listItemRef)
+        console.log('expandCategory',boxptr,listItemRef, domSource.current)
+
+        let element = domSource.current
+        while (element && (element.getAttribute('data-marker') != 'infinite-scrollbox')) {
+            element = element.offsetParent as HTMLElement
+        }
+
+        let targetReference = element
+
+        let drillanimationblock:HTMLElement = this.drillanimationblock.current
+
+        let {domSourcePack:drillSourcePack,domTargetPack:drillTargetPack} = 
+            this.getAnimationSelectDrillVars(domSource.current,targetReference,'quadelement')
+
+        let scrollBoxOffset = this._getScrollboxOffset(domSource.current)
+
+        drillSourcePack.left -= scrollBoxOffset
+
+        this.animateBlockDrill(drillSourcePack, drillTargetPack, drillanimationblock)
 
         let {datastack, stackpointer} = this.state
 
@@ -170,11 +188,12 @@ class Quadrant extends React.Component<any,any>  {
 
         newstacklayer.items.push(newboxconfig)
 
-        this.setState({
-            stackpointer,
-            datastack,
-        })
-
+        setTimeout(() => {
+            this.setState({
+                stackpointer,
+                datastack,
+            })
+        },500)
     }
 
     collapseCategory = () => {
@@ -182,7 +201,6 @@ class Quadrant extends React.Component<any,any>  {
     }
 
     splayBox = (boxptr, domSource) => {
-
 
         let element = domSource.current
         while (element && (element.getAttribute('data-marker') != 'infinite-scrollbox')) {
@@ -446,8 +464,8 @@ class Quadrant extends React.Component<any,any>  {
                             }
                         }
                         expandCategory = {
-                            (ref) => {
-                                this.expandCategory(index,ref)
+                            (ref, domSource) => {
+                                this.expandCategory(index,ref, domSource)
                             }
                         }
                         collapseCategory = {

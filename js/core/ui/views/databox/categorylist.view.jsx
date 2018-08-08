@@ -11,8 +11,8 @@ class CategoriesList extends React.Component {
         };
         this.listelement = null;
         this.expandCategory = (ref) => {
-            return () => {
-                this.props.expandCategory(ref);
+            return (domSource) => {
+                this.props.expandCategory(ref, domSource);
             };
         };
         this.getListItems = listobject => {
