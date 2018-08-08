@@ -6,7 +6,7 @@
 import * as React from 'react'
 import ScrollControlsView from './scrollcontrols.view'
 
-class InfiniteScroll extends React.Component<any,any> {
+class InfiniteScrollBase extends React.Component<any,any> {
 
     constructor(props) {
         super(props)
@@ -16,7 +16,7 @@ class InfiniteScroll extends React.Component<any,any> {
             scroller:null,
             continuous:!!props.continuous
         }
-        this.scroller = React.createRef()
+        this.scroller = props.forwardedRef
     }
 
     state = null
@@ -150,6 +150,10 @@ class InfiniteScroll extends React.Component<any,any> {
         </div>
     }
 }
+
+const InfiniteScroll = React.forwardRef((props:any,ref:any) => {
+    return <InfiniteScrollBase {...props} forwardedRef = {ref} />
+})
 
 export default InfiniteScroll
 

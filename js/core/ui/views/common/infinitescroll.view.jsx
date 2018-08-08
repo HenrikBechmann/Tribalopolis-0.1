@@ -3,7 +3,7 @@
 'use strict';
 import * as React from 'react';
 import ScrollControlsView from './scrollcontrols.view';
-class InfiniteScroll extends React.Component {
+class InfiniteScrollBase extends React.Component {
     constructor(props) {
         super(props);
         this.state = null;
@@ -79,7 +79,7 @@ class InfiniteScroll extends React.Component {
             scroller: null,
             continuous: !!props.continuous
         };
-        this.scroller = React.createRef();
+        this.scroller = props.forwardedRef;
     }
     componentDidMount() {
         this.setState({
@@ -110,5 +110,8 @@ class InfiniteScroll extends React.Component {
         </div>;
     }
 }
+const InfiniteScroll = React.forwardRef((props, ref) => {
+    return <InfiniteScrollBase {...props} forwardedRef={ref}/>;
+});
 export default InfiniteScroll;
 //# sourceMappingURL=infinitescroll.view.jsx.map
