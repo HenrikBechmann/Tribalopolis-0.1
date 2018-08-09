@@ -46,7 +46,7 @@
         left:var(--sourceleft);
         height:var(--sourceheight);
         width:var(--sourcewidth);
-        background-color: blue;
+        background-color: lightblue;
         opacity:.1;
         box-sizing: border-box;
     }
@@ -55,7 +55,7 @@
         left:var(--targetleft);
         height:var(--targetheight);
         width:var(--targetwidth);
-        background-color: goldenrod;
+        background-color: palegoldenrod;
         opacity:1;
         box-sizing: border-box;
     }
@@ -64,7 +64,7 @@
         left:var(--targetleft);
         height:var(--targetheight);
         width:var(--targetwidth);
-        background-color: green;
+        background-color: lightgreen;
         opacity:0;
         box-sizing: border-box;
     }
@@ -79,7 +79,6 @@
         width:var(--sourcewidth);
         background-color: green;
         opacity:0;
-        box-sizing: border-box;
     }
     30% {
         top:var(--targettop);
@@ -88,7 +87,6 @@
         width:var(--targetwidth);
         background-color: goldenrod;
         opacity:1;
-        box-sizing: border-box;
     }
     100% {
         top:var(--targettop);
@@ -97,7 +95,6 @@
         width:var(--targetwidth);
         background-color: green;
         opacity:0;
-        box-sizing: border-box;
     }
 }
 

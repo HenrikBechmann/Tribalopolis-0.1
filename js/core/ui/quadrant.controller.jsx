@@ -218,8 +218,8 @@ class Quadrant extends React.Component {
             };
             let targetPack = {
                 top: domReference.offsetTop + (domReference.clientHeight * .1),
-                left: (domReference.offsetWidth / 2) - 120,
-                height: domReference.clientHeight,
+                left: (domReference.offsetWidth / 2) - 130,
+                height: domReference.clientHeight - (domReference.clientHeight * .06),
                 width: 300,
             };
             varpack.domSourcePack = this._getAnimationElementVars(domSource, referenceMarker);
