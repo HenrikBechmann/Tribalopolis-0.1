@@ -118,7 +118,7 @@ class DataBox extends React.Component<any,any> {
 
         // console.log('databox render',this.state.boxconfig)
 
-        let { item, getListItem } = this.props
+        let { item, getListItem, haspeers } = this.props
 
         let listStack = this.state.boxconfig.liststack
 
@@ -147,6 +147,7 @@ class DataBox extends React.Component<any,any> {
             fontSize:'smaller',
             opacity:this.state.opacity,
             transition:'opacity .5s ease-in',
+            boxShadow: haspeers?'none':'0 0 12px black',
         }
 
         let scrollboxstyle:React.CSSProperties = {
