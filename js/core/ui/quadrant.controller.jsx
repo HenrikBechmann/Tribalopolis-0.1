@@ -91,7 +91,7 @@ class Quadrant extends React.Component {
         };
         this.position = null;
         this.expandCategory = (boxptr, listItemRef, domSource) => {
-            // console.log('expandCategory',boxptr,listItemRef, domSource.current)
+            this.animateToOrigin();
             this.animateToDatabox(domSource);
             let { datastack, stackpointer } = this.state;
             let boxconfig = datastack[stackpointer].items[boxptr];
@@ -108,12 +108,13 @@ class Quadrant extends React.Component {
                     stackpointer,
                     datastack,
                 });
-            }, 500);
+            });
         };
         this.collapseCategory = () => {
             this.decrementStackSelector();
         };
         this.splayBox = (boxptr, domSource) => {
+            this.animateToOrigin();
             this.animateToDataboxList(domSource);
             let { datastack, stackpointer } = this.state;
             let boxconfig = datastack[stackpointer].items[boxptr];
@@ -147,10 +148,11 @@ class Quadrant extends React.Component {
                     stackpointer,
                     datastack,
                 });
-            }, 500);
+            }, 250);
         };
         this.selectFromSplay = (boxptr, domSource) => {
             // console.log('selectFromSplay boxptr,domSource',boxptr,domSource)
+            this.animateToOrigin();
             this.animateToDatabox(domSource);
             let { datastack, stackpointer } = this.state;
             let boxconfig = datastack[stackpointer].items[boxptr];
@@ -166,7 +168,25 @@ class Quadrant extends React.Component {
                     stackpointer,
                     datastack,
                 });
-            }, 500);
+            });
+        };
+        this.animateToOrigin = () => {
+            let sourceelement = this.listelement.current;
+            let targetelement = this.originelement.current;
+            let sourcePack = this._getAnimationElementVars(sourceelement, 'quadelement');
+            let targetPack = this._getAnimationElementVars(targetelement, 'quadelement');
+            this._animateMaskDrill(sourcePack);
+            this._animateOriginDrill(sourcePack, targetPack);
+        };
+        this._animateMaskDrill = (sourceStyle) => {
+            let maskanimationBlock = this.maskanimationblock.current;
+            for (let property in sourceStyle) {
+                maskanimationBlock.style.setProperty('--' + property, sourceStyle[property] + 'px');
+            }
+            maskanimationBlock.classList.add('maskdrill');
+            setTimeout(() => {
+                maskanimationBlock.classList.remove('maskdrill');
+            }, 1250);
         };
         this.animateToDatabox = (domSource) => {
             let targetReference = this.listelement.current;
@@ -187,8 +207,8 @@ class Quadrant extends React.Component {
                 domSourcePack: null,
                 domTargetPack: null,
             };
-            varpack.domSourcePack = this._getAnimationDrillElementVars(domSource, referenceMarker);
-            varpack.domTargetPack = this._getAnimationDrillElementVars(domTarget, referenceMarker);
+            varpack.domSourcePack = this._getAnimationElementVars(domSource, referenceMarker);
+            varpack.domTargetPack = this._getAnimationElementVars(domTarget, referenceMarker);
             return varpack;
         };
         this._getAnimationSelectDrillVars = (domSource, domReference, referenceMarker) => {
@@ -202,11 +222,11 @@ class Quadrant extends React.Component {
                 height: domReference.clientHeight,
                 width: 300,
             };
-            varpack.domSourcePack = this._getAnimationDrillElementVars(domSource, referenceMarker);
+            varpack.domSourcePack = this._getAnimationElementVars(domSource, referenceMarker);
             varpack.domTargetPack = targetPack;
             return varpack;
         };
-        this._getAnimationDrillElementVars = (domelement, referenceMarker) => {
+        this._getAnimationElementVars = (domelement, referenceMarker) => {
             let topOffset = 0;
             let leftOffset = 0;
             let height = domelement.clientHeight;
@@ -237,7 +257,21 @@ class Quadrant extends React.Component {
             drillanimationBlock.classList.add('elementdrill');
             setTimeout(() => {
                 drillanimationBlock.classList.remove('elementdrill');
-            }, 2100);
+            }, 1100);
+        };
+        this._animateOriginDrill = (sourceStyle, targetStyle) => {
+            // console.log('sourceStyle,targetStyle',sourceStyle,targetStyle)
+            let originanimationBlock = this.originanimationblock.current;
+            for (let property in sourceStyle) {
+                originanimationBlock.style.setProperty('--source' + property, sourceStyle[property] + 'px');
+            }
+            for (let property in targetStyle) {
+                originanimationBlock.style.setProperty('--target' + property, targetStyle[property] + 'px');
+            }
+            originanimationBlock.classList.add('origindrill');
+            setTimeout(() => {
+                originanimationBlock.classList.remove('origindrill');
+            }, 600);
         };
         // // selectbackward
         // animateBlockUnwind = (sourceStyle, targetStyle, adnimationBlock) => {
@@ -295,6 +329,7 @@ class Quadrant extends React.Component {
         };
         this.drillanimationblock = React.createRef();
         this.originanimationblock = React.createRef();
+        this.maskanimationblock = React.createRef();
         this.quadelement = React.createRef();
         this.originelement = React.createRef();
         this.listelement = React.createRef();
@@ -347,6 +382,8 @@ class Quadrant extends React.Component {
                 <div ref={this.drillanimationblock}>
                 </div>
                 <div ref={this.originanimationblock}>
+                </div>
+                <div ref={this.maskanimationblock}>
                 </div>
                 <div style={{
             boxSizing: 'border-box',

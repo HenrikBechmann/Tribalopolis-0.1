@@ -20,6 +20,7 @@ class Quadrant extends React.Component<any,any>  {
         super(props)
         this.drillanimationblock = React.createRef()
         this.originanimationblock = React.createRef()
+        this.maskanimationblock = React.createRef()
         this.quadelement = React.createRef()
         this.originelement = React.createRef()
         this.listelement = React.createRef()
@@ -34,6 +35,7 @@ class Quadrant extends React.Component<any,any>  {
 
     drillanimationblock
     originanimationblock
+    maskanimationblock
     originelement
     listelement
     quadelement
@@ -152,7 +154,8 @@ class Quadrant extends React.Component<any,any>  {
 
     expandCategory = (boxptr,listItemRef, domSource) => {
 
-        // console.log('expandCategory',boxptr,listItemRef, domSource.current)
+        this.animateToOrigin()
+
         this.animateToDatabox(domSource)
 
         let {datastack, stackpointer} = this.state
@@ -177,7 +180,7 @@ class Quadrant extends React.Component<any,any>  {
                 stackpointer,
                 datastack,
             })
-        },500)
+        })
     }
 
     collapseCategory = () => {
@@ -185,6 +188,8 @@ class Quadrant extends React.Component<any,any>  {
     }
 
     splayBox = (boxptr, domSource) => {
+
+        this.animateToOrigin()
 
         this.animateToDataboxList(domSource)
 
@@ -232,12 +237,14 @@ class Quadrant extends React.Component<any,any>  {
                 stackpointer,
                 datastack,
             })
-        },500)
+        },250)
     }
 
     selectFromSplay = (boxptr:number,domSource) => {
 
         // console.log('selectFromSplay boxptr,domSource',boxptr,domSource)
+
+        this.animateToOrigin()
 
         this.animateToDatabox(domSource)
 
@@ -261,7 +268,35 @@ class Quadrant extends React.Component<any,any>  {
                 stackpointer,
                 datastack,
             })
-        },500)
+        })
+    }
+
+    animateToOrigin = () => {
+
+        let sourceelement = this.listelement.current
+        let targetelement = this.originelement.current
+
+        let sourcePack = this._getAnimationElementVars(sourceelement, 'quadelement')
+        let targetPack = this._getAnimationElementVars(targetelement, 'quadelement')
+
+        this._animateMaskDrill(sourcePack)
+        this._animateOriginDrill( sourcePack, targetPack )
+
+    }
+
+    _animateMaskDrill = (sourceStyle) => {
+        let maskanimationBlock:HTMLElement = this.maskanimationblock.current
+
+        for (let property in sourceStyle) {
+            maskanimationBlock.style.setProperty('--'+property,sourceStyle[property] + 'px')
+        }
+
+        maskanimationBlock.classList.add('maskdrill')
+
+        setTimeout(() => {
+            maskanimationBlock.classList.remove('maskdrill')
+        },1250)
+
     }
 
     animateToDatabox = (domSource) => {
@@ -300,8 +335,8 @@ class Quadrant extends React.Component<any,any>  {
             domTargetPack:null,
         }
 
-        varpack.domSourcePack = this._getAnimationDrillElementVars(domSource,referenceMarker)
-        varpack.domTargetPack = this._getAnimationDrillElementVars(domTarget,referenceMarker)
+        varpack.domSourcePack = this._getAnimationElementVars(domSource,referenceMarker)
+        varpack.domTargetPack = this._getAnimationElementVars(domTarget,referenceMarker)
 
         return varpack
     }
@@ -319,13 +354,13 @@ class Quadrant extends React.Component<any,any>  {
             width:300,
         }
 
-        varpack.domSourcePack = this._getAnimationDrillElementVars(domSource,referenceMarker)
+        varpack.domSourcePack = this._getAnimationElementVars(domSource,referenceMarker)
         varpack.domTargetPack = targetPack
 
         return varpack
     }
 
-    _getAnimationDrillElementVars = (domelement:HTMLElement, referenceMarker) => {
+    _getAnimationElementVars = (domelement:HTMLElement, referenceMarker) => {
 
         let topOffset = 0
         let leftOffset = 0
@@ -365,9 +400,28 @@ class Quadrant extends React.Component<any,any>  {
 
         setTimeout(() => {
             drillanimationBlock.classList.remove('elementdrill')
-        },2100)
+        },1100)
 }
 
+    _animateOriginDrill = (sourceStyle, targetStyle) => {
+
+        // console.log('sourceStyle,targetStyle',sourceStyle,targetStyle)
+
+        let originanimationBlock:HTMLElement = this.originanimationblock.current
+
+        for (let property in sourceStyle) {
+            originanimationBlock.style.setProperty('--source'+property,sourceStyle[property] + 'px')
+        }
+        for (let property in targetStyle) {
+            originanimationBlock.style.setProperty('--target'+property,targetStyle[property] + 'px')
+        }
+
+        originanimationBlock.classList.add('origindrill')
+
+        setTimeout(() => {
+            originanimationBlock.classList.remove('origindrill')
+        },600)
+}
     // // selectbackward
     // animateBlockUnwind = (sourceStyle, targetStyle, adnimationBlock) => {
 
@@ -487,6 +541,10 @@ class Quadrant extends React.Component<any,any>  {
                 </div>
                 <div
                     ref = {this.originanimationblock}
+                >
+                </div>
+                <div
+                    ref = {this.maskanimationblock}
                 >
                 </div>
                 <div style = 
