@@ -9,12 +9,12 @@ import CategoryList from './views/databox/categorylist.view';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 class DataBox extends React.Component {
-    constructor(props) {
-        super(props);
+    constructor() {
+        super(...arguments);
         this.state = {
             opacity: 0,
             boxconfig: this.props.boxConfig,
-            highlightrefuid: null,
+            highlightrefuid: this.props.highlightrefuid
         };
         this.expandCategory = (ref, domSource) => {
             this.props.expandCategory(ref, domSource);
@@ -31,7 +31,9 @@ class DataBox extends React.Component {
             // })
         };
         this.collapseCategory = () => {
-            this.props.collapseCategory();
+            let boxConfig = this.state.boxconfig;
+            // console.log('databox collapseCategory boxConfig',boxConfig)
+            this.props.collapseCategory(boxConfig);
             // let boxConfig = this.state.boxconfig
             // if (!boxConfig.liststack.length) return
             // let ref = boxConfig.liststack.pop()
@@ -71,7 +73,6 @@ class DataBox extends React.Component {
         </div> : null;
             return retval;
         };
-        this.categoriesbarwrapper = React.createRef();
     }
     componentDidMount() {
         this.setState({
@@ -129,7 +130,7 @@ class DataBox extends React.Component {
             height: 'calc(100% - 70px)',
             position: 'relative',
         }}>
-                <div ref={this.categoriesbarwrapper}>
+                <div>
                     <CategoriesBar item={item} getListItem={this.props.getListItem} listStack={this.state.boxconfig.liststack} collapseCategory={this.collapseCategory} haspeers={this.props.haspeers}/>
                 </div>
                 <div data-marker='databox-scrollbox' style={scrollboxstyle}>

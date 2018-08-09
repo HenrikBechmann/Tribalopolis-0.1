@@ -16,17 +16,10 @@ import ContentAdd from 'material-ui/svg-icons/content/add'
 
 class DataBox extends React.Component<any,any> {
 
-    constructor(props) {
-        super(props)
-        this.categoriesbarwrapper = React.createRef()
-    }
-
-    categoriesbarwrapper
-
     state = {
         opacity:0,
         boxconfig:this.props.boxConfig,
-        highlightrefuid:null,
+        highlightrefuid:this.props.highlightrefuid
     }
 
     componentDidMount() {
@@ -64,7 +57,11 @@ class DataBox extends React.Component<any,any> {
 
     collapseCategory = () => {
 
-        this.props.collapseCategory()
+        let boxConfig = this.state.boxconfig
+
+        // console.log('databox collapseCategory boxConfig',boxConfig)
+
+        this.props.collapseCategory(boxConfig)
 
         // let boxConfig = this.state.boxconfig
         // if (!boxConfig.liststack.length) return
@@ -177,7 +174,7 @@ class DataBox extends React.Component<any,any> {
                     }
                 }
             >
-                <div ref = {this.categoriesbarwrapper}>
+                <div>
                     <CategoriesBar 
                         item = {item} 
                         getListItem = {this.props.getListItem}

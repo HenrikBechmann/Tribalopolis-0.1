@@ -110,7 +110,8 @@ class Quadrant extends React.Component {
                 });
             });
         };
-        this.collapseCategory = () => {
+        this.collapseCategory = (boxConfig) => {
+            console.log('quadrant collapseCategory boxConfig', boxConfig);
             this.decrementStackSelector();
         };
         this.splayBox = (boxptr, domSource) => {

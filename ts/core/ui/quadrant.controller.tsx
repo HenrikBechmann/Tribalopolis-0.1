@@ -183,7 +183,8 @@ class Quadrant extends React.Component<any,any>  {
         })
     }
 
-    collapseCategory = () => {
+    collapseCategory = (boxConfig) => {
+        console.log('quadrant collapseCategory boxConfig',boxConfig)
         this.decrementStackSelector()
     }
 
