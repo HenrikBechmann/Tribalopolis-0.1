@@ -99,7 +99,7 @@ class InfiniteScrollBase extends React.Component {
     render() {
         return <div className='CS_viewportframe' style={this.viewportFrameStyle}>
             <ScrollControlsView uid='scrollcontrolsview' scroller={this.state.scroller} style={{ width: '100%', height: '100%', position: 'relative' }}>
-                <div className='CS_viewport' style={this.viewportStyle} onScroll={this.onScroll} ref={this.scroller}>
+                <div className='CS_viewport' style={this.viewportStyle} onScroll={this.onScroll} ref={this.scroller} data-marker='boxlist-scrollbox'>
                     <div className='CS_platform' style={this.platformStyle}>
                         <div className='CS_list' style={this.listStyle}>
                             {this.state.items}

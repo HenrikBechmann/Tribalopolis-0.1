@@ -115,6 +115,24 @@ class Quadrant extends React.Component {
             this.collapseSourceBoxConfig = boxConfig;
             this.decrementStackSelector();
         };
+        this.highlightBox = (boxdomref) => {
+            let boxelement = boxdomref.current;
+            let clientoffset = 0;
+            let element = boxelement;
+            while (element && (element.getAttribute('data-marker') != 'boxlist-scrollbox')) {
+                clientoffset += element.offsetLeft;
+                element = element.offsetParent;
+            }
+            let scrollelement = element;
+            let diff = (clientoffset + boxelement.offsetWidth) - scrollelement.clientWidth + 16; // margin
+            if (diff > 0) {
+                scrollelement.scrollLeft = diff;
+            }
+            boxelement.classList.add('outlinehighlight');
+            setTimeout(() => {
+                boxelement.classList.remove('outlinehighlight');
+            }, 1100);
+        };
         this.splayBox = (boxptr, domSource) => {
             this.animateToOrigin();
             this.animateToDataboxList(domSource);
@@ -317,7 +335,7 @@ class Quadrant extends React.Component {
                 let matchForHighlight = false;
                 if (this.collapseSourceBoxConfig) {
                     highlightBoxConfig = this.collapseSourceBoxConfig;
-                    this.collapseSourceBoxConfig = null;
+                    this.collapseSourceBoxConfig = null; // one time only
                 }
                 let haspeers = (datastack[stackpointer] && (datastack[stackpointer].items.length > 1));
                 if (!haspeers) {
@@ -339,7 +357,7 @@ class Quadrant extends React.Component {
                             }
                         }
                     }
-                    return (<DataBox key={boxconfig.instanceid} item={item} itemType={itemType} highlightBoxConfig={matchForHighlight ? highlightBoxConfig : null} getListItem={this.getListItem} getListItemType={this.getListItemType(METATYPES.list)} boxConfig={boxconfig} haspeers={haspeers} splayBox={(domSource) => {
+                    return (<DataBox key={boxconfig.instanceid} item={item} itemType={itemType} highlightBoxConfig={matchForHighlight ? highlightBoxConfig : null} getListItem={this.getListItem} getListItemType={this.getListItemType(METATYPES.list)} boxConfig={boxconfig} highlightBox={this.highlightBox} haspeers={haspeers} splayBox={(domSource) => {
                         this.splayBox(index, domSource);
                     }} selectFromSplay={(domSource) => {
                         this.selectFromSplay(index, domSource);

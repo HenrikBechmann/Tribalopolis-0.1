@@ -16,12 +16,6 @@ class DataBox extends React.Component {
             boxconfig: this.props.boxConfig,
             highlightrefuid: this.props.highlightrefuid
         };
-        this.animateBoxHighlight = () => {
-            this.boxframe.current.classList.add('outlinehighlight');
-            setTimeout(() => {
-                this.boxframe.current.classList.remove('outlinehighlight');
-            }, 1100);
-        };
         this.expandCategory = (ref, domSource) => {
             this.props.expandCategory(ref, domSource);
             // let {boxconfig:boxConfig} = this.state
@@ -87,7 +81,7 @@ class DataBox extends React.Component {
         }, () => {
             if (this.props.highlightBoxConfig) {
                 if (this.props.haspeers) {
-                    this.animateBoxHighlight();
+                    this.props.highlightBox(this.boxframe);
                 }
                 else {
                     let ref = this.props.highlightBoxConfig.liststack[this.props.highlightBoxConfig.liststack.length - 1];

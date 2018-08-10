@@ -35,7 +35,7 @@ class DataBox extends React.Component<any,any> {
         },() => {
             if (this.props.highlightBoxConfig) {
                 if (this.props.haspeers) {
-                    this.animateBoxHighlight()
+                    this.props.highlightBox(this.boxframe)
                 } else {
                     let ref = this.props.highlightBoxConfig.liststack[this.props.highlightBoxConfig.liststack.length -1]
                     if (ref) {
@@ -52,13 +52,6 @@ class DataBox extends React.Component<any,any> {
         })
     }
 
-    animateBoxHighlight = () => {
-        this.boxframe.current.classList.add('outlinehighlight')
-        setTimeout(() => {
-            this.boxframe.current.classList.remove('outlinehighlight')
-        },1100)
-
-    }
     componentWillReceiveProps(newProps) {
         // console.log('old and new boxconfig',this.state.boxconfig,newProps.boxConfig)
         if (this.state.boxconfig !== newProps.boxConfig) {

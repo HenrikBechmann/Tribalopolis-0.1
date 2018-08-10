@@ -189,6 +189,29 @@ class Quadrant extends React.Component<any,any>  {
         this.decrementStackSelector()
     }
 
+    highlightBox = (boxdomref) => {
+
+        let boxelement:HTMLElement = boxdomref.current
+        let clientoffset = 0
+        let element:HTMLElement = boxelement
+        while (element && (element.getAttribute('data-marker') != 'boxlist-scrollbox')) {
+            clientoffset += element.offsetLeft
+            element = element.offsetParent as HTMLElement
+        }
+        let scrollelement:Element = element
+
+        let diff = (clientoffset + boxelement.offsetWidth) - scrollelement.clientWidth + 16 // margin
+        if (diff > 0) {
+            scrollelement.scrollLeft = diff
+        }
+
+        boxelement.classList.add('outlinehighlight')
+        setTimeout(() => {
+            boxelement.classList.remove('outlinehighlight')
+        },1100)
+
+    }
+
     collapseSourceBoxConfig
 
     splayBox = (boxptr, domSource) => {
@@ -507,6 +530,7 @@ class Quadrant extends React.Component<any,any>  {
                         getListItem = { this.getListItem }
                         getListItemType = { this.getListItemType(METATYPES.list) }
                         boxConfig = { boxconfig }
+                        highlightBox = {this.highlightBox}
                         haspeers = { haspeers }
                         splayBox = {
                             (domSource) => {
