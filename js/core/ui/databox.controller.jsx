@@ -9,12 +9,18 @@ import CategoryList from './views/databox/categorylist.view';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 class DataBox extends React.Component {
-    constructor() {
-        super(...arguments);
+    constructor(props) {
+        super(props);
         this.state = {
             opacity: 0,
             boxconfig: this.props.boxConfig,
             highlightrefuid: this.props.highlightrefuid
+        };
+        this.animateBoxHighlight = () => {
+            this.boxframe.current.classList.add('outlinehighlight');
+            setTimeout(() => {
+                this.boxframe.current.classList.remove('outlinehighlight');
+            }, 1100);
         };
         this.expandCategory = (ref, domSource) => {
             this.props.expandCategory(ref, domSource);
@@ -73,10 +79,29 @@ class DataBox extends React.Component {
         </div> : null;
             return retval;
         };
+        this.boxframe = React.createRef();
     }
     componentDidMount() {
         this.setState({
             opacity: 1,
+        }, () => {
+            if (this.props.highlightBoxConfig) {
+                if (this.props.haspeers) {
+                    this.animateBoxHighlight();
+                }
+                else {
+                    let ref = this.props.highlightBoxConfig.liststack[this.props.highlightBoxConfig.liststack.length - 1];
+                    if (ref) {
+                        this.setState({
+                            highlightrefuid: ref.uid,
+                        }, () => {
+                            this.setState({
+                                highlightrefuid: null
+                            });
+                        });
+                    }
+                }
+            }
         });
     }
     componentWillReceiveProps(newProps) {
@@ -123,7 +148,7 @@ class DataBox extends React.Component {
         let listcount = listobject.links.length;
         let listItemType = this.props.getListItemType(listobject.type);
         // placeholder logic for showing add button
-        return <div style={frameStyle}>
+        return <div style={frameStyle} ref={this.boxframe}>
             <BoxTypebar item={item} listcount={listcount} splayBox={this.props.splayBox} haspeers={this.props.haspeers} selectFromSplay={this.props.selectFromSplay}/>
             <BoxIdentifier item={item}/>
             <div style={{

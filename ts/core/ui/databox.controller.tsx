@@ -16,18 +16,49 @@ import ContentAdd from 'material-ui/svg-icons/content/add'
 
 class DataBox extends React.Component<any,any> {
 
+    constructor(props) {
+        super(props)
+        this.boxframe = React.createRef()
+    }
+
     state = {
         opacity:0,
         boxconfig:this.props.boxConfig,
         highlightrefuid:this.props.highlightrefuid
     }
 
+    boxframe
+
     componentDidMount() {
         this.setState({
             opacity:1,
+        },() => {
+            if (this.props.highlightBoxConfig) {
+                if (this.props.haspeers) {
+                    this.animateBoxHighlight()
+                } else {
+                    let ref = this.props.highlightBoxConfig.liststack[this.props.highlightBoxConfig.liststack.length -1]
+                    if (ref) {
+                        this.setState({
+                            highlightrefuid:ref.uid,
+                        },() => {
+                            this.setState({
+                                highlightrefuid:null
+                            })
+                        })
+                    }
+                }
+            }
         })
     }
 
+    animateBoxHighlight = () => {
+        this.boxframe.current.classList.add('outlinehighlight')
+        setTimeout(() => {
+            this.boxframe.current.classList.remove('outlinehighlight')
+        },1100)
+
+    }
     componentWillReceiveProps(newProps) {
         // console.log('old and new boxconfig',this.state.boxconfig,newProps.boxConfig)
         if (this.state.boxconfig !== newProps.boxConfig) {
@@ -158,7 +189,9 @@ class DataBox extends React.Component<any,any> {
         let listItemType = this.props.getListItemType(listobject.type)
         // placeholder logic for showing add button
 
-        return <div style = {frameStyle}>
+        return <div style = {frameStyle}
+                ref = {this.boxframe}
+            >
             <BoxTypebar 
                 item = {item} 
                 listcount = {listcount}

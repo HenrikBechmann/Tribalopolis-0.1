@@ -145,7 +145,10 @@
 
 @keyframes outlinehighlight {
     0% {
-        outline: green 3px solid; 
+        outline: green 0px solid; 
+    }
+    50% {
+        outline: orange 8px solid;
     }
     100% {
         outline: transparent 0px none;
@@ -153,5 +156,5 @@
 }
 
 .outlinehighlight {
-    animation: outlinehighlight 2s;
+    animation: outlinehighlight 1s;
 }

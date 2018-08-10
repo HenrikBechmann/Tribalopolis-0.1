@@ -111,7 +111,8 @@ class Quadrant extends React.Component {
             });
         };
         this.collapseCategory = (boxConfig) => {
-            console.log('quadrant collapseCategory boxConfig', boxConfig);
+            // console.log('quadrant collapseCategory boxConfig, datastack',boxConfig, this.state.stackpointer, this.state.datastack)
+            this.collapseSourceBoxConfig = boxConfig;
             this.decrementStackSelector();
         };
         this.splayBox = (boxptr, domSource) => {
@@ -312,11 +313,33 @@ class Quadrant extends React.Component {
             // console.log('getBoxes quadrant state',this.state)
             let { datastack, stackpointer } = this.state;
             if (datastack) {
+                let highlightBoxConfig = null;
+                let matchForHighlight = false;
+                if (this.collapseSourceBoxConfig) {
+                    highlightBoxConfig = this.collapseSourceBoxConfig;
+                    this.collapseSourceBoxConfig = null;
+                }
                 let haspeers = (datastack[stackpointer] && (datastack[stackpointer].items.length > 1));
+                if (!haspeers) {
+                    matchForHighlight = true;
+                }
                 boxes = datastack[stackpointer].items.map((boxconfig, index) => {
                     let item = this.getItem(boxconfig.ref);
                     let itemType = this.getTypeItem(METATYPES.item, item.type);
-                    return (<DataBox key={boxconfig.instanceid} item={item} itemType={itemType} getListItem={this.getListItem} getListItemType={this.getListItemType(METATYPES.list)} boxConfig={boxconfig} haspeers={haspeers} splayBox={(domSource) => {
+                    if (haspeers && highlightBoxConfig) {
+                        matchForHighlight = false;
+                        if ((boxconfig.liststack.length == highlightBoxConfig.liststack.length) &&
+                            boxconfig.liststack.length > 0) {
+                            let highlightref = highlightBoxConfig.liststack[highlightBoxConfig.liststack.length - 1];
+                            let boxref = boxconfig.liststack[boxconfig.liststack.length - 1];
+                            if (highlightref && boxref) {
+                                if (highlightref.uid == boxref.uid) {
+                                    matchForHighlight = true;
+                                }
+                            }
+                        }
+                    }
+                    return (<DataBox key={boxconfig.instanceid} item={item} itemType={itemType} highlightBoxConfig={matchForHighlight ? highlightBoxConfig : null} getListItem={this.getListItem} getListItemType={this.getListItemType(METATYPES.list)} boxConfig={boxconfig} haspeers={haspeers} splayBox={(domSource) => {
                         this.splayBox(index, domSource);
                     }} selectFromSplay={(domSource) => {
                         this.selectFromSplay(index, domSource);
