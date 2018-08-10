@@ -18,7 +18,7 @@ import QuantityBadge from './views/common/quantitybadge.view'
 import QuadStatusBar from './views/quadspace/quadstatusbar.view'
 import { METATYPES } from '../constants'
 
-import {lists, links, items, types, schemes, stacks, maps} from '../../data/repositories'
+import {lists, links, items, types, schemes, datastacks, maps} from '../../data/repositories'
 
 let context = {
     lists,
@@ -35,7 +35,7 @@ class QuadspaceController extends React.Component<any,any> {
         quadrantpositions:[0,1,2,3],
         currentquad:'topleft',
         split:'none',
-        stacks,
+        datastacks,
     }
 
     positions = [
@@ -128,20 +128,20 @@ class QuadspaceController extends React.Component<any,any> {
         })
     }
 
-    getItem = (ref) => {
-        return items[ref.uid]
+    getItem = (dataref) => {
+        return items[dataref.uid]
     }
 
-    getListItem = (ref) => {
-        return lists[ref.uid]
+    getListItem = (dataref) => {
+        return lists[dataref.uid]
     }
 
     // TODO: should always return an object
-    getTypeItem = (metatype,ref) => {
+    getTypeItem = (metatype,dataref) => {
         let retval
-        if (types[METATYPES[metatype]][ref.schemeuid]) {
-            retval = types[METATYPES[metatype]][ref.schemeuid][ref.uid] ||
-                types[METATYPES[metatype]][ref.schemeuid]['__default__']
+        if (types[METATYPES[metatype]][dataref.schemeuid]) {
+            retval = types[METATYPES[metatype]][dataref.schemeuid][dataref.uid] ||
+                types[METATYPES[metatype]][dataref.schemeuid]['__default__']
 
         }
         retval = retval || null
@@ -159,7 +159,7 @@ class QuadspaceController extends React.Component<any,any> {
             color = '#e8e8e8' 
             title = 'first first first first first first first first first first first first first first first first first first first first first first first first first first first first first first first first first '
             badgequantity = {0}
-            datastack = {this.state.stacks[0]}
+            datastack = {this.state.datastacks[0]}
             getItem = {this.getItem}
             getListItem = {this.getListItem}
             getTypeItem = {this.getTypeItem}
@@ -174,7 +174,7 @@ class QuadspaceController extends React.Component<any,any> {
             color = '#e8e8e8' 
             title = "second" 
             badgequantity = {0}
-            datastack = {this.state.stacks[1]}
+            datastack = {this.state.datastacks[1]}
             getItem = {this.getItem}
             getListItem = {this.getListItem}
             getTypeItem = {this.getTypeItem}
@@ -189,7 +189,7 @@ class QuadspaceController extends React.Component<any,any> {
             color = '#e8e8e8' 
             title = "third" 
             badgequantity = {0}
-            datastack = {this.state.stacks[2]}
+            datastack = {this.state.datastacks[2]}
             getItem = {this.getItem}
             getListItem = {this.getListItem}
             getTypeItem = {this.getTypeItem}
@@ -204,7 +204,7 @@ class QuadspaceController extends React.Component<any,any> {
             color = '#e8e8e8' 
             title = "fourth" 
             badgequantity = {0}
-            datastack = {this.state.stacks[3]}
+            datastack = {this.state.datastacks[3]}
             getItem = {this.getItem}
             getListItem = {this.getListItem}
             getTypeItem = {this.getTypeItem}

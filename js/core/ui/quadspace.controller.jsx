@@ -12,7 +12,7 @@ import Quadrant from './quadrant.controller';
 import QuantityBadge from './views/common/quantitybadge.view';
 import QuadStatusBar from './views/quadspace/quadstatusbar.view';
 import { METATYPES } from '../constants';
-import { lists, links, items, types, schemes, stacks, maps } from '../../data/repositories';
+import { lists, links, items, types, schemes, datastacks, maps } from '../../data/repositories';
 let context = {
     lists,
     links,
@@ -28,7 +28,7 @@ class QuadspaceController extends React.Component {
             quadrantpositions: [0, 1, 2, 3],
             currentquad: 'topleft',
             split: 'none',
-            stacks,
+            datastacks,
         };
         this.positions = [
             'topleft',
@@ -107,27 +107,27 @@ class QuadspaceController extends React.Component {
                 }, 600);
             });
         };
-        this.getItem = (ref) => {
-            return items[ref.uid];
+        this.getItem = (dataref) => {
+            return items[dataref.uid];
         };
-        this.getListItem = (ref) => {
-            return lists[ref.uid];
+        this.getListItem = (dataref) => {
+            return lists[dataref.uid];
         };
         // TODO: should always return an object
-        this.getTypeItem = (metatype, ref) => {
+        this.getTypeItem = (metatype, dataref) => {
             let retval;
-            if (types[METATYPES[metatype]][ref.schemeuid]) {
-                retval = types[METATYPES[metatype]][ref.schemeuid][ref.uid] ||
-                    types[METATYPES[metatype]][ref.schemeuid]['__default__'];
+            if (types[METATYPES[metatype]][dataref.schemeuid]) {
+                retval = types[METATYPES[metatype]][dataref.schemeuid][dataref.uid] ||
+                    types[METATYPES[metatype]][dataref.schemeuid]['__default__'];
             }
             retval = retval || null;
             return retval;
         };
         this.quadrants = () => [
-            <Quadrant key='1' sessionid={0} handleswap={this.handleSwap} quadrant={this.calcQuadrant(0)} split={this.state.split} quadselection={this.quadselection} color='#e8e8e8' title='first first first first first first first first first first first first first first first first first first first first first first first first first first first first first first first first first ' badgequantity={0} datastack={this.state.stacks[0]} getItem={this.getItem} getListItem={this.getListItem} getTypeItem={this.getTypeItem}/>,
-            <Quadrant key='2' sessionid={1} handleswap={this.handleSwap} quadrant={this.calcQuadrant(1)} split={this.state.split} quadselection={this.quadselection} color='#e8e8e8' title="second" badgequantity={0} datastack={this.state.stacks[1]} getItem={this.getItem} getListItem={this.getListItem} getTypeItem={this.getTypeItem}/>,
-            <Quadrant key='3' sessionid={2} handleswap={this.handleSwap} quadrant={this.calcQuadrant(2)} split={this.state.split} quadselection={this.quadselection} color='#e8e8e8' title="third" badgequantity={0} datastack={this.state.stacks[2]} getItem={this.getItem} getListItem={this.getListItem} getTypeItem={this.getTypeItem}/>,
-            <Quadrant key='4' sessionid={3} handleswap={this.handleSwap} quadrant={this.calcQuadrant(3)} split={this.state.split} quadselection={this.quadselection} color='#e8e8e8' title="fourth" badgequantity={0} datastack={this.state.stacks[3]} getItem={this.getItem} getListItem={this.getListItem} getTypeItem={this.getTypeItem}/>,
+            <Quadrant key='1' sessionid={0} handleswap={this.handleSwap} quadrant={this.calcQuadrant(0)} split={this.state.split} quadselection={this.quadselection} color='#e8e8e8' title='first first first first first first first first first first first first first first first first first first first first first first first first first first first first first first first first first ' badgequantity={0} datastack={this.state.datastacks[0]} getItem={this.getItem} getListItem={this.getListItem} getTypeItem={this.getTypeItem}/>,
+            <Quadrant key='2' sessionid={1} handleswap={this.handleSwap} quadrant={this.calcQuadrant(1)} split={this.state.split} quadselection={this.quadselection} color='#e8e8e8' title="second" badgequantity={0} datastack={this.state.datastacks[1]} getItem={this.getItem} getListItem={this.getListItem} getTypeItem={this.getTypeItem}/>,
+            <Quadrant key='3' sessionid={2} handleswap={this.handleSwap} quadrant={this.calcQuadrant(2)} split={this.state.split} quadselection={this.quadselection} color='#e8e8e8' title="third" badgequantity={0} datastack={this.state.datastacks[2]} getItem={this.getItem} getListItem={this.getListItem} getTypeItem={this.getTypeItem}/>,
+            <Quadrant key='4' sessionid={3} handleswap={this.handleSwap} quadrant={this.calcQuadrant(3)} split={this.state.split} quadselection={this.quadselection} color='#e8e8e8' title="fourth" badgequantity={0} datastack={this.state.datastacks[3]} getItem={this.getItem} getListItem={this.getListItem} getTypeItem={this.getTypeItem}/>,
         ];
     }
     render() {

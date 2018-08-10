@@ -37,10 +37,10 @@ class DataBox extends React.Component<any,any> {
                 if (this.props.haspeers) {
                     this.props.highlightBox(this.boxframe)
                 } else {
-                    let ref = this.props.highlightBoxConfig.liststack[this.props.highlightBoxConfig.liststack.length -1]
-                    if (ref) {
+                    let dataref = this.props.highlightBoxConfig.liststack[this.props.highlightBoxConfig.liststack.length -1]
+                    if (dataref) {
                         this.setState({
-                            highlightrefuid:ref.uid,
+                            highlightrefuid:dataref.uid,
                         },() => {
                             this.setState({
                                 highlightrefuid:null
@@ -59,24 +59,6 @@ class DataBox extends React.Component<any,any> {
                 boxconfig:newProps.boxConfig,
             })
         }
-    }
-
-    expandCategory = (ref, domSource) => {
-
-        this.props.expandCategory(ref, domSource)
-
-        // let {boxconfig:boxConfig} = this.state
-        // boxConfig.liststack.push(ref)
-        // this.setState({
-        //     boxConfig,
-        // },() => {
-        //     let element:HTMLElement = this.categoriesbarwrapper.current
-        //     element.classList.add('outlinehighlight')
-        //     setTimeout(() => {
-        //         element.classList.remove('outlinehighlight')
-        //     },2100)
-        // })
-
     }
 
     collapseCategory = () => {
@@ -214,7 +196,7 @@ class DataBox extends React.Component<any,any> {
                         listobject = {listobject} 
                         highlightrefuid = {this.state.highlightrefuid}
                         getListItem = {this.props.getListItem}
-                        expandCategory = {this.expandCategory}
+                        expandCategory = {this.props.expandCategory}
                         highlightItem = {this.highlightItem}
                     />
                 </div>

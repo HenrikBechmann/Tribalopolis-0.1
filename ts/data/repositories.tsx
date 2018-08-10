@@ -388,7 +388,7 @@ let lists = {
     calendars:
     {
         type:{
-            type:'calendars',
+            uid:'calendars',
             schemeuid:'common',
         },
         metadata: {
@@ -609,12 +609,12 @@ let items = {
     },
 }
 
-let stacks = [ // four quadrant stacks
+let datastacks = [ // four quadrant stacks
     [ // each quadrant stack
         { // each quadrant stack layer
             items:[ // items in the stack layer
                 {
-                    ref:{
+                    dataref:{
                         repo:'items',
                         uid:'henrik',
                     },
@@ -633,7 +633,7 @@ let stacks = [ // four quadrant stacks
         {
             items:[
                 {
-                    ref:{
+                    dataref:{
                         repo:'items',
                         uid:'henrik',
                     },
@@ -651,7 +651,7 @@ let stacks = [ // four quadrant stacks
         {
             items:[
                 {
-                    ref:{
+                    dataref:{
                         repo:'items',
                         uid:'henrik',
                     },
@@ -669,7 +669,7 @@ let stacks = [ // four quadrant stacks
         {
             items:[
                 {
-                    ref:{
+                    dataref:{
                         repo:'items',
                         uid:'henrik',
                     },
@@ -685,4 +685,4 @@ let stacks = [ // four quadrant stacks
     ]
 ]
 
-export {lists, links, items, types, schemes, stacks, maps}
+export {lists, links, items, types, schemes, datastacks, maps}

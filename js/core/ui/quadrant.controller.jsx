@@ -90,7 +90,7 @@ class Quadrant extends React.Component {
             };
         };
         this.position = null;
-        this.expandCategory = (boxptr, listItemRef, domSource) => {
+        this.expandCategory = (boxptr, dataref, domSource) => {
             this.animateToOrigin();
             this.animateToDatabox(domSource);
             let { datastack, stackpointer } = this.state;
@@ -101,7 +101,7 @@ class Quadrant extends React.Component {
             datastack.splice(stackpointer, datastack.length, newstacklayer);
             let newboxconfig = JSON.parse(JSON.stringify(boxconfig));
             newboxconfig.instanceid = serializer.getid();
-            newboxconfig.liststack.push(listItemRef);
+            newboxconfig.liststack.push(dataref);
             newstacklayer.items.push(newboxconfig);
             setTimeout(() => {
                 this.setState({
@@ -138,7 +138,7 @@ class Quadrant extends React.Component {
             this.animateToDataboxList(domSource);
             let { datastack, stackpointer } = this.state;
             let boxconfig = datastack[stackpointer].items[boxptr];
-            let item = this.getItem(boxconfig.ref);
+            let item = this.getItem(boxconfig.dataref);
             let liststack = boxconfig.liststack;
             let listref;
             if (liststack.length) {
@@ -157,10 +157,10 @@ class Quadrant extends React.Component {
             // replace forward stack items
             datastack.splice(stackpointer, datastack.length, newstacklayer);
             let template = JSON.stringify(boxconfig);
-            for (let ref of linkitems) {
+            for (let dataref of linkitems) {
                 let newboxconfig = JSON.parse(template);
                 newboxconfig.instanceid = serializer.getid();
-                newboxconfig.liststack.push(ref);
+                newboxconfig.liststack.push(dataref);
                 newstacklayer.items.push(newboxconfig);
             }
             setTimeout(() => {
@@ -322,8 +322,8 @@ class Quadrant extends React.Component {
             }
         };
         this.getListItemType = (metatype) => {
-            return (ref) => {
-                return this.getTypeItem(metatype, ref);
+            return (dataref) => {
+                return this.getTypeItem(metatype, dataref);
             };
         };
         this.getBoxes = () => {
@@ -342,7 +342,7 @@ class Quadrant extends React.Component {
                     matchForHighlight = true;
                 }
                 boxes = datastack[stackpointer].items.map((boxconfig, index) => {
-                    let item = this.getItem(boxconfig.ref);
+                    let item = this.getItem(boxconfig.dataref);
                     let itemType = this.getTypeItem(METATYPES.item, item.type);
                     if (haspeers && highlightBoxConfig) {
                         matchForHighlight = false;
@@ -361,8 +361,8 @@ class Quadrant extends React.Component {
                         this.splayBox(index, domSource);
                     }} selectFromSplay={(domSource) => {
                         this.selectFromSplay(index, domSource);
-                    }} expandCategory={(ref, domSource) => {
-                        this.expandCategory(index, ref, domSource);
+                    }} expandCategory={(dataref, domSource) => {
+                        this.expandCategory(index, dataref, domSource);
                     }} collapseCategory={this.collapseCategory}/>);
                 });
             }
@@ -403,7 +403,7 @@ class Quadrant extends React.Component {
     }
     // TODO: move style blocks out of render code
     render() {
-        // console.log('quadrant state',this.state)
+        console.log('quadrant state', this.state);
         let { color } = this.props;
         let { quadrant } = this.state;
         let { top, left, bottom, right } = this.position;

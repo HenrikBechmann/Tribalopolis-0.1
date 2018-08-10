@@ -10,19 +10,19 @@ class CategoriesList extends React.Component {
             highlightrefuid: null,
         };
         this.listelement = null;
-        this.expandCategory = (ref) => {
+        this.expandCategory = (dataref) => {
             return (domSource) => {
-                this.props.expandCategory(ref, domSource);
+                this.props.expandCategory(dataref, domSource);
             };
         };
         this.getListItems = listobject => {
             let { getListItem } = this.props;
             let { links } = listobject;
             let catitems = [];
-            for (let ref of links) {
-                let data = getListItem(ref);
-                let highlight = (ref.uid === this.state.highlightrefuid);
-                let catitem = <CategoryItem key={ref.uid} uid={ref.uid} data={data} expandCategory={this.expandCategory(ref)} highlight={highlight} highlightItem={this.props.highlightItem}/>;
+            for (let dataref of links) {
+                let data = getListItem(dataref);
+                let highlight = (dataref.uid === this.state.highlightrefuid);
+                let catitem = <CategoryItem key={dataref.uid} uid={dataref.uid} data={data} expandCategory={this.expandCategory(dataref)} highlight={highlight} highlightItem={this.props.highlightItem}/>;
                 catitems.push(catitem);
             }
             return <div ref={element => {

@@ -24,9 +24,9 @@ class CategoriesList extends React.Component<any,any> {
         })
     }
 
-    expandCategory = (ref) => {
+    expandCategory = (dataref) => {
         return (domSource) => {
-            this.props.expandCategory(ref, domSource)
+            this.props.expandCategory(dataref, domSource)
         }
     }
 
@@ -37,15 +37,15 @@ class CategoriesList extends React.Component<any,any> {
         let { links } = listobject
 
         let catitems = []
-        for (let ref of links) {
-            let data = getListItem(ref)
-            let highlight = (ref.uid === this.state.highlightrefuid)
+        for (let dataref of links) {
+            let data = getListItem(dataref)
+            let highlight = (dataref.uid === this.state.highlightrefuid)
             let catitem = 
                 <CategoryItem 
-                    key = {ref.uid} 
-                    uid = {ref.uid} 
+                    key = {dataref.uid} 
+                    uid = {dataref.uid} 
                     data = {data} 
-                    expandCategory = {this.expandCategory(ref)}
+                    expandCategory = {this.expandCategory(dataref)}
                     highlight = {highlight}
                     highlightItem = {this.props.highlightItem}
                 />

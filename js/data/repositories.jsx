@@ -352,7 +352,7 @@ let lists = {
     },
     calendars: {
         type: {
-            type: 'calendars',
+            uid: 'calendars',
             schemeuid: 'common',
         },
         metadata: {
@@ -565,12 +565,12 @@ let items = {
         listref: { repo: 'lists', uid: 'henrik' },
     },
 };
-let stacks = [
+let datastacks = [
     [
         {
             items: [
                 {
-                    ref: {
+                    dataref: {
                         repo: 'items',
                         uid: 'henrik',
                     },
@@ -587,7 +587,7 @@ let stacks = [
         {
             items: [
                 {
-                    ref: {
+                    dataref: {
                         repo: 'items',
                         uid: 'henrik',
                     },
@@ -603,7 +603,7 @@ let stacks = [
         {
             items: [
                 {
-                    ref: {
+                    dataref: {
                         repo: 'items',
                         uid: 'henrik',
                     },
@@ -619,7 +619,7 @@ let stacks = [
         {
             items: [
                 {
-                    ref: {
+                    dataref: {
                         repo: 'items',
                         uid: 'henrik',
                     },
@@ -632,5 +632,5 @@ let stacks = [
         },
     ]
 ];
-export { lists, links, items, types, schemes, stacks, maps };
+export { lists, links, items, types, schemes, datastacks, maps };
 //# sourceMappingURL=repositories.jsx.map

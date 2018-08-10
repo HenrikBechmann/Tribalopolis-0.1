@@ -152,7 +152,7 @@ class Quadrant extends React.Component<any,any>  {
 
     position = null
 
-    expandCategory = (boxptr,listItemRef, domSource) => {
+    expandCategory = (boxptr, dataref, domSource) => {
 
         this.animateToOrigin()
 
@@ -171,7 +171,7 @@ class Quadrant extends React.Component<any,any>  {
         let newboxconfig = JSON.parse(JSON.stringify(boxconfig))
         newboxconfig.instanceid = serializer.getid()
 
-        newboxconfig.liststack.push(listItemRef)
+        newboxconfig.liststack.push(dataref)
 
         newstacklayer.items.push(newboxconfig)
 
@@ -224,7 +224,7 @@ class Quadrant extends React.Component<any,any>  {
 
         let boxconfig = datastack[stackpointer].items[boxptr]
 
-        let item = this.getItem(boxconfig.ref)
+        let item = this.getItem(boxconfig.dataref)
 
         let liststack = boxconfig.liststack
 
@@ -252,10 +252,10 @@ class Quadrant extends React.Component<any,any>  {
 
         let template = JSON.stringify(boxconfig)
 
-        for (let ref of linkitems) {
+        for (let dataref of linkitems) {
             let newboxconfig = JSON.parse(template)
             newboxconfig.instanceid = serializer.getid()
-            newboxconfig.liststack.push(ref)
+            newboxconfig.liststack.push(dataref)
             newstacklayer.items.push(newboxconfig)
         }
 
@@ -485,8 +485,8 @@ class Quadrant extends React.Component<any,any>  {
     }
 
     getListItemType = (metatype) => {
-        return (ref) => {
-            return this.getTypeItem(metatype,ref)
+        return (dataref) => {
+            return this.getTypeItem(metatype,dataref)
         }
     }
 
@@ -506,7 +506,7 @@ class Quadrant extends React.Component<any,any>  {
                 matchForHighlight = true
             }
             boxes = datastack[stackpointer].items.map((boxconfig,index) => {
-                let item = this.getItem(boxconfig.ref)
+                let item = this.getItem(boxconfig.dataref)
                 let itemType = this.getTypeItem(METATYPES.item,item.type)
                 if (haspeers && highlightBoxConfig) {
                     matchForHighlight = false
@@ -543,8 +543,8 @@ class Quadrant extends React.Component<any,any>  {
                             }
                         }
                         expandCategory = {
-                            (ref, domSource) => {
-                                this.expandCategory(index,ref, domSource)
+                            (dataref, domSource) => {
+                                this.expandCategory(index,dataref, domSource)
                             }
                         }
                         collapseCategory = {
@@ -561,7 +561,7 @@ class Quadrant extends React.Component<any,any>  {
 
     // TODO: move style blocks out of render code
     render() {
-        // console.log('quadrant state',this.state)
+        console.log('quadrant state',this.state)
         let { color } = this.props
         let { quadrant } = this.state
         let {top, left, bottom, right} = this.position

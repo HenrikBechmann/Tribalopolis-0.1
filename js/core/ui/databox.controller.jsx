@@ -16,20 +16,6 @@ class DataBox extends React.Component {
             boxconfig: this.props.boxConfig,
             highlightrefuid: this.props.highlightrefuid
         };
-        this.expandCategory = (ref, domSource) => {
-            this.props.expandCategory(ref, domSource);
-            // let {boxconfig:boxConfig} = this.state
-            // boxConfig.liststack.push(ref)
-            // this.setState({
-            //     boxConfig,
-            // },() => {
-            //     let element:HTMLElement = this.categoriesbarwrapper.current
-            //     element.classList.add('outlinehighlight')
-            //     setTimeout(() => {
-            //         element.classList.remove('outlinehighlight')
-            //     },2100)
-            // })
-        };
         this.collapseCategory = () => {
             let boxConfig = this.state.boxconfig;
             // console.log('databox collapseCategory boxConfig',boxConfig)
@@ -84,10 +70,10 @@ class DataBox extends React.Component {
                     this.props.highlightBox(this.boxframe);
                 }
                 else {
-                    let ref = this.props.highlightBoxConfig.liststack[this.props.highlightBoxConfig.liststack.length - 1];
-                    if (ref) {
+                    let dataref = this.props.highlightBoxConfig.liststack[this.props.highlightBoxConfig.liststack.length - 1];
+                    if (dataref) {
                         this.setState({
-                            highlightrefuid: ref.uid,
+                            highlightrefuid: dataref.uid,
                         }, () => {
                             this.setState({
                                 highlightrefuid: null
@@ -153,7 +139,7 @@ class DataBox extends React.Component {
                     <CategoriesBar item={item} getListItem={this.props.getListItem} listStack={this.state.boxconfig.liststack} collapseCategory={this.collapseCategory} haspeers={this.props.haspeers}/>
                 </div>
                 <div data-marker='databox-scrollbox' style={scrollboxstyle}>
-                    <CategoryList listobject={listobject} highlightrefuid={this.state.highlightrefuid} getListItem={this.props.getListItem} expandCategory={this.expandCategory} highlightItem={this.highlightItem}/>
+                    <CategoryList listobject={listobject} highlightrefuid={this.state.highlightrefuid} getListItem={this.props.getListItem} expandCategory={this.props.expandCategory} highlightItem={this.highlightItem}/>
                 </div>
                 {this.modifybuttons(listItemType)}
             </div>
