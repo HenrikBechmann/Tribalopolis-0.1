@@ -104,7 +104,10 @@ class Quadrant extends React.Component {
             let { datastack, stackpointer } = this.state;
             let boxconfig = datastack[stackpointer].items[boxptr];
             stackpointer++;
-            let newstacklayer = { items: [], settings: {} };
+            let newstacklayer = { items: [], settings: {}, source: {
+                    instanceid: boxconfig.instanceid,
+                    dataref: boxconfig.dataref,
+                } };
             // replace forward stack items
             datastack.splice(stackpointer, datastack.length, newstacklayer);
             let newboxconfig = JSON.parse(JSON.stringify(boxconfig));
@@ -142,7 +145,10 @@ class Quadrant extends React.Component {
             if (!linkitems || !linkitems.length)
                 return;
             stackpointer++;
-            let newstacklayer = { items: [], settings: {} };
+            let newstacklayer = { items: [], settings: {}, source: {
+                    instanceid: boxconfig.instanceid,
+                    dataref: boxconfig.dataref,
+                } };
             // console.log('new stack pointer',stackpointer)
             // replace forward stack items
             datastack.splice(stackpointer, datastack.length, newstacklayer);
@@ -167,7 +173,10 @@ class Quadrant extends React.Component {
             let { datastack, stackpointer } = this.state;
             let boxconfig = datastack[stackpointer].items[boxptr];
             stackpointer++;
-            let newstacklayer = { items: [], settings: {} };
+            let newstacklayer = { items: [], settings: {}, source: {
+                    instanceid: boxconfig.instanceid,
+                    dataref: boxconfig.dataref,
+                } };
             // replace forward stack items
             datastack.splice(stackpointer, datastack.length, newstacklayer);
             let newboxconfig = JSON.parse(JSON.stringify(boxconfig));
@@ -416,7 +425,7 @@ class Quadrant extends React.Component {
     *********************************************************/
     // TODO: move style blocks out of render code
     render() {
-        console.log('quadrant state', this.state);
+        console.log('quadrant state.datastack', this.state.datastack);
         let { color } = this.props;
         let { quadrant } = this.state;
         let { top, left, bottom, right } = this.position;
