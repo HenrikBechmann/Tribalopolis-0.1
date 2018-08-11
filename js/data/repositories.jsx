@@ -579,23 +579,7 @@ let datastacks = [
                     settings: {},
                 },
             ],
-            settings: { // settings for the stack layer
-            },
-        },
-    ],
-    [
-        {
-            items: [
-                {
-                    dataref: {
-                        repo: 'items',
-                        uid: 'henrik',
-                    },
-                    instanceid: serializer.getid(),
-                    liststack: [],
-                    settings: {},
-                },
-            ],
+            source: {},
             settings: {},
         },
     ],
@@ -612,6 +596,7 @@ let datastacks = [
                     settings: {},
                 },
             ],
+            source: {},
             settings: {},
         },
     ],
@@ -628,6 +613,24 @@ let datastacks = [
                     settings: {},
                 },
             ],
+            source: {},
+            settings: {},
+        },
+    ],
+    [
+        {
+            items: [
+                {
+                    dataref: {
+                        repo: 'items',
+                        uid: 'henrik',
+                    },
+                    instanceid: serializer.getid(),
+                    liststack: [],
+                    settings: {},
+                },
+            ],
+            source: {},
             settings: {},
         },
     ]

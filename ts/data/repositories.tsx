@@ -624,8 +624,8 @@ let datastacks = [ // four quadrant stacks
                     },
                 },
             ],
-            settings:{ // settings for the stack layer
-
+            source: {},
+            settings:{
             },
         },
     ],
@@ -642,6 +642,29 @@ let datastacks = [ // four quadrant stacks
                     settings:{},
                 },
             ],
+            source:{
+            },
+            settings:{
+            },
+        },
+    ],
+    [
+        {
+            items:[
+                {
+                    dataref:{
+                        repo:'items',
+                        uid:'henrik',
+                    },
+                    instanceid:serializer.getid(),
+                    liststack:[],
+                    settings:{
+
+                    },
+                },
+            ],
+            source: {
+            },
             settings:{
 
             },
@@ -660,24 +683,8 @@ let datastacks = [ // four quadrant stacks
                     settings:{},
                 },
             ],
-            settings:{
-
+            source: {
             },
-        },
-    ],
-    [
-        {
-            items:[
-                {
-                    dataref:{
-                        repo:'items',
-                        uid:'henrik',
-                    },
-                    instanceid:serializer.getid(),
-                    liststack:[],
-                    settings:{},
-                },
-            ],
             settings:{
 
             },
