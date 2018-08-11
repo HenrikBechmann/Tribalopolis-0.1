@@ -106,6 +106,7 @@ class Quadrant extends React.Component {
             this.animateToOrigin();
             this.animateToDatabox(domSource);
             let { datastack, stackpointer } = this.state;
+            this._captureSettings(stackpointer, datastack);
             let boxconfig = datastack[stackpointer].items[boxptr];
             stackpointer++;
             let newstacklayer = { items: [], settings: {}, source: {
@@ -130,6 +131,7 @@ class Quadrant extends React.Component {
             this.animateToOrigin();
             this.animateToDataboxList(domSource);
             let { datastack, stackpointer } = this.state;
+            this._captureSettings(stackpointer, datastack);
             let boxconfig = datastack[stackpointer].items[boxptr];
             let item = this.getItem(boxconfig.dataref);
             let liststack = boxconfig.liststack;
@@ -172,6 +174,7 @@ class Quadrant extends React.Component {
             this.animateToOrigin();
             this.animateToDatabox(domSource);
             let { datastack, stackpointer } = this.state;
+            this._captureSettings(stackpointer, datastack);
             let boxconfig = datastack[stackpointer].items[boxptr];
             stackpointer++;
             let newstacklayer = { items: [], settings: {}, source: {
@@ -192,12 +195,14 @@ class Quadrant extends React.Component {
             });
         };
         this.incrementStackSelector = () => {
-            let { stackpointer } = this.state;
+            let { stackpointer, datastack } = this.state;
+            this._captureSettings(stackpointer, datastack);
             let depth = this.state.datastack.length;
             if (stackpointer < (depth - 1)) {
                 stackpointer++;
                 this.setState({
                     stackpointer,
+                    datastack,
                 });
             }
         };
@@ -208,13 +213,19 @@ class Quadrant extends React.Component {
             this.decrementStackSelector();
         };
         this.decrementStackSelector = () => {
-            let { stackpointer } = this.state;
+            let { stackpointer, datastack } = this.state;
+            this._captureSettings(stackpointer, datastack);
             if (stackpointer > 0) {
                 stackpointer--;
                 this.setState({
                     stackpointer,
+                    datastack,
                 });
             }
+        };
+        this._captureSettings = (stackpointer, datastack) => {
+            let stacklayer = datastack[stackpointer];
+            stacklayer.settings.scrollOffset = this.listelement.current.scrollLeft;
         };
         /********************************************************
         ----------------------[ animations ]---------------------
@@ -428,6 +439,7 @@ class Quadrant extends React.Component {
     *********************************************************/
     // TODO: move style blocks out of render code
     render() {
+        // console.log('quadrant state',this.state)
         let { quadrant } = this.state;
         let { top, left, bottom, right } = this.position;
         let boxlist = this.getBoxes();
