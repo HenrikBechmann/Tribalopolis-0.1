@@ -1,5 +1,9 @@
 // quadrant.view.tsx
 // copyright (c) 2018 Henrik Bechmann, Toronto, MIT Licence
+
+/*
+    TODO: keep scrollbox pos in settings when navigating stack levels
+*/
 'use strict'
 
 import * as React from 'react'
@@ -76,19 +80,19 @@ class Quadrant extends React.Component<any,any>  {
 
             this.forceUpdate(() => {
                 setTimeout(()=>{// give time for styles to apply
-                        self.calculateTransitionPosition(nextProps.quadrant)
-                        self.setState({
-                            quadrant:nextProps.quadrant
-                        },
+                    self.calculateTransitionPosition(nextProps.quadrant)
+                    self.setState({
+                        quadrant:nextProps.quadrant
+                    },
 
-                            () => {
-                                setTimeout(() => { // give time for animation
-                                    self.calculatePosition(this.state.quadrant)
-                                    self.forceUpdate()
-                                },600)
-                            }
+                        () => {
+                            setTimeout(() => { // give time for animation
+                                self.calculatePosition(this.state.quadrant)
+                                self.forceUpdate()
+                            },600)
+                        }
 
-                        )
+                    )
                 })
             })
         }
@@ -594,10 +598,10 @@ class Quadrant extends React.Component<any,any>  {
     // TODO: move style blocks out of render code
     render() {
 
-        let { color } = this.props
         let { quadrant } = this.state
         let {top, left, bottom, right} = this.position
         let boxlist = this.getBoxes()
+        let { color } = this.props
 
         let quadstyle:React.CSSProperties = {
             position:'absolute',

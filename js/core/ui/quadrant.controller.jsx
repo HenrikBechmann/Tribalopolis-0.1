@@ -1,5 +1,8 @@
 // quadrant.view.tsx
 // copyright (c) 2018 Henrik Bechmann, Toronto, MIT Licence
+/*
+    TODO: keep scrollbox pos in settings when navigating stack levels
+*/
 'use strict';
 import * as React from 'react';
 import QuadOrigin from './views/quadspace/quadorigin.view';
@@ -425,10 +428,10 @@ class Quadrant extends React.Component {
     *********************************************************/
     // TODO: move style blocks out of render code
     render() {
-        let { color } = this.props;
         let { quadrant } = this.state;
         let { top, left, bottom, right } = this.position;
         let boxlist = this.getBoxes();
+        let { color } = this.props;
         let quadstyle = {
             position: 'absolute',
             boxSizing: 'border-box',

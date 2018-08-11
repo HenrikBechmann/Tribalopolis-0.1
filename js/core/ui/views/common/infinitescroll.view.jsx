@@ -43,18 +43,6 @@ class InfiniteScrollBase extends React.Component {
             borderRadius: '8px',
             overflow: 'hidden',
         };
-        this.viewportStyle = {
-            width: '100%',
-            height: '100%',
-            overflowX: 'auto',
-            display: 'flex',
-            flexWrap: 'nowrap',
-            backgroundColor: '#e8e8e8',
-            border: '1px solid gray',
-            boxSizing: 'border-box',
-            borderRadius: '8px',
-            position: 'relative',
-        };
         this.platformStyle = {
             position: 'relative',
             display: 'flex',
@@ -97,9 +85,27 @@ class InfiniteScrollBase extends React.Component {
         }
     }
     render() {
+        let viewportStyle = {
+            width: '100%',
+            height: '100%',
+            overflowX: 'auto',
+            display: 'flex',
+            flexWrap: 'nowrap',
+            backgroundColor: '#e8e8e8',
+            border: '1px solid gray',
+            boxSizing: 'border-box',
+            borderRadius: '8px',
+            position: 'relative',
+        };
+        if (this.state.items.length == 1) {
+            viewportStyle.backgroundColor = 'lightblue';
+        }
+        else {
+            viewportStyle.backgroundColor = '#e8e8e8';
+        }
         return <div className='CS_viewportframe' style={this.viewportFrameStyle}>
             <ScrollControlsView uid='scrollcontrolsview' scroller={this.state.scroller} style={{ width: '100%', height: '100%', position: 'relative' }}>
-                <div className='CS_viewport' style={this.viewportStyle} onScroll={this.onScroll} ref={this.scroller} data-marker='boxlist-scrollbox'>
+                <div className='CS_viewport' style={viewportStyle} onScroll={this.onScroll} ref={this.scroller} data-marker='boxlist-scrollbox'>
                     <div className='CS_platform' style={this.platformStyle}>
                         <div className='CS_list' style={this.listStyle}>
                             {this.state.items}
