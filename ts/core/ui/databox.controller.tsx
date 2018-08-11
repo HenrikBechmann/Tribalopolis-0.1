@@ -33,11 +33,13 @@ class DataBox extends React.Component<any,any> {
         this.setState({
             opacity:1,
         },() => {
-            if (this.props.highlightBoxConfig) {
-                if (this.props.haspeers) {
-                    this.props.highlightBox(this.boxframe)
-                } else {
-                    let dataref = this.props.highlightBoxConfig.liststack[this.props.highlightBoxConfig.liststack.length -1]
+            let { targetedBoxConfig } = this.props
+            if (targetedBoxConfig) {
+                // if (this.props.haspeers) {
+                this.props.highlightBox(this.boxframe)
+                // } else {
+                if (targetedBoxConfig.action == 'expand') {
+                    let dataref = targetedBoxConfig.liststack[targetedBoxConfig.liststack.length -1]
                     if (dataref) {
                         this.setState({
                             highlightrefuid:dataref.uid,

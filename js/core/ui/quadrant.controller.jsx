@@ -98,6 +98,7 @@ class Quadrant extends React.Component {
         /********************************************************
         ----------------------[ operations ]---------------------
         *********************************************************/
+        //-------------------------------[ forward ]----------------------------
         this.expandCategory = (boxptr, dataref, domSource) => {
             this.animateToOrigin();
             this.animateToDatabox(domSource);
@@ -107,6 +108,7 @@ class Quadrant extends React.Component {
             let newstacklayer = { items: [], settings: {}, source: {
                     instanceid: boxconfig.instanceid,
                     dataref: boxconfig.dataref,
+                    action: 'expand',
                 } };
             // replace forward stack items
             datastack.splice(stackpointer, datastack.length, newstacklayer);
@@ -120,11 +122,6 @@ class Quadrant extends React.Component {
                     datastack,
                 });
             });
-        };
-        this.collapseCategory = (boxConfig) => {
-            // console.log('quadrant collapseCategory boxConfig, datastack',boxConfig, this.state.stackpointer, this.state.datastack)
-            this.collapseSourceBoxConfig = boxConfig;
-            this.decrementStackSelector();
         };
         this.splayBox = (boxptr, domSource) => {
             this.animateToOrigin();
@@ -148,6 +145,7 @@ class Quadrant extends React.Component {
             let newstacklayer = { items: [], settings: {}, source: {
                     instanceid: boxconfig.instanceid,
                     dataref: boxconfig.dataref,
+                    action: 'splay',
                 } };
             // console.log('new stack pointer',stackpointer)
             // replace forward stack items
@@ -176,6 +174,7 @@ class Quadrant extends React.Component {
             let newstacklayer = { items: [], settings: {}, source: {
                     instanceid: boxconfig.instanceid,
                     dataref: boxconfig.dataref,
+                    action: 'select',
                 } };
             // replace forward stack items
             datastack.splice(stackpointer, datastack.length, newstacklayer);
@@ -189,20 +188,26 @@ class Quadrant extends React.Component {
                 });
             });
         };
-        this.decrementStackSelector = () => {
-            let { stackpointer } = this.state;
-            if (stackpointer > 0) {
-                stackpointer--;
-                this.setState({
-                    stackpointer,
-                });
-            }
-        };
         this.incrementStackSelector = () => {
             let { stackpointer } = this.state;
             let depth = this.state.datastack.length;
             if (stackpointer < (depth - 1)) {
                 stackpointer++;
+                this.setState({
+                    stackpointer,
+                });
+            }
+        };
+        //-------------------------------[ backward ]----------------------------
+        this.collapseCategory = (boxConfig) => {
+            // console.log('quadrant collapseCategory boxConfig, datastack',boxConfig, this.state.stackpointer, this.state.datastack)
+            this.targetedBoxConfig = boxConfig;
+            this.decrementStackSelector();
+        };
+        this.decrementStackSelector = () => {
+            let { stackpointer } = this.state;
+            if (stackpointer > 0) {
+                stackpointer--;
                 this.setState({
                     stackpointer,
                 });
@@ -345,33 +350,41 @@ class Quadrant extends React.Component {
             // console.log('getBoxes quadrant state',this.state)
             let { datastack, stackpointer } = this.state;
             if (datastack) {
-                let highlightBoxConfig = null;
-                let matchForHighlight = false;
-                if (this.collapseSourceBoxConfig) {
-                    highlightBoxConfig = this.collapseSourceBoxConfig;
-                    this.collapseSourceBoxConfig = null; // one time only
+                let targetedBoxConfig = null;
+                let matchForTarget = false;
+                let stacksource = null;
+                if (this.targetedBoxConfig) { // collapseTo action
+                    let stacklayer = datastack[stackpointer + 1];
+                    if (stacklayer) {
+                        stacksource = stacklayer.source;
+                    }
+                    targetedBoxConfig = Object.assign({}, this.targetedBoxConfig);
+                    this.targetedBoxConfig = null; // one time only
+                    if (stacksource) {
+                        targetedBoxConfig.action = stacksource.action;
+                    }
                 }
                 let haspeers = (datastack[stackpointer] && (datastack[stackpointer].items.length > 1));
                 if (!haspeers) {
-                    matchForHighlight = true;
+                    matchForTarget = true;
                 }
                 boxes = datastack[stackpointer].items.map((boxconfig, index) => {
                     let item = this.getItem(boxconfig.dataref);
                     let itemType = this.getTypeItem(METATYPES.item, item.type);
-                    if (haspeers && highlightBoxConfig) {
-                        matchForHighlight = false;
-                        if ((boxconfig.liststack.length == highlightBoxConfig.liststack.length) &&
+                    if (haspeers && targetedBoxConfig) {
+                        matchForTarget = false;
+                        if ((boxconfig.liststack.length == targetedBoxConfig.liststack.length) &&
                             boxconfig.liststack.length > 0) {
-                            let highlightref = highlightBoxConfig.liststack[highlightBoxConfig.liststack.length - 1];
+                            let highlightref = targetedBoxConfig.liststack[targetedBoxConfig.liststack.length - 1];
                             let boxref = boxconfig.liststack[boxconfig.liststack.length - 1];
                             if (highlightref && boxref) {
                                 if (highlightref.uid == boxref.uid) {
-                                    matchForHighlight = true;
+                                    matchForTarget = true;
                                 }
                             }
                         }
                     }
-                    return (<DataBox key={boxconfig.instanceid} item={item} itemType={itemType} highlightBoxConfig={matchForHighlight ? highlightBoxConfig : null} getListItem={this.getListItem} getListItemType={this.getListItemType(METATYPES.list)} boxConfig={boxconfig} highlightBox={this.highlightBox} haspeers={haspeers} splayBox={(domSource) => {
+                    return (<DataBox key={boxconfig.instanceid} item={item} itemType={itemType} targetedBoxConfig={matchForTarget ? targetedBoxConfig : null} getListItem={this.getListItem} getListItemType={this.getListItemType(METATYPES.list)} boxConfig={boxconfig} highlightBox={this.highlightBox} haspeers={haspeers} splayBox={(domSource) => {
                         this.splayBox(index, domSource);
                     }} selectFromSplay={(domSource) => {
                         this.selectFromSplay(index, domSource);

@@ -55,7 +55,7 @@ class Quadrant extends React.Component<any,any>  {
 
     position = null
 
-    collapseSourceBoxConfig
+    targetedBoxConfig
 
 /********************************************************
 ------------------[ lifecycle methods ]------------------
@@ -173,6 +173,8 @@ class Quadrant extends React.Component<any,any>  {
 ----------------------[ operations ]---------------------
 *********************************************************/
 
+    //-------------------------------[ forward ]----------------------------
+
     expandCategory = (boxptr, dataref, domSource) => {
 
         this.animateToOrigin()
@@ -187,6 +189,7 @@ class Quadrant extends React.Component<any,any>  {
         let newstacklayer = {items:[], settings:{}, source:{
             instanceid:boxconfig.instanceid,
             dataref:boxconfig.dataref,
+            action:'expand',
         }}
 
         // replace forward stack items
@@ -205,12 +208,6 @@ class Quadrant extends React.Component<any,any>  {
                 datastack,
             })
         })
-    }
-
-    collapseCategory = (boxConfig) => {
-        // console.log('quadrant collapseCategory boxConfig, datastack',boxConfig, this.state.stackpointer, this.state.datastack)
-        this.collapseSourceBoxConfig = boxConfig
-        this.decrementStackSelector()
     }
 
     splayBox = (boxptr, domSource) => {
@@ -245,6 +242,7 @@ class Quadrant extends React.Component<any,any>  {
         let newstacklayer = {items:[], settings:{}, source:{
             instanceid:boxconfig.instanceid,
             dataref:boxconfig.dataref,
+            action:'splay',
         }}
 
         // console.log('new stack pointer',stackpointer)
@@ -285,6 +283,7 @@ class Quadrant extends React.Component<any,any>  {
         let newstacklayer = {items:[], settings:{}, source:{
             instanceid:boxconfig.instanceid,
             dataref:boxconfig.dataref,
+            action:'select',
         }}
 
         // replace forward stack items
@@ -303,16 +302,6 @@ class Quadrant extends React.Component<any,any>  {
         })
     }
 
-    decrementStackSelector = () => {
-        let { stackpointer } = this.state
-        if (stackpointer > 0) {
-            stackpointer--
-            this.setState({
-                stackpointer,
-            })
-        }
-    }
-
     incrementStackSelector = () => {
         let { stackpointer } = this.state
         let depth = this.state.datastack.length
@@ -323,6 +312,25 @@ class Quadrant extends React.Component<any,any>  {
             })
         }
     }
+
+    //-------------------------------[ backward ]----------------------------
+
+    collapseCategory = (boxConfig) => {
+        // console.log('quadrant collapseCategory boxConfig, datastack',boxConfig, this.state.stackpointer, this.state.datastack)
+        this.targetedBoxConfig = boxConfig
+        this.decrementStackSelector()
+    }
+
+    decrementStackSelector = () => {
+        let { stackpointer } = this.state
+        if (stackpointer > 0) {
+            stackpointer--
+            this.setState({
+                stackpointer,
+            })
+        }
+    }
+
 
 /********************************************************
 ----------------------[ animations ]---------------------
@@ -518,28 +526,36 @@ class Quadrant extends React.Component<any,any>  {
         // console.log('getBoxes quadrant state',this.state)
         let { datastack, stackpointer } = this.state
         if (datastack) {
-            let highlightBoxConfig = null
-            let matchForHighlight = false
-            if (this.collapseSourceBoxConfig) {
-                highlightBoxConfig = this.collapseSourceBoxConfig
-                this.collapseSourceBoxConfig = null // one time only
+            let targetedBoxConfig = null
+            let matchForTarget = false
+            let stacksource = null
+            if (this.targetedBoxConfig) { // collapseTo action
+                let stacklayer = datastack[stackpointer + 1]
+                if (stacklayer) {
+                    stacksource = stacklayer.source
+                }
+                targetedBoxConfig = Object.assign({},this.targetedBoxConfig)
+                this.targetedBoxConfig = null // one time only
+                if (stacksource) {
+                    targetedBoxConfig.action = stacksource.action
+                }
             }
             let haspeers = (datastack[stackpointer] && (datastack[stackpointer].items.length > 1))
             if (!haspeers) {
-                matchForHighlight = true
+                matchForTarget = true
             }
             boxes = datastack[stackpointer].items.map((boxconfig,index) => {
                 let item = this.getItem(boxconfig.dataref)
                 let itemType = this.getTypeItem(METATYPES.item,item.type)
-                if (haspeers && highlightBoxConfig) {
-                    matchForHighlight = false
-                    if ((boxconfig.liststack.length == highlightBoxConfig.liststack.length) && 
+                if (haspeers && targetedBoxConfig) {
+                    matchForTarget = false
+                    if ((boxconfig.liststack.length == targetedBoxConfig.liststack.length) && 
                         boxconfig.liststack.length > 0) {
-                        let highlightref = highlightBoxConfig.liststack[highlightBoxConfig.liststack.length -1]
+                        let highlightref = targetedBoxConfig.liststack[targetedBoxConfig.liststack.length -1]
                         let boxref = boxconfig.liststack[boxconfig.liststack.length -1]
                         if (highlightref && boxref) {
                             if (highlightref.uid == boxref.uid) {
-                                matchForHighlight = true
+                                matchForTarget = true
                             }
                         }
                     }
@@ -549,12 +565,13 @@ class Quadrant extends React.Component<any,any>  {
                         key = { boxconfig.instanceid } 
                         item = { item } 
                         itemType = { itemType }
-                        highlightBoxConfig = {matchForHighlight?highlightBoxConfig:null}
+                        targetedBoxConfig = {matchForTarget?targetedBoxConfig:null}
                         getListItem = { this.getListItem }
                         getListItemType = { this.getListItemType(METATYPES.list) }
                         boxConfig = { boxconfig }
                         highlightBox = {this.highlightBox}
                         haspeers = { haspeers }
+
                         splayBox = {
                             (domSource) => {
                                 this.splayBox(index,domSource)
