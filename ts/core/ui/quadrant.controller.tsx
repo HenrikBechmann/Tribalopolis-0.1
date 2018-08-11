@@ -55,7 +55,7 @@ class Quadrant extends React.Component<any,any>  {
 
     position = null
 
-    targetedBoxConfig
+    collapseBoxConfigForTarget
 
 /********************************************************
 ------------------[ lifecycle methods ]------------------
@@ -317,7 +317,7 @@ class Quadrant extends React.Component<any,any>  {
 
     collapseCategory = (boxConfig) => {
         // console.log('quadrant collapseCategory boxConfig, datastack',boxConfig, this.state.stackpointer, this.state.datastack)
-        this.targetedBoxConfig = boxConfig
+        this.collapseBoxConfigForTarget = boxConfig
         this.decrementStackSelector()
     }
 
@@ -526,46 +526,34 @@ class Quadrant extends React.Component<any,any>  {
         // console.log('getBoxes quadrant state',this.state)
         let { datastack, stackpointer } = this.state
         if (datastack) {
-            let targetedBoxConfig = null
+            let collapseBoxConfigForTarget = null
             let matchForTarget = false
             let stacksource = null
-            if (this.targetedBoxConfig) { // collapseTo action
+            if (this.collapseBoxConfigForTarget) { // collapseCategory action
                 let stacklayer = datastack[stackpointer + 1]
                 if (stacklayer) {
                     stacksource = stacklayer.source
                 }
-                targetedBoxConfig = Object.assign({},this.targetedBoxConfig)
-                this.targetedBoxConfig = null // one time only
+                collapseBoxConfigForTarget = Object.assign({},this.collapseBoxConfigForTarget)
+                this.collapseBoxConfigForTarget = null // one time only
                 if (stacksource) {
-                    targetedBoxConfig.action = stacksource.action
+                    collapseBoxConfigForTarget.action = stacksource.action
                 }
             }
             let haspeers = (datastack[stackpointer] && (datastack[stackpointer].items.length > 1))
-            if (!haspeers) {
-                matchForTarget = true
-            }
+
             boxes = datastack[stackpointer].items.map((boxconfig,index) => {
                 let item = this.getItem(boxconfig.dataref)
                 let itemType = this.getTypeItem(METATYPES.item,item.type)
-                if (haspeers && targetedBoxConfig) {
-                    matchForTarget = false
-                    if ((boxconfig.liststack.length == targetedBoxConfig.liststack.length) && 
-                        boxconfig.liststack.length > 0) {
-                        let highlightref = targetedBoxConfig.liststack[targetedBoxConfig.liststack.length -1]
-                        let boxref = boxconfig.liststack[boxconfig.liststack.length -1]
-                        if (highlightref && boxref) {
-                            if (highlightref.uid == boxref.uid) {
-                                matchForTarget = true
-                            }
-                        }
-                    }
+                if (collapseBoxConfigForTarget) {
+                    matchForTarget = (boxconfig.instanceid == stacksource.instanceid)
                 }
                 return (
                     <DataBox 
                         key = { boxconfig.instanceid } 
                         item = { item } 
                         itemType = { itemType }
-                        targetedBoxConfig = {matchForTarget?targetedBoxConfig:null}
+                        collapseBoxConfigForTarget = {matchForTarget?collapseBoxConfigForTarget:null}
                         getListItem = { this.getListItem }
                         getListItemType = { this.getListItemType(METATYPES.list) }
                         boxConfig = { boxconfig }
@@ -605,7 +593,7 @@ class Quadrant extends React.Component<any,any>  {
 
     // TODO: move style blocks out of render code
     render() {
-        console.log('quadrant state.datastack',this.state.datastack)
+
         let { color } = this.props
         let { quadrant } = this.state
         let {top, left, bottom, right} = this.position

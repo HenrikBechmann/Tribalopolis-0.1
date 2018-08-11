@@ -33,14 +33,17 @@ class DataBox extends React.Component<any,any> {
         this.setState({
             opacity:1,
         },() => {
-            let { targetedBoxConfig } = this.props
-            if (targetedBoxConfig) {
-                // if (this.props.haspeers) {
+            let { collapseBoxConfigForTarget } = this.props
+            if (collapseBoxConfigForTarget) {
+
                 this.props.highlightBox(this.boxframe)
-                // } else {
-                if (targetedBoxConfig.action == 'expand') {
-                    let dataref = targetedBoxConfig.liststack[targetedBoxConfig.liststack.length -1]
+
+                if (collapseBoxConfigForTarget.action == 'expand' || collapseBoxConfigForTarget.action == 'splay') {
+
+                    let dataref = collapseBoxConfigForTarget.liststack[collapseBoxConfigForTarget.liststack.length -1]
+
                     if (dataref) {
+
                         this.setState({
                             highlightrefuid:dataref.uid,
                         },() => {
@@ -48,6 +51,7 @@ class DataBox extends React.Component<any,any> {
                                 highlightrefuid:null
                             })
                         })
+
                     }
                 }
             }
