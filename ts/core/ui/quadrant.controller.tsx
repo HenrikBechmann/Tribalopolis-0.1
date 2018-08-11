@@ -318,6 +318,8 @@ class Quadrant extends React.Component<any,any>  {
             this.setState({
                 stackpointer,
                 datastack,
+            },() => {
+                this._applySettings(stackpointer,datastack)
             })
         }
     }
@@ -338,6 +340,8 @@ class Quadrant extends React.Component<any,any>  {
             this.setState({
                 stackpointer,
                 datastack,
+            },() => {
+                this._applySettings(stackpointer,datastack)
             })
         }
     }
@@ -345,6 +349,11 @@ class Quadrant extends React.Component<any,any>  {
     _captureSettings = (stackpointer, datastack) => {
         let stacklayer = datastack[stackpointer]
         stacklayer.settings.scrollOffset = this.listelement.current.scrollLeft
+    }
+
+    _applySettings = (stackpointer, datastack) => {
+        let stacklayer = datastack[stackpointer]
+        this.listelement.current.scrollLeft = stacklayer.settings.scrollOffset
     }
 
 /********************************************************
