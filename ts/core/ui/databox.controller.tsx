@@ -73,15 +73,15 @@ class DataBox extends React.Component<any,any> {
 
     collapseCategory = () => {
 
-        let boxConfig = this.state.boxconfig
-
-        this.props.collapseCategory(boxConfig)
+        this.props.collapseCategory(this.state.boxconfig)
 
     }
 
     highlightItem = (itemref) => {
 
         let itemelement:HTMLElement = itemref.current
+
+        // find scroll adjustment to bring item into view
         let clientoffset = 0
         let element:HTMLElement = itemelement
         while (element && (element.getAttribute('data-marker') != 'databox-scrollbox')) {
@@ -114,8 +114,6 @@ class DataBox extends React.Component<any,any> {
     }
 
     render() {
-
-        // console.log('databox render',this.state.boxconfig)
 
         let { item, getListItem, haspeers } = this.props
 

@@ -33,29 +33,33 @@ class CategoriesList extends React.Component<any,any> {
         }
     }
 
-    getListItems = listobject => {
+    // getListItems = listobject => {
 
-        let { getListItem } = this.props
+    //     let { getListItem } = this.props
 
-        let { links } = listobject
+    //     let { links } = listobject
 
-        let catitems = []
-        for (let dataref of links) {
+    //     let catitems = []
+    //     for (let dataref of links) {
 
-            let catitem = this.getListComponent(dataref)
+    //         let catitem = this.getListComponent(dataref)
 
-            catitems.push(catitem)
-        }
-        return <div>{catitems}</div>
+    //         catitems.push(catitem)
+    //     }
+    //     return <div>{catitems}</div>
+    // }
+
+    itemRenderer = (index,key) => {
+        return this.getListComponent(this.state.links[index],key)
     }
 
-    getListComponent = (dataref) => {
+    getListComponent = (dataref, key) => {
 
         let data = this.getListItem(dataref)
         let highlight = (dataref.uid === this.state.highlightrefuid)
         let catitem = 
             <CategoryItem 
-                key = {dataref.uid} 
+                key = {key} 
                 uid = {dataref.uid} 
                 data = {data} 
                 expandCategory = {this.expandCategory(dataref)}
@@ -69,11 +73,11 @@ class CategoriesList extends React.Component<any,any> {
 
     render() {
 
-        let { listobject } = this.props
-
-        let listitems = this.getListItems(listobject)
-
-        return listitems
+        return <Lister 
+            itemRenderer = {this.itemRenderer}
+            length = {this.state.links.length}
+            type = 'uniform'
+        />
     }
 }
 

@@ -17,11 +17,11 @@ class DataBox extends React.Component {
             highlightrefuid: this.props.highlightrefuid
         };
         this.collapseCategory = () => {
-            let boxConfig = this.state.boxconfig;
-            this.props.collapseCategory(boxConfig);
+            this.props.collapseCategory(this.state.boxconfig);
         };
         this.highlightItem = (itemref) => {
             let itemelement = itemref.current;
+            // find scroll adjustment to bring item into view
             let clientoffset = 0;
             let element = itemelement;
             while (element && (element.getAttribute('data-marker') != 'databox-scrollbox')) {
@@ -81,7 +81,6 @@ class DataBox extends React.Component {
         }
     }
     render() {
-        // console.log('databox render',this.state.boxconfig)
         let { item, getListItem, haspeers } = this.props;
         let listStack = this.state.boxconfig.liststack;
         let { listref: listroot } = item;

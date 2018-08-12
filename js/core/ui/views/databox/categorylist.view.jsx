@@ -3,6 +3,7 @@
 'use strict';
 import * as React from 'react';
 import CategoryItem from './categoryitem.view';
+import Lister from 'react-list';
 class CategoriesList extends React.Component {
     constructor() {
         super(...arguments);
@@ -16,20 +17,23 @@ class CategoriesList extends React.Component {
                 this.props.expandCategory(dataref, domSource);
             };
         };
-        this.getListItems = listobject => {
-            let { getListItem } = this.props;
-            let { links } = listobject;
-            let catitems = [];
-            for (let dataref of links) {
-                let catitem = this.getListComponent(dataref);
-                catitems.push(catitem);
-            }
-            return <div>{catitems}</div>;
+        // getListItems = listobject => {
+        //     let { getListItem } = this.props
+        //     let { links } = listobject
+        //     let catitems = []
+        //     for (let dataref of links) {
+        //         let catitem = this.getListComponent(dataref)
+        //         catitems.push(catitem)
+        //     }
+        //     return <div>{catitems}</div>
+        // }
+        this.itemRenderer = (index, key) => {
+            return this.getListComponent(this.state.links[index], key);
         };
-        this.getListComponent = (dataref) => {
+        this.getListComponent = (dataref, key) => {
             let data = this.getListItem(dataref);
             let highlight = (dataref.uid === this.state.highlightrefuid);
-            let catitem = <CategoryItem key={dataref.uid} uid={dataref.uid} data={data} expandCategory={this.expandCategory(dataref)} highlight={highlight} highlightItem={this.props.highlightItem}/>;
+            let catitem = <CategoryItem key={key} uid={dataref.uid} data={data} expandCategory={this.expandCategory(dataref)} highlight={highlight} highlightItem={this.props.highlightItem}/>;
             return catitem;
         };
     }
@@ -45,9 +49,7 @@ class CategoriesList extends React.Component {
         });
     }
     render() {
-        let { listobject } = this.props;
-        let listitems = this.getListItems(listobject);
-        return listitems;
+        return <Lister itemRenderer={this.itemRenderer} length={this.state.links.length} type='uniform'/>;
     }
 }
 export default CategoriesList;
