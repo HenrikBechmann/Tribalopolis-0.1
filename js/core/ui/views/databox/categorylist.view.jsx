@@ -8,8 +8,9 @@ class CategoriesList extends React.Component {
         super(...arguments);
         this.state = {
             highlightrefuid: null,
+            links: this.props.listobject.links,
         };
-        this.listelement = null;
+        this.getListItem = this.props.getListItem;
         this.expandCategory = (dataref) => {
             return (domSource) => {
                 this.props.expandCategory(dataref, domSource);
@@ -20,14 +21,16 @@ class CategoriesList extends React.Component {
             let { links } = listobject;
             let catitems = [];
             for (let dataref of links) {
-                let data = getListItem(dataref);
-                let highlight = (dataref.uid === this.state.highlightrefuid);
-                let catitem = <CategoryItem key={dataref.uid} uid={dataref.uid} data={data} expandCategory={this.expandCategory(dataref)} highlight={highlight} highlightItem={this.props.highlightItem}/>;
+                let catitem = this.getListComponent(dataref);
                 catitems.push(catitem);
             }
-            return <div ref={element => {
-                this.listelement = element;
-            }}>{catitems}</div>;
+            return <div>{catitems}</div>;
+        };
+        this.getListComponent = (dataref) => {
+            let data = this.getListItem(dataref);
+            let highlight = (dataref.uid === this.state.highlightrefuid);
+            let catitem = <CategoryItem key={dataref.uid} uid={dataref.uid} data={data} expandCategory={this.expandCategory(dataref)} highlight={highlight} highlightItem={this.props.highlightItem}/>;
+            return catitem;
         };
     }
     componentDidUpdate() {
@@ -44,9 +47,7 @@ class CategoriesList extends React.Component {
     render() {
         let { listobject } = this.props;
         let listitems = this.getListItems(listobject);
-        return <div>
-            {listitems}
-        </div>;
+        return listitems;
     }
 }
 export default CategoriesList;

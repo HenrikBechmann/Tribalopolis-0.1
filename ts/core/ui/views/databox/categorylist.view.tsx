@@ -6,12 +6,15 @@ import * as React from 'react'
 
 import CategoryItem from './categoryitem.view'
 
+import Lister from 'react-list'
+
 class CategoriesList extends React.Component<any,any> {
     state = {
         highlightrefuid:null,
+        links:this.props.listobject.links,
     }
 
-    listelement = null
+    getListItem = this.props.getListItem
 
     componentDidUpdate() {
         if (!this.props.highlightrefuid) return
@@ -38,25 +41,30 @@ class CategoriesList extends React.Component<any,any> {
 
         let catitems = []
         for (let dataref of links) {
-            let data = getListItem(dataref)
-            let highlight = (dataref.uid === this.state.highlightrefuid)
-            let catitem = 
-                <CategoryItem 
-                    key = {dataref.uid} 
-                    uid = {dataref.uid} 
-                    data = {data} 
-                    expandCategory = {this.expandCategory(dataref)}
-                    highlight = {highlight}
-                    highlightItem = {this.props.highlightItem}
-                />
+
+            let catitem = this.getListComponent(dataref)
 
             catitems.push(catitem)
         }
-        return <div
-            ref = {element => {
-                this.listelement = element
-            }}
-        >{catitems}</div>
+        return <div>{catitems}</div>
+    }
+
+    getListComponent = (dataref) => {
+
+        let data = this.getListItem(dataref)
+        let highlight = (dataref.uid === this.state.highlightrefuid)
+        let catitem = 
+            <CategoryItem 
+                key = {dataref.uid} 
+                uid = {dataref.uid} 
+                data = {data} 
+                expandCategory = {this.expandCategory(dataref)}
+                highlight = {highlight}
+                highlightItem = {this.props.highlightItem}
+            />
+
+        return catitem
+
     }
 
     render() {
@@ -65,9 +73,7 @@ class CategoriesList extends React.Component<any,any> {
 
         let listitems = this.getListItems(listobject)
 
-        return <div>
-            {listitems}
-        </div>
+        return listitems
     }
 }
 

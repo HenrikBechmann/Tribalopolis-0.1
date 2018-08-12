@@ -18,19 +18,7 @@ class DataBox extends React.Component {
         };
         this.collapseCategory = () => {
             let boxConfig = this.state.boxconfig;
-            // console.log('databox collapseCategory boxConfig',boxConfig)
             this.props.collapseCategory(boxConfig);
-            // let boxConfig = this.state.boxconfig
-            // if (!boxConfig.liststack.length) return
-            // let ref = boxConfig.liststack.pop()
-            // this.setState({
-            //     boxConfig,
-            //     highlightrefuid:ref.uid,
-            // },() => {
-            //     this.setState({
-            //         highlightrefuid:null
-            //     })
-            // })
         };
         this.highlightItem = (itemref) => {
             let itemelement = itemref.current;
@@ -68,7 +56,8 @@ class DataBox extends React.Component {
             let { collapseBoxConfigForTarget } = this.props;
             if (collapseBoxConfigForTarget) {
                 this.props.highlightBox(this.boxframe);
-                if (collapseBoxConfigForTarget.action == 'expand' || collapseBoxConfigForTarget.action == 'splay') {
+                if (collapseBoxConfigForTarget.action == 'expand' ||
+                    collapseBoxConfigForTarget.action == 'splay') {
                     let dataref = collapseBoxConfigForTarget.liststack[collapseBoxConfigForTarget.liststack.length - 1];
                     if (dataref) {
                         this.setState({

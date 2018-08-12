@@ -11,6 +11,7 @@ import ProfileForm from './views/databox/profileform.view'
 import CategoriesBar from './views/databox/categoriesbar.view'
 import CategoryList from './views/databox/categorylist.view'
 import ScanBar from './views/databox/scanbar.view'
+
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add'
 
@@ -38,9 +39,12 @@ class DataBox extends React.Component<any,any> {
 
                 this.props.highlightBox(this.boxframe)
 
-                if (collapseBoxConfigForTarget.action == 'expand' || collapseBoxConfigForTarget.action == 'splay') {
+                if (collapseBoxConfigForTarget.action == 'expand' || 
+                    collapseBoxConfigForTarget.action == 'splay') {
 
-                    let dataref = collapseBoxConfigForTarget.liststack[collapseBoxConfigForTarget.liststack.length -1]
+                    let dataref = 
+                        collapseBoxConfigForTarget.liststack[
+                            collapseBoxConfigForTarget.liststack.length -1]
 
                     if (dataref) {
 
@@ -71,22 +75,8 @@ class DataBox extends React.Component<any,any> {
 
         let boxConfig = this.state.boxconfig
 
-        // console.log('databox collapseCategory boxConfig',boxConfig)
-
         this.props.collapseCategory(boxConfig)
 
-        // let boxConfig = this.state.boxconfig
-        // if (!boxConfig.liststack.length) return
-        // let ref = boxConfig.liststack.pop()
-
-        // this.setState({
-        //     boxConfig,
-        //     highlightrefuid:ref.uid,
-        // },() => {
-        //     this.setState({
-        //         highlightrefuid:null
-        //     })
-        // })
     }
 
     highlightItem = (itemref) => {
