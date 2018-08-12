@@ -12,6 +12,7 @@
   "author": "",
   "license": "GNUv3",
   "dependencies": {
+    "@material-ui/core": "^1.4.3",
     "draft-js": "^0.10.5",
     "firebase": "^5.3.1",
     "firebaseui": "^3.2.0",

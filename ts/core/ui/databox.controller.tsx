@@ -160,9 +160,11 @@ class DataBox extends React.Component<any,any> {
         }
 
         let scrollboxstyle:React.CSSProperties = {
-            height:'calc(100% - 32px)',
+            height:'calc(100% - 64px)',
             overflow:'auto',
             position:'relative', // required for offsetParent of highlightItem search
+            paddingLeft:'6px',
+            paddingBottom:'32px',
         }
 
         let listcount = listobject.links.length

@@ -65,12 +65,7 @@ class CategoriesList extends React.Component<any,any> {
 
         let listitems = this.getListItems(listobject)
 
-        return <div style = {
-            {
-                paddingLeft:'6px',
-                paddingBottom:'32px',
-            }
-        }>
+        return <div>
             {listitems}
         </div>
     }

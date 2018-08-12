@@ -120,9 +120,11 @@ class DataBox extends React.Component {
             boxShadow: haspeers ? 'none' : '0 0 12px black',
         };
         let scrollboxstyle = {
-            height: 'calc(100% - 32px)',
+            height: 'calc(100% - 64px)',
             overflow: 'auto',
             position: 'relative',
+            paddingLeft: '6px',
+            paddingBottom: '32px',
         };
         let listcount = listobject.links.length;
         let listItemType = this.props.getListItemType(listobject.type);
