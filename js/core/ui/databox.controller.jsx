@@ -21,24 +21,10 @@ class DataBox extends React.Component {
         };
         this.highlightItem = (itemref) => {
             let itemelement = itemref.current;
-            // // find scroll adjustment to bring item into view
-            // let clientoffset = 0
-            // let element:HTMLElement = itemelement
-            // while (element && (element.getAttribute('data-marker') != 'databox-scrollbox')) {
-            //     clientoffset += element.offsetTop
-            //     element = element.offsetParent as HTMLElement
-            // }
-            // let scrollelement:Element = element
-            // let diff = (clientoffset + itemelement.offsetHeight) - scrollelement.clientHeight
-            // if (diff > 0) {
-            //     scrollelement.scrollTop = diff
-            // }
+            itemelement.classList.add('highlight');
             setTimeout(() => {
-                itemelement.classList.add('highlight');
-                setTimeout(() => {
-                    itemelement.classList.remove('highlight');
-                }, 2000);
-            });
+                itemelement.classList.remove('highlight');
+            }, 2000);
         };
         this.modifybuttons = (listItemType) => {
             let outgoing = listItemType.properties.is.outgoing;

@@ -2,13 +2,6 @@
 .base-appear.base-appear-active { opacity: 1; transition: opacity 0.5s ease-in; }
 */
 
-:root {
-    --sourcetop:100px;
-    --sourceleft:50px;
-    --sourceheight:100px;
-    --sourcewidth:100px;
-}
-
 @keyframes maskdrill {
     0% {
         top:var(--top);
