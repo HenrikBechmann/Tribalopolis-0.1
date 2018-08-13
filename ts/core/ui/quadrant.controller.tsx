@@ -17,6 +17,7 @@ import DataBox from './databox.controller'
 import QuadSelector from './views/quadspace/quadselector.view'
 import { METATYPES } from '../constants'
 import {serializer} from '../../core/utilities/serializer'
+import Lister from 'react-list'
 
 class Quadrant extends React.Component<any,any>  {
 
@@ -328,7 +329,7 @@ class Quadrant extends React.Component<any,any>  {
 
     collapseCategory = (boxConfig) => {
         // console.log('quadrant collapseCategory boxConfig, datastack',boxConfig, this.state.stackpointer, this.state.datastack)
-        this.collapseBoxConfigForTarget = boxConfig
+        this.collapseBoxConfigForTarget = Object.assign({},boxConfig)
         this.decrementStackSelector()
     }
 
@@ -550,65 +551,105 @@ class Quadrant extends React.Component<any,any>  {
         // console.log('getBoxes quadrant state',this.state)
         let { datastack, stackpointer } = this.state
         if (datastack) {
+
             let collapseBoxConfigForTarget = null
             let matchForTarget = false
             let stacksource = null
+
             if (this.collapseBoxConfigForTarget) { // collapseCategory action
                 let stacklayer = datastack[stackpointer + 1]
                 if (stacklayer) {
                     stacksource = stacklayer.source
                 }
-                collapseBoxConfigForTarget = Object.assign({},this.collapseBoxConfigForTarget)
+                collapseBoxConfigForTarget = this.collapseBoxConfigForTarget
                 this.collapseBoxConfigForTarget = null // one time only
                 if (stacksource) {
                     collapseBoxConfigForTarget.action = stacksource.action
                 }
             }
+
             let haspeers = (datastack[stackpointer] && (datastack[stackpointer].items.length > 1))
 
-            boxes = datastack[stackpointer].items.map((boxconfig,index) => {
-                let item = this.getItem(boxconfig.dataref)
-                let itemType = this.getTypeItem(METATYPES.item,item.type)
-                if (collapseBoxConfigForTarget) {
-                    matchForTarget = (boxconfig.instanceid == stacksource.instanceid)
-                }
-                return (
-                    <DataBox 
-                        key = { boxconfig.instanceid } 
-                        item = { item } 
-                        itemType = { itemType }
-                        collapseBoxConfigForTarget = {matchForTarget?collapseBoxConfigForTarget:null}
-                        getListItem = { this.getListItem }
-                        getListItemType = { this.getListItemType(METATYPES.list) }
-                        boxConfig = { boxconfig }
-                        highlightBox = {this.highlightBox}
-                        haspeers = { haspeers }
+            // boxes = datastack[stackpointer].items.map((boxconfig,index) => {
+            //     let context = {collapseBoxConfigForTarget,stacksource,haspeers}
+            //     return this.getBoxComponent(boxconfig, index, context)
+            // })
 
-                        splayBox = {
-                            (domSource) => {
-                                this.splayBox(index,domSource)
-                            }
-                        }
-                        selectFromSplay = {
-                            (domSource) => {
-                                this.selectFromSplay(index,domSource)
-                            }
-                        }
-                        expandCategory = {
-                            (dataref, domSource) => {
-                                this.expandCategory(index,dataref, domSource)
-                            }
-                        }
-                        collapseCategory = {
-                            this.collapseCategory
-                        }
-                    />
-                )
-            })
+            for (let index in datastack[stackpointer].items) {
+                boxes.push(this.getBox(index, index))
+            }
         }
 
         // console.log('getBoxes box list',boxes)
         return boxes
+    }
+
+    getBox = (index, key) => {
+
+        let { datastack, stackpointer } = this.state
+
+        let boxconfig = datastack[stackpointer].items[index]
+
+        let haspeers = (datastack[stackpointer] && (datastack[stackpointer].items.length > 1))
+        let stacksource = null
+        let collapseConfigForTarget = null
+
+        let context = {
+            haspeers,
+            collapseConfigForTarget,
+            stacksource,
+        }
+
+        return this.getBoxComponent(boxconfig, index, context)
+    }
+
+    getBoxComponent = (boxconfig, index, context) => {
+
+        if (!boxconfig) return null
+
+        let item = this.getItem(boxconfig.dataref)
+        let itemType = this.getTypeItem(METATYPES.item,item.type)
+
+        let matchForTarget
+        let { collapseBoxConfigForTarget, stacksource, haspeers } = context
+
+        if (collapseBoxConfigForTarget) {
+            matchForTarget = (boxconfig.instanceid == stacksource.instanceid)
+        }
+
+        return (
+            <DataBox 
+                key = { boxconfig.instanceid } 
+                item = { item } 
+                itemType = { itemType }
+                collapseBoxConfigForTarget = {matchForTarget?collapseBoxConfigForTarget:null}
+                getListItem = { this.getListItem }
+                getListItemType = { this.getListItemType(METATYPES.list) }
+                boxConfig = { boxconfig }
+                highlightBox = {this.highlightBox}
+                haspeers = { haspeers }
+
+                splayBox = {
+                    (domSource) => {
+                        this.splayBox(index,domSource)
+                    }
+                }
+                selectFromSplay = {
+                    (domSource) => {
+                        this.selectFromSplay(index,domSource)
+                    }
+                }
+                expandCategory = {
+                    (dataref, domSource) => {
+                        this.expandCategory(index,dataref, domSource)
+                    }
+                }
+                collapseCategory = {
+                    this.collapseCategory
+                }
+            />
+        )
+
     }
 
 /********************************************************
@@ -647,6 +688,19 @@ class Quadrant extends React.Component<any,any>  {
             overflow:'hidden',
         }
 
+        let viewportStyle:React.CSSProperties = { // borderRadius on scroller breaks scrollbar
+            width:'100%',
+            height:'100%',
+            overflow:'auto',
+            // display:'flex',
+            // flexWrap:'nowrap',
+            backgroundColor:'#e8e8e8',
+            border: '1px solid gray',
+            boxSizing: 'border-box',
+            borderRadius: '8px',
+            position:'relative',
+        }
+
         return (
             <div data-marker = 'quadelement'
                 style = {quadstyle}
@@ -681,10 +735,18 @@ class Quadrant extends React.Component<any,any>  {
                         decrementStackSelector = {this.decrementStackSelector}
                         ref = {this.originelement}
                     />
-                    <InfiniteScroll 
-                        items = {boxlist}
+                    <div 
+                        style = {viewportStyle}
+                        data-marker = 'boxlist-scrollbox'
                         ref = {this.listelement}
-                    />
+                    >
+                        <Lister 
+                            axis = "x"
+                            itemRenderer = {this.getBox}
+                            length = {this.state.datastack.length}
+                            type = 'uniform'
+                        />
+                    </div>
                     <QuadSelector 
                         quadrant = {this.state.quadrant} 
                         split = {this.props.split} 

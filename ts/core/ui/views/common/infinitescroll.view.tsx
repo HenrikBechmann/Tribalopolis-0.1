@@ -140,7 +140,6 @@ class InfiniteScrollBase extends React.Component<any,any> {
                 style = {{width:'100%',height:'100%',position:'relative'}}
             >
                 <div className = 'CS_viewport' style = {viewportStyle} 
-                    onScroll = {this.onScroll}
                     ref = {this.scroller}
                     data-marker = 'boxlist-scrollbox'
                 >
