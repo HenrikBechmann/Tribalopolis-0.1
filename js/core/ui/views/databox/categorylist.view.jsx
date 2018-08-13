@@ -5,28 +5,23 @@ import * as React from 'react';
 import CategoryItem from './categoryitem.view';
 import Lister from 'react-list';
 class CategoriesList extends React.Component {
-    constructor() {
-        super(...arguments);
+    constructor(props) {
+        super(props);
         this.state = {
             highlightrefuid: null,
             links: this.props.listobject.links,
         };
         this.getListItem = this.props.getListItem;
+        this.findlinkIndex = (uid) => {
+            return (item) => {
+                return item.uid == uid;
+            };
+        };
         this.expandCategory = (dataref) => {
             return (domSource) => {
                 this.props.expandCategory(dataref, domSource);
             };
         };
-        // getListItems = listobject => {
-        //     let { getListItem } = this.props
-        //     let { links } = listobject
-        //     let catitems = []
-        //     for (let dataref of links) {
-        //         let catitem = this.getListComponent(dataref)
-        //         catitems.push(catitem)
-        //     }
-        //     return <div>{catitems}</div>
-        // }
         this.itemRenderer = (index, key) => {
             return this.getListComponent(this.state.links[index], key);
         };
@@ -36,20 +31,30 @@ class CategoriesList extends React.Component {
             let catitem = <CategoryItem key={key} uid={dataref.uid} data={data} expandCategory={this.expandCategory(dataref)} highlight={highlight} highlightItem={this.props.highlightItem}/>;
             return catitem;
         };
+        this.listcomponent = React.createRef();
     }
     componentDidUpdate() {
         if (!this.props.highlightrefuid)
             return;
-        this.setState({
-            highlightrefuid: this.props.highlightrefuid,
-        }, () => {
+        // keep; value will be purged
+        let highlightrefuid = this.props.highlightrefuid;
+        // get index for Lister
+        let index = this.state.links.findIndex(this.findlinkIndex(highlightrefuid));
+        // update scroll display with selected highlight item
+        this.listcomponent.current.scrollAround(index);
+        setTimeout(() => {
+            // animate highlight
             this.setState({
-                highlightrefuid: null
+                highlightrefuid,
+            }, () => {
+                this.setState({
+                    highlightrefuid: null
+                });
             });
         });
     }
     render() {
-        return <Lister itemRenderer={this.itemRenderer} length={this.state.links.length} type='uniform'/>;
+        return <Lister ref={this.listcomponent} itemRenderer={this.itemRenderer} length={this.state.links.length} type='uniform'/>;
     }
 }
 export default CategoriesList;

@@ -9,22 +9,48 @@ import CategoryItem from './categoryitem.view'
 import Lister from 'react-list'
 
 class CategoriesList extends React.Component<any,any> {
+
+    constructor(props) {
+        super(props)
+        this.listcomponent = React.createRef()
+    }
     state = {
         highlightrefuid:null,
         links:this.props.listobject.links,
     }
 
+    listcomponent
+
     getListItem = this.props.getListItem
 
     componentDidUpdate() {
         if (!this.props.highlightrefuid) return
-        this.setState({
-            highlightrefuid:this.props.highlightrefuid,
-        },() => {
+        // keep; value will be purged
+        let highlightrefuid = this.props.highlightrefuid
+        // get index for Lister
+        let index = this.state.links.findIndex(this.findlinkIndex(highlightrefuid))
+        // update scroll display with selected highlight item
+        this.listcomponent.current.scrollAround(index)
+
+        setTimeout(() => { // let sroll update finish
+            // animate highlight
             this.setState({
-                highlightrefuid:null
+                highlightrefuid,
+            },() => {
+                this.setState({
+                    highlightrefuid:null
+                })
             })
+
         })
+    }
+
+    findlinkIndex = (uid) => {
+
+        return (item) => {
+            return item.uid == uid
+        }
+
     }
 
     expandCategory = (dataref) => {
@@ -32,22 +58,6 @@ class CategoriesList extends React.Component<any,any> {
             this.props.expandCategory(dataref, domSource)
         }
     }
-
-    // getListItems = listobject => {
-
-    //     let { getListItem } = this.props
-
-    //     let { links } = listobject
-
-    //     let catitems = []
-    //     for (let dataref of links) {
-
-    //         let catitem = this.getListComponent(dataref)
-
-    //         catitems.push(catitem)
-    //     }
-    //     return <div>{catitems}</div>
-    // }
 
     itemRenderer = (index,key) => {
         return this.getListComponent(this.state.links[index],key)
@@ -74,6 +84,7 @@ class CategoriesList extends React.Component<any,any> {
     render() {
 
         return <Lister 
+            ref = {this.listcomponent}
             itemRenderer = {this.itemRenderer}
             length = {this.state.links.length}
             type = 'uniform'
