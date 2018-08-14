@@ -37,22 +37,23 @@ class DataBox extends React.Component {
         };
         this.boxframe = React.createRef();
     }
-    componentDidMount() {
+    componentDidUpdate() {
         let { collapseBoxConfigForTarget } = this.props;
-        if (collapseBoxConfigForTarget) {
-            this.props.highlightBox(this.boxframe);
-            if (collapseBoxConfigForTarget.action == 'expand' ||
-                collapseBoxConfigForTarget.action == 'splay') {
-                let dataref = collapseBoxConfigForTarget.liststack[collapseBoxConfigForTarget.liststack.length - 1];
-                if (dataref) {
+        if (!collapseBoxConfigForTarget)
+            return;
+        console.log('componentDidMount', collapseBoxConfigForTarget);
+        this.props.highlightBox(this.boxframe);
+        if (collapseBoxConfigForTarget.action == 'expand' ||
+            collapseBoxConfigForTarget.action == 'splay') {
+            let dataref = collapseBoxConfigForTarget.liststack[collapseBoxConfigForTarget.liststack.length - 1];
+            if (dataref) {
+                this.setState({
+                    highlightrefuid: dataref.uid,
+                }, () => {
                     this.setState({
-                        highlightrefuid: dataref.uid,
-                    }, () => {
-                        this.setState({
-                            highlightrefuid: null
-                        });
+                        highlightrefuid: null
                     });
-                }
+                });
             }
         }
     }

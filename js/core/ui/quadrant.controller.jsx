@@ -34,6 +34,7 @@ class Quadrant extends React.Component {
         };
         this._findlinkIndex = (instanceid) => {
             return (item) => {
+                console.log('item', item, instanceid);
                 return item.instanceid == instanceid;
             };
         };
@@ -247,6 +248,7 @@ class Quadrant extends React.Component {
                     stacksource = sourcelayer.source;
                     if (stacksource) {
                         this.collapseBoxConfigForTarget.action = stacksource.action;
+                        this.collapseBoxConfigForTarget.sourceinstanceid = stacksource.instanceid;
                     }
                 }
             }
@@ -260,7 +262,7 @@ class Quadrant extends React.Component {
         this._applySettings = (stackpointer, datastack) => {
             let stacklayer = datastack[stackpointer];
             let { items } = stacklayer;
-            if (items.length > 1) {
+            if ((items.length > 1) && (!this.collapseBoxConfigForTarget)) {
                 setTimeout(() => {
                     // let index = this.state.links.findIndex(this.findlinkIndex(highlightrefuid))
                     // // update scroll display with selected highlight item
@@ -453,11 +455,12 @@ class Quadrant extends React.Component {
             return this.getBoxComponent(boxconfig, index, haspeers, key);
         };
         this.getBoxComponent = (boxconfig, index, haspeers, key) => {
-            console.log('getBoxComponent', boxconfig, index, haspeers);
+            // console.log('getBoxComponent', boxconfig, index, haspeers)
             let item = this.getDataItem(boxconfig.dataref);
             let itemType = this.getTypeItem(METATYPES.item, item.type);
             let containerHeight = this.scrollboxelement.current.offsetHeight;
-            let matchForTarget = (this.collapseBoxConfigForTarget && (this.collapseBoxConfigForTarget.index == index));
+            let matchForTarget = (this.state.collapseBoxConfigForTarget && (this.state.collapseBoxConfigForTarget.index == index));
+            console.log('matchfortarget', matchForTarget, this.state.collapseBoxConfigForTarget, index);
             return (<DataBox key={boxconfig.instanceid} item={item} itemType={itemType} collapseBoxConfigForTarget={matchForTarget ? this.state.collapseBoxConfigForTarget : null} getListItem={this.getListItem} getListItemType={this.getListItemType(METATYPES.list)} boxConfig={boxconfig} highlightBox={this.highlightBox} haspeers={haspeers} containerHeight={containerHeight} splayBox={(domSource) => {
                 this.splayBox(index, domSource);
             }} selectFromSplay={(domSource) => {
@@ -522,7 +525,7 @@ class Quadrant extends React.Component {
         let collapseBoxConfigForTarget = this.collapseBoxConfigForTarget;
         this.collapseBoxConfigForTarget = null;
         // get index for Lister
-        let index = this.state.datastack[this.state.stackpointer].items.findIndex(this._findlinkIndex(collapseBoxConfigForTarget.instanceid));
+        let index = this.state.datastack[this.state.stackpointer].items.findIndex(this._findlinkIndex(collapseBoxConfigForTarget.sourceinstanceid));
         // update scroll display with selected highlight item
         collapseBoxConfigForTarget.index = index;
         if (this.state.datastack[this.state.stackpointer].items.length > 1) {

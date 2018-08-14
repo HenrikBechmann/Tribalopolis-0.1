@@ -30,30 +30,30 @@ class DataBox extends React.Component<any,any> {
 
     boxframe
 
-    componentDidMount() {
+    componentDidUpdate() {
         let { collapseBoxConfigForTarget } = this.props
-        if (collapseBoxConfigForTarget) {
+        if (!collapseBoxConfigForTarget) return
+        console.log('componentDidMount',collapseBoxConfigForTarget)
 
-            this.props.highlightBox(this.boxframe)
+        this.props.highlightBox(this.boxframe)
 
-            if (collapseBoxConfigForTarget.action == 'expand' || 
-                collapseBoxConfigForTarget.action == 'splay') {
+        if (collapseBoxConfigForTarget.action == 'expand' || 
+            collapseBoxConfigForTarget.action == 'splay') {
 
-                let dataref = 
-                    collapseBoxConfigForTarget.liststack[
-                        collapseBoxConfigForTarget.liststack.length -1]
+            let dataref = 
+                collapseBoxConfigForTarget.liststack[
+                    collapseBoxConfigForTarget.liststack.length -1]
 
-                if (dataref) {
+            if (dataref) {
 
+                this.setState({
+                    highlightrefuid:dataref.uid,
+                },() => {
                     this.setState({
-                        highlightrefuid:dataref.uid,
-                    },() => {
-                        this.setState({
-                            highlightrefuid:null
-                        })
+                        highlightrefuid:null
                     })
+                })
 
-                }
             }
         }
     }
