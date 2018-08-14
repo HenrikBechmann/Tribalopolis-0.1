@@ -25,7 +25,9 @@ class Quadrant extends React.Component {
             datastack: this.props.datastack,
             stackpointer: 0,
         };
+        // quad css position
         this.position = null;
+        // for reset of containerHeight
         this.onResize = () => {
             this.forceUpdate();
         };
@@ -370,37 +372,38 @@ class Quadrant extends React.Component {
                 return this.getTypeItem(metatype, dataref);
             };
         };
-        this.getBoxes = () => {
-            let boxes = [];
-            // console.log('getBoxes quadrant state',this.state)
-            let { datastack, stackpointer } = this.state;
-            if (datastack) {
-                let collapseBoxConfigForTarget = null;
-                let matchForTarget = false;
-                let stacksource = null;
-                if (this.collapseBoxConfigForTarget) { // collapseCategory action
-                    let stacklayer = datastack[stackpointer + 1];
-                    if (stacklayer) {
-                        stacksource = stacklayer.source;
-                    }
-                    collapseBoxConfigForTarget = this.collapseBoxConfigForTarget;
-                    this.collapseBoxConfigForTarget = null; // one time only
-                    if (stacksource) {
-                        collapseBoxConfigForTarget.action = stacksource.action;
-                    }
-                }
-                let haspeers = (datastack[stackpointer] && (datastack[stackpointer].items.length > 1));
-                // boxes = datastack[stackpointer].items.map((boxconfig,index) => {
-                //     let context = {collapseBoxConfigForTarget,stacksource,haspeers}
-                //     return this.getBoxComponent(boxconfig, index, context)
-                // })
-                for (let index in datastack[stackpointer].items) {
-                    boxes.push(this.getBox(index, index));
-                }
-            }
-            // console.log('getBoxes box list',boxes)
-            return boxes;
-        };
+        // getBoxes = () => {
+        //     let boxes = []
+        //     // console.log('getBoxes quadrant state',this.state)
+        //     let { datastack, stackpointer } = this.state
+        //     if (datastack) {
+        //         let collapseBoxConfigForTarget = null
+        //         let matchForTarget = false
+        //         let stacksource = null
+        //         if (this.collapseBoxConfigForTarget) { // collapseCategory action
+        //             let stacklayer = datastack[stackpointer + 1]
+        //             if (stacklayer) {
+        //                 stacksource = stacklayer.source
+        //             }
+        //             collapseBoxConfigForTarget = this.collapseBoxConfigForTarget
+        //             this.collapseBoxConfigForTarget = null // one time only
+        //             if (stacksource) {
+        //                 collapseBoxConfigForTarget.action = stacksource.action
+        //             }
+        //         }
+        //         let haspeers = (datastack[stackpointer] && (datastack[stackpointer].items.length > 1))
+        //         // boxes = datastack[stackpointer].items.map((boxconfig,index) => {
+        //         //     let context = {collapseBoxConfigForTarget,stacksource,haspeers}
+        //         //     return this.getBoxComponent(boxconfig, index, context)
+        //         // })
+        //         for (let index in datastack[stackpointer].items) {
+        //             boxes.push(this.getBox(index, index))
+        //         }
+        //     }
+        //     // console.log('getBoxes box list',boxes)
+        //     return boxes
+        // }
+        // Lister item renderer
         this.getBox = (index, key) => {
             let { datastack, stackpointer } = this.state;
             if (!datastack)
@@ -480,9 +483,7 @@ class Quadrant extends React.Component {
         }
     }
     componentDidMount() {
-        console.log('listcomponent after mount', this.listcomponent);
-        let current = this.scrollboxelement.current;
-        console.log('scrollbox element after mount', current);
+        // setting of datastack delayed because
         // scrollbox height must be available to set height of content items
         this.setState({
             datastack: this.props.datastack,
@@ -496,7 +497,7 @@ class Quadrant extends React.Component {
         // console.log('quadrant state',this.state)
         let { quadrant } = this.state;
         let { top, left, bottom, right } = this.position;
-        let boxlist = this.getBoxes();
+        // let boxlist = this.getBoxes()
         let { color } = this.props;
         let quadstyle = {
             position: 'absolute',

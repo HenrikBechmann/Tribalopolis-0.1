@@ -23,7 +23,7 @@ class DataBox extends React.Component<any,any> {
     }
 
     state = {
-        opacity:0,
+        // opacity:1,
         boxconfig:this.props.boxConfig,
         highlightrefuid:this.props.highlightrefuid
     }
@@ -31,9 +31,9 @@ class DataBox extends React.Component<any,any> {
     boxframe
 
     componentDidMount() {
-        this.setState({
-            opacity:1,
-        },() => {
+        // this.setState({
+        //     opacity:1,
+        // },() => {
             let { collapseBoxConfigForTarget } = this.props
             if (collapseBoxConfigForTarget) {
 
@@ -59,7 +59,7 @@ class DataBox extends React.Component<any,any> {
                     }
                 }
             }
-        })
+        // })
     }
 
     componentWillReceiveProps(newProps) {
@@ -127,8 +127,8 @@ class DataBox extends React.Component<any,any> {
             boxSizing:'border-box',
             borderRadius:'8px',
             fontSize:'smaller',
-            opacity:this.state.opacity,
-            transition:'opacity .5s ease-in',
+            // opacity:this.state.opacity,
+            // transition:'opacity .25s ease-in',
             boxShadow: haspeers?'none':'0 0 12px black',
         }
 

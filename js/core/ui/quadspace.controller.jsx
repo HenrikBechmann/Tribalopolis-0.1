@@ -13,14 +13,6 @@ import QuantityBadge from './views/common/quantitybadge.view';
 import QuadStatusBar from './views/quadspace/quadstatusbar.view';
 import { METATYPES } from '../constants';
 import { lists, items, types, datastacks } from '../../data/repositories';
-// let context = {
-//     lists,
-//     links,
-//     items,
-//     types,
-//     schemes,
-//     maps,
-// }
 class QuadspaceController extends React.Component {
     constructor() {
         super(...arguments);

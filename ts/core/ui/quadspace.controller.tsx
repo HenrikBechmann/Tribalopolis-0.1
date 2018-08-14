@@ -20,15 +20,6 @@ import { METATYPES } from '../constants'
 
 import {lists, links, items, types, schemes, datastacks, maps} from '../../data/repositories'
 
-// let context = {
-//     lists,
-//     links,
-//     items,
-//     types,
-//     schemes,
-//     maps,
-// }
-
 class QuadspaceController extends React.Component<any,any> {
 
     state = {

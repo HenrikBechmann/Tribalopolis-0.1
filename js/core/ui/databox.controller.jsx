@@ -12,7 +12,7 @@ class DataBox extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            opacity: 0,
+            // opacity:1,
             boxconfig: this.props.boxConfig,
             highlightrefuid: this.props.highlightrefuid
         };
@@ -38,27 +38,27 @@ class DataBox extends React.Component {
         this.boxframe = React.createRef();
     }
     componentDidMount() {
-        this.setState({
-            opacity: 1,
-        }, () => {
-            let { collapseBoxConfigForTarget } = this.props;
-            if (collapseBoxConfigForTarget) {
-                this.props.highlightBox(this.boxframe);
-                if (collapseBoxConfigForTarget.action == 'expand' ||
-                    collapseBoxConfigForTarget.action == 'splay') {
-                    let dataref = collapseBoxConfigForTarget.liststack[collapseBoxConfigForTarget.liststack.length - 1];
-                    if (dataref) {
+        // this.setState({
+        //     opacity:1,
+        // },() => {
+        let { collapseBoxConfigForTarget } = this.props;
+        if (collapseBoxConfigForTarget) {
+            this.props.highlightBox(this.boxframe);
+            if (collapseBoxConfigForTarget.action == 'expand' ||
+                collapseBoxConfigForTarget.action == 'splay') {
+                let dataref = collapseBoxConfigForTarget.liststack[collapseBoxConfigForTarget.liststack.length - 1];
+                if (dataref) {
+                    this.setState({
+                        highlightrefuid: dataref.uid,
+                    }, () => {
                         this.setState({
-                            highlightrefuid: dataref.uid,
-                        }, () => {
-                            this.setState({
-                                highlightrefuid: null
-                            });
+                            highlightrefuid: null
                         });
-                    }
+                    });
                 }
             }
-        });
+        }
+        // })
     }
     componentWillReceiveProps(newProps) {
         // console.log('old and new boxconfig',this.state.boxconfig,newProps.boxConfig)
@@ -89,8 +89,8 @@ class DataBox extends React.Component {
             boxSizing: 'border-box',
             borderRadius: '8px',
             fontSize: 'smaller',
-            opacity: this.state.opacity,
-            transition: 'opacity .5s ease-in',
+            // opacity:this.state.opacity,
+            // transition:'opacity .25s ease-in',
             boxShadow: haspeers ? 'none' : '0 0 12px black',
         };
         let scrollboxstyle = {
