@@ -751,6 +751,8 @@ class Quadrant extends React.Component<any,any>  {
 
         console.log('quadrant.state, listcomponent',this.state, this.listcomponent)
 
+        let haspeers = (this.state.datastack[this.state.stackpointer].items.length > 1)
+
         return (
             <div data-marker = 'quadelement'
                 style = {quadstyle}
@@ -791,15 +793,18 @@ class Quadrant extends React.Component<any,any>  {
                         data-marker = 'boxlist-scrollbox'
                         ref = {this.scrollboxelement}
                     >
-                        <Lister 
-                            axis = 'x'
-                            itemRenderer = {this.getBox}
-                            length = { 
-                                this.state.datastack[this.state.stackpointer].items.length
-                            }
-                            type = 'uniform'
-                            ref = {this.listcomponent}
-                        />
+                        {haspeers
+                            ?<Lister 
+                                axis = 'x'
+                                itemRenderer = {this.getBox}
+                                length = { 
+                                    this.state.datastack[this.state.stackpointer].items.length
+                                }
+                                type = 'uniform'
+                                ref = {this.listcomponent}
+                            />
+                            :this.getBox(0,0)
+                        }
                     </div>
                     </div>
                     <QuadSelector 

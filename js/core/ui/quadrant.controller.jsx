@@ -542,6 +542,7 @@ class Quadrant extends React.Component {
             position: 'relative',
         };
         console.log('quadrant.state, listcomponent', this.state, this.listcomponent);
+        let haspeers = (this.state.datastack[this.state.stackpointer].items.length > 1);
         return (<div data-marker='quadelement' style={quadstyle} ref={this.quadelement}>
                 <div ref={this.drillanimationblock}>
                 </div>
@@ -555,7 +556,9 @@ class Quadrant extends React.Component {
                     <QuadOrigin stackpointer={this.state.stackpointer} stackdepth={this.state.datastack.length} incrementStackSelector={this.incrementStackSelector} decrementStackSelector={this.decrementStackSelector} ref={this.originelement}/>
                     <div style={viewportFrameStyle}>
                     <div style={viewportStyle} data-marker='boxlist-scrollbox' ref={this.scrollboxelement}>
-                        <Lister axis='x' itemRenderer={this.getBox} length={this.state.datastack[this.state.stackpointer].items.length} type='uniform' ref={this.listcomponent}/>
+                        {haspeers
+            ? <Lister axis='x' itemRenderer={this.getBox} length={this.state.datastack[this.state.stackpointer].items.length} type='uniform' ref={this.listcomponent}/>
+            : this.getBox(0, 0)}
                     </div>
                     </div>
                     <QuadSelector quadrant={this.state.quadrant} split={this.props.split} quadselection={this.props.quadselection}/>

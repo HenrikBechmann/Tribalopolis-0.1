@@ -130,6 +130,7 @@ class DataBox extends React.Component<any,any> {
             // opacity:this.state.opacity,
             // transition:'opacity .25s ease-in',
             boxShadow: haspeers?'none':'0 0 12px black',
+            margin:haspeers?'none':'auto',
         }
 
         let scrollboxstyle:React.CSSProperties = {
@@ -145,7 +146,12 @@ class DataBox extends React.Component<any,any> {
         let listItemType = this.props.getListItemType(listobject.type)
         // placeholder logic for showing add button
 
-        return  <div style = {{float:'left',padding:'16px'}}>
+        return  <div style = {
+            {
+                float:haspeers?'left':'none',
+                padding:'16px',
+            }
+        }>
             <div style = {frameStyle}
                 ref = {this.boxframe}
             >
