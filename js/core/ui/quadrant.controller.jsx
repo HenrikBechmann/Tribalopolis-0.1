@@ -24,12 +24,18 @@ class Quadrant extends React.Component {
             startquadrant: this.props.quadrant,
             datastack: this.props.datastack,
             stackpointer: 0,
+            collapseBoxConfigForTarget: null,
         };
         // quad css position
         this.position = null;
         // for reset of containerHeight
         this.onResize = () => {
             this.forceUpdate();
+        };
+        this._findlinkIndex = (instanceid) => {
+            return (item) => {
+                return item.instanceid == instanceid;
+            };
         };
         /********************************************************
         ------------------[ position quadrant ]------------------
@@ -222,6 +228,7 @@ class Quadrant extends React.Component {
         this.decrementStackSelector = () => {
             let { stackpointer, datastack } = this.state;
             this._captureSettings(stackpointer, datastack);
+            this._updateCollapseSettings(stackpointer, datastack);
             if (stackpointer > 0) {
                 stackpointer--;
                 this.setState({
@@ -230,6 +237,18 @@ class Quadrant extends React.Component {
                 }, () => {
                     this._applySettings(stackpointer, datastack);
                 });
+            }
+        };
+        this._updateCollapseSettings = (stackpointer, datastack) => {
+            let stacksource = null;
+            if (this.collapseBoxConfigForTarget) {
+                let sourcelayer = this.state.datastack[this.state.stackpointer];
+                if (sourcelayer) {
+                    stacksource = sourcelayer.source;
+                    if (stacksource) {
+                        this.collapseBoxConfigForTarget.action = stacksource.action;
+                    }
+                }
             }
         };
         this._captureSettings = (stackpointer, datastack) => {
@@ -243,6 +262,9 @@ class Quadrant extends React.Component {
             let { items } = stacklayer;
             if (items.length > 1) {
                 setTimeout(() => {
+                    // let index = this.state.links.findIndex(this.findlinkIndex(highlightrefuid))
+                    // // update scroll display with selected highlight item
+                    // this.listcomponent.current.scrollAround(index)
                     this.scrollboxelement.current.scrollLeft = stacklayer.settings.scrollOffset;
                 });
             }
@@ -426,32 +448,17 @@ class Quadrant extends React.Component {
                 let sourcelayer = datastack[stackpointer + 1];
                 if (sourcelayer) {
                     stacksource = sourcelayer.source;
-                    if (stacksource) {
-                        collapseBoxConfigForTarget.action = stacksource.action;
-                    }
                 }
             }
-            let context = {
-                haspeers,
-                collapseBoxConfigForTarget,
-                stacksource,
-            };
-            return this.getBoxComponent(boxconfig, index, context, key);
+            return this.getBoxComponent(boxconfig, index, haspeers, key);
         };
-        this.getBoxComponent = (boxconfig, index, context, key) => {
-            console.log('getBoxComponent', boxconfig, index, context);
+        this.getBoxComponent = (boxconfig, index, haspeers, key) => {
+            console.log('getBoxComponent', boxconfig, index, haspeers);
             let item = this.getDataItem(boxconfig.dataref);
             let itemType = this.getTypeItem(METATYPES.item, item.type);
-            let matchForTarget;
-            let { collapseBoxConfigForTarget, stacksource, haspeers } = context;
-            if (collapseBoxConfigForTarget) {
-                matchForTarget = (boxconfig.instanceid == stacksource.instanceid);
-                if (matchForTarget) {
-                    this.collapseBoxConfigForTarget = null;
-                }
-            }
             let containerHeight = this.scrollboxelement.current.offsetHeight;
-            return (<DataBox key={boxconfig.instanceid} item={item} itemType={itemType} collapseBoxConfigForTarget={matchForTarget ? collapseBoxConfigForTarget : null} getListItem={this.getListItem} getListItemType={this.getListItemType(METATYPES.list)} boxConfig={boxconfig} highlightBox={this.highlightBox} haspeers={haspeers} containerHeight={containerHeight} splayBox={(domSource) => {
+            let matchForTarget = (this.collapseBoxConfigForTarget && (this.collapseBoxConfigForTarget.index == index));
+            return (<DataBox key={boxconfig.instanceid} item={item} itemType={itemType} collapseBoxConfigForTarget={matchForTarget ? this.state.collapseBoxConfigForTarget : null} getListItem={this.getListItem} getListItemType={this.getListItemType(METATYPES.list)} boxConfig={boxconfig} highlightBox={this.highlightBox} haspeers={haspeers} containerHeight={containerHeight} splayBox={(domSource) => {
                 this.splayBox(index, domSource);
             }} selectFromSplay={(domSource) => {
                 this.selectFromSplay(index, domSource);
@@ -506,6 +513,30 @@ class Quadrant extends React.Component {
         // scrollbox height must be available to set height of content items
         this.setState({
             datastack: this.props.datastack,
+        });
+    }
+    componentDidUpdate() {
+        if (!this.collapseBoxConfigForTarget)
+            return;
+        // keep; value will be purged
+        let collapseBoxConfigForTarget = this.collapseBoxConfigForTarget;
+        this.collapseBoxConfigForTarget = null;
+        // get index for Lister
+        let index = this.state.datastack[this.state.stackpointer].items.findIndex(this._findlinkIndex(collapseBoxConfigForTarget.instanceid));
+        // update scroll display with selected highlight item
+        collapseBoxConfigForTarget.index = index;
+        if (this.state.datastack[this.state.stackpointer].items.length > 1) {
+            this.listcomponent.current.scrollAround(index);
+        }
+        setTimeout(() => {
+            // animate highlight
+            this.setState({
+                collapseBoxConfigForTarget,
+            }, () => {
+                this.setState({
+                    collapseBoxConfigForTarget: null
+                });
+            });
         });
     }
     /********************************************************

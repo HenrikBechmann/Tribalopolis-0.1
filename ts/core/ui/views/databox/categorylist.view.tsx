@@ -32,7 +32,7 @@ class CategoriesList extends React.Component<any,any> {
         // update scroll display with selected highlight item
         this.listcomponent.current.scrollAround(index)
 
-        setTimeout(() => { // let sroll update finish
+        setTimeout(() => { // let scroll update finish
             // animate highlight
             this.setState({
                 highlightrefuid,
