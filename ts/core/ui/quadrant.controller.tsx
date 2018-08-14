@@ -43,9 +43,9 @@ class Quadrant extends React.Component<any,any>  {
 
     state = {
         quadrant:this.props.quadrant,
+        startquadrant:this.props.quadrant,
         datastack:this.props.datastack,
         stackpointer:0,
-        startquadrant:this.props.quadrant,
     }
 
     drillanimationblock
@@ -56,7 +56,7 @@ class Quadrant extends React.Component<any,any>  {
     listcomponent
     quadelement
 
-    getItem
+    getDataItem
     getListItem
     getTypeItem
 
@@ -70,7 +70,7 @@ class Quadrant extends React.Component<any,any>  {
 
     componentWillMount() {
         this.calculatePosition(this.state.quadrant)
-        this.getItem = this.props.getItem
+        this.getDataItem = this.props.getDataItem
         this.getListItem = this.props.getListItem
         this.getTypeItem = this.props.getTypeItem
         window.addEventListener('resize',this.onResize)
@@ -249,7 +249,7 @@ class Quadrant extends React.Component<any,any>  {
 
         let boxconfig = datastack[stackpointer].items[boxptr]
 
-        let item = this.getItem(boxconfig.dataref)
+        let item = this.getDataItem(boxconfig.dataref)
 
         let liststack = boxconfig.liststack
 
@@ -633,7 +633,7 @@ class Quadrant extends React.Component<any,any>  {
 
         // console.log('getting box component', index, key)
 
-        let item = this.getItem(boxconfig.dataref)
+        let item = this.getDataItem(boxconfig.dataref)
         let itemType = this.getTypeItem(METATYPES.item,item.type)
 
         let matchForTarget

@@ -21,9 +21,9 @@ class Quadrant extends React.Component {
         super(props);
         this.state = {
             quadrant: this.props.quadrant,
+            startquadrant: this.props.quadrant,
             datastack: this.props.datastack,
             stackpointer: 0,
-            startquadrant: this.props.quadrant,
         };
         this.position = null;
         this.onResize = () => {
@@ -136,7 +136,7 @@ class Quadrant extends React.Component {
             let { datastack, stackpointer } = this.state;
             this._captureSettings(stackpointer, datastack);
             let boxconfig = datastack[stackpointer].items[boxptr];
-            let item = this.getItem(boxconfig.dataref);
+            let item = this.getDataItem(boxconfig.dataref);
             let liststack = boxconfig.liststack;
             let listref;
             if (liststack.length) {
@@ -420,7 +420,7 @@ class Quadrant extends React.Component {
         };
         this.getBoxComponent = (boxconfig, index, context, key) => {
             // console.log('getting box component', index, key)
-            let item = this.getItem(boxconfig.dataref);
+            let item = this.getDataItem(boxconfig.dataref);
             let itemType = this.getTypeItem(METATYPES.item, item.type);
             let matchForTarget;
             let { collapseBoxConfigForTarget, stacksource, haspeers } = context;
@@ -452,7 +452,7 @@ class Quadrant extends React.Component {
     *********************************************************/
     componentWillMount() {
         this.calculatePosition(this.state.quadrant);
-        this.getItem = this.props.getItem;
+        this.getDataItem = this.props.getDataItem;
         this.getListItem = this.props.getListItem;
         this.getTypeItem = this.props.getTypeItem;
         window.addEventListener('resize', this.onResize);
