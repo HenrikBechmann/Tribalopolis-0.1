@@ -26,6 +26,9 @@ class Quadrant extends React.Component {
             startquadrant: this.props.quadrant,
         };
         this.position = null;
+        this.onResize = () => {
+            this.forceUpdate();
+        };
         /********************************************************
         ------------------[ position quadrant ]------------------
         *********************************************************/
@@ -452,6 +455,10 @@ class Quadrant extends React.Component {
         this.getItem = this.props.getItem;
         this.getListItem = this.props.getListItem;
         this.getTypeItem = this.props.getTypeItem;
+        window.addEventListener('resize', this.onResize);
+    }
+    componentWillUnmount() {
+        window.removeEventListener('resize', this.onResize);
     }
     componentWillReceiveProps(nextProps) {
         if (nextProps.quadrant != this.state.quadrant) {

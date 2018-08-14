@@ -73,6 +73,15 @@ class Quadrant extends React.Component<any,any>  {
         this.getItem = this.props.getItem
         this.getListItem = this.props.getListItem
         this.getTypeItem = this.props.getTypeItem
+        window.addEventListener('resize',this.onResize)
+    }
+
+    onResize = () => {
+        this.forceUpdate()
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('resize',this.onResize)
     }
 
     componentWillReceiveProps(nextProps) {
