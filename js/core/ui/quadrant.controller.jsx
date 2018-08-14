@@ -8,7 +8,9 @@ import * as React from 'react';
 import QuadOrigin from './views/quadspace/quadorigin.view';
 import QuadTitleBar from './views/quadspace/quadtitlebar.view';
 import SwapMenu from './views/quadspace/quadswapmenu.view';
+import DataBox from './databox.controller';
 import QuadSelector from './views/quadspace/quadselector.view';
+import { METATYPES } from '../constants';
 import { serializer } from '../../core/utilities/serializer';
 import Lister from 'react-list';
 class Quadrant extends React.Component {
@@ -398,6 +400,10 @@ class Quadrant extends React.Component {
         };
         this.getBox = (index, key) => {
             let { datastack, stackpointer } = this.state;
+            if (!datastack)
+                return null;
+            if (!this.scrollboxelement.current)
+                return null;
             let boxconfig = datastack[stackpointer].items[index];
             let haspeers = (datastack[stackpointer] && (datastack[stackpointer].items.length > 1));
             let stacksource = null;
@@ -410,49 +416,23 @@ class Quadrant extends React.Component {
             return this.getBoxComponent(boxconfig, index, context, key);
         };
         this.getBoxComponent = (boxconfig, index, context, key) => {
-            console.log('getting box component', index, key);
-            return <div style={{ width: '300px', height: '300px', backgroundColor: 'red', border: '3px solid black', display: 'inline-block' }} key={key}>
-            {index}
-        </div>;
-            // if (!boxconfig) return null
-            // let item = this.getItem(boxconfig.dataref)
-            // let itemType = this.getTypeItem(METATYPES.item,item.type)
-            // let matchForTarget
-            // let { collapseBoxConfigForTarget, stacksource, haspeers } = context
-            // if (collapseBoxConfigForTarget) {
-            //     matchForTarget = (boxconfig.instanceid == stacksource.instanceid)
-            // }
-            // return (
-            //     <DataBox 
-            //         key = { key } 
-            //         item = { item } 
-            //         itemType = { itemType }
-            //         collapseBoxConfigForTarget = {matchForTarget?collapseBoxConfigForTarget:null}
-            //         getListItem = { this.getListItem }
-            //         getListItemType = { this.getListItemType(METATYPES.list) }
-            //         boxConfig = { boxconfig }
-            //         highlightBox = {this.highlightBox}
-            //         haspeers = { haspeers }
-            //         splayBox = {
-            //             (domSource) => {
-            //                 this.splayBox(index,domSource)
-            //             }
-            //         }
-            //         selectFromSplay = {
-            //             (domSource) => {
-            //                 this.selectFromSplay(index,domSource)
-            //             }
-            //         }
-            //         expandCategory = {
-            //             (dataref, domSource) => {
-            //                 this.expandCategory(index,dataref, domSource)
-            //             }
-            //         }
-            //         collapseCategory = {
-            //             this.collapseCategory
-            //         }
-            //     />
-            // )
+            // console.log('getting box component', index, key)
+            let item = this.getItem(boxconfig.dataref);
+            let itemType = this.getTypeItem(METATYPES.item, item.type);
+            let matchForTarget;
+            let { collapseBoxConfigForTarget, stacksource, haspeers } = context;
+            if (collapseBoxConfigForTarget) {
+                matchForTarget = (boxconfig.instanceid == stacksource.instanceid);
+            }
+            let containerHeight = this.scrollboxelement.current.offsetHeight;
+            console.log('containerHeight', containerHeight);
+            return (<DataBox key={boxconfig.instanceid} item={item} itemType={itemType} collapseBoxConfigForTarget={matchForTarget ? collapseBoxConfigForTarget : null} getListItem={this.getListItem} getListItemType={this.getListItemType(METATYPES.list)} boxConfig={boxconfig} highlightBox={this.highlightBox} haspeers={haspeers} containerHeight={containerHeight} splayBox={(domSource) => {
+                this.splayBox(index, domSource);
+            }} selectFromSplay={(domSource) => {
+                this.selectFromSplay(index, domSource);
+            }} expandCategory={(dataref, domSource) => {
+                this.expandCategory(index, dataref, domSource);
+            }} collapseCategory={this.collapseCategory}/>);
         };
         // animation dom elements
         this.drillanimationblock = React.createRef();
@@ -494,6 +474,12 @@ class Quadrant extends React.Component {
     }
     componentDidMount() {
         console.log('listcomponent after mount', this.listcomponent);
+        let current = this.scrollboxelement.current;
+        console.log('scrollbox element after mount', current);
+        // scrollbox height must be available to set height of content items
+        this.setState({
+            datastack: this.props.datastack,
+        });
     }
     /********************************************************
     ------------------------[ render ]-----------------------
@@ -528,9 +514,18 @@ class Quadrant extends React.Component {
             height: '100%',
             overflow: 'hidden',
         };
+        let viewportFrameStyle = {
+            position: 'absolute',
+            top: 'calc(25px + 2%)',
+            left: '2%',
+            bottom: '2%',
+            right: '2%',
+            borderRadius: '8px',
+            overflow: 'hidden',
+        };
         let viewportStyle = {
-            width: '600px',
-            height: '300px',
+            width: '100%',
+            height: '100%',
             overflow: 'auto',
             backgroundColor: '#e8e8e8',
             border: '1px solid gray',
@@ -550,8 +545,10 @@ class Quadrant extends React.Component {
                     <SwapMenu quadrant={this.state.quadrant} handleswap={this.props.handleswap}/>
                     <QuadTitleBar title={this.props.title} uid={this.state.startquadrant}/>
                     <QuadOrigin stackpointer={this.state.stackpointer} stackdepth={this.state.datastack.length} incrementStackSelector={this.incrementStackSelector} decrementStackSelector={this.decrementStackSelector} ref={this.originelement}/>
-                    <div style={{ overflow: 'auto', position: 'relative' }} data-marker='boxlist-scrollbox' ref={this.scrollboxelement}>
-                        <Lister axis='x' itemRenderer={this.getBox} length={17} type='uniform' ref={this.listcomponent}/>
+                    <div style={viewportFrameStyle}>
+                    <div style={viewportStyle} data-marker='boxlist-scrollbox' ref={this.scrollboxelement}>
+                        <Lister axis='x' itemRenderer={this.getBox} length={this.state.datastack[this.state.stackpointer].items.length} type='uniform' ref={this.listcomponent}/>
+                    </div>
                     </div>
                     <QuadSelector quadrant={this.state.quadrant} split={this.props.split} quadselection={this.props.quadselection}/>
                 </div>

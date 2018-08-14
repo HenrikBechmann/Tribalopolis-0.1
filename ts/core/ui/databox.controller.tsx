@@ -124,10 +124,8 @@ class DataBox extends React.Component<any,any> {
             border:'1px solid silver',
             maxHeight:'96%',
             minHeight:'60%',
-            padding:'3px',
             boxSizing:'border-box',
             borderRadius:'8px',
-            marginRight:'16px',
             fontSize:'smaller',
             opacity:this.state.opacity,
             transition:'opacity .5s ease-in',
@@ -135,7 +133,7 @@ class DataBox extends React.Component<any,any> {
         }
 
         let scrollboxstyle:React.CSSProperties = {
-            height:'calc(100% - 64px)',
+            height:(this.props.containerHeight - 172) + 'px',
             overflow:'auto',
             position:'relative', // required for offsetParent of highlightItem search
             paddingLeft:'6px',
@@ -147,7 +145,8 @@ class DataBox extends React.Component<any,any> {
         let listItemType = this.props.getListItemType(listobject.type)
         // placeholder logic for showing add button
 
-        return <div style = {frameStyle}
+        return  <div style = {{float:'left',padding:'16px'}}>
+            <div style = {frameStyle}
                 ref = {this.boxframe}
             >
             <BoxTypebar 
@@ -185,6 +184,7 @@ class DataBox extends React.Component<any,any> {
                 </div>
                 {this.modifybuttons(listItemType)}
             </div>
+        </div>
         </div>
     }
 }

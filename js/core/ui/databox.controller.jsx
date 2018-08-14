@@ -86,17 +86,15 @@ class DataBox extends React.Component {
             border: '1px solid silver',
             maxHeight: '96%',
             minHeight: '60%',
-            padding: '3px',
             boxSizing: 'border-box',
             borderRadius: '8px',
-            marginRight: '16px',
             fontSize: 'smaller',
             opacity: this.state.opacity,
             transition: 'opacity .5s ease-in',
             boxShadow: haspeers ? 'none' : '0 0 12px black',
         };
         let scrollboxstyle = {
-            height: 'calc(100% - 64px)',
+            height: (this.props.containerHeight - 172) + 'px',
             overflow: 'auto',
             position: 'relative',
             paddingLeft: '6px',
@@ -105,7 +103,8 @@ class DataBox extends React.Component {
         let listcount = listobject.links.length;
         let listItemType = this.props.getListItemType(listobject.type);
         // placeholder logic for showing add button
-        return <div style={frameStyle} ref={this.boxframe}>
+        return <div style={{ float: 'left', padding: '16px' }}>
+            <div style={frameStyle} ref={this.boxframe}>
             <BoxTypebar item={item} listcount={listcount} splayBox={this.props.splayBox} haspeers={this.props.haspeers} selectFromSplay={this.props.selectFromSplay}/>
             <BoxIdentifier item={item}/>
             <div style={{
@@ -120,6 +119,7 @@ class DataBox extends React.Component {
                 </div>
                 {this.modifybuttons(listItemType)}
             </div>
+        </div>
         </div>;
     }
 }

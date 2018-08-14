@@ -103,6 +103,13 @@ class Quadrant extends React.Component<any,any>  {
 
     componentDidMount() {
         console.log('listcomponent after mount',this.listcomponent)
+        let current = this.scrollboxelement.current
+
+        console.log('scrollbox element after mount',current)
+        // scrollbox height must be available to set height of content items
+        this.setState({
+            datastack: this.props.datastack,
+        })
     }
 
 /********************************************************
@@ -594,6 +601,10 @@ class Quadrant extends React.Component<any,any>  {
 
         let { datastack, stackpointer } = this.state
 
+        if (!datastack) return null
+
+        if (!this.scrollboxelement.current) return null
+
         let boxconfig = datastack[stackpointer].items[index]
 
         let haspeers = (datastack[stackpointer] && (datastack[stackpointer].items.length > 1))
@@ -611,59 +622,55 @@ class Quadrant extends React.Component<any,any>  {
 
     getBoxComponent = (boxconfig, index, context, key) => {
 
-        console.log('getting box component', index, key)
+        // console.log('getting box component', index, key)
 
-        return <div
-            style = {{width:'300px',height:'300px',backgroundColor:'red',border:'3px solid black',display:'inline-block'}}
-            key = {key}
-        >
-            {index}
-        </div>
+        let item = this.getItem(boxconfig.dataref)
+        let itemType = this.getTypeItem(METATYPES.item,item.type)
 
-        // if (!boxconfig) return null
+        let matchForTarget
+        let { collapseBoxConfigForTarget, stacksource, haspeers } = context
 
-        // let item = this.getItem(boxconfig.dataref)
-        // let itemType = this.getTypeItem(METATYPES.item,item.type)
+        if (collapseBoxConfigForTarget) {
+            matchForTarget = (boxconfig.instanceid == stacksource.instanceid)
+        }
 
-        // let matchForTarget
-        // let { collapseBoxConfigForTarget, stacksource, haspeers } = context
+        let containerHeight = this.scrollboxelement.current.offsetHeight
 
-        // if (collapseBoxConfigForTarget) {
-        //     matchForTarget = (boxconfig.instanceid == stacksource.instanceid)
-        // }
+        console.log('containerHeight', containerHeight)
 
-        // return (
-        //     <DataBox 
-        //         key = { key } 
-        //         item = { item } 
-        //         itemType = { itemType }
-        //         collapseBoxConfigForTarget = {matchForTarget?collapseBoxConfigForTarget:null}
-        //         getListItem = { this.getListItem }
-        //         getListItemType = { this.getListItemType(METATYPES.list) }
-        //         boxConfig = { boxconfig }
-        //         highlightBox = {this.highlightBox}
-        //         haspeers = { haspeers }
+        return (
+            <DataBox 
+                key = { boxconfig.instanceid } 
+                item = { item } 
+                itemType = { itemType }
+                collapseBoxConfigForTarget = {matchForTarget?collapseBoxConfigForTarget:null}
+                getListItem = { this.getListItem }
+                getListItemType = { this.getListItemType(METATYPES.list) }
+                boxConfig = { boxconfig }
+                highlightBox = {this.highlightBox}
+                haspeers = { haspeers }
+                containerHeight = {containerHeight}
 
-        //         splayBox = {
-        //             (domSource) => {
-        //                 this.splayBox(index,domSource)
-        //             }
-        //         }
-        //         selectFromSplay = {
-        //             (domSource) => {
-        //                 this.selectFromSplay(index,domSource)
-        //             }
-        //         }
-        //         expandCategory = {
-        //             (dataref, domSource) => {
-        //                 this.expandCategory(index,dataref, domSource)
-        //             }
-        //         }
-        //         collapseCategory = {
-        //             this.collapseCategory
-        //         }
-        //     />
-        // )
+                splayBox = {
+                    (domSource) => {
+                        this.splayBox(index,domSource)
+                    }
+                }
+                selectFromSplay = {
+                    (domSource) => {
+                        this.selectFromSplay(index,domSource)
+                    }
+                }
+                expandCategory = {
+                    (dataref, domSource) => {
+                        this.expandCategory(index,dataref, domSource)
+                    }
+                }
+                collapseCategory = {
+                    this.collapseCategory
+                }
+            />
+        )
 
     }
 
@@ -703,9 +710,19 @@ class Quadrant extends React.Component<any,any>  {
             overflow:'hidden',
         }
 
+        let viewportFrameStyle:React.CSSProperties = {
+            position:'absolute',
+            top:'calc(25px + 2%)',
+            left:'2%',
+            bottom:'2%',
+            right:'2%',
+            borderRadius:'8px',
+            overflow:'hidden',
+        }
+
         let viewportStyle:React.CSSProperties = { // borderRadius on scroller breaks scrollbar
-            width:'600px', //100%',
-            height:'300px',//100%',
+            width: '100%',
+            height:'100%',
             overflow:'auto',
             backgroundColor:'#e8e8e8',
             border: '1px solid gray',
@@ -750,20 +767,22 @@ class Quadrant extends React.Component<any,any>  {
                         decrementStackSelector = {this.decrementStackSelector}
                         ref = {this.originelement}
                     />
+                    <div style = {viewportFrameStyle}>
                     <div 
-                        style = {{overflow:'auto',position:'relative'}}
+                        style = {viewportStyle}
                         data-marker = 'boxlist-scrollbox'
                         ref = {this.scrollboxelement}
                     >
                         <Lister 
                             axis = 'x'
                             itemRenderer = {this.getBox}
-                            length = {17
-                                //this.state.datastack[this.state.stackpointer].items.length
+                            length = { 
+                                this.state.datastack[this.state.stackpointer].items.length
                             }
                             type = 'uniform'
                             ref = {this.listcomponent}
                         />
+                    </div>
                     </div>
                     <QuadSelector 
                         quadrant = {this.state.quadrant} 
