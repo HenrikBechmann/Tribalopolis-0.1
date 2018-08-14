@@ -379,12 +379,22 @@ class Quadrant extends React.Component<any,any>  {
 
     _captureSettings = (stackpointer, datastack) => {
         let stacklayer = datastack[stackpointer]
-        stacklayer.settings.scrollOffset = this.scrollboxelement.current.scrollLeft
+        let { items } = stacklayer
+        stacklayer.settings.scrollOffset = 
+            (items.length > 1)?this.scrollboxelement.current.scrollLeft:0
     }
 
     _applySettings = (stackpointer, datastack) => {
         let stacklayer = datastack[stackpointer]
-        this.scrollboxelement.current.scrollLeft = stacklayer.settings.scrollOffset
+        let { items } = stacklayer
+        console.log('apply settings',stackpointer, datastack, items, items.length)
+        if (items.length > 1) {
+            setTimeout(() => { // give deference to formation of scroll object
+
+                this.scrollboxelement.current.scrollLeft = stacklayer.settings.scrollOffset
+
+            })
+        }
     }
 
 /********************************************************
@@ -654,7 +664,7 @@ class Quadrant extends React.Component<any,any>  {
 
         let containerHeight = this.scrollboxelement.current.offsetHeight
 
-        console.log('containerHeight', containerHeight)
+        // console.log('containerHeight', containerHeight)
 
         return (
             <DataBox 
@@ -698,7 +708,9 @@ class Quadrant extends React.Component<any,any>  {
 
     // TODO: move style blocks out of render code
     render() {
+        
         // console.log('quadrant state',this.state)
+        
         let { quadrant } = this.state
         let {top, left, bottom, right} = this.position
         // let boxlist = this.getBoxes()
@@ -751,7 +763,7 @@ class Quadrant extends React.Component<any,any>  {
             position:'relative',
         }
 
-        console.log('quadrant.state, listcomponent',this.state, this.listcomponent)
+        // console.log('quadrant.state, listcomponent',this.state, this.listcomponent)
 
         return (
             <div data-marker = 'quadelement'

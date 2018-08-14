@@ -234,11 +234,19 @@ class Quadrant extends React.Component {
         };
         this._captureSettings = (stackpointer, datastack) => {
             let stacklayer = datastack[stackpointer];
-            stacklayer.settings.scrollOffset = this.scrollboxelement.current.scrollLeft;
+            let { items } = stacklayer;
+            stacklayer.settings.scrollOffset =
+                (items.length > 1) ? this.scrollboxelement.current.scrollLeft : 0;
         };
         this._applySettings = (stackpointer, datastack) => {
             let stacklayer = datastack[stackpointer];
-            this.scrollboxelement.current.scrollLeft = stacklayer.settings.scrollOffset;
+            let { items } = stacklayer;
+            console.log('apply settings', stackpointer, datastack, items, items.length);
+            if (items.length > 1) {
+                setTimeout(() => {
+                    this.scrollboxelement.current.scrollLeft = stacklayer.settings.scrollOffset;
+                });
+            }
         };
         /********************************************************
         ----------------------[ animations ]---------------------
@@ -431,7 +439,7 @@ class Quadrant extends React.Component {
                 matchForTarget = (boxconfig.instanceid == stacksource.instanceid);
             }
             let containerHeight = this.scrollboxelement.current.offsetHeight;
-            console.log('containerHeight', containerHeight);
+            // console.log('containerHeight', containerHeight)
             return (<DataBox key={boxconfig.instanceid} item={item} itemType={itemType} collapseBoxConfigForTarget={matchForTarget ? collapseBoxConfigForTarget : null} getListItem={this.getListItem} getListItemType={this.getListItemType(METATYPES.list)} boxConfig={boxconfig} highlightBox={this.highlightBox} haspeers={haspeers} containerHeight={containerHeight} splayBox={(domSource) => {
                 this.splayBox(index, domSource);
             }} selectFromSplay={(domSource) => {
@@ -542,7 +550,7 @@ class Quadrant extends React.Component {
             borderRadius: '8px',
             position: 'relative',
         };
-        console.log('quadrant.state, listcomponent', this.state, this.listcomponent);
+        // console.log('quadrant.state, listcomponent',this.state, this.listcomponent)
         return (<div data-marker='quadelement' style={quadstyle} ref={this.quadelement}>
                 <div ref={this.drillanimationblock}>
                 </div>
