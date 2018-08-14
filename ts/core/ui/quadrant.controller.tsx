@@ -704,6 +704,8 @@ class Quadrant extends React.Component<any,any>  {
         // let boxlist = this.getBoxes()
         let { color } = this.props
 
+        let haspeers = (this.state.datastack[this.state.stackpointer].items.length > 1)
+
         let quadstyle:React.CSSProperties = {
             position:'absolute',
             boxSizing:'border-box',
@@ -742,7 +744,7 @@ class Quadrant extends React.Component<any,any>  {
             width: '100%',
             height:'100%',
             overflow:'auto',
-            backgroundColor:'#e8e8e8',
+            backgroundColor:haspeers?'#e8e8e8':'lightblue',
             border: '1px solid gray',
             boxSizing: 'border-box',
             borderRadius: '8px',
@@ -750,8 +752,6 @@ class Quadrant extends React.Component<any,any>  {
         }
 
         console.log('quadrant.state, listcomponent',this.state, this.listcomponent)
-
-        let haspeers = (this.state.datastack[this.state.stackpointer].items.length > 1)
 
         return (
             <div data-marker = 'quadelement'
