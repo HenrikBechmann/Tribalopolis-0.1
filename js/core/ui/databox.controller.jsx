@@ -38,9 +38,6 @@ class DataBox extends React.Component {
         this.boxframe = React.createRef();
     }
     componentDidMount() {
-        // this.setState({
-        //     opacity:1,
-        // },() => {
         let { collapseBoxConfigForTarget } = this.props;
         if (collapseBoxConfigForTarget) {
             this.props.highlightBox(this.boxframe);
@@ -58,7 +55,6 @@ class DataBox extends React.Component {
                 }
             }
         }
-        // })
     }
     componentWillReceiveProps(newProps) {
         // console.log('old and new boxconfig',this.state.boxconfig,newProps.boxConfig)

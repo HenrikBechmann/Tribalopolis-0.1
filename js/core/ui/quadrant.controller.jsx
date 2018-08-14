@@ -241,7 +241,6 @@ class Quadrant extends React.Component {
         this._applySettings = (stackpointer, datastack) => {
             let stacklayer = datastack[stackpointer];
             let { items } = stacklayer;
-            console.log('apply settings', stackpointer, datastack, items, items.length);
             if (items.length > 1) {
                 setTimeout(() => {
                     this.scrollboxelement.current.scrollLeft = stacklayer.settings.scrollOffset;
@@ -419,27 +418,39 @@ class Quadrant extends React.Component {
             if (!this.scrollboxelement.current)
                 return null;
             let boxconfig = datastack[stackpointer].items[index];
-            let haspeers = (datastack[stackpointer] && (datastack[stackpointer].items.length > 1));
+            let stacklayer = datastack[stackpointer];
+            let haspeers = (stacklayer && (stacklayer.items.length > 1));
+            let collapseBoxConfigForTarget = this.collapseBoxConfigForTarget;
             let stacksource = null;
-            let collapseConfigForTarget = null;
+            if (collapseBoxConfigForTarget) {
+                let sourcelayer = datastack[stackpointer + 1];
+                if (sourcelayer) {
+                    stacksource = sourcelayer.source;
+                    if (stacksource) {
+                        collapseBoxConfigForTarget.action = stacksource.action;
+                    }
+                }
+            }
             let context = {
                 haspeers,
-                collapseConfigForTarget,
+                collapseBoxConfigForTarget,
                 stacksource,
             };
             return this.getBoxComponent(boxconfig, index, context, key);
         };
         this.getBoxComponent = (boxconfig, index, context, key) => {
-            // console.log('getting box component', index, key)
+            console.log('getBoxComponent', boxconfig, index, context);
             let item = this.getDataItem(boxconfig.dataref);
             let itemType = this.getTypeItem(METATYPES.item, item.type);
             let matchForTarget;
             let { collapseBoxConfigForTarget, stacksource, haspeers } = context;
             if (collapseBoxConfigForTarget) {
                 matchForTarget = (boxconfig.instanceid == stacksource.instanceid);
+                if (matchForTarget) {
+                    this.collapseBoxConfigForTarget = null;
+                }
             }
             let containerHeight = this.scrollboxelement.current.offsetHeight;
-            // console.log('containerHeight', containerHeight)
             return (<DataBox key={boxconfig.instanceid} item={item} itemType={itemType} collapseBoxConfigForTarget={matchForTarget ? collapseBoxConfigForTarget : null} getListItem={this.getListItem} getListItemType={this.getListItemType(METATYPES.list)} boxConfig={boxconfig} highlightBox={this.highlightBox} haspeers={haspeers} containerHeight={containerHeight} splayBox={(domSource) => {
                 this.splayBox(index, domSource);
             }} selectFromSplay={(domSource) => {
