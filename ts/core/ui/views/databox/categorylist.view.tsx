@@ -8,11 +8,11 @@ import CategoryItem from './categoryitem.view'
 
 import Lister from 'react-list'
 
-class CategoriesList extends React.Component<any,any> {
+class CategoriesListBase extends React.Component<any,any> {
 
     constructor(props) {
         super(props)
-        this.listcomponent = React.createRef()
+        this.listcomponent = this.props.forwardedRef
     }
     state = {
         highlightrefuid:null,
@@ -84,12 +84,16 @@ class CategoriesList extends React.Component<any,any> {
     render() {
 
         return <Lister 
-            ref = {this.listcomponent}
+            ref = {this.props.forwardedRef}
             itemRenderer = {this.itemRenderer}
             length = {this.state.links.length}
             type = 'uniform'
         />
     }
 }
+
+const CategoriesList = React.forwardRef((props:any,ref:any) => {
+    return <CategoriesListBase {...props} forwardedRef = {ref} />
+})
 
 export default CategoriesList

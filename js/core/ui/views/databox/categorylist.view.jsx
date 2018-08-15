@@ -4,7 +4,7 @@
 import * as React from 'react';
 import CategoryItem from './categoryitem.view';
 import Lister from 'react-list';
-class CategoriesList extends React.Component {
+class CategoriesListBase extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -31,7 +31,7 @@ class CategoriesList extends React.Component {
             let catitem = <CategoryItem key={key} uid={dataref.uid} data={data} expandCategory={this.expandCategory(dataref)} highlight={highlight} highlightItem={this.props.highlightItem}/>;
             return catitem;
         };
-        this.listcomponent = React.createRef();
+        this.listcomponent = this.props.forwardedRef;
     }
     componentDidUpdate() {
         if (!this.props.highlightrefuid)
@@ -54,8 +54,11 @@ class CategoriesList extends React.Component {
         });
     }
     render() {
-        return <Lister ref={this.listcomponent} itemRenderer={this.itemRenderer} length={this.state.links.length} type='uniform'/>;
+        return <Lister ref={this.props.forwardedRef} itemRenderer={this.itemRenderer} length={this.state.links.length} type='uniform'/>;
     }
 }
+const CategoriesList = React.forwardRef((props, ref) => {
+    return <CategoriesListBase {...props} forwardedRef={ref}/>;
+});
 export default CategoriesList;
 //# sourceMappingURL=categorylist.view.jsx.map

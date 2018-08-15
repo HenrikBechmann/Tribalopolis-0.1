@@ -37,6 +37,9 @@ class DataBox extends React.Component {
         this.collapseCategory = () => {
             this.props.collapseCategory(this.state.boxconfig);
         };
+        this.splayBox = (domSource) => {
+            return this.props.splayBox(domSource, this.listcomponent);
+        };
         this.highlightItem = (itemref) => {
             let itemelement = itemref.current;
             itemelement.classList.add('highlight');
@@ -64,6 +67,7 @@ class DataBox extends React.Component {
                 }}>{this.props.index + 1}</div> : null;
         };
         this.boxframe = React.createRef();
+        this.listcomponent = React.createRef();
     }
     componentDidMount() {
         let { collapseBoxConfigForTarget } = this.props;
@@ -129,7 +133,7 @@ class DataBox extends React.Component {
             padding: '16px',
         }}>
             <div style={frameStyle} ref={this.boxframe}>
-            <BoxTypebar item={item} listcount={listcount} splayBox={this.props.splayBox} haspeers={this.props.haspeers} selectFromSplay={this.props.selectFromSplay}/>
+            <BoxTypebar item={item} listcount={listcount} splayBox={this.splayBox} haspeers={this.props.haspeers} selectFromSplay={this.props.selectFromSplay}/>
             <BoxIdentifier item={item}/>
             <div style={{
             height: 'calc(100% - 70px)',
@@ -139,7 +143,7 @@ class DataBox extends React.Component {
                     <CategoriesBar item={item} getListItem={this.props.getListItem} listStack={this.state.boxconfig.liststack} collapseCategory={this.collapseCategory} haspeers={this.props.haspeers}/>
                 </div>
                 <div style={scrollboxstyle}>
-                    <CategoryList listobject={listobject} highlightrefuid={this.state.highlightrefuid} getListItem={this.props.getListItem} expandCategory={this.props.expandCategory} highlightItem={this.highlightItem}/>
+                    <CategoryList ref={this.listcomponent} listobject={listobject} highlightrefuid={this.state.highlightrefuid} getListItem={this.props.getListItem} expandCategory={this.props.expandCategory} highlightItem={this.highlightItem}/>
                 </div>
                 {this.modifybuttons(listItemType)}
                 {this.indexmarker()}

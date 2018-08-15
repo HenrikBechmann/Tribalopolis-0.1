@@ -289,7 +289,9 @@ class Quadrant extends React.Component<any,any>  {
         })
     }
 
-    splayBox = (boxptr, domSource) => {
+    splayBox = (boxptr, domSource, sourcelistcomponent) => {
+
+        let visiblerange = sourcelistcomponent.current.getVisibleRange()
 
         this.animateToOrigin()
 
@@ -323,6 +325,7 @@ class Quadrant extends React.Component<any,any>  {
             instanceid:boxconfig.instanceid,
             dataref:boxconfig.dataref,
             action:'splay',
+            visiblerange,
         }}
 
         // console.log('new stack pointer',stackpointer)
@@ -343,6 +346,10 @@ class Quadrant extends React.Component<any,any>  {
             this.setState({
                 stackpointer,
                 datastack,
+            },() => {
+                setTimeout(() =>{
+                    this.listcomponent.current.scrollTo(visiblerange[0])
+                })
             })
         },250)
     }
@@ -679,8 +686,8 @@ class Quadrant extends React.Component<any,any>  {
                 containerHeight = {containerHeight}
 
                 splayBox = {
-                    (domSource) => {
-                        this.splayBox(index,domSource)
+                    (domSource, listcomponent) => {
+                        this.splayBox(index, domSource, listcomponent)
                     }
                 }
                 selectFromSplay = {

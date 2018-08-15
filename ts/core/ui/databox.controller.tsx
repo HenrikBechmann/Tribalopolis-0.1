@@ -20,6 +20,7 @@ class DataBox extends React.Component<any,any> {
     constructor(props) {
         super(props)
         this.boxframe = React.createRef()
+        this.listcomponent = React.createRef()
     }
 
     state = {
@@ -29,6 +30,7 @@ class DataBox extends React.Component<any,any> {
     }
 
     boxframe
+    listcomponent
 
     componentDidMount() {
         let { collapseBoxConfigForTarget } = this.props
@@ -86,6 +88,10 @@ class DataBox extends React.Component<any,any> {
 
         this.props.collapseCategory(this.state.boxconfig)
 
+    }
+
+    splayBox = (domSource) => {
+        return this.props.splayBox(domSource, this.listcomponent)
     }
 
     highlightItem = (itemref) => {
@@ -184,7 +190,7 @@ class DataBox extends React.Component<any,any> {
             <BoxTypebar 
                 item = {item} 
                 listcount = {listcount}
-                splayBox = {this.props.splayBox}
+                splayBox = {this.splayBox}
                 haspeers = {this.props.haspeers}
                 selectFromSplay = {this.props.selectFromSplay}
             />
@@ -207,6 +213,7 @@ class DataBox extends React.Component<any,any> {
                 </div>
                 <div style = {scrollboxstyle}>
                     <CategoryList 
+                        ref = {this.listcomponent}
                         listobject = {listobject} 
                         highlightrefuid = {this.state.highlightrefuid}
                         getListItem = {this.props.getListItem}

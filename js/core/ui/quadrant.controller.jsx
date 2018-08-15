@@ -140,7 +140,8 @@ class Quadrant extends React.Component {
                 });
             });
         };
-        this.splayBox = (boxptr, domSource) => {
+        this.splayBox = (boxptr, domSource, sourcelistcomponent) => {
+            let visiblerange = sourcelistcomponent.current.getVisibleRange();
             this.animateToOrigin();
             this.animateToDataboxList(domSource);
             let { datastack, stackpointer } = this.state;
@@ -164,6 +165,7 @@ class Quadrant extends React.Component {
                     instanceid: boxconfig.instanceid,
                     dataref: boxconfig.dataref,
                     action: 'splay',
+                    visiblerange,
                 } };
             // console.log('new stack pointer',stackpointer)
             // replace forward stack items
@@ -179,6 +181,10 @@ class Quadrant extends React.Component {
                 this.setState({
                     stackpointer,
                     datastack,
+                }, () => {
+                    setTimeout(() => {
+                        this.listcomponent.current.scrollTo(visiblerange[0]);
+                    });
                 });
             }, 250);
         };
@@ -410,8 +416,8 @@ class Quadrant extends React.Component {
                 matchForTarget = (collapseBoxConfigForTarget.index == index);
             }
             // console.log('match',matchForTarget,collapseBoxConfigForTarget,index)
-            return (<DataBox key={boxconfig.instanceid} item={item} itemType={itemType} collapseBoxConfigForTarget={matchForTarget ? collapseBoxConfigForTarget : null} getListItem={this.getListItem} getListItemType={this.getListItemType(METATYPES.list)} boxConfig={boxconfig} highlightBox={this.highlightBox} haspeers={haspeers} index={index} containerHeight={containerHeight} splayBox={(domSource) => {
-                this.splayBox(index, domSource);
+            return (<DataBox key={boxconfig.instanceid} item={item} itemType={itemType} collapseBoxConfigForTarget={matchForTarget ? collapseBoxConfigForTarget : null} getListItem={this.getListItem} getListItemType={this.getListItemType(METATYPES.list)} boxConfig={boxconfig} highlightBox={this.highlightBox} haspeers={haspeers} index={index} containerHeight={containerHeight} splayBox={(domSource, listcomponent) => {
+                this.splayBox(index, domSource, listcomponent);
             }} selectFromSplay={(domSource) => {
                 this.selectFromSplay(index, domSource);
             }} expandCategory={(dataref, domSource) => {
