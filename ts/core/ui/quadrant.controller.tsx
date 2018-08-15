@@ -686,6 +686,7 @@ class Quadrant extends React.Component<any,any>  {
                 boxConfig = { boxconfig }
                 highlightBox = {this.highlightBox}
                 haspeers = { haspeers }
+                index = {index}
                 containerHeight = {containerHeight}
 
                 splayBox = {

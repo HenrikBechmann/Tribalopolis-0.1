@@ -417,7 +417,7 @@ class Quadrant extends React.Component {
                 matchForTarget = (collapseBoxConfigForTarget.index == index);
             }
             // console.log('match',matchForTarget,collapseBoxConfigForTarget,index)
-            return (<DataBox key={boxconfig.instanceid} item={item} itemType={itemType} collapseBoxConfigForTarget={matchForTarget ? collapseBoxConfigForTarget : null} getListItem={this.getListItem} getListItemType={this.getListItemType(METATYPES.list)} boxConfig={boxconfig} highlightBox={this.highlightBox} haspeers={haspeers} containerHeight={containerHeight} splayBox={(domSource) => {
+            return (<DataBox key={boxconfig.instanceid} item={item} itemType={itemType} collapseBoxConfigForTarget={matchForTarget ? collapseBoxConfigForTarget : null} getListItem={this.getListItem} getListItemType={this.getListItemType(METATYPES.list)} boxConfig={boxconfig} highlightBox={this.highlightBox} haspeers={haspeers} index={index} containerHeight={containerHeight} splayBox={(domSource) => {
                 this.splayBox(index, domSource);
             }} selectFromSplay={(domSource) => {
                 this.selectFromSplay(index, domSource);

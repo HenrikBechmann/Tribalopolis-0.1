@@ -111,6 +111,21 @@ class DataBox extends React.Component<any,any> {
         return retval
     }
 
+    indexmarker = () => {
+        return this.props.haspeers
+            ?<div
+                style = {
+                    {
+                        position:'absolute',
+                        bottom:'-16px',
+                        left:'0',
+                        fontSize:'smaller',
+                        color:'gray',
+                    }
+                }
+            >{this.props.index + 1}</div>:null
+    }
+
     render() {
 
         let { item, getListItem, haspeers } = this.props
@@ -200,6 +215,7 @@ class DataBox extends React.Component<any,any> {
                     />
                 </div>
                 {this.modifybuttons(listItemType)}
+                {this.indexmarker()}
             </div>
         </div>
         </div>

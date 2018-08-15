@@ -53,6 +53,16 @@ class DataBox extends React.Component {
         </div> : null;
             return retval;
         };
+        this.indexmarker = () => {
+            return this.props.haspeers
+                ? <div style={{
+                    position: 'absolute',
+                    bottom: '-16px',
+                    left: '0',
+                    fontSize: 'smaller',
+                    color: 'gray',
+                }}>{this.props.index + 1}</div> : null;
+        };
         this.boxframe = React.createRef();
     }
     componentDidMount() {
@@ -132,6 +142,7 @@ class DataBox extends React.Component {
                     <CategoryList listobject={listobject} highlightrefuid={this.state.highlightrefuid} getListItem={this.props.getListItem} expandCategory={this.props.expandCategory} highlightItem={this.highlightItem}/>
                 </div>
                 {this.modifybuttons(listItemType)}
+                {this.indexmarker()}
             </div>
         </div>
         </div>;
