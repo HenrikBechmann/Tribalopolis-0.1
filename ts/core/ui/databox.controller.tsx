@@ -205,7 +205,7 @@ class DataBox extends React.Component<any,any> {
                         haspeers = {this.props.haspeers}
                     />
                 </div>
-                <div data-marker = 'databox-scrollbox' style = {scrollboxstyle}>
+                <div style = {scrollboxstyle}>
                     <CategoryList 
                         listobject = {listobject} 
                         highlightrefuid = {this.state.highlightrefuid}

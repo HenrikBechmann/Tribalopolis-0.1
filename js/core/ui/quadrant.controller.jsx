@@ -553,7 +553,7 @@ class Quadrant extends React.Component {
             position: 'relative',
         };
         // console.log('quadrant.state, listcomponent',this.state, this.listcomponent)
-        return (<div data-marker='quadelement' style={quadstyle} ref={this.quadelement}>
+        return (<div style={quadstyle} ref={this.quadelement}>
                 <div ref={this.drillanimationblock}>
                 </div>
                 <div ref={this.originanimationblock}>

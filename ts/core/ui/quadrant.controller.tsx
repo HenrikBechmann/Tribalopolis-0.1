@@ -772,7 +772,7 @@ class Quadrant extends React.Component<any,any>  {
         // console.log('quadrant.state, listcomponent',this.state, this.listcomponent)
 
         return (
-            <div data-marker = 'quadelement'
+            <div 
                 style = {quadstyle}
                 ref = {this.quadelement}
             >

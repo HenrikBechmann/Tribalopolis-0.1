@@ -138,7 +138,7 @@ class DataBox extends React.Component {
                 <div>
                     <CategoriesBar item={item} getListItem={this.props.getListItem} listStack={this.state.boxconfig.liststack} collapseCategory={this.collapseCategory} haspeers={this.props.haspeers}/>
                 </div>
-                <div data-marker='databox-scrollbox' style={scrollboxstyle}>
+                <div style={scrollboxstyle}>
                     <CategoryList listobject={listobject} highlightrefuid={this.state.highlightrefuid} getListItem={this.props.getListItem} expandCategory={this.props.expandCategory} highlightItem={this.highlightItem}/>
                 </div>
                 {this.modifybuttons(listItemType)}
