@@ -143,25 +143,26 @@ class Quadrant extends React.Component<any,any>  {
         // update scroll display with selected highlight item
         collapseBoxConfigForTarget.index = index
 
-        if (this.state.datastack[this.state.stackpointer].items.length > 1) {
-            setTimeout(()=>{
-
+        setTimeout(()=>{
+            console.log('state in did update',this.state)
+            if (this.listcomponent && (this.state.datastack[this.state.stackpointer].items.length > 1)) {
+                console.log('scrollAround',index)
                 this.listcomponent.current.scrollAround(index)
-                setTimeout(()=>{
-                    this.setState({
-                        collapseBoxConfigForTarget,
-                    },()=> {
-                        setTimeout(()=>{
-                            this.setState({
-                                collapseBoxConfigForTarget:null
-                            })                        
-                        })
+            }
+
+            setTimeout(()=>{
+                this.setState({
+                    collapseBoxConfigForTarget,
+                },()=> {
+                    setTimeout(()=>{
+                        this.setState({
+                            collapseBoxConfigForTarget:null
+                        })                        
                     })
                 })
-
             })
-        }
 
+        })
     }
 
     _findlinkIndex = (instanceid) => {
@@ -401,7 +402,7 @@ class Quadrant extends React.Component<any,any>  {
     //-------------------------------[ backward ]----------------------------
 
     collapseCategory = (boxConfig) => {
-        // console.log('quadrant collapseCategory boxConfig, datastack',boxConfig, this.state.stackpointer, this.state.datastack)
+        console.log('quadrant collapseCategory boxConfig, datastack',boxConfig, this.state.stackpointer, this.state.datastack)
         this.collapseBoxConfigForTarget = Object.assign({},boxConfig)
         this.decrementStackSelector()
     }
@@ -659,7 +660,7 @@ class Quadrant extends React.Component<any,any>  {
 
     getBoxComponent = (boxconfig, index, haspeers, key) => {
 
-        // console.log('getBoxComponent', boxconfig, index, haspeers)
+        console.log('getBoxComponent', boxconfig, index, haspeers, key)
 
         let item = this.getDataItem(boxconfig.dataref)
         let itemType = this.getTypeItem(METATYPES.item,item.type)
@@ -671,6 +672,8 @@ class Quadrant extends React.Component<any,any>  {
         if (collapseBoxConfigForTarget) {
             matchForTarget = (collapseBoxConfigForTarget.index == index)
         }
+
+        console.log('match',matchForTarget,collapseBoxConfigForTarget,index)
 
         return (
             <DataBox 
@@ -725,6 +728,8 @@ class Quadrant extends React.Component<any,any>  {
         let { datastack } = this.state
 
         let haspeers = datastack?(this.state.datastack[this.state.stackpointer].items.length > 1):false
+
+        console.log('haspeers',haspeers)
 
         let quadstyle:React.CSSProperties = {
             position:'absolute',
@@ -822,7 +827,7 @@ class Quadrant extends React.Component<any,any>  {
                                 type = 'uniform'
                                 ref = {this.listcomponent}
                             />
-                            :this.getBox(0,0)
+                            :this.getBox(0,'singleton')
                         }
                     </div>
                     </div>

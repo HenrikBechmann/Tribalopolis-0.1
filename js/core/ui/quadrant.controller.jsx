@@ -223,7 +223,7 @@ class Quadrant extends React.Component {
         };
         //-------------------------------[ backward ]----------------------------
         this.collapseCategory = (boxConfig) => {
-            // console.log('quadrant collapseCategory boxConfig, datastack',boxConfig, this.state.stackpointer, this.state.datastack)
+            console.log('quadrant collapseCategory boxConfig, datastack', boxConfig, this.state.stackpointer, this.state.datastack);
             this.collapseBoxConfigForTarget = Object.assign({}, boxConfig);
             this.decrementStackSelector();
         };
@@ -408,7 +408,7 @@ class Quadrant extends React.Component {
             return this.getBoxComponent(boxconfig, index, haspeers, key);
         };
         this.getBoxComponent = (boxconfig, index, haspeers, key) => {
-            // console.log('getBoxComponent', boxconfig, index, haspeers)
+            console.log('getBoxComponent', boxconfig, index, haspeers, key);
             let item = this.getDataItem(boxconfig.dataref);
             let itemType = this.getTypeItem(METATYPES.item, item.type);
             let containerHeight = this.scrollboxelement.current.offsetHeight;
@@ -417,6 +417,7 @@ class Quadrant extends React.Component {
             if (collapseBoxConfigForTarget) {
                 matchForTarget = (collapseBoxConfigForTarget.index == index);
             }
+            console.log('match', matchForTarget, collapseBoxConfigForTarget, index);
             return (<DataBox key={boxconfig.instanceid} item={item} itemType={itemType} collapseBoxConfigForTarget={matchForTarget ? collapseBoxConfigForTarget : null} getListItem={this.getListItem} getListItemType={this.getListItemType(METATYPES.list)} boxConfig={boxconfig} highlightBox={this.highlightBox} haspeers={haspeers} containerHeight={containerHeight} splayBox={(domSource) => {
                 this.splayBox(index, domSource);
             }} selectFromSplay={(domSource) => {
@@ -484,22 +485,24 @@ class Quadrant extends React.Component {
         let index = this.state.datastack[this.state.stackpointer].items.findIndex(this._findlinkIndex(collapseBoxConfigForTarget.sourceinstanceid));
         // update scroll display with selected highlight item
         collapseBoxConfigForTarget.index = index;
-        if (this.state.datastack[this.state.stackpointer].items.length > 1) {
-            setTimeout(() => {
+        setTimeout(() => {
+            console.log('state in did update', this.state);
+            if (this.listcomponent && (this.state.datastack[this.state.stackpointer].items.length > 1)) {
+                console.log('scrollAround', index);
                 this.listcomponent.current.scrollAround(index);
-                setTimeout(() => {
-                    this.setState({
-                        collapseBoxConfigForTarget,
-                    }, () => {
-                        setTimeout(() => {
-                            this.setState({
-                                collapseBoxConfigForTarget: null
-                            });
+            }
+            setTimeout(() => {
+                this.setState({
+                    collapseBoxConfigForTarget,
+                }, () => {
+                    setTimeout(() => {
+                        this.setState({
+                            collapseBoxConfigForTarget: null
                         });
                     });
                 });
             });
-        }
+        });
     }
     /********************************************************
     ------------------------[ render ]-----------------------
@@ -513,6 +516,7 @@ class Quadrant extends React.Component {
         let { color } = this.props;
         let { datastack } = this.state;
         let haspeers = datastack ? (this.state.datastack[this.state.stackpointer].items.length > 1) : false;
+        console.log('haspeers', haspeers);
         let quadstyle = {
             position: 'absolute',
             boxSizing: 'border-box',
@@ -571,7 +575,7 @@ class Quadrant extends React.Component {
                     <div style={viewportStyle} ref={this.scrollboxelement}>
                         {haspeers
             ? <Lister axis='x' itemRenderer={this.getBox} length={datastack ? datastack[this.state.stackpointer].items.length : 0} type='uniform' ref={this.listcomponent}/>
-            : this.getBox(0, 0)}
+            : this.getBox(0, 'singleton')}
                     </div>
                     </div>
                     <QuadSelector quadrant={this.state.quadrant} split={this.props.split} quadselection={this.props.quadselection}/>
