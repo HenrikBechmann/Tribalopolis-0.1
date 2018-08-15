@@ -22,19 +22,20 @@ class Quadrant extends React.Component {
         this.state = {
             quadrant: this.props.quadrant,
             startquadrant: this.props.quadrant,
-            datastack: this.props.datastack,
+            datastack: null,
             stackpointer: 0,
-            collapseBoxConfigForTarget: null,
+            collapseBoxConfigForTarget: null
         };
         // quad css position
         this.position = null;
+        // trigger for animation and reset
+        this.collapseBoxConfigForTarget = null;
         // for reset of containerHeight
         this.onResize = () => {
             this.forceUpdate();
         };
         this._findlinkIndex = (instanceid) => {
             return (item) => {
-                console.log('item', item, instanceid);
                 return item.instanceid == instanceid;
             };
         };
@@ -243,13 +244,16 @@ class Quadrant extends React.Component {
         this._updateCollapseSettings = (stackpointer, datastack) => {
             let stacksource = null;
             if (this.collapseBoxConfigForTarget) {
-                let sourcelayer = this.state.datastack[this.state.stackpointer];
+                let sourcelayer = datastack[this.state.stackpointer];
                 if (sourcelayer) {
                     stacksource = sourcelayer.source;
                     if (stacksource) {
                         this.collapseBoxConfigForTarget.action = stacksource.action;
                         this.collapseBoxConfigForTarget.sourceinstanceid = stacksource.instanceid;
                     }
+                }
+                if (stackpointer > 0) {
+                    datastack[stackpointer - 1].settings.scrollOffset = null;
                 }
             }
         };
@@ -263,12 +267,11 @@ class Quadrant extends React.Component {
             let stacklayer = datastack[stackpointer];
             let { items } = stacklayer;
             if ((items.length > 1) && (!this.collapseBoxConfigForTarget)) {
-                setTimeout(() => {
-                    // let index = this.state.links.findIndex(this.findlinkIndex(highlightrefuid))
-                    // // update scroll display with selected highlight item
-                    // this.listcomponent.current.scrollAround(index)
-                    this.scrollboxelement.current.scrollLeft = stacklayer.settings.scrollOffset;
-                });
+                if (stacklayer.settings.scrollOffset !== null) {
+                    setTimeout(() => {
+                        this.scrollboxelement.current.scrollLeft = stacklayer.settings.scrollOffset;
+                    });
+                }
             }
         };
         /********************************************************
@@ -276,17 +279,6 @@ class Quadrant extends React.Component {
         *********************************************************/
         this.highlightBox = (boxdomref) => {
             let boxelement = boxdomref.current;
-            let clientoffset = 0;
-            let element = boxelement;
-            while (element && (element.getAttribute('data-marker') != 'boxlist-scrollbox')) {
-                clientoffset += element.offsetLeft;
-                element = element.offsetParent;
-            }
-            let scrollelement = element;
-            let diff = (clientoffset + boxelement.offsetWidth) - scrollelement.clientWidth + 16; // margin
-            if (diff > 0) {
-                scrollelement.scrollLeft = diff;
-            }
             boxelement.classList.add('outlinehighlight');
             setTimeout(() => {
                 boxelement.classList.remove('outlinehighlight');
@@ -403,37 +395,6 @@ class Quadrant extends React.Component {
                 return this.getTypeItem(metatype, dataref);
             };
         };
-        // getBoxes = () => {
-        //     let boxes = []
-        //     // console.log('getBoxes quadrant state',this.state)
-        //     let { datastack, stackpointer } = this.state
-        //     if (datastack) {
-        //         let collapseBoxConfigForTarget = null
-        //         let matchForTarget = false
-        //         let stacksource = null
-        //         if (this.collapseBoxConfigForTarget) { // collapseCategory action
-        //             let stacklayer = datastack[stackpointer + 1]
-        //             if (stacklayer) {
-        //                 stacksource = stacklayer.source
-        //             }
-        //             collapseBoxConfigForTarget = this.collapseBoxConfigForTarget
-        //             this.collapseBoxConfigForTarget = null // one time only
-        //             if (stacksource) {
-        //                 collapseBoxConfigForTarget.action = stacksource.action
-        //             }
-        //         }
-        //         let haspeers = (datastack[stackpointer] && (datastack[stackpointer].items.length > 1))
-        //         // boxes = datastack[stackpointer].items.map((boxconfig,index) => {
-        //         //     let context = {collapseBoxConfigForTarget,stacksource,haspeers}
-        //         //     return this.getBoxComponent(boxconfig, index, context)
-        //         // })
-        //         for (let index in datastack[stackpointer].items) {
-        //             boxes.push(this.getBox(index, index))
-        //         }
-        //     }
-        //     // console.log('getBoxes box list',boxes)
-        //     return boxes
-        // }
         // Lister item renderer
         this.getBox = (index, key) => {
             let { datastack, stackpointer } = this.state;
@@ -444,14 +405,6 @@ class Quadrant extends React.Component {
             let boxconfig = datastack[stackpointer].items[index];
             let stacklayer = datastack[stackpointer];
             let haspeers = (stacklayer && (stacklayer.items.length > 1));
-            let collapseBoxConfigForTarget = this.collapseBoxConfigForTarget;
-            let stacksource = null;
-            if (collapseBoxConfigForTarget) {
-                let sourcelayer = datastack[stackpointer + 1];
-                if (sourcelayer) {
-                    stacksource = sourcelayer.source;
-                }
-            }
             return this.getBoxComponent(boxconfig, index, haspeers, key);
         };
         this.getBoxComponent = (boxconfig, index, haspeers, key) => {
@@ -459,9 +412,12 @@ class Quadrant extends React.Component {
             let item = this.getDataItem(boxconfig.dataref);
             let itemType = this.getTypeItem(METATYPES.item, item.type);
             let containerHeight = this.scrollboxelement.current.offsetHeight;
-            let matchForTarget = (this.state.collapseBoxConfigForTarget && (this.state.collapseBoxConfigForTarget.index == index));
-            console.log('matchfortarget', matchForTarget, this.state.collapseBoxConfigForTarget, index);
-            return (<DataBox key={boxconfig.instanceid} item={item} itemType={itemType} collapseBoxConfigForTarget={matchForTarget ? this.state.collapseBoxConfigForTarget : null} getListItem={this.getListItem} getListItemType={this.getListItemType(METATYPES.list)} boxConfig={boxconfig} highlightBox={this.highlightBox} haspeers={haspeers} containerHeight={containerHeight} splayBox={(domSource) => {
+            let matchForTarget = false;
+            let { collapseBoxConfigForTarget } = this.state;
+            if (collapseBoxConfigForTarget) {
+                matchForTarget = (collapseBoxConfigForTarget.index == index);
+            }
+            return (<DataBox key={boxconfig.instanceid} item={item} itemType={itemType} collapseBoxConfigForTarget={matchForTarget ? collapseBoxConfigForTarget : null} getListItem={this.getListItem} getListItemType={this.getListItemType(METATYPES.list)} boxConfig={boxconfig} highlightBox={this.highlightBox} haspeers={haspeers} containerHeight={containerHeight} splayBox={(domSource) => {
                 this.splayBox(index, domSource);
             }} selectFromSplay={(domSource) => {
                 this.selectFromSplay(index, domSource);
@@ -529,18 +485,21 @@ class Quadrant extends React.Component {
         // update scroll display with selected highlight item
         collapseBoxConfigForTarget.index = index;
         if (this.state.datastack[this.state.stackpointer].items.length > 1) {
-            this.listcomponent.current.scrollAround(index);
-        }
-        setTimeout(() => {
-            // animate highlight
-            this.setState({
-                collapseBoxConfigForTarget,
-            }, () => {
-                this.setState({
-                    collapseBoxConfigForTarget: null
+            setTimeout(() => {
+                this.listcomponent.current.scrollAround(index);
+                setTimeout(() => {
+                    this.setState({
+                        collapseBoxConfigForTarget,
+                    }, () => {
+                        setTimeout(() => {
+                            this.setState({
+                                collapseBoxConfigForTarget: null
+                            });
+                        });
+                    });
                 });
             });
-        });
+        }
     }
     /********************************************************
     ------------------------[ render ]-----------------------
@@ -552,7 +511,8 @@ class Quadrant extends React.Component {
         let { top, left, bottom, right } = this.position;
         // let boxlist = this.getBoxes()
         let { color } = this.props;
-        let haspeers = (this.state.datastack[this.state.stackpointer].items.length > 1);
+        let { datastack } = this.state;
+        let haspeers = datastack ? (this.state.datastack[this.state.stackpointer].items.length > 1) : false;
         let quadstyle = {
             position: 'absolute',
             boxSizing: 'border-box',
@@ -606,11 +566,11 @@ class Quadrant extends React.Component {
                 <div style={quadcontentstyle}>
                     <SwapMenu quadrant={this.state.quadrant} handleswap={this.props.handleswap}/>
                     <QuadTitleBar title={this.props.title} uid={this.state.startquadrant}/>
-                    <QuadOrigin stackpointer={this.state.stackpointer} stackdepth={this.state.datastack.length} incrementStackSelector={this.incrementStackSelector} decrementStackSelector={this.decrementStackSelector} ref={this.originelement}/>
+                    <QuadOrigin stackpointer={this.state.stackpointer} stackdepth={datastack ? datastack.length : 0} incrementStackSelector={this.incrementStackSelector} decrementStackSelector={this.decrementStackSelector} ref={this.originelement}/>
                     <div style={viewportFrameStyle}>
-                    <div style={viewportStyle} data-marker='boxlist-scrollbox' ref={this.scrollboxelement}>
+                    <div style={viewportStyle} ref={this.scrollboxelement}>
                         {haspeers
-            ? <Lister axis='x' itemRenderer={this.getBox} length={this.state.datastack[this.state.stackpointer].items.length} type='uniform' ref={this.listcomponent}/>
+            ? <Lister axis='x' itemRenderer={this.getBox} length={datastack ? datastack[this.state.stackpointer].items.length : 0} type='uniform' ref={this.listcomponent}/>
             : this.getBox(0, 0)}
                     </div>
                     </div>

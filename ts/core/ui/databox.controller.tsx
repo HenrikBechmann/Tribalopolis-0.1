@@ -30,10 +30,28 @@ class DataBox extends React.Component<any,any> {
 
     boxframe
 
+    componentDidMount() {
+        let { collapseBoxConfigForTarget } = this.props
+        if (!collapseBoxConfigForTarget) return
+        this.doHighlights(collapseBoxConfigForTarget)
+    }
+
     componentDidUpdate() {
         let { collapseBoxConfigForTarget } = this.props
         if (!collapseBoxConfigForTarget) return
-        console.log('componentDidMount',collapseBoxConfigForTarget)
+        this.doHighlights(collapseBoxConfigForTarget)
+    }
+
+    componentWillReceiveProps(newProps) {
+        // console.log('old and new boxconfig',this.state.boxconfig,newProps.boxConfig)
+        if (this.state.boxconfig !== newProps.boxConfig) {
+            this.setState({
+                boxconfig:newProps.boxConfig,
+            })
+        }
+    }
+
+    doHighlights = (collapseBoxConfigForTarget) => {
 
         this.props.highlightBox(this.boxframe)
 
@@ -55,15 +73,6 @@ class DataBox extends React.Component<any,any> {
                 })
 
             }
-        }
-    }
-
-    componentWillReceiveProps(newProps) {
-        // console.log('old and new boxconfig',this.state.boxconfig,newProps.boxConfig)
-        if (this.state.boxconfig !== newProps.boxConfig) {
-            this.setState({
-                boxconfig:newProps.boxConfig,
-            })
         }
     }
 

@@ -16,6 +16,22 @@ class DataBox extends React.Component {
             boxconfig: this.props.boxConfig,
             highlightrefuid: this.props.highlightrefuid
         };
+        this.doHighlights = (collapseBoxConfigForTarget) => {
+            this.props.highlightBox(this.boxframe);
+            if (collapseBoxConfigForTarget.action == 'expand' ||
+                collapseBoxConfigForTarget.action == 'splay') {
+                let dataref = collapseBoxConfigForTarget.liststack[collapseBoxConfigForTarget.liststack.length - 1];
+                if (dataref) {
+                    this.setState({
+                        highlightrefuid: dataref.uid,
+                    }, () => {
+                        this.setState({
+                            highlightrefuid: null
+                        });
+                    });
+                }
+            }
+        };
         this.collapseCategory = () => {
             this.props.collapseCategory(this.state.boxconfig);
         };
@@ -37,25 +53,17 @@ class DataBox extends React.Component {
         };
         this.boxframe = React.createRef();
     }
+    componentDidMount() {
+        let { collapseBoxConfigForTarget } = this.props;
+        if (!collapseBoxConfigForTarget)
+            return;
+        this.doHighlights(collapseBoxConfigForTarget);
+    }
     componentDidUpdate() {
         let { collapseBoxConfigForTarget } = this.props;
         if (!collapseBoxConfigForTarget)
             return;
-        console.log('componentDidMount', collapseBoxConfigForTarget);
-        this.props.highlightBox(this.boxframe);
-        if (collapseBoxConfigForTarget.action == 'expand' ||
-            collapseBoxConfigForTarget.action == 'splay') {
-            let dataref = collapseBoxConfigForTarget.liststack[collapseBoxConfigForTarget.liststack.length - 1];
-            if (dataref) {
-                this.setState({
-                    highlightrefuid: dataref.uid,
-                }, () => {
-                    this.setState({
-                        highlightrefuid: null
-                    });
-                });
-            }
-        }
+        this.doHighlights(collapseBoxConfigForTarget);
     }
     componentWillReceiveProps(newProps) {
         // console.log('old and new boxconfig',this.state.boxconfig,newProps.boxConfig)
