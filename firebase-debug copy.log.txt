@@ -1,0 +1,36 @@
+[debug] [2018-08-15T22:15:42.017Z] ----------------------------------------------------------------------
+[debug] [2018-08-15T22:15:42.019Z] Command:       /usr/local/bin/node /usr/local/bin/firebase deploy
+[debug] [2018-08-15T22:15:42.019Z] CLI Version:   4.1.1
+[debug] [2018-08-15T22:15:42.019Z] Platform:      darwin
+[debug] [2018-08-15T22:15:42.019Z] Node Version:  v9.5.0
+[debug] [2018-08-15T22:15:42.020Z] Time:          Wed Aug 15 2018 18:15:42 GMT-0400 (EDT)
+[debug] [2018-08-15T22:15:42.020Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2018-08-15T22:15:42.031Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2018-08-15T22:15:42.032Z] > authorizing via signed-in user
+[debug] [2018-08-15T22:15:42.034Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/projects/tribalopolis  
+ 
+[debug] [2018-08-15T22:15:42.340Z] <<< HTTP RESPONSE 200
+[debug] [2018-08-15T22:15:42.340Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/database/tribalopolis/tokens  
+ 
+[debug] [2018-08-15T22:15:42.665Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Deploying to 'tribalopolis'...
+[info] 
+[info] i  deploying hosting
+[debug] [2018-08-15T22:15:43.003Z] >>> HTTP REQUEST POST https://firebasehosting.googleapis.com/v1beta1/sites/tribalopolis/versions  
+
+[debug] [2018-08-15T22:15:43.924Z] <<< HTTP RESPONSE 200
+[debug] [2018-08-15T22:15:44.069Z] Error: EACCES: permission denied, scandir '/.DocumentRevisions-V100'
+    at Object.fs.readdirSync (fs.js:924:18)
+    at GlobSync._readdir (/usr/local/lib/node_modules/firebase-tools/node_modules/glob/sync.js:288:41)
+    at GlobSync._readdirInGlobStar (/usr/local/lib/node_modules/firebase-tools/node_modules/glob/sync.js:245:17)
+    at GlobSync._readdir (/usr/local/lib/node_modules/firebase-tools/node_modules/glob/sync.js:276:17)
+    at GlobSync._processReaddir (/usr/local/lib/node_modules/firebase-tools/node_modules/glob/sync.js:137:22)
+    at GlobSync._process (/usr/local/lib/node_modules/firebase-tools/node_modules/glob/sync.js:132:10)
+    at GlobSync._processGlobStar (/usr/local/lib/node_modules/firebase-tools/node_modules/glob/sync.js:380:10)
+    at GlobSync._process (/usr/local/lib/node_modules/firebase-tools/node_modules/glob/sync.js:130:10)
+    at new GlobSync (/usr/local/lib/node_modules/firebase-tools/node_modules/glob/sync.js:48:10)
+    at globSync (/usr/local/lib/node_modules/firebase-tools/node_modules/glob/sync.js:26:10)
+[error] 
+[error] Error: An unexpected error has occurred.

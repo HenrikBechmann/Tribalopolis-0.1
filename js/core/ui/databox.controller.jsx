@@ -73,7 +73,9 @@ class DataBox extends React.Component {
         let { collapseBoxConfigForTarget } = this.props;
         if (!collapseBoxConfigForTarget)
             return;
-        this.doHighlights(collapseBoxConfigForTarget);
+        setTimeout(() => {
+            this.doHighlights(collapseBoxConfigForTarget);
+        });
     }
     componentDidUpdate() {
         if (this.collapseBoxConfigForTarget)
@@ -82,7 +84,9 @@ class DataBox extends React.Component {
         this.collapseBoxConfigForTarget = collapseBoxConfigForTarget;
         if (!collapseBoxConfigForTarget)
             return;
-        this.doHighlights(collapseBoxConfigForTarget);
+        setTimeout(() => {
+            this.doHighlights(collapseBoxConfigForTarget);
+        });
     }
     componentWillReceiveProps(newProps) {
         // console.log('old and new boxconfig',this.state.boxconfig,newProps.boxConfig)
