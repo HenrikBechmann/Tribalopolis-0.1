@@ -484,8 +484,8 @@ class Quadrant extends React.Component<any,any>  {
         let sourceelement = this.scrollboxelement.current
         let targetelement = this.originelement.current
 
-        let sourcePack = this._getAnimationElementVars(sourceelement, 'quadelement')
-        let targetPack = this._getAnimationElementVars(targetelement, 'quadelement')
+        let sourcePack = this._getAnimationElementVars(sourceelement)
+        let targetPack = this._getAnimationElementVars(targetelement)
 
         this._animateMaskDrill(sourcePack)
         this._animateOriginDrill( sourcePack, targetPack )
@@ -512,11 +512,7 @@ class Quadrant extends React.Component<any,any>  {
         let targetReference = this.scrollboxelement.current
 
         let { domSourcePack:drillSourcePack, domTargetPack:drillTargetPack } = 
-            this._getAnimationSelectDrillVars( domSource.current, targetReference, 'quadelement' )
-
-        let scrollBoxOffset = this.scrollboxelement.current.scrollLeft
-
-        drillSourcePack.left -= scrollBoxOffset
+            this._getAnimationSelectDrillVars( domSource.current, targetReference )
 
         this._animateBlockDrill( drillSourcePack, drillTargetPack )
 
@@ -527,29 +523,25 @@ class Quadrant extends React.Component<any,any>  {
         let targetElement = this.scrollboxelement.current
 
         let {domSourcePack:drillSourcePack,domTargetPack:drillTargetPack} = 
-            this._getAnimationDrillVars(domSource.current,targetElement,'quadelement')
-
-        let scrollBoxOffset = this.scrollboxelement.current.scrollLeft
-
-        drillSourcePack.left -= scrollBoxOffset
+            this._getAnimationDrillVars(domSource.current,targetElement)
 
         this._animateBlockDrill(drillSourcePack, drillTargetPack)
 
     }
 
-    _getAnimationDrillVars = (domSource:HTMLElement,domTarget:HTMLElement,referenceMarker) => {
+    _getAnimationDrillVars = (domSource:HTMLElement,domTarget:HTMLElement) => {
         let varpack = {
             domSourcePack:null,
             domTargetPack:null,
         }
 
-        varpack.domSourcePack = this._getAnimationElementVars(domSource,referenceMarker)
-        varpack.domTargetPack = this._getAnimationElementVars(domTarget,referenceMarker)
+        varpack.domSourcePack = this._getAnimationElementVars(domSource)
+        varpack.domTargetPack = this._getAnimationElementVars(domTarget)
 
         return varpack
     }
 
-    _getAnimationSelectDrillVars = (domSource:HTMLElement,domReference:HTMLElement,referenceMarker) => {
+    _getAnimationSelectDrillVars = (domSource:HTMLElement,domReference:HTMLElement) => {
         let varpack = {
             domSourcePack:null,
             domTargetPack:null,
@@ -562,25 +554,22 @@ class Quadrant extends React.Component<any,any>  {
             width:300,
         }
 
-        varpack.domSourcePack = this._getAnimationElementVars(domSource,referenceMarker)
+        varpack.domSourcePack = this._getAnimationElementVars(domSource)
         varpack.domTargetPack = targetPack
 
         return varpack
     }
 
-    _getAnimationElementVars = (domelement:HTMLElement, referenceMarker) => {
+    _getAnimationElementVars = (domelement:HTMLElement) => {
 
-        let topOffset = 0
-        let leftOffset = 0
+        let containerelement = this.quadelement.current
+        let containerRect = containerelement.getBoundingClientRect()
+        let elementRect = domelement.getBoundingClientRect()
+
+        let topOffset = elementRect.top - containerRect.top
+        let leftOffset = elementRect.left - containerRect.left
         let height = domelement.clientHeight
         let width = domelement.clientWidth
-
-        let searchelement:HTMLElement = domelement
-        while (searchelement && (searchelement.getAttribute('data-marker') != referenceMarker)) {
-            topOffset += searchelement.offsetTop
-            leftOffset += searchelement.offsetLeft
-            searchelement = searchelement.offsetParent as HTMLElement
-        }
 
         return {
             top:topOffset,
@@ -730,7 +719,10 @@ class Quadrant extends React.Component<any,any>  {
 
         let haspeers = datastack?(this.state.datastack[this.state.stackpointer].items.length > 1):false
 
-        // console.log('haspeers',haspeers)
+        // Safari keeps scrollleft with content changes
+        if (!haspeers && this.scrollboxelement.current && (this.scrollboxelement.current.scrollLeft != 0)) {
+            this.scrollboxelement.current.scrollLeft = 0
+        }
 
         let quadstyle:React.CSSProperties = {
             position:'absolute',

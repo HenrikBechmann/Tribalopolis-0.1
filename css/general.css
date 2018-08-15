@@ -12,7 +12,16 @@
         opacity:0;
         box-sizing: border-box;
     }
-    20% {
+    15% {
+        top:var(--top);
+        left:var(--left);
+        height:var(--height);
+        width:var(--width);
+        background-color: #e8e8e8;
+        opacity:1;
+        box-sizing: border-box;
+    }
+    60% {
         top:var(--top);
         left:var(--left);
         height:var(--height);
@@ -73,7 +82,7 @@
         background-color: green;
         opacity:0;
     }
-    30% {
+    20% {
         top:var(--targettop);
         left:var(--targetleft);
         height:var(--targetheight);
@@ -98,7 +107,7 @@
 .maskdrill {
     position:absolute;
     border: 6px solid silver;
-    animation: maskdrill 1.25s;
+    animation: maskdrill 1s;
     z-index: 4;
     border-radius: 8px;
 }

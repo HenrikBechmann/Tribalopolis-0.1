@@ -286,8 +286,8 @@ class Quadrant extends React.Component {
         this.animateToOrigin = () => {
             let sourceelement = this.scrollboxelement.current;
             let targetelement = this.originelement.current;
-            let sourcePack = this._getAnimationElementVars(sourceelement, 'quadelement');
-            let targetPack = this._getAnimationElementVars(targetelement, 'quadelement');
+            let sourcePack = this._getAnimationElementVars(sourceelement);
+            let targetPack = this._getAnimationElementVars(targetelement);
             this._animateMaskDrill(sourcePack);
             this._animateOriginDrill(sourcePack, targetPack);
         };
@@ -303,28 +303,24 @@ class Quadrant extends React.Component {
         };
         this.animateToDatabox = (domSource) => {
             let targetReference = this.scrollboxelement.current;
-            let { domSourcePack: drillSourcePack, domTargetPack: drillTargetPack } = this._getAnimationSelectDrillVars(domSource.current, targetReference, 'quadelement');
-            let scrollBoxOffset = this.scrollboxelement.current.scrollLeft;
-            drillSourcePack.left -= scrollBoxOffset;
+            let { domSourcePack: drillSourcePack, domTargetPack: drillTargetPack } = this._getAnimationSelectDrillVars(domSource.current, targetReference);
             this._animateBlockDrill(drillSourcePack, drillTargetPack);
         };
         this.animateToDataboxList = (domSource) => {
             let targetElement = this.scrollboxelement.current;
-            let { domSourcePack: drillSourcePack, domTargetPack: drillTargetPack } = this._getAnimationDrillVars(domSource.current, targetElement, 'quadelement');
-            let scrollBoxOffset = this.scrollboxelement.current.scrollLeft;
-            drillSourcePack.left -= scrollBoxOffset;
+            let { domSourcePack: drillSourcePack, domTargetPack: drillTargetPack } = this._getAnimationDrillVars(domSource.current, targetElement);
             this._animateBlockDrill(drillSourcePack, drillTargetPack);
         };
-        this._getAnimationDrillVars = (domSource, domTarget, referenceMarker) => {
+        this._getAnimationDrillVars = (domSource, domTarget) => {
             let varpack = {
                 domSourcePack: null,
                 domTargetPack: null,
             };
-            varpack.domSourcePack = this._getAnimationElementVars(domSource, referenceMarker);
-            varpack.domTargetPack = this._getAnimationElementVars(domTarget, referenceMarker);
+            varpack.domSourcePack = this._getAnimationElementVars(domSource);
+            varpack.domTargetPack = this._getAnimationElementVars(domTarget);
             return varpack;
         };
-        this._getAnimationSelectDrillVars = (domSource, domReference, referenceMarker) => {
+        this._getAnimationSelectDrillVars = (domSource, domReference) => {
             let varpack = {
                 domSourcePack: null,
                 domTargetPack: null,
@@ -335,21 +331,18 @@ class Quadrant extends React.Component {
                 height: domReference.clientHeight - (domReference.clientHeight * .06),
                 width: 300,
             };
-            varpack.domSourcePack = this._getAnimationElementVars(domSource, referenceMarker);
+            varpack.domSourcePack = this._getAnimationElementVars(domSource);
             varpack.domTargetPack = targetPack;
             return varpack;
         };
-        this._getAnimationElementVars = (domelement, referenceMarker) => {
-            let topOffset = 0;
-            let leftOffset = 0;
+        this._getAnimationElementVars = (domelement) => {
+            let containerelement = this.quadelement.current;
+            let containerRect = containerelement.getBoundingClientRect();
+            let elementRect = domelement.getBoundingClientRect();
+            let topOffset = elementRect.top - containerRect.top;
+            let leftOffset = elementRect.left - containerRect.left;
             let height = domelement.clientHeight;
             let width = domelement.clientWidth;
-            let searchelement = domelement;
-            while (searchelement && (searchelement.getAttribute('data-marker') != referenceMarker)) {
-                topOffset += searchelement.offsetTop;
-                leftOffset += searchelement.offsetLeft;
-                searchelement = searchelement.offsetParent;
-            }
             return {
                 top: topOffset,
                 left: leftOffset,
@@ -513,7 +506,10 @@ class Quadrant extends React.Component {
         let { color } = this.props;
         let { datastack } = this.state;
         let haspeers = datastack ? (this.state.datastack[this.state.stackpointer].items.length > 1) : false;
-        // console.log('haspeers',haspeers)
+        // Safari keeps scrollleft with content changes
+        if (!haspeers && this.scrollboxelement.current && (this.scrollboxelement.current.scrollLeft != 0)) {
+            this.scrollboxelement.current.scrollLeft = 0;
+        }
         let quadstyle = {
             position: 'absolute',
             boxSizing: 'border-box',
