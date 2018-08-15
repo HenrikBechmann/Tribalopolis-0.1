@@ -447,7 +447,7 @@ let lists = {
             uid:'x',
         },
         properties:{
-            name:'Membership',
+            name:'Tribalopolis Membership',
             sysnode:true,
             aggregates:{
                 childcount:{
@@ -498,7 +498,7 @@ let lists = {
             uid:'x',
         },
         properties:{
-            name:'Links',
+            name:'Links Directory',
             sysnode:true,
             aggregates:{
                 childcount:{
