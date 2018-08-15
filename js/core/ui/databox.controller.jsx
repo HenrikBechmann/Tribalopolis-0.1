@@ -22,11 +22,13 @@ class DataBox extends React.Component {
                 collapseBoxConfigForTarget.action == 'splay') {
                 let dataref = collapseBoxConfigForTarget.liststack[collapseBoxConfigForTarget.liststack.length - 1];
                 if (dataref) {
-                    this.setState({
-                        highlightrefuid: dataref.uid,
-                    }, () => {
+                    setTimeout(() => {
                         this.setState({
-                            highlightrefuid: null
+                            highlightrefuid: dataref.uid,
+                        }, () => {
+                            this.setState({
+                                highlightrefuid: null
+                            });
                         });
                     });
                 }
@@ -60,7 +62,10 @@ class DataBox extends React.Component {
         this.doHighlights(collapseBoxConfigForTarget);
     }
     componentDidUpdate() {
+        if (this.collapseBoxConfigForTarget)
+            return; // avoid infinite recursion, triggered by list highlight
         let { collapseBoxConfigForTarget } = this.props;
+        this.collapseBoxConfigForTarget = collapseBoxConfigForTarget;
         if (!collapseBoxConfigForTarget)
             return;
         this.doHighlights(collapseBoxConfigForTarget);

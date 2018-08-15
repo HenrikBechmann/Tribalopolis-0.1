@@ -144,9 +144,8 @@ class Quadrant extends React.Component<any,any>  {
         collapseBoxConfigForTarget.index = index
 
         setTimeout(()=>{
-            console.log('state in did update',this.state)
+
             if (this.listcomponent && (this.state.datastack[this.state.stackpointer].items.length > 1)) {
-                console.log('scrollAround',index)
                 this.listcomponent.current.scrollAround(index)
             }
 
@@ -402,9 +401,10 @@ class Quadrant extends React.Component<any,any>  {
     //-------------------------------[ backward ]----------------------------
 
     collapseCategory = (boxConfig) => {
-        console.log('quadrant collapseCategory boxConfig, datastack',boxConfig, this.state.stackpointer, this.state.datastack)
+
         this.collapseBoxConfigForTarget = Object.assign({},boxConfig)
         this.decrementStackSelector()
+
     }
 
     decrementStackSelector = () => {
@@ -660,7 +660,7 @@ class Quadrant extends React.Component<any,any>  {
 
     getBoxComponent = (boxconfig, index, haspeers, key) => {
 
-        console.log('getBoxComponent', boxconfig, index, haspeers, key)
+        // console.log('getBoxComponent', boxconfig, index, haspeers, key)
 
         let item = this.getDataItem(boxconfig.dataref)
         let itemType = this.getTypeItem(METATYPES.item,item.type)
@@ -673,7 +673,7 @@ class Quadrant extends React.Component<any,any>  {
             matchForTarget = (collapseBoxConfigForTarget.index == index)
         }
 
-        console.log('match',matchForTarget,collapseBoxConfigForTarget,index)
+        // console.log('match',matchForTarget,collapseBoxConfigForTarget,index)
 
         return (
             <DataBox 
@@ -729,7 +729,7 @@ class Quadrant extends React.Component<any,any>  {
 
         let haspeers = datastack?(this.state.datastack[this.state.stackpointer].items.length > 1):false
 
-        console.log('haspeers',haspeers)
+        // console.log('haspeers',haspeers)
 
         let quadstyle:React.CSSProperties = {
             position:'absolute',

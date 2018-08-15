@@ -36,8 +36,12 @@ class DataBox extends React.Component<any,any> {
         this.doHighlights(collapseBoxConfigForTarget)
     }
 
+    collapseBoxConfigForTarget
+
     componentDidUpdate() {
+        if (this.collapseBoxConfigForTarget) return // avoid infinite recursion, triggered by list highlight
         let { collapseBoxConfigForTarget } = this.props
+        this.collapseBoxConfigForTarget = collapseBoxConfigForTarget
         if (!collapseBoxConfigForTarget) return
         this.doHighlights(collapseBoxConfigForTarget)
     }
@@ -64,11 +68,13 @@ class DataBox extends React.Component<any,any> {
 
             if (dataref) {
 
-                this.setState({
-                    highlightrefuid:dataref.uid,
-                },() => {
+                setTimeout(()=>{
                     this.setState({
-                        highlightrefuid:null
+                        highlightrefuid:dataref.uid,
+                    },() => {
+                        this.setState({
+                            highlightrefuid:null
+                        })
                     })
                 })
 
