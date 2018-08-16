@@ -34,22 +34,36 @@ class DataBox extends React.Component<any,any> {
 
     componentDidMount() {
         let { collapseBoxConfigForTarget } = this.props
+        // console.log('collapsing from componentdidMOUNT',collapseBoxConfigForTarget)
+        // console.log('box componentdidMOUNT', this.state)
         if (!collapseBoxConfigForTarget) return
+        // console.log('didMOUNT collapseBoxConfigForTarget',collapseBoxConfigForTarget)
+        this.collapseBoxConfigForTarget = collapseBoxConfigForTarget
+        // collapseBoxConfigForTarget = JSON.parse(JSON.stringify(collapseBoxConfigForTarget))
         setTimeout(()=>{
             this.doHighlights(collapseBoxConfigForTarget)
-        },100)
+            setTimeout(()=>{
+                this.collapseBoxConfigForTarget = null
+            },2000)
+        })
     }
 
     collapseBoxConfigForTarget
 
     componentDidUpdate() {
-        if (this.collapseBoxConfigForTarget) return // avoid infinite recursion, triggered by list highlight
         let { collapseBoxConfigForTarget } = this.props
-        this.collapseBoxConfigForTarget = collapseBoxConfigForTarget
+        // console.log('box componentdidUPDATE', this.state)
         if (!collapseBoxConfigForTarget) return
+        // console.log('didupdate collapseBoxConfigForTarget',collapseBoxConfigForTarget)
+        if (this.collapseBoxConfigForTarget) return // avoid infinite recursion, triggered by list highlight
+        // collapseBoxConfigForTarget = JSON.parse(JSON.stringify(collapseBoxConfigForTarget))
+        this.collapseBoxConfigForTarget = collapseBoxConfigForTarget
         setTimeout(()=>{
             this.doHighlights(collapseBoxConfigForTarget)
-        },100)
+            setTimeout(()=>{
+                this.collapseBoxConfigForTarget = null
+            },2000)
+        })
     }
 
     componentWillReceiveProps(newProps) {
@@ -83,7 +97,6 @@ class DataBox extends React.Component<any,any> {
                         })
                     })
                 })
-
             }
         }
     }

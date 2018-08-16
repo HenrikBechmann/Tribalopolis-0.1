@@ -42,7 +42,7 @@ class CategoriesListBase extends React.Component<any,any> {
                 })
             })
 
-        })
+        },300)
     }
 
     findlinkIndex = (uid) => {

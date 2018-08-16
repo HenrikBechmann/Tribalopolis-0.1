@@ -158,7 +158,7 @@ class Quadrant extends React.Component<any,any>  {
                         })                        
                     })
                 })
-            })
+            },300)
 
         })
     }
@@ -409,6 +409,7 @@ class Quadrant extends React.Component<any,any>  {
     collapseCategory = (boxConfig) => {
 
         this.collapseBoxConfigForTarget = Object.assign({},boxConfig)
+
         this.decrementStackSelector()
 
     }
@@ -468,7 +469,7 @@ class Quadrant extends React.Component<any,any>  {
             }
         }
 
-    }
+        }
 
 /********************************************************
 ----------------------[ animations ]---------------------
@@ -477,7 +478,6 @@ class Quadrant extends React.Component<any,any>  {
     highlightBox = (boxdomref) => {
 
         let boxelement:HTMLElement = boxdomref.current
-
         boxelement.classList.add('outlinehighlight')
         setTimeout(() => {
             boxelement.classList.remove('outlinehighlight')

@@ -51,7 +51,7 @@ class CategoriesListBase extends React.Component {
                     highlightrefuid: null
                 });
             });
-        });
+        }, 300);
     }
     render() {
         return <Lister ref={this.props.forwardedRef} itemRenderer={this.itemRenderer} length={this.state.links.length} type='uniform'/>;
