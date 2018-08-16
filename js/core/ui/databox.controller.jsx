@@ -77,7 +77,6 @@ class DataBox extends React.Component {
             return;
         // console.log('didMOUNT collapseBoxConfigForTarget',collapseBoxConfigForTarget)
         this.collapseBoxConfigForTarget = collapseBoxConfigForTarget;
-        // collapseBoxConfigForTarget = JSON.parse(JSON.stringify(collapseBoxConfigForTarget))
         setTimeout(() => {
             this.doHighlights(collapseBoxConfigForTarget);
             setTimeout(() => {
@@ -93,7 +92,6 @@ class DataBox extends React.Component {
         // console.log('didupdate collapseBoxConfigForTarget',collapseBoxConfigForTarget)
         if (this.collapseBoxConfigForTarget)
             return; // avoid infinite recursion, triggered by list highlight
-        // collapseBoxConfigForTarget = JSON.parse(JSON.stringify(collapseBoxConfigForTarget))
         this.collapseBoxConfigForTarget = collapseBoxConfigForTarget;
         setTimeout(() => {
             this.doHighlights(collapseBoxConfigForTarget);
@@ -125,7 +123,7 @@ class DataBox extends React.Component {
         let frameStyle = {
             width: '300px',
             backgroundColor: 'white',
-            border: '1px solid silver',
+            border: this.collapseBoxConfigForTarget ? '1px solid blue' : '1px solid silver',
             maxHeight: '96%',
             minHeight: '60%',
             boxSizing: 'border-box',
