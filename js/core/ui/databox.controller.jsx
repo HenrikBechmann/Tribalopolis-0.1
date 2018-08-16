@@ -75,7 +75,7 @@ class DataBox extends React.Component {
             return;
         setTimeout(() => {
             this.doHighlights(collapseBoxConfigForTarget);
-        });
+        }, 100);
     }
     componentDidUpdate() {
         if (this.collapseBoxConfigForTarget)
@@ -86,7 +86,7 @@ class DataBox extends React.Component {
             return;
         setTimeout(() => {
             this.doHighlights(collapseBoxConfigForTarget);
-        });
+        }, 100);
     }
     componentWillReceiveProps(newProps) {
         // console.log('old and new boxconfig',this.state.boxconfig,newProps.boxConfig)

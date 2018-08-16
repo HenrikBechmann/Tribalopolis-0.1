@@ -37,7 +37,7 @@ class DataBox extends React.Component<any,any> {
         if (!collapseBoxConfigForTarget) return
         setTimeout(()=>{
             this.doHighlights(collapseBoxConfigForTarget)
-        })
+        },100)
     }
 
     collapseBoxConfigForTarget
@@ -49,7 +49,7 @@ class DataBox extends React.Component<any,any> {
         if (!collapseBoxConfigForTarget) return
         setTimeout(()=>{
             this.doHighlights(collapseBoxConfigForTarget)
-        })
+        },100)
     }
 
     componentWillReceiveProps(newProps) {
