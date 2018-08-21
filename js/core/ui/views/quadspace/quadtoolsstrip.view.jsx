@@ -193,7 +193,7 @@ class QuadToolsStrip extends React.Component {
                             <div style={{ display: 'inline-block', height: '1.5em', borderLeft: '1px solid gray' }}></div>
 
                             <IconButton>
-                                <FontIcon className='material-icons'>new_releases</FontIcon>
+                                <FontIcon className='material-icons'>notifications</FontIcon>
                             </IconButton>
 
                             <IconButton>

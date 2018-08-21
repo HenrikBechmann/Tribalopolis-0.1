@@ -397,7 +397,7 @@ class QuadToolsStrip extends React.Component<any,any> {
 
                             <IconButton 
                             >
-                                <FontIcon className='material-icons'>new_releases</FontIcon>
+                                <FontIcon className='material-icons'>notifications</FontIcon>
                             </IconButton>
 
                             <IconButton
