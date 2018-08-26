@@ -12,8 +12,24 @@ import CategoriesBar from './views/databox/categoriesbar.view'
 import CategoryList from './views/databox/categorylist.view'
 import ScanBar from './views/databox/scanbar.view'
 
-import V0FloatingActionButton from 'material-ui/FloatingActionButton';
-import ContentAdd from '@material-ui/icons/Add'
+import { withStyles } from '@material-ui/core/styles'
+import Button from '@material-ui/core/Button'
+import AddIcon from '@material-ui/icons/Add'
+
+const styles = theme => ({
+  button: {
+    marginRight: theme.spacing.unit
+  },
+})
+
+const BaseFloatingAddButton = (props) => {
+    const { classes } = props
+    return <Button variant = 'fab' mini color = 'secondary' aria-label = 'Add' className = {classes.button} >
+      <AddIcon />
+    </Button>
+}
+
+const FloatingAddButton = withStyles(styles)(BaseFloatingAddButton)
 
 class DataBox extends React.Component<any,any> {
 
@@ -127,9 +143,7 @@ class DataBox extends React.Component<any,any> {
         let outgoing = listItemType.properties.is.outgoing
 
         let retval = (outgoing)?<div style = {{position:'absolute',bottom:'-8px',right:'0'}}>
-            <V0FloatingActionButton secondary = {true} mini = {true} style={{marginRight:'12px'}} >
-              <ContentAdd />
-            </V0FloatingActionButton>
+            <FloatingAddButton />
         </div>:null
         return retval
     }
