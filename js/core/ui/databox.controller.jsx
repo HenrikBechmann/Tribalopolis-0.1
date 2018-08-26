@@ -6,8 +6,8 @@ import BoxIdentifier from './views/databox/identitybar.view';
 import BoxTypebar from './views/databox/typebar.view';
 import CategoriesBar from './views/databox/categoriesbar.view';
 import CategoryList from './views/databox/categorylist.view';
-import FloatingActionButton from 'material-ui/FloatingActionButton';
-import ContentAdd from 'material-ui/svg-icons/content/add';
+import V0FloatingActionButton from 'material-ui/FloatingActionButton';
+import ContentAdd from '@material-ui/icons/Add';
 class DataBox extends React.Component {
     constructor(props) {
         super(props);
@@ -50,9 +50,9 @@ class DataBox extends React.Component {
         this.modifybuttons = (listItemType) => {
             let outgoing = listItemType.properties.is.outgoing;
             let retval = (outgoing) ? <div style={{ position: 'absolute', bottom: '-8px', right: '0' }}>
-            <FloatingActionButton secondary={true} mini={true} style={{ marginRight: '12px' }}>
+            <V0FloatingActionButton secondary={true} mini={true} style={{ marginRight: '12px' }}>
               <ContentAdd />
-            </FloatingActionButton>
+            </V0FloatingActionButton>
         </div> : null;
             return retval;
         };

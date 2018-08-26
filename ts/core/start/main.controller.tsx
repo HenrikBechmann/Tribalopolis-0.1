@@ -13,10 +13,10 @@ import DnDTouchBackend from 'react-dnd-touch-backend'
 
 let DnDBackend = DnDTouchBackend({ enableMouseEvents: true })
 
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
-import getMuiTheme from 'material-ui/styles/getMuiTheme'
+import V0MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
+import V0getMuiTheme from 'material-ui/styles/getMuiTheme'
 
-const muiTheme = getMuiTheme()
+const V0muiTheme = V0getMuiTheme()
 
 import MainView from './main.view'
 
@@ -30,10 +30,10 @@ class Main extends React.Component<any,any> {
         let { globalmessage, version } = this.props
 
         return (
-            <MuiThemeProvider muiTheme = {muiTheme}>
+            <V0MuiThemeProvider muiTheme = {V0muiTheme}>
                 <MainView globalmessage={globalmessage}
                     style = {this.mainviewstyle} />
-            </MuiThemeProvider>
+            </V0MuiThemeProvider>
         )
     }
 }

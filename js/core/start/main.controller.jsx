@@ -6,9 +6,9 @@ let fontFamily = state.theme.fontFamily;
 import { DragDropContext } from 'react-dnd';
 import DnDTouchBackend from 'react-dnd-touch-backend';
 let DnDBackend = DnDTouchBackend({ enableMouseEvents: true });
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
-const muiTheme = getMuiTheme();
+import V0MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import V0getMuiTheme from 'material-ui/styles/getMuiTheme';
+const V0muiTheme = V0getMuiTheme();
 import MainView from './main.view';
 class Main extends React.Component {
     constructor() {
@@ -19,9 +19,9 @@ class Main extends React.Component {
     }
     render() {
         let { globalmessage, version } = this.props;
-        return (<MuiThemeProvider muiTheme={muiTheme}>
+        return (<V0MuiThemeProvider muiTheme={V0muiTheme}>
                 <MainView globalmessage={globalmessage} style={this.mainviewstyle}/>
-            </MuiThemeProvider>);
+            </V0MuiThemeProvider>);
     }
 }
 export default DragDropContext(DnDBackend)(Main);
