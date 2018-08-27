@@ -142,9 +142,12 @@ class DataBox extends React.Component<any,any> {
 
         let outgoing = listItemType.properties.is.outgoing
 
-        let retval = (outgoing)?<div style = {{position:'absolute',bottom:'-8px',right:'0'}}>
-            <FloatingAddButton />
-        </div>:null
+        let retval = outgoing?
+            <div style = {{position:'absolute',bottom:'-8px',right:'0'}}>
+                <FloatingAddButton />
+            </div>
+            :
+            null
         return retval
     }
 

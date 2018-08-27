@@ -80,7 +80,7 @@ class BoxToolbar extends React.Component<any,any> {
                 ref = {this.selectdomsource}
             >
                 <ActionButton 
-                    iconStyle = {{transform:'rotate(90deg)',opacity:haspeers?1:0.3}}
+                    iconStyle = {{transform:'rotate(90deg)'}}
                     disabled = {!haspeers}
                     img = '/public/icons/ic_splay_24px.svg' 
                     action = {this.selectFromSplay()}

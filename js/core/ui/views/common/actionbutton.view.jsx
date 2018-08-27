@@ -2,9 +2,10 @@
 // copyright (c) 2018 Henrik Bechmann, Toronto, MIT Licence
 'use strict';
 import * as React from 'react';
-import IconButton from 'material-ui/IconButton';
-import FontIcon from 'material-ui/FontIcon';
+import IconButton from '@material-ui/core/IconButton';
+import Icon from '@material-ui/core/Icon';
 const ActionButton = (props) => {
+    let { buttonStyle, iconStyle, action, icon, img, disabled } = props;
     let defaultButtonStyle = {
         padding: '0',
         width: '24px',
@@ -13,19 +14,21 @@ const ActionButton = (props) => {
         verticalAlign: 'bottom',
         marginRight: '3px'
     };
-    let { buttonStyle, iconStyle, action, icon, img, disabled } = props;
-    let defaultIconStyle = {
-        opacity: disabled ? .3 : 1
-    };
-    // console.log('disabled in actionbutton',disabled)
+    let defaultIconStyle = {};
+    if (!icon) { // it's an image, manual opacity required
+        defaultIconStyle = Object.assign({}, defaultIconStyle, {
+            verticalAlign: 'middle',
+            opacity: disabled ? .26 : .54 // material ui values: TODO: take these settings from theme
+        });
+    }
     let theButtonStyle = Object.assign({}, defaultButtonStyle, buttonStyle);
     let theIconStyle = Object.assign({}, defaultIconStyle, iconStyle);
-    let iconcomponent = icon ? <FontIcon className='material-icons'>{icon}</FontIcon> :
-        <img style={{ verticalAlign: 'middle' }} src={img}/>;
+    let iconcomponent = icon ? <Icon style={theIconStyle}>{icon}</Icon> :
+        <img style={theIconStyle} src={img}/>;
     let onClickVal = (action && !disabled)
         ? () => { action(); }
         : () => { };
-    return (<IconButton style={theButtonStyle} iconStyle={theIconStyle} onClick={onClickVal} disabled={disabled}>
+    return (<IconButton style={theButtonStyle} onClick={onClickVal} disabled={disabled}>
             {iconcomponent}
         </IconButton>);
 };

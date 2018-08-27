@@ -52,7 +52,7 @@ class BoxToolbar extends React.Component {
             </div>
 
             <div style={{ float: 'right' }} ref={this.selectdomsource}>
-                <ActionButton iconStyle={{ transform: 'rotate(90deg)', opacity: haspeers ? 1 : 0.3 }} disabled={!haspeers} img='/public/icons/ic_splay_24px.svg' action={this.selectFromSplay()}/>
+                <ActionButton iconStyle={{ transform: 'rotate(90deg)' }} disabled={!haspeers} img='/public/icons/ic_splay_24px.svg' action={this.selectFromSplay()}/>
             </div>
 
                 <ActionButton icon='arrow_drop_down'/>
