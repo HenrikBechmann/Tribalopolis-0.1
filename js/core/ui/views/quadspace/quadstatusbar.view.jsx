@@ -2,7 +2,7 @@
 // copyright (c) 2018 Henrik Bechmann, Toronto, MIT Licence
 'use strict';
 import * as React from 'react';
-import FontIcon from 'material-ui/FontIcon';
+import Icon from '@material-ui/core/Icon';
 const QuadStatusBar = props => {
     return (<div style={{
         position: 'absolute',
@@ -25,7 +25,7 @@ const QuadStatusBar = props => {
         border: '1px solid silver',
         boxSizing: 'border-box',
     }}> 
-                <FontIcon className='material-icons'>delete</FontIcon>
+                <Icon>delete</Icon>
             </div>
             <div style={{
         position: 'absolute',
@@ -36,7 +36,7 @@ const QuadStatusBar = props => {
         border: '1px solid gray',
         boxSizing: 'border-box',
     }}>
-                <FontIcon className='material-icons'>view_list</FontIcon>
+                <Icon>view_list</Icon>
             </div>
             <div style={{
         position: 'absolute',

@@ -2,8 +2,8 @@
 // copyright (c) 2018 Henrik Bechmann, Toronto, MIT Licence
 'use strict';
 import * as React from 'react';
-import FontIcon from 'material-ui/FontIcon';
-import IconButton from 'material-ui/IconButton';
+import Icon from '@material-ui/core/Icon';
+import IconButton from '@material-ui/core/IconButton';
 const OriginMenu = (props) => {
     let { stackpointer: pointer, stackdepth: depth } = props;
     let buttonStyle = { padding: '0', width: '24px', height: '24px' };
@@ -23,25 +23,25 @@ const OriginMenu = (props) => {
         opacity: 0.7,
         width: '26px',
     }}>
-        <IconButton style={buttonStyle} iconStyle={iconStyle} disabled={pointer == 0} onClick={props.decrementStackSelector}>
-            <FontIcon color='green' className='material-icons'>
+        <IconButton style={buttonStyle} disabled={pointer == 0} onClick={props.decrementStackSelector}>
+            <Icon>
                 arrow_back
-            </FontIcon>
+            </Icon>
         </IconButton>
-        <IconButton style={buttonStyle} iconStyle={iconStyle} disabled={(pointer + 1) == depth} onClick={props.incrementStackSelector}>
-            <FontIcon color='green' className='material-icons'>
+        <IconButton style={buttonStyle} disabled={(pointer + 1) == depth} onClick={props.incrementStackSelector}>
+            <Icon>
                 arrow_forward
-            </FontIcon>
+            </Icon>
         </IconButton>
-        <IconButton style={buttonStyle} iconStyle={iconStyle}>
-            <FontIcon color='green' className='material-icons'>
+        <IconButton style={buttonStyle}>
+            <Icon>
                 person
-            </FontIcon>
+            </Icon>
         </IconButton>
-        <IconButton style={buttonStyle} iconStyle={iconStyle}>
-            <FontIcon color='green' className='material-icons'>
+        <IconButton style={buttonStyle}>
+            <Icon>
                 weekend
-            </FontIcon>
+            </Icon>
         </IconButton>
     </div>;
 };

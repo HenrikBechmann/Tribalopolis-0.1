@@ -2,7 +2,7 @@
 // copyright (c) 2018 Henrik Bechmann, Toronto, MIT Licence
 'use strict';
 import * as React from 'react';
-import FontIcon from 'material-ui/FontIcon';
+import Icon from '@material-ui/core/Icon';
 const SwapMenu = ({ quadrant, handleswap }) => {
     let tilt = null;
     if (quadrant == 'topleft' || quadrant == 'bottomright') {
@@ -24,15 +24,15 @@ const SwapMenu = ({ quadrant, handleswap }) => {
         padding: '3px',
         opacity: 0.7,
     }}>
-        <FontIcon color='green' style={{ marginRight: '8px', border: '1px solid silver', borderRadius: '50%', }} className='material-icons' onClick={() => {
+        <Icon style={{ color: 'green', marginRight: '8px', border: '1px solid silver', borderRadius: '50%', }} onClick={() => {
         handleswap(quadrant, 'vertical');
-    }}>swap_vert</FontIcon>
-        <FontIcon color='green' style={{ margin: '0 8px', border: '1px solid silver', borderRadius: '50%', transform: `rotate(${tilt})` }} className='material-icons' onClick={() => {
+    }}>swap_vert</Icon>
+        <Icon style={{ color: 'green', margin: '0 8px', border: '1px solid silver', borderRadius: '50%', transform: `rotate(${tilt})` }} onClick={() => {
         handleswap(quadrant, 'diagonal');
-    }}>swap_vert</FontIcon>
-        <FontIcon color='green' style={{ marginLeft: '8px', border: '1px solid silver', borderRadius: '50%', }} className='material-icons' onClick={() => {
+    }}>swap_vert</Icon>
+        <Icon style={{ color: 'green', marginLeft: '8px', border: '1px solid silver', borderRadius: '50%', }} onClick={() => {
         handleswap(quadrant, 'horizontal');
-    }}>swap_horiz</FontIcon>
+    }}>swap_horiz</Icon>
     </div>;
 };
 export default SwapMenu;

@@ -4,8 +4,7 @@
 
 import * as React from 'react'
 
-import FontIcon from 'material-ui/FontIcon'
-import IconButton from 'material-ui/IconButton'
+import Icon from '@material-ui/core/Icon'
 
 import ActionButton from '../common/actionbutton.view'
 
@@ -53,7 +52,7 @@ const ScanBar = props => {
                 icon = 'settings'
                 iconStyle = {{color:'green'}}
             />
-            <FontIcon style = {{verticalAlign:'middle'}} className='material-icons'>list</FontIcon> 
+            <Icon style = {{verticalAlign:'middle'}} className='material-icons'>list</Icon> 
             <span style = {{verticalAlign:'middle'}} >Scan Links</span>
         </div>
     </div>

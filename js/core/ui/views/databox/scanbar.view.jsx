@@ -2,7 +2,7 @@
 // copyright (c) 2018 Henrik Bechmann, Toronto, MIT Licence
 'use strict';
 import * as React from 'react';
-import FontIcon from 'material-ui/FontIcon';
+import Icon from '@material-ui/core/Icon';
 import ActionButton from '../common/actionbutton.view';
 const ScanBar = props => {
     let { item } = props;
@@ -35,7 +35,7 @@ const ScanBar = props => {
             <ActionButton icon='close' disabled/>
             <ActionButton icon='play_arrow' iconStyle={{ color: 'green' }}/>
             <ActionButton icon='settings' iconStyle={{ color: 'green' }}/>
-            <FontIcon style={{ verticalAlign: 'middle' }} className='material-icons'>list</FontIcon> 
+            <Icon style={{ verticalAlign: 'middle' }} className='material-icons'>list</Icon> 
             <span style={{ verticalAlign: 'middle' }}>Scan Links</span>
         </div>
     </div>;

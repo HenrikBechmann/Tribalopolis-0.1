@@ -2,7 +2,7 @@
 // copyright (c) 2018 Henrik Bechmann, Toronto, MIT Licence
 'use strict';
 import * as React from 'react';
-import FontIcon from 'material-ui/FontIcon';
+import Icon from '@material-ui/core/Icon';
 import QuantityBadge from '../common/quantitybadge.view';
 class CategoryItem extends React.Component {
     constructor(props) {
@@ -43,9 +43,12 @@ class CategoryItem extends React.Component {
             <div style={this.tabwrapperstyle}>
                 <div style={this.pretabstyle}></div>
                 <div style={this.tabstyle} onClick={this.expandCategory}> 
-                    <FontIcon color={this.props.data.properties.sysnode ? 'green' : 'gray'} style={{ verticalAlign: 'middle' }} className='material-icons'>
+                    <Icon style={{
+            verticalAlign: 'middle',
+            color: this.props.data.properties.sysnode ? 'green' : 'gray',
+        }}>
                         folder
-                    </FontIcon> 
+                    </Icon> 
                     {this.props.data.properties.name}
                     <QuantityBadge quantity={this.props.data.properties.aggregates.childcount.amount} style={{
             left: '-10px',

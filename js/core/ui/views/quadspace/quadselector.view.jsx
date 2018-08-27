@@ -2,7 +2,7 @@
 // copyright (c) 2018 Henrik Bechmann, Toronto, MIT Licence
 'use strict';
 import * as React from 'react';
-import IconButton from 'material-ui/IconButton';
+import IconButton from '@material-ui/core/IconButton';
 class QuadSelector extends React.Component {
     constructor() {
         super(...arguments);

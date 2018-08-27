@@ -4,7 +4,7 @@
 
 import * as React from 'react'
 
-import IconButton from 'material-ui/IconButton'
+import IconButton from '@material-ui/core/IconButton'
 
 class QuadSelector extends React.Component<any,any> {
 

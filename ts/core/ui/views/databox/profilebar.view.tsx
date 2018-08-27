@@ -4,7 +4,7 @@
 
 import * as React from 'react'
 
-import FontIcon from 'material-ui/FontIcon'
+import Icon from '@material-ui/core/Icon'
 
 import ActionButton from '../common/actionbutton.view'
 
@@ -37,7 +37,7 @@ const ProfileBar = props => {
             icon = 'expand_less' 
             iconStyle = {iconStyle()}
         />
-        <FontIcon style = {{verticalAlign:'middle'}} className='material-icons'>subject</FontIcon> 
+        <Icon style = {{verticalAlign:'middle'}}>subject</Icon> 
         <span style = {{verticalAlign:'middle'}} >Profile</span>
     </div>
 }

@@ -4,7 +4,7 @@
 
 import * as React from 'react'
 
-import FontIcon from 'material-ui/FontIcon'
+import Icon from '@material-ui/core/Icon'
 import QuantityBadge from '../common/quantitybadge.view'
 
 class CategoryItem extends React.Component<any,any> {
@@ -73,13 +73,16 @@ class CategoryItem extends React.Component<any,any> {
                     style = {this.tabstyle}
                     onClick = {this.expandCategory}
                 > 
-                    <FontIcon 
-                        color = {this.props.data.properties.sysnode?'green':'gray'} 
-                        style = {{verticalAlign:'middle'}} 
-                        className='material-icons'
+                    <Icon 
+                        style = {
+                            {
+                                verticalAlign:'middle',
+                                color:this.props.data.properties.sysnode?'green':'gray',
+                            }
+                        } 
                     >
                         folder
-                    </FontIcon> 
+                    </Icon> 
                     {this.props.data.properties.name}
                     <QuantityBadge quantity = {this.props.data.properties.aggregates.childcount.amount} style = {
                         {

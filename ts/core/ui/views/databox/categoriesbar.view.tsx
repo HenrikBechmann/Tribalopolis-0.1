@@ -4,8 +4,7 @@
 
 import * as React from 'react'
 
-import IconButton from 'material-ui/IconButton'
-import FontIcon from 'material-ui/FontIcon'
+import Icon from '@material-ui/core/Icon'
 
 import QuantityBadge from '../common/quantitybadge.view'
 import ActionButton from '../common/actionbutton.view'
@@ -96,7 +95,7 @@ class CategoriesBar extends React.Component<any,any> {
                     <div 
                         style = {this.tabstyle}
                     > 
-                        <FontIcon style = {{verticalAlign:'middle'}} className='material-icons'>folder_open</FontIcon> 
+                        <Icon style = {{verticalAlign:'middle'}}>folder_open</Icon> 
                         <QuantityBadge quantity = {count} style = {{left:'-6px',top:'-8px'}}/>
 
                         <div style = {

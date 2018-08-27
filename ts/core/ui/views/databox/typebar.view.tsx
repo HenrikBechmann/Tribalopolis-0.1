@@ -4,8 +4,6 @@
 
 import * as React from 'react'
 
-import FontIcon from 'material-ui/FontIcon'
-
 import ActionButton from '../common/actionbutton.view'
 
 class BoxToolbar extends React.Component<any,any> {

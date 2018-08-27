@@ -4,7 +4,6 @@
 
 import * as React from 'react'
 import OriginMenu from './quadoriginmenu.view'
-import FontIcon from 'material-ui/FontIcon'
 import QuantityBadge from '../common/quantitybadge.view'
 
 const QuadOriginBase = props => {

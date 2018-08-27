@@ -3,7 +3,7 @@
 'use strict'
 
 import * as React from 'react'
-import FontIcon from 'material-ui/FontIcon'
+import Icon from '@material-ui/core/Icon'
 
 const QuadStatusBar = props => {
     return (
@@ -37,7 +37,7 @@ const QuadStatusBar = props => {
                     }
                 } 
             > 
-                <FontIcon className='material-icons'>delete</FontIcon>
+                <Icon>delete</Icon>
             </div>
             <div
                 style = {
@@ -52,7 +52,7 @@ const QuadStatusBar = props => {
                     }
                 }
             >
-                <FontIcon className='material-icons'>view_list</FontIcon>
+                <Icon>view_list</Icon>
             </div>
             <div style = {{
                 position:'absolute',

@@ -4,7 +4,7 @@
 
 import * as React from 'react'
 
-import FontIcon from 'material-ui/FontIcon'
+import Icon from '@material-ui/core/Icon'
 
 const SwapMenu = ({ quadrant,handleswap }) => {
 
@@ -33,30 +33,24 @@ const SwapMenu = ({ quadrant,handleswap }) => {
             }
         } 
     >
-        <FontIcon 
-            color = 'green' 
-            style = {{marginRight:'8px',border:'1px solid silver',borderRadius:'50%',}} 
-            className='material-icons'
+        <Icon 
+            style = {{color:'green',marginRight:'8px',border:'1px solid silver',borderRadius:'50%',}} 
             onClick = {() => {
                 handleswap(quadrant,'vertical')
             }}
-        >swap_vert</FontIcon>
-        <FontIcon 
-            color = 'green' 
-            style = {{margin:'0 8px',border:'1px solid silver',borderRadius:'50%',transform:`rotate(${tilt})`}} 
-            className='material-icons'
+        >swap_vert</Icon>
+        <Icon 
+            style = {{color:'green',margin:'0 8px',border:'1px solid silver',borderRadius:'50%',transform:`rotate(${tilt})`}} 
             onClick = {() => {
                 handleswap(quadrant,'diagonal')
             }}
-        >swap_vert</FontIcon>
-        <FontIcon 
-            color = 'green' 
-            style = {{marginLeft:'8px',border:'1px solid silver',borderRadius:'50%',}} 
-            className='material-icons'
+        >swap_vert</Icon>
+        <Icon 
+            style = {{color:'green',marginLeft:'8px',border:'1px solid silver',borderRadius:'50%',}} 
             onClick = {() => {
                 handleswap(quadrant,'horizontal')
             }}
-        >swap_horiz</FontIcon>
+        >swap_horiz</Icon>
     </div>
 }
 

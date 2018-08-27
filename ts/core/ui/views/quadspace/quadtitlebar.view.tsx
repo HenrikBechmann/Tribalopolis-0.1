@@ -3,7 +3,6 @@
 'use strict'
 
 import * as React from 'react'
-import FontIcon from 'material-ui/FontIcon'
 
 const QuadTitleBar = props => {
     let { uid } = props

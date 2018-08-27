@@ -4,8 +4,8 @@
 
 import * as React from 'react'
 
-import FontIcon from 'material-ui/FontIcon'
-import IconButton from 'material-ui/IconButton'
+import Icon from '@material-ui/core/Icon'
+import IconButton from '@material-ui/core/IconButton'
 
 const OriginMenu = (props) => {
 
@@ -33,49 +33,36 @@ const OriginMenu = (props) => {
             }
         } 
     >
-        <IconButton style = {buttonStyle}
-            iconStyle = {iconStyle}
+        <IconButton 
+            style = {buttonStyle}
             disabled = {pointer == 0}
             onClick = {props.decrementStackSelector}
         >
-            <FontIcon 
-                color = 'green' 
-                className='material-icons'
-            >
+            <Icon>
                 arrow_back
-            </FontIcon>
+            </Icon>
         </IconButton>
-        <IconButton style = {buttonStyle}
-            iconStyle = {iconStyle}
+        <IconButton 
+            style = {buttonStyle}
             disabled = {(pointer + 1) == depth}
             onClick = {props.incrementStackSelector}
         >
-            <FontIcon 
-                color = 'green' 
-                className='material-icons'
-            >
+            <Icon>
                 arrow_forward
-            </FontIcon>
+            </Icon>
         </IconButton>
         <IconButton style = {buttonStyle}
-            iconStyle = {iconStyle}
         >
-            <FontIcon 
-                color = 'green' 
-                className='material-icons'
-            >
+            <Icon>
                 person
-            </FontIcon>
+            </Icon>
         </IconButton>
-        <IconButton style = {buttonStyle}
-            iconStyle = {iconStyle}
+        <IconButton 
+            style = {buttonStyle}
         >
-            <FontIcon 
-                color = 'green' 
-                className='material-icons'
-            >
+            <Icon>
                 weekend
-            </FontIcon>
+            </Icon>
         </IconButton>
     </div>
 }
