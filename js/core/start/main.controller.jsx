@@ -2,7 +2,7 @@
 import * as React from 'react';
 import coredata from '../../data/coredata';
 let state = coredata; // get font-family for non material-ui components
-let fontFamily = state.theme.fontFamily;
+let fontFamily = state.theme.typography.fontFamily;
 import { DragDropContext } from 'react-dnd';
 import DnDTouchBackend from 'react-dnd-touch-backend';
 let DnDBackend = DnDTouchBackend({ enableMouseEvents: true });

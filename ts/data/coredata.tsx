@@ -11,6 +11,8 @@
 // import {reducer as toastr} from 'react-redux-toastr'
 
 import initialstate from './local/initialstate'
+
+console.log('initialstate in coredata',initialstate)
 // -------------[ app resources ]---------------
 // import * as Actions from './actions'
 

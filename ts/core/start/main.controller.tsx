@@ -5,7 +5,7 @@ import * as React from 'react'
 import coredata from  '../../data/coredata'
 
 let state:any = coredata // get font-family for non material-ui components
-let fontFamily = state.theme.fontFamily
+let fontFamily = state.theme.typography.fontFamily
 
 import { DragDropContext } from 'react-dnd'
 import DnDHTMLBackend from 'react-dnd-html5-backend'
