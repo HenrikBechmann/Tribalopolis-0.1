@@ -1,10 +1,6 @@
 import theme from 'material-ui/styles/baseThemes/lightBaseTheme'
 
-// TODO getMuiTheme may be preferable in the long run,
-// or theme available from global state
-// import getMuiTheme from 'material-ui/styles/getMuiTheme'
-// let muiTheme = getMuiTheme()
-// console.log(muiTheme)
+
 
 export let styles = {
     // the main scaffold

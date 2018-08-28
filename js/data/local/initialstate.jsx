@@ -6,7 +6,11 @@
 // https://design.google.com/icons/
 /* ================= theme details: ==================== */
 // let budgetdata = {} // require('../../explorerprototypedata/2015budgetA.json')
-import theme from 'material-ui/styles/baseThemes/lightBaseTheme';
+import V0theme from 'material-ui/styles/baseThemes/lightBaseTheme';
+import { createMuiTheme } from '@material-ui/core/styles';
+import * as colors from '@material-ui/core/colors';
+let theme = createMuiTheme();
+console.log('theme, colors', theme, colors);
 // import database, {CurrencyDataset,ItemDataset} from '../addins/classes/databaseapi'
 // fontFamily: "Roboto, sans-serif"
 // palette: Object
@@ -36,7 +40,7 @@ import theme from 'material-ui/styles/baseThemes/lightBaseTheme';
 // 	desktopToolbarHeight: 56
 // 	iconSize: 24
 /* ======================================== */
-import * as colors from 'material-ui/styles/colors';
+// import * as colors from 'material-ui/styles/colors'
 let appnavbar = {
     title: 'Tribalopolis v0.1.1',
     username: 'anonymous',
@@ -52,7 +56,7 @@ let system = {
 };
 var initialstate = {
     appnavbar,
-    theme,
+    theme: V0theme,
     colors,
     system,
 };
