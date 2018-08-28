@@ -11,14 +11,14 @@
 
 // let budgetdata = {} // require('../../explorerprototypedata/2015budgetA.json')
 
-import V0theme from 'material-ui/styles/baseThemes/lightBaseTheme'
+// import V0theme from 'material-ui/styles/baseThemes/lightBaseTheme'
 
 import { createMuiTheme } from '@material-ui/core/styles';
 import * as colors from '@material-ui/core/colors';
 
 let theme = createMuiTheme()
 
-console.log('theme, colors', theme, colors)
+// console.log('theme, colors', theme, colors)
 
 // import database, {CurrencyDataset,ItemDataset} from '../addins/classes/databaseapi'
 
@@ -73,7 +73,7 @@ let system = {
 
 var initialstate = {
     appnavbar,
-	theme:V0theme,
+	theme,
 	colors,
 	system,
 }
