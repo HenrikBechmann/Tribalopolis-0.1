@@ -2,6 +2,10 @@
 // copyright (c) 2018 Henrik Bechmann, Toronto, MIT Licence
 'use strict';
 import * as React from 'react';
+// for toolbar menus
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+// for drawer menus
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
@@ -11,6 +15,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Divider from '@material-ui/core/Divider';
 import Drawer from '@material-ui/core/Drawer';
 import ScrollControlsView from '../common/scrollcontrols.view';
+import VerticalDivider from '../common/verticaldivider.view';
 class QuadToolsStrip extends React.Component {
     constructor() {
         super(...arguments);
@@ -19,9 +24,11 @@ class QuadToolsStrip extends React.Component {
             scroller: null,
             currentquad: this.props.currentquad,
             split: this.props.split,
+            accountAnchorElement: null
         };
         this.changeSplit = this.props.changeSplit;
         this.takingfocus = this.props.takingfocus;
+        this.scroller = null;
         this.changeSplitFrom = (toggleIndex) => {
             let newIndex = null;
             if (toggleIndex == this.state.split) {
@@ -130,25 +137,107 @@ class QuadToolsStrip extends React.Component {
             </div>
         </Drawer>);
         };
-        this.accountmenu = null;
-        // <MenuList
-        //     iconButtonElement = {
-        //         <IconButton>
-        //             <FontIcon className='material-icons'>account_box</FontIcon>
-        //         </IconButton>
-        //     }
-        //     anchorOrigin = {{vertical:"bottom",horizontal:"right"}}
-        //     targetOrigin = {{vertical:"top",horizontal:"right"}}
-        // >
-        //     <MenuItem
-        //         primaryText = "Login (existing user)"
-        //     />
-        //     <Divider />
-        //     <MenuItem
-        //         primaryText = "Register (new user)"
-        //     />
-        // </MenuList>
-        this.scroller = null;
+        this.handleAccountClick = event => {
+            this.setState({ accountAnchorElement: event.currentTarget });
+        };
+        this.handleAccountClose = () => {
+            this.setState({ accountAnchorElement: null });
+        };
+        this.accountmenu = () => {
+            const { accountAnchorElement } = this.state;
+            return [
+                <IconButton key='button' aria-owns={accountAnchorElement ? 'simple-menu' : null} aria-haspopup="true" onClick={this.handleAccountClick}>
+            <Icon>account_box</Icon>
+        </IconButton>,
+                <Menu key='menu' id="simple-menu" anchorEl={accountAnchorElement} open={Boolean(accountAnchorElement)} onClose={this.handleAccountClose}>
+            <MenuItem onClick={this.handleAccountClose}>
+                Login (existing user)
+            </MenuItem>
+            <Divider />
+            <MenuItem onClick={this.handleAccountClose}>
+                Register (new user)
+            </MenuItem>
+        </Menu>
+            ];
+        };
+        this.quadnavigationmenu = () => {
+            let { currentquad, split } = this.state;
+            return <div style={{ display: 'inline-block', verticalAlign: 'middle' }}>
+            <IconButton style={{ verticalAlign: 'bottom', }} onClick={() => {
+                this.takingfocus('topleft');
+            }}>
+                <img style={{
+                backgroundColor: (currentquad == 'topleft') ? 'red' :
+                    ((split == 'vertical' && currentquad == 'bottomleft') ||
+                        (split == 'horizontal' && currentquad == 'topright') ||
+                        (split == 'matrix')) ? 'orange' : 'transparent'
+            }} src={(split == 'none' || split == 'matrix') ? '/public/icons/ic_border_all_black_24px_topleft.svg' :
+                (split == 'vertical') ? '/public/icons/ic_border_all_black_24px_topleft_leftsplit.svg' :
+                    '/public/icons/ic_border_all_black_24px_topleft_topsplit.svg'}/>
+            </IconButton>
+
+            <IconButton style={{ verticalAlign: 'bottom' }} onClick={() => {
+                this.takingfocus('topright');
+            }}>
+                <img style={{
+                backgroundColor: (currentquad == 'topright') ? 'red' :
+                    ((split == 'vertical' && currentquad == 'bottomright') ||
+                        (split == 'horizontal' && currentquad == 'topleft') ||
+                        (split == 'matrix')) ? 'orange' : 'transparent'
+            }} src={(split == 'none' || split == 'matrix') ? '/public/icons/ic_border_all_black_24px_topright.svg' :
+                (split == 'vertical') ? '/public/icons/ic_border_all_black_24px_topright_rightsplit.svg' :
+                    '/public/icons/ic_border_all_black_24px_topright_topsplit.svg'}/>
+            </IconButton>
+
+            <IconButton style={{ verticalAlign: 'bottom' }} onClick={() => {
+                this.takingfocus('bottomleft');
+            }}>
+                <img style={{
+                backgroundColor: (currentquad == 'bottomleft') ? 'red' :
+                    ((split == 'vertical' && currentquad == 'topleft') ||
+                        (split == 'horizontal' && currentquad == 'bottomright') ||
+                        (split == 'matrix')) ? 'orange' : 'transparent'
+            }} src={(split == 'none' || split == 'matrix') ? '/public/icons/ic_border_all_black_24px_bottomleft.svg' :
+                (split == 'vertical') ? '/public/icons/ic_border_all_black_24px_bottomleft_leftsplit.svg' :
+                    '/public/icons/ic_border_all_black_24px_bottomleft_bottomsplit.svg'}/>
+            </IconButton>
+
+            <IconButton style={{ verticalAlign: 'bottom' }} onClick={() => {
+                this.takingfocus('bottomright');
+            }}>
+                <img style={{
+                backgroundColor: (currentquad == 'bottomright') ? 'red' :
+                    ((split == 'vertical' && currentquad == 'topright') ||
+                        (split == 'horizontal' && currentquad == 'bottomleft') ||
+                        (split == 'matrix')) ? 'orange' : 'transparent'
+            }} src={(split == 'none' || split == 'matrix') ? '/public/icons/ic_border_all_black_24px_bottomright.svg' :
+                (split == 'vertical') ? '/public/icons/ic_border_all_black_24px_bottomright_rightsplit.svg' :
+                    '/public/icons/ic_border_all_black_24px_bottomright_bottomsplit.svg'}/>
+            </IconButton>
+
+        </div>;
+        };
+        this.splitnavigationmenu = () => {
+            return <div style={{ display: 'inline-block', verticalAlign: 'middle' }}>
+            <IconButton style={{ verticalAlign: 'bottom' }} onClick={() => this.changeSplitFrom('horizontal')}>
+                <img src={(this.state.split == 'horizontal') ?
+                '/public/icons/ic_border_all_black_24px_split_red.svg' :
+                '/public/icons/ic_border_all_black_24px_split.svg'}/>
+            </IconButton>
+
+            <IconButton style={{ verticalAlign: 'bottom' }} onClick={() => this.changeSplitFrom('vertical')}>
+                <img style={{ transform: 'rotate(90deg)' }} src={(this.state.split == 'vertical') ?
+                '/public/icons/ic_border_all_black_24px_split_red.svg' :
+                '/public/icons/ic_border_all_black_24px_split.svg'}/>
+            </IconButton>
+
+            <IconButton style={{ verticalAlign: 'bottom' }} onClick={() => this.changeSplitFrom('matrix')}>
+                <img src={(this.state.split == 'matrix') ?
+                '/public/icons/ic_border_all_black_24px_split_matrix_red.svg' :
+                '/public/icons/ic_border_all_black_24px_split_matrix.svg'}/>
+            </IconButton>
+        </div>;
+        };
     }
     componentDidMount() {
         setTimeout(() => {
@@ -167,7 +256,6 @@ class QuadToolsStrip extends React.Component {
         }
     }
     render() {
-        let { currentquad, split } = this.state;
         return (<div style={{
             height: '48px',
             backgroundColor: 'silver',
@@ -192,81 +280,15 @@ class QuadToolsStrip extends React.Component {
                                 <Icon>menu</Icon>
                             </IconButton>
 
-                            <div style={{ display: 'inline-block', height: '1.5em', borderLeft: '1px solid gray' }}></div>
+                            <VerticalDivider />
 
-                            <IconButton style={{ verticalAlign: 'bottom', }} onClick={() => {
-            this.takingfocus('topleft');
-        }}>
-                                <img style={{
-            backgroundColor: (currentquad == 'topleft') ? 'red' :
-                ((split == 'vertical' && currentquad == 'bottomleft') ||
-                    (split == 'horizontal' && currentquad == 'topright') ||
-                    (split == 'matrix')) ? 'orange' : 'transparent'
-        }} src={(split == 'none' || split == 'matrix') ? '/public/icons/ic_border_all_black_24px_topleft.svg' :
-            (split == 'vertical') ? '/public/icons/ic_border_all_black_24px_topleft_leftsplit.svg' :
-                '/public/icons/ic_border_all_black_24px_topleft_topsplit.svg'}/>
-                            </IconButton>
+                            {this.quadnavigationmenu()}
 
-                            <IconButton style={{ verticalAlign: 'bottom' }} onClick={() => {
-            this.takingfocus('topright');
-        }}>
-                                <img style={{
-            backgroundColor: (currentquad == 'topright') ? 'red' :
-                ((split == 'vertical' && currentquad == 'bottomright') ||
-                    (split == 'horizontal' && currentquad == 'topleft') ||
-                    (split == 'matrix')) ? 'orange' : 'transparent'
-        }} src={(split == 'none' || split == 'matrix') ? '/public/icons/ic_border_all_black_24px_topright.svg' :
-            (split == 'vertical') ? '/public/icons/ic_border_all_black_24px_topright_rightsplit.svg' :
-                '/public/icons/ic_border_all_black_24px_topright_topsplit.svg'}/>
-                            </IconButton>
+                            <VerticalDivider />
 
-                            <IconButton style={{ verticalAlign: 'bottom' }} onClick={() => {
-            this.takingfocus('bottomleft');
-        }}>
-                                <img style={{
-            backgroundColor: (currentquad == 'bottomleft') ? 'red' :
-                ((split == 'vertical' && currentquad == 'topleft') ||
-                    (split == 'horizontal' && currentquad == 'bottomright') ||
-                    (split == 'matrix')) ? 'orange' : 'transparent'
-        }} src={(split == 'none' || split == 'matrix') ? '/public/icons/ic_border_all_black_24px_bottomleft.svg' :
-            (split == 'vertical') ? '/public/icons/ic_border_all_black_24px_bottomleft_leftsplit.svg' :
-                '/public/icons/ic_border_all_black_24px_bottomleft_bottomsplit.svg'}/>
-                            </IconButton>
+                            {this.splitnavigationmenu()}
 
-                            <IconButton style={{ verticalAlign: 'bottom' }} onClick={() => {
-            this.takingfocus('bottomright');
-        }}>
-                                <img style={{
-            backgroundColor: (currentquad == 'bottomright') ? 'red' :
-                ((split == 'vertical' && currentquad == 'topright') ||
-                    (split == 'horizontal' && currentquad == 'bottomleft') ||
-                    (split == 'matrix')) ? 'orange' : 'transparent'
-        }} src={(split == 'none' || split == 'matrix') ? '/public/icons/ic_border_all_black_24px_bottomright.svg' :
-            (split == 'vertical') ? '/public/icons/ic_border_all_black_24px_bottomright_rightsplit.svg' :
-                '/public/icons/ic_border_all_black_24px_bottomright_bottomsplit.svg'}/>
-                            </IconButton>
-
-                            <div style={{ display: 'inline-block', height: '1.5em', borderLeft: '1px solid gray' }}></div>
-
-                            <IconButton style={{ verticalAlign: 'bottom' }} onClick={() => this.changeSplitFrom('horizontal')}>
-                                <img src={(this.state.split == 'horizontal') ?
-            '/public/icons/ic_border_all_black_24px_split_red.svg' :
-            '/public/icons/ic_border_all_black_24px_split.svg'}/>
-                            </IconButton>
-
-                            <IconButton style={{ verticalAlign: 'bottom' }} onClick={() => this.changeSplitFrom('vertical')}>
-                                <img style={{ transform: 'rotate(90deg)' }} src={(this.state.split == 'vertical') ?
-            '/public/icons/ic_border_all_black_24px_split_red.svg' :
-            '/public/icons/ic_border_all_black_24px_split.svg'}/>
-                            </IconButton>
-
-                            <IconButton style={{ verticalAlign: 'bottom' }} onClick={() => this.changeSplitFrom('matrix')}>
-                                <img src={(this.state.split == 'matrix') ?
-            '/public/icons/ic_border_all_black_24px_split_matrix_red.svg' :
-            '/public/icons/ic_border_all_black_24px_split_matrix.svg'}/>
-                            </IconButton>
-
-                            <div style={{ display: 'inline-block', height: '1.5em', borderLeft: '1px solid gray' }}></div>
+                            <VerticalDivider />
 
                             <IconButton>
                                 <Icon>notifications</Icon>
@@ -280,7 +302,7 @@ class QuadToolsStrip extends React.Component {
                                 <Icon>settings</Icon>
                             </IconButton>
 
-                            {this.accountmenu}
+                            {this.accountmenu()}
 
                             {this.menudrawer()}
 
