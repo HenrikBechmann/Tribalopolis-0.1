@@ -4,13 +4,18 @@
 
 import * as React from 'react'
 
-import FontIcon from 'material-ui/FontIcon'
-import IconButton from 'material-ui/IconButton'
+import MenuList from '@material-ui/core/MenuList'
+import MenuItem from '@material-ui/core/MenuItem'
+import ListItemIcon from '@material-ui/core/ListItemIcon'
+import ListItemText from '@material-ui/core/ListItemText'
 
-import IconMenu from 'material-ui/IconMenu'
-import Divider from 'material-ui/Divider'
-import MenuItem from 'material-ui/MenuItem'
-import Drawer from 'material-ui/Drawer'
+import Icon from '@material-ui/core/Icon'
+import IconButton from '@material-ui/core/IconButton'
+
+import Divider from '@material-ui/core/Divider'
+
+import Drawer from '@material-ui/core/Drawer'
+
 import ScrollControlsView from '../common/scrollcontrols.view'
 
 class QuadToolsStrip extends React.Component<any,any> {
@@ -61,150 +66,154 @@ class QuadToolsStrip extends React.Component<any,any> {
     handleMenuClose = () => this.setState({menuopen: false})
 
     menudrawer = () => (<Drawer
-                docked={false}
                 open={this.state.menuopen}
-                onRequestChange={(open) => this.setState({menuopen:open})}
+                onClose={(open) => this.setState({menuopen:open})}
             >
-                <MenuItem 
-                    leftIcon = {
-                        <FontIcon 
-                            color = 'brown' 
-                            className='material-icons'
+                <MenuItem
+                    onClick={this.handleMenuClose}
+                > 
+                    <ListItemIcon> 
+                        <Icon 
+                            style = {{color:'brown'}}
                         >
                             weekend
-                        </FontIcon>
-                    }
-                    primaryText = "Home Base"
-                    onClick={this.handleMenuClose}
-                />
+                        </Icon>
+                    </ListItemIcon>
+                    <ListItemText primary = "Home Base" />
+                </MenuItem>
                 <Divider />
                 <MenuItem 
-                    leftIcon = {
-                        <FontIcon 
-                            color = 'brown' 
-                            className='material-icons'
+                    onClick={this.handleMenuClose}
+                >
+                    <ListItemIcon>
+                        <Icon 
+                            style = {{color:'brown'}}
                         >
                             work
-                        </FontIcon>
-                    }
-                    primaryText = "My Workspace"
-                    onClick={this.handleMenuClose}
-                />
+                        </Icon>
+                    </ListItemIcon>
+                    <ListItemText primary = "My Workspace"/>
+                </MenuItem>
                 <MenuItem 
-                    leftIcon = {
-                        <FontIcon 
-                            color = 'brown' 
-                            className='material-icons'
+                    onClick={this.handleMenuClose}
+                >
+                    <ListItemIcon>
+                        <Icon 
+                            style = {{color:'brown'}}
                         >
                             account_box
-                        </FontIcon>
-                    }
-                    primaryText = "My Account"
-                    onClick={this.handleMenuClose}
-                />
+                        </Icon>
+                    </ListItemIcon>
+                    <ListItemText primary = "My Account" />
+                </MenuItem>
                 <MenuItem 
-                    leftIcon = {
-                        <FontIcon 
-                            color = 'brown' 
-                            className='material-icons'
+                    onClick={this.handleMenuClose}
+                >
+                    <ListItemIcon>
+                        <Icon 
+                            style = {{color:'brown'}}
                         >
                             web
-                        </FontIcon>
-                    }
-                    primaryText = "My Website"
-                    onClick={this.handleMenuClose}
-                />
+                        </Icon>
+                    </ListItemIcon>
+                    <ListItemText primary = "My Website" />
+                </MenuItem>
                 <Divider />
                 <MenuItem 
-                    leftIcon = {
-                        <FontIcon 
-                            color = 'steelblue' 
-                            className='material-icons'
+                    onClick={this.handleMenuClose}
+                >
+                    <ListItemIcon>
+                        <Icon 
+                            style = {{color:'steelblue'}}
                         >
                             group
-                        </FontIcon>
-                    }
-                    primaryText = "Members"
-                    onClick={this.handleMenuClose}
-                />
+                        </Icon>
+                    </ListItemIcon>
+                    <ListItemText primary = "Members" />
+                </MenuItem>
                 <MenuItem 
-                    leftIcon = {
+                    onClick={this.handleMenuClose}
+                >
+                    <ListItemIcon>
                         <img
                            src='/public/icons/fire.svg'
                         />
-                    }
-                    primaryText = "Tribes"
-                    onClick={this.handleMenuClose}
-                />
+                    </ListItemIcon>
+                    <ListItemText primary = "Tribes" />
+                </MenuItem>
                 <MenuItem 
-                    leftIcon = {
-                        <FontIcon 
-                            color = 'steelblue' 
-                            className='material-icons'
+                    onClick={this.handleMenuClose}
+                >
+                    <ListItemIcon>
+                        <Icon 
+                            style = {{color:'steelblue'}}
                         >
                             share
-                        </FontIcon>
-                    }
-                    primaryText = "Networks"
-                    onClick={this.handleMenuClose}
-                />
+                        </Icon>
+                    </ListItemIcon>
+                    <ListItemText primary = "Networks" />
+                </MenuItem>
                 <MenuItem 
-                    leftIcon = {
-                        <FontIcon 
-                            color = 'green' 
-                            className='material-icons'
+                    onClick={this.handleMenuClose}
+                >
+                    <ListItemIcon>
+                        <Icon 
+                            style = {{color:'green'}}
                         >
                             monetization_on
-                        </FontIcon>
-                    }
-                    primaryText = "Markets"
-                    onClick={this.handleMenuClose}
-                />
+                        </Icon>
+                    </ListItemIcon>
+                    <ListItemText primary = "Markets" />
+                </MenuItem>
                 <Divider />
                 <MenuItem 
-                    leftIcon = {
-                        <FontIcon className='material-icons'>local_library</FontIcon>
-                    }
-                    primaryText = "Tutorials"
                     onClick={this.handleMenuClose}
-                />
+                >
+                    <ListItemIcon>
+                        <Icon>local_library</Icon>
+                    </ListItemIcon>
+                    <ListItemText primary = "Tutorials" />
+                </MenuItem>
                 <MenuItem 
-                    leftIcon = {
-                        <FontIcon className='material-icons'>build</FontIcon>
-                    }
-                    primaryText = "Tools"
                     onClick={this.handleMenuClose}
-                />
+                >
+                    <ListItemIcon>
+                        <Icon className='material-icons'>build</Icon>
+                    </ListItemIcon>
+                    <ListItemText primary = "Tools" />
+                </MenuItem>
                 <Divider />
                 <MenuItem 
-                    leftIcon = {
+                    onClick={this.handleMenuClose}
+                >
+                    <ListItemIcon>
                         <img
                             src='/public/icons/fire.svg'
                         />
-                    }
-                    primaryText = "About"
-                    onClick={this.handleMenuClose}
-                />
+                    </ListItemIcon>
+                    <ListItemText primary = "About" />
+                </MenuItem>
             </Drawer>
         )
 
-    accountmenu = <IconMenu
-            iconButtonElement = {
-                <IconButton>
-                    <FontIcon className='material-icons'>account_box</FontIcon>
-                </IconButton>
-            }
-            anchorOrigin = {{vertical:"bottom",horizontal:"right"}}
-            targetOrigin = {{vertical:"top",horizontal:"right"}}
-        >
-            <MenuItem
-                primaryText = "Login (existing user)"
-            />
-            <Divider />
-            <MenuItem
-                primaryText = "Register (new user)"
-            />
-        </IconMenu>
+    accountmenu = null
+        // <MenuList
+        //     iconButtonElement = {
+        //         <IconButton>
+        //             <FontIcon className='material-icons'>account_box</FontIcon>
+        //         </IconButton>
+        //     }
+        //     anchorOrigin = {{vertical:"bottom",horizontal:"right"}}
+        //     targetOrigin = {{vertical:"top",horizontal:"right"}}
+        // >
+        //     <MenuItem
+        //         primaryText = "Login (existing user)"
+        //     />
+        //     <Divider />
+        //     <MenuItem
+        //         primaryText = "Register (new user)"
+        //     />
+        // </MenuList>
 
     scroller = null
 
@@ -247,7 +256,7 @@ class QuadToolsStrip extends React.Component<any,any> {
                             <IconButton
                                 onClick = {this.handleMenuToggle}
                             >
-                                <FontIcon className='material-icons'>menu</FontIcon>
+                                <Icon>menu</Icon>
                             </IconButton>
 
                             <div style = {{display:'inline-block',height:'1.5em',borderLeft:'1px solid gray'}}></div>
@@ -257,18 +266,18 @@ class QuadToolsStrip extends React.Component<any,any> {
                                 onClick = {() => {
                                     this.takingfocus('topleft')
                                 }}
-                                iconStyle = {
-                                    {
-                                        backgroundColor:(
-                                            currentquad == 'topleft')?'red':
-                                            ((split == 'vertical' && currentquad == 'bottomleft') ||
-                                            (split == 'horizontal' && currentquad == 'topright') ||
-                                            (split == 'matrix')
-                                        )?'orange':'transparent'
-                                    }
-                                }
                             >
                                 <img 
+                                    style = {
+                                        {
+                                            backgroundColor:(
+                                                currentquad == 'topleft')?'red':
+                                                ((split == 'vertical' && currentquad == 'bottomleft') ||
+                                                (split == 'horizontal' && currentquad == 'topright') ||
+                                                (split == 'matrix')
+                                            )?'orange':'transparent'
+                                        }
+                                    }
                                     src = {
                                         (split == 'none' || split == 'matrix')?'/public/icons/ic_border_all_black_24px_topleft.svg':
                                         (split == 'vertical')?'/public/icons/ic_border_all_black_24px_topleft_leftsplit.svg':
@@ -282,18 +291,18 @@ class QuadToolsStrip extends React.Component<any,any> {
                                 onClick = {() => {
                                     this.takingfocus('topright')
                                 }}
-                                iconStyle = {
-                                    {
-                                        backgroundColor:(
-                                            currentquad == 'topright')?'red':
-                                            ((split == 'vertical' && currentquad == 'bottomright') ||
-                                            (split == 'horizontal' && currentquad == 'topleft') ||
-                                            (split == 'matrix')
-                                        )?'orange':'transparent'
-                                    }
-                                }
                             >
                                 <img 
+                                    style = {
+                                        {
+                                            backgroundColor:(
+                                                currentquad == 'topright')?'red':
+                                                ((split == 'vertical' && currentquad == 'bottomright') ||
+                                                (split == 'horizontal' && currentquad == 'topleft') ||
+                                                (split == 'matrix')
+                                            )?'orange':'transparent'
+                                        }
+                                    }
                                     src = {
                                         (split == 'none' || split == 'matrix')?'/public/icons/ic_border_all_black_24px_topright.svg':
                                         (split == 'vertical')?'/public/icons/ic_border_all_black_24px_topright_rightsplit.svg':
@@ -307,18 +316,18 @@ class QuadToolsStrip extends React.Component<any,any> {
                                 onClick = {() => {
                                     this.takingfocus('bottomleft')
                                 }}
-                                iconStyle = {
-                                    {
-                                        backgroundColor:(
-                                            currentquad == 'bottomleft')?'red': 
-                                            ((split == 'vertical' && currentquad == 'topleft') ||
-                                            (split == 'horizontal' && currentquad == 'bottomright') ||
-                                            (split == 'matrix')
-                                        )?'orange':'transparent'
-                                    }
-                                }
                             >
                                 <img 
+                                    style = {
+                                        {
+                                            backgroundColor:(
+                                                currentquad == 'bottomleft')?'red': 
+                                                ((split == 'vertical' && currentquad == 'topleft') ||
+                                                (split == 'horizontal' && currentquad == 'bottomright') ||
+                                                (split == 'matrix')
+                                            )?'orange':'transparent'
+                                        }
+                                    }
                                     src = {
                                         (split == 'none' || split == 'matrix')?'/public/icons/ic_border_all_black_24px_bottomleft.svg':
                                         (split == 'vertical')?'/public/icons/ic_border_all_black_24px_bottomleft_leftsplit.svg':
@@ -332,18 +341,18 @@ class QuadToolsStrip extends React.Component<any,any> {
                                 onClick = {() => {
                                     this.takingfocus('bottomright')
                                 }}
-                                iconStyle = {
-                                    {
-                                        backgroundColor:(
-                                            currentquad == 'bottomright')?'red':
-                                            ((split == 'vertical' && currentquad == 'topright') ||
-                                            (split == 'horizontal' && currentquad == 'bottomleft') ||
-                                            (split == 'matrix')
-                                        )?'orange':'transparent'
-                                    }
-                                }
                             >
                                 <img 
+                                    style = {
+                                        {
+                                            backgroundColor:(
+                                                currentquad == 'bottomright')?'red':
+                                                ((split == 'vertical' && currentquad == 'topright') ||
+                                                (split == 'horizontal' && currentquad == 'bottomleft') ||
+                                                (split == 'matrix')
+                                            )?'orange':'transparent'
+                                        }
+                                    }
                                     src = {
                                         (split == 'none' || split == 'matrix')?'/public/icons/ic_border_all_black_24px_bottomright.svg':
                                         (split == 'vertical')?'/public/icons/ic_border_all_black_24px_bottomright_rightsplit.svg':
@@ -368,11 +377,11 @@ class QuadToolsStrip extends React.Component<any,any> {
                             </IconButton>
 
                             <IconButton
-                                iconStyle = {{transform:'rotate(90deg)'}}
                                 style = {{verticalAlign:'bottom'}}
                                 onClick = {() => this.changeSplitFrom('vertical')}
                             >
                                 <img 
+                                    style = {{transform:'rotate(90deg)'}}
                                     src = {
                                         (this.state.split == 'vertical')?
                                             '/public/icons/ic_border_all_black_24px_split_red.svg':
@@ -398,17 +407,17 @@ class QuadToolsStrip extends React.Component<any,any> {
 
                             <IconButton 
                             >
-                                <FontIcon className='material-icons'>notifications</FontIcon>
+                                <Icon>notifications</Icon>
                             </IconButton>
 
                             <IconButton
                             >
-                                <FontIcon className='material-icons'>help_outline</FontIcon>
+                                <Icon>help_outline</Icon>
                             </IconButton>
 
                             <IconButton
                             >
-                                <FontIcon className='material-icons'>settings</FontIcon>}
+                                <Icon>settings</Icon>
                             </IconButton>
 
                             { this.accountmenu }

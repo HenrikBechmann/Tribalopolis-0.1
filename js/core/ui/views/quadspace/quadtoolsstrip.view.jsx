@@ -2,12 +2,13 @@
 // copyright (c) 2018 Henrik Bechmann, Toronto, MIT Licence
 'use strict';
 import * as React from 'react';
-import FontIcon from 'material-ui/FontIcon';
-import IconButton from 'material-ui/IconButton';
-import IconMenu from 'material-ui/IconMenu';
-import Divider from 'material-ui/Divider';
-import MenuItem from 'material-ui/MenuItem';
-import Drawer from 'material-ui/Drawer';
+import MenuItem from '@material-ui/core/MenuItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+import Icon from '@material-ui/core/Icon';
+import IconButton from '@material-ui/core/IconButton';
+import Divider from '@material-ui/core/Divider';
+import Drawer from '@material-ui/core/Drawer';
 import ScrollControlsView from '../common/scrollcontrols.view';
 class QuadToolsStrip extends React.Component {
     constructor() {
@@ -34,44 +35,110 @@ class QuadToolsStrip extends React.Component {
             this.setState({ menuopen: !this.state.menuopen });
         };
         this.handleMenuClose = () => this.setState({ menuopen: false });
-        this.menudrawer = () => (<Drawer docked={false} open={this.state.menuopen} onRequestChange={(open) => this.setState({ menuopen: open })}>
-                <MenuItem leftIcon={<FontIcon color='brown' className='material-icons'>
+        this.menudrawer = () => (<Drawer open={this.state.menuopen} onClose={(open) => this.setState({ menuopen: open })}>
+                <MenuItem onClick={this.handleMenuClose}> 
+                    <ListItemIcon> 
+                        <Icon style={{ color: 'brown' }}>
                             weekend
-                        </FontIcon>} primaryText="Home Base" onClick={this.handleMenuClose}/>
+                        </Icon>
+                    </ListItemIcon>
+                    <ListItemText primary="Home Base"/>
+                </MenuItem>
                 <Divider />
-                <MenuItem leftIcon={<FontIcon color='brown' className='material-icons'>
+                <MenuItem onClick={this.handleMenuClose}>
+                    <ListItemIcon>
+                        <Icon style={{ color: 'brown' }}>
                             work
-                        </FontIcon>} primaryText="My Workspace" onClick={this.handleMenuClose}/>
-                <MenuItem leftIcon={<FontIcon color='brown' className='material-icons'>
+                        </Icon>
+                    </ListItemIcon>
+                    <ListItemText primary="My Workspace"/>
+                </MenuItem>
+                <MenuItem onClick={this.handleMenuClose}>
+                    <ListItemIcon>
+                        <Icon style={{ color: 'brown' }}>
                             account_box
-                        </FontIcon>} primaryText="My Account" onClick={this.handleMenuClose}/>
-                <MenuItem leftIcon={<FontIcon color='brown' className='material-icons'>
+                        </Icon>
+                    </ListItemIcon>
+                    <ListItemText primary="My Account"/>
+                </MenuItem>
+                <MenuItem onClick={this.handleMenuClose}>
+                    <ListItemIcon>
+                        <Icon style={{ color: 'brown' }}>
                             web
-                        </FontIcon>} primaryText="My Website" onClick={this.handleMenuClose}/>
+                        </Icon>
+                    </ListItemIcon>
+                    <ListItemText primary="My Website"/>
+                </MenuItem>
                 <Divider />
-                <MenuItem leftIcon={<FontIcon color='steelblue' className='material-icons'>
+                <MenuItem onClick={this.handleMenuClose}>
+                    <ListItemIcon>
+                        <Icon style={{ color: 'steelblue' }}>
                             group
-                        </FontIcon>} primaryText="Members" onClick={this.handleMenuClose}/>
-                <MenuItem leftIcon={<img src='/public/icons/fire.svg'/>} primaryText="Tribes" onClick={this.handleMenuClose}/>
-                <MenuItem leftIcon={<FontIcon color='steelblue' className='material-icons'>
+                        </Icon>
+                    </ListItemIcon>
+                    <ListItemText primary="Members"/>
+                </MenuItem>
+                <MenuItem onClick={this.handleMenuClose}>
+                    <ListItemIcon>
+                        <img src='/public/icons/fire.svg'/>
+                    </ListItemIcon>
+                    <ListItemText primary="Tribes"/>
+                </MenuItem>
+                <MenuItem onClick={this.handleMenuClose}>
+                    <ListItemIcon>
+                        <Icon style={{ color: 'steelblue' }}>
                             share
-                        </FontIcon>} primaryText="Networks" onClick={this.handleMenuClose}/>
-                <MenuItem leftIcon={<FontIcon color='green' className='material-icons'>
+                        </Icon>
+                    </ListItemIcon>
+                    <ListItemText primary="Networks"/>
+                </MenuItem>
+                <MenuItem onClick={this.handleMenuClose}>
+                    <ListItemIcon>
+                        <Icon style={{ color: 'green' }}>
                             monetization_on
-                        </FontIcon>} primaryText="Markets" onClick={this.handleMenuClose}/>
+                        </Icon>
+                    </ListItemIcon>
+                    <ListItemText primary="Markets"/>
+                </MenuItem>
                 <Divider />
-                <MenuItem leftIcon={<FontIcon className='material-icons'>local_library</FontIcon>} primaryText="Tutorials" onClick={this.handleMenuClose}/>
-                <MenuItem leftIcon={<FontIcon className='material-icons'>build</FontIcon>} primaryText="Tools" onClick={this.handleMenuClose}/>
+                <MenuItem onClick={this.handleMenuClose}>
+                    <ListItemIcon>
+                        <Icon>local_library</Icon>
+                    </ListItemIcon>
+                    <ListItemText primary="Tutorials"/>
+                </MenuItem>
+                <MenuItem onClick={this.handleMenuClose}>
+                    <ListItemIcon>
+                        <Icon className='material-icons'>build</Icon>
+                    </ListItemIcon>
+                    <ListItemText primary="Tools"/>
+                </MenuItem>
                 <Divider />
-                <MenuItem leftIcon={<img src='/public/icons/fire.svg'/>} primaryText="About" onClick={this.handleMenuClose}/>
+                <MenuItem onClick={this.handleMenuClose}>
+                    <ListItemIcon>
+                        <img src='/public/icons/fire.svg'/>
+                    </ListItemIcon>
+                    <ListItemText primary="About"/>
+                </MenuItem>
             </Drawer>);
-        this.accountmenu = <IconMenu iconButtonElement={<IconButton>
-                    <FontIcon className='material-icons'>account_box</FontIcon>
-                </IconButton>} anchorOrigin={{ vertical: "bottom", horizontal: "right" }} targetOrigin={{ vertical: "top", horizontal: "right" }}>
-            <MenuItem primaryText="Login (existing user)"/>
-            <Divider />
-            <MenuItem primaryText="Register (new user)"/>
-        </IconMenu>;
+        this.accountmenu = null;
+        // <MenuList
+        //     iconButtonElement = {
+        //         <IconButton>
+        //             <FontIcon className='material-icons'>account_box</FontIcon>
+        //         </IconButton>
+        //     }
+        //     anchorOrigin = {{vertical:"bottom",horizontal:"right"}}
+        //     targetOrigin = {{vertical:"top",horizontal:"right"}}
+        // >
+        //     <MenuItem
+        //         primaryText = "Login (existing user)"
+        //     />
+        //     <Divider />
+        //     <MenuItem
+        //         primaryText = "Register (new user)"
+        //     />
+        // </MenuList>
         this.scroller = null;
     }
     componentDidMount() {
@@ -113,59 +180,59 @@ class QuadToolsStrip extends React.Component {
             whiteSpace: 'nowrap',
         }}>
                             <IconButton onClick={this.handleMenuToggle}>
-                                <FontIcon className='material-icons'>menu</FontIcon>
+                                <Icon>menu</Icon>
                             </IconButton>
 
                             <div style={{ display: 'inline-block', height: '1.5em', borderLeft: '1px solid gray' }}></div>
 
                             <IconButton style={{ verticalAlign: 'bottom', }} onClick={() => {
             this.takingfocus('topleft');
-        }} iconStyle={{
+        }}>
+                                <img style={{
             backgroundColor: (currentquad == 'topleft') ? 'red' :
                 ((split == 'vertical' && currentquad == 'bottomleft') ||
                     (split == 'horizontal' && currentquad == 'topright') ||
                     (split == 'matrix')) ? 'orange' : 'transparent'
-        }}>
-                                <img src={(split == 'none' || split == 'matrix') ? '/public/icons/ic_border_all_black_24px_topleft.svg' :
+        }} src={(split == 'none' || split == 'matrix') ? '/public/icons/ic_border_all_black_24px_topleft.svg' :
             (split == 'vertical') ? '/public/icons/ic_border_all_black_24px_topleft_leftsplit.svg' :
                 '/public/icons/ic_border_all_black_24px_topleft_topsplit.svg'}/>
                             </IconButton>
 
                             <IconButton style={{ verticalAlign: 'bottom' }} onClick={() => {
             this.takingfocus('topright');
-        }} iconStyle={{
+        }}>
+                                <img style={{
             backgroundColor: (currentquad == 'topright') ? 'red' :
                 ((split == 'vertical' && currentquad == 'bottomright') ||
                     (split == 'horizontal' && currentquad == 'topleft') ||
                     (split == 'matrix')) ? 'orange' : 'transparent'
-        }}>
-                                <img src={(split == 'none' || split == 'matrix') ? '/public/icons/ic_border_all_black_24px_topright.svg' :
+        }} src={(split == 'none' || split == 'matrix') ? '/public/icons/ic_border_all_black_24px_topright.svg' :
             (split == 'vertical') ? '/public/icons/ic_border_all_black_24px_topright_rightsplit.svg' :
                 '/public/icons/ic_border_all_black_24px_topright_topsplit.svg'}/>
                             </IconButton>
 
                             <IconButton style={{ verticalAlign: 'bottom' }} onClick={() => {
             this.takingfocus('bottomleft');
-        }} iconStyle={{
+        }}>
+                                <img style={{
             backgroundColor: (currentquad == 'bottomleft') ? 'red' :
                 ((split == 'vertical' && currentquad == 'topleft') ||
                     (split == 'horizontal' && currentquad == 'bottomright') ||
                     (split == 'matrix')) ? 'orange' : 'transparent'
-        }}>
-                                <img src={(split == 'none' || split == 'matrix') ? '/public/icons/ic_border_all_black_24px_bottomleft.svg' :
+        }} src={(split == 'none' || split == 'matrix') ? '/public/icons/ic_border_all_black_24px_bottomleft.svg' :
             (split == 'vertical') ? '/public/icons/ic_border_all_black_24px_bottomleft_leftsplit.svg' :
                 '/public/icons/ic_border_all_black_24px_bottomleft_bottomsplit.svg'}/>
                             </IconButton>
 
                             <IconButton style={{ verticalAlign: 'bottom' }} onClick={() => {
             this.takingfocus('bottomright');
-        }} iconStyle={{
+        }}>
+                                <img style={{
             backgroundColor: (currentquad == 'bottomright') ? 'red' :
                 ((split == 'vertical' && currentquad == 'topright') ||
                     (split == 'horizontal' && currentquad == 'bottomleft') ||
                     (split == 'matrix')) ? 'orange' : 'transparent'
-        }}>
-                                <img src={(split == 'none' || split == 'matrix') ? '/public/icons/ic_border_all_black_24px_bottomright.svg' :
+        }} src={(split == 'none' || split == 'matrix') ? '/public/icons/ic_border_all_black_24px_bottomright.svg' :
             (split == 'vertical') ? '/public/icons/ic_border_all_black_24px_bottomright_rightsplit.svg' :
                 '/public/icons/ic_border_all_black_24px_bottomright_bottomsplit.svg'}/>
                             </IconButton>
@@ -178,8 +245,8 @@ class QuadToolsStrip extends React.Component {
             '/public/icons/ic_border_all_black_24px_split.svg'}/>
                             </IconButton>
 
-                            <IconButton iconStyle={{ transform: 'rotate(90deg)' }} style={{ verticalAlign: 'bottom' }} onClick={() => this.changeSplitFrom('vertical')}>
-                                <img src={(this.state.split == 'vertical') ?
+                            <IconButton style={{ verticalAlign: 'bottom' }} onClick={() => this.changeSplitFrom('vertical')}>
+                                <img style={{ transform: 'rotate(90deg)' }} src={(this.state.split == 'vertical') ?
             '/public/icons/ic_border_all_black_24px_split_red.svg' :
             '/public/icons/ic_border_all_black_24px_split.svg'}/>
                             </IconButton>
@@ -193,15 +260,15 @@ class QuadToolsStrip extends React.Component {
                             <div style={{ display: 'inline-block', height: '1.5em', borderLeft: '1px solid gray' }}></div>
 
                             <IconButton>
-                                <FontIcon className='material-icons'>notifications</FontIcon>
+                                <Icon>notifications</Icon>
                             </IconButton>
 
                             <IconButton>
-                                <FontIcon className='material-icons'>help_outline</FontIcon>
+                                <Icon>help_outline</Icon>
                             </IconButton>
 
                             <IconButton>
-                                <FontIcon className='material-icons'>settings</FontIcon>}
+                                <Icon>settings</Icon>
                             </IconButton>
 
                             {this.accountmenu}

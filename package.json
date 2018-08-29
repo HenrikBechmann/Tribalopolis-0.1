@@ -9,7 +9,7 @@
     "start": "pushstate-server ./ 9002"
   },
   "keywords": [],
-  "author": "",
+  "author": "Henrik Bechmann",
   "license": "GNUv3",
   "dependencies": {
     "@material-ui/core": "^3.0.0",
