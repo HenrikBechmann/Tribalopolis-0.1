@@ -6,7 +6,6 @@
 // https://design.google.com/icons/
 /* ================= theme details: ==================== */
 // let budgetdata = {} // require('../../explorerprototypedata/2015budgetA.json')
-// import V0theme from 'material-ui/styles/baseThemes/lightBaseTheme'
 import { createMuiTheme } from '@material-ui/core/styles';
 import * as colors from '@material-ui/core/colors';
 let theme = createMuiTheme();
@@ -40,7 +39,6 @@ let theme = createMuiTheme();
 // 	desktopToolbarHeight: 56
 // 	iconSize: 24
 /* ======================================== */
-// import * as colors from 'material-ui/styles/colors'
 let appnavbar = {
     title: 'Tribalopolis v0.1.1',
     username: 'anonymous',
