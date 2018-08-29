@@ -2,7 +2,8 @@
 // copyright (c) 2018 Henrik Bechmann, Toronto, MIT Licence
 'use strict';
 import * as React from 'react';
-import MenuItem from '@material-ui/core/MenuItem';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Icon from '@material-ui/core/Icon';
@@ -31,96 +32,104 @@ class QuadToolsStrip extends React.Component {
             }
             this.changeSplit(newIndex);
         };
-        this.handleMenuToggle = () => {
-            this.setState({ menuopen: !this.state.menuopen });
+        this.menulist = <List>
+        <ListItem button> 
+            <ListItemIcon> 
+                <Icon style={{ color: 'brown' }}>
+                    weekend
+                </Icon>
+            </ListItemIcon>
+            <ListItemText primary="Home Base"/>
+        </ListItem>
+        <Divider />
+        <ListItem button>
+            <ListItemIcon>
+                <Icon style={{ color: 'brown' }}>
+                    work
+                </Icon>
+            </ListItemIcon>
+            <ListItemText primary="My Workspace"/>
+        </ListItem>
+        <ListItem button>
+            <ListItemIcon>
+                <Icon style={{ color: 'brown' }}>
+                    account_box
+                </Icon>
+            </ListItemIcon>
+            <ListItemText primary="My Account"/>
+        </ListItem>
+        <ListItem button>
+            <ListItemIcon>
+                <Icon style={{ color: 'brown' }}>
+                    web
+                </Icon>
+            </ListItemIcon>
+            <ListItemText primary="My Website"/>
+        </ListItem>
+        <Divider />
+        <ListItem button>
+            <ListItemIcon>
+                <Icon style={{ color: 'steelblue' }}>
+                    group
+                </Icon>
+            </ListItemIcon>
+            <ListItemText primary="Members"/>
+        </ListItem>
+        <ListItem button>
+            <ListItemIcon>
+                <img src='/public/icons/fire.svg'/>
+            </ListItemIcon>
+            <ListItemText primary="Tribes"/>
+        </ListItem>
+        <ListItem button>
+            <ListItemIcon>
+                <Icon style={{ color: 'steelblue' }}>
+                    share
+                </Icon>
+            </ListItemIcon>
+            <ListItemText primary="Networks"/>
+        </ListItem>
+        <ListItem button>
+            <ListItemIcon>
+                <Icon style={{ color: 'green' }}>
+                    monetization_on
+                </Icon>
+            </ListItemIcon>
+            <ListItemText primary="Markets"/>
+        </ListItem>
+        <Divider />
+        <ListItem button>
+            <ListItemIcon>
+                <Icon>local_library</Icon>
+            </ListItemIcon>
+            <ListItemText primary="Tutorials"/>
+        </ListItem>
+        <ListItem button>
+            <ListItemIcon>
+                <Icon className='material-icons'>build</Icon>
+            </ListItemIcon>
+            <ListItemText primary="Tools"/>
+        </ListItem>
+        <Divider />
+        <ListItem button>
+            <ListItemIcon>
+                <img src='/public/icons/fire.svg'/>
+            </ListItemIcon>
+            <ListItemText primary="About"/>
+        </ListItem>
+    </List>;
+        this.toggleDrawer = (open) => () => {
+            this.setState({
+                menuopen: open,
+            });
         };
-        this.handleMenuClose = () => this.setState({ menuopen: false });
-        this.menudrawer = () => (<Drawer open={this.state.menuopen} onClose={(open) => this.setState({ menuopen: open })}>
-                <MenuItem onClick={this.handleMenuClose}> 
-                    <ListItemIcon> 
-                        <Icon style={{ color: 'brown' }}>
-                            weekend
-                        </Icon>
-                    </ListItemIcon>
-                    <ListItemText primary="Home Base"/>
-                </MenuItem>
-                <Divider />
-                <MenuItem onClick={this.handleMenuClose}>
-                    <ListItemIcon>
-                        <Icon style={{ color: 'brown' }}>
-                            work
-                        </Icon>
-                    </ListItemIcon>
-                    <ListItemText primary="My Workspace"/>
-                </MenuItem>
-                <MenuItem onClick={this.handleMenuClose}>
-                    <ListItemIcon>
-                        <Icon style={{ color: 'brown' }}>
-                            account_box
-                        </Icon>
-                    </ListItemIcon>
-                    <ListItemText primary="My Account"/>
-                </MenuItem>
-                <MenuItem onClick={this.handleMenuClose}>
-                    <ListItemIcon>
-                        <Icon style={{ color: 'brown' }}>
-                            web
-                        </Icon>
-                    </ListItemIcon>
-                    <ListItemText primary="My Website"/>
-                </MenuItem>
-                <Divider />
-                <MenuItem onClick={this.handleMenuClose}>
-                    <ListItemIcon>
-                        <Icon style={{ color: 'steelblue' }}>
-                            group
-                        </Icon>
-                    </ListItemIcon>
-                    <ListItemText primary="Members"/>
-                </MenuItem>
-                <MenuItem onClick={this.handleMenuClose}>
-                    <ListItemIcon>
-                        <img src='/public/icons/fire.svg'/>
-                    </ListItemIcon>
-                    <ListItemText primary="Tribes"/>
-                </MenuItem>
-                <MenuItem onClick={this.handleMenuClose}>
-                    <ListItemIcon>
-                        <Icon style={{ color: 'steelblue' }}>
-                            share
-                        </Icon>
-                    </ListItemIcon>
-                    <ListItemText primary="Networks"/>
-                </MenuItem>
-                <MenuItem onClick={this.handleMenuClose}>
-                    <ListItemIcon>
-                        <Icon style={{ color: 'green' }}>
-                            monetization_on
-                        </Icon>
-                    </ListItemIcon>
-                    <ListItemText primary="Markets"/>
-                </MenuItem>
-                <Divider />
-                <MenuItem onClick={this.handleMenuClose}>
-                    <ListItemIcon>
-                        <Icon>local_library</Icon>
-                    </ListItemIcon>
-                    <ListItemText primary="Tutorials"/>
-                </MenuItem>
-                <MenuItem onClick={this.handleMenuClose}>
-                    <ListItemIcon>
-                        <Icon className='material-icons'>build</Icon>
-                    </ListItemIcon>
-                    <ListItemText primary="Tools"/>
-                </MenuItem>
-                <Divider />
-                <MenuItem onClick={this.handleMenuClose}>
-                    <ListItemIcon>
-                        <img src='/public/icons/fire.svg'/>
-                    </ListItemIcon>
-                    <ListItemText primary="About"/>
-                </MenuItem>
-            </Drawer>);
+        this.menudrawer = () => {
+            return (<Drawer open={this.state.menuopen} onClose={this.toggleDrawer(false)}>
+            <div tabIndex={0} role="button" onClick={this.toggleDrawer(false)} onKeyDown={this.toggleDrawer(false)}>
+                {this.menulist}
+            </div>
+        </Drawer>);
+        };
         this.accountmenu = null;
         // <MenuList
         //     iconButtonElement = {
@@ -179,7 +188,7 @@ class QuadToolsStrip extends React.Component {
             display: 'inline',
             whiteSpace: 'nowrap',
         }}>
-                            <IconButton onClick={this.handleMenuToggle}>
+                            <IconButton onClick={this.toggleDrawer(!this.state.menuopen)}>
                                 <Icon>menu</Icon>
                             </IconButton>
 

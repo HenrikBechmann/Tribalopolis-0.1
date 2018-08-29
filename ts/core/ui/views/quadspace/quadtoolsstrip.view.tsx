@@ -5,6 +5,8 @@
 import * as React from 'react'
 
 import MenuList from '@material-ui/core/MenuList'
+import List from '@material-ui/core/List'
+import ListItem from '@material-ui/core/ListItem'
 import MenuItem from '@material-ui/core/MenuItem'
 import ListItemIcon from '@material-ui/core/ListItemIcon'
 import ListItemText from '@material-ui/core/ListItemText'
@@ -59,142 +61,144 @@ class QuadToolsStrip extends React.Component<any,any> {
         }
     }
 
-    handleMenuToggle = () => {
-        this.setState({menuopen: !this.state.menuopen}
-    )}
+    menulist = <List>
+        <ListItem button
+        > 
+            <ListItemIcon> 
+                <Icon 
+                    style = {{color:'brown'}}
+                >
+                    weekend
+                </Icon>
+            </ListItemIcon>
+            <ListItemText primary = "Home Base" />
+        </ListItem>
+        <Divider />
+        <ListItem button
+        >
+            <ListItemIcon>
+                <Icon 
+                    style = {{color:'brown'}}
+                >
+                    work
+                </Icon>
+            </ListItemIcon>
+            <ListItemText primary = "My Workspace"/>
+        </ListItem>
+        <ListItem button
+        >
+            <ListItemIcon>
+                <Icon 
+                    style = {{color:'brown'}}
+                >
+                    account_box
+                </Icon>
+            </ListItemIcon>
+            <ListItemText primary = "My Account" />
+        </ListItem>
+        <ListItem button
+        >
+            <ListItemIcon>
+                <Icon 
+                    style = {{color:'brown'}}
+                >
+                    web
+                </Icon>
+            </ListItemIcon>
+            <ListItemText primary = "My Website" />
+        </ListItem>
+        <Divider />
+        <ListItem button
+        >
+            <ListItemIcon>
+                <Icon 
+                    style = {{color:'steelblue'}}
+                >
+                    group
+                </Icon>
+            </ListItemIcon>
+            <ListItemText primary = "Members" />
+        </ListItem>
+        <ListItem button
+        >
+            <ListItemIcon>
+                <img
+                   src='/public/icons/fire.svg'
+                />
+            </ListItemIcon>
+            <ListItemText primary = "Tribes" />
+        </ListItem>
+        <ListItem button
+        >
+            <ListItemIcon>
+                <Icon 
+                    style = {{color:'steelblue'}}
+                >
+                    share
+                </Icon>
+            </ListItemIcon>
+            <ListItemText primary = "Networks" />
+        </ListItem>
+        <ListItem button
+        >
+            <ListItemIcon>
+                <Icon 
+                    style = {{color:'green'}}
+                >
+                    monetization_on
+                </Icon>
+            </ListItemIcon>
+            <ListItemText primary = "Markets" />
+        </ListItem>
+        <Divider />
+        <ListItem button
+        >
+            <ListItemIcon>
+                <Icon>local_library</Icon>
+            </ListItemIcon>
+            <ListItemText primary = "Tutorials" />
+        </ListItem>
+        <ListItem button
+        >
+            <ListItemIcon>
+                <Icon className='material-icons'>build</Icon>
+            </ListItemIcon>
+            <ListItemText primary = "Tools" />
+        </ListItem>
+        <Divider />
+        <ListItem button
+        >
+            <ListItemIcon>
+                <img
+                    src='/public/icons/fire.svg'
+                />
+            </ListItemIcon>
+            <ListItemText primary = "About" />
+        </ListItem>
+    </List>
 
-    handleMenuClose = () => this.setState({menuopen: false})
+    toggleDrawer = (open) => () => {
+        this.setState({
+            menuopen:open,
+        })
+    }
 
-    menudrawer = () => (<Drawer
-                open={this.state.menuopen}
-                onClose={(open) => this.setState({menuopen:open})}
+    menudrawer = () => {
+        return (
+        <Drawer
+            open={this.state.menuopen}
+            onClose={this.toggleDrawer(false)}
+        >
+            <div
+                tabIndex={0}
+                role="button"
+                onClick={this.toggleDrawer(false)}
+                onKeyDown={this.toggleDrawer(false)}
             >
-                <MenuItem
-                    onClick={this.handleMenuClose}
-                > 
-                    <ListItemIcon> 
-                        <Icon 
-                            style = {{color:'brown'}}
-                        >
-                            weekend
-                        </Icon>
-                    </ListItemIcon>
-                    <ListItemText primary = "Home Base" />
-                </MenuItem>
-                <Divider />
-                <MenuItem 
-                    onClick={this.handleMenuClose}
-                >
-                    <ListItemIcon>
-                        <Icon 
-                            style = {{color:'brown'}}
-                        >
-                            work
-                        </Icon>
-                    </ListItemIcon>
-                    <ListItemText primary = "My Workspace"/>
-                </MenuItem>
-                <MenuItem 
-                    onClick={this.handleMenuClose}
-                >
-                    <ListItemIcon>
-                        <Icon 
-                            style = {{color:'brown'}}
-                        >
-                            account_box
-                        </Icon>
-                    </ListItemIcon>
-                    <ListItemText primary = "My Account" />
-                </MenuItem>
-                <MenuItem 
-                    onClick={this.handleMenuClose}
-                >
-                    <ListItemIcon>
-                        <Icon 
-                            style = {{color:'brown'}}
-                        >
-                            web
-                        </Icon>
-                    </ListItemIcon>
-                    <ListItemText primary = "My Website" />
-                </MenuItem>
-                <Divider />
-                <MenuItem 
-                    onClick={this.handleMenuClose}
-                >
-                    <ListItemIcon>
-                        <Icon 
-                            style = {{color:'steelblue'}}
-                        >
-                            group
-                        </Icon>
-                    </ListItemIcon>
-                    <ListItemText primary = "Members" />
-                </MenuItem>
-                <MenuItem 
-                    onClick={this.handleMenuClose}
-                >
-                    <ListItemIcon>
-                        <img
-                           src='/public/icons/fire.svg'
-                        />
-                    </ListItemIcon>
-                    <ListItemText primary = "Tribes" />
-                </MenuItem>
-                <MenuItem 
-                    onClick={this.handleMenuClose}
-                >
-                    <ListItemIcon>
-                        <Icon 
-                            style = {{color:'steelblue'}}
-                        >
-                            share
-                        </Icon>
-                    </ListItemIcon>
-                    <ListItemText primary = "Networks" />
-                </MenuItem>
-                <MenuItem 
-                    onClick={this.handleMenuClose}
-                >
-                    <ListItemIcon>
-                        <Icon 
-                            style = {{color:'green'}}
-                        >
-                            monetization_on
-                        </Icon>
-                    </ListItemIcon>
-                    <ListItemText primary = "Markets" />
-                </MenuItem>
-                <Divider />
-                <MenuItem 
-                    onClick={this.handleMenuClose}
-                >
-                    <ListItemIcon>
-                        <Icon>local_library</Icon>
-                    </ListItemIcon>
-                    <ListItemText primary = "Tutorials" />
-                </MenuItem>
-                <MenuItem 
-                    onClick={this.handleMenuClose}
-                >
-                    <ListItemIcon>
-                        <Icon className='material-icons'>build</Icon>
-                    </ListItemIcon>
-                    <ListItemText primary = "Tools" />
-                </MenuItem>
-                <Divider />
-                <MenuItem 
-                    onClick={this.handleMenuClose}
-                >
-                    <ListItemIcon>
-                        <img
-                            src='/public/icons/fire.svg'
-                        />
-                    </ListItemIcon>
-                    <ListItemText primary = "About" />
-                </MenuItem>
-            </Drawer>
-        )
+                {this.menulist}
+            </div>
+        </Drawer>
+    )}
 
     accountmenu = null
         // <MenuList
@@ -254,7 +258,7 @@ class QuadToolsStrip extends React.Component<any,any> {
                             }
                         >
                             <IconButton
-                                onClick = {this.handleMenuToggle}
+                                onClick = {this.toggleDrawer(!this.state.menuopen)}
                             >
                                 <Icon>menu</Icon>
                             </IconButton>
