@@ -8,7 +8,7 @@ import * as React from 'react'
 // import { connect } from 'react-redux'
 
 import QuadToolsStrip from './views/quadspace/quadtoolsstrip.view'
-import QuadFrame from './views/quadspace/quadframe.view'
+import QuadSpaceFrame from './views/quadspace/quadspaceframe.view'
 import QuadBasket from './views/quadspace/quadbasket.view'
 import QuadViewport from './views/quadspace/quadviewport.view'
 import QuadPlatform from './views/quadspace/quadplatform.view'
@@ -150,7 +150,6 @@ class QuadspaceController extends React.Component<any,any> {
         return [
         <Quadrant 
             key = '1'
-            sessionid = {0}
             quadrant = {this.calcQuadrant(0)}
             color = '#e8e8e8' 
             datastack = {this.state.datastacks[0]}
@@ -160,7 +159,6 @@ class QuadspaceController extends React.Component<any,any> {
         />,
         <Quadrant 
             key = '2'
-            sessionid = {1}
             quadrant = {this.calcQuadrant(1)}
             color = '#e8e8e8' 
             datastack = {this.state.datastacks[1]}
@@ -170,7 +168,6 @@ class QuadspaceController extends React.Component<any,any> {
         />,
         <Quadrant 
             key = '3'
-            sessionid = {2}
             quadrant = {this.calcQuadrant(2)}
             color = '#e8e8e8' 
             datastack = {this.state.datastacks[2]}
@@ -180,7 +177,6 @@ class QuadspaceController extends React.Component<any,any> {
         />,
         <Quadrant 
             key = '4'
-            sessionid = {3}
             quadrant = {this.calcQuadrant(3)}
             color = '#e8e8e8' 
             datastack = {this.state.datastacks[3]}
@@ -193,7 +189,7 @@ class QuadspaceController extends React.Component<any,any> {
 
     render() {
         return (
-            <QuadFrame>
+            <QuadSpaceFrame>
                 <QuadToolsStrip currentquad = {this.state.currentquad}
                     takingfocus = {this.takingfocus}
                     split = {this.state.split}
@@ -209,7 +205,7 @@ class QuadspaceController extends React.Component<any,any> {
                     </QuadPlatform>
                 </QuadViewport>
                 <QuadStatusBar status = 'Something Something Something Something Something Something Something Something Something Something Something Something Something Something Something Something Something ' />
-            </QuadFrame>
+            </QuadSpaceFrame>
         )
     }
 }

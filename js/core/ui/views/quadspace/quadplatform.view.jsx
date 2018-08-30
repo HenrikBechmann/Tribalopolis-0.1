@@ -212,15 +212,7 @@ class QuadPlatform extends React.Component {
             this.calculateDimensions(nextProps.split);
             this.setState({
                 split: nextProps.split
-            } //,
-            // () => {
-            //     setTimeout(()=> {
-            //         this.element.style.display = 'none'
-            //         let a = this.element.style.offsetHeight
-            //         this.element.style.display = 'block'
-            //     },2000)
-            // }
-            );
+            });
         }
         if (nextProps.currentquad != this.state.currentquad) {
             setTimeout(() => {

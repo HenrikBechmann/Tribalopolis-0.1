@@ -4,7 +4,7 @@
 
 import * as React from 'react'
 
-const QuadFrame = props => {
+const QuadSpaceFrame = props => {
     return (
         <div 
             id = "quadframe" 
@@ -22,4 +22,4 @@ const QuadFrame = props => {
     )
 }
 
-export default QuadFrame
+export default QuadSpaceFrame
