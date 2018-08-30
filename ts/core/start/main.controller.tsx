@@ -1,22 +1,29 @@
+// copyright (c) 2018 Henrik Bechmann, Toronto, MIT Licence
+// main.controller.tsx
+
+/*
+    bootstrap:
+    1. index.html
+    2. index.tsx
+    3. main.controller
+    4. main.view
+    5. approuter
+    6. routes
+*/
+
 'use strict'
 
 import * as React from 'react'
 
 import coredata from  '../../data/coredata'
 
-let state:any = coredata // get font-family for non material-ui components
-let fontFamily = state.theme.typography.fontFamily
-// 
+let fontFamily = coredata.theme.typography.fontFamily
+
 import { DragDropContext } from 'react-dnd'
-import DnDHTMLBackend from 'react-dnd-html5-backend'
+// import DnDHTMLBackend from 'react-dnd-html5-backend'
 import DnDTouchBackend from 'react-dnd-touch-backend'
 
 let DnDBackend = DnDTouchBackend({ enableMouseEvents: true })
-
-// import V0MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
-// import V0getMuiTheme from 'material-ui/styles/getMuiTheme'
-
-// const V0muiTheme = V0getMuiTheme()
 
 import MainView from './main.view'
 
@@ -38,5 +45,3 @@ class Main extends React.Component<any,any> {
 }
 
 export default DragDropContext(DnDBackend)(Main)
-// export default Main
-

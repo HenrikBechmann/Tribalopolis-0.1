@@ -14,9 +14,6 @@ import createBrowserHistory from 'history/createBrowserHistory'
 
 const customHistory = createBrowserHistory()
 
-// import TransitionWrapper from './transitionwrapper'
-
-
 // current release of react-ga 2.31 is broken
 // let ReactGA = require('react-ga')
 // console.log('ReactGA',ReactGA)
@@ -49,13 +46,4 @@ let AppRouter = class extends React.Component<any,any> {
     }
 }
     
-let mapStateToProps = state => {
-    let { router } = state
-    return { 
-        router,
-    }
-}
-
-// AppRouter = connect(mapStateToProps)(AppRouter)
-
 export  { AppRouter }

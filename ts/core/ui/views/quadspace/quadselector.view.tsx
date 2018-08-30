@@ -14,7 +14,7 @@ class QuadSelector extends React.Component<any,any> {
 
     render() {
 
-        let {quadrant, split, quadselection } = this.props
+        let {quadrant, split, selectQuadrant } = this.props
         let component = null
 
         let element:any = null
@@ -72,7 +72,7 @@ class QuadSelector extends React.Component<any,any> {
                         this.setState({
                             selected:true
                         })
-                        quadselection(quadrant)
+                        selectQuadrant(quadrant)
                         setTimeout(() => {
                             this.setState({
                                 selected:false

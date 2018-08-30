@@ -33,7 +33,7 @@
     "react-list": "^0.8.10",
     "react-router-dom": "^4.3.1",
     "react-swipeable": "^4.3.0",
-    "react-toastify": "^4.2.2",
+    "react-toastify": "^4.2.3",
     "uuid": "^3.3.2"
   },
   "devDependencies": {
@@ -43,8 +43,8 @@
     "@babel/preset-react": "^7.0.0",
     "@types/draft-js": "^0.10.24",
     "@types/material-ui": "^0.21.5",
-    "@types/node": "^10.9.3",
-    "@types/react": "^16.4.12",
+    "@types/node": "^10.9.4",
+    "@types/react": "^16.4.13",
     "@types/react-dnd": "^3.0.2",
     "@types/react-dom": "^16.0.7",
     "@types/react-ga": "^2.3.0",
@@ -55,7 +55,7 @@
     "source-list-map": "^2.0.0",
     "style-loader": "^0.23.0",
     "ts-loader": "^4.5.0",
-    "typescript": "^3.0.1",
+    "typescript": "^3.0.3",
     "webpack": "^4.17.1",
     "webpack-cli": "^3.1.0",
     "webpack-sources": "^1.2.0"

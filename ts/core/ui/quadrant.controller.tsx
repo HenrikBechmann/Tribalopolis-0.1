@@ -74,9 +74,9 @@ class Quadrant extends React.Component<any,any>  {
 
     componentWillMount() {
         this.calculatePosition(this.state.quadrant)
-        this.getDataItem = this.props.getDataItem
-        this.getListItem = this.props.getListItem
-        this.getTypeItem = this.props.getTypeItem
+        this.getDataItem = this.props.toolkit.getDataItem
+        this.getListItem = this.props.toolkit.getListItem
+        this.getTypeItem = this.props.toolkit.getTypeItem
 
         window.addEventListener('resize',this.onResize)
 
@@ -798,10 +798,10 @@ class Quadrant extends React.Component<any,any>  {
                 >
                     <SwapMenu 
                         quadrant = {this.state.quadrant} 
-                        handleswap = {this.props.handleswap}
+                        handleSwap = {this.props.toolkit.handleSwap}
                     />
                     <QuadTitleBar 
-                        title = {this.props.title} 
+                        title = {'title'} 
                         uid={this.state.startquadrant}
                     />
                     <QuadOrigin 
@@ -833,7 +833,7 @@ class Quadrant extends React.Component<any,any>  {
                     <QuadSelector 
                         quadrant = {this.state.quadrant} 
                         split = {this.props.split} 
-                        quadselection = {this.props.quadselection}
+                        selectQuadrant = {this.props.selectQuadrant}
                     />
                 </div>
             </div>

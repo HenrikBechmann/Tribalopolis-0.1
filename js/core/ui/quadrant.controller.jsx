@@ -439,9 +439,9 @@ class Quadrant extends React.Component {
     *********************************************************/
     componentWillMount() {
         this.calculatePosition(this.state.quadrant);
-        this.getDataItem = this.props.getDataItem;
-        this.getListItem = this.props.getListItem;
-        this.getTypeItem = this.props.getTypeItem;
+        this.getDataItem = this.props.toolkit.getDataItem;
+        this.getListItem = this.props.toolkit.getListItem;
+        this.getTypeItem = this.props.toolkit.getTypeItem;
         window.addEventListener('resize', this.onResize);
     }
     componentWillUnmount() {
@@ -567,8 +567,8 @@ class Quadrant extends React.Component {
                 <div ref={this.maskanimationblock}>
                 </div>
                 <div style={quadcontentstyle}>
-                    <SwapMenu quadrant={this.state.quadrant} handleswap={this.props.handleswap}/>
-                    <QuadTitleBar title={this.props.title} uid={this.state.startquadrant}/>
+                    <SwapMenu quadrant={this.state.quadrant} handleSwap={this.props.toolkit.handleSwap}/>
+                    <QuadTitleBar title={'title'} uid={this.state.startquadrant}/>
                     <QuadOrigin stackpointer={this.state.stackpointer} stackdepth={datastack ? datastack.length : 0} incrementStackSelector={this.incrementStackSelector} decrementStackSelector={this.decrementStackSelector} ref={this.originelement}/>
                     <div style={viewportFrameStyle}>
                     <div style={viewportStyle} ref={this.scrollboxelement}>
@@ -577,7 +577,7 @@ class Quadrant extends React.Component {
             : this.getBox(0, 'singleton')}
                     </div>
                     </div>
-                    <QuadSelector quadrant={this.state.quadrant} split={this.props.split} quadselection={this.props.quadselection}/>
+                    <QuadSelector quadrant={this.state.quadrant} split={this.props.split} selectQuadrant={this.props.selectQuadrant}/>
                 </div>
             </div>);
     }

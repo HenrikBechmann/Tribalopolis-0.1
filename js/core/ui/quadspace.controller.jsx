@@ -83,8 +83,7 @@ class QuadspaceController extends React.Component {
             let pos = this.state.quadrantpositions.indexOf(sessionid);
             return this.positions[pos];
         };
-        this.quadselection = quadrant => {
-            // console.log('quadselection',quadrant)
+        this.selectQuadrant = quadrant => {
             this.setState({
                 currentquad: quadrant,
             }, () => {
@@ -115,12 +114,21 @@ class QuadspaceController extends React.Component {
             typeitem = typeitem || null;
             return typeitem;
         };
-        this.quadrants = () => [
-            <Quadrant key='1' sessionid={0} handleswap={this.handleSwap} quadrant={this.calcQuadrant(0)} split={this.state.split} quadselection={this.quadselection} color='#e8e8e8' title='first first first first first first first first first first first first first first first first first first first first first first first first first first first first first first first first first ' badgequantity={0} datastack={this.state.datastacks[0]} getDataItem={this.getDataItem} getListItem={this.getListItem} getTypeItem={this.getTypeItem}/>,
-            <Quadrant key='2' sessionid={1} handleswap={this.handleSwap} quadrant={this.calcQuadrant(1)} split={this.state.split} quadselection={this.quadselection} color='#e8e8e8' title="second" badgequantity={0} datastack={this.state.datastacks[1]} getDataItem={this.getDataItem} getListItem={this.getListItem} getTypeItem={this.getTypeItem}/>,
-            <Quadrant key='3' sessionid={2} handleswap={this.handleSwap} quadrant={this.calcQuadrant(2)} split={this.state.split} quadselection={this.quadselection} color='#e8e8e8' title="third" badgequantity={0} datastack={this.state.datastacks[2]} getDataItem={this.getDataItem} getListItem={this.getListItem} getTypeItem={this.getTypeItem}/>,
-            <Quadrant key='4' sessionid={3} handleswap={this.handleSwap} quadrant={this.calcQuadrant(3)} split={this.state.split} quadselection={this.quadselection} color='#e8e8e8' title="fourth" badgequantity={0} datastack={this.state.datastacks[3]} getDataItem={this.getDataItem} getListItem={this.getListItem} getTypeItem={this.getTypeItem}/>,
-        ];
+        this.quadrants = () => {
+            let { handleSwap, getDataItem, getListItem, getTypeItem } = this;
+            let toolkit = {
+                handleSwap,
+                getDataItem,
+                getListItem,
+                getTypeItem,
+            };
+            return [
+                <Quadrant key='1' sessionid={0} quadrant={this.calcQuadrant(0)} color='#e8e8e8' datastack={this.state.datastacks[0]} toolkit={toolkit} split={this.state.split} selectQuadrant={this.selectQuadrant}/>,
+                <Quadrant key='2' sessionid={1} quadrant={this.calcQuadrant(1)} color='#e8e8e8' datastack={this.state.datastacks[1]} toolkit={toolkit} split={this.state.split} selectQuadrant={this.selectQuadrant}/>,
+                <Quadrant key='3' sessionid={2} quadrant={this.calcQuadrant(2)} color='#e8e8e8' datastack={this.state.datastacks[2]} toolkit={toolkit} split={this.state.split} selectQuadrant={this.selectQuadrant}/>,
+                <Quadrant key='4' sessionid={3} quadrant={this.calcQuadrant(3)} color='#e8e8e8' datastack={this.state.datastacks[3]} toolkit={toolkit} split={this.state.split} selectQuadrant={this.selectQuadrant}/>,
+            ];
+        };
     }
     render() {
         return (<QuadFrame>
