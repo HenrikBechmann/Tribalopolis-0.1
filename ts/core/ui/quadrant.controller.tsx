@@ -33,7 +33,7 @@ class Quadrant extends React.Component<any,any>  {
         this.maskanimationblock = React.createRef()
 
         // structure dom elements
-        this.quadelement = React.createRef()
+        this.quadframeelement = React.createRef()
         this.originelement = React.createRef()
         this.scrollboxelement = React.createRef()
         this.listcomponent = React.createRef()
@@ -55,7 +55,7 @@ class Quadrant extends React.Component<any,any>  {
     originelement
     scrollboxelement
     listcomponent
-    quadelement
+    quadframeelement
 
     // get records
     getDataItem
@@ -180,7 +180,7 @@ class Quadrant extends React.Component<any,any>  {
         let left:any = 'auto'
         let bottom:any = 'auto'
         let right:any = 'auto'
-        let quadelement = this.quadelement.current
+        let quadframeelement = this.quadframeelement.current
         switch (quadrant) {
             case "topleft": {
                 top = 0
@@ -189,17 +189,17 @@ class Quadrant extends React.Component<any,any>  {
             }
             case "topright": {
                 top = 0
-                left = (quadelement.parentElement.offsetWidth/2) + 'px' 
+                left = (quadframeelement.parentElement.offsetWidth/2) + 'px' 
                 break;
             }
             case "bottomleft": {
-                top = (quadelement.parentElement.offsetHeight/2) + 'px' 
+                top = (quadframeelement.parentElement.offsetHeight/2) + 'px' 
                 left = 0
                 break;
             }
             case "bottomright": {
-                top = (quadelement.parentElement.offsetHeight /2) + 'px' 
-                left = (quadelement.parentElement.offsetWidth /2) + 'px' 
+                top = (quadframeelement.parentElement.offsetHeight /2) + 'px' 
+                left = (quadframeelement.parentElement.offsetWidth /2) + 'px' 
                 break;
             }
         }
@@ -568,7 +568,7 @@ class Quadrant extends React.Component<any,any>  {
 
     _getAnimationElementVars = (domelement:HTMLElement) => {
 
-        let containerelement = this.quadelement.current
+        let containerelement = this.quadframeelement.current
         let containerRect = containerelement.getBoundingClientRect()
         let elementRect = domelement.getBoundingClientRect()
 
@@ -730,7 +730,7 @@ class Quadrant extends React.Component<any,any>  {
             this.scrollboxelement.current.scrollLeft = 0
         }
 
-        let quadstyle:React.CSSProperties = {
+        let quadframestyle:React.CSSProperties = {
             position:'absolute',
             boxSizing:'border-box',
             width:'50%',
@@ -779,23 +779,23 @@ class Quadrant extends React.Component<any,any>  {
 
         return (
             <div 
-                style = {quadstyle}
-                ref = {this.quadelement}
+                style = {quadframestyle}
+                ref = {this.quadframeelement}
             >
-                <div
-                    ref = {this.drillanimationblock}
-                >
-                </div>
-                <div
-                    ref = {this.originanimationblock}
-                >
-                </div>
-                <div
-                    ref = {this.maskanimationblock}
-                >
-                </div>
                 <div style = {quadcontentstyle} 
                 >
+                    <div
+                        ref = {this.drillanimationblock}
+                    >
+                    </div>
+                    <div
+                        ref = {this.originanimationblock}
+                    >
+                    </div>
+                    <div
+                        ref = {this.maskanimationblock}
+                    >
+                    </div>
                     <SwapMenu 
                         quadrant = {this.state.quadrant} 
                         handleSwap = {this.props.toolkit.handleSwap}

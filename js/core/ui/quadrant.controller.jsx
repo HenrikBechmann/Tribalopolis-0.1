@@ -47,7 +47,7 @@ class Quadrant extends React.Component {
             let left = 'auto';
             let bottom = 'auto';
             let right = 'auto';
-            let quadelement = this.quadelement.current;
+            let quadframeelement = this.quadframeelement.current;
             switch (quadrant) {
                 case "topleft": {
                     top = 0;
@@ -56,17 +56,17 @@ class Quadrant extends React.Component {
                 }
                 case "topright": {
                     top = 0;
-                    left = (quadelement.parentElement.offsetWidth / 2) + 'px';
+                    left = (quadframeelement.parentElement.offsetWidth / 2) + 'px';
                     break;
                 }
                 case "bottomleft": {
-                    top = (quadelement.parentElement.offsetHeight / 2) + 'px';
+                    top = (quadframeelement.parentElement.offsetHeight / 2) + 'px';
                     left = 0;
                     break;
                 }
                 case "bottomright": {
-                    top = (quadelement.parentElement.offsetHeight / 2) + 'px';
-                    left = (quadelement.parentElement.offsetWidth / 2) + 'px';
+                    top = (quadframeelement.parentElement.offsetHeight / 2) + 'px';
+                    left = (quadframeelement.parentElement.offsetWidth / 2) + 'px';
                     break;
                 }
             }
@@ -342,7 +342,7 @@ class Quadrant extends React.Component {
             return varpack;
         };
         this._getAnimationElementVars = (domelement) => {
-            let containerelement = this.quadelement.current;
+            let containerelement = this.quadframeelement.current;
             let containerRect = containerelement.getBoundingClientRect();
             let elementRect = domelement.getBoundingClientRect();
             let topOffset = elementRect.top - containerRect.top;
@@ -429,7 +429,7 @@ class Quadrant extends React.Component {
         this.originanimationblock = React.createRef();
         this.maskanimationblock = React.createRef();
         // structure dom elements
-        this.quadelement = React.createRef();
+        this.quadframeelement = React.createRef();
         this.originelement = React.createRef();
         this.scrollboxelement = React.createRef();
         this.listcomponent = React.createRef();
@@ -516,7 +516,7 @@ class Quadrant extends React.Component {
         if (!haspeers && this.scrollboxelement.current && (this.scrollboxelement.current.scrollLeft != 0)) {
             this.scrollboxelement.current.scrollLeft = 0;
         }
-        let quadstyle = {
+        let quadframestyle = {
             position: 'absolute',
             boxSizing: 'border-box',
             width: '50%',
@@ -559,14 +559,14 @@ class Quadrant extends React.Component {
             position: 'relative',
         };
         // console.log('quadrant.state, listcomponent',this.state, this.listcomponent)
-        return (<div style={quadstyle} ref={this.quadelement}>
-                <div ref={this.drillanimationblock}>
-                </div>
-                <div ref={this.originanimationblock}>
-                </div>
-                <div ref={this.maskanimationblock}>
-                </div>
+        return (<div style={quadframestyle} ref={this.quadframeelement}>
                 <div style={quadcontentstyle}>
+                    <div ref={this.drillanimationblock}>
+                    </div>
+                    <div ref={this.originanimationblock}>
+                    </div>
+                    <div ref={this.maskanimationblock}>
+                    </div>
                     <SwapMenu quadrant={this.state.quadrant} handleSwap={this.props.toolkit.handleSwap}/>
                     <QuadTitleBar title={'title'} uid={this.state.startquadrant}/>
                     <QuadOrigin stackpointer={this.state.stackpointer} stackdepth={datastack ? datastack.length : 0} incrementStackSelector={this.incrementStackSelector} decrementStackSelector={this.decrementStackSelector} ref={this.originelement}/>
