@@ -3,7 +3,7 @@
 
 import * as React from 'react'
 
-import { Route } from 'react-router-dom'
+import { Route, Redirect } from 'react-router-dom'
 
 // import Spaces from './control/spaces'
 import QuadspaceController from '../ui/quadspace.controller'
@@ -31,9 +31,12 @@ let coreroutes = routedata.map((item, index) => (
    <Route key = {'coreroute'+index} path={item.path} component = {item.component} />
 ))
 
-let indexroute = <Route key = "_INDEX_" path = "/" component={ QuadspaceController } />
+let indexroute = <Route key = "_WORKSPACE_" path = "/workspace" component={ QuadspaceController } />
 
+let homeroute = <Route key = "_HOME_" exact path = "/" render={() => (
+    <Redirect to="/workspace"/>
+)}/>
 
-const routes = [indexroute]
+const routes = [indexroute,homeroute]
 
 export default routes

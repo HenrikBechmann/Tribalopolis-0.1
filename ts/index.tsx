@@ -14,7 +14,7 @@ render( <MainController globalmessage = {globalmessage}
      document.getElementById('main') )
 } catch (e) {
     <div>
-        This application requires a modern browser, like Chrome, Firefox, Safari or MS Edge.
+        An error has occurred. This application requires a modern browser, like Chrome, Firefox, Safari or MS Edge.
     </div>
 }
 
