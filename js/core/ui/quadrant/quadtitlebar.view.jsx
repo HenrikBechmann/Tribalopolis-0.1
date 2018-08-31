@@ -3,7 +3,7 @@
 'use strict';
 import * as React from 'react';
 const QuadTitleBar = props => {
-    let { uid: alias } = props;
+    let { quadidentifier: alias } = props;
     return (<div style={{
         position: 'relative',
         height: '25px',
