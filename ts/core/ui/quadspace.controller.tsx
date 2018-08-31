@@ -11,13 +11,11 @@ import QuadToolsStrip from './quadspace/quadtoolsstrip.view'
 import QuadSpaceFrame from './quadspace/quadspaceframe.view'
 import QuadBasket from './quadspace/quadbasket.view'
 import QuadViewport from './quadspace/quadviewport.view'
-import QuadPlatform from './quadspace/quadplatform.view'
-import QuadDiamond from './quadspace/quaddiamond.view'
+// import QuadDiamond from './quadspace/quaddiamond.view'
 import QuantityBadge from './common/quantitybadge.view'
 import QuadStatusBar from './quadspace/quadstatusbar.view'
+import Quadrants from './quadrants.controller'
 
-import QuadFrame from './quadrant/quadframe.view'
-import Quadrant from './quadrant.controller'
 import { METATYPES } from '../constants'
 
 import {lists, links, items, types, schemes, datastacks, maps} from '../../data/repositories'
@@ -70,7 +68,7 @@ class QuadspaceController extends React.Component<any,any> {
         })
     }
 
-    takingfocus = (quadrantname) => {
+    selectQuad = (quadrantname) => {
         this.setState({
             currentquad:quadrantname,
         })
@@ -133,6 +131,8 @@ class QuadspaceController extends React.Component<any,any> {
         })
     }
 
+    // TODO: the following 3 data functions should be in the application service
+
     getDataItem = (dataref) => {
         return items[dataref.uid]
     }
@@ -153,89 +153,36 @@ class QuadspaceController extends React.Component<any,any> {
         return typeitem
     }
 
-    quadrants = () => {
-        let { handleSwap, getDataItem, getListItem, getTypeItem } = this
-        let quadtoolkit = {
-            getDataItem,
-            getListItem,
-            getTypeItem,
-        }
-        let frametoolkit = {
-            handleSwap,
-            selectQuadrant:this.selectQuadrant,
-        }
-        return [
-        <QuadFrame
-            key = '1'
-            quadrant = {this.calcQuadrant(0)}
-            split = {this.state.split}
-            toolkit = {frametoolkit}
-        >
-            <Quadrant 
-                quadidentifier = {this.quadrantidentifiers[0]}
-                color = '#e8e8e8' 
-                datastack = {this.state.datastacks[0]}
-                toolkit = {quadtoolkit}
-            />
-        </QuadFrame>,
-        <QuadFrame
-            key = '2'
-            quadrant = {this.calcQuadrant(1)}
-            toolkit = {frametoolkit}
-            split = {this.state.split}
-        >
-            <Quadrant 
-                quadidentifier = {this.quadrantidentifiers[1]}
-                color = '#e8e8e8' 
-                datastack = {this.state.datastacks[1]}
-                toolkit = {quadtoolkit}
-            />
-        </QuadFrame>,
-        <QuadFrame
-            key = '3'
-            quadrant = {this.calcQuadrant(2)}
-            toolkit = {frametoolkit}
-            split = {this.state.split}
-        >
-            <Quadrant 
-                quadidentifier = {this.quadrantidentifiers[2]}
-                color = '#e8e8e8' 
-                datastack = {this.state.datastacks[2]}
-                toolkit = {quadtoolkit}
-            />
-        </QuadFrame>,
-        <QuadFrame
-            key = '4'
-            quadrant = {this.calcQuadrant(3)}
-            toolkit = {frametoolkit}
-            split = {this.state.split}
-        >
-            <Quadrant 
-                quadidentifier = {this.quadrantidentifiers[3]}
-                color = '#e8e8e8' 
-                datastack = {this.state.datastacks[3]}
-                toolkit = {quadtoolkit}
-            />
-        </QuadFrame>,
-        ]
+    quadranttoolkit = {
+        handleSwap:this.handleSwap, 
+        getDataItem:this.getDataItem, 
+        getListItem:this.getListItem, 
+        getTypeItem:this.getTypeItem, 
+        selectQuadrant:this.selectQuadrant, 
+        calcQuadrant:this.calcQuadrant,
+    }
+
+    toolsstriptoolkit = {
+        selectQuad:this.selectQuad,
+        changeSplit:this.changeSplit,
     }
 
     render() {
         return (
             <QuadSpaceFrame>
                 <QuadToolsStrip currentquad = {this.state.currentquad}
-                    takingfocus = {this.takingfocus}
+                    toolkit = {this.toolsstriptoolkit}
                     split = {this.state.split}
-                    changeSplit = {this.changeSplit}
                 />
                 <QuadBasket><QuantityBadge quantity = {0} style = {{left:'-12px'}} /></QuadBasket>
                 <QuadViewport>
-                    <QuadPlatform 
-                        currentquad = {this.state.currentquad}
+                    <Quadrants 
+                        toolkit = {this.quadranttoolkit}
+                        quadrantidentifiers =  {this.quadrantidentifiers}
                         split = {this.state.split}
-                    >
-                        {this.quadrants()}
-                    </QuadPlatform>
+                        datastacks = {this.state.datastacks}
+                        currentquad = {this.state.currentquad}
+                    />
                 </QuadViewport>
                 <QuadStatusBar status = 'Something Something Something Something Something Something Something Something Something Something Something Something Something Something Something Something Something ' />
             </QuadSpaceFrame>

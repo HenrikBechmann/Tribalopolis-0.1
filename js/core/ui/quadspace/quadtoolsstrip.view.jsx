@@ -26,8 +26,8 @@ class QuadToolsStrip extends React.Component {
             split: this.props.split,
             accountAnchorElement: null
         };
-        this.changeSplit = this.props.changeSplit;
-        this.takingfocus = this.props.takingfocus;
+        this.changeSplit = this.props.toolkit.changeSplit;
+        this.selectQuad = this.props.toolkit.selectQuad;
         this.scroller = null;
         this.changeSplitFrom = (toggleIndex) => {
             let newIndex = null;
@@ -164,7 +164,7 @@ class QuadToolsStrip extends React.Component {
             let { currentquad, split } = this.state;
             return <div style={{ display: 'inline-block', verticalAlign: 'middle' }}>
             <IconButton style={{ verticalAlign: 'bottom', }} onClick={() => {
-                this.takingfocus('topleft');
+                this.selectQuad('topleft');
             }}>
                 <img style={{
                 backgroundColor: (currentquad == 'topleft') ? 'red' :
@@ -177,7 +177,7 @@ class QuadToolsStrip extends React.Component {
             </IconButton>
 
             <IconButton style={{ verticalAlign: 'bottom' }} onClick={() => {
-                this.takingfocus('topright');
+                this.selectQuad('topright');
             }}>
                 <img style={{
                 backgroundColor: (currentquad == 'topright') ? 'red' :
@@ -190,7 +190,7 @@ class QuadToolsStrip extends React.Component {
             </IconButton>
 
             <IconButton style={{ verticalAlign: 'bottom' }} onClick={() => {
-                this.takingfocus('bottomleft');
+                this.selectQuad('bottomleft');
             }}>
                 <img style={{
                 backgroundColor: (currentquad == 'bottomleft') ? 'red' :
@@ -203,7 +203,7 @@ class QuadToolsStrip extends React.Component {
             </IconButton>
 
             <IconButton style={{ verticalAlign: 'bottom' }} onClick={() => {
-                this.takingfocus('bottomright');
+                this.selectQuad('bottomright');
             }}>
                 <img style={{
                 backgroundColor: (currentquad == 'bottomright') ? 'red' :

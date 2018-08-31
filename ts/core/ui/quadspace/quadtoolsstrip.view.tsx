@@ -32,9 +32,9 @@ class QuadToolsStrip extends React.Component<any,any> {
         accountAnchorElement:null
     }
 
-    changeSplit = this.props.changeSplit
+    changeSplit = this.props.toolkit.changeSplit
 
-    takingfocus = this.props.takingfocus
+    selectQuad = this.props.toolkit.selectQuad
 
     scroller = null
 
@@ -251,7 +251,7 @@ class QuadToolsStrip extends React.Component<any,any> {
             <IconButton
                 style = {{verticalAlign:'bottom',}}
                 onClick = {() => {
-                    this.takingfocus('topleft')
+                    this.selectQuad('topleft')
                 }}
             >
                 <img 
@@ -276,7 +276,7 @@ class QuadToolsStrip extends React.Component<any,any> {
             <IconButton
                 style = {{verticalAlign:'bottom'}}
                 onClick = {() => {
-                    this.takingfocus('topright')
+                    this.selectQuad('topright')
                 }}
             >
                 <img 
@@ -301,7 +301,7 @@ class QuadToolsStrip extends React.Component<any,any> {
             <IconButton
                 style = {{verticalAlign:'bottom'}}
                 onClick = {() => {
-                    this.takingfocus('bottomleft')
+                    this.selectQuad('bottomleft')
                 }}
             >
                 <img 
@@ -326,7 +326,7 @@ class QuadToolsStrip extends React.Component<any,any> {
             <IconButton
                 style = {{verticalAlign:'bottom'}}
                 onClick = {() => {
-                    this.takingfocus('bottomright')
+                    this.selectQuad('bottomright')
                 }}
             >
                 <img 
