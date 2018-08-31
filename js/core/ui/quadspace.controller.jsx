@@ -118,22 +118,21 @@ class QuadspaceController extends React.Component {
         this.quadrants = () => {
             let { handleSwap, getDataItem, getListItem, getTypeItem } = this;
             let toolkit = {
-                handleSwap,
                 getDataItem,
                 getListItem,
                 getTypeItem,
             };
             return [
-                <QuadFrame key='1' quadrant={this.calcQuadrant(0)}>
+                <QuadFrame key='1' quadrant={this.calcQuadrant(0)} handleSwap={handleSwap}>
             <Quadrant quadrant={this.calcQuadrant(0)} color='#e8e8e8' datastack={this.state.datastacks[0]} toolkit={toolkit} split={this.state.split} selectQuadrant={this.selectQuadrant}/>
         </QuadFrame>,
-                <QuadFrame key='2' quadrant={this.calcQuadrant(1)}>
+                <QuadFrame key='2' quadrant={this.calcQuadrant(1)} handleSwap={handleSwap}>
             <Quadrant key='2' quadrant={this.calcQuadrant(1)} color='#e8e8e8' datastack={this.state.datastacks[1]} toolkit={toolkit} split={this.state.split} selectQuadrant={this.selectQuadrant}/>
         </QuadFrame>,
-                <QuadFrame key='3' quadrant={this.calcQuadrant(2)}>
+                <QuadFrame key='3' quadrant={this.calcQuadrant(2)} handleSwap={handleSwap}>
             <Quadrant key='3' quadrant={this.calcQuadrant(2)} color='#e8e8e8' datastack={this.state.datastacks[2]} toolkit={toolkit} split={this.state.split} selectQuadrant={this.selectQuadrant}/>
         </QuadFrame>,
-                <QuadFrame key='4' quadrant={this.calcQuadrant(3)}>
+                <QuadFrame key='4' quadrant={this.calcQuadrant(3)} handleSwap={handleSwap}>
             <Quadrant key='4' quadrant={this.calcQuadrant(3)} color='#e8e8e8' datastack={this.state.datastacks[3]} toolkit={toolkit} split={this.state.split} selectQuadrant={this.selectQuadrant}/>
         </QuadFrame>,
             ];

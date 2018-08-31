@@ -5,6 +5,8 @@
 
 import * as React from 'react'
 
+import SwapMenu from './quadswapmenu.view'
+
 class QuadFrame extends React.Component<any,any>  {
 
     constructor(props) {
@@ -147,6 +149,10 @@ class QuadFrame extends React.Component<any,any>  {
                 style = {quadframestyle}
                 ref = {this.quadframeelement}
             >
+                <SwapMenu 
+                    quadrant = {this.state.quadrant} 
+                    handleSwap = {this.props.handleSwap}
+                />
                 {this.props.children}
             </div>
         )

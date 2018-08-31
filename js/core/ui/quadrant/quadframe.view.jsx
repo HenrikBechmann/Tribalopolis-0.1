@@ -2,6 +2,7 @@
 // quadframe.view.tsx
 'use strict';
 import * as React from 'react';
+import SwapMenu from './quadswapmenu.view';
 class QuadFrame extends React.Component {
     constructor(props) {
         super(props);
@@ -122,6 +123,7 @@ class QuadFrame extends React.Component {
             transition: 'all .5s ease'
         };
         return (<div style={quadframestyle} ref={this.quadframeelement}>
+                <SwapMenu quadrant={this.state.quadrant} handleSwap={this.props.handleSwap}/>
                 {this.props.children}
             </div>);
     }

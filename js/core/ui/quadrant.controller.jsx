@@ -7,7 +7,6 @@
 import * as React from 'react';
 import QuadOrigin from './quadrant/quadorigin.view';
 import QuadTitleBar from './quadrant/quadtitlebar.view';
-import SwapMenu from './quadrant/quadswapmenu.view';
 import QuadSelector from './quadrant/quadselector.view';
 import DataBox from './databox.controller';
 import { METATYPES } from '../constants';
@@ -455,7 +454,6 @@ class Quadrant extends React.Component {
                 </div>
                 <div ref={this.maskanimationblock}>
                 </div>
-                <SwapMenu quadrant={this.state.quadrant} handleSwap={this.props.toolkit.handleSwap}/>
                 <QuadTitleBar title={'title'} uid={this.state.startquadrant}/>
                 <QuadOrigin stackpointer={this.state.stackpointer} stackdepth={datastack ? datastack.length : 0} incrementStackSelector={this.incrementStackSelector} decrementStackSelector={this.decrementStackSelector} ref={this.originelement}/>
                 <div style={viewportFrameStyle}>

@@ -10,7 +10,6 @@ import * as React from 'react'
 
 import QuadOrigin from './quadrant/quadorigin.view'
 import QuadTitleBar from './quadrant/quadtitlebar.view'
-import SwapMenu from './quadrant/quadswapmenu.view'
 import QuadSelector from './quadrant/quadselector.view'
 
 import DataBox from './databox.controller'
@@ -671,10 +670,6 @@ class Quadrant extends React.Component<any,any>  {
                     ref = {this.maskanimationblock}
                 >
                 </div>
-                <SwapMenu 
-                    quadrant = {this.state.quadrant} 
-                    handleSwap = {this.props.toolkit.handleSwap}
-                />
                 <QuadTitleBar 
                     title = {'title'} 
                     uid={this.state.startquadrant}

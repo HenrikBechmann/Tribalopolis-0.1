@@ -144,7 +144,6 @@ class QuadspaceController extends React.Component<any,any> {
     quadrants = () => {
         let { handleSwap, getDataItem, getListItem, getTypeItem } = this
         let toolkit = {
-            handleSwap,
             getDataItem,
             getListItem,
             getTypeItem,
@@ -153,6 +152,7 @@ class QuadspaceController extends React.Component<any,any> {
         <QuadFrame
             key = '1'
             quadrant = {this.calcQuadrant(0)}
+            handleSwap = {handleSwap}
         >
             <Quadrant 
                 quadrant = {this.calcQuadrant(0)}
@@ -166,6 +166,7 @@ class QuadspaceController extends React.Component<any,any> {
         <QuadFrame
             key = '2'
             quadrant = {this.calcQuadrant(1)}
+            handleSwap = {handleSwap}
         >
             <Quadrant 
                 key = '2'
@@ -180,6 +181,7 @@ class QuadspaceController extends React.Component<any,any> {
         <QuadFrame
             key = '3'
             quadrant = {this.calcQuadrant(2)}
+            handleSwap = {handleSwap}
         >
             <Quadrant 
                 key = '3'
@@ -194,6 +196,7 @@ class QuadspaceController extends React.Component<any,any> {
         <QuadFrame
             key = '4'
             quadrant = {this.calcQuadrant(3)}
+            handleSwap = {handleSwap}
         >
             <Quadrant 
                 key = '4'
