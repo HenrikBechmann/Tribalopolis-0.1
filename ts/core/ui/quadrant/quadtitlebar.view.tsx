@@ -5,18 +5,7 @@
 import * as React from 'react'
 
 const QuadTitleBar = props => {
-    let { uid } = props
-    let alias
-    switch (uid) {
-        case 'topleft':alias = '1'
-        break
-        case 'topright':alias = '2'
-        break
-        case 'bottomleft':alias = '3'
-        break
-        case 'bottomright':alias = '4'
-        break
-    }
+    let { uid:alias } = props
     return (
         <div
             style = {

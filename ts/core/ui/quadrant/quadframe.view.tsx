@@ -6,6 +6,7 @@
 import * as React from 'react'
 
 import SwapMenu from './quadswapmenu.view'
+import QuadSelector from './quadselector.view'
 
 class QuadFrame extends React.Component<any,any>  {
 
@@ -154,6 +155,11 @@ class QuadFrame extends React.Component<any,any>  {
                     handleSwap = {this.props.handleSwap}
                 />
                 {this.props.children}
+                <QuadSelector 
+                    quadrant = {this.state.quadrant} 
+                    split = {this.props.split} 
+                    selectQuadrant = {this.props.selectQuadrant}
+                />
             </div>
         )
     }

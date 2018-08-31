@@ -3,6 +3,7 @@
 'use strict';
 import * as React from 'react';
 import SwapMenu from './quadswapmenu.view';
+import QuadSelector from './quadselector.view';
 class QuadFrame extends React.Component {
     constructor(props) {
         super(props);
@@ -125,6 +126,7 @@ class QuadFrame extends React.Component {
         return (<div style={quadframestyle} ref={this.quadframeelement}>
                 <SwapMenu quadrant={this.state.quadrant} handleSwap={this.props.handleSwap}/>
                 {this.props.children}
+                <QuadSelector quadrant={this.state.quadrant} split={this.props.split} selectQuadrant={this.props.selectQuadrant}/>
             </div>);
     }
 }

@@ -7,7 +7,6 @@
 import * as React from 'react';
 import QuadOrigin from './quadrant/quadorigin.view';
 import QuadTitleBar from './quadrant/quadtitlebar.view';
-import QuadSelector from './quadrant/quadselector.view';
 import DataBox from './databox.controller';
 import { METATYPES } from '../constants';
 import { serializer } from '../../core/utilities/serializer';
@@ -19,8 +18,6 @@ class Quadrant extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            quadrant: this.props.quadrant,
-            startquadrant: this.props.quadrant,
             datastack: null,
             stackpointer: 0,
             collapseBoxConfigForTarget: null
@@ -410,7 +407,6 @@ class Quadrant extends React.Component {
     *********************************************************/
     // TODO: move style blocks out of render code
     render() {
-        let { quadrant } = this.state;
         let { color } = this.props;
         let { datastack } = this.state;
         let haspeers = datastack ? (this.state.datastack[this.state.stackpointer].items.length > 1) : false;
@@ -454,16 +450,15 @@ class Quadrant extends React.Component {
                 </div>
                 <div ref={this.maskanimationblock}>
                 </div>
-                <QuadTitleBar title={'title'} uid={this.state.startquadrant}/>
+                <QuadTitleBar title={'title'} uid={this.props.uid}/>
                 <QuadOrigin stackpointer={this.state.stackpointer} stackdepth={datastack ? datastack.length : 0} incrementStackSelector={this.incrementStackSelector} decrementStackSelector={this.decrementStackSelector} ref={this.originelement}/>
                 <div style={viewportFrameStyle}>
-                <div style={viewportStyle} ref={this.scrollboxelement}>
-                    {haspeers
+                    <div style={viewportStyle} ref={this.scrollboxelement}>
+                        {haspeers
             ? <Lister axis='x' itemRenderer={this.getBox} length={datastack ? datastack[this.state.stackpointer].items.length : 0} type='uniform' ref={this.listcomponent}/>
             : this.getBox(0, 'singleton')}
+                    </div>
                 </div>
-                </div>
-                <QuadSelector quadrant={this.state.quadrant} split={this.props.split} selectQuadrant={this.props.selectQuadrant}/>
             </div>);
     }
 }

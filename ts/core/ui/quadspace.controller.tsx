@@ -153,59 +153,56 @@ class QuadspaceController extends React.Component<any,any> {
             key = '1'
             quadrant = {this.calcQuadrant(0)}
             handleSwap = {handleSwap}
+            split = {this.state.split}
+            selectQuadrant = {this.selectQuadrant}
         >
             <Quadrant 
-                quadrant = {this.calcQuadrant(0)}
+                uid = '1'
                 color = '#e8e8e8' 
                 datastack = {this.state.datastacks[0]}
                 toolkit = {toolkit}
-                split = {this.state.split}
-                selectQuadrant = {this.selectQuadrant}
             />
         </QuadFrame>,
         <QuadFrame
             key = '2'
             quadrant = {this.calcQuadrant(1)}
             handleSwap = {handleSwap}
+            split = {this.state.split}
+            selectQuadrant = {this.selectQuadrant}
         >
             <Quadrant 
-                key = '2'
-                quadrant = {this.calcQuadrant(1)}
+                uid = '2'
                 color = '#e8e8e8' 
                 datastack = {this.state.datastacks[1]}
                 toolkit = {toolkit}
-                split = {this.state.split}
-                selectQuadrant = {this.selectQuadrant}
             />
         </QuadFrame>,
         <QuadFrame
             key = '3'
             quadrant = {this.calcQuadrant(2)}
             handleSwap = {handleSwap}
+            split = {this.state.split}
+            selectQuadrant = {this.selectQuadrant}
         >
             <Quadrant 
-                key = '3'
-                quadrant = {this.calcQuadrant(2)}
+                uid = '3'
                 color = '#e8e8e8' 
                 datastack = {this.state.datastacks[2]}
                 toolkit = {toolkit}
-                split = {this.state.split}
-                selectQuadrant = {this.selectQuadrant}
             />
         </QuadFrame>,
         <QuadFrame
             key = '4'
             quadrant = {this.calcQuadrant(3)}
             handleSwap = {handleSwap}
+            split = {this.state.split}
+            selectQuadrant = {this.selectQuadrant}
         >
             <Quadrant 
-                key = '4'
-                quadrant = {this.calcQuadrant(3)}
+                uid = '4'
                 color = '#e8e8e8' 
                 datastack = {this.state.datastacks[3]}
                 toolkit = {toolkit}
-                split = {this.state.split}
-                selectQuadrant = {this.selectQuadrant}
             />
         </QuadFrame>,
         ]

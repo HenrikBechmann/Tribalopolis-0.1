@@ -10,7 +10,6 @@ import * as React from 'react'
 
 import QuadOrigin from './quadrant/quadorigin.view'
 import QuadTitleBar from './quadrant/quadtitlebar.view'
-import QuadSelector from './quadrant/quadselector.view'
 
 import DataBox from './databox.controller'
 import { METATYPES } from '../constants'
@@ -41,8 +40,6 @@ class Quadrant extends React.Component<any,any>  {
     }
 
     state = {
-        quadrant:this.props.quadrant,
-        startquadrant:this.props.quadrant,
         datastack:null,
         stackpointer:0,
         collapseBoxConfigForTarget:null
@@ -609,8 +606,6 @@ class Quadrant extends React.Component<any,any>  {
     // TODO: move style blocks out of render code
     render() {
         
-        let { quadrant } = this.state
-
         let { color } = this.props
 
         let { datastack } = this.state
@@ -672,7 +667,7 @@ class Quadrant extends React.Component<any,any>  {
                 </div>
                 <QuadTitleBar 
                     title = {'title'} 
-                    uid={this.state.startquadrant}
+                    uid={this.props.uid}
                 />
                 <QuadOrigin 
                     stackpointer = {this.state.stackpointer} 
@@ -682,29 +677,24 @@ class Quadrant extends React.Component<any,any>  {
                     ref = {this.originelement}
                 />
                 <div style = {viewportFrameStyle}>
-                <div 
-                    style = {viewportStyle}
-                    ref = {this.scrollboxelement}
-                >
-                    {haspeers
-                        ?<Lister 
-                            axis = 'x'
-                            itemRenderer = {this.getBox}
-                            length = { 
-                                datastack?datastack[this.state.stackpointer].items.length:0
-                            }
-                            type = 'uniform'
-                            ref = {this.listcomponent}
-                        />
-                        :this.getBox(0,'singleton')
-                    }
+                    <div 
+                        style = {viewportStyle}
+                        ref = {this.scrollboxelement}
+                    >
+                        {haspeers
+                            ?<Lister 
+                                axis = 'x'
+                                itemRenderer = {this.getBox}
+                                length = { 
+                                    datastack?datastack[this.state.stackpointer].items.length:0
+                                }
+                                type = 'uniform'
+                                ref = {this.listcomponent}
+                            />
+                            :this.getBox(0,'singleton')
+                        }
+                    </div>
                 </div>
-                </div>
-                <QuadSelector 
-                    quadrant = {this.state.quadrant} 
-                    split = {this.props.split} 
-                    selectQuadrant = {this.props.selectQuadrant}
-                />
             </div>
         )
     }
