@@ -100,8 +100,12 @@ class QuadspaceController extends React.Component<any,any> {
 
     }
 
+    calcPos = sessionid => {
+        return this.state.quadrantpositions.indexOf(sessionid)
+    }
+
     calcQuadrant = (sessionid) => {
-        let pos = this.state.quadrantpositions.indexOf(sessionid)
+        let pos = this.calcPos(sessionid)
         return this.positions[pos]
     }
 
@@ -157,7 +161,7 @@ class QuadspaceController extends React.Component<any,any> {
             selectQuadrant = {this.selectQuadrant}
         >
             <Quadrant 
-                uid = '1'
+                uid = {(this.calcPos(0) + 1).toString()}
                 color = '#e8e8e8' 
                 datastack = {this.state.datastacks[0]}
                 toolkit = {toolkit}
@@ -171,7 +175,7 @@ class QuadspaceController extends React.Component<any,any> {
             selectQuadrant = {this.selectQuadrant}
         >
             <Quadrant 
-                uid = '2'
+                uid = {(this.calcPos(1) + 1).toString()}
                 color = '#e8e8e8' 
                 datastack = {this.state.datastacks[1]}
                 toolkit = {toolkit}
@@ -185,7 +189,7 @@ class QuadspaceController extends React.Component<any,any> {
             selectQuadrant = {this.selectQuadrant}
         >
             <Quadrant 
-                uid = '3'
+                uid = {(this.calcPos(2) + 1).toString()}
                 color = '#e8e8e8' 
                 datastack = {this.state.datastacks[2]}
                 toolkit = {toolkit}
@@ -199,7 +203,7 @@ class QuadspaceController extends React.Component<any,any> {
             selectQuadrant = {this.selectQuadrant}
         >
             <Quadrant 
-                uid = '4'
+                uid = {(this.calcPos(3) + 1).toString()}
                 color = '#e8e8e8' 
                 datastack = {this.state.datastacks[3]}
                 toolkit = {toolkit}

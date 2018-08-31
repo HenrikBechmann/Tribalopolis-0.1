@@ -80,8 +80,11 @@ class QuadspaceController extends React.Component {
                 quadrantpositions
             });
         };
+        this.calcPos = sessionid => {
+            return this.state.quadrantpositions.indexOf(sessionid);
+        };
         this.calcQuadrant = (sessionid) => {
-            let pos = this.state.quadrantpositions.indexOf(sessionid);
+            let pos = this.calcPos(sessionid);
             return this.positions[pos];
         };
         this.selectQuadrant = quadrant => {
@@ -124,16 +127,16 @@ class QuadspaceController extends React.Component {
             };
             return [
                 <QuadFrame key='1' quadrant={this.calcQuadrant(0)} handleSwap={handleSwap} split={this.state.split} selectQuadrant={this.selectQuadrant}>
-            <Quadrant uid='1' color='#e8e8e8' datastack={this.state.datastacks[0]} toolkit={toolkit}/>
+            <Quadrant uid={(this.calcPos(0) + 1).toString()} color='#e8e8e8' datastack={this.state.datastacks[0]} toolkit={toolkit}/>
         </QuadFrame>,
                 <QuadFrame key='2' quadrant={this.calcQuadrant(1)} handleSwap={handleSwap} split={this.state.split} selectQuadrant={this.selectQuadrant}>
-            <Quadrant uid='2' color='#e8e8e8' datastack={this.state.datastacks[1]} toolkit={toolkit}/>
+            <Quadrant uid={(this.calcPos(1) + 1).toString()} color='#e8e8e8' datastack={this.state.datastacks[1]} toolkit={toolkit}/>
         </QuadFrame>,
                 <QuadFrame key='3' quadrant={this.calcQuadrant(2)} handleSwap={handleSwap} split={this.state.split} selectQuadrant={this.selectQuadrant}>
-            <Quadrant uid='3' color='#e8e8e8' datastack={this.state.datastacks[2]} toolkit={toolkit}/>
+            <Quadrant uid={(this.calcPos(2) + 1).toString()} color='#e8e8e8' datastack={this.state.datastacks[2]} toolkit={toolkit}/>
         </QuadFrame>,
                 <QuadFrame key='4' quadrant={this.calcQuadrant(3)} handleSwap={handleSwap} split={this.state.split} selectQuadrant={this.selectQuadrant}>
-            <Quadrant uid='4' color='#e8e8e8' datastack={this.state.datastacks[3]} toolkit={toolkit}/>
+            <Quadrant uid={(this.calcPos(3) + 1).toString()} color='#e8e8e8' datastack={this.state.datastacks[3]} toolkit={toolkit}/>
         </QuadFrame>,
             ];
         };
