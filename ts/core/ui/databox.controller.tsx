@@ -4,13 +4,13 @@
 
 import * as React from 'react'
 
-import BoxIdentifier from './views/databox/identitybar.view'
-import BoxTypebar from './views/databox/typebar.view'
-import ProfileBar from './views/databox/profilebar.view'
-import ProfileForm from './views/databox/profileform.view'
-import CategoriesBar from './views/databox/categoriesbar.view'
-import CategoryList from './views/databox/categorylist.view'
-import ScanBar from './views/databox/scanbar.view'
+import BoxIdentifier from './databox/identitybar.view'
+import BoxTypebar from './databox/typebar.view'
+import ProfileBar from './databox/profilebar.view'
+import ProfileForm from './databox/profileform.view'
+import CategoriesBar from './databox/categoriesbar.view'
+import CategoryList from './databox/categorylist.view'
+import ScanBar from './databox/scanbar.view'
 
 import { withStyles } from '@material-ui/core/styles'
 import Button from '@material-ui/core/Button'

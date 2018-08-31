@@ -8,12 +8,12 @@
 
 import * as React from 'react'
 
-import QuadOrigin from './views/quadspace/quadorigin.view'
-import QuadTitleBar from './views/quadspace/quadtitlebar.view'
-import QuadStatusBar from './views/quadspace/quadstatusbar.view'
-import SwapMenu from './views/quadspace/quadswapmenu.view'
+import QuadOrigin from './quadrant/quadorigin.view'
+import QuadTitleBar from './quadrant/quadtitlebar.view'
+import SwapMenu from './quadrant/quadswapmenu.view'
+import QuadSelector from './quadrant/quadselector.view'
+
 import DataBox from './databox.controller'
-import QuadSelector from './views/quadspace/quadselector.view'
 import { METATYPES } from '../constants'
 import {serializer} from '../../core/utilities/serializer'
 import Lister from 'react-list'
@@ -27,13 +27,14 @@ class Quadrant extends React.Component<any,any>  {
     constructor(props) {
         super(props)
 
+        this.quadcontentelement = React.createRef()
+
         // animation dom elements
         this.drillanimationblock = React.createRef()
         this.originanimationblock = React.createRef()
         this.maskanimationblock = React.createRef()
 
         // structure dom elements
-        this.quadframeelement = React.createRef()
         this.originelement = React.createRef()
         this.scrollboxelement = React.createRef()
         this.listcomponent = React.createRef()
@@ -49,21 +50,18 @@ class Quadrant extends React.Component<any,any>  {
     }
 
     // dom refs
+    quadcontentelement
     drillanimationblock
     originanimationblock
     maskanimationblock
     originelement
     scrollboxelement
     listcomponent
-    quadframeelement
 
     // get records
     getDataItem
     getListItem
     getTypeItem
-
-    // quad css position
-    position = null
 
     // trigger for animation and reset
     collapseBoxConfigForTarget = null
@@ -73,7 +71,6 @@ class Quadrant extends React.Component<any,any>  {
 *********************************************************/
 
     componentWillMount() {
-        this.calculatePosition(this.state.quadrant)
         this.getDataItem = this.props.toolkit.getDataItem
         this.getListItem = this.props.toolkit.getListItem
         this.getTypeItem = this.props.toolkit.getTypeItem
@@ -91,32 +88,6 @@ class Quadrant extends React.Component<any,any>  {
 
         window.removeEventListener('resize',this.onResize)
 
-    }
-
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.quadrant != this.state.quadrant) {
-
-            let self = this
-            this.calculateTransitionPosition(this.state.quadrant)
-
-            this.forceUpdate(() => {
-                setTimeout(()=>{// give time for styles to apply
-                    self.calculateTransitionPosition(nextProps.quadrant)
-                    self.setState({
-                        quadrant:nextProps.quadrant
-                    },
-
-                        () => {
-                            setTimeout(() => { // give time for animation
-                                self.calculatePosition(this.state.quadrant)
-                                self.forceUpdate()
-                            },600)
-                        }
-
-                    )
-                })
-            })
-        }
     }
 
     componentDidMount() {
@@ -169,81 +140,6 @@ class Quadrant extends React.Component<any,any>  {
             return item.instanceid == instanceid
         }
 
-    }
-
-/********************************************************
-------------------[ position quadrant ]------------------
-*********************************************************/
-
-    calculateTransitionPosition = (quadrant) => {
-        let top:any = 'auto'
-        let left:any = 'auto'
-        let bottom:any = 'auto'
-        let right:any = 'auto'
-        let quadframeelement = this.quadframeelement.current
-        switch (quadrant) {
-            case "topleft": {
-                top = 0
-                left = 0
-                break;
-            }
-            case "topright": {
-                top = 0
-                left = (quadframeelement.parentElement.offsetWidth/2) + 'px' 
-                break;
-            }
-            case "bottomleft": {
-                top = (quadframeelement.parentElement.offsetHeight/2) + 'px' 
-                left = 0
-                break;
-            }
-            case "bottomright": {
-                top = (quadframeelement.parentElement.offsetHeight /2) + 'px' 
-                left = (quadframeelement.parentElement.offsetWidth /2) + 'px' 
-                break;
-            }
-        }
-        this.position = {
-            top,
-            left,
-            bottom,
-            right,
-        }       
-    }
-
-    calculatePosition = (quadrant) => {
-        let top:any = 'auto'
-        let left:any = 'auto'
-        let bottom:any = 'auto'
-        let right:any = 'auto'
-        switch (quadrant) {
-            case "topleft": {
-                top = 0
-                left = 0
-                break;
-            }
-            case "topright": {
-                top = 0
-                right = 0
-                break;
-            }
-            case "bottomleft": {
-                bottom = 0
-                left = 0
-                break;
-            }
-            case "bottomright": {
-                bottom = 0
-                right = 0
-                break;
-            }
-        }
-        this.position = {
-            top,
-            left,
-            bottom,
-            right,
-        }       
     }
 
 /********************************************************
@@ -568,7 +464,7 @@ class Quadrant extends React.Component<any,any>  {
 
     _getAnimationElementVars = (domelement:HTMLElement) => {
 
-        let containerelement = this.quadframeelement.current
+        let containerelement = this.quadcontentelement.current
         let containerRect = containerelement.getBoundingClientRect()
         let elementRect = domelement.getBoundingClientRect()
 
@@ -714,11 +610,8 @@ class Quadrant extends React.Component<any,any>  {
     // TODO: move style blocks out of render code
     render() {
         
-        // console.log('quadrant state',this.state)
-        
         let { quadrant } = this.state
-        let {top, left, bottom, right} = this.position
-        // let boxlist = this.getBoxes()
+
         let { color } = this.props
 
         let { datastack } = this.state
@@ -730,19 +623,6 @@ class Quadrant extends React.Component<any,any>  {
             this.scrollboxelement.current.scrollLeft = 0
         }
 
-        let quadframestyle:React.CSSProperties = {
-            position:'absolute',
-            boxSizing:'border-box',
-            width:'50%',
-            height:'50%',
-            padding:'3px',
-            top,
-            left,
-            bottom,
-            right,
-            border:'1px solid transparent',
-            transition:'all .5s ease'
-        }
         let quadcontentstyle:React.CSSProperties = {
             boxSizing: 'border-box',
             border: '3px outset gray',
@@ -775,67 +655,61 @@ class Quadrant extends React.Component<any,any>  {
             position:'relative',
         }
 
-        // console.log('quadrant.state, listcomponent',this.state, this.listcomponent)
-
         return (
-            <div 
-                style = {quadframestyle}
-                ref = {this.quadframeelement}
+            <div style = {quadcontentstyle} 
+                ref = {this.quadcontentelement}
             >
-                <div style = {quadcontentstyle} 
+                <div
+                    ref = {this.drillanimationblock}
                 >
-                    <div
-                        ref = {this.drillanimationblock}
-                    >
-                    </div>
-                    <div
-                        ref = {this.originanimationblock}
-                    >
-                    </div>
-                    <div
-                        ref = {this.maskanimationblock}
-                    >
-                    </div>
-                    <SwapMenu 
-                        quadrant = {this.state.quadrant} 
-                        handleSwap = {this.props.toolkit.handleSwap}
-                    />
-                    <QuadTitleBar 
-                        title = {'title'} 
-                        uid={this.state.startquadrant}
-                    />
-                    <QuadOrigin 
-                        stackpointer = {this.state.stackpointer} 
-                        stackdepth = {datastack?datastack.length:0}
-                        incrementStackSelector = {this.incrementStackSelector}
-                        decrementStackSelector = {this.decrementStackSelector}
-                        ref = {this.originelement}
-                    />
-                    <div style = {viewportFrameStyle}>
-                    <div 
-                        style = {viewportStyle}
-                        ref = {this.scrollboxelement}
-                    >
-                        {haspeers
-                            ?<Lister 
-                                axis = 'x'
-                                itemRenderer = {this.getBox}
-                                length = { 
-                                    datastack?datastack[this.state.stackpointer].items.length:0
-                                }
-                                type = 'uniform'
-                                ref = {this.listcomponent}
-                            />
-                            :this.getBox(0,'singleton')
-                        }
-                    </div>
-                    </div>
-                    <QuadSelector 
-                        quadrant = {this.state.quadrant} 
-                        split = {this.props.split} 
-                        selectQuadrant = {this.props.selectQuadrant}
-                    />
                 </div>
+                <div
+                    ref = {this.originanimationblock}
+                >
+                </div>
+                <div
+                    ref = {this.maskanimationblock}
+                >
+                </div>
+                <SwapMenu 
+                    quadrant = {this.state.quadrant} 
+                    handleSwap = {this.props.toolkit.handleSwap}
+                />
+                <QuadTitleBar 
+                    title = {'title'} 
+                    uid={this.state.startquadrant}
+                />
+                <QuadOrigin 
+                    stackpointer = {this.state.stackpointer} 
+                    stackdepth = {datastack?datastack.length:0}
+                    incrementStackSelector = {this.incrementStackSelector}
+                    decrementStackSelector = {this.decrementStackSelector}
+                    ref = {this.originelement}
+                />
+                <div style = {viewportFrameStyle}>
+                <div 
+                    style = {viewportStyle}
+                    ref = {this.scrollboxelement}
+                >
+                    {haspeers
+                        ?<Lister 
+                            axis = 'x'
+                            itemRenderer = {this.getBox}
+                            length = { 
+                                datastack?datastack[this.state.stackpointer].items.length:0
+                            }
+                            type = 'uniform'
+                            ref = {this.listcomponent}
+                        />
+                        :this.getBox(0,'singleton')
+                    }
+                </div>
+                </div>
+                <QuadSelector 
+                    quadrant = {this.state.quadrant} 
+                    split = {this.props.split} 
+                    selectQuadrant = {this.props.selectQuadrant}
+                />
             </div>
         )
     }

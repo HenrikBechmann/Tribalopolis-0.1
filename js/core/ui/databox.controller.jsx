@@ -2,10 +2,10 @@
 // copyright (c) 2018 Henrik Bechmann, Toronto, MIT Licence
 'use strict';
 import * as React from 'react';
-import BoxIdentifier from './views/databox/identitybar.view';
-import BoxTypebar from './views/databox/typebar.view';
-import CategoriesBar from './views/databox/categoriesbar.view';
-import CategoryList from './views/databox/categorylist.view';
+import BoxIdentifier from './databox/identitybar.view';
+import BoxTypebar from './databox/typebar.view';
+import CategoriesBar from './databox/categoriesbar.view';
+import CategoryList from './databox/categorylist.view';
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';

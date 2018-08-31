@@ -3,14 +3,15 @@
 'use strict';
 import * as React from 'react';
 // import { connect } from 'react-redux'
-import QuadToolsStrip from './views/quadspace/quadtoolsstrip.view';
-import QuadSpaceFrame from './views/quadspace/quadspaceframe.view';
-import QuadBasket from './views/quadspace/quadbasket.view';
-import QuadViewport from './views/quadspace/quadviewport.view';
-import QuadPlatform from './views/quadspace/quadplatform.view';
+import QuadToolsStrip from './quadspace/quadtoolsstrip.view';
+import QuadSpaceFrame from './quadspace/quadspaceframe.view';
+import QuadBasket from './quadspace/quadbasket.view';
+import QuadViewport from './quadspace/quadviewport.view';
+import QuadPlatform from './quadspace/quadplatform.view';
+import QuantityBadge from './common/quantitybadge.view';
+import QuadStatusBar from './quadspace/quadstatusbar.view';
+import QuadFrame from './quadrant/quadframe.view';
 import Quadrant from './quadrant.controller';
-import QuantityBadge from './views/common/quantitybadge.view';
-import QuadStatusBar from './views/quadspace/quadstatusbar.view';
 import { METATYPES } from '../constants';
 import { lists, items, types, datastacks } from '../../data/repositories';
 class QuadspaceController extends React.Component {
@@ -123,10 +124,18 @@ class QuadspaceController extends React.Component {
                 getTypeItem,
             };
             return [
-                <Quadrant key='1' quadrant={this.calcQuadrant(0)} color='#e8e8e8' datastack={this.state.datastacks[0]} toolkit={toolkit} split={this.state.split} selectQuadrant={this.selectQuadrant}/>,
-                <Quadrant key='2' quadrant={this.calcQuadrant(1)} color='#e8e8e8' datastack={this.state.datastacks[1]} toolkit={toolkit} split={this.state.split} selectQuadrant={this.selectQuadrant}/>,
-                <Quadrant key='3' quadrant={this.calcQuadrant(2)} color='#e8e8e8' datastack={this.state.datastacks[2]} toolkit={toolkit} split={this.state.split} selectQuadrant={this.selectQuadrant}/>,
-                <Quadrant key='4' quadrant={this.calcQuadrant(3)} color='#e8e8e8' datastack={this.state.datastacks[3]} toolkit={toolkit} split={this.state.split} selectQuadrant={this.selectQuadrant}/>,
+                <QuadFrame key='1' quadrant={this.calcQuadrant(0)}>
+            <Quadrant quadrant={this.calcQuadrant(0)} color='#e8e8e8' datastack={this.state.datastacks[0]} toolkit={toolkit} split={this.state.split} selectQuadrant={this.selectQuadrant}/>
+        </QuadFrame>,
+                <QuadFrame key='2' quadrant={this.calcQuadrant(1)}>
+            <Quadrant key='2' quadrant={this.calcQuadrant(1)} color='#e8e8e8' datastack={this.state.datastacks[1]} toolkit={toolkit} split={this.state.split} selectQuadrant={this.selectQuadrant}/>
+        </QuadFrame>,
+                <QuadFrame key='3' quadrant={this.calcQuadrant(2)}>
+            <Quadrant key='3' quadrant={this.calcQuadrant(2)} color='#e8e8e8' datastack={this.state.datastacks[2]} toolkit={toolkit} split={this.state.split} selectQuadrant={this.selectQuadrant}/>
+        </QuadFrame>,
+                <QuadFrame key='4' quadrant={this.calcQuadrant(3)}>
+            <Quadrant key='4' quadrant={this.calcQuadrant(3)} color='#e8e8e8' datastack={this.state.datastacks[3]} toolkit={toolkit} split={this.state.split} selectQuadrant={this.selectQuadrant}/>
+        </QuadFrame>,
             ];
         };
     }
