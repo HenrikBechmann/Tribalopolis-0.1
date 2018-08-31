@@ -120,23 +120,27 @@ class QuadspaceController extends React.Component {
         };
         this.quadrants = () => {
             let { handleSwap, getDataItem, getListItem, getTypeItem } = this;
-            let toolkit = {
+            let quadtoolkit = {
                 getDataItem,
                 getListItem,
                 getTypeItem,
             };
+            let frametoolkit = {
+                handleSwap,
+                selectQuadrant: this.selectQuadrant,
+            };
             return [
-                <QuadFrame key='1' quadrant={this.calcQuadrant(0)} handleSwap={handleSwap} split={this.state.split} selectQuadrant={this.selectQuadrant}>
-            <Quadrant quadidentifier={this.quadrantidentifiers[0]} color='#e8e8e8' datastack={this.state.datastacks[0]} toolkit={toolkit}/>
+                <QuadFrame key='1' quadrant={this.calcQuadrant(0)} split={this.state.split} toolkit={frametoolkit}>
+            <Quadrant quadidentifier={this.quadrantidentifiers[0]} color='#e8e8e8' datastack={this.state.datastacks[0]} toolkit={quadtoolkit}/>
         </QuadFrame>,
-                <QuadFrame key='2' quadrant={this.calcQuadrant(1)} handleSwap={handleSwap} split={this.state.split} selectQuadrant={this.selectQuadrant}>
-            <Quadrant quadidentifier={this.quadrantidentifiers[1]} color='#e8e8e8' datastack={this.state.datastacks[1]} toolkit={toolkit}/>
+                <QuadFrame key='2' quadrant={this.calcQuadrant(1)} toolkit={frametoolkit} split={this.state.split}>
+            <Quadrant quadidentifier={this.quadrantidentifiers[1]} color='#e8e8e8' datastack={this.state.datastacks[1]} toolkit={quadtoolkit}/>
         </QuadFrame>,
-                <QuadFrame key='3' quadrant={this.calcQuadrant(2)} handleSwap={handleSwap} split={this.state.split} selectQuadrant={this.selectQuadrant}>
-            <Quadrant quadidentifier={this.quadrantidentifiers[2]} color='#e8e8e8' datastack={this.state.datastacks[2]} toolkit={toolkit}/>
+                <QuadFrame key='3' quadrant={this.calcQuadrant(2)} toolkit={frametoolkit} split={this.state.split}>
+            <Quadrant quadidentifier={this.quadrantidentifiers[2]} color='#e8e8e8' datastack={this.state.datastacks[2]} toolkit={quadtoolkit}/>
         </QuadFrame>,
-                <QuadFrame key='4' quadrant={this.calcQuadrant(3)} handleSwap={handleSwap} split={this.state.split} selectQuadrant={this.selectQuadrant}>
-            <Quadrant quadidentifier={this.quadrantidentifiers[3]} color='#e8e8e8' datastack={this.state.datastacks[3]} toolkit={toolkit}/>
+                <QuadFrame key='4' quadrant={this.calcQuadrant(3)} toolkit={frametoolkit} split={this.state.split}>
+            <Quadrant quadidentifier={this.quadrantidentifiers[3]} color='#e8e8e8' datastack={this.state.datastacks[3]} toolkit={quadtoolkit}/>
         </QuadFrame>,
             ];
         };

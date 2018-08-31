@@ -30,9 +30,9 @@ class QuadFrame extends React.Component<any,any>  {
         if (nextProps.quadrant != this.state.quadrant) {
 
             let self = this
-            this.calculateTransitionPosition(this.state.quadrant)
+            self.calculateTransitionPosition(self.state.quadrant)
 
-            this.forceUpdate(() => {
+            self.forceUpdate(() => {
                 setTimeout(()=>{// give time for styles to apply
                     self.calculateTransitionPosition(nextProps.quadrant)
                     self.setState({
@@ -41,7 +41,7 @@ class QuadFrame extends React.Component<any,any>  {
 
                         () => {
                             setTimeout(() => { // give time for animation
-                                self.calculatePosition(this.state.quadrant)
+                                self.calculatePosition(self.state.quadrant)
                                 self.forceUpdate()
                             },600)
                         }
@@ -152,13 +152,13 @@ class QuadFrame extends React.Component<any,any>  {
             >
                 <SwapMenu 
                     quadrant = {this.state.quadrant} 
-                    handleSwap = {this.props.handleSwap}
+                    handleSwap = {this.props.toolkit.handleSwap}
                 />
                 {this.props.children}
                 <QuadSelector 
                     quadrant = {this.state.quadrant} 
                     split = {this.props.split} 
-                    selectQuadrant = {this.props.selectQuadrant}
+                    selectQuadrant = {this.props.toolkit.selectQuadrant}
                 />
             </div>
         )
