@@ -28,7 +28,7 @@ let routedata = [
 ]
 
 let coreroutes = routedata.map((item, index) => (
-   <Route key = {'coreroute'+index} path={item.path} component = {item.component} />
+   <Route key = {'coreroute-'+index} path={item.path} component = {item.component} />
 ))
 
 let indexroute = <Route key = "_WORKSPACE_" path = "/workspace" component={ Quadspace } />

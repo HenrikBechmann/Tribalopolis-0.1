@@ -31,17 +31,13 @@ const customHistory = createBrowserHistory()
 //     }
 
 
-let AppRouter = class extends React.Component<any,any> {
+let AppRouter = () => (
 
-    render() {
-        return (
-            <Router history = {customHistory}>
-                <Switch>
-                    { routes }
-                </Switch>
-            </Router>
-        )
-    }
-}
+    <Router history = {customHistory}>
+        <Switch>
+            { routes }
+        </Switch>
+    </Router>
+)
     
-export  { AppRouter }
+export default AppRouter

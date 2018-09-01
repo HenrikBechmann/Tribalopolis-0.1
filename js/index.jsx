@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { render } from 'react-dom';
 require('isomorphic-fetch');
-import MainController from './core/start/main.controller';
+import Main from './core/start/main.controller';
 let globalmessage = null; // 'This is a global message'
 try {
-    render(<MainController globalmessage={globalmessage} version={"DEVELOPMENT"}/>, document.getElementById('main'));
+    render(<Main globalmessage={globalmessage} version={"DEVELOPMENT"}/>, document.getElementById('main'));
 }
 catch (e) {
     <div>

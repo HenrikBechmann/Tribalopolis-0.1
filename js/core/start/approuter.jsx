@@ -23,14 +23,10 @@ const customHistory = createBrowserHistory();
 //         window.scrollTo(0, 0)
 //         logPageView()
 //     }
-let AppRouter = class extends React.Component {
-    render() {
-        return (<Router history={customHistory}>
-                <Switch>
-                    {routes}
-                </Switch>
-            </Router>);
-    }
-};
-export { AppRouter };
+let AppRouter = () => (<Router history={customHistory}>
+        <Switch>
+            {routes}
+        </Switch>
+    </Router>);
+export default AppRouter;
 //# sourceMappingURL=approuter.jsx.map
