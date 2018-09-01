@@ -1,19 +1,10 @@
 // workspacedata.tsx
 import { serializer } from '../core/utilities/serializer';
-let maps = {
-    schemes: {
-        common: {
-            tribe: 'tribalopolis',
-            parent: null,
-        }
-    },
-};
 let schemes = {
-    common: {
-        list: {},
-        item: {},
-        link: {},
-    },
+    type: {},
+    list: {},
+    item: {},
+    link: {},
 };
 let types = {
     list: {
@@ -635,5 +626,5 @@ let datastacks = [
         },
     ]
 ];
-export { lists, links, items, types, schemes, datastacks, maps };
+export { schemes, types, items, lists, links, datastacks };
 //# sourceMappingURL=repositories.jsx.map

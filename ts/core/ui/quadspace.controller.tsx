@@ -15,7 +15,8 @@ import Quadrants from './quadrants.controller'
 
 import { METATYPES } from '../constants'
 
-import {lists, links, items, types, schemes, datastacks, maps} from '../../data/repositories'
+// TODO: temporary -- should come from application service
+import { schemes, types, items, lists, links, datastacks } from '../../data/repositories'
 
 class QuadspaceController extends React.Component<any,any> {
 
@@ -130,16 +131,16 @@ class QuadspaceController extends React.Component<any,any> {
 
     // TODO: the following 3 data functions should be in the application service
 
-    getDataItem = (dataref) => {
+    getItem = (dataref) => {
         return items[dataref.uid]
     }
 
-    getListItem = (dataref) => {
+    getList = (dataref) => {
         return lists[dataref.uid]
     }
 
     // TODO: should always return an object
-    getTypeItem = (metatype,dataref) => {
+    getType = (metatype,dataref) => {
         let typeitem
         if ( types[METATYPES[metatype]][dataref.schemeuid] ) {
             typeitem = types[METATYPES[metatype]][dataref.schemeuid][dataref.uid] ||
@@ -152,9 +153,9 @@ class QuadspaceController extends React.Component<any,any> {
 
     quadrantcallbacks = {
         handleSwap:this.handleSwap, 
-        getDataItem:this.getDataItem, 
-        getListItem:this.getListItem, 
-        getTypeItem:this.getTypeItem, 
+        getItem:this.getItem, 
+        getList:this.getList, 
+        getType:this.getType, 
         selectQuadrant:this.selectQuadrant, 
         calcQuadrantPosition:this.calcQuadrantPosition,
     }

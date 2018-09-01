@@ -1,26 +1,18 @@
 // workspacedata.tsx
 import {serializer} from '../core/utilities/serializer'
 
-let maps = {
-    schemes:{
-        common:{
-            tribe:'tribalopolis',
-            parent:null,
-        }
-    },
-}
-
 let schemes = {
-    common:{
-        list:{
+    type: {
 
-        },
-        item:{
+    },
+    list: {
 
-        },
-        link:{
+    },
+    item: {
 
-        },
+    },
+    link: {
+
     },
 }
 
@@ -692,4 +684,4 @@ let datastacks = [ // four quadrant stacks
     ]
 ]
 
-export {lists, links, items, types, schemes, datastacks, maps}
+export { schemes, types, items, lists, links, datastacks }

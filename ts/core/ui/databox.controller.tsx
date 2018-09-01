@@ -169,7 +169,7 @@ class DataBox extends React.Component<any,any> {
 
     render() {
 
-        let { item, getListItem, haspeers } = this.props
+        let { item, getList, haspeers } = this.props
 
         let listStack = this.state.boxProxy.liststack
 
@@ -183,7 +183,7 @@ class DataBox extends React.Component<any,any> {
             listref = listroot
         }
 
-        let listobject = getListItem(listref)
+        let listobject = getList(listref)
 
         let frameStyle:React.CSSProperties = {
             width:'300px',
@@ -238,7 +238,7 @@ class DataBox extends React.Component<any,any> {
                 <div>
                     <DirectoryBar 
                         item = {item} 
-                        getListItem = {this.props.getListItem}
+                        getList = {this.props.getList}
                         listStack = {this.state.boxProxy.liststack}
                         collapseDirectoryItem = {this.collapseDirectoryItem}
                         haspeers = {this.props.haspeers}
@@ -249,7 +249,7 @@ class DataBox extends React.Component<any,any> {
                         ref = {this.listcomponent}
                         listobject = {listobject} 
                         highlightrefuid = {this.state.highlightrefuid}
-                        getListItem = {this.props.getListItem}
+                        getList = {this.props.getList}
                         expandDirectoryItem = {this.props.expandDirectoryItem}
                         highlightItem = {this.highlightItem}
                     />

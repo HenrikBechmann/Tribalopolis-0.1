@@ -69,7 +69,7 @@ class Quadrant extends React.Component {
             let { datastack, stackpointer } = this.state;
             this._captureSettings(stackpointer, datastack);
             let boxProxy = datastack[stackpointer].items[boxptr];
-            let item = this.getDataItem(boxProxy.dataref);
+            let item = this.getItem(boxProxy.dataref);
             let liststack = boxProxy.liststack;
             let listref;
             if (liststack.length) {
@@ -78,7 +78,7 @@ class Quadrant extends React.Component {
             else {
                 listref = item.listref;
             }
-            let listitem = this.getListItem(listref);
+            let listitem = this.getList(listref);
             let linkitems = listitem.links;
             if (!linkitems || !linkitems.length)
                 return;
@@ -312,7 +312,7 @@ class Quadrant extends React.Component {
         *********************************************************/
         this.getListItemType = (metatype) => {
             return (dataref) => {
-                return this.getTypeItem(metatype, dataref);
+                return this.getType(metatype, dataref);
             };
         };
         // Lister item renderer
@@ -329,8 +329,8 @@ class Quadrant extends React.Component {
         };
         this.getBoxComponent = (boxProxy, index, haspeers, key) => {
             // console.log('getBoxComponent', boxProxy, index, haspeers, key)
-            let item = this.getDataItem(boxProxy.dataref);
-            let itemType = this.getTypeItem(METATYPES.item, item.type);
+            let item = this.getItem(boxProxy.dataref);
+            let itemType = this.getType(METATYPES.item, item.type);
             let containerHeight = this.scrollboxelement.current.offsetHeight;
             let matchForTarget = false;
             let { collapseBoxProxyForTarget } = this.state;
@@ -338,7 +338,7 @@ class Quadrant extends React.Component {
                 matchForTarget = (collapseBoxProxyForTarget.index == index);
             }
             // console.log('match',matchForTarget,collapseBoxProxyForTarget,index)
-            return (<DataBox key={boxProxy.instanceid} item={item} itemType={itemType} collapseBoxProxyForTarget={matchForTarget ? collapseBoxProxyForTarget : null} getListItem={this.getListItem} getListItemType={this.getListItemType(METATYPES.list)} boxProxy={boxProxy} highlightBox={this.highlightBox} haspeers={haspeers} index={index} containerHeight={containerHeight} splayBox={(domSource, listcomponent) => {
+            return (<DataBox key={boxProxy.instanceid} item={item} itemType={itemType} collapseBoxProxyForTarget={matchForTarget ? collapseBoxProxyForTarget : null} getList={this.getList} getListItemType={this.getListItemType(METATYPES.list)} boxProxy={boxProxy} highlightBox={this.highlightBox} haspeers={haspeers} index={index} containerHeight={containerHeight} splayBox={(domSource, listcomponent) => {
                 this.splayBox(index, domSource, listcomponent);
             }} selectFromSplay={(domSource) => {
                 this.selectFromSplay(index, domSource);
@@ -360,9 +360,9 @@ class Quadrant extends React.Component {
     ------------------[ lifecycle methods ]------------------
     *********************************************************/
     componentWillMount() {
-        this.getDataItem = this.props.callbacks.getDataItem;
-        this.getListItem = this.props.callbacks.getListItem;
-        this.getTypeItem = this.props.callbacks.getTypeItem;
+        this.getItem = this.props.callbacks.getItem;
+        this.getList = this.props.callbacks.getList;
+        this.getType = this.props.callbacks.getType;
         window.addEventListener('resize', this.onResize);
     }
     componentWillUnmount() {

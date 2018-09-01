@@ -21,7 +21,7 @@ class DirectoryListBase extends React.Component<any,any> {
 
     listcomponent
 
-    getListItem = this.props.getListItem
+    getList = this.props.getList
 
     componentDidUpdate() {
         if (!this.props.highlightrefuid) return
@@ -65,7 +65,7 @@ class DirectoryListBase extends React.Component<any,any> {
 
     getListComponent = (dataref, key) => {
 
-        let data = this.getListItem(dataref)
+        let data = this.getList(dataref)
         let highlight = (dataref.uid === this.state.highlightrefuid)
         let catitem = 
             <DirectoryItem 

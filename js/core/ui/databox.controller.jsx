@@ -124,7 +124,7 @@ class DataBox extends React.Component {
         }
     }
     render() {
-        let { item, getListItem, haspeers } = this.props;
+        let { item, getList, haspeers } = this.props;
         let listStack = this.state.boxProxy.liststack;
         let { listref: listroot } = item;
         let listref;
@@ -134,7 +134,7 @@ class DataBox extends React.Component {
         else {
             listref = listroot;
         }
-        let listobject = getListItem(listref);
+        let listobject = getList(listref);
         let frameStyle = {
             width: '300px',
             backgroundColor: 'white',
@@ -169,10 +169,10 @@ class DataBox extends React.Component {
             position: 'relative',
         }}>
                 <div>
-                    <DirectoryBar item={item} getListItem={this.props.getListItem} listStack={this.state.boxProxy.liststack} collapseDirectoryItem={this.collapseDirectoryItem} haspeers={this.props.haspeers}/>
+                    <DirectoryBar item={item} getList={this.props.getList} listStack={this.state.boxProxy.liststack} collapseDirectoryItem={this.collapseDirectoryItem} haspeers={this.props.haspeers}/>
                 </div>
                 <div style={scrollboxstyle}>
-                    <DirectoryList ref={this.listcomponent} listobject={listobject} highlightrefuid={this.state.highlightrefuid} getListItem={this.props.getListItem} expandDirectoryItem={this.props.expandDirectoryItem} highlightItem={this.highlightItem}/>
+                    <DirectoryList ref={this.listcomponent} listobject={listobject} highlightrefuid={this.state.highlightrefuid} getList={this.props.getList} expandDirectoryItem={this.props.expandDirectoryItem} highlightItem={this.highlightItem}/>
                 </div>
                 {this.modifybuttons(listItemType)}
                 {this.indexmarker()}

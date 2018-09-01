@@ -11,7 +11,7 @@ class DirectoryListBase extends React.Component {
             highlightrefuid: null,
             links: this.props.listobject.links,
         };
-        this.getListItem = this.props.getListItem;
+        this.getList = this.props.getList;
         this.findlinkIndex = (uid) => {
             return (item) => {
                 return item.uid == uid;
@@ -26,7 +26,7 @@ class DirectoryListBase extends React.Component {
             return this.getListComponent(this.state.links[index], key);
         };
         this.getListComponent = (dataref, key) => {
-            let data = this.getListItem(dataref);
+            let data = this.getList(dataref);
             let highlight = (dataref.uid === this.state.highlightrefuid);
             let catitem = <DirectoryItem key={key} uid={dataref.uid} data={data} expandDirectoryItem={this.expandDirectoryItem(dataref)} highlight={highlight} highlightItem={this.props.highlightItem}/>;
             return catitem;

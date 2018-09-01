@@ -46,7 +46,7 @@ class DirectoryBar extends React.Component {
         };
     }
     render() {
-        let { item, listStack, getListItem } = this.props;
+        let { item, listStack, getList } = this.props;
         let { listref: listroot } = item;
         let listref;
         if (listStack.length) {
@@ -55,7 +55,7 @@ class DirectoryBar extends React.Component {
         else {
             listref = listroot;
         }
-        let list = getListItem(listref);
+        let list = getList(listref);
         let name = list.properties.name;
         let count = list.properties.aggregates.childcount.amount;
         return <div>

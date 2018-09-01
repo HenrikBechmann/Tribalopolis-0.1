@@ -55,9 +55,9 @@ class Quadrant extends React.Component<any,any>  {
     listcomponent
 
     // get records
-    getDataItem
-    getListItem
-    getTypeItem
+    getItem
+    getList
+    getType
 
     // trigger for animation and reset
     collapseBoxProxyForTarget = null
@@ -67,9 +67,9 @@ class Quadrant extends React.Component<any,any>  {
 *********************************************************/
 
     componentWillMount() {
-        this.getDataItem = this.props.callbacks.getDataItem
-        this.getListItem = this.props.callbacks.getListItem
-        this.getTypeItem = this.props.callbacks.getTypeItem
+        this.getItem = this.props.callbacks.getItem
+        this.getList = this.props.callbacks.getList
+        this.getType = this.props.callbacks.getType
 
         window.addEventListener('resize',this.onResize)
 
@@ -193,7 +193,7 @@ class Quadrant extends React.Component<any,any>  {
 
         let boxProxy = datastack[stackpointer].items[boxptr]
 
-        let item = this.getDataItem(boxProxy.dataref)
+        let item = this.getItem(boxProxy.dataref)
 
         let liststack = boxProxy.liststack
 
@@ -205,7 +205,7 @@ class Quadrant extends React.Component<any,any>  {
             listref = item.listref            
         }
 
-        let listitem = this.getListItem(listref)
+        let listitem = this.getList(listref)
 
         let linkitems = listitem.links
 
@@ -524,7 +524,7 @@ class Quadrant extends React.Component<any,any>  {
 
     getListItemType = (metatype) => {
         return (dataref) => {
-            return this.getTypeItem(metatype,dataref)
+            return this.getType(metatype,dataref)
         }
     }
 
@@ -549,8 +549,8 @@ class Quadrant extends React.Component<any,any>  {
 
         // console.log('getBoxComponent', boxProxy, index, haspeers, key)
 
-        let item = this.getDataItem(boxProxy.dataref)
-        let itemType = this.getTypeItem(METATYPES.item,item.type)
+        let item = this.getItem(boxProxy.dataref)
+        let itemType = this.getType(METATYPES.item,item.type)
 
         let containerHeight = this.scrollboxelement.current.offsetHeight
 
@@ -568,7 +568,7 @@ class Quadrant extends React.Component<any,any>  {
                 item = { item } 
                 itemType = { itemType }
                 collapseBoxProxyForTarget = {matchForTarget?collapseBoxProxyForTarget:null}
-                getListItem = { this.getListItem }
+                getList = { this.getList }
                 getListItemType = { this.getListItemType(METATYPES.list) }
                 boxProxy = { boxProxy }
                 highlightBox = {this.highlightBox}
