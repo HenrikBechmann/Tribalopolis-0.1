@@ -522,12 +522,6 @@ class Quadrant extends React.Component<any,any>  {
 -------------------[ assembly support ]------------------
 *********************************************************/
 
-    getListItemType = (metatype) => {
-        return (dataref) => {
-            return this.getType(metatype,dataref)
-        }
-    }
-
     // Lister item renderer
     getBox = (index, key) => {
 
@@ -550,7 +544,7 @@ class Quadrant extends React.Component<any,any>  {
         // console.log('getBoxComponent', boxProxy, index, haspeers, key)
 
         let item = this.getItem(boxProxy.dataref)
-        let itemType = this.getType(METATYPES.item,item.type)
+        let itemType = this.getType(item.type)
 
         let containerHeight = this.scrollboxelement.current.offsetHeight
 
@@ -569,7 +563,7 @@ class Quadrant extends React.Component<any,any>  {
                 itemType = { itemType }
                 collapseBoxProxyForTarget = {matchForTarget?collapseBoxProxyForTarget:null}
                 getList = { this.getList }
-                getListItemType = { this.getListItemType(METATYPES.list) }
+                getType = { this.getType }
                 boxProxy = { boxProxy }
                 highlightBox = {this.highlightBox}
                 haspeers = { haspeers }

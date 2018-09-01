@@ -8,7 +8,6 @@ import * as React from 'react';
 import QuadOrigin from './quadrant/quadorigin.view';
 import QuadTitleBar from './quadrant/quadtitlebar.view';
 import DataBox from './databox.controller';
-import { METATYPES } from '../constants';
 import { serializer } from '../../core/utilities/serializer';
 import Lister from 'react-list';
 class Quadrant extends React.Component {
@@ -310,11 +309,6 @@ class Quadrant extends React.Component {
         /********************************************************
         -------------------[ assembly support ]------------------
         *********************************************************/
-        this.getListItemType = (metatype) => {
-            return (dataref) => {
-                return this.getType(metatype, dataref);
-            };
-        };
         // Lister item renderer
         this.getBox = (index, key) => {
             let { datastack, stackpointer } = this.state;
@@ -330,7 +324,7 @@ class Quadrant extends React.Component {
         this.getBoxComponent = (boxProxy, index, haspeers, key) => {
             // console.log('getBoxComponent', boxProxy, index, haspeers, key)
             let item = this.getItem(boxProxy.dataref);
-            let itemType = this.getType(METATYPES.item, item.type);
+            let itemType = this.getType(item.type);
             let containerHeight = this.scrollboxelement.current.offsetHeight;
             let matchForTarget = false;
             let { collapseBoxProxyForTarget } = this.state;
@@ -338,7 +332,7 @@ class Quadrant extends React.Component {
                 matchForTarget = (collapseBoxProxyForTarget.index == index);
             }
             // console.log('match',matchForTarget,collapseBoxProxyForTarget,index)
-            return (<DataBox key={boxProxy.instanceid} item={item} itemType={itemType} collapseBoxProxyForTarget={matchForTarget ? collapseBoxProxyForTarget : null} getList={this.getList} getListItemType={this.getListItemType(METATYPES.list)} boxProxy={boxProxy} highlightBox={this.highlightBox} haspeers={haspeers} index={index} containerHeight={containerHeight} splayBox={(domSource, listcomponent) => {
+            return (<DataBox key={boxProxy.instanceid} item={item} itemType={itemType} collapseBoxProxyForTarget={matchForTarget ? collapseBoxProxyForTarget : null} getList={this.getList} getType={this.getType} boxProxy={boxProxy} highlightBox={this.highlightBox} haspeers={haspeers} index={index} containerHeight={containerHeight} splayBox={(domSource, listcomponent) => {
                 this.splayBox(index, domSource, listcomponent);
             }} selectFromSplay={(domSource) => {
                 this.selectFromSplay(index, domSource);

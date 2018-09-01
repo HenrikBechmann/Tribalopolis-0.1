@@ -208,7 +208,7 @@ class DataBox extends React.Component<any,any> {
 
         let listcount = listobject.list.length
 
-        let listItemType = this.props.getListItemType(listobject.type)
+        let listItemType = this.props.getType(listobject.type)
         // placeholder logic for showing add button
 
         return  <div style = {

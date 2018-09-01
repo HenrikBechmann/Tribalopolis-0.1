@@ -9,7 +9,6 @@ import QuadViewport from './quadspace/quadviewport.view';
 import QuantityBadge from './common/quantitybadge.view';
 import QuadStatusBar from './quadspace/quadstatusbar.view';
 import Quadrants from './quadrants.controller';
-import { METATYPES } from '../constants';
 // TODO: temporary -- should come from application service
 import { types, items, lists, datastacks } from '../../data/repositories';
 class QuadspaceController extends React.Component {
@@ -108,14 +107,8 @@ class QuadspaceController extends React.Component {
             return lists[dataref.uid];
         };
         // TODO: should always return an object
-        this.getType = (metatype, dataref) => {
-            let typeitem;
-            if (types[METATYPES[metatype]][dataref.schemeuid]) {
-                typeitem = types[METATYPES[metatype]][dataref.schemeuid][dataref.uid] ||
-                    types[METATYPES[metatype]][dataref.schemeuid]['__default__'];
-            }
-            typeitem = typeitem || null;
-            return typeitem;
+        this.getType = (dataref) => {
+            return types[dataref.uid];
         };
         this.quadrantcallbacks = {
             handleSwap: this.handleSwap,

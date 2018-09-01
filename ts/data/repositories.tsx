@@ -2,56 +2,36 @@
 import {serializer} from '../core/utilities/serializer'
 
 let schemes = {
-    type: {
-
-    },
-    list: {
-
-    },
-    item: {
-
-    },
-    link: {
-
-    },
 }
 
 let types = {
-    list:{
-        common:{
-            __default__:{
-                type:{
+    incoming:{
+        type:{
 
-                },
-                identity:{
-
-                },
-                properties:{
-                    is:{},
-                    has:{},
-                },
-            },
-            outgoing: {
-                type:{
-
-                },
-                identity: {
-
-                },
-                properties: {
-                    is:{
-                        outgoing:true,
-                    },
-                    has:{},
-                },
-            },
         },
-    },
-    item:{
+        identity:{
 
+        },
+        properties:{
+            is:{},
+            has:{},
+        },
+        list:{},
     },
-    link:{
+    outgoing: {
+        type:{
 
+        },
+        identity: {
+
+        },
+        properties: {
+            is:{
+                outgoing:true,
+            },
+            has:{},
+        },
+        list:{},
     },
 }
 
@@ -160,7 +140,7 @@ let lists = {
     pending:
     {
         type:{
-            uid:'pending',
+            uid:'incoming',
             schemeuid:'common',
         },
         identity:{
@@ -260,7 +240,7 @@ let lists = {
     messages:
     {
         type:{
-            uid:'messengers',
+            uid:'incoming',
             schemeuid:'common',
         },
         identity:{
@@ -280,7 +260,7 @@ let lists = {
     streams:
     {
         type:{
-            type:'messengers',
+            uid:'incoming',
             schemeuid:'common',
         },
         identity:{
@@ -320,7 +300,7 @@ let lists = {
     calendars:
     {
         type:{
-            uid:'calendars',
+            uid:'incoming',
             schemeuid:'common',
         },
         identity:{
@@ -360,7 +340,7 @@ let lists = {
     membership:
     {
         type:{
-            uid:'other',
+            uid:'incoming',
             schemeuid:'common',
         },
         identity:{
@@ -382,7 +362,7 @@ let lists = {
     other:
     {
         type:{
-            uid:'other',
+            uid:'incoming',
             schemeuid:'common',
         },
         identity:{
@@ -403,7 +383,7 @@ let lists = {
     henrik:
     {
         type:{
-            uid:'member',
+            uid:'incoming',
             schemeuid:'common',
         },
         identity:{
@@ -418,6 +398,7 @@ let lists = {
                     timestamp:1
                 },
             },
+            linkedlist:false,
         },
         list:[
             {
@@ -497,7 +478,7 @@ let links = {}
 let items = {
     henrik:{
         type:{
-            uid:'member',
+            uid:'incoming',
             name:'member', // TODO: should be obtained from type object
             schemeuid:'common',
         },

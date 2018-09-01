@@ -140,15 +140,8 @@ class QuadspaceController extends React.Component<any,any> {
     }
 
     // TODO: should always return an object
-    getType = (metatype,dataref) => {
-        let typeitem
-        if ( types[METATYPES[metatype]][dataref.schemeuid] ) {
-            typeitem = types[METATYPES[metatype]][dataref.schemeuid][dataref.uid] ||
-                types[METATYPES[metatype]][dataref.schemeuid]['__default__']
-
-        }
-        typeitem = typeitem || null
-        return typeitem
+    getType = (dataref) => {
+        return types[dataref.uid]
     }
 
     quadrantcallbacks = {
