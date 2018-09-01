@@ -17,18 +17,25 @@ const Quadrants = props => {
         selectQuadrant,
     };
     let { split, quadrantidentifiers, datastacks, currentquadposition } = props;
+    let instance;
+    (function (instance) {
+        instance[instance["one"] = 0] = "one";
+        instance[instance["two"] = 1] = "two";
+        instance[instance["three"] = 2] = "three";
+        instance[instance["four"] = 3] = "four";
+    })(instance || (instance = {}));
     return (<QuadPlatform currentquadposition={currentquadposition} split={split}>
-            <QuadFrame quadrant={calcQuadrant(0)} split={split} toolkit={frametoolkit}>
-                <Quadrant quadidentifier={quadrantidentifiers[0]} color='#e8e8e8' datastack={datastacks[0]} toolkit={quadtoolkit}/>
+            <QuadFrame quadrant={calcQuadrant(instance.one)} split={split} toolkit={frametoolkit}>
+                <Quadrant quadidentifier={quadrantidentifiers[instance.one]} color='#e8e8e8' datastack={datastacks[instance.one]} toolkit={quadtoolkit}/>
             </QuadFrame>
-            <QuadFrame quadrant={calcQuadrant(1)} toolkit={frametoolkit} split={split}>
-                <Quadrant quadidentifier={quadrantidentifiers[1]} color='#e8e8e8' datastack={datastacks[1]} toolkit={quadtoolkit}/>
+            <QuadFrame quadrant={calcQuadrant(instance.two)} toolkit={frametoolkit} split={split}>
+                <Quadrant quadidentifier={quadrantidentifiers[instance.two]} color='#e8e8e8' datastack={datastacks[instance.two]} toolkit={quadtoolkit}/>
             </QuadFrame>
-            <QuadFrame quadrant={calcQuadrant(2)} toolkit={frametoolkit} split={split}>
-                <Quadrant quadidentifier={quadrantidentifiers[2]} color='#e8e8e8' datastack={datastacks[2]} toolkit={quadtoolkit}/>
+            <QuadFrame quadrant={calcQuadrant(instance.three)} toolkit={frametoolkit} split={split}>
+                <Quadrant quadidentifier={quadrantidentifiers[instance.three]} color='#e8e8e8' datastack={datastacks[instance.three]} toolkit={quadtoolkit}/>
             </QuadFrame>
-            <QuadFrame quadrant={calcQuadrant(3)} toolkit={frametoolkit} split={split}>
-                <Quadrant quadidentifier={quadrantidentifiers[3]} color='#e8e8e8' datastack={datastacks[3]} toolkit={quadtoolkit}/>
+            <QuadFrame quadrant={calcQuadrant(instance.four)} toolkit={frametoolkit} split={split}>
+                <Quadrant quadidentifier={quadrantidentifiers[instance.four]} color='#e8e8e8' datastack={datastacks[instance.four]} toolkit={quadtoolkit}/>
             </QuadFrame>
         </QuadPlatform>);
 };
