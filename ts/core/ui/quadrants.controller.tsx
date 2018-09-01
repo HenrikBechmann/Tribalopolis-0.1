@@ -10,7 +10,8 @@ import QuadFrame from './quadrant/quadframe.view'
 import Quadrant from './quadrant.controller'
 
 const Quadrants = props => {
-    let { handleSwap, getDataItem, getListItem, getTypeItem, selectQuadrant, calcQuadrant } = props.toolkit
+    // repackage toolkit for children
+    let { handleSwap, getDataItem, getListItem, getTypeItem, selectQuadrant, calcQuadrantPosition } = props.toolkit
     let quadtoolkit = {
         getDataItem,
         getListItem,
@@ -23,7 +24,7 @@ const Quadrants = props => {
 
     let {split, quadrantidentifiers, datastacks, currentquadposition} = props
 
-    enum instance{one,two,three,four}
+    enum instance{one,two,three,four} // 0,1,2,3
 
     return (
         <QuadPlatform 
@@ -31,7 +32,7 @@ const Quadrants = props => {
             split = {split}
         >
             <QuadFrame
-                quadrant = {calcQuadrant(instance.one)}
+                quadrantPosition = {calcQuadrantPosition(instance.one)}
                 split = {split}
                 toolkit = {frametoolkit}
             >
@@ -43,7 +44,7 @@ const Quadrants = props => {
                 />
             </QuadFrame>
             <QuadFrame
-                quadrant = {calcQuadrant(instance.two)}
+                quadrantPosition = {calcQuadrantPosition(instance.two)}
                 toolkit = {frametoolkit}
                 split = {split}
             >
@@ -55,7 +56,7 @@ const Quadrants = props => {
                 />
             </QuadFrame>
             <QuadFrame
-                quadrant = {calcQuadrant(instance.three)}
+                quadrantPosition = {calcQuadrantPosition(instance.three)}
                 toolkit = {frametoolkit}
                 split = {split}
             >
@@ -67,7 +68,7 @@ const Quadrants = props => {
                 />
             </QuadFrame>
             <QuadFrame
-                quadrant = {calcQuadrant(instance.four)}
+                quadrantPosition = {calcQuadrantPosition(instance.four)}
                 toolkit = {frametoolkit}
                 split = {split}
             >

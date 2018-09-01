@@ -16,32 +16,32 @@ class QuadFrame extends React.Component<any,any>  {
     }
 
     state = {
-        quadrant:this.props.quadrant,
+        quadrantPosition:this.props.quadrantPosition,
     }
     // quad css position
     position = null
     quadframeelement
 
     componentWillMount() {
-        this.calculatePosition(this.state.quadrant)
+        this.calculatePosition(this.state.quadrantPosition)
     }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.quadrant != this.state.quadrant) {
+        if (nextProps.quadrantPosition != this.state.quadrantPosition) {
 
             let self = this
-            self.calculateTransitionPosition(self.state.quadrant)
+            self.calculateTransitionPosition(self.state.quadrantPosition)
 
             self.forceUpdate(() => {
                 setTimeout(()=>{// give time for styles to apply
-                    self.calculateTransitionPosition(nextProps.quadrant)
+                    self.calculateTransitionPosition(nextProps.quadrantPosition)
                     self.setState({
-                        quadrant:nextProps.quadrant
+                        quadrantPosition:nextProps.quadrantPosition
                     },
 
                         () => {
                             setTimeout(() => { // give time for animation
-                                self.calculatePosition(self.state.quadrant)
+                                self.calculatePosition(self.state.quadrantPosition)
                                 self.forceUpdate()
                             },600)
                         }
@@ -53,16 +53,16 @@ class QuadFrame extends React.Component<any,any>  {
     }
 
 /********************************************************
-------------------[ position quadrant ]------------------
+------------------[ position quadrantPosition ]------------------
 *********************************************************/
 
-    calculateTransitionPosition = (quadrant) => {
+    calculateTransitionPosition = (quadrantPosition) => {
         let top:any = 'auto'
         let left:any = 'auto'
         let bottom:any = 'auto'
         let right:any = 'auto'
         let quadframeelement = this.quadframeelement.current
-        switch (quadrant) {
+        switch (quadrantPosition) {
             case "topleft": {
                 top = 0
                 left = 0
@@ -92,12 +92,12 @@ class QuadFrame extends React.Component<any,any>  {
         }       
     }
 
-    calculatePosition = (quadrant) => {
+    calculatePosition = (quadrantPosition) => {
         let top:any = 'auto'
         let left:any = 'auto'
         let bottom:any = 'auto'
         let right:any = 'auto'
-        switch (quadrant) {
+        switch (quadrantPosition) {
             case "topleft": {
                 top = 0
                 left = 0
@@ -151,12 +151,12 @@ class QuadFrame extends React.Component<any,any>  {
                 ref = {this.quadframeelement}
             >
                 <SwapMenu 
-                    quadrant = {this.state.quadrant} 
+                    quadrantPosition = {this.state.quadrantPosition} 
                     handleSwap = {this.props.toolkit.handleSwap}
                 />
                 {this.props.children}
                 <QuadSelector 
-                    quadrant = {this.state.quadrant} 
+                    quadrantPosition = {this.state.quadrantPosition} 
                     split = {this.props.split} 
                     selectQuadrant = {this.props.toolkit.selectQuadrant}
                 />

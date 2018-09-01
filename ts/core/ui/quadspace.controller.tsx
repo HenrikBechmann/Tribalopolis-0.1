@@ -107,7 +107,7 @@ class QuadspaceController extends React.Component<any,any> {
         return this.state.quadrantpositions.indexOf(sessionid)
     }
 
-    calcQuadrant = (sessionid) => {
+    calcQuadrantPosition = (sessionid) => {
         let pos = this.calcPos(sessionid)
         return this.positions[pos]
     }
@@ -156,7 +156,7 @@ class QuadspaceController extends React.Component<any,any> {
         getListItem:this.getListItem, 
         getTypeItem:this.getTypeItem, 
         selectQuadrant:this.selectQuadrant, 
-        calcQuadrant:this.calcQuadrant,
+        calcQuadrantPosition:this.calcQuadrantPosition,
     }
 
     toolsstriptoolkit = {

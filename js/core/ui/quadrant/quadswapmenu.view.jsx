@@ -3,9 +3,9 @@
 'use strict';
 import * as React from 'react';
 import Icon from '@material-ui/core/Icon';
-const SwapMenu = ({ quadrant, handleSwap }) => {
+const SwapMenu = ({ quadrantPosition, handleSwap }) => {
     let tilt = null;
-    if (quadrant == 'topleft' || quadrant == 'bottomright') {
+    if (quadrantPosition == 'topleft' || quadrantPosition == 'bottomright') {
         tilt = '-45deg';
     }
     else {
@@ -24,13 +24,13 @@ const SwapMenu = ({ quadrant, handleSwap }) => {
         opacity: 0.7,
     }}>
         <Icon style={{ color: 'green', marginRight: '8px', border: '1px solid silver', borderRadius: '50%', }} onClick={() => {
-        handleSwap(quadrant, 'vertical');
+        handleSwap(quadrantPosition, 'vertical');
     }}>swap_vert</Icon>
         <Icon style={{ color: 'green', margin: '0 8px', border: '1px solid silver', borderRadius: '50%', transform: `rotate(${tilt})` }} onClick={() => {
-        handleSwap(quadrant, 'diagonal');
+        handleSwap(quadrantPosition, 'diagonal');
     }}>swap_vert</Icon>
         <Icon style={{ color: 'green', marginLeft: '8px', border: '1px solid silver', borderRadius: '50%', }} onClick={() => {
-        handleSwap(quadrant, 'horizontal');
+        handleSwap(quadrantPosition, 'horizontal');
     }}>swap_horiz</Icon>
     </div>;
 };

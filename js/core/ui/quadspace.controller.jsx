@@ -80,7 +80,7 @@ class QuadspaceController extends React.Component {
         this.calcPos = sessionid => {
             return this.state.quadrantpositions.indexOf(sessionid);
         };
-        this.calcQuadrant = (sessionid) => {
+        this.calcQuadrantPosition = (sessionid) => {
             let pos = this.calcPos(sessionid);
             return this.positions[pos];
         };
@@ -122,7 +122,7 @@ class QuadspaceController extends React.Component {
             getListItem: this.getListItem,
             getTypeItem: this.getTypeItem,
             selectQuadrant: this.selectQuadrant,
-            calcQuadrant: this.calcQuadrant,
+            calcQuadrantPosition: this.calcQuadrantPosition,
         };
         this.toolsstriptoolkit = {
             selectQuad: this.selectQuad,

@@ -14,14 +14,14 @@ class QuadSelector extends React.Component<any,any> {
 
     render() {
 
-        let {quadrant, split, selectQuadrant } = this.props
+        let {quadrantPosition, split, selectQuadrant } = this.props
         let component = null
 
         let element:any = null
 
         if (split != 'none') {
             let icon = null
-            switch (quadrant) {
+            switch (quadrantPosition) {
                 case 'topleft':
                     icon = '/public/icons/ic_border_all_black_24px_topleft.svg'
                     break
@@ -35,7 +35,7 @@ class QuadSelector extends React.Component<any,any> {
                     icon = '/public/icons/ic_border_all_black_24px_bottomright.svg'
                     break
             }
-            let leftside = (quadrant == 'topleft' || quadrant == 'bottomleft')
+            let leftside = (quadrantPosition == 'topleft' || quadrantPosition == 'bottomleft')
             component = <div
                 style = {{
                     position:'absolute',
@@ -72,7 +72,7 @@ class QuadSelector extends React.Component<any,any> {
                         this.setState({
                             selected:true
                         })
-                        selectQuadrant(quadrant)
+                        selectQuadrant(quadrantPosition)
                         setTimeout(() => {
                             this.setState({
                                 selected:false
