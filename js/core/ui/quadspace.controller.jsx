@@ -15,7 +15,7 @@ class QuadspaceController extends React.Component {
     constructor() {
         super(...arguments);
         this.state = {
-            quadrantpositions: [0, 1, 2, 3],
+            quadrantPositions: [0, 1, 2, 3],
             currentQuadPosition: 'topleft',
             split: 'none',
             datastacks,
@@ -64,21 +64,21 @@ class QuadspaceController extends React.Component {
             });
         };
         this.handleSwap = (quadrantPosition, direction) => {
-            let { quadrantpositions } = this.state;
+            let { quadrantPositions } = this.state;
             let sourcequadindex = this.positions.indexOf(quadrantPosition);
             let targetquadposition = this.quadmap[quadrantPosition][direction];
             let targetquadindex = this.positions.indexOf(targetquadposition);
-            let sourceidindex = quadrantpositions[sourcequadindex];
-            let targetidindex = quadrantpositions[targetquadindex];
+            let sourceidindex = quadrantPositions[sourcequadindex];
+            let targetidindex = quadrantPositions[targetquadindex];
             // the swap
-            quadrantpositions[sourcequadindex] = targetidindex;
-            quadrantpositions[targetquadindex] = sourceidindex;
+            quadrantPositions[sourcequadindex] = targetidindex;
+            quadrantPositions[targetquadindex] = sourceidindex;
             this.setState({
-                quadrantpositions
+                quadrantPositions
             });
         };
         this.calcPos = instanceid => {
-            return this.state.quadrantpositions.indexOf(instanceid);
+            return this.state.quadrantPositions.indexOf(instanceid);
         };
         this.calcQuadrantPosition = (instanceid) => {
             let pos = this.calcPos(instanceid);
@@ -130,7 +130,7 @@ class QuadspaceController extends React.Component {
         };
     }
     componentWillMount() {
-        this.quadrantIdentifiers = this.state.quadrantpositions.map((value) => {
+        this.quadrantIdentifiers = this.state.quadrantPositions.map((value) => {
             return (value + 1).toString();
         });
     }
