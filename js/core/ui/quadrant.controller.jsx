@@ -76,11 +76,11 @@ class Quadrant extends React.Component {
                 listref = liststack[liststack.length - 1];
             }
             else {
-                listref = item.listref;
+                listref = item.list;
             }
             let listitem = this.getList(listref);
-            let linkitems = listitem.links;
-            if (!linkitems || !linkitems.length)
+            let listitems = listitem.list;
+            if (!listitems || !listitems.length)
                 return;
             stackpointer++;
             let newstacklayer = { items: [], settings: {}, source: {
@@ -93,7 +93,7 @@ class Quadrant extends React.Component {
             // replace forward stack items
             datastack.splice(stackpointer, datastack.length, newstacklayer);
             let template = JSON.stringify(boxProxy);
-            for (let dataref of linkitems) {
+            for (let dataref of listitems) {
                 let newBoxProxy = JSON.parse(template);
                 newBoxProxy.instanceid = serializer.getid();
                 newBoxProxy.liststack.push(dataref);

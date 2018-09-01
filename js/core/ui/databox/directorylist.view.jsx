@@ -9,7 +9,7 @@ class DirectoryListBase extends React.Component {
         super(props);
         this.state = {
             highlightrefuid: null,
-            links: this.props.listobject.links,
+            list: this.props.listobject.list,
         };
         this.getList = this.props.getList;
         this.findlinkIndex = (uid) => {
@@ -23,7 +23,7 @@ class DirectoryListBase extends React.Component {
             };
         };
         this.itemRenderer = (index, key) => {
-            return this.getListComponent(this.state.links[index], key);
+            return this.getListComponent(this.state.list[index], key);
         };
         this.getListComponent = (dataref, key) => {
             let data = this.getList(dataref);
@@ -39,7 +39,7 @@ class DirectoryListBase extends React.Component {
         // keep; value will be purged
         let highlightrefuid = this.props.highlightrefuid;
         // get index for Lister
-        let index = this.state.links.findIndex(this.findlinkIndex(highlightrefuid));
+        let index = this.state.list.findIndex(this.findlinkIndex(highlightrefuid));
         // update scroll display with selected highlight item
         this.listcomponent.current.scrollAround(index);
         setTimeout(() => {
@@ -54,7 +54,7 @@ class DirectoryListBase extends React.Component {
         }, 300);
     }
     render() {
-        return <Lister ref={this.props.forwardedRef} itemRenderer={this.itemRenderer} length={this.state.links.length} type='uniform'/>;
+        return <Lister ref={this.props.forwardedRef} itemRenderer={this.itemRenderer} length={this.state.list.length} type='uniform'/>;
     }
 }
 const DirectoryList = React.forwardRef((props, ref) => {

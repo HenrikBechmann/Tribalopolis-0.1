@@ -50,7 +50,7 @@ let lists = {
                 },
             },
         },
-        links: [],
+        list: [],
     },
     notes: {
         type: {
@@ -69,7 +69,7 @@ let lists = {
                 },
             },
         },
-        links: [],
+        list: [],
     },
     tribes: {
         type: {
@@ -89,7 +89,7 @@ let lists = {
                 },
             },
         },
-        links: [],
+        list: [],
     },
     connections: {
         type: {
@@ -108,7 +108,7 @@ let lists = {
                 },
             },
         },
-        links: [],
+        list: [],
     },
     requesting: {
         type: {
@@ -127,7 +127,7 @@ let lists = {
                 },
             },
         },
-        links: [],
+        list: [],
     },
     pending: {
         type: {
@@ -146,7 +146,7 @@ let lists = {
                 },
             },
         },
-        links: [],
+        list: [],
     },
     roles: {
         type: {
@@ -165,7 +165,7 @@ let lists = {
                 },
             },
         },
-        links: [],
+        list: [],
     },
     programs: {
         type: {
@@ -184,7 +184,7 @@ let lists = {
                 },
             },
         },
-        links: [],
+        list: [],
     },
     projects: {
         type: {
@@ -203,7 +203,7 @@ let lists = {
                 },
             },
         },
-        links: [],
+        list: [],
     },
     tasks: {
         type: {
@@ -222,7 +222,7 @@ let lists = {
                 },
             },
         },
-        links: [],
+        list: [],
     },
     messages: {
         type: {
@@ -241,7 +241,7 @@ let lists = {
                 },
             },
         },
-        links: [],
+        list: [],
     },
     streams: {
         type: {
@@ -260,7 +260,7 @@ let lists = {
                 },
             },
         },
-        links: [],
+        list: [],
     },
     resources: {
         type: {
@@ -279,7 +279,7 @@ let lists = {
                 },
             },
         },
-        links: [],
+        list: [],
     },
     calendars: {
         type: {
@@ -298,7 +298,7 @@ let lists = {
                 },
             },
         },
-        links: [],
+        list: [],
     },
     accounting: {
         type: {
@@ -317,7 +317,7 @@ let lists = {
                 },
             },
         },
-        links: [],
+        list: [],
     },
     membership: {
         type: {
@@ -337,7 +337,7 @@ let lists = {
                 },
             },
         },
-        links: [],
+        list: [],
     },
     other: {
         type: {
@@ -357,7 +357,7 @@ let lists = {
                 },
             },
         },
-        links: [],
+        list: [],
     },
     henrik: {
         type: {
@@ -377,7 +377,7 @@ let lists = {
                 },
             },
         },
-        links: [
+        list: [
             {
                 repo: 'lists',
                 uid: 'membership',
@@ -469,7 +469,7 @@ let items = {
             location: 'Toronto',
             locationid: 'Toronto',
         },
-        listref: { repo: 'lists', uid: 'henrik' },
+        list: { repo: 'lists', uid: 'henrik' },
     },
 };
 let datastacks = [

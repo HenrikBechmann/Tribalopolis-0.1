@@ -56,7 +56,7 @@ class DirectoryBar extends React.Component<any,any> {
 
         let { item,listStack, getList } = this.props
 
-        let { listref:listroot } = item
+        let { list:listroot } = item
 
         let listref
 

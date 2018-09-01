@@ -47,7 +47,7 @@ class DirectoryBar extends React.Component {
     }
     render() {
         let { item, listStack, getList } = this.props;
-        let { listref: listroot } = item;
+        let { list: listroot } = item;
         let listref;
         if (listStack.length) {
             listref = listStack[listStack.length - 1];

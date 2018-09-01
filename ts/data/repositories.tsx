@@ -74,7 +74,7 @@ let lists = {
                 },
             },
         },
-        links:[],
+        list:[],
     },
     notes:
     {
@@ -94,7 +94,7 @@ let lists = {
                 },
             },
         },
-        links:[],
+        list:[],
     },
     tribes:
     {
@@ -115,7 +115,7 @@ let lists = {
                 },
             },
         },
-        links:[],
+        list:[],
     },
     connections:
     {
@@ -135,7 +135,7 @@ let lists = {
                 },
             },
         },
-        links:[],
+        list:[],
     },
     requesting:
     {
@@ -155,7 +155,7 @@ let lists = {
                 },
             },
         },
-        links:[],
+        list:[],
     },
     pending:
     {
@@ -175,7 +175,7 @@ let lists = {
                 },
             },
         },
-        links:[],
+        list:[],
     },
     roles:
     {
@@ -195,7 +195,7 @@ let lists = {
                 },
             },
         },
-        links:[],
+        list:[],
     },
     programs:
     {
@@ -215,7 +215,7 @@ let lists = {
                 },
             },
         },
-        links:[],
+        list:[],
     },
     projects:
     {
@@ -235,7 +235,7 @@ let lists = {
                 },
             },
         },
-        links:[],
+        list:[],
     },
     tasks:
     {
@@ -255,7 +255,7 @@ let lists = {
                 },
             },
         },
-        links:[],
+        list:[],
     },
     messages:
     {
@@ -275,7 +275,7 @@ let lists = {
                 },
             },
         },
-        links:[],
+        list:[],
     },
     streams:
     {
@@ -295,7 +295,7 @@ let lists = {
                 },
             },
         },
-        links:[],
+        list:[],
     },
     resources:
     {
@@ -315,7 +315,7 @@ let lists = {
                 },
             },
         },
-        links:[],
+        list:[],
     },
     calendars:
     {
@@ -335,7 +335,7 @@ let lists = {
                 },
             },
         },
-        links:[],
+        list:[],
     },
     accounting:
     {
@@ -355,7 +355,7 @@ let lists = {
                 },
             },
         },
-        links:[],
+        list:[],
     },
     membership:
     {
@@ -376,7 +376,7 @@ let lists = {
                 },
             },
         },
-        links:[],
+        list:[],
 // account, website, home
     },
     other:
@@ -398,7 +398,7 @@ let lists = {
                 },
             },
         },
-        links:[],
+        list:[],
     },
     henrik:
     {
@@ -419,7 +419,7 @@ let lists = {
                 },
             },
         },
-        links:[
+        list:[
             {
                 repo:'lists',
                 uid:'membership',
@@ -513,7 +513,7 @@ let items = {
             location:'Toronto',
             locationid:'Toronto',
         },
-        listref:{repo:'lists',uid:'henrik'},
+        list:{repo:'lists',uid:'henrik'},
     },
 }
 

@@ -173,7 +173,7 @@ class DataBox extends React.Component<any,any> {
 
         let listStack = this.state.boxProxy.liststack
 
-        let { listref:listroot } = item
+        let { list:listroot } = item
 
         let listref
 
@@ -206,7 +206,7 @@ class DataBox extends React.Component<any,any> {
             paddingBottom:'32px',
         }
 
-        let listcount = listobject.links.length
+        let listcount = listobject.list.length
 
         let listItemType = this.props.getListItemType(listobject.type)
         // placeholder logic for showing add button

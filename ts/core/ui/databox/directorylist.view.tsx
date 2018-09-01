@@ -16,7 +16,7 @@ class DirectoryListBase extends React.Component<any,any> {
     }
     state = {
         highlightrefuid:null,
-        links:this.props.listobject.links,
+        list:this.props.listobject.list,
     }
 
     listcomponent
@@ -28,7 +28,7 @@ class DirectoryListBase extends React.Component<any,any> {
         // keep; value will be purged
         let highlightrefuid = this.props.highlightrefuid
         // get index for Lister
-        let index = this.state.links.findIndex(this.findlinkIndex(highlightrefuid))
+        let index = this.state.list.findIndex(this.findlinkIndex(highlightrefuid))
         // update scroll display with selected highlight item
         this.listcomponent.current.scrollAround(index)
 
@@ -60,7 +60,7 @@ class DirectoryListBase extends React.Component<any,any> {
     }
 
     itemRenderer = (index,key) => {
-        return this.getListComponent(this.state.links[index],key)
+        return this.getListComponent(this.state.list[index],key)
     }
 
     getListComponent = (dataref, key) => {
@@ -86,7 +86,7 @@ class DirectoryListBase extends React.Component<any,any> {
         return <Lister 
             ref = {this.props.forwardedRef}
             itemRenderer = {this.itemRenderer}
-            length = {this.state.links.length}
+            length = {this.state.list.length}
             type = 'uniform'
         />
     }

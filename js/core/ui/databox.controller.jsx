@@ -126,7 +126,7 @@ class DataBox extends React.Component {
     render() {
         let { item, getList, haspeers } = this.props;
         let listStack = this.state.boxProxy.liststack;
-        let { listref: listroot } = item;
+        let { list: listroot } = item;
         let listref;
         if (listStack.length) {
             listref = listStack[listStack.length - 1];
@@ -154,7 +154,7 @@ class DataBox extends React.Component {
             paddingLeft: '6px',
             paddingBottom: '32px',
         };
-        let listcount = listobject.links.length;
+        let listcount = listobject.list.length;
         let listItemType = this.props.getListItemType(listobject.type);
         // placeholder logic for showing add button
         return <div style={{

@@ -202,14 +202,14 @@ class Quadrant extends React.Component<any,any>  {
         if (liststack.length) {
             listref = liststack[liststack.length-1]
         } else {
-            listref = item.listref            
+            listref = item.list
         }
 
         let listitem = this.getList(listref)
 
-        let linkitems = listitem.links
+        let listitems = listitem.list
 
-        if (!linkitems || !linkitems.length) return
+        if (!listitems || !listitems.length) return
 
         stackpointer++
         let newstacklayer = {items:[], settings:{}, source:{
@@ -226,7 +226,7 @@ class Quadrant extends React.Component<any,any>  {
 
         let template = JSON.stringify(boxProxy)
 
-        for (let dataref of linkitems) {
+        for (let dataref of listitems) {
             let newBoxProxy = JSON.parse(template)
             newBoxProxy.instanceid = serializer.getid()
             newBoxProxy.liststack.push(dataref)
