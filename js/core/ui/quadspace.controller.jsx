@@ -68,11 +68,11 @@ class QuadspaceController extends React.Component {
             let sourcequadindex = this.positions.indexOf(quadrantPosition);
             let targetquadposition = this.quadmap[quadrantPosition][direction];
             let targetquadindex = this.positions.indexOf(targetquadposition);
-            let sourceidindex = quadrantPositions[sourcequadindex];
-            let targetidindex = quadrantPositions[targetquadindex];
+            let sourcepositionindex = quadrantPositions[sourcequadindex];
+            let targetpositionindex = quadrantPositions[targetquadindex];
             // the swap
-            quadrantPositions[sourcequadindex] = targetidindex;
-            quadrantPositions[targetquadindex] = sourceidindex;
+            quadrantPositions[sourcequadindex] = targetpositionindex;
+            quadrantPositions[targetquadindex] = sourcepositionindex;
             this.setState({
                 quadrantPositions
             });
