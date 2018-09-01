@@ -26,8 +26,8 @@ class QuadToolsStrip extends React.Component {
             split: this.props.split,
             accountAnchorElement: null
         };
-        this.changeSplit = this.props.toolkit.changeSplit;
-        this.selectQuad = this.props.toolkit.selectQuad;
+        this.changeSplit = this.props.callbacks.changeSplit;
+        this.selectQuad = this.props.callbacks.selectQuad;
         this.scroller = null;
         this.changeSplitFrom = (toggleIndex) => {
             let newIndex = null;

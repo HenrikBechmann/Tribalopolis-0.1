@@ -6,14 +6,14 @@ import QuadPlatform from './quadspace/quadplatform.view';
 import QuadFrame from './quadrant/quadframe.view';
 import Quadrant from './quadrant.controller';
 const Quadrants = props => {
-    // repackage toolkit for children
-    let { handleSwap, getDataItem, getListItem, getTypeItem, selectQuadrant, calcQuadrantPosition } = props.toolkit;
-    let quadtoolkit = {
+    // repackage callbacks for children
+    let { handleSwap, getDataItem, getListItem, getTypeItem, selectQuadrant, calcQuadrantPosition } = props.callbacks;
+    let quadcallbacks = {
         getDataItem,
         getListItem,
         getTypeItem,
     };
-    let frametoolkit = {
+    let framecallbacks = {
         handleSwap,
         selectQuadrant,
     };
@@ -27,17 +27,17 @@ const Quadrants = props => {
         instance[instance["four"] = 3] = "four";
     })(instance || (instance = {})); // 0,1,2,3
     return (<QuadPlatform currentQuadPosition={currentQuadPosition} split={split}>
-            <QuadFrame quadrantPosition={calcQuadrantPosition(instance.one)} split={split} toolkit={frametoolkit}>
-                <Quadrant quadidentifier={quadrantIdentifiers[instance.one]} color='#e8e8e8' datastack={datastacks[instance.one]} toolkit={quadtoolkit}/>
+            <QuadFrame quadrantPosition={calcQuadrantPosition(instance.one)} split={split} callbacks={framecallbacks}>
+                <Quadrant quadidentifier={quadrantIdentifiers[instance.one]} color='#e8e8e8' datastack={datastacks[instance.one]} callbacks={quadcallbacks}/>
             </QuadFrame>
-            <QuadFrame quadrantPosition={calcQuadrantPosition(instance.two)} toolkit={frametoolkit} split={split}>
-                <Quadrant quadidentifier={quadrantIdentifiers[instance.two]} color='#e8e8e8' datastack={datastacks[instance.two]} toolkit={quadtoolkit}/>
+            <QuadFrame quadrantPosition={calcQuadrantPosition(instance.two)} callbacks={framecallbacks} split={split}>
+                <Quadrant quadidentifier={quadrantIdentifiers[instance.two]} color='#e8e8e8' datastack={datastacks[instance.two]} callbacks={quadcallbacks}/>
             </QuadFrame>
-            <QuadFrame quadrantPosition={calcQuadrantPosition(instance.three)} toolkit={frametoolkit} split={split}>
-                <Quadrant quadidentifier={quadrantIdentifiers[instance.three]} color='#e8e8e8' datastack={datastacks[instance.three]} toolkit={quadtoolkit}/>
+            <QuadFrame quadrantPosition={calcQuadrantPosition(instance.three)} callbacks={framecallbacks} split={split}>
+                <Quadrant quadidentifier={quadrantIdentifiers[instance.three]} color='#e8e8e8' datastack={datastacks[instance.three]} callbacks={quadcallbacks}/>
             </QuadFrame>
-            <QuadFrame quadrantPosition={calcQuadrantPosition(instance.four)} toolkit={frametoolkit} split={split}>
-                <Quadrant quadidentifier={quadrantIdentifiers[instance.four]} color='#e8e8e8' datastack={datastacks[instance.four]} toolkit={quadtoolkit}/>
+            <QuadFrame quadrantPosition={calcQuadrantPosition(instance.four)} callbacks={framecallbacks} split={split}>
+                <Quadrant quadidentifier={quadrantIdentifiers[instance.four]} color='#e8e8e8' datastack={datastacks[instance.four]} callbacks={quadcallbacks}/>
             </QuadFrame>
         </QuadPlatform>);
 };

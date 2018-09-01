@@ -32,9 +32,9 @@ class QuadToolsStrip extends React.Component<any,any> {
         accountAnchorElement:null
     }
 
-    changeSplit = this.props.toolkit.changeSplit
+    changeSplit = this.props.callbacks.changeSplit
 
-    selectQuad = this.props.toolkit.selectQuad
+    selectQuad = this.props.callbacks.selectQuad
 
     scroller = null
 

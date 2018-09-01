@@ -11,14 +11,14 @@ import Quadrant from './quadrant.controller'
 
 const Quadrants = props => {
 
-    // repackage toolkit for children
-    let { handleSwap, getDataItem, getListItem, getTypeItem, selectQuadrant, calcQuadrantPosition } = props.toolkit
-    let quadtoolkit = {
+    // repackage callbacks for children
+    let { handleSwap, getDataItem, getListItem, getTypeItem, selectQuadrant, calcQuadrantPosition } = props.callbacks
+    let quadcallbacks = {
         getDataItem,
         getListItem,
         getTypeItem,
     }
-    let frametoolkit = {
+    let framecallbacks = {
         handleSwap,
         selectQuadrant,
     }
@@ -36,49 +36,49 @@ const Quadrants = props => {
             <QuadFrame
                 quadrantPosition = {calcQuadrantPosition(instance.one)}
                 split = {split}
-                toolkit = {frametoolkit}
+                callbacks = {framecallbacks}
             >
                 <Quadrant 
                     quadidentifier = {quadrantIdentifiers[instance.one]}
                     color = '#e8e8e8' 
                     datastack = {datastacks[instance.one]}
-                    toolkit = {quadtoolkit}
+                    callbacks = {quadcallbacks}
                 />
             </QuadFrame>
             <QuadFrame
                 quadrantPosition = {calcQuadrantPosition(instance.two)}
-                toolkit = {frametoolkit}
+                callbacks = {framecallbacks}
                 split = {split}
             >
                 <Quadrant 
                     quadidentifier = {quadrantIdentifiers[instance.two]}
                     color = '#e8e8e8' 
                     datastack = {datastacks[instance.two]}
-                    toolkit = {quadtoolkit}
+                    callbacks = {quadcallbacks}
                 />
             </QuadFrame>
             <QuadFrame
                 quadrantPosition = {calcQuadrantPosition(instance.three)}
-                toolkit = {frametoolkit}
+                callbacks = {framecallbacks}
                 split = {split}
             >
                 <Quadrant 
                     quadidentifier = {quadrantIdentifiers[instance.three]}
                     color = '#e8e8e8' 
                     datastack = {datastacks[instance.three]}
-                    toolkit = {quadtoolkit}
+                    callbacks = {quadcallbacks}
                 />
             </QuadFrame>
             <QuadFrame
                 quadrantPosition = {calcQuadrantPosition(instance.four)}
-                toolkit = {frametoolkit}
+                callbacks = {framecallbacks}
                 split = {split}
             >
                 <Quadrant 
                     quadidentifier = {quadrantIdentifiers[instance.four]}
                     color = '#e8e8e8' 
                     datastack = {datastacks[instance.four]}
-                    toolkit = {quadtoolkit}
+                    callbacks = {quadcallbacks}
                 />
             </QuadFrame>
         </QuadPlatform>

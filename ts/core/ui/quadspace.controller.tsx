@@ -150,7 +150,7 @@ class QuadspaceController extends React.Component<any,any> {
         return typeitem
     }
 
-    quadranttoolkit = {
+    quadrantcallbacks = {
         handleSwap:this.handleSwap, 
         getDataItem:this.getDataItem, 
         getListItem:this.getListItem, 
@@ -159,7 +159,7 @@ class QuadspaceController extends React.Component<any,any> {
         calcQuadrantPosition:this.calcQuadrantPosition,
     }
 
-    toolsstriptoolkit = {
+    toolsstripcallbacks = {
         selectQuad:this.selectQuad,
         changeSplit:this.changeSplit,
     }
@@ -168,13 +168,13 @@ class QuadspaceController extends React.Component<any,any> {
         return (
             <QuadSpaceFrame>
                 <QuadToolsStrip currentQuadPosition = {this.state.currentQuadPosition}
-                    toolkit = {this.toolsstriptoolkit}
+                    callbacks = {this.toolsstripcallbacks}
                     split = {this.state.split}
                 />
                 <QuadBasket><QuantityBadge quantity = {0} style = {{left:'-12px'}} /></QuadBasket>
                 <QuadViewport>
                     <Quadrants 
-                        toolkit = {this.quadranttoolkit}
+                        callbacks = {this.quadrantcallbacks}
                         quadrantIdentifiers =  {this.quadrantIdentifiers}
                         split = {this.state.split}
                         datastacks = {this.state.datastacks}

@@ -124,9 +124,9 @@ class QuadFrame extends React.Component {
             transition: 'all .5s ease'
         };
         return (<div style={quadframestyle} ref={this.quadframeelement}>
-                <SwapMenu quadrantPosition={this.state.quadrantPosition} handleSwap={this.props.toolkit.handleSwap}/>
+                <SwapMenu quadrantPosition={this.state.quadrantPosition} handleSwap={this.props.callbacks.handleSwap}/>
                 {this.props.children}
-                <QuadSelector quadrantPosition={this.state.quadrantPosition} split={this.props.split} selectQuadrant={this.props.toolkit.selectQuadrant}/>
+                <QuadSelector quadrantPosition={this.state.quadrantPosition} split={this.props.split} selectQuadrant={this.props.callbacks.selectQuadrant}/>
             </div>);
     }
 }
