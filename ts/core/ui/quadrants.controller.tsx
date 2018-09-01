@@ -22,13 +22,13 @@ const Quadrants = props => {
         selectQuadrant,
     }
 
-    let {split, quadrantidentifiers, datastacks, currentquadposition} = props
+    let {split, quadrantidentifiers, datastacks, currentQuadPosition} = props
 
     enum instance{one,two,three,four} // 0,1,2,3
 
     return (
         <QuadPlatform 
-            currentquadposition = {currentquadposition}
+            currentQuadPosition = {currentQuadPosition}
             split = {split}
         >
             <QuadFrame

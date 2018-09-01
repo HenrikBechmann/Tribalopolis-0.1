@@ -17,7 +17,7 @@ const Quadrants = props => {
         handleSwap,
         selectQuadrant,
     };
-    let { split, quadrantidentifiers, datastacks, currentquadposition } = props;
+    let { split, quadrantidentifiers, datastacks, currentQuadPosition } = props;
     let instance;
     (function (instance) {
         instance[instance["one"] = 0] = "one";
@@ -25,7 +25,7 @@ const Quadrants = props => {
         instance[instance["three"] = 2] = "three";
         instance[instance["four"] = 3] = "four";
     })(instance || (instance = {})); // 0,1,2,3
-    return (<QuadPlatform currentquadposition={currentquadposition} split={split}>
+    return (<QuadPlatform currentQuadPosition={currentQuadPosition} split={split}>
             <QuadFrame quadrantPosition={calcQuadrantPosition(instance.one)} split={split} toolkit={frametoolkit}>
                 <Quadrant quadidentifier={quadrantidentifiers[instance.one]} color='#e8e8e8' datastack={datastacks[instance.one]} toolkit={quadtoolkit}/>
             </QuadFrame>

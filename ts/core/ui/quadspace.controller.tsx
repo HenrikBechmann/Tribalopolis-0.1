@@ -21,7 +21,7 @@ class QuadspaceController extends React.Component<any,any> {
 
     state = {
         quadrantpositions:[0,1,2,3],
-        currentquadposition:'topleft',
+        currentQuadPosition:'topleft',
         split:'none',
         datastacks,
     }
@@ -67,7 +67,7 @@ class QuadspaceController extends React.Component<any,any> {
 
     selectQuad = (quadrantposition) => {
         this.setState({
-            currentquadposition:quadrantposition,
+            currentQuadPosition:quadrantposition,
         })
     }
 
@@ -114,7 +114,7 @@ class QuadspaceController extends React.Component<any,any> {
 
     selectQuadrant = quadrant => {
         this.setState({
-            currentquadposition:quadrant,
+            currentQuadPosition:quadrant,
         },() => {
             setTimeout(() =>{
                 this.setState({
@@ -167,7 +167,7 @@ class QuadspaceController extends React.Component<any,any> {
     render() {
         return (
             <QuadSpaceFrame>
-                <QuadToolsStrip currentquadposition = {this.state.currentquadposition}
+                <QuadToolsStrip currentQuadPosition = {this.state.currentQuadPosition}
                     toolkit = {this.toolsstriptoolkit}
                     split = {this.state.split}
                 />
@@ -178,7 +178,7 @@ class QuadspaceController extends React.Component<any,any> {
                         quadrantidentifiers =  {this.quadrantidentifiers}
                         split = {this.state.split}
                         datastacks = {this.state.datastacks}
-                        currentquadposition = {this.state.currentquadposition}
+                        currentQuadPosition = {this.state.currentQuadPosition}
                     />
                 </QuadViewport>
                 <QuadStatusBar status = 'Something Something Something Something Something Something Something Something Something Something Something Something Something Something Something Something Something ' />

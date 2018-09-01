@@ -16,7 +16,7 @@ class QuadspaceController extends React.Component {
         super(...arguments);
         this.state = {
             quadrantpositions: [0, 1, 2, 3],
-            currentquadposition: 'topleft',
+            currentQuadPosition: 'topleft',
             split: 'none',
             datastacks,
         };
@@ -51,7 +51,7 @@ class QuadspaceController extends React.Component {
         };
         this.selectQuad = (quadrantposition) => {
             this.setState({
-                currentquadposition: quadrantposition,
+                currentQuadPosition: quadrantposition,
             });
         };
         this.changeSplit = (split) => {
@@ -86,7 +86,7 @@ class QuadspaceController extends React.Component {
         };
         this.selectQuadrant = quadrant => {
             this.setState({
-                currentquadposition: quadrant,
+                currentQuadPosition: quadrant,
             }, () => {
                 setTimeout(() => {
                     this.setState({
@@ -136,10 +136,10 @@ class QuadspaceController extends React.Component {
     }
     render() {
         return (<QuadSpaceFrame>
-                <QuadToolsStrip currentquadposition={this.state.currentquadposition} toolkit={this.toolsstriptoolkit} split={this.state.split}/>
+                <QuadToolsStrip currentQuadPosition={this.state.currentQuadPosition} toolkit={this.toolsstriptoolkit} split={this.state.split}/>
                 <QuadBasket><QuantityBadge quantity={0} style={{ left: '-12px' }}/></QuadBasket>
                 <QuadViewport>
-                    <Quadrants toolkit={this.quadranttoolkit} quadrantidentifiers={this.quadrantidentifiers} split={this.state.split} datastacks={this.state.datastacks} currentquadposition={this.state.currentquadposition}/>
+                    <Quadrants toolkit={this.quadranttoolkit} quadrantidentifiers={this.quadrantidentifiers} split={this.state.split} datastacks={this.state.datastacks} currentQuadPosition={this.state.currentQuadPosition}/>
                 </QuadViewport>
                 <QuadStatusBar status='Something Something Something Something Something Something Something Something Something Something Something Something Something Something Something Something Something '/>
             </QuadSpaceFrame>);
