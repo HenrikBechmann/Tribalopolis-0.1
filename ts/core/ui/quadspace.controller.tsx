@@ -57,10 +57,10 @@ class QuadspaceController extends React.Component<any,any> {
         },
     }
 
-    quadrantidentifiers
+    quadrantIdentifiers
 
     componentWillMount() {
-        this.quadrantidentifiers = this.state.quadrantpositions.map((value) => {
+        this.quadrantIdentifiers = this.state.quadrantpositions.map((value) => {
             return (value + 1).toString()
         })
     }
@@ -175,7 +175,7 @@ class QuadspaceController extends React.Component<any,any> {
                 <QuadViewport>
                     <Quadrants 
                         toolkit = {this.quadranttoolkit}
-                        quadrantidentifiers =  {this.quadrantidentifiers}
+                        quadrantIdentifiers =  {this.quadrantIdentifiers}
                         split = {this.state.split}
                         datastacks = {this.state.datastacks}
                         currentQuadPosition = {this.state.currentQuadPosition}

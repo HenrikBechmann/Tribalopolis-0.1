@@ -24,7 +24,7 @@ const Quadrants = props => {
     }
 
     // get data for distribution
-    let {split, quadrantidentifiers, datastacks, currentQuadPosition} = props
+    let {split, quadrantIdentifiers, datastacks, currentQuadPosition} = props
 
     enum instance { one, two, three, four } // 0,1,2,3
 
@@ -39,7 +39,7 @@ const Quadrants = props => {
                 toolkit = {frametoolkit}
             >
                 <Quadrant 
-                    quadidentifier = {quadrantidentifiers[instance.one]}
+                    quadidentifier = {quadrantIdentifiers[instance.one]}
                     color = '#e8e8e8' 
                     datastack = {datastacks[instance.one]}
                     toolkit = {quadtoolkit}
@@ -51,7 +51,7 @@ const Quadrants = props => {
                 split = {split}
             >
                 <Quadrant 
-                    quadidentifier = {quadrantidentifiers[instance.two]}
+                    quadidentifier = {quadrantIdentifiers[instance.two]}
                     color = '#e8e8e8' 
                     datastack = {datastacks[instance.two]}
                     toolkit = {quadtoolkit}
@@ -63,7 +63,7 @@ const Quadrants = props => {
                 split = {split}
             >
                 <Quadrant 
-                    quadidentifier = {quadrantidentifiers[instance.three]}
+                    quadidentifier = {quadrantIdentifiers[instance.three]}
                     color = '#e8e8e8' 
                     datastack = {datastacks[instance.three]}
                     toolkit = {quadtoolkit}
@@ -75,7 +75,7 @@ const Quadrants = props => {
                 split = {split}
             >
                 <Quadrant 
-                    quadidentifier = {quadrantidentifiers[instance.four]}
+                    quadidentifier = {quadrantIdentifiers[instance.four]}
                     color = '#e8e8e8' 
                     datastack = {datastacks[instance.four]}
                     toolkit = {quadtoolkit}

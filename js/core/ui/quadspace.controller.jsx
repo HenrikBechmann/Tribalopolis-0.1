@@ -130,7 +130,7 @@ class QuadspaceController extends React.Component {
         };
     }
     componentWillMount() {
-        this.quadrantidentifiers = this.state.quadrantpositions.map((value) => {
+        this.quadrantIdentifiers = this.state.quadrantpositions.map((value) => {
             return (value + 1).toString();
         });
     }
@@ -139,7 +139,7 @@ class QuadspaceController extends React.Component {
                 <QuadToolsStrip currentQuadPosition={this.state.currentQuadPosition} toolkit={this.toolsstriptoolkit} split={this.state.split}/>
                 <QuadBasket><QuantityBadge quantity={0} style={{ left: '-12px' }}/></QuadBasket>
                 <QuadViewport>
-                    <Quadrants toolkit={this.quadranttoolkit} quadrantidentifiers={this.quadrantidentifiers} split={this.state.split} datastacks={this.state.datastacks} currentQuadPosition={this.state.currentQuadPosition}/>
+                    <Quadrants toolkit={this.quadranttoolkit} quadrantIdentifiers={this.quadrantIdentifiers} split={this.state.split} datastacks={this.state.datastacks} currentQuadPosition={this.state.currentQuadPosition}/>
                 </QuadViewport>
                 <QuadStatusBar status='Something Something Something Something Something Something Something Something Something Something Something Something Something Something Something Something Something '/>
             </QuadSpaceFrame>);
