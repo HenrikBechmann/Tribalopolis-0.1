@@ -31,9 +31,9 @@ let coreroutes = routedata.map((item, index) => (
    <Route key = {'coreroute-'+index} path={item.path} component = {item.component} />
 ))
 
-let indexroute = <Route key = "_WORKSPACE_" path = "/workspace" component={ Quadspace } />
+let indexroute = <Route key = "workspace" path = "/workspace" component={ Quadspace } />
 
-let homeroute = <Route key = "_HOME_" exact 
+let homeroute = <Route key = "home" exact 
     path = "/" 
     render={
         () => (<Redirect to="/workspace"/>)

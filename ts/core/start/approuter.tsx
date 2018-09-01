@@ -38,6 +38,7 @@ let AppRouter = () => (
             { routes }
         </Switch>
     </Router>
+
 )
     
 export default AppRouter

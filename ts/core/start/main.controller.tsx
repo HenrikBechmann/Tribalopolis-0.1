@@ -15,6 +15,7 @@
 
 import * as React from 'react'
 
+// TODO: temporary -- replace with application service
 import coredata from  '../../data/coredata'
 
 let fontFamily = coredata.theme.typography.fontFamily
