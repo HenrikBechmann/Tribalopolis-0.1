@@ -17,6 +17,7 @@ const Quadrants = props => {
         handleSwap,
         selectQuadrant,
     };
+    // get data for distribution
     let { split, quadrantidentifiers, datastacks, currentQuadPosition } = props;
     let instance;
     (function (instance) {

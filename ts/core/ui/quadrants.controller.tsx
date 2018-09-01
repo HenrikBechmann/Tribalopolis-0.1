@@ -10,6 +10,7 @@ import QuadFrame from './quadrant/quadframe.view'
 import Quadrant from './quadrant.controller'
 
 const Quadrants = props => {
+
     // repackage toolkit for children
     let { handleSwap, getDataItem, getListItem, getTypeItem, selectQuadrant, calcQuadrantPosition } = props.toolkit
     let quadtoolkit = {
@@ -22,9 +23,10 @@ const Quadrants = props => {
         selectQuadrant,
     }
 
+    // get data for distribution
     let {split, quadrantidentifiers, datastacks, currentQuadPosition} = props
 
-    enum instance{one,two,three,four} // 0,1,2,3
+    enum instance { one, two, three, four } // 0,1,2,3
 
     return (
         <QuadPlatform 

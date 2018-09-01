@@ -63,11 +63,11 @@ class QuadspaceController extends React.Component {
                 }, 600);
             });
         };
-        this.handleSwap = (quadrant, direction) => {
+        this.handleSwap = (quadrantPosition, direction) => {
             let { quadrantpositions } = this.state;
-            let sourcequadindex = this.positions.indexOf(quadrant);
-            let targetquad = this.quadmap[quadrant][direction];
-            let targetquadindex = this.positions.indexOf(targetquad);
+            let sourcequadindex = this.positions.indexOf(quadrantPosition);
+            let targetquadposition = this.quadmap[quadrantPosition][direction];
+            let targetquadindex = this.positions.indexOf(targetquadposition);
             let sourceidindex = quadrantpositions[sourcequadindex];
             let targetidindex = quadrantpositions[targetquadindex];
             // the swap
@@ -77,16 +77,16 @@ class QuadspaceController extends React.Component {
                 quadrantpositions
             });
         };
-        this.calcPos = sessionid => {
-            return this.state.quadrantpositions.indexOf(sessionid);
+        this.calcPos = instanceid => {
+            return this.state.quadrantpositions.indexOf(instanceid);
         };
-        this.calcQuadrantPosition = (sessionid) => {
-            let pos = this.calcPos(sessionid);
+        this.calcQuadrantPosition = (instanceid) => {
+            let pos = this.calcPos(instanceid);
             return this.positions[pos];
         };
-        this.selectQuadrant = quadrant => {
+        this.selectQuadrant = quadrantPosition => {
             this.setState({
-                currentQuadPosition: quadrant,
+                currentQuadPosition: quadrantPosition,
             }, () => {
                 setTimeout(() => {
                     this.setState({
