@@ -23,10 +23,6 @@ let types = {
                 type:{
 
                 },
-                metadata: {
-                    uid:null,
-                    schemeuid:null,
-                },
                 identity:{
 
                 },
@@ -38,10 +34,6 @@ let types = {
             outgoing: {
                 type:{
 
-                },
-                metadata: {
-                    uid:null,
-                    schemeuid:null,
                 },
                 identity: {
 
@@ -70,10 +62,6 @@ let lists = {
             uid:'outgoing',
             schemeuid:'common',
         },
-        metadata: {
-            uid:null,
-            schemeuid:null,
-        },
         identity:{
             uid:'x',
         },
@@ -94,10 +82,6 @@ let lists = {
             uid:'outgoing',
             schemeuid:'common',
         },
-        metadata: {
-            uid:null,
-            schemeuid:null,
-        },
         identity:{
              uid:'x',
        },
@@ -117,10 +101,6 @@ let lists = {
         type:{
             uid:'outgoing',
             schemeuid:'common',
-        },
-        metadata: {
-            uid:null,
-            schemeuid:null,
         },
         identity:{
             uid:'x',
@@ -143,10 +123,6 @@ let lists = {
             uid:'outgoing',
             schemeuid:'common',
         },
-        metadata: {
-            uid:null,
-            schemeuid:null,
-        },
         identity:{
             uid:'x',
         },
@@ -166,10 +142,6 @@ let lists = {
         type:{
             uid:'outgoing',
             schemeuid:'common',
-        },
-        metadata: {
-            uid:null,
-            schemeuid:null,
         },
         identity:{
             uid:'x',
@@ -191,10 +163,6 @@ let lists = {
             uid:'pending',
             schemeuid:'common',
         },
-        metadata: {
-            uid:null,
-            schemeuid:null,
-        },
         identity:{
             uid:'x',
         },
@@ -214,10 +182,6 @@ let lists = {
         type:{
             uid:'outgoing',
             schemeuid:'common',
-        },
-        metadata: {
-            uid:null,
-            schemeuid:null,
         },
         identity:{
             uid:'x',
@@ -239,10 +203,6 @@ let lists = {
             uid:'outgoing',
             schemeuid:'common',
         },
-        metadata: {
-            uid:null,
-            schemeuid:null,
-        },
         identity:{
             uid:'x',
         },
@@ -262,10 +222,6 @@ let lists = {
         type:{
             uid:'outgoing',
             schemeuid:'common',
-        },
-        metadata: {
-            uid:null,
-            schemeuid:null,
         },
         identity:{
             uid:'x',
@@ -287,10 +243,6 @@ let lists = {
             uid:'outgoing',
             schemeuid:'common',
         },
-        metadata: {
-            uid:null,
-            schemeuid:null,
-        },
         identity:{
             uid:'x',
         },
@@ -310,10 +262,6 @@ let lists = {
         type:{
             uid:'messengers',
             schemeuid:'common',
-        },
-        metadata: {
-            uid:null,
-            schemeuid:null,
         },
         identity:{
             uid:'x',
@@ -335,10 +283,6 @@ let lists = {
             type:'messengers',
             schemeuid:'common',
         },
-        metadata: {
-            uid:null,
-            schemeuid:null,
-        },
         identity:{
             uid:'x',
         },
@@ -358,10 +302,6 @@ let lists = {
         type:{
             uid:'outgoing',
             schemeuid:'common',
-        },
-        metadata: {
-            uid:null,
-            schemeuid:null,
         },
         identity:{
             uid:'x',
@@ -383,10 +323,6 @@ let lists = {
             uid:'calendars',
             schemeuid:'common',
         },
-        metadata: {
-            uid:null,
-            schemeuid:null,
-        },
         identity:{
             uid:'x',
         },
@@ -407,10 +343,6 @@ let lists = {
             uid:'outgoing',
             schemeuid:'common',
         },
-        metadata: {
-            uid:null,
-            schemeuid:null,
-        },
         identity:{
             uid:'x',
         },
@@ -430,10 +362,6 @@ let lists = {
         type:{
             uid:'other',
             schemeuid:'common',
-        },
-        metadata: {
-            uid:null,
-            schemeuid:null,
         },
         identity:{
             uid:'x',
@@ -457,10 +385,6 @@ let lists = {
             uid:'other',
             schemeuid:'common',
         },
-        metadata: {
-            uid:null,
-            schemeuid:null,
-        },
         identity:{
             uid:'x',
         },
@@ -481,10 +405,6 @@ let lists = {
         type:{
             uid:'member',
             schemeuid:'common',
-        },
-        metadata: {
-            uid:null,
-            schemeuid:null,
         },
         identity:{
             uid:'x',
@@ -580,10 +500,6 @@ let items = {
             uid:'member',
             name:'member', // TODO: should be obtained from type object
             schemeuid:'common',
-        },
-        metadata: {
-            uid:null,
-            schemeuid:null,
         },
         identity:{
             uid:'henrik',
