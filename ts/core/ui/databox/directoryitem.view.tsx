@@ -1,4 +1,4 @@
-// categoryitem.view.tsx
+// directoryitem.view.tsx
 // copyright (c) 2018 Henrik Bechmann, Toronto, MIT Licence
 'use strict'
 
@@ -7,7 +7,7 @@ import * as React from 'react'
 import Icon from '@material-ui/core/Icon'
 import QuantityBadge from '../common/quantitybadge.view'
 
-class CategoryItem extends React.Component<any,any> {
+class DirectoryItem extends React.Component<any,any> {
 
     constructor(props) {
         super(props)
@@ -56,8 +56,8 @@ class CategoryItem extends React.Component<any,any> {
         }
     }
 
-    expandCategory = () => {
-        this.props.expandCategory(this.barelementref)
+    expandDirectoryItem = () => {
+        this.props.expandDirectoryItem(this.barelementref)
     }
 
     barcomponent = () => (
@@ -71,7 +71,7 @@ class CategoryItem extends React.Component<any,any> {
                 <div style = {this.pretabstyle}></div>
                 <div 
                     style = {this.tabstyle}
-                    onClick = {this.expandCategory}
+                    onClick = {this.expandDirectoryItem}
                 > 
                     <Icon 
                         style = {
@@ -102,4 +102,4 @@ class CategoryItem extends React.Component<any,any> {
     }
 }
 
-export default CategoryItem
+export default DirectoryItem

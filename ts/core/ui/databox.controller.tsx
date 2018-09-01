@@ -8,8 +8,8 @@ import BoxIdentifier from './databox/identitybar.view'
 import BoxTypebar from './databox/typebar.view'
 import ProfileBar from './databox/profilebar.view'
 import ProfileForm from './databox/profileform.view'
-import CategoriesBar from './databox/categoriesbar.view'
-import CategoryList from './databox/categorylist.view'
+import DirectoryBar from './databox/directorybar.view'
+import DirectoryList from './databox/directorylist.view'
 import ScanBar from './databox/scanbar.view'
 
 import { withStyles } from '@material-ui/core/styles'
@@ -49,35 +49,35 @@ class DataBox extends React.Component<any,any> {
     listcomponent
 
     componentDidMount() {
-        let { collapseBoxConfigForTarget } = this.props
-        // console.log('collapsing from componentdidMOUNT',collapseBoxConfigForTarget)
+        let { collapseBoxProxyForTarget } = this.props
+        // console.log('collapsing from componentdidMOUNT',collapseBoxProxyForTarget)
         // console.log('box componentdidMOUNT', this.state)
-        if (!collapseBoxConfigForTarget) return
-        // console.log('didMOUNT collapseBoxConfigForTarget',collapseBoxConfigForTarget)
-        this.collapseBoxConfigForTarget = collapseBoxConfigForTarget
+        if (!collapseBoxProxyForTarget) return
+        // console.log('didMOUNT collapseBoxProxyForTarget',collapseBoxProxyForTarget)
+        this.collapseBoxProxyForTarget = collapseBoxProxyForTarget
 
         setTimeout(()=>{
-            this.doHighlights(collapseBoxConfigForTarget)
+            this.doHighlights(collapseBoxProxyForTarget)
             setTimeout(()=>{
-                this.collapseBoxConfigForTarget = null
+                this.collapseBoxProxyForTarget = null
             },2000)
         })
     }
 
-    collapseBoxConfigForTarget
+    collapseBoxProxyForTarget
 
     componentDidUpdate() {
-        let { collapseBoxConfigForTarget } = this.props
+        let { collapseBoxProxyForTarget } = this.props
         // console.log('box componentdidUPDATE', this.state)
-        if (!collapseBoxConfigForTarget) return
-        // console.log('didupdate collapseBoxConfigForTarget',collapseBoxConfigForTarget)
-        if (this.collapseBoxConfigForTarget) return // avoid infinite recursion, triggered by list highlight
+        if (!collapseBoxProxyForTarget) return
+        // console.log('didupdate collapseBoxProxyForTarget',collapseBoxProxyForTarget)
+        if (this.collapseBoxProxyForTarget) return // avoid infinite recursion, triggered by list highlight
 
-        this.collapseBoxConfigForTarget = collapseBoxConfigForTarget
+        this.collapseBoxProxyForTarget = collapseBoxProxyForTarget
         setTimeout(()=>{
-            this.doHighlights(collapseBoxConfigForTarget)
+            this.doHighlights(collapseBoxProxyForTarget)
             setTimeout(()=>{
-                this.collapseBoxConfigForTarget = null
+                this.collapseBoxProxyForTarget = null
             },2000)
         })
     }
@@ -91,16 +91,16 @@ class DataBox extends React.Component<any,any> {
         }
     }
 
-    doHighlights = (collapseBoxConfigForTarget) => {
+    doHighlights = (collapseBoxProxyForTarget) => {
 
         this.props.highlightBox(this.boxframe)
 
-        if (collapseBoxConfigForTarget.action == 'expand' || 
-            collapseBoxConfigForTarget.action == 'splay') {
+        if (collapseBoxProxyForTarget.action == 'expand' || 
+            collapseBoxProxyForTarget.action == 'splay') {
 
             let dataref = 
-                collapseBoxConfigForTarget.liststack[
-                    collapseBoxConfigForTarget.liststack.length -1]
+                collapseBoxProxyForTarget.liststack[
+                    collapseBoxProxyForTarget.liststack.length -1]
 
             if (dataref) {
 
@@ -117,9 +117,9 @@ class DataBox extends React.Component<any,any> {
         }
     }
 
-    collapseCategory = () => {
+    collapseDirectoryItem = () => {
 
-        this.props.collapseCategory(this.state.boxProxy)
+        this.props.collapseDirectoryItem(this.state.boxProxy)
 
     }
 
@@ -188,7 +188,7 @@ class DataBox extends React.Component<any,any> {
         let frameStyle:React.CSSProperties = {
             width:'300px',
             backgroundColor:'white',
-            border:this.collapseBoxConfigForTarget?'1px solid blue':'1px solid silver',
+            border:this.collapseBoxProxyForTarget?'1px solid blue':'1px solid silver',
             maxHeight:'96%',
             minHeight:'60%',
             boxSizing:'border-box',
@@ -236,21 +236,21 @@ class DataBox extends React.Component<any,any> {
                 }
             >
                 <div>
-                    <CategoriesBar 
+                    <DirectoryBar 
                         item = {item} 
                         getListItem = {this.props.getListItem}
                         listStack = {this.state.boxProxy.liststack}
-                        collapseCategory = {this.collapseCategory}
+                        collapseDirectoryItem = {this.collapseDirectoryItem}
                         haspeers = {this.props.haspeers}
                     />
                 </div>
                 <div style = {scrollboxstyle}>
-                    <CategoryList 
+                    <DirectoryList 
                         ref = {this.listcomponent}
                         listobject = {listobject} 
                         highlightrefuid = {this.state.highlightrefuid}
                         getListItem = {this.props.getListItem}
-                        expandCategory = {this.props.expandCategory}
+                        expandDirectoryItem = {this.props.expandDirectoryItem}
                         highlightItem = {this.highlightItem}
                     />
                 </div>

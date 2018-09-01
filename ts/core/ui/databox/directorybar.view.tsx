@@ -1,4 +1,4 @@
-// boxheader.view.tsx
+// directorybar.view.tsx
 // copyright (c) 2018 Henrik Bechmann, Toronto, MIT Licence
 'use strict'
 
@@ -9,7 +9,7 @@ import Icon from '@material-ui/core/Icon'
 import QuantityBadge from '../common/quantitybadge.view'
 import ActionButton from '../common/actionbutton.view'
 
-class CategoriesBar extends React.Component<any,any> {
+class DirectoryBar extends React.Component<any,any> {
 
     barstyle:React.CSSProperties = {
         width:'100%',
@@ -87,7 +87,7 @@ class CategoriesBar extends React.Component<any,any> {
                             />
                             <ActionButton 
                                 icon = 'arrow_back'
-                                action = {this.props.collapseCategory}
+                                action = {this.props.collapseDirectoryItem}
                             />
                         </div>
                         :null}
@@ -113,4 +113,4 @@ class CategoriesBar extends React.Component<any,any> {
     }
 }
 
-export default CategoriesBar
+export default DirectoryBar

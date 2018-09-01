@@ -20,10 +20,10 @@ class Quadrant extends React.Component {
         this.state = {
             datastack: null,
             stackpointer: 0,
-            collapseBoxConfigForTarget: null
+            collapseBoxProxyForTarget: null
         };
         // trigger for animation and reset
-        this.collapseBoxConfigForTarget = null;
+        this.collapseBoxProxyForTarget = null;
         // for reset of containerHeight
         this.onResize = () => {
             this.forceUpdate();
@@ -37,7 +37,7 @@ class Quadrant extends React.Component {
         ----------------------[ operations ]---------------------
         *********************************************************/
         //-------------------------------[ forward ]----------------------------
-        this.expandCategory = (boxptr, dataref, domSource) => {
+        this.expandDirectoryItem = (boxptr, dataref, domSource) => {
             this.animateToOrigin();
             this.animateToDatabox(domSource);
             let { datastack, stackpointer } = this.state;
@@ -51,10 +51,10 @@ class Quadrant extends React.Component {
                 } };
             // replace forward stack items
             datastack.splice(stackpointer, datastack.length, newstacklayer);
-            let newboxconfig = JSON.parse(JSON.stringify(boxProxy));
-            newboxconfig.instanceid = serializer.getid();
-            newboxconfig.liststack.push(dataref);
-            newstacklayer.items.push(newboxconfig);
+            let newBoxProxy = JSON.parse(JSON.stringify(boxProxy));
+            newBoxProxy.instanceid = serializer.getid();
+            newBoxProxy.liststack.push(dataref);
+            newstacklayer.items.push(newBoxProxy);
             setTimeout(() => {
                 this.setState({
                     stackpointer,
@@ -94,10 +94,10 @@ class Quadrant extends React.Component {
             datastack.splice(stackpointer, datastack.length, newstacklayer);
             let template = JSON.stringify(boxProxy);
             for (let dataref of linkitems) {
-                let newboxconfig = JSON.parse(template);
-                newboxconfig.instanceid = serializer.getid();
-                newboxconfig.liststack.push(dataref);
-                newstacklayer.items.push(newboxconfig);
+                let newBoxProxy = JSON.parse(template);
+                newBoxProxy.instanceid = serializer.getid();
+                newBoxProxy.liststack.push(dataref);
+                newstacklayer.items.push(newBoxProxy);
             }
             setTimeout(() => {
                 this.setState({
@@ -125,9 +125,9 @@ class Quadrant extends React.Component {
                 } };
             // replace forward stack items
             datastack.splice(stackpointer, datastack.length, newstacklayer);
-            let newboxconfig = JSON.parse(JSON.stringify(boxProxy));
-            newboxconfig.instanceid = serializer.getid();
-            newstacklayer.items.push(newboxconfig);
+            let newBoxProxy = JSON.parse(JSON.stringify(boxProxy));
+            newBoxProxy.instanceid = serializer.getid();
+            newstacklayer.items.push(newBoxProxy);
             setTimeout(() => {
                 this.setState({
                     stackpointer,
@@ -150,8 +150,8 @@ class Quadrant extends React.Component {
             }
         };
         //-------------------------------[ backward ]----------------------------
-        this.collapseCategory = (boxProxy) => {
-            this.collapseBoxConfigForTarget = Object.assign({}, boxProxy);
+        this.collapseDirectoryItem = (boxProxy) => {
+            this.collapseBoxProxyForTarget = Object.assign({}, boxProxy);
             this.decrementStackSelector();
         };
         this.decrementStackSelector = () => {
@@ -170,13 +170,13 @@ class Quadrant extends React.Component {
         };
         this._updateCollapseSettings = (stackpointer, datastack) => {
             let stacksource = null;
-            if (this.collapseBoxConfigForTarget) {
+            if (this.collapseBoxProxyForTarget) {
                 let sourcelayer = datastack[this.state.stackpointer];
                 if (sourcelayer) {
                     stacksource = sourcelayer.source;
                     if (stacksource) {
-                        this.collapseBoxConfigForTarget.action = stacksource.action;
-                        this.collapseBoxConfigForTarget.sourceinstanceid = stacksource.instanceid;
+                        this.collapseBoxProxyForTarget.action = stacksource.action;
+                        this.collapseBoxProxyForTarget.sourceinstanceid = stacksource.instanceid;
                     }
                 }
                 if (stackpointer > 0) {
@@ -193,7 +193,7 @@ class Quadrant extends React.Component {
         this._applySettings = (stackpointer, datastack) => {
             let stacklayer = datastack[stackpointer];
             let { items } = stacklayer;
-            if ((items.length > 1) && (!this.collapseBoxConfigForTarget)) {
+            if ((items.length > 1) && (!this.collapseBoxProxyForTarget)) {
                 if (stacklayer.settings.scrollOffset !== null) {
                     setTimeout(() => {
                         this.scrollboxelement.current.scrollLeft = stacklayer.settings.scrollOffset;
@@ -333,18 +333,18 @@ class Quadrant extends React.Component {
             let itemType = this.getTypeItem(METATYPES.item, item.type);
             let containerHeight = this.scrollboxelement.current.offsetHeight;
             let matchForTarget = false;
-            let { collapseBoxConfigForTarget } = this.state;
-            if (collapseBoxConfigForTarget) {
-                matchForTarget = (collapseBoxConfigForTarget.index == index);
+            let { collapseBoxProxyForTarget } = this.state;
+            if (collapseBoxProxyForTarget) {
+                matchForTarget = (collapseBoxProxyForTarget.index == index);
             }
-            // console.log('match',matchForTarget,collapseBoxConfigForTarget,index)
-            return (<DataBox key={boxProxy.instanceid} item={item} itemType={itemType} collapseBoxConfigForTarget={matchForTarget ? collapseBoxConfigForTarget : null} getListItem={this.getListItem} getListItemType={this.getListItemType(METATYPES.list)} boxProxy={boxProxy} highlightBox={this.highlightBox} haspeers={haspeers} index={index} containerHeight={containerHeight} splayBox={(domSource, listcomponent) => {
+            // console.log('match',matchForTarget,collapseBoxProxyForTarget,index)
+            return (<DataBox key={boxProxy.instanceid} item={item} itemType={itemType} collapseBoxProxyForTarget={matchForTarget ? collapseBoxProxyForTarget : null} getListItem={this.getListItem} getListItemType={this.getListItemType(METATYPES.list)} boxProxy={boxProxy} highlightBox={this.highlightBox} haspeers={haspeers} index={index} containerHeight={containerHeight} splayBox={(domSource, listcomponent) => {
                 this.splayBox(index, domSource, listcomponent);
             }} selectFromSplay={(domSource) => {
                 this.selectFromSplay(index, domSource);
-            }} expandCategory={(dataref, domSource) => {
-                this.expandCategory(index, dataref, domSource);
-            }} collapseCategory={this.collapseCategory}/>);
+            }} expandDirectoryItem={(dataref, domSource) => {
+                this.expandDirectoryItem(index, dataref, domSource);
+            }} collapseDirectoryItem={this.collapseDirectoryItem}/>);
         };
         this.quadcontentelement = React.createRef();
         // animation dom elements
@@ -376,26 +376,26 @@ class Quadrant extends React.Component {
         });
     }
     componentDidUpdate() {
-        if (!this.collapseBoxConfigForTarget)
+        if (!this.collapseBoxProxyForTarget)
             return;
         // keep; value will be purged
-        let collapseBoxConfigForTarget = this.collapseBoxConfigForTarget;
-        this.collapseBoxConfigForTarget = null;
+        let collapseBoxProxyForTarget = this.collapseBoxProxyForTarget;
+        this.collapseBoxProxyForTarget = null;
         // get index for Lister
-        let index = this.state.datastack[this.state.stackpointer].items.findIndex(this._findlinkIndex(collapseBoxConfigForTarget.sourceinstanceid));
+        let index = this.state.datastack[this.state.stackpointer].items.findIndex(this._findlinkIndex(collapseBoxProxyForTarget.sourceinstanceid));
         // update scroll display with selected highlight item
-        collapseBoxConfigForTarget.index = index;
+        collapseBoxProxyForTarget.index = index;
         setTimeout(() => {
             if (this.listcomponent && (this.state.datastack[this.state.stackpointer].items.length > 1)) {
                 this.listcomponent.current.scrollAround(index);
             }
             setTimeout(() => {
                 this.setState({
-                    collapseBoxConfigForTarget,
+                    collapseBoxProxyForTarget,
                 }, () => {
                     setTimeout(() => {
                         this.setState({
-                            collapseBoxConfigForTarget: null
+                            collapseBoxProxyForTarget: null
                         });
                     });
                 });

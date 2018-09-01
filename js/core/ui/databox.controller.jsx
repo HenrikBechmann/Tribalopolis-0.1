@@ -4,8 +4,8 @@
 import * as React from 'react';
 import BoxIdentifier from './databox/identitybar.view';
 import BoxTypebar from './databox/typebar.view';
-import CategoriesBar from './databox/categoriesbar.view';
-import CategoryList from './databox/categorylist.view';
+import DirectoryBar from './databox/directorybar.view';
+import DirectoryList from './databox/directorylist.view';
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
@@ -29,11 +29,11 @@ class DataBox extends React.Component {
             boxProxy: this.props.boxProxy,
             highlightrefuid: this.props.highlightrefuid
         };
-        this.doHighlights = (collapseBoxConfigForTarget) => {
+        this.doHighlights = (collapseBoxProxyForTarget) => {
             this.props.highlightBox(this.boxframe);
-            if (collapseBoxConfigForTarget.action == 'expand' ||
-                collapseBoxConfigForTarget.action == 'splay') {
-                let dataref = collapseBoxConfigForTarget.liststack[collapseBoxConfigForTarget.liststack.length - 1];
+            if (collapseBoxProxyForTarget.action == 'expand' ||
+                collapseBoxProxyForTarget.action == 'splay') {
+                let dataref = collapseBoxProxyForTarget.liststack[collapseBoxProxyForTarget.liststack.length - 1];
                 if (dataref) {
                     setTimeout(() => {
                         this.setState({
@@ -47,8 +47,8 @@ class DataBox extends React.Component {
                 }
             }
         };
-        this.collapseCategory = () => {
-            this.props.collapseCategory(this.state.boxProxy);
+        this.collapseDirectoryItem = () => {
+            this.props.collapseDirectoryItem(this.state.boxProxy);
         };
         this.splayBox = (domSource) => {
             return this.props.splayBox(domSource, this.listcomponent);
@@ -85,33 +85,33 @@ class DataBox extends React.Component {
         this.listcomponent = React.createRef();
     }
     componentDidMount() {
-        let { collapseBoxConfigForTarget } = this.props;
-        // console.log('collapsing from componentdidMOUNT',collapseBoxConfigForTarget)
+        let { collapseBoxProxyForTarget } = this.props;
+        // console.log('collapsing from componentdidMOUNT',collapseBoxProxyForTarget)
         // console.log('box componentdidMOUNT', this.state)
-        if (!collapseBoxConfigForTarget)
+        if (!collapseBoxProxyForTarget)
             return;
-        // console.log('didMOUNT collapseBoxConfigForTarget',collapseBoxConfigForTarget)
-        this.collapseBoxConfigForTarget = collapseBoxConfigForTarget;
+        // console.log('didMOUNT collapseBoxProxyForTarget',collapseBoxProxyForTarget)
+        this.collapseBoxProxyForTarget = collapseBoxProxyForTarget;
         setTimeout(() => {
-            this.doHighlights(collapseBoxConfigForTarget);
+            this.doHighlights(collapseBoxProxyForTarget);
             setTimeout(() => {
-                this.collapseBoxConfigForTarget = null;
+                this.collapseBoxProxyForTarget = null;
             }, 2000);
         });
     }
     componentDidUpdate() {
-        let { collapseBoxConfigForTarget } = this.props;
+        let { collapseBoxProxyForTarget } = this.props;
         // console.log('box componentdidUPDATE', this.state)
-        if (!collapseBoxConfigForTarget)
+        if (!collapseBoxProxyForTarget)
             return;
-        // console.log('didupdate collapseBoxConfigForTarget',collapseBoxConfigForTarget)
-        if (this.collapseBoxConfigForTarget)
+        // console.log('didupdate collapseBoxProxyForTarget',collapseBoxProxyForTarget)
+        if (this.collapseBoxProxyForTarget)
             return; // avoid infinite recursion, triggered by list highlight
-        this.collapseBoxConfigForTarget = collapseBoxConfigForTarget;
+        this.collapseBoxProxyForTarget = collapseBoxProxyForTarget;
         setTimeout(() => {
-            this.doHighlights(collapseBoxConfigForTarget);
+            this.doHighlights(collapseBoxProxyForTarget);
             setTimeout(() => {
-                this.collapseBoxConfigForTarget = null;
+                this.collapseBoxProxyForTarget = null;
             }, 2000);
         });
     }
@@ -138,7 +138,7 @@ class DataBox extends React.Component {
         let frameStyle = {
             width: '300px',
             backgroundColor: 'white',
-            border: this.collapseBoxConfigForTarget ? '1px solid blue' : '1px solid silver',
+            border: this.collapseBoxProxyForTarget ? '1px solid blue' : '1px solid silver',
             maxHeight: '96%',
             minHeight: '60%',
             boxSizing: 'border-box',
@@ -169,10 +169,10 @@ class DataBox extends React.Component {
             position: 'relative',
         }}>
                 <div>
-                    <CategoriesBar item={item} getListItem={this.props.getListItem} listStack={this.state.boxProxy.liststack} collapseCategory={this.collapseCategory} haspeers={this.props.haspeers}/>
+                    <DirectoryBar item={item} getListItem={this.props.getListItem} listStack={this.state.boxProxy.liststack} collapseDirectoryItem={this.collapseDirectoryItem} haspeers={this.props.haspeers}/>
                 </div>
                 <div style={scrollboxstyle}>
-                    <CategoryList ref={this.listcomponent} listobject={listobject} highlightrefuid={this.state.highlightrefuid} getListItem={this.props.getListItem} expandCategory={this.props.expandCategory} highlightItem={this.highlightItem}/>
+                    <DirectoryList ref={this.listcomponent} listobject={listobject} highlightrefuid={this.state.highlightrefuid} getListItem={this.props.getListItem} expandDirectoryItem={this.props.expandDirectoryItem} highlightItem={this.highlightItem}/>
                 </div>
                 {this.modifybuttons(listItemType)}
                 {this.indexmarker()}

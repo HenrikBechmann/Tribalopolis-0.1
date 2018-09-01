@@ -1,14 +1,14 @@
-// categorieslist.view.tsx
+// directorylist.view.tsx
 // copyright (c) 2018 Henrik Bechmann, Toronto, MIT Licence
 'use strict'
 
 import * as React from 'react'
 
-import CategoryItem from './categoryitem.view'
+import DirectoryItem from './directoryitem.view'
 
 import Lister from 'react-list'
 
-class CategoriesListBase extends React.Component<any,any> {
+class DirectoryListBase extends React.Component<any,any> {
 
     constructor(props) {
         super(props)
@@ -53,9 +53,9 @@ class CategoriesListBase extends React.Component<any,any> {
 
     }
 
-    expandCategory = (dataref) => {
+    expandDirectoryItem = (dataref) => {
         return (domSource) => {
-            this.props.expandCategory(dataref, domSource)
+            this.props.expandDirectoryItem(dataref, domSource)
         }
     }
 
@@ -68,11 +68,11 @@ class CategoriesListBase extends React.Component<any,any> {
         let data = this.getListItem(dataref)
         let highlight = (dataref.uid === this.state.highlightrefuid)
         let catitem = 
-            <CategoryItem 
+            <DirectoryItem 
                 key = {key} 
                 uid = {dataref.uid} 
                 data = {data} 
-                expandCategory = {this.expandCategory(dataref)}
+                expandDirectoryItem = {this.expandDirectoryItem(dataref)}
                 highlight = {highlight}
                 highlightItem = {this.props.highlightItem}
             />
@@ -92,8 +92,8 @@ class CategoriesListBase extends React.Component<any,any> {
     }
 }
 
-const CategoriesList = React.forwardRef((props:any,ref:any) => {
-    return <CategoriesListBase {...props} forwardedRef = {ref} />
+const DirectoryList = React.forwardRef((props:any,ref:any) => {
+    return <DirectoryListBase {...props} forwardedRef = {ref} />
 })
 
-export default CategoriesList
+export default DirectoryList
