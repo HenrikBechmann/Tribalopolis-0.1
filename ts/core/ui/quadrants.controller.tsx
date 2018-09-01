@@ -21,11 +21,11 @@ const Quadrants = props => {
         selectQuadrant,
     }
 
-    let {split, quadrantidentifiers, datastacks, currentquad} = props
+    let {split, quadrantidentifiers, datastacks, currentquadposition} = props
 
     return (
         <QuadPlatform 
-            currentquad = {currentquad}
+            currentquadposition = {currentquadposition}
             split = {split}
         >
             <QuadFrame

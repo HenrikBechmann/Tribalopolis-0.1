@@ -16,8 +16,8 @@ const Quadrants = props => {
         handleSwap,
         selectQuadrant,
     };
-    let { split, quadrantidentifiers, datastacks, currentquad } = props;
-    return (<QuadPlatform currentquad={currentquad} split={split}>
+    let { split, quadrantidentifiers, datastacks, currentquadposition } = props;
+    return (<QuadPlatform currentquadposition={currentquadposition} split={split}>
             <QuadFrame quadrant={calcQuadrant(0)} split={split} toolkit={frametoolkit}>
                 <Quadrant quadidentifier={quadrantidentifiers[0]} color='#e8e8e8' datastack={datastacks[0]} toolkit={quadtoolkit}/>
             </QuadFrame>

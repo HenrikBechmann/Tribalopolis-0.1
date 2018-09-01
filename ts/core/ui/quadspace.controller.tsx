@@ -5,13 +5,10 @@
 
 import * as React from 'react'
 
-// import { connect } from 'react-redux'
-
 import QuadToolsStrip from './quadspace/quadtoolsstrip.view'
 import QuadSpaceFrame from './quadspace/quadspaceframe.view'
 import QuadBasket from './quadspace/quadbasket.view'
 import QuadViewport from './quadspace/quadviewport.view'
-// import QuadDiamond from './quadspace/quaddiamond.view'
 import QuantityBadge from './common/quantitybadge.view'
 import QuadStatusBar from './quadspace/quadstatusbar.view'
 import Quadrants from './quadrants.controller'
@@ -24,7 +21,7 @@ class QuadspaceController extends React.Component<any,any> {
 
     state = {
         quadrantpositions:[0,1,2,3],
-        currentquad:'topleft',
+        currentquadposition:'topleft',
         split:'none',
         datastacks,
     }
@@ -68,9 +65,9 @@ class QuadspaceController extends React.Component<any,any> {
         })
     }
 
-    selectQuad = (quadrantname) => {
+    selectQuad = (quadrantposition) => {
         this.setState({
-            currentquad:quadrantname,
+            currentquadposition:quadrantposition,
         })
     }
 
@@ -117,7 +114,7 @@ class QuadspaceController extends React.Component<any,any> {
 
     selectQuadrant = quadrant => {
         this.setState({
-            currentquad:quadrant,
+            currentquadposition:quadrant,
         },() => {
             setTimeout(() =>{
                 this.setState({
@@ -170,7 +167,7 @@ class QuadspaceController extends React.Component<any,any> {
     render() {
         return (
             <QuadSpaceFrame>
-                <QuadToolsStrip currentquad = {this.state.currentquad}
+                <QuadToolsStrip currentquadposition = {this.state.currentquadposition}
                     toolkit = {this.toolsstriptoolkit}
                     split = {this.state.split}
                 />
@@ -181,7 +178,7 @@ class QuadspaceController extends React.Component<any,any> {
                         quadrantidentifiers =  {this.quadrantidentifiers}
                         split = {this.state.split}
                         datastacks = {this.state.datastacks}
-                        currentquad = {this.state.currentquad}
+                        currentquadposition = {this.state.currentquadposition}
                     />
                 </QuadViewport>
                 <QuadStatusBar status = 'Something Something Something Something Something Something Something Something Something Something Something Something Something Something Something Something Something ' />

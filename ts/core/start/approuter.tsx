@@ -5,9 +5,7 @@
 */
 
 import * as React from 'react'
-// import { ConnectedRouter } from 'react-router-redux'
 import { Switch, Router } from 'react-router-dom'
-// import { connect } from 'react-redux'
 import routes from "./routes"
 
 import createBrowserHistory from 'history/createBrowserHistory'

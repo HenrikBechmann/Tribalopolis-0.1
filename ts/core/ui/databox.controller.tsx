@@ -41,7 +41,7 @@ class DataBox extends React.Component<any,any> {
 
     state = {
         // opacity:1,
-        boxconfig:this.props.boxConfig,
+        boxProxy:this.props.boxProxy,
         highlightrefuid:this.props.highlightrefuid
     }
 
@@ -83,10 +83,10 @@ class DataBox extends React.Component<any,any> {
     }
 
     componentWillReceiveProps(newProps) {
-        // console.log('old and new boxconfig',this.state.boxconfig,newProps.boxConfig)
-        if (this.state.boxconfig !== newProps.boxConfig) {
+        // console.log('old and new boxProxy',this.state.boxProxy,newProps.boxProxy)
+        if (this.state.boxProxy !== newProps.boxProxy) {
             this.setState({
-                boxconfig:newProps.boxConfig,
+                boxProxy:newProps.boxProxy,
             })
         }
     }
@@ -119,7 +119,7 @@ class DataBox extends React.Component<any,any> {
 
     collapseCategory = () => {
 
-        this.props.collapseCategory(this.state.boxconfig)
+        this.props.collapseCategory(this.state.boxProxy)
 
     }
 
@@ -152,8 +152,8 @@ class DataBox extends React.Component<any,any> {
     }
 
     indexmarker = () => {
-        return this.props.haspeers
-            ?<div
+        return this.props.haspeers?
+            <div
                 style = {
                     {
                         position:'absolute',
@@ -163,14 +163,15 @@ class DataBox extends React.Component<any,any> {
                         color:'gray',
                     }
                 }
-            >{this.props.index + 1}</div>:null
+            >{this.props.index + 1}</div>
+            :null
     }
 
     render() {
 
         let { item, getListItem, haspeers } = this.props
 
-        let listStack = this.state.boxconfig.liststack
+        let listStack = this.state.boxProxy.liststack
 
         let { listref:listroot } = item
 
@@ -193,8 +194,6 @@ class DataBox extends React.Component<any,any> {
             boxSizing:'border-box',
             borderRadius:'8px',
             fontSize:'smaller',
-            // opacity:this.state.opacity,
-            // transition:'opacity .25s ease-in',
             boxShadow: haspeers?'none':'0 0 12px black',
             margin:haspeers?'none':'auto',
         }
@@ -240,7 +239,7 @@ class DataBox extends React.Component<any,any> {
                     <CategoriesBar 
                         item = {item} 
                         getListItem = {this.props.getListItem}
-                        listStack = {this.state.boxconfig.liststack}
+                        listStack = {this.state.boxProxy.liststack}
                         collapseCategory = {this.collapseCategory}
                         haspeers = {this.props.haspeers}
                     />

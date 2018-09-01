@@ -26,7 +26,7 @@ class DataBox extends React.Component {
         super(props);
         this.state = {
             // opacity:1,
-            boxconfig: this.props.boxConfig,
+            boxProxy: this.props.boxProxy,
             highlightrefuid: this.props.highlightrefuid
         };
         this.doHighlights = (collapseBoxConfigForTarget) => {
@@ -48,7 +48,7 @@ class DataBox extends React.Component {
             }
         };
         this.collapseCategory = () => {
-            this.props.collapseCategory(this.state.boxconfig);
+            this.props.collapseCategory(this.state.boxProxy);
         };
         this.splayBox = (domSource) => {
             return this.props.splayBox(domSource, this.listcomponent);
@@ -71,14 +71,15 @@ class DataBox extends React.Component {
             return retval;
         };
         this.indexmarker = () => {
-            return this.props.haspeers
-                ? <div style={{
+            return this.props.haspeers ?
+                <div style={{
                     position: 'absolute',
                     bottom: '-16px',
                     left: '0',
                     fontSize: 'smaller',
                     color: 'gray',
-                }}>{this.props.index + 1}</div> : null;
+                }}>{this.props.index + 1}</div>
+                : null;
         };
         this.boxframe = React.createRef();
         this.listcomponent = React.createRef();
@@ -115,16 +116,16 @@ class DataBox extends React.Component {
         });
     }
     componentWillReceiveProps(newProps) {
-        // console.log('old and new boxconfig',this.state.boxconfig,newProps.boxConfig)
-        if (this.state.boxconfig !== newProps.boxConfig) {
+        // console.log('old and new boxProxy',this.state.boxProxy,newProps.boxProxy)
+        if (this.state.boxProxy !== newProps.boxProxy) {
             this.setState({
-                boxconfig: newProps.boxConfig,
+                boxProxy: newProps.boxProxy,
             });
         }
     }
     render() {
         let { item, getListItem, haspeers } = this.props;
-        let listStack = this.state.boxconfig.liststack;
+        let listStack = this.state.boxProxy.liststack;
         let { listref: listroot } = item;
         let listref;
         if (listStack.length) {
@@ -143,8 +144,6 @@ class DataBox extends React.Component {
             boxSizing: 'border-box',
             borderRadius: '8px',
             fontSize: 'smaller',
-            // opacity:this.state.opacity,
-            // transition:'opacity .25s ease-in',
             boxShadow: haspeers ? 'none' : '0 0 12px black',
             margin: haspeers ? 'none' : 'auto',
         };
@@ -170,7 +169,7 @@ class DataBox extends React.Component {
             position: 'relative',
         }}>
                 <div>
-                    <CategoriesBar item={item} getListItem={this.props.getListItem} listStack={this.state.boxconfig.liststack} collapseCategory={this.collapseCategory} haspeers={this.props.haspeers}/>
+                    <CategoriesBar item={item} getListItem={this.props.getListItem} listStack={this.state.boxProxy.liststack} collapseCategory={this.collapseCategory} haspeers={this.props.haspeers}/>
                 </div>
                 <div style={scrollboxstyle}>
                     <CategoryList ref={this.listcomponent} listobject={listobject} highlightrefuid={this.state.highlightrefuid} getListItem={this.props.getListItem} expandCategory={this.props.expandCategory} highlightItem={this.highlightItem}/>

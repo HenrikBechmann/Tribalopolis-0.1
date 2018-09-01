@@ -22,7 +22,7 @@ class QuadToolsStrip extends React.Component {
         this.state = {
             menuopen: false,
             scroller: null,
-            currentquad: this.props.currentquad,
+            currentquadposition: this.props.currentquadposition,
             split: this.props.split,
             accountAnchorElement: null
         };
@@ -161,15 +161,15 @@ class QuadToolsStrip extends React.Component {
             ];
         };
         this.quadnavigationmenu = () => {
-            let { currentquad, split } = this.state;
+            let { currentquadposition, split } = this.state;
             return <div style={{ display: 'inline-block', verticalAlign: 'middle' }}>
             <IconButton style={{ verticalAlign: 'bottom', }} onClick={() => {
                 this.selectQuad('topleft');
             }}>
                 <img style={{
-                backgroundColor: (currentquad == 'topleft') ? 'red' :
-                    ((split == 'vertical' && currentquad == 'bottomleft') ||
-                        (split == 'horizontal' && currentquad == 'topright') ||
+                backgroundColor: (currentquadposition == 'topleft') ? 'red' :
+                    ((split == 'vertical' && currentquadposition == 'bottomleft') ||
+                        (split == 'horizontal' && currentquadposition == 'topright') ||
                         (split == 'matrix')) ? 'orange' : 'transparent'
             }} src={(split == 'none' || split == 'matrix') ? '/public/icons/ic_border_all_black_24px_topleft.svg' :
                 (split == 'vertical') ? '/public/icons/ic_border_all_black_24px_topleft_leftsplit.svg' :
@@ -180,9 +180,9 @@ class QuadToolsStrip extends React.Component {
                 this.selectQuad('topright');
             }}>
                 <img style={{
-                backgroundColor: (currentquad == 'topright') ? 'red' :
-                    ((split == 'vertical' && currentquad == 'bottomright') ||
-                        (split == 'horizontal' && currentquad == 'topleft') ||
+                backgroundColor: (currentquadposition == 'topright') ? 'red' :
+                    ((split == 'vertical' && currentquadposition == 'bottomright') ||
+                        (split == 'horizontal' && currentquadposition == 'topleft') ||
                         (split == 'matrix')) ? 'orange' : 'transparent'
             }} src={(split == 'none' || split == 'matrix') ? '/public/icons/ic_border_all_black_24px_topright.svg' :
                 (split == 'vertical') ? '/public/icons/ic_border_all_black_24px_topright_rightsplit.svg' :
@@ -193,9 +193,9 @@ class QuadToolsStrip extends React.Component {
                 this.selectQuad('bottomleft');
             }}>
                 <img style={{
-                backgroundColor: (currentquad == 'bottomleft') ? 'red' :
-                    ((split == 'vertical' && currentquad == 'topleft') ||
-                        (split == 'horizontal' && currentquad == 'bottomright') ||
+                backgroundColor: (currentquadposition == 'bottomleft') ? 'red' :
+                    ((split == 'vertical' && currentquadposition == 'topleft') ||
+                        (split == 'horizontal' && currentquadposition == 'bottomright') ||
                         (split == 'matrix')) ? 'orange' : 'transparent'
             }} src={(split == 'none' || split == 'matrix') ? '/public/icons/ic_border_all_black_24px_bottomleft.svg' :
                 (split == 'vertical') ? '/public/icons/ic_border_all_black_24px_bottomleft_leftsplit.svg' :
@@ -206,9 +206,9 @@ class QuadToolsStrip extends React.Component {
                 this.selectQuad('bottomright');
             }}>
                 <img style={{
-                backgroundColor: (currentquad == 'bottomright') ? 'red' :
-                    ((split == 'vertical' && currentquad == 'topright') ||
-                        (split == 'horizontal' && currentquad == 'bottomleft') ||
+                backgroundColor: (currentquadposition == 'bottomright') ? 'red' :
+                    ((split == 'vertical' && currentquadposition == 'topright') ||
+                        (split == 'horizontal' && currentquadposition == 'bottomleft') ||
                         (split == 'matrix')) ? 'orange' : 'transparent'
             }} src={(split == 'none' || split == 'matrix') ? '/public/icons/ic_border_all_black_24px_bottomright.svg' :
                 (split == 'vertical') ? '/public/icons/ic_border_all_black_24px_bottomright_rightsplit.svg' :
@@ -247,10 +247,10 @@ class QuadToolsStrip extends React.Component {
         }, 500); // substantial timeout required to give scroll client time to right-size
     }
     componentWillReceiveProps(nextProps) {
-        if (nextProps.currentquad !== this.state.currentquad ||
+        if (nextProps.currentquadposition !== this.state.currentquadposition ||
             nextProps.split != this.state.split) {
             this.setState({
-                currentquad: nextProps.currentquad,
+                currentquadposition: nextProps.currentquadposition,
                 split: nextProps.split,
             });
         }

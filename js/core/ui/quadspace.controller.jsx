@@ -2,7 +2,6 @@
 // copyright (c) 2018 Henrik Bechmann, Toronto, MIT Licence
 'use strict';
 import * as React from 'react';
-// import { connect } from 'react-redux'
 import QuadToolsStrip from './quadspace/quadtoolsstrip.view';
 import QuadSpaceFrame from './quadspace/quadspaceframe.view';
 import QuadBasket from './quadspace/quadbasket.view';
@@ -17,7 +16,7 @@ class QuadspaceController extends React.Component {
         super(...arguments);
         this.state = {
             quadrantpositions: [0, 1, 2, 3],
-            currentquad: 'topleft',
+            currentquadposition: 'topleft',
             split: 'none',
             datastacks,
         };
@@ -50,9 +49,9 @@ class QuadspaceController extends React.Component {
                 diagonal: 'topleft',
             },
         };
-        this.selectQuad = (quadrantname) => {
+        this.selectQuad = (quadrantposition) => {
             this.setState({
-                currentquad: quadrantname,
+                currentquadposition: quadrantposition,
             });
         };
         this.changeSplit = (split) => {
@@ -87,7 +86,7 @@ class QuadspaceController extends React.Component {
         };
         this.selectQuadrant = quadrant => {
             this.setState({
-                currentquad: quadrant,
+                currentquadposition: quadrant,
             }, () => {
                 setTimeout(() => {
                     this.setState({
@@ -100,6 +99,7 @@ class QuadspaceController extends React.Component {
                 }, 600);
             });
         };
+        // TODO: the following 3 data functions should be in the application service
         this.getDataItem = (dataref) => {
             return items[dataref.uid];
         };
@@ -136,10 +136,10 @@ class QuadspaceController extends React.Component {
     }
     render() {
         return (<QuadSpaceFrame>
-                <QuadToolsStrip currentquad={this.state.currentquad} toolkit={this.toolsstriptoolkit} split={this.state.split}/>
+                <QuadToolsStrip currentquadposition={this.state.currentquadposition} toolkit={this.toolsstriptoolkit} split={this.state.split}/>
                 <QuadBasket><QuantityBadge quantity={0} style={{ left: '-12px' }}/></QuadBasket>
                 <QuadViewport>
-                    <Quadrants toolkit={this.quadranttoolkit} quadrantidentifiers={this.quadrantidentifiers} split={this.state.split} datastacks={this.state.datastacks} currentquad={this.state.currentquad}/>
+                    <Quadrants toolkit={this.quadranttoolkit} quadrantidentifiers={this.quadrantidentifiers} split={this.state.split} datastacks={this.state.datastacks} currentquadposition={this.state.currentquadposition}/>
                 </QuadViewport>
                 <QuadStatusBar status='Something Something Something Something Something Something Something Something Something Something Something Something Something Something Something Something Something '/>
             </QuadSpaceFrame>);

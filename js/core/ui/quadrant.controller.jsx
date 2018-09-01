@@ -42,16 +42,16 @@ class Quadrant extends React.Component {
             this.animateToDatabox(domSource);
             let { datastack, stackpointer } = this.state;
             this._captureSettings(stackpointer, datastack);
-            let boxconfig = datastack[stackpointer].items[boxptr];
+            let boxProxy = datastack[stackpointer].items[boxptr];
             stackpointer++;
             let newstacklayer = { items: [], settings: {}, source: {
-                    instanceid: boxconfig.instanceid,
-                    dataref: boxconfig.dataref,
+                    instanceid: boxProxy.instanceid,
+                    dataref: boxProxy.dataref,
                     action: 'expand',
                 } };
             // replace forward stack items
             datastack.splice(stackpointer, datastack.length, newstacklayer);
-            let newboxconfig = JSON.parse(JSON.stringify(boxconfig));
+            let newboxconfig = JSON.parse(JSON.stringify(boxProxy));
             newboxconfig.instanceid = serializer.getid();
             newboxconfig.liststack.push(dataref);
             newstacklayer.items.push(newboxconfig);
@@ -68,9 +68,9 @@ class Quadrant extends React.Component {
             this.animateToDataboxList(domSource);
             let { datastack, stackpointer } = this.state;
             this._captureSettings(stackpointer, datastack);
-            let boxconfig = datastack[stackpointer].items[boxptr];
-            let item = this.getDataItem(boxconfig.dataref);
-            let liststack = boxconfig.liststack;
+            let boxProxy = datastack[stackpointer].items[boxptr];
+            let item = this.getDataItem(boxProxy.dataref);
+            let liststack = boxProxy.liststack;
             let listref;
             if (liststack.length) {
                 listref = liststack[liststack.length - 1];
@@ -84,15 +84,15 @@ class Quadrant extends React.Component {
                 return;
             stackpointer++;
             let newstacklayer = { items: [], settings: {}, source: {
-                    instanceid: boxconfig.instanceid,
-                    dataref: boxconfig.dataref,
+                    instanceid: boxProxy.instanceid,
+                    dataref: boxProxy.dataref,
                     action: 'splay',
                     visiblerange,
                 } };
             // console.log('new stack pointer',stackpointer)
             // replace forward stack items
             datastack.splice(stackpointer, datastack.length, newstacklayer);
-            let template = JSON.stringify(boxconfig);
+            let template = JSON.stringify(boxProxy);
             for (let dataref of linkitems) {
                 let newboxconfig = JSON.parse(template);
                 newboxconfig.instanceid = serializer.getid();
@@ -116,16 +116,16 @@ class Quadrant extends React.Component {
             this.animateToDatabox(domSource);
             let { datastack, stackpointer } = this.state;
             this._captureSettings(stackpointer, datastack);
-            let boxconfig = datastack[stackpointer].items[boxptr];
+            let boxProxy = datastack[stackpointer].items[boxptr];
             stackpointer++;
             let newstacklayer = { items: [], settings: {}, source: {
-                    instanceid: boxconfig.instanceid,
-                    dataref: boxconfig.dataref,
+                    instanceid: boxProxy.instanceid,
+                    dataref: boxProxy.dataref,
                     action: 'select',
                 } };
             // replace forward stack items
             datastack.splice(stackpointer, datastack.length, newstacklayer);
-            let newboxconfig = JSON.parse(JSON.stringify(boxconfig));
+            let newboxconfig = JSON.parse(JSON.stringify(boxProxy));
             newboxconfig.instanceid = serializer.getid();
             newstacklayer.items.push(newboxconfig);
             setTimeout(() => {
@@ -150,8 +150,8 @@ class Quadrant extends React.Component {
             }
         };
         //-------------------------------[ backward ]----------------------------
-        this.collapseCategory = (boxConfig) => {
-            this.collapseBoxConfigForTarget = Object.assign({}, boxConfig);
+        this.collapseCategory = (boxProxy) => {
+            this.collapseBoxConfigForTarget = Object.assign({}, boxProxy);
             this.decrementStackSelector();
         };
         this.decrementStackSelector = () => {
@@ -322,14 +322,14 @@ class Quadrant extends React.Component {
                 return null;
             if (!this.scrollboxelement.current)
                 return null;
-            let boxconfig = datastack[stackpointer].items[index];
+            let boxProxy = datastack[stackpointer].items[index];
             let stacklayer = datastack[stackpointer];
             let haspeers = (stacklayer && (stacklayer.items.length > 1));
-            return this.getBoxComponent(boxconfig, index, haspeers, key);
+            return this.getBoxComponent(boxProxy, index, haspeers, key);
         };
-        this.getBoxComponent = (boxconfig, index, haspeers, key) => {
-            // console.log('getBoxComponent', boxconfig, index, haspeers, key)
-            let item = this.getDataItem(boxconfig.dataref);
+        this.getBoxComponent = (boxProxy, index, haspeers, key) => {
+            // console.log('getBoxComponent', boxProxy, index, haspeers, key)
+            let item = this.getDataItem(boxProxy.dataref);
             let itemType = this.getTypeItem(METATYPES.item, item.type);
             let containerHeight = this.scrollboxelement.current.offsetHeight;
             let matchForTarget = false;
@@ -338,7 +338,7 @@ class Quadrant extends React.Component {
                 matchForTarget = (collapseBoxConfigForTarget.index == index);
             }
             // console.log('match',matchForTarget,collapseBoxConfigForTarget,index)
-            return (<DataBox key={boxconfig.instanceid} item={item} itemType={itemType} collapseBoxConfigForTarget={matchForTarget ? collapseBoxConfigForTarget : null} getListItem={this.getListItem} getListItemType={this.getListItemType(METATYPES.list)} boxConfig={boxconfig} highlightBox={this.highlightBox} haspeers={haspeers} index={index} containerHeight={containerHeight} splayBox={(domSource, listcomponent) => {
+            return (<DataBox key={boxProxy.instanceid} item={item} itemType={itemType} collapseBoxConfigForTarget={matchForTarget ? collapseBoxConfigForTarget : null} getListItem={this.getListItem} getListItemType={this.getListItemType(METATYPES.list)} boxProxy={boxProxy} highlightBox={this.highlightBox} haspeers={haspeers} index={index} containerHeight={containerHeight} splayBox={(domSource, listcomponent) => {
                 this.splayBox(index, domSource, listcomponent);
             }} selectFromSplay={(domSource) => {
                 this.selectFromSplay(index, domSource);

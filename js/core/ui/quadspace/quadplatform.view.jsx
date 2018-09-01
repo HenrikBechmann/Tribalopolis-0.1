@@ -6,7 +6,7 @@ class QuadPlatform extends React.Component {
     constructor() {
         super(...arguments);
         this.state = {
-            currentquad: this.props.currentquad,
+            currentquadposition: this.props.currentquadposition,
             split: this.props.split,
         };
         this.positions = null;
@@ -15,23 +15,23 @@ class QuadPlatform extends React.Component {
         this.changeCurrentQuad = nextProps => {
             let element = this.element;
             // set top left for animation
-            let nextquad = nextProps.currentquad;
-            this.calculateTransitionPosition(this.state.currentquad);
-            // console.log('BASE changing from quad',this.state.currentquad,this.positions)
+            let nextquadposition = nextProps.currentquadposition;
+            this.calculateTransitionPosition(this.state.currentquadposition);
+            // console.log('BASE changing from quad',this.state.currentquadposition,this.positions)
             this.forceUpdate(() => {
                 setTimeout(() => {
                     // prepare for animation transition
-                    this.calculateTransitionPosition(nextquad);
-                    // console.log('TRANSITION changing to quad',nextquad,this.positions)
+                    this.calculateTransitionPosition(nextquadposition);
+                    // console.log('TRANSITION changing to quad',nextquadposition,this.positions)
                     this.setState({
-                        currentquad: nextquad,
+                        currentquadposition: nextquadposition,
                     }, () => {
                         setTimeout(() => {
-                            this.calculatePosition(nextquad);
+                            this.calculatePosition(nextquadposition);
                             this.setState({
-                                currentquad: nextquad,
+                                currentquadposition: nextquadposition,
                             }, () => {
-                                // console.log('DONE changing quad',nextquad,this.positions)
+                                // console.log('DONE changing quad',nextquadposition,this.positions)
                             });
                         }, 600);
                     });
@@ -204,7 +204,7 @@ class QuadPlatform extends React.Component {
     }
     componentWillMount() {
         this.calculateDimensions(this.state.split);
-        this.calculatePosition(this.state.currentquad);
+        this.calculatePosition(this.state.currentquadposition);
     }
     componentWillReceiveProps(nextProps) {
         // should be either one or the other
@@ -214,7 +214,7 @@ class QuadPlatform extends React.Component {
                 split: nextProps.split
             });
         }
-        if (nextProps.currentquad != this.state.currentquad) {
+        if (nextProps.currentquadposition != this.state.currentquadposition) {
             setTimeout(() => {
                 this.changeCurrentQuad(nextProps);
             });

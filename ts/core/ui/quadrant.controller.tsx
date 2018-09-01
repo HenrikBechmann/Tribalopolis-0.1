@@ -153,19 +153,19 @@ class Quadrant extends React.Component<any,any>  {
         let {datastack, stackpointer} = this.state
         this._captureSettings(stackpointer,datastack)
 
-        let boxconfig = datastack[stackpointer].items[boxptr]
+        let boxProxy = datastack[stackpointer].items[boxptr]
 
         stackpointer++
         let newstacklayer = {items:[], settings:{}, source:{
-            instanceid:boxconfig.instanceid,
-            dataref:boxconfig.dataref,
+            instanceid:boxProxy.instanceid,
+            dataref:boxProxy.dataref,
             action:'expand',
         }}
 
         // replace forward stack items
         datastack.splice(stackpointer,datastack.length,newstacklayer)
 
-        let newboxconfig = JSON.parse(JSON.stringify(boxconfig))
+        let newboxconfig = JSON.parse(JSON.stringify(boxProxy))
         newboxconfig.instanceid = serializer.getid()
 
         newboxconfig.liststack.push(dataref)
@@ -191,11 +191,11 @@ class Quadrant extends React.Component<any,any>  {
         let {datastack, stackpointer} = this.state
         this._captureSettings(stackpointer,datastack)
 
-        let boxconfig = datastack[stackpointer].items[boxptr]
+        let boxProxy = datastack[stackpointer].items[boxptr]
 
-        let item = this.getDataItem(boxconfig.dataref)
+        let item = this.getDataItem(boxProxy.dataref)
 
-        let liststack = boxconfig.liststack
+        let liststack = boxProxy.liststack
 
         let listref
 
@@ -213,8 +213,8 @@ class Quadrant extends React.Component<any,any>  {
 
         stackpointer++
         let newstacklayer = {items:[], settings:{}, source:{
-            instanceid:boxconfig.instanceid,
-            dataref:boxconfig.dataref,
+            instanceid:boxProxy.instanceid,
+            dataref:boxProxy.dataref,
             action:'splay',
             visiblerange,
         }}
@@ -224,7 +224,7 @@ class Quadrant extends React.Component<any,any>  {
         // replace forward stack items
         datastack.splice(stackpointer,datastack.length,newstacklayer)
 
-        let template = JSON.stringify(boxconfig)
+        let template = JSON.stringify(boxProxy)
 
         for (let dataref of linkitems) {
             let newboxconfig = JSON.parse(template)
@@ -256,19 +256,19 @@ class Quadrant extends React.Component<any,any>  {
         let {datastack, stackpointer} = this.state
         this._captureSettings(stackpointer,datastack)
 
-        let boxconfig = datastack[stackpointer].items[boxptr]
+        let boxProxy = datastack[stackpointer].items[boxptr]
 
         stackpointer++
         let newstacklayer = {items:[], settings:{}, source:{
-            instanceid:boxconfig.instanceid,
-            dataref:boxconfig.dataref,
+            instanceid:boxProxy.instanceid,
+            dataref:boxProxy.dataref,
             action:'select',
         }}
 
         // replace forward stack items
         datastack.splice(stackpointer,datastack.length,newstacklayer)
 
-        let newboxconfig = JSON.parse(JSON.stringify(boxconfig))
+        let newboxconfig = JSON.parse(JSON.stringify(boxProxy))
         newboxconfig.instanceid = serializer.getid()
         
         newstacklayer.items.push(newboxconfig)
@@ -298,9 +298,9 @@ class Quadrant extends React.Component<any,any>  {
 
     //-------------------------------[ backward ]----------------------------
 
-    collapseCategory = (boxConfig) => {
+    collapseCategory = (boxProxy) => {
 
-        this.collapseBoxConfigForTarget = Object.assign({},boxConfig)
+        this.collapseBoxConfigForTarget = Object.assign({},boxProxy)
 
         this.decrementStackSelector()
 
@@ -537,19 +537,19 @@ class Quadrant extends React.Component<any,any>  {
 
         if (!this.scrollboxelement.current) return null
 
-        let boxconfig = datastack[stackpointer].items[index]
+        let boxProxy = datastack[stackpointer].items[index]
 
         let stacklayer = datastack[stackpointer]
         let haspeers = (stacklayer && (stacklayer.items.length > 1))
 
-        return this.getBoxComponent(boxconfig, index, haspeers, key)
+        return this.getBoxComponent(boxProxy, index, haspeers, key)
     }
 
-    getBoxComponent = (boxconfig, index, haspeers, key) => {
+    getBoxComponent = (boxProxy, index, haspeers, key) => {
 
-        // console.log('getBoxComponent', boxconfig, index, haspeers, key)
+        // console.log('getBoxComponent', boxProxy, index, haspeers, key)
 
-        let item = this.getDataItem(boxconfig.dataref)
+        let item = this.getDataItem(boxProxy.dataref)
         let itemType = this.getTypeItem(METATYPES.item,item.type)
 
         let containerHeight = this.scrollboxelement.current.offsetHeight
@@ -564,13 +564,13 @@ class Quadrant extends React.Component<any,any>  {
 
         return (
             <DataBox 
-                key = { boxconfig.instanceid } 
+                key = { boxProxy.instanceid } 
                 item = { item } 
                 itemType = { itemType }
                 collapseBoxConfigForTarget = {matchForTarget?collapseBoxConfigForTarget:null}
                 getListItem = { this.getListItem }
                 getListItemType = { this.getListItemType(METATYPES.list) }
-                boxConfig = { boxconfig }
+                boxProxy = { boxProxy }
                 highlightBox = {this.highlightBox}
                 haspeers = { haspeers }
                 index = {index}

@@ -27,7 +27,7 @@ class QuadToolsStrip extends React.Component<any,any> {
     state = {
         menuopen:false,
         scroller:null,
-        currentquad:this.props.currentquad,
+        currentquadposition:this.props.currentquadposition,
         split:this.props.split,
         accountAnchorElement:null
     }
@@ -57,10 +57,10 @@ class QuadToolsStrip extends React.Component<any,any> {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.currentquad !== this.state.currentquad ||
+        if (nextProps.currentquadposition !== this.state.currentquadposition ||
             nextProps.split != this.state.split) {
             this.setState({
-                currentquad:nextProps.currentquad,
+                currentquadposition:nextProps.currentquadposition,
                 split:nextProps.split,
             })
         }
@@ -246,7 +246,7 @@ class QuadToolsStrip extends React.Component<any,any> {
     }
 
     quadnavigationmenu = () => {
-        let { currentquad, split } = this.state
+        let { currentquadposition, split } = this.state
         return <div style = {{display:'inline-block',verticalAlign:'middle'}}>
             <IconButton
                 style = {{verticalAlign:'bottom',}}
@@ -258,9 +258,9 @@ class QuadToolsStrip extends React.Component<any,any> {
                     style = {
                         {
                             backgroundColor:(
-                                currentquad == 'topleft')?'red':
-                                ((split == 'vertical' && currentquad == 'bottomleft') ||
-                                (split == 'horizontal' && currentquad == 'topright') ||
+                                currentquadposition == 'topleft')?'red':
+                                ((split == 'vertical' && currentquadposition == 'bottomleft') ||
+                                (split == 'horizontal' && currentquadposition == 'topright') ||
                                 (split == 'matrix')
                             )?'orange':'transparent'
                         }
@@ -283,9 +283,9 @@ class QuadToolsStrip extends React.Component<any,any> {
                     style = {
                         {
                             backgroundColor:(
-                                currentquad == 'topright')?'red':
-                                ((split == 'vertical' && currentquad == 'bottomright') ||
-                                (split == 'horizontal' && currentquad == 'topleft') ||
+                                currentquadposition == 'topright')?'red':
+                                ((split == 'vertical' && currentquadposition == 'bottomright') ||
+                                (split == 'horizontal' && currentquadposition == 'topleft') ||
                                 (split == 'matrix')
                             )?'orange':'transparent'
                         }
@@ -308,9 +308,9 @@ class QuadToolsStrip extends React.Component<any,any> {
                     style = {
                         {
                             backgroundColor:(
-                                currentquad == 'bottomleft')?'red': 
-                                ((split == 'vertical' && currentquad == 'topleft') ||
-                                (split == 'horizontal' && currentquad == 'bottomright') ||
+                                currentquadposition == 'bottomleft')?'red': 
+                                ((split == 'vertical' && currentquadposition == 'topleft') ||
+                                (split == 'horizontal' && currentquadposition == 'bottomright') ||
                                 (split == 'matrix')
                             )?'orange':'transparent'
                         }
@@ -333,9 +333,9 @@ class QuadToolsStrip extends React.Component<any,any> {
                     style = {
                         {
                             backgroundColor:(
-                                currentquad == 'bottomright')?'red':
-                                ((split == 'vertical' && currentquad == 'topright') ||
-                                (split == 'horizontal' && currentquad == 'bottomleft') ||
+                                currentquadposition == 'bottomright')?'red':
+                                ((split == 'vertical' && currentquadposition == 'topright') ||
+                                (split == 'horizontal' && currentquadposition == 'bottomleft') ||
                                 (split == 'matrix')
                             )?'orange':'transparent'
                         }
