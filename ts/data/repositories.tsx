@@ -6,6 +6,14 @@ let schemes = {
 
 let types = {
     incoming:{
+        access:{
+            attributes:{
+
+            },
+            permissions:{
+
+            },
+        },
         type:{
 
         },
@@ -19,6 +27,14 @@ let types = {
         list:{},
     },
     outgoing: {
+        access:{
+            attributes:{
+
+            },
+            permissions:{
+
+            },
+        },
         type:{
 
         },
@@ -38,6 +54,14 @@ let types = {
 let lists = {
     diaries:
     {
+        access:{
+            attributes:{
+
+            },
+            permissions:{
+
+            },
+        },
         type:{
             uid:'outgoing',
             schemeuid:'common',
@@ -59,6 +83,14 @@ let lists = {
     },
     notes:
     {
+        access:{
+            attributes:{
+
+            },
+            permissions:{
+
+            },
+        },
         type:{
             uid:'outgoing',
             schemeuid:'common',
@@ -80,6 +112,14 @@ let lists = {
     },
     tribes:
     {
+        access:{
+            attributes:{
+
+            },
+            permissions:{
+
+            },
+        },
         type:{
             uid:'outgoing',
             schemeuid:'common',
@@ -102,6 +142,14 @@ let lists = {
     },
     connections:
     {
+        access:{
+            attributes:{
+
+            },
+            permissions:{
+
+            },
+        },
         type:{
             uid:'outgoing',
             schemeuid:'common',
@@ -123,6 +171,14 @@ let lists = {
     },
     requesting:
     {
+        access:{
+            attributes:{
+
+            },
+            permissions:{
+
+            },
+        },
         type:{
             uid:'outgoing',
             schemeuid:'common',
@@ -144,6 +200,14 @@ let lists = {
     },
     pending:
     {
+        access:{
+            attributes:{
+
+            },
+            permissions:{
+
+            },
+        },
         type:{
             uid:'incoming',
             schemeuid:'common',
@@ -165,6 +229,14 @@ let lists = {
     },
     roles:
     {
+        access:{
+            attributes:{
+
+            },
+            permissions:{
+
+            },
+        },
         type:{
             uid:'outgoing',
             schemeuid:'common',
@@ -186,6 +258,14 @@ let lists = {
     },
     programs:
     {
+        access:{
+            attributes:{
+
+            },
+            permissions:{
+
+            },
+        },
         type:{
             uid:'outgoing',
             schemeuid:'common',
@@ -207,6 +287,14 @@ let lists = {
     },
     projects:
     {
+        access:{
+            attributes:{
+
+            },
+            permissions:{
+
+            },
+        },
         type:{
             uid:'outgoing',
             schemeuid:'common',
@@ -228,6 +316,14 @@ let lists = {
     },
     tasks:
     {
+        access:{
+            attributes:{
+
+            },
+            permissions:{
+
+            },
+        },
         type:{
             uid:'outgoing',
             schemeuid:'common',
@@ -249,6 +345,14 @@ let lists = {
     },
     messages:
     {
+        access:{
+            attributes:{
+
+            },
+            permissions:{
+
+            },
+        },
         type:{
             uid:'incoming',
             schemeuid:'common',
@@ -270,6 +374,14 @@ let lists = {
     },
     streams:
     {
+        access:{
+            attributes:{
+
+            },
+            permissions:{
+
+            },
+        },
         type:{
             uid:'incoming',
             schemeuid:'common',
@@ -291,6 +403,14 @@ let lists = {
     },
     resources:
     {
+        access:{
+            attributes:{
+
+            },
+            permissions:{
+
+            },
+        },
         type:{
             uid:'outgoing',
             schemeuid:'common',
@@ -312,6 +432,14 @@ let lists = {
     },
     calendars:
     {
+        access:{
+            attributes:{
+
+            },
+            permissions:{
+
+            },
+        },
         type:{
             uid:'incoming',
             schemeuid:'common',
@@ -333,6 +461,14 @@ let lists = {
     },
     accounting:
     {
+        access:{
+            attributes:{
+
+            },
+            permissions:{
+
+            },
+        },
         type:{
             uid:'outgoing',
             schemeuid:'common',
@@ -354,6 +490,14 @@ let lists = {
     },
     membership:
     {
+        access:{
+            attributes:{
+
+            },
+            permissions:{
+
+            },
+        },
         type:{
             uid:'incoming',
             schemeuid:'common',
@@ -377,6 +521,14 @@ let lists = {
     },
     other:
     {
+        access:{
+            attributes:{
+
+            },
+            permissions:{
+
+            },
+        },
         type:{
             uid:'incoming',
             schemeuid:'common',
@@ -399,6 +551,14 @@ let lists = {
     },
     henrik:
     {
+        access:{
+            attributes:{
+
+            },
+            permissions:{
+
+            },
+        },
         type:{
             uid:'incoming',
             schemeuid:'common',
@@ -495,6 +655,14 @@ let links = {}
 
 let items = {
     henrik:{
+        access:{
+            attributes:{
+
+            },
+            permissions:{
+
+            },
+        },
         type:{
             uid:'incoming',
             name:'member', // TODO: should be obtained from type object

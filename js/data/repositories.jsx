@@ -3,6 +3,10 @@ import { serializer } from '../core/utilities/serializer';
 let schemes = {};
 let types = {
     incoming: {
+        access: {
+            attributes: {},
+            permissions: {},
+        },
         type: {},
         identity: {},
         properties: {
@@ -12,6 +16,10 @@ let types = {
         list: {},
     },
     outgoing: {
+        access: {
+            attributes: {},
+            permissions: {},
+        },
         type: {},
         identity: {},
         properties: {
@@ -25,6 +33,10 @@ let types = {
 };
 let lists = {
     diaries: {
+        access: {
+            attributes: {},
+            permissions: {},
+        },
         type: {
             uid: 'outgoing',
             schemeuid: 'common',
@@ -45,6 +57,10 @@ let lists = {
         item: 'henrik',
     },
     notes: {
+        access: {
+            attributes: {},
+            permissions: {},
+        },
         type: {
             uid: 'outgoing',
             schemeuid: 'common',
@@ -65,6 +81,10 @@ let lists = {
         item: 'henrik',
     },
     tribes: {
+        access: {
+            attributes: {},
+            permissions: {},
+        },
         type: {
             uid: 'outgoing',
             schemeuid: 'common',
@@ -86,6 +106,10 @@ let lists = {
         item: 'henrik',
     },
     connections: {
+        access: {
+            attributes: {},
+            permissions: {},
+        },
         type: {
             uid: 'outgoing',
             schemeuid: 'common',
@@ -106,6 +130,10 @@ let lists = {
         item: 'henrik',
     },
     requesting: {
+        access: {
+            attributes: {},
+            permissions: {},
+        },
         type: {
             uid: 'outgoing',
             schemeuid: 'common',
@@ -126,6 +154,10 @@ let lists = {
         item: 'henrik',
     },
     pending: {
+        access: {
+            attributes: {},
+            permissions: {},
+        },
         type: {
             uid: 'incoming',
             schemeuid: 'common',
@@ -146,6 +178,10 @@ let lists = {
         item: 'henrik',
     },
     roles: {
+        access: {
+            attributes: {},
+            permissions: {},
+        },
         type: {
             uid: 'outgoing',
             schemeuid: 'common',
@@ -166,6 +202,10 @@ let lists = {
         item: 'henrik',
     },
     programs: {
+        access: {
+            attributes: {},
+            permissions: {},
+        },
         type: {
             uid: 'outgoing',
             schemeuid: 'common',
@@ -186,6 +226,10 @@ let lists = {
         item: 'henrik',
     },
     projects: {
+        access: {
+            attributes: {},
+            permissions: {},
+        },
         type: {
             uid: 'outgoing',
             schemeuid: 'common',
@@ -206,6 +250,10 @@ let lists = {
         item: 'henrik',
     },
     tasks: {
+        access: {
+            attributes: {},
+            permissions: {},
+        },
         type: {
             uid: 'outgoing',
             schemeuid: 'common',
@@ -226,6 +274,10 @@ let lists = {
         item: 'henrik',
     },
     messages: {
+        access: {
+            attributes: {},
+            permissions: {},
+        },
         type: {
             uid: 'incoming',
             schemeuid: 'common',
@@ -246,6 +298,10 @@ let lists = {
         item: 'henrik',
     },
     streams: {
+        access: {
+            attributes: {},
+            permissions: {},
+        },
         type: {
             uid: 'incoming',
             schemeuid: 'common',
@@ -266,6 +322,10 @@ let lists = {
         item: 'henrik',
     },
     resources: {
+        access: {
+            attributes: {},
+            permissions: {},
+        },
         type: {
             uid: 'outgoing',
             schemeuid: 'common',
@@ -286,6 +346,10 @@ let lists = {
         item: 'henrik',
     },
     calendars: {
+        access: {
+            attributes: {},
+            permissions: {},
+        },
         type: {
             uid: 'incoming',
             schemeuid: 'common',
@@ -306,6 +370,10 @@ let lists = {
         item: 'henrik',
     },
     accounting: {
+        access: {
+            attributes: {},
+            permissions: {},
+        },
         type: {
             uid: 'outgoing',
             schemeuid: 'common',
@@ -326,6 +394,10 @@ let lists = {
         item: 'henrik',
     },
     membership: {
+        access: {
+            attributes: {},
+            permissions: {},
+        },
         type: {
             uid: 'incoming',
             schemeuid: 'common',
@@ -347,6 +419,10 @@ let lists = {
         item: 'henrik',
     },
     other: {
+        access: {
+            attributes: {},
+            permissions: {},
+        },
         type: {
             uid: 'incoming',
             schemeuid: 'common',
@@ -368,6 +444,10 @@ let lists = {
         item: 'henrik',
     },
     henrik: {
+        access: {
+            attributes: {},
+            permissions: {},
+        },
         type: {
             uid: 'incoming',
             schemeuid: 'common',
@@ -462,6 +542,10 @@ let lists = {
 let links = {};
 let items = {
     henrik: {
+        access: {
+            attributes: {},
+            permissions: {},
+        },
         type: {
             uid: 'incoming',
             name: 'member',
