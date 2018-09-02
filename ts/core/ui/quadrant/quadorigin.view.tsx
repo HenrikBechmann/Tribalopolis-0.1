@@ -18,7 +18,7 @@ const QuadOriginBase = props => {
                     height:'60px',
                     backgroundColor:'green',
                     borderRadius:'8px',
-                    zIndex:2,
+                    zIndex:5,
                 }
             }
             ref = {props.forwardedRef}

@@ -37,7 +37,7 @@ class DirectoryItem extends React.Component {
             cursor: 'pointer',
         };
         this.expandDirectoryItem = () => {
-            this.props.expandDirectoryItem(this.barelementref);
+            this.props.expandDirectoryItem(this.barelementref.current);
         };
         this.barcomponent = () => (<div style={this.barstyle} ref={this.barelementref}>
             <div style={this.tabwrapperstyle}>

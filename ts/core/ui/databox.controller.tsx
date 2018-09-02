@@ -93,7 +93,7 @@ class DataBox extends React.Component<any,any> {
 
     doHighlights = (collapseTargetData) => {
 
-        this.props.highlightBox(this.boxframe)
+        this.props.highlightBox({boxElement:this.boxframe.current})
 
         if (collapseTargetData.action == 'expand' || 
             collapseTargetData.action == 'splay') {

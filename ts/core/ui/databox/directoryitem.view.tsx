@@ -48,7 +48,7 @@ class DirectoryItem extends React.Component<any,any> {
         cursor:'pointer',
     }
 
-    barelementref:React.Ref<HTMLDivElement>
+    barelementref
 
     componentDidUpdate() {
         if (this.props.highlight && this.barelementref) {
@@ -57,7 +57,7 @@ class DirectoryItem extends React.Component<any,any> {
     }
 
     expandDirectoryItem = () => {
-        this.props.expandDirectoryItem(this.barelementref)
+        this.props.expandDirectoryItem(this.barelementref.current)
     }
 
     barcomponent = () => (

@@ -30,7 +30,7 @@ class DataBox extends React.Component {
             highlightrefuid: this.props.highlightrefuid
         };
         this.doHighlights = (collapseTargetData) => {
-            this.props.highlightBox(this.boxframe);
+            this.props.highlightBox({ boxElement: this.boxframe.current });
             if (collapseTargetData.action == 'expand' ||
                 collapseTargetData.action == 'splay') {
                 let dataref = collapseTargetData.liststack[collapseTargetData.liststack.length - 1];

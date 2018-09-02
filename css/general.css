@@ -108,7 +108,7 @@
     position:absolute;
     border: 6px solid silver;
     animation: maskdrill 1s;
-    z-index: 4;
+    z-index: 3;
     border-radius: 8px;
 }
 
@@ -116,7 +116,7 @@
     position:absolute;
     border: 6px solid silver;
     animation: elementdrill 1s .25s;
-    z-index: 10;
+    z-index: 4;
     border-radius: 8px;
 }
 
@@ -124,7 +124,7 @@
     position:absolute;
     border: 6px solid silver;
     animation: origindrill .5s;
-    z-index: 5;
+    z-index: 6;
     border-radius: 8px;
 }
 

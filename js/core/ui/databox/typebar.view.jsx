@@ -8,12 +8,12 @@ class BoxToolbar extends React.Component {
         super(props);
         this.selectFromSplay = () => {
             return () => {
-                this.props.selectFromSplay(this.selectdomsource);
+                this.props.selectFromSplay(this.selectdomsource.current);
             };
         };
         this.splayBox = () => {
             return () => {
-                this.props.splayBox(this.splaydomsource);
+                this.props.splayBox(this.splaydomsource.current);
             };
         };
         this.splaydomsource = React.createRef();

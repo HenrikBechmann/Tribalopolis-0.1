@@ -19,13 +19,13 @@ class BoxToolbar extends React.Component<any,any> {
 
     selectFromSplay = () => {
         return () => {
-            this.props.selectFromSplay(this.selectdomsource)
+            this.props.selectFromSplay(this.selectdomsource.current)
         }
     }
 
     splayBox = () => {
         return () => {
-            this.props.splayBox(this.splaydomsource)
+            this.props.splayBox(this.splaydomsource.current)
         }
     }
 
