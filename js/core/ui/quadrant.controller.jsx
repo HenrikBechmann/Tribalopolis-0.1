@@ -36,8 +36,8 @@ class Quadrant extends React.Component {
         /********************************************************
         ----------------------[ operations ]---------------------
         *********************************************************/
-        //-------------------------------[ forward ]----------------------------
-        this.expandDirectoryItem = (boxptr, dataref, domSource) => {
+        // animation calls
+        this.animateToOrigin = () => {
             animations.animateToOrigin({
                 sourceElement: this.scrollboxelement.current,
                 originElement: this.originelement.current,
@@ -45,12 +45,27 @@ class Quadrant extends React.Component {
                 originAnimationElement: this.originanimationblock.current,
                 maskAnimationElement: this.maskanimationblock.current,
             });
+        };
+        this.animateToDataBox = (domSource) => {
             animations.animateToDatabox({
                 sourceElement: domSource,
                 targetElement: this.scrollboxelement.current,
                 containerElement: this.quadcontentelement.current,
                 drillAnimationElement: this.drillanimationblock.current,
             });
+        };
+        this.animateToDataBoxList = (domSource) => {
+            animations.animateToDataboxList({
+                sourceElement: domSource,
+                targetElement: this.scrollboxelement.current,
+                containerElement: this.quadcontentelement.current,
+                drillAnimationElement: this.drillanimationblock.current,
+            });
+        };
+        //-------------------------------[ forward ]----------------------------
+        this.expandDirectoryItem = (boxptr, dataref, domSource) => {
+            this.animateToOrigin();
+            this.animateToDataBox(domSource);
             let { datastack, stackpointer } = this.state;
             this._captureSettings(stackpointer, datastack);
             let boxProxy = datastack[stackpointer].items[boxptr];
@@ -75,19 +90,8 @@ class Quadrant extends React.Component {
         };
         this.splayBox = (boxptr, domSource, sourcelistcomponent) => {
             let visiblerange = sourcelistcomponent.current.getVisibleRange();
-            animations.animateToOrigin({
-                sourceElement: this.scrollboxelement.current,
-                originElement: this.originelement.current,
-                containerElement: this.quadcontentelement.current,
-                originAnimationElement: this.originanimationblock.current,
-                maskAnimationElement: this.maskanimationblock.current,
-            });
-            animations.animateToDataboxList({
-                sourceElement: domSource,
-                targetElement: this.scrollboxelement.current,
-                containerElement: this.quadcontentelement.current,
-                drillAnimationElement: this.drillanimationblock.current,
-            });
+            this.animateToOrigin();
+            this.animateToDataBoxList(domSource);
             let { datastack, stackpointer } = this.state;
             this._captureSettings(stackpointer, datastack);
             let boxProxy = datastack[stackpointer].items[boxptr];
@@ -134,19 +138,8 @@ class Quadrant extends React.Component {
         };
         this.selectFromSplay = (boxptr, domSource) => {
             // console.log('selectFromSplay boxptr,domSource',boxptr,domSource)
-            animations.animateToOrigin({
-                sourceElement: this.scrollboxelement.current,
-                originElement: this.originelement.current,
-                containerElement: this.quadcontentelement.current,
-                originAnimationElement: this.originanimationblock.current,
-                maskAnimationElement: this.maskanimationblock.current,
-            });
-            animations.animateToDatabox({
-                sourceElement: domSource,
-                targetElement: this.scrollboxelement.current,
-                containerElement: this.quadcontentelement.current,
-                drillAnimationElement: this.drillanimationblock.current,
-            });
+            this.animateToOrigin();
+            this.animateToDataBox(domSource);
             let { datastack, stackpointer } = this.state;
             this._captureSettings(stackpointer, datastack);
             let boxProxy = datastack[stackpointer].items[boxptr];

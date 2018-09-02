@@ -143,24 +143,43 @@ class Quadrant extends React.Component<any,any>  {
 ----------------------[ operations ]---------------------
 *********************************************************/
 
-    //-------------------------------[ forward ]----------------------------
+    // animation calls
 
-    expandDirectoryItem = (boxptr, dataref, domSource) => {
-
+    animateToOrigin = () => {
         animations.animateToOrigin({
             sourceElement:this.scrollboxelement.current, 
             originElement:this.originelement.current,  
             containerElement:this.quadcontentelement.current, 
             originAnimationElement:this.originanimationblock.current,
             maskAnimationElement:this.maskanimationblock.current,
-        })
+        })        
+    }
 
+    animateToDataBox = (domSource) => {
         animations.animateToDatabox({
             sourceElement:domSource,
             targetElement:this.scrollboxelement.current,
             containerElement:this.quadcontentelement.current,
             drillAnimationElement:this.drillanimationblock.current,  
-        })
+        })        
+    }
+
+    animateToDataBoxList = (domSource) => {
+        animations.animateToDataboxList({
+            sourceElement:domSource,
+            targetElement:this.scrollboxelement.current,
+            containerElement:this.quadcontentelement.current,
+            drillAnimationElement:this.drillanimationblock.current,  
+        })        
+    }
+
+    //-------------------------------[ forward ]----------------------------
+
+    expandDirectoryItem = (boxptr, dataref, domSource) => {
+
+        this.animateToOrigin()
+
+        this.animateToDataBox(domSource)
 
         let {datastack, stackpointer} = this.state
         this._captureSettings(stackpointer,datastack)
@@ -196,20 +215,9 @@ class Quadrant extends React.Component<any,any>  {
 
         let visiblerange = sourcelistcomponent.current.getVisibleRange()
 
-        animations.animateToOrigin({
-            sourceElement:this.scrollboxelement.current, 
-            originElement:this.originelement.current,  
-            containerElement:this.quadcontentelement.current, 
-            originAnimationElement:this.originanimationblock.current,
-            maskAnimationElement:this.maskanimationblock.current,
-        })
+        this.animateToOrigin()
 
-        animations.animateToDataboxList({
-            sourceElement:domSource,
-            targetElement:this.scrollboxelement.current,
-            containerElement:this.quadcontentelement.current,
-            drillAnimationElement:this.drillanimationblock.current,  
-        })
+        this.animateToDataBoxList(domSource)
 
         let {datastack, stackpointer} = this.state
         this._captureSettings(stackpointer,datastack)
@@ -272,20 +280,9 @@ class Quadrant extends React.Component<any,any>  {
 
         // console.log('selectFromSplay boxptr,domSource',boxptr,domSource)
 
-        animations.animateToOrigin({
-            sourceElement:this.scrollboxelement.current, 
-            originElement:this.originelement.current,  
-            containerElement:this.quadcontentelement.current, 
-            originAnimationElement:this.originanimationblock.current,
-            maskAnimationElement:this.maskanimationblock.current,
-        })
+        this.animateToOrigin()
 
-        animations.animateToDatabox({
-            sourceElement:domSource,
-            targetElement:this.scrollboxelement.current,
-            containerElement:this.quadcontentelement.current,
-            drillAnimationElement:this.drillanimationblock.current,  
-        })
+        this.animateToDataBox(domSource)
 
         let {datastack, stackpointer} = this.state
         this._captureSettings(stackpointer,datastack)
