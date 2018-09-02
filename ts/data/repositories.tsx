@@ -1,6 +1,4 @@
-// workspacedata.tsx
-import {serializer} from '../core/utilities/serializer'
-
+// repositories.tsx
 let schemes = {
 }
 
@@ -684,87 +682,4 @@ let items = {
     },
 }
 
-let datastacks = [ // four quadrant stacks
-    [ // each quadrant stack
-        { // each quadrant stack layer
-            items:[ // items in the stack layer
-                {
-                    dataref:{
-                        repo:'items',
-                        uid:'henrik',
-                    },
-                    instanceid:serializer.getid(),
-                    liststack:[],
-                    settings:{
-                    },
-                },
-            ],
-            source: {},
-            settings:{
-            },
-        },
-    ],
-    [
-        {
-            items:[
-                {
-                    dataref:{
-                        repo:'items',
-                        uid:'henrik',
-                    },
-                    instanceid:serializer.getid(),
-                    liststack:[],
-                    settings:{},
-                },
-            ],
-            source:{
-            },
-            settings:{
-            },
-        },
-    ],
-    [
-        {
-            items:[
-                {
-                    dataref:{
-                        repo:'items',
-                        uid:'henrik',
-                    },
-                    instanceid:serializer.getid(),
-                    liststack:[],
-                    settings:{
-
-                    },
-                },
-            ],
-            source: {
-            },
-            settings:{
-
-            },
-        },
-    ],
-    [
-        {
-            items:[
-                {
-                    dataref:{
-                        repo:'items',
-                        uid:'henrik',
-                    },
-                    instanceid:serializer.getid(),
-                    liststack:[],
-                    settings:{},
-                },
-            ],
-            source: {
-            },
-            settings:{
-
-            },
-        },
-    ]
-]
-
-export { schemes, types, items, lists, links, datastacks }
+export { schemes, types, items, lists, links }

@@ -1,5 +1,4 @@
-// workspacedata.tsx
-import { serializer } from '../core/utilities/serializer';
+// repositories.tsx
 let schemes = {};
 let types = {
     incoming: {
@@ -566,75 +565,5 @@ let items = {
         list: { repo: 'lists', uid: 'henrik' },
     },
 };
-let datastacks = [
-    [
-        {
-            items: [
-                {
-                    dataref: {
-                        repo: 'items',
-                        uid: 'henrik',
-                    },
-                    instanceid: serializer.getid(),
-                    liststack: [],
-                    settings: {},
-                },
-            ],
-            source: {},
-            settings: {},
-        },
-    ],
-    [
-        {
-            items: [
-                {
-                    dataref: {
-                        repo: 'items',
-                        uid: 'henrik',
-                    },
-                    instanceid: serializer.getid(),
-                    liststack: [],
-                    settings: {},
-                },
-            ],
-            source: {},
-            settings: {},
-        },
-    ],
-    [
-        {
-            items: [
-                {
-                    dataref: {
-                        repo: 'items',
-                        uid: 'henrik',
-                    },
-                    instanceid: serializer.getid(),
-                    liststack: [],
-                    settings: {},
-                },
-            ],
-            source: {},
-            settings: {},
-        },
-    ],
-    [
-        {
-            items: [
-                {
-                    dataref: {
-                        repo: 'items',
-                        uid: 'henrik',
-                    },
-                    instanceid: serializer.getid(),
-                    liststack: [],
-                    settings: {},
-                },
-            ],
-            source: {},
-            settings: {},
-        },
-    ]
-];
-export { schemes, types, items, lists, links, datastacks };
+export { schemes, types, items, lists, links };
 //# sourceMappingURL=repositories.jsx.map

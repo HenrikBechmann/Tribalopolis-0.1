@@ -14,7 +14,8 @@ import QuadStatusBar from './quadspace/quadstatusbar.view'
 import Quadrants from './quadrants.controller'
 
 // TODO: temporary -- should come from application service
-import { schemes, types, items, lists, links, datastacks } from '../../data/repositories'
+import { schemes, types, items, lists, links } from '../../data/repositories'
+import { datastacks } from '../../data/datastacks'
 
 class QuadspaceController extends React.Component<any,any> {
 
