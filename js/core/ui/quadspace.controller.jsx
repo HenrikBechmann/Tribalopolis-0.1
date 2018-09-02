@@ -99,7 +99,7 @@ class QuadspaceController extends React.Component {
                 }, 600);
             });
         };
-        // TODO: the following 3 data functions should be in the application service
+        // TODO: the following 5 data functions should be in the application service
         this.getItem = (dataref) => {
             return items[dataref.uid];
         };

@@ -49,35 +49,35 @@ class DataBox extends React.Component<any,any> {
     listcomponent
 
     componentDidMount() {
-        let { collapseBoxProxyForTarget } = this.props
-        // console.log('collapsing from componentdidMOUNT',collapseBoxProxyForTarget)
+        let { collapseTargetData } = this.props
+        // console.log('collapsing from componentdidMOUNT',collapseTargetData)
         // console.log('box componentdidMOUNT', this.state)
-        if (!collapseBoxProxyForTarget) return
-        // console.log('didMOUNT collapseBoxProxyForTarget',collapseBoxProxyForTarget)
-        this.collapseBoxProxyForTarget = collapseBoxProxyForTarget
+        if (!collapseTargetData) return
+        // console.log('didMOUNT collapseTargetData',collapseTargetData)
+        this.collapseTargetData = collapseTargetData
 
         setTimeout(()=>{
-            this.doHighlights(collapseBoxProxyForTarget)
+            this.doHighlights(collapseTargetData)
             setTimeout(()=>{
-                this.collapseBoxProxyForTarget = null
+                this.collapseTargetData = null
             },2000)
         })
     }
 
-    collapseBoxProxyForTarget
+    collapseTargetData
 
     componentDidUpdate() {
-        let { collapseBoxProxyForTarget } = this.props
+        let { collapseTargetData } = this.props
         // console.log('box componentdidUPDATE', this.state)
-        if (!collapseBoxProxyForTarget) return
-        // console.log('didupdate collapseBoxProxyForTarget',collapseBoxProxyForTarget)
-        if (this.collapseBoxProxyForTarget) return // avoid infinite recursion, triggered by list highlight
+        if (!collapseTargetData) return
+        // console.log('didupdate collapseTargetData',collapseTargetData)
+        if (this.collapseTargetData) return // avoid infinite recursion, triggered by list highlight
 
-        this.collapseBoxProxyForTarget = collapseBoxProxyForTarget
+        this.collapseTargetData = collapseTargetData
         setTimeout(()=>{
-            this.doHighlights(collapseBoxProxyForTarget)
+            this.doHighlights(collapseTargetData)
             setTimeout(()=>{
-                this.collapseBoxProxyForTarget = null
+                this.collapseTargetData = null
             },2000)
         })
     }
@@ -91,16 +91,16 @@ class DataBox extends React.Component<any,any> {
         }
     }
 
-    doHighlights = (collapseBoxProxyForTarget) => {
+    doHighlights = (collapseTargetData) => {
 
         this.props.highlightBox(this.boxframe)
 
-        if (collapseBoxProxyForTarget.action == 'expand' || 
-            collapseBoxProxyForTarget.action == 'splay') {
+        if (collapseTargetData.action == 'expand' || 
+            collapseTargetData.action == 'splay') {
 
             let dataref = 
-                collapseBoxProxyForTarget.liststack[
-                    collapseBoxProxyForTarget.liststack.length -1]
+                collapseTargetData.liststack[
+                    collapseTargetData.liststack.length -1]
 
             if (dataref) {
 
@@ -188,7 +188,7 @@ class DataBox extends React.Component<any,any> {
         let frameStyle:React.CSSProperties = {
             width:'300px',
             backgroundColor:'white',
-            border:this.collapseBoxProxyForTarget?'1px solid blue':'1px solid silver',
+            border:this.collapseTargetData?'1px solid blue':'1px solid silver',
             maxHeight:'96%',
             minHeight:'60%',
             boxSizing:'border-box',

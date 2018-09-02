@@ -29,11 +29,11 @@ class DataBox extends React.Component {
             boxProxy: this.props.boxProxy,
             highlightrefuid: this.props.highlightrefuid
         };
-        this.doHighlights = (collapseBoxProxyForTarget) => {
+        this.doHighlights = (collapseTargetData) => {
             this.props.highlightBox(this.boxframe);
-            if (collapseBoxProxyForTarget.action == 'expand' ||
-                collapseBoxProxyForTarget.action == 'splay') {
-                let dataref = collapseBoxProxyForTarget.liststack[collapseBoxProxyForTarget.liststack.length - 1];
+            if (collapseTargetData.action == 'expand' ||
+                collapseTargetData.action == 'splay') {
+                let dataref = collapseTargetData.liststack[collapseTargetData.liststack.length - 1];
                 if (dataref) {
                     setTimeout(() => {
                         this.setState({
@@ -85,33 +85,33 @@ class DataBox extends React.Component {
         this.listcomponent = React.createRef();
     }
     componentDidMount() {
-        let { collapseBoxProxyForTarget } = this.props;
-        // console.log('collapsing from componentdidMOUNT',collapseBoxProxyForTarget)
+        let { collapseTargetData } = this.props;
+        // console.log('collapsing from componentdidMOUNT',collapseTargetData)
         // console.log('box componentdidMOUNT', this.state)
-        if (!collapseBoxProxyForTarget)
+        if (!collapseTargetData)
             return;
-        // console.log('didMOUNT collapseBoxProxyForTarget',collapseBoxProxyForTarget)
-        this.collapseBoxProxyForTarget = collapseBoxProxyForTarget;
+        // console.log('didMOUNT collapseTargetData',collapseTargetData)
+        this.collapseTargetData = collapseTargetData;
         setTimeout(() => {
-            this.doHighlights(collapseBoxProxyForTarget);
+            this.doHighlights(collapseTargetData);
             setTimeout(() => {
-                this.collapseBoxProxyForTarget = null;
+                this.collapseTargetData = null;
             }, 2000);
         });
     }
     componentDidUpdate() {
-        let { collapseBoxProxyForTarget } = this.props;
+        let { collapseTargetData } = this.props;
         // console.log('box componentdidUPDATE', this.state)
-        if (!collapseBoxProxyForTarget)
+        if (!collapseTargetData)
             return;
-        // console.log('didupdate collapseBoxProxyForTarget',collapseBoxProxyForTarget)
-        if (this.collapseBoxProxyForTarget)
+        // console.log('didupdate collapseTargetData',collapseTargetData)
+        if (this.collapseTargetData)
             return; // avoid infinite recursion, triggered by list highlight
-        this.collapseBoxProxyForTarget = collapseBoxProxyForTarget;
+        this.collapseTargetData = collapseTargetData;
         setTimeout(() => {
-            this.doHighlights(collapseBoxProxyForTarget);
+            this.doHighlights(collapseTargetData);
             setTimeout(() => {
-                this.collapseBoxProxyForTarget = null;
+                this.collapseTargetData = null;
             }, 2000);
         });
     }
@@ -138,7 +138,7 @@ class DataBox extends React.Component {
         let frameStyle = {
             width: '300px',
             backgroundColor: 'white',
-            border: this.collapseBoxProxyForTarget ? '1px solid blue' : '1px solid silver',
+            border: this.collapseTargetData ? '1px solid blue' : '1px solid silver',
             maxHeight: '96%',
             minHeight: '60%',
             boxSizing: 'border-box',

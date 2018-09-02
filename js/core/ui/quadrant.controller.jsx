@@ -19,10 +19,10 @@ class Quadrant extends React.Component {
         this.state = {
             datastack: null,
             stackpointer: 0,
-            collapseBoxProxyForTarget: null
+            collapseTargetData: null
         };
         // trigger for animation and reset
-        this.collapseBoxProxyForTarget = null;
+        this.collapseTargetData = null;
         // for reset of containerHeight
         this.onResize = () => {
             this.forceUpdate();
@@ -150,7 +150,7 @@ class Quadrant extends React.Component {
         };
         //-------------------------------[ backward ]----------------------------
         this.collapseDirectoryItem = (boxProxy) => {
-            this.collapseBoxProxyForTarget = Object.assign({}, boxProxy);
+            this.collapseTargetData = Object.assign({}, boxProxy);
             this.decrementStackSelector();
         };
         this.decrementStackSelector = () => {
@@ -169,13 +169,13 @@ class Quadrant extends React.Component {
         };
         this._updateCollapseSettings = (stackpointer, datastack) => {
             let stacksource = null;
-            if (this.collapseBoxProxyForTarget) {
+            if (this.collapseTargetData) {
                 let sourcelayer = datastack[this.state.stackpointer];
                 if (sourcelayer) {
                     stacksource = sourcelayer.source;
                     if (stacksource) {
-                        this.collapseBoxProxyForTarget.action = stacksource.action;
-                        this.collapseBoxProxyForTarget.sourceinstanceid = stacksource.instanceid;
+                        this.collapseTargetData.action = stacksource.action;
+                        this.collapseTargetData.sourceinstanceid = stacksource.instanceid;
                     }
                 }
                 if (stackpointer > 0) {
@@ -192,7 +192,7 @@ class Quadrant extends React.Component {
         this._applySettings = (stackpointer, datastack) => {
             let stacklayer = datastack[stackpointer];
             let { items } = stacklayer;
-            if ((items.length > 1) && (!this.collapseBoxProxyForTarget)) {
+            if ((items.length > 1) && (!this.collapseTargetData)) {
                 if (stacklayer.settings.scrollOffset !== null) {
                     setTimeout(() => {
                         this.scrollboxelement.current.scrollLeft = stacklayer.settings.scrollOffset;
@@ -327,12 +327,12 @@ class Quadrant extends React.Component {
             let itemType = this.getType(item.type);
             let containerHeight = this.scrollboxelement.current.offsetHeight;
             let matchForTarget = false;
-            let { collapseBoxProxyForTarget } = this.state;
-            if (collapseBoxProxyForTarget) {
-                matchForTarget = (collapseBoxProxyForTarget.index == index);
+            let { collapseTargetData } = this.state;
+            if (collapseTargetData) {
+                matchForTarget = (collapseTargetData.index == index);
             }
-            // console.log('match',matchForTarget,collapseBoxProxyForTarget,index)
-            return (<DataBox key={boxProxy.instanceid} item={item} itemType={itemType} collapseBoxProxyForTarget={matchForTarget ? collapseBoxProxyForTarget : null} getList={this.getList} getType={this.getType} boxProxy={boxProxy} highlightBox={this.highlightBox} haspeers={haspeers} index={index} containerHeight={containerHeight} splayBox={(domSource, listcomponent) => {
+            // console.log('match',matchForTarget,collapseTargetData,index)
+            return (<DataBox key={boxProxy.instanceid} item={item} itemType={itemType} collapseTargetData={matchForTarget ? collapseTargetData : null} getList={this.getList} getType={this.getType} boxProxy={boxProxy} highlightBox={this.highlightBox} haspeers={haspeers} index={index} containerHeight={containerHeight} splayBox={(domSource, listcomponent) => {
                 this.splayBox(index, domSource, listcomponent);
             }} selectFromSplay={(domSource) => {
                 this.selectFromSplay(index, domSource);
@@ -370,26 +370,26 @@ class Quadrant extends React.Component {
         });
     }
     componentDidUpdate() {
-        if (!this.collapseBoxProxyForTarget)
+        if (!this.collapseTargetData)
             return;
         // keep; value will be purged
-        let collapseBoxProxyForTarget = this.collapseBoxProxyForTarget;
-        this.collapseBoxProxyForTarget = null;
+        let collapseTargetData = this.collapseTargetData;
+        this.collapseTargetData = null;
         // get index for Lister
-        let index = this.state.datastack[this.state.stackpointer].items.findIndex(this._findlinkIndex(collapseBoxProxyForTarget.sourceinstanceid));
+        let index = this.state.datastack[this.state.stackpointer].items.findIndex(this._findlinkIndex(collapseTargetData.sourceinstanceid));
         // update scroll display with selected highlight item
-        collapseBoxProxyForTarget.index = index;
+        collapseTargetData.index = index;
         setTimeout(() => {
             if (this.listcomponent && (this.state.datastack[this.state.stackpointer].items.length > 1)) {
                 this.listcomponent.current.scrollAround(index);
             }
             setTimeout(() => {
                 this.setState({
-                    collapseBoxProxyForTarget,
+                    collapseTargetData,
                 }, () => {
                     setTimeout(() => {
                         this.setState({
-                            collapseBoxProxyForTarget: null
+                            collapseTargetData: null
                         });
                     });
                 });

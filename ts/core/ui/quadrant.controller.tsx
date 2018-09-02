@@ -41,7 +41,7 @@ class Quadrant extends React.Component<any,any>  {
     state = {
         datastack:null,
         stackpointer:0,
-        collapseBoxProxyForTarget:null
+        collapseTargetData:null
     }
 
     // dom refs
@@ -59,7 +59,7 @@ class Quadrant extends React.Component<any,any>  {
     getType
 
     // trigger for animation and reset
-    collapseBoxProxyForTarget = null
+    collapseTargetData = null
 
 /********************************************************
 ------------------[ lifecycle methods ]------------------
@@ -97,16 +97,16 @@ class Quadrant extends React.Component<any,any>  {
 
     componentDidUpdate() {
 
-        if (!this.collapseBoxProxyForTarget) return
+        if (!this.collapseTargetData) return
 
         // keep; value will be purged
-        let collapseBoxProxyForTarget = this.collapseBoxProxyForTarget
-        this.collapseBoxProxyForTarget = null
+        let collapseTargetData = this.collapseTargetData
+        this.collapseTargetData = null
         // get index for Lister
-        let index = this.state.datastack[this.state.stackpointer].items.findIndex(this._findlinkIndex(collapseBoxProxyForTarget.sourceinstanceid))
+        let index = this.state.datastack[this.state.stackpointer].items.findIndex(this._findlinkIndex(collapseTargetData.sourceinstanceid))
 
         // update scroll display with selected highlight item
-        collapseBoxProxyForTarget.index = index
+        collapseTargetData.index = index
 
         setTimeout(()=>{
 
@@ -116,11 +116,11 @@ class Quadrant extends React.Component<any,any>  {
 
             setTimeout(()=>{
                 this.setState({
-                    collapseBoxProxyForTarget,
+                    collapseTargetData,
                 },()=> {
                     setTimeout(()=>{
                         this.setState({
-                            collapseBoxProxyForTarget:null
+                            collapseTargetData:null
                         })                        
                     })
                 })
@@ -299,7 +299,7 @@ class Quadrant extends React.Component<any,any>  {
 
     collapseDirectoryItem = (boxProxy) => {
 
-        this.collapseBoxProxyForTarget = Object.assign({},boxProxy)
+        this.collapseTargetData = Object.assign({},boxProxy)
 
         this.decrementStackSelector()
 
@@ -323,13 +323,13 @@ class Quadrant extends React.Component<any,any>  {
     _updateCollapseSettings = (stackpointer, datastack) => {
 
         let stacksource = null
-        if (this.collapseBoxProxyForTarget) {
+        if (this.collapseTargetData) {
             let sourcelayer = datastack[this.state.stackpointer]
             if (sourcelayer) {
                 stacksource = sourcelayer.source
                 if (stacksource) {
-                    this.collapseBoxProxyForTarget.action = stacksource.action
-                    this.collapseBoxProxyForTarget.sourceinstanceid = stacksource.instanceid
+                    this.collapseTargetData.action = stacksource.action
+                    this.collapseTargetData.sourceinstanceid = stacksource.instanceid
                 }
             }
             if (stackpointer > 0) {
@@ -350,7 +350,7 @@ class Quadrant extends React.Component<any,any>  {
         let stacklayer = datastack[stackpointer]
         let { items } = stacklayer
 
-        if ((items.length > 1) && (!this.collapseBoxProxyForTarget)) {
+        if ((items.length > 1) && (!this.collapseTargetData)) {
             if (stacklayer.settings.scrollOffset !== null) {
                 setTimeout(() => { // give deference to formation of scroll object
 
@@ -548,19 +548,19 @@ class Quadrant extends React.Component<any,any>  {
         let containerHeight = this.scrollboxelement.current.offsetHeight
 
         let matchForTarget = false
-        let { collapseBoxProxyForTarget } = this.state
-        if (collapseBoxProxyForTarget) {
-            matchForTarget = (collapseBoxProxyForTarget.index == index)
+        let { collapseTargetData } = this.state
+        if (collapseTargetData) {
+            matchForTarget = (collapseTargetData.index == index)
         }
 
-        // console.log('match',matchForTarget,collapseBoxProxyForTarget,index)
+        // console.log('match',matchForTarget,collapseTargetData,index)
 
         return (
             <DataBox 
                 key = { boxProxy.instanceid } 
                 item = { item } 
                 itemType = { itemType }
-                collapseBoxProxyForTarget = {matchForTarget?collapseBoxProxyForTarget:null}
+                collapseTargetData = {matchForTarget?collapseTargetData:null}
                 getList = { this.getList }
                 getType = { this.getType }
                 boxProxy = { boxProxy }
