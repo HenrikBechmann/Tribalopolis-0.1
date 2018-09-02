@@ -47,14 +47,15 @@ let lists = {
         },
         properties:{
             name:'Diaries',
-            aggregates:{
-                childcount:{
-                    amount:3,
+            numbers:{
+                list:{
+                    count:3,
                     timestamp:1
                 },
             },
         },
         list:[],
+        item:'henrik',
     },
     notes:
     {
@@ -67,14 +68,15 @@ let lists = {
        },
         properties:{
             name:'Notes',
-            aggregates:{
-                childcount:{
-                    amount:310,
+            numbers:{
+                list:{
+                    count:310,
                     timestamp:1
                 },
             },
         },
         list:[],
+        item:'henrik',
     },
     tribes:
     {
@@ -88,14 +90,15 @@ let lists = {
         properties:{
             name:'Tribes',
             sysnode:true,
-            aggregates:{
-                childcount:{
-                    amount:5,
+            numbers:{
+                list:{
+                    count:5,
                     timestamp:1
                 },
             },
         },
         list:[],
+        item:'henrik',
     },
     connections:
     {
@@ -108,14 +111,15 @@ let lists = {
         },
         properties:{
             name:'Contacts',
-            aggregates:{
-                childcount:{
-                    amount:23,
+            numbers:{
+                list:{
+                    count:23,
                     timestamp:1
                 },
             },
         },
         list:[],
+        item:'henrik',
     },
     requesting:
     {
@@ -128,14 +132,15 @@ let lists = {
         },
         properties:{
             name:'Outgoing action requests',
-            aggregates:{
-                childcount:{
-                    amount:12,
+            numbers:{
+                list:{
+                    count:12,
                     timestamp:1
                 },
             },
         },
         list:[],
+        item:'henrik',
     },
     pending:
     {
@@ -148,14 +153,15 @@ let lists = {
         },
         properties:{
             name:'Incoming action requests',
-            aggregates:{
-                childcount:{
-                    amount:23,
+            numbers:{
+                list:{
+                    count:23,
                     timestamp:1
                 },
             },
         },
         list:[],
+        item:'henrik',
     },
     roles:
     {
@@ -168,14 +174,15 @@ let lists = {
         },
         properties:{
             name:'Roles',
-            aggregates:{
-                childcount:{
-                    amount:4,
+            numbers:{
+                list:{
+                    count:4,
                     timestamp:1
                 },
             },
         },
         list:[],
+        item:'henrik',
     },
     programs:
     {
@@ -188,14 +195,15 @@ let lists = {
         },
         properties:{
             name:'Programs',
-            aggregates:{
-                childcount:{
-                    amount:5,
+            numbers:{
+                list:{
+                    count:5,
                     timestamp:1
                 },
             },
         },
         list:[],
+        item:'henrik',
     },
     projects:
     {
@@ -208,14 +216,15 @@ let lists = {
         },
         properties:{
             name:'Projects',
-            aggregates:{
-                childcount:{
-                    amount:3,
+            numbers:{
+                list:{
+                    count:3,
                     timestamp:1
                 },
             },
         },
         list:[],
+        item:'henrik',
     },
     tasks:
     {
@@ -228,14 +237,15 @@ let lists = {
         },
         properties:{
             name:'Tasks',
-            aggregates:{
-                childcount:{
-                    amount:20,
+            numbers:{
+                list:{
+                    count:20,
                     timestamp:1
                 },
             },
         },
         list:[],
+        item:'henrik',
     },
     messages:
     {
@@ -248,14 +258,15 @@ let lists = {
         },
         properties:{
             name:'Direct Messages ',
-            aggregates:{
-                childcount:{
-                    amount:3,
+            numbers:{
+                list:{
+                    count:3,
                     timestamp:1
                 },
             },
         },
         list:[],
+        item:'henrik',
     },
     streams:
     {
@@ -268,14 +279,15 @@ let lists = {
         },
         properties:{
             name:'Message Streams ',
-            aggregates:{
-                childcount:{
-                    amount:100,
+            numbers:{
+                list:{
+                    count:100,
                     timestamp:1
                 },
             },
         },
         list:[],
+        item:'henrik',
     },
     resources:
     {
@@ -288,14 +300,15 @@ let lists = {
         },
         properties:{
             name:'Resources',
-            aggregates:{
-                childcount:{
-                    amount:64,
+            numbers:{
+                list:{
+                    count:64,
                     timestamp:1
                 },
             },
         },
         list:[],
+        item:'henrik',
     },
     calendars:
     {
@@ -308,14 +321,15 @@ let lists = {
         },
         properties:{
             name:'Calendars',
-            aggregates:{
-                childcount:{
-                    amount:67,
+            numbers:{
+                list:{
+                    count:67,
                     timestamp:1
                 },
             },
         },
         list:[],
+        item:'henrik',
     },
     accounting:
     {
@@ -328,14 +342,15 @@ let lists = {
         },
         properties:{
             name:'Accounting',
-            aggregates:{
-                childcount:{
-                    amount:6000,
+            numbers:{
+                list:{
+                    count:6000,
                     timestamp:1
                 },
             },
         },
         list:[],
+        item:'henrik',
     },
     membership:
     {
@@ -349,14 +364,15 @@ let lists = {
         properties:{
             name:'Tribalopolis Membership',
             sysnode:true,
-            aggregates:{
-                childcount:{
-                    amount:2,
+            numbers:{
+                list:{
+                    count:2,
                     timestamp:1
                 },
             },
         },
         list:[],
+        item:'henrik',
 // account, website, home
     },
     other:
@@ -371,14 +387,15 @@ let lists = {
         properties:{
             name:'More...',
             sysnode:true,
-            aggregates:{
-                childcount:{
-                    amount:2,
+            numbers:{
+                list:{
+                    count:2,
                     timestamp:1
                 },
             },
         },
         list:[],
+        item:'henrik',
     },
     henrik:
     {
@@ -392,9 +409,9 @@ let lists = {
         properties:{
             name:'Links Directory',
             sysnode:true,
-            aggregates:{
-                childcount:{
-                    amount:6558,
+            numbers:{
+                list:{
+                    count:6558,
                     timestamp:1
                 },
             },
@@ -470,6 +487,7 @@ let lists = {
                 uid:'other',
             },
         ],
+        item:'henrik',
     },
 }
 

@@ -50,7 +50,7 @@ class DirectoryItem extends React.Component {
                         folder
                     </Icon> 
                     {this.props.data.properties.name}
-                    <QuantityBadge quantity={this.props.data.properties.aggregates.childcount.amount} style={{
+                    <QuantityBadge quantity={this.props.data.properties.numbers.list.count} style={{
             left: '-10px',
             top: '-5px',
         }}/>

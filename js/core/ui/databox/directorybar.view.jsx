@@ -57,7 +57,7 @@ class DirectoryBar extends React.Component {
         }
         let list = getList(listref);
         let name = list.properties.name;
-        let count = list.properties.aggregates.childcount.amount;
+        let count = list.properties.numbers.list.count;
         return <div>
             <div style={this.barstyle}>
                 <div style={this.tabwrapperstyle}>
