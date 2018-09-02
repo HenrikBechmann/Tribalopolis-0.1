@@ -9,9 +9,8 @@ import QuadViewport from './quadspace/quadviewport.view';
 import QuantityBadge from './common/quantitybadge.view';
 import QuadStatusBar from './quadspace/quadstatusbar.view';
 import Quadrants from './quadrants.controller';
-// TODO: temporary -- should come from application service
-import { schemes, types, items, lists, links } from '../../data/repositories';
 import { datastacks } from '../../data/datastacks';
+import application from '../services/application';
 class QuadspaceController extends React.Component {
     constructor() {
         super(...arguments);
@@ -102,20 +101,20 @@ class QuadspaceController extends React.Component {
         };
         // TODO: the following 5 data functions should be in the application service
         this.getItem = (dataref) => {
-            return items[dataref.uid];
+            return application.getItem(dataref);
         };
         this.getList = (dataref) => {
-            return lists[dataref.uid];
+            return application.getList(dataref);
         };
         // TODO: should always return an object
         this.getType = (dataref) => {
-            return types[dataref.uid];
+            return application.getType(dataref);
         };
         this.getLink = (dataref) => {
-            return links[dataref.uid];
+            return application.getLink(dataref);
         };
         this.getScheme = (dataref) => {
-            return schemes[dataref.uid];
+            return application.getScheme(dataref);
         };
         this.quadrantcallbacks = {
             handleSwap: this.handleSwap,
