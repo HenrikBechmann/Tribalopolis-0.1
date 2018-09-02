@@ -10,7 +10,7 @@ import QuantityBadge from './common/quantitybadge.view';
 import QuadStatusBar from './quadspace/quadstatusbar.view';
 import Quadrants from './quadrants.controller';
 // TODO: temporary -- should come from application service
-import { types, items, lists, datastacks } from '../../data/repositories';
+import { schemes, types, items, lists, links, datastacks } from '../../data/repositories';
 class QuadspaceController extends React.Component {
     constructor() {
         super(...arguments);
@@ -109,6 +109,12 @@ class QuadspaceController extends React.Component {
         // TODO: should always return an object
         this.getType = (dataref) => {
             return types[dataref.uid];
+        };
+        this.getLink = (dataref) => {
+            return links[dataref.uid];
+        };
+        this.getScheme = (dataref) => {
+            return schemes[dataref.uid];
         };
         this.quadrantcallbacks = {
             handleSwap: this.handleSwap,

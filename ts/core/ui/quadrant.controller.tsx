@@ -12,7 +12,6 @@ import QuadOrigin from './quadrant/quadorigin.view'
 import QuadTitleBar from './quadrant/quadtitlebar.view'
 
 import DataBox from './databox.controller'
-import { METATYPES } from '../constants'
 import {serializer} from '../../core/utilities/serializer'
 import Lister from 'react-list'
 

@@ -13,8 +13,6 @@ import QuantityBadge from './common/quantitybadge.view'
 import QuadStatusBar from './quadspace/quadstatusbar.view'
 import Quadrants from './quadrants.controller'
 
-import { METATYPES } from '../constants'
-
 // TODO: temporary -- should come from application service
 import { schemes, types, items, lists, links, datastacks } from '../../data/repositories'
 
@@ -129,7 +127,7 @@ class QuadspaceController extends React.Component<any,any> {
         })
     }
 
-    // TODO: the following 3 data functions should be in the application service
+    // TODO: the following 5 data functions should be in the application service
 
     getItem = (dataref) => {
         return items[dataref.uid]
@@ -142,6 +140,14 @@ class QuadspaceController extends React.Component<any,any> {
     // TODO: should always return an object
     getType = (dataref) => {
         return types[dataref.uid]
+    }
+
+    getLink = (dataref) => {
+        return links[dataref.uid]
+    }
+
+    getScheme = (dataref) => {
+        return schemes[dataref.uid]
     }
 
     quadrantcallbacks = {
