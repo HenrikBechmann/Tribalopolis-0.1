@@ -115,7 +115,6 @@ class Quadrant extends React.Component {
                     action: 'splay',
                     visiblerange,
                 } };
-            // console.log('new stack pointer',stackpointer)
             // replace forward stack items
             datastack.splice(stackpointer, datastack.length, newstacklayer);
             let template = JSON.stringify(boxProxy);
@@ -137,7 +136,6 @@ class Quadrant extends React.Component {
             }, 250);
         };
         this.selectFromSplay = (boxptr, domSource) => {
-            // console.log('selectFromSplay boxptr,domSource',boxptr,domSource)
             this.animateToOrigin();
             this.animateToDataBox(domSource);
             let { datastack, stackpointer } = this.state;
@@ -228,9 +226,6 @@ class Quadrant extends React.Component {
             }
         };
         /********************************************************
-        ----------------------[ animations ]---------------------
-        *********************************************************/
-        /********************************************************
         -------------------[ assembly support ]------------------
         *********************************************************/
         // Lister item renderer
@@ -246,7 +241,6 @@ class Quadrant extends React.Component {
             return this.getBoxComponent(boxProxy, index, haspeers, key);
         };
         this.getBoxComponent = (boxProxy, index, haspeers, key) => {
-            // console.log('getBoxComponent', boxProxy, index, haspeers, key)
             let item = this.getItem(boxProxy.dataref);
             let itemType = this.getType(item.type);
             let containerHeight = this.scrollboxelement.current.offsetHeight;
@@ -255,7 +249,6 @@ class Quadrant extends React.Component {
             if (collapseTargetData) {
                 matchForTarget = (collapseTargetData.index == index);
             }
-            // console.log('match',matchForTarget,collapseTargetData,index)
             return (<DataBox key={boxProxy.instanceid} item={item} itemType={itemType} collapseTargetData={matchForTarget ? collapseTargetData : null} getList={this.getList} getType={this.getType} boxProxy={boxProxy} highlightBox={animations.highlightBox} haspeers={haspeers} index={index} containerHeight={containerHeight} splayBox={(domSource, listcomponent) => {
                 this.splayBox(index, domSource, listcomponent);
             }} selectFromSplay={(domSource) => {

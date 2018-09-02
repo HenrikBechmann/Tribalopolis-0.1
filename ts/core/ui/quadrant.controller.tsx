@@ -250,8 +250,6 @@ class Quadrant extends React.Component<any,any>  {
             visiblerange,
         }}
 
-        // console.log('new stack pointer',stackpointer)
-
         // replace forward stack items
         datastack.splice(stackpointer,datastack.length,newstacklayer)
 
@@ -277,8 +275,6 @@ class Quadrant extends React.Component<any,any>  {
     }
 
     selectFromSplay = (boxptr:number,domSource) => {
-
-        // console.log('selectFromSplay boxptr,domSource',boxptr,domSource)
 
         this.animateToOrigin()
 
@@ -368,7 +364,6 @@ class Quadrant extends React.Component<any,any>  {
                 datastack[stackpointer - 1].settings.scrollOffset = null
             }
         }
-
     }
 
     _captureSettings = (stackpointer, datastack) => {
@@ -391,12 +386,7 @@ class Quadrant extends React.Component<any,any>  {
                 })
             }
         }
-
-        }
-
-/********************************************************
-----------------------[ animations ]---------------------
-*********************************************************/
+    }
 
 /********************************************************
 -------------------[ assembly support ]------------------
@@ -421,8 +411,6 @@ class Quadrant extends React.Component<any,any>  {
 
     getBoxComponent = (boxProxy, index, haspeers, key) => {
 
-        // console.log('getBoxComponent', boxProxy, index, haspeers, key)
-
         let item = this.getItem(boxProxy.dataref)
         let itemType = this.getType(item.type)
 
@@ -433,8 +421,6 @@ class Quadrant extends React.Component<any,any>  {
         if (collapseTargetData) {
             matchForTarget = (collapseTargetData.index == index)
         }
-
-        // console.log('match',matchForTarget,collapseTargetData,index)
 
         return (
             <DataBox 
@@ -470,7 +456,6 @@ class Quadrant extends React.Component<any,any>  {
                 }
             />
         )
-
     }
 
 /********************************************************
