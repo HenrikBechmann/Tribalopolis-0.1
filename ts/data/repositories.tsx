@@ -1,4 +1,27 @@
 // repositories.tsx
+let folders = {
+    henrikacf:{
+        access:{
+            attributes:{
+
+            },
+            permissions:{
+                owner:'henrikaccount',
+                acl:{}
+            },
+        },
+        type:{
+
+        },
+        identity:{
+
+        },
+        properties:{
+        },
+        list:{},
+    }
+}
+
 let schemes = {
 }
 
@@ -9,7 +32,9 @@ let types = {
 
             },
             permissions:{
-
+                owner:'henrikaccount',
+                acf:'henrikacf',
+                acl:{}
             },
         },
         type:{
@@ -682,4 +707,4 @@ let items = {
     },
 }
 
-export { schemes, types, items, lists, links }
+export { schemes, types, items, lists, links, folders }

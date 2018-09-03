@@ -4,7 +4,7 @@
     It's main responsibility is to co-ordinate the store and the domain
 */
 
-import { schemes, types, items, lists, links } from '../../data/repositories'
+import { schemes, types, items, lists, links, folders } from '../../data/repositories'
 
 const getItem = (dataref) => {
     return items[dataref.uid]
@@ -27,6 +27,9 @@ const getScheme = (dataref) => {
     return schemes[dataref.uid]
 }
 
+const getFolder = (dataref) => {
+    return folders[dataref.uid]
+}
 
 let application = {
     getItem,
@@ -34,6 +37,7 @@ let application = {
     getType,
     getLink,
     getScheme,
+    getFolder,
 }
 
 export default application
