@@ -2,10 +2,13 @@
 // copyright (c) 2018 Henrik Bechmann, Toronto, MIT Licence
 'use strict';
 import * as React from 'react';
-import BoxIdentifier from './databox/identitybar.view';
+import BoxIdentityBar from './databox/identitybar.view';
 import BoxTypebar from './databox/typebar.view';
+// import ProfileBar from './databox/profilebar.view'
+// import ProfileForm from './databox/profileform.view'
 import DirectoryBar from './databox/directorybar.view';
 import DirectoryList from './databox/directorylist.view';
+// import ScanBar from './databox/scanbar.view'
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
@@ -66,12 +69,11 @@ class DataBox extends React.Component {
                 <div style={{ position: 'absolute', bottom: '-8px', right: '0' }}>
                 <FloatingAddButton />
             </div>
-                :
-                    null;
+                : null;
             return retval;
         };
         this.indexmarker = () => {
-            return this.props.haspeers ?
+            return (this.props.haspeers ?
                 <div style={{
                     position: 'absolute',
                     bottom: '-16px',
@@ -79,7 +81,7 @@ class DataBox extends React.Component {
                     fontSize: 'smaller',
                     color: 'gray',
                 }}>{this.props.index + 1}</div>
-                : null;
+                : null);
         };
         this.boxframe = React.createRef();
         this.listcomponent = React.createRef();
@@ -163,7 +165,7 @@ class DataBox extends React.Component {
         }}>
             <div style={frameStyle} ref={this.boxframe}>
             <BoxTypebar item={item} listcount={listcount} splayBox={this.splayBox} haspeers={this.props.haspeers} selectFromSplay={this.props.selectFromSplay}/>
-            <BoxIdentifier item={item}/>
+            <BoxIdentityBar item={item}/>
             <div style={{
             height: 'calc(100% - 70px)',
             position: 'relative',

@@ -4,13 +4,13 @@
 
 import * as React from 'react'
 
-import BoxIdentifier from './databox/identitybar.view'
+import BoxIdentityBar from './databox/identitybar.view'
 import BoxTypebar from './databox/typebar.view'
-import ProfileBar from './databox/profilebar.view'
-import ProfileForm from './databox/profileform.view'
+// import ProfileBar from './databox/profilebar.view'
+// import ProfileForm from './databox/profileform.view'
 import DirectoryBar from './databox/directorybar.view'
 import DirectoryList from './databox/directorylist.view'
-import ScanBar from './databox/scanbar.view'
+// import ScanBar from './databox/scanbar.view'
 
 import { withStyles } from '@material-ui/core/styles'
 import Button from '@material-ui/core/Button'
@@ -48,6 +48,8 @@ class DataBox extends React.Component<any,any> {
     boxframe
     listcomponent
 
+    collapseTargetData
+
     componentDidMount() {
         let { collapseTargetData } = this.props
         // console.log('collapsing from componentdidMOUNT',collapseTargetData)
@@ -63,8 +65,6 @@ class DataBox extends React.Component<any,any> {
             },2000)
         })
     }
-
-    collapseTargetData
 
     componentDidUpdate() {
         let { collapseTargetData } = this.props
@@ -132,6 +132,7 @@ class DataBox extends React.Component<any,any> {
         let itemelement:HTMLElement = itemref.current
 
         itemelement.classList.add('highlight')
+
         setTimeout(() => {
             itemelement.classList.remove('highlight')
         },2000)
@@ -146,13 +147,14 @@ class DataBox extends React.Component<any,any> {
             <div style = {{position:'absolute',bottom:'-8px',right:'0'}}>
                 <FloatingAddButton />
             </div>
-            :
-            null
+            : null
+
         return retval
     }
 
     indexmarker = () => {
-        return this.props.haspeers?
+        return (
+            this.props.haspeers?
             <div
                 style = {
                     {
@@ -164,7 +166,8 @@ class DataBox extends React.Component<any,any> {
                     }
                 }
             >{this.props.index + 1}</div>
-            :null
+            : null
+        )
     }
 
     render() {
@@ -227,7 +230,7 @@ class DataBox extends React.Component<any,any> {
                 haspeers = {this.props.haspeers}
                 selectFromSplay = {this.props.selectFromSplay}
             />
-            <BoxIdentifier item = {item} />
+            <BoxIdentityBar item = {item} />
             <div style = {
                     {
                         height:'calc(100% - 70px)',
@@ -254,8 +257,8 @@ class DataBox extends React.Component<any,any> {
                         highlightItem = {this.highlightItem}
                     />
                 </div>
-                {this.modifybuttons(listItemType)}
-                {this.indexmarker()}
+                { this.modifybuttons(listItemType) }
+                { this.indexmarker() }
             </div>
         </div>
         </div>
