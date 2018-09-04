@@ -34,6 +34,9 @@ const BoxHeader = props => {
         <ActionButton 
             icon = 'lock' 
         />
+        <ActionButton 
+            img = '/public/icons/org_chart.svg'
+        />
     </div>
 }
 

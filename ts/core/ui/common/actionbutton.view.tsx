@@ -32,6 +32,7 @@ const ActionButton = (props:propsInterface) => {
     }
 
     let defaultIconStyle:React.CSSProperties = {
+        width:'1em'
     }
 
     if (!icon) { // it's an image, manual opacity required

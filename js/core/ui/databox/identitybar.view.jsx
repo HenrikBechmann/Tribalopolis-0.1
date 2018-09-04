@@ -23,6 +23,7 @@ const BoxHeader = props => {
         <img style={{ verticalAlign: 'middle', width: '32px', margin: '-3px 0 -3px -3px' }} src={avatar}/> {item.properties.name}
         <ActionButton icon='info'/>
         <ActionButton icon='lock'/>
+        <ActionButton img='/public/icons/org_chart.svg'/>
     </div>;
 };
 export default BoxHeader;

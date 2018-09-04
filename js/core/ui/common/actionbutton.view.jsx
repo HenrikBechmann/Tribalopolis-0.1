@@ -14,7 +14,9 @@ const ActionButton = (props) => {
         verticalAlign: 'bottom',
         marginRight: '3px'
     };
-    let defaultIconStyle = {};
+    let defaultIconStyle = {
+        width: '1em'
+    };
     if (!icon) { // it's an image, manual opacity required
         defaultIconStyle = Object.assign({}, defaultIconStyle, {
             verticalAlign: 'middle',
