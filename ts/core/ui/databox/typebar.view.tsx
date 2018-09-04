@@ -57,12 +57,26 @@ class BoxToolbar extends React.Component<any,any> {
                     width:'32px',
                     height:'32px',
                     display:'inline-block',
-                    float:'left',
                     borderRadius:'50%',
                     border:'1px solid transparent',
                 }
             } >
                 <img style = {{verticalAlign:'bottom'}} src = {boxicon} />
+            </div>
+            <div style = {
+                {
+                    display:'inline-block',
+                    verticalAlign:'top',
+                    height:'32px',
+                    boxSizing:'border-box',
+                    border:'1px solid transparent',
+                    borderRadius:'8px',
+                    padding:'5px 3px 3px',
+                    fontStyle:'italic',
+                    position:'relative',
+                }
+            }>
+                {props.item.type.name}
             </div>
             <div style = {{float:'right'}}
                 ref = {this.splaydomsource}
@@ -84,27 +98,13 @@ class BoxToolbar extends React.Component<any,any> {
                     action = {this.selectFromSplay()}
                 />
             </div>
-
+                <ActionButton 
+                    icon = 'zoom_out_map' 
+                />
                 <ActionButton 
                     icon = 'arrow_drop_down'
                 />
 
-            <div style = {
-                {
-                    margin:'0 auto 0 auto',
-                    height:'32px',
-                    boxSizing:'border-box',
-                    border:'1px solid transparent',
-                    borderRadius:'8px',
-                    padding:'5px 3px 3px',
-                    width:'60%',
-                    textAlign:'center',
-                    fontStyle:'italic',
-                    position:'relative',
-                }
-            }>
-                {props.item.type.name}
-            </div>
         </div>
     }
 }

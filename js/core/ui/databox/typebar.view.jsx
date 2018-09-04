@@ -41,11 +41,23 @@ class BoxToolbar extends React.Component {
             width: '32px',
             height: '32px',
             display: 'inline-block',
-            float: 'left',
             borderRadius: '50%',
             border: '1px solid transparent',
         }}>
                 <img style={{ verticalAlign: 'bottom' }} src={boxicon}/>
+            </div>
+            <div style={{
+            display: 'inline-block',
+            verticalAlign: 'top',
+            height: '32px',
+            boxSizing: 'border-box',
+            border: '1px solid transparent',
+            borderRadius: '8px',
+            padding: '5px 3px 3px',
+            fontStyle: 'italic',
+            position: 'relative',
+        }}>
+                {props.item.type.name}
             </div>
             <div style={{ float: 'right' }} ref={this.splaydomsource}>
                 <ActionButton img='/public/icons/ic_splay_24px.svg' disabled={!props.listcount} action={this.splayBox()}/>
@@ -54,23 +66,9 @@ class BoxToolbar extends React.Component {
             <div style={{ float: 'right' }} ref={this.selectdomsource}>
                 <ActionButton iconStyle={{ transform: 'rotate(90deg)' }} disabled={!haspeers} img='/public/icons/ic_splay_24px.svg' action={this.selectFromSplay()}/>
             </div>
-
+                <ActionButton icon='zoom_out_map'/>
                 <ActionButton icon='arrow_drop_down'/>
 
-            <div style={{
-            margin: '0 auto 0 auto',
-            height: '32px',
-            boxSizing: 'border-box',
-            border: '1px solid transparent',
-            borderRadius: '8px',
-            padding: '5px 3px 3px',
-            width: '60%',
-            textAlign: 'center',
-            fontStyle: 'italic',
-            position: 'relative',
-        }}>
-                {props.item.type.name}
-            </div>
         </div>;
     }
 }

@@ -27,16 +27,13 @@ const BoxHeader = props => {
     }
 
     return <div style = {styles}>
-        <ActionButton 
-            icon = 'zoom_out_map' 
-        />
+        <img style = {{verticalAlign:'middle',width:'32px', margin:'-3px 0 -3px -3px'}} src = {avatar} /> {item.properties.name}
         <ActionButton 
             icon = 'info' 
         />
         <ActionButton 
             icon = 'lock' 
         />
-        <img style = {{verticalAlign:'middle',width:'32px', margin:'-3px 0 -3px -3px'}} src = {avatar} /> {item.properties.name}
     </div>
 }
 
