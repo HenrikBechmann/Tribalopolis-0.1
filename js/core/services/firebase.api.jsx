@@ -1,6 +1,8 @@
 // firebase.api.tsx
-import * as firebase from 'firebase';
+import firebase from 'firebase/app';
+// import 'firebase/app'
 import 'firebase/firestore';
+import 'firebase/auth';
 // Initialize Firebase
 let config = {
     apiKey: "AIzaSyAac-N-SN0l2wGc4Peys_jB2qgzoQfQSqw",

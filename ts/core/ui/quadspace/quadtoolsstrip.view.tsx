@@ -22,6 +22,8 @@ import Drawer from '@material-ui/core/Drawer'
 import ScrollControlsView from '../common/scrollcontrols.view'
 import VerticalDivider from '../common/verticaldivider.view'
 
+import authapi from '../../services/firebaseui.api'
+
 class QuadToolsStrip extends React.Component<any,any> {
 
     state = {
@@ -213,6 +215,16 @@ class QuadToolsStrip extends React.Component<any,any> {
         this.setState({ accountAnchorElement: null });
     }
 
+    handleLogin = () => {
+        this.handleAccountClose()
+        authapi.googlesignin()
+    }
+
+    handleLogout = () => {
+        this.handleAccountClose()
+        authapi.googlesignout()
+    }
+
     accountmenu = () => {
         const { accountAnchorElement } = this.state
         return [
@@ -231,15 +243,15 @@ class QuadToolsStrip extends React.Component<any,any> {
             onClose={this.handleAccountClose}        
         >
             <MenuItem
-                onClick={this.handleAccountClose}
+                onClick={this.handleLogin}
             >
-                Login (existing user)
+                Login
             </MenuItem>
             <Divider />
             <MenuItem
-                onClick={this.handleAccountClose}
+                onClick={this.handleLogout}
             >
-                Register (new user)
+                Logout
             </MenuItem>
         </Menu>
         ]
