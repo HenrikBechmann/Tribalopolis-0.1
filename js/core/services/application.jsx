@@ -3,8 +3,10 @@
     This is the high level application controller
     It's main responsibility is to co-ordinate the store and the domain
 */
+import Datamodel from './datamodel';
 import { schemes, types, items, lists, links, folders } from '../../data/repositories';
 const getItem = (dataref) => {
+    Datamodel.getStore();
     return items[dataref.uid];
 };
 const getList = (dataref) => {

@@ -10,6 +10,8 @@
         - trigger subscriptions to containerstore with changes
 */
 
+import domain from './domain'
+
 enum StoreEndpoints {
     data = "data",
     meta = "meta",
@@ -26,10 +28,6 @@ enum StoreEndpoints {
 
 interface genericobject {
     [key:string]:any
-}
-
-let getstore = () => {
-    return datamodel.store
 }
 
 // TODO: for undo/redo add 'past, present, future' properties to undoable sections 
@@ -146,7 +144,7 @@ let readproperty = (containerpath:string|string[], propertyindex:string) => {
 
 }
 
-let findtargetstore = (containerpath:string|string[], themodel = datamodel) => {
+let findtargetstore = (containerpath:string|string[], themodel:any = Datamodel) => {
 
     if (!containerpath) {
         throw('store operation requires containerpath values')
@@ -174,15 +172,18 @@ let findtargetstore = (containerpath:string|string[], themodel = datamodel) => {
 
 }
 
-let datamodel = {
-    endpoints:StoreEndpoints,
-    subscribe,
-    getstore,
-    updateproperty,
-    createproperty,
-    deleteproperty,
-    readproperty,
-    store: {
+class Datamodel {
+    endpoints
+    subscribe
+    getStore = () => {
+        return this.store
+    }
+
+    updateproperty
+    createproperty
+    deleteproperty
+    readproperty
+    store = {
         data: {
             items:{},
             lists:{},
@@ -202,4 +203,4 @@ let datamodel = {
     }
 }
 
-export default datamodel
+export default new Datamodel()

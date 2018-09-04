@@ -23,9 +23,6 @@ var StoreEndpoints;
     StoreEndpoints["user"] = "user";
     StoreEndpoints["context"] = "context";
 })(StoreEndpoints || (StoreEndpoints = {}));
-let getstore = () => {
-    return datamodel.store;
-};
 // TODO: for undo/redo add 'past, present, future' properties to undoable sections 
 // of the store.
 let assertArray = (data) => {
@@ -103,7 +100,7 @@ let readproperty = (containerpath, propertyindex) => {
     let { targetstore } = result;
     return targetstore[propertyindex];
 };
-let findtargetstore = (containerpath, themodel = datamodel) => {
+let findtargetstore = (containerpath, themodel = Datamodel) => {
     if (!containerpath) {
         throw ('store operation requires containerpath values');
     }
@@ -122,32 +119,30 @@ let findtargetstore = (containerpath, themodel = datamodel) => {
     }
     return { containerstore: container, targetstore: target, targetstoreindex: index };
 };
-let datamodel = {
-    endpoints: StoreEndpoints,
-    subscribe,
-    getstore,
-    updateproperty,
-    createproperty,
-    deleteproperty,
-    readproperty,
-    store: {
-        data: {
-            items: {},
-            lists: {},
-            links: {},
-            schemes: {},
-        },
-        meta: {
-            items: {},
-            lists: {},
-            links: {},
-            schemes: {},
-        },
-        controls: {
-            user: {},
-            context: {},
-        },
+class Datamodel {
+    constructor() {
+        this.getStore = () => {
+            return this.store;
+        };
+        this.store = {
+            data: {
+                items: {},
+                lists: {},
+                links: {},
+                schemes: {},
+            },
+            meta: {
+                items: {},
+                lists: {},
+                links: {},
+                schemes: {},
+            },
+            controls: {
+                user: {},
+                context: {},
+            },
+        };
     }
-};
-export default datamodel;
+}
+export default new Datamodel();
 //# sourceMappingURL=datamodel.jsx.map
