@@ -22,7 +22,7 @@ import Drawer from '@material-ui/core/Drawer'
 import ScrollControlsView from '../common/scrollcontrols.view'
 import VerticalDivider from '../common/verticaldivider.view'
 
-import authapi from '../../services/firebaseui.api'
+import authapi from '../../services/auth.api'
 
 class QuadToolsStrip extends React.Component<any,any> {
 
@@ -40,14 +40,8 @@ class QuadToolsStrip extends React.Component<any,any> {
 
     scroller = null
 
-    changeSplitFrom = (toggleIndex) => {
-        let newIndex = null
-        if (toggleIndex == this.state.split) {
-            newIndex = 'none'
-        } else {
-            newIndex = toggleIndex
-        }
-        this.changeSplit(newIndex)
+    componentWillMount() {
+        console.log('mounting quad tools strip')
     }
 
     componentDidMount() {
@@ -66,6 +60,16 @@ class QuadToolsStrip extends React.Component<any,any> {
                 split:nextProps.split,
             })
         }
+    }
+
+    changeSplitFrom = (toggleIndex) => {
+        let newIndex = null
+        if (toggleIndex == this.state.split) {
+            newIndex = 'none'
+        } else {
+            newIndex = toggleIndex
+        }
+        this.changeSplit(newIndex)
     }
 
     menulist = <List>
@@ -245,7 +249,7 @@ class QuadToolsStrip extends React.Component<any,any> {
             <MenuItem
                 onClick={this.handleLogin}
             >
-                Login
+                Login using Google
             </MenuItem>
             <Divider />
             <MenuItem

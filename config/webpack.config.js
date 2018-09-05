@@ -8,6 +8,7 @@ module.exports = {
   devtool: 'eval',
   // This will be our app's entry point (webpack will look for it in the 'src' directory due to the modulesDirectory setting below). Feel free to change as desired.
   entry: [
+    '@babel/polyfill',
     'index.tsx'
   ],
   // Output the bundled JS to dist/app.js

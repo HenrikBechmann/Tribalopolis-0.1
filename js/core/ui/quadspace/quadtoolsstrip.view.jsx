@@ -16,7 +16,7 @@ import Divider from '@material-ui/core/Divider';
 import Drawer from '@material-ui/core/Drawer';
 import ScrollControlsView from '../common/scrollcontrols.view';
 import VerticalDivider from '../common/verticaldivider.view';
-import authapi from '../../services/firebaseui.api';
+import authapi from '../../services/auth.api';
 class QuadToolsStrip extends React.Component {
     constructor() {
         super(...arguments);
@@ -160,7 +160,7 @@ class QuadToolsStrip extends React.Component {
         </IconButton>,
                 <Menu key='menu' id="simple-menu" anchorEl={accountAnchorElement} open={Boolean(accountAnchorElement)} onClose={this.handleAccountClose}>
             <MenuItem onClick={this.handleLogin}>
-                Login
+                Login using Google
             </MenuItem>
             <Divider />
             <MenuItem onClick={this.handleLogout}>
@@ -247,6 +247,9 @@ class QuadToolsStrip extends React.Component {
             </IconButton>
         </div>;
         };
+    }
+    componentWillMount() {
+        console.log('mounting quad tools strip');
     }
     componentDidMount() {
         setTimeout(() => {
