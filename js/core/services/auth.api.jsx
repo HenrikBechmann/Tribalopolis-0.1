@@ -1,25 +1,23 @@
 // firebaseui.api.tsx
 import firebase from './firebase.api';
 let provider = new firebase.auth.GoogleAuthProvider();
-// if (firebase.auth().currentUser) {
-//     firebase.auth().signOut().then((result) => {
-//       console.log('triggering signup')
-//       googlesignin()
-//     }).catch(error => {
-//       console.log('error auto logging out')
-//     })   
-// } else {
-//   console.log('triggering getRedirectResult')
-//   getRedirectResult()
-// }
+function getToken() {
+    let idtoken = firebase.auth().currentUser.getIdToken();
+    return idtoken;
+}
+console.log('current user', firebase.auth().currentUser);
 firebase.auth().onAuthStateChanged((user) => {
     if (user) {
         console.log('onAuthStateChanged', user);
-        getRedirectResult();
-        // if (!tokenval) {
-        //   googlesignout()
-        //   googlesignin()
-        // }
+        if (firebase.auth().currentUser) {
+            getToken().then(idtoken => {
+                console.log('idtoken result', idtoken);
+                let credential = firebase.auth.GoogleAuthProvider.credential(idtoken);
+                console.log('credential', credential);
+            }).catch(error => {
+                console.log('getToken error', error);
+            });
+        }
     }
     else {
         console.log('onAuthStateChanged blank user', user);

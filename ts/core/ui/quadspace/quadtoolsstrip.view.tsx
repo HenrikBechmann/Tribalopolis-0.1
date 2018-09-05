@@ -249,13 +249,13 @@ class QuadToolsStrip extends React.Component<any,any> {
             <MenuItem
                 onClick={this.handleLogin}
             >
-                Login using Google
+                Sign in using Google
             </MenuItem>
             <Divider />
             <MenuItem
                 onClick={this.handleLogout}
             >
-                Logout
+                Sign out
             </MenuItem>
         </Menu>
         ]

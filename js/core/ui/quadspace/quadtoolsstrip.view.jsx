@@ -160,11 +160,11 @@ class QuadToolsStrip extends React.Component {
         </IconButton>,
                 <Menu key='menu' id="simple-menu" anchorEl={accountAnchorElement} open={Boolean(accountAnchorElement)} onClose={this.handleAccountClose}>
             <MenuItem onClick={this.handleLogin}>
-                Login using Google
+                Sign in using Google
             </MenuItem>
             <Divider />
             <MenuItem onClick={this.handleLogout}>
-                Logout
+                Sign out
             </MenuItem>
         </Menu>
             ];
