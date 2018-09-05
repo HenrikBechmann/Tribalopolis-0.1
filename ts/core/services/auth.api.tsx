@@ -9,53 +9,54 @@ function getToken() {
   return idtoken
 }
 
-console.log('current user',firebase.auth().currentUser)
+let stateresolved = false
 
-firebase.auth().onAuthStateChanged((user) => {
-  if (user) {
-    console.log('onAuthStateChanged',user)
-    if (firebase.auth().currentUser) {
-        getToken().then(idtoken => {
-          console.log('idtoken result',idtoken)
-          let credential = firebase.auth.GoogleAuthProvider.credential(idtoken)
-          console.log('credential',credential)
-        }).catch(error => {
-          console.log('getToken error',error)
-        })
-    }
+firebase.auth().onAuthStateChanged((newuser) => {
+  stateresolved = true
+  let currentUser = firebase.auth().currentUser
+  if (newuser) {
+    // console.log('onAuthStateChanged signed in',newuser)
+    user = newuser.providerData[0] // google provider
+    currentUser.getIdToken().then(token =>{
+      idToken = token
+      // console.log('idtoken set',token)
+    })
+    getRedirectResult()
   } else {
-    console.log('onAuthStateChanged blank user', user)
+    // console.log('onAuthStateChanged signed out', newuser)
+  }
+  if (updateCallback) {
+      updateCallback(newuser)
   }
 })
 
 const googlesignin = () => {
-  console.log('signing in')
+    // console.log('signing in')
     firebase.auth().signInWithRedirect(provider)
 }
 
 const googlesignout = () => {
     if (!firebase.auth().currentUser) return
-    firebase.auth().signOut().then(() => {
-     console.log('signed out')
-   }).catch((error) => {
-     console.log('error signing out',error)
-   })
+    firebase.auth().signOut()
 }
 
-let tokenval
-let userval
+let accessToken = null
+let idToken = null
+let user = null
 
 function getRedirectResult() {
     firebase.auth().getRedirectResult().then(function(result:any) {
       if (result.credential) {
         // This gives you a Google Access Token. You can use it to access the Google API.
-        tokenval = result.credential.accessToken;
+        let newaccesstoken = result.credential.accessToken;
+        if (newaccesstoken) {
+            accessToken = newaccesstoken
+        }
         // ...
       }
+      let redirectuser = result.user
       // The signed-in user info.
-      userval = result.user
-      // return {token,user}
-      console.log('getRedirectResult', userval, tokenval)
+      // console.log('getRedirectResult', redirectuser, accessToken)
     }).catch(function(error) {
       // Handle Errors here.
       var errorCode = error.code;
@@ -64,19 +65,36 @@ function getRedirectResult() {
       var email = error.email;
       // The firebase.auth.AuthCredential type that was used.
       var credential = error.credential;
-      console.log('error of getRedirect',error)
-      // return {error:{
-      //     errorCode,
-      //     errorMessage,
-      //     email,
-      //     credential,
-      // }}
+      console.log('error of getRedirect',{errorCode,errorMessage,email,credential,error})
     });
+}
+
+const getUser = (callback:Function) => {
+    let intervalId = setInterval(()=>{
+        if (stateresolved) {
+            clearInterval(intervalId)
+            setTimeout(()=>{ // clear code queue
+                callback(user)
+            })
+        }
+    },30)
+}
+const getIdToken = () => idToken
+const getAccessToken = () => accessToken
+
+let updateCallback = null
+
+const setUpdateCallback = callback => {
+    updateCallback = callback
 }
 
 let authapi = {
     googlesignin,
     googlesignout,
+    getUser,
+    getIdToken,
+    getAccessToken,
+    setUpdateCallback,
 }
 
 export default authapi

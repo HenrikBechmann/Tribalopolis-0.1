@@ -31,7 +31,8 @@ class QuadToolsStrip extends React.Component<any,any> {
         scroller:null,
         currentQuadPosition:this.props.currentQuadPosition,
         split:this.props.split,
-        accountAnchorElement:null
+        accountAnchorElement:null,
+        user:null,
     }
 
     changeSplit = this.props.callbacks.changeSplit
@@ -41,7 +42,7 @@ class QuadToolsStrip extends React.Component<any,any> {
     scroller = null
 
     componentWillMount() {
-        console.log('mounting quad tools strip')
+        authapi.setUpdateCallback(this.getUserCallback)
     }
 
     componentDidMount() {
@@ -70,6 +71,12 @@ class QuadToolsStrip extends React.Component<any,any> {
             newIndex = toggleIndex
         }
         this.changeSplit(newIndex)
+    }
+
+    getUserCallback = (user) => {
+        this.setState({
+            user,
+        })
     }
 
     menulist = <List>
@@ -231,34 +238,40 @@ class QuadToolsStrip extends React.Component<any,any> {
 
     accountmenu = () => {
         const { accountAnchorElement } = this.state
-        return [
-        <IconButton key = 'button'
-            aria-owns={accountAnchorElement ? 'simple-menu' : null}
-            aria-haspopup="true"
-            onClick={this.handleAccountClick}
-          >
-            <Icon>account_box</Icon>
-        </IconButton>,
-        <Menu
-            key = 'menu'
-            id="simple-menu"
-            anchorEl={accountAnchorElement}
-            open={Boolean(accountAnchorElement)}
-            onClose={this.handleAccountClose}        
-        >
-            <MenuItem
-                onClick={this.handleLogin}
+        return <div style = {{display:'inline-block',verticalAlign:'middle',position:'relative'}}>
+            <IconButton 
+                aria-owns={accountAnchorElement ? 'simple-menu' : null}
+                aria-haspopup="true"
+                onClick={this.handleAccountClick}
+              >
+                <Icon style = {{color:!this.state.user?'rgb(0,0,0,0.54)':'cadetblue'}}>account_box</Icon>
+            </IconButton>
+            <div style = {
+                {
+                    display:'inline',
+                    fontSize:'smaller',
+                    color:'cadetblue',
+                }}>
+                {this.state.user?this.state.user.displayName:'not signed in'}
+            </div>
+            <Menu
+                id="simple-menu"
+                anchorEl={accountAnchorElement}
+                open={Boolean(accountAnchorElement)}
+                onClose={this.handleAccountClose}        
             >
-                Sign in using Google
-            </MenuItem>
-            <Divider />
-            <MenuItem
-                onClick={this.handleLogout}
-            >
-                Sign out
-            </MenuItem>
-        </Menu>
-        ]
+                {!this.state.user?<MenuItem
+                    onClick={this.handleLogin}
+                >
+                    Sign in using Google
+                </MenuItem>:null}
+                {this.state.user?<MenuItem
+                    onClick={this.handleLogout}
+                >
+                    Sign out
+                </MenuItem>:null}
+            </Menu>
+        </div>
     }
 
     quadnavigationmenu = () => {
