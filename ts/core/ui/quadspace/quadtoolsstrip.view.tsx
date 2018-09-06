@@ -23,7 +23,6 @@ import ScrollControlsView from '../common/scrollcontrols.view'
 import VerticalDivider from '../common/verticaldivider.view'
 
 import authapi from '../../services/auth.api'
-
 class QuadToolsStrip extends React.Component<any,any> {
 
     state = {
@@ -41,10 +40,6 @@ class QuadToolsStrip extends React.Component<any,any> {
 
     scroller = null
 
-    componentWillMount() {
-        authapi.setUpdateCallback(this.getUserCallback)
-    }
-
     componentDidMount() {
         setTimeout(()=>{
             this.setState({
@@ -53,12 +48,13 @@ class QuadToolsStrip extends React.Component<any,any> {
         },500) // substantial timeout required to give scroll client time to right-size
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.currentQuadPosition !== this.state.currentQuadPosition ||
-            nextProps.split != this.state.split) {
+    componentDidUpdate() {
+        if (this.props.currentQuadPosition !== this.state.currentQuadPosition ||
+            this.props.split != this.state.split || this.props.user != this.state.user) {
             this.setState({
-                currentQuadPosition:nextProps.currentQuadPosition,
-                split:nextProps.split,
+                currentQuadPosition:this.props.currentQuadPosition,
+                split:this.props.split,
+                user:this.props.user,
             })
         }
     }
@@ -71,12 +67,6 @@ class QuadToolsStrip extends React.Component<any,any> {
             newIndex = toggleIndex
         }
         this.changeSplit(newIndex)
-    }
-
-    getUserCallback = (user) => {
-        this.setState({
-            user,
-        })
     }
 
     menulist = <List>

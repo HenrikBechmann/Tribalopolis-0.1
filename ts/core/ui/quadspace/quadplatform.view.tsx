@@ -66,6 +66,7 @@ class QuadPlatform extends React.Component<any,any> {
         })
     }
 
+    // TODO: migrate code to componentDidUpdate
     componentWillReceiveProps(nextProps) {
 
         // should be either one or the other

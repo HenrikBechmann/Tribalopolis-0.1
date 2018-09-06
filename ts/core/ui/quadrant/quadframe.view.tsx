@@ -26,6 +26,7 @@ class QuadFrame extends React.Component<any,any>  {
         this.calculatePosition(this.state.quadrantPosition)
     }
 
+    // TODO: migrate code to componentDidUpdate
     componentWillReceiveProps(nextProps) {
         if (nextProps.quadrantPosition != this.state.quadrantPosition) {
 

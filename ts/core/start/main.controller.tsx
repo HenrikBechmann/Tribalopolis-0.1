@@ -28,19 +28,38 @@ let DnDBackend = DnDTouchBackend({ enableMouseEvents: true })
 
 import MainView from './main.view'
 
-class Main extends React.Component<any,any> { 
+import authapi from '../services/auth.api'
+import UserContext from '../services/user.context'
+
+class Main extends React.Component<any,any> {
+
+    state = {
+        user:null
+    }
 
     mainviewstyle:React.CSSProperties = {
         fontFamily,
+    }
+
+    componentWillMount() {
+        authapi.setUpdateCallback(this.getUserCallback)
+    }
+
+    getUserCallback = (user) => {
+        this.setState({
+            user,
+        })
     }
 
     render() {
         let { globalmessage, version } = this.props
 
         return (
-            <MainView globalmessage={globalmessage}
-                style = {this.mainviewstyle} 
-            />
+            <UserContext.Provider value = {this.state.user}>
+                <MainView globalmessage={globalmessage}
+                    style = {this.mainviewstyle} 
+                />
+            </UserContext.Provider>
         )
     }
 }

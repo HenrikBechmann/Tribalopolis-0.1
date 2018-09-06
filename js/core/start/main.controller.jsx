@@ -19,16 +19,31 @@ import { DragDropContext } from 'react-dnd';
 import DnDTouchBackend from 'react-dnd-touch-backend';
 let DnDBackend = DnDTouchBackend({ enableMouseEvents: true });
 import MainView from './main.view';
+import authapi from '../services/auth.api';
+import UserContext from '../services/user.context';
 class Main extends React.Component {
     constructor() {
         super(...arguments);
+        this.state = {
+            user: null
+        };
         this.mainviewstyle = {
             fontFamily,
         };
+        this.getUserCallback = (user) => {
+            this.setState({
+                user,
+            });
+        };
+    }
+    componentWillMount() {
+        authapi.setUpdateCallback(this.getUserCallback);
     }
     render() {
         let { globalmessage, version } = this.props;
-        return (<MainView globalmessage={globalmessage} style={this.mainviewstyle}/>);
+        return (<UserContext.Provider value={this.state.user}>
+                <MainView globalmessage={globalmessage} style={this.mainviewstyle}/>
+            </UserContext.Provider>);
     }
 }
 export default DragDropContext(DnDBackend)(Main);

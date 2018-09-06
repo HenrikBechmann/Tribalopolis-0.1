@@ -11,6 +11,7 @@ import QuadStatusBar from './quadspace/quadstatusbar.view';
 import Quadrants from './quadrants.controller';
 import { datastacks } from '../../data/datastacks';
 import application from '../services/application';
+import UserContext from '../services/user.context';
 class QuadspaceController extends React.Component {
     constructor() {
         super(...arguments);
@@ -136,7 +137,9 @@ class QuadspaceController extends React.Component {
     }
     render() {
         return (<QuadSpaceFrame>
-                <QuadToolsStrip currentQuadPosition={this.state.currentQuadPosition} callbacks={this.toolsstripcallbacks} split={this.state.split}/>
+                <UserContext.Consumer>
+                {user => <QuadToolsStrip currentQuadPosition={this.state.currentQuadPosition} callbacks={this.toolsstripcallbacks} split={this.state.split} user={user}/>}
+                </UserContext.Consumer>
                 <QuadBasket><QuantityBadge quantity={0} style={{ left: '-12px' }}/></QuadBasket>
                 <QuadViewport>
                     <Quadrants callbacks={this.quadrantcallbacks} quadrantIdentifiers={this.quadrantIdentifiers} split={this.state.split} datastacks={this.state.datastacks} currentQuadPosition={this.state.currentQuadPosition}/>

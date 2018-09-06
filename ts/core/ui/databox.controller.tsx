@@ -82,6 +82,7 @@ class DataBox extends React.Component<any,any> {
         })
     }
 
+    // TODO: migrate code to componentDidUpdate
     componentWillReceiveProps(newProps) {
         // console.log('old and new boxProxy',this.state.boxProxy,newProps.boxProxy)
         if (this.state.boxProxy !== newProps.boxProxy) {

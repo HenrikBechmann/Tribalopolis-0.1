@@ -41,11 +41,11 @@ class QuadToolsStrip extends React.Component {
             }
             this.changeSplit(newIndex);
         };
-        this.getUserCallback = (user) => {
-            this.setState({
-                user,
-            });
-        };
+        // getUserCallback = (user) => {
+        //     this.setState({
+        //         user,
+        //     })
+        // }
         this.menulist = <List>
         <ListItem button> 
             <ListItemIcon> 
@@ -260,9 +260,9 @@ class QuadToolsStrip extends React.Component {
         </div>;
         };
     }
-    componentWillMount() {
-        authapi.setUpdateCallback(this.getUserCallback);
-    }
+    // componentWillMount() {
+    //     authapi.setUpdateCallback(this.getUserCallback)
+    // }
     componentDidMount() {
         setTimeout(() => {
             this.setState({
@@ -270,12 +270,13 @@ class QuadToolsStrip extends React.Component {
             });
         }, 500); // substantial timeout required to give scroll client time to right-size
     }
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.currentQuadPosition !== this.state.currentQuadPosition ||
-            nextProps.split != this.state.split) {
+    componentDidUpdate() {
+        if (this.props.currentQuadPosition !== this.state.currentQuadPosition ||
+            this.props.split != this.state.split || this.props.user != this.state.user) {
             this.setState({
-                currentQuadPosition: nextProps.currentQuadPosition,
-                split: nextProps.split,
+                currentQuadPosition: this.props.currentQuadPosition,
+                split: this.props.split,
+                user: this.props.user,
             });
         }
     }

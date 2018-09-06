@@ -17,6 +17,7 @@ class ScrollControlsView extends React.Component<any,any> {
         offsetRight:null,
     }
 
+    // TODO: migrate code to componentDidUpdate
     componentWillReceiveProps(next) {
 
         // received on second render
