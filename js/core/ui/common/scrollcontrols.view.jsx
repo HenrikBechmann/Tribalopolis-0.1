@@ -31,6 +31,8 @@ class ScrollControlsView extends React.Component {
             this.onScroll();
         };
         this.onScroll = () => {
+            if (!this.scroller)
+                return;
             let { scroller, scrollerData } = this;
             let { scrollLeft } = scroller;
             scrollerData.offsetLeft = scrollLeft;
@@ -59,6 +61,8 @@ class ScrollControlsView extends React.Component {
             }
         };
         this.scrollToLeft = () => {
+            if (!this.scroller)
+                return;
             let original = this.scroller.scrollLeft;
             if (original == 0)
                 return;
@@ -66,6 +70,8 @@ class ScrollControlsView extends React.Component {
             this.smoothScroll(scrollleft);
         };
         this.scrollToRight = () => {
+            if (!this.scroller)
+                return;
             let original = this.scroller.scrollLeft;
             let clientWidth = this.scroller.clientWidth;
             let scrollWidth = this.scroller.scrollWidth;
@@ -76,6 +82,8 @@ class ScrollControlsView extends React.Component {
         };
         // TODO apply some kind of easing; simplify, use requestAnimationFrame
         this.smoothScroll = incomingtarget => {
+            if (!this.scroller)
+                return;
             let scroller = this.scroller;
             let original = scroller.scrollLeft;
             let target = incomingtarget;
@@ -138,8 +146,10 @@ class ScrollControlsView extends React.Component {
         this.onScroll();
     }
     componentWillUnmount() {
-        this.scroller.removeEventListener('scroll', this.onScroll);
-        window.removeEventListener('resize', this.onResize);
+        if (this.scroller) {
+            this.scroller.removeEventListener('scroll', this.onScroll);
+            window.removeEventListener('resize', this.onResize);
+        }
     }
     render() {
         let verticalpos = null;

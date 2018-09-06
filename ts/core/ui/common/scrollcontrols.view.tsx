@@ -49,9 +49,10 @@ class ScrollControlsView extends React.Component<any,any> {
 
     componentWillUnmount() {
 
-        this.scroller.removeEventListener('scroll',this.onScroll)        
-        window.removeEventListener('resize',this.onResize)
-
+        if (this.scroller) {
+            this.scroller.removeEventListener('scroll',this.onScroll)        
+            window.removeEventListener('resize',this.onResize)
+        }
     }
 
     calcScrollRight = () => {
@@ -70,6 +71,8 @@ class ScrollControlsView extends React.Component<any,any> {
     }
 
     onScroll = () => {
+
+        if (!this.scroller) return
 
         let { scroller, scrollerData } = this
         let { scrollLeft } = scroller
@@ -113,6 +116,8 @@ class ScrollControlsView extends React.Component<any,any> {
 
     scrollToLeft = () => {
 
+        if (!this.scroller) return
+
         let original = this.scroller.scrollLeft
 
         if (original == 0) return
@@ -123,6 +128,8 @@ class ScrollControlsView extends React.Component<any,any> {
     }
 
     scrollToRight = () => {
+
+        if (!this.scroller) return
 
         let original = this.scroller.scrollLeft
         let clientWidth = this.scroller.clientWidth
@@ -137,6 +144,8 @@ class ScrollControlsView extends React.Component<any,any> {
 
     // TODO apply some kind of easing; simplify, use requestAnimationFrame
     private smoothScroll = incomingtarget => {
+
+        if (!this.scroller) return
 
         let scroller = this.scroller
         let original = scroller.scrollLeft

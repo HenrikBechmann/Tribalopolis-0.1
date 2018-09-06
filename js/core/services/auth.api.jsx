@@ -49,7 +49,7 @@ function getRedirectResult() {
         }
         let redirectuser = result.user;
         // The signed-in user info.
-        console.log('getRedirectResult', redirectuser, accessToken);
+        // console.log('getRedirectResult', redirectuser, accessToken)
     }).catch(function (error) {
         // Handle Errors here.
         var errorCode = error.code;
