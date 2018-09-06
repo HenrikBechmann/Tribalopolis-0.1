@@ -50,6 +50,33 @@ class BoxToolbar extends React.Component<any,any> {
 
         return <div style = {styles}>
 
+            <div style = {{float:'right'}}
+                ref = {this.splaydomsource}
+            >
+                <ActionButton 
+                    img = '/public/icons/ic_splay_24px.svg'
+                    disabled = {!props.listcount} 
+                    action = {this.splayBox()}
+                />
+            </div>
+
+            <div style = {{float:'right'}}
+                ref = {this.selectdomsource}
+            >
+                <ActionButton 
+                    iconStyle = {{transform:'rotate(90deg)'}}
+                    disabled = {!haspeers}
+                    img = '/public/icons/ic_splay_24px.svg' 
+                    action = {this.selectFromSplay()}
+                />
+            </div>
+                <ActionButton 
+                    icon = 'zoom_out_map' 
+                />
+                <ActionButton 
+                    icon = 'arrow_drop_down'
+                />
+
             <div style = {
                 {
                     padding:'3px',
@@ -78,32 +105,6 @@ class BoxToolbar extends React.Component<any,any> {
             }>
                 {props.item.type.name}
             </div>
-            <div style = {{float:'right'}}
-                ref = {this.splaydomsource}
-            >
-                <ActionButton 
-                    img = '/public/icons/ic_splay_24px.svg'
-                    disabled = {!props.listcount} 
-                    action = {this.splayBox()}
-                />
-            </div>
-
-            <div style = {{float:'right'}}
-                ref = {this.selectdomsource}
-            >
-                <ActionButton 
-                    iconStyle = {{transform:'rotate(90deg)'}}
-                    disabled = {!haspeers}
-                    img = '/public/icons/ic_splay_24px.svg' 
-                    action = {this.selectFromSplay()}
-                />
-            </div>
-                <ActionButton 
-                    icon = 'zoom_out_map' 
-                />
-                <ActionButton 
-                    icon = 'arrow_drop_down'
-                />
 
         </div>
     }
