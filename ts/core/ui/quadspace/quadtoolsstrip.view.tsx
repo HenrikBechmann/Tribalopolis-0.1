@@ -26,18 +26,137 @@ import VerticalDivider from '../common/verticaldivider.view'
 import authapi from '../../services/auth.api'
 
 
-const BuildButton = withRouter
+const MenuList = withRouter
 (
     ({ history }) => {
         return (
-        <ListItem button
-            onClick = {() => history.push('/build')}
-        >
-            <ListItemIcon>
-                <Icon className='material-icons'>build</Icon>
-            </ListItemIcon>
-            <ListItemText primary = "Build" />
-        </ListItem>)
+        <List>
+            <ListItem button
+                disabled
+            > 
+                <ListItemIcon> 
+                    <Icon 
+                        style = {{color:'brown'}}
+                    >
+                        weekend
+                    </Icon>
+                </ListItemIcon>
+                <ListItemText primary = "Home Base" />
+            </ListItem>
+            <Divider />
+            <ListItem button
+                disabled
+            >
+                <ListItemIcon>
+                    <Icon 
+                        style = {{color:'brown'}}
+                    >
+                        work
+                    </Icon>
+                </ListItemIcon>
+                <ListItemText primary = "My Workspace"/>
+            </ListItem>
+            <ListItem button
+                disabled
+            >
+                <ListItemIcon>
+                    <Icon 
+                        style = {{color:'brown'}}
+                    >
+                        account_box
+                    </Icon>
+                </ListItemIcon>
+                <ListItemText primary = "My Account" />
+            </ListItem>
+            <ListItem button
+                disabled
+            >
+                <ListItemIcon>
+                    <Icon 
+                        style = {{color:'brown'}}
+                    >
+                        web
+                    </Icon>
+                </ListItemIcon>
+                <ListItemText primary = "My Website" />
+            </ListItem>
+            <Divider />
+            <ListItem button
+                disabled
+            >
+                <ListItemIcon>
+                    <Icon 
+                        style = {{color:'steelblue'}}
+                    >
+                        group
+                    </Icon>
+                </ListItemIcon>
+                <ListItemText primary = "Members" />
+            </ListItem>
+            <ListItem button
+                disabled
+            >
+                <ListItemIcon>
+                    <img
+                       src='/public/icons/fire.svg'
+                    />
+                </ListItemIcon>
+                <ListItemText primary = "Tribes" />
+            </ListItem>
+            <ListItem button
+                disabled
+            >
+                <ListItemIcon>
+                    <Icon 
+                        style = {{color:'steelblue'}}
+                    >
+                        share
+                    </Icon>
+                </ListItemIcon>
+                <ListItemText primary = "Networks" />
+            </ListItem>
+            <ListItem button
+                disabled
+            >
+                <ListItemIcon>
+                    <Icon 
+                        style = {{color:'green'}}
+                    >
+                        monetization_on
+                    </Icon>
+                </ListItemIcon>
+                <ListItemText primary = "Markets" />
+            </ListItem>
+            <Divider />
+            <ListItem button
+                disabled
+            >
+                <ListItemIcon>
+                    <Icon>local_library</Icon>
+                </ListItemIcon>
+                <ListItemText primary = "Tutorials" />
+            </ListItem>
+            <ListItem button
+                onClick = {() => history.push('/build')}
+            >
+                <ListItemIcon>
+                    <Icon className='material-icons'>build</Icon>
+                </ListItemIcon>
+                <ListItemText primary = "Build" />
+            </ListItem>
+            <Divider />
+            <ListItem button
+                disabled
+            >
+                <ListItemIcon>
+                    <img
+                        src='/public/icons/fire.svg'
+                    />
+                </ListItemIcon>
+                <ListItemText primary = "About" />
+            </ListItem>
+        </List>
+        )
     }
 )
 
@@ -87,116 +206,6 @@ class QuadToolsStrip extends React.Component<any,any> {
         this.changeSplit(newIndex)
     }
 
-    menulist = <List>
-        <ListItem button
-        > 
-            <ListItemIcon> 
-                <Icon 
-                    style = {{color:'brown'}}
-                >
-                    weekend
-                </Icon>
-            </ListItemIcon>
-            <ListItemText primary = "Home Base" />
-        </ListItem>
-        <Divider />
-        <ListItem button
-        >
-            <ListItemIcon>
-                <Icon 
-                    style = {{color:'brown'}}
-                >
-                    work
-                </Icon>
-            </ListItemIcon>
-            <ListItemText primary = "My Workspace"/>
-        </ListItem>
-        <ListItem button
-        >
-            <ListItemIcon>
-                <Icon 
-                    style = {{color:'brown'}}
-                >
-                    account_box
-                </Icon>
-            </ListItemIcon>
-            <ListItemText primary = "My Account" />
-        </ListItem>
-        <ListItem button
-        >
-            <ListItemIcon>
-                <Icon 
-                    style = {{color:'brown'}}
-                >
-                    web
-                </Icon>
-            </ListItemIcon>
-            <ListItemText primary = "My Website" />
-        </ListItem>
-        <Divider />
-        <ListItem button
-        >
-            <ListItemIcon>
-                <Icon 
-                    style = {{color:'steelblue'}}
-                >
-                    group
-                </Icon>
-            </ListItemIcon>
-            <ListItemText primary = "Members" />
-        </ListItem>
-        <ListItem button
-        >
-            <ListItemIcon>
-                <img
-                   src='/public/icons/fire.svg'
-                />
-            </ListItemIcon>
-            <ListItemText primary = "Tribes" />
-        </ListItem>
-        <ListItem button
-        >
-            <ListItemIcon>
-                <Icon 
-                    style = {{color:'steelblue'}}
-                >
-                    share
-                </Icon>
-            </ListItemIcon>
-            <ListItemText primary = "Networks" />
-        </ListItem>
-        <ListItem button
-        >
-            <ListItemIcon>
-                <Icon 
-                    style = {{color:'green'}}
-                >
-                    monetization_on
-                </Icon>
-            </ListItemIcon>
-            <ListItemText primary = "Markets" />
-        </ListItem>
-        <Divider />
-        <ListItem button
-        >
-            <ListItemIcon>
-                <Icon>local_library</Icon>
-            </ListItemIcon>
-            <ListItemText primary = "Tutorials" />
-        </ListItem>
-        <BuildButton />
-        <Divider />
-        <ListItem button
-        >
-            <ListItemIcon>
-                <img
-                    src='/public/icons/fire.svg'
-                />
-            </ListItemIcon>
-            <ListItemText primary = "About" />
-        </ListItem>
-    </List>
-
     toggleDrawer = (open) => () => {
         this.setState({
             menuopen:open,
@@ -215,7 +224,7 @@ class QuadToolsStrip extends React.Component<any,any> {
                 onClick={this.toggleDrawer(false)}
                 onKeyDown={this.toggleDrawer(false)}
             >
-                {this.menulist}
+                <MenuList />
             </div>
         </Drawer>
     )}
