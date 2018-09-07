@@ -144,7 +144,7 @@ class QuadspaceController extends React.Component {
                 <QuadViewport>
                     <Quadrants callbacks={this.quadrantcallbacks} quadrantIdentifiers={this.quadrantIdentifiers} split={this.state.split} datastacks={this.state.datastacks} currentQuadPosition={this.state.currentQuadPosition}/>
                 </QuadViewport>
-                <QuadStatusBar status='Something Something Something Something Something Something Something Something Something Something Something Something Something Something Something Something Something '/>
+                <QuadStatusBar status='prompts'/>
             </QuadSpaceFrame>);
     }
 }

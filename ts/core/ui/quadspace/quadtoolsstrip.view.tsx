@@ -35,13 +35,11 @@ const MenuList = withRouter
                 disabled
             > 
                 <ListItemIcon> 
-                    <Icon 
-                        style = {{color:'brown'}}
-                    >
-                        weekend
-                    </Icon>
+                    <img
+                        src='/public/icons/fire.svg'
+                    />
                 </ListItemIcon>
-                <ListItemText primary = "Home Base" />
+                <ListItemText primary = "Home" />
             </ListItem>
             <Divider />
             <ListItem button

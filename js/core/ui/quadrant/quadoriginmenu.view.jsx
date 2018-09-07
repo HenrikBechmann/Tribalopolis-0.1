@@ -38,11 +38,11 @@ const OriginMenu = (props) => {
                 person
             </Icon>
         </IconButton>
-        <IconButton style={buttonStyle}>
+        {false ? <IconButton style={buttonStyle}>
             <Icon>
                 weekend
             </Icon>
-        </IconButton>
+        </IconButton> : null}
     </div>;
 };
 export default OriginMenu;

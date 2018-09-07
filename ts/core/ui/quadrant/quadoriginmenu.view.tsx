@@ -57,13 +57,13 @@ const OriginMenu = (props) => {
                 person
             </Icon>
         </IconButton>
-        <IconButton 
+        {false?<IconButton 
             style = {buttonStyle}
         >
             <Icon>
                 weekend
             </Icon>
-        </IconButton>
+        </IconButton>:null}
     </div>
 }
 

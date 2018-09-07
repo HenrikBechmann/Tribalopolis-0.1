@@ -22,11 +22,9 @@ const MenuList = withRouter(({ history }) => {
     return (<List>
             <ListItem button disabled> 
                 <ListItemIcon> 
-                    <Icon style={{ color: 'brown' }}>
-                        weekend
-                    </Icon>
+                    <img src='/public/icons/fire.svg'/>
                 </ListItemIcon>
-                <ListItemText primary="Home Base"/>
+                <ListItemText primary="Home"/>
             </ListItem>
             <Divider />
             <ListItem button disabled>
