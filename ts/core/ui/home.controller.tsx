@@ -7,7 +7,7 @@ import * as React from 'react'
 
 import StandardToolbar from './common/standardtoolbar.view'
 
-class BuildController extends React.Component<any,any> {
+class Home extends React.Component<any,any> {
 
     render() {
         return (
@@ -16,4 +16,4 @@ class BuildController extends React.Component<any,any> {
     }
 }
 
-export default BuildController
+export default Home

@@ -3,10 +3,10 @@
 'use strict';
 import * as React from 'react';
 import StandardToolbar from './common/standardtoolbar.view';
-class BuildController extends React.Component {
+class Home extends React.Component {
     render() {
         return (<StandardToolbar />);
     }
 }
-export default BuildController;
-//# sourceMappingURL=build.controller.jsx.map
+export default Home;
+//# sourceMappingURL=home.controller.jsx.map

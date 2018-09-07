@@ -22,7 +22,7 @@ const MenuList = withRouter((routerdata) => {
     let { history, location } = routerdata;
     let { path } = location; // to highlight current location in menu
     return (<List>
-            <ListItem button disabled> 
+            <ListItem button onClick={() => history.push('/')}> 
                 <ListItemIcon> 
                     <img src='/public/icons/fire.svg'/>
                 </ListItemIcon>

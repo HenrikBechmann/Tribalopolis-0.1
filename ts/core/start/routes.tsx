@@ -8,6 +8,7 @@ import { Route, Redirect } from 'react-router-dom'
 // import Spaces from './control/spaces'
 import Quadspace from '../ui/quadspace.controller'
 import Build from '../ui/build.controller'
+import Home from '../ui/home.controller'
 
 // import ResetPassword from '../containers/resetpassword'
 // import Register from '../containers/register'
@@ -34,12 +35,14 @@ let coreroutes = routedata.map((item, index) => (
 
 let indexroute = <Route key = "workspace" path = "/workspace" component={ Quadspace } />
 
-let homeroute = <Route key = "home" exact 
-    path = "/" 
-    render={
-        () => (<Redirect to="/workspace"/>)
-    }
-/>
+// let homeroute = <Route key = "home" exact 
+//     path = "/" 
+//     render={
+//         () => (<Redirect to="/workspace"/>)
+//     }
+// />
+
+let homeroute = <Route key = "home" path = "/" component = {Home} />
 
 let buildroute = <Route key = "build" path = "/build" component = {Build} />
 

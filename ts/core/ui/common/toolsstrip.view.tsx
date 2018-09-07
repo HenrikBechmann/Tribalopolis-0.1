@@ -25,7 +25,6 @@ import VerticalDivider from '../common/verticaldivider.view'
 
 import authapi from '../../services/auth.api'
 
-
 const MenuList = withRouter
 (
     (routerdata) => {
@@ -34,7 +33,7 @@ const MenuList = withRouter
         return (
         <List>
             <ListItem button
-                disabled
+                onClick = {() => history.push('/')}
             > 
                 <ListItemIcon> 
                     <img
