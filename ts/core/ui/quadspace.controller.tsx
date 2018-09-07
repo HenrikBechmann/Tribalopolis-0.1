@@ -184,7 +184,6 @@ class QuadspaceController extends React.Component<any,any> {
                         childrenposition = 'middle'
                         style = {{right:'96px'}}
                     >
-                        <VerticalDivider />
                         <QuadNavigationMenu 
                             currentQuadPosition = {this.state.currentQuadPosition} 
                             split = {this.state.split} 

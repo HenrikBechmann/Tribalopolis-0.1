@@ -148,7 +148,6 @@ class QuadspaceController extends React.Component {
         return (<QuadSpaceFrame>
                 <UserContext.Consumer>
                 {user => (<QuadToolsStrip user={user} childrenposition='middle' style={{ right: '96px' }}>
-                        <VerticalDivider />
                         <QuadNavigationMenu currentQuadPosition={this.state.currentQuadPosition} split={this.state.split} selectQuad={this.selectQuad}/>
                         <VerticalDivider />
                         <SplitNavigationMenu split={this.state.split} changeSplitFrom={this.changeSplitFrom}/>

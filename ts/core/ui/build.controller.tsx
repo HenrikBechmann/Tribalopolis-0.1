@@ -29,8 +29,16 @@ class BuildController extends React.Component<any,any> {
                                     src='/public/icons/fire.svg'
                                 />
                             </Icon>
-                            <div style = {{display:'inline',color:'dimgray',fontSize:'smaller'}}>
-                                Tribalopolis: a virtual city of tribes
+                            <div 
+                                style = {
+                                    {
+                                        display:'inline',
+                                        color:'dimgray',
+                                        fontSize:'smaller',
+                                        fontStyle:'italic',
+                                    }
+                                }>
+                                Tribalopolis is a virtual city of tribes
                             </div>
                         </div>
                     </QuadToolsStrip>)

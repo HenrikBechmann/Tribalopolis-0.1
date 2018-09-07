@@ -16,6 +16,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Divider from '@material-ui/core/Divider';
 import Drawer from '@material-ui/core/Drawer';
 import ScrollControlsView from '../common/scrollcontrols.view';
+import VerticalDivider from '../common/verticaldivider.view';
 import authapi from '../../services/auth.api';
 const MenuList = withRouter((routerdata) => {
     let { history, location } = routerdata;
@@ -205,6 +206,8 @@ class QuadToolsStrip extends React.Component {
                             <IconButton onClick={this.toggleDrawer(!this.state.menuopen)}>
                                 <Icon>menu</Icon>
                             </IconButton>
+
+                            <VerticalDivider />
 
                             {(this.props.childrenposition == 'middle') ?
             this.props.children

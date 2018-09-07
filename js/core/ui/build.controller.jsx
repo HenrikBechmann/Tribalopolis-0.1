@@ -15,8 +15,13 @@ class BuildController extends React.Component {
                             <Icon style={{ margin: '0 8px 0 8px', verticalAlign: 'middle' }}>
                                 <img src='/public/icons/fire.svg'/>
                             </Icon>
-                            <div style={{ display: 'inline', color: 'dimgray', fontSize: 'smaller' }}>
-                                Tribalopolis: a virtual city of tribes
+                            <div style={{
+            display: 'inline',
+            color: 'dimgray',
+            fontSize: 'smaller',
+            fontStyle: 'italic',
+        }}>
+                                Tribalopolis is a virtual city of tribes
                             </div>
                         </div>
                     </QuadToolsStrip>)}

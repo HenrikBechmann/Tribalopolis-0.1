@@ -311,6 +311,8 @@ class QuadToolsStrip extends React.Component<any,any> {
                                 <Icon>menu</Icon>
                             </IconButton>
 
+                            <VerticalDivider />
+
                             {(this.props.childrenposition == 'middle')?
                                 this.props.children
                                 :null
