@@ -206,6 +206,7 @@ class QuadPlatform extends React.Component {
         this.calculateDimensions(this.state.split);
         this.calculatePosition(this.state.currentQuadPosition);
     }
+    // TODO: migrate code to componentDidUpdate
     componentWillReceiveProps(nextProps) {
         // should be either one or the other
         if (nextProps.split != this.state.split) {

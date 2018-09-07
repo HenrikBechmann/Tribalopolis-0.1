@@ -133,6 +133,7 @@ class ScrollControlsView extends React.Component {
         this.leftArrowStyle = Object.assign({}, this.arrowStyle, { left: 0, borderBottomRightRadius: '20px', borderTopRightRadius: '20px', borderLeft: 0 });
         this.rightArrowStyle = Object.assign({}, this.arrowStyle, { right: 0, borderBottomLeftRadius: '20px', borderTopLeftRadius: '20px', borderRight: 0 });
     }
+    // TODO: migrate code to componentDidUpdate
     componentWillReceiveProps(next) {
         // received on second render
         if (!this.scroller && next.scroller) {

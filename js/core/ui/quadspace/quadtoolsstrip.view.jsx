@@ -2,6 +2,7 @@
 // copyright (c) 2018 Henrik Bechmann, Toronto, MIT Licence
 'use strict';
 import * as React from 'react';
+import { withRouter } from 'react-router-dom';
 // for toolbar menus
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -17,6 +18,14 @@ import Drawer from '@material-ui/core/Drawer';
 import ScrollControlsView from '../common/scrollcontrols.view';
 import VerticalDivider from '../common/verticaldivider.view';
 import authapi from '../../services/auth.api';
+const BuildButton = withRouter(({ history }) => {
+    return (<ListItem button onClick={() => history.push('/build')}>
+            <ListItemIcon>
+                <Icon className='material-icons'>build</Icon>
+            </ListItemIcon>
+            <ListItemText primary="Build"/>
+        </ListItem>);
+});
 class QuadToolsStrip extends React.Component {
     constructor() {
         super(...arguments);
@@ -41,11 +50,6 @@ class QuadToolsStrip extends React.Component {
             }
             this.changeSplit(newIndex);
         };
-        // getUserCallback = (user) => {
-        //     this.setState({
-        //         user,
-        //     })
-        // }
         this.menulist = <List>
         <ListItem button> 
             <ListItemIcon> 
@@ -118,12 +122,7 @@ class QuadToolsStrip extends React.Component {
             </ListItemIcon>
             <ListItemText primary="Tutorials"/>
         </ListItem>
-        <ListItem button>
-            <ListItemIcon>
-                <Icon className='material-icons'>build</Icon>
-            </ListItemIcon>
-            <ListItemText primary="Tools"/>
-        </ListItem>
+        <BuildButton />
         <Divider />
         <ListItem button>
             <ListItemIcon>
@@ -260,9 +259,6 @@ class QuadToolsStrip extends React.Component {
         </div>;
         };
     }
-    // componentWillMount() {
-    //     authapi.setUpdateCallback(this.getUserCallback)
-    // }
     componentDidMount() {
         setTimeout(() => {
             this.setState({

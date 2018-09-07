@@ -7,6 +7,7 @@ import { Route, Redirect } from 'react-router-dom'
 
 // import Spaces from './control/spaces'
 import Quadspace from '../ui/quadspace.controller'
+import Build from '../ui/build.controller'
 
 // import ResetPassword from '../containers/resetpassword'
 // import Register from '../containers/register'
@@ -40,6 +41,8 @@ let homeroute = <Route key = "home" exact
     }
 />
 
-const routes = [indexroute,homeroute]
+let buildroute = <Route key = "build" path = "/build" component = {Build} />
+
+const routes = [indexroute,homeroute,buildroute]
 
 export default routes

@@ -4,6 +4,7 @@
 
 import * as React from 'react'
 
+import { withRouter } from 'react-router-dom'
 // for toolbar menus
 import Menu from '@material-ui/core/Menu'
 import MenuItem from '@material-ui/core/MenuItem'
@@ -23,6 +24,23 @@ import ScrollControlsView from '../common/scrollcontrols.view'
 import VerticalDivider from '../common/verticaldivider.view'
 
 import authapi from '../../services/auth.api'
+
+
+const BuildButton = withRouter
+(
+    ({ history }) => {
+        return (
+        <ListItem button
+            onClick = {() => history.push('/build')}
+        >
+            <ListItemIcon>
+                <Icon className='material-icons'>build</Icon>
+            </ListItemIcon>
+            <ListItemText primary = "Build" />
+        </ListItem>)
+    }
+)
+
 class QuadToolsStrip extends React.Component<any,any> {
 
     state = {
@@ -166,13 +184,7 @@ class QuadToolsStrip extends React.Component<any,any> {
             </ListItemIcon>
             <ListItemText primary = "Tutorials" />
         </ListItem>
-        <ListItem button
-        >
-            <ListItemIcon>
-                <Icon className='material-icons'>build</Icon>
-            </ListItemIcon>
-            <ListItemText primary = "Tools" />
-        </ListItem>
+        <BuildButton />
         <Divider />
         <ListItem button
         >
