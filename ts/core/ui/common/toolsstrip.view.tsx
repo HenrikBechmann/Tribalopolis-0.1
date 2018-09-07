@@ -163,15 +163,9 @@ class QuadToolsStrip extends React.Component<any,any> {
     state = {
         menuopen:false,
         scroller:null,
-        currentQuadPosition:this.props.currentQuadPosition,
-        split:this.props.split,
         accountAnchorElement:null,
         user:this.props.user,
     }
-
-    changeSplit = this.props.callbacks.changeSplit
-
-    selectQuad = this.props.callbacks.selectQuad
 
     scroller = null
 
@@ -184,24 +178,11 @@ class QuadToolsStrip extends React.Component<any,any> {
     }
 
     componentDidUpdate() {
-        if (this.props.currentQuadPosition !== this.state.currentQuadPosition ||
-            this.props.split != this.state.split || this.props.user != this.state.user) {
+        if (this.props.user != this.state.user) {
             this.setState({
-                currentQuadPosition:this.props.currentQuadPosition,
-                split:this.props.split,
                 user:this.props.user,
             })
         }
-    }
-
-    changeSplitFrom = (toggleIndex) => {
-        let newIndex = null
-        if (toggleIndex == this.state.split) {
-            newIndex = 'none'
-        } else {
-            newIndex = toggleIndex
-        }
-        this.changeSplit(newIndex)
     }
 
     toggleDrawer = (open) => () => {
@@ -283,156 +264,6 @@ class QuadToolsStrip extends React.Component<any,any> {
         </div>
     }
 
-    quadnavigationmenu = () => {
-        let { currentQuadPosition, split } = this.state
-        return <div style = {{display:'inline-block',verticalAlign:'middle'}}>
-            <IconButton
-                style = {{verticalAlign:'bottom',}}
-                onClick = {() => {
-                    this.selectQuad('topleft')
-                }}
-            >
-                <img 
-                    style = {
-                        {
-                            backgroundColor:(
-                                currentQuadPosition == 'topleft')?'red':
-                                ((split == 'vertical' && currentQuadPosition == 'bottomleft') ||
-                                (split == 'horizontal' && currentQuadPosition == 'topright') ||
-                                (split == 'matrix')
-                            )?'orange':'transparent'
-                        }
-                    }
-                    src = {
-                        (split == 'none' || split == 'matrix')?'/public/icons/ic_border_all_black_24px_topleft.svg':
-                        (split == 'vertical')?'/public/icons/ic_border_all_black_24px_topleft_leftsplit.svg':
-                        '/public/icons/ic_border_all_black_24px_topleft_topsplit.svg'
-                    }
-                />
-            </IconButton>
-
-            <IconButton
-                style = {{verticalAlign:'bottom'}}
-                onClick = {() => {
-                    this.selectQuad('topright')
-                }}
-            >
-                <img 
-                    style = {
-                        {
-                            backgroundColor:(
-                                currentQuadPosition == 'topright')?'red':
-                                ((split == 'vertical' && currentQuadPosition == 'bottomright') ||
-                                (split == 'horizontal' && currentQuadPosition == 'topleft') ||
-                                (split == 'matrix')
-                            )?'orange':'transparent'
-                        }
-                    }
-                    src = {
-                        (split == 'none' || split == 'matrix')?'/public/icons/ic_border_all_black_24px_topright.svg':
-                        (split == 'vertical')?'/public/icons/ic_border_all_black_24px_topright_rightsplit.svg':
-                        '/public/icons/ic_border_all_black_24px_topright_topsplit.svg'
-                    }
-                    />
-            </IconButton>
-
-            <IconButton
-                style = {{verticalAlign:'bottom'}}
-                onClick = {() => {
-                    this.selectQuad('bottomleft')
-                }}
-            >
-                <img 
-                    style = {
-                        {
-                            backgroundColor:(
-                                currentQuadPosition == 'bottomleft')?'red': 
-                                ((split == 'vertical' && currentQuadPosition == 'topleft') ||
-                                (split == 'horizontal' && currentQuadPosition == 'bottomright') ||
-                                (split == 'matrix')
-                            )?'orange':'transparent'
-                        }
-                    }
-                    src = {
-                        (split == 'none' || split == 'matrix')?'/public/icons/ic_border_all_black_24px_bottomleft.svg':
-                        (split == 'vertical')?'/public/icons/ic_border_all_black_24px_bottomleft_leftsplit.svg':
-                        '/public/icons/ic_border_all_black_24px_bottomleft_bottomsplit.svg'
-                    }
-                />
-            </IconButton>
-
-            <IconButton
-                style = {{verticalAlign:'bottom'}}
-                onClick = {() => {
-                    this.selectQuad('bottomright')
-                }}
-            >
-                <img 
-                    style = {
-                        {
-                            backgroundColor:(
-                                currentQuadPosition == 'bottomright')?'red':
-                                ((split == 'vertical' && currentQuadPosition == 'topright') ||
-                                (split == 'horizontal' && currentQuadPosition == 'bottomleft') ||
-                                (split == 'matrix')
-                            )?'orange':'transparent'
-                        }
-                    }
-                    src = {
-                        (split == 'none' || split == 'matrix')?'/public/icons/ic_border_all_black_24px_bottomright.svg':
-                        (split == 'vertical')?'/public/icons/ic_border_all_black_24px_bottomright_rightsplit.svg':
-                        '/public/icons/ic_border_all_black_24px_bottomright_bottomsplit.svg'
-                    }
-                />
-            </IconButton>
-
-        </div>
-    }
-
-    splitnavigationmenu = () => {
-        return <div style = {{display:'inline-block',verticalAlign:'middle'}}>
-            <IconButton
-                style = {{verticalAlign:'bottom'}}
-                onClick = {() => this.changeSplitFrom('horizontal')}
-            >
-                <img 
-                    src = {
-                        (this.state.split == 'horizontal')?
-                            '/public/icons/ic_border_all_black_24px_split_red.svg':
-                            '/public/icons/ic_border_all_black_24px_split.svg'
-                    }
-                />
-            </IconButton>
-
-            <IconButton
-                style = {{verticalAlign:'bottom'}}
-                onClick = {() => this.changeSplitFrom('vertical')}
-            >
-                <img 
-                    style = {{transform:'rotate(90deg)'}}
-                    src = {
-                        (this.state.split == 'vertical')?
-                            '/public/icons/ic_border_all_black_24px_split_red.svg':
-                            '/public/icons/ic_border_all_black_24px_split.svg'
-                    }
-                />
-            </IconButton>
-
-            <IconButton
-                style = {{verticalAlign:'bottom'}}
-                onClick = {() => this.changeSplitFrom('matrix')}
-            >
-                <img 
-                    src = {
-                        (this.state.split == 'matrix')?
-                            '/public/icons/ic_border_all_black_24px_split_matrix_red.svg':
-                            '/public/icons/ic_border_all_black_24px_split_matrix.svg'
-                    }
-                />
-            </IconButton>
-        </div>
-    }
-
     render() {
         return (
             <div 
@@ -474,15 +305,10 @@ class QuadToolsStrip extends React.Component<any,any> {
                                 <Icon>menu</Icon>
                             </IconButton>
 
-                            <VerticalDivider />
-
-                            {this.quadnavigationmenu()}
-
-                            <VerticalDivider />
-
-                            {this.splitnavigationmenu()}
-
-                            <VerticalDivider />
+                            {(this.props.childrenposition == 'middle')?
+                                this.props.children
+                                :null
+                            }
 
                             <IconButton 
                             >
@@ -500,6 +326,11 @@ class QuadToolsStrip extends React.Component<any,any> {
                             </IconButton>
 
                             { this.accountmenu() }
+
+                            {(this.props.childrenposition == 'end')?
+                                this.props.children
+                                :null
+                            }
 
                             { this.menudrawer() }
 

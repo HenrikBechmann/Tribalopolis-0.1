@@ -5,13 +5,16 @@
 
 import * as React from 'react'
 
-import QuadToolsStrip from './quadspace/quadtoolsstrip.view'
+import QuadToolsStrip from './common/toolsstrip.view'
+import QuadNavigationMenu from './quadspace/quadnavigationmenu.view'
+import SplitNavigationMenu from './quadspace/splitnavigationmenu.view'
 import QuadSpaceFrame from './quadspace/quadspaceframe.view'
 import QuadBasket from './quadspace/quadbasket.view'
 import QuadViewport from './quadspace/quadviewport.view'
 import QuantityBadge from './common/quantitybadge.view'
 import QuadStatusBar from './quadspace/quadstatusbar.view'
 import Quadrants from './quadrants.controller'
+import VerticalDivider from './common/verticaldivider.view'
 
 import { datastacks } from '../../data/datastacks'
 import application from '../services/application'
@@ -80,6 +83,16 @@ class QuadspaceController extends React.Component<any,any> {
                 this.forceUpdate() // for scroll icons
             },600)
         })
+    }
+
+    changeSplitFrom = (toggleIndex) => {
+        let newIndex = null
+        if (toggleIndex == this.state.split) {
+            newIndex = 'none'
+        } else {
+            newIndex = toggleIndex
+        }
+        this.changeSplit(newIndex)
     }
 
     handleSwap = (quadrantPosition,direction) => {
@@ -170,11 +183,26 @@ class QuadspaceController extends React.Component<any,any> {
         return (
             <QuadSpaceFrame>
                 <UserContext.Consumer>
-                { user => <QuadToolsStrip currentQuadPosition = {this.state.currentQuadPosition}
-                    callbacks = {this.toolsstripcallbacks}
-                    split = {this.state.split}
-                    user = {user}
-                />}
+                { user => (
+                    <QuadToolsStrip currentQuadPosition = {this.state.currentQuadPosition}
+                        callbacks = {this.toolsstripcallbacks}
+                        split = {this.state.split}
+                        user = {user}
+                        childrenposition = 'middle'
+                    >
+                    <VerticalDivider />
+                    <QuadNavigationMenu 
+                        currentQuadPosition = {this.state.currentQuadPosition} 
+                        split = {this.state.split} 
+                        selectQuad = {this.selectQuad} />
+                    <VerticalDivider />
+                    <SplitNavigationMenu 
+                        split = {this.state.split}
+                        changeSplitFrom = {this.changeSplitFrom}
+                    />
+                    <VerticalDivider />
+                </QuadToolsStrip>)
+                }
                 </UserContext.Consumer>
                 <QuadBasket><QuantityBadge quantity = {0} style = {{left:'-12px'}} /></QuadBasket>
                 <QuadViewport>
