@@ -115,7 +115,7 @@ class QuadToolsStrip extends React.Component {
             currentQuadPosition: this.props.currentQuadPosition,
             split: this.props.split,
             accountAnchorElement: null,
-            user: null,
+            user: this.props.user,
         };
         this.changeSplit = this.props.callbacks.changeSplit;
         this.selectQuad = this.props.callbacks.selectQuad;
