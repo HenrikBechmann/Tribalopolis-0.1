@@ -17,7 +17,9 @@ import Divider from '@material-ui/core/Divider';
 import Drawer from '@material-ui/core/Drawer';
 import ScrollControlsView from '../common/scrollcontrols.view';
 import authapi from '../../services/auth.api';
-const MenuList = withRouter(({ history }) => {
+const MenuList = withRouter((routerdata) => {
+    let { history, location } = routerdata;
+    let { path } = location; // to highlight current location in menu
     return (<List>
             <ListItem button disabled> 
                 <ListItemIcon> 
@@ -26,7 +28,7 @@ const MenuList = withRouter(({ history }) => {
                 <ListItemText primary="Home"/>
             </ListItem>
             <Divider />
-            <ListItem button disabled>
+            <ListItem button onClick={() => history.push('/workspace')}>
                 <ListItemIcon>
                     <Icon style={{ color: 'brown' }}>
                         work
@@ -162,6 +164,14 @@ class QuadToolsStrip extends React.Component {
             </Menu>
         </div>;
         };
+        this.defaultstyle = {
+            height: '48px',
+            backgroundColor: 'silver',
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            right: 0,
+        };
     }
     componentDidMount() {
         setTimeout(() => {
@@ -178,14 +188,8 @@ class QuadToolsStrip extends React.Component {
         }
     }
     render() {
-        return (<div style={{
-            height: '48px',
-            backgroundColor: 'silver',
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            right: '96px'
-        }}>
+        let wrapperstyle = Object.assign({}, this.defaultstyle, this.props.style);
+        return (<div style={wrapperstyle}>
                 <ScrollControlsView uid='scrollcontrolsview' scroller={this.state.scroller}>
                     <div style={{
             display: 'flex',

@@ -28,7 +28,9 @@ import authapi from '../../services/auth.api'
 
 const MenuList = withRouter
 (
-    ({ history }) => {
+    (routerdata) => {
+        let { history, location } = routerdata
+        let { path } = location // to highlight current location in menu
         return (
         <List>
             <ListItem button
@@ -43,7 +45,7 @@ const MenuList = withRouter
             </ListItem>
             <Divider />
             <ListItem button
-                disabled
+                onClick = {() => history.push('/workspace')}
             >
                 <ListItemIcon>
                     <Icon 
@@ -264,18 +266,22 @@ class QuadToolsStrip extends React.Component<any,any> {
         </div>
     }
 
+    defaultstyle = 
+        {
+            height:'48px',
+            backgroundColor:'silver',
+            position:'absolute',
+            top:0,
+            left:0,
+            right:0,
+        }
+
     render() {
+        let wrapperstyle = Object.assign({},this.defaultstyle,this.props.style)
         return (
             <div 
                 style = {
-                    {
-                        height:'48px',
-                        backgroundColor:'silver',
-                        position:'absolute',
-                        top:0,
-                        left:0,
-                        right:'96px'
-                    }
+                   wrapperstyle
                 } 
             >
                 <ScrollControlsView uid='scrollcontrolsview' scroller = {this.state.scroller} >

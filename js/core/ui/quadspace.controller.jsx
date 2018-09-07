@@ -138,10 +138,6 @@ class QuadspaceController extends React.Component {
             selectQuadrant: this.selectQuadrant,
             calcQuadrantPosition: this.calcQuadrantPosition,
         };
-        this.toolsstripcallbacks = {
-            selectQuad: this.selectQuad,
-            changeSplit: this.changeSplit,
-        };
     }
     componentWillMount() {
         this.quadrantIdentifiers = this.state.quadrantPositions.map((value) => {
@@ -151,13 +147,13 @@ class QuadspaceController extends React.Component {
     render() {
         return (<QuadSpaceFrame>
                 <UserContext.Consumer>
-                {user => (<QuadToolsStrip currentQuadPosition={this.state.currentQuadPosition} callbacks={this.toolsstripcallbacks} split={this.state.split} user={user} childrenposition='middle'>
-                    <VerticalDivider />
-                    <QuadNavigationMenu currentQuadPosition={this.state.currentQuadPosition} split={this.state.split} selectQuad={this.selectQuad}/>
-                    <VerticalDivider />
-                    <SplitNavigationMenu split={this.state.split} changeSplitFrom={this.changeSplitFrom}/>
-                    <VerticalDivider />
-                </QuadToolsStrip>)}
+                {user => (<QuadToolsStrip user={user} childrenposition='middle' style={{ right: '96px' }}>
+                        <VerticalDivider />
+                        <QuadNavigationMenu currentQuadPosition={this.state.currentQuadPosition} split={this.state.split} selectQuad={this.selectQuad}/>
+                        <VerticalDivider />
+                        <SplitNavigationMenu split={this.state.split} changeSplitFrom={this.changeSplitFrom}/>
+                        <VerticalDivider />
+                    </QuadToolsStrip>)}
                 </UserContext.Consumer>
                 <QuadBasket><QuantityBadge quantity={0} style={{ left: '-12px' }}/></QuadBasket>
                 <QuadViewport>

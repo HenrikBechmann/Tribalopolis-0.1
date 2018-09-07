@@ -174,34 +174,28 @@ class QuadspaceController extends React.Component<any,any> {
         calcQuadrantPosition:this.calcQuadrantPosition,
     }
 
-    toolsstripcallbacks = {
-        selectQuad:this.selectQuad,
-        changeSplit:this.changeSplit,
-    }
-
     render() {
         return (
             <QuadSpaceFrame>
                 <UserContext.Consumer>
                 { user => (
-                    <QuadToolsStrip currentQuadPosition = {this.state.currentQuadPosition}
-                        callbacks = {this.toolsstripcallbacks}
-                        split = {this.state.split}
+                    <QuadToolsStrip 
                         user = {user}
                         childrenposition = 'middle'
+                        style = {{right:'96px'}}
                     >
-                    <VerticalDivider />
-                    <QuadNavigationMenu 
-                        currentQuadPosition = {this.state.currentQuadPosition} 
-                        split = {this.state.split} 
-                        selectQuad = {this.selectQuad} />
-                    <VerticalDivider />
-                    <SplitNavigationMenu 
-                        split = {this.state.split}
-                        changeSplitFrom = {this.changeSplitFrom}
-                    />
-                    <VerticalDivider />
-                </QuadToolsStrip>)
+                        <VerticalDivider />
+                        <QuadNavigationMenu 
+                            currentQuadPosition = {this.state.currentQuadPosition} 
+                            split = {this.state.split} 
+                            selectQuad = {this.selectQuad} />
+                        <VerticalDivider />
+                        <SplitNavigationMenu 
+                            split = {this.state.split}
+                            changeSplitFrom = {this.changeSplitFrom}
+                        />
+                        <VerticalDivider />
+                    </QuadToolsStrip>)
                 }
                 </UserContext.Consumer>
                 <QuadBasket><QuantityBadge quantity = {0} style = {{left:'-12px'}} /></QuadBasket>
