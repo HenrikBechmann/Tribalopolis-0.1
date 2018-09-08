@@ -50,7 +50,7 @@ class BoxToolbar extends React.Component {
             boxSizing: 'border-box',
             width: '32px',
             height: '32px',
-            display: 'inline-block',
+            display: 'none',
             border: '1px solid transparent',
             verticalAlign: 'top',
         }}>
