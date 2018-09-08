@@ -30,7 +30,6 @@ const MenuList = withRouter
     (routerdata) => {
         let { history, location } = routerdata
         let { pathname } = location // to highlight current location in menu
-        console.log('pathname',pathname, (pathname == "/"))
         return (
         <List>
             <ListItem button

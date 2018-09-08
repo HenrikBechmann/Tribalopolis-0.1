@@ -46,6 +46,6 @@ let homeroute = <Route key = "home" path = "/" component = {Home} />
 
 let buildroute = <Route key = "build" path = "/build" component = {Build} />
 
-const routes = [indexroute,homeroute,buildroute]
+const routes = [indexroute,buildroute,homeroute]
 
 export default routes

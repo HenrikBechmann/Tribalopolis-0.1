@@ -7,12 +7,25 @@ import * as React from 'react'
 
 import StandardToolbar from './common/standardtoolbar.view'
 
+import { toast } from 'react-toastify'
+
+import Button from '@material-ui/core/Button'
+
 class BuildController extends React.Component<any,any> {
 
     render() {
-        return (
+        return <div>
             <StandardToolbar />
-        )
+            <div style = {{height:'48px',width:'100%'}}>spacer</div>
+            <div>
+                <Button 
+                    onClick = {() => {
+                        toast('test toast')
+                    }}
+                >toast</Button>
+                Hello
+            </div>
+        </div>
     }
 }
 

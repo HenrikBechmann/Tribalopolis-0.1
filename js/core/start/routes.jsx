@@ -31,6 +31,6 @@ let indexroute = <Route key="workspace" path="/workspace" component={Quadspace}/
 // />
 let homeroute = <Route key="home" path="/" component={Home}/>;
 let buildroute = <Route key="build" path="/build" component={Build}/>;
-const routes = [indexroute, homeroute, buildroute];
+const routes = [indexroute, buildroute, homeroute];
 export default routes;
 //# sourceMappingURL=routes.jsx.map

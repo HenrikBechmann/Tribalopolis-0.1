@@ -7,11 +7,14 @@
 'use strict';
 import * as React from 'react';
 import AppRouter from './approuter';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const MainView = ({ globalmessage, style }) => (<div style={style}>
         {globalmessage}
 
         <AppRouter />
-
+        <ToastContainer />
+        
     </div>);
 export default MainView;
 //# sourceMappingURL=main.view.jsx.map

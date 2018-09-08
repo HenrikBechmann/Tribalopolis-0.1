@@ -21,7 +21,6 @@ import authapi from '../../services/auth.api';
 const MenuList = withRouter((routerdata) => {
     let { history, location } = routerdata;
     let { pathname } = location; // to highlight current location in menu
-    console.log('pathname', pathname, (pathname == "/"));
     return (<List>
             <ListItem button onClick={() => history.push('/')} style={{
         border: (pathname == "/") ? '2px solid lightblue' : '2px solid transparent',
