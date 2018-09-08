@@ -24,8 +24,8 @@ const ActionButton = (props:propsInterface) => {
 
     let defaultButtonStyle:React.CSSProperties = {
         padding:'0',
-        width:'24px',
-        height:'24px',
+        width:'32px',
+        height:'32px',
         float:'right',
         verticalAlign:'bottom',
         marginRight:'3px'

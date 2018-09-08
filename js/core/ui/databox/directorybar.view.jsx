@@ -23,11 +23,11 @@ class DirectoryBar extends React.Component {
         this.tabwrapperstyle = {
             borderBottom: '1px solid silver',
             position: 'relative',
-            height: '24px',
+            height: '32px',
         };
         this.pretabstyle = {
             display: 'inline-block',
-            height: '24px',
+            height: '32px',
             width: '5px',
             verticalAlign: 'middle',
         };
@@ -41,7 +41,7 @@ class DirectoryBar extends React.Component {
             borderStyle: 'solid',
             paddingRight: '3px',
             marginLeft: '-1px',
-            marginBottom: '-1px',
+            marginBottom: '-7px',
             backgroundColor: 'white',
         };
     }
@@ -65,7 +65,7 @@ class DirectoryBar extends React.Component {
                     <ActionButton img='/public/icons/org_chart.svg'/>
                     {false ? <ActionButton icon='info'/> : null}
                     {listStack.length ?
-            <div style={{ float: 'right', width: '24px', height: '24px', position: 'relative' }}>
+            <div style={{ float: 'right', width: '32px', height: '32px', position: 'relative' }}>
                             <QuantityBadge quantity={listStack.length} style={{ left: '-6px', top: '-6px' }}/>
                             <ActionButton icon='arrow_back' action={this.props.collapseDirectoryItem}/>
                         </div>

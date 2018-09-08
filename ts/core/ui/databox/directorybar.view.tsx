@@ -27,12 +27,12 @@ class DirectoryBar extends React.Component<any,any> {
     tabwrapperstyle:React.CSSProperties = {
         borderBottom:'1px solid silver',
         position:'relative',
-        height:'24px',
+        height:'32px',
     }
 
     pretabstyle:React.CSSProperties = {
         display:'inline-block',
-        height:'24px',
+        height:'32px',
         width:'5px',
         verticalAlign:'middle',
     }
@@ -47,7 +47,7 @@ class DirectoryBar extends React.Component<any,any> {
         borderStyle:'solid',
         paddingRight:'3px',
         marginLeft:'-1px',
-        marginBottom:'-1px',
+        marginBottom:'-7px',
         backgroundColor:'white',
         // cursor:'pointer',
     }
@@ -84,7 +84,7 @@ class DirectoryBar extends React.Component<any,any> {
                     />
                     {false?<ActionButton icon = 'info'/>:null}
                     {listStack.length?
-                        <div style = {{float:'right',width:'24px',height:'24px', position:'relative'}}>
+                        <div style = {{float:'right',width:'32px',height:'32px', position:'relative'}}>
                             <QuantityBadge 
                                 quantity = {listStack.length} 
                                 style = {{left:'-6px',top:'-6px'}}

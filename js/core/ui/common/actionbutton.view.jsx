@@ -8,8 +8,8 @@ const ActionButton = (props) => {
     let { buttonStyle, iconStyle, action, icon, img, disabled } = props;
     let defaultButtonStyle = {
         padding: '0',
-        width: '24px',
-        height: '24px',
+        width: '32px',
+        height: '32px',
         float: 'right',
         verticalAlign: 'bottom',
         marginRight: '3px'

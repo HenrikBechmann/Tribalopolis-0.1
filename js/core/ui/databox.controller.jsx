@@ -151,7 +151,7 @@ class DataBox extends React.Component {
             margin: haspeers ? 'none' : 'auto',
         };
         let scrollboxstyle = {
-            height: (this.props.containerHeight - 172) + 'px',
+            height: (this.props.containerHeight - 185) + 'px',
             overflow: 'auto',
             position: 'relative',
             paddingLeft: '6px',
@@ -168,7 +168,7 @@ class DataBox extends React.Component {
             <BoxTypebar item={item} listcount={listcount} splayBox={this.splayBox} haspeers={this.props.haspeers} selectFromSplay={this.props.selectFromSplay}/>
             <BoxIdentityBar item={item}/>
             <div style={{
-            height: 'calc(100% - 70px)',
+            height: 'calc(100% - 78px)',
             position: 'relative',
         }}>
                 <div>

@@ -203,7 +203,7 @@ class DataBox extends React.Component<any,any> {
         }
 
         let scrollboxstyle:React.CSSProperties = {
-            height:(this.props.containerHeight - 172) + 'px',
+            height:(this.props.containerHeight - 185) + 'px', // this figure is the net of many inside amounts!
             overflow:'auto',
             position:'relative', // required for offsetParent of highlightItem search
             paddingLeft:'6px',
@@ -234,7 +234,7 @@ class DataBox extends React.Component<any,any> {
             <BoxIdentityBar item = {item} />
             <div style = {
                     {
-                        height:'calc(100% - 70px)',
+                        height:'calc(100% - 78px)',
                         position:'relative',
                     }
                 }
