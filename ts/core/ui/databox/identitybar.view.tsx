@@ -33,7 +33,7 @@ const BoxHeader = props => {
         <ActionButton 
             icon = 'info' 
         />
-        <img style = {{verticalAlign:'middle',width:'32px', margin:'-3px'}} src = {avatar} /> 
+        <img style = {{verticalAlign:'middle',width:'32px', margin:'0 3px'}} src = {avatar} /> 
         {item.properties.name}
     </div>
 }
