@@ -37,7 +37,7 @@ const StandardToolbar = (props) => {
                                     fontStyle:'italic',
                                 }
                             }>
-                            Tribalopolis is your virtual city of tribes
+                            Tribalopolis is a virtual city of tribes
                         </div>
                     </div>
                 </QuadToolsStrip>)
