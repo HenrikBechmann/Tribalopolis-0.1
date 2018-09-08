@@ -31,6 +31,8 @@ import MainView from './main.view'
 import authapi from '../services/auth.api'
 import UserContext from '../services/user.context'
 
+import { toast } from 'react-toastify'
+
 class Main extends React.Component<any,any> {
 
     state = {
@@ -46,6 +48,9 @@ class Main extends React.Component<any,any> {
     }
 
     getUserCallback = (user) => {
+        if (user) {
+            toast.success(`signed in as ${user.displayName}`)
+        }
         this.setState({
             user,
         })

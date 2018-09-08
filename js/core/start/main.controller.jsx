@@ -21,6 +21,7 @@ let DnDBackend = DnDTouchBackend({ enableMouseEvents: true });
 import MainView from './main.view';
 import authapi from '../services/auth.api';
 import UserContext from '../services/user.context';
+import { toast } from 'react-toastify';
 class Main extends React.Component {
     constructor() {
         super(...arguments);
@@ -31,6 +32,9 @@ class Main extends React.Component {
             fontFamily,
         };
         this.getUserCallback = (user) => {
+            if (user) {
+                toast.success(`signed in as ${user.displayName}`);
+            }
             this.setState({
                 user,
             });
