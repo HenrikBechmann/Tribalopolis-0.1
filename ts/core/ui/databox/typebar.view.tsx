@@ -50,17 +50,14 @@ class BoxToolbar extends React.Component<any,any> {
 
         return <div style = {styles}>
 
-            <div style = {{float:'right'}}
+            <div style = {{float:'right', marginLeft:'6px'}}
                 ref = {this.splaydomsource}
             >
                 <ActionButton 
-                    img = '/public/icons/ic_splay_24px.svg'
-                    disabled = {!props.listcount} 
-                    action = {this.splayBox()}
+                    icon = 'zoom_out_map' 
                 />
             </div>
-
-            <div style = {{float:'right'}}
+            <div style = {{float:'right',marginLeft:'6px'}}
                 ref = {this.selectdomsource}
             >
                 <ActionButton 
@@ -70,12 +67,15 @@ class BoxToolbar extends React.Component<any,any> {
                     action = {this.selectFromSplay()}
                 />
             </div>
+            <div style = {{float:'right'}}
+                ref = {this.splaydomsource}
+            >
                 <ActionButton 
-                    icon = 'zoom_out_map' 
+                    img = '/public/icons/ic_splay_24px.svg'
+                    disabled = {!props.listcount} 
+                    action = {this.splayBox()}
                 />
-                <ActionButton 
-                    icon = 'arrow_drop_down'
-                />
+            </div>
 
             <div style = {
                 {
@@ -117,6 +117,10 @@ class BoxToolbar extends React.Component<any,any> {
             }>
                 {props.item.type.name}
             </div>
+            <ActionButton 
+                icon = 'arrow_drop_down'
+                buttonStyle = {{verticalAlign:'top',float:'none'}}
+            />
 
         </div>
     }
