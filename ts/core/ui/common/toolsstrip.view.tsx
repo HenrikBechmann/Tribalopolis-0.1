@@ -29,11 +29,18 @@ const MenuList = withRouter
 (
     (routerdata) => {
         let { history, location } = routerdata
-        let { path } = location // to highlight current location in menu
+        let { pathname } = location // to highlight current location in menu
+        console.log('pathname',pathname, (pathname == "/"))
         return (
         <List>
             <ListItem button
                 onClick = {() => history.push('/')}
+                style = {
+                    {
+                        border:(pathname == "/")?'2px solid lightblue':'2px solid transparent',
+                        backgroundColor:(pathname == "/")?'lightyellow':'transparent',
+                    }
+                }
             > 
                 <ListItemIcon> 
                     <img
@@ -45,6 +52,12 @@ const MenuList = withRouter
             <Divider />
             <ListItem button
                 onClick = {() => history.push('/workspace')}
+                style = {
+                    {
+                        border:(pathname == "/workspace")?'2px solid lightblue':'2px solid transparent',
+                        backgroundColor:(pathname == "/workspace")?'lightyellow':'transparent',
+                    }
+                }
             >
                 <ListItemIcon>
                     <Icon 
@@ -137,6 +150,12 @@ const MenuList = withRouter
             </ListItem>
             <ListItem button
                 onClick = {() => history.push('/build')}
+                style = {
+                    {
+                        border:(pathname == "/build")?'2px solid lightblue':'2px solid transparent',
+                        backgroundColor:(pathname == "/build")?'lightyellow':'transparent',
+                    }
+                }
             >
                 <ListItemIcon>
                     <Icon className='material-icons'>build</Icon>

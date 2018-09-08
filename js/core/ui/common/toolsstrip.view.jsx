@@ -20,16 +20,23 @@ import VerticalDivider from '../common/verticaldivider.view';
 import authapi from '../../services/auth.api';
 const MenuList = withRouter((routerdata) => {
     let { history, location } = routerdata;
-    let { path } = location; // to highlight current location in menu
+    let { pathname } = location; // to highlight current location in menu
+    console.log('pathname', pathname, (pathname == "/"));
     return (<List>
-            <ListItem button onClick={() => history.push('/')}> 
+            <ListItem button onClick={() => history.push('/')} style={{
+        border: (pathname == "/") ? '2px solid lightblue' : '2px solid transparent',
+        backgroundColor: (pathname == "/") ? 'lightyellow' : 'transparent',
+    }}> 
                 <ListItemIcon> 
                     <img src='/public/icons/fire.svg'/>
                 </ListItemIcon>
                 <ListItemText primary="Home"/>
             </ListItem>
             <Divider />
-            <ListItem button onClick={() => history.push('/workspace')}>
+            <ListItem button onClick={() => history.push('/workspace')} style={{
+        border: (pathname == "/workspace") ? '2px solid lightblue' : '2px solid transparent',
+        backgroundColor: (pathname == "/workspace") ? 'lightyellow' : 'transparent',
+    }}>
                 <ListItemIcon>
                     <Icon style={{ color: 'brown' }}>
                         work
@@ -91,7 +98,10 @@ const MenuList = withRouter((routerdata) => {
                 </ListItemIcon>
                 <ListItemText primary="Tutorials"/>
             </ListItem>
-            <ListItem button onClick={() => history.push('/build')}>
+            <ListItem button onClick={() => history.push('/build')} style={{
+        border: (pathname == "/build") ? '2px solid lightblue' : '2px solid transparent',
+        backgroundColor: (pathname == "/build") ? 'lightyellow' : 'transparent',
+    }}>
                 <ListItemIcon>
                     <Icon className='material-icons'>build</Icon>
                 </ListItemIcon>
