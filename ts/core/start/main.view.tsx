@@ -8,7 +8,7 @@
 // display the app
 'use strict'
 
-import * as React from 'react'
+import React from 'react'
 
 import AppRouter from './approuter'
 import { ToastContainer } from 'react-toastify'

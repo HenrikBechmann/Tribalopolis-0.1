@@ -6,7 +6,7 @@
 */
 'use strict'
 
-import * as React from 'react'
+import React from 'react'
 
 import QuadOrigin from './quadrant/quadorigin.view'
 import QuadTitleBar from './quadrant/quadtitlebar.view'

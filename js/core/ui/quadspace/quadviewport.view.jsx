@@ -1,7 +1,7 @@
 // quadviewport.view.tsx
 // copyright (c) 2018 Henrik Bechmann, Toronto, MIT Licence
 'use strict';
-import * as React from 'react';
+import React from 'react';
 const QuadViewport = props => {
     return (<div id="quadviewport" style={{
         position: 'absolute',

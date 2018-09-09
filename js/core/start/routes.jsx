@@ -1,6 +1,6 @@
 // routes.tsx
 'use strict';
-import * as React from 'react';
+import React from 'react';
 import { Route } from 'react-router-dom';
 // import Spaces from './control/spaces'
 import Quadspace from '../ui/quadspace.controller';

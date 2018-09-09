@@ -2,7 +2,7 @@
 // copyright (c) 2017 Henrik Bechmann, Toronto, MIT Licence
 // these are the left/right custom arrows that appear when there is a list overflow
 'use strict';
-import * as React from 'react';
+import React from 'react';
 class ScrollControlsView extends React.Component {
     constructor() {
         super(...arguments);

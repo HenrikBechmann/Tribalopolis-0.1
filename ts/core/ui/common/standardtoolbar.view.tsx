@@ -4,7 +4,7 @@
 
 'use strict'
 
-import * as React from 'react'
+import React from 'react'
 
 import Icon from '@material-ui/core/Icon'
 
@@ -42,7 +42,8 @@ const StandardToolbar = (props) => {
                     </div>
                 </QuadToolsStrip>)
             }
-            </UserContext.Consumer>                
+            </UserContext.Consumer>
+            <div style = {{height:'48px',width:'100%'}}></div>
         </div>
     )
 }

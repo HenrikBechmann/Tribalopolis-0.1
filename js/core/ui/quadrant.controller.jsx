@@ -4,7 +4,7 @@
     TODO: keep scrollbox pos in settings when navigating stack levels
 */
 'use strict';
-import * as React from 'react';
+import React from 'react';
 import QuadOrigin from './quadrant/quadorigin.view';
 import QuadTitleBar from './quadrant/quadtitlebar.view';
 import DataBox from './databox.controller';

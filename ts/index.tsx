@@ -1,7 +1,7 @@
 
 import '@babel/polyfill'
 
-import * as React from 'react';
+import React from 'react';
 import { render } from 'react-dom'
 
 require('isomorphic-fetch')

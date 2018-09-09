@@ -1,7 +1,7 @@
 // quadnavigationmenu.view.tsx
 // copyright (c) 2018 Henrik Bechmann, Toronto, MIT Licence
 'use strict';
-import * as React from 'react';
+import React from 'react';
 import IconButton from '@material-ui/core/IconButton';
 const QuadNavigationMenu = ({ currentQuadPosition, split, selectQuad }) => {
     return <div style={{ display: 'inline-block', verticalAlign: 'middle' }}>

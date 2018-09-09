@@ -13,7 +13,7 @@
 
 'use strict'
 
-import * as React from 'react'
+import React from 'react'
 
 // TODO: temporary -- replace with application service
 import coredata from  '../../data/coredata'

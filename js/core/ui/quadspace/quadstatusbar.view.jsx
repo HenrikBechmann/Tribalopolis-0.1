@@ -1,7 +1,7 @@
 // quadtitlebar.view.tsx
 // copyright (c) 2018 Henrik Bechmann, Toronto, MIT Licence
 'use strict';
-import * as React from 'react';
+import React from 'react';
 import Icon from '@material-ui/core/Icon';
 const QuadStatusBar = props => {
     return (<div style={{

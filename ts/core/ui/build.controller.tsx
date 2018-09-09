@@ -3,7 +3,7 @@
 
 'use strict'
 
-import * as React from 'react'
+import React from 'react'
 
 import StandardToolbar from './common/standardtoolbar.view'
 
@@ -16,15 +16,6 @@ class BuildController extends React.Component<any,any> {
     render() {
         return <div>
             <StandardToolbar />
-            <div style = {{height:'48px',width:'100%'}}>spacer</div>
-            <div>
-                <Button 
-                    onClick = {() => {
-                        toast('test toast')
-                    }}
-                >toast</Button>
-                Hello
-            </div>
         </div>
     }
 }

@@ -1,7 +1,7 @@
 // quad.controller.tsx
 // copyright (c) 2018 Henrik Bechmann, Toronto, MIT Licence
 'use strict';
-import * as React from 'react';
+import React from 'react';
 import QuadToolsStrip from './common/toolsstrip.view';
 import QuadNavigationMenu from './quadspace/quadnavigationmenu.view';
 import SplitNavigationMenu from './quadspace/splitnavigationmenu.view';

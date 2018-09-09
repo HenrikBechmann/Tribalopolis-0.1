@@ -2,7 +2,7 @@
 // copyright (c) 2018 Henrik Bechmann, Toronto, MIT Licence
 'use strict'
 
-import * as React from 'react'
+import React from 'react'
 import OriginMenu from './quadoriginmenu.view'
 import QuantityBadge from '../common/quantitybadge.view'
 

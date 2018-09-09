@@ -3,7 +3,7 @@
 
 'use strict'
 
-import * as React from 'react'
+import React from 'react'
 
 import QuadPlatform from './quadspace/quadplatform.view'
 import QuadFrame from './quadrant/quadframe.view'

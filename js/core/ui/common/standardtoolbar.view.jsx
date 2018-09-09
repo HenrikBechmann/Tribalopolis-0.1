@@ -1,7 +1,7 @@
 // standardtoolbar.view.tsx
 // copyright (c) 2018 Henrik Bechmann, Toronto, MIT Licence
 'use strict';
-import * as React from 'react';
+import React from 'react';
 import Icon from '@material-ui/core/Icon';
 import UserContext from '../../services/user.context';
 import QuadToolsStrip from './toolsstrip.view';
@@ -24,7 +24,8 @@ const StandardToolbar = (props) => {
                         </div>
                     </div>
                 </QuadToolsStrip>)}
-            </UserContext.Consumer>                
+            </UserContext.Consumer>
+            <div style={{ height: '48px', width: '100%' }}></div>
         </div>);
 };
 export default StandardToolbar;

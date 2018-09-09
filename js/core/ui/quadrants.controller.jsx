@@ -1,7 +1,7 @@
 // quadrants.controller.tsx
 // copyright (c) 2018 Henrik Bechmann, Toronto, MIT Licence
 'use strict';
-import * as React from 'react';
+import React from 'react';
 import QuadPlatform from './quadspace/quadplatform.view';
 import QuadFrame from './quadrant/quadframe.view';
 import Quadrant from './quadrant.controller';

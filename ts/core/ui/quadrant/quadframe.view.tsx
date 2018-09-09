@@ -3,7 +3,7 @@
 
 'use strict'
 
-import * as React from 'react'
+import React from 'react'
 
 import SwapMenu from './quadswapmenu.view'
 import QuadSelector from './quadselector.view'

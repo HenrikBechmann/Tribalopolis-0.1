@@ -4,7 +4,7 @@
     - implement call to googla analytics
 */
 
-import * as React from 'react'
+import React from 'react'
 import { Switch, Router } from 'react-router-dom'
 import routes from "./routes"
 

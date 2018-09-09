@@ -1,7 +1,7 @@
 // copyright (c) 2018 Henrik Bechmann, Toronto, MIT Licence
 // quadframe.view.tsx
 'use strict';
-import * as React from 'react';
+import React from 'react';
 import SwapMenu from './quadswapmenu.view';
 import QuadSelector from './quadselector.view';
 class QuadFrame extends React.Component {

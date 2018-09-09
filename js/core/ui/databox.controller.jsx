@@ -1,7 +1,7 @@
 // databox.view.tsx
 // copyright (c) 2018 Henrik Bechmann, Toronto, MIT Licence
 'use strict';
-import * as React from 'react';
+import React from 'react';
 import BoxIdentityBar from './databox/identitybar.view';
 import BoxTypebar from './databox/typebar.view';
 // import ProfileBar from './databox/profilebar.view'

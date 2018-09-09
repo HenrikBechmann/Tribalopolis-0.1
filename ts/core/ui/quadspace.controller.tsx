@@ -3,7 +3,7 @@
 
 'use strict'
 
-import * as React from 'react'
+import React from 'react'
 
 import QuadToolsStrip from './common/toolsstrip.view'
 import QuadNavigationMenu from './quadspace/quadnavigationmenu.view'
