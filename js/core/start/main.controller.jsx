@@ -33,7 +33,7 @@ class Main extends React.Component {
         };
         this.getUserCallback = (user) => {
             if (user) {
-                toast.success(`signed in as ${user.displayName}`);
+                toast.success(`signed in as ${user.displayName}`, { autoClose: 2500 });
             }
             this.setState({
                 user,
