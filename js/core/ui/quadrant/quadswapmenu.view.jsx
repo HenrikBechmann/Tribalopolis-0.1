@@ -2,7 +2,7 @@
 // copyright (c) 2018 Henrik Bechmann, Toronto, MIT Licence
 'use strict';
 import * as React from 'react';
-import Icon from '@material-ui/core/Icon';
+import ActionButton from '../common/actionbutton.view';
 const SwapMenu = ({ quadrantPosition, handleSwap }) => {
     let tilt = null;
     if (quadrantPosition == 'topleft' || quadrantPosition == 'bottomright') {
@@ -13,7 +13,6 @@ const SwapMenu = ({ quadrantPosition, handleSwap }) => {
     }
     return <div style={{
         position: 'absolute',
-        height: '26px',
         right: '0',
         top: '0',
         border: '1px solid silver',
@@ -23,16 +22,17 @@ const SwapMenu = ({ quadrantPosition, handleSwap }) => {
         padding: '3px',
         opacity: 0.7,
     }}>
-        <Icon style={{ color: 'green', marginRight: '8px', border: '1px solid silver', borderRadius: '50%', }} onClick={() => {
+        <ActionButton iconStyle={{ color: 'green' }} icon='swap_vert' action={() => {
         handleSwap(quadrantPosition, 'vertical');
-    }}>swap_vert</Icon>
-        <Icon style={{ color: 'green', margin: '0 8px', border: '1px solid silver', borderRadius: '50%', transform: `rotate(${tilt})` }} onClick={() => {
+    }}/>
+        <ActionButton iconStyle={{ color: 'green', transform: `rotate(${tilt})` }} icon='swap_vert' action={() => {
         handleSwap(quadrantPosition, 'diagonal');
-    }}>swap_vert</Icon>
-        <Icon style={{ color: 'green', marginLeft: '8px', border: '1px solid silver', borderRadius: '50%', }} onClick={() => {
+    }}/>
+        <ActionButton iconStyle={{ color: 'green' }} icon='swap_horiz' action={() => {
         handleSwap(quadrantPosition, 'horizontal');
-    }}>swap_horiz</Icon>
+    }}/>
     </div>;
 };
+// style = {{color:'green',marginRight:'8px',border:'1px solid silver',borderRadius:'50%',}} 
 export default SwapMenu;
 //# sourceMappingURL=quadswapmenu.view.jsx.map
