@@ -9,6 +9,8 @@ import StandardToolbar from './common/standardtoolbar.view'
 
 import BaseForm from './input/baseform.view'
 
+import BasicEditor from './input/basiceditor.view'
+
 class BuildController extends React.Component<any,any> {
 
     render() {
@@ -17,6 +19,7 @@ class BuildController extends React.Component<any,any> {
             <BaseForm>
                 <span>Form</span>
             </BaseForm>
+            <BasicEditor />
         </div>
     }
 }

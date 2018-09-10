@@ -4,6 +4,7 @@
 import React from 'react';
 import StandardToolbar from './common/standardtoolbar.view';
 import BaseForm from './input/baseform.view';
+import BasicEditor from './input/basiceditor.view';
 class BuildController extends React.Component {
     render() {
         return <div>
@@ -11,6 +12,7 @@ class BuildController extends React.Component {
             <BaseForm>
                 <span>Form</span>
             </BaseForm>
+            <BasicEditor />
         </div>;
     }
 }
