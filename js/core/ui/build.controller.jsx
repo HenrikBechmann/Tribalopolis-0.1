@@ -3,10 +3,14 @@
 'use strict';
 import React from 'react';
 import StandardToolbar from './common/standardtoolbar.view';
+import BaseForm from './input/baseform.view';
 class BuildController extends React.Component {
     render() {
         return <div>
             <StandardToolbar />
+            <BaseForm>
+                <span>Form</span>
+            </BaseForm>
         </div>;
     }
 }

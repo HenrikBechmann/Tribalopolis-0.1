@@ -7,15 +7,16 @@ import React from 'react'
 
 import StandardToolbar from './common/standardtoolbar.view'
 
-import { toast } from 'react-toastify'
-
-import Button from '@material-ui/core/Button'
+import BaseForm from './input/baseform.view'
 
 class BuildController extends React.Component<any,any> {
 
     render() {
         return <div>
             <StandardToolbar />
+            <BaseForm>
+                <span>Form</span>
+            </BaseForm>
         </div>
     }
 }
