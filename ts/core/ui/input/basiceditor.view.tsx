@@ -7,6 +7,8 @@ import React from 'react'
 
 import { Editor, EditorState, RichUtils } from 'draft-js';
 
+import 'draft-js/dist/Draft.css'
+
 class BasicEditor extends React.Component<any,any> {
 
     state = {
