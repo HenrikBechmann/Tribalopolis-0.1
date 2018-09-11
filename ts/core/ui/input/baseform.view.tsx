@@ -30,7 +30,7 @@ class BaseForm extends React.Component<any,any> {
             </form>
         )
     }
+
 }
 
-export default withStyles(styles)(BaseForm)
-
+export default withStyles( styles )( BaseForm )
