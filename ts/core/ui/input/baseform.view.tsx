@@ -5,19 +5,19 @@
 
 import React from 'react'
 
-import { withStyles } from '@material-ui/core/styles'
+import { withStyles, createStyles, Theme } from '@material-ui/core/styles'
 
 /*
     patterned after first demo https://material-ui.com/demos/selects/ for 3.03
     use Typsecript fixes from here: https://material-ui.com/guides/typescript/
 */
 
-// const styles = theme => ({
-//   root: {
-//     display: 'flex',
-//     flexWrap: 'wrap',
-//   },
-// })
+const styles = (theme:Theme) => createStyles({
+  root: {
+    display: 'flex',
+    flexWrap: 'wrap',
+  },
+})
 
 class BaseForm extends React.Component<any,any> {
 
@@ -25,17 +25,12 @@ class BaseForm extends React.Component<any,any> {
         const { classes } = this.props
 
         return (
-            <form className = {classes.root} autoComplete="off">
-                {this.props.children}
+            <form className = { classes.root } autoComplete="off">
+                { this.props.children }
             </form>
         )
     }
 }
 
-export default withStyles({
-  root: {
-    display: 'flex',
-    flexWrap: 'wrap',
-  },
-})(BaseForm)
+export default withStyles(styles)(BaseForm)
 

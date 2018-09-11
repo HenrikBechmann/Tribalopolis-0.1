@@ -2,17 +2,17 @@
 // copyright (c) 2018 Henrik Bechmann, Toronto, MIT Licence
 'use strict';
 import React from 'react';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles, createStyles } from '@material-ui/core/styles';
 /*
     patterned after first demo https://material-ui.com/demos/selects/ for 3.03
     use Typsecript fixes from here: https://material-ui.com/guides/typescript/
 */
-// const styles = theme => ({
-//   root: {
-//     display: 'flex',
-//     flexWrap: 'wrap',
-//   },
-// })
+const styles = (theme) => createStyles({
+    root: {
+        display: 'flex',
+        flexWrap: 'wrap',
+    },
+});
 class BaseForm extends React.Component {
     render() {
         const { classes } = this.props;
@@ -21,10 +21,5 @@ class BaseForm extends React.Component {
             </form>);
     }
 }
-export default withStyles({
-    root: {
-        display: 'flex',
-        flexWrap: 'wrap',
-    },
-})(BaseForm);
+export default withStyles(styles)(BaseForm);
 //# sourceMappingURL=baseform.view.jsx.map
