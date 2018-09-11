@@ -7,12 +7,12 @@ import { withStyles } from '@material-ui/core/styles';
     patterned after first demo https://material-ui.com/demos/selects/ for 3.03
     use Typsecript fixes from here: https://material-ui.com/guides/typescript/
 */
-const styles = theme => ({
-    root: {
-        display: 'flex',
-        flexWrap: 'wrap',
-    },
-});
+// const styles = theme => ({
+//   root: {
+//     display: 'flex',
+//     flexWrap: 'wrap',
+//   },
+// })
 class BaseForm extends React.Component {
     render() {
         const { classes } = this.props;
