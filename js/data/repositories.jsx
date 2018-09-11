@@ -73,6 +73,8 @@ let lists = {
         },
         list: [],
         item: 'henrik',
+        subscriptions: {},
+        subscribers: {},
     },
     notes: {
         access: {
@@ -97,6 +99,8 @@ let lists = {
         },
         list: [],
         item: 'henrik',
+        subscriptions: {},
+        subscribers: {},
     },
     tribes: {
         access: {
@@ -122,6 +126,8 @@ let lists = {
         },
         list: [],
         item: 'henrik',
+        subscriptions: {},
+        subscribers: {},
     },
     connections: {
         access: {
@@ -146,6 +152,8 @@ let lists = {
         },
         list: [],
         item: 'henrik',
+        subscriptions: {},
+        subscribers: {},
     },
     requesting: {
         access: {
@@ -170,6 +178,8 @@ let lists = {
         },
         list: [],
         item: 'henrik',
+        subscriptions: {},
+        subscribers: {},
     },
     pending: {
         access: {
@@ -194,6 +204,8 @@ let lists = {
         },
         list: [],
         item: 'henrik',
+        subscriptions: {},
+        subscribers: {},
     },
     roles: {
         access: {
@@ -218,6 +230,8 @@ let lists = {
         },
         list: [],
         item: 'henrik',
+        subscriptions: {},
+        subscribers: {},
     },
     programs: {
         access: {
@@ -242,6 +256,8 @@ let lists = {
         },
         list: [],
         item: 'henrik',
+        subscriptions: {},
+        subscribers: {},
     },
     projects: {
         access: {
@@ -266,6 +282,8 @@ let lists = {
         },
         list: [],
         item: 'henrik',
+        subscriptions: {},
+        subscribers: {},
     },
     tasks: {
         access: {
@@ -290,6 +308,8 @@ let lists = {
         },
         list: [],
         item: 'henrik',
+        subscriptions: {},
+        subscribers: {},
     },
     messages: {
         access: {
@@ -314,6 +334,8 @@ let lists = {
         },
         list: [],
         item: 'henrik',
+        subscriptions: {},
+        subscribers: {},
     },
     streams: {
         access: {
@@ -338,6 +360,8 @@ let lists = {
         },
         list: [],
         item: 'henrik',
+        subscriptions: {},
+        subscribers: {},
     },
     resources: {
         access: {
@@ -362,6 +386,8 @@ let lists = {
         },
         list: [],
         item: 'henrik',
+        subscriptions: {},
+        subscribers: {},
     },
     calendars: {
         access: {
@@ -386,6 +412,8 @@ let lists = {
         },
         list: [],
         item: 'henrik',
+        subscriptions: {},
+        subscribers: {},
     },
     accounting: {
         access: {
@@ -410,6 +438,8 @@ let lists = {
         },
         list: [],
         item: 'henrik',
+        subscriptions: {},
+        subscribers: {},
     },
     membership: {
         access: {
@@ -435,6 +465,8 @@ let lists = {
         },
         list: [],
         item: 'henrik',
+        subscriptions: {},
+        subscribers: {},
     },
     other: {
         access: {
@@ -460,6 +492,8 @@ let lists = {
         },
         list: [],
         item: 'henrik',
+        subscriptions: {},
+        subscribers: {},
     },
     henrik: {
         access: {
@@ -555,6 +589,8 @@ let lists = {
             },
         ],
         item: 'henrik',
+        subscriptions: {},
+        subscribers: {},
     },
 };
 let links = {};

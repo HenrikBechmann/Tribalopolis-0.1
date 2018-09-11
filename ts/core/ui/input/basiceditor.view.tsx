@@ -9,6 +9,8 @@ import { Editor, EditorState, RichUtils } from 'draft-js';
 
 import 'draft-js/dist/Draft.css'
 
+console.log('RichUtils',RichUtils)
+
 class BasicEditor extends React.Component<any,any> {
 
     state = {
@@ -45,7 +47,7 @@ class BasicEditor extends React.Component<any,any> {
     render() {
         return(
           <div>
-            <button onClick={this.onUnderlineClick}>U</button>
+            <button onClick={this.onUnderlineClick}><span style = {{textDecoration:'underline'}}>U</span></button>
             <button onClick={this.onBoldClick}><b>B</b></button>
             <button onClick={this.onItalicClick}><em>I</em></button>        
             <div style = {{border:'1px solid silver',maxWidth:'400px'}}>

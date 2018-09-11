@@ -103,6 +103,12 @@ let lists = {
         },
         list:[],
         item:'henrik',
+        subscriptions:{
+
+        },
+        subscribers: {
+
+        },
     },
     notes:
     {
@@ -132,6 +138,12 @@ let lists = {
         },
         list:[],
         item:'henrik',
+        subscriptions:{
+
+        },
+        subscribers: {
+
+        },
     },
     tribes:
     {
@@ -162,6 +174,12 @@ let lists = {
         },
         list:[],
         item:'henrik',
+        subscriptions:{
+
+        },
+        subscribers: {
+
+        },
     },
     connections:
     {
@@ -191,6 +209,12 @@ let lists = {
         },
         list:[],
         item:'henrik',
+        subscriptions:{
+
+        },
+        subscribers: {
+
+        },
     },
     requesting:
     {
@@ -220,6 +244,12 @@ let lists = {
         },
         list:[],
         item:'henrik',
+        subscriptions:{
+
+        },
+        subscribers: {
+
+        },
     },
     pending:
     {
@@ -249,6 +279,12 @@ let lists = {
         },
         list:[],
         item:'henrik',
+        subscriptions:{
+
+        },
+        subscribers: {
+
+        },
     },
     roles:
     {
@@ -278,6 +314,12 @@ let lists = {
         },
         list:[],
         item:'henrik',
+        subscriptions:{
+
+        },
+        subscribers: {
+
+        },
     },
     programs:
     {
@@ -307,6 +349,12 @@ let lists = {
         },
         list:[],
         item:'henrik',
+        subscriptions:{
+
+        },
+        subscribers: {
+
+        },
     },
     projects:
     {
@@ -336,6 +384,12 @@ let lists = {
         },
         list:[],
         item:'henrik',
+        subscriptions:{
+
+        },
+        subscribers: {
+
+        },
     },
     tasks:
     {
@@ -365,6 +419,12 @@ let lists = {
         },
         list:[],
         item:'henrik',
+        subscriptions:{
+
+        },
+        subscribers: {
+
+        },
     },
     messages:
     {
@@ -394,6 +454,12 @@ let lists = {
         },
         list:[],
         item:'henrik',
+        subscriptions:{
+
+        },
+        subscribers: {
+
+        },
     },
     streams:
     {
@@ -423,6 +489,12 @@ let lists = {
         },
         list:[],
         item:'henrik',
+        subscriptions:{
+
+        },
+        subscribers: {
+
+        },
     },
     resources:
     {
@@ -452,6 +524,12 @@ let lists = {
         },
         list:[],
         item:'henrik',
+        subscriptions:{
+
+        },
+        subscribers: {
+
+        },
     },
     calendars:
     {
@@ -481,6 +559,12 @@ let lists = {
         },
         list:[],
         item:'henrik',
+        subscriptions:{
+
+        },
+        subscribers: {
+
+        },
     },
     accounting:
     {
@@ -510,6 +594,12 @@ let lists = {
         },
         list:[],
         item:'henrik',
+        subscriptions:{
+
+        },
+        subscribers: {
+
+        },
     },
     membership:
     {
@@ -540,6 +630,12 @@ let lists = {
         },
         list:[],
         item:'henrik',
+        subscriptions:{
+
+        },
+        subscribers: {
+
+        },
 // account, website, home
     },
     other:
@@ -571,6 +667,12 @@ let lists = {
         },
         list:[],
         item:'henrik',
+        subscriptions:{
+
+        },
+        subscribers: {
+
+        },
     },
     henrik:
     {
@@ -671,6 +773,12 @@ let lists = {
             },
         ],
         item:'henrik',
+        subscriptions:{
+
+        },
+        subscribers: {
+
+        },
     },
 }
 
