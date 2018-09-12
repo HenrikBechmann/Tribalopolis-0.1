@@ -2,11 +2,31 @@
 // copyright (c) 2018 Henrik Bechmann, Toronto, MIT Licence
 'use strict';
 import React from 'react';
+import Button from '@material-ui/core/Button';
+import { withStyles } from '@material-ui/core/styles';
+import ReactJson from 'react-json-view';
 import StandardToolbar from './common/standardtoolbar.view';
 import BaseForm from './input/baseform.view';
 import SelectField from './input/selectfield.view';
 import TextField from './input/textfield.view';
 import BasicEditor from './input/basiceditor.view';
+const styles = theme => ({
+    button: {
+        margin: theme.spacing.unit,
+    },
+});
+let testJson = {
+    one: {
+        first: 1,
+        second: "second"
+    },
+    two: "two",
+    three: [
+        "first",
+        2,
+        "third"
+    ]
+};
 class BuildController extends React.Component {
     constructor() {
         super(...arguments);
@@ -16,10 +36,16 @@ class BuildController extends React.Component {
                 alias: '',
             }
         };
+        this.fetchObject = () => {
+            console.log('fetching', this.state.values);
+        };
+        this.saveObject = () => {
+            console.log('saving', this.state.values);
+        };
         this.onChangeValue = event => {
             let { values } = this.state;
             values[event.target.name] = event.target.value;
-            console.log('onchange values', values);
+            // console.log('onchange values',values)
             this.setState({ values });
         };
     }
@@ -60,9 +86,24 @@ class BuildController extends React.Component {
 
                 <TextField label='Alias' name='alias' value={this.state.values.alias} onChange={this.onChangeValue} helperText='enter the alias of the requested object'/>
             </BaseForm>
+            <div>
+                <Button variant='contained' onClick={this.fetchObject} className={this.props.classes.button}>
+                    Fetch
+                </Button>
+
+                <Button variant='contained' onClick={this.saveObject} className={this.props.classes.button}>
+                    Save
+                </Button>
+            </div>
+            <div>
+                <ReactJson src={testJson} onEdit={props => {
+        }} onAdd={props => {
+        }} onDelete={props => {
+        }}/>
+            </div>
             <BasicEditor />
         </div>;
     }
 }
-export default BuildController;
+export default withStyles(styles)(BuildController);
 //# sourceMappingURL=build.controller.jsx.map
