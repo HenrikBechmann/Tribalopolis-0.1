@@ -9,12 +9,16 @@ import StandardToolbar from './common/standardtoolbar.view'
 
 import BaseForm from './input/baseform.view'
 import SelectField from './input/selectfield.view'
+import TextField from './input/textfield.view'
 import BasicEditor from './input/basiceditor.view'
 
 class BuildController extends React.Component<any,any> {
 
     state = {
-        values:{collection:'types'}
+        values:{
+            collection:'types',
+            alias:'',
+        }
     }
 
     onChangeValue = event => {
@@ -31,14 +35,10 @@ class BuildController extends React.Component<any,any> {
             <BaseForm>
                 <SelectField
                     label = {'Collection'}
-                    input = {{name:'collection',id:'collection-id'}}
-                    select = {
-                        {
-                            value:this.state.values.collection,
-                            onChange:this.onChangeValue
-                        }
-                    }
-                    helpertext = {'select a collection'}
+                    name = 'collection'
+                    value = {this.state.values.collection}
+                    onChange = {this.onChangeValue}
+                    helperText = {'select a collection for the object'}
                     options = {[
                         {
                             value:'types',
@@ -68,11 +68,15 @@ class BuildController extends React.Component<any,any> {
                             value:'accounts',
                             text:'accounts',
                         },
-                        {
-                            value:'subscriptions',
-                            text:'subscriptions',
-                        },
                     ]}
+                />
+
+                <TextField 
+                    label = 'Alias'
+                    name = 'alias'
+                    value = {this.state.values.alias}
+                    onChange = { this.onChangeValue }
+                    helperText = 'enter the alias of the requested object'
                 />
             </BaseForm>
             <BasicEditor />

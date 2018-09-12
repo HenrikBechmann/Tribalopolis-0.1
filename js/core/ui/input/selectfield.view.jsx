@@ -11,25 +11,27 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 const styles = (theme) => createStyles({
     formControl: {
-        margin: theme.spacing.unit,
+        marginLeft: theme.spacing.unit,
+        marginRight: theme.spacing.unit,
         minWidth: 120,
     },
     selectEmpty: {
         marginTop: theme.spacing.unit * 2,
     },
 });
-const SelectField = ({ classes, label, input, select, helpertext, options }) => {
+const SelectField = ({ classes, label, name, value, onChange, helperText, options }) => {
     let optionslist = options.map((item, index) => {
         return <MenuItem key={index} value={item.value}> {item.text} </MenuItem>;
     });
-    return (<FormControl className={classes.formControl}>
-          <InputLabel shrink htmlFor={input.id}>
+    let inputid = name + '-id';
+    return (<FormControl className={classes.formControl} margin='normal'>
+          <InputLabel shrink htmlFor={inputid}>
              {label}
           </InputLabel>
-          <Select value={select.value} onChange={select.onChange} input={<Input name={input.name} id={input.id}/>} displayEmpty name={input.name} className={classes.selectEmpty}>
+          <Select value={value} onChange={onChange} input={<Input name={name} id={inputid}/>} displayEmpty name={name} className={classes.selectEmpty}>
               {optionslist}
           </Select>
-          <FormHelperText> {helpertext} </FormHelperText>
+          <FormHelperText> {helperText} </FormHelperText>
         </FormControl>);
 };
 export default withStyles(styles)(SelectField);

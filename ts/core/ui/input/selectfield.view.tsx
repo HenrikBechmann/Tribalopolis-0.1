@@ -15,7 +15,8 @@ import Select from '@material-ui/core/Select';
 
 const styles = ( theme:Theme ) => createStyles({
   formControl: {
-    margin: theme.spacing.unit,
+    marginLeft: theme.spacing.unit,
+    marginRight: theme.spacing.unit,
     minWidth: 120,
   },
   selectEmpty: {
@@ -23,28 +24,33 @@ const styles = ( theme:Theme ) => createStyles({
   },
 })
 
-const SelectField = ({ classes, label, input, select, helpertext, options }) => {
+const SelectField = ({ classes, label, name, value, onChange, helperText, options }) => {
 
     let optionslist = options.map(( item, index ) => {
         return <MenuItem key = { index } value = { item.value } > { item.text } </MenuItem>
     })
 
+    let inputid = name + '-id'
+
     return (
-        <FormControl className = { classes.formControl } >
-          <InputLabel shrink htmlFor = { input.id } >
+        <FormControl 
+          className = { classes.formControl }
+          margin = 'normal'
+          >
+          <InputLabel shrink htmlFor = { inputid } >
              { label }
           </InputLabel>
           <Select
-            value = { select.value }
-            onChange = { select.onChange }
-            input={ <Input name = { input.name } id = { input.id } /> }
+            value = { value }
+            onChange = { onChange }
+            input={ <Input name = { name } id = { inputid } /> }
             displayEmpty
-            name= { input.name }
+            name= { name }
             className={ classes.selectEmpty }
           >
               { optionslist }
           </Select>
-          <FormHelperText> { helpertext } </FormHelperText>
+          <FormHelperText> { helperText } </FormHelperText>
         </FormControl>
     )
 }

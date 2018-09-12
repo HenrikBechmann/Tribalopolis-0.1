@@ -5,12 +5,16 @@ import React from 'react';
 import StandardToolbar from './common/standardtoolbar.view';
 import BaseForm from './input/baseform.view';
 import SelectField from './input/selectfield.view';
+import TextField from './input/textfield.view';
 import BasicEditor from './input/basiceditor.view';
 class BuildController extends React.Component {
     constructor() {
         super(...arguments);
         this.state = {
-            values: { collection: 'types' }
+            values: {
+                collection: 'types',
+                alias: '',
+            }
         };
         this.onChangeValue = event => {
             let { values } = this.state;
@@ -23,10 +27,7 @@ class BuildController extends React.Component {
         return <div>
             <StandardToolbar />
             <BaseForm>
-                <SelectField label={'Collection'} input={{ name: 'collection', id: 'collection-id' }} select={{
-            value: this.state.values.collection,
-            onChange: this.onChangeValue
-        }} helpertext={'select a collection'} options={[
+                <SelectField label={'Collection'} name='collection' value={this.state.values.collection} onChange={this.onChangeValue} helperText={'select a collection for the object'} options={[
             {
                 value: 'types',
                 text: 'types',
@@ -55,11 +56,9 @@ class BuildController extends React.Component {
                 value: 'accounts',
                 text: 'accounts',
             },
-            {
-                value: 'subscriptions',
-                text: 'subscriptions',
-            },
         ]}/>
+
+                <TextField label='Alias' name='alias' value={this.state.values.alias} onChange={this.onChangeValue} helperText='enter the alias of the requested object'/>
             </BaseForm>
             <BasicEditor />
         </div>;
