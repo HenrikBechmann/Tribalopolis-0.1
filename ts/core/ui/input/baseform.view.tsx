@@ -12,7 +12,7 @@ import { withStyles, createStyles, Theme } from '@material-ui/core/styles'
     use Typsecript fixes from here: https://material-ui.com/guides/typescript/
 */
 
-const styles = (theme:Theme) => createStyles({
+const styles = ( theme:Theme ) => createStyles({
   root: {
     display: 'flex',
     flexWrap: 'wrap',

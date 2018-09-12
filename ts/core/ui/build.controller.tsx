@@ -8,16 +8,60 @@ import React from 'react'
 import StandardToolbar from './common/standardtoolbar.view'
 
 import BaseForm from './input/baseform.view'
-
+import SelectField from './input/selectfield.view'
 import BasicEditor from './input/basiceditor.view'
 
 class BuildController extends React.Component<any,any> {
 
+    state = {
+        values:{collection:'types'}
+    }
+
+    onChangeValue = event => {
+        let { values } = this.state
+        values[event.target.name] = event.target.value
+        console.log('onchange values',values)
+        this.setState({ values })    
+    }
+
     render() {
+
         return <div>
             <StandardToolbar />
             <BaseForm>
-                <span>Form</span>
+                <SelectField
+                    label = {'Collection'}
+                    input = {{name:'collection',id:'collection-id'}}
+                    select = {
+                        {
+                            value:this.state.values.collection,
+                            onChange:this.onChangeValue
+                        }
+                    }
+                    helpertext = {'select a collection'}
+                    options = {[
+                        {
+                            value:'types',
+                            text:'types',
+                        },
+                        {
+                            value:'schemas',
+                            text:'schemas',
+                        },
+                        {
+                            value:'items',
+                            text:'items',
+                        },
+                        {
+                            value:'lists',
+                            text:'lists',
+                        },
+                        {
+                            value:'links',
+                            text:'links',
+                        },
+                    ]}
+                />
             </BaseForm>
             <BasicEditor />
         </div>
