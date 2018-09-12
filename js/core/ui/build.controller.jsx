@@ -47,6 +47,14 @@ class BuildController extends React.Component {
                 value: 'links',
                 text: 'links',
             },
+            {
+                value: 'folders',
+                text: 'folders',
+            },
+            {
+                value: 'accounts',
+                text: 'accounts',
+            },
         ]}/>
             </BaseForm>
             <BasicEditor />
