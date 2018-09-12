@@ -6,7 +6,7 @@
 
 import Datamodel from './datamodel'
 
-import { schemes, types, items, lists, links, folders } from '../../data/repositories'
+import { schemes, types, items, lists, links, folders, accounts } from '../../data/repositories'
 
 const getItem = (dataref) => {
     Datamodel.getStore()

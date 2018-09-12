@@ -55,6 +55,10 @@ class BuildController extends React.Component {
                 value: 'accounts',
                 text: 'accounts',
             },
+            {
+                value: 'subscriptions',
+                text: 'subscriptions',
+            },
         ]}/>
             </BaseForm>
             <BasicEditor />

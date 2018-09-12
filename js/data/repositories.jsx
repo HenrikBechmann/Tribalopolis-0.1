@@ -72,7 +72,7 @@ let lists = {
             },
         },
         list: [],
-        item: 'henrik',
+        itemuid: 'henrik',
         subscriptions: {},
         subscribers: {},
     },
@@ -607,6 +607,8 @@ let items = {
         },
         identity: {
             uid: 'henrik',
+            account: 'henrik',
+            alias: 'henrik',
         },
         properties: {
             tag: 'Henrik',
@@ -620,5 +622,18 @@ let items = {
         list: { repo: 'lists', uid: 'henrik' },
     },
 };
-export { schemes, types, items, lists, links, folders };
+let accounts = {};
+// let subscriptions = {
+//     subscriber:{
+//     },
+//     subscription:{
+//         startpoint:{
+//         },
+//         path:[
+//         ],
+//         endpoint: {
+//         },
+//     }
+// }
+export { schemes, types, items, lists, links, folders, accounts }; //, subscriptions }
 //# sourceMappingURL=repositories.jsx.map
