@@ -34,13 +34,19 @@ class BuildController extends React.Component {
             values: {
                 collection: 'types',
                 alias: '',
-            }
+            },
+            json: {}
         };
         this.fetchObject = () => {
             console.log('fetching', this.state.values);
         };
         this.saveObject = () => {
             console.log('saving', this.state.values);
+        };
+        this.clearObject = () => {
+            this.setState({
+                json: {},
+            });
         };
         this.onChangeValue = event => {
             let { values } = this.state;
@@ -94,9 +100,12 @@ class BuildController extends React.Component {
                 <Button variant='contained' onClick={this.saveObject} className={this.props.classes.button}>
                     Save
                 </Button>
+                <Button variant='contained' onClick={this.clearObject} className={this.props.classes.button}>
+                    Clear
+                </Button>
             </div>
             <div>
-                <ReactJson src={testJson} onEdit={props => {
+                <ReactJson src={this.state.json} onEdit={props => {
         }} onAdd={props => {
         }} onDelete={props => {
         }}/>
