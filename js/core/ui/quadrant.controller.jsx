@@ -20,7 +20,8 @@ class Quadrant extends React.Component {
         this.state = {
             datastack: null,
             stackpointer: 0,
-            collapseTargetData: null
+            collapseTargetData: null,
+            boxwidth: 300
         };
         // trigger for animation and reset
         this.collapseTargetData = null;
@@ -52,6 +53,7 @@ class Quadrant extends React.Component {
                 targetElement: this.scrollboxelement.current,
                 containerElement: this.quadcontentelement.current,
                 drillAnimationElement: this.drillanimationblock.current,
+                boxwidth: this.state.boxwidth,
             });
         };
         this.animateToDataBoxList = (domSource) => {
@@ -62,7 +64,7 @@ class Quadrant extends React.Component {
                 drillAnimationElement: this.drillanimationblock.current,
             });
         };
-        //-------------------------------[ forward ]----------------------------
+        //-------------------------------[ forward ]---------------------------
         this.expandDirectoryItem = (boxptr, dataref, domSource) => {
             this.animateToOrigin();
             this.animateToDataBox(domSource);
@@ -249,7 +251,7 @@ class Quadrant extends React.Component {
             if (collapseTargetData) {
                 matchForTarget = (collapseTargetData.index == index);
             }
-            return (<DataBox key={boxProxy.instanceid} item={item} itemType={itemType} collapseTargetData={matchForTarget ? collapseTargetData : null} getList={this.getList} getType={this.getType} boxProxy={boxProxy} highlightBox={animations.highlightBox} haspeers={haspeers} index={index} containerHeight={containerHeight} splayBox={(domSource, listcomponent) => {
+            return (<DataBox key={boxProxy.instanceid} item={item} itemType={itemType} collapseTargetData={matchForTarget ? collapseTargetData : null} getList={this.getList} getType={this.getType} boxProxy={boxProxy} highlightBox={animations.highlightBox} haspeers={haspeers} index={index} containerHeight={containerHeight} boxwidth={this.state.boxwidth} splayBox={(domSource, listcomponent) => {
                 this.splayBox(index, domSource, listcomponent);
             }} selectFromSplay={(domSource) => {
                 this.selectFromSplay(index, domSource);

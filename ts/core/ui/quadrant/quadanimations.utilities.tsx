@@ -18,10 +18,10 @@ const animateToOrigin = ({sourceElement, originElement, containerElement, origin
 
 }
 
-const animateToDatabox = ({sourceElement, targetElement, containerElement, drillAnimationElement}) => {
+const animateToDatabox = ({sourceElement, targetElement, containerElement, drillAnimationElement, boxwidth}) => {
 
     let { domSourcePack:drillSourcePack, domTargetPack:drillTargetPack } = 
-        _getAnimationSelectDrillVars( sourceElement, targetElement, containerElement )
+        _getAnimationSelectDrillVars( sourceElement, targetElement, containerElement, boxwidth )
 
     _animateBlockDrill( drillSourcePack, drillTargetPack, drillAnimationElement )
 
@@ -65,7 +65,7 @@ const _getAnimationDrillVars = (domSource:HTMLElement,domTarget:HTMLElement, con
     return varpack
 }
 
-const _getAnimationSelectDrillVars = (domSource:HTMLElement,domReference:HTMLElement, containerelement) => {
+const _getAnimationSelectDrillVars = (domSource:HTMLElement,domReference:HTMLElement, containerelement, boxwidth) => {
     let varpack = {
         domSourcePack:null,
         domTargetPack:null,
@@ -73,9 +73,9 @@ const _getAnimationSelectDrillVars = (domSource:HTMLElement,domReference:HTMLEle
 
     let targetPack = {
         top:domReference.offsetTop + (domReference.clientHeight * .1),
-        left:(domReference.offsetWidth / 2) - 130,
+        left:(domReference.offsetWidth / 2) - ((boxwidth/2) - 10 ),
         height:domReference.clientHeight - (domReference.clientHeight * .06),
-        width:300,
+        width:boxwidth,
     }
 
     varpack.domSourcePack = _getAnimationElementVars(domSource, containerelement)

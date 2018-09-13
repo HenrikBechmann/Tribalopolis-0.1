@@ -43,7 +43,8 @@ class Quadrant extends React.Component<any,any>  {
     state = {
         datastack:null,
         stackpointer:0,
-        collapseTargetData:null
+        collapseTargetData:null,
+        boxwidth:300
     }
 
     // dom refs
@@ -160,7 +161,8 @@ class Quadrant extends React.Component<any,any>  {
             sourceElement:domSource,
             targetElement:this.scrollboxelement.current,
             containerElement:this.quadcontentelement.current,
-            drillAnimationElement:this.drillanimationblock.current,  
+            drillAnimationElement:this.drillanimationblock.current,
+            boxwidth:this.state.boxwidth,
         })        
     }
 
@@ -173,8 +175,7 @@ class Quadrant extends React.Component<any,any>  {
         })        
     }
 
-    //-------------------------------[ forward ]----------------------------
-
+    //-------------------------------[ forward ]---------------------------
     expandDirectoryItem = (boxptr, dataref, domSource) => {
 
         this.animateToOrigin()
@@ -435,6 +436,7 @@ class Quadrant extends React.Component<any,any>  {
                 haspeers = { haspeers }
                 index = {index}
                 containerHeight = {containerHeight}
+                boxwidth = {this.state.boxwidth}
 
                 splayBox = {
                     (domSource, listcomponent) => {

@@ -21,7 +21,7 @@ const ResizeTab = props => {
 
     return <div style = {{
         position:'absolute',
-        right:'-21px',
+        right:'-22px',
         top:'calc(50% - 16px)',
         width:'20px',
         height:'32px',
@@ -211,7 +211,7 @@ class DataBox extends React.Component<any,any> {
         let listobject = getList(listref)
 
         let frameStyle:React.CSSProperties = {
-            width:'300px',
+            width:this.props.boxwidth + 'px',
             backgroundColor:'white',
             border:this.collapseTargetData?'1px solid blue':'1px solid silver',
             maxHeight:'96%',
