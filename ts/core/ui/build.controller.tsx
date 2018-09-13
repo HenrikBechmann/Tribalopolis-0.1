@@ -184,7 +184,7 @@ class BuildController extends React.Component<any,any> {
                     }}
                 />
             </div>
-            <BasicEditor />
+            {/*<BasicEditor />*/}
         </div>
     }
 }

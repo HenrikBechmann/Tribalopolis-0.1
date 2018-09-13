@@ -9,7 +9,6 @@ import StandardToolbar from './common/standardtoolbar.view';
 import BaseForm from './input/baseform.view';
 import SelectField from './input/selectfield.view';
 import TextField from './input/textfield.view';
-import BasicEditor from './input/basiceditor.view';
 const styles = theme => ({
     button: {
         margin: theme.spacing.unit,
@@ -128,7 +127,7 @@ class BuildController extends React.Component {
             this.latestjson = props.updated_src;
         }}/>
             </div>
-            <BasicEditor />
+            
         </div>;
     }
 }

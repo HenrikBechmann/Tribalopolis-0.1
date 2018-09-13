@@ -15,6 +15,27 @@ import DirectoryList from './databox/directorylist.view'
 import { withStyles } from '@material-ui/core/styles'
 import Button from '@material-ui/core/Button'
 import AddIcon from '@material-ui/icons/Add'
+import Icon from '@material-ui/core/Icon'
+
+const ResizeTab = props => {
+
+    return <div style = {{
+        position:'absolute',
+        right:'-21px',
+        top:'calc(50% - 16px)',
+        width:'20px',
+        height:'32px',
+        border:'1px solid gray',
+        borderLeft:'1px solid transparent',
+        backgroundColor:'white',
+        borderRadius:'0 8px 8px 0',
+        opacity:.54,
+    }}>
+        <div style = {{margin:'4px 0 0 -3px'}} >
+            <Icon style = {{transform:'rotate(90deg)',opacity:.54}}>drag_handle</Icon>
+        </div>
+    </div>
+}
 
 const styles = theme => ({
   button: {
@@ -200,6 +221,7 @@ class DataBox extends React.Component<any,any> {
             fontSize:'smaller',
             boxShadow: haspeers?'none':'0 0 12px black',
             margin:haspeers?'none':'auto',
+            position:'relative',
         }
 
         let scrollboxstyle:React.CSSProperties = {
@@ -224,6 +246,7 @@ class DataBox extends React.Component<any,any> {
             <div style = {frameStyle}
                 ref = {this.boxframe}
             >
+            <ResizeTab />
             <BoxTypebar 
                 item = {item} 
                 listcount = {listcount}
