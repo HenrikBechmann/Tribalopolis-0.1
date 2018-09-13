@@ -44,19 +44,25 @@ class BuildController extends React.Component<any,any> {
             collection:'types',
             alias:'',
         },
-        json:{}
+        json:{},
     }
+
+    savejson = {}
+
+    latestjson = {}
 
     fetchObject = () => {
         console.log('fetching', this.state.values)
     }
 
     saveObject = () => {
-        console.log('saving', this.state.values)
+        this.savejson = this.latestjson
     }
 
     rollbackObject = () => {
-        console.log('saving', this.state.values)
+        this.setState({
+            json:this.savejson
+        })
     }
 
     postObject = () => {
@@ -64,6 +70,7 @@ class BuildController extends React.Component<any,any> {
     }
 
     clearObject = () => {
+        this.savejson = {}
         this.setState({
             json:{},
         })
@@ -72,7 +79,6 @@ class BuildController extends React.Component<any,any> {
     onChangeValue = event => {
         let { values } = this.state
         values[event.target.name] = event.target.value
-        // console.log('onchange values',values)
         this.setState({ values })    
     }
 
@@ -168,13 +174,13 @@ class BuildController extends React.Component<any,any> {
                 <ReactJson 
                     src = {this.state.json} 
                     onEdit = {props => {
-
+                        this.latestjson = props.updated_src
                     }}
                     onAdd = {props => {
-                        
+                        this.latestjson = props.updated_src
                     }}
                     onDelete = {props => {
-                        
+                        this.latestjson = props.updated_src
                     }}
                 />
             </div>
