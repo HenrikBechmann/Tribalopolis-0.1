@@ -104,7 +104,11 @@ let lists = {
         list:[],
         itemuid:'henrik',
         subscriptions:{
-
+            ['subscriptionid']:{
+                lastreadstamp:1,
+                recentcreatecount:5,
+                recenttokens:[], // queue
+            }
         },
         subscribers: {
 

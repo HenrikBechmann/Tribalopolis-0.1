@@ -73,7 +73,13 @@ let lists = {
         },
         list: [],
         itemuid: 'henrik',
-        subscriptions: {},
+        subscriptions: {
+            ['subscriptionid']: {
+                lastreadstamp: 1,
+                recentcreatecount: 5,
+                recenttokens: [],
+            }
+        },
         subscribers: {},
     },
     notes: {

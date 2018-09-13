@@ -43,6 +43,12 @@ class BuildController extends React.Component {
         this.saveObject = () => {
             console.log('saving', this.state.values);
         };
+        this.rollbackObject = () => {
+            console.log('saving', this.state.values);
+        };
+        this.postObject = () => {
+            console.log('posting', this.state.values);
+        };
         this.clearObject = () => {
             this.setState({
                 json: {},
@@ -96,9 +102,14 @@ class BuildController extends React.Component {
                 <Button variant='contained' onClick={this.fetchObject} className={this.props.classes.button}>
                     Fetch
                 </Button>
-
                 <Button variant='contained' onClick={this.saveObject} className={this.props.classes.button}>
                     Save
+                </Button>
+                <Button variant='contained' onClick={this.rollbackObject} className={this.props.classes.button}>
+                    Roll Back
+                </Button>
+                <Button variant='contained' onClick={this.postObject} className={this.props.classes.button}>
+                    Post
                 </Button>
                 <Button variant='contained' onClick={this.clearObject} className={this.props.classes.button}>
                     Clear
