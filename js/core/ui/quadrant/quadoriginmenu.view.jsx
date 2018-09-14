@@ -22,7 +22,7 @@ const OriginMenu = (props) => {
         <ActionButton icon='person'/>
         {false ? <ActionButton icon='weekend'/> : null}
 
-        <Divider />
+        <Divider style={{ float: 'right', width: '100%' }}/>
 
         <ActionButton icon='menu'/>
 

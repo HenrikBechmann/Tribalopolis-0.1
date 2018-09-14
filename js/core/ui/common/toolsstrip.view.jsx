@@ -168,6 +168,9 @@ class QuadToolsStrip extends React.Component {
                 {!this.state.user ? <MenuItem onClick={this.handleLogin}>
                     Sign in using Google
                 </MenuItem> : null}
+                {this.state.user ? <MenuItem>
+                    Account settings
+                </MenuItem> : null}
                 {this.state.user ? <MenuItem onClick={this.handleLogout}>
                     Sign out
                 </MenuItem> : null}

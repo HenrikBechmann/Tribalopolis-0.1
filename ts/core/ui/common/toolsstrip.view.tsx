@@ -275,6 +275,10 @@ class QuadToolsStrip extends React.Component<any,any> {
                     Sign in using Google
                 </MenuItem>:null}
                 {this.state.user?<MenuItem
+                >
+                    Account settings
+                </MenuItem>:null}
+                {this.state.user?<MenuItem
                     onClick={this.handleLogout}
                 >
                     Sign out
