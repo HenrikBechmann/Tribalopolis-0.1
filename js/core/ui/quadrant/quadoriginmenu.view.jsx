@@ -3,6 +3,7 @@
 'use strict';
 import React from 'react';
 import ActionButton from '../common/actionbutton.view';
+import Divider from '@material-ui/core/Divider';
 const OriginMenu = (props) => {
     let { stackpointer: pointer, stackdepth: depth } = props;
     return <div style={{
@@ -20,6 +21,11 @@ const OriginMenu = (props) => {
         <ActionButton icon='arrow_forward' disabled={(pointer + 1) == depth} action={props.incrementStackSelector}/>
         <ActionButton icon='person'/>
         {false ? <ActionButton icon='weekend'/> : null}
+
+        <Divider />
+
+        <ActionButton icon='menu'/>
+
     </div>;
 };
 export default OriginMenu;

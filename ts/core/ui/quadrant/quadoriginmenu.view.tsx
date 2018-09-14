@@ -5,6 +5,7 @@
 import React from 'react'
 
 import ActionButton from '../common/actionbutton.view'
+import Divider from '@material-ui/core/Divider'
 
 const OriginMenu = (props) => {
 
@@ -41,6 +42,13 @@ const OriginMenu = (props) => {
         {false?<ActionButton 
             icon = 'weekend'
         />:null}
+
+        <Divider style = {{float:'right',width:'100%'}}/>
+
+        <ActionButton 
+            icon = 'menu'
+        />
+
     </div>
 }
 
