@@ -2,6 +2,16 @@
 /*
     This is a gateway to the underlaying domain data
     It is accessed by services
+
+    The pattern is to return a new promise, wait for 
+    firestore promies, then coerce the result into standard application
+    format.
+
+    if there is an error generate application error
+
+    application promise is then resolved at endpoint
+
+    firebase promises are fetched based on database TOKENS
 */
 
 // temporary for transiition

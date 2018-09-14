@@ -422,7 +422,7 @@ class Quadrant extends React.Component<any,any>  {
         if (collapseTargetData) {
             matchForTarget = (collapseTargetData.index == index)
         }
-
+        // TODO replace getList and getType with promise resolvers
         return (
             <DataBox 
                 key = { boxProxy.instanceid } 
