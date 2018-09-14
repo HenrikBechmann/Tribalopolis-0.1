@@ -246,7 +246,7 @@ class DataBox extends React.Component<any,any> {
             <div style = {frameStyle}
                 ref = {this.boxframe}
             >
-            <ResizeTab />
+            {haspeers?null:<ResizeTab />}
             <BoxTypebar 
                 item = {item} 
                 listcount = {listcount}

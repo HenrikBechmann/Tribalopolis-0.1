@@ -185,7 +185,7 @@ class DataBox extends React.Component {
             padding: '16px',
         }}>
             <div style={frameStyle} ref={this.boxframe}>
-            <ResizeTab />
+            {haspeers ? null : <ResizeTab />}
             <BoxTypebar item={item} listcount={listcount} splayBox={this.splayBox} haspeers={this.props.haspeers} selectFromSplay={this.props.selectFromSplay}/>
             <BoxIdentityBar item={item}/>
             <div style={{

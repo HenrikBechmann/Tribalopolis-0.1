@@ -436,7 +436,7 @@ class Quadrant extends React.Component<any,any>  {
                 haspeers = { haspeers }
                 index = {index}
                 containerHeight = {containerHeight}
-                boxwidth = {this.state.boxwidth}
+                boxwidth = {haspeers?300:this.state.boxwidth}
 
                 splayBox = {
                     (domSource, listcomponent) => {
