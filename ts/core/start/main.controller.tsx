@@ -36,7 +36,8 @@ import { toast } from 'react-toastify'
 class Main extends React.Component<any,any> {
 
     state = {
-        user:null
+        user:null,
+        userProviderData:null,
     }
 
     mainviewstyle:React.CSSProperties = {
@@ -51,8 +52,10 @@ class Main extends React.Component<any,any> {
         if (user) {
             toast.success(`signed in as ${user.displayName}`,{autoClose:2500})
         }
+        let userProviderData = user?user.providerData[0]:null
         this.setState({
             user,
+            userProviderData,
         })
     }
 
@@ -60,7 +63,7 @@ class Main extends React.Component<any,any> {
         let { globalmessage, version } = this.props
 
         return (
-            <UserContext.Provider value = {this.state.user}>
+            <UserContext.Provider value = {this.state.userProviderData}>
                 <MainView globalmessage={globalmessage}
                     style = {this.mainviewstyle} 
                 />

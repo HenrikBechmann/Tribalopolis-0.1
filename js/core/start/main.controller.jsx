@@ -26,7 +26,8 @@ class Main extends React.Component {
     constructor() {
         super(...arguments);
         this.state = {
-            user: null
+            user: null,
+            userProviderData: null,
         };
         this.mainviewstyle = {
             fontFamily,
@@ -35,8 +36,10 @@ class Main extends React.Component {
             if (user) {
                 toast.success(`signed in as ${user.displayName}`, { autoClose: 2500 });
             }
+            let userProviderData = user ? user.providerData[0] : null;
             this.setState({
                 user,
+                userProviderData,
             });
         };
     }
@@ -45,7 +48,7 @@ class Main extends React.Component {
     }
     render() {
         let { globalmessage, version } = this.props;
-        return (<UserContext.Provider value={this.state.user}>
+        return (<UserContext.Provider value={this.state.userProviderData}>
                 <MainView globalmessage={globalmessage} style={this.mainviewstyle}/>
             </UserContext.Provider>);
     }

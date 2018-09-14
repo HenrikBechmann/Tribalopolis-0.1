@@ -17,6 +17,7 @@ import SelectField from './input/selectfield.view'
 import TextField from './input/textfield.view'
 import BasicEditor from './input/basiceditor.view'
 
+import UserContext from '../services/user.context'
 
 const styles = theme => ({
   button: {
@@ -86,6 +87,11 @@ class BuildController extends React.Component<any,any> {
 
         return <div>
             <StandardToolbar />
+            <UserContext.Consumer>
+            { user => {
+            let superuser = !!(user && (user.uid == '112979797407042560714'))
+            // console.log('user',superuser,user)
+            return <div>
             <BaseForm>
                 <SelectField
                     label = {'Collection'}
@@ -138,6 +144,7 @@ class BuildController extends React.Component<any,any> {
                     variant = 'contained'
                     onClick = {this.fetchObject}
                     className = {this.props.classes.button}
+                    disabled = {!superuser}
                 >
                     Fetch
                 </Button>
@@ -159,6 +166,7 @@ class BuildController extends React.Component<any,any> {
                     variant = 'contained'
                     onClick = {this.postObject}
                     className = {this.props.classes.button}
+                    disabled = {!superuser}
                 >
                     Post
                 </Button>
@@ -184,6 +192,9 @@ class BuildController extends React.Component<any,any> {
                     }}
                 />
             </div>
+            </div>
+            }}
+            </UserContext.Consumer>
             {/*<BasicEditor />*/}
         </div>
     }

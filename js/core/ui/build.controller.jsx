@@ -9,6 +9,7 @@ import StandardToolbar from './common/standardtoolbar.view';
 import BaseForm from './input/baseform.view';
 import SelectField from './input/selectfield.view';
 import TextField from './input/textfield.view';
+import UserContext from '../services/user.context';
 const styles = theme => ({
     button: {
         margin: theme.spacing.unit,
@@ -67,42 +68,47 @@ class BuildController extends React.Component {
     render() {
         return <div>
             <StandardToolbar />
+            <UserContext.Consumer>
+            {user => {
+            let superuser = !!(user && (user.uid == '112979797407042560714'));
+            // console.log('user',superuser,user)
+            return <div>
             <BaseForm>
                 <SelectField label={'Collection'} name='collection' value={this.state.values.collection} onChange={this.onChangeValue} helperText={'select a collection for the object'} options={[
-            {
-                value: 'types',
-                text: 'types',
-            },
-            {
-                value: 'schemas',
-                text: 'schemas',
-            },
-            {
-                value: 'items',
-                text: 'items',
-            },
-            {
-                value: 'lists',
-                text: 'lists',
-            },
-            {
-                value: 'links',
-                text: 'links',
-            },
-            {
-                value: 'folders',
-                text: 'folders',
-            },
-            {
-                value: 'accounts',
-                text: 'accounts',
-            },
-        ]}/>
+                {
+                    value: 'types',
+                    text: 'types',
+                },
+                {
+                    value: 'schemas',
+                    text: 'schemas',
+                },
+                {
+                    value: 'items',
+                    text: 'items',
+                },
+                {
+                    value: 'lists',
+                    text: 'lists',
+                },
+                {
+                    value: 'links',
+                    text: 'links',
+                },
+                {
+                    value: 'folders',
+                    text: 'folders',
+                },
+                {
+                    value: 'accounts',
+                    text: 'accounts',
+                },
+            ]}/>
 
                 <TextField label='Alias' name='alias' value={this.state.values.alias} onChange={this.onChangeValue} helperText='enter the alias of the requested object'/>
             </BaseForm>
             <div>
-                <Button variant='contained' onClick={this.fetchObject} className={this.props.classes.button}>
+                <Button variant='contained' onClick={this.fetchObject} className={this.props.classes.button} disabled={!superuser}>
                     Fetch
                 </Button>
                 <Button variant='contained' onClick={this.saveObject} className={this.props.classes.button}>
@@ -111,7 +117,7 @@ class BuildController extends React.Component {
                 <Button variant='contained' onClick={this.rollbackObject} className={this.props.classes.button}>
                     Roll Back
                 </Button>
-                <Button variant='contained' onClick={this.postObject} className={this.props.classes.button}>
+                <Button variant='contained' onClick={this.postObject} className={this.props.classes.button} disabled={!superuser}>
                     Post
                 </Button>
                 <Button variant='contained' onClick={this.clearObject} className={this.props.classes.button}>
@@ -120,13 +126,16 @@ class BuildController extends React.Component {
             </div>
             <div>
                 <ReactJson src={this.state.json} onEdit={props => {
-            this.latestjson = props.updated_src;
-        }} onAdd={props => {
-            this.latestjson = props.updated_src;
-        }} onDelete={props => {
-            this.latestjson = props.updated_src;
-        }}/>
+                this.latestjson = props.updated_src;
+            }} onAdd={props => {
+                this.latestjson = props.updated_src;
+            }} onDelete={props => {
+                this.latestjson = props.updated_src;
+            }}/>
             </div>
+            </div>;
+        }}
+            </UserContext.Consumer>
             
         </div>;
     }
