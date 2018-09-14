@@ -142,34 +142,11 @@ class QuadspaceController extends React.Component<any,any> {
         })
     }
 
-    // TODO: the following 5 data functions should be in the application service
-
-    getItem = (dataref) => {
-        return application.getItem(dataref)
-    }
-
-    getList = (dataref) => {
-        return application.getList(dataref)
-    }
-
-    // TODO: should always return an object
-    getType = (dataref) => {
-        return application.getType(dataref)
-    }
-
-    getLink = (dataref) => {
-        return application.getLink(dataref)
-    }
-
-    getScheme = (dataref) => {
-        return application.getScheme(dataref)
-    }
-
     quadrantcallbacks = {
         handleSwap:this.handleSwap, 
-        getItem:this.getItem, 
-        getList:this.getList, 
-        getType:this.getType, 
+        getItem:application.getItem, 
+        getList:application.getList, 
+        getType:application.getType, 
         selectQuadrant:this.selectQuadrant, 
         calcQuadrantPosition:this.calcQuadrantPosition,
     }

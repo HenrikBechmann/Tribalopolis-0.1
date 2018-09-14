@@ -2,36 +2,41 @@
 /*
     This is the high level application controller
     It's main responsibility is to co-ordinate the store and the domain
+    application -> datamodel + viewmodel -> domain (gateway) -> firebase
+
+    datamodel and viewmodel are both bypassed
 */
 
-import Datamodel from './datamodel'
+// import Datamodel from './datamodel'
 
-import { schemes, types, items, lists, links, folders, accounts } from '../../data/repositories'
+import domain from './domain'
+
+const getScheme = (dataref) => {
+    return domain.getScheme(dataref)
+}
+
+const getType = (dataref) => {
+    return domain.getType(dataref)
+}
 
 const getItem = (dataref) => {
-    Datamodel.getStore()
-    return items[dataref.uid]
+    return domain.getItem(dataref)
 }
 
 const getList = (dataref) => {
-    return lists[dataref.uid]
-}
-
-    // TODO: should always return an object
-const getType = (dataref) => {
-    return types[dataref.uid]
+    return domain.getList(dataref)
 }
 
 const getLink = (dataref) => {
-    return links[dataref.uid]
-}
-
-const getScheme = (dataref) => {
-    return schemes[dataref.uid]
+    return domain.getLink(dataref)
 }
 
 const getFolder = (dataref) => {
-    return folders[dataref.uid]
+    return domain.getFolder(dataref)
+}
+
+const getAccount = (dataref) => {
+    return domain.getAccount(dataref)
 }
 
 let application = {
@@ -41,6 +46,7 @@ let application = {
     getLink,
     getScheme,
     getFolder,
+    getAccount,
 }
 
 export default application

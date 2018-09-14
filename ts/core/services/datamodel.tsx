@@ -1,6 +1,10 @@
 // datamodel.tsx
 /*
-    This is the runtime data model
+
+    THIS IS JUST A PROTOTYPE
+    should sit between application and domain
+    currently being bypassed
+    This is the runtime memory data model
     It is accessed by controllers (containers)
     The store should be immutable: changes to objects cause replacement, not revision
         of those objects. This allows react to respond to changes simply by checking

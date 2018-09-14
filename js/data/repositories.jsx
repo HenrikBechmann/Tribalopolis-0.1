@@ -1,3 +1,6 @@
+/*
+    Consider including a TOKEN (summary) with each document for lists
+*/
 // repositories.tsx
 let folders = {
     henrikacf: {
