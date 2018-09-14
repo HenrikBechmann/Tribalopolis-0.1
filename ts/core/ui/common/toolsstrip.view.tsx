@@ -342,12 +342,17 @@ class QuadToolsStrip extends React.Component<any,any> {
 
                             <IconButton
                             >
-                                <Icon>help_outline</Icon>
+                                <Icon>apps</Icon>
                             </IconButton>
 
                             <IconButton
                             >
                                 <Icon>settings</Icon>
+                            </IconButton>
+
+                            <IconButton
+                            >
+                                <Icon>help_outline</Icon>
                             </IconButton>
 
                             { this.accountmenu() }
