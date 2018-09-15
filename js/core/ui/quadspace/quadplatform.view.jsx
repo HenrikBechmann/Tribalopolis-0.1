@@ -38,6 +38,7 @@ class QuadPlatform extends React.Component {
                 }, 50);
             });
         };
+        this.updatingsplit = false;
         this.calculateTransitionPosition = quadrant => {
             let { split } = this.state;
             let top = null;
@@ -204,18 +205,19 @@ class QuadPlatform extends React.Component {
         this.calculateDimensions(this.state.split);
         this.calculatePosition(this.state.currentQuadPosition);
     }
-    // TODO: migrate code to componentDidUpdate
-    componentWillReceiveProps(nextProps) {
-        // should be either one or the other
-        if (nextProps.split != this.state.split) {
-            this.calculateDimensions(nextProps.split);
+    componentDidUpdate() {
+        if ((this.props.split != this.state.split) && !this.updatingsplit) {
+            this.updatingsplit = true;
+            this.calculateDimensions(this.props.split);
             this.setState({
-                split: nextProps.split
+                split: this.props.split
+            }, () => {
+                this.updatingsplit = false;
             });
         }
-        if (nextProps.currentQuadPosition != this.state.currentQuadPosition) {
+        if (this.props.currentQuadPosition != this.state.currentQuadPosition) {
             setTimeout(() => {
-                this.changeCurrentQuad(nextProps);
+                this.changeCurrentQuad(this.props);
             });
         }
     }

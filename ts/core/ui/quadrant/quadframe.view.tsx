@@ -23,24 +23,27 @@ class QuadFrame extends React.Component<any,any>  {
     position = null
     quadframeelement
 
-    // TODO: migrate code to componentDidUpdate
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.quadrantPosition != this.state.quadrantPosition) {
+    updatingposition = false
 
+    componentDidUpdate() {
+        if ((this.props.quadrantPosition != this.state.quadrantPosition) && !this.updatingposition) {
+            this.updatingposition = true
             let self = this
             self.calculateTransitionPosition(self.state.quadrantPosition)
 
             self.forceUpdate(() => {
                 setTimeout(()=>{// give time for styles to apply
-                    self.calculateTransitionPosition(nextProps.quadrantPosition)
+                    self.calculateTransitionPosition(this.props.quadrantPosition)
                     self.setState({
-                        quadrantPosition:nextProps.quadrantPosition
+                        quadrantPosition:this.props.quadrantPosition
                     },
 
                         () => {
                             setTimeout(() => { // give time for animation
                                 self.calculatePosition(self.state.quadrantPosition)
-                                self.forceUpdate()
+                                self.forceUpdate(() => {
+                                    this.updatingposition = false
+                                })
                             },600)
                         }
 

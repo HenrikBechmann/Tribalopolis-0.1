@@ -88,6 +88,11 @@ class DataBox extends React.Component<any,any> {
     }
 
     componentDidUpdate() {
+        if (this.props.boxProxy !== this.state.boxProxy) {
+            this.setState({
+                boxProxy:this.props.boxProxy,
+            })
+        }
         let { collapseTargetData } = this.props
         // console.log('box componentdidUPDATE', this.state)
         if (!collapseTargetData) return
@@ -101,16 +106,6 @@ class DataBox extends React.Component<any,any> {
                 this.collapseTargetData = null
             },2000)
         })
-    }
-
-    // TODO: migrate code to componentDidUpdate
-    componentWillReceiveProps(newProps) {
-        // console.log('old and new boxProxy',this.state.boxProxy,newProps.boxProxy)
-        if (this.state.boxProxy !== newProps.boxProxy) {
-            this.setState({
-                boxProxy:newProps.boxProxy,
-            })
-        }
     }
 
     componentWillUnmount() {

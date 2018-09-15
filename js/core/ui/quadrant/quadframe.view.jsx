@@ -12,6 +12,7 @@ class QuadFrame extends React.Component {
         };
         // quad css position
         this.position = null;
+        this.updatingposition = false;
         /********************************************************
         ------------------[ position quadrantPosition ]------------------
         *********************************************************/
@@ -87,20 +88,22 @@ class QuadFrame extends React.Component {
         this.quadframeelement = React.createRef();
         this.calculatePosition(this.state.quadrantPosition);
     }
-    // TODO: migrate code to componentDidUpdate
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.quadrantPosition != this.state.quadrantPosition) {
+    componentDidUpdate() {
+        if ((this.props.quadrantPosition != this.state.quadrantPosition) && !this.updatingposition) {
+            this.updatingposition = true;
             let self = this;
             self.calculateTransitionPosition(self.state.quadrantPosition);
             self.forceUpdate(() => {
                 setTimeout(() => {
-                    self.calculateTransitionPosition(nextProps.quadrantPosition);
+                    self.calculateTransitionPosition(this.props.quadrantPosition);
                     self.setState({
-                        quadrantPosition: nextProps.quadrantPosition
+                        quadrantPosition: this.props.quadrantPosition
                     }, () => {
                         setTimeout(() => {
                             self.calculatePosition(self.state.quadrantPosition);
-                            self.forceUpdate();
+                            self.forceUpdate(() => {
+                                this.updatingposition = false;
+                            });
                         }, 600);
                     });
                 });

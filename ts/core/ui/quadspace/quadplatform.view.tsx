@@ -65,21 +65,23 @@ class QuadPlatform extends React.Component<any,any> {
         })
     }
 
-    // TODO: migrate code to componentDidUpdate
-    componentWillReceiveProps(nextProps) {
+    updatingsplit = false
 
-        // should be either one or the other
+    componentDidUpdate() {
 
-        if (nextProps.split != this.state.split) {
-            this.calculateDimensions(nextProps.split)
+        if ((this.props.split != this.state.split) && !this.updatingsplit) {
+            this.updatingsplit = true
+            this.calculateDimensions(this.props.split)
             this.setState({
-                split:nextProps.split
+                split:this.props.split
+            },() => {
+                this.updatingsplit = false
             })
         }
 
-        if (nextProps.currentQuadPosition != this.state.currentQuadPosition) {
+        if (this.props.currentQuadPosition != this.state.currentQuadPosition) {
             setTimeout(() => {
-                this.changeCurrentQuad(nextProps)
+                this.changeCurrentQuad(this.props)
             })
         }
     }
