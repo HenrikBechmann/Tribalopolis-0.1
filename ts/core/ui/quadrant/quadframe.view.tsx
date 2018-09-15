@@ -13,6 +13,7 @@ class QuadFrame extends React.Component<any,any>  {
     constructor(props) {
         super(props)
         this.quadframeelement = React.createRef()
+        this.calculatePosition(this.state.quadrantPosition)
     }
 
     state = {
@@ -21,10 +22,6 @@ class QuadFrame extends React.Component<any,any>  {
     // quad css position
     position = null
     quadframeelement
-
-    componentWillMount() {
-        this.calculatePosition(this.state.quadrantPosition)
-    }
 
     // TODO: migrate code to componentDidUpdate
     componentWillReceiveProps(nextProps) {

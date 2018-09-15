@@ -16,8 +16,8 @@ import { datastacks } from '../../data/datastacks';
 import application from '../services/application';
 import UserContext from '../services/user.context';
 class QuadspaceController extends React.Component {
-    constructor() {
-        super(...arguments);
+    constructor(props) {
+        super(props);
         this.state = {
             quadrantPositions: [0, 1, 2, 3],
             currentQuadPosition: 'topleft',
@@ -121,8 +121,6 @@ class QuadspaceController extends React.Component {
             selectQuadrant: this.selectQuadrant,
             calcQuadrantPosition: this.calcQuadrantPosition,
         };
-    }
-    componentWillMount() {
         this.quadrantIdentifiers = this.state.quadrantPositions.map((value) => {
             return (value + 1).toString();
         });

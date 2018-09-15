@@ -35,6 +35,11 @@ import { toast } from 'react-toastify'
 
 class Main extends React.Component<any,any> {
 
+    constructor(props) {
+        super(props)
+        authapi.setUpdateCallback(this.getUserCallback)
+    }
+
     state = {
         user:null,
         userProviderData:null,
@@ -42,10 +47,6 @@ class Main extends React.Component<any,any> {
 
     mainviewstyle:React.CSSProperties = {
         fontFamily,
-    }
-
-    componentWillMount() {
-        authapi.setUpdateCallback(this.getUserCallback)
     }
 
     getUserCallback = (user) => {

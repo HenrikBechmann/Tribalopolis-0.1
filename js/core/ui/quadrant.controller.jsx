@@ -26,6 +26,9 @@ class Quadrant extends React.Component {
         // trigger for animation and reset
         this.collapseTargetData = null;
         this.boxdata = {};
+        /********************************************************
+        ------------------[ lifecycle methods ]------------------
+        *********************************************************/
         // for reset of containerHeight
         this.onResize = () => {
             this.forceUpdate();
@@ -295,11 +298,6 @@ class Quadrant extends React.Component {
         this.originelement = React.createRef();
         this.scrollboxelement = React.createRef();
         this.listcomponent = React.createRef();
-    }
-    /********************************************************
-    ------------------[ lifecycle methods ]------------------
-    *********************************************************/
-    componentWillMount() {
         this.getItem = this.props.callbacks.getItem;
         this.getList = this.props.callbacks.getList;
         this.getType = this.props.callbacks.getType;

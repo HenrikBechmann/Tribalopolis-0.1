@@ -23,6 +23,13 @@ import UserContext from '../services/user.context'
 
 class QuadspaceController extends React.Component<any,any> {
 
+    constructor(props) {
+        super(props)
+        this.quadrantIdentifiers = this.state.quadrantPositions.map((value) => {
+            return (value + 1).toString()
+        })
+    }
+
     state = {
         quadrantPositions:[0,1,2,3],
         currentQuadPosition:'topleft',
@@ -62,12 +69,6 @@ class QuadspaceController extends React.Component<any,any> {
     }
 
     quadrantIdentifiers
-
-    componentWillMount() {
-        this.quadrantIdentifiers = this.state.quadrantPositions.map((value) => {
-            return (value + 1).toString()
-        })
-    }
 
     selectQuad = (quadrantposition) => {
         this.setState({

@@ -85,8 +85,6 @@ class QuadFrame extends React.Component {
             };
         };
         this.quadframeelement = React.createRef();
-    }
-    componentWillMount() {
         this.calculatePosition(this.state.quadrantPosition);
     }
     // TODO: migrate code to componentDidUpdate

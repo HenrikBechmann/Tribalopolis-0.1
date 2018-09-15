@@ -6,6 +6,12 @@ import React from 'react'
 
 class QuadPlatform extends React.Component<any,any> {
 
+    constructor(props) {
+        super(props)
+        this.calculateDimensions(this.state.split)
+        this.calculatePosition(this.state.currentQuadPosition)
+    }
+
     state = {
         currentQuadPosition: this.props.currentQuadPosition,
         split:this.props.split,
@@ -16,13 +22,6 @@ class QuadPlatform extends React.Component<any,any> {
     dimensions = null
 
     element = null
-
-    componentWillMount() {
-
-        this.calculateDimensions(this.state.split)
-        this.calculatePosition(this.state.currentQuadPosition)
-
-    }
 
     changeCurrentQuad = nextProps => {
         let element = this.element

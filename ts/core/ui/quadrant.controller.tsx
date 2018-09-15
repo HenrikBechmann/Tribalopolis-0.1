@@ -38,6 +38,12 @@ class Quadrant extends React.Component<any,any>  {
         this.scrollboxelement = React.createRef()
         this.listcomponent = React.createRef()
 
+        this.getItem = this.props.callbacks.getItem
+        this.getList = this.props.callbacks.getList
+        this.getType = this.props.callbacks.getType
+
+        window.addEventListener('resize',this.onResize)
+
     }
 
     state = {
@@ -69,15 +75,6 @@ class Quadrant extends React.Component<any,any>  {
 /********************************************************
 ------------------[ lifecycle methods ]------------------
 *********************************************************/
-
-    componentWillMount() {
-        this.getItem = this.props.callbacks.getItem
-        this.getList = this.props.callbacks.getList
-        this.getType = this.props.callbacks.getType
-
-        window.addEventListener('resize',this.onResize)
-
-    }
 
     // for reset of containerHeight
     onResize = () => {

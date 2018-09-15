@@ -23,8 +23,8 @@ import authapi from '../services/auth.api';
 import UserContext from '../services/user.context';
 import { toast } from 'react-toastify';
 class Main extends React.Component {
-    constructor() {
-        super(...arguments);
+    constructor(props) {
+        super(props);
         this.state = {
             user: null,
             userProviderData: null,
@@ -42,8 +42,6 @@ class Main extends React.Component {
                 userProviderData,
             });
         };
-    }
-    componentWillMount() {
         authapi.setUpdateCallback(this.getUserCallback);
     }
     render() {

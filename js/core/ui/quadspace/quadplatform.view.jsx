@@ -3,8 +3,8 @@
 'use strict';
 import React from 'react';
 class QuadPlatform extends React.Component {
-    constructor() {
-        super(...arguments);
+    constructor(props) {
+        super(props);
         this.state = {
             currentQuadPosition: this.props.currentQuadPosition,
             split: this.props.split,
@@ -201,8 +201,6 @@ class QuadPlatform extends React.Component {
                 height,
             };
         };
-    }
-    componentWillMount() {
         this.calculateDimensions(this.state.split);
         this.calculatePosition(this.state.currentQuadPosition);
     }
