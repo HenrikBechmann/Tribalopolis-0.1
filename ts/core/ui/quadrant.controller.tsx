@@ -338,16 +338,25 @@ class Quadrant extends React.Component<any,any>  {
 
     }
 
-    unmountBox = (index) => {
-        delete this.boxdata[index]
+    unmountBox = (instanceid) => {
+        delete this.boxdata[instanceid]
+        // console.log('unmount boxdata',this.boxdata)
     }
 
-    saveListData = (index, list, type) => {
-        this.boxdata[index].list = {
+    saveBoxData = (instanceid,item,type) => {
+        this.boxdata[instanceid] = {
+            item,
+            type,
+        }
+        // console.log('create boxdata',this.boxdata)
+    }
+
+    saveListData = (instanceid, list, type) => {
+        this.boxdata[instanceid].list = {
             list,
             type,
         }
-        // console.log('boxdata',this.boxdata)
+        // console.log('save listdata',this.boxdata)
     }
 
     decrementStackSelector = () => {
@@ -431,10 +440,7 @@ class Quadrant extends React.Component<any,any>  {
         let item = this.getItem(boxProxy.datatoken)
         let itemType = this.getType(item.type)
 
-        this.boxdata[index] = {
-            item,
-            type:itemType,
-        }
+        this.saveBoxData(boxProxy.instanceid,item,itemType)
 
         let containerHeight = this.scrollboxelement.current.offsetHeight
 
@@ -479,12 +485,12 @@ class Quadrant extends React.Component<any,any>  {
                 }
                 unmount = {
                     () => {
-                        this.unmountBox(index)
+                        this.unmountBox(boxProxy.instanceid)
                     }
                 }
                 saveListData = {
                     (list,type) => {
-                        this.saveListData(index,list,type)
+                        this.saveListData(boxProxy.instanceid,list,type)
                     }
                 }
             />

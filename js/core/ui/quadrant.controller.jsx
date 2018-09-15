@@ -183,15 +183,23 @@ class Quadrant extends React.Component {
             this.collapseTargetData = Object.assign({}, boxProxy);
             this.decrementStackSelector();
         };
-        this.unmountBox = (index) => {
-            delete this.boxdata[index];
+        this.unmountBox = (instanceid) => {
+            delete this.boxdata[instanceid];
+            // console.log('unmount boxdata',this.boxdata)
         };
-        this.saveListData = (index, list, type) => {
-            this.boxdata[index].list = {
+        this.saveBoxData = (instanceid, item, type) => {
+            this.boxdata[instanceid] = {
+                item,
+                type,
+            };
+            // console.log('create boxdata',this.boxdata)
+        };
+        this.saveListData = (instanceid, list, type) => {
+            this.boxdata[instanceid].list = {
                 list,
                 type,
             };
-            // console.log('boxdata',this.boxdata)
+            // console.log('save listdata',this.boxdata)
         };
         this.decrementStackSelector = () => {
             let { stackpointer, datastack } = this.state;
@@ -258,10 +266,7 @@ class Quadrant extends React.Component {
         this.getBoxComponent = (boxProxy, index, haspeers, key) => {
             let item = this.getItem(boxProxy.datatoken);
             let itemType = this.getType(item.type);
-            this.boxdata[index] = {
-                item,
-                type: itemType,
-            };
+            this.saveBoxData(boxProxy.instanceid, item, itemType);
             let containerHeight = this.scrollboxelement.current.offsetHeight;
             let matchForTarget = false;
             let { collapseTargetData } = this.state;
@@ -276,9 +281,9 @@ class Quadrant extends React.Component {
             }} expandDirectoryItem={(datatoken, domSource) => {
                 this.expandDirectoryItem(index, datatoken, domSource);
             }} collapseDirectoryItem={this.collapseDirectoryItem} unmount={() => {
-                this.unmountBox(index);
+                this.unmountBox(boxProxy.instanceid);
             }} saveListData={(list, type) => {
-                this.saveListData(index, list, type);
+                this.saveListData(boxProxy.instanceid, list, type);
             }}/>);
         };
         this.quadcontentelement = React.createRef();
