@@ -19,7 +19,6 @@ class ScrollControlsView extends React.Component {
             scrollerData.height = scroller.clientHeight;
             scrollerData.offsetLeft = scroller.scrollLeft;
             scrollerData.offsetRight = this.calcScrollRight();
-            // console.log('calculated scrollerData',scrollerData)
         };
         this.calcScrollRight = () => {
             let { scrollLeft, scrollWidth, clientWidth } = this.scroller;
@@ -27,7 +26,6 @@ class ScrollControlsView extends React.Component {
             return (scrollWidth - (scrollLeft + clientWidth));
         };
         this.onResize = () => {
-            // this.calcScrollerData()
             this.onScroll();
         };
         this.onScroll = () => {
@@ -133,17 +131,13 @@ class ScrollControlsView extends React.Component {
         this.leftArrowStyle = Object.assign({}, this.arrowStyle, { left: 0, borderBottomRightRadius: '20px', borderTopRightRadius: '20px', borderLeft: 0 });
         this.rightArrowStyle = Object.assign({}, this.arrowStyle, { right: 0, borderBottomLeftRadius: '20px', borderTopLeftRadius: '20px', borderRight: 0 });
     }
-    // TODO: migrate code to componentDidUpdate
-    componentWillReceiveProps(next) {
-        // received on second render
-        if (!this.scroller && next.scroller) {
-            let scroller = this.scroller = next.scroller;
+    componentDidUpdate() {
+        if (this.props.scroller && !this.scroller) {
+            let scroller = this.scroller = this.props.scroller;
             this.calcScrollerData();
             scroller.addEventListener('scroll', this.onScroll);
             window.addEventListener('resize', this.onResize);
         }
-    }
-    componentDidUpdate() {
         this.onScroll();
     }
     componentWillUnmount() {

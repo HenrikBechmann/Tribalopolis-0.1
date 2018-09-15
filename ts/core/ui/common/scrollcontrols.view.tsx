@@ -17,23 +17,15 @@ class ScrollControlsView extends React.Component<any,any> {
         offsetRight:null,
     }
 
-    // TODO: migrate code to componentDidUpdate
-    componentWillReceiveProps(next) {
+    componentDidUpdate() {
 
-        // received on second render
-        if (!this.scroller && next.scroller) {
-
-
-            let scroller = this.scroller = next.scroller
+        if (this.props.scroller && !this.scroller) {
+            let scroller = this.scroller = this.props.scroller
             this.calcScrollerData()
-
             scroller.addEventListener('scroll',this.onScroll)
             window.addEventListener('resize',this.onResize)
-
         }
-    }
 
-    componentDidUpdate() {
         this.onScroll()
     }
 
@@ -45,7 +37,6 @@ class ScrollControlsView extends React.Component<any,any> {
         scrollerData.height = scroller.clientHeight
         scrollerData.offsetLeft = scroller.scrollLeft
         scrollerData.offsetRight = this.calcScrollRight()
-        // console.log('calculated scrollerData',scrollerData)
     }
 
     componentWillUnmount() {
@@ -66,7 +57,6 @@ class ScrollControlsView extends React.Component<any,any> {
 
     onResize = () => {
 
-        // this.calcScrollerData()
         this.onScroll()
 
     }
