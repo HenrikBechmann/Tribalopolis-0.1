@@ -225,19 +225,22 @@ class Quadrant extends React.Component<any,any>  {
 
         let boxProxy = datastack[stackpointer].items[boxptr]
 
+        // TODO this should be available in memory -- it is visible
         let item = this.getItem(boxProxy.datatoken)
 
         let liststack = boxProxy.liststack
 
-        let listref
+        let listtoken
 
         if (liststack.length) {
-            listref = liststack[liststack.length-1]
+            listtoken = liststack[liststack.length-1]
         } else {
-            listref = item.list
+            listtoken = item.list
         }
+        // create the new stacklayer (empty with loading message)
 
-        let listitem = this.getList(listref)
+        // this should be a promise
+        let listitem = this.getList(listtoken)
 
         let listitems = listitem.list
 
@@ -256,10 +259,10 @@ class Quadrant extends React.Component<any,any>  {
 
         let template = JSON.stringify(boxProxy)
 
-        for (let datatoken of listitems) {
+        for (let token of listitems) {
             let newBoxProxy = JSON.parse(template)
             newBoxProxy.instanceid = serializer.getid()
-            newBoxProxy.liststack.push(datatoken)
+            newBoxProxy.liststack.push(token)
             newstacklayer.items.push(newBoxProxy)
         }
 
