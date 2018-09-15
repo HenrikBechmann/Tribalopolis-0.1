@@ -8,26 +8,26 @@
 */
 // import Datamodel from './datamodel'
 import domain from './domain';
-const getScheme = (dataref) => {
-    return domain.getScheme(dataref);
+const getScheme = (datatoken) => {
+    return domain.getScheme(datatoken);
 };
-const getType = (dataref) => {
-    return domain.getType(dataref);
+const getType = (datatoken) => {
+    return domain.getType(datatoken);
 };
-const getItem = (dataref) => {
-    return domain.getItem(dataref);
+const getItem = (datatoken) => {
+    return domain.getItem(datatoken);
 };
-const getList = (dataref) => {
-    return domain.getList(dataref);
+const getList = (datatoken) => {
+    return domain.getList(datatoken);
 };
-const getLink = (dataref) => {
-    return domain.getLink(dataref);
+const getLink = (datatoken) => {
+    return domain.getLink(datatoken);
 };
-const getFolder = (dataref) => {
-    return domain.getFolder(dataref);
+const getFolder = (datatoken) => {
+    return domain.getFolder(datatoken);
 };
-const getAccount = (dataref) => {
-    return domain.getAccount(dataref);
+const getAccount = (datatoken) => {
+    return domain.getAccount(datatoken);
 };
 let application = {
     getItem,

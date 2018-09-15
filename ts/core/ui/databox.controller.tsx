@@ -120,15 +120,15 @@ class DataBox extends React.Component<any,any> {
         if (collapseTargetData.action == 'expand' || 
             collapseTargetData.action == 'splay') {
 
-            let dataref = 
+            let datatoken = 
                 collapseTargetData.liststack[
                     collapseTargetData.liststack.length -1]
 
-            if (dataref) {
+            if (datatoken) {
 
                 setTimeout(()=>{
                     this.setState({
-                        highlightrefuid:dataref.uid,
+                        highlightrefuid:datatoken.uid,
                     },() => {
                         this.setState({
                             highlightrefuid:null

@@ -21,33 +21,33 @@ import firebase from './firebase.api'
 
 let firestore = firebase.firestore()
 
-const getItem = (dataref) => {
-    return items[dataref.uid]
+const getItem = (datatoken) => {
+    return items[datatoken.uid]
 }
 
-const getList = (dataref) => {
-    return lists[dataref.uid]
+const getList = (datatoken) => {
+    return lists[datatoken.uid]
 }
 
     // TODO: should always return an object
-const getType = (dataref) => {
-    return types[dataref.uid]
+const getType = (datatoken) => {
+    return types[datatoken.uid]
 }
 
-const getLink = (dataref) => {
-    return links[dataref.uid]
+const getLink = (datatoken) => {
+    return links[datatoken.uid]
 }
 
-const getScheme = (dataref) => {
-    return schemes[dataref.uid]
+const getScheme = (datatoken) => {
+    return schemes[datatoken.uid]
 }
 
-const getFolder = (dataref) => {
-    return folders[dataref.uid]
+const getFolder = (datatoken) => {
+    return folders[datatoken.uid]
 }
 
-const getAccount = (dataref) => {
-    return accounts[dataref.uid]
+const getAccount = (datatoken) => {
+    return accounts[datatoken.uid]
 }
 
 let domain = {

@@ -6,7 +6,7 @@ let datastacks = [ // four quadrant stacks
         { // each quadrant stack layer
             items:[ // items in the stack layer
                 {
-                    dataref:{
+                    datatoken:{
                         repo:'items',
                         uid:'henrik',
                     },
@@ -25,7 +25,7 @@ let datastacks = [ // four quadrant stacks
         {
             items:[
                 {
-                    dataref:{
+                    datatoken:{
                         repo:'items',
                         uid:'henrik',
                     },
@@ -44,7 +44,7 @@ let datastacks = [ // four quadrant stacks
         {
             items:[
                 {
-                    dataref:{
+                    datatoken:{
                         repo:'items',
                         uid:'henrik',
                     },
@@ -66,7 +66,7 @@ let datastacks = [ // four quadrant stacks
         {
             items:[
                 {
-                    dataref:{
+                    datatoken:{
                         repo:'items',
                         uid:'henrik',
                     },

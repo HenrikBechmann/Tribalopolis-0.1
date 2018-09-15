@@ -53,9 +53,9 @@ class DirectoryListBase extends React.Component<any,any> {
 
     }
 
-    expandDirectoryItem = (dataref) => {
+    expandDirectoryItem = (datatoken) => {
         return (domSource) => {
-            this.props.expandDirectoryItem(dataref, domSource)
+            this.props.expandDirectoryItem(datatoken, domSource)
         }
     }
 
@@ -63,16 +63,16 @@ class DirectoryListBase extends React.Component<any,any> {
         return this.getListComponent(this.state.list[index],key)
     }
 
-    getListComponent = (dataref, key) => {
+    getListComponent = (datatoken, key) => {
 
-        let data = this.getList(dataref)
-        let highlight = (dataref.uid === this.state.highlightrefuid)
+        let data = this.getList(datatoken)
+        let highlight = (datatoken.uid === this.state.highlightrefuid)
         let catitem = 
             <DirectoryItem 
                 key = {key} 
-                uid = {dataref.uid} 
+                uid = {datatoken.uid} 
                 data = {data} 
-                expandDirectoryItem = {this.expandDirectoryItem(dataref)}
+                expandDirectoryItem = {this.expandDirectoryItem(datatoken)}
                 highlight = {highlight}
                 highlightItem = {this.props.highlightItem}
             />

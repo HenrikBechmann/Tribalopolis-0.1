@@ -55,11 +55,11 @@ class DataBox extends React.Component {
             this.props.highlightBox({ boxElement: this.boxframe.current });
             if (collapseTargetData.action == 'expand' ||
                 collapseTargetData.action == 'splay') {
-                let dataref = collapseTargetData.liststack[collapseTargetData.liststack.length - 1];
-                if (dataref) {
+                let datatoken = collapseTargetData.liststack[collapseTargetData.liststack.length - 1];
+                if (datatoken) {
                     setTimeout(() => {
                         this.setState({
-                            highlightrefuid: dataref.uid,
+                            highlightrefuid: datatoken.uid,
                         }, () => {
                             this.setState({
                                 highlightrefuid: null

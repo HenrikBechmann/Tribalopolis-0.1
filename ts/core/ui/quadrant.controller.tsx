@@ -176,7 +176,7 @@ class Quadrant extends React.Component<any,any>  {
     }
 
     //-------------------------------[ forward ]---------------------------
-    expandDirectoryItem = (boxptr, dataref, domSource) => {
+    expandDirectoryItem = (boxptr, datatoken, domSource) => {
 
         this.animateToOrigin()
 
@@ -190,7 +190,7 @@ class Quadrant extends React.Component<any,any>  {
         stackpointer++
         let newstacklayer = {items:[], settings:{}, source:{
             instanceid:boxProxy.instanceid,
-            dataref:boxProxy.dataref,
+            datatoken:boxProxy.datatoken,
             action:'expand',
         }}
 
@@ -200,7 +200,7 @@ class Quadrant extends React.Component<any,any>  {
         let newBoxProxy = JSON.parse(JSON.stringify(boxProxy))
         newBoxProxy.instanceid = serializer.getid()
 
-        newBoxProxy.liststack.push(dataref)
+        newBoxProxy.liststack.push(datatoken)
 
         newstacklayer.items.push(newBoxProxy)
 
@@ -225,7 +225,7 @@ class Quadrant extends React.Component<any,any>  {
 
         let boxProxy = datastack[stackpointer].items[boxptr]
 
-        let item = this.getItem(boxProxy.dataref)
+        let item = this.getItem(boxProxy.datatoken)
 
         let liststack = boxProxy.liststack
 
@@ -246,7 +246,7 @@ class Quadrant extends React.Component<any,any>  {
         stackpointer++
         let newstacklayer = {items:[], settings:{}, source:{
             instanceid:boxProxy.instanceid,
-            dataref:boxProxy.dataref,
+            datatoken:boxProxy.datatoken,
             action:'splay',
             visiblerange,
         }}
@@ -256,10 +256,10 @@ class Quadrant extends React.Component<any,any>  {
 
         let template = JSON.stringify(boxProxy)
 
-        for (let dataref of listitems) {
+        for (let datatoken of listitems) {
             let newBoxProxy = JSON.parse(template)
             newBoxProxy.instanceid = serializer.getid()
-            newBoxProxy.liststack.push(dataref)
+            newBoxProxy.liststack.push(datatoken)
             newstacklayer.items.push(newBoxProxy)
         }
 
@@ -289,7 +289,7 @@ class Quadrant extends React.Component<any,any>  {
         stackpointer++
         let newstacklayer = {items:[], settings:{}, source:{
             instanceid:boxProxy.instanceid,
-            dataref:boxProxy.dataref,
+            datatoken:boxProxy.datatoken,
             action:'select',
         }}
 
@@ -412,7 +412,7 @@ class Quadrant extends React.Component<any,any>  {
 
     getBoxComponent = (boxProxy, index, haspeers, key) => {
 
-        let item = this.getItem(boxProxy.dataref)
+        let item = this.getItem(boxProxy.datatoken)
         let itemType = this.getType(item.type)
 
         let containerHeight = this.scrollboxelement.current.offsetHeight
@@ -449,8 +449,8 @@ class Quadrant extends React.Component<any,any>  {
                     }
                 }
                 expandDirectoryItem = {
-                    (dataref, domSource) => {
-                        this.expandDirectoryItem(index,dataref, domSource)
+                    (datatoken, domSource) => {
+                        this.expandDirectoryItem(index,datatoken, domSource)
                     }
                 }
                 collapseDirectoryItem = {

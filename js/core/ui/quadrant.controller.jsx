@@ -65,7 +65,7 @@ class Quadrant extends React.Component {
             });
         };
         //-------------------------------[ forward ]---------------------------
-        this.expandDirectoryItem = (boxptr, dataref, domSource) => {
+        this.expandDirectoryItem = (boxptr, datatoken, domSource) => {
             this.animateToOrigin();
             this.animateToDataBox(domSource);
             let { datastack, stackpointer } = this.state;
@@ -74,14 +74,14 @@ class Quadrant extends React.Component {
             stackpointer++;
             let newstacklayer = { items: [], settings: {}, source: {
                     instanceid: boxProxy.instanceid,
-                    dataref: boxProxy.dataref,
+                    datatoken: boxProxy.datatoken,
                     action: 'expand',
                 } };
             // replace forward stack items
             datastack.splice(stackpointer, datastack.length, newstacklayer);
             let newBoxProxy = JSON.parse(JSON.stringify(boxProxy));
             newBoxProxy.instanceid = serializer.getid();
-            newBoxProxy.liststack.push(dataref);
+            newBoxProxy.liststack.push(datatoken);
             newstacklayer.items.push(newBoxProxy);
             setTimeout(() => {
                 this.setState({
@@ -97,7 +97,7 @@ class Quadrant extends React.Component {
             let { datastack, stackpointer } = this.state;
             this._captureSettings(stackpointer, datastack);
             let boxProxy = datastack[stackpointer].items[boxptr];
-            let item = this.getItem(boxProxy.dataref);
+            let item = this.getItem(boxProxy.datatoken);
             let liststack = boxProxy.liststack;
             let listref;
             if (liststack.length) {
@@ -113,17 +113,17 @@ class Quadrant extends React.Component {
             stackpointer++;
             let newstacklayer = { items: [], settings: {}, source: {
                     instanceid: boxProxy.instanceid,
-                    dataref: boxProxy.dataref,
+                    datatoken: boxProxy.datatoken,
                     action: 'splay',
                     visiblerange,
                 } };
             // replace forward stack items
             datastack.splice(stackpointer, datastack.length, newstacklayer);
             let template = JSON.stringify(boxProxy);
-            for (let dataref of listitems) {
+            for (let datatoken of listitems) {
                 let newBoxProxy = JSON.parse(template);
                 newBoxProxy.instanceid = serializer.getid();
-                newBoxProxy.liststack.push(dataref);
+                newBoxProxy.liststack.push(datatoken);
                 newstacklayer.items.push(newBoxProxy);
             }
             setTimeout(() => {
@@ -146,7 +146,7 @@ class Quadrant extends React.Component {
             stackpointer++;
             let newstacklayer = { items: [], settings: {}, source: {
                     instanceid: boxProxy.instanceid,
-                    dataref: boxProxy.dataref,
+                    datatoken: boxProxy.datatoken,
                     action: 'select',
                 } };
             // replace forward stack items
@@ -243,7 +243,7 @@ class Quadrant extends React.Component {
             return this.getBoxComponent(boxProxy, index, haspeers, key);
         };
         this.getBoxComponent = (boxProxy, index, haspeers, key) => {
-            let item = this.getItem(boxProxy.dataref);
+            let item = this.getItem(boxProxy.datatoken);
             let itemType = this.getType(item.type);
             let containerHeight = this.scrollboxelement.current.offsetHeight;
             let matchForTarget = false;
@@ -256,8 +256,8 @@ class Quadrant extends React.Component {
                 this.splayBox(index, domSource, listcomponent);
             }} selectFromSplay={(domSource) => {
                 this.selectFromSplay(index, domSource);
-            }} expandDirectoryItem={(dataref, domSource) => {
-                this.expandDirectoryItem(index, dataref, domSource);
+            }} expandDirectoryItem={(datatoken, domSource) => {
+                this.expandDirectoryItem(index, datatoken, domSource);
             }} collapseDirectoryItem={this.collapseDirectoryItem}/>);
         };
         this.quadcontentelement = React.createRef();
