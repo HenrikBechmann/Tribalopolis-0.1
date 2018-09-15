@@ -25,6 +25,7 @@ class Quadrant extends React.Component {
         };
         // trigger for animation and reset
         this.collapseTargetData = null;
+        this.boxdata = {};
         // for reset of containerHeight
         this.onResize = () => {
             this.forceUpdate();
@@ -97,16 +98,18 @@ class Quadrant extends React.Component {
             let { datastack, stackpointer } = this.state;
             this._captureSettings(stackpointer, datastack);
             let boxProxy = datastack[stackpointer].items[boxptr];
-            let item = this.getItem(boxProxy.datatoken);
+            // TODO item should be available in memory -- it is visible
+            let item = this.boxdata[boxptr].item; // this.getItem(boxProxy.datatoken)
             let liststack = boxProxy.liststack;
-            let listref;
+            let listtoken;
             if (liststack.length) {
-                listref = liststack[liststack.length - 1];
+                listtoken = liststack[liststack.length - 1];
             }
             else {
-                listref = item.list;
+                listtoken = item.list;
             }
-            let listitem = this.getList(listref);
+            // TODO list item should be in memory -- it is visible
+            let listitem = this.boxdata[boxptr].list.list; //this.getList(listtoken)
             let listitems = listitem.list;
             if (!listitems || !listitems.length)
                 return;
@@ -120,10 +123,10 @@ class Quadrant extends React.Component {
             // replace forward stack items
             datastack.splice(stackpointer, datastack.length, newstacklayer);
             let template = JSON.stringify(boxProxy);
-            for (let datatoken of listitems) {
+            for (let token of listitems) {
                 let newBoxProxy = JSON.parse(template);
                 newBoxProxy.instanceid = serializer.getid();
-                newBoxProxy.liststack.push(datatoken);
+                newBoxProxy.liststack.push(token);
                 newstacklayer.items.push(newBoxProxy);
             }
             setTimeout(() => {
@@ -179,6 +182,16 @@ class Quadrant extends React.Component {
         this.collapseDirectoryItem = (boxProxy) => {
             this.collapseTargetData = Object.assign({}, boxProxy);
             this.decrementStackSelector();
+        };
+        this.unmountBox = (index) => {
+            delete this.boxdata[index];
+        };
+        this.saveListData = (index, list, type) => {
+            this.boxdata[index].list = {
+                list,
+                type,
+            };
+            // console.log('boxdata',this.boxdata)
         };
         this.decrementStackSelector = () => {
             let { stackpointer, datastack } = this.state;
@@ -245,6 +258,10 @@ class Quadrant extends React.Component {
         this.getBoxComponent = (boxProxy, index, haspeers, key) => {
             let item = this.getItem(boxProxy.datatoken);
             let itemType = this.getType(item.type);
+            this.boxdata[index] = {
+                item,
+                type: itemType,
+            };
             let containerHeight = this.scrollboxelement.current.offsetHeight;
             let matchForTarget = false;
             let { collapseTargetData } = this.state;
@@ -258,7 +275,11 @@ class Quadrant extends React.Component {
                 this.selectFromSplay(index, domSource);
             }} expandDirectoryItem={(datatoken, domSource) => {
                 this.expandDirectoryItem(index, datatoken, domSource);
-            }} collapseDirectoryItem={this.collapseDirectoryItem}/>);
+            }} collapseDirectoryItem={this.collapseDirectoryItem} unmount={() => {
+                this.unmountBox(index);
+            }} saveListData={(list, type) => {
+                this.saveListData(index, list, type);
+            }}/>);
         };
         this.quadcontentelement = React.createRef();
         // animation dom elements

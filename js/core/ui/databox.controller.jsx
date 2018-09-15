@@ -145,6 +145,9 @@ class DataBox extends React.Component {
             });
         }
     }
+    componentWillUnmount() {
+        this.props.unmount();
+    }
     render() {
         let { item, getList, haspeers } = this.props;
         let listStack = this.state.boxProxy.liststack;
@@ -180,6 +183,7 @@ class DataBox extends React.Component {
         let listcount = listobject.list.length;
         let listItemType = this.props.getType(listobject.type);
         // placeholder logic for showing add button
+        this.props.saveListData(listobject, listItemType);
         return <div style={{
             float: haspeers ? 'left' : 'none',
             padding: '16px',

@@ -64,6 +64,8 @@ class Quadrant extends React.Component<any,any>  {
     // trigger for animation and reset
     collapseTargetData = null
 
+    boxdata = {}
+
 /********************************************************
 ------------------[ lifecycle methods ]------------------
 *********************************************************/
@@ -225,8 +227,8 @@ class Quadrant extends React.Component<any,any>  {
 
         let boxProxy = datastack[stackpointer].items[boxptr]
 
-        // TODO this should be available in memory -- it is visible
-        let item = this.getItem(boxProxy.datatoken)
+        // TODO item should be available in memory -- it is visible
+        let item = this.boxdata[boxptr].item // this.getItem(boxProxy.datatoken)
 
         let liststack = boxProxy.liststack
 
@@ -237,10 +239,9 @@ class Quadrant extends React.Component<any,any>  {
         } else {
             listtoken = item.list
         }
-        // create the new stacklayer (empty with loading message)
 
-        // this should be a promise
-        let listitem = this.getList(listtoken)
+        // TODO list item should be in memory -- it is visible
+        let listitem = this.boxdata[boxptr].list.list //this.getList(listtoken)
 
         let listitems = listitem.list
 
@@ -337,6 +338,18 @@ class Quadrant extends React.Component<any,any>  {
 
     }
 
+    unmountBox = (index) => {
+        delete this.boxdata[index]
+    }
+
+    saveListData = (index, list, type) => {
+        this.boxdata[index].list = {
+            list,
+            type,
+        }
+        // console.log('boxdata',this.boxdata)
+    }
+
     decrementStackSelector = () => {
         let { stackpointer, datastack } = this.state
         this._captureSettings(stackpointer,datastack)
@@ -418,6 +431,11 @@ class Quadrant extends React.Component<any,any>  {
         let item = this.getItem(boxProxy.datatoken)
         let itemType = this.getType(item.type)
 
+        this.boxdata[index] = {
+            item,
+            type:itemType,
+        }
+
         let containerHeight = this.scrollboxelement.current.offsetHeight
 
         let matchForTarget = false
@@ -458,6 +476,16 @@ class Quadrant extends React.Component<any,any>  {
                 }
                 collapseDirectoryItem = {
                     this.collapseDirectoryItem
+                }
+                unmount = {
+                    () => {
+                        this.unmountBox(index)
+                    }
+                }
+                saveListData = {
+                    (list,type) => {
+                        this.saveListData(index,list,type)
+                    }
                 }
             />
         )

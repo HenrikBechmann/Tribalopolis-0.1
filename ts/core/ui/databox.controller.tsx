@@ -113,6 +113,10 @@ class DataBox extends React.Component<any,any> {
         }
     }
 
+    componentWillUnmount() {
+        this.props.unmount()
+    }
+
     doHighlights = (collapseTargetData) => {
 
         this.props.highlightBox({boxElement:this.boxframe.current})
@@ -236,6 +240,8 @@ class DataBox extends React.Component<any,any> {
 
         let listItemType = this.props.getType(listobject.type)
         // placeholder logic for showing add button
+
+        this.props.saveListData(listobject, listItemType)
 
         return  <div style = {
             {
