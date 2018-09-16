@@ -11,7 +11,7 @@
 
     application promise is then resolved at endpoint
 
-    firebase promises are fetched based on database TOKENS
+    firebase promises are fetched based on database DOCUMENT TOKENS
 */
 // temporary for transiition
 import { schemes, types, items, lists, links, folders, accounts } from '../../data/repositories';

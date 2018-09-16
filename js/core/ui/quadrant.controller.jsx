@@ -229,6 +229,23 @@ class Quadrant extends React.Component {
             };
             console.log('create boxdatacache', this.boxdatacache);
         };
+        this.isBoxDataCache = (instanceid) => {
+            return !!this.boxdatacache[instanceid];
+        };
+        this.getItemData = (instanceid, doctoken) => {
+            let item;
+            let type;
+            if (!this.isBoxDataCache(instanceid)) {
+                item = this.setItemListener(doctoken);
+                type = this.setTypeListener(item.type);
+                this.cacheBoxData(instanceid, item, type);
+            }
+            else {
+                item = this.boxdatacache[instanceid].item;
+                type = this.boxdatacache[instanceid].type;
+            }
+            return { item, type, };
+        };
         this.cacheListData = (instanceid, list, type) => {
             this.boxdatacache[instanceid].list = {
                 list,
@@ -258,9 +275,7 @@ class Quadrant extends React.Component {
             return this.getBoxComponent(boxProxy, index, haspeers, key);
         };
         this.getBoxComponent = (boxProxy, index, haspeers, key) => {
-            let item = this.setItemListener(boxProxy.doctoken);
-            let itemType = this.setTypeListener(item.type);
-            this.cacheBoxData(boxProxy.instanceid, item, itemType);
+            let { item, type: itemType } = this.getItemData(boxProxy.instanceid, boxProxy.doctoken);
             let containerHeight = this.scrollboxelement.current.offsetHeight;
             let matchForTarget = false;
             let { collapseTargetData } = this.state;

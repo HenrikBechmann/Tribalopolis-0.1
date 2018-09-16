@@ -388,6 +388,34 @@ class Quadrant extends React.Component<any,any>  {
         console.log('create boxdatacache',this.boxdatacache)
     }
 
+    isBoxDataCache = (instanceid) => {
+        return !!this.boxdatacache[instanceid]
+    }
+
+    // TODO create callback for setListeners
+    getItemData = (instanceid, doctoken) => {
+        
+        let item
+        let type
+
+        if (!this.isBoxDataCache(instanceid)) {
+
+            item = this.setItemListener(doctoken)
+            type = this.setTypeListener(item.type)
+
+            this.cacheBoxData(instanceid,item,type)
+
+        } else {
+
+            item = this.boxdatacache[instanceid].item
+            type = this.boxdatacache[instanceid].type
+
+        }
+
+        return {item,type,}
+
+    }
+
     cacheListData = (instanceid, list, type) => {
         this.boxdatacache[instanceid].list = {
             list,
@@ -426,10 +454,7 @@ class Quadrant extends React.Component<any,any>  {
 
     getBoxComponent = (boxProxy, index, haspeers, key) => {
 
-        let item = this.setItemListener(boxProxy.doctoken)
-        let itemType = this.setTypeListener(item.type)
-
-        this.cacheBoxData(boxProxy.instanceid,item,itemType)
+        let { item, type:itemType } = this.getItemData(boxProxy.instanceid,boxProxy.doctoken)
 
         let containerHeight = this.scrollboxelement.current.offsetHeight
 
