@@ -196,7 +196,7 @@ class DataBox extends React.Component<any,any> {
 
     render() {
 
-        let { item, getList, haspeers } = this.props
+        let { item, setListListener, haspeers } = this.props
 
         let listStack = this.state.boxProxy.liststack
 
@@ -210,7 +210,7 @@ class DataBox extends React.Component<any,any> {
             listref = listroot
         }
 
-        let listobject = getList(listref)
+        let listobject = setListListener(listref)
 
         let frameStyle:React.CSSProperties = {
             width:this.props.boxwidth + 'px',
@@ -236,7 +236,7 @@ class DataBox extends React.Component<any,any> {
 
         let listcount = listobject.list.length
 
-        let listItemType = this.props.getType(listobject.type)
+        let listItemType = this.props.setTypeListener(listobject.type)
         // placeholder logic for showing add button
 
         this.props.cacheListData(listobject, listItemType)
@@ -269,7 +269,7 @@ class DataBox extends React.Component<any,any> {
                 <div>
                     <DirectoryBar 
                         item = {item} 
-                        getList = {this.props.getList}
+                        setListListener = {this.props.setListListener}
                         listStack = {this.state.boxProxy.liststack}
                         collapseDirectoryItem = {this.collapseDirectoryItem}
                         haspeers = {this.props.haspeers}
@@ -280,7 +280,7 @@ class DataBox extends React.Component<any,any> {
                         ref = {this.listcomponent}
                         listobject = {listobject} 
                         highlightrefuid = {this.state.highlightrefuid}
-                        getList = {this.props.getList}
+                        setListListener = {this.props.setListListener}
                         expandDirectoryItem = {this.props.expandDirectoryItem}
                         highlightItem = {this.highlightItem}
                     />

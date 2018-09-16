@@ -15,16 +15,16 @@ const getScheme = (datatoken) => {
     return domain.getScheme(datatoken)
 }
 
-const getType = (datatoken) => {
-    return domain.getType(datatoken)
+const setTypeListener = (datatoken) => {
+    return domain.setTypeListener(datatoken)
 }
 
-const getItem = (datatoken) => {
-    return domain.getItem(datatoken)
+const setItemListener = (datatoken) => {
+    return domain.setItemListener(datatoken)
 }
 
-const getList = (datatoken) => {
-    return domain.getList(datatoken)
+const setListListener = (datatoken) => {
+    return domain.setListListener(datatoken)
 }
 
 const getLink = (datatoken) => {
@@ -40,9 +40,9 @@ const getAccount = (datatoken) => {
 }
 
 let application = {
-    getItem,
-    getList,
-    getType,
+    setItemListener,
+    setListListener,
+    setTypeListener,
     getLink,
     getScheme,
     getFolder,

@@ -12,11 +12,11 @@ import Quadrant from './quadrant.controller'
 const Quadrants = props => {
 
     // repackage callbacks for children
-    let { handleSwap, getItem, getList, getType, selectQuadrant, calcQuadrantPosition } = props.callbacks
+    let { handleSwap, setItemListener, setListListener, setTypeListener, selectQuadrant, calcQuadrantPosition } = props.callbacks
     let quadcallbacks = {
-        getItem,
-        getList,
-        getType,
+        setItemListener,
+        setListListener,
+        setTypeListener,
     }
     let framecallbacks = {
         handleSwap,

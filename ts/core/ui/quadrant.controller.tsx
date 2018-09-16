@@ -38,9 +38,9 @@ class Quadrant extends React.Component<any,any>  {
         this.scrollboxelement = React.createRef()
         this.listcomponent = React.createRef()
 
-        this.getItem = this.props.callbacks.getItem
-        this.getList = this.props.callbacks.getList
-        this.getType = this.props.callbacks.getType
+        this.setItemListener = this.props.callbacks.setItemListener
+        this.setListListener = this.props.callbacks.setListListener
+        this.setTypeListener = this.props.callbacks.setTypeListener
 
         window.addEventListener('resize',this.onResize)
 
@@ -63,9 +63,9 @@ class Quadrant extends React.Component<any,any>  {
     listcomponent
 
     // get records
-    getItem
-    getList
-    getType
+    setItemListener
+    setListListener
+    setTypeListener
 
     // trigger for animation and reset
     collapseTargetData = null
@@ -438,8 +438,8 @@ class Quadrant extends React.Component<any,any>  {
 
     getBoxComponent = (boxProxy, index, haspeers, key) => {
 
-        let item = this.getItem(boxProxy.datatoken)
-        let itemType = this.getType(item.type)
+        let item = this.setItemListener(boxProxy.datatoken)
+        let itemType = this.setTypeListener(item.type)
 
         this.cacheBoxData(boxProxy.instanceid,item,itemType)
 
@@ -450,15 +450,15 @@ class Quadrant extends React.Component<any,any>  {
         if (collapseTargetData) {
             matchForTarget = (collapseTargetData.index == index)
         }
-        // TODO replace getList and getType with promise resolvers
+        // TODO replace setListListener and setTypeListener with promise resolvers
         return (
             <DataBox 
                 key = { boxProxy.instanceid } 
                 item = { item } 
                 itemType = { itemType }
                 collapseTargetData = {matchForTarget?collapseTargetData:null}
-                getList = { this.getList }
-                getType = { this.getType }
+                setListListener = { this.setListListener }
+                setTypeListener = { this.setTypeListener }
                 boxProxy = { boxProxy }
                 highlightBox = {animations.highlightBox}
                 haspeers = { haspeers }

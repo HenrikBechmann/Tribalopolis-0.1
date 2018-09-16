@@ -21,16 +21,16 @@ import firebase from './firebase.api'
 
 let firestore = firebase.firestore()
 
-const getItem = (datatoken) => {
+const setItemListener = (datatoken) => {
     return items[datatoken.uid]
 }
 
-const getList = (datatoken) => {
+const setListListener = (datatoken) => {
     return lists[datatoken.uid]
 }
 
     // TODO: should always return an object
-const getType = (datatoken) => {
+const setTypeListener = (datatoken) => {
     return types[datatoken.uid]
 }
 
@@ -51,9 +51,9 @@ const getAccount = (datatoken) => {
 }
 
 let domain = {
-    getItem,
-    getList,
-    getType,
+    setItemListener,
+    setListListener,
+    setTypeListener,
     getLink,
     getScheme,
     getFolder,
