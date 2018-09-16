@@ -25,18 +25,15 @@ class Quadrant extends React.Component {
         };
         // trigger for animation and reset
         this.collapseTargetData = null;
-        this.boxdata = {};
-        /********************************************************
-        ------------------[ lifecycle methods ]------------------
-        *********************************************************/
-        // for reset of containerHeight
-        this.onResize = () => {
-            this.forceUpdate();
-        };
+        this.boxdatacache = {};
         this._findlinkIndex = (instanceid) => {
             return (item) => {
                 return item.instanceid == instanceid;
             };
+        };
+        // for reset of containerHeight
+        this.onResize = () => {
+            this.forceUpdate();
         };
         /********************************************************
         ----------------------[ operations ]---------------------
@@ -102,7 +99,7 @@ class Quadrant extends React.Component {
             this._captureSettings(stackpointer, datastack);
             let boxProxy = datastack[stackpointer].items[boxptr];
             // TODO item should be available in memory -- it is visible
-            let item = this.boxdata[boxptr].item; // this.getItem(boxProxy.datatoken)
+            let item = this.boxdatacache[boxptr].item;
             let liststack = boxProxy.liststack;
             let listtoken;
             if (liststack.length) {
@@ -112,7 +109,7 @@ class Quadrant extends React.Component {
                 listtoken = item.list;
             }
             // TODO list item should be in memory -- it is visible
-            let listitem = this.boxdata[boxptr].list.list; //this.getList(listtoken)
+            let listitem = this.boxdatacache[boxptr].list.list;
             let listitems = listitem.list;
             if (!listitems || !listitems.length)
                 return;
@@ -186,24 +183,6 @@ class Quadrant extends React.Component {
             this.collapseTargetData = Object.assign({}, boxProxy);
             this.decrementStackSelector();
         };
-        this.unmountBox = (instanceid) => {
-            delete this.boxdata[instanceid];
-            // console.log('unmount boxdata',this.boxdata)
-        };
-        this.saveBoxData = (instanceid, item, type) => {
-            this.boxdata[instanceid] = {
-                item,
-                type,
-            };
-            // console.log('create boxdata',this.boxdata)
-        };
-        this.saveListData = (instanceid, list, type) => {
-            this.boxdata[instanceid].list = {
-                list,
-                type,
-            };
-            // console.log('save listdata',this.boxdata)
-        };
         this.decrementStackSelector = () => {
             let { stackpointer, datastack } = this.state;
             this._captureSettings(stackpointer, datastack);
@@ -252,6 +231,27 @@ class Quadrant extends React.Component {
             }
         };
         /********************************************************
+        ----------------------[ cache data ]---------------------
+        *********************************************************/
+        this.cacheBoxData = (instanceid, item, type) => {
+            this.boxdatacache[instanceid] = {
+                item,
+                type,
+            };
+            console.log('create boxdatacache', this.boxdatacache);
+        };
+        this.cacheListData = (instanceid, list, type) => {
+            this.boxdatacache[instanceid].list = {
+                list,
+                type,
+            };
+            console.log('save listdatacache', this.boxdatacache);
+        };
+        this.unmountBoxdatacache = (instanceid) => {
+            delete this.boxdatacache[instanceid];
+            console.log('unmount boxdatacache', this.boxdatacache);
+        };
+        /********************************************************
         -------------------[ assembly support ]------------------
         *********************************************************/
         // Lister item renderer
@@ -269,7 +269,7 @@ class Quadrant extends React.Component {
         this.getBoxComponent = (boxProxy, index, haspeers, key) => {
             let item = this.getItem(boxProxy.datatoken);
             let itemType = this.getType(item.type);
-            this.saveBoxData(boxProxy.instanceid, item, itemType);
+            this.cacheBoxData(boxProxy.instanceid, item, itemType);
             let containerHeight = this.scrollboxelement.current.offsetHeight;
             let matchForTarget = false;
             let { collapseTargetData } = this.state;
@@ -284,9 +284,9 @@ class Quadrant extends React.Component {
             }} expandDirectoryItem={(datatoken, domSource) => {
                 this.expandDirectoryItem(index, datatoken, domSource);
             }} collapseDirectoryItem={this.collapseDirectoryItem} unmount={() => {
-                this.unmountBox(boxProxy.instanceid);
-            }} saveListData={(list, type) => {
-                this.saveListData(boxProxy.instanceid, list, type);
+                this.unmountBoxdatacache(boxProxy.instanceid);
+            }} cacheListData={(list, type) => {
+                this.cacheListData(boxProxy.instanceid, list, type);
             }}/>);
         };
         this.quadcontentelement = React.createRef();
@@ -303,6 +303,9 @@ class Quadrant extends React.Component {
         this.getType = this.props.callbacks.getType;
         window.addEventListener('resize', this.onResize);
     }
+    /********************************************************
+    ------------------[ lifecycle methods ]------------------
+    *********************************************************/
     componentWillUnmount() {
         window.removeEventListener('resize', this.onResize);
     }

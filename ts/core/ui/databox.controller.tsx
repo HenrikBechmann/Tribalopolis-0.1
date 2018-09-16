@@ -72,6 +72,8 @@ class DataBox extends React.Component<any,any> {
     collapseTargetData
 
     componentDidMount() {
+        console.log('box componentDidMount')
+
         let { collapseTargetData } = this.props
         // console.log('collapsing from componentdidMOUNT',collapseTargetData)
         // console.log('box componentdidMOUNT', this.state)
@@ -85,6 +87,7 @@ class DataBox extends React.Component<any,any> {
                 this.collapseTargetData = null
             },2000)
         })
+
     }
 
     componentDidUpdate() {
@@ -236,7 +239,7 @@ class DataBox extends React.Component<any,any> {
         let listItemType = this.props.getType(listobject.type)
         // placeholder logic for showing add button
 
-        this.props.saveListData(listobject, listItemType)
+        this.props.cacheListData(listobject, listItemType)
 
         return  <div style = {
             {

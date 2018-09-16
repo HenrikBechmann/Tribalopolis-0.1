@@ -15,6 +15,11 @@ let folders = {
         identity: {},
         properties: {},
         list: {},
+        timestamps: {
+            meta: 0,
+            properties: 0,
+            list: 0,
+        },
     }
 };
 let schemes = {};
@@ -35,6 +40,11 @@ let types = {
             has: {},
         },
         list: {},
+        timestamps: {
+            meta: 0,
+            properties: 0,
+            list: 0,
+        },
     },
     outgoing: {
         access: {
@@ -50,6 +60,11 @@ let types = {
             has: {},
         },
         list: {},
+        timestamps: {
+            meta: 0,
+            properties: 0,
+            list: 0,
+        },
     },
 };
 let lists = {
@@ -75,6 +90,11 @@ let lists = {
             },
         },
         list: [],
+        timestamps: {
+            meta: 0,
+            properties: 0,
+            list: 0,
+        },
         itemuid: 'henrik',
         subscriptions: {
             ['subscriptionid']: {
@@ -107,6 +127,11 @@ let lists = {
             },
         },
         list: [],
+        timestamps: {
+            meta: 0,
+            properties: 0,
+            list: 0,
+        },
         item: 'henrik',
         subscriptions: {},
         subscribers: {},
@@ -134,6 +159,11 @@ let lists = {
             },
         },
         list: [],
+        timestamps: {
+            meta: 0,
+            properties: 0,
+            list: 0,
+        },
         item: 'henrik',
         subscriptions: {},
         subscribers: {},
@@ -160,6 +190,11 @@ let lists = {
             },
         },
         list: [],
+        timestamps: {
+            meta: 0,
+            properties: 0,
+            list: 0,
+        },
         item: 'henrik',
         subscriptions: {},
         subscribers: {},
@@ -186,6 +221,11 @@ let lists = {
             },
         },
         list: [],
+        timestamps: {
+            meta: 0,
+            properties: 0,
+            list: 0,
+        },
         item: 'henrik',
         subscriptions: {},
         subscribers: {},
@@ -212,6 +252,11 @@ let lists = {
             },
         },
         list: [],
+        timestamps: {
+            meta: 0,
+            properties: 0,
+            list: 0,
+        },
         item: 'henrik',
         subscriptions: {},
         subscribers: {},
@@ -238,6 +283,11 @@ let lists = {
             },
         },
         list: [],
+        timestamps: {
+            meta: 0,
+            properties: 0,
+            list: 0,
+        },
         item: 'henrik',
         subscriptions: {},
         subscribers: {},
@@ -264,6 +314,11 @@ let lists = {
             },
         },
         list: [],
+        timestamps: {
+            meta: 0,
+            properties: 0,
+            list: 0,
+        },
         item: 'henrik',
         subscriptions: {},
         subscribers: {},
@@ -290,6 +345,11 @@ let lists = {
             },
         },
         list: [],
+        timestamps: {
+            meta: 0,
+            properties: 0,
+            list: 0,
+        },
         item: 'henrik',
         subscriptions: {},
         subscribers: {},
@@ -316,6 +376,11 @@ let lists = {
             },
         },
         list: [],
+        timestamps: {
+            meta: 0,
+            properties: 0,
+            list: 0,
+        },
         item: 'henrik',
         subscriptions: {},
         subscribers: {},
@@ -342,6 +407,11 @@ let lists = {
             },
         },
         list: [],
+        timestamps: {
+            meta: 0,
+            properties: 0,
+            list: 0,
+        },
         item: 'henrik',
         subscriptions: {},
         subscribers: {},
@@ -368,6 +438,11 @@ let lists = {
             },
         },
         list: [],
+        timestamps: {
+            meta: 0,
+            properties: 0,
+            list: 0,
+        },
         item: 'henrik',
         subscriptions: {},
         subscribers: {},
@@ -394,6 +469,11 @@ let lists = {
             },
         },
         list: [],
+        timestamps: {
+            meta: 0,
+            properties: 0,
+            list: 0,
+        },
         item: 'henrik',
         subscriptions: {},
         subscribers: {},
@@ -420,6 +500,11 @@ let lists = {
             },
         },
         list: [],
+        timestamps: {
+            meta: 0,
+            properties: 0,
+            list: 0,
+        },
         item: 'henrik',
         subscriptions: {},
         subscribers: {},
@@ -446,6 +531,11 @@ let lists = {
             },
         },
         list: [],
+        timestamps: {
+            meta: 0,
+            properties: 0,
+            list: 0,
+        },
         item: 'henrik',
         subscriptions: {},
         subscribers: {},
@@ -473,6 +563,11 @@ let lists = {
             },
         },
         list: [],
+        timestamps: {
+            meta: 0,
+            properties: 0,
+            list: 0,
+        },
         item: 'henrik',
         subscriptions: {},
         subscribers: {},
@@ -500,6 +595,11 @@ let lists = {
             },
         },
         list: [],
+        timestamps: {
+            meta: 0,
+            properties: 0,
+            list: 0,
+        },
         item: 'henrik',
         subscriptions: {},
         subscribers: {},
@@ -597,6 +697,11 @@ let lists = {
                 uid: 'other',
             },
         ],
+        timestamps: {
+            meta: 0,
+            properties: 0,
+            list: 0,
+        },
         item: 'henrik',
         subscriptions: {},
         subscribers: {},
@@ -629,6 +734,11 @@ let items = {
             locationid: 'Toronto',
         },
         list: { repo: 'lists', uid: 'henrik' },
+        timestamps: {
+            meta: 0,
+            properties: 0,
+            list: 0,
+        },
     },
 };
 let accounts = {};

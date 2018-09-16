@@ -106,6 +106,7 @@ class DataBox extends React.Component {
         this.listcomponent = React.createRef();
     }
     componentDidMount() {
+        console.log('box componentDidMount');
         let { collapseTargetData } = this.props;
         // console.log('collapsing from componentdidMOUNT',collapseTargetData)
         // console.log('box componentdidMOUNT', this.state)
@@ -179,7 +180,7 @@ class DataBox extends React.Component {
         let listcount = listobject.list.length;
         let listItemType = this.props.getType(listobject.type);
         // placeholder logic for showing add button
-        this.props.saveListData(listobject, listItemType);
+        this.props.cacheListData(listobject, listItemType);
         return <div style={{
             float: haspeers ? 'left' : 'none',
             padding: '16px',

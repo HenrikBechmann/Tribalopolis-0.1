@@ -70,16 +70,11 @@ class Quadrant extends React.Component<any,any>  {
     // trigger for animation and reset
     collapseTargetData = null
 
-    boxdata = {}
+    boxdatacache = {}
 
 /********************************************************
 ------------------[ lifecycle methods ]------------------
 *********************************************************/
-
-    // for reset of containerHeight
-    onResize = () => {
-        this.forceUpdate()
-    }
 
     componentWillUnmount() {
 
@@ -137,6 +132,11 @@ class Quadrant extends React.Component<any,any>  {
             return item.instanceid == instanceid
         }
 
+    }
+
+    // for reset of containerHeight
+    onResize = () => {
+        this.forceUpdate()
     }
 
 /********************************************************
@@ -225,7 +225,7 @@ class Quadrant extends React.Component<any,any>  {
         let boxProxy = datastack[stackpointer].items[boxptr]
 
         // TODO item should be available in memory -- it is visible
-        let item = this.boxdata[boxptr].item // this.getItem(boxProxy.datatoken)
+        let item = this.boxdatacache[boxptr].item
 
         let liststack = boxProxy.liststack
 
@@ -238,7 +238,7 @@ class Quadrant extends React.Component<any,any>  {
         }
 
         // TODO list item should be in memory -- it is visible
-        let listitem = this.boxdata[boxptr].list.list //this.getList(listtoken)
+        let listitem = this.boxdatacache[boxptr].list.list
 
         let listitems = listitem.list
 
@@ -335,27 +335,6 @@ class Quadrant extends React.Component<any,any>  {
 
     }
 
-    unmountBox = (instanceid) => {
-        delete this.boxdata[instanceid]
-        // console.log('unmount boxdata',this.boxdata)
-    }
-
-    saveBoxData = (instanceid,item,type) => {
-        this.boxdata[instanceid] = {
-            item,
-            type,
-        }
-        // console.log('create boxdata',this.boxdata)
-    }
-
-    saveListData = (instanceid, list, type) => {
-        this.boxdata[instanceid].list = {
-            list,
-            type,
-        }
-        // console.log('save listdata',this.boxdata)
-    }
-
     decrementStackSelector = () => {
         let { stackpointer, datastack } = this.state
         this._captureSettings(stackpointer,datastack)
@@ -412,6 +391,31 @@ class Quadrant extends React.Component<any,any>  {
     }
 
 /********************************************************
+----------------------[ cache data ]---------------------
+*********************************************************/
+
+    cacheBoxData = (instanceid,item,type) => {
+        this.boxdatacache[instanceid] = {
+            item,
+            type,
+        }
+        console.log('create boxdatacache',this.boxdatacache)
+    }
+
+    cacheListData = (instanceid, list, type) => {
+        this.boxdatacache[instanceid].list = {
+            list,
+            type,
+        }
+        console.log('save listdatacache',this.boxdatacache)
+    }
+
+   unmountBoxdatacache = (instanceid) => {
+        delete this.boxdatacache[instanceid]
+        console.log('unmount boxdatacache',this.boxdatacache)
+    }
+
+/********************************************************
 -------------------[ assembly support ]------------------
 *********************************************************/
 
@@ -437,7 +441,7 @@ class Quadrant extends React.Component<any,any>  {
         let item = this.getItem(boxProxy.datatoken)
         let itemType = this.getType(item.type)
 
-        this.saveBoxData(boxProxy.instanceid,item,itemType)
+        this.cacheBoxData(boxProxy.instanceid,item,itemType)
 
         let containerHeight = this.scrollboxelement.current.offsetHeight
 
@@ -482,12 +486,12 @@ class Quadrant extends React.Component<any,any>  {
                 }
                 unmount = {
                     () => {
-                        this.unmountBox(boxProxy.instanceid)
+                        this.unmountBoxdatacache(boxProxy.instanceid)
                     }
                 }
-                saveListData = {
+                cacheListData = {
                     (list,type) => {
-                        this.saveListData(boxProxy.instanceid,list,type)
+                        this.cacheListData(boxProxy.instanceid,list,type)
                     }
                 }
             />

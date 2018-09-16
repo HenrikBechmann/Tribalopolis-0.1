@@ -4,4 +4,4 @@ export const ITEM_TYPES = {
     DRAGHANDLE:'draghandle',
 }
 
-export enum METATYPES {list,item,link}
+export enum COLLECTIONS {types, schemas, items, lists, links, folders, accounts}
