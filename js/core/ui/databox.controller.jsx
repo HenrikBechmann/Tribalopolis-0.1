@@ -47,7 +47,6 @@ class DataBox extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            // opacity:1,
             boxProxy: this.props.boxProxy,
             highlightrefuid: this.props.highlightrefuid
         };
@@ -55,11 +54,11 @@ class DataBox extends React.Component {
             this.props.highlightBox({ boxElement: this.boxframe.current });
             if (collapseTargetData.action == 'expand' ||
                 collapseTargetData.action == 'splay') {
-                let datatoken = collapseTargetData.liststack[collapseTargetData.liststack.length - 1];
-                if (datatoken) {
+                let doctoken = collapseTargetData.liststack[collapseTargetData.liststack.length - 1];
+                if (doctoken) {
                     setTimeout(() => {
                         this.setState({
-                            highlightrefuid: datatoken.uid,
+                            highlightrefuid: doctoken.uid,
                         }, () => {
                             this.setState({
                                 highlightrefuid: null
@@ -146,17 +145,11 @@ class DataBox extends React.Component {
         this.props.unmount();
     }
     render() {
-        let { item, getList, haspeers } = this.props;
-        let listStack = this.state.boxProxy.liststack;
-        let { list: listroot } = item;
-        let listref;
-        if (listStack.length) {
-            listref = listStack[listStack.length - 1];
-        }
-        else {
-            listref = listroot;
-        }
-        let listobject = getList(listref);
+        let { item, setListListener, haspeers } = this.props;
+        let wrapperStyle = {
+            float: haspeers ? 'left' : 'none',
+            padding: '16px',
+        };
         let frameStyle = {
             width: this.props.boxwidth + 'px',
             backgroundColor: 'white',
@@ -170,6 +163,30 @@ class DataBox extends React.Component {
             margin: haspeers ? 'none' : 'auto',
             position: 'relative',
         };
+        if (!item) {
+            let wrapperStyle2 = Object.assign({}, wrapperStyle);
+            wrapperStyle2.height = '100%';
+            wrapperStyle2.boxSizing = 'border-box';
+            let frameStyle2 = Object.assign({}, frameStyle);
+            frameStyle2.padding = '16px';
+            frameStyle2.maxHeight = '100%';
+            frameStyle2.height = frameStyle2.maxHeight;
+            return <div style={wrapperStyle2}>
+                <div style={frameStyle2}>
+                    Loading...
+                </div>
+            </div>;
+        }
+        let listStack = this.state.boxProxy.liststack;
+        let { list: listroot } = item;
+        let listref;
+        if (listStack.length) {
+            listref = listStack[listStack.length - 1];
+        }
+        else {
+            listref = listroot;
+        }
+        let listobject = setListListener(listref);
         let scrollboxstyle = {
             height: (this.props.containerHeight - 185) + 'px',
             overflow: 'auto',
@@ -178,13 +195,10 @@ class DataBox extends React.Component {
             paddingBottom: '32px',
         };
         let listcount = listobject.list.length;
-        let listItemType = this.props.getType(listobject.type);
+        let listItemType = this.props.setTypeListener(listobject.type);
         // placeholder logic for showing add button
         this.props.cacheListData(listobject, listItemType);
-        return <div style={{
-            float: haspeers ? 'left' : 'none',
-            padding: '16px',
-        }}>
+        return <div style={wrapperStyle}>
             <div style={frameStyle} ref={this.boxframe}>
             {haspeers ? null : <ResizeTab />}
             <BoxTypebar item={item} listcount={listcount} splayBox={this.splayBox} haspeers={this.props.haspeers} selectFromSplay={this.props.selectFromSplay}/>
@@ -194,10 +208,10 @@ class DataBox extends React.Component {
             position: 'relative',
         }}>
                 <div>
-                    <DirectoryBar item={item} getList={this.props.getList} listStack={this.state.boxProxy.liststack} collapseDirectoryItem={this.collapseDirectoryItem} haspeers={this.props.haspeers}/>
+                    <DirectoryBar item={item} setListListener={this.props.setListListener} listStack={this.state.boxProxy.liststack} collapseDirectoryItem={this.collapseDirectoryItem} haspeers={this.props.haspeers}/>
                 </div>
                 <div style={scrollboxstyle}>
-                    <DirectoryList ref={this.listcomponent} listobject={listobject} highlightrefuid={this.state.highlightrefuid} getList={this.props.getList} expandDirectoryItem={this.props.expandDirectoryItem} highlightItem={this.highlightItem}/>
+                    <DirectoryList ref={this.listcomponent} listobject={listobject} highlightrefuid={this.state.highlightrefuid} setListListener={this.props.setListListener} expandDirectoryItem={this.props.expandDirectoryItem} highlightItem={this.highlightItem}/>
                 </div>
                 {this.modifybuttons(listItemType)}
                 {this.indexmarker()}

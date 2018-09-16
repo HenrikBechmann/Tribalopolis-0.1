@@ -5,7 +5,7 @@ let datastacks = [
         {
             items: [
                 {
-                    datatoken: {
+                    doctoken: {
                         repo: 'items',
                         uid: 'henrik',
                     },
@@ -22,7 +22,7 @@ let datastacks = [
         {
             items: [
                 {
-                    datatoken: {
+                    doctoken: {
                         repo: 'items',
                         uid: 'henrik',
                     },
@@ -39,7 +39,7 @@ let datastacks = [
         {
             items: [
                 {
-                    datatoken: {
+                    doctoken: {
                         repo: 'items',
                         uid: 'henrik',
                     },
@@ -56,7 +56,7 @@ let datastacks = [
         {
             items: [
                 {
-                    datatoken: {
+                    doctoken: {
                         repo: 'items',
                         uid: 'henrik',
                     },

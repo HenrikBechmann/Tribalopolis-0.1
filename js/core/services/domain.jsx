@@ -17,32 +17,32 @@
 import { schemes, types, items, lists, links, folders, accounts } from '../../data/repositories';
 import firebase from './firebase.api';
 let firestore = firebase.firestore();
-const getItem = (datatoken) => {
-    return items[datatoken.uid];
+const setItemListener = (doctoken) => {
+    return items[doctoken.uid];
 };
-const getList = (datatoken) => {
-    return lists[datatoken.uid];
+const setListListener = (doctoken) => {
+    return lists[doctoken.uid];
 };
 // TODO: should always return an object
-const getType = (datatoken) => {
-    return types[datatoken.uid];
+const setTypeListener = (doctoken) => {
+    return types[doctoken.uid];
 };
-const getLink = (datatoken) => {
-    return links[datatoken.uid];
+const getLink = (doctoken) => {
+    return links[doctoken.uid];
 };
-const getScheme = (datatoken) => {
-    return schemes[datatoken.uid];
+const getScheme = (doctoken) => {
+    return schemes[doctoken.uid];
 };
-const getFolder = (datatoken) => {
-    return folders[datatoken.uid];
+const getFolder = (doctoken) => {
+    return folders[doctoken.uid];
 };
-const getAccount = (datatoken) => {
-    return accounts[datatoken.uid];
+const getAccount = (doctoken) => {
+    return accounts[doctoken.uid];
 };
 let domain = {
-    getItem,
-    getList,
-    getType,
+    setItemListener,
+    setListListener,
+    setTypeListener,
     getLink,
     getScheme,
     getFolder,

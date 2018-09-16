@@ -61,7 +61,6 @@ class DataBox extends React.Component<any,any> {
     }
 
     state = {
-        // opacity:1,
         boxProxy:this.props.boxProxy,
         highlightrefuid:this.props.highlightrefuid
     }
@@ -122,15 +121,15 @@ class DataBox extends React.Component<any,any> {
         if (collapseTargetData.action == 'expand' || 
             collapseTargetData.action == 'splay') {
 
-            let datatoken = 
+            let doctoken = 
                 collapseTargetData.liststack[
                     collapseTargetData.liststack.length -1]
 
-            if (datatoken) {
+            if (doctoken) {
 
                 setTimeout(()=>{
                     this.setState({
-                        highlightrefuid:datatoken.uid,
+                        highlightrefuid:doctoken.uid,
                     },() => {
                         this.setState({
                             highlightrefuid:null
@@ -198,19 +197,10 @@ class DataBox extends React.Component<any,any> {
 
         let { item, setListListener, haspeers } = this.props
 
-        let listStack = this.state.boxProxy.liststack
-
-        let { list:listroot } = item
-
-        let listref
-
-        if (listStack.length) {
-            listref = listStack[listStack.length-1]
-        } else {
-            listref = listroot
+        let wrapperStyle:React.CSSProperties = {
+            float:haspeers?'left':'none',
+            padding:'16px',
         }
-
-        let listobject = setListListener(listref)
 
         let frameStyle:React.CSSProperties = {
             width:this.props.boxwidth + 'px',
@@ -225,6 +215,35 @@ class DataBox extends React.Component<any,any> {
             margin:haspeers?'none':'auto',
             position:'relative',
         }
+
+        if (!item) {
+            let wrapperStyle2 = Object.assign({},wrapperStyle)
+            wrapperStyle2.height = '100%'
+            wrapperStyle2.boxSizing = 'border-box'
+            let frameStyle2 = Object.assign({},frameStyle)
+            frameStyle2.padding = '16px'
+            frameStyle2.maxHeight = '100%'
+            frameStyle2.height = frameStyle2.maxHeight
+            return <div style = {wrapperStyle2}>
+                <div style = {frameStyle2}>
+                    Loading...
+                </div>
+            </div>
+        }
+
+        let listStack = this.state.boxProxy.liststack
+
+        let { list:listroot } = item
+
+        let listref
+
+        if (listStack.length) {
+            listref = listStack[listStack.length-1]
+        } else {
+            listref = listroot
+        }
+
+        let listobject = setListListener(listref)
 
         let scrollboxstyle:React.CSSProperties = {
             height:(this.props.containerHeight - 185) + 'px', // this figure is the net of many inside amounts!
@@ -241,12 +260,7 @@ class DataBox extends React.Component<any,any> {
 
         this.props.cacheListData(listobject, listItemType)
 
-        return  <div style = {
-            {
-                float:haspeers?'left':'none',
-                padding:'16px',
-            }
-        }>
+        return  <div style = { wrapperStyle }>
             <div style = {frameStyle}
                 ref = {this.boxframe}
             >

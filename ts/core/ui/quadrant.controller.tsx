@@ -175,7 +175,7 @@ class Quadrant extends React.Component<any,any>  {
     }
 
     //-------------------------------[ forward ]---------------------------
-    expandDirectoryItem = (boxptr, datatoken, domSource) => {
+    expandDirectoryItem = (boxptr, doctoken, domSource) => {
 
         this.animateToOrigin()
 
@@ -189,7 +189,7 @@ class Quadrant extends React.Component<any,any>  {
         stackpointer++
         let newstacklayer = {items:[], settings:{}, source:{
             instanceid:boxProxy.instanceid,
-            datatoken:boxProxy.datatoken,
+            doctoken:boxProxy.doctoken,
             action:'expand',
         }}
 
@@ -199,7 +199,7 @@ class Quadrant extends React.Component<any,any>  {
         let newBoxProxy = JSON.parse(JSON.stringify(boxProxy))
         newBoxProxy.instanceid = serializer.getid()
 
-        newBoxProxy.liststack.push(datatoken)
+        newBoxProxy.liststack.push(doctoken)
 
         newstacklayer.items.push(newBoxProxy)
 
@@ -224,30 +224,16 @@ class Quadrant extends React.Component<any,any>  {
 
         let boxProxy = datastack[stackpointer].items[boxptr]
 
-        // TODO item should be available in memory -- it is visible
-        let item = this.boxdatacache[boxptr].item
+        let listobject = this.boxdatacache[boxProxy.instanceid].list.list
 
-        let liststack = boxProxy.liststack
+        let listtokens = listobject.list
 
-        let listtoken
-
-        if (liststack.length) {
-            listtoken = liststack[liststack.length-1]
-        } else {
-            listtoken = item.list
-        }
-
-        // TODO list item should be in memory -- it is visible
-        let listitem = this.boxdatacache[boxptr].list.list
-
-        let listitems = listitem.list
-
-        if (!listitems || !listitems.length) return
+        if (!listtokens || !listtokens.length) return
 
         stackpointer++
         let newstacklayer = {items:[], settings:{}, source:{
             instanceid:boxProxy.instanceid,
-            datatoken:boxProxy.datatoken,
+            doctoken:boxProxy.doctoken,
             action:'splay',
             visiblerange,
         }}
@@ -257,7 +243,7 @@ class Quadrant extends React.Component<any,any>  {
 
         let template = JSON.stringify(boxProxy)
 
-        for (let token of listitems) {
+        for (let token of listtokens) {
             let newBoxProxy = JSON.parse(template)
             newBoxProxy.instanceid = serializer.getid()
             newBoxProxy.liststack.push(token)
@@ -290,7 +276,7 @@ class Quadrant extends React.Component<any,any>  {
         stackpointer++
         let newstacklayer = {items:[], settings:{}, source:{
             instanceid:boxProxy.instanceid,
-            datatoken:boxProxy.datatoken,
+            doctoken:boxProxy.doctoken,
             action:'select',
         }}
 
@@ -430,6 +416,8 @@ class Quadrant extends React.Component<any,any>  {
 
         let boxProxy = datastack[stackpointer].items[index]
 
+        if (!boxProxy) return null
+
         let stacklayer = datastack[stackpointer]
         let haspeers = (stacklayer && (stacklayer.items.length > 1))
 
@@ -438,7 +426,7 @@ class Quadrant extends React.Component<any,any>  {
 
     getBoxComponent = (boxProxy, index, haspeers, key) => {
 
-        let item = this.setItemListener(boxProxy.datatoken)
+        let item = this.setItemListener(boxProxy.doctoken)
         let itemType = this.setTypeListener(item.type)
 
         this.cacheBoxData(boxProxy.instanceid,item,itemType)
@@ -450,7 +438,6 @@ class Quadrant extends React.Component<any,any>  {
         if (collapseTargetData) {
             matchForTarget = (collapseTargetData.index == index)
         }
-        // TODO replace setListListener and setTypeListener with promise resolvers
         return (
             <DataBox 
                 key = { boxProxy.instanceid } 
@@ -477,8 +464,8 @@ class Quadrant extends React.Component<any,any>  {
                     }
                 }
                 expandDirectoryItem = {
-                    (datatoken, domSource) => {
-                        this.expandDirectoryItem(index,datatoken, domSource)
+                    (doctoken, domSource) => {
+                        this.expandDirectoryItem(index,doctoken, domSource)
                     }
                 }
                 collapseDirectoryItem = {

@@ -11,7 +11,7 @@
 
     application promise is then resolved at endpoint
 
-    firebase promises are fetched based on database TOKENS
+    firebase promises are fetched based on database DOCUMENT TOKENS
 */
 
 // temporary for transiition
@@ -21,33 +21,33 @@ import firebase from './firebase.api'
 
 let firestore = firebase.firestore()
 
-const setItemListener = (datatoken) => {
-    return items[datatoken.uid]
+const setItemListener = (doctoken) => {
+    return items[doctoken.uid]
 }
 
-const setListListener = (datatoken) => {
-    return lists[datatoken.uid]
+const setListListener = (doctoken) => {
+    return lists[doctoken.uid]
 }
 
     // TODO: should always return an object
-const setTypeListener = (datatoken) => {
-    return types[datatoken.uid]
+const setTypeListener = (doctoken) => {
+    return types[doctoken.uid]
 }
 
-const getLink = (datatoken) => {
-    return links[datatoken.uid]
+const getLink = (doctoken) => {
+    return links[doctoken.uid]
 }
 
-const getScheme = (datatoken) => {
-    return schemes[datatoken.uid]
+const getScheme = (doctoken) => {
+    return schemes[doctoken.uid]
 }
 
-const getFolder = (datatoken) => {
-    return folders[datatoken.uid]
+const getFolder = (doctoken) => {
+    return folders[doctoken.uid]
 }
 
-const getAccount = (datatoken) => {
-    return accounts[datatoken.uid]
+const getAccount = (doctoken) => {
+    return accounts[doctoken.uid]
 }
 
 let domain = {
