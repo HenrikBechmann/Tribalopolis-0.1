@@ -238,6 +238,7 @@ class Quadrant extends React.Component {
             return !!this.boxdatacache[instanceid];
         };
         this.cacheItemData = (instanceid, data, type) => {
+            let wascache = !!this.boxdatacache[instanceid];
             this.boxdatacache[instanceid] = {
                 item: {
                     data,
@@ -253,9 +254,9 @@ class Quadrant extends React.Component {
             let type;
             if (!this.isBoxDataCache(instanceid)) {
                 // console.log('fetching new item data')
-                item = this.setItemListener(doctoken);
-                type = this.setTypeListener(item.type);
-                this.cacheItemData(instanceid, item, type);
+                this.setItemListener(doctoken, instanceid, this.cacheItemData);
+                return {};
+                // this.cacheItemData(instanceid,item,type)
             }
             else {
                 // console.log('fetching cached item data')

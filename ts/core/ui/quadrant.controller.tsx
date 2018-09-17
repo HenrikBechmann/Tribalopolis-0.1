@@ -400,6 +400,7 @@ class Quadrant extends React.Component<any,any>  {
     }
 
     cacheItemData = (instanceid,data,type) => {
+        let wascache = !!this.boxdatacache[instanceid]
         this.boxdatacache[instanceid] = {
             item:{
                 data,
@@ -420,10 +421,11 @@ class Quadrant extends React.Component<any,any>  {
         if (!this.isBoxDataCache(instanceid)) {
 
             // console.log('fetching new item data')
-            item = this.setItemListener(doctoken)
-            type = this.setTypeListener(item.type)
+            this.setItemListener(doctoken,instanceid,this.cacheItemData)
 
-            this.cacheItemData(instanceid,item,type)
+            return {}
+
+            // this.cacheItemData(instanceid,item,type)
 
         } else {
 
