@@ -215,7 +215,7 @@ class Quadrant extends React.Component<any,any>  {
         })
     }
 
-    splayBox = (boxptr, domSource, sourcelistcomponent) => {
+    splayBox = (boxptr, domSource, sourcelistcomponent,listdoctoken) => {
 
         let visiblerange = sourcelistcomponent.current.getVisibleRange()
 
@@ -228,18 +228,16 @@ class Quadrant extends React.Component<any,any>  {
 
         let itemProxy = datastack[stackpointer].items[boxptr]
 
-        let {item:itemObject} = this.getCacheItemData(itemProxy.instanceid,itemProxy.doctoken)
+        // let {item:itemObject} = this.getCacheItemData(itemProxy.instanceid,itemProxy.doctoken)
 
-        let listdoctoken
-        if (itemProxy.liststack.length > 0) {
-            listdoctoken = itemProxy.liststack[itemProxy.liststack.length - 1]
-        } else {
-            listdoctoken = itemObject.list
-        }
+        // let listdoctoken
+        // if (itemProxy.liststack.length > 0) {
+        //     listdoctoken = itemProxy.liststack[itemProxy.liststack.length - 1]
+        // } else {
+        //     listdoctoken = itemObject.list
+        // }
 
         let { list:listObject } =  this.getCacheListData(itemProxy.instanceid,listdoctoken) 
-
-        // console.log('getting list data for splay', itemProxy.instanceid, listdoctoken, listObject)
 
         let listtokens = listObject.list
 
@@ -399,48 +397,48 @@ class Quadrant extends React.Component<any,any>  {
         return !!this.boxdatacache[instanceid]
     }
 
-    cacheItemData = (instanceid,data,type) => {
-        let wascache = !!this.boxdatacache[instanceid]
-        this.boxdatacache[instanceid] = {
-            item:{
-                data,
-                type,
-            }
-        }
-    }
+    // cacheItemData = (instanceid,data,type) => {
+    //     this.boxdatacache[instanceid] = {
+    //         item:{
+    //             data,
+    //             type,
+    //         }
+    //     }
+    // }
 
     isCacheItemData = (instanceid) => {
         return !!(this.boxdatacache[instanceid] && this.boxdatacache[instanceid].item)
     }
 
-    getCacheItemData = (instanceid, doctoken) => {
+    // getCacheItemData = (instanceid, doctoken) => {
         
-        let item
-        let type
+    //     let item
+    //     let type
 
-        if (!this.isBoxDataCache(instanceid)) {
+    //     if (!this.isBoxDataCache(instanceid)) {
 
-            // console.log('fetching new item data')
-            this.setItemListener(doctoken,instanceid,this.cacheItemData)
+    //         // console.log('fetching new item data')
+    //         this.setItemListener(doctoken,instanceid,this.cacheItemData)
 
-            return {}
+    //         return {}
 
-            // this.cacheItemData(instanceid,item,type)
+    //         // this.cacheItemData(instanceid,item,type)
 
-        } else {
+    //     } else {
 
-            // console.log('fetching cached item data')
-            item = this.boxdatacache[instanceid].item.data
-            type = this.boxdatacache[instanceid].item.type
+    //         // console.log('fetching cached item data')
+    //         item = this.boxdatacache[instanceid].item.data
+    //         type = this.boxdatacache[instanceid].item.type
 
-        }
+    //     }
 
-        return {item,type,}
+    //     return {item,type,}
 
-    }
+    // }
 
     // TODO create callback for setListeners
     cacheListData = (instanceid, data, type) => {
+        return
         this.boxdatacache[instanceid].list = {
             data,
             type,
@@ -455,19 +453,19 @@ class Quadrant extends React.Component<any,any>  {
         let list
         let type
 
-        if (!(this.isBoxDataCache(instanceid) && this.boxdatacache[instanceid].list)) {
+        // if (!(this.isBoxDataCache(instanceid) && this.boxdatacache[instanceid].list)) {
 
             list = this.setListListener(doctoken)
             type = this.setTypeListener(list.type)
 
-            this.cacheListData(instanceid,list,type)
+            // this.cacheListData(instanceid,list,type)
 
-        } else {
+        // } else {
 
-            list = this.boxdatacache[instanceid].list.data
-            type = this.boxdatacache[instanceid].list.type
+        //     list = this.boxdatacache[instanceid].list.data
+        //     type = this.boxdatacache[instanceid].list.type
 
-        }
+        // }
 
         return {list,type,}
     }
@@ -501,7 +499,7 @@ class Quadrant extends React.Component<any,any>  {
 
     getBoxComponent = (itemProxy, index, haspeers, key) => {
 
-        let { item, type:itemType } = this.getCacheItemData(itemProxy.instanceid,itemProxy.doctoken)
+        // let { item, type:itemType } = this.getCacheItemData(itemProxy.instanceid,itemProxy.doctoken)
 
         let containerHeight = this.scrollboxelement.current.offsetHeight
 
@@ -513,8 +511,6 @@ class Quadrant extends React.Component<any,any>  {
         return (
             <DataBox 
                 key = { itemProxy.instanceid } 
-                item = { item } 
-                itemType = { itemType }
                 collapseTargetData = {matchForTarget?collapseTargetData:null}
                 setListListener = { this.setListListener }
                 setTypeListener = { this.setTypeListener }
@@ -524,10 +520,13 @@ class Quadrant extends React.Component<any,any>  {
                 index = {index}
                 containerHeight = {containerHeight}
                 boxwidth = {haspeers?300:this.state.boxwidth}
+                setItemListener = {(callback) => {
+                    this.setItemListener(itemProxy.doctoken,itemProxy.instanceid,callback)
+                }}
 
                 splayBox = {
-                    (domSource, listcomponent) => {
-                        this.splayBox(index, domSource, listcomponent)
+                    (domSource, listcomponent,listdoctoken) => {
+                        this.splayBox(index, domSource, listcomponent,listdoctoken)
                     }
                 }
                 selectFromSplay = {

@@ -63,7 +63,8 @@ class DataBox extends React.Component<any,any> {
 
     state = {
         itemProxy:this.props.itemProxy,
-        highlightrefuid:this.props.highlightrefuid
+        highlightrefuid:this.props.highlightrefuid,
+        item:null,
     }
 
     boxframe
@@ -73,20 +74,7 @@ class DataBox extends React.Component<any,any> {
 
     componentDidMount() {
         // console.log('box componentDidMount')
-
-        let { collapseTargetData } = this.props
-        // console.log('collapsing from componentdidMOUNT',collapseTargetData)
-        // console.log('box componentdidMOUNT', this.state)
-        if (!collapseTargetData) return
-        // console.log('didMOUNT collapseTargetData',collapseTargetData)
-        this.collapseTargetData = collapseTargetData
-
-        setTimeout(()=>{
-            this.doHighlights(collapseTargetData)
-            setTimeout(()=>{
-                this.collapseTargetData = null
-            },2000)
-        })
+        this.props.setItemListener(this.cacheItemData)
 
     }
 
@@ -114,6 +102,27 @@ class DataBox extends React.Component<any,any> {
     componentWillUnmount() {
         this.props.unmount()
     }
+
+    cacheItemData = (data,type) => {
+        this.setState({
+            item:{data,type}
+        })
+    }
+
+    // highlightCollapseTarget = () => {
+    //     // console.log('collapsing from componentdidMOUNT',collapseTargetData)
+    //     // console.log('box componentdidMOUNT', this.state)
+    //     if (!this.collapseTargetData) return
+    //     // console.log('didMOUNT collapseTargetData',collapseTargetData)
+    //     this.collapseTargetData = collapseTargetData
+
+    //     setTimeout(()=>{
+    //         this.doHighlights(collapseTargetData)
+    //         setTimeout(()=>{
+    //             this.collapseTargetData = null
+    //         },2000)
+    //     })
+    // }
 
     doHighlights = (collapseTargetData) => {
 
@@ -148,7 +157,14 @@ class DataBox extends React.Component<any,any> {
     }
 
     splayBox = (domSource) => {
-        return this.props.splayBox(domSource, this.listcomponent)
+        let listdoctoken
+        let { itemProxy } = this.state
+        if (itemProxy.liststack.length > 0) {
+            listdoctoken = itemProxy.liststack[itemProxy.liststack.length - 1]
+        } else {
+            listdoctoken = this.state.item.data.list
+        }
+        return this.props.splayBox(domSource, this.listcomponent,listdoctoken)
     }
 
     highlightItem = (itemref) => {
@@ -196,7 +212,9 @@ class DataBox extends React.Component<any,any> {
 
     render() {
 
-        let { item, setListListener, haspeers } = this.props
+        let { setListListener, haspeers } = this.props
+
+        let item = this.state.item?this.state.item.data:null
 
         let wrapperStyle:React.CSSProperties = {
             float:haspeers?'left':'none',

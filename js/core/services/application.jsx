@@ -14,8 +14,7 @@ const setTypeListener = (doctoken) => {
 const setItemListener = (doctoken, instanceid, callback) => {
     let item = domain.setItemListener(doctoken);
     let type = domain.setTypeListener(item.type);
-    callback(instanceid, item, type);
-    // return { item, type }
+    callback(item, type);
 };
 const setListListener = (doctoken) => {
     return domain.setListListener(doctoken);

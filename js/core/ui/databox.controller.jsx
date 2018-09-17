@@ -49,8 +49,27 @@ class DataBox extends React.Component {
         super(props);
         this.state = {
             itemProxy: this.props.itemProxy,
-            highlightrefuid: this.props.highlightrefuid
+            highlightrefuid: this.props.highlightrefuid,
+            item: null,
         };
+        this.cacheItemData = (data, type) => {
+            this.setState({
+                item: { data, type }
+            });
+        };
+        // highlightCollapseTarget = () => {
+        //     // console.log('collapsing from componentdidMOUNT',collapseTargetData)
+        //     // console.log('box componentdidMOUNT', this.state)
+        //     if (!this.collapseTargetData) return
+        //     // console.log('didMOUNT collapseTargetData',collapseTargetData)
+        //     this.collapseTargetData = collapseTargetData
+        //     setTimeout(()=>{
+        //         this.doHighlights(collapseTargetData)
+        //         setTimeout(()=>{
+        //             this.collapseTargetData = null
+        //         },2000)
+        //     })
+        // }
         this.doHighlights = (collapseTargetData) => {
             this.props.highlightBox({ boxElement: this.boxframe.current });
             if (collapseTargetData.action == 'expand' ||
@@ -73,7 +92,15 @@ class DataBox extends React.Component {
             this.props.collapseDirectoryItem(this.state.itemProxy);
         };
         this.splayBox = (domSource) => {
-            return this.props.splayBox(domSource, this.listcomponent);
+            let listdoctoken;
+            let { itemProxy } = this.state;
+            if (itemProxy.liststack.length > 0) {
+                listdoctoken = itemProxy.liststack[itemProxy.liststack.length - 1];
+            }
+            else {
+                listdoctoken = this.state.item.data.list;
+            }
+            return this.props.splayBox(domSource, this.listcomponent, listdoctoken);
         };
         this.highlightItem = (itemref) => {
             let itemelement = itemref.current;
@@ -107,19 +134,7 @@ class DataBox extends React.Component {
     }
     componentDidMount() {
         // console.log('box componentDidMount')
-        let { collapseTargetData } = this.props;
-        // console.log('collapsing from componentdidMOUNT',collapseTargetData)
-        // console.log('box componentdidMOUNT', this.state)
-        if (!collapseTargetData)
-            return;
-        // console.log('didMOUNT collapseTargetData',collapseTargetData)
-        this.collapseTargetData = collapseTargetData;
-        setTimeout(() => {
-            this.doHighlights(collapseTargetData);
-            setTimeout(() => {
-                this.collapseTargetData = null;
-            }, 2000);
-        });
+        this.props.setItemListener(this.cacheItemData);
     }
     componentDidUpdate() {
         if (this.props.itemProxy !== this.state.itemProxy) {
@@ -146,7 +161,8 @@ class DataBox extends React.Component {
         this.props.unmount();
     }
     render() {
-        let { item, setListListener, haspeers } = this.props;
+        let { setListListener, haspeers } = this.props;
+        let item = this.state.item ? this.state.item.data : null;
         let wrapperStyle = {
             float: haspeers ? 'left' : 'none',
             padding: '16px',
