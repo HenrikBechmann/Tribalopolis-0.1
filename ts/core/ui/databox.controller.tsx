@@ -16,6 +16,7 @@ import { withStyles } from '@material-ui/core/styles'
 import Button from '@material-ui/core/Button'
 import AddIcon from '@material-ui/icons/Add'
 import Icon from '@material-ui/core/Icon'
+import CircularProgress from '@material-ui/core/CircularProgress'
 
 const ResizeTab = props => {
 
@@ -226,7 +227,7 @@ class DataBox extends React.Component<any,any> {
             frameStyle2.height = frameStyle2.maxHeight
             return <div style = {wrapperStyle2}>
                 <div style = {frameStyle2}>
-                    Loading...
+                    <CircularProgress size = {24}/>
                 </div>
             </div>
         }
