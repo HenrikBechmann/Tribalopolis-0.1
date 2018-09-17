@@ -8,9 +8,6 @@
 */
 // import Datamodel from './datamodel'
 import domain from './domain';
-const getScheme = (doctoken) => {
-    return domain.getScheme(doctoken);
-};
 const setTypeListener = (doctoken) => {
     return domain.setTypeListener(doctoken);
 };
@@ -19,6 +16,9 @@ const setItemListener = (doctoken) => {
 };
 const setListListener = (doctoken) => {
     return domain.setListListener(doctoken);
+};
+const getScheme = (doctoken) => {
+    return domain.getScheme(doctoken);
 };
 const getLink = (doctoken) => {
     return domain.getLink(doctoken);

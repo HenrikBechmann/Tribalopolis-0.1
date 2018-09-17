@@ -48,14 +48,14 @@ class DirectoryBar extends React.Component {
     render() {
         let { item, listStack, setListListener } = this.props;
         let { list: listroot } = item;
-        let listref;
+        let listtoken;
         if (listStack.length) {
-            listref = listStack[listStack.length - 1];
+            listtoken = listStack[listStack.length - 1];
         }
         else {
-            listref = listroot;
+            listtoken = listroot;
         }
-        let list = setListListener(listref);
+        let list = setListListener(listtoken);
         let name = list.properties.name;
         let count = list.properties.numbers.list.count;
         return <div>

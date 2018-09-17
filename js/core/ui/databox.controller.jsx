@@ -47,7 +47,7 @@ class DataBox extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            boxProxy: this.props.boxProxy,
+            itemProxy: this.props.itemProxy,
             highlightrefuid: this.props.highlightrefuid
         };
         this.doHighlights = (collapseTargetData) => {
@@ -69,7 +69,7 @@ class DataBox extends React.Component {
             }
         };
         this.collapseDirectoryItem = () => {
-            this.props.collapseDirectoryItem(this.state.boxProxy);
+            this.props.collapseDirectoryItem(this.state.itemProxy);
         };
         this.splayBox = (domSource) => {
             return this.props.splayBox(domSource, this.listcomponent);
@@ -105,7 +105,7 @@ class DataBox extends React.Component {
         this.listcomponent = React.createRef();
     }
     componentDidMount() {
-        console.log('box componentDidMount');
+        // console.log('box componentDidMount')
         let { collapseTargetData } = this.props;
         // console.log('collapsing from componentdidMOUNT',collapseTargetData)
         // console.log('box componentdidMOUNT', this.state)
@@ -121,9 +121,9 @@ class DataBox extends React.Component {
         });
     }
     componentDidUpdate() {
-        if (this.props.boxProxy !== this.state.boxProxy) {
+        if (this.props.itemProxy !== this.state.itemProxy) {
             this.setState({
-                boxProxy: this.props.boxProxy,
+                itemProxy: this.props.itemProxy,
             });
         }
         let { collapseTargetData } = this.props;
@@ -177,16 +177,16 @@ class DataBox extends React.Component {
                 </div>
             </div>;
         }
-        let listStack = this.state.boxProxy.liststack;
+        let listStack = this.state.itemProxy.liststack;
         let { list: listroot } = item;
-        let listref;
+        let listtoken;
         if (listStack.length) {
-            listref = listStack[listStack.length - 1];
+            listtoken = listStack[listStack.length - 1];
         }
         else {
-            listref = listroot;
+            listtoken = listroot;
         }
-        let listobject = setListListener(listref);
+        let listobject = setListListener(listtoken);
         let scrollboxstyle = {
             height: (this.props.containerHeight - 185) + 'px',
             overflow: 'auto',
@@ -208,7 +208,7 @@ class DataBox extends React.Component {
             position: 'relative',
         }}>
                 <div>
-                    <DirectoryBar item={item} setListListener={this.props.setListListener} listStack={this.state.boxProxy.liststack} collapseDirectoryItem={this.collapseDirectoryItem} haspeers={this.props.haspeers}/>
+                    <DirectoryBar item={item} setListListener={this.props.setListListener} listStack={this.state.itemProxy.liststack} collapseDirectoryItem={this.collapseDirectoryItem} haspeers={this.props.haspeers}/>
                 </div>
                 <div style={scrollboxstyle}>
                     <DirectoryList ref={this.listcomponent} listobject={listobject} highlightrefuid={this.state.highlightrefuid} setListListener={this.props.setListListener} expandDirectoryItem={this.props.expandDirectoryItem} highlightItem={this.highlightItem}/>

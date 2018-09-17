@@ -61,7 +61,7 @@ class DataBox extends React.Component<any,any> {
     }
 
     state = {
-        boxProxy:this.props.boxProxy,
+        itemProxy:this.props.itemProxy,
         highlightrefuid:this.props.highlightrefuid
     }
 
@@ -71,7 +71,7 @@ class DataBox extends React.Component<any,any> {
     collapseTargetData
 
     componentDidMount() {
-        console.log('box componentDidMount')
+        // console.log('box componentDidMount')
 
         let { collapseTargetData } = this.props
         // console.log('collapsing from componentdidMOUNT',collapseTargetData)
@@ -90,9 +90,9 @@ class DataBox extends React.Component<any,any> {
     }
 
     componentDidUpdate() {
-        if (this.props.boxProxy !== this.state.boxProxy) {
+        if (this.props.itemProxy !== this.state.itemProxy) {
             this.setState({
-                boxProxy:this.props.boxProxy,
+                itemProxy:this.props.itemProxy,
             })
         }
         let { collapseTargetData } = this.props
@@ -142,7 +142,7 @@ class DataBox extends React.Component<any,any> {
 
     collapseDirectoryItem = () => {
 
-        this.props.collapseDirectoryItem(this.state.boxProxy)
+        this.props.collapseDirectoryItem(this.state.itemProxy)
 
     }
 
@@ -231,19 +231,19 @@ class DataBox extends React.Component<any,any> {
             </div>
         }
 
-        let listStack = this.state.boxProxy.liststack
+        let listStack = this.state.itemProxy.liststack
 
         let { list:listroot } = item
 
-        let listref
+        let listtoken
 
         if (listStack.length) {
-            listref = listStack[listStack.length-1]
+            listtoken = listStack[listStack.length-1]
         } else {
-            listref = listroot
+            listtoken = listroot
         }
 
-        let listobject = setListListener(listref)
+        let listobject = setListListener(listtoken)
 
         let scrollboxstyle:React.CSSProperties = {
             height:(this.props.containerHeight - 185) + 'px', // this figure is the net of many inside amounts!
@@ -284,7 +284,7 @@ class DataBox extends React.Component<any,any> {
                     <DirectoryBar 
                         item = {item} 
                         setListListener = {this.props.setListListener}
-                        listStack = {this.state.boxProxy.liststack}
+                        listStack = {this.state.itemProxy.liststack}
                         collapseDirectoryItem = {this.collapseDirectoryItem}
                         haspeers = {this.props.haspeers}
                     />

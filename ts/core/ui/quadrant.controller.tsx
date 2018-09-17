@@ -76,12 +76,6 @@ class Quadrant extends React.Component<any,any>  {
 ------------------[ lifecycle methods ]------------------
 *********************************************************/
 
-    componentWillUnmount() {
-
-        window.removeEventListener('resize',this.onResize)
-
-    }
-
     componentDidMount() {
 
         // setting of datastack delayed because
@@ -134,13 +128,19 @@ class Quadrant extends React.Component<any,any>  {
 
     }
 
+    componentWillUnmount() {
+
+        window.removeEventListener('resize',this.onResize)
+
+    }
+
     // for reset of containerHeight
     onResize = () => {
         this.forceUpdate()
     }
 
 /********************************************************
-----------------------[ operations ]---------------------
+----------------------[ animation ]---------------------
 *********************************************************/
 
     // animation calls
@@ -174,6 +174,10 @@ class Quadrant extends React.Component<any,any>  {
         })        
     }
 
+/********************************************************
+----------------------[ operations ]---------------------
+*********************************************************/
+
     //-------------------------------[ forward ]---------------------------
     expandDirectoryItem = (boxptr, doctoken, domSource) => {
 
@@ -184,24 +188,24 @@ class Quadrant extends React.Component<any,any>  {
         let {datastack, stackpointer} = this.state
         this._captureSettings(stackpointer,datastack)
 
-        let boxProxy = datastack[stackpointer].items[boxptr]
+        let itemProxy = datastack[stackpointer].items[boxptr]
 
         stackpointer++
         let newstacklayer = {items:[], settings:{}, source:{
-            instanceid:boxProxy.instanceid,
-            doctoken:boxProxy.doctoken,
+            instanceid:itemProxy.instanceid,
+            doctoken:itemProxy.doctoken,
             action:'expand',
         }}
 
         // replace forward stack items
         datastack.splice(stackpointer,datastack.length,newstacklayer)
 
-        let newBoxProxy = JSON.parse(JSON.stringify(boxProxy))
-        newBoxProxy.instanceid = serializer.getid()
+        let newItemProxy = JSON.parse(JSON.stringify(itemProxy))
+        newItemProxy.instanceid = serializer.getid()
 
-        newBoxProxy.liststack.push(doctoken)
+        newItemProxy.liststack.push(doctoken)
 
-        newstacklayer.items.push(newBoxProxy)
+        newstacklayer.items.push(newItemProxy)
 
         setTimeout(() => { // delay for animation
             this.setState({
@@ -222,18 +226,29 @@ class Quadrant extends React.Component<any,any>  {
         let {datastack, stackpointer} = this.state
         this._captureSettings(stackpointer,datastack)
 
-        let boxProxy = datastack[stackpointer].items[boxptr]
+        let itemProxy = datastack[stackpointer].items[boxptr]
 
-        let listobject = this.boxdatacache[boxProxy.instanceid].list.list
+        let {item:itemObject} = this.getCacheItemData(itemProxy.instanceid,itemProxy.doctoken)
 
-        let listtokens = listobject.list
+        let listdoctoken
+        if (itemProxy.liststack.length > 0) {
+            listdoctoken = itemProxy.liststack[itemProxy.liststack.length - 1]
+        } else {
+            listdoctoken = itemObject.list
+        }
+
+        let { list:listObject } =  this.getCacheListData(itemProxy.instanceid,listdoctoken) 
+
+        // console.log('getting list data for splay', itemProxy.instanceid, listdoctoken, listObject)
+
+        let listtokens = listObject.list
 
         if (!listtokens || !listtokens.length) return
 
         stackpointer++
         let newstacklayer = {items:[], settings:{}, source:{
-            instanceid:boxProxy.instanceid,
-            doctoken:boxProxy.doctoken,
+            instanceid:itemProxy.instanceid,
+            doctoken:itemProxy.doctoken,
             action:'splay',
             visiblerange,
         }}
@@ -241,13 +256,13 @@ class Quadrant extends React.Component<any,any>  {
         // replace forward stack items
         datastack.splice(stackpointer,datastack.length,newstacklayer)
 
-        let template = JSON.stringify(boxProxy)
+        let template = JSON.stringify(itemProxy)
 
         for (let token of listtokens) {
-            let newBoxProxy = JSON.parse(template)
-            newBoxProxy.instanceid = serializer.getid()
-            newBoxProxy.liststack.push(token)
-            newstacklayer.items.push(newBoxProxy)
+            let newItemProxy = JSON.parse(template)
+            newItemProxy.instanceid = serializer.getid()
+            newItemProxy.liststack.push(token)
+            newstacklayer.items.push(newItemProxy)
         }
 
         setTimeout(() => { // delay for animation
@@ -271,22 +286,22 @@ class Quadrant extends React.Component<any,any>  {
         let {datastack, stackpointer} = this.state
         this._captureSettings(stackpointer,datastack)
 
-        let boxProxy = datastack[stackpointer].items[boxptr]
+        let itemProxy = datastack[stackpointer].items[boxptr]
 
         stackpointer++
         let newstacklayer = {items:[], settings:{}, source:{
-            instanceid:boxProxy.instanceid,
-            doctoken:boxProxy.doctoken,
+            instanceid:itemProxy.instanceid,
+            doctoken:itemProxy.doctoken,
             action:'select',
         }}
 
         // replace forward stack items
         datastack.splice(stackpointer,datastack.length,newstacklayer)
 
-        let newBoxProxy = JSON.parse(JSON.stringify(boxProxy))
-        newBoxProxy.instanceid = serializer.getid()
+        let newItemProxy = JSON.parse(JSON.stringify(itemProxy))
+        newItemProxy.instanceid = serializer.getid()
         
-        newstacklayer.items.push(newBoxProxy)
+        newstacklayer.items.push(newItemProxy)
 
         setTimeout(() => { // delay for animation
             this.setState({
@@ -313,9 +328,9 @@ class Quadrant extends React.Component<any,any>  {
 
     //-------------------------------[ backward ]----------------------------
 
-    collapseDirectoryItem = (boxProxy) => {
+    collapseDirectoryItem = (itemProxy) => {
 
-        this.collapseTargetData = Object.assign({},boxProxy)
+        this.collapseTargetData = Object.assign({},itemProxy)
 
         this.decrementStackSelector()
 
@@ -377,38 +392,44 @@ class Quadrant extends React.Component<any,any>  {
     }
 
 /********************************************************
-----------------------[ cache data ]---------------------
+----------------------[ cache management ]---------------------
 *********************************************************/
-
-    cacheBoxData = (instanceid,item,type) => {
-        this.boxdatacache[instanceid] = {
-            item,
-            type,
-        }
-        console.log('create boxdatacache',this.boxdatacache)
-    }
 
     isBoxDataCache = (instanceid) => {
         return !!this.boxdatacache[instanceid]
     }
 
-    // TODO create callback for setListeners
-    getItemData = (instanceid, doctoken) => {
+    cacheItemData = (instanceid,data,type) => {
+        this.boxdatacache[instanceid] = {
+            item:{
+                data,
+                type,
+            }
+        }
+    }
+
+    isCacheItemData = (instanceid) => {
+        return !!(this.boxdatacache[instanceid] && this.boxdatacache[instanceid].item)
+    }
+
+    getCacheItemData = (instanceid, doctoken) => {
         
         let item
         let type
 
         if (!this.isBoxDataCache(instanceid)) {
 
+            // console.log('fetching new item data')
             item = this.setItemListener(doctoken)
             type = this.setTypeListener(item.type)
 
-            this.cacheBoxData(instanceid,item,type)
+            this.cacheItemData(instanceid,item,type)
 
         } else {
 
-            item = this.boxdatacache[instanceid].item
-            type = this.boxdatacache[instanceid].type
+            // console.log('fetching cached item data')
+            item = this.boxdatacache[instanceid].item.data
+            type = this.boxdatacache[instanceid].item.type
 
         }
 
@@ -416,17 +437,41 @@ class Quadrant extends React.Component<any,any>  {
 
     }
 
-    cacheListData = (instanceid, list, type) => {
+    // TODO create callback for setListeners
+    cacheListData = (instanceid, data, type) => {
         this.boxdatacache[instanceid].list = {
-            list,
+            data,
             type,
         }
-        console.log('save listdatacache',this.boxdatacache)
+    }
+
+    isCacheListData = (instanceid) => {
+        return !!(this.boxdatacache[instanceid] && this.boxdatacache[instanceid].list)
+    }
+
+    getCacheListData = (instanceid,doctoken = null) => {
+        let list
+        let type
+
+        if (!(this.isBoxDataCache(instanceid) && this.boxdatacache[instanceid].list)) {
+
+            list = this.setListListener(doctoken)
+            type = this.setTypeListener(list.type)
+
+            this.cacheListData(instanceid,list,type)
+
+        } else {
+
+            list = this.boxdatacache[instanceid].list.data
+            type = this.boxdatacache[instanceid].list.type
+
+        }
+
+        return {list,type,}
     }
 
    unmountBoxdatacache = (instanceid) => {
         delete this.boxdatacache[instanceid]
-        console.log('unmount boxdatacache',this.boxdatacache)
     }
 
 /********************************************************
@@ -442,19 +487,19 @@ class Quadrant extends React.Component<any,any>  {
 
         if (!this.scrollboxelement.current) return null
 
-        let boxProxy = datastack[stackpointer].items[index]
+        let itemProxy = datastack[stackpointer].items[index]
 
-        if (!boxProxy) return null
+        if (!itemProxy) return null
 
         let stacklayer = datastack[stackpointer]
         let haspeers = (stacklayer && (stacklayer.items.length > 1))
 
-        return this.getBoxComponent(boxProxy, index, haspeers, key)
+        return this.getBoxComponent(itemProxy, index, haspeers, key)
     }
 
-    getBoxComponent = (boxProxy, index, haspeers, key) => {
+    getBoxComponent = (itemProxy, index, haspeers, key) => {
 
-        let { item, type:itemType } = this.getItemData(boxProxy.instanceid,boxProxy.doctoken)
+        let { item, type:itemType } = this.getCacheItemData(itemProxy.instanceid,itemProxy.doctoken)
 
         let containerHeight = this.scrollboxelement.current.offsetHeight
 
@@ -465,13 +510,13 @@ class Quadrant extends React.Component<any,any>  {
         }
         return (
             <DataBox 
-                key = { boxProxy.instanceid } 
+                key = { itemProxy.instanceid } 
                 item = { item } 
                 itemType = { itemType }
                 collapseTargetData = {matchForTarget?collapseTargetData:null}
                 setListListener = { this.setListListener }
                 setTypeListener = { this.setTypeListener }
-                boxProxy = { boxProxy }
+                itemProxy = { itemProxy }
                 highlightBox = {animations.highlightBox}
                 haspeers = { haspeers }
                 index = {index}
@@ -498,12 +543,12 @@ class Quadrant extends React.Component<any,any>  {
                 }
                 unmount = {
                     () => {
-                        this.unmountBoxdatacache(boxProxy.instanceid)
+                        this.unmountBoxdatacache(itemProxy.instanceid)
                     }
                 }
                 cacheListData = {
                     (list,type) => {
-                        this.cacheListData(boxProxy.instanceid,list,type)
+                        this.cacheListData(itemProxy.instanceid,list,type)
                     }
                 }
             />
