@@ -228,18 +228,9 @@ class Quadrant extends React.Component<any,any>  {
 
         let itemProxy = datastack[stackpointer].items[boxptr]
 
-        // let {item:itemObject} = this.getCacheItemData(itemProxy.instanceid,itemProxy.doctoken)
+        let { list:listDocument } =  this.getCacheListData(itemProxy.instanceid,listdoctoken) 
 
-        // let listdoctoken
-        // if (itemProxy.liststack.length > 0) {
-        //     listdoctoken = itemProxy.liststack[itemProxy.liststack.length - 1]
-        // } else {
-        //     listdoctoken = itemObject.list
-        // }
-
-        let { list:listObject } =  this.getCacheListData(itemProxy.instanceid,listdoctoken) 
-
-        let listtokens = listObject.list
+        let listtokens = listDocument.list
 
         if (!listtokens || !listtokens.length) return
 
@@ -517,11 +508,11 @@ class Quadrant extends React.Component<any,any>  {
                 itemProxy = { itemProxy }
                 highlightBox = {animations.highlightBox}
                 haspeers = { haspeers }
-                index = {index}
-                containerHeight = {containerHeight}
-                boxwidth = {haspeers?300:this.state.boxwidth}
+                index = { index }
+                containerHeight = { containerHeight }
+                boxwidth = { haspeers?300:this.state.boxwidth }
                 setItemListener = {(callback) => {
-                    this.setItemListener(itemProxy.doctoken,itemProxy.instanceid,callback)
+                    this.setItemListener( itemProxy.doctoken, itemProxy.instanceid, callback)
                 }}
 
                 splayBox = {

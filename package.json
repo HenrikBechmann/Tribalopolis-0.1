@@ -38,14 +38,14 @@
     "uuid": "^3.3.2"
   },
   "devDependencies": {
-    "@babel/core": "^7.0.1",
+    "@babel/core": "^7.1.0",
     "@babel/plugin-proposal-object-rest-spread": "^7.0.0",
-    "@babel/preset-env": "^7.0.0",
+    "@babel/preset-env": "^7.1.0",
     "@babel/preset-react": "^7.0.0",
     "@types/draft-js": "^0.10.25",
     "@types/firebase": "^3.2.1",
     "@types/material-ui": "^0.21.5",
-    "@types/node": "^10.10.0",
+    "@types/node": "^10.10.1",
     "@types/react": "^16.4.14",
     "@types/react-dnd": "^3.0.2",
     "@types/react-dom": "^16.0.7",
