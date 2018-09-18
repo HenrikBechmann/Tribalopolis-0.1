@@ -45,12 +45,12 @@ class DirectoryItem extends React.Component {
                 <div style={this.tabstyle} onClick={this.expandDirectoryItem}> 
                     <Icon style={{
             verticalAlign: 'middle',
-            color: this.props.data.properties.sysnode ? 'green' : 'gray',
+            color: this.props.listDocument.properties.sysnode ? 'green' : 'gray',
         }}>
                         folder
                     </Icon> 
-                    {this.props.data.properties.name}
-                    <QuantityBadge quantity={this.props.data.properties.numbers.list.count} style={{
+                    {this.props.listDocument.properties.name}
+                    <QuantityBadge quantity={this.props.listDocument.properties.numbers.list.count} style={{
             left: '-10px',
             top: '-5px',
         }}/>

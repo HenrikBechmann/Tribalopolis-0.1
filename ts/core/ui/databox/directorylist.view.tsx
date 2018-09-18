@@ -90,13 +90,13 @@ class DirectoryListBase extends React.Component<any,any> {
 
     getListComponent = (doctoken, key) => {
 
-        let data = this.setListListener(doctoken)
+        let listDocument = this.setListListener(doctoken)
         let highlight = (doctoken.uid === this.state.highlightrefuid)
         let catitem = 
             <DirectoryItem 
                 key = {key} 
                 uid = {doctoken.uid} 
-                data = {data} 
+                listDocument = {listDocument} 
                 expandDirectoryItem = {this.expandDirectoryItem(doctoken)}
                 highlight = {highlight}
                 highlightItem = {this.props.highlightItem}

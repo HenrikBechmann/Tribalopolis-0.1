@@ -77,14 +77,14 @@ class DirectoryItem extends React.Component<any,any> {
                         style = {
                             {
                                 verticalAlign:'middle',
-                                color:this.props.data.properties.sysnode?'green':'gray',
+                                color:this.props.listDocument.properties.sysnode?'green':'gray',
                             }
                         } 
                     >
                         folder
                     </Icon> 
-                    {this.props.data.properties.name}
-                    <QuantityBadge quantity = {this.props.data.properties.numbers.list.count} style = {
+                    {this.props.listDocument.properties.name}
+                    <QuantityBadge quantity = {this.props.listDocument.properties.numbers.list.count} style = {
                         {
                             left:'-10px',
                             top:'-5px',
