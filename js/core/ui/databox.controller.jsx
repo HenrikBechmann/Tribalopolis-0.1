@@ -70,8 +70,10 @@ class DataBox extends React.Component {
             });
         };
         this.cacheListData = (data, type) => {
-            this.setState({
-                list: { data, type }
+            setTimeout(() => {
+                this.setState({
+                    list: { data, type }
+                });
             });
         };
         this.doHighlights = (collapseTargetData) => {

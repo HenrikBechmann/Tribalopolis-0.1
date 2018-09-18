@@ -120,8 +120,10 @@ class DataBox extends React.Component<any,any> {
     }
 
     cacheListData = (data,type) => {
-        this.setState({
-            list:{data,type}
+        setTimeout(() => {
+            this.setState({
+                list:{data,type}
+            })
         })
     }
     doHighlights = (collapseTargetData) => {
