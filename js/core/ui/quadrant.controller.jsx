@@ -101,15 +101,8 @@ class Quadrant extends React.Component {
             let { datastack, stackpointer } = this.state;
             this._captureSettings(stackpointer, datastack);
             let itemProxy = datastack[stackpointer].items[boxptr];
-            // let {item:itemObject} = this.getCacheItemData(itemProxy.instanceid,itemProxy.doctoken)
-            // let listdoctoken
-            // if (itemProxy.liststack.length > 0) {
-            //     listdoctoken = itemProxy.liststack[itemProxy.liststack.length - 1]
-            // } else {
-            //     listdoctoken = itemObject.list
-            // }
-            let { list: listObject } = this.getCacheListData(itemProxy.instanceid, listdoctoken);
-            let listtokens = listObject.list;
+            let { list: listDocument } = this.getCacheListData(itemProxy.instanceid, listdoctoken);
+            let listtokens = listDocument.list;
             if (!listtokens || !listtokens.length)
                 return;
             stackpointer++;
@@ -235,32 +228,6 @@ class Quadrant extends React.Component {
         this.isBoxDataCache = (instanceid) => {
             return !!this.boxdatacache[instanceid];
         };
-        // cacheItemData = (instanceid,data,type) => {
-        //     this.boxdatacache[instanceid] = {
-        //         item:{
-        //             data,
-        //             type,
-        //         }
-        //     }
-        // }
-        this.isCacheItemData = (instanceid) => {
-            return !!(this.boxdatacache[instanceid] && this.boxdatacache[instanceid].item);
-        };
-        // getCacheItemData = (instanceid, doctoken) => {
-        //     let item
-        //     let type
-        //     if (!this.isBoxDataCache(instanceid)) {
-        //         // console.log('fetching new item data')
-        //         this.setItemListener(doctoken,instanceid,this.cacheItemData)
-        //         return {}
-        //         // this.cacheItemData(instanceid,item,type)
-        //     } else {
-        //         // console.log('fetching cached item data')
-        //         item = this.boxdatacache[instanceid].item.data
-        //         type = this.boxdatacache[instanceid].item.type
-        //     }
-        //     return {item,type,}
-        // }
         // TODO create callback for setListeners
         this.cacheListData = (instanceid, data, type) => {
             return;
@@ -275,14 +242,8 @@ class Quadrant extends React.Component {
         this.getCacheListData = (instanceid, doctoken = null) => {
             let list;
             let type;
-            // if (!(this.isBoxDataCache(instanceid) && this.boxdatacache[instanceid].list)) {
             list = this.setListListener(doctoken);
             type = this.setTypeListener(list.type);
-            // this.cacheListData(instanceid,list,type)
-            // } else {
-            //     list = this.boxdatacache[instanceid].list.data
-            //     type = this.boxdatacache[instanceid].list.type
-            // }
             return { list, type, };
         };
         this.unmountBoxdatacache = (instanceid) => {
@@ -313,7 +274,8 @@ class Quadrant extends React.Component {
             if (collapseTargetData) {
                 matchForTarget = (collapseTargetData.index == index);
             }
-            return (<DataBox key={itemProxy.instanceid} collapseTargetData={matchForTarget ? collapseTargetData : null} setListListener={this.setListListener} setTypeListener={this.setTypeListener} itemProxy={itemProxy} highlightBox={animations.highlightBox} haspeers={haspeers} index={index} containerHeight={containerHeight} boxwidth={haspeers ? 300 : this.state.boxwidth} setItemListener={(callback) => {
+            return (<DataBox key={itemProxy.instanceid} collapseTargetData={matchForTarget ? collapseTargetData : null} setListListener={this.setListListener} setTypeListener={this.setTypeListener} setListListenerA={null // this.setListListener
+            } itemProxy={itemProxy} highlightBox={animations.highlightBox} haspeers={haspeers} index={index} containerHeight={containerHeight} boxwidth={haspeers ? 300 : this.state.boxwidth} setItemListener={(callback) => {
                 this.setItemListener(itemProxy.doctoken, itemProxy.instanceid, callback);
             }} splayBox={(domSource, listcomponent, listdoctoken) => {
                 this.splayBox(index, domSource, listcomponent, listdoctoken);

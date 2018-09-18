@@ -23,8 +23,15 @@ const setItemListener = (doctoken,instanceid,callback) => {
     
 }
 
-const setListListener = (doctoken) => {
-    return domain.setListListener(doctoken)
+const setListListener = (doctoken,instanceid = null,callback = null) => {
+    if (!callback) {
+        return domain.setListListener(doctoken)
+    } else {
+        let list = domain.setListListener(doctoken)
+        let type = domain.setTypeListener(list.type)
+
+        callback(list,type)
+    }
 }
 
 const getScheme = (doctoken) => {
