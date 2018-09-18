@@ -10,7 +10,7 @@ class DirectoryListBase extends React.Component {
         super(props);
         this.state = {
             highlightrefuid: null,
-            list: this.props.listdocument ? this.props.listdocument.list : null,
+            list: this.props.listDocument ? this.props.listDocument.list : null,
         };
         this.highlightrefuid = null;
         this.setListListener = this.props.setListListener;
@@ -62,14 +62,14 @@ class DirectoryListBase extends React.Component {
         if (this.props.highlightrefuid) {
             this.highlightrefuid = this.props.highlightrefuid;
         }
-        if ((!this.state.list) && this.props.listdocument) {
+        if ((!this.state.list) && this.props.listDocument) {
             // console.log('setting list state',this.props.highlightrefuid)
             this.setState({
-                list: this.props.listdocument.list
+                list: this.props.listDocument.list
             });
         }
         else {
-            if (this.props.listdocument) {
+            if (this.props.listDocument) {
                 // console.log('calling highlight',this.state, this.highlightrefuid,this.props.highlightrefuid)
                 setTimeout(() => {
                     this.dohighlight();

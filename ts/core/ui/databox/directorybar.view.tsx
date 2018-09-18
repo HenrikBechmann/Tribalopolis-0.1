@@ -55,28 +55,13 @@ class DirectoryBar extends React.Component<any,any> {
 
     render() {
 
-        let { item,listStack, listdocument:list, setListListener } = this.props
-
-        // let { list:listroot } = item
-
-        // let listtoken
-
-        // if (listStack.length) {
-        //     listtoken = listStack[listStack.length-1]
-        // } else {
-        //     listtoken = listroot
-        // }
-
-        // let list = setListListener(listtoken)
-
-        // let name = list.properties.name
-        // let count = list.properties.numbers.list.count
+        let { listStack, listDocument } = this.props
 
         return <div>
             <div 
                 style = {this.barstyle}
             >
-                {list?(<div style = {this.tabwrapperstyle}>
+                {listDocument?(<div style = {this.tabwrapperstyle}>
                     {false?<ActionButton 
                         icon = 'more_vert'
                     />:null}
@@ -101,7 +86,7 @@ class DirectoryBar extends React.Component<any,any> {
                         style = {this.tabstyle}
                     > 
                         <Icon style = {{verticalAlign:'middle'}}>folder_open</Icon> 
-                        <QuantityBadge quantity = {list.properties.numbers.list.count} style = {{left:'-6px',top:'-8px'}}/>
+                        <QuantityBadge quantity = {listDocument.properties.numbers.list.count} style = {{left:'-6px',top:'-8px'}}/>
 
                         <div style = {
                             {
@@ -109,10 +94,10 @@ class DirectoryBar extends React.Component<any,any> {
                                 verticalAlign:'middle',                        
                             }
                         } >
-                            {list.properties.name}
+                            {listDocument.properties.name}
                         </div>
                     </div>
-                </div>):<div style = {{height:'34px'}}><CircularProgress size = {12} /></div>}
+                </div>):<div style = {{height:'33px'}}><CircularProgress size = {12} /></div>}
             </div>
             
         </div>
