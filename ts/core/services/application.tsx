@@ -19,9 +19,9 @@ const setItemListener = (doctoken,instanceid,callback) => {
     let item = domain.setItemListener(doctoken)
     let type = domain.setTypeListener(item.type)
 
-    setTimeout(()=> {
+    // setTimeout(()=> {
         callback(item,type)
-    },1000)
+    // },1000)
 }
 
 const setListListener = (doctoken,instanceid = null,callback = null) => {
@@ -31,9 +31,9 @@ const setListListener = (doctoken,instanceid = null,callback = null) => {
         let list = domain.setListListener(doctoken)
         let type = domain.setTypeListener(list.type)
 
-        setTimeout(()=>{
+        // setTimeout(()=>{
             callback(list,type)
-        },1000)
+        // },1000)
     }
 }
 

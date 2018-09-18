@@ -78,17 +78,28 @@ class DataBox extends React.Component<any,any> {
         this.props.setItemListener(this.cacheItemData)
     }
 
+    waitingCollapseTargetData
+
     componentDidUpdate() {
         if (this.props.itemProxy !== this.state.itemProxy) {
             this.setState({
                 itemProxy:this.props.itemProxy,
             })
         }
-        if (!this.state.item) return
-            
+
         let { collapseTargetData } = this.props
-        // console.log('box componentdidUPDATE', this.state)
-        if (!collapseTargetData) return
+
+        if (collapseTargetData) {
+            this.waitingCollapseTargetData = collapseTargetData
+        }
+
+        // console.log('box componentdidUPDATE', this.state, collapseTargetData)
+
+        if (!this.state.item) return
+
+        if (!this.waitingCollapseTargetData) return
+        collapseTargetData = this.waitingCollapseTargetData
+        this.waitingCollapseTargetData = null
         // console.log('didupdate collapseTargetData',collapseTargetData)
         if (this.collapseTargetData) return // avoid infinite recursion, triggered by list highlight
 

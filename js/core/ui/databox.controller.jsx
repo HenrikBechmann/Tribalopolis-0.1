@@ -148,12 +148,17 @@ class DataBox extends React.Component {
                 itemProxy: this.props.itemProxy,
             });
         }
+        let { collapseTargetData } = this.props;
+        if (collapseTargetData) {
+            this.waitingCollapseTargetData = collapseTargetData;
+        }
+        // console.log('box componentdidUPDATE', this.state, collapseTargetData)
         if (!this.state.item)
             return;
-        let { collapseTargetData } = this.props;
-        // console.log('box componentdidUPDATE', this.state)
-        if (!collapseTargetData)
+        if (!this.waitingCollapseTargetData)
             return;
+        collapseTargetData = this.waitingCollapseTargetData;
+        this.waitingCollapseTargetData = null;
         // console.log('didupdate collapseTargetData',collapseTargetData)
         if (this.collapseTargetData)
             return; // avoid infinite recursion, triggered by list highlight

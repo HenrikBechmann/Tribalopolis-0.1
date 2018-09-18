@@ -14,9 +14,9 @@ const setTypeListener = (doctoken) => {
 const setItemListener = (doctoken, instanceid, callback) => {
     let item = domain.setItemListener(doctoken);
     let type = domain.setTypeListener(item.type);
-    setTimeout(() => {
-        callback(item, type);
-    }, 1000);
+    // setTimeout(()=> {
+    callback(item, type);
+    // },1000)
 };
 const setListListener = (doctoken, instanceid = null, callback = null) => {
     if (!callback) {
@@ -25,9 +25,9 @@ const setListListener = (doctoken, instanceid = null, callback = null) => {
     else {
         let list = domain.setListListener(doctoken);
         let type = domain.setTypeListener(list.type);
-        setTimeout(() => {
-            callback(list, type);
-        }, 1000);
+        // setTimeout(()=>{
+        callback(list, type);
+        // },1000)
     }
 };
 const getScheme = (doctoken) => {
