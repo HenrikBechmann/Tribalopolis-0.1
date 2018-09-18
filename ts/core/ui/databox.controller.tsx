@@ -269,15 +269,7 @@ class DataBox extends React.Component<any,any> {
 
         let { list:listroot } = item
 
-        let listtoken
-
-        if (listStack.length) {
-            listtoken = listStack[listStack.length-1]
-        } else {
-            listtoken = listroot
-        }
-
-        let listobject = this.state.list? this.state.list.data:null // setListListener(listtoken)
+        let listdocument = this.state.list? this.state.list.data:null 
 
         let scrollboxstyle:React.CSSProperties = {
             height:(this.props.containerHeight - 185) + 'px', // this figure is the net of many inside amounts!
@@ -287,12 +279,12 @@ class DataBox extends React.Component<any,any> {
             paddingBottom:'32px',
         }
 
-        let listcount = listobject?listobject.list.length:0
+        let listcount = listdocument?listdocument.list.length:0
 
-        let listItemType = this.state.list?this.state.list.type:null// this.props.setTypeListener(listobject.type)
+        let listItemType = this.state.list?this.state.list.type:null// this.props.setTypeListener(listdocument.type)
         // placeholder logic for showing add button
 
-        // this.props.cacheListData(listobject, listItemType)
+        // this.props.cacheListData(listdocument, listItemType)
 
         return  <div style = { wrapperStyle }>
             <div style = {frameStyle}
@@ -317,6 +309,7 @@ class DataBox extends React.Component<any,any> {
                 <div>
                     <DirectoryBar 
                         item = {item} 
+                        listdocument = {listdocument}
                         setListListener = {this.props.setListListener}
                         listStack = {this.state.itemProxy.liststack}
                         collapseDirectoryItem = {this.collapseDirectoryItem}
@@ -327,7 +320,7 @@ class DataBox extends React.Component<any,any> {
                 <div style = {scrollboxstyle}>
                     <DirectoryList 
                         ref = {this.listcomponent}
-                        listobject = {listobject} 
+                        listdocument = {listdocument} 
                         highlightrefuid = {this.state.highlightrefuid}
                         setListListener = {this.props.setListListener}
                         expandDirectoryItem = {this.props.expandDirectoryItem}

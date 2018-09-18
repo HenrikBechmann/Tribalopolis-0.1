@@ -3,6 +3,7 @@
 'use strict';
 import React from 'react';
 import Icon from '@material-ui/core/Icon';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import QuantityBadge from '../common/quantitybadge.view';
 import ActionButton from '../common/actionbutton.view';
 class DirectoryBar extends React.Component {
@@ -46,21 +47,20 @@ class DirectoryBar extends React.Component {
         };
     }
     render() {
-        let { item, listStack, setListListener } = this.props;
-        let { list: listroot } = item;
-        let listtoken;
-        if (listStack.length) {
-            listtoken = listStack[listStack.length - 1];
-        }
-        else {
-            listtoken = listroot;
-        }
-        let list = setListListener(listtoken);
-        let name = list.properties.name;
-        let count = list.properties.numbers.list.count;
+        let { item, listStack, listdocument: list, setListListener } = this.props;
+        // let { list:listroot } = item
+        // let listtoken
+        // if (listStack.length) {
+        //     listtoken = listStack[listStack.length-1]
+        // } else {
+        //     listtoken = listroot
+        // }
+        // let list = setListListener(listtoken)
+        // let name = list.properties.name
+        // let count = list.properties.numbers.list.count
         return <div>
             <div style={this.barstyle}>
-                <div style={this.tabwrapperstyle}>
+                {list ? (<div style={this.tabwrapperstyle}>
                     {false ? <ActionButton icon='more_vert'/> : null}
                     <ActionButton img='/public/icons/org_chart.svg'/>
                     {false ? <ActionButton icon='info'/> : null}
@@ -73,17 +73,18 @@ class DirectoryBar extends React.Component {
                     <div style={this.pretabstyle}></div>
                     <div style={this.tabstyle}> 
                         <Icon style={{ verticalAlign: 'middle' }}>folder_open</Icon> 
-                        <QuantityBadge quantity={count} style={{ left: '-6px', top: '-8px' }}/>
+                        <QuantityBadge quantity={list.properties.numbers.list.count} style={{ left: '-6px', top: '-8px' }}/>
 
                         <div style={{
             display: 'inline-block',
             verticalAlign: 'middle',
         }}>
-                            {name}
+                            {list.properties.name}
                         </div>
                     </div>
-                </div>
+                </div>) : <div style={{ height: '34px' }}><CircularProgress size={12}/></div>}
             </div>
+            
         </div>;
     }
 }

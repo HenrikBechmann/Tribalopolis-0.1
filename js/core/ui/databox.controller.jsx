@@ -209,14 +209,7 @@ class DataBox extends React.Component {
         }
         let listStack = this.state.itemProxy.liststack;
         let { list: listroot } = item;
-        let listtoken;
-        if (listStack.length) {
-            listtoken = listStack[listStack.length - 1];
-        }
-        else {
-            listtoken = listroot;
-        }
-        let listobject = this.state.list ? this.state.list.data : null; // setListListener(listtoken)
+        let listdocument = this.state.list ? this.state.list.data : null;
         let scrollboxstyle = {
             height: (this.props.containerHeight - 185) + 'px',
             overflow: 'auto',
@@ -224,10 +217,10 @@ class DataBox extends React.Component {
             paddingLeft: '6px',
             paddingBottom: '32px',
         };
-        let listcount = listobject ? listobject.list.length : 0;
-        let listItemType = this.state.list ? this.state.list.type : null; // this.props.setTypeListener(listobject.type)
+        let listcount = listdocument ? listdocument.list.length : 0;
+        let listItemType = this.state.list ? this.state.list.type : null; // this.props.setTypeListener(listdocument.type)
         // placeholder logic for showing add button
-        // this.props.cacheListData(listobject, listItemType)
+        // this.props.cacheListData(listdocument, listItemType)
         return <div style={wrapperStyle}>
             <div style={frameStyle} ref={this.boxframe}>
             {haspeers ? null : <ResizeTab />}
@@ -238,11 +231,11 @@ class DataBox extends React.Component {
             position: 'relative',
         }}>
                 <div>
-                    <DirectoryBar item={item} setListListener={this.props.setListListener} listStack={this.state.itemProxy.liststack} collapseDirectoryItem={this.collapseDirectoryItem} haspeers={this.props.haspeers}/>
+                    <DirectoryBar item={item} listdocument={listdocument} setListListener={this.props.setListListener} listStack={this.state.itemProxy.liststack} collapseDirectoryItem={this.collapseDirectoryItem} haspeers={this.props.haspeers}/>
                 </div>
                 
                 <div style={scrollboxstyle}>
-                    <DirectoryList ref={this.listcomponent} listobject={listobject} highlightrefuid={this.state.highlightrefuid} setListListener={this.props.setListListener} expandDirectoryItem={this.props.expandDirectoryItem} highlightItem={this.highlightItem}/>
+                    <DirectoryList ref={this.listcomponent} listdocument={listdocument} highlightrefuid={this.state.highlightrefuid} setListListener={this.props.setListListener} expandDirectoryItem={this.props.expandDirectoryItem} highlightItem={this.highlightItem}/>
                 </div>
                 
                 {this.modifybuttons(listItemType)}
