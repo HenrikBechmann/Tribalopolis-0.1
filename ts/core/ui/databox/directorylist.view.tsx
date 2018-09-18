@@ -19,19 +19,38 @@ class DirectoryListBase extends React.Component<any,any> {
         list:this.props.listobject?this.props.listobject.list:null,
     }
 
+    highlightrefuid = null
+
     listcomponent
 
     setListListener = this.props.setListListener
 
     componentDidUpdate() {
+        // console.log('componentDidUpdate higlightrefuid',this.props.highlightrefuid)
+        if (this.props.highlightrefuid) {
+            this.highlightrefuid = this.props.highlightrefuid
+        }
         if ((!this.state.list) && this.props.listobject) {
+            // console.log('setting list state',this.props.highlightrefuid)
             this.setState({
                 list:this.props.listobject.list
             })
+        } else {
+            if (this.props.listobject) {
+                // console.log('calling highlight',this.state, this.highlightrefuid,this.props.highlightrefuid)
+                setTimeout(()=>{
+                    this.dohighlight()
+                })
+            }
         }
-        if (!this.props.highlightrefuid) return
+    }
+
+    dohighlight = () => {
+        if ((!this.highlightrefuid) || (!this.state.list))  return
+        // console.log('doing highlight')
         // keep; value will be purged
-        let highlightrefuid = this.props.highlightrefuid
+        let highlightrefuid = this.highlightrefuid
+        this.highlightrefuid = null
         // get index for Lister
         let index = this.state.list.findIndex(this.findlinkIndex(highlightrefuid))
         // update scroll display with selected highlight item

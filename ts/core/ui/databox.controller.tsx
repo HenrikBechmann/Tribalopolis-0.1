@@ -63,7 +63,7 @@ class DataBox extends React.Component<any,any> {
 
     state = {
         itemProxy:this.props.itemProxy,
-        highlightrefuid:this.props.highlightrefuid,
+        highlightrefuid:null,
         item:null,
         list:null,
     }
@@ -84,6 +84,8 @@ class DataBox extends React.Component<any,any> {
                 itemProxy:this.props.itemProxy,
             })
         }
+        if (!this.state.item) return
+            
         let { collapseTargetData } = this.props
         // console.log('box componentdidUPDATE', this.state)
         if (!collapseTargetData) return
@@ -182,7 +184,7 @@ class DataBox extends React.Component<any,any> {
     modifybuttons = (listItemType) => {
 
         if (!listItemType) return null
-            
+
         let outgoing = listItemType.properties.is.outgoing
 
         let retval = outgoing?

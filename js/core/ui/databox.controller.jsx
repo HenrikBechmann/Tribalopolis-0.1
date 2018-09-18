@@ -49,7 +49,7 @@ class DataBox extends React.Component {
         super(props);
         this.state = {
             itemProxy: this.props.itemProxy,
-            highlightrefuid: this.props.highlightrefuid,
+            highlightrefuid: null,
             item: null,
             list: null,
         };
@@ -148,6 +148,8 @@ class DataBox extends React.Component {
                 itemProxy: this.props.itemProxy,
             });
         }
+        if (!this.state.item)
+            return;
         let { collapseTargetData } = this.props;
         // console.log('box componentdidUPDATE', this.state)
         if (!collapseTargetData)
