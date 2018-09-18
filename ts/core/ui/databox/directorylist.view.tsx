@@ -16,7 +16,7 @@ class DirectoryListBase extends React.Component<any,any> {
     }
     state = {
         highlightrefuid:null,
-        list:this.props.listobject.list,
+        list:this.props.listobject?this.props.listobject.list:null,
     }
 
     listcomponent
@@ -24,6 +24,11 @@ class DirectoryListBase extends React.Component<any,any> {
     setListListener = this.props.setListListener
 
     componentDidUpdate() {
+        if ((!this.state.list) && this.props.listobject) {
+            this.setState({
+                list:this.props.listobject.list
+            })
+        }
         if (!this.props.highlightrefuid) return
         // keep; value will be purged
         let highlightrefuid = this.props.highlightrefuid
@@ -86,7 +91,7 @@ class DirectoryListBase extends React.Component<any,any> {
         return <Lister 
             ref = {this.props.forwardedRef}
             itemRenderer = {this.itemRenderer}
-            length = {this.state.list.length}
+            length = {this.state.list?this.state.list.length:0}
             type = 'uniform'
         />
     }

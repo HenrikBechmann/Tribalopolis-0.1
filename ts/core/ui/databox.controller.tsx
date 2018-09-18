@@ -181,6 +181,8 @@ class DataBox extends React.Component<any,any> {
 
     modifybuttons = (listItemType) => {
 
+        if (!listItemType) return null
+            
         let outgoing = listItemType.properties.is.outgoing
 
         let retval = outgoing?
@@ -262,7 +264,7 @@ class DataBox extends React.Component<any,any> {
             listtoken = listroot
         }
 
-        let listobject = setListListener(listtoken)
+        let listobject = this.state.list? this.state.list.data:null // setListListener(listtoken)
 
         let scrollboxstyle:React.CSSProperties = {
             height:(this.props.containerHeight - 185) + 'px', // this figure is the net of many inside amounts!
@@ -272,12 +274,12 @@ class DataBox extends React.Component<any,any> {
             paddingBottom:'32px',
         }
 
-        let listcount = listobject.list.length
+        let listcount = listobject?listobject.list.length:0
 
-        let listItemType = this.props.setTypeListener(listobject.type)
+        let listItemType = this.state.list?this.state.list.type:null// this.props.setTypeListener(listobject.type)
         // placeholder logic for showing add button
 
-        this.props.cacheListData(listobject, listItemType)
+        // this.props.cacheListData(listobject, listItemType)
 
         return  <div style = { wrapperStyle }>
             <div style = {frameStyle}

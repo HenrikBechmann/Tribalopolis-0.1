@@ -9,7 +9,7 @@ class DirectoryListBase extends React.Component {
         super(props);
         this.state = {
             highlightrefuid: null,
-            list: this.props.listobject.list,
+            list: this.props.listobject ? this.props.listobject.list : null,
         };
         this.setListListener = this.props.setListListener;
         this.findlinkIndex = (uid) => {
@@ -34,6 +34,11 @@ class DirectoryListBase extends React.Component {
         this.listcomponent = this.props.forwardedRef;
     }
     componentDidUpdate() {
+        if ((!this.state.list) && this.props.listobject) {
+            this.setState({
+                list: this.props.listobject.list
+            });
+        }
         if (!this.props.highlightrefuid)
             return;
         // keep; value will be purged
@@ -54,7 +59,7 @@ class DirectoryListBase extends React.Component {
         }, 300);
     }
     render() {
-        return <Lister ref={this.props.forwardedRef} itemRenderer={this.itemRenderer} length={this.state.list.length} type='uniform'/>;
+        return <Lister ref={this.props.forwardedRef} itemRenderer={this.itemRenderer} length={this.state.list ? this.state.list.length : 0} type='uniform'/>;
     }
 }
 const DirectoryList = React.forwardRef((props, ref) => {

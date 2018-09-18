@@ -114,6 +114,8 @@ class DataBox extends React.Component {
             }, 2000);
         };
         this.modifybuttons = (listItemType) => {
+            if (!listItemType)
+                return null;
             let outgoing = listItemType.properties.is.outgoing;
             let retval = outgoing ?
                 <div style={{ position: 'absolute', bottom: '-8px', right: '0' }}>
@@ -207,7 +209,7 @@ class DataBox extends React.Component {
         else {
             listtoken = listroot;
         }
-        let listobject = setListListener(listtoken);
+        let listobject = this.state.list ? this.state.list.data : null; // setListListener(listtoken)
         let scrollboxstyle = {
             height: (this.props.containerHeight - 185) + 'px',
             overflow: 'auto',
@@ -215,10 +217,10 @@ class DataBox extends React.Component {
             paddingLeft: '6px',
             paddingBottom: '32px',
         };
-        let listcount = listobject.list.length;
-        let listItemType = this.props.setTypeListener(listobject.type);
+        let listcount = listobject ? listobject.list.length : 0;
+        let listItemType = this.state.list ? this.state.list.type : null; // this.props.setTypeListener(listobject.type)
         // placeholder logic for showing add button
-        this.props.cacheListData(listobject, listItemType);
+        // this.props.cacheListData(listobject, listItemType)
         return <div style={wrapperStyle}>
             <div style={frameStyle} ref={this.boxframe}>
             {haspeers ? null : <ResizeTab />}
