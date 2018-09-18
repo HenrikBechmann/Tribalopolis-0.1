@@ -240,9 +240,11 @@ class DataBox extends React.Component {
                 <div>
                     <DirectoryBar item={item} setListListener={this.props.setListListener} listStack={this.state.itemProxy.liststack} collapseDirectoryItem={this.collapseDirectoryItem} haspeers={this.props.haspeers}/>
                 </div>
+                
                 <div style={scrollboxstyle}>
                     <DirectoryList ref={this.listcomponent} listobject={listobject} highlightrefuid={this.state.highlightrefuid} setListListener={this.props.setListListener} expandDirectoryItem={this.props.expandDirectoryItem} highlightItem={this.highlightItem}/>
                 </div>
+                
                 {this.modifybuttons(listItemType)}
                 {this.indexmarker()}
             </div>

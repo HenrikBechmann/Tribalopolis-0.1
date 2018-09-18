@@ -7,6 +7,7 @@ import React from 'react'
 import DirectoryItem from './directoryitem.view'
 
 import Lister from 'react-list'
+import CircularProgress from '@material-ui/core/CircularProgress'
 
 class DirectoryListBase extends React.Component<any,any> {
 
@@ -107,12 +108,12 @@ class DirectoryListBase extends React.Component<any,any> {
 
     render() {
 
-        return <Lister 
+        return this.state.list?<Lister 
             ref = {this.props.forwardedRef}
             itemRenderer = {this.itemRenderer}
             length = {this.state.list?this.state.list.length:0}
             type = 'uniform'
-        />
+        />:<CircularProgress size = {24} />
     }
 }
 

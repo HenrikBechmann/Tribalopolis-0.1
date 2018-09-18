@@ -323,6 +323,7 @@ class DataBox extends React.Component<any,any> {
                         haspeers = {this.props.haspeers}
                     />
                 </div>
+                
                 <div style = {scrollboxstyle}>
                     <DirectoryList 
                         ref = {this.listcomponent}
@@ -333,6 +334,7 @@ class DataBox extends React.Component<any,any> {
                         highlightItem = {this.highlightItem}
                     />
                 </div>
+                
                 { this.modifybuttons(listItemType) }
                 { this.indexmarker() }
             </div>
