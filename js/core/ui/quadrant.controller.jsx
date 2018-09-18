@@ -274,8 +274,9 @@ class Quadrant extends React.Component {
             if (collapseTargetData) {
                 matchForTarget = (collapseTargetData.index == index);
             }
-            return (<DataBox key={itemProxy.instanceid} collapseTargetData={matchForTarget ? collapseTargetData : null} setListListener={this.setListListener} setTypeListener={this.setTypeListener} setListListenerA={null // this.setListListener
-            } itemProxy={itemProxy} highlightBox={animations.highlightBox} haspeers={haspeers} index={index} containerHeight={containerHeight} boxwidth={haspeers ? 300 : this.state.boxwidth} setItemListener={(callback) => {
+            return (<DataBox key={itemProxy.instanceid} collapseTargetData={matchForTarget ? collapseTargetData : null} setListListener={this.setListListener} setTypeListener={this.setTypeListener} setListListenerA={(listdoctoken, callback) => {
+                this.setListListener(listdoctoken, itemProxy.instanceid, callback);
+            }} itemProxy={itemProxy} highlightBox={animations.highlightBox} haspeers={haspeers} index={index} containerHeight={containerHeight} boxwidth={haspeers ? 300 : this.state.boxwidth} setItemListener={(callback) => {
                 this.setItemListener(itemProxy.doctoken, itemProxy.instanceid, callback);
             }} splayBox={(domSource, listcomponent, listdoctoken) => {
                 this.splayBox(index, domSource, listcomponent, listdoctoken);

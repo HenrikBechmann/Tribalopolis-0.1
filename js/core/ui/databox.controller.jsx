@@ -56,6 +56,17 @@ class DataBox extends React.Component {
         this.cacheItemData = (data, type) => {
             this.setState({
                 item: { data, type }
+            }, () => {
+                if (!this.state.list) {
+                    let listdoctoken;
+                    if (this.state.itemProxy.liststack.length) {
+                        listdoctoken = this.state.itemProxy.liststack[this.state.itemProxy.liststack.length - 1];
+                    }
+                    else {
+                        listdoctoken = this.state.item.data.list;
+                    }
+                    this.props.setListListenerA(listdoctoken, this.cacheListData);
+                }
             });
         };
         this.cacheListData = (data, type) => {
@@ -128,9 +139,6 @@ class DataBox extends React.Component {
     componentDidMount() {
         // console.log('box componentDidMount')
         this.props.setItemListener(this.cacheItemData);
-        if (this.props.setListListener) {
-            this.props.setListListenerA(this.cacheListData);
-        }
     }
     componentDidUpdate() {
         if (this.props.itemProxy !== this.state.itemProxy) {

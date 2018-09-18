@@ -455,8 +455,10 @@ class Quadrant extends React.Component<any,any>  {
                 collapseTargetData = {matchForTarget?collapseTargetData:null}
                 setListListener = { this.setListListener }
                 setTypeListener = { this.setTypeListener }
-                setListListenerA = {
-                    null // this.setListListener
+                setListListenerA = { (listdoctoken,callback) => {
+
+                    this.setListListener( listdoctoken,itemProxy.instanceid,callback)
+                }
                 }
                 itemProxy = { itemProxy }
                 highlightBox = {animations.highlightBox}
