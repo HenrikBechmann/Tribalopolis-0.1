@@ -54,8 +54,8 @@ class DataBox extends React.Component {
             list: null,
         };
         this.cacheItemData = (data, type) => {
-            this.setState({
-                item: { data, type }
+            this.setState((state) => {
+                return Object.assign({}, state, { item: { data, type } });
             }, () => {
                 if (!this.state.list) {
                     let listdoctoken;
@@ -70,10 +70,8 @@ class DataBox extends React.Component {
             });
         };
         this.cacheListData = (data, type) => {
-            setTimeout(() => {
-                this.setState({
-                    list: { data, type }
-                });
+            this.setState((state) => {
+                return Object.assign({}, state, { list: { data, type } });
             });
         };
         this.doHighlights = (collapseTargetData) => {
