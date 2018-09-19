@@ -10,9 +10,6 @@ import DirectoryBar from './databox/directorybar.view';
 import DirectoryList from './databox/directorylist.view';
 // import ScanBar from './databox/scanbar.view'
 import proxy from '../utilities/proxy';
-import { withStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
-import AddIcon from '@material-ui/icons/Add';
 import Icon from '@material-ui/core/Icon';
 import CircularProgress from '@material-ui/core/CircularProgress';
 const ResizeTab = props => {
@@ -33,33 +30,25 @@ const ResizeTab = props => {
         </div>
     </div>;
 };
-const styles = theme => ({
-    button: {
-        marginRight: theme.spacing.unit
-    },
-});
-const BaseFloatingAddButton = (props) => {
-    const { classes } = props;
-    return <Button variant='fab' mini color='secondary' aria-label='Add' className={classes.button}>
-      <AddIcon />
-    </Button>;
-};
-const FloatingAddButton = withStyles(styles)(BaseFloatingAddButton);
 class DataBox extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             highlightrefuid: null,
             item: null,
-            list: null,
+            listProxy: null,
+            listBarProxy: null,
+            listTypeProxy: null,
         };
         this.itemProxy = this.props.itemProxy;
-        this.listProxy = null;
         this.cacheItemData = (data, type) => {
-            this.setState((state) => {
-                return Object.assign({}, state, { item: { data, type } });
-            }, () => {
-                if (!this.listdoctoken) {
+            this.setState({
+                item: {
+                    data,
+                    type
+                }
+            }), () => {
+                if (!this.state.listProxy) { // no proxies have been set
                     let listdoctoken;
                     if (this.itemProxy.liststack.length) {
                         listdoctoken = this.itemProxy.liststack[this.itemProxy.liststack.length - 1];
@@ -67,16 +56,13 @@ class DataBox extends React.Component {
                     else {
                         listdoctoken = this.state.item.data.list;
                     }
-                    this.listdoctoken = listdoctoken;
-                    this.listProxy = new proxy({ token: listdoctoken });
-                    this.props.callbacks.setListListener(listdoctoken, this.listProxy.instanceid, this.cacheListData);
+                    this.setState({
+                        listProxy: new proxy({ token: listdoctoken }),
+                        listBarProxy: new proxy({ token: listdoctoken }),
+                        listTypeProxy: new proxy({ token: listdoctoken }),
+                    });
                 }
-            });
-        };
-        this.cacheListData = (data, type) => {
-            this.setState((state) => {
-                return Object.assign({}, state, { list: { data, type, token: this.listdoctoken } });
-            });
+            };
         };
         this.doHighlights = (collapseTargetData) => {
             this.props.callbacks.highlightBox({ boxElement: this.boxframe.current });
@@ -99,8 +85,8 @@ class DataBox extends React.Component {
         this.collapseDirectoryItem = () => {
             this.props.callbacks.collapseDirectoryItem(this.itemProxy);
         };
-        this.splayBox = (domSource) => {
-            return this.props.callbacks.splayBox(domSource, this.listcomponent, this.state.list.data);
+        this.splayBox = (domSource, listDocument) => {
+            return this.props.callbacks.splayBox(domSource, this.listcomponent, listDocument);
         };
         this.highlightItem = (itemref) => {
             let itemelement = itemref.current;
@@ -108,17 +94,6 @@ class DataBox extends React.Component {
             setTimeout(() => {
                 itemelement.classList.remove('highlight');
             }, 2000);
-        };
-        this.modifybuttons = (listItemType) => {
-            if (!listItemType)
-                return null;
-            let outgoing = listItemType.properties.is.outgoing;
-            let retval = outgoing ?
-                <div style={{ position: 'absolute', bottom: '-8px', right: '0' }}>
-                <FloatingAddButton />
-            </div>
-                : null;
-            return retval;
         };
         this.indexmarker = () => {
             return (this.props.haspeers ?
@@ -131,6 +106,11 @@ class DataBox extends React.Component {
                 }}>{this.props.index + 1}</div>
                 : null);
         };
+        this.listcallbacks = {
+            setListListener: this.props.callbacks.setListListener,
+            expandDirectoryItem: this.props.callbacks.expandDirectoryItem,
+            highlightItem: this.highlightItem,
+        };
         this.boxframe = React.createRef();
         this.listcomponent = React.createRef();
     }
@@ -142,14 +122,12 @@ class DataBox extends React.Component {
         if (collapseTargetData) {
             this.waitingCollapseTargetData = collapseTargetData;
         }
-        // console.log('box componentdidUPDATE', this.state, collapseTargetData)
         if (!this.state.item)
             return;
         if (!this.waitingCollapseTargetData)
             return;
         collapseTargetData = this.waitingCollapseTargetData;
         this.waitingCollapseTargetData = null;
-        // console.log('didupdate collapseTargetData',collapseTargetData)
         if (this.collapseTargetData)
             return; // avoid infinite recursion, triggered by list highlight
         this.collapseTargetData = collapseTargetData;
@@ -161,6 +139,7 @@ class DataBox extends React.Component {
         });
     }
     componentWillUnmount() {
+        // unsubscribe data
     }
     render() {
         let { setListListener, haspeers } = this.props;
@@ -197,8 +176,6 @@ class DataBox extends React.Component {
             </div>;
         }
         let listStack = this.itemProxy.liststack;
-        let { list: listroot } = item;
-        let listDocument = this.state.list ? this.state.list.data : null;
         let scrollboxstyle = {
             height: (this.props.containerHeight - 185) + 'px',
             overflow: 'auto',
@@ -206,29 +183,25 @@ class DataBox extends React.Component {
             paddingLeft: '6px',
             paddingBottom: '32px',
         };
-        let listcount = listDocument ? listDocument.list.length : 0;
-        let listItemType = this.state.list ? this.state.list.type : null;
-        // placeholder logic for showing add button
-        // this.props.cacheListData(listDocument, listItemType)
         return <div style={wrapperStyle}>
             <div style={frameStyle} ref={this.boxframe}>
             {haspeers ? null : <ResizeTab />}
-            <BoxTypebar item={item} listcount={listcount} splayBox={this.splayBox} haspeers={this.props.haspeers} selectFromSplay={this.props.callbacks.selectFromSplay}/>
+            <BoxTypebar item={item} listProxy={this.state.listTypeProxy} haspeers={this.props.haspeers} splayBox={this.splayBox} selectFromSplay={this.props.callbacks.selectFromSplay}/>
             <BoxIdentityBar item={item}/>
             <div style={{
             height: 'calc(100% - 78px)',
             position: 'relative',
         }}>
                 <div>
-                    <DirectoryBar listDocument={listDocument} listStack={this.itemProxy.liststack} collapseDirectoryItem={this.collapseDirectoryItem}/>
+                    <DirectoryBar listProxy={this.state.listBarProxy} listStack={this.itemProxy.liststack} collapseDirectoryItem={this.collapseDirectoryItem}/>
                 </div>
                 
                 <div style={scrollboxstyle}>
-                    <DirectoryList ref={this.listcomponent} listProxy={this.listProxy} listDocument={listDocument} listType={listItemType} highlightrefuid={this.state.highlightrefuid} setListListener={this.props.callbacks.setListListener} expandDirectoryItem={this.props.callbacks.expandDirectoryItem} highlightItem={this.highlightItem}/>
+                    <DirectoryList ref={this.listcomponent} listProxy={this.state.listProxy} highlightrefuid={this.state.highlightrefuid} callbacks={this.listcallbacks}/>
                 </div>
                 
-                {this.modifybuttons(listItemType)}
                 {this.indexmarker()}
+
             </div>
         </div>
         </div>;

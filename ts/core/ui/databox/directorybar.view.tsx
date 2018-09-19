@@ -12,6 +12,12 @@ import ActionButton from '../common/actionbutton.view'
 
 class DirectoryBar extends React.Component<any,any> {
 
+    state = {
+        list:null
+    }
+
+    listProxy
+
     barstyle:React.CSSProperties = {
         width:'100%',
         borderRadius:'8px 8px 0 0',
@@ -52,6 +58,12 @@ class DirectoryBar extends React.Component<any,any> {
         backgroundColor:'white',
         // cursor:'pointer',
     }
+
+    componentDidUpdate() {
+        if (!this.listProxy && this.props.listProxy) {
+            this.listProxy = this.props.listProxy
+        }        
+    } 
 
     render() {
 

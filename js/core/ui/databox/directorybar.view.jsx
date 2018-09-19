@@ -9,6 +9,9 @@ import ActionButton from '../common/actionbutton.view';
 class DirectoryBar extends React.Component {
     constructor() {
         super(...arguments);
+        this.state = {
+            list: null
+        };
         this.barstyle = {
             width: '100%',
             borderRadius: '8px 8px 0 0',
@@ -45,6 +48,11 @@ class DirectoryBar extends React.Component {
             marginBottom: '-7px',
             backgroundColor: 'white',
         };
+    }
+    componentDidUpdate() {
+        if (!this.listProxy && this.props.listProxy) {
+            this.listProxy = this.props.listProxy;
+        }
     }
     render() {
         let { listStack, listDocument } = this.props;

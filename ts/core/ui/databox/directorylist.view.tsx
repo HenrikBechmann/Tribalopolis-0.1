@@ -9,6 +9,26 @@ import DirectoryItem from './directoryitem.view'
 import Lister from 'react-list'
 import CircularProgress from '@material-ui/core/CircularProgress'
 
+import { withStyles } from '@material-ui/core/styles'
+import Button from '@material-ui/core/Button'
+import AddIcon from '@material-ui/icons/Add'
+
+const styles = theme => ({
+  button: {
+    marginRight: theme.spacing.unit
+  },
+})
+
+const BaseFloatingAddButton = (props) => {
+    const { classes } = props
+    return <Button variant = 'fab' mini color = 'secondary' aria-label = 'Add' className = {classes.button} >
+      <AddIcon />
+    </Button>
+}
+
+const FloatingAddButton = withStyles(styles)(BaseFloatingAddButton)
+
+
 class DirectoryListBase extends React.Component<any,any> {
 
     constructor(props) {
@@ -30,11 +50,11 @@ class DirectoryListBase extends React.Component<any,any> {
 
     listType
 
-    setListListener = this.props.setListListener
+    setListListener = this.props.callbacks.setListListener
 
     componentDidUpdate() {
         if (!this.listProxy && this.props.listProxy) {
-            this.listProxy = this.listProxy
+            this.listProxy = this.props.listProxy
         }
         // console.log('componentDidUpdate higlightrefuid',this.props.highlightrefuid)
         if (this.props.highlightrefuid) {
@@ -53,6 +73,15 @@ class DirectoryListBase extends React.Component<any,any> {
                 })
             }
         }
+    }
+
+    cacheListData = (data,type) => {
+        this.setState({
+            list:{
+                data,
+                type
+            }
+        })
     }
 
     dohighlight = () => {
@@ -89,7 +118,7 @@ class DirectoryListBase extends React.Component<any,any> {
 
     expandDirectoryItem = (token) => {
         return (domSource) => {
-            this.props.expandDirectoryItem(token, domSource)
+            this.props.callbacks.expandDirectoryItem(token, domSource)
         }
     }
 
@@ -108,11 +137,26 @@ class DirectoryListBase extends React.Component<any,any> {
                 listDocument = {listDocument} 
                 expandDirectoryItem = {this.expandDirectoryItem(token)}
                 highlight = {highlight}
-                highlightItem = {this.props.highlightItem}
+                highlightItem = {this.props.callbacks.highlightItem}
             />
 
         return catitem
 
+    }
+
+    modifybuttons = (listItemType) => {
+
+        if (!listItemType) return null
+
+        let outgoing = listItemType.properties.is.outgoing
+
+        let retval = outgoing?
+            <div style = {{position:'absolute',bottom:'-8px',right:'0'}}>
+                <FloatingAddButton />
+            </div>
+            : null
+
+        return retval
     }
 
     render() {

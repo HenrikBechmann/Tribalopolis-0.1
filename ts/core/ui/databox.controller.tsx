@@ -13,9 +13,6 @@ import DirectoryList from './databox/directorylist.view'
 // import ScanBar from './databox/scanbar.view'
 import proxy from '../utilities/proxy'
 
-import { withStyles } from '@material-ui/core/styles'
-import Button from '@material-ui/core/Button'
-import AddIcon from '@material-ui/icons/Add'
 import Icon from '@material-ui/core/Icon'
 import CircularProgress from '@material-ui/core/CircularProgress'
 
@@ -39,21 +36,6 @@ const ResizeTab = props => {
     </div>
 }
 
-const styles = theme => ({
-  button: {
-    marginRight: theme.spacing.unit
-  },
-})
-
-const BaseFloatingAddButton = (props) => {
-    const { classes } = props
-    return <Button variant = 'fab' mini color = 'secondary' aria-label = 'Add' className = {classes.button} >
-      <AddIcon />
-    </Button>
-}
-
-const FloatingAddButton = withStyles(styles)(BaseFloatingAddButton)
-
 class DataBox extends React.Component<any,any> {
 
     constructor(props) {
@@ -65,11 +47,12 @@ class DataBox extends React.Component<any,any> {
     state = {
         highlightrefuid:null,
         item:null,
-        list:null,
+        listProxy:null,
+        listBarProxy:null,
+        listTypeProxy:null,
     }
 
     itemProxy = this.props.itemProxy
-    listProxy = null
 
     boxframe
     listcomponent
@@ -92,17 +75,17 @@ class DataBox extends React.Component<any,any> {
             this.waitingCollapseTargetData = collapseTargetData
         }
 
-        // console.log('box componentdidUPDATE', this.state, collapseTargetData)
-
         if (!this.state.item) return
 
         if (!this.waitingCollapseTargetData) return
+
         collapseTargetData = this.waitingCollapseTargetData
         this.waitingCollapseTargetData = null
-        // console.log('didupdate collapseTargetData',collapseTargetData)
+
         if (this.collapseTargetData) return // avoid infinite recursion, triggered by list highlight
 
         this.collapseTargetData = collapseTargetData
+
         setTimeout(()=>{
             this.doHighlights(collapseTargetData)
             setTimeout(()=>{
@@ -112,33 +95,32 @@ class DataBox extends React.Component<any,any> {
     }
 
     componentWillUnmount() {
+        // unsubscribe data
     }
 
     cacheItemData = (data,type) => {
-        this.setState((state) => {
-            return {...state,item:{data,type}}
-        },() => {
-            if (!this.listdoctoken) {
+        this.setState({
+            item:{
+                data,
+                type
+            }
+        }),() => {
+            if (!this.state.listProxy) { // no proxies have been set
                 let listdoctoken
                 if (this.itemProxy.liststack.length) {
                     listdoctoken = this.itemProxy.liststack[this.itemProxy.liststack.length -1]
                 } else {
                     listdoctoken = this.state.item.data.list
                 }
-                this.listdoctoken = listdoctoken
-                this.listProxy = new proxy({token:listdoctoken})
-                this.props.callbacks.setListListener(listdoctoken,this.listProxy.instanceid,this.cacheListData)
+                this.setState({
+                    listProxy:new proxy({token:listdoctoken}),
+                    listBarProxy: new proxy({token:listdoctoken}),
+                    listTypeProxy: new proxy({token:listdoctoken}),
+                })
             }
-        })
+        }
     }
 
-    listdoctoken //transfer var
-
-    cacheListData = (data,type) => {
-        this.setState((state) => {
-            return {...state,list:{data,type,token:this.listdoctoken}}
-        })
-    }
     doHighlights = (collapseTargetData) => {
 
         this.props.callbacks.highlightBox({boxElement:this.boxframe.current})
@@ -171,8 +153,8 @@ class DataBox extends React.Component<any,any> {
 
     }
 
-    splayBox = (domSource) => {
-        return this.props.callbacks.splayBox(domSource, this.listcomponent,this.state.list.data)
+    splayBox = (domSource,listDocument) => {
+        return this.props.callbacks.splayBox(domSource, this.listcomponent, listDocument)
     }
 
     highlightItem = (itemref) => {
@@ -185,21 +167,6 @@ class DataBox extends React.Component<any,any> {
             itemelement.classList.remove('highlight')
         },2000)
 
-    }
-
-    modifybuttons = (listItemType) => {
-
-        if (!listItemType) return null
-
-        let outgoing = listItemType.properties.is.outgoing
-
-        let retval = outgoing?
-            <div style = {{position:'absolute',bottom:'-8px',right:'0'}}>
-                <FloatingAddButton />
-            </div>
-            : null
-
-        return retval
     }
 
     indexmarker = () => {
@@ -218,6 +185,12 @@ class DataBox extends React.Component<any,any> {
             >{this.props.index + 1}</div>
             : null
         )
+    }
+
+    listcallbacks = {
+        setListListener:this.props.callbacks.setListListener,
+        expandDirectoryItem:this.props.callbacks.expandDirectoryItem,
+        highlightItem:this.highlightItem,
     }
 
     render() {
@@ -262,10 +235,6 @@ class DataBox extends React.Component<any,any> {
 
         let listStack = this.itemProxy.liststack
 
-        let { list:listroot } = item
-
-        let listDocument = this.state.list? this.state.list.data:null 
-
         let scrollboxstyle:React.CSSProperties = {
             height:(this.props.containerHeight - 185) + 'px', // this figure is the net of many inside amounts!
             overflow:'auto',
@@ -274,13 +243,6 @@ class DataBox extends React.Component<any,any> {
             paddingBottom:'32px',
         }
 
-        let listcount = listDocument?listDocument.list.length:0
-
-        let listItemType = this.state.list?this.state.list.type:null
-        // placeholder logic for showing add button
-
-        // this.props.cacheListData(listDocument, listItemType)
-
         return  <div style = { wrapperStyle }>
             <div style = {frameStyle}
                 ref = {this.boxframe}
@@ -288,9 +250,10 @@ class DataBox extends React.Component<any,any> {
             {haspeers?null:<ResizeTab />}
             <BoxTypebar 
                 item = {item} 
-                listcount = {listcount}
-                splayBox = {this.splayBox}
+                listProxy = {this.state.listTypeProxy}
+
                 haspeers = {this.props.haspeers}
+                splayBox = {this.splayBox}
                 selectFromSplay = {this.props.callbacks.selectFromSplay}
             />
             <BoxIdentityBar item = {item} />
@@ -303,7 +266,8 @@ class DataBox extends React.Component<any,any> {
             >
                 <div>
                     <DirectoryBar 
-                        listDocument = {listDocument}
+                        listProxy = {this.state.listBarProxy}
+                        
                         listStack = {this.itemProxy.liststack}
                         collapseDirectoryItem = {this.collapseDirectoryItem}
                     />
@@ -312,18 +276,16 @@ class DataBox extends React.Component<any,any> {
                 <div style = {scrollboxstyle}>
                     <DirectoryList 
                         ref = {this.listcomponent}
-                        listProxy = {this.listProxy}
-                        listDocument = {listDocument} 
-                        listType = {listItemType}
+
+                        listProxy = {this.state.listProxy}
                         highlightrefuid = {this.state.highlightrefuid}
-                        setListListener = {this.props.callbacks.setListListener}
-                        expandDirectoryItem = {this.props.callbacks.expandDirectoryItem}
-                        highlightItem = {this.highlightItem}
+
+                        callbacks = {this.listcallbacks}
                     />
                 </div>
                 
-                { this.modifybuttons(listItemType) }
                 { this.indexmarker() }
+
             </div>
         </div>
         </div>
