@@ -75,7 +75,7 @@ class DataBox extends React.Component<any,any> {
 
     componentDidMount() {
         // console.log('box componentDidMount')
-        this.props.setItemListener(this.cacheItemData)
+        this.props.callbacks.setItemListener(this.cacheItemData)
     }
 
     waitingCollapseTargetData
@@ -113,7 +113,6 @@ class DataBox extends React.Component<any,any> {
     }
 
     componentWillUnmount() {
-        this.props.unmount()
     }
 
     cacheItemData = (data,type) => {
@@ -127,19 +126,22 @@ class DataBox extends React.Component<any,any> {
                 } else {
                     listdoctoken = this.state.item.data.list
                 }
-                this.props.setListListenerA(listdoctoken,this.cacheListData)
+                this.listdoctoken = listdoctoken
+                this.props.callbacks.setListListenerA(listdoctoken,this.cacheListData)
             }
         })
     }
 
+    listdoctoken //transfer var
+
     cacheListData = (data,type) => {
         this.setState((state) => {
-            return {...state,list:{data,type}}
+            return {...state,list:{data,type,token:this.listdoctoken}}
         })
     }
     doHighlights = (collapseTargetData) => {
 
-        this.props.highlightBox({boxElement:this.boxframe.current})
+        this.props.callbacks.highlightBox({boxElement:this.boxframe.current})
 
         if (collapseTargetData.action == 'expand' || 
             collapseTargetData.action == 'splay') {
@@ -165,19 +167,12 @@ class DataBox extends React.Component<any,any> {
 
     collapseDirectoryItem = () => {
 
-        this.props.collapseDirectoryItem(this.state.itemProxy)
+        this.props.callbacks.collapseDirectoryItem(this.state.itemProxy)
 
     }
 
     splayBox = (domSource) => {
-        let listdoctoken
-        let { itemProxy } = this.state
-        if (itemProxy.liststack.length > 0) {
-            listdoctoken = itemProxy.liststack[itemProxy.liststack.length - 1]
-        } else {
-            listdoctoken = this.state.item.data.list
-        }
-        return this.props.splayBox(domSource, this.listcomponent,listdoctoken)
+        return this.props.callbacks.splayBox(domSource, this.listcomponent,this.state.list.data)
     }
 
     highlightItem = (itemref) => {
@@ -281,7 +276,7 @@ class DataBox extends React.Component<any,any> {
 
         let listcount = listDocument?listDocument.list.length:0
 
-        let listItemType = this.state.list?this.state.list.type:null// this.props.setTypeListener(listDocument.type)
+        let listItemType = this.state.list?this.state.list.type:null
         // placeholder logic for showing add button
 
         // this.props.cacheListData(listDocument, listItemType)
@@ -296,7 +291,7 @@ class DataBox extends React.Component<any,any> {
                 listcount = {listcount}
                 splayBox = {this.splayBox}
                 haspeers = {this.props.haspeers}
-                selectFromSplay = {this.props.selectFromSplay}
+                selectFromSplay = {this.props.callbacks.selectFromSplay}
             />
             <BoxIdentityBar item = {item} />
             <div style = {
@@ -319,8 +314,8 @@ class DataBox extends React.Component<any,any> {
                         ref = {this.listcomponent}
                         listDocument = {listDocument} 
                         highlightrefuid = {this.state.highlightrefuid}
-                        setListListener = {this.props.setListListener}
-                        expandDirectoryItem = {this.props.expandDirectoryItem}
+                        setListListener = {this.props.callbacks.setListListener}
+                        expandDirectoryItem = {this.props.callbacks.expandDirectoryItem}
                         highlightItem = {this.highlightItem}
                     />
                 </div>

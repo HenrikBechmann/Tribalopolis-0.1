@@ -70,8 +70,6 @@ class Quadrant extends React.Component<any,any>  {
     // trigger for animation and reset
     collapseTargetData = null
 
-    boxdatacache = {}
-
 /********************************************************
 ------------------[ lifecycle methods ]------------------
 *********************************************************/
@@ -94,7 +92,11 @@ class Quadrant extends React.Component<any,any>  {
         let collapseTargetData = this.collapseTargetData
         this.collapseTargetData = null
         // get index for Lister
-        let index = this.state.datastack[this.state.stackpointer].items.findIndex(this._findlinkIndex(collapseTargetData.sourceinstanceid))
+        let index = this.state.datastack
+            [this.state.stackpointer].items
+            .findIndex
+                (this._findlinkIndex
+                    (collapseTargetData.sourceinstanceid))
 
         // update scroll display with selected highlight item
         collapseTargetData.index = index
@@ -215,7 +217,7 @@ class Quadrant extends React.Component<any,any>  {
         })
     }
 
-    splayBox = (boxptr, domSource, sourcelistcomponent,listdoctoken) => {
+    splayBox = (boxptr, domSource, sourcelistcomponent,listDocument) => {
 
         let visiblerange = sourcelistcomponent.current.getVisibleRange()
 
@@ -227,8 +229,6 @@ class Quadrant extends React.Component<any,any>  {
         this._captureSettings(stackpointer,datastack)
 
         let itemProxy = datastack[stackpointer].items[boxptr]
-
-        let { list:listDocument } =  this.getCacheListData(itemProxy.instanceid,listdoctoken) 
 
         let listtokens = listDocument.list
 
@@ -381,41 +381,6 @@ class Quadrant extends React.Component<any,any>  {
     }
 
 /********************************************************
-----------------------[ cache management ]---------------------
-*********************************************************/
-
-    isBoxDataCache = (instanceid) => {
-        return !!this.boxdatacache[instanceid]
-    }
-
-    // TODO create callback for setListeners
-    cacheListData = (instanceid, data, type) => {
-        return
-        this.boxdatacache[instanceid].list = {
-            data,
-            type,
-        }
-    }
-
-    isCacheListData = (instanceid) => {
-        return !!(this.boxdatacache[instanceid] && this.boxdatacache[instanceid].list)
-    }
-
-    getCacheListData = (instanceid,doctoken = null) => {
-        let list
-        let type
-
-            list = this.setListListener(doctoken)
-            type = this.setTypeListener(list.type)
-
-        return {list,type,}
-    }
-
-   unmountBoxdatacache = (instanceid) => {
-        delete this.boxdatacache[instanceid]
-    }
-
-/********************************************************
 -------------------[ assembly support ]------------------
 *********************************************************/
 
@@ -440,8 +405,6 @@ class Quadrant extends React.Component<any,any>  {
 
     getBoxComponent = (itemProxy, index, haspeers, key) => {
 
-        // let { item, type:itemType } = this.getCacheItemData(itemProxy.instanceid,itemProxy.doctoken)
-
         let containerHeight = this.scrollboxelement.current.offsetHeight
 
         let matchForTarget = false
@@ -449,55 +412,31 @@ class Quadrant extends React.Component<any,any>  {
         if (collapseTargetData) {
             matchForTarget = (collapseTargetData.index == index)
         }
+        let callbacks = {
+            setListListener:this.setListListener,
+            setListListenerA:(listdoctoken,callback) => {
+                this.setListListener( listdoctoken,itemProxy.instanceid,callback)},
+            highlightBox:animations.highlightBox,
+            setItemListener:(callback) => {
+                this.setItemListener( itemProxy.doctoken, itemProxy.instanceid, callback)},
+            splayBox:(domSource, listcomponent,listdoctoken) => {
+                this.splayBox(index, domSource, listcomponent,listdoctoken)},
+            selectFromSplay:(domSource) => {
+                this.selectFromSplay(index,domSource)},
+            expandDirectoryItem:(doctoken, domSource) => {
+                this.expandDirectoryItem(index,doctoken, domSource)},
+            collapseDirectoryItem:this.collapseDirectoryItem,
+        }
         return (
             <DataBox 
                 key = { itemProxy.instanceid } 
                 collapseTargetData = {matchForTarget?collapseTargetData:null}
-                setListListener = { this.setListListener }
-                setTypeListener = { this.setTypeListener }
-                setListListenerA = { (listdoctoken,callback) => {
-
-                    this.setListListener( listdoctoken,itemProxy.instanceid,callback)
-                }
-                }
                 itemProxy = { itemProxy }
-                highlightBox = {animations.highlightBox}
                 haspeers = { haspeers }
                 index = { index }
                 containerHeight = { containerHeight }
                 boxwidth = { haspeers?300:this.state.boxwidth }
-                setItemListener = {(callback) => {
-                    this.setItemListener( itemProxy.doctoken, itemProxy.instanceid, callback)
-                }}
-
-                splayBox = {
-                    (domSource, listcomponent,listdoctoken) => {
-                        this.splayBox(index, domSource, listcomponent,listdoctoken)
-                    }
-                }
-                selectFromSplay = {
-                    (domSource) => {
-                        this.selectFromSplay(index,domSource)
-                    }
-                }
-                expandDirectoryItem = {
-                    (doctoken, domSource) => {
-                        this.expandDirectoryItem(index,doctoken, domSource)
-                    }
-                }
-                collapseDirectoryItem = {
-                    this.collapseDirectoryItem
-                }
-                unmount = {
-                    () => {
-                        this.unmountBoxdatacache(itemProxy.instanceid)
-                    }
-                }
-                cacheListData = {
-                    (list,type) => {
-                        this.cacheListData(itemProxy.instanceid,list,type)
-                    }
-                }
+                callbacks = {callbacks}
             />
         )
     }

@@ -25,7 +25,6 @@ class Quadrant extends React.Component {
         };
         // trigger for animation and reset
         this.collapseTargetData = null;
-        this.boxdatacache = {};
         this._findlinkIndex = (instanceid) => {
             return (item) => {
                 return item.instanceid == instanceid;
@@ -94,14 +93,13 @@ class Quadrant extends React.Component {
                 });
             });
         };
-        this.splayBox = (boxptr, domSource, sourcelistcomponent, listdoctoken) => {
+        this.splayBox = (boxptr, domSource, sourcelistcomponent, listDocument) => {
             let visiblerange = sourcelistcomponent.current.getVisibleRange();
             this.animateToOrigin();
             this.animateToDataBoxList(domSource);
             let { datastack, stackpointer } = this.state;
             this._captureSettings(stackpointer, datastack);
             let itemProxy = datastack[stackpointer].items[boxptr];
-            let { list: listDocument } = this.getCacheListData(itemProxy.instanceid, listdoctoken);
             let listtokens = listDocument.list;
             if (!listtokens || !listtokens.length)
                 return;
@@ -223,33 +221,6 @@ class Quadrant extends React.Component {
             }
         };
         /********************************************************
-        ----------------------[ cache management ]---------------------
-        *********************************************************/
-        this.isBoxDataCache = (instanceid) => {
-            return !!this.boxdatacache[instanceid];
-        };
-        // TODO create callback for setListeners
-        this.cacheListData = (instanceid, data, type) => {
-            return;
-            this.boxdatacache[instanceid].list = {
-                data,
-                type,
-            };
-        };
-        this.isCacheListData = (instanceid) => {
-            return !!(this.boxdatacache[instanceid] && this.boxdatacache[instanceid].list);
-        };
-        this.getCacheListData = (instanceid, doctoken = null) => {
-            let list;
-            let type;
-            list = this.setListListener(doctoken);
-            type = this.setTypeListener(list.type);
-            return { list, type, };
-        };
-        this.unmountBoxdatacache = (instanceid) => {
-            delete this.boxdatacache[instanceid];
-        };
-        /********************************************************
         -------------------[ assembly support ]------------------
         *********************************************************/
         // Lister item renderer
@@ -267,28 +238,33 @@ class Quadrant extends React.Component {
             return this.getBoxComponent(itemProxy, index, haspeers, key);
         };
         this.getBoxComponent = (itemProxy, index, haspeers, key) => {
-            // let { item, type:itemType } = this.getCacheItemData(itemProxy.instanceid,itemProxy.doctoken)
             let containerHeight = this.scrollboxelement.current.offsetHeight;
             let matchForTarget = false;
             let { collapseTargetData } = this.state;
             if (collapseTargetData) {
                 matchForTarget = (collapseTargetData.index == index);
             }
-            return (<DataBox key={itemProxy.instanceid} collapseTargetData={matchForTarget ? collapseTargetData : null} setListListener={this.setListListener} setTypeListener={this.setTypeListener} setListListenerA={(listdoctoken, callback) => {
-                this.setListListener(listdoctoken, itemProxy.instanceid, callback);
-            }} itemProxy={itemProxy} highlightBox={animations.highlightBox} haspeers={haspeers} index={index} containerHeight={containerHeight} boxwidth={haspeers ? 300 : this.state.boxwidth} setItemListener={(callback) => {
-                this.setItemListener(itemProxy.doctoken, itemProxy.instanceid, callback);
-            }} splayBox={(domSource, listcomponent, listdoctoken) => {
-                this.splayBox(index, domSource, listcomponent, listdoctoken);
-            }} selectFromSplay={(domSource) => {
-                this.selectFromSplay(index, domSource);
-            }} expandDirectoryItem={(doctoken, domSource) => {
-                this.expandDirectoryItem(index, doctoken, domSource);
-            }} collapseDirectoryItem={this.collapseDirectoryItem} unmount={() => {
-                this.unmountBoxdatacache(itemProxy.instanceid);
-            }} cacheListData={(list, type) => {
-                this.cacheListData(itemProxy.instanceid, list, type);
-            }}/>);
+            let callbacks = {
+                setListListener: this.setListListener,
+                setListListenerA: (listdoctoken, callback) => {
+                    this.setListListener(listdoctoken, itemProxy.instanceid, callback);
+                },
+                highlightBox: animations.highlightBox,
+                setItemListener: (callback) => {
+                    this.setItemListener(itemProxy.doctoken, itemProxy.instanceid, callback);
+                },
+                splayBox: (domSource, listcomponent, listdoctoken) => {
+                    this.splayBox(index, domSource, listcomponent, listdoctoken);
+                },
+                selectFromSplay: (domSource) => {
+                    this.selectFromSplay(index, domSource);
+                },
+                expandDirectoryItem: (doctoken, domSource) => {
+                    this.expandDirectoryItem(index, doctoken, domSource);
+                },
+                collapseDirectoryItem: this.collapseDirectoryItem,
+            };
+            return (<DataBox key={itemProxy.instanceid} collapseTargetData={matchForTarget ? collapseTargetData : null} itemProxy={itemProxy} haspeers={haspeers} index={index} containerHeight={containerHeight} boxwidth={haspeers ? 300 : this.state.boxwidth} callbacks={callbacks}/>);
         };
         this.quadcontentelement = React.createRef();
         // animation dom elements
@@ -321,7 +297,8 @@ class Quadrant extends React.Component {
         let collapseTargetData = this.collapseTargetData;
         this.collapseTargetData = null;
         // get index for Lister
-        let index = this.state.datastack[this.state.stackpointer].items.findIndex(this._findlinkIndex(collapseTargetData.sourceinstanceid));
+        let index = this.state.datastack[this.state.stackpointer].items
+            .findIndex(this._findlinkIndex(collapseTargetData.sourceinstanceid));
         // update scroll display with selected highlight item
         collapseTargetData.index = index;
         setTimeout(() => {
