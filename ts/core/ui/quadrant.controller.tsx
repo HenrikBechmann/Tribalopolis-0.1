@@ -101,7 +101,7 @@ class Quadrant extends React.Component<any,any>  {
         // update scroll display with selected highlight item
         collapseTargetData.index = index
 
-        setTimeout(()=>{
+        setTimeout( () => {
 
             if (this.listcomponent && (this.state.datastack[this.state.stackpointer].items.length > 1)) {
                 this.listcomponent.current.scrollAround(index)
@@ -124,8 +124,8 @@ class Quadrant extends React.Component<any,any>  {
 
     _findlinkIndex = (instanceid) => {
 
-        return (item) => {
-            return item.instanceid == instanceid
+        return (itemDocumentProxy) => {
+            return itemDocumentProxy.instanceid == instanceid
         }
 
     }
@@ -414,11 +414,12 @@ class Quadrant extends React.Component<any,any>  {
         }
         let callbacks = {
             setListListener:this.setListListener,
+            // temporary name while setListListener gets normalized
             setListListenerA:(listdoctoken,callback) => {
                 this.setListListener( listdoctoken,itemProxy.instanceid,callback)},
-            highlightBox:animations.highlightBox,
             setItemListener:(callback) => {
                 this.setItemListener( itemProxy.doctoken, itemProxy.instanceid, callback)},
+            highlightBox:animations.highlightBox,
             splayBox:(domSource, listcomponent,listdoctoken) => {
                 this.splayBox(index, domSource, listcomponent,listdoctoken)},
             selectFromSplay:(domSource) => {
@@ -430,12 +431,14 @@ class Quadrant extends React.Component<any,any>  {
         return (
             <DataBox 
                 key = { itemProxy.instanceid } 
+
                 collapseTargetData = {matchForTarget?collapseTargetData:null}
                 itemProxy = { itemProxy }
                 haspeers = { haspeers }
                 index = { index }
                 containerHeight = { containerHeight }
                 boxwidth = { haspeers?300:this.state.boxwidth }
+
                 callbacks = {callbacks}
             />
         )

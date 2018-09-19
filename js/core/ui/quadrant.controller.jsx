@@ -26,8 +26,8 @@ class Quadrant extends React.Component {
         // trigger for animation and reset
         this.collapseTargetData = null;
         this._findlinkIndex = (instanceid) => {
-            return (item) => {
-                return item.instanceid == instanceid;
+            return (itemDocumentProxy) => {
+                return itemDocumentProxy.instanceid == instanceid;
             };
         };
         // for reset of containerHeight
@@ -246,13 +246,14 @@ class Quadrant extends React.Component {
             }
             let callbacks = {
                 setListListener: this.setListListener,
+                // temporary name while setListListener gets normalized
                 setListListenerA: (listdoctoken, callback) => {
                     this.setListListener(listdoctoken, itemProxy.instanceid, callback);
                 },
-                highlightBox: animations.highlightBox,
                 setItemListener: (callback) => {
                     this.setItemListener(itemProxy.doctoken, itemProxy.instanceid, callback);
                 },
+                highlightBox: animations.highlightBox,
                 splayBox: (domSource, listcomponent, listdoctoken) => {
                     this.splayBox(index, domSource, listcomponent, listdoctoken);
                 },
