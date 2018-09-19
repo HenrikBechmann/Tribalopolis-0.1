@@ -1,5 +1,7 @@
 // datastacks.tsx
-import {serializer} from '../core/utilities/serializer'
+// copyright (c) 2018 Henrik Bechmann, Toronto, MIT Licence
+'use strict'
+
 import proxy from '../core/utilities/proxy'
 
 let datastacks = [ // four quadrant stacks

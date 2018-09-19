@@ -1,4 +1,6 @@
 // proxy.tsx
+// copyright (c) 2018 Henrik Bechmann, Toronto, MIT Licence
+'use strict';
 import { serializer } from './serializer';
 class proxy {
     constructor({ token }) {

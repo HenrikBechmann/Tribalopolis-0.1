@@ -8,7 +8,8 @@ import React from 'react';
 import QuadOrigin from './quadrant/quadorigin.view';
 import QuadTitleBar from './quadrant/quadtitlebar.view';
 import DataBox from './databox.controller';
-import { serializer } from '../../core/utilities/serializer';
+// import {serializer} from '../../core/utilities/serializer'
+import proxy from '../../core/utilities/proxy';
 import Lister from 'react-list';
 import animations from './quadrant/quadanimations.utilities';
 class Quadrant extends React.Component {
@@ -68,7 +69,7 @@ class Quadrant extends React.Component {
         ----------------------[ operations ]---------------------
         *********************************************************/
         //-------------------------------[ forward ]---------------------------
-        this.expandDirectoryItem = (boxptr, token, domSource) => {
+        this.expandDirectoryItem = (boxptr, listtoken, domSource) => {
             this.animateToOrigin();
             this.animateToDataBox(domSource);
             let { datastack, stackpointer } = this.state;
@@ -82,9 +83,9 @@ class Quadrant extends React.Component {
                 } };
             // replace forward stack items
             datastack.splice(stackpointer, datastack.length, newstacklayer);
-            let newItemProxy = JSON.parse(JSON.stringify(itemProxy));
-            newItemProxy.instanceid = serializer.getid();
-            newItemProxy.liststack.push(token);
+            let newItemProxy = new proxy({ token: itemProxy.token }); // JSON.parse(JSON.stringify(itemProxy))
+            // newItemProxy.instanceid = serializer.getid()
+            newItemProxy.liststack.push(listtoken);
             newstacklayer.items.push(newItemProxy);
             setTimeout(() => {
                 this.setState({
@@ -100,6 +101,7 @@ class Quadrant extends React.Component {
             let { datastack, stackpointer } = this.state;
             this._captureSettings(stackpointer, datastack);
             let itemProxy = datastack[stackpointer].items[boxptr];
+            let itemToken = itemProxy.token;
             let listtokens = listDocument.list;
             if (!listtokens || !listtokens.length)
                 return;
@@ -112,13 +114,15 @@ class Quadrant extends React.Component {
                 } };
             // replace forward stack items
             datastack.splice(stackpointer, datastack.length, newstacklayer);
-            let template = JSON.stringify(itemProxy);
+            // let template = JSON.stringify(itemProxy)
+            console.log('itemProxy in splayBox BEFORE', Object.assign({}, itemProxy));
             for (let token of listtokens) {
-                let newItemProxy = JSON.parse(template);
-                newItemProxy.instanceid = serializer.getid();
+                let newItemProxy = new proxy({ token: itemToken });
+                newItemProxy.liststack = itemProxy.liststack.slice();
                 newItemProxy.liststack.push(token);
                 newstacklayer.items.push(newItemProxy);
             }
+            console.log('itemProxy in splayBox', itemProxy, newstacklayer);
             setTimeout(() => {
                 this.setState({
                     stackpointer,
@@ -136,6 +140,7 @@ class Quadrant extends React.Component {
             let { datastack, stackpointer } = this.state;
             this._captureSettings(stackpointer, datastack);
             let itemProxy = datastack[stackpointer].items[boxptr];
+            let itemToken = itemProxy.token;
             stackpointer++;
             let newstacklayer = { items: [], settings: {}, source: {
                     instanceid: itemProxy.instanceid,
@@ -144,8 +149,9 @@ class Quadrant extends React.Component {
                 } };
             // replace forward stack items
             datastack.splice(stackpointer, datastack.length, newstacklayer);
-            let newItemProxy = JSON.parse(JSON.stringify(itemProxy));
-            newItemProxy.instanceid = serializer.getid();
+            let newItemProxy = new proxy({ token: itemToken }); // JSON.parse(JSON.stringify(itemProxy))
+            newItemProxy.liststack = itemProxy.liststack.slice();
+            // newItemProxy.instanceid = serializer.getid()
             newstacklayer.items.push(newItemProxy);
             setTimeout(() => {
                 this.setState({

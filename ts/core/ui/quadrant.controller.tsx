@@ -12,7 +12,8 @@ import QuadOrigin from './quadrant/quadorigin.view'
 import QuadTitleBar from './quadrant/quadtitlebar.view'
 
 import DataBox from './databox.controller'
-import {serializer} from '../../core/utilities/serializer'
+// import {serializer} from '../../core/utilities/serializer'
+import proxy from '../../core/utilities/proxy'
 import Lister from 'react-list'
 
 import animations from './quadrant/quadanimations.utilities'
@@ -181,7 +182,7 @@ class Quadrant extends React.Component<any,any>  {
 *********************************************************/
 
     //-------------------------------[ forward ]---------------------------
-    expandDirectoryItem = (boxptr, token, domSource) => {
+    expandDirectoryItem = (boxptr, listtoken, domSource) => {
 
         this.animateToOrigin()
 
@@ -202,10 +203,10 @@ class Quadrant extends React.Component<any,any>  {
         // replace forward stack items
         datastack.splice(stackpointer,datastack.length,newstacklayer)
 
-        let newItemProxy = JSON.parse(JSON.stringify(itemProxy))
-        newItemProxy.instanceid = serializer.getid()
+        let newItemProxy = new proxy({token:itemProxy.token}) // JSON.parse(JSON.stringify(itemProxy))
+        // newItemProxy.instanceid = serializer.getid()
 
-        newItemProxy.liststack.push(token)
+        newItemProxy.liststack.push(listtoken)
 
         newstacklayer.items.push(newItemProxy)
 
@@ -229,6 +230,7 @@ class Quadrant extends React.Component<any,any>  {
         this._captureSettings(stackpointer,datastack)
 
         let itemProxy = datastack[stackpointer].items[boxptr]
+        let itemToken = itemProxy.token
 
         let listtokens = listDocument.list
 
@@ -245,14 +247,18 @@ class Quadrant extends React.Component<any,any>  {
         // replace forward stack items
         datastack.splice(stackpointer,datastack.length,newstacklayer)
 
-        let template = JSON.stringify(itemProxy)
+        // let template = JSON.stringify(itemProxy)
+
+        console.log('itemProxy in splayBox BEFORE',Object.assign({},itemProxy))
 
         for (let token of listtokens) {
-            let newItemProxy = JSON.parse(template)
-            newItemProxy.instanceid = serializer.getid()
+            let newItemProxy = new proxy({token:itemToken})
+            newItemProxy.liststack = itemProxy.liststack.slice()
             newItemProxy.liststack.push(token)
             newstacklayer.items.push(newItemProxy)
         }
+
+        console.log('itemProxy in splayBox',itemProxy,newstacklayer)
 
         setTimeout(() => { // delay for animation
             this.setState({
@@ -276,6 +282,7 @@ class Quadrant extends React.Component<any,any>  {
         this._captureSettings(stackpointer,datastack)
 
         let itemProxy = datastack[stackpointer].items[boxptr]
+        let itemToken = itemProxy.token
 
         stackpointer++
         let newstacklayer = {items:[], settings:{}, source:{
@@ -287,8 +294,9 @@ class Quadrant extends React.Component<any,any>  {
         // replace forward stack items
         datastack.splice(stackpointer,datastack.length,newstacklayer)
 
-        let newItemProxy = JSON.parse(JSON.stringify(itemProxy))
-        newItemProxy.instanceid = serializer.getid()
+        let newItemProxy = new proxy({token:itemToken})// JSON.parse(JSON.stringify(itemProxy))
+        newItemProxy.liststack = itemProxy.liststack.slice()
+        // newItemProxy.instanceid = serializer.getid()
         
         newstacklayer.items.push(newItemProxy)
 
