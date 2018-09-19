@@ -251,6 +251,7 @@ class DataBox extends React.Component<any,any> {
             <BoxTypebar 
                 item = {item} 
                 listProxy = {this.state.listTypeProxy}
+                setListListener = {this.props.callbacks.setListListener}
 
                 haspeers = {this.props.haspeers}
                 splayBox = {this.splayBox}
@@ -267,7 +268,8 @@ class DataBox extends React.Component<any,any> {
                 <div>
                     <DirectoryBar 
                         listProxy = {this.state.listBarProxy}
-                        
+                        setListListener = {this.props.callbacks.setListListener}
+
                         listStack = {this.itemProxy.liststack}
                         collapseDirectoryItem = {this.collapseDirectoryItem}
                     />

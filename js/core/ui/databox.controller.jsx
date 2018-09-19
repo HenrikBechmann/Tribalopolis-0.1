@@ -186,14 +186,14 @@ class DataBox extends React.Component {
         return <div style={wrapperStyle}>
             <div style={frameStyle} ref={this.boxframe}>
             {haspeers ? null : <ResizeTab />}
-            <BoxTypebar item={item} listProxy={this.state.listTypeProxy} haspeers={this.props.haspeers} splayBox={this.splayBox} selectFromSplay={this.props.callbacks.selectFromSplay}/>
+            <BoxTypebar item={item} listProxy={this.state.listTypeProxy} setListListener={this.props.callbacks.setListListener} haspeers={this.props.haspeers} splayBox={this.splayBox} selectFromSplay={this.props.callbacks.selectFromSplay}/>
             <BoxIdentityBar item={item}/>
             <div style={{
             height: 'calc(100% - 78px)',
             position: 'relative',
         }}>
                 <div>
-                    <DirectoryBar listProxy={this.state.listBarProxy} listStack={this.itemProxy.liststack} collapseDirectoryItem={this.collapseDirectoryItem}/>
+                    <DirectoryBar listProxy={this.state.listBarProxy} setListListener={this.props.callbacks.setListListener} listStack={this.itemProxy.liststack} collapseDirectoryItem={this.collapseDirectoryItem}/>
                 </div>
                 
                 <div style={scrollboxstyle}>
