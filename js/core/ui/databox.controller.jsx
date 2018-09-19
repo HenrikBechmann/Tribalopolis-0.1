@@ -48,19 +48,20 @@ class DataBox extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            itemProxy: this.props.itemProxy,
             highlightrefuid: null,
             item: null,
             list: null,
         };
+        this.itemProxy = this.props.itemProxy;
+        this.listProxy = null;
         this.cacheItemData = (data, type) => {
             this.setState((state) => {
                 return Object.assign({}, state, { item: { data, type } });
             }, () => {
                 if (!this.state.list) {
                     let listdoctoken;
-                    if (this.state.itemProxy.liststack.length) {
-                        listdoctoken = this.state.itemProxy.liststack[this.state.itemProxy.liststack.length - 1];
+                    if (this.itemProxy.liststack.length) {
+                        listdoctoken = this.itemProxy.liststack[this.itemProxy.liststack.length - 1];
                     }
                     else {
                         listdoctoken = this.state.item.data.list;
@@ -79,11 +80,11 @@ class DataBox extends React.Component {
             this.props.callbacks.highlightBox({ boxElement: this.boxframe.current });
             if (collapseTargetData.action == 'expand' ||
                 collapseTargetData.action == 'splay') {
-                let doctoken = collapseTargetData.liststack[collapseTargetData.liststack.length - 1];
-                if (doctoken) {
+                let token = collapseTargetData.liststack[collapseTargetData.liststack.length - 1];
+                if (token) {
                     setTimeout(() => {
                         this.setState({
-                            highlightrefuid: doctoken.uid,
+                            highlightrefuid: token.uid,
                         }, () => {
                             this.setState({
                                 highlightrefuid: null
@@ -94,7 +95,7 @@ class DataBox extends React.Component {
             }
         };
         this.collapseDirectoryItem = () => {
-            this.props.callbacks.collapseDirectoryItem(this.state.itemProxy);
+            this.props.callbacks.collapseDirectoryItem(this.itemProxy);
         };
         this.splayBox = (domSource) => {
             return this.props.callbacks.splayBox(domSource, this.listcomponent, this.state.list.data);
@@ -136,11 +137,6 @@ class DataBox extends React.Component {
         this.props.callbacks.setItemListener(this.cacheItemData);
     }
     componentDidUpdate() {
-        if (this.props.itemProxy !== this.state.itemProxy) {
-            this.setState({
-                itemProxy: this.props.itemProxy,
-            });
-        }
         let { collapseTargetData } = this.props;
         if (collapseTargetData) {
             this.waitingCollapseTargetData = collapseTargetData;
@@ -199,7 +195,7 @@ class DataBox extends React.Component {
                 </div>
             </div>;
         }
-        let listStack = this.state.itemProxy.liststack;
+        let listStack = this.itemProxy.liststack;
         let { list: listroot } = item;
         let listDocument = this.state.list ? this.state.list.data : null;
         let scrollboxstyle = {
@@ -223,7 +219,7 @@ class DataBox extends React.Component {
             position: 'relative',
         }}>
                 <div>
-                    <DirectoryBar listDocument={listDocument} listStack={this.state.itemProxy.liststack} collapseDirectoryItem={this.collapseDirectoryItem}/>
+                    <DirectoryBar listDocument={listDocument} listStack={this.itemProxy.liststack} collapseDirectoryItem={this.collapseDirectoryItem}/>
                 </div>
                 
                 <div style={scrollboxstyle}>

@@ -1,20 +1,16 @@
 // datastacks.tsx
 import {serializer} from '../core/utilities/serializer'
+import proxy from '../core/utilities/proxy'
 
 let datastacks = [ // four quadrant stacks
     [ // each quadrant stack
         { // each quadrant stack layer
             items:[ // items in the stack layer
-                {
-                    doctoken:{
+                new proxy(
+                    {token:{
                         repo:'items',
                         uid:'henrik',
-                    },
-                    instanceid:serializer.getid(),
-                    liststack:[],
-                    settings:{
-                    },
-                },
+                    }}),
             ],
             source: {},
             settings:{
@@ -24,15 +20,11 @@ let datastacks = [ // four quadrant stacks
     [
         {
             items:[
-                {
-                    doctoken:{
+                new proxy(
+                    {token:{
                         repo:'items',
                         uid:'henrik',
-                    },
-                    instanceid:serializer.getid(),
-                    liststack:[],
-                    settings:{},
-                },
+                    }}),
             ],
             source:{
             },
@@ -43,17 +35,11 @@ let datastacks = [ // four quadrant stacks
     [
         {
             items:[
-                {
-                    doctoken:{
+                new proxy(
+                    {token:{
                         repo:'items',
                         uid:'henrik',
-                    },
-                    instanceid:serializer.getid(),
-                    liststack:[],
-                    settings:{
-
-                    },
-                },
+                    }}),
             ],
             source: {
             },
@@ -65,15 +51,11 @@ let datastacks = [ // four quadrant stacks
     [
         {
             items:[
-                {
-                    doctoken:{
+                new proxy(
+                    {token:{
                         repo:'items',
                         uid:'henrik',
-                    },
-                    instanceid:serializer.getid(),
-                    liststack:[],
-                    settings:{},
-                },
+                    }}),
             ],
             source: {
             },

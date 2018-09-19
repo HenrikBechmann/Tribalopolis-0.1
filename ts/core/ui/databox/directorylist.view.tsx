@@ -78,9 +78,9 @@ class DirectoryListBase extends React.Component<any,any> {
 
     }
 
-    expandDirectoryItem = (doctoken) => {
+    expandDirectoryItem = (token) => {
         return (domSource) => {
-            this.props.expandDirectoryItem(doctoken, domSource)
+            this.props.expandDirectoryItem(token, domSource)
         }
     }
 
@@ -88,16 +88,16 @@ class DirectoryListBase extends React.Component<any,any> {
         return this.getListComponent(this.state.list[index],key)
     }
 
-    getListComponent = (doctoken, key) => {
+    getListComponent = (token, key) => {
 
-        let listDocument = this.setListListener(doctoken)
-        let highlight = (doctoken.uid === this.state.highlightrefuid)
+        let listDocument = this.setListListener(token)
+        let highlight = (token.uid === this.state.highlightrefuid)
         let catitem = 
             <DirectoryItem 
                 key = {key} 
-                uid = {doctoken.uid} 
+                uid = {token.uid} 
                 listDocument = {listDocument} 
-                expandDirectoryItem = {this.expandDirectoryItem(doctoken)}
+                expandDirectoryItem = {this.expandDirectoryItem(token)}
                 highlight = {highlight}
                 highlightItem = {this.props.highlightItem}
             />

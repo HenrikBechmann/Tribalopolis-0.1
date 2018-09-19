@@ -8,39 +8,39 @@
 */
 // import Datamodel from './datamodel'
 import domain from './domain';
-const setTypeListener = (doctoken) => {
-    return domain.setTypeListener(doctoken);
+const setTypeListener = (token) => {
+    return domain.setTypeListener(token);
 };
-const setItemListener = (doctoken, instanceid, callback) => {
-    let item = domain.setItemListener(doctoken);
+const setItemListener = (token, instanceid, callback) => {
+    let item = domain.setItemListener(token);
     let type = domain.setTypeListener(item.type);
     setTimeout(() => {
         callback(item, type);
     }, 1000);
 };
-const setListListener = (doctoken, instanceid = null, callback = null) => {
+const setListListener = (token, instanceid = null, callback = null) => {
     if (!callback) {
-        return domain.setListListener(doctoken);
+        return domain.setListListener(token);
     }
     else {
-        let list = domain.setListListener(doctoken);
+        let list = domain.setListListener(token);
         let type = domain.setTypeListener(list.type);
         setTimeout(() => {
             callback(list, type);
         }, 1000);
     }
 };
-const getScheme = (doctoken) => {
-    return domain.getScheme(doctoken);
+const getScheme = (token) => {
+    return domain.getScheme(token);
 };
-const getLink = (doctoken) => {
-    return domain.getLink(doctoken);
+const getLink = (token) => {
+    return domain.getLink(token);
 };
-const getFolder = (doctoken) => {
-    return domain.getFolder(doctoken);
+const getFolder = (token) => {
+    return domain.getFolder(token);
 };
-const getAccount = (doctoken) => {
-    return domain.getAccount(doctoken);
+const getAccount = (token) => {
+    return domain.getAccount(token);
 };
 let application = {
     setItemListener,

@@ -12,7 +12,15 @@ import Quadrant from './quadrant.controller'
 const Quadrants = props => {
 
     // repackage callbacks for children
-    let { handleSwap, setItemListener, setListListener, setTypeListener, selectQuadrant, calcQuadrantPosition } = props.callbacks
+    let { 
+        handleSwap, 
+        setItemListener, 
+        setListListener, 
+        setTypeListener, 
+        selectQuadrant, 
+        calcQuadrantPosition 
+    } = props.callbacks
+    
     let quadcallbacks = {
         setItemListener,
         setListListener,
@@ -26,7 +34,7 @@ const Quadrants = props => {
     // get data for distribution
     let {split, quadrantIdentifiers, datastacks, currentQuadPosition} = props
 
-    enum instance { one, two, three, four } // 0,1,2,3
+    enum quad { one, two, three, four } // 0,1,2,3
 
     return (
         <QuadPlatform 
@@ -34,50 +42,50 @@ const Quadrants = props => {
             split = {split}
         >
             <QuadFrame
-                quadrantPosition = {calcQuadrantPosition(instance.one)}
+                quadrantPosition = {calcQuadrantPosition(quad.one)}
                 split = {split}
                 callbacks = {framecallbacks}
             >
                 <Quadrant 
-                    quadidentifier = {quadrantIdentifiers[instance.one]}
+                    quadidentifier = {quadrantIdentifiers[quad.one]}
                     color = '#e8e8e8' 
-                    datastack = {datastacks[instance.one]}
+                    datastack = {datastacks[quad.one]}
                     callbacks = {quadcallbacks}
                 />
             </QuadFrame>
             <QuadFrame
-                quadrantPosition = {calcQuadrantPosition(instance.two)}
+                quadrantPosition = {calcQuadrantPosition(quad.two)}
                 callbacks = {framecallbacks}
                 split = {split}
             >
                 <Quadrant 
-                    quadidentifier = {quadrantIdentifiers[instance.two]}
+                    quadidentifier = {quadrantIdentifiers[quad.two]}
                     color = '#e8e8e8' 
-                    datastack = {datastacks[instance.two]}
+                    datastack = {datastacks[quad.two]}
                     callbacks = {quadcallbacks}
                 />
             </QuadFrame>
             <QuadFrame
-                quadrantPosition = {calcQuadrantPosition(instance.three)}
+                quadrantPosition = {calcQuadrantPosition(quad.three)}
                 callbacks = {framecallbacks}
                 split = {split}
             >
                 <Quadrant 
-                    quadidentifier = {quadrantIdentifiers[instance.three]}
+                    quadidentifier = {quadrantIdentifiers[quad.three]}
                     color = '#e8e8e8' 
-                    datastack = {datastacks[instance.three]}
+                    datastack = {datastacks[quad.three]}
                     callbacks = {quadcallbacks}
                 />
             </QuadFrame>
             <QuadFrame
-                quadrantPosition = {calcQuadrantPosition(instance.four)}
+                quadrantPosition = {calcQuadrantPosition(quad.four)}
                 callbacks = {framecallbacks}
                 split = {split}
             >
                 <Quadrant 
-                    quadidentifier = {quadrantIdentifiers[instance.four]}
+                    quadidentifier = {quadrantIdentifiers[quad.four]}
                     color = '#e8e8e8' 
-                    datastack = {datastacks[instance.four]}
+                    datastack = {datastacks[quad.four]}
                     callbacks = {quadcallbacks}
                 />
             </QuadFrame>

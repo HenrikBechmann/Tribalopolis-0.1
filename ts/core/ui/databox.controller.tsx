@@ -62,11 +62,13 @@ class DataBox extends React.Component<any,any> {
     }
 
     state = {
-        itemProxy:this.props.itemProxy,
         highlightrefuid:null,
         item:null,
         list:null,
     }
+
+    itemProxy = this.props.itemProxy
+    listProxy = null
 
     boxframe
     listcomponent
@@ -81,11 +83,6 @@ class DataBox extends React.Component<any,any> {
     waitingCollapseTargetData
 
     componentDidUpdate() {
-        if (this.props.itemProxy !== this.state.itemProxy) {
-            this.setState({
-                itemProxy:this.props.itemProxy,
-            })
-        }
 
         let { collapseTargetData } = this.props
 
@@ -121,8 +118,8 @@ class DataBox extends React.Component<any,any> {
         },() => {
             if (!this.state.list) {
                 let listdoctoken
-                if (this.state.itemProxy.liststack.length) {
-                    listdoctoken = this.state.itemProxy.liststack[this.state.itemProxy.liststack.length -1]
+                if (this.itemProxy.liststack.length) {
+                    listdoctoken = this.itemProxy.liststack[this.itemProxy.liststack.length -1]
                 } else {
                     listdoctoken = this.state.item.data.list
                 }
@@ -146,15 +143,15 @@ class DataBox extends React.Component<any,any> {
         if (collapseTargetData.action == 'expand' || 
             collapseTargetData.action == 'splay') {
 
-            let doctoken = 
+            let token = 
                 collapseTargetData.liststack[
                     collapseTargetData.liststack.length -1]
 
-            if (doctoken) {
+            if (token) {
 
                 setTimeout(()=>{
                     this.setState({
-                        highlightrefuid:doctoken.uid,
+                        highlightrefuid:token.uid,
                     },() => {
                         this.setState({
                             highlightrefuid:null
@@ -167,7 +164,7 @@ class DataBox extends React.Component<any,any> {
 
     collapseDirectoryItem = () => {
 
-        this.props.callbacks.collapseDirectoryItem(this.state.itemProxy)
+        this.props.callbacks.collapseDirectoryItem(this.itemProxy)
 
     }
 
@@ -260,7 +257,7 @@ class DataBox extends React.Component<any,any> {
             </div>
         }
 
-        let listStack = this.state.itemProxy.liststack
+        let listStack = this.itemProxy.liststack
 
         let { list:listroot } = item
 
@@ -304,7 +301,7 @@ class DataBox extends React.Component<any,any> {
                 <div>
                     <DirectoryBar 
                         listDocument = {listDocument}
-                        listStack = {this.state.itemProxy.liststack}
+                        listStack = {this.itemProxy.liststack}
                         collapseDirectoryItem = {this.collapseDirectoryItem}
                     />
                 </div>

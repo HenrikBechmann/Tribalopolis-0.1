@@ -181,7 +181,7 @@ class Quadrant extends React.Component<any,any>  {
 *********************************************************/
 
     //-------------------------------[ forward ]---------------------------
-    expandDirectoryItem = (boxptr, doctoken, domSource) => {
+    expandDirectoryItem = (boxptr, token, domSource) => {
 
         this.animateToOrigin()
 
@@ -195,7 +195,7 @@ class Quadrant extends React.Component<any,any>  {
         stackpointer++
         let newstacklayer = {items:[], settings:{}, source:{
             instanceid:itemProxy.instanceid,
-            doctoken:itemProxy.doctoken,
+            token:itemProxy.token,
             action:'expand',
         }}
 
@@ -205,7 +205,7 @@ class Quadrant extends React.Component<any,any>  {
         let newItemProxy = JSON.parse(JSON.stringify(itemProxy))
         newItemProxy.instanceid = serializer.getid()
 
-        newItemProxy.liststack.push(doctoken)
+        newItemProxy.liststack.push(token)
 
         newstacklayer.items.push(newItemProxy)
 
@@ -237,7 +237,7 @@ class Quadrant extends React.Component<any,any>  {
         stackpointer++
         let newstacklayer = {items:[], settings:{}, source:{
             instanceid:itemProxy.instanceid,
-            doctoken:itemProxy.doctoken,
+            token:itemProxy.token,
             action:'splay',
             visiblerange,
         }}
@@ -280,7 +280,7 @@ class Quadrant extends React.Component<any,any>  {
         stackpointer++
         let newstacklayer = {items:[], settings:{}, source:{
             instanceid:itemProxy.instanceid,
-            doctoken:itemProxy.doctoken,
+            token:itemProxy.token,
             action:'select',
         }}
 
@@ -418,14 +418,14 @@ class Quadrant extends React.Component<any,any>  {
             setListListenerA:(listdoctoken,callback) => {
                 this.setListListener( listdoctoken,itemProxy.instanceid,callback)},
             setItemListener:(callback) => {
-                this.setItemListener( itemProxy.doctoken, itemProxy.instanceid, callback)},
+                this.setItemListener( itemProxy.token, itemProxy.instanceid, callback)},
             highlightBox:animations.highlightBox,
             splayBox:(domSource, listcomponent,listdoctoken) => {
                 this.splayBox(index, domSource, listcomponent,listdoctoken)},
             selectFromSplay:(domSource) => {
                 this.selectFromSplay(index,domSource)},
-            expandDirectoryItem:(doctoken, domSource) => {
-                this.expandDirectoryItem(index,doctoken, domSource)},
+            expandDirectoryItem:(token, domSource) => {
+                this.expandDirectoryItem(index,token, domSource)},
             collapseDirectoryItem:this.collapseDirectoryItem,
         }
         return (

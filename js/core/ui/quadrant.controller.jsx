@@ -68,7 +68,7 @@ class Quadrant extends React.Component {
         ----------------------[ operations ]---------------------
         *********************************************************/
         //-------------------------------[ forward ]---------------------------
-        this.expandDirectoryItem = (boxptr, doctoken, domSource) => {
+        this.expandDirectoryItem = (boxptr, token, domSource) => {
             this.animateToOrigin();
             this.animateToDataBox(domSource);
             let { datastack, stackpointer } = this.state;
@@ -77,14 +77,14 @@ class Quadrant extends React.Component {
             stackpointer++;
             let newstacklayer = { items: [], settings: {}, source: {
                     instanceid: itemProxy.instanceid,
-                    doctoken: itemProxy.doctoken,
+                    token: itemProxy.token,
                     action: 'expand',
                 } };
             // replace forward stack items
             datastack.splice(stackpointer, datastack.length, newstacklayer);
             let newItemProxy = JSON.parse(JSON.stringify(itemProxy));
             newItemProxy.instanceid = serializer.getid();
-            newItemProxy.liststack.push(doctoken);
+            newItemProxy.liststack.push(token);
             newstacklayer.items.push(newItemProxy);
             setTimeout(() => {
                 this.setState({
@@ -106,7 +106,7 @@ class Quadrant extends React.Component {
             stackpointer++;
             let newstacklayer = { items: [], settings: {}, source: {
                     instanceid: itemProxy.instanceid,
-                    doctoken: itemProxy.doctoken,
+                    token: itemProxy.token,
                     action: 'splay',
                     visiblerange,
                 } };
@@ -139,7 +139,7 @@ class Quadrant extends React.Component {
             stackpointer++;
             let newstacklayer = { items: [], settings: {}, source: {
                     instanceid: itemProxy.instanceid,
-                    doctoken: itemProxy.doctoken,
+                    token: itemProxy.token,
                     action: 'select',
                 } };
             // replace forward stack items
@@ -251,7 +251,7 @@ class Quadrant extends React.Component {
                     this.setListListener(listdoctoken, itemProxy.instanceid, callback);
                 },
                 setItemListener: (callback) => {
-                    this.setItemListener(itemProxy.doctoken, itemProxy.instanceid, callback);
+                    this.setItemListener(itemProxy.token, itemProxy.instanceid, callback);
                 },
                 highlightBox: animations.highlightBox,
                 splayBox: (domSource, listcomponent, listdoctoken) => {
@@ -260,8 +260,8 @@ class Quadrant extends React.Component {
                 selectFromSplay: (domSource) => {
                     this.selectFromSplay(index, domSource);
                 },
-                expandDirectoryItem: (doctoken, domSource) => {
-                    this.expandDirectoryItem(index, doctoken, domSource);
+                expandDirectoryItem: (token, domSource) => {
+                    this.expandDirectoryItem(index, token, domSource);
                 },
                 collapseDirectoryItem: this.collapseDirectoryItem,
             };
