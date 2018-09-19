@@ -17,21 +17,30 @@ class DirectoryListBase extends React.Component<any,any> {
     }
     state = {
         highlightrefuid:null,
-        list:this.props.listDocument?this.props.listDocument.list:null,
+        listtokens:this.props.listDocument?this.props.listDocument.list:null,
     }
+
+    listProxy = null
 
     highlightrefuid = null
 
     listcomponent
 
+    listDocument
+
+    listType
+
     setListListener = this.props.setListListener
 
     componentDidUpdate() {
+        if (!this.listProxy && this.props.listProxy) {
+            this.listProxy = this.listProxy
+        }
         // console.log('componentDidUpdate higlightrefuid',this.props.highlightrefuid)
         if (this.props.highlightrefuid) {
             this.highlightrefuid = this.props.highlightrefuid
         }
-        if ((!this.state.list) && this.props.listDocument) {
+        if ((!this.state.listtokens) && this.props.listDocument) {
             // console.log('setting list state',this.props.highlightrefuid)
             this.setState({
                 list:this.props.listDocument.list
@@ -47,13 +56,13 @@ class DirectoryListBase extends React.Component<any,any> {
     }
 
     dohighlight = () => {
-        if ((!this.highlightrefuid) || (!this.state.list))  return
+        if ((!this.highlightrefuid) || (!this.state.listtokens))  return
         // console.log('doing highlight')
         // keep; value will be purged
         let highlightrefuid = this.highlightrefuid
         this.highlightrefuid = null
         // get index for Lister
-        let index = this.state.list.findIndex(this.findlinkIndex(highlightrefuid))
+        let index = this.state.listtokens.findIndex(this.findlinkIndex(highlightrefuid))
         // update scroll display with selected highlight item
         this.listcomponent.current.scrollAround(index)
 
@@ -85,7 +94,7 @@ class DirectoryListBase extends React.Component<any,any> {
     }
 
     itemRenderer = (index,key) => {
-        return this.getListComponent(this.state.list[index],key)
+        return this.getListComponent(this.state.listtokens[index],key)
     }
 
     getListComponent = (token, key) => {
@@ -108,10 +117,10 @@ class DirectoryListBase extends React.Component<any,any> {
 
     render() {
 
-        return this.state.list?<Lister 
+        return this.state.listtokens?<Lister 
             ref = {this.props.forwardedRef}
             itemRenderer = {this.itemRenderer}
-            length = {this.state.list?this.state.list.length:0}
+            length = {this.state.listtokens?this.state.listtokens.length:0}
             type = 'uniform'
         />:<CircularProgress size = {24} />
     }

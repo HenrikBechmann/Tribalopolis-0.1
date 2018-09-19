@@ -245,18 +245,12 @@ class Quadrant extends React.Component<any,any>  {
         // replace forward stack items
         datastack.splice(stackpointer,datastack.length,newstacklayer)
 
-        // let template = JSON.stringify(itemProxy)
-
-        console.log('itemProxy in splayBox BEFORE',Object.assign({},itemProxy))
-
         for (let token of listtokens) {
             let newItemProxy = new proxy({token:itemToken})
             newItemProxy.liststack = itemProxy.liststack.slice() // copy
             newItemProxy.liststack.push(token)
             newstacklayer.items.push(newItemProxy)
         }
-
-        console.log('itemProxy in splayBox',itemProxy,newstacklayer)
 
         setTimeout(() => { // delay for animation
             this.setState({
@@ -418,12 +412,11 @@ class Quadrant extends React.Component<any,any>  {
             matchForTarget = (collapseTargetData.index == index)
         }
         let callbacks = {
+            // data fulfillment
             setListListener:this.setListListener,
-            // temporary name while setListListener gets normalized
-            setListListenerA:(listdoctoken,callback) => {
-                this.setListListener( listdoctoken,itemProxy.instanceid,callback)},
-            setItemListener:(callback) => {
-                this.setItemListener( itemProxy.token, itemProxy.instanceid, callback)},
+            setItemListener:this.setItemListener,
+
+            // animations and operations
             highlightBox:animations.highlightBox,
             splayBox:(domSource, listcomponent,listdoctoken) => {
                 this.splayBox(index, domSource, listcomponent,listdoctoken)},
@@ -437,8 +430,8 @@ class Quadrant extends React.Component<any,any>  {
             <DataBox 
                 key = { itemProxy.instanceid } 
 
-                collapseTargetData = {matchForTarget?collapseTargetData:null}
                 itemProxy = { itemProxy }
+                collapseTargetData = {matchForTarget?collapseTargetData:null}
                 haspeers = { haspeers }
                 index = { index }
                 containerHeight = { containerHeight }

@@ -9,6 +9,7 @@ import BoxTypebar from './databox/typebar.view';
 import DirectoryBar from './databox/directorybar.view';
 import DirectoryList from './databox/directorylist.view';
 // import ScanBar from './databox/scanbar.view'
+import proxy from '../utilities/proxy';
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
@@ -58,7 +59,7 @@ class DataBox extends React.Component {
             this.setState((state) => {
                 return Object.assign({}, state, { item: { data, type } });
             }, () => {
-                if (!this.state.list) {
+                if (!this.listdoctoken) {
                     let listdoctoken;
                     if (this.itemProxy.liststack.length) {
                         listdoctoken = this.itemProxy.liststack[this.itemProxy.liststack.length - 1];
@@ -67,7 +68,8 @@ class DataBox extends React.Component {
                         listdoctoken = this.state.item.data.list;
                     }
                     this.listdoctoken = listdoctoken;
-                    this.props.callbacks.setListListenerA(listdoctoken, this.cacheListData);
+                    this.listProxy = new proxy({ token: listdoctoken });
+                    this.props.callbacks.setListListener(listdoctoken, this.listProxy.instanceid, this.cacheListData);
                 }
             });
         };
@@ -133,8 +135,7 @@ class DataBox extends React.Component {
         this.listcomponent = React.createRef();
     }
     componentDidMount() {
-        // console.log('box componentDidMount')
-        this.props.callbacks.setItemListener(this.cacheItemData);
+        this.props.callbacks.setItemListener(this.itemProxy.token, this.itemProxy.instanceid, this.cacheItemData);
     }
     componentDidUpdate() {
         let { collapseTargetData } = this.props;
@@ -223,7 +224,7 @@ class DataBox extends React.Component {
                 </div>
                 
                 <div style={scrollboxstyle}>
-                    <DirectoryList ref={this.listcomponent} listDocument={listDocument} highlightrefuid={this.state.highlightrefuid} setListListener={this.props.callbacks.setListListener} expandDirectoryItem={this.props.callbacks.expandDirectoryItem} highlightItem={this.highlightItem}/>
+                    <DirectoryList ref={this.listcomponent} listProxy={this.listProxy} listDocument={listDocument} listType={listItemType} highlightrefuid={this.state.highlightrefuid} setListListener={this.props.callbacks.setListListener} expandDirectoryItem={this.props.callbacks.expandDirectoryItem} highlightItem={this.highlightItem}/>
                 </div>
                 
                 {this.modifybuttons(listItemType)}

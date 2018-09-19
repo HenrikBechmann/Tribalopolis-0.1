@@ -112,15 +112,12 @@ class Quadrant extends React.Component {
                 } };
             // replace forward stack items
             datastack.splice(stackpointer, datastack.length, newstacklayer);
-            // let template = JSON.stringify(itemProxy)
-            console.log('itemProxy in splayBox BEFORE', Object.assign({}, itemProxy));
             for (let token of listtokens) {
                 let newItemProxy = new proxy({ token: itemToken });
                 newItemProxy.liststack = itemProxy.liststack.slice(); // copy
                 newItemProxy.liststack.push(token);
                 newstacklayer.items.push(newItemProxy);
             }
-            console.log('itemProxy in splayBox', itemProxy, newstacklayer);
             setTimeout(() => {
                 this.setState({
                     stackpointer,
@@ -248,14 +245,10 @@ class Quadrant extends React.Component {
                 matchForTarget = (collapseTargetData.index == index);
             }
             let callbacks = {
+                // data fulfillment
                 setListListener: this.setListListener,
-                // temporary name while setListListener gets normalized
-                setListListenerA: (listdoctoken, callback) => {
-                    this.setListListener(listdoctoken, itemProxy.instanceid, callback);
-                },
-                setItemListener: (callback) => {
-                    this.setItemListener(itemProxy.token, itemProxy.instanceid, callback);
-                },
+                setItemListener: this.setItemListener,
+                // animations and operations
                 highlightBox: animations.highlightBox,
                 splayBox: (domSource, listcomponent, listdoctoken) => {
                     this.splayBox(index, domSource, listcomponent, listdoctoken);
@@ -268,7 +261,7 @@ class Quadrant extends React.Component {
                 },
                 collapseDirectoryItem: this.collapseDirectoryItem,
             };
-            return (<DataBox key={itemProxy.instanceid} collapseTargetData={matchForTarget ? collapseTargetData : null} itemProxy={itemProxy} haspeers={haspeers} index={index} containerHeight={containerHeight} boxwidth={haspeers ? 300 : this.state.boxwidth} callbacks={callbacks}/>);
+            return (<DataBox key={itemProxy.instanceid} itemProxy={itemProxy} collapseTargetData={matchForTarget ? collapseTargetData : null} haspeers={haspeers} index={index} containerHeight={containerHeight} boxwidth={haspeers ? 300 : this.state.boxwidth} callbacks={callbacks}/>);
         };
         this.quadcontentelement = React.createRef();
         // animation dom elements
