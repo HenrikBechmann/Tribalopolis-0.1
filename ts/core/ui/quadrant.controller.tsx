@@ -11,9 +11,8 @@ import React from 'react'
 import QuadOrigin from './quadrant/quadorigin.view'
 import QuadTitleBar from './quadrant/quadtitlebar.view'
 
-import DataBox from './databox.controller'
-// import {serializer} from '../../core/utilities/serializer'
 import proxy from '../../core/utilities/proxy'
+import DataBox from './databox.controller'
 import Lister from 'react-list'
 
 import animations from './quadrant/quadanimations.utilities'
@@ -203,8 +202,7 @@ class Quadrant extends React.Component<any,any>  {
         // replace forward stack items
         datastack.splice(stackpointer,datastack.length,newstacklayer)
 
-        let newItemProxy = new proxy({token:itemProxy.token}) // JSON.parse(JSON.stringify(itemProxy))
-        // newItemProxy.instanceid = serializer.getid()
+        let newItemProxy = new proxy({token:itemProxy.token})
 
         newItemProxy.liststack.push(listtoken)
 
@@ -253,7 +251,7 @@ class Quadrant extends React.Component<any,any>  {
 
         for (let token of listtokens) {
             let newItemProxy = new proxy({token:itemToken})
-            newItemProxy.liststack = itemProxy.liststack.slice()
+            newItemProxy.liststack = itemProxy.liststack.slice() // copy
             newItemProxy.liststack.push(token)
             newstacklayer.items.push(newItemProxy)
         }
@@ -294,9 +292,8 @@ class Quadrant extends React.Component<any,any>  {
         // replace forward stack items
         datastack.splice(stackpointer,datastack.length,newstacklayer)
 
-        let newItemProxy = new proxy({token:itemToken})// JSON.parse(JSON.stringify(itemProxy))
-        newItemProxy.liststack = itemProxy.liststack.slice()
-        // newItemProxy.instanceid = serializer.getid()
+        let newItemProxy = new proxy({token:itemToken})
+        newItemProxy.liststack = itemProxy.liststack.slice() // copy
         
         newstacklayer.items.push(newItemProxy)
 
