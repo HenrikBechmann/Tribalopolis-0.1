@@ -147,10 +147,13 @@ class QuadspaceController extends React.Component<any,any> {
         handleSwap:this.handleSwap, 
         setItemListener:application.setItemListener, 
         setListListener:application.setListListener, 
-        setTypeListener:application.setTypeListener, 
         selectQuadrant:this.selectQuadrant, 
         calcQuadrantPosition:this.calcQuadrantPosition,
     }
+
+    quadtoolsstyle = {right:'96px'}
+
+    badgestyle = {left:'-12px'}
 
     render() {
         return (
@@ -160,7 +163,7 @@ class QuadspaceController extends React.Component<any,any> {
                     <QuadToolsStrip 
                         user = {user}
                         childrenposition = 'middle'
-                        style = {{right:'96px'}}
+                        style = {this.quadtoolsstyle}
                     >
                         <QuadNavigationMenu 
                             currentQuadPosition = {this.state.currentQuadPosition} 
@@ -175,14 +178,15 @@ class QuadspaceController extends React.Component<any,any> {
                     </QuadToolsStrip>)
                 }
                 </UserContext.Consumer>
-                <QuadBasket><QuantityBadge quantity = {0} style = {{left:'-12px'}} /></QuadBasket>
+                <QuadBasket><QuantityBadge quantity = {0} style = {this.badgestyle} /></QuadBasket>
                 <QuadViewport>
-                    <Quadrants 
-                        callbacks = {this.quadrantcallbacks}
+                    <Quadrants                         
                         quadrantIdentifiers =  {this.quadrantIdentifiers}
                         split = {this.state.split}
                         datastacks = {this.state.datastacks}
                         currentQuadPosition = {this.state.currentQuadPosition}
+
+                        callbacks = {this.quadrantcallbacks}
                     />
                 </QuadViewport>
                 <QuadStatusBar status = 'prompts' />

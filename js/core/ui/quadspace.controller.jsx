@@ -117,10 +117,11 @@ class QuadspaceController extends React.Component {
             handleSwap: this.handleSwap,
             setItemListener: application.setItemListener,
             setListListener: application.setListListener,
-            setTypeListener: application.setTypeListener,
             selectQuadrant: this.selectQuadrant,
             calcQuadrantPosition: this.calcQuadrantPosition,
         };
+        this.quadtoolsstyle = { right: '96px' };
+        this.badgestyle = { left: '-12px' };
         this.quadrantIdentifiers = this.state.quadrantPositions.map((value) => {
             return (value + 1).toString();
         });
@@ -128,16 +129,16 @@ class QuadspaceController extends React.Component {
     render() {
         return (<QuadSpaceFrame>
                 <UserContext.Consumer>
-                {user => (<QuadToolsStrip user={user} childrenposition='middle' style={{ right: '96px' }}>
+                {user => (<QuadToolsStrip user={user} childrenposition='middle' style={this.quadtoolsstyle}>
                         <QuadNavigationMenu currentQuadPosition={this.state.currentQuadPosition} split={this.state.split} selectQuad={this.selectQuad}/>
                         <VerticalDivider />
                         <SplitNavigationMenu split={this.state.split} changeSplitFrom={this.changeSplitFrom}/>
                         <VerticalDivider />
                     </QuadToolsStrip>)}
                 </UserContext.Consumer>
-                <QuadBasket><QuantityBadge quantity={0} style={{ left: '-12px' }}/></QuadBasket>
+                <QuadBasket><QuantityBadge quantity={0} style={this.badgestyle}/></QuadBasket>
                 <QuadViewport>
-                    <Quadrants callbacks={this.quadrantcallbacks} quadrantIdentifiers={this.quadrantIdentifiers} split={this.state.split} datastacks={this.state.datastacks} currentQuadPosition={this.state.currentQuadPosition}/>
+                    <Quadrants quadrantIdentifiers={this.quadrantIdentifiers} split={this.state.split} datastacks={this.state.datastacks} currentQuadPosition={this.state.currentQuadPosition} callbacks={this.quadrantcallbacks}/>
                 </QuadViewport>
                 <QuadStatusBar status='prompts'/>
             </QuadSpaceFrame>);

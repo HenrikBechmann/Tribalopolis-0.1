@@ -38,9 +38,9 @@ class Quadrant extends React.Component<any,any>  {
         this.scrollboxelement = React.createRef()
         this.listcomponent = React.createRef()
 
+        // callbacks
         this.setItemListener = this.props.callbacks.setItemListener
         this.setListListener = this.props.callbacks.setListListener
-        this.setTypeListener = this.props.callbacks.setTypeListener
 
         window.addEventListener('resize',this.onResize)
 
@@ -49,7 +49,7 @@ class Quadrant extends React.Component<any,any>  {
     state = {
         datastack:null,
         stackpointer:0,
-        collapseTargetData:null,
+        collapseTargetProxy:null,
         boxwidth:300
     }
 
@@ -62,13 +62,12 @@ class Quadrant extends React.Component<any,any>  {
     scrollboxelement
     listcomponent
 
-    // get records
+    // callbacks get records
     setItemListener
     setListListener
-    setTypeListener
 
     // trigger for animation and reset
-    collapseTargetData = null
+    collapseTargetProxy = null
 
 /********************************************************
 ------------------[ lifecycle methods ]------------------
@@ -86,34 +85,35 @@ class Quadrant extends React.Component<any,any>  {
 
     componentDidUpdate() {
 
-        if (!this.collapseTargetData) return
+        // animation and visibilit based on return from descendant stack level
+        if (!this.collapseTargetProxy) return
 
         // keep; value will be purged
-        let collapseTargetData = this.collapseTargetData
-        this.collapseTargetData = null
+        let collapseTargetProxy = this.collapseTargetProxy
+        this.collapseTargetProxy = null
         // get index for Lister
         let index = this.state.datastack
             [this.state.stackpointer].items
             .findIndex
                 (this._findlinkIndex
-                    (collapseTargetData.sourceinstanceid))
+                    (collapseTargetProxy.sourceinstanceid))
 
         // update scroll display with selected highlight item
-        collapseTargetData.index = index
+        collapseTargetProxy.index = index
 
-        setTimeout( () => {
+        setTimeout( () => { // defer to currently running code
 
             if (this.listcomponent && (this.state.datastack[this.state.stackpointer].items.length > 1)) {
                 this.listcomponent.current.scrollAround(index)
             }
 
-            setTimeout(()=>{
-                this.setState({
-                    collapseTargetData,
+            setTimeout(()=>{ // time for scroll to take place
+                this.setState({ // trigger animation response
+                    collapseTargetProxy,
                 },()=> {
                     setTimeout(()=>{
-                        this.setState({
-                            collapseTargetData:null
+                        this.setState({ // cancel animation response
+                            collapseTargetProxy:null
                         })                        
                     })
                 })
@@ -318,7 +318,7 @@ class Quadrant extends React.Component<any,any>  {
 
     collapseDirectoryItem = (itemProxy) => {
 
-        this.collapseTargetData = Object.assign({},itemProxy)
+        this.collapseTargetProxy = Object.assign({},itemProxy)
 
         this.decrementStackSelector()
 
@@ -341,14 +341,13 @@ class Quadrant extends React.Component<any,any>  {
 
     _updateCollapseSettings = (stackpointer, datastack) => {
 
-        let stacksource = null
-        if (this.collapseTargetData) {
+        if (this.collapseTargetProxy) {
             let sourcelayer = datastack[this.state.stackpointer]
             if (sourcelayer) {
-                stacksource = sourcelayer.source
+                let stacksource = sourcelayer.source
                 if (stacksource) {
-                    this.collapseTargetData.action = stacksource.action
-                    this.collapseTargetData.sourceinstanceid = stacksource.instanceid
+                    this.collapseTargetProxy.action = stacksource.action
+                    this.collapseTargetProxy.sourceinstanceid = stacksource.instanceid
                 }
             }
             if (stackpointer > 0) {
@@ -368,7 +367,7 @@ class Quadrant extends React.Component<any,any>  {
         let stacklayer = datastack[stackpointer]
         let { items } = stacklayer
 
-        if ((items.length > 1) && (!this.collapseTargetData)) {
+        if ((items.length > 1) && (!this.collapseTargetProxy)) {
             if (stacklayer.settings.scrollOffset !== null) {
                 setTimeout(() => { // give deference to formation of scroll object
 
@@ -407,11 +406,11 @@ class Quadrant extends React.Component<any,any>  {
         let containerHeight = this.scrollboxelement.current.offsetHeight
 
         let matchForTarget = false
-        let { collapseTargetData } = this.state
-        if (collapseTargetData) {
-            matchForTarget = (collapseTargetData.index == index)
+        let { collapseTargetProxy } = this.state
+        if (collapseTargetProxy) {
+            matchForTarget = (collapseTargetProxy.index == index)
         }
-        let callbacks = {
+        let boxcallbacks = {
             // data fulfillment
             setListListener:this.setListListener,
             setItemListener:this.setItemListener,
@@ -431,13 +430,13 @@ class Quadrant extends React.Component<any,any>  {
                 key = { itemProxy.instanceid } 
 
                 itemProxy = { itemProxy }
-                collapseTargetData = {matchForTarget?collapseTargetData:null}
+                collapseTargetProxy = {matchForTarget?collapseTargetProxy:null}
                 haspeers = { haspeers }
                 index = { index }
                 containerHeight = { containerHeight }
                 boxwidth = { haspeers?300:this.state.boxwidth }
 
-                callbacks = {callbacks}
+                callbacks = { boxcallbacks }
             />
         )
     }
@@ -445,6 +444,38 @@ class Quadrant extends React.Component<any,any>  {
 /********************************************************
 ------------------------[ render ]-----------------------
 *********************************************************/
+
+    quadcontentstyle:React.CSSProperties = {
+        boxSizing: 'border-box',
+        border: '3px outset gray',
+        position:'relative',
+        backgroundColor:'',
+        borderRadius:'8px',
+        width:'100%',
+        height:'100%',
+        overflow:'hidden',
+    }
+
+    viewportFrameStyle:React.CSSProperties = {
+        position:'absolute',
+        top:'calc(25px + 2%)',
+        backgroundColor:'',
+        left:'2%',
+        bottom:'2%',
+        right:'2%',
+        borderRadius:'8px',
+        overflow:'hidden',
+    }
+
+    viewportStyle:React.CSSProperties = { // borderRadius on scroller breaks scrollbar
+        width: '100%',
+        height:'100%',
+        overflow:'auto',
+        border: '1px solid gray',
+        boxSizing: 'border-box',
+        borderRadius: '8px',
+        position:'relative',
+    }
 
     // TODO: move style blocks out of render code
     render() {
@@ -455,41 +486,16 @@ class Quadrant extends React.Component<any,any>  {
 
         let haspeers = datastack?(this.state.datastack[this.state.stackpointer].items.length > 1):false
 
+        // object assignment defeats purpose of immutable objects, but avoids:
+        // Uncaught TypeError: Cannot assign to read only property 'backgroundColor' of object '#<Object>'
+        let quadcontentstyle = Object.assign({},this.quadcontentstyle)
+        let viewportStyle = Object.assign({},this.viewportStyle)
+        quadcontentstyle.backgroundColor = color
+        viewportStyle.backgroundColor = haspeers?'#e8e8e8':'lightblue'
+
         // Safari keeps scrollleft with content changes
         if (!haspeers && this.scrollboxelement.current && (this.scrollboxelement.current.scrollLeft != 0)) {
             this.scrollboxelement.current.scrollLeft = 0
-        }
-
-        let quadcontentstyle:React.CSSProperties = {
-            boxSizing: 'border-box',
-            border: '3px outset gray',
-            position:'relative',
-            backgroundColor:color,
-            borderRadius:'8px',
-            width:'100%',
-            height:'100%',
-            overflow:'hidden',
-        }
-
-        let viewportFrameStyle:React.CSSProperties = {
-            position:'absolute',
-            top:'calc(25px + 2%)',
-            left:'2%',
-            bottom:'2%',
-            right:'2%',
-            borderRadius:'8px',
-            overflow:'hidden',
-        }
-
-        let viewportStyle:React.CSSProperties = { // borderRadius on scroller breaks scrollbar
-            width: '100%',
-            height:'100%',
-            overflow:'auto',
-            backgroundColor:haspeers?'#e8e8e8':'lightblue',
-            border: '1px solid gray',
-            boxSizing: 'border-box',
-            borderRadius: '8px',
-            position:'relative',
         }
 
         return (
@@ -519,7 +525,7 @@ class Quadrant extends React.Component<any,any>  {
                     decrementStackSelector = {this.decrementStackSelector}
                     ref = {this.originelement}
                 />
-                <div style = {viewportFrameStyle}>
+                <div style = {this.viewportFrameStyle}>
                     <div 
                         style = {viewportStyle}
                         ref = {this.scrollboxelement}

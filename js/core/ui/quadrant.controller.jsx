@@ -20,11 +20,11 @@ class Quadrant extends React.Component {
         this.state = {
             datastack: null,
             stackpointer: 0,
-            collapseTargetData: null,
+            collapseTargetProxy: null,
             boxwidth: 300
         };
         // trigger for animation and reset
-        this.collapseTargetData = null;
+        this.collapseTargetProxy = null;
         this._findlinkIndex = (instanceid) => {
             return (itemDocumentProxy) => {
                 return itemDocumentProxy.instanceid == instanceid;
@@ -170,7 +170,7 @@ class Quadrant extends React.Component {
         };
         //-------------------------------[ backward ]----------------------------
         this.collapseDirectoryItem = (itemProxy) => {
-            this.collapseTargetData = Object.assign({}, itemProxy);
+            this.collapseTargetProxy = Object.assign({}, itemProxy);
             this.decrementStackSelector();
         };
         this.decrementStackSelector = () => {
@@ -188,14 +188,13 @@ class Quadrant extends React.Component {
             }
         };
         this._updateCollapseSettings = (stackpointer, datastack) => {
-            let stacksource = null;
-            if (this.collapseTargetData) {
+            if (this.collapseTargetProxy) {
                 let sourcelayer = datastack[this.state.stackpointer];
                 if (sourcelayer) {
-                    stacksource = sourcelayer.source;
+                    let stacksource = sourcelayer.source;
                     if (stacksource) {
-                        this.collapseTargetData.action = stacksource.action;
-                        this.collapseTargetData.sourceinstanceid = stacksource.instanceid;
+                        this.collapseTargetProxy.action = stacksource.action;
+                        this.collapseTargetProxy.sourceinstanceid = stacksource.instanceid;
                     }
                 }
                 if (stackpointer > 0) {
@@ -212,7 +211,7 @@ class Quadrant extends React.Component {
         this._applySettings = (stackpointer, datastack) => {
             let stacklayer = datastack[stackpointer];
             let { items } = stacklayer;
-            if ((items.length > 1) && (!this.collapseTargetData)) {
+            if ((items.length > 1) && (!this.collapseTargetProxy)) {
                 if (stacklayer.settings.scrollOffset !== null) {
                     setTimeout(() => {
                         this.scrollboxelement.current.scrollLeft = stacklayer.settings.scrollOffset;
@@ -240,11 +239,11 @@ class Quadrant extends React.Component {
         this.getBoxComponent = (itemProxy, index, haspeers, key) => {
             let containerHeight = this.scrollboxelement.current.offsetHeight;
             let matchForTarget = false;
-            let { collapseTargetData } = this.state;
-            if (collapseTargetData) {
-                matchForTarget = (collapseTargetData.index == index);
+            let { collapseTargetProxy } = this.state;
+            if (collapseTargetProxy) {
+                matchForTarget = (collapseTargetProxy.index == index);
             }
-            let callbacks = {
+            let boxcallbacks = {
                 // data fulfillment
                 setListListener: this.setListListener,
                 setItemListener: this.setItemListener,
@@ -261,7 +260,39 @@ class Quadrant extends React.Component {
                 },
                 collapseDirectoryItem: this.collapseDirectoryItem,
             };
-            return (<DataBox key={itemProxy.instanceid} itemProxy={itemProxy} collapseTargetData={matchForTarget ? collapseTargetData : null} haspeers={haspeers} index={index} containerHeight={containerHeight} boxwidth={haspeers ? 300 : this.state.boxwidth} callbacks={callbacks}/>);
+            return (<DataBox key={itemProxy.instanceid} itemProxy={itemProxy} collapseTargetProxy={matchForTarget ? collapseTargetProxy : null} haspeers={haspeers} index={index} containerHeight={containerHeight} boxwidth={haspeers ? 300 : this.state.boxwidth} callbacks={boxcallbacks}/>);
+        };
+        /********************************************************
+        ------------------------[ render ]-----------------------
+        *********************************************************/
+        this.quadcontentstyle = {
+            boxSizing: 'border-box',
+            border: '3px outset gray',
+            position: 'relative',
+            backgroundColor: '',
+            borderRadius: '8px',
+            width: '100%',
+            height: '100%',
+            overflow: 'hidden',
+        };
+        this.viewportFrameStyle = {
+            position: 'absolute',
+            top: 'calc(25px + 2%)',
+            backgroundColor: '',
+            left: '2%',
+            bottom: '2%',
+            right: '2%',
+            borderRadius: '8px',
+            overflow: 'hidden',
+        };
+        this.viewportStyle = {
+            width: '100%',
+            height: '100%',
+            overflow: 'auto',
+            border: '1px solid gray',
+            boxSizing: 'border-box',
+            borderRadius: '8px',
+            position: 'relative',
         };
         this.quadcontentelement = React.createRef();
         // animation dom elements
@@ -272,9 +303,9 @@ class Quadrant extends React.Component {
         this.originelement = React.createRef();
         this.scrollboxelement = React.createRef();
         this.listcomponent = React.createRef();
+        // callbacks
         this.setItemListener = this.props.callbacks.setItemListener;
         this.setListListener = this.props.callbacks.setListListener;
-        this.setTypeListener = this.props.callbacks.setTypeListener;
         window.addEventListener('resize', this.onResize);
     }
     /********************************************************
@@ -288,27 +319,28 @@ class Quadrant extends React.Component {
         });
     }
     componentDidUpdate() {
-        if (!this.collapseTargetData)
+        // animation and visibilit based on return from descendant stack level
+        if (!this.collapseTargetProxy)
             return;
         // keep; value will be purged
-        let collapseTargetData = this.collapseTargetData;
-        this.collapseTargetData = null;
+        let collapseTargetProxy = this.collapseTargetProxy;
+        this.collapseTargetProxy = null;
         // get index for Lister
         let index = this.state.datastack[this.state.stackpointer].items
-            .findIndex(this._findlinkIndex(collapseTargetData.sourceinstanceid));
+            .findIndex(this._findlinkIndex(collapseTargetProxy.sourceinstanceid));
         // update scroll display with selected highlight item
-        collapseTargetData.index = index;
+        collapseTargetProxy.index = index;
         setTimeout(() => {
             if (this.listcomponent && (this.state.datastack[this.state.stackpointer].items.length > 1)) {
                 this.listcomponent.current.scrollAround(index);
             }
             setTimeout(() => {
                 this.setState({
-                    collapseTargetData,
+                    collapseTargetProxy,
                 }, () => {
                     setTimeout(() => {
                         this.setState({
-                            collapseTargetData: null
+                            collapseTargetProxy: null
                         });
                     });
                 });
@@ -318,47 +350,21 @@ class Quadrant extends React.Component {
     componentWillUnmount() {
         window.removeEventListener('resize', this.onResize);
     }
-    /********************************************************
-    ------------------------[ render ]-----------------------
-    *********************************************************/
     // TODO: move style blocks out of render code
     render() {
         let { color } = this.props;
         let { datastack } = this.state;
         let haspeers = datastack ? (this.state.datastack[this.state.stackpointer].items.length > 1) : false;
+        // object assignment defeats purpose of immutable objects, but avoids:
+        // Uncaught TypeError: Cannot assign to read only property 'backgroundColor' of object '#<Object>'
+        let quadcontentstyle = Object.assign({}, this.quadcontentstyle);
+        let viewportStyle = Object.assign({}, this.viewportStyle);
+        quadcontentstyle.backgroundColor = color;
+        viewportStyle.backgroundColor = haspeers ? '#e8e8e8' : 'lightblue';
         // Safari keeps scrollleft with content changes
         if (!haspeers && this.scrollboxelement.current && (this.scrollboxelement.current.scrollLeft != 0)) {
             this.scrollboxelement.current.scrollLeft = 0;
         }
-        let quadcontentstyle = {
-            boxSizing: 'border-box',
-            border: '3px outset gray',
-            position: 'relative',
-            backgroundColor: color,
-            borderRadius: '8px',
-            width: '100%',
-            height: '100%',
-            overflow: 'hidden',
-        };
-        let viewportFrameStyle = {
-            position: 'absolute',
-            top: 'calc(25px + 2%)',
-            left: '2%',
-            bottom: '2%',
-            right: '2%',
-            borderRadius: '8px',
-            overflow: 'hidden',
-        };
-        let viewportStyle = {
-            width: '100%',
-            height: '100%',
-            overflow: 'auto',
-            backgroundColor: haspeers ? '#e8e8e8' : 'lightblue',
-            border: '1px solid gray',
-            boxSizing: 'border-box',
-            borderRadius: '8px',
-            position: 'relative',
-        };
         return (<div style={quadcontentstyle} ref={this.quadcontentelement}>
                 <div ref={this.drillanimationblock}>
                 </div>
@@ -368,7 +374,7 @@ class Quadrant extends React.Component {
                 </div>
                 <QuadTitleBar title={'path'} quadidentifier={this.props.quadidentifier}/>
                 <QuadOrigin stackpointer={this.state.stackpointer} stackdepth={datastack ? datastack.length : 0} incrementStackSelector={this.incrementStackSelector} decrementStackSelector={this.decrementStackSelector} ref={this.originelement}/>
-                <div style={viewportFrameStyle}>
+                <div style={this.viewportFrameStyle}>
                     <div style={viewportStyle} ref={this.scrollboxelement}>
                         {haspeers
             ? <Lister axis='x' itemRenderer={this.getBox} length={datastack ? datastack[this.state.stackpointer].items.length : 0} type='uniform' ref={this.listcomponent}/>

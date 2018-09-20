@@ -57,7 +57,7 @@ class DataBox extends React.Component<any,any> {
     boxframe
     listcomponent
 
-    collapseTargetData
+    collapseTargetProxy
 
     componentDidMount() {
         let { itemProxy } = this
@@ -70,27 +70,27 @@ class DataBox extends React.Component<any,any> {
 
     componentDidUpdate() {
 
-        let { collapseTargetData } = this.props
+        let { collapseTargetProxy } = this.props
 
-        if (collapseTargetData) {
-            this.waitingCollapseTargetData = collapseTargetData
+        if (collapseTargetProxy) {
+            this.waitingCollapseTargetData = collapseTargetProxy
         }
 
         if (!this.state.item) return
 
         if (!this.waitingCollapseTargetData) return
 
-        collapseTargetData = this.waitingCollapseTargetData
+        collapseTargetProxy = this.waitingCollapseTargetData
         this.waitingCollapseTargetData = null
 
-        if (this.collapseTargetData) return // avoid infinite recursion, triggered by list highlight
+        if (this.collapseTargetProxy) return // avoid infinite recursion, triggered by list highlight
 
-        this.collapseTargetData = collapseTargetData
+        this.collapseTargetProxy = collapseTargetProxy
 
         setTimeout(()=>{
-            this.doHighlights(collapseTargetData)
+            this.doHighlights(collapseTargetProxy)
             setTimeout(()=>{
-                this.collapseTargetData = null
+                this.collapseTargetProxy = null
             },2000)
         })
     }
@@ -122,16 +122,16 @@ class DataBox extends React.Component<any,any> {
         })
     }
 
-    doHighlights = (collapseTargetData) => {
+    doHighlights = (collapseTargetProxy) => {
 
         this.props.callbacks.highlightBox({boxElement:this.boxframe.current})
 
-        if (collapseTargetData.action == 'expand' || 
-            collapseTargetData.action == 'splay') {
+        if (collapseTargetProxy.action == 'expand' || 
+            collapseTargetProxy.action == 'splay') {
 
             let token = 
-                collapseTargetData.liststack[
-                    collapseTargetData.liststack.length -1]
+                collapseTargetProxy.liststack[
+                    collapseTargetProxy.liststack.length -1]
 
             if (token) {
 
@@ -215,7 +215,7 @@ class DataBox extends React.Component<any,any> {
         let frameStyle:React.CSSProperties = {
             width:this.props.boxwidth + 'px',
             backgroundColor:'white',
-            border:this.collapseTargetData?'1px solid blue':'1px solid silver',
+            border:this.collapseTargetProxy?'1px solid blue':'1px solid silver',
             maxHeight:'96%',
             minHeight:'60%',
             boxSizing:'border-box',
