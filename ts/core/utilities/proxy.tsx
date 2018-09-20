@@ -11,7 +11,11 @@ class proxy {
         if (token.repo == 'items') {
             this.liststack = []
         }
+        this.path = `${token.repo}/${token.uid}`
+        this.uid = token.uid
     }
+    path = null
+    uid = null
     token = null
     instanceid = null
     liststack = null

@@ -4,6 +4,8 @@
 import { serializer } from './serializer';
 class proxy {
     constructor({ token }) {
+        this.path = null;
+        this.uid = null;
         this.token = null;
         this.instanceid = null;
         this.liststack = null;
@@ -13,6 +15,8 @@ class proxy {
         if (token.repo == 'items') {
             this.liststack = [];
         }
+        this.path = `${token.repo}/${token.uid}`;
+        this.uid = token.uid;
     }
 }
 export default proxy;

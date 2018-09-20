@@ -35,9 +35,11 @@ class DirectoryListBase extends React.Component<any,any> {
         super(props)
         this.listcomponent = this.props.forwardedRef
     }
+
     state = {
         highlightrefuid:null,
-        listtokens:this.props.listDocument?this.props.listDocument.list:null,
+        list:null,
+        listproxies:new Map(),
     }
 
     listProxy = null
@@ -46,21 +48,17 @@ class DirectoryListBase extends React.Component<any,any> {
 
     listcomponent
 
-    listDocument
-
-    listType
-
-    setListListener = this.props.callbacks.setListListener
-
     componentDidUpdate() {
         if (!this.listProxy && this.props.listProxy) {
             this.listProxy = this.props.listProxy
+            this.props.callbacks.setListListener(
+                this.listProxy.token,this.listProxy.instanceid,this.cacheListDocument)
         }
         // console.log('componentDidUpdate higlightrefuid',this.props.highlightrefuid)
         if (this.props.highlightrefuid) {
             this.highlightrefuid = this.props.highlightrefuid
         }
-        if ((!this.state.listtokens) && this.props.listDocument) {
+        if ((!this.state.listproxies.size) && this.props.listDocument) {
             // console.log('setting list state',this.props.highlightrefuid)
             this.setState({
                 list:this.props.listDocument.list
@@ -75,7 +73,7 @@ class DirectoryListBase extends React.Component<any,any> {
         }
     }
 
-    cacheListData = (data,type) => {
+    cacheListDocument = (data,type) => {
         this.setState({
             list:{
                 data,
@@ -85,13 +83,15 @@ class DirectoryListBase extends React.Component<any,any> {
     }
 
     dohighlight = () => {
-        if ((!this.highlightrefuid) || (!this.state.listtokens))  return
+        if ((!this.highlightrefuid) || (!this.state.listproxies.size))  return
+        let { listproxies } = this.state
         // console.log('doing highlight')
         // keep; value will be purged
         let highlightrefuid = this.highlightrefuid
         this.highlightrefuid = null
         // get index for Lister
-        let index = this.state.listtokens.findIndex(this.findlinkIndex(highlightrefuid))
+        let mapkeys = Array.from(listproxies.values())
+        let index = mapkeys.findIndex(this.findlinkIndex(highlightrefuid))
         // update scroll display with selected highlight item
         this.listcomponent.current.scrollAround(index)
 
@@ -123,19 +123,19 @@ class DirectoryListBase extends React.Component<any,any> {
     }
 
     itemRenderer = (index,key) => {
-        return this.getListComponent(this.state.listtokens[index],key)
+        return this.getListComponent(this.state.listproxies[index],key)
     }
 
-    getListComponent = (token, key) => {
+    getListComponent = (proxy, key) => {
 
-        let listDocument = this.setListListener(token)
-        let highlight = (token.uid === this.state.highlightrefuid)
+        // let listDocument = this.setListListener(token)
+        let highlight = (proxy.uid === this.state.highlightrefuid)
         let catitem = 
             <DirectoryItem 
                 key = {key} 
-                uid = {token.uid} 
-                listDocument = {listDocument} 
-                expandDirectoryItem = {this.expandDirectoryItem(token)}
+                uid = {proxy.uid} 
+                listProxy = {proxy} 
+                expandDirectoryItem = {this.expandDirectoryItem(proxy.token)}
                 highlight = {highlight}
                 highlightItem = {this.props.callbacks.highlightItem}
             />
@@ -161,10 +161,10 @@ class DirectoryListBase extends React.Component<any,any> {
 
     render() {
 
-        return this.state.listtokens?<Lister 
+        return this.state.listproxies?<Lister 
             ref = {this.props.forwardedRef}
             itemRenderer = {this.itemRenderer}
-            length = {this.state.listtokens?this.state.listtokens.length:0}
+            length = {this.state.listproxies?this.state.listproxies.size:0}
             type = 'uniform'
         />:<CircularProgress size = {24} />
     }

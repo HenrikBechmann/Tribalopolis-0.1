@@ -25,12 +25,12 @@ class DirectoryListBase extends React.Component {
         super(props);
         this.state = {
             highlightrefuid: null,
-            listtokens: this.props.listDocument ? this.props.listDocument.list : null,
+            list: null,
+            listproxies: new Map(),
         };
         this.listProxy = null;
         this.highlightrefuid = null;
-        this.setListListener = this.props.callbacks.setListListener;
-        this.cacheListData = (data, type) => {
+        this.cacheListDocument = (data, type) => {
             this.setState({
                 list: {
                     data,
@@ -39,14 +39,16 @@ class DirectoryListBase extends React.Component {
             });
         };
         this.dohighlight = () => {
-            if ((!this.highlightrefuid) || (!this.state.listtokens))
+            if ((!this.highlightrefuid) || (!this.state.listproxies.size))
                 return;
+            let { listproxies } = this.state;
             // console.log('doing highlight')
             // keep; value will be purged
             let highlightrefuid = this.highlightrefuid;
             this.highlightrefuid = null;
             // get index for Lister
-            let index = this.state.listtokens.findIndex(this.findlinkIndex(highlightrefuid));
+            let mapkeys = Array.from(listproxies.values());
+            let index = mapkeys.findIndex(this.findlinkIndex(highlightrefuid));
             // update scroll display with selected highlight item
             this.listcomponent.current.scrollAround(index);
             setTimeout(() => {
@@ -71,12 +73,12 @@ class DirectoryListBase extends React.Component {
             };
         };
         this.itemRenderer = (index, key) => {
-            return this.getListComponent(this.state.listtokens[index], key);
+            return this.getListComponent(this.state.listproxies[index], key);
         };
-        this.getListComponent = (token, key) => {
-            let listDocument = this.setListListener(token);
-            let highlight = (token.uid === this.state.highlightrefuid);
-            let catitem = <DirectoryItem key={key} uid={token.uid} listDocument={listDocument} expandDirectoryItem={this.expandDirectoryItem(token)} highlight={highlight} highlightItem={this.props.callbacks.highlightItem}/>;
+        this.getListComponent = (proxy, key) => {
+            // let listDocument = this.setListListener(token)
+            let highlight = (proxy.uid === this.state.highlightrefuid);
+            let catitem = <DirectoryItem key={key} uid={proxy.uid} listProxy={proxy} expandDirectoryItem={this.expandDirectoryItem(proxy.token)} highlight={highlight} highlightItem={this.props.callbacks.highlightItem}/>;
             return catitem;
         };
         this.modifybuttons = (listItemType) => {
@@ -95,12 +97,13 @@ class DirectoryListBase extends React.Component {
     componentDidUpdate() {
         if (!this.listProxy && this.props.listProxy) {
             this.listProxy = this.props.listProxy;
+            this.props.callbacks.setListListener(this.listProxy.token, this.listProxy.instanceid, this.cacheListDocument);
         }
         // console.log('componentDidUpdate higlightrefuid',this.props.highlightrefuid)
         if (this.props.highlightrefuid) {
             this.highlightrefuid = this.props.highlightrefuid;
         }
-        if ((!this.state.listtokens) && this.props.listDocument) {
+        if ((!this.state.listproxies.size) && this.props.listDocument) {
             // console.log('setting list state',this.props.highlightrefuid)
             this.setState({
                 list: this.props.listDocument.list
@@ -116,7 +119,7 @@ class DirectoryListBase extends React.Component {
         }
     }
     render() {
-        return this.state.listtokens ? <Lister ref={this.props.forwardedRef} itemRenderer={this.itemRenderer} length={this.state.listtokens ? this.state.listtokens.length : 0} type='uniform'/> : <CircularProgress size={24}/>;
+        return this.state.listproxies ? <Lister ref={this.props.forwardedRef} itemRenderer={this.itemRenderer} length={this.state.listproxies ? this.state.listproxies.size : 0} type='uniform'/> : <CircularProgress size={24}/>;
     }
 }
 const DirectoryList = React.forwardRef((props, ref) => {
