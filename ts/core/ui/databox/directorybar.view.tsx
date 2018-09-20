@@ -16,6 +16,15 @@ class DirectoryBar extends React.Component<any,any> {
         list:null
     }
 
+    cacheListData = (data,type) => {
+        this.setState({
+            list:{
+                data,
+                type
+            }
+        })
+    }
+
     listProxy
 
     barstyle:React.CSSProperties = {

@@ -6,18 +6,35 @@ import ActionButton from '../common/actionbutton.view';
 class BoxToolbar extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {
+            list: null
+        };
+        this.cacheListData = (data, type) => {
+            this.setState({
+                list: {
+                    data,
+                    type
+                }
+            });
+        };
         this.selectFromSplay = () => {
             return () => {
-                this.props.selectFromSplay(this.selectdomsource.current);
+                this.props.callbacks.selectFromSplay(this.selectdomsource.current);
             };
         };
         this.splayBox = () => {
             return () => {
-                this.props.splayBox(this.splaydomsource.current);
+                this.props.callbacks.splayBox(this.splaydomsource.current, this.state.list.data);
             };
         };
         this.splaydomsource = React.createRef();
         this.selectdomsource = React.createRef();
+    }
+    componentDidUpdate() {
+        if (!this.listProxy && this.props.listProxy) {
+            this.listProxy = this.props.listProxy;
+            this.props.callbacks.setListListener(this.listProxy.token, this.listProxy.instanceid, this.cacheListData);
+        }
     }
     render() {
         let props = this.props;
@@ -32,6 +49,7 @@ class BoxToolbar extends React.Component {
             boxSizing: 'border-box',
         };
         let boxicon = '/public/icons/databox.svg';
+        let listcount = this.state.list ? this.state.list.data.list.length : 0;
         let haspeers = props.haspeers;
         return <div style={styles}>
 
@@ -42,7 +60,7 @@ class BoxToolbar extends React.Component {
                 <ActionButton iconStyle={{ transform: 'rotate(90deg)' }} disabled={!haspeers} img='/public/icons/ic_splay_24px.svg' action={this.selectFromSplay()}/>
             </div>
             <div style={{ float: 'right' }} ref={this.splaydomsource}>
-                <ActionButton img='/public/icons/ic_splay_24px.svg' disabled={!props.listcount} action={this.splayBox()}/>
+                <ActionButton img='/public/icons/ic_splay_24px.svg' disabled={!listcount} action={this.splayBox()}/>
             </div>
 
             <div style={{

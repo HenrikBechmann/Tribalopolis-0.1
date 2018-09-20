@@ -12,6 +12,14 @@ class DirectoryBar extends React.Component {
         this.state = {
             list: null
         };
+        this.cacheListData = (data, type) => {
+            this.setState({
+                list: {
+                    data,
+                    type
+                }
+            });
+        };
         this.barstyle = {
             width: '100%',
             borderRadius: '8px 8px 0 0',

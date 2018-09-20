@@ -60,8 +60,9 @@ class DataBox extends React.Component<any,any> {
     collapseTargetData
 
     componentDidMount() {
+        let { itemProxy } = this
         this.props.callbacks.setItemListener(
-            this.itemProxy.token, this.itemProxy.instanceid,this.cacheItemData
+            itemProxy.token, itemProxy.instanceid,this.cacheItemData
         )
     }
 
@@ -104,7 +105,7 @@ class DataBox extends React.Component<any,any> {
                 data,
                 type
             }
-        }),() => {
+        },() => {
             if (!this.state.listProxy) { // no proxies have been set
                 let listdoctoken
                 if (this.itemProxy.liststack.length) {
@@ -118,7 +119,7 @@ class DataBox extends React.Component<any,any> {
                     listTypeProxy: new proxy({token:listdoctoken}),
                 })
             }
-        }
+        })
     }
 
     doHighlights = (collapseTargetData) => {
@@ -193,11 +194,18 @@ class DataBox extends React.Component<any,any> {
         highlightItem:this.highlightItem,
     }
 
+    typecallbacks = {
+        setListListener:this.props.callbacks.setListListener,
+        splayBox:this.splayBox,
+        selectFromSplay:this.props.callbacks.selectFromSplay,
+    }
+
     render() {
 
         let { setListListener, haspeers } = this.props
 
         let item = this.state.item?this.state.item.data:null
+        let itemType = this.state.item?this.state.item.type:null
 
         let wrapperStyle:React.CSSProperties = {
             float:haspeers?'left':'none',
@@ -250,12 +258,11 @@ class DataBox extends React.Component<any,any> {
             {haspeers?null:<ResizeTab />}
             <BoxTypebar 
                 item = {item} 
+                itemType = {itemType}
                 listProxy = {this.state.listTypeProxy}
-                setListListener = {this.props.callbacks.setListListener}
-
                 haspeers = {this.props.haspeers}
-                splayBox = {this.splayBox}
-                selectFromSplay = {this.props.callbacks.selectFromSplay}
+
+                callbacks = {this.typecallbacks}
             />
             <BoxIdentityBar item = {item} />
             <div style = {

@@ -17,15 +17,37 @@ class BoxToolbar extends React.Component<any,any> {
     splaydomsource
     selectdomsource
 
+    state = {
+        list:null
+    }
+
+    listProxy
+
+    componentDidUpdate() {
+        if (!this.listProxy && this.props.listProxy) {
+            this.listProxy = this.props.listProxy
+            this.props.callbacks.setListListener(this.listProxy.token,this.listProxy.instanceid,this.cacheListData)
+        }
+    }
+
+    cacheListData = (data,type) => {
+        this.setState({
+            list:{
+                data,
+                type
+            }
+        })
+    }
+
     selectFromSplay = () => {
         return () => {
-            this.props.selectFromSplay(this.selectdomsource.current)
+            this.props.callbacks.selectFromSplay(this.selectdomsource.current)
         }
     }
 
     splayBox = () => {
         return () => {
-            this.props.splayBox(this.splaydomsource.current)
+            this.props.callbacks.splayBox(this.splaydomsource.current, this.state.list.data)
         }
     }
 
@@ -45,6 +67,8 @@ class BoxToolbar extends React.Component<any,any> {
         }
 
         let boxicon = '/public/icons/databox.svg'
+
+        let listcount = this.state.list?this.state.list.data.list.length:0
 
         let haspeers = props.haspeers
 
@@ -72,7 +96,7 @@ class BoxToolbar extends React.Component<any,any> {
             >
                 <ActionButton 
                     img = '/public/icons/ic_splay_24px.svg'
-                    disabled = {!props.listcount} 
+                    disabled = {!listcount} 
                     action = {this.splayBox()}
                 />
             </div>

@@ -47,7 +47,7 @@ class DataBox extends React.Component {
                     data,
                     type
                 }
-            }), () => {
+            }, () => {
                 if (!this.state.listProxy) { // no proxies have been set
                     let listdoctoken;
                     if (this.itemProxy.liststack.length) {
@@ -62,7 +62,7 @@ class DataBox extends React.Component {
                         listTypeProxy: new proxy({ token: listdoctoken }),
                     });
                 }
-            };
+            });
         };
         this.doHighlights = (collapseTargetData) => {
             this.props.callbacks.highlightBox({ boxElement: this.boxframe.current });
@@ -111,11 +111,17 @@ class DataBox extends React.Component {
             expandDirectoryItem: this.props.callbacks.expandDirectoryItem,
             highlightItem: this.highlightItem,
         };
+        this.typecallbacks = {
+            setListListener: this.props.callbacks.setListListener,
+            splayBox: this.splayBox,
+            selectFromSplay: this.props.callbacks.selectFromSplay,
+        };
         this.boxframe = React.createRef();
         this.listcomponent = React.createRef();
     }
     componentDidMount() {
-        this.props.callbacks.setItemListener(this.itemProxy.token, this.itemProxy.instanceid, this.cacheItemData);
+        let { itemProxy } = this;
+        this.props.callbacks.setItemListener(itemProxy.token, itemProxy.instanceid, this.cacheItemData);
     }
     componentDidUpdate() {
         let { collapseTargetData } = this.props;
@@ -144,6 +150,7 @@ class DataBox extends React.Component {
     render() {
         let { setListListener, haspeers } = this.props;
         let item = this.state.item ? this.state.item.data : null;
+        let itemType = this.state.item ? this.state.item.type : null;
         let wrapperStyle = {
             float: haspeers ? 'left' : 'none',
             padding: '16px',
@@ -186,7 +193,7 @@ class DataBox extends React.Component {
         return <div style={wrapperStyle}>
             <div style={frameStyle} ref={this.boxframe}>
             {haspeers ? null : <ResizeTab />}
-            <BoxTypebar item={item} listProxy={this.state.listTypeProxy} setListListener={this.props.callbacks.setListListener} haspeers={this.props.haspeers} splayBox={this.splayBox} selectFromSplay={this.props.callbacks.selectFromSplay}/>
+            <BoxTypebar item={item} itemType={itemType} listProxy={this.state.listTypeProxy} haspeers={this.props.haspeers} callbacks={this.typecallbacks}/>
             <BoxIdentityBar item={item}/>
             <div style={{
             height: 'calc(100% - 78px)',
