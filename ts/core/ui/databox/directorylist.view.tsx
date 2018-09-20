@@ -4,14 +4,16 @@
 
 import React from 'react'
 
-import DirectoryItem from './directoryitem.view'
-
 import Lister from 'react-list'
+
 import CircularProgress from '@material-ui/core/CircularProgress'
 
 import { withStyles } from '@material-ui/core/styles'
 import Button from '@material-ui/core/Button'
 import AddIcon from '@material-ui/icons/Add'
+
+import DirectoryItem from './directoryitem.view'
+import proxy from '../../utilities/proxy'
 
 const styles = theme => ({
   button: {
@@ -39,7 +41,7 @@ class DirectoryListBase extends React.Component<any,any> {
     state = {
         highlightrefuid:null,
         list:null,
-        listproxies:new Map(),
+        listproxies:null,
     }
 
     listProxy = null
@@ -49,22 +51,29 @@ class DirectoryListBase extends React.Component<any,any> {
     listcomponent
 
     componentDidUpdate() {
+
         if (!this.listProxy && this.props.listProxy) {
             this.listProxy = this.props.listProxy
             this.props.callbacks.setListListener(
                 this.listProxy.token,this.listProxy.instanceid,this.cacheListDocument)
         }
-        // console.log('componentDidUpdate higlightrefuid',this.props.highlightrefuid)
+
         if (this.props.highlightrefuid) {
             this.highlightrefuid = this.props.highlightrefuid
         }
-        if ((!this.state.listproxies.size) && this.props.listDocument) {
-            // console.log('setting list state',this.props.highlightrefuid)
+
+        if ((!this.state.listproxies ) && this.state.list && this.state.list.data) {
+
+            let listproxies = this.generateListProxies(this.state.list.data)
+
+            console.log('listproxies',listproxies)
+
             this.setState({
-                list:this.props.listDocument.list
+                listproxies,
             })
+
         } else {
-            if (this.props.listDocument) {
+            if (this.state.list) {
                 // console.log('calling highlight',this.state, this.highlightrefuid,this.props.highlightrefuid)
                 setTimeout(()=>{
                     this.dohighlight()
@@ -73,7 +82,16 @@ class DirectoryListBase extends React.Component<any,any> {
         }
     }
 
+    generateListProxies = (listDocument) => {
+        let listtokens = listDocument.list
+        let listproxies = listtokens.map((token) => {
+            return new proxy({token})
+        })
+        return listproxies
+    }
+
     cacheListDocument = (data,type) => {
+        console.log('cacheListDocument callback',data,type)
         this.setState({
             list:{
                 data,
@@ -83,15 +101,14 @@ class DirectoryListBase extends React.Component<any,any> {
     }
 
     dohighlight = () => {
-        if ((!this.highlightrefuid) || (!this.state.listproxies.size))  return
+        if ((!this.highlightrefuid) || (!this.state.listproxies.length))  return
         let { listproxies } = this.state
         // console.log('doing highlight')
         // keep; value will be purged
         let highlightrefuid = this.highlightrefuid
         this.highlightrefuid = null
         // get index for Lister
-        let mapkeys = Array.from(listproxies.values())
-        let index = mapkeys.findIndex(this.findlinkIndex(highlightrefuid))
+        let index = listproxies.findIndex(this.findlinkIndex(highlightrefuid))
         // update scroll display with selected highlight item
         this.listcomponent.current.scrollAround(index)
 
@@ -133,8 +150,8 @@ class DirectoryListBase extends React.Component<any,any> {
         let catitem = 
             <DirectoryItem 
                 key = {key} 
-                uid = {proxy.uid} 
                 listProxy = {proxy} 
+                setListListener = {this.props.callbacks.setListListener}
                 expandDirectoryItem = {this.expandDirectoryItem(proxy.token)}
                 highlight = {highlight}
                 highlightItem = {this.props.callbacks.highlightItem}
@@ -164,7 +181,7 @@ class DirectoryListBase extends React.Component<any,any> {
         return this.state.listproxies?<Lister 
             ref = {this.props.forwardedRef}
             itemRenderer = {this.itemRenderer}
-            length = {this.state.listproxies?this.state.listproxies.size:0}
+            length = {this.state.listproxies?this.state.listproxies.length:0}
             type = 'uniform'
         />:<CircularProgress size = {24} />
     }
