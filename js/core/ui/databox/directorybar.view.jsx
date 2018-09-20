@@ -60,10 +60,12 @@ class DirectoryBar extends React.Component {
     componentDidUpdate() {
         if (!this.listProxy && this.props.listProxy) {
             this.listProxy = this.props.listProxy;
+            this.props.setListListener(this.listProxy.token, this.listProxy.instanceid, this.cacheListData);
         }
     }
     render() {
-        let { listStack, listDocument } = this.props;
+        let { listStack } = this.props;
+        let listDocument = this.state.list ? this.state.list.data : null;
         return <div>
             <div style={this.barstyle}>
                 {listDocument ? (<div style={this.tabwrapperstyle}>
