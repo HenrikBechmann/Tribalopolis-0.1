@@ -12,7 +12,7 @@ class DirectoryBar extends React.Component {
         this.state = {
             list: null
         };
-        this.cacheListData = (data, type) => {
+        this.cacheListDocument = (data, type) => {
             this.setState({
                 list: {
                     data,
@@ -60,7 +60,7 @@ class DirectoryBar extends React.Component {
     componentDidUpdate() {
         if (!this.listProxy && this.props.listProxy) {
             this.listProxy = this.props.listProxy;
-            this.props.setListListener(this.listProxy.token, this.listProxy.instanceid, this.cacheListData);
+            this.props.setListListener(this.listProxy.token, this.listProxy.instanceid, this.cacheListDocument);
         }
     }
     render() {

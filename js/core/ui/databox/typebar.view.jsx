@@ -9,7 +9,7 @@ class BoxToolbar extends React.Component {
         this.state = {
             list: null
         };
-        this.cacheListData = (data, type) => {
+        this.cacheListDocument = (data, type) => {
             this.setState({
                 list: {
                     data,
@@ -33,7 +33,7 @@ class BoxToolbar extends React.Component {
     componentDidUpdate() {
         if (!this.listProxy && this.props.listProxy) {
             this.listProxy = this.props.listProxy;
-            this.props.callbacks.setListListener(this.listProxy.token, this.listProxy.instanceid, this.cacheListData);
+            this.props.callbacks.setListListener(this.listProxy.token, this.listProxy.instanceid, this.cacheListDocument);
         }
     }
     render() {

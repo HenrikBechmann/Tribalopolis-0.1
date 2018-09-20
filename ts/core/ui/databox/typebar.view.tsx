@@ -26,11 +26,12 @@ class BoxToolbar extends React.Component<any,any> {
     componentDidUpdate() {
         if (!this.listProxy && this.props.listProxy) {
             this.listProxy = this.props.listProxy
-            this.props.callbacks.setListListener(this.listProxy.token,this.listProxy.instanceid,this.cacheListData)
+            this.props.callbacks.setListListener(
+                this.listProxy.token,this.listProxy.instanceid,this.cacheListDocument)
         }
     }
 
-    cacheListData = (data,type) => {
+    cacheListDocument = (data,type) => {
         this.setState({
             list:{
                 data,

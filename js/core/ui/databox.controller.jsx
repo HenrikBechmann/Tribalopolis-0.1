@@ -2,6 +2,8 @@
 // copyright (c) 2018 Henrik Bechmann, Toronto, MIT Licence
 'use strict';
 import React from 'react';
+import Icon from '@material-ui/core/Icon';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import BoxIdentityBar from './databox/identitybar.view';
 import BoxTypebar from './databox/typebar.view';
 // import ProfileBar from './databox/profilebar.view'
@@ -10,23 +12,24 @@ import DirectoryBar from './databox/directorybar.view';
 import DirectoryList from './databox/directorylist.view';
 // import ScanBar from './databox/scanbar.view'
 import proxy from '../utilities/proxy';
-import Icon from '@material-ui/core/Icon';
-import CircularProgress from '@material-ui/core/CircularProgress';
+const tabstyles = {
+    position: 'absolute',
+    right: '-22px',
+    top: 'calc(50% - 16px)',
+    width: '20px',
+    height: '32px',
+    border: '1px solid gray',
+    borderLeft: '1px solid transparent',
+    backgroundColor: 'white',
+    borderRadius: '0 8px 8px 0',
+    opacity: .54,
+};
+const wrapperstyles = { margin: '4px 0 0 -3px' };
+const iconstyles = { transform: 'rotate(90deg)', opacity: .54 };
 const ResizeTab = props => {
-    return <div style={{
-        position: 'absolute',
-        right: '-22px',
-        top: 'calc(50% - 16px)',
-        width: '20px',
-        height: '32px',
-        border: '1px solid gray',
-        borderLeft: '1px solid transparent',
-        backgroundColor: 'white',
-        borderRadius: '0 8px 8px 0',
-        opacity: .54,
-    }}>
-        <div style={{ margin: '4px 0 0 -3px' }}>
-            <Icon style={{ transform: 'rotate(90deg)', opacity: .54 }}>drag_handle</Icon>
+    return <div style={tabstyles}>
+        <div style={wrapperstyles}>
+            <Icon style={iconstyles}>drag_handle</Icon>
         </div>
     </div>;
 };
@@ -36,10 +39,11 @@ class DataBox extends React.Component {
         this.state = {
             highlightrefuid: null,
             item: null,
-            listProxy: null,
-            listBarProxy: null,
-            listTypeProxy: null,
+            MainlistProxy: null,
+            BarlistProxy: null,
+            TypelistProxy: null,
         };
+        // always available; no need to check state
         this.itemProxy = this.props.itemProxy;
         this.cacheItemData = (data, type) => {
             this.setState({
@@ -48,7 +52,7 @@ class DataBox extends React.Component {
                     type
                 }
             }, () => {
-                if (!this.state.listProxy) { // no proxies have been set
+                if (!this.state.MainlistProxy) { // no proxies have been set
                     let listdoctoken;
                     if (this.itemProxy.liststack.length) {
                         listdoctoken = this.itemProxy.liststack[this.itemProxy.liststack.length - 1];
@@ -57,9 +61,9 @@ class DataBox extends React.Component {
                         listdoctoken = this.state.item.data.list;
                     }
                     this.setState({
-                        listProxy: new proxy({ token: listdoctoken }),
-                        listBarProxy: new proxy({ token: listdoctoken }),
-                        listTypeProxy: new proxy({ token: listdoctoken }),
+                        MainlistProxy: new proxy({ token: listdoctoken }),
+                        BarlistProxy: new proxy({ token: listdoctoken }),
+                        TypelistProxy: new proxy({ token: listdoctoken }),
                     });
                 }
             });
@@ -124,23 +128,26 @@ class DataBox extends React.Component {
         this.props.callbacks.setItemListener(itemProxy.token, itemProxy.instanceid, this.cacheItemData);
     }
     componentDidUpdate() {
-        let { collapseTargetProxy } = this.props;
-        if (collapseTargetProxy) {
-            this.waitingCollapseTargetData = collapseTargetProxy;
+        let { collapseTargetProxy } = this.props; // gets set then cancelled by parent
+        if (collapseTargetProxy) { // if found, queue the trigger
+            this.queueCollapseTargetProxy = collapseTargetProxy;
         }
         if (!this.state.item)
+            return; // wait for item document to appear
+        if (!this.queueCollapseTargetProxy)
             return;
-        if (!this.waitingCollapseTargetData)
-            return;
-        collapseTargetProxy = this.waitingCollapseTargetData;
-        this.waitingCollapseTargetData = null;
+        // pick up and clear the queue
+        collapseTargetProxy = this.queueCollapseTargetProxy;
+        this.queueCollapseTargetProxy = null;
+        // check sentinel
         if (this.collapseTargetProxy)
             return; // avoid infinite recursion, triggered by list highlight
+        // set sentinel
         this.collapseTargetProxy = collapseTargetProxy;
         setTimeout(() => {
             this.doHighlights(collapseTargetProxy);
             setTimeout(() => {
-                this.collapseTargetProxy = null;
+                this.collapseTargetProxy = null; // clear sentinel
             }, 2000);
         });
     }
@@ -151,6 +158,7 @@ class DataBox extends React.Component {
         let { setListListener, haspeers } = this.props;
         let item = this.state.item ? this.state.item.data : null;
         let itemType = this.state.item ? this.state.item.type : null;
+        let listStack = this.itemProxy.liststack;
         let wrapperStyle = {
             float: haspeers ? 'left' : 'none',
             padding: '16px',
@@ -182,7 +190,6 @@ class DataBox extends React.Component {
                 </div>
             </div>;
         }
-        let listStack = this.itemProxy.liststack;
         let scrollboxstyle = {
             height: (this.props.containerHeight - 185) + 'px',
             overflow: 'auto',
@@ -193,18 +200,18 @@ class DataBox extends React.Component {
         return <div style={wrapperStyle}>
             <div style={frameStyle} ref={this.boxframe}>
             {haspeers ? null : <ResizeTab />}
-            <BoxTypebar item={item} itemType={itemType} listProxy={this.state.listTypeProxy} haspeers={this.props.haspeers} callbacks={this.typecallbacks}/>
+            <BoxTypebar item={item} itemType={itemType /*future*/} listProxy={this.state.TypelistProxy} haspeers={this.props.haspeers} callbacks={this.typecallbacks}/>
             <BoxIdentityBar item={item}/>
             <div style={{
             height: 'calc(100% - 78px)',
             position: 'relative',
         }}>
                 <div>
-                    <DirectoryBar listProxy={this.state.listBarProxy} setListListener={this.props.callbacks.setListListener} listStack={this.itemProxy.liststack} collapseDirectoryItem={this.collapseDirectoryItem}/>
+                    <DirectoryBar listProxy={this.state.BarlistProxy} setListListener={this.props.callbacks.setListListener} listStack={this.itemProxy.liststack} collapseDirectoryItem={this.collapseDirectoryItem}/>
                 </div>
                 
                 <div style={scrollboxstyle}>
-                    <DirectoryList ref={this.listcomponent} listProxy={this.state.listProxy} highlightrefuid={this.state.highlightrefuid} callbacks={this.listcallbacks}/>
+                    <DirectoryList ref={this.listcomponent} listProxy={this.state.MainlistProxy} highlightrefuid={this.state.highlightrefuid} callbacks={this.listcallbacks}/>
                 </div>
                 
                 {this.indexmarker()}
@@ -214,8 +221,5 @@ class DataBox extends React.Component {
         </div>;
     }
 }
-// <ProfileBar item = {item} />
-// <ProfileForm item = {item} />
-// <ScanBar item = {item} />
 export default DataBox;
 //# sourceMappingURL=databox.controller.jsx.map
