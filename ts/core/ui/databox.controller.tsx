@@ -30,6 +30,20 @@ const tabstyles:React.CSSProperties = {
     opacity:.54,
 }
 
+let wrapperStyle:React.CSSProperties = {
+    padding:'16px',
+}
+
+let frameStyle:React.CSSProperties = {
+    backgroundColor:'white',
+    maxHeight:'96%',
+    minHeight:'60%',
+    boxSizing:'border-box',
+    borderRadius:'8px',
+    fontSize:'smaller',
+    position:'relative',
+}
+
 const wrapperstyles = {margin:'4px 0 0 -3px'}
 
 const iconstyles = {transform:'rotate(90deg)',opacity:.54}
@@ -224,42 +238,40 @@ class DataBox extends React.Component<any,any> {
 
         let listStack = this.itemProxy.liststack
 
-        let wrapperStyle:React.CSSProperties = {
-            float:haspeers?'left':'none',
-            padding:'16px',
-        }
-
-        let frameStyle:React.CSSProperties = {
-            width:this.props.boxwidth + 'px',
-            backgroundColor:'white',
-            border:this.collapseTargetProxy?'1px solid blue':'1px solid silver',
-            maxHeight:'96%',
-            minHeight:'60%',
-            boxSizing:'border-box',
-            borderRadius:'8px',
-            fontSize:'smaller',
-            boxShadow: haspeers?'none':'0 0 12px black',
-            margin:haspeers?'none':'auto',
-            position:'relative',
-        }
-
         if (!item) {
             let wrapperStyle2 = Object.assign({},wrapperStyle)
             wrapperStyle2.height = '100%'
             wrapperStyle2.boxSizing = 'border-box'
+
             let frameStyle2 = Object.assign({},frameStyle)
             frameStyle2.padding = '16px'
             frameStyle2.maxHeight = '100%'
-            frameStyle2.height = frameStyle2.maxHeight
+            frameStyle2.height = frameStyle.maxHeight
             return <div style = {wrapperStyle2}>
                 <div style = {frameStyle2}>
                     <CircularProgress size = {24}/>
                 </div>
             </div>
         }
+        
+        // experimenting with style management...
+        // origin is readonly for some reason
+        let wrapperStyle2 = Object.assign({},wrapperStyle, 
+            {
+                float:haspeers?'left':'none',
+            }
+        )
+        let frameStyle2 = Object.assign({},frameStyle, 
+            {
+                width:this.props.boxwidth + 'px',
+                border:this.collapseTargetProxy?'1px solid blue':'1px solid silver',
+                boxShadow: haspeers?'none':'0 0 12px black',
+                margin:haspeers?'none':'auto',
+            }
+        )
 
-        return  <div style = { wrapperStyle }>
-            <div style = {frameStyle}
+        return  <div style = { wrapperStyle2 }>
+            <div style = {frameStyle2}
                 ref = {this.boxframe}
             >
             {haspeers?null:<ResizeTab />}
