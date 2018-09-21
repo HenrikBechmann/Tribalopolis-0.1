@@ -25,16 +25,17 @@ const setItemListener = (token,instanceid,callback) => {
 }
 
 const setListListener = (token,instanceid = null,callback = null) => {
-    // if (!callback) {
-    //     return domain.setListListener(token)
-    // } else {
-        let list = domain.setListListener(token)
-        let type = domain.setTypeListener(list.type)
 
-        // setTimeout(()=>{
-            callback(list,type)
-        // },1000)
-    // }
+    let list = domain.setListListener(token)
+    let type = domain.setTypeListener(list.type)
+
+    // setTimeout(()=>{
+        callback(list,type)
+    // },1000)
+    // setTimeout(()=>{
+    //     callback(list,type)
+    // },4000)
+
 }
 
 const getScheme = (token) => {

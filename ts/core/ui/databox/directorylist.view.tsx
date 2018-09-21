@@ -1,5 +1,10 @@
 // directorylist.view.tsx
 // copyright (c) 2018 Henrik Bechmann, Toronto, MIT Licence
+
+/*
+    MOVE MODIFYBUTTONS TO HERE
+*/
+
 'use strict'
 
 import React from 'react'
@@ -45,6 +50,7 @@ class DirectoryListBase extends React.Component<any,any> {
     }
 
     listProxy = null
+    pathToIndexMap = null
 
     highlightrefuid = null
 
@@ -62,23 +68,31 @@ class DirectoryListBase extends React.Component<any,any> {
             this.highlightrefuid = this.props.highlightrefuid
         }
 
-        if ((!this.state.listproxies ) && this.state.list && this.state.list.data) {
+        if (this.state.listproxies) {
 
-            let listproxies = this.generateListProxies(this.state.list.data)
-
-            this.setState({
-                listproxies,
+            setTimeout(()=>{
+                this.dohighlight()
             })
 
-        } else {
-            if (this.state.listproxies) {
-
-                setTimeout(()=>{
-                    this.dohighlight()
-                })
-
-            }
         }
+    }
+
+    cacheListDocument = (data,type) => {
+
+        let listproxies
+        if (!this.state.listproxies) {
+            listproxies = this.generateListProxies(data)
+        } else {
+            listproxies = this.updateListProxies(data,this.state.listproxies)
+        }
+        this.pathToIndexMap = this.generatePathToIndexMap(listproxies)
+        this.setState({
+            list:{
+                data,
+                type
+            },
+            listproxies,
+        })
     }
 
     generateListProxies = (listDocument) => {
@@ -89,17 +103,29 @@ class DirectoryListBase extends React.Component<any,any> {
         return listproxies
     }
 
-    cacheListDocument = (data,type) => {
-
-        // TODO: update listproxies if not the first time
-
-        this.setState({
-            list:{
-                data,
-                type
+    updateListProxies = (listDocument, oldListProxies) => {
+        // console.log('updating listproxies')
+        let pathMap = this.pathToIndexMap
+        let listtokens = listDocument.list
+        let listproxies = listtokens.map((token) => {
+            let path = `${token.repo}/${token.uid}`
+            let proxy = oldListProxies[pathMap[path]]
+            if (!proxy) {
+                // console.log('generating new proxy')
+                proxy = new proxy({token})
             }
+            return proxy
         })
+        // console.log('updated list proxies',listproxies)
+        return listproxies
+    }
 
+    generatePathToIndexMap = (listProxies) => {
+        let pathMap = {}
+        for (let index = 0; index < listProxies.length; index++) {
+            pathMap[listProxies[index].path] = index
+        }
+        return pathMap
     }
 
     dohighlight = () => {
