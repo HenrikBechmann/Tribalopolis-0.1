@@ -14,21 +14,20 @@ const setTypeListener = (token) => {
 const setItemListener = (token, instanceid, callback) => {
     let item = domain.setItemListener(token);
     let type = domain.setTypeListener(item.type);
-    setTimeout(() => {
-        callback(item, type);
-    }, 1000);
+    // setTimeout(()=> {
+    callback(item, type);
+    // },1000)
 };
 const setListListener = (token, instanceid = null, callback = null) => {
-    if (!callback) {
-        return domain.setListListener(token);
-    }
-    else {
-        let list = domain.setListListener(token);
-        let type = domain.setTypeListener(list.type);
-        setTimeout(() => {
-            callback(list, type);
-        }, 1000);
-    }
+    // if (!callback) {
+    //     return domain.setListListener(token)
+    // } else {
+    let list = domain.setListListener(token);
+    let type = domain.setTypeListener(list.type);
+    // setTimeout(()=>{
+    callback(list, type);
+    // },1000)
+    // }
 };
 const getScheme = (token) => {
     return domain.getScheme(token);

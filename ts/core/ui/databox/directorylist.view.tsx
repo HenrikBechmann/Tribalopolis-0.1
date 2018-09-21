@@ -66,18 +66,17 @@ class DirectoryListBase extends React.Component<any,any> {
 
             let listproxies = this.generateListProxies(this.state.list.data)
 
-            console.log('listproxies',listproxies)
-
             this.setState({
                 listproxies,
             })
 
         } else {
-            if (this.state.list) {
-                // console.log('calling highlight',this.state, this.highlightrefuid,this.props.highlightrefuid)
+            if (this.state.listproxies) {
+
                 setTimeout(()=>{
                     this.dohighlight()
                 })
+
             }
         }
     }
@@ -91,19 +90,21 @@ class DirectoryListBase extends React.Component<any,any> {
     }
 
     cacheListDocument = (data,type) => {
-        console.log('cacheListDocument callback',data,type)
+
+        // TODO: update listproxies if not the first time
+
         this.setState({
             list:{
                 data,
                 type
             }
         })
+
     }
 
     dohighlight = () => {
         if ((!this.highlightrefuid) || (!this.state.listproxies.length))  return
         let { listproxies } = this.state
-        // console.log('doing highlight')
         // keep; value will be purged
         let highlightrefuid = this.highlightrefuid
         this.highlightrefuid = null
@@ -140,16 +141,17 @@ class DirectoryListBase extends React.Component<any,any> {
     }
 
     itemRenderer = (index,key) => {
-        return this.getListComponent(this.state.listproxies[index],key)
+        let proxy = this.state.listproxies[index]
+        return this.getListComponent(proxy,key,index)
     }
 
-    getListComponent = (proxy, key) => {
+    getListComponent = (proxy, key, index) => {
 
         // let listDocument = this.setListListener(token)
         let highlight = (proxy.uid === this.state.highlightrefuid)
-        let catitem = 
+        let directoryitem = 
             <DirectoryItem 
-                key = {key} 
+                key = {proxy.instanceid} 
                 listProxy = {proxy} 
                 setListListener = {this.props.callbacks.setListListener}
                 expandDirectoryItem = {this.expandDirectoryItem(proxy.token)}
@@ -157,7 +159,7 @@ class DirectoryListBase extends React.Component<any,any> {
                 highlightItem = {this.props.callbacks.highlightItem}
             />
 
-        return catitem
+        return directoryitem
 
     }
 
@@ -178,10 +180,12 @@ class DirectoryListBase extends React.Component<any,any> {
 
     render() {
 
+        let length = this.state.listproxies?this.state.listproxies.length:0
+
         return this.state.listproxies?<Lister 
             ref = {this.props.forwardedRef}
             itemRenderer = {this.itemRenderer}
-            length = {this.state.listproxies?this.state.listproxies.length:0}
+            length = {length}
             type = 'uniform'
         />:<CircularProgress size = {24} />
     }

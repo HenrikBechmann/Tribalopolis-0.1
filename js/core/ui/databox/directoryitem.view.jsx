@@ -3,12 +3,17 @@
 'use strict';
 import React from 'react';
 import Icon from '@material-ui/core/Icon';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import QuantityBadge from '../common/quantitybadge.view';
 class DirectoryItem extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {
+            list: null,
+        };
         this.barstyle = {
             padding: '3px',
+            height: '25px',
         };
         this.tabwrapperstyle = {
             borderBottom: '1px solid #e2e6e9',
@@ -36,33 +41,54 @@ class DirectoryItem extends React.Component {
             backgroundColor: 'white',
             cursor: 'pointer',
         };
+        this.cacheListDocument = (data, type) => {
+            this.setState({
+                list: {
+                    data,
+                    type
+                }
+            });
+        };
         this.expandDirectoryItem = () => {
             this.props.expandDirectoryItem(this.barelementref.current);
         };
-        this.barcomponent = () => (<div style={this.barstyle} ref={this.barelementref}>
-            <div style={this.tabwrapperstyle}>
+        this.barcomponent = () => {
+            let listDocument = this.state.list ? this.state.list.data : null;
+            return <div style={this.barstyle} ref={this.barelementref}>
+            {listDocument ? <div style={this.tabwrapperstyle}>
                 <div style={this.pretabstyle}></div>
                 <div style={this.tabstyle} onClick={this.expandDirectoryItem}> 
                     <Icon style={{
-            verticalAlign: 'middle',
-            color: this.props.listDocument.properties.sysnode ? 'green' : 'gray',
-        }}>
+                verticalAlign: 'middle',
+                color: listDocument ? listDocument.properties.sysnode ? 'green' : 'gray' : 'gray',
+            }}>
                         folder
                     </Icon> 
-                    {this.props.listDocument.properties.name}
-                    <QuantityBadge quantity={this.props.listDocument.properties.numbers.list.count} style={{
-            left: '-10px',
-            top: '-5px',
-        }}/>
+                    {listDocument ? listDocument.properties.name : null}
+                    <QuantityBadge quantity={listDocument ? listDocument.properties.numbers.list.count : 0} style={{
+                left: '-10px',
+                top: '-5px',
+            }}/>
                 </div>
-            </div>
-        </div>);
+            </div> : <div style={{ height: '25px', width: '286px' }}> 
+                <CircularProgress size={16}/>
+            </div>}
+        </div>;
+        };
         this.barelementref = React.createRef();
+    }
+    componentDidMount() {
+        if ((!this.listProxy) && this.props.listProxy) {
+            this.listProxy = this.props.listProxy;
+            this.props.setListListener(this.listProxy.token, this.listProxy.instanceid, this.cacheListDocument);
+        }
     }
     componentDidUpdate() {
         if (this.props.highlight && this.barelementref) {
             this.props.highlightItem(this.barelementref);
         }
+    }
+    componentWillUnmount() {
     }
     render() {
         return this.barcomponent();

@@ -5,6 +5,8 @@
 import React from 'react'
 
 import Icon from '@material-ui/core/Icon'
+import CircularProgress from '@material-ui/core/CircularProgress'
+
 import QuantityBadge from '../common/quantitybadge.view'
 
 class DirectoryItem extends React.Component<any,any> {
@@ -14,9 +16,16 @@ class DirectoryItem extends React.Component<any,any> {
         this.barelementref = React.createRef()
     }
 
+    state = {
+        list:null,
+    }
+
+    listProxy
+
     barstyle = 
         {
             padding:'3px',
+            height:'25px',
         }
 
     tabwrapperstyle:React.CSSProperties = {
@@ -50,24 +59,50 @@ class DirectoryItem extends React.Component<any,any> {
 
     barelementref
 
+    componentDidMount() {
+
+        if ((!this.listProxy) && this.props.listProxy) {
+            this.listProxy = this.props.listProxy
+            this.props.setListListener(
+                this.listProxy.token,this.listProxy.instanceid,this.cacheListDocument)
+        }
+
+    }
+
     componentDidUpdate() {
+
         if (this.props.highlight && this.barelementref) {
             this.props.highlightItem(this.barelementref)
         }
     }
 
+    componentWillUnmount() {
+    }
+
+    cacheListDocument = (data,type) => {
+
+        this.setState({
+            list:{
+                data,
+                type
+            }
+        })
+    }
+
+
     expandDirectoryItem = () => {
         this.props.expandDirectoryItem(this.barelementref.current)
     }
 
-    barcomponent = () => (
-        <div 
+    barcomponent = () => {
+        let listDocument = this.state.list?this.state.list.data:null
+        return <div 
             style = {
                 this.barstyle
             }
             ref = {this.barelementref}
         >
-            <div style = {this.tabwrapperstyle}>
+            {listDocument?<div style = {this.tabwrapperstyle}>
                 <div style = {this.pretabstyle}></div>
                 <div 
                     style = {this.tabstyle}
@@ -77,23 +112,25 @@ class DirectoryItem extends React.Component<any,any> {
                         style = {
                             {
                                 verticalAlign:'middle',
-                                color:this.props.listDocument.properties.sysnode?'green':'gray',
+                                color:listDocument?listDocument.properties.sysnode?'green':'gray':'gray',
                             }
                         } 
                     >
                         folder
                     </Icon> 
-                    {this.props.listDocument.properties.name}
-                    <QuantityBadge quantity = {this.props.listDocument.properties.numbers.list.count} style = {
+                    {listDocument?listDocument.properties.name:null}
+                    <QuantityBadge quantity = {listDocument?listDocument.properties.numbers.list.count:0} style = {
                         {
                             left:'-10px',
                             top:'-5px',
                         }
                     }/>
                 </div>
-            </div>
+            </div>:<div style = {{height:'25px',width:'286px'}}> 
+                <CircularProgress size = {16} />
+            </div>}
         </div>
-    )
+    }
 
     render() {
 

@@ -39,7 +39,7 @@ class DirectoryListBase extends React.Component {
             return listproxies;
         };
         this.cacheListDocument = (data, type) => {
-            console.log('cacheListDocument callback', data, type);
+            // TODO: update listproxies if not the first time
             this.setState({
                 list: {
                     data,
@@ -51,7 +51,6 @@ class DirectoryListBase extends React.Component {
             if ((!this.highlightrefuid) || (!this.state.listproxies.length))
                 return;
             let { listproxies } = this.state;
-            // console.log('doing highlight')
             // keep; value will be purged
             let highlightrefuid = this.highlightrefuid;
             this.highlightrefuid = null;
@@ -81,13 +80,14 @@ class DirectoryListBase extends React.Component {
             };
         };
         this.itemRenderer = (index, key) => {
-            return this.getListComponent(this.state.listproxies[index], key);
+            let proxy = this.state.listproxies[index];
+            return this.getListComponent(proxy, key, index);
         };
-        this.getListComponent = (proxy, key) => {
+        this.getListComponent = (proxy, key, index) => {
             // let listDocument = this.setListListener(token)
             let highlight = (proxy.uid === this.state.highlightrefuid);
-            let catitem = <DirectoryItem key={key} listProxy={proxy} setListListener={this.props.callbacks.setListListener} expandDirectoryItem={this.expandDirectoryItem(proxy.token)} highlight={highlight} highlightItem={this.props.callbacks.highlightItem}/>;
-            return catitem;
+            let directoryitem = <DirectoryItem key={proxy.instanceid} listProxy={proxy} setListListener={this.props.callbacks.setListListener} expandDirectoryItem={this.expandDirectoryItem(proxy.token)} highlight={highlight} highlightItem={this.props.callbacks.highlightItem}/>;
+            return directoryitem;
         };
         this.modifybuttons = (listItemType) => {
             if (!listItemType)
@@ -112,14 +112,12 @@ class DirectoryListBase extends React.Component {
         }
         if ((!this.state.listproxies) && this.state.list && this.state.list.data) {
             let listproxies = this.generateListProxies(this.state.list.data);
-            console.log('listproxies', listproxies);
             this.setState({
                 listproxies,
             });
         }
         else {
-            if (this.state.list) {
-                // console.log('calling highlight',this.state, this.highlightrefuid,this.props.highlightrefuid)
+            if (this.state.listproxies) {
                 setTimeout(() => {
                     this.dohighlight();
                 });
@@ -127,7 +125,8 @@ class DirectoryListBase extends React.Component {
         }
     }
     render() {
-        return this.state.listproxies ? <Lister ref={this.props.forwardedRef} itemRenderer={this.itemRenderer} length={this.state.listproxies ? this.state.listproxies.length : 0} type='uniform'/> : <CircularProgress size={24}/>;
+        let length = this.state.listproxies ? this.state.listproxies.length : 0;
+        return this.state.listproxies ? <Lister ref={this.props.forwardedRef} itemRenderer={this.itemRenderer} length={length} type='uniform'/> : <CircularProgress size={24}/>;
     }
 }
 const DirectoryList = React.forwardRef((props, ref) => {
