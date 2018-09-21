@@ -258,14 +258,6 @@ class DataBox extends React.Component<any,any> {
             </div>
         }
 
-        let scrollboxstyle:React.CSSProperties = {
-            height:(this.props.containerHeight - 185) + 'px', // this figure is the net of many inside amounts!
-            overflow:'auto',
-            position:'relative', // required for offsetParent of highlightItem search
-            paddingLeft:'6px',
-            paddingBottom:'32px',
-        }
-
         return  <div style = { wrapperStyle }>
             <div style = {frameStyle}
                 ref = {this.boxframe}
@@ -298,16 +290,15 @@ class DataBox extends React.Component<any,any> {
                     />
                 </div>
                 
-                <div style = {scrollboxstyle}>
-                    <DirectoryList 
-                        ref = {this.listcomponent}
+                <DirectoryList 
+                    ref = {this.listcomponent}
 
-                        listProxy = {this.state.MainlistProxy}
-                        highlightrefuid = {this.state.highlightrefuid}
+                    listProxy = {this.state.MainlistProxy}
+                    highlightrefuid = {this.state.highlightrefuid}
+                    containerHeight = {this.props.containerHeight}
 
-                        callbacks = {this.listcallbacks}
-                    />
-                </div>
+                    callbacks = {this.listcallbacks}
+                />
                 
                 { this.indexmarker() }
 

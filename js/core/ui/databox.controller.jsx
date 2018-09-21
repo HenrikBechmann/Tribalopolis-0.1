@@ -194,13 +194,6 @@ class DataBox extends React.Component {
                 </div>
             </div>;
         }
-        let scrollboxstyle = {
-            height: (this.props.containerHeight - 185) + 'px',
-            overflow: 'auto',
-            position: 'relative',
-            paddingLeft: '6px',
-            paddingBottom: '32px',
-        };
         return <div style={wrapperStyle}>
             <div style={frameStyle} ref={this.boxframe}>
             {haspeers ? null : <ResizeTab />}
@@ -214,9 +207,7 @@ class DataBox extends React.Component {
                     <DirectoryBar listProxy={this.state.BarlistProxy} setListListener={this.props.callbacks.setListListener} removeListListener={this.props.callbacks.removeListListener} listStack={this.itemProxy.liststack} collapseDirectoryItem={this.collapseDirectoryItem}/>
                 </div>
                 
-                <div style={scrollboxstyle}>
-                    <DirectoryList ref={this.listcomponent} listProxy={this.state.MainlistProxy} highlightrefuid={this.state.highlightrefuid} callbacks={this.listcallbacks}/>
-                </div>
+                <DirectoryList ref={this.listcomponent} listProxy={this.state.MainlistProxy} highlightrefuid={this.state.highlightrefuid} containerHeight={this.props.containerHeight} callbacks={this.listcallbacks}/>
                 
                 {this.indexmarker()}
 

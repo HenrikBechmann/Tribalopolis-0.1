@@ -157,8 +157,17 @@ class DirectoryListBase extends React.Component {
         }
     }
     render() {
+        let scrollboxstyle = {
+            height: (this.props.containerHeight - 185) + 'px',
+            overflow: 'auto',
+            position: 'relative',
+            paddingLeft: '6px',
+            paddingBottom: '32px',
+        };
         let length = this.state.listproxies ? this.state.listproxies.length : 0;
-        return this.state.listproxies ? <Lister ref={this.props.forwardedRef} itemRenderer={this.itemRenderer} length={length} type='uniform'/> : <CircularProgress size={24}/>;
+        return (<div style={scrollboxstyle}>
+            {this.state.listproxies ? <Lister ref={this.props.forwardedRef} itemRenderer={this.itemRenderer} length={length} type='uniform'/> : <CircularProgress size={24}/>}
+        </div>);
     }
 }
 const DirectoryList = React.forwardRef((props, ref) => {

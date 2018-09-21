@@ -214,14 +214,26 @@ class DirectoryListBase extends React.Component<any,any> {
 
     render() {
 
+        let scrollboxstyle:React.CSSProperties = {
+            height:(this.props.containerHeight - 185) + 'px', // this figure is the net of many inside amounts!
+            overflow:'auto',
+            position:'relative', // required for offsetParent of highlightItem search
+            paddingLeft:'6px',
+            paddingBottom:'32px',
+        }
+
         let length = this.state.listproxies?this.state.listproxies.length:0
 
-        return this.state.listproxies?<Lister 
-            ref = {this.props.forwardedRef}
-            itemRenderer = {this.itemRenderer}
-            length = {length}
-            type = 'uniform'
-        />:<CircularProgress size = {24} />
+        return (
+        <div style = {scrollboxstyle}>
+            {this.state.listproxies?<Lister 
+                ref = {this.props.forwardedRef}
+                itemRenderer = {this.itemRenderer}
+                length = {length}
+                type = 'uniform'
+            />:<CircularProgress size = {24} />}
+        </div>
+        )
     }
 }
 
