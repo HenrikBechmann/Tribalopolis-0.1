@@ -77,6 +77,13 @@ class DirectoryListBase extends React.Component<any,any> {
         }
     }
 
+    componentWillUnmount() {
+        if (this.listProxy) {
+            this.props.callbacks.removeListListener(
+                this.listProxy.token,this.listProxy.instanceid)
+        }        
+    }
+
     cacheListDocument = (data,type) => {
 
         let listproxies
@@ -180,6 +187,7 @@ class DirectoryListBase extends React.Component<any,any> {
                 key = {proxy.instanceid} 
                 listProxy = {proxy} 
                 setListListener = {this.props.callbacks.setListListener}
+                removeListListener = {this.props.callbacks.removeListListener}
                 expandDirectoryItem = {this.expandDirectoryItem(proxy.token)}
                 highlight = {highlight}
                 highlightItem = {this.props.callbacks.highlightItem}

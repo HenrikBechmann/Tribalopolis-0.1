@@ -121,7 +121,7 @@ class DirectoryListBase extends React.Component {
         this.getListComponent = (proxy, key, index) => {
             // let listDocument = this.setListListener(token)
             let highlight = (proxy.uid === this.state.highlightrefuid);
-            let directoryitem = <DirectoryItem key={proxy.instanceid} listProxy={proxy} setListListener={this.props.callbacks.setListListener} expandDirectoryItem={this.expandDirectoryItem(proxy.token)} highlight={highlight} highlightItem={this.props.callbacks.highlightItem}/>;
+            let directoryitem = <DirectoryItem key={proxy.instanceid} listProxy={proxy} setListListener={this.props.callbacks.setListListener} removeListListener={this.props.callbacks.removeListListener} expandDirectoryItem={this.expandDirectoryItem(proxy.token)} highlight={highlight} highlightItem={this.props.callbacks.highlightItem}/>;
             return directoryitem;
         };
         this.modifybuttons = (listItemType) => {
@@ -149,6 +149,11 @@ class DirectoryListBase extends React.Component {
             setTimeout(() => {
                 this.dohighlight();
             });
+        }
+    }
+    componentWillUnmount() {
+        if (this.listProxy) {
+            this.props.callbacks.removeListListener(this.listProxy.token, this.listProxy.instanceid);
         }
     }
     render() {

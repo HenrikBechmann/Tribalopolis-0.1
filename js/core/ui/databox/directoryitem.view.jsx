@@ -89,6 +89,9 @@ class DirectoryItem extends React.Component {
         }
     }
     componentWillUnmount() {
+        if (this.listProxy) {
+            this.props.removeListListener(this.listProxy.token, this.listProxy.instanceid);
+        }
     }
     render() {
         return this.barcomponent();

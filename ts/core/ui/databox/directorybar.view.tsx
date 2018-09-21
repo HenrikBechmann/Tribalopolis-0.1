@@ -76,6 +76,13 @@ class DirectoryBar extends React.Component<any,any> {
         }        
     } 
 
+    componentWillUnmount() {
+        if (this.listProxy) {
+            this.props.removeListListener(
+                this.listProxy.token,this.listProxy.instanceid)
+        }        
+    }
+
     render() {
 
         let { listStack } = this.props

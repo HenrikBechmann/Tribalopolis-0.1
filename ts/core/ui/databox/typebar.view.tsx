@@ -31,6 +31,12 @@ class BoxToolbar extends React.Component<any,any> {
         }
     }
 
+    componentWillUnmount() {
+        if (this.listProxy) {
+            this.props.callbacks.removeListListener(
+                this.listProxy.token,this.listProxy.instanceid)
+        }        
+    }
     cacheListDocument = (data,type) => {
         this.setState({
             list:{

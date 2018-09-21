@@ -247,6 +247,8 @@ class Quadrant extends React.Component {
                 // data fulfillment
                 setListListener: this.setListListener,
                 setItemListener: this.setItemListener,
+                removeItemListener: this.removeItemListener,
+                removeListListener: this.removeListListener,
                 // animations and operations
                 highlightBox: animations.highlightBox,
                 splayBox: (domSource, listcomponent, listdoctoken) => {
@@ -306,6 +308,8 @@ class Quadrant extends React.Component {
         // callbacks
         this.setItemListener = this.props.callbacks.setItemListener;
         this.setListListener = this.props.callbacks.setListListener;
+        this.removeItemListener = this.props.callbacks.removeItemListener;
+        this.removeListListener = this.props.callbacks.removeListListener;
         window.addEventListener('resize', this.onResize);
     }
     /********************************************************

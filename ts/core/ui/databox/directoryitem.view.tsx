@@ -77,6 +77,10 @@ class DirectoryItem extends React.Component<any,any> {
     }
 
     componentWillUnmount() {
+        if (this.listProxy) {
+            this.props.removeListListener(
+                this.listProxy.token,this.listProxy.instanceid)
+        }        
     }
 
     cacheListDocument = (data,type) => {

@@ -16,6 +16,8 @@ const Quadrants = props => {
         handleSwap, 
         setItemListener, 
         setListListener, 
+        removeItemListener,
+        removeListListener,
         selectQuadrant, 
         calcQuadrantPosition 
     } = props.callbacks
@@ -23,6 +25,8 @@ const Quadrants = props => {
     let quadcallbacks = {
         setItemListener,
         setListListener,
+        removeItemListener,
+        removeListListener,
     }
     let framecallbacks = {
         handleSwap,

@@ -112,11 +112,13 @@ class DataBox extends React.Component {
         };
         this.listcallbacks = {
             setListListener: this.props.callbacks.setListListener,
+            removeListListener: this.props.callbacks.removeListListener,
             expandDirectoryItem: this.props.callbacks.expandDirectoryItem,
             highlightItem: this.highlightItem,
         };
         this.typecallbacks = {
             setListListener: this.props.callbacks.setListListener,
+            removeListListener: this.props.callbacks.removeListListener,
             splayBox: this.splayBox,
             selectFromSplay: this.props.callbacks.selectFromSplay,
         };
@@ -153,9 +155,11 @@ class DataBox extends React.Component {
     }
     componentWillUnmount() {
         // unsubscribe data
+        let { itemProxy } = this;
+        this.props.callbacks.removeItemListener(itemProxy.token, itemProxy.instanceid);
     }
     render() {
-        let { setListListener, haspeers } = this.props;
+        let { haspeers } = this.props;
         let item = this.state.item ? this.state.item.data : null;
         let itemType = this.state.item ? this.state.item.type : null;
         let listStack = this.itemProxy.liststack;
@@ -207,7 +211,7 @@ class DataBox extends React.Component {
             position: 'relative',
         }}>
                 <div>
-                    <DirectoryBar listProxy={this.state.BarlistProxy} setListListener={this.props.callbacks.setListListener} listStack={this.itemProxy.liststack} collapseDirectoryItem={this.collapseDirectoryItem}/>
+                    <DirectoryBar listProxy={this.state.BarlistProxy} setListListener={this.props.callbacks.setListListener} removeListListener={this.props.callbacks.removeListListener} listStack={this.itemProxy.liststack} collapseDirectoryItem={this.collapseDirectoryItem}/>
                 </div>
                 
                 <div style={scrollboxstyle}>

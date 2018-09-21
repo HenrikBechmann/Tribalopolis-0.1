@@ -106,6 +106,10 @@ class DataBox extends React.Component<any,any> {
 
     componentWillUnmount() {
         // unsubscribe data
+        let { itemProxy } = this
+        this.props.callbacks.removeItemListener(
+            itemProxy.token, itemProxy.instanceid
+        )
     }
 
     cacheItemData = (data,type) => {
@@ -199,19 +203,21 @@ class DataBox extends React.Component<any,any> {
 
     listcallbacks = {
         setListListener:this.props.callbacks.setListListener,
+        removeListListener:this.props.callbacks.removeListListener,
         expandDirectoryItem:this.props.callbacks.expandDirectoryItem,
         highlightItem:this.highlightItem,
     }
 
     typecallbacks = {
         setListListener:this.props.callbacks.setListListener,
+        removeListListener:this.props.callbacks.removeListListener,
         splayBox:this.splayBox,
         selectFromSplay:this.props.callbacks.selectFromSplay,
     }
 
     render() {
 
-        let { setListListener, haspeers } = this.props
+        let { haspeers } = this.props
 
         let item = this.state.item?this.state.item.data:null
         let itemType = this.state.item?this.state.item.type:null
@@ -285,6 +291,7 @@ class DataBox extends React.Component<any,any> {
                     <DirectoryBar 
                         listProxy = {this.state.BarlistProxy}
                         setListListener = {this.props.callbacks.setListListener}
+                        removeListListener = {this.props.callbacks.removeListListener}
 
                         listStack = {this.itemProxy.liststack}
                         collapseDirectoryItem = {this.collapseDirectoryItem}
