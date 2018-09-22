@@ -65,6 +65,7 @@ class DirectoryBar extends React.Component<any,any> {
         marginLeft:'-1px',
         marginBottom:'-7px',
         backgroundColor:'white',
+        maxWidth:'calc(100% - 80px)',
         // cursor:'pointer',
     }
 
@@ -123,6 +124,9 @@ class DirectoryBar extends React.Component<any,any> {
                             {
                                 display:'inline-block',
                                 verticalAlign:'middle',                        
+                                textOverflow: 'ellipsis',
+                                maxWidth: '90%',
+                                overflow: 'hidden',
                             }
                         } >
                             {listDocument.properties.name}

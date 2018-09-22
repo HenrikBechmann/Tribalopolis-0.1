@@ -55,6 +55,8 @@ class DirectoryItem extends React.Component<any,any> {
         marginBottom:'-1px',
         backgroundColor:'white',
         cursor:'pointer',
+        maxWidth:'90%',
+        whiteSpace:'nowrap',
     }
 
     barelementref
@@ -122,7 +124,16 @@ class DirectoryItem extends React.Component<any,any> {
                     >
                         folder
                     </Icon> 
-                    {listDocument?listDocument.properties.name:null}
+                    <div style = {{
+                        display:'inline-block',
+                        whiteSpace: 'nowrap',
+                        overflow: 'hidden',
+                        maxWidth: 'calc(100% - 24px)',
+                        textOverflow: 'ellipsis',
+                        verticalAlign: 'middle',
+                    }}>
+                        {listDocument?listDocument.properties.name:null}
+                    </div>
                     <QuantityBadge quantity = {listDocument?listDocument.properties.numbers.list.count:0} style = {
                         {
                             left:'-10px',

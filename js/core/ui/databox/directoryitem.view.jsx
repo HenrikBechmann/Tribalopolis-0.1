@@ -40,6 +40,8 @@ class DirectoryItem extends React.Component {
             marginBottom: '-1px',
             backgroundColor: 'white',
             cursor: 'pointer',
+            maxWidth: '90%',
+            whiteSpace: 'nowrap',
         };
         this.cacheListDocument = (data, type) => {
             this.setState({
@@ -64,7 +66,16 @@ class DirectoryItem extends React.Component {
             }}>
                         folder
                     </Icon> 
-                    {listDocument ? listDocument.properties.name : null}
+                    <div style={{
+                display: 'inline-block',
+                whiteSpace: 'nowrap',
+                overflow: 'hidden',
+                maxWidth: 'calc(100% - 24px)',
+                textOverflow: 'ellipsis',
+                verticalAlign: 'middle',
+            }}>
+                        {listDocument ? listDocument.properties.name : null}
+                    </div>
                     <QuantityBadge quantity={listDocument ? listDocument.properties.numbers.list.count : 0} style={{
                 left: '-10px',
                 top: '-5px',

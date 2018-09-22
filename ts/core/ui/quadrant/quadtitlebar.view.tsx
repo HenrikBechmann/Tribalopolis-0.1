@@ -54,7 +54,11 @@ const QuadTitleBar = props => {
                 boxSizing:'border-box',
                 padding: '3px 0 0 30px',
             }}>
-                <div style = {{whiteSpace:'nowrap'}}>
+                <div style = {
+                    {
+                        whiteSpace:'nowrap',
+                    }
+                }>
                     {props.title}
                 </div>
             </div>
