@@ -194,11 +194,13 @@ class QuadToolsStrip extends React.Component {
         }, 500); // substantial timeout required to give scroll client time to right-size
     }
     componentDidUpdate() {
-        if (this.props.user != this.state.user) {
-            this.setState({
-                user: this.props.user,
-            });
-        }
+        this.setState((state, props) => {
+            if (props.user != state.user) {
+                return {
+                    user: props.user,
+                };
+            }
+        });
     }
     render() {
         let wrapperstyle = Object.assign({}, this.defaultstyle, this.props.style);

@@ -197,11 +197,13 @@ class QuadToolsStrip extends React.Component<any,any> {
     }
 
     componentDidUpdate() {
-        if (this.props.user != this.state.user) {
-            this.setState({
-                user:this.props.user,
-            })
-        }
+        this.setState((state,props) => {
+            if (props.user != state.user) {
+                return {
+                    user:props.user,
+                }
+            }
+        })
     }
 
     toggleDrawer = (open) => () => {
