@@ -130,7 +130,7 @@ class DirectoryItem extends React.Component<any,any> {
                         }
                     }/>
                 </div>
-            </div>:<div style = {{height:'25px',width:'286px'}}> 
+            </div>:<div style = {{height:'25px'}}> 
                 <CircularProgress size = {16} />
             </div>}
         </div>
