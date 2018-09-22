@@ -39,10 +39,9 @@ let types = {
             has: {},
         },
         list: {},
-        timestamps: {
+        generatonnumbers: {
             meta: 0,
             properties: 0,
-            list: 0,
         },
     },
     outgoing: {
@@ -59,10 +58,9 @@ let types = {
             has: {},
         },
         list: {},
-        timestamps: {
+        generatonnumbers: {
             meta: 0,
             properties: 0,
-            list: 0,
         },
     },
 };
@@ -89,10 +87,9 @@ let lists = {
             },
         },
         list: [],
-        timestamps: {
+        generatonnumbers: {
             meta: 0,
             properties: 0,
-            list: 0,
         },
         itemuid: 'henrik',
         subscriptions: {
@@ -126,10 +123,9 @@ let lists = {
             },
         },
         list: [],
-        timestamps: {
+        generatonnumbers: {
             meta: 0,
             properties: 0,
-            list: 0,
         },
         item: 'henrik',
         subscriptions: {},
@@ -158,10 +154,9 @@ let lists = {
             },
         },
         list: [],
-        timestamps: {
+        generatonnumbers: {
             meta: 0,
             properties: 0,
-            list: 0,
         },
         item: 'henrik',
         subscriptions: {},
@@ -189,10 +184,9 @@ let lists = {
             },
         },
         list: [],
-        timestamps: {
+        generatonnumbers: {
             meta: 0,
             properties: 0,
-            list: 0,
         },
         item: 'henrik',
         subscriptions: {},
@@ -220,10 +214,9 @@ let lists = {
             },
         },
         list: [],
-        timestamps: {
+        generatonnumbers: {
             meta: 0,
             properties: 0,
-            list: 0,
         },
         item: 'henrik',
         subscriptions: {},
@@ -251,10 +244,9 @@ let lists = {
             },
         },
         list: [],
-        timestamps: {
+        generatonnumbers: {
             meta: 0,
             properties: 0,
-            list: 0,
         },
         item: 'henrik',
         subscriptions: {},
@@ -282,10 +274,9 @@ let lists = {
             },
         },
         list: [],
-        timestamps: {
+        generatonnumbers: {
             meta: 0,
             properties: 0,
-            list: 0,
         },
         item: 'henrik',
         subscriptions: {},
@@ -313,10 +304,9 @@ let lists = {
             },
         },
         list: [],
-        timestamps: {
+        generatonnumbers: {
             meta: 0,
             properties: 0,
-            list: 0,
         },
         item: 'henrik',
         subscriptions: {},
@@ -344,10 +334,9 @@ let lists = {
             },
         },
         list: [],
-        timestamps: {
+        generatonnumbers: {
             meta: 0,
             properties: 0,
-            list: 0,
         },
         item: 'henrik',
         subscriptions: {},
@@ -375,10 +364,9 @@ let lists = {
             },
         },
         list: [],
-        timestamps: {
+        generatonnumbers: {
             meta: 0,
             properties: 0,
-            list: 0,
         },
         item: 'henrik',
         subscriptions: {},
@@ -406,10 +394,9 @@ let lists = {
             },
         },
         list: [],
-        timestamps: {
+        generatonnumbers: {
             meta: 0,
             properties: 0,
-            list: 0,
         },
         item: 'henrik',
         subscriptions: {},
@@ -437,10 +424,9 @@ let lists = {
             },
         },
         list: [],
-        timestamps: {
+        generatonnumbers: {
             meta: 0,
             properties: 0,
-            list: 0,
         },
         item: 'henrik',
         subscriptions: {},
@@ -468,10 +454,9 @@ let lists = {
             },
         },
         list: [],
-        timestamps: {
+        generatonnumbers: {
             meta: 0,
             properties: 0,
-            list: 0,
         },
         item: 'henrik',
         subscriptions: {},
@@ -499,10 +484,9 @@ let lists = {
             },
         },
         list: [],
-        timestamps: {
+        generatonnumbers: {
             meta: 0,
             properties: 0,
-            list: 0,
         },
         item: 'henrik',
         subscriptions: {},
@@ -530,10 +514,9 @@ let lists = {
             },
         },
         list: [],
-        timestamps: {
+        generatonnumbers: {
             meta: 0,
             properties: 0,
-            list: 0,
         },
         item: 'henrik',
         subscriptions: {},
@@ -562,10 +545,9 @@ let lists = {
             },
         },
         list: [],
-        timestamps: {
+        generatonnumbers: {
             meta: 0,
             properties: 0,
-            list: 0,
         },
         item: 'henrik',
         subscriptions: {},
@@ -594,10 +576,9 @@ let lists = {
             },
         },
         list: [],
-        timestamps: {
+        generatonnumbers: {
             meta: 0,
             properties: 0,
-            list: 0,
         },
         item: 'henrik',
         subscriptions: {},
@@ -696,10 +677,9 @@ let lists = {
                 uid: 'other',
             },
         ],
-        timestamps: {
+        generatonnumbers: {
             meta: 0,
             properties: 0,
-            list: 0,
         },
         item: 'henrik',
         subscriptions: {},
@@ -733,10 +713,9 @@ let items = {
             locationid: 'Toronto',
         },
         list: { repo: 'lists', uid: 'henrik' },
-        timestamps: {
+        generatonnumbers: {
             meta: 0,
             properties: 0,
-            list: 0,
         },
     },
 };

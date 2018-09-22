@@ -191,7 +191,7 @@ class QuadspaceController extends React.Component<any,any> {
                         callbacks = {this.quadrantcallbacks}
                     />
                 </QuadViewport>
-                <QuadStatusBar status = 'prompts' />
+                {false?<QuadStatusBar status = 'prompts' />:null}
             </QuadSpaceFrame>
         )
     }

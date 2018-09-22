@@ -407,6 +407,8 @@ class Quadrant extends React.Component<any,any>  {
 
     getBoxComponent = (itemProxy, index, haspeers, key) => {
 
+        // console.log('instanceid, index, key, path',itemProxy.instanceid,index,key, itemProxy.path)
+
         let containerHeight = this.scrollboxelement.current.offsetHeight
 
         let matchForTarget = false
@@ -545,6 +547,7 @@ class Quadrant extends React.Component<any,any>  {
                                 }
                                 type = 'uniform'
                                 ref = {this.listcomponent}
+                                useStaticSize
                             />
                             :this.getBox(0,'singleton')
                         }

@@ -57,7 +57,11 @@ const setItemListener = (token, instanceid, callback) => {
     let path = getTokenPath(token);
     updateCacheData(path, item, type);
     // setTimeout(()=> {
-    callback(item, type);
+    let cacheditem = getCacheItem(path);
+    let cachedcallback = cacheditem.listeners.get(instanceid);
+    if (cachedcallback) {
+        cachedcallback(item, type);
+    }
     // },1000)
     // setTimeout(() => {
     //     console.log('cache',cache)
@@ -86,7 +90,10 @@ const setListListener = (token, instanceid, callback) => {
     let path = getTokenPath(token);
     updateCacheData(path, list, type);
     // setTimeout(()=>{
-    callback(list, type);
+    let cachedcallback = getCacheItem(path).listeners.get(instanceid);
+    if (cachedcallback) {
+        cachedcallback(list, type);
+    }
     // },1000)
     // setTimeout(()=>{
     //     callback(list,type)

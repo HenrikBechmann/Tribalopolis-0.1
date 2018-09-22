@@ -14,7 +14,7 @@ const QuadViewport = props => {
                     top:'48px',
                     left:'0',
                     right:'0',
-                    bottom:'25px',
+                    bottom:'0',
                     backgroundColor:'tan',
                     overflow:'hidden',
                 }

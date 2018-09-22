@@ -237,6 +237,7 @@ class Quadrant extends React.Component {
             return this.getBoxComponent(itemProxy, index, haspeers, key);
         };
         this.getBoxComponent = (itemProxy, index, haspeers, key) => {
+            // console.log('instanceid, index, key, path',itemProxy.instanceid,index,key, itemProxy.path)
             let containerHeight = this.scrollboxelement.current.offsetHeight;
             let matchForTarget = false;
             let { collapseTargetProxy } = this.state;
@@ -381,7 +382,7 @@ class Quadrant extends React.Component {
                 <div style={this.viewportFrameStyle}>
                     <div style={viewportStyle} ref={this.scrollboxelement}>
                         {haspeers
-            ? <Lister axis='x' itemRenderer={this.getBox} length={datastack ? datastack[this.state.stackpointer].items.length : 0} type='uniform' ref={this.listcomponent}/>
+            ? <Lister axis='x' itemRenderer={this.getBox} length={datastack ? datastack[this.state.stackpointer].items.length : 0} type='uniform' ref={this.listcomponent} useStaticSize/>
             : this.getBox(0, 'singleton')}
                     </div>
                 </div>

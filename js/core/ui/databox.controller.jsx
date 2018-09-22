@@ -25,7 +25,7 @@ const tabstyles = {
     opacity: .54,
 };
 let wrapperStyle = {
-    padding: '16px',
+    boxSizing: 'border-box',
 };
 let frameStyle = {
     backgroundColor: 'white',
@@ -58,6 +58,7 @@ class DataBox extends React.Component {
         // always available; no need to check state
         this.itemProxy = this.props.itemProxy;
         this.cacheItemData = (data, type) => {
+            // setTimeout(()=>{
             this.setState({
                 item: {
                     data,
@@ -65,6 +66,7 @@ class DataBox extends React.Component {
                 }
             }, () => {
                 if (!this.state.MainlistProxy) { // no proxies have been set
+                    // setTimeout(()=>{
                     let listdoctoken;
                     if (this.itemProxy.liststack.length) {
                         listdoctoken = this.itemProxy.liststack[this.itemProxy.liststack.length - 1];
@@ -77,8 +79,10 @@ class DataBox extends React.Component {
                         BarlistProxy: new proxy({ token: listdoctoken }),
                         TypelistProxy: new proxy({ token: listdoctoken }),
                     });
+                    // })
                 }
             });
+            // })
         };
         this.doHighlights = (collapseTargetProxy) => {
             this.props.callbacks.highlightBox({ boxElement: this.boxframe.current });
@@ -138,6 +142,7 @@ class DataBox extends React.Component {
         this.listcomponent = React.createRef();
     }
     componentDidMount() {
+        // console.log('did mount',this.itemProxy?this.itemProxy.instanceid:'no item')
         let { itemProxy } = this;
         this.props.callbacks.setItemListener(itemProxy.token, itemProxy.instanceid, this.cacheItemData);
     }
@@ -150,6 +155,7 @@ class DataBox extends React.Component {
             return; // wait for item document to appear
         if (!this.queueCollapseTargetProxy)
             return;
+        console.log('updating ', this.itemProxy ? this.itemProxy.instanceid : 'no item', this.itemProxy.path);
         // pick up and clear the queue
         collapseTargetProxy = this.queueCollapseTargetProxy;
         this.queueCollapseTargetProxy = null;
@@ -167,6 +173,7 @@ class DataBox extends React.Component {
     }
     componentWillUnmount() {
         // unsubscribe data
+        // console.log('unmounting',this.itemProxy.instanceid)
         let { itemProxy } = this;
         this.props.callbacks.removeItemListener(itemProxy.token, itemProxy.instanceid);
     }
@@ -177,12 +184,15 @@ class DataBox extends React.Component {
         let listStack = this.itemProxy.liststack;
         if (!item) {
             let wrapperStyle2 = Object.assign({}, wrapperStyle);
-            wrapperStyle2.height = '100%';
-            wrapperStyle2.boxSizing = 'border-box';
+            wrapperStyle2.height = (this.props.containerHeight - 16) + 'px';
+            wrapperStyle2.width = haspeers ? (this.props.boxwidth + 32) + 'px' : 'auto';
+            wrapperStyle2.float = haspeers ? 'left' : 'none';
+            wrapperStyle2.padding = haspeers ? 'initial' : '16px';
             let frameStyle2 = Object.assign({}, frameStyle);
-            frameStyle2.padding = '16px';
             frameStyle2.maxHeight = '100%';
             frameStyle2.height = frameStyle.maxHeight;
+            frameStyle2.width = haspeers ? 'none' : (this.props.boxwidth) + 'px';
+            frameStyle2.margin = haspeers ? '16px' : 'auto';
             return <div style={wrapperStyle2}>
                 <div style={frameStyle2}>
                     <CircularProgress size={24}/>
@@ -193,14 +203,16 @@ class DataBox extends React.Component {
         // origin is readonly for some reason
         let wrapperStyle2 = Object.assign({}, wrapperStyle, {
             float: haspeers ? 'left' : 'none',
+            width: haspeers ? (this.props.boxwidth + 32) + 'px' : 'none',
+            padding: haspeers ? 'none' : '16px'
         });
         let frameStyle2 = Object.assign({}, frameStyle, {
-            width: this.props.boxwidth + 'px',
             border: this.collapseTargetProxy ? '1px solid blue' : '1px solid silver',
             boxShadow: haspeers ? 'none' : '0 0 12px black',
-            margin: haspeers ? 'none' : 'auto',
+            width: haspeers ? 'none' : (this.props.boxwidth) + 'px',
+            margin: haspeers ? '16px' : 'auto',
         });
-        return <div style={wrapperStyle2}>
+        return <div data-index={this.props.index} style={wrapperStyle2}>
             <div style={frameStyle2} ref={this.boxframe}>
             {haspeers ? null : <ResizeTab />}
             <BoxTypebar item={item} itemType={itemType /*future*/} listProxy={this.state.TypelistProxy} haspeers={this.props.haspeers} callbacks={this.typecallbacks}/>
