@@ -232,6 +232,7 @@ class DirectoryListBase extends React.Component<any,any> {
                     itemRenderer = {this.itemRenderer}
                     length = {length}
                     type = 'uniform'
+                    useStaticSize
                 />:<CircularProgress size = {24} />}
             </div>
             {this.modifybuttons(this.state.list?this.state.list.type:null)}

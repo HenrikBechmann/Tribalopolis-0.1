@@ -101,7 +101,7 @@ class DataBox extends React.Component<any,any> {
 
         if (!this.queueCollapseTargetProxy) return
 
-        console.log('updating ',this.itemProxy?this.itemProxy.instanceid:'no item',this.itemProxy.path)
+        // console.log('updating ',this.itemProxy?this.itemProxy.instanceid:'no item',this.itemProxy.path)
         // pick up and clear the queue
         collapseTargetProxy = this.queueCollapseTargetProxy
         this.queueCollapseTargetProxy = null

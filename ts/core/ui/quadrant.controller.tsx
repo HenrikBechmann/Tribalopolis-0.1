@@ -505,7 +505,8 @@ class Quadrant extends React.Component<any,any>  {
         if (!haspeers && this.scrollboxelement.current && (this.scrollboxelement.current.scrollLeft != 0)) {
             this.scrollboxelement.current.scrollLeft = 0
         }
-
+        // useStaticSize Lister attribute below is required to avoid setState 
+        // recursion overload and crash
         return (
             <div style = {quadcontentstyle} 
                 ref = {this.quadcontentelement}
