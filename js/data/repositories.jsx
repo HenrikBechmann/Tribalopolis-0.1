@@ -15,10 +15,9 @@ let folders = {
         identity: {},
         properties: {},
         list: {},
-        timestamps: {
+        generatonnumbers: {
             meta: 0,
             properties: 0,
-            list: 0,
         },
     }
 };
