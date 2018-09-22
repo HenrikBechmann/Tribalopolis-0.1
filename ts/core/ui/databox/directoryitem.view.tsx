@@ -132,7 +132,7 @@ class DirectoryItem extends React.Component<any,any> {
                         textOverflow: 'ellipsis',
                         verticalAlign: 'middle',
                     }}>
-                        {listDocument?listDocument.properties.name:null}
+                        {listDocument && listDocument.properties.name}
                     </div>
                     <QuantityBadge quantity = {listDocument?listDocument.properties.numbers.list.count:0} style = {
                         {
