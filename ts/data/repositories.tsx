@@ -924,7 +924,7 @@ let items = {
         },
         type:{
             uid:'incoming',
-            name:'member', // TODO: should be obtained from type object
+            name:'User', // TODO: should be obtained from type object
             schemeuid:'common',
         },
         identity:{

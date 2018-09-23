@@ -102,7 +102,7 @@ const MenuList = withRouter
                         group
                     </Icon>
                 </ListItemIcon>
-                <ListItemText primary = "Members" />
+                <ListItemText primary = "Users" />
             </ListItem>
             <ListItem button
                 disabled

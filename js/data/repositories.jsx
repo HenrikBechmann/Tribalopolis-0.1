@@ -739,7 +739,7 @@ let items = {
         },
         type: {
             uid: 'incoming',
-            name: 'member',
+            name: 'User',
             schemeuid: 'common',
         },
         identity: {
