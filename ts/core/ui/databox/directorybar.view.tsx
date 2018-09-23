@@ -118,7 +118,7 @@ class DirectoryBar extends React.Component<any,any> {
                         style = {this.tabstyle}
                     > 
                         <Icon style = {{verticalAlign:'middle'}}>folder_open</Icon> 
-                        <QuantityBadge quantity = {listDocument.properties.numbers.list.count} style = {{left:'-6px',top:'-8px'}}/>
+                        <QuantityBadge quantity = {listDocument.counts.lists + listDocument.counts.items} style = {{left:'-6px',top:'-8px'}}/>
 
                         <div style = {
                             {

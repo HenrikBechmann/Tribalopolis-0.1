@@ -4,7 +4,7 @@
 // repositories.tsx
 let folders = {
     henrikacf: {
-        access: {
+        system: {
             attributes: {},
             permissions: {
                 owner: 'henrikaccount',
@@ -19,12 +19,13 @@ let folders = {
             meta: 0,
             properties: 0,
         },
+        counts: {},
     }
 };
 let schemes = {};
 let types = {
     incoming: {
-        access: {
+        system: {
             attributes: {},
             permissions: {
                 owner: 'henrikaccount',
@@ -43,9 +44,10 @@ let types = {
             meta: 0,
             properties: 0,
         },
+        counts: {},
     },
     outgoing: {
-        access: {
+        system: {
             attributes: {},
             permissions: {},
         },
@@ -62,11 +64,12 @@ let types = {
             meta: 0,
             properties: 0,
         },
+        counts: {},
     },
 };
 let lists = {
     diaries: {
-        access: {
+        system: {
             attributes: {},
             permissions: {},
         },
@@ -79,17 +82,17 @@ let lists = {
         },
         properties: {
             name: 'Diaries',
-            numbers: {
-                list: {
-                    count: 3,
-                    timestamp: 1
-                },
-            },
         },
         lists: [],
+        items: [],
+        item: 'henrik',
         generations: {
             meta: 0,
             properties: 0,
+        },
+        counts: {
+            lists: 0,
+            items: 0,
         },
         itemuid: 'henrik',
         subscriptions: {
@@ -102,7 +105,7 @@ let lists = {
         subscribers: {},
     },
     notes: {
-        access: {
+        system: {
             attributes: {},
             permissions: {},
         },
@@ -115,24 +118,23 @@ let lists = {
         },
         properties: {
             name: 'Notes',
-            numbers: {
-                list: {
-                    count: 310,
-                    timestamp: 1
-                },
-            },
         },
         lists: [],
+        items: [],
+        item: 'henrik',
         generations: {
             meta: 0,
             properties: 0,
         },
-        item: 'henrik',
+        counts: {
+            lists: 0,
+            items: 0,
+        },
         subscriptions: {},
         subscribers: {},
     },
     tribes: {
-        access: {
+        system: {
             attributes: {},
             permissions: {},
         },
@@ -146,24 +148,23 @@ let lists = {
         properties: {
             name: 'Tribes',
             sysnode: true,
-            numbers: {
-                list: {
-                    count: 5,
-                    timestamp: 1
-                },
-            },
         },
         lists: [],
+        items: [],
         generations: {
             meta: 0,
             properties: 0,
+        },
+        counts: {
+            lists: 0,
+            items: 0,
         },
         item: 'henrik',
         subscriptions: {},
         subscribers: {},
     },
     connections: {
-        access: {
+        system: {
             attributes: {},
             permissions: {},
         },
@@ -176,24 +177,23 @@ let lists = {
         },
         properties: {
             name: 'Contacts',
-            numbers: {
-                list: {
-                    count: 23,
-                    timestamp: 1
-                },
-            },
         },
         lists: [],
+        items: [],
         generations: {
             meta: 0,
             properties: 0,
+        },
+        counts: {
+            lists: 0,
+            items: 0,
         },
         item: 'henrik',
         subscriptions: {},
         subscribers: {},
     },
     requesting: {
-        access: {
+        system: {
             attributes: {},
             permissions: {},
         },
@@ -206,24 +206,23 @@ let lists = {
         },
         properties: {
             name: 'Outgoing action requests',
-            numbers: {
-                list: {
-                    count: 12,
-                    timestamp: 1
-                },
-            },
         },
         lists: [],
+        items: [],
         generations: {
             meta: 0,
             properties: 0,
+        },
+        counts: {
+            lists: 0,
+            items: 0,
         },
         item: 'henrik',
         subscriptions: {},
         subscribers: {},
     },
     pending: {
-        access: {
+        system: {
             attributes: {},
             permissions: {},
         },
@@ -236,24 +235,23 @@ let lists = {
         },
         properties: {
             name: 'Incoming action requests',
-            numbers: {
-                list: {
-                    count: 23,
-                    timestamp: 1
-                },
-            },
         },
         lists: [],
+        items: [],
         generations: {
             meta: 0,
             properties: 0,
+        },
+        counts: {
+            lists: 0,
+            items: 0,
         },
         item: 'henrik',
         subscriptions: {},
         subscribers: {},
     },
     roles: {
-        access: {
+        system: {
             attributes: {},
             permissions: {},
         },
@@ -266,24 +264,23 @@ let lists = {
         },
         properties: {
             name: 'Roles',
-            numbers: {
-                list: {
-                    count: 4,
-                    timestamp: 1
-                },
-            },
         },
         lists: [],
+        items: [],
         generations: {
             meta: 0,
             properties: 0,
+        },
+        counts: {
+            lists: 0,
+            items: 0,
         },
         item: 'henrik',
         subscriptions: {},
         subscribers: {},
     },
     programs: {
-        access: {
+        system: {
             attributes: {},
             permissions: {},
         },
@@ -296,24 +293,23 @@ let lists = {
         },
         properties: {
             name: 'Programs',
-            numbers: {
-                list: {
-                    count: 5,
-                    timestamp: 1
-                },
-            },
         },
         lists: [],
+        items: [],
         generations: {
             meta: 0,
             properties: 0,
+        },
+        counts: {
+            lists: 0,
+            items: 0,
         },
         item: 'henrik',
         subscriptions: {},
         subscribers: {},
     },
     projects: {
-        access: {
+        system: {
             attributes: {},
             permissions: {},
         },
@@ -326,24 +322,23 @@ let lists = {
         },
         properties: {
             name: 'Projects',
-            numbers: {
-                list: {
-                    count: 3,
-                    timestamp: 1
-                },
-            },
         },
         lists: [],
+        items: [],
         generations: {
             meta: 0,
             properties: 0,
+        },
+        counts: {
+            lists: 0,
+            items: 0,
         },
         item: 'henrik',
         subscriptions: {},
         subscribers: {},
     },
     tasks: {
-        access: {
+        system: {
             attributes: {},
             permissions: {},
         },
@@ -356,24 +351,23 @@ let lists = {
         },
         properties: {
             name: 'Tasks',
-            numbers: {
-                list: {
-                    count: 20,
-                    timestamp: 1
-                },
-            },
         },
         lists: [],
+        items: [],
         generations: {
             meta: 0,
             properties: 0,
+        },
+        counts: {
+            lists: 0,
+            items: 0,
         },
         item: 'henrik',
         subscriptions: {},
         subscribers: {},
     },
     messages: {
-        access: {
+        system: {
             attributes: {},
             permissions: {},
         },
@@ -386,24 +380,23 @@ let lists = {
         },
         properties: {
             name: 'Direct Messages ',
-            numbers: {
-                list: {
-                    count: 3,
-                    timestamp: 1
-                },
-            },
         },
         lists: [],
+        items: [],
         generations: {
             meta: 0,
             properties: 0,
+        },
+        counts: {
+            lists: 0,
+            items: 0,
         },
         item: 'henrik',
         subscriptions: {},
         subscribers: {},
     },
     streams: {
-        access: {
+        system: {
             attributes: {},
             permissions: {},
         },
@@ -416,24 +409,23 @@ let lists = {
         },
         properties: {
             name: 'Message Streams ',
-            numbers: {
-                list: {
-                    count: 100,
-                    timestamp: 1
-                },
-            },
         },
         lists: [],
+        items: [],
         generations: {
             meta: 0,
             properties: 0,
+        },
+        counts: {
+            lists: 0,
+            items: 0,
         },
         item: 'henrik',
         subscriptions: {},
         subscribers: {},
     },
     resources: {
-        access: {
+        system: {
             attributes: {},
             permissions: {},
         },
@@ -446,24 +438,23 @@ let lists = {
         },
         properties: {
             name: 'Resources',
-            numbers: {
-                list: {
-                    count: 64,
-                    timestamp: 1
-                },
-            },
         },
         lists: [],
+        items: [],
         generations: {
             meta: 0,
             properties: 0,
+        },
+        counts: {
+            lists: 0,
+            items: 0,
         },
         item: 'henrik',
         subscriptions: {},
         subscribers: {},
     },
     calendars: {
-        access: {
+        system: {
             attributes: {},
             permissions: {},
         },
@@ -476,24 +467,23 @@ let lists = {
         },
         properties: {
             name: 'Calendars',
-            numbers: {
-                list: {
-                    count: 67,
-                    timestamp: 1
-                },
-            },
         },
         lists: [],
+        items: [],
         generations: {
             meta: 0,
             properties: 0,
+        },
+        counts: {
+            lists: 0,
+            items: 0,
         },
         item: 'henrik',
         subscriptions: {},
         subscribers: {},
     },
     accounting: {
-        access: {
+        system: {
             attributes: {},
             permissions: {},
         },
@@ -506,24 +496,23 @@ let lists = {
         },
         properties: {
             name: 'Accounting',
-            numbers: {
-                list: {
-                    count: 6000,
-                    timestamp: 1
-                },
-            },
         },
         lists: [],
+        items: [],
         generations: {
             meta: 0,
             properties: 0,
+        },
+        counts: {
+            lists: 0,
+            items: 0,
         },
         item: 'henrik',
         subscriptions: {},
         subscribers: {},
     },
     membership: {
-        access: {
+        system: {
             attributes: {},
             permissions: {},
         },
@@ -537,24 +526,23 @@ let lists = {
         properties: {
             name: 'Tribalopolis Membership',
             sysnode: true,
-            numbers: {
-                list: {
-                    count: 2,
-                    timestamp: 1
-                },
-            },
         },
         lists: [],
+        items: [],
         generations: {
             meta: 0,
             properties: 0,
+        },
+        counts: {
+            lists: 0,
+            items: 0,
         },
         item: 'henrik',
         subscriptions: {},
         subscribers: {},
     },
     other: {
-        access: {
+        system: {
             attributes: {},
             permissions: {},
         },
@@ -568,24 +556,23 @@ let lists = {
         properties: {
             name: 'More...',
             sysnode: true,
-            numbers: {
-                list: {
-                    count: 2,
-                    timestamp: 1
-                },
-            },
         },
         lists: [],
+        items: [],
         generations: {
             meta: 0,
             properties: 0,
+        },
+        counts: {
+            lists: 0,
+            items: 0,
         },
         item: 'henrik',
         subscriptions: {},
         subscribers: {},
     },
     henrik: {
-        access: {
+        system: {
             attributes: {},
             permissions: {},
         },
@@ -599,12 +586,6 @@ let lists = {
         properties: {
             name: 'Links Directory',
             sysnode: true,
-            numbers: {
-                list: {
-                    count: 6558,
-                    timestamp: 1
-                },
-            },
             linkedlist: false,
         },
         lists: [
@@ -677,11 +658,16 @@ let lists = {
                 uid: 'other',
             },
         ],
+        items: [],
+        item: 'henrik',
         generations: {
             meta: 0,
             properties: 0,
         },
-        item: 'henrik',
+        counts: {
+            lists: 17,
+            items: 0,
+        },
         subscriptions: {},
         subscribers: {},
     },
@@ -689,7 +675,7 @@ let lists = {
 let links = {};
 let items = {
     henrik: {
-        access: {
+        system: {
             attributes: {},
             permissions: {},
         },
@@ -717,6 +703,7 @@ let items = {
             meta: 0,
             properties: 0,
         },
+        counts: {},
     },
 };
 let accounts = {};
