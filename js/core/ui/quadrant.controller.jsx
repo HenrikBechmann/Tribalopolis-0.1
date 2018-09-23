@@ -48,6 +48,18 @@ class Quadrant extends React.Component {
             });
         };
         this.animateOriginToDatabox = () => {
+            animations.animateMask({
+                sourceElement: this.scrollboxelement.current,
+                containerElement: this.quadcontentelement.current,
+                maskAnimationElement: this.maskanimationblock.current,
+            });
+            animations.animateToDatabox({
+                sourceElement: this.originelement.current,
+                targetElement: this.scrollboxelement.current,
+                containerElement: this.quadcontentelement.current,
+                drillAnimationElement: this.drillanimationblock.current,
+                boxwidth: this.state.boxwidth,
+            });
         };
         this.animateToDataBox = (domSource) => {
             animations.animateToDatabox({
@@ -190,12 +202,15 @@ class Quadrant extends React.Component {
                 if (targetStackLayer.items.length > 1) {
                     this.animateOriginToDataBoxList();
                 }
+                else {
+                    this.animateOriginToDatabox();
+                }
                 // console.log('collapseDirectoryItem',itemProxy,this.state.datastack)
             }
             setTimeout(() => {
                 this.collapseTargetProxy = Object.assign({}, itemProxy);
                 this.decrementStackSelector();
-            }, 100);
+            }, 120);
         };
         this.decrementStackSelector = () => {
             let { stackpointer, datastack } = this.state;
