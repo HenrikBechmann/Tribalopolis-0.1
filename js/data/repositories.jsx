@@ -135,7 +135,9 @@ let lists = {
     },
     tribes: {
         system: {
-            attributes: {},
+            attributes: {
+                sysnode: true,
+            },
             permissions: {},
         },
         type: {
@@ -147,7 +149,6 @@ let lists = {
         },
         properties: {
             name: 'Tribes',
-            sysnode: true,
         },
         lists: [],
         items: [],
@@ -513,7 +514,9 @@ let lists = {
     },
     membership: {
         system: {
-            attributes: {},
+            attributes: {
+                sysnode: true,
+            },
             permissions: {},
         },
         type: {
@@ -525,7 +528,6 @@ let lists = {
         },
         properties: {
             name: 'Tribalopolis Membership',
-            sysnode: true,
         },
         lists: [],
         items: [],
@@ -543,7 +545,9 @@ let lists = {
     },
     other: {
         system: {
-            attributes: {},
+            attributes: {
+                sysnode: true,
+            },
             permissions: {},
         },
         type: {
@@ -555,7 +559,6 @@ let lists = {
         },
         properties: {
             name: 'More...',
-            sysnode: true,
         },
         lists: [],
         items: [],
@@ -573,7 +576,9 @@ let lists = {
     },
     henrik: {
         system: {
-            attributes: {},
+            attributes: {
+                sysnode: true,
+            },
             permissions: {},
         },
         type: {
@@ -585,7 +590,6 @@ let lists = {
         },
         properties: {
             name: 'Links Directory',
-            sysnode: true,
             linkedlist: false,
         },
         lists: [

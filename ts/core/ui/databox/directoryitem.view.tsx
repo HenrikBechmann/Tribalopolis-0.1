@@ -118,7 +118,7 @@ class DirectoryItem extends React.Component<any,any> {
                         style = {
                             {
                                 verticalAlign:'middle',
-                                color:listDocument?listDocument.properties.sysnode?'green':'gray':'gray',
+                                color:listDocument?listDocument.system.attributes.sysnode?'green':'gray':'gray',
                             }
                         } 
                     >

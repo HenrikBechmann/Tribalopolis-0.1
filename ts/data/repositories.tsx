@@ -179,7 +179,7 @@ let lists = {
     {
         system:{
             attributes:{
-
+                sysnode:true,
             },
             permissions:{
 
@@ -194,7 +194,6 @@ let lists = {
         },
         properties:{
             name:'Tribes',
-            sysnode:true,
         },
         lists:[],
         items:[],
@@ -674,7 +673,7 @@ let lists = {
     {
         system:{
             attributes:{
-
+                sysnode:true,
             },
             permissions:{
 
@@ -689,7 +688,6 @@ let lists = {
         },
         properties:{
             name:'Tribalopolis Membership',
-            sysnode:true,
         },
         lists:[],
         items:[],
@@ -714,7 +712,7 @@ let lists = {
     {
         system:{
             attributes:{
-
+                sysnode:true,
             },
             permissions:{
 
@@ -729,7 +727,6 @@ let lists = {
         },
         properties:{
             name:'More...',
-            sysnode:true,
         },
         lists:[],
         items:[],
@@ -753,7 +750,7 @@ let lists = {
     {
         system:{
             attributes:{
-
+                sysnode:true,
             },
             permissions:{
 
@@ -768,7 +765,6 @@ let lists = {
         },
         properties:{
             name:'Links Directory',
-            sysnode:true,
             linkedlist:false,
         },
         lists:[

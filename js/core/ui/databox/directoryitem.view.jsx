@@ -62,7 +62,7 @@ class DirectoryItem extends React.Component {
                 <div style={this.tabstyle} onClick={this.expandDirectoryItem}> 
                     <Icon style={{
                 verticalAlign: 'middle',
-                color: listDocument ? listDocument.properties.sysnode ? 'green' : 'gray' : 'gray',
+                color: listDocument ? listDocument.system.attributes.sysnode ? 'green' : 'gray' : 'gray',
             }}>
                         folder
                     </Icon> 
