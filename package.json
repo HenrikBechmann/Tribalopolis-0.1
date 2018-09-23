@@ -2,7 +2,7 @@
   "name": "tribalopolis.com",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "private":true,
   "scripts": {
     "dev": "webpack --mode development --config config/webpack.config.js",
     "build": "webpack --mode production --config config/webpack.config.js",
