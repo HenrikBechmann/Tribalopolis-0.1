@@ -75,7 +75,7 @@ class BoxToolbar extends React.Component<any,any> {
 
         let boxicon = '/public/icons/databox.svg'
 
-        let listcount = this.state.list?this.state.list.data.list.length:0
+        let listcount = this.state.list?this.state.list.data.lists.length:0
 
         let haspeers = props.haspeers
 

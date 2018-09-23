@@ -15,7 +15,7 @@ let folders = {
         identity: {},
         properties: {},
         list: {},
-        generatonnumbers: {
+        generations: {
             meta: 0,
             properties: 0,
         },
@@ -39,7 +39,7 @@ let types = {
             has: {},
         },
         list: {},
-        generatonnumbers: {
+        generations: {
             meta: 0,
             properties: 0,
         },
@@ -58,7 +58,7 @@ let types = {
             has: {},
         },
         list: {},
-        generatonnumbers: {
+        generations: {
             meta: 0,
             properties: 0,
         },
@@ -86,8 +86,8 @@ let lists = {
                 },
             },
         },
-        list: [],
-        generatonnumbers: {
+        lists: [],
+        generations: {
             meta: 0,
             properties: 0,
         },
@@ -122,8 +122,8 @@ let lists = {
                 },
             },
         },
-        list: [],
-        generatonnumbers: {
+        lists: [],
+        generations: {
             meta: 0,
             properties: 0,
         },
@@ -153,8 +153,8 @@ let lists = {
                 },
             },
         },
-        list: [],
-        generatonnumbers: {
+        lists: [],
+        generations: {
             meta: 0,
             properties: 0,
         },
@@ -183,8 +183,8 @@ let lists = {
                 },
             },
         },
-        list: [],
-        generatonnumbers: {
+        lists: [],
+        generations: {
             meta: 0,
             properties: 0,
         },
@@ -213,8 +213,8 @@ let lists = {
                 },
             },
         },
-        list: [],
-        generatonnumbers: {
+        lists: [],
+        generations: {
             meta: 0,
             properties: 0,
         },
@@ -243,8 +243,8 @@ let lists = {
                 },
             },
         },
-        list: [],
-        generatonnumbers: {
+        lists: [],
+        generations: {
             meta: 0,
             properties: 0,
         },
@@ -273,8 +273,8 @@ let lists = {
                 },
             },
         },
-        list: [],
-        generatonnumbers: {
+        lists: [],
+        generations: {
             meta: 0,
             properties: 0,
         },
@@ -303,8 +303,8 @@ let lists = {
                 },
             },
         },
-        list: [],
-        generatonnumbers: {
+        lists: [],
+        generations: {
             meta: 0,
             properties: 0,
         },
@@ -333,8 +333,8 @@ let lists = {
                 },
             },
         },
-        list: [],
-        generatonnumbers: {
+        lists: [],
+        generations: {
             meta: 0,
             properties: 0,
         },
@@ -363,8 +363,8 @@ let lists = {
                 },
             },
         },
-        list: [],
-        generatonnumbers: {
+        lists: [],
+        generations: {
             meta: 0,
             properties: 0,
         },
@@ -393,8 +393,8 @@ let lists = {
                 },
             },
         },
-        list: [],
-        generatonnumbers: {
+        lists: [],
+        generations: {
             meta: 0,
             properties: 0,
         },
@@ -423,8 +423,8 @@ let lists = {
                 },
             },
         },
-        list: [],
-        generatonnumbers: {
+        lists: [],
+        generations: {
             meta: 0,
             properties: 0,
         },
@@ -453,8 +453,8 @@ let lists = {
                 },
             },
         },
-        list: [],
-        generatonnumbers: {
+        lists: [],
+        generations: {
             meta: 0,
             properties: 0,
         },
@@ -483,8 +483,8 @@ let lists = {
                 },
             },
         },
-        list: [],
-        generatonnumbers: {
+        lists: [],
+        generations: {
             meta: 0,
             properties: 0,
         },
@@ -513,8 +513,8 @@ let lists = {
                 },
             },
         },
-        list: [],
-        generatonnumbers: {
+        lists: [],
+        generations: {
             meta: 0,
             properties: 0,
         },
@@ -544,8 +544,8 @@ let lists = {
                 },
             },
         },
-        list: [],
-        generatonnumbers: {
+        lists: [],
+        generations: {
             meta: 0,
             properties: 0,
         },
@@ -575,8 +575,8 @@ let lists = {
                 },
             },
         },
-        list: [],
-        generatonnumbers: {
+        lists: [],
+        generations: {
             meta: 0,
             properties: 0,
         },
@@ -607,7 +607,7 @@ let lists = {
             },
             linkedlist: false,
         },
-        list: [
+        lists: [
             {
                 repo: 'lists',
                 uid: 'membership',
@@ -677,7 +677,7 @@ let lists = {
                 uid: 'other',
             },
         ],
-        generatonnumbers: {
+        generations: {
             meta: 0,
             properties: 0,
         },
@@ -713,7 +713,7 @@ let items = {
             locationid: 'Toronto',
         },
         list: { repo: 'lists', uid: 'henrik' },
-        generatonnumbers: {
+        generations: {
             meta: 0,
             properties: 0,
         },

@@ -53,7 +53,7 @@ class DirectoryListBase extends React.Component {
             });
         };
         this.generateListProxies = (listDocument) => {
-            let listtokens = listDocument.list;
+            let listtokens = listDocument.lists;
             let listproxies = listtokens.map((token) => {
                 return new proxy({ token });
             });
@@ -62,7 +62,7 @@ class DirectoryListBase extends React.Component {
         this.updateListProxies = (listDocument, oldListProxies) => {
             // console.log('updating listproxies')
             let pathMap = this.pathToIndexMap;
-            let listtokens = listDocument.list;
+            let listtokens = listDocument.lists;
             let listproxies = listtokens.map((token) => {
                 let path = `${token.repo}/${token.uid}`;
                 let proxy = oldListProxies[pathMap[path]];

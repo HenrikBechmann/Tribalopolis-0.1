@@ -234,7 +234,7 @@ class Quadrant extends React.Component<any,any>  {
         let itemProxy = datastack[stackpointer].items[boxptr]
         let itemToken = itemProxy.token
 
-        let listtokens = listDocument.list
+        let listtokens = listDocument.lists
 
         if (!listtokens || !listtokens.length) return
 
