@@ -19,8 +19,6 @@ const OriginMenu = (props) => {
     }}>
         <ActionButton icon='arrow_back' disabled={pointer == 0} action={props.decrementStackSelector}/>
         <ActionButton icon='arrow_forward' disabled={(pointer + 1) == depth} action={props.incrementStackSelector}/>
-        <ActionButton icon='person'/>
-        {false ? <ActionButton icon='weekend'/> : null}
 
         <Divider style={{ float: 'right', width: '100%' }}/>
 

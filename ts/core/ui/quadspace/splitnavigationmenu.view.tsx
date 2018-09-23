@@ -9,7 +9,7 @@ import IconButton from '@material-ui/core/IconButton'
 const SplitNavigationMenu = ({split,changeSplitFrom}) => {
     return <div style = {{display:'inline-block',verticalAlign:'middle'}}>
         <IconButton
-            style = {{verticalAlign:'bottom'}}
+            style = {{verticalAlign:'bottom', marginBottom:'5px'}/*margin???*/}
             onClick = {() => changeSplitFrom('horizontal')}
         >
             <img 
@@ -22,7 +22,7 @@ const SplitNavigationMenu = ({split,changeSplitFrom}) => {
         </IconButton>
 
         <IconButton
-            style = {{verticalAlign:'bottom'}}
+            style = {{verticalAlign:'bottom',marginBottom:'5px'}/*margin???*/}
             onClick = {() => changeSplitFrom('vertical')}
         >
             <img 

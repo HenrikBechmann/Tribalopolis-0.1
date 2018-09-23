@@ -36,12 +36,6 @@ const OriginMenu = (props) => {
             disabled = {(pointer + 1) == depth}
             action = {props.incrementStackSelector}
         />
-        <ActionButton 
-            icon = 'person'
-        />
-        {false?<ActionButton 
-            icon = 'weekend'
-        />:null}
 
         <Divider style = {{float:'right',width:'100%'}}/>
 

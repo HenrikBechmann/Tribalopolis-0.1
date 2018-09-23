@@ -5,13 +5,13 @@ import React from 'react';
 import IconButton from '@material-ui/core/IconButton';
 const SplitNavigationMenu = ({ split, changeSplitFrom }) => {
     return <div style={{ display: 'inline-block', verticalAlign: 'middle' }}>
-        <IconButton style={{ verticalAlign: 'bottom' }} onClick={() => changeSplitFrom('horizontal')}>
+        <IconButton style={{ verticalAlign: 'bottom', marginBottom: '5px' } /*margin???*/} onClick={() => changeSplitFrom('horizontal')}>
             <img src={(split == 'horizontal') ?
         '/public/icons/ic_border_all_black_24px_split_red.svg' :
         '/public/icons/ic_border_all_black_24px_split.svg'}/>
         </IconButton>
 
-        <IconButton style={{ verticalAlign: 'bottom' }} onClick={() => changeSplitFrom('vertical')}>
+        <IconButton style={{ verticalAlign: 'bottom', marginBottom: '5px' } /*margin???*/} onClick={() => changeSplitFrom('vertical')}>
             <img style={{ transform: 'rotate(90deg)' }} src={(split == 'vertical') ?
         '/public/icons/ic_border_all_black_24px_split_red.svg' :
         '/public/icons/ic_border_all_black_24px_split.svg'}/>
