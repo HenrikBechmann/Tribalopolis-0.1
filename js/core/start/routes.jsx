@@ -2,6 +2,8 @@
 'use strict';
 import React from 'react';
 import { Route } from 'react-router-dom';
+// see https://babeljs.io/docs/en/babel-plugin-syntax-dynamic-import
+// import Loadable from 'react-loadable'
 // import Spaces from './control/spaces'
 import Quadspace from '../ui/quadspace.controller';
 import Build from '../ui/build.controller';
@@ -13,6 +15,25 @@ import Home from '../ui/home.controller';
 // import UserProfile from '../containers/userprofile'
 // import NoMatch  from '../containers/nomatch'
 // import approutes from '../../addins/approutes'
+// const Loading = () => <div>Loading...</div>
+// const Home = Loadable(
+//     {
+//         loader:() => import ('../ui/home.controller'),
+//         loading:Loading,
+//     }
+// )
+// const Quadspace = Loadable(
+//     {
+//         loader:() => import ('../ui/quadspace.controller'),
+//         loading:Loading,
+//     }
+// )
+// const Build = Loadable(
+//     {
+//         loader:() => import ('../ui/build.controller'),
+//         loading:Loading,
+//     }
+// )
 let routedata = [
 // { path: "resetpassword", component: ResetPassword },
 // { path: "register", component: Register },
