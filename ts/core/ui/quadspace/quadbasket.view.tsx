@@ -17,9 +17,17 @@ const QuadBasket = props => {
                     backgroundColor:'brown',
                     zIndex:1,
                     borderRadius: '8px',
+                    display:'flex',
+                    justifyContent:'center',
+                    alignItems:'center',
                 }
             }>
-            {props.children}
+            <div style = {{fontWeight:'bold',color:'gray',opacity:0.7}}>
+                TRANSFER
+            </div>
+            <div style = {{position:'absolute',top:0, right:0,bottom:0,left:0}}>
+                {props.children}
+            </div>
         </div>    
     )
 }
