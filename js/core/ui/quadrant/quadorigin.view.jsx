@@ -14,6 +14,9 @@ const QuadOriginBase = props => {
         backgroundColor: 'green',
         borderRadius: '8px',
         zIndex: 5,
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
     }} ref={props.forwardedRef}>
             <QuantityBadge quantity={props.stackdepth}/>
             <QuantityBadge quantity={props.stackpointer + 1} style={{
@@ -24,6 +27,7 @@ const QuadOriginBase = props => {
         backgroundColor: 'red',
         color: 'white',
     }}/>
+            <div style={{ opacity: 0.5, fontSize: '.7em' }}>STACK</div>
             <div style={{
         position: 'absolute',
         margin: 'auto',

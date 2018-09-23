@@ -19,6 +19,9 @@ const QuadOriginBase = props => {
                     backgroundColor:'green',
                     borderRadius:'8px',
                     zIndex:5,
+                    display:'flex',
+                    justifyContent:'center',
+                    alignItems:'center',
                 }
             }
             ref = {props.forwardedRef}
@@ -34,6 +37,7 @@ const QuadOriginBase = props => {
                     color:'white',
                }}
             />
+            <div style = {{opacity:0.5,fontSize:'.7em'}}>STACK</div>
             <div style = {
                 {
                     position:'absolute',
