@@ -8,6 +8,13 @@ const highlightBox = ({boxElement}) => {
 
 }
 
+const animateMask = ({sourceElement,containerElement,maskAnimationElement}) => {
+
+    let sourcePack = _getAnimationElementVars(sourceElement, containerElement)
+    _animateMaskDrill(sourcePack, maskAnimationElement)
+
+}
+
 const animateToOrigin = ({sourceElement, originElement, containerElement, originAnimationElement, maskAnimationElement}) => {
 
     let sourcePack = _getAnimationElementVars(sourceElement, containerElement)
@@ -144,6 +151,7 @@ let animations = {
     animateToOrigin,
     animateToDatabox,
     animateToDataboxList,
+    animateMask,
 }
 
 export default animations

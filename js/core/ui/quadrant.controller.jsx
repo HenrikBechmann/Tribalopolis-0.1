@@ -47,6 +47,8 @@ class Quadrant extends React.Component {
                 maskAnimationElement: this.maskanimationblock.current,
             });
         };
+        this.animateOriginToDatabox = () => {
+        };
         this.animateToDataBox = (domSource) => {
             animations.animateToDatabox({
                 sourceElement: domSource,
@@ -59,6 +61,19 @@ class Quadrant extends React.Component {
         this.animateToDataBoxList = (domSource) => {
             animations.animateToDataboxList({
                 sourceElement: domSource,
+                targetElement: this.scrollboxelement.current,
+                containerElement: this.quadcontentelement.current,
+                drillAnimationElement: this.drillanimationblock.current,
+            });
+        };
+        this.animateOriginToDataBoxList = () => {
+            animations.animateMask({
+                sourceElement: this.scrollboxelement.current,
+                containerElement: this.quadcontentelement.current,
+                maskAnimationElement: this.maskanimationblock.current,
+            });
+            animations.animateToDataboxList({
+                sourceElement: this.originelement.current,
                 targetElement: this.scrollboxelement.current,
                 containerElement: this.quadcontentelement.current,
                 drillAnimationElement: this.drillanimationblock.current,
@@ -170,8 +185,17 @@ class Quadrant extends React.Component {
         };
         //-------------------------------[ backward ]----------------------------
         this.collapseDirectoryItem = (itemProxy) => {
-            this.collapseTargetProxy = Object.assign({}, itemProxy);
-            this.decrementStackSelector();
+            if (this.state.stackpointer) {
+                let targetStackLayer = this.state.datastack[this.state.stackpointer - 1];
+                if (targetStackLayer.items.length > 1) {
+                    this.animateOriginToDataBoxList();
+                }
+                // console.log('collapseDirectoryItem',itemProxy,this.state.datastack)
+            }
+            setTimeout(() => {
+                this.collapseTargetProxy = Object.assign({}, itemProxy);
+                this.decrementStackSelector();
+            }, 100);
         };
         this.decrementStackSelector = () => {
             let { stackpointer, datastack } = this.state;

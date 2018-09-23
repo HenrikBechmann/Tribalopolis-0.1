@@ -161,6 +161,10 @@ class Quadrant extends React.Component<any,any>  {
         })        
     }
 
+    animateOriginToDatabox = () => {
+
+    }
+
     animateToDataBox = (domSource) => {
         animations.animateToDatabox({
             sourceElement:domSource,
@@ -179,6 +183,21 @@ class Quadrant extends React.Component<any,any>  {
             drillAnimationElement:this.drillanimationblock.current,  
         })        
     }
+
+    animateOriginToDataBoxList = () => {
+        animations.animateMask({
+            sourceElement:this.scrollboxelement.current,
+            containerElement:this.quadcontentelement.current,
+            maskAnimationElement:this.maskanimationblock.current,
+        })
+        animations.animateToDataboxList({
+            sourceElement:this.originelement.current,
+            targetElement:this.scrollboxelement.current,
+            containerElement:this.quadcontentelement.current,
+            drillAnimationElement:this.drillanimationblock.current,
+        })
+    }
+
 
 /********************************************************
 ----------------------[ operations ]---------------------
@@ -322,9 +341,19 @@ class Quadrant extends React.Component<any,any>  {
 
     collapseDirectoryItem = (itemProxy) => {
 
-        this.collapseTargetProxy = Object.assign({},itemProxy)
+        if (this.state.stackpointer) {
+            let targetStackLayer = this.state.datastack[this.state.stackpointer - 1]
+            if (targetStackLayer.items.length > 1) {
+                this.animateOriginToDataBoxList()
+            }
+            // console.log('collapseDirectoryItem',itemProxy,this.state.datastack)
+        }
 
-        this.decrementStackSelector()
+        setTimeout(()=>{
+            this.collapseTargetProxy = Object.assign({},itemProxy)
+
+            this.decrementStackSelector()
+        },100)
 
     }
 
