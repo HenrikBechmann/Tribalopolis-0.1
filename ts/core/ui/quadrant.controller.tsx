@@ -524,7 +524,7 @@ class Quadrant extends React.Component<any,any>  {
                 >
                 </div>
                 <QuadTitleBar 
-                    title = {'path'} 
+                    title = {'Context:'} 
                     quadidentifier={this.props.quadidentifier}
                 />
                 <QuadOrigin 
