@@ -116,7 +116,10 @@ let lists = {
         },
         lists:[],
         items:[],
-        item:'henrik',
+        item:{
+            repo:'items',
+            uid:'henrik',
+        },
         generations:{
             meta:0,
             properties:0,
@@ -159,7 +162,10 @@ let lists = {
         },
         lists:[],
         items:[],
-        item:'henrik',
+        item:{
+            repo:'items',
+            uid:'henrik',
+        },
         generations:{
             meta:0,
             properties:0,
@@ -205,7 +211,10 @@ let lists = {
             lists:0,
             items:0,
         },
-        item:'henrik',
+        item:{
+            repo:'items',
+            uid:'henrik',
+        },
         subscriptions:{
 
         },
@@ -243,7 +252,10 @@ let lists = {
             lists:0,
             items:0,
         },
-        item:'henrik',
+        item:{
+            repo:'items',
+            uid:'henrik',
+        },
         subscriptions:{
 
         },
@@ -281,7 +293,10 @@ let lists = {
             lists:0,
             items:0,
         },
-        item:'henrik',
+        item:{
+            repo:'items',
+            uid:'henrik',
+        },
         subscriptions:{
 
         },
@@ -319,7 +334,10 @@ let lists = {
             lists:0,
             items:0,
         },
-        item:'henrik',
+        item:{
+            repo:'items',
+            uid:'henrik',
+        },
         subscriptions:{
 
         },
@@ -357,7 +375,10 @@ let lists = {
             lists:0,
             items:0,
         },
-        item:'henrik',
+        item:{
+            repo:'items',
+            uid:'henrik',
+        },
         subscriptions:{
 
         },
@@ -395,7 +416,10 @@ let lists = {
             lists:0,
             items:0,
         },
-        item:'henrik',
+        item:{
+            repo:'items',
+            uid:'henrik',
+        },
         subscriptions:{
 
         },
@@ -433,7 +457,10 @@ let lists = {
             lists:0,
             items:0,
         },
-        item:'henrik',
+        item:{
+            repo:'items',
+            uid:'henrik',
+        },
         subscriptions:{
 
         },
@@ -471,7 +498,10 @@ let lists = {
             lists:0,
             items:0,
         },
-        item:'henrik',
+        item:{
+            repo:'items',
+            uid:'henrik',
+        },
         subscriptions:{
 
         },
@@ -509,7 +539,10 @@ let lists = {
             lists:0,
             items:0,
         },
-        item:'henrik',
+        item:{
+            repo:'items',
+            uid:'henrik',
+        },
         subscriptions:{
 
         },
@@ -547,7 +580,10 @@ let lists = {
             lists:0,
             items:0,
         },
-        item:'henrik',
+        item:{
+            repo:'items',
+            uid:'henrik',
+        },
         subscriptions:{
 
         },
@@ -585,7 +621,10 @@ let lists = {
             lists:0,
             items:0,
         },
-        item:'henrik',
+        item:{
+            repo:'items',
+            uid:'henrik',
+        },
         subscriptions:{
 
         },
@@ -623,7 +662,10 @@ let lists = {
             lists:0,
             items:0,
         },
-        item:'henrik',
+        item:{
+            repo:'items',
+            uid:'henrik',
+        },
         subscriptions:{
 
         },
@@ -661,7 +703,10 @@ let lists = {
             lists:0,
             items:0,
         },
-        item:'henrik',
+        item:{
+            repo:'items',
+            uid:'henrik',
+        },
         subscriptions:{
 
         },
@@ -699,7 +744,10 @@ let lists = {
             lists:0,
             items:0,
         },
-        item:'henrik',
+        item:{
+            repo:'items',
+            uid:'henrik',
+        },
         subscriptions:{
 
         },
@@ -738,7 +786,10 @@ let lists = {
             lists:0,
             items:0,
         },
-        item:'henrik',
+        item:{
+            repo:'items',
+            uid:'henrik',
+        },
         subscriptions:{
 
         },
@@ -838,7 +889,10 @@ let lists = {
             },
         ],
         items:[],
-        item:'henrik',
+        item:{
+            repo:'items',
+            uid:'henrik',
+        },
         generations:{
             meta:0,
             properties:0,
