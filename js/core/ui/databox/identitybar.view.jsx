@@ -23,7 +23,15 @@ const BoxHeader = props => {
         <ActionButton icon='lock'/>
         <ActionButton icon='info'/>
         <img style={{ verticalAlign: 'middle', width: '32px', margin: '0 3px' }} src={avatar}/> 
-        {item.properties.name}
+        <div style={{
+        display: 'inline-block',
+        verticalAlign: 'middle',
+        textOverflow: 'ellipsis',
+        maxWidth: '63%',
+        overflow: 'hidden',
+    }}>
+            {item.properties.name}
+        </div>
     </div>;
 };
 export default BoxHeader;

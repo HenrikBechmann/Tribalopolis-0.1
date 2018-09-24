@@ -99,6 +99,9 @@ class BoxToolbar extends React.Component {
             padding: '5px 3px 3px',
             fontStyle: 'italic',
             position: 'relative',
+            textOverflow: 'ellipsis',
+            maxWidth: '38%',
+            overflow: 'hidden',
         }}>
                 {props.item.type.name}
             </div>
