@@ -14,12 +14,16 @@ let folders = {
         type: {},
         identity: {},
         properties: {},
-        list: {},
         generations: {
             meta: 0,
             properties: 0,
         },
         counts: {},
+        references: {
+            list: {},
+            parents: [],
+            account: null,
+        },
     }
 };
 let schemes = {};
@@ -45,6 +49,10 @@ let types = {
             properties: 0,
         },
         counts: {},
+        references: {
+            parents: [],
+            account: null,
+        },
     },
     outgoing: {
         system: {
@@ -65,6 +73,10 @@ let types = {
             properties: 0,
         },
         counts: {},
+        references: {
+            parents: [],
+            account: null,
+        },
     },
 };
 let lists = {
@@ -83,12 +95,6 @@ let lists = {
         properties: {
             name: 'Diaries',
         },
-        lists: [],
-        items: [],
-        item: {
-            repo: 'items',
-            uid: 'henrik',
-        },
         generations: {
             meta: 0,
             properties: 0,
@@ -97,15 +103,21 @@ let lists = {
             lists: 0,
             items: 0,
         },
-        itemuid: 'henrik',
-        subscriptions: {
-            ['subscriptionid']: {
-                lastreadstamp: 1,
-                recentcreatecount: 5,
-                recenttokens: [],
-            }
+        references: {
+            lists: [],
+            items: [],
+            parents: [],
+            account: null,
+            item: 'henrik',
+            subscriptions: {
+                ['subscriptionid']: {
+                    lastreadstamp: 1,
+                    recentcreatecount: 5,
+                    recenttokens: [],
+                }
+            },
+            subscribers: {},
         },
-        subscribers: {},
     },
     notes: {
         system: {
@@ -122,12 +134,6 @@ let lists = {
         properties: {
             name: 'Notes',
         },
-        lists: [],
-        items: [],
-        item: {
-            repo: 'items',
-            uid: 'henrik',
-        },
         generations: {
             meta: 0,
             properties: 0,
@@ -136,8 +142,15 @@ let lists = {
             lists: 0,
             items: 0,
         },
-        subscriptions: {},
-        subscribers: {},
+        references: {
+            lists: [],
+            items: [],
+            item: 'henrik',
+            parents: [],
+            account: null,
+            subscriptions: {},
+            subscribers: {},
+        },
     },
     tribes: {
         system: {
@@ -156,8 +169,6 @@ let lists = {
         properties: {
             name: 'Tribes',
         },
-        lists: [],
-        items: [],
         generations: {
             meta: 0,
             properties: 0,
@@ -166,12 +177,15 @@ let lists = {
             lists: 0,
             items: 0,
         },
-        item: {
-            repo: 'items',
-            uid: 'henrik',
+        references: {
+            lists: [],
+            items: [],
+            parents: [],
+            account: null,
+            item: 'henrik',
+            subscriptions: {},
+            subscribers: {},
         },
-        subscriptions: {},
-        subscribers: {},
     },
     connections: {
         system: {
@@ -188,8 +202,6 @@ let lists = {
         properties: {
             name: 'Contacts',
         },
-        lists: [],
-        items: [],
         generations: {
             meta: 0,
             properties: 0,
@@ -198,12 +210,15 @@ let lists = {
             lists: 0,
             items: 0,
         },
-        item: {
-            repo: 'items',
-            uid: 'henrik',
+        references: {
+            lists: [],
+            items: [],
+            parents: [],
+            account: null,
+            item: 'henrik',
+            subscriptions: {},
+            subscribers: {},
         },
-        subscriptions: {},
-        subscribers: {},
     },
     requesting: {
         system: {
@@ -220,8 +235,6 @@ let lists = {
         properties: {
             name: 'Outgoing action requests',
         },
-        lists: [],
-        items: [],
         generations: {
             meta: 0,
             properties: 0,
@@ -230,12 +243,15 @@ let lists = {
             lists: 0,
             items: 0,
         },
-        item: {
-            repo: 'items',
-            uid: 'henrik',
+        references: {
+            lists: [],
+            items: [],
+            parents: [],
+            account: null,
+            item: 'henrik',
+            subscriptions: {},
+            subscribers: {},
         },
-        subscriptions: {},
-        subscribers: {},
     },
     pending: {
         system: {
@@ -252,8 +268,6 @@ let lists = {
         properties: {
             name: 'Incoming action requests',
         },
-        lists: [],
-        items: [],
         generations: {
             meta: 0,
             properties: 0,
@@ -262,12 +276,15 @@ let lists = {
             lists: 0,
             items: 0,
         },
-        item: {
-            repo: 'items',
-            uid: 'henrik',
+        references: {
+            lists: [],
+            items: [],
+            parents: [],
+            account: null,
+            item: 'henrik',
+            subscriptions: {},
+            subscribers: {},
         },
-        subscriptions: {},
-        subscribers: {},
     },
     roles: {
         system: {
@@ -284,8 +301,6 @@ let lists = {
         properties: {
             name: 'Roles',
         },
-        lists: [],
-        items: [],
         generations: {
             meta: 0,
             properties: 0,
@@ -294,12 +309,15 @@ let lists = {
             lists: 0,
             items: 0,
         },
-        item: {
-            repo: 'items',
-            uid: 'henrik',
+        references: {
+            lists: [],
+            items: [],
+            parents: [],
+            account: null,
+            item: 'henrik',
+            subscriptions: {},
+            subscribers: {},
         },
-        subscriptions: {},
-        subscribers: {},
     },
     programs: {
         system: {
@@ -316,8 +334,6 @@ let lists = {
         properties: {
             name: 'Programs',
         },
-        lists: [],
-        items: [],
         generations: {
             meta: 0,
             properties: 0,
@@ -326,12 +342,15 @@ let lists = {
             lists: 0,
             items: 0,
         },
-        item: {
-            repo: 'items',
-            uid: 'henrik',
+        references: {
+            lists: [],
+            items: [],
+            parents: [],
+            account: null,
+            item: 'henrik',
+            subscriptions: {},
+            subscribers: {},
         },
-        subscriptions: {},
-        subscribers: {},
     },
     projects: {
         system: {
@@ -348,8 +367,6 @@ let lists = {
         properties: {
             name: 'Projects',
         },
-        lists: [],
-        items: [],
         generations: {
             meta: 0,
             properties: 0,
@@ -358,12 +375,15 @@ let lists = {
             lists: 0,
             items: 0,
         },
-        item: {
-            repo: 'items',
-            uid: 'henrik',
+        references: {
+            lists: [],
+            items: [],
+            parents: [],
+            account: null,
+            item: 'henrik',
+            subscriptions: {},
+            subscribers: {},
         },
-        subscriptions: {},
-        subscribers: {},
     },
     tasks: {
         system: {
@@ -380,8 +400,6 @@ let lists = {
         properties: {
             name: 'Tasks',
         },
-        lists: [],
-        items: [],
         generations: {
             meta: 0,
             properties: 0,
@@ -390,12 +408,15 @@ let lists = {
             lists: 0,
             items: 0,
         },
-        item: {
-            repo: 'items',
-            uid: 'henrik',
+        references: {
+            lists: [],
+            items: [],
+            parents: [],
+            account: null,
+            item: 'henrik',
+            subscriptions: {},
+            subscribers: {},
         },
-        subscriptions: {},
-        subscribers: {},
     },
     messages: {
         system: {
@@ -412,8 +433,6 @@ let lists = {
         properties: {
             name: 'Direct Messages ',
         },
-        lists: [],
-        items: [],
         generations: {
             meta: 0,
             properties: 0,
@@ -422,12 +441,15 @@ let lists = {
             lists: 0,
             items: 0,
         },
-        item: {
-            repo: 'items',
-            uid: 'henrik',
+        references: {
+            lists: [],
+            items: [],
+            parents: [],
+            account: null,
+            item: 'henrik',
+            subscriptions: {},
+            subscribers: {},
         },
-        subscriptions: {},
-        subscribers: {},
     },
     streams: {
         system: {
@@ -444,8 +466,6 @@ let lists = {
         properties: {
             name: 'Message Streams ',
         },
-        lists: [],
-        items: [],
         generations: {
             meta: 0,
             properties: 0,
@@ -454,12 +474,15 @@ let lists = {
             lists: 0,
             items: 0,
         },
-        item: {
-            repo: 'items',
-            uid: 'henrik',
+        references: {
+            lists: [],
+            items: [],
+            parents: [],
+            account: null,
+            item: 'henrik',
+            subscriptions: {},
+            subscribers: {},
         },
-        subscriptions: {},
-        subscribers: {},
     },
     resources: {
         system: {
@@ -476,8 +499,6 @@ let lists = {
         properties: {
             name: 'Resources',
         },
-        lists: [],
-        items: [],
         generations: {
             meta: 0,
             properties: 0,
@@ -486,12 +507,15 @@ let lists = {
             lists: 0,
             items: 0,
         },
-        item: {
-            repo: 'items',
-            uid: 'henrik',
+        references: {
+            lists: [],
+            items: [],
+            parents: [],
+            account: null,
+            item: 'henrik',
+            subscriptions: {},
+            subscribers: {},
         },
-        subscriptions: {},
-        subscribers: {},
     },
     calendars: {
         system: {
@@ -508,8 +532,6 @@ let lists = {
         properties: {
             name: 'Calendars',
         },
-        lists: [],
-        items: [],
         generations: {
             meta: 0,
             properties: 0,
@@ -518,12 +540,15 @@ let lists = {
             lists: 0,
             items: 0,
         },
-        item: {
-            repo: 'items',
-            uid: 'henrik',
+        references: {
+            lists: [],
+            items: [],
+            parents: [],
+            account: null,
+            item: 'henrik',
+            subscriptions: {},
+            subscribers: {},
         },
-        subscriptions: {},
-        subscribers: {},
     },
     accounting: {
         system: {
@@ -540,8 +565,6 @@ let lists = {
         properties: {
             name: 'Accounting',
         },
-        lists: [],
-        items: [],
         generations: {
             meta: 0,
             properties: 0,
@@ -550,12 +573,15 @@ let lists = {
             lists: 0,
             items: 0,
         },
-        item: {
-            repo: 'items',
-            uid: 'henrik',
+        references: {
+            lists: [],
+            items: [],
+            parents: [],
+            account: null,
+            item: 'henrik',
+            subscriptions: {},
+            subscribers: {},
         },
-        subscriptions: {},
-        subscribers: {},
     },
     membership: {
         system: {
@@ -574,8 +600,6 @@ let lists = {
         properties: {
             name: 'Tribalopolis Membership',
         },
-        lists: [],
-        items: [],
         generations: {
             meta: 0,
             properties: 0,
@@ -584,12 +608,15 @@ let lists = {
             lists: 0,
             items: 0,
         },
-        item: {
-            repo: 'items',
-            uid: 'henrik',
+        references: {
+            lists: [],
+            items: [],
+            parents: [],
+            account: null,
+            item: 'henrik',
+            subscriptions: {},
+            subscribers: {},
         },
-        subscriptions: {},
-        subscribers: {},
     },
     other: {
         system: {
@@ -608,8 +635,6 @@ let lists = {
         properties: {
             name: 'More...',
         },
-        lists: [],
-        items: [],
         generations: {
             meta: 0,
             properties: 0,
@@ -618,12 +643,15 @@ let lists = {
             lists: 0,
             items: 0,
         },
-        item: {
-            repo: 'items',
-            uid: 'henrik',
+        references: {
+            lists: [],
+            items: [],
+            parents: [],
+            account: null,
+            item: 'henrik',
+            subscriptions: {},
+            subscribers: {},
         },
-        subscriptions: {},
-        subscribers: {},
     },
     henrik: {
         system: {
@@ -643,81 +671,6 @@ let lists = {
             name: 'Links Directory',
             linkedlist: false,
         },
-        lists: [
-            {
-                repo: 'lists',
-                uid: 'membership',
-            },
-            {
-                repo: 'lists',
-                uid: 'tribes',
-            },
-            {
-                repo: 'lists',
-                uid: 'connections',
-            },
-            {
-                repo: 'lists',
-                uid: 'requesting',
-            },
-            {
-                repo: 'lists',
-                uid: 'pending',
-            },
-            {
-                repo: 'lists',
-                uid: 'diaries',
-            },
-            {
-                repo: 'lists',
-                uid: 'notes',
-            },
-            {
-                repo: 'lists',
-                uid: 'tasks',
-            },
-            {
-                repo: 'lists',
-                uid: 'messages',
-            },
-            {
-                repo: 'lists',
-                uid: 'streams',
-            },
-            {
-                repo: 'lists',
-                uid: 'calendars',
-            },
-            {
-                repo: 'lists',
-                uid: 'accounting',
-            },
-            {
-                repo: 'lists',
-                uid: 'roles',
-            },
-            {
-                repo: 'lists',
-                uid: 'programs',
-            },
-            {
-                repo: 'lists',
-                uid: 'projects',
-            },
-            {
-                repo: 'lists',
-                uid: 'resources',
-            },
-            {
-                repo: 'lists',
-                uid: 'other',
-            },
-        ],
-        items: [],
-        item: {
-            repo: 'items',
-            uid: 'henrik',
-        },
         generations: {
             meta: 0,
             properties: 0,
@@ -726,8 +679,84 @@ let lists = {
             lists: 17,
             items: 0,
         },
-        subscriptions: {},
-        subscribers: {},
+        references: {
+            lists: [
+                {
+                    repo: 'lists',
+                    uid: 'membership',
+                },
+                {
+                    repo: 'lists',
+                    uid: 'tribes',
+                },
+                {
+                    repo: 'lists',
+                    uid: 'connections',
+                },
+                {
+                    repo: 'lists',
+                    uid: 'requesting',
+                },
+                {
+                    repo: 'lists',
+                    uid: 'pending',
+                },
+                {
+                    repo: 'lists',
+                    uid: 'diaries',
+                },
+                {
+                    repo: 'lists',
+                    uid: 'notes',
+                },
+                {
+                    repo: 'lists',
+                    uid: 'tasks',
+                },
+                {
+                    repo: 'lists',
+                    uid: 'messages',
+                },
+                {
+                    repo: 'lists',
+                    uid: 'streams',
+                },
+                {
+                    repo: 'lists',
+                    uid: 'calendars',
+                },
+                {
+                    repo: 'lists',
+                    uid: 'accounting',
+                },
+                {
+                    repo: 'lists',
+                    uid: 'roles',
+                },
+                {
+                    repo: 'lists',
+                    uid: 'programs',
+                },
+                {
+                    repo: 'lists',
+                    uid: 'projects',
+                },
+                {
+                    repo: 'lists',
+                    uid: 'resources',
+                },
+                {
+                    repo: 'lists',
+                    uid: 'other',
+                },
+            ],
+            items: [],
+            item: 'henrik',
+            parents: [],
+            account: null,
+            subscriptions: {},
+            subscribers: {},
+        },
     },
 };
 let links = {};
@@ -756,12 +785,16 @@ let items = {
             location: 'Toronto',
             locationid: 'Toronto',
         },
-        list: { repo: 'lists', uid: 'henrik' },
         generations: {
             meta: 0,
             properties: 0,
         },
         counts: {},
+        references: {
+            list: { repo: 'lists', uid: 'henrik' },
+            parents: [],
+            account: null,
+        },
     },
 };
 let accounts = {};

@@ -143,7 +143,7 @@ class DataBox extends React.Component<any,any> {
                             if (this.itemProxy.liststack.length) {
                                 listdoctoken = this.itemProxy.liststack[this.itemProxy.liststack.length -1]
                             } else {
-                                listdoctoken = this.state.item.data.list
+                                listdoctoken = this.state.item.data.references.list
                             }
                             this.setState({
                                 MainlistProxy:new proxy({token:listdoctoken}),
