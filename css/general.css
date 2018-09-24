@@ -137,7 +137,6 @@
     animation: maskdrill 1s;
     z-index: 3;
     border-radius: 8px;
-    box-sizing: border-box;
 }
 
 .elementdrill {
@@ -146,7 +145,6 @@
     animation: elementdrill 1s .25s;
     z-index: 4;
     border-radius: 8px;
-    box-sizing: border-box;
 }
 
 .origindrill {
@@ -155,7 +153,6 @@
     animation: origindrill .5s;
     z-index: 6;
     border-radius: 8px;
-    box-sizing: border-box;
 }
 
 .fromorigindrill {
@@ -164,7 +161,6 @@
     animation: fromorigindrill .7s;
     z-index: 6;
     border-radius: 8px;
-    box-sizing: border-box;
 }
 
 .elementunwind {

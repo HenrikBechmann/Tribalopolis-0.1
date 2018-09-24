@@ -128,7 +128,7 @@ class DirectoryItem extends React.Component<any,any> {
                         display:'inline-block',
                         whiteSpace: 'nowrap',
                         overflow: 'hidden',
-                        maxWidth: 'calc(100% - 24px)',
+                        maxWidth: '92%',
                         textOverflow: 'ellipsis',
                         verticalAlign: 'middle',
                     }}>
