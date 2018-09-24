@@ -4,7 +4,7 @@
 
 import React from 'react'
 
-import Icon from '@material-ui/core/Icon'
+import { withStyles, createStyles } from '@material-ui/core/styles'
 import CircularProgress from '@material-ui/core/CircularProgress'
 
 import BoxIdentityBar from './databox/identitybar.view'
@@ -15,47 +15,49 @@ import DirectoryBar from './databox/directorybar.view'
 import DirectoryList from './databox/directorylist.view'
 // import ScanBar from './databox/scanbar.view'
 
+import ResizeTab from './databox/resizetab.view'
+
 import proxy from '../utilities/proxy'
 
-const tabstyles:React.CSSProperties = {
-    position:'absolute',
-    right:'-22px',
-    top:'calc(50% - 16px)',
-    width:'20px',
-    height:'32px',
-    border:'1px solid gray',
-    borderLeft:'1px solid transparent',
-    backgroundColor:'white',
-    borderRadius:'0 8px 8px 0',
-    opacity:.54,
-}
+const styles = createStyles({
+    tabstyles:{
+        position:'absolute',
+        right:'-22px',
+        top:'calc(50% - 16px)',
+        width:'20px',
+        height:'32px',
+        border:'1px solid gray',
+        borderLeft:'1px solid transparent',
+        backgroundColor:'white',
+        borderRadius:'0 8px 8px 0',
+        opacity:.54,
+    },
 
-let wrapperStyle:React.CSSProperties = {
-    boxSizing:'border-box',
-}
+    wrapperStyle:{
+        boxSizing:'border-box',
+    },
 
-let frameStyle:React.CSSProperties = {
-    backgroundColor:'white',
-    maxHeight:'96%',
-    minHeight:'60%',
-    boxSizing:'border-box',
-    borderRadius:'8px',
-    fontSize:'smaller',
-    position:'relative',
-}
-
-const wrapperstyles = {margin:'4px 0 0 -3px'}
-
-const iconstyles = {transform:'rotate(90deg)',opacity:.54}
-
-const ResizeTab = props => {
-
-    return <div style = {tabstyles}>
-        <div style = {wrapperstyles} >
-            <Icon style = {iconstyles}>drag_handle</Icon>
-        </div>
-    </div>
-}
+    frameStyle:{
+        backgroundColor:'white',
+        maxHeight:'96%',
+        minHeight:'60%',
+        boxSizing:'border-box',
+        borderRadius:'8px',
+        fontSize:'smaller',
+        position:'relative',
+    },
+    indexMarker:{
+        position:'absolute',
+        bottom:'-16px',
+        left:'0',
+        fontSize:'smaller',
+        color:'gray',
+    },
+    identityBar:{
+        height:'calc(100% - 78px)',
+        position:'relative',
+    },
+})
 
 class DataBox extends React.Component<any,any> {
 
@@ -129,33 +131,31 @@ class DataBox extends React.Component<any,any> {
     }
 
     cacheItemData = (data,type) => {
-        // setTimeout(()=>{
-            this.setState({
-                item:{
-                    data,
-                    type
+
+        this.setState({
+            item:{
+                data,
+                type
+            }
+        },() => { // set matching list proxies for children
+
+            if (!this.state.MainlistProxy) { // no proxies have been set
+
+                let listdoctoken
+                if (this.itemProxy.liststack.length) {
+                    listdoctoken = this.itemProxy.liststack[this.itemProxy.liststack.length -1]
+                } else {
+                    listdoctoken = this.state.item.data.references.list
                 }
-            },() => { // set matching list proxies for children
+                this.setState({
+                    MainlistProxy:new proxy({token:listdoctoken}),
+                    BarlistProxy: new proxy({token:listdoctoken}),
+                    TypelistProxy: new proxy({token:listdoctoken}),
+                })
 
-                if (!this.state.MainlistProxy) { // no proxies have been set
-                    // setTimeout(()=>{
-                            let listdoctoken
-                            if (this.itemProxy.liststack.length) {
-                                listdoctoken = this.itemProxy.liststack[this.itemProxy.liststack.length -1]
-                            } else {
-                                listdoctoken = this.state.item.data.references.list
-                            }
-                            this.setState({
-                                MainlistProxy:new proxy({token:listdoctoken}),
-                                BarlistProxy: new proxy({token:listdoctoken}),
-                                TypelistProxy: new proxy({token:listdoctoken}),
-                            })
+            }
+        })
 
-                    // })
-                }
-            })
-
-        // })
     }
 
     doHighlights = (collapseTargetProxy) => {
@@ -206,19 +206,11 @@ class DataBox extends React.Component<any,any> {
 
     }
 
-    indexmarker = () => {
+    indexmarker = (classes) => {
         return (
             this.props.haspeers?
             <div
-                style = {
-                    {
-                        position:'absolute',
-                        bottom:'-16px',
-                        left:'0',
-                        fontSize:'smaller',
-                        color:'gray',
-                    }
-                }
+                className = {classes.indexMarker}
             >{this.props.index + 1}</div>
             : null
         )
@@ -240,53 +232,56 @@ class DataBox extends React.Component<any,any> {
 
     render() {
 
-        let { haspeers } = this.props
+        let { haspeers, classes } = this.props
 
         let item = this.state.item?this.state.item.data:null
         let itemType = this.state.item?this.state.item.type:null
 
         let listStack = this.itemProxy.liststack
 
+        // over-rides for placeholder
         if (!item) {
-            let wrapperStyle2 = Object.assign({},wrapperStyle)
-            wrapperStyle2.height = (this.props.containerHeight - 16) + 'px'
-            wrapperStyle2.width = haspeers?(this.props.boxwidth + 32) + 'px':'auto'
-            wrapperStyle2.float = haspeers?'left':'none'
-            wrapperStyle2.padding = haspeers?'initial':'16px'
+            let wrapperStyle:React.CSSProperties = {
+                height:(this.props.containerHeight - 16) + 'px',
+                width:haspeers?(this.props.boxwidth + 32) + 'px':'auto',
+                float:haspeers?'left':'none',
+                padding:haspeers?'initial':'16px',
+            }
 
-            let frameStyle2 = Object.assign({},frameStyle)
-            frameStyle2.maxHeight = '100%'
-            frameStyle2.height = frameStyle.maxHeight
-            frameStyle2.width = haspeers?'none':(this.props.boxwidth) + 'px'
-            frameStyle2.margin = haspeers?'16px':'auto'
-
-            return <div style = {wrapperStyle2}>
-                <div style = {frameStyle2}>
+            let frameStyle:React.CSSProperties = {
+                maxHeight:'100%',
+                height:'96%',
+                width:haspeers?'none':(this.props.boxwidth) + 'px',
+                margin:haspeers?'16px':'auto',
+            }
+            return <div className = {classes.wrapperStyle} style = {wrapperStyle}>
+                <div className = {classes.frameStyle} style = {frameStyle}>
                     <CircularProgress size = {24}/>
                 </div>
             </div>
         }
         
-        // experimenting with style management...
-        // origin is readonly for some reason
-        let wrapperStyle2 = Object.assign({},wrapperStyle, 
+        // over-rides
+        let wrapperStyle:React.CSSProperties = 
             {
                 float:haspeers?'left':'none',
                 width:haspeers?(this.props.boxwidth + 32) + 'px':'none',
-                padding: haspeers?'none':'16px'
+                padding: haspeers?'none':'16px',
             }
-        )
-        let frameStyle2 = Object.assign({},frameStyle, 
+        let frameStyle:React.CSSProperties =  
             {
                 border:this.collapseTargetProxy?'1px solid blue':'1px solid silver',
                 boxShadow: haspeers?'none':'0 0 12px black',
                 width: haspeers?'none':(this.props.boxwidth) + 'px',
                 margin: haspeers?'16px':'auto',
             }
-        )
 
-        return  <div data-index = {this.props.index} style = { wrapperStyle2 }>
-            <div style = {frameStyle2}
+        return  <div 
+            data-index = {this.props.index} 
+            className = {classes.wrapperStyle} 
+            style = { wrapperStyle}
+        >
+            <div className = {classes.frameStyle} style = {frameStyle}
                 ref = {this.boxframe}
             >
             {haspeers?null:<ResizeTab />}
@@ -299,12 +294,7 @@ class DataBox extends React.Component<any,any> {
                 callbacks = {this.typecallbacks}
             />
             <BoxIdentityBar item = {item} />
-            <div style = {
-                    {
-                        height:'calc(100% - 78px)',
-                        position:'relative',
-                    }
-                }
+            <div className = {classes.identityBar}
             >
                 <div>
                     <DirectoryBar 
@@ -327,7 +317,7 @@ class DataBox extends React.Component<any,any> {
                     callbacks = {this.listcallbacks}
                 />
                 
-                { this.indexmarker() }
+                { this.indexmarker(classes) }
 
             </div>
         </div>
@@ -335,4 +325,4 @@ class DataBox extends React.Component<any,any> {
     }
 }
 
-export default DataBox
+export default withStyles(styles)(DataBox)
