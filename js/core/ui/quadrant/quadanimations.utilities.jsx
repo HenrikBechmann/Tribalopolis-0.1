@@ -9,6 +9,14 @@ const animateMask = ({ sourceElement, containerElement, maskAnimationElement }) 
     let sourcePack = _getAnimationElementVars(sourceElement, containerElement);
     _animateMaskDrill(sourcePack, maskAnimationElement);
 };
+const animateOriginToDataBox = ({ sourceElement, targetElement, containerElement, drillAnimationElement, boxwidth }) => {
+    let { domSourcePack: drillSourcePack, domTargetPack: drillTargetPack } = _getAnimationSelectDrillVars(sourceElement, targetElement, containerElement, boxwidth);
+    _animateFromOriginDrill(drillSourcePack, drillTargetPack, drillAnimationElement);
+};
+const animateOriginToDataBoxList = ({ sourceElement, targetElement, containerElement, drillAnimationElement }) => {
+    let { domSourcePack: drillSourcePack, domTargetPack: drillTargetPack } = _getAnimationDrillVars(sourceElement, targetElement, containerElement);
+    _animateFromOriginDrill(drillSourcePack, drillTargetPack, drillAnimationElement);
+};
 const animateToOrigin = ({ sourceElement, originElement, containerElement, originAnimationElement, maskAnimationElement }) => {
     let sourcePack = _getAnimationElementVars(sourceElement, containerElement);
     let targetPack = _getAnimationElementVars(originElement, containerElement);
@@ -86,6 +94,19 @@ const _animateBlockDrill = (sourceStyle, targetStyle, drillBlock) => {
         drillanimationBlock.classList.remove('elementdrill');
     }, 1100);
 };
+const _animateFromOriginDrill = (sourceStyle, targetStyle, targetElement) => {
+    let originanimationBlock = targetElement;
+    for (let property in sourceStyle) {
+        originanimationBlock.style.setProperty('--source' + property, sourceStyle[property] + 'px');
+    }
+    for (let property in targetStyle) {
+        originanimationBlock.style.setProperty('--target' + property, targetStyle[property] + 'px');
+    }
+    originanimationBlock.classList.add('fromorigindrill');
+    setTimeout(() => {
+        originanimationBlock.classList.remove('fromorigindrill');
+    }, 600);
+};
 const _animateOriginDrill = (sourceStyle, targetStyle, targetElement) => {
     let originanimationBlock = targetElement;
     for (let property in sourceStyle) {
@@ -105,6 +126,8 @@ let animations = {
     animateToDatabox,
     animateToDataboxList,
     animateMask,
+    animateOriginToDataBox,
+    animateOriginToDataBoxList,
 };
 export default animations;
 //# sourceMappingURL=quadanimations.utilities.jsx.map

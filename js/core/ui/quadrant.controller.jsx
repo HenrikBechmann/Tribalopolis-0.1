@@ -47,20 +47,6 @@ class Quadrant extends React.Component {
                 maskAnimationElement: this.maskanimationblock.current,
             });
         };
-        this.animateOriginToDatabox = () => {
-            animations.animateMask({
-                sourceElement: this.scrollboxelement.current,
-                containerElement: this.quadcontentelement.current,
-                maskAnimationElement: this.maskanimationblock.current,
-            });
-            animations.animateToDatabox({
-                sourceElement: this.originelement.current,
-                targetElement: this.scrollboxelement.current,
-                containerElement: this.quadcontentelement.current,
-                drillAnimationElement: this.drillanimationblock.current,
-                boxwidth: this.state.boxwidth,
-            });
-        };
         this.animateToDataBox = (domSource) => {
             animations.animateToDatabox({
                 sourceElement: domSource,
@@ -78,13 +64,27 @@ class Quadrant extends React.Component {
                 drillAnimationElement: this.drillanimationblock.current,
             });
         };
+        this.animateOriginToDatabox = () => {
+            animations.animateMask({
+                sourceElement: this.scrollboxelement.current,
+                containerElement: this.quadcontentelement.current,
+                maskAnimationElement: this.maskanimationblock.current,
+            });
+            animations.animateOriginToDataBox({
+                sourceElement: this.originelement.current,
+                targetElement: this.scrollboxelement.current,
+                containerElement: this.quadcontentelement.current,
+                drillAnimationElement: this.drillanimationblock.current,
+                boxwidth: this.state.boxwidth,
+            });
+        };
         this.animateOriginToDataBoxList = () => {
             animations.animateMask({
                 sourceElement: this.scrollboxelement.current,
                 containerElement: this.quadcontentelement.current,
                 maskAnimationElement: this.maskanimationblock.current,
             });
-            animations.animateToDataboxList({
+            animations.animateOriginToDataBoxList({
                 sourceElement: this.originelement.current,
                 targetElement: this.scrollboxelement.current,
                 containerElement: this.quadcontentelement.current,
@@ -210,7 +210,7 @@ class Quadrant extends React.Component {
             setTimeout(() => {
                 this.collapseTargetProxy = Object.assign({}, itemProxy);
                 this.decrementStackSelector();
-            }, 120);
+            }, 400);
         };
         this.decrementStackSelector = () => {
             let { stackpointer, datastack } = this.state;

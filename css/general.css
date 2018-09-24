@@ -72,6 +72,35 @@
     }
 }
 
+@keyframes fromorigindrill {
+    0% {
+        top:var(--sourcetop);
+        left:var(--sourceleft);
+        height:var(--sourceheight);
+        width:var(--sourcewidth);
+        background-color: lightblue;
+        opacity:.1;
+        box-sizing: border-box;
+    }
+    80% {
+        top:var(--targettop);
+        left:var(--targetleft);
+        height:var(--targetheight);
+        width:var(--targetwidth);
+        background-color: palegoldenrod;
+        opacity:.7;
+        box-sizing: border-box;
+    }
+    100% {
+        top:var(--targettop);
+        left:var(--targetleft);
+        height:var(--targetheight);
+        width:var(--targetwidth);
+        background-color: lightgreen;
+        opacity:0;
+        box-sizing: border-box;
+    }
+}
 
 @keyframes elementdrill {
     0% {
@@ -124,6 +153,14 @@
     position:absolute;
     border: 6px solid silver;
     animation: origindrill .5s;
+    z-index: 6;
+    border-radius: 8px;
+}
+
+.fromorigindrill {
+    position:absolute;
+    border: 6px solid silver;
+    animation: fromorigindrill .5s;
     z-index: 6;
     border-radius: 8px;
 }
