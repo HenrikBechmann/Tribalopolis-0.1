@@ -210,7 +210,7 @@ class Quadrant extends React.Component {
             setTimeout(() => {
                 this.collapseTargetProxy = Object.assign({}, itemProxy);
                 this.decrementStackSelector();
-            }, 400);
+            }, 600);
         };
         this.decrementStackSelector = () => {
             let { stackpointer, datastack } = this.state;

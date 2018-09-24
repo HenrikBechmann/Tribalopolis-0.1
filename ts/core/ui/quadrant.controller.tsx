@@ -366,7 +366,7 @@ class Quadrant extends React.Component<any,any>  {
             this.collapseTargetProxy = Object.assign({},itemProxy)
 
             this.decrementStackSelector()
-        },400)
+        },600)
 
     }
 

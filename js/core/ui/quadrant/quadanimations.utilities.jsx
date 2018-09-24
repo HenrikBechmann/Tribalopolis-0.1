@@ -105,7 +105,7 @@ const _animateFromOriginDrill = (sourceStyle, targetStyle, targetElement) => {
     originanimationBlock.classList.add('fromorigindrill');
     setTimeout(() => {
         originanimationBlock.classList.remove('fromorigindrill');
-    }, 600);
+    }, 1000);
 };
 const _animateOriginDrill = (sourceStyle, targetStyle, targetElement) => {
     let originanimationBlock = targetElement;

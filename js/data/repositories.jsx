@@ -21,7 +21,7 @@ let folders = {
         counts: {},
         references: {
             list: {},
-            parents: [],
+            parentlists: [],
             account: null,
         },
     }
@@ -50,7 +50,7 @@ let types = {
         },
         counts: {},
         references: {
-            parents: [],
+            parentlists: [],
             account: null,
         },
     },
@@ -74,7 +74,7 @@ let types = {
         },
         counts: {},
         references: {
-            parents: [],
+            parentlists: [],
             account: null,
         },
     },
@@ -106,17 +106,9 @@ let lists = {
         references: {
             lists: [],
             items: [],
-            parents: [],
+            owneritem: 'henrik',
+            parentlists: [],
             account: null,
-            item: 'henrik',
-            subscriptions: {
-                ['subscriptionid']: {
-                    lastreadstamp: 1,
-                    recentcreatecount: 5,
-                    recenttokens: [],
-                }
-            },
-            subscribers: {},
         },
     },
     notes: {
@@ -145,11 +137,9 @@ let lists = {
         references: {
             lists: [],
             items: [],
-            item: 'henrik',
-            parents: [],
+            owneritem: 'henrik',
+            parentlists: [],
             account: null,
-            subscriptions: {},
-            subscribers: {},
         },
     },
     tribes: {
@@ -180,11 +170,9 @@ let lists = {
         references: {
             lists: [],
             items: [],
-            parents: [],
+            owneritem: 'henrik',
+            parentlists: [],
             account: null,
-            item: 'henrik',
-            subscriptions: {},
-            subscribers: {},
         },
     },
     connections: {
@@ -213,11 +201,9 @@ let lists = {
         references: {
             lists: [],
             items: [],
-            parents: [],
+            owneritem: 'henrik',
+            parentlists: [],
             account: null,
-            item: 'henrik',
-            subscriptions: {},
-            subscribers: {},
         },
     },
     requesting: {
@@ -246,11 +232,9 @@ let lists = {
         references: {
             lists: [],
             items: [],
-            parents: [],
+            owneritem: 'henrik',
+            parentlists: [],
             account: null,
-            item: 'henrik',
-            subscriptions: {},
-            subscribers: {},
         },
     },
     pending: {
@@ -279,11 +263,9 @@ let lists = {
         references: {
             lists: [],
             items: [],
-            parents: [],
+            owneritem: 'henrik',
+            parentlists: [],
             account: null,
-            item: 'henrik',
-            subscriptions: {},
-            subscribers: {},
         },
     },
     roles: {
@@ -312,11 +294,9 @@ let lists = {
         references: {
             lists: [],
             items: [],
-            parents: [],
+            owneritem: 'henrik',
+            parentlists: [],
             account: null,
-            item: 'henrik',
-            subscriptions: {},
-            subscribers: {},
         },
     },
     programs: {
@@ -345,11 +325,9 @@ let lists = {
         references: {
             lists: [],
             items: [],
-            parents: [],
+            owneritem: 'henrik',
+            parentlists: [],
             account: null,
-            item: 'henrik',
-            subscriptions: {},
-            subscribers: {},
         },
     },
     projects: {
@@ -378,11 +356,9 @@ let lists = {
         references: {
             lists: [],
             items: [],
-            parents: [],
+            owneritem: 'henrik',
+            parentlists: [],
             account: null,
-            item: 'henrik',
-            subscriptions: {},
-            subscribers: {},
         },
     },
     tasks: {
@@ -411,11 +387,9 @@ let lists = {
         references: {
             lists: [],
             items: [],
-            parents: [],
+            owneritem: 'henrik',
+            parentlists: [],
             account: null,
-            item: 'henrik',
-            subscriptions: {},
-            subscribers: {},
         },
     },
     messages: {
@@ -444,11 +418,9 @@ let lists = {
         references: {
             lists: [],
             items: [],
-            parents: [],
+            owneritem: 'henrik',
+            parentlists: [],
             account: null,
-            item: 'henrik',
-            subscriptions: {},
-            subscribers: {},
         },
     },
     streams: {
@@ -477,11 +449,9 @@ let lists = {
         references: {
             lists: [],
             items: [],
-            parents: [],
+            owneritem: 'henrik',
+            parentlists: [],
             account: null,
-            item: 'henrik',
-            subscriptions: {},
-            subscribers: {},
         },
     },
     resources: {
@@ -510,11 +480,9 @@ let lists = {
         references: {
             lists: [],
             items: [],
-            parents: [],
+            owneritem: 'henrik',
+            parentlists: [],
             account: null,
-            item: 'henrik',
-            subscriptions: {},
-            subscribers: {},
         },
     },
     calendars: {
@@ -543,11 +511,9 @@ let lists = {
         references: {
             lists: [],
             items: [],
-            parents: [],
+            owneritem: 'henrik',
+            parentlists: [],
             account: null,
-            item: 'henrik',
-            subscriptions: {},
-            subscribers: {},
         },
     },
     accounting: {
@@ -576,11 +542,9 @@ let lists = {
         references: {
             lists: [],
             items: [],
-            parents: [],
+            owneritem: 'henrik',
+            parentlists: [],
             account: null,
-            item: 'henrik',
-            subscriptions: {},
-            subscribers: {},
         },
     },
     membership: {
@@ -611,11 +575,9 @@ let lists = {
         references: {
             lists: [],
             items: [],
-            parents: [],
+            owneritem: 'henrik',
+            parentlists: [],
             account: null,
-            item: 'henrik',
-            subscriptions: {},
-            subscribers: {},
         },
     },
     other: {
@@ -646,11 +608,9 @@ let lists = {
         references: {
             lists: [],
             items: [],
-            parents: [],
+            owneritem: 'henrik',
+            parentlists: [],
             account: null,
-            item: 'henrik',
-            subscriptions: {},
-            subscribers: {},
         },
     },
     henrik: {
@@ -751,11 +711,9 @@ let lists = {
                 },
             ],
             items: [],
-            item: 'henrik',
-            parents: [],
+            owneritem: 'henrik',
+            parentlists: [],
             account: null,
-            subscriptions: {},
-            subscribers: {},
         },
     },
 };
@@ -792,23 +750,11 @@ let items = {
         counts: {},
         references: {
             list: { repo: 'lists', uid: 'henrik' },
-            parents: [],
+            parentlists: [],
             account: null,
         },
     },
 };
 let accounts = {};
-// let subscriptions = {
-//     subscriber:{
-//     },
-//     subscription:{
-//         startpoint:{
-//         },
-//         path:[
-//         ],
-//         endpoint: {
-//         },
-//     }
-// }
 export { schemes, types, items, lists, links, folders, accounts }; //, subscriptions }
 //# sourceMappingURL=repositories.jsx.map
