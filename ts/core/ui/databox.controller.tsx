@@ -32,11 +32,9 @@ const styles = createStyles({
         borderRadius:'0 8px 8px 0',
         opacity:.54,
     },
-
     wrapperStyle:{
         boxSizing:'border-box',
     },
-
     frameStyle:{
         backgroundColor:'white',
         maxHeight:'96%',
@@ -148,7 +146,7 @@ class DataBox extends React.Component<any,any> {
                     listdoctoken = this.state.item.data.references.list
                 }
                 this.setState({
-                    MainlistProxy:new proxy({token:listdoctoken}),
+                    MainlistProxy: new proxy({token:listdoctoken}),
                     BarlistProxy: new proxy({token:listdoctoken}),
                     TypelistProxy: new proxy({token:listdoctoken}),
                 })
@@ -284,43 +282,43 @@ class DataBox extends React.Component<any,any> {
             <div className = {classes.frameStyle} style = {frameStyle}
                 ref = {this.boxframe}
             >
-            {haspeers?null:<ResizeTab />}
-            <BoxTypebar 
-                item = { item } 
-                itemType = { itemType /*future*/}
-                listProxy = {this.state.TypelistProxy}
-                haspeers = {this.props.haspeers}
+                {haspeers?null:<ResizeTab />}
+                <BoxTypebar 
+                    item = { item } 
+                    itemType = { itemType /*future*/}
+                    listProxy = {this.state.TypelistProxy}
+                    haspeers = {this.props.haspeers}
 
-                callbacks = {this.typecallbacks}
-            />
-            <BoxIdentityBar item = {item} />
-            <div className = {classes.identityBar}
-            >
-                <div>
-                    <DirectoryBar 
-                        listProxy = {this.state.BarlistProxy}
-                        setListListener = {this.props.callbacks.setListListener}
-                        removeListListener = {this.props.callbacks.removeListListener}
-
-                        listStack = {this.itemProxy.liststack}
-                        collapseDirectoryItem = {this.collapseDirectoryItem}
-                    />
-                </div>
-                
-                <DirectoryList 
-                    ref = {this.listcomponent}
-
-                    listProxy = {this.state.MainlistProxy}
-                    highlightrefuid = {this.state.highlightrefuid}
-                    containerHeight = {this.props.containerHeight}
-
-                    callbacks = {this.listcallbacks}
+                    callbacks = {this.typecallbacks}
                 />
-                
-                { this.indexmarker(classes) }
+                <BoxIdentityBar item = {item} />
+                <div className = {classes.identityBar}
+                >
+                    <div>
+                        <DirectoryBar 
+                            listProxy = {this.state.BarlistProxy}
+                            setListListener = {this.props.callbacks.setListListener}
+                            removeListListener = {this.props.callbacks.removeListListener}
 
+                            listStack = {this.itemProxy.liststack}
+                            collapseDirectoryItem = {this.collapseDirectoryItem}
+                        />
+                    </div>
+                    
+                    <DirectoryList 
+                        ref = {this.listcomponent}
+
+                        listProxy = {this.state.MainlistProxy}
+                        highlightrefuid = {this.state.highlightrefuid}
+                        containerHeight = {this.props.containerHeight}
+
+                        callbacks = {this.listcallbacks}
+                    />
+                    
+                    { this.indexmarker(classes) }
+
+                </div>
             </div>
-        </div>
         </div>
     }
 }

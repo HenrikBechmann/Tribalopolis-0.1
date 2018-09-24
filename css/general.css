@@ -10,7 +10,6 @@
         width:var(--width);
         background-color: #e8e8e8;
         opacity:0;
-        box-sizing: border-box;
     }
     15% {
         top:var(--top);
@@ -19,7 +18,6 @@
         width:var(--width);
         background-color: #e8e8e8;
         opacity:1;
-        box-sizing: border-box;
     }
     60% {
         top:var(--top);
@@ -28,7 +26,6 @@
         width:var(--width);
         background-color: #e8e8e8;
         opacity:1;
-        box-sizing: border-box;
     }
     100% {
         top:var(--top);
@@ -37,7 +34,6 @@
         width:var(--width);
         background-color: #e8e8e8;
         opacity:0;
-        box-sizing: border-box;
     }
 }
 
@@ -50,7 +46,6 @@
         width:var(--sourcewidth);
         background-color: lightblue;
         opacity:.1;
-        box-sizing: border-box;
     }
     50% {
         top:var(--targettop);
@@ -59,7 +54,6 @@
         width:var(--targetwidth);
         background-color: palegoldenrod;
         opacity:1;
-        box-sizing: border-box;
     }
     100% {
         top:var(--targettop);
@@ -68,7 +62,6 @@
         width:var(--targetwidth);
         background-color: lightgreen;
         opacity:0;
-        box-sizing: border-box;
     }
 }
 
@@ -80,7 +73,6 @@
         width:var(--sourcewidth);
         background-color: palegoldenrod;
         opacity:1;
-        box-sizing: border-box;
     }
     20% {
         top:var(--sourcetop);
@@ -89,7 +81,6 @@
         width:var(--sourcewidth);
         background-color: palegoldenrod;
         opacity:1;
-        box-sizing: border-box;
     }
     80% {
         top:var(--targettop);
@@ -98,7 +89,6 @@
         width:var(--targetwidth);
         background-color: lightblue;
         opacity:.7;
-        box-sizing: border-box;
     }
     100% {
         top:var(--targettop);
@@ -107,7 +97,6 @@
         width:var(--targetwidth);
         background-color: lightblue;
         opacity:0;
-        box-sizing: border-box;
     }
 }
 
@@ -148,6 +137,7 @@
     animation: maskdrill 1s;
     z-index: 3;
     border-radius: 8px;
+    box-sizing: border-box;
 }
 
 .elementdrill {
@@ -156,6 +146,7 @@
     animation: elementdrill 1s .25s;
     z-index: 4;
     border-radius: 8px;
+    box-sizing: border-box;
 }
 
 .origindrill {
@@ -164,6 +155,7 @@
     animation: origindrill .5s;
     z-index: 6;
     border-radius: 8px;
+    box-sizing: border-box;
 }
 
 .fromorigindrill {
@@ -172,6 +164,7 @@
     animation: fromorigindrill .7s;
     z-index: 6;
     border-radius: 8px;
+    box-sizing: border-box;
 }
 
 .elementunwind {
