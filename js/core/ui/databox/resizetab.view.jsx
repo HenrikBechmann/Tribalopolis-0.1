@@ -33,7 +33,7 @@ const resizeHandler = {
         return {};
     },
 };
-const resizeDragProps = (connect, monitor) => {
+const resizeProps = (connect, monitor) => {
     return {
         connectDragSource: connect.dragSource(),
         connectDragPreview: connect.dragPreview(),
@@ -56,7 +56,7 @@ let ResizeTab = class ResizeTab extends React.Component {
     }
 };
 ResizeTab = __decorate([
-    DragSource(DragItemTypes.RESIZETAB, resizeHandler, resizeDragProps)
+    DragSource(DragItemTypes.RESIZETAB, resizeHandler, resizeProps)
 ], ResizeTab);
 export default withStyles(styles)(ResizeTab);
 //# sourceMappingURL=resizetab.view.jsx.map

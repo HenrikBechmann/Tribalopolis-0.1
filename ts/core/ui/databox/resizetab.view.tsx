@@ -32,7 +32,7 @@ const resizeHandler = {
     },
 }
 
-const resizeDragProps = (connect, monitor) => {
+const resizeProps = (connect, monitor) => {
 
     return {
         connectDragSource: connect.dragSource(),
@@ -42,7 +42,7 @@ const resizeDragProps = (connect, monitor) => {
 
 }
 
-@DragSource(DragItemTypes.RESIZETAB, resizeHandler, resizeDragProps)
+@DragSource(DragItemTypes.RESIZETAB, resizeHandler, resizeProps)
 class ResizeTab extends React.Component<any,any> {
 
     render() {
