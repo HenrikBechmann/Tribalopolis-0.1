@@ -166,7 +166,7 @@
 .maskdrill {
     position:absolute;
     border: 6px solid silver;
-    animation: maskdrill 2s;
+    animation: maskdrill 1.5s;
     z-index: 3;
     border-radius: 8px;
     box-sizing: border-box;
@@ -175,7 +175,7 @@
 .elementdrill {
     position:absolute;
     border: 6px solid silver;
-    animation: elementdrill 1.5s;
+    animation: elementdrill 1s;
     z-index: 8;
     border-radius: 8px;
     box-sizing: border-box;
@@ -184,7 +184,7 @@
 .origindrill {
     position:absolute;
     border: 6px solid silver;
-    animation: origindrill 1.75s;
+    animation: origindrill 1.25s;
     z-index: 6;
     border-radius: 8px;
     box-sizing: border-box;
@@ -193,7 +193,7 @@
 .fromorigindrill {
     position:absolute;
     border: 6px solid silver;
-    animation: fromorigindrill 1.5s;
+    animation: fromorigindrill 1s;
     z-index: 6;
     border-radius: 8px;
     box-sizing: border-box;
