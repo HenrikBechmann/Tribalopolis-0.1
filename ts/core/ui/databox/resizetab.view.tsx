@@ -26,15 +26,13 @@ const styles = createStyles({
     iconstyles: {transform:'rotate(90deg)',opacity:.54},
 })
 
-const resizeSource = {
+const resizeHandler = {
     beginDrag() {
         return {}
     },
 }
 
-const dndcallback = (connect, monitor) => {
-
-    console.log('connect,monitor',connect,monitor)
+const resizeDragProps = (connect, monitor) => {
 
     return {
         connectDragSource: connect.dragSource(),
@@ -44,7 +42,7 @@ const dndcallback = (connect, monitor) => {
 
 }
 
-@DragSource(DragItemTypes.RESIZETAB, resizeSource, dndcallback)
+@DragSource(DragItemTypes.RESIZETAB, resizeHandler, resizeDragProps)
 class ResizeTab extends React.Component<any,any> {
 
     render() {

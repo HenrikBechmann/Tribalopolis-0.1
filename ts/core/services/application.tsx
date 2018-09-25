@@ -19,6 +19,10 @@ import domain from './domain'
 
 const cache = new Map()
 
+const properties = {
+    ismobile: /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)
+}
+
 const setTypeListener = (token) => {
     return domain.setTypeListener(token)
 }
@@ -155,6 +159,7 @@ const getAccount = (token) => {
 }
 
 let application = {
+    properties,
     setItemListener,
     setListListener,
     removeItemListener,

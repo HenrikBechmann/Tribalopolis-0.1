@@ -10,6 +10,12 @@
     6. routes
 */
 'use strict';
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
 import React from 'react';
 // TODO: temporary -- replace with application service
 import coredata from '../../data/coredata';
@@ -18,13 +24,14 @@ import { DragDropContext } from 'react-dnd';
 // import DnDHTMLBackend from 'react-dnd-html5-backend'
 import DnDTouchBackend from 'react-dnd-touch-backend';
 import DnDHtml5Backend from 'react-dnd-html5-backend';
-let isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-let DnDBackend = isMobile ? DnDTouchBackend({ enableMouseEvents: true }) : DnDHtml5Backend;
+import application from '../services/application';
+let isMobile = application.properties.ismobile;
+let DnDBackend = isMobile ? DnDTouchBackend : DnDHtml5Backend;
 import MainView from './main.view';
 import authapi from '../services/auth.api';
 import UserContext from '../services/user.context';
 import { toast } from 'react-toastify';
-class Main extends React.Component {
+let Main = class Main extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -52,6 +59,9 @@ class Main extends React.Component {
                 <MainView globalmessage={globalmessage} style={this.mainviewstyle}/>
             </UserContext.Provider>);
     }
-}
-export default DragDropContext(DnDBackend)(Main);
+};
+Main = __decorate([
+    DragDropContext(DnDBackend)
+], Main);
+export default Main;
 //# sourceMappingURL=main.controller.jsx.map

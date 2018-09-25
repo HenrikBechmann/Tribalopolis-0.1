@@ -28,9 +28,11 @@ import DnDHtml5Backend from 'react-dnd-html5-backend'
 
 import DnDManager from 'react-dnd'
 
-let isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)
+import application from '../services/application'
 
-let DnDBackend = isMobile?DnDTouchBackend({ enableMouseEvents: true }):DnDHtml5Backend
+let isMobile = application.properties.ismobile
+
+let DnDBackend = isMobile?DnDTouchBackend:DnDHtml5Backend
 
 import MainView from './main.view'
 
@@ -39,6 +41,7 @@ import UserContext from '../services/user.context'
 
 import { toast } from 'react-toastify'
 
+@DragDropContext(DnDBackend)
 class Main extends React.Component<any,any> {
 
     constructor(props) {
@@ -79,4 +82,4 @@ class Main extends React.Component<any,any> {
     }
 }
 
-export default DragDropContext(DnDBackend)(Main)
+export default Main
