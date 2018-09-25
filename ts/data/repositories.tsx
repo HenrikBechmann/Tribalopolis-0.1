@@ -51,7 +51,7 @@ let types = {
             },
         },
         type:{
-
+            linktypes:[],
         },
         identity:{
 
@@ -81,7 +81,7 @@ let types = {
             },
         },
         type:{
-
+            linktypes:[],
         },
         identity: {
 
@@ -118,7 +118,7 @@ let lists = {
         },
         type:{
             uid:'outgoing',
-            schemeuid:'common',
+            scheme:'common',
         },
         identity:{
             uid:'x',
@@ -154,7 +154,7 @@ let lists = {
         },
         type:{
             uid:'outgoing',
-            schemeuid:'common',
+            scheme:'common',
         },
         identity:{
              uid:'x',
@@ -190,7 +190,7 @@ let lists = {
         },
         type:{
             uid:'outgoing',
-            schemeuid:'common',
+            scheme:'common',
         },
         identity:{
             uid:'x',
@@ -226,7 +226,7 @@ let lists = {
         },
         type:{
             uid:'outgoing',
-            schemeuid:'common',
+            scheme:'common',
         },
         identity:{
             uid:'x',
@@ -262,7 +262,7 @@ let lists = {
         },
         type:{
             uid:'outgoing',
-            schemeuid:'common',
+            scheme:'common',
         },
         identity:{
             uid:'x',
@@ -298,7 +298,7 @@ let lists = {
         },
         type:{
             uid:'incoming',
-            schemeuid:'common',
+            scheme:'common',
         },
         identity:{
             uid:'x',
@@ -334,7 +334,7 @@ let lists = {
         },
         type:{
             uid:'outgoing',
-            schemeuid:'common',
+            scheme:'common',
         },
         identity:{
             uid:'x',
@@ -370,7 +370,7 @@ let lists = {
         },
         type:{
             uid:'outgoing',
-            schemeuid:'common',
+            scheme:'common',
         },
         identity:{
             uid:'x',
@@ -406,7 +406,7 @@ let lists = {
         },
         type:{
             uid:'outgoing',
-            schemeuid:'common',
+            scheme:'common',
         },
         identity:{
             uid:'x',
@@ -442,7 +442,7 @@ let lists = {
         },
         type:{
             uid:'outgoing',
-            schemeuid:'common',
+            scheme:'common',
         },
         identity:{
             uid:'x',
@@ -478,7 +478,7 @@ let lists = {
         },
         type:{
             uid:'incoming',
-            schemeuid:'common',
+            scheme:'common',
         },
         identity:{
             uid:'x',
@@ -514,7 +514,7 @@ let lists = {
         },
         type:{
             uid:'incoming',
-            schemeuid:'common',
+            scheme:'common',
         },
         identity:{
             uid:'x',
@@ -550,7 +550,7 @@ let lists = {
         },
         type:{
             uid:'outgoing',
-            schemeuid:'common',
+            scheme:'common',
         },
         identity:{
             uid:'x',
@@ -586,7 +586,7 @@ let lists = {
         },
         type:{
             uid:'incoming',
-            schemeuid:'common',
+            scheme:'common',
         },
         identity:{
             uid:'x',
@@ -622,7 +622,7 @@ let lists = {
         },
         type:{
             uid:'outgoing',
-            schemeuid:'common',
+            scheme:'common',
         },
         identity:{
             uid:'x',
@@ -658,7 +658,7 @@ let lists = {
         },
         type:{
             uid:'incoming',
-            schemeuid:'common',
+            scheme:'common',
         },
         identity:{
             uid:'x',
@@ -695,7 +695,7 @@ let lists = {
         },
         type:{
             uid:'incoming',
-            schemeuid:'common',
+            scheme:'common',
         },
         identity:{
             uid:'x',
@@ -731,7 +731,7 @@ let lists = {
         },
         type:{
             uid:'incoming',
-            schemeuid:'common',
+            scheme:'common',
         },
         identity:{
             uid:'x',
@@ -842,7 +842,7 @@ let items = {
         type:{
             uid:'incoming',
             name:'User', // TODO: should be obtained from type object
-            schemeuid:'common',
+            scheme:'common',
         },
         identity:{
             uid:'henrik',

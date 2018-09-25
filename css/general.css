@@ -176,7 +176,7 @@
     position:absolute;
     border: 6px solid silver;
     animation: elementdrill 1.5s;
-    z-index: 4;
+    z-index: 8;
     border-radius: 8px;
     box-sizing: border-box;
 }
