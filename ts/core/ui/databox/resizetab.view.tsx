@@ -26,15 +26,34 @@ const styles = createStyles({
     iconstyles: {transform:'rotate(90deg)',opacity:.54},
 })
 
+const boxSource = {
+    beginDrag() {
+        return {}
+    },
+}
+
+@DragSource(DragItemTypes.RESIZETAB, boxSource, (connect, monitor) => ({
+    connectDragSource: connect.dragSource(),
+    connectDragPreview: connect.dragPreview(),
+    isDragging: monitor.isDragging(),
+}))
 class ResizeTab extends React.Component<any,any> {
 
     render() {
+
+        const { isDragging, connectDragSource, connectDragPreview } = this.props
+        const opacity = isDragging ? 0.4 : 1
+
+        console.log('data',isDragging,connectDragSource,connectDragPreview)
+
         let { classes } = this.props
-        return <div className = {classes.tabstyles}>
-            <div className = {classes.wrapperstyles} >
+        return connectDragPreview &&
+            connectDragSource &&
+            connectDragPreview(<div className = {classes.tabstyles}>
+            {connectDragSource(<div className = {classes.wrapperstyles} >
                 <Icon className = {classes.iconstyles}>drag_handle</Icon>
-            </div>
-        </div>
+            </div>)}
+        </div>)
     } 
 }
 
