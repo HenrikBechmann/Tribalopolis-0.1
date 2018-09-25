@@ -90,7 +90,7 @@
         background-color: lightblue;
         opacity:1;
     }
-    20% {
+    10% {
         top:var(--sourcetop);
         left:var(--sourceleft);
         height:var(--sourceheight);
@@ -98,7 +98,7 @@
         background-color: lightblue;
         opacity:1;
     }
-    80% {
+    50% {
         top:var(--targettop);
         left:var(--targetleft);
         height:var(--targetheight);
@@ -133,7 +133,7 @@
         background-color: palegoldenrod;
         opacity:1;
     }
-    20% {
+    50% {
         top:var(--targettop);
         left:var(--targetleft);
         height:var(--targetheight);
@@ -147,7 +147,7 @@
         height:var(--targetheight);
         width:var(--targetwidth);
         background-color: palegoldenrod;
-        opacity:1;
+        opacity:.5;
     }
     100% {
         top:var(--targettop);
@@ -155,7 +155,7 @@
         height:var(--targetheight);
         width:var(--targetwidth);
         background-color: palegoldenrod;
-        opacity:.1;
+        opacity:0;
     }
 }
 
@@ -175,7 +175,7 @@
 .elementdrill {
     position:absolute;
     border: 6px solid silver;
-    animation: elementdrill 1.5s .25s;
+    animation: elementdrill 1.5s;
     z-index: 4;
     border-radius: 8px;
     box-sizing: border-box;
