@@ -137,6 +137,7 @@ let lists = {
         references:{
             lists:[],
             items:[],
+            subscriptions:[],
             owneritem:'henrik',
             parentlists:[],
             account:null,
@@ -173,6 +174,7 @@ let lists = {
         references:{
             lists:[],
             items:[],
+            subscriptions:[],
             owneritem:'henrik',
             parentlists:[],
             account:null,
@@ -209,6 +211,7 @@ let lists = {
         references:{
             lists:[],
             items:[],
+            subscriptions:[],
             owneritem:'henrik',
             parentlists:[],
             account:null,
@@ -245,6 +248,7 @@ let lists = {
         references:{
             lists:[],
             items:[],
+            subscriptions:[],
             owneritem:'henrik',
             parentlists:[],
             account:null,
@@ -281,6 +285,7 @@ let lists = {
         references:{
             lists:[],
             items:[],
+            subscriptions:[],
             owneritem:'henrik',
             parentlists:[],
             account:null,
@@ -317,6 +322,7 @@ let lists = {
         references:{
             lists:[],
             items:[],
+            subscriptions:[],
             owneritem:'henrik',
             parentlists:[],
             account:null,
@@ -353,6 +359,7 @@ let lists = {
         references:{
             lists:[],
             items:[],
+            subscriptions:[],
             owneritem:'henrik',
             parentlists:[],
             account:null,
@@ -389,6 +396,7 @@ let lists = {
         references:{
             lists:[],
             items:[],
+            subscriptions:[],
             owneritem:'henrik',
             parentlists:[],
             account:null,
@@ -425,6 +433,7 @@ let lists = {
         references:{
             lists:[],
             items:[],
+            subscriptions:[],
             owneritem:'henrik',
             parentlists:[],
             account:null,
@@ -461,6 +470,7 @@ let lists = {
         references:{
             lists:[],
             items:[],
+            subscriptions:[],
             owneritem:'henrik',
             parentlists:[],
             account:null,
@@ -497,6 +507,7 @@ let lists = {
         references:{
             lists:[],
             items:[],
+            subscriptions:[],
             owneritem:'henrik',
             parentlists:[],
             account:null,
@@ -533,6 +544,7 @@ let lists = {
         references:{
             lists:[],
             items:[],
+            subscriptions:[],
             owneritem:'henrik',
             parentlists:[],
             account:null,
@@ -569,6 +581,7 @@ let lists = {
         references:{
             lists:[],
             items:[],
+            subscriptions:[],
             owneritem:'henrik',
             parentlists:[],
             account:null,
@@ -605,6 +618,7 @@ let lists = {
         references:{
             lists:[],
             items:[],
+            subscriptions:[],
             owneritem:'henrik',
             parentlists:[],
             account:null,
@@ -641,6 +655,7 @@ let lists = {
         references:{
             lists:[],
             items:[],
+            subscriptions:[],
             owneritem:'henrik',
             parentlists:[],
             account:null,
@@ -677,6 +692,7 @@ let lists = {
         references:{
             lists:[],
             items:[],
+            subscriptions:[],
             owneritem:'henrik',
             parentlists:[],
             account:null,
@@ -714,6 +730,7 @@ let lists = {
         references:{
             lists:[],
             items:[],
+            subscriptions:[],
             owneritem:'henrik',
             parentlists:[],
             account:null,
@@ -820,6 +837,7 @@ let lists = {
                 },
             ],
             items:[],
+            subscriptions:[],
             owneritem:'henrik',
             parentlists:[],
             account:null,
