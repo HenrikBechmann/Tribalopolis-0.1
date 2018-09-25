@@ -17,7 +17,9 @@ let fontFamily = coredata.theme.typography.fontFamily;
 import { DragDropContext } from 'react-dnd';
 // import DnDHTMLBackend from 'react-dnd-html5-backend'
 import DnDTouchBackend from 'react-dnd-touch-backend';
-let DnDBackend = DnDTouchBackend({ enableMouseEvents: true });
+import DnDHtml5Backend from 'react-dnd-html5-backend';
+let isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+let DnDBackend = isMobile ? DnDTouchBackend({ enableMouseEvents: true }) : DnDHtml5Backend;
 import MainView from './main.view';
 import authapi from '../services/auth.api';
 import UserContext from '../services/user.context';

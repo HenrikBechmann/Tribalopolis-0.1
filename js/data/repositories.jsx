@@ -37,7 +37,9 @@ let types = {
                 acl: {}
             },
         },
-        type: {},
+        type: {
+            linktypes: [],
+        },
         identity: {},
         properties: {
             is: {},
@@ -59,7 +61,9 @@ let types = {
             attributes: {},
             permissions: {},
         },
-        type: {},
+        type: {
+            linktypes: [],
+        },
         identity: {},
         properties: {
             is: {
@@ -87,7 +91,7 @@ let lists = {
         },
         type: {
             uid: 'outgoing',
-            schemeuid: 'common',
+            scheme: 'common',
         },
         identity: {
             uid: 'x',
@@ -106,6 +110,7 @@ let lists = {
         references: {
             lists: [],
             items: [],
+            subscriptions: [],
             owneritem: 'henrik',
             parentlists: [],
             account: null,
@@ -118,7 +123,7 @@ let lists = {
         },
         type: {
             uid: 'outgoing',
-            schemeuid: 'common',
+            scheme: 'common',
         },
         identity: {
             uid: 'x',
@@ -137,6 +142,7 @@ let lists = {
         references: {
             lists: [],
             items: [],
+            subscriptions: [],
             owneritem: 'henrik',
             parentlists: [],
             account: null,
@@ -151,7 +157,7 @@ let lists = {
         },
         type: {
             uid: 'outgoing',
-            schemeuid: 'common',
+            scheme: 'common',
         },
         identity: {
             uid: 'x',
@@ -170,6 +176,7 @@ let lists = {
         references: {
             lists: [],
             items: [],
+            subscriptions: [],
             owneritem: 'henrik',
             parentlists: [],
             account: null,
@@ -182,7 +189,7 @@ let lists = {
         },
         type: {
             uid: 'outgoing',
-            schemeuid: 'common',
+            scheme: 'common',
         },
         identity: {
             uid: 'x',
@@ -201,6 +208,7 @@ let lists = {
         references: {
             lists: [],
             items: [],
+            subscriptions: [],
             owneritem: 'henrik',
             parentlists: [],
             account: null,
@@ -213,7 +221,7 @@ let lists = {
         },
         type: {
             uid: 'outgoing',
-            schemeuid: 'common',
+            scheme: 'common',
         },
         identity: {
             uid: 'x',
@@ -232,6 +240,7 @@ let lists = {
         references: {
             lists: [],
             items: [],
+            subscriptions: [],
             owneritem: 'henrik',
             parentlists: [],
             account: null,
@@ -244,7 +253,7 @@ let lists = {
         },
         type: {
             uid: 'incoming',
-            schemeuid: 'common',
+            scheme: 'common',
         },
         identity: {
             uid: 'x',
@@ -263,6 +272,7 @@ let lists = {
         references: {
             lists: [],
             items: [],
+            subscriptions: [],
             owneritem: 'henrik',
             parentlists: [],
             account: null,
@@ -275,7 +285,7 @@ let lists = {
         },
         type: {
             uid: 'outgoing',
-            schemeuid: 'common',
+            scheme: 'common',
         },
         identity: {
             uid: 'x',
@@ -294,6 +304,7 @@ let lists = {
         references: {
             lists: [],
             items: [],
+            subscriptions: [],
             owneritem: 'henrik',
             parentlists: [],
             account: null,
@@ -306,7 +317,7 @@ let lists = {
         },
         type: {
             uid: 'outgoing',
-            schemeuid: 'common',
+            scheme: 'common',
         },
         identity: {
             uid: 'x',
@@ -325,6 +336,7 @@ let lists = {
         references: {
             lists: [],
             items: [],
+            subscriptions: [],
             owneritem: 'henrik',
             parentlists: [],
             account: null,
@@ -337,7 +349,7 @@ let lists = {
         },
         type: {
             uid: 'outgoing',
-            schemeuid: 'common',
+            scheme: 'common',
         },
         identity: {
             uid: 'x',
@@ -356,6 +368,7 @@ let lists = {
         references: {
             lists: [],
             items: [],
+            subscriptions: [],
             owneritem: 'henrik',
             parentlists: [],
             account: null,
@@ -368,7 +381,7 @@ let lists = {
         },
         type: {
             uid: 'outgoing',
-            schemeuid: 'common',
+            scheme: 'common',
         },
         identity: {
             uid: 'x',
@@ -387,6 +400,7 @@ let lists = {
         references: {
             lists: [],
             items: [],
+            subscriptions: [],
             owneritem: 'henrik',
             parentlists: [],
             account: null,
@@ -399,7 +413,7 @@ let lists = {
         },
         type: {
             uid: 'incoming',
-            schemeuid: 'common',
+            scheme: 'common',
         },
         identity: {
             uid: 'x',
@@ -418,6 +432,7 @@ let lists = {
         references: {
             lists: [],
             items: [],
+            subscriptions: [],
             owneritem: 'henrik',
             parentlists: [],
             account: null,
@@ -430,7 +445,7 @@ let lists = {
         },
         type: {
             uid: 'incoming',
-            schemeuid: 'common',
+            scheme: 'common',
         },
         identity: {
             uid: 'x',
@@ -449,6 +464,7 @@ let lists = {
         references: {
             lists: [],
             items: [],
+            subscriptions: [],
             owneritem: 'henrik',
             parentlists: [],
             account: null,
@@ -461,7 +477,7 @@ let lists = {
         },
         type: {
             uid: 'outgoing',
-            schemeuid: 'common',
+            scheme: 'common',
         },
         identity: {
             uid: 'x',
@@ -480,6 +496,7 @@ let lists = {
         references: {
             lists: [],
             items: [],
+            subscriptions: [],
             owneritem: 'henrik',
             parentlists: [],
             account: null,
@@ -492,7 +509,7 @@ let lists = {
         },
         type: {
             uid: 'incoming',
-            schemeuid: 'common',
+            scheme: 'common',
         },
         identity: {
             uid: 'x',
@@ -511,6 +528,7 @@ let lists = {
         references: {
             lists: [],
             items: [],
+            subscriptions: [],
             owneritem: 'henrik',
             parentlists: [],
             account: null,
@@ -523,7 +541,7 @@ let lists = {
         },
         type: {
             uid: 'outgoing',
-            schemeuid: 'common',
+            scheme: 'common',
         },
         identity: {
             uid: 'x',
@@ -542,6 +560,7 @@ let lists = {
         references: {
             lists: [],
             items: [],
+            subscriptions: [],
             owneritem: 'henrik',
             parentlists: [],
             account: null,
@@ -556,7 +575,7 @@ let lists = {
         },
         type: {
             uid: 'incoming',
-            schemeuid: 'common',
+            scheme: 'common',
         },
         identity: {
             uid: 'x',
@@ -575,6 +594,7 @@ let lists = {
         references: {
             lists: [],
             items: [],
+            subscriptions: [],
             owneritem: 'henrik',
             parentlists: [],
             account: null,
@@ -589,7 +609,7 @@ let lists = {
         },
         type: {
             uid: 'incoming',
-            schemeuid: 'common',
+            scheme: 'common',
         },
         identity: {
             uid: 'x',
@@ -608,6 +628,7 @@ let lists = {
         references: {
             lists: [],
             items: [],
+            subscriptions: [],
             owneritem: 'henrik',
             parentlists: [],
             account: null,
@@ -622,7 +643,7 @@ let lists = {
         },
         type: {
             uid: 'incoming',
-            schemeuid: 'common',
+            scheme: 'common',
         },
         identity: {
             uid: 'x',
@@ -711,6 +732,7 @@ let lists = {
                 },
             ],
             items: [],
+            subscriptions: [],
             owneritem: 'henrik',
             parentlists: [],
             account: null,
@@ -727,7 +749,7 @@ let items = {
         type: {
             uid: 'incoming',
             name: 'User',
-            schemeuid: 'common',
+            scheme: 'common',
         },
         identity: {
             uid: 'henrik',
