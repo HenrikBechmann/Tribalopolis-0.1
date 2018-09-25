@@ -87,7 +87,7 @@
         left:var(--sourceleft);
         height:var(--sourceheight);
         width:var(--sourcewidth);
-        background-color: palegoldenrod;
+        background-color: lightblue;
         opacity:1;
     }
     20% {
@@ -95,7 +95,7 @@
         left:var(--sourceleft);
         height:var(--sourceheight);
         width:var(--sourcewidth);
-        background-color: palegoldenrod;
+        background-color: lightblue;
         opacity:1;
     }
     80% {
@@ -169,6 +169,7 @@
     animation: maskdrill 2s;
     z-index: 3;
     border-radius: 8px;
+    box-sizing: border-box;
 }
 
 .elementdrill {
@@ -177,6 +178,7 @@
     animation: elementdrill 1.5s .25s;
     z-index: 4;
     border-radius: 8px;
+    box-sizing: border-box;
 }
 
 .origindrill {
@@ -185,6 +187,7 @@
     animation: origindrill 1.75s;
     z-index: 6;
     border-radius: 8px;
+    box-sizing: border-box;
 }
 
 .fromorigindrill {
@@ -193,6 +196,7 @@
     animation: fromorigindrill 1.5s;
     z-index: 6;
     border-radius: 8px;
+    box-sizing: border-box;
 }
 
 .elementunwind {
