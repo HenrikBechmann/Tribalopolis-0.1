@@ -117,7 +117,7 @@ class Quadrant extends React.Component {
                     stackpointer,
                     datastack,
                 });
-            });
+            }, 100);
         };
         this.splayBox = (boxptr, domSource, sourcelistcomponent, listDocument) => {
             let visiblerange = sourcelistcomponent.current.getVisibleRange();
@@ -154,7 +154,7 @@ class Quadrant extends React.Component {
                         this.listcomponent.current.scrollTo(visiblerange[0]);
                     });
                 });
-            }, 250);
+            }, 100);
         };
         this.selectFromSplay = (boxptr, domSource) => {
             this.animateToOrigin();
@@ -179,7 +179,7 @@ class Quadrant extends React.Component {
                     stackpointer,
                     datastack,
                 });
-            });
+            }, 100);
         };
         this.incrementStackSelector = () => {
             let { stackpointer, datastack } = this.state;
@@ -210,7 +210,7 @@ class Quadrant extends React.Component {
             setTimeout(() => {
                 this.collapseTargetProxy = Object.assign({}, itemProxy);
                 this.decrementStackSelector();
-            }, 600);
+            }, 100);
         };
         this.decrementStackSelector = () => {
             let { stackpointer, datastack } = this.state;

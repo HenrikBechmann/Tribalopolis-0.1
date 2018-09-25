@@ -28,10 +28,18 @@ const styles = createStyles({
     wrapperstyles: { margin: '4px 0 0 -3px' },
     iconstyles: { transform: 'rotate(90deg)', opacity: .54 },
 });
-const boxSource = {
+const resizeSource = {
     beginDrag() {
         return {};
     },
+};
+const dndcallback = (connect, monitor) => {
+    console.log('connect,monitor', connect, monitor);
+    return {
+        connectDragSource: connect.dragSource(),
+        connectDragPreview: connect.dragPreview(),
+        isDragging: monitor.isDragging(),
+    };
 };
 let ResizeTab = class ResizeTab extends React.Component {
     render() {
@@ -49,11 +57,7 @@ let ResizeTab = class ResizeTab extends React.Component {
     }
 };
 ResizeTab = __decorate([
-    DragSource(DragItemTypes.RESIZETAB, boxSource, (connect, monitor) => ({
-        connectDragSource: connect.dragSource(),
-        connectDragPreview: connect.dragPreview(),
-        isDragging: monitor.isDragging(),
-    }))
+    DragSource(DragItemTypes.RESIZETAB, resizeSource, dndcallback)
 ], ResizeTab);
 export default withStyles(styles)(ResizeTab);
 //# sourceMappingURL=resizetab.view.jsx.map

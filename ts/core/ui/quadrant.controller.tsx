@@ -247,7 +247,7 @@ class Quadrant extends React.Component<any,any>  {
                 stackpointer,
                 datastack,
             })
-        })
+        },100)
     }
 
     splayBox = (boxptr, domSource, sourcelistcomponent,listDocument) => {
@@ -295,7 +295,7 @@ class Quadrant extends React.Component<any,any>  {
                     this.listcomponent.current.scrollTo(visiblerange[0])
                 })
             })
-        },250)
+        },100)
     }
 
     selectFromSplay = (boxptr:number,domSource) => {
@@ -330,7 +330,7 @@ class Quadrant extends React.Component<any,any>  {
                 stackpointer,
                 datastack,
             })
-        })
+        },100)
     }
 
     incrementStackSelector = () => {
@@ -366,7 +366,7 @@ class Quadrant extends React.Component<any,any>  {
             this.collapseTargetProxy = Object.assign({},itemProxy)
 
             this.decrementStackSelector()
-        },600)
+        },100)
 
     }
 

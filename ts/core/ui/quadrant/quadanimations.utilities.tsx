@@ -74,7 +74,7 @@ const _animateMaskDrill = (sourceStyle, maskBlock) => {
 
     setTimeout(() => {
         maskanimationBlock.classList.remove('maskdrill')
-    },1250)
+    },2000)
 
 }
 
@@ -143,7 +143,7 @@ const _animateBlockDrill = (sourceStyle, targetStyle, drillBlock) => {
 
     setTimeout(() => {
         drillanimationBlock.classList.remove('elementdrill')
-    },1100)
+    },2000)
 }
 
 const _animateFromOriginDrill = (sourceStyle, targetStyle, targetElement) => {
@@ -161,7 +161,7 @@ const _animateFromOriginDrill = (sourceStyle, targetStyle, targetElement) => {
 
     setTimeout(() => {
         originanimationBlock.classList.remove('fromorigindrill')
-    },1000)
+    },2000)
 }
 
 const _animateOriginDrill = (sourceStyle, targetStyle, targetElement) => {
@@ -179,7 +179,7 @@ const _animateOriginDrill = (sourceStyle, targetStyle, targetElement) => {
 
     setTimeout(() => {
         originanimationBlock.classList.remove('origindrill')
-    },600)
+    },2000)
 }
 
 let animations = {

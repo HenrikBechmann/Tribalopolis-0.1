@@ -40,7 +40,7 @@ const _animateMaskDrill = (sourceStyle, maskBlock) => {
     maskanimationBlock.classList.add('maskdrill');
     setTimeout(() => {
         maskanimationBlock.classList.remove('maskdrill');
-    }, 1250);
+    }, 2000);
 };
 const _getAnimationDrillVars = (domSource, domTarget, containerelement) => {
     let varpack = {
@@ -92,7 +92,7 @@ const _animateBlockDrill = (sourceStyle, targetStyle, drillBlock) => {
     drillanimationBlock.classList.add('elementdrill');
     setTimeout(() => {
         drillanimationBlock.classList.remove('elementdrill');
-    }, 1100);
+    }, 2000);
 };
 const _animateFromOriginDrill = (sourceStyle, targetStyle, targetElement) => {
     let originanimationBlock = targetElement;
@@ -105,7 +105,7 @@ const _animateFromOriginDrill = (sourceStyle, targetStyle, targetElement) => {
     originanimationBlock.classList.add('fromorigindrill');
     setTimeout(() => {
         originanimationBlock.classList.remove('fromorigindrill');
-    }, 1000);
+    }, 2000);
 };
 const _animateOriginDrill = (sourceStyle, targetStyle, targetElement) => {
     let originanimationBlock = targetElement;
@@ -118,7 +118,7 @@ const _animateOriginDrill = (sourceStyle, targetStyle, targetElement) => {
     originanimationBlock.classList.add('origindrill');
     setTimeout(() => {
         originanimationBlock.classList.remove('origindrill');
-    }, 600);
+    }, 2000);
 };
 let animations = {
     highlightBox,
