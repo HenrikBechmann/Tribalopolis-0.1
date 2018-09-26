@@ -1,5 +1,6 @@
 // resizetab.view.tsx
 // copyright (c) 2018 Henrik Bechmann, Toronto, MIT Licence
+
 'use strict'
 
 import React from 'react'
@@ -53,7 +54,7 @@ const resizeProps = (connect, monitor) => {
 const resizeHandlers = {
 
     beginDrag: (props,monitor,component) => {
-        // console.log('props,monitor,component in resizeHandlers beginDrag',props,monitor,component)
+
         return {}
 
     },
@@ -84,9 +85,7 @@ class ResizeTab extends React.Component<any,any> {
         const { isDragging, connectDragSource, connectDragPreview } = this.props
         const { classes } = this.props
 
-        // console.log('data',isDragging,connectDragSource,connectDragPreview)
-
-        return ( // connectDragPreview (
+        return (
             <React.Fragment>
                 <div className = { classes.tabstyles } 
                     style = {{visibility:!isDragging?'visible':'hidden'}}

@@ -33,10 +33,9 @@ let ResizeDragLayer = class ResizeDragLayer extends React.Component {
     }
     render() {
         const { classes } = this.props;
-        // console.log('custom drag layer',this.lastoffset/2, this.state.width,this.state.left,this.props)
         if (this.previewElement.current) {
             let diff = this.props.currentDifference.x;
-            if (Math.abs(this.lastoffset - diff) > 1) {
+            if (Math.abs(this.lastoffset - diff) > 1) { // optimization
                 this.lastoffset = diff;
                 let widthnumber = this.startingwidth + (diff * 2);
                 if (widthnumber < 300) {

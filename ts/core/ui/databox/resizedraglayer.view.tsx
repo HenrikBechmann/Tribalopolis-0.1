@@ -1,6 +1,7 @@
 // resizedraglayer.view.tsx
 
 // copyright (c) 2018 Henrik Bechmann, Toronto, MIT Licence
+
 'use strict'
 
 import React from 'react'
@@ -42,12 +43,11 @@ class ResizeDragLayer extends React.Component<any,any> {
 
     render() {
         const { classes } = this.props
-        // console.log('custom drag layer',this.lastoffset/2, this.state.width,this.state.left,this.props)
 
         if (this.previewElement.current) {
 
             let diff = this.props.currentDifference.x
-            if (Math.abs(this.lastoffset - diff) > 1) {
+            if (Math.abs(this.lastoffset - diff) > 1) { // optimization
                 this.lastoffset = diff
 
                 let widthnumber = this.startingwidth + (diff * 2)
@@ -74,6 +74,7 @@ class ResizeDragLayer extends React.Component<any,any> {
             height:this.props.offsetHeight,
             zIndex:100,
         }
+
         return <div 
             ref = { this.previewElement }
             className = { classes.frame } 

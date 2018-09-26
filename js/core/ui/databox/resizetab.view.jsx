@@ -45,7 +45,6 @@ const resizeProps = (connect, monitor) => {
 };
 const resizeHandlers = {
     beginDrag: (props, monitor, component) => {
-        // console.log('props,monitor,component in resizeHandlers beginDrag',props,monitor,component)
         return {};
     },
     endDrag: (props, monitor, component) => {
@@ -68,9 +67,7 @@ let ResizeTab = class ResizeTab extends React.Component {
         const offsetHeight = boxframeelement.offsetHeight;
         const { isDragging, connectDragSource, connectDragPreview } = this.props;
         const { classes } = this.props;
-        // console.log('data',isDragging,connectDragSource,connectDragPreview)
-        return ( // connectDragPreview (
-        <React.Fragment>
+        return (<React.Fragment>
                 <div className={classes.tabstyles} style={{ visibility: !isDragging ? 'visible' : 'hidden' }}>
                     {connectDragSource(<div className={classes.iconwrapperstyles}>
                                 <Icon className={classes.iconstyles}> drag_handle </Icon>
