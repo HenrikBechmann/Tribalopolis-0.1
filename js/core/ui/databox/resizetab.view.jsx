@@ -26,6 +26,7 @@ const styles = createStyles({
         backgroundColor: 'white',
         borderRadius: '0 8px 8px 0',
         opacity: .54,
+        cursor: 'ew-resize'
     },
     iconwrapperstyles: {
         margin: '4px 0 0 -3px',
