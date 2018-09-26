@@ -6,6 +6,7 @@
 import React from 'react'
 
 import { withStyles, createStyles } from '@material-ui/core/styles'
+import Icon from '@material-ui/core/Icon'
 import { DragLayer } from 'react-dnd'
 
 const styles = createStyles({
@@ -76,7 +77,17 @@ class ResizeDragLayer extends React.Component<any,any> {
             ref = {this.previewElement}
             className = {classes.frame} 
             style = {framestyles}
-        ></div>
+        >
+            <div className = { this.props.resizeTabStyles.tabstyles } 
+                style = {{backgroundColor:'silver',opacity:1}}
+            >
+                { 
+                    <div className = { this.props.resizeTabStyles.iconwrapperstyles } >
+                        <Icon className = { this.props.resizeTabStyles.iconstyles } > drag_handle </Icon>
+                    </div> 
+                }
+            </div>
+        </div>
     }
 
 }

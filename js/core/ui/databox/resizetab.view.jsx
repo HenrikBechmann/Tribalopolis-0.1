@@ -46,10 +46,6 @@ const resizeHandlers = {
         // console.log('props,monitor,component in resizeHandlers beginDrag',props,monitor,component)
         return {};
     },
-    isDragging: (props, monitor) => {
-        console.log('isDragging');
-        return true;
-    }
 };
 let ResizeTab = class ResizeTab extends React.Component {
     render() {
@@ -67,7 +63,7 @@ let ResizeTab = class ResizeTab extends React.Component {
                             </div>)}
                     {connectDragPreview(getEmptyImage())}
                 </div>
-                {isDragging && <ResizeDragLayer offsetWidth={offsetWidth} offsetHeight={offsetHeight}/>}
+                {isDragging && <ResizeDragLayer offsetWidth={offsetWidth} offsetHeight={offsetHeight} resizeTabStyles={classes}/>}
             </React.Fragment>);
     }
 };

@@ -9,6 +9,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 import React from 'react';
 import { withStyles, createStyles } from '@material-ui/core/styles';
+import Icon from '@material-ui/core/Icon';
 import { DragLayer } from 'react-dnd';
 const styles = createStyles({
     frame: {
@@ -55,7 +56,13 @@ let ResizeDragLayer = class ResizeDragLayer extends React.Component {
         const framestyles = {
             height: this.props.offsetHeight,
         };
-        return <div ref={this.previewElement} className={classes.frame} style={framestyles}></div>;
+        return <div ref={this.previewElement} className={classes.frame} style={framestyles}>
+            <div className={this.props.resizeTabStyles.tabstyles} style={{ backgroundColor: 'silver', opacity: 1 }}>
+                {<div className={this.props.resizeTabStyles.iconwrapperstyles}>
+                        <Icon className={this.props.resizeTabStyles.iconstyles}> drag_handle </Icon>
+                    </div>}
+            </div>
+        </div>;
     }
 };
 ResizeDragLayer = __decorate([

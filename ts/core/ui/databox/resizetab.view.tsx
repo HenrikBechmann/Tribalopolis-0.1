@@ -54,10 +54,6 @@ const resizeHandlers = {
         return {}
 
     },
-    isDragging: (props,monitor) => {
-        console.log('isDragging')
-        return true
-    }
 }
 
 @DragSource( DragTypes.RESIZETAB, resizeHandlers, resizeProps )
@@ -94,6 +90,7 @@ class ResizeTab extends React.Component<any,any> {
                     isDragging && <ResizeDragLayer 
                         offsetWidth = { offsetWidth } 
                         offsetHeight = { offsetHeight }
+                        resizeTabStyles = { classes }
                     />
                 }
             </React.Fragment>
