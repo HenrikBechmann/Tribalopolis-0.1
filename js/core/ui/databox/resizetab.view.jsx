@@ -9,9 +9,24 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 import React from 'react';
 import { withStyles, createStyles } from '@material-ui/core/styles';
-import { DragSource } from 'react-dnd';
+import { DragSource, DragLayer } from 'react-dnd';
+import { getEmptyImage } from 'react-dnd-html5-backend';
 import Icon from '@material-ui/core/Icon';
-import DragItemTypes from '../../dragitemtypes';
+import DragTypes from '../../dragitemtypes';
+let CustomDragLayer = class CustomDragLayer extends React.Component {
+    render() {
+        console.log('custom drag layer', this.props);
+        return <div>Custom Drag Layer</div>;
+    }
+};
+CustomDragLayer = __decorate([
+    DragLayer(monitor => ({
+        item: monitor.getItem(),
+        itemType: monitor.getItemType(),
+        currentOffset: monitor.getSourceClientOffset(),
+        isDragging: monitor.isDragging()
+    }))
+], CustomDragLayer);
 const styles = createStyles({
     tabstyles: {
         position: 'absolute',
@@ -25,14 +40,13 @@ const styles = createStyles({
         borderRadius: '0 8px 8px 0',
         opacity: .54,
     },
-    wrapperstyles: { margin: '4px 0 0 -3px' },
-    iconstyles: { transform: 'rotate(90deg)', opacity: .54 },
-});
-const resizeHandler = {
-    beginDrag() {
-        return {};
+    iconwrapperstyles: {
+        margin: '4px 0 0 -3px',
     },
-};
+    iconstyles: {
+        transform: 'rotate(90deg)', opacity: .54
+    },
+});
 const resizeProps = (connect, monitor) => {
     return {
         connectDragSource: connect.dragSource(),
@@ -40,23 +54,34 @@ const resizeProps = (connect, monitor) => {
         isDragging: monitor.isDragging(),
     };
 };
+const resizeHandlers = {
+    beginDrag: (props, monitor, component) => {
+        // console.log('props,monitor,component in resizeHandlers beginDrag',props,monitor,component)
+        return {};
+    },
+    isDragging: (props, monitor) => {
+        console.log('isDragging');
+        return true;
+    }
+};
 let ResizeTab = class ResizeTab extends React.Component {
     render() {
         const { isDragging, connectDragSource, connectDragPreview } = this.props;
+        const { classes } = this.props;
         const opacity = isDragging ? 0.4 : 1;
-        console.log('data', isDragging, connectDragSource, connectDragPreview);
-        let { classes } = this.props;
-        return connectDragPreview &&
-            connectDragSource &&
-            connectDragPreview(<div className={classes.tabstyles}>
-            {connectDragSource(<div className={classes.wrapperstyles}>
-                <Icon className={classes.iconstyles}>drag_handle</Icon>
-            </div>)}
-        </div>);
+        // console.log('data',isDragging,connectDragSource,connectDragPreview)
+        return ( // connectDragPreview (
+        <div className={classes.tabstyles}>
+                {connectDragSource(<div className={classes.iconwrapperstyles}>
+                            <Icon className={classes.iconstyles}> drag_handle </Icon>
+                        </div>)}
+                {connectDragPreview(getEmptyImage())}
+                {isDragging && <CustomDragLayer />}
+            </div>);
     }
 };
 ResizeTab = __decorate([
-    DragSource(DragItemTypes.RESIZETAB, resizeHandler, resizeProps)
+    DragSource(DragTypes.RESIZETAB, resizeHandlers, resizeProps)
 ], ResizeTab);
 export default withStyles(styles)(ResizeTab);
 //# sourceMappingURL=resizetab.view.jsx.map
