@@ -8,25 +8,12 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 import React from 'react';
-import { withStyles, createStyles } from '@material-ui/core/styles';
-import { DragSource, DragLayer } from 'react-dnd';
+import { DragSource } from 'react-dnd';
 import { getEmptyImage } from 'react-dnd-html5-backend';
+import { withStyles, createStyles } from '@material-ui/core/styles';
 import Icon from '@material-ui/core/Icon';
 import DragTypes from '../../dragitemtypes';
-let CustomDragLayer = class CustomDragLayer extends React.Component {
-    render() {
-        console.log('custom drag layer', this.props);
-        return <div>Custom Drag Layer</div>;
-    }
-};
-CustomDragLayer = __decorate([
-    DragLayer(monitor => ({
-        item: monitor.getItem(),
-        itemType: monitor.getItemType(),
-        currentOffset: monitor.getSourceClientOffset(),
-        isDragging: monitor.isDragging()
-    }))
-], CustomDragLayer);
+import ResizeDragLayer from './resizedraglayer.view';
 const styles = createStyles({
     tabstyles: {
         position: 'absolute',
@@ -66,18 +53,22 @@ const resizeHandlers = {
 };
 let ResizeTab = class ResizeTab extends React.Component {
     render() {
+        const boxframeelement = this.props.boxframe.current;
+        const offsetWidth = boxframeelement.offsetWidth;
+        const offsetHeight = boxframeelement.offsetHeight;
         const { isDragging, connectDragSource, connectDragPreview } = this.props;
         const { classes } = this.props;
-        const opacity = isDragging ? 0.4 : 1;
         // console.log('data',isDragging,connectDragSource,connectDragPreview)
         return ( // connectDragPreview (
-        <div className={classes.tabstyles}>
-                {connectDragSource(<div className={classes.iconwrapperstyles}>
-                            <Icon className={classes.iconstyles}> drag_handle </Icon>
-                        </div>)}
-                {connectDragPreview(getEmptyImage())}
-                {isDragging && <CustomDragLayer />}
-            </div>);
+        <React.Fragment>
+                <div className={classes.tabstyles} style={{ visibility: !isDragging ? 'visible' : 'hidden' }}>
+                    {connectDragSource(<div className={classes.iconwrapperstyles}>
+                                <Icon className={classes.iconstyles}> drag_handle </Icon>
+                            </div>)}
+                    {connectDragPreview(getEmptyImage())}
+                </div>
+                {isDragging && <ResizeDragLayer offsetWidth={offsetWidth} offsetHeight={offsetHeight}/>}
+            </React.Fragment>);
     }
 };
 ResizeTab = __decorate([

@@ -282,7 +282,7 @@ class DataBox extends React.Component<any,any> {
             <div className = {classes.frameStyle} style = {frameStyle}
                 ref = {this.boxframe}
             >
-                {haspeers?null:<ResizeTab />}
+                {haspeers?null:<ResizeTab boxframe = {this.boxframe}/>}
                 <BoxTypebar 
                     item = { item } 
                     itemType = { itemType /*future*/}

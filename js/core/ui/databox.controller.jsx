@@ -211,7 +211,7 @@ class DataBox extends React.Component {
         };
         return <div data-index={this.props.index} className={classes.wrapperStyle} style={wrapperStyle}>
             <div className={classes.frameStyle} style={frameStyle} ref={this.boxframe}>
-                {haspeers ? null : <ResizeTab />}
+                {haspeers ? null : <ResizeTab boxframe={this.boxframe}/>}
                 <BoxTypebar item={item} itemType={itemType /*future*/} listProxy={this.state.TypelistProxy} haspeers={this.props.haspeers} callbacks={this.typecallbacks}/>
                 <BoxIdentityBar item={item}/>
                 <div className={classes.identityBar}>
