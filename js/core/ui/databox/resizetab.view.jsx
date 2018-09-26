@@ -26,7 +26,7 @@ const styles = createStyles({
         backgroundColor: 'white',
         borderRadius: '0 8px 8px 0',
         opacity: .54,
-        cursor: 'ew-resize'
+        cursor: 'ew-resize',
     },
     iconwrapperstyles: {
         margin: '4px 0 0 -3px',
@@ -46,6 +46,18 @@ const resizeHandlers = {
     beginDrag: (props, monitor, component) => {
         // console.log('props,monitor,component in resizeHandlers beginDrag',props,monitor,component)
         return {};
+    },
+    endDrag: (props, monitor, component) => {
+        const diff = monitor.getDifferenceFromInitialOffset().x * 2;
+        const boxwidth = props.boxwidth;
+        let newboxwidth = boxwidth + diff;
+        if (newboxwidth > 600) {
+            newboxwidth = 600;
+        }
+        else if (newboxwidth < 300) {
+            newboxwidth = 300;
+        }
+        props.setBoxWidth(newboxwidth);
     },
 };
 let ResizeTab = class ResizeTab extends React.Component {

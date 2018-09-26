@@ -474,6 +474,7 @@ class Quadrant extends React.Component<any,any>  {
             expandDirectoryItem:(token, domSource) => {
                 this.expandDirectoryItem(index,token, domSource)},
             collapseDirectoryItem:this.collapseDirectoryItem,
+            setBoxWidth:this.setBoxWidth,
         }
         return (
             <DataBox 
@@ -484,11 +485,18 @@ class Quadrant extends React.Component<any,any>  {
                 haspeers = { haspeers }
                 index = { index }
                 containerHeight = { containerHeight }
-                boxwidth = { haspeers?300:this.state.boxwidth }
+                boxwidth = { this.state.boxwidth }
 
                 callbacks = { boxcallbacks }
             />
         )
+    }
+
+    setBoxWidth = (width) => {
+
+        this.setState({
+            boxwidth:width,
+        })
     }
 
 /********************************************************

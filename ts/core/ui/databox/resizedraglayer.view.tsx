@@ -58,7 +58,7 @@ class ResizeDragLayer extends React.Component<any,any> {
                 }
                 else if (widthnumber > 600) {
                     widthnumber = 600
-                    diff = (600 - this.startingwidth) /2
+                    diff = (600 - this.startingwidth) / 2
                 }
 
                 let width = (widthnumber) + 'px'
@@ -72,14 +72,15 @@ class ResizeDragLayer extends React.Component<any,any> {
 
         const framestyles:React.CSSProperties = {
             height:this.props.offsetHeight,
+            zIndex:100,
         }
         return <div 
-            ref = {this.previewElement}
-            className = {classes.frame} 
-            style = {framestyles}
+            ref = { this.previewElement }
+            className = { classes.frame } 
+            style = { framestyles }
         >
             <div className = { this.props.resizeTabStyles.tabstyles } 
-                style = {{backgroundColor:'silver',opacity:1}}
+                style = {{ backgroundColor:'silver',opacity:1 }}
             >
                 { 
                     <div className = { this.props.resizeTabStyles.iconwrapperstyles } >

@@ -37,6 +37,7 @@ const styles = createStyles({
         borderRadius: '8px',
         fontSize: 'smaller',
         position: 'relative',
+        transition: 'width .5s',
     },
     indexMarker: {
         position: 'absolute',
@@ -211,7 +212,7 @@ class DataBox extends React.Component {
         };
         return <div data-index={this.props.index} className={classes.wrapperStyle} style={wrapperStyle}>
             <div className={classes.frameStyle} style={frameStyle} ref={this.boxframe}>
-                {haspeers ? null : <ResizeTab boxframe={this.boxframe}/>}
+                {haspeers ? null : <ResizeTab boxwidth={this.props.boxwidth} boxframe={this.boxframe} setBoxWidth={this.props.callbacks.setBoxWidth}/>}
                 <BoxTypebar item={item} itemType={itemType /*future*/} listProxy={this.state.TypelistProxy} haspeers={this.props.haspeers} callbacks={this.typecallbacks}/>
                 <BoxIdentityBar item={item}/>
                 <div className={classes.identityBar}>

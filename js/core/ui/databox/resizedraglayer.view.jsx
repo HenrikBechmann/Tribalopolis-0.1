@@ -55,6 +55,7 @@ let ResizeDragLayer = class ResizeDragLayer extends React.Component {
         }
         const framestyles = {
             height: this.props.offsetHeight,
+            zIndex: 100,
         };
         return <div ref={this.previewElement} className={classes.frame} style={framestyles}>
             <div className={this.props.resizeTabStyles.tabstyles} style={{ backgroundColor: 'silver', opacity: 1 }}>

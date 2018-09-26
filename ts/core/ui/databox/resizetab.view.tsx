@@ -55,6 +55,19 @@ const resizeHandlers = {
         return {}
 
     },
+    endDrag: (props,monitor,component) => {
+
+        const diff = monitor.getDifferenceFromInitialOffset().x * 2
+        const boxwidth = props.boxwidth
+        let newboxwidth = boxwidth + diff
+        if ( newboxwidth > 600) {
+            newboxwidth = 600
+        } else if (newboxwidth < 300) {
+            newboxwidth = 300
+        }
+        props.setBoxWidth(newboxwidth)
+
+    },
 }
 
 @DragSource( DragTypes.RESIZETAB, resizeHandlers, resizeProps )

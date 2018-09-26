@@ -301,8 +301,14 @@ class Quadrant extends React.Component {
                     this.expandDirectoryItem(index, token, domSource);
                 },
                 collapseDirectoryItem: this.collapseDirectoryItem,
+                setBoxWidth: this.setBoxWidth,
             };
-            return (<DataBox key={itemProxy.instanceid} itemProxy={itemProxy} collapseTargetProxy={matchForTarget ? collapseTargetProxy : null} haspeers={haspeers} index={index} containerHeight={containerHeight} boxwidth={haspeers ? 300 : this.state.boxwidth} callbacks={boxcallbacks}/>);
+            return (<DataBox key={itemProxy.instanceid} itemProxy={itemProxy} collapseTargetProxy={matchForTarget ? collapseTargetProxy : null} haspeers={haspeers} index={index} containerHeight={containerHeight} boxwidth={this.state.boxwidth} callbacks={boxcallbacks}/>);
+        };
+        this.setBoxWidth = (width) => {
+            this.setState({
+                boxwidth: width,
+            });
         };
         /********************************************************
         ------------------------[ render ]-----------------------
