@@ -13,6 +13,8 @@ import Icon from '@material-ui/core/Icon'
 import DragTypes from '../../dragitemtypes'
 import ResizeDragLayer from './resizedraglayer.view'
 
+import application from '../../services/application'
+
 
 const styles = createStyles({
     tabstyles:{
@@ -97,7 +99,7 @@ class ResizeTab extends React.Component<any,any> {
                         )
                     }
                     {
-                        connectDragPreview(getEmptyImage())
+                        !application.properties.ismobile && connectDragPreview(getEmptyImage())
                     }
                 </div>
                 {

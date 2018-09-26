@@ -14,6 +14,7 @@ import { withStyles, createStyles } from '@material-ui/core/styles';
 import Icon from '@material-ui/core/Icon';
 import DragTypes from '../../dragitemtypes';
 import ResizeDragLayer from './resizedraglayer.view';
+import application from '../../services/application';
 const styles = createStyles({
     tabstyles: {
         position: 'absolute',
@@ -74,7 +75,7 @@ let ResizeTab = class ResizeTab extends React.Component {
                     {connectDragSource(<div className={classes.iconwrapperstyles}>
                                 <Icon className={classes.iconstyles}> drag_handle </Icon>
                             </div>)}
-                    {connectDragPreview(getEmptyImage())}
+                    {!application.properties.ismobile && connectDragPreview(getEmptyImage())}
                 </div>
                 {isDragging && <ResizeDragLayer offsetWidth={offsetWidth} offsetHeight={offsetHeight} resizeTabStyles={classes}/>}
             </React.Fragment>);
