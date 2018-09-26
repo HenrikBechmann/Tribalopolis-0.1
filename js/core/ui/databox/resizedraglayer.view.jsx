@@ -37,14 +37,19 @@ let ResizeDragLayer = class ResizeDragLayer extends React.Component {
             let diff = this.props.currentDifference.x;
             if (Math.abs(this.lastoffset - diff) > 1) {
                 this.lastoffset = diff;
-                let shift = diff / 2;
                 let widthnumber = this.startingwidth + (diff * 2);
-                if (widthnumber >= 300 && widthnumber <= 600) {
-                    let width = (widthnumber) + 'px';
-                    let left = (this.startingleft - diff) + 'px';
-                    this.previewElement.current.style.width = width;
-                    this.previewElement.current.style.left = left;
+                if (widthnumber < 300) {
+                    widthnumber = 300;
+                    diff = (300 - this.startingwidth) / 2;
                 }
+                else if (widthnumber > 600) {
+                    widthnumber = 600;
+                    diff = (600 - this.startingwidth) / 2;
+                }
+                let width = (widthnumber) + 'px';
+                let left = (this.startingleft - diff) + 'px';
+                this.previewElement.current.style.width = width;
+                this.previewElement.current.style.left = left;
             }
         }
         const framestyles = {
