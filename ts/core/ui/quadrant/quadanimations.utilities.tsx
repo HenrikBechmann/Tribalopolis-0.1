@@ -97,9 +97,9 @@ const _getAnimationSelectDrillVars = (domSource:HTMLElement,domReference:HTMLEle
     }
 
     let targetPack = {
-        top:domReference.offsetTop + (domReference.clientHeight * .1),
+        top:domReference.offsetTop + (domReference.clientHeight * .12),
         left:(domReference.offsetWidth / 2) - ((boxwidth/2) - 10 ),
-        height:domReference.clientHeight - (domReference.clientHeight * .06),
+        height:domReference.clientHeight - (domReference.clientHeight * .1),
         width:boxwidth,
     }
 

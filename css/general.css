@@ -178,7 +178,7 @@
     animation: elementdrill 1s;
     z-index: 8;
     border-radius: 8px;
-    box-sizing: border-box;
+    /*box-sizing: border-box;*/
 }
 
 .origindrill {
@@ -196,7 +196,7 @@
     animation: fromorigindrill 1s;
     z-index: 6;
     border-radius: 8px;
-    box-sizing: border-box;
+    /*box-sizing: border-box;*/
 }
 
 .elementunwind {
