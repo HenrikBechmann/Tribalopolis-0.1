@@ -60,10 +60,7 @@ let ResizeDragLayer = class ResizeDragLayer extends React.Component {
 };
 ResizeDragLayer = __decorate([
     DragLayer(monitor => ({
-        item: monitor.getItem(),
-        itemType: monitor.getItemType(),
         currentDifference: monitor.getDifferenceFromInitialOffset(),
-        isDragging: monitor.isDragging()
     }))
 ], ResizeDragLayer);
 export default withStyles(styles)(ResizeDragLayer);

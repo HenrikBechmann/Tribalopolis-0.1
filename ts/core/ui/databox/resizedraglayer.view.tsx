@@ -18,10 +18,7 @@ const styles = createStyles({
 })
 
 @DragLayer(monitor => ({
-  item: monitor.getItem(),
-  itemType: monitor.getItemType(),
   currentDifference: monitor.getDifferenceFromInitialOffset(),
-  isDragging: monitor.isDragging()
 }))
 class ResizeDragLayer extends React.Component<any,any> {
 
