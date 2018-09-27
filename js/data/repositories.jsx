@@ -53,6 +53,7 @@ let types = {
             handle: '',
             version: 0,
             map: {},
+            parent: '',
         },
         properties: {
             interface: {},
@@ -82,6 +83,7 @@ let types = {
             handle: '',
             version: 0,
             map: {},
+            parent: '',
         },
         properties: {
             interface: {},

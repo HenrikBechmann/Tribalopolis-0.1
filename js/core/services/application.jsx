@@ -22,8 +22,8 @@ const setTypeListener = (token) => {
 };
 const getNewCacheItem = () => {
     return {
-        document: {
-            data: null,
+        data: {
+            document: null,
             type: null,
         },
         listeners: new Map(),
@@ -50,8 +50,8 @@ const addCacheListener = (token, instanceid, callback) => {
 };
 const updateCacheData = (path, data, type) => {
     let cacheitem = getCacheItem(path);
-    cacheitem.document.data = data;
-    cacheitem.document.type = type;
+    cacheitem.data.document = data;
+    cacheitem.data.type = type;
 };
 const setItemListener = (token, instanceid, callback) => {
     addCacheListener(token, instanceid, callback);
@@ -89,7 +89,7 @@ const removeListListener = (token, instanceid) => {
 const setListListener = (token, instanceid, callback) => {
     addCacheListener(token, instanceid, callback);
     let list = domain.setListListener(token);
-    let type = domain.setTypeListener(list.identity.type);
+    let type = domain.setTypeListener({ uid: list.identity.type, repo: 'lists' });
     let path = getTokenPath(token);
     updateCacheData(path, list, type);
     // setTimeout(()=>{

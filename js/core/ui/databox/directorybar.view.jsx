@@ -13,10 +13,10 @@ class DirectoryBar extends React.Component {
         this.state = {
             list: null
         };
-        this.cacheListDocument = (data, type) => {
+        this.cacheListDocument = (document, type) => {
             this.setState({
                 list: {
-                    data,
+                    document,
                     type
                 }
             });
@@ -72,7 +72,7 @@ class DirectoryBar extends React.Component {
     }
     render() {
         let { listStack } = this.props;
-        let listDocument = this.state.list ? this.state.list.data : null;
+        let listDocument = this.state.list ? this.state.list.document : null;
         return <div>
             <div style={this.barstyle}>
                 {listDocument ? (<div style={this.tabwrapperstyle}>

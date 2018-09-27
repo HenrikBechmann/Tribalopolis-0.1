@@ -85,11 +85,11 @@ class DirectoryItem extends React.Component<any,any> {
         }        
     }
 
-    cacheListDocument = (data,type) => {
+    cacheListDocument = (document,type) => {
 
         this.setState({
             list:{
-                data,
+                document,
                 type
             }
         })
@@ -101,7 +101,7 @@ class DirectoryItem extends React.Component<any,any> {
     }
 
     barcomponent = () => {
-        let listDocument = this.state.list?this.state.list.data:null
+        let listDocument = this.state.list?this.state.list.document:null
         return <div 
             style = {
                 this.barstyle

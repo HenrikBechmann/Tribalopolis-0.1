@@ -43,10 +43,10 @@ class DirectoryItem extends React.Component {
             maxWidth: '90%',
             whiteSpace: 'nowrap',
         };
-        this.cacheListDocument = (data, type) => {
+        this.cacheListDocument = (document, type) => {
             this.setState({
                 list: {
-                    data,
+                    document,
                     type
                 }
             });
@@ -55,7 +55,7 @@ class DirectoryItem extends React.Component {
             this.props.expandDirectoryItem(this.barelementref.current);
         };
         this.barcomponent = () => {
-            let listDocument = this.state.list ? this.state.list.data : null;
+            let listDocument = this.state.list ? this.state.list.document : null;
             return <div style={this.barstyle} ref={this.barelementref}>
             {listDocument ? <div style={this.tabwrapperstyle}>
                 <div style={this.pretabstyle}></div>

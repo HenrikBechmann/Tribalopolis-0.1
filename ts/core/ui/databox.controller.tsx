@@ -129,11 +129,11 @@ class DataBox extends React.Component<any,any> {
         )
     }
 
-    cacheItemData = (data,type) => {
+    cacheItemData = (document,type) => {
 
         this.setState({
             item:{
-                data,
+                document,
                 type
             }
         },() => { // set matching list proxies for children
@@ -144,7 +144,7 @@ class DataBox extends React.Component<any,any> {
                 if (this.itemProxy.liststack.length) {
                     listdoctoken = this.itemProxy.liststack[this.itemProxy.liststack.length -1]
                 } else {
-                    listdoctoken = this.state.item.data.references.list
+                    listdoctoken = this.state.item.document.references.list
                 }
                 this.setState({
                     MainlistProxy: new proxy({token:listdoctoken}),
@@ -233,7 +233,7 @@ class DataBox extends React.Component<any,any> {
 
         let { haspeers, classes } = this.props
 
-        let item = this.state.item?this.state.item.data:null
+        let item = this.state.item?this.state.item.document:null
         let itemType = this.state.item?this.state.item.type:null
 
         let listStack = this.itemProxy.liststack

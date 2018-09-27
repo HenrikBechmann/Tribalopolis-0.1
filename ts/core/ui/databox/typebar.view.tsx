@@ -37,10 +37,10 @@ class BoxToolbar extends React.Component<any,any> {
                 this.listProxy.token,this.listProxy.instanceid)
         }        
     }
-    cacheListDocument = (data,type) => {
+    cacheListDocument = (document,type) => {
         this.setState({
             list:{
-                data,
+                document,
                 type
             }
         })
@@ -54,7 +54,7 @@ class BoxToolbar extends React.Component<any,any> {
 
     splayBox = () => {
         return () => {
-            this.props.callbacks.splayBox(this.splaydomsource.current, this.state.list.data)
+            this.props.callbacks.splayBox(this.splaydomsource.current, this.state.list.document)
         }
     }
 
@@ -75,7 +75,7 @@ class BoxToolbar extends React.Component<any,any> {
 
         let boxicon = '/public/icons/databox.svg'
 
-        let listcount = this.state.list?this.state.list.data.data.lists.length:0
+        let listcount = this.state.list?this.state.list.document.data.lists.length:0
 
         let haspeers = props.haspeers
 

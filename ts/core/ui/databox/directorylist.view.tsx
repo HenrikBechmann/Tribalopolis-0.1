@@ -84,18 +84,18 @@ class DirectoryListBase extends React.Component<any,any> {
         }        
     }
 
-    cacheListDocument = (data,type) => {
+    cacheListDocument = (document,type) => {
 
         let listproxies
         if (!this.state.listproxies) {
-            listproxies = this.generateListProxies(data)
+            listproxies = this.generateListProxies(document)
         } else {
-            listproxies = this.updateListProxies(data,this.state.listproxies)
+            listproxies = this.updateListProxies(document,this.state.listproxies)
         }
         this.pathToIndexMap = this.generatePathToIndexMap(listproxies)
         this.setState({
             list:{
-                data,
+                document,
                 type
             },
             listproxies,

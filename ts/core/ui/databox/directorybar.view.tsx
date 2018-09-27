@@ -17,10 +17,10 @@ class DirectoryBar extends React.Component<any,any> {
         list:null
     }
 
-    cacheListDocument = (data,type) => {
+    cacheListDocument = (document,type) => {
         this.setState({
             list:{
-                data,
+                document,
                 type
             }
         })
@@ -88,7 +88,7 @@ class DirectoryBar extends React.Component<any,any> {
     render() {
 
         let { listStack } = this.props
-        let listDocument = this.state.list?this.state.list.data:null
+        let listDocument = this.state.list?this.state.list.document:null
 
         return <div>
             <div 
