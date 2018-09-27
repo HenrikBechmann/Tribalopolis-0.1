@@ -12,15 +12,16 @@ let folders = {
             },
         },
         identity: {
+            type: {},
+            account: null,
+            handle: '',
             version: 0,
         },
         properties: {},
         counts: {},
         references: {
-            type: {},
             list: '',
             parentlists: [],
-            account: null,
         },
         data: {},
     }
@@ -44,9 +45,11 @@ let types = {
             },
         },
         identity: {
+            type: {},
+            account: null,
             handle: '',
-            map: {},
             version: 0,
+            map: {},
         },
         properties: {
             static: {
@@ -56,9 +59,7 @@ let types = {
         },
         counts: {},
         references: {
-            type: {},
             parentlists: [],
-            account: null,
             list: {},
         },
         data: {},
@@ -69,9 +70,11 @@ let types = {
             permissions: {},
         },
         identity: {
+            type: {},
+            account: null,
             handle: '',
-            map: {},
             version: 0,
+            map: {},
         },
         properties: {
             specifications: {},
@@ -84,10 +87,8 @@ let types = {
         },
         counts: {},
         references: {
-            type: {},
             list: '',
             parentlists: [],
-            account: null,
         },
         data: {},
     },
@@ -99,6 +100,11 @@ let lists = {
             permissions: {},
         },
         identity: {
+            type: {
+                scheme: 'common',
+            },
+            account: null,
+            handle: '',
             version: 0,
         },
         properties: {
@@ -112,10 +118,6 @@ let lists = {
             subscriptions: [],
             owneritem: 'henrik',
             parentlists: [],
-            account: null,
-            type: {
-                scheme: 'common',
-            },
         },
         data: {
             lists: [],
@@ -128,6 +130,10 @@ let lists = {
             permissions: {},
         },
         identity: {
+            type: {
+                scheme: 'common',
+            },
+            account: null,
             version: 0,
         },
         properties: {
@@ -138,13 +144,9 @@ let lists = {
             items: 0,
         },
         references: {
-            type: {
-                scheme: 'common',
-            },
             subscriptions: [],
             owneritem: 'henrik',
             parentlists: [],
-            account: null,
         },
         data: {
             lists: [],
@@ -159,6 +161,12 @@ let lists = {
             permissions: {},
         },
         identity: {
+            type: {
+                uid: 'outgoing',
+                scheme: 'common',
+            },
+            account: null,
+            handle: '',
             version: 0,
         },
         properties: {
@@ -169,14 +177,9 @@ let lists = {
             items: 0,
         },
         references: {
-            type: {
-                uid: 'outgoing',
-                scheme: 'common',
-            },
             subscriptions: [],
             owneritem: 'henrik',
             parentlists: [],
-            account: null,
         },
         data: {
             lists: [],
@@ -189,6 +192,12 @@ let lists = {
             permissions: {},
         },
         identity: {
+            type: {
+                uid: 'outgoing',
+                scheme: 'common',
+            },
+            account: null,
+            handle: '',
             version: 0,
         },
         properties: {
@@ -202,11 +211,6 @@ let lists = {
             subscriptions: [],
             owneritem: 'henrik',
             parentlists: [],
-            account: null,
-            type: {
-                uid: 'outgoing',
-                scheme: 'common',
-            },
         },
         data: {
             lists: [],
@@ -219,6 +223,12 @@ let lists = {
             permissions: {},
         },
         identity: {
+            type: {
+                uid: 'outgoing',
+                scheme: 'common',
+            },
+            account: null,
+            handle: '',
             version: 0,
         },
         properties: {
@@ -229,14 +239,9 @@ let lists = {
             items: 0,
         },
         references: {
-            type: {
-                uid: 'outgoing',
-                scheme: 'common',
-            },
             subscriptions: [],
             owneritem: 'henrik',
             parentlists: [],
-            account: null,
         },
         data: {
             lists: [],
@@ -249,6 +254,12 @@ let lists = {
             permissions: {},
         },
         identity: {
+            type: {
+                uid: 'incoming',
+                scheme: 'common',
+            },
+            account: null,
+            handle: '',
             version: 0,
         },
         properties: {
@@ -259,14 +270,9 @@ let lists = {
             items: 0,
         },
         references: {
-            type: {
-                uid: 'incoming',
-                scheme: 'common',
-            },
             subscriptions: [],
             owneritem: 'henrik',
             parentlists: [],
-            account: null,
         },
         data: {
             lists: [],
@@ -279,6 +285,12 @@ let lists = {
             permissions: {},
         },
         identity: {
+            type: {
+                uid: 'outgoing',
+                scheme: 'common',
+            },
+            account: null,
+            handle: '',
             version: 0,
         },
         properties: {
@@ -289,14 +301,9 @@ let lists = {
             items: 0,
         },
         references: {
-            type: {
-                uid: 'outgoing',
-                scheme: 'common',
-            },
             subscriptions: [],
             owneritem: 'henrik',
             parentlists: [],
-            account: null,
         },
         data: {
             lists: [],
@@ -309,6 +316,12 @@ let lists = {
             permissions: {},
         },
         identity: {
+            type: {
+                uid: 'outgoing',
+                scheme: 'common',
+            },
+            account: null,
+            handle: '',
             version: 0,
         },
         properties: {
@@ -323,14 +336,9 @@ let lists = {
             items: 0,
         },
         references: {
-            type: {
-                uid: 'outgoing',
-                scheme: 'common',
-            },
             subscriptions: [],
             owneritem: 'henrik',
             parentlists: [],
-            account: null,
         },
         data: {
             lists: [],
@@ -343,6 +351,12 @@ let lists = {
             permissions: {},
         },
         identity: {
+            type: {
+                uid: 'outgoing',
+                scheme: 'common',
+            },
+            account: null,
+            handle: '',
             version: 0,
         },
         properties: {
@@ -353,14 +367,9 @@ let lists = {
             items: 0,
         },
         references: {
-            type: {
-                uid: 'outgoing',
-                scheme: 'common',
-            },
             subscriptions: [],
             owneritem: 'henrik',
             parentlists: [],
-            account: null,
         },
         data: {
             lists: [],
@@ -373,6 +382,11 @@ let lists = {
             permissions: {},
         },
         identity: {
+            type: {
+                uid: 'outgoing',
+                scheme: 'common',
+            },
+            account: null,
             version: 0,
         },
         properties: {
@@ -383,14 +397,9 @@ let lists = {
             items: 0,
         },
         references: {
-            type: {
-                uid: 'outgoing',
-                scheme: 'common',
-            },
             subscriptions: [],
             owneritem: 'henrik',
             parentlists: [],
-            account: null,
         },
         data: {
             lists: [],
@@ -403,6 +412,12 @@ let lists = {
             permissions: {},
         },
         identity: {
+            type: {
+                uid: 'incoming',
+                scheme: 'common',
+            },
+            account: null,
+            handle: '',
             version: 0,
         },
         properties: {
@@ -413,14 +428,9 @@ let lists = {
             items: 0,
         },
         references: {
-            type: {
-                uid: 'incoming',
-                scheme: 'common',
-            },
             subscriptions: [],
             owneritem: 'henrik',
             parentlists: [],
-            account: null,
         },
         data: {
             lists: [],
@@ -433,6 +443,12 @@ let lists = {
             permissions: {},
         },
         identity: {
+            type: {
+                uid: 'incoming',
+                scheme: 'common',
+            },
+            account: null,
+            handle: '',
             version: 0,
         },
         properties: {
@@ -443,14 +459,9 @@ let lists = {
             items: 0,
         },
         references: {
-            type: {
-                uid: 'incoming',
-                scheme: 'common',
-            },
             subscriptions: [],
             owneritem: 'henrik',
             parentlists: [],
-            account: null,
         },
         data: {
             lists: [],
@@ -463,6 +474,12 @@ let lists = {
             permissions: {},
         },
         identity: {
+            type: {
+                uid: 'outgoing',
+                scheme: 'common',
+            },
+            account: null,
+            handle: '',
             version: 0,
         },
         properties: {
@@ -473,14 +490,9 @@ let lists = {
             items: 0,
         },
         references: {
-            type: {
-                uid: 'outgoing',
-                scheme: 'common',
-            },
             subscriptions: [],
             owneritem: 'henrik',
             parentlists: [],
-            account: null,
         },
         data: {
             lists: [],
@@ -493,6 +505,12 @@ let lists = {
             permissions: {},
         },
         identity: {
+            type: {
+                uid: 'incoming',
+                scheme: 'common',
+            },
+            account: null,
+            handle: '',
             version: 0,
         },
         properties: {
@@ -503,14 +521,9 @@ let lists = {
             items: 0,
         },
         references: {
-            type: {
-                uid: 'incoming',
-                scheme: 'common',
-            },
             subscriptions: [],
             owneritem: 'henrik',
             parentlists: [],
-            account: null,
         },
         data: {
             lists: [],
@@ -523,6 +536,12 @@ let lists = {
             permissions: {},
         },
         identity: {
+            type: {
+                uid: 'outgoing',
+                scheme: 'common',
+            },
+            account: null,
+            handle: '',
             version: 0,
         },
         properties: {
@@ -533,14 +552,9 @@ let lists = {
             items: 0,
         },
         references: {
-            type: {
-                uid: 'outgoing',
-                scheme: 'common',
-            },
             subscriptions: [],
             owneritem: 'henrik',
             parentlists: [],
-            account: null,
         },
         data: {
             lists: [],
@@ -555,6 +569,12 @@ let lists = {
             permissions: {},
         },
         identity: {
+            type: {
+                uid: 'incoming',
+                scheme: 'common',
+            },
+            account: null,
+            handle: '',
             version: 0,
         },
         properties: {
@@ -565,14 +585,9 @@ let lists = {
             items: 0,
         },
         references: {
-            type: {
-                uid: 'incoming',
-                scheme: 'common',
-            },
             subscriptions: [],
             owneritem: 'henrik',
             parentlists: [],
-            account: null,
         },
         data: {
             lists: [],
@@ -587,6 +602,12 @@ let lists = {
             permissions: {},
         },
         identity: {
+            type: {
+                uid: 'incoming',
+                scheme: 'common',
+            },
+            account: null,
+            handle: '',
             version: 0,
         },
         properties: {
@@ -597,14 +618,9 @@ let lists = {
             items: 0,
         },
         references: {
-            type: {
-                uid: 'incoming',
-                scheme: 'common',
-            },
             subscriptions: [],
             owneritem: 'henrik',
             parentlists: [],
-            account: null,
         },
         data: {
             lists: [],
@@ -619,6 +635,12 @@ let lists = {
             permissions: {},
         },
         identity: {
+            type: {
+                uid: 'incoming',
+                scheme: 'common',
+            },
+            account: null,
+            handle: '',
             version: 0,
         },
         properties: {
@@ -630,14 +652,9 @@ let lists = {
             items: 0,
         },
         references: {
-            type: {
-                uid: 'incoming',
-                scheme: 'common',
-            },
             subscriptions: [],
             owneritem: 'henrik',
             parentlists: [],
-            account: null,
         },
         data: {
             lists: [
@@ -722,6 +739,12 @@ let items = {
             permissions: {},
         },
         identity: {
+            type: {
+                uid: 'incoming',
+                name: 'User',
+                scheme: 'common',
+            },
+            account: 'henrik',
             handle: 'henrik',
             version: 0,
         },
@@ -736,14 +759,8 @@ let items = {
         },
         counts: {},
         references: {
-            type: {
-                uid: 'incoming',
-                name: 'User',
-                scheme: 'common',
-            },
             list: { repo: 'lists', uid: 'henrik' },
             parentlists: [],
-            account: 'henrik',
         },
         data: {},
     },

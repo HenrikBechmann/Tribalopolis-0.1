@@ -15,17 +15,18 @@ let folders = {
             },
         },
         identity:{
+            type:{
+            },
+            account:null,
+            handle:'',
             version:0,
         },
         properties:{
         },
         counts:{},
         references:{
-            type:{
-            },
             list:'',
             parentlists:[],
-            account:null,
         },
         data:{},
     }
@@ -53,9 +54,12 @@ let types = {
             },
         },
         identity:{
+            type:{
+            },
+            account:null,
             handle:'',
-            map:{},
             version:0,
+            map:{},
         },
         properties:{
             static:{
@@ -65,10 +69,7 @@ let types = {
         },
         counts:{},
         references:{
-            type:{
-            },
             parentlists:[],
-            account:null,
             list:{},
         },
         data:{},
@@ -83,9 +84,12 @@ let types = {
             },
         },
         identity: {
+            type:{
+            },
+            account:null,
             handle:'',
-            map:{},
             version:0,
+            map:{},
         },
         properties: {
             specifications:{
@@ -102,11 +106,8 @@ let types = {
 
         },
         references:{
-            type:{
-            },
             list:'',
             parentlists:[],
-            account:null,
         },
         data:{},
     },
@@ -124,6 +125,11 @@ let lists = {
             },
         },
         identity:{
+            type:{
+                scheme:'common',
+            },
+            account:null,
+            handle:'',
             version:0,
         },
         properties:{
@@ -137,10 +143,6 @@ let lists = {
             subscriptions:[],
             owneritem:'henrik',
             parentlists:[],
-            account:null,
-            type:{
-                scheme:'common',
-            },
         },
         data:{
             lists:[],
@@ -158,7 +160,11 @@ let lists = {
             },
         },
         identity:{
-             version:0,
+            type:{
+                scheme:'common',
+            },
+            account:null,
+            version:0,
        },
         properties:{
             name:'Notes',
@@ -168,13 +174,9 @@ let lists = {
             items:0,
         },
         references:{
-            type:{
-                scheme:'common',
-            },
             subscriptions:[],
             owneritem:'henrik',
             parentlists:[],
-            account:null,
         },
         data:{
             lists:[],
@@ -192,6 +194,12 @@ let lists = {
             },
         },
         identity:{
+            type:{
+                uid:'outgoing',
+                scheme:'common',
+            },
+            account:null,
+            handle:'',
             version:0,
         },
         properties:{
@@ -202,14 +210,9 @@ let lists = {
             items:0,
         },
         references:{
-            type:{
-                uid:'outgoing',
-                scheme:'common',
-            },
             subscriptions:[],
             owneritem:'henrik',
             parentlists:[],
-            account:null,
         },
         data:{
             lists:[],
@@ -227,6 +230,12 @@ let lists = {
             },
         },
         identity:{
+            type:{
+                uid:'outgoing',
+                scheme:'common',
+            },
+            account:null,
+            handle:'',
             version:0,
         },
         properties:{
@@ -240,11 +249,6 @@ let lists = {
             subscriptions:[],
             owneritem:'henrik',
             parentlists:[],
-            account:null,
-            type:{
-                uid:'outgoing',
-                scheme:'common',
-            },
         },
         data:{
             lists:[],
@@ -262,6 +266,12 @@ let lists = {
             },
         },
         identity:{
+            type:{
+                uid:'outgoing',
+                scheme:'common',
+            },
+            account:null,
+            handle:'',
             version:0,
         },
         properties:{
@@ -272,14 +282,9 @@ let lists = {
             items:0,
         },
         references:{
-            type:{
-                uid:'outgoing',
-                scheme:'common',
-            },
             subscriptions:[],
             owneritem:'henrik',
             parentlists:[],
-            account:null,
         },
         data:{
             lists:[],
@@ -297,6 +302,12 @@ let lists = {
             },
         },
         identity:{
+            type:{
+                uid:'incoming',
+                scheme:'common',
+            },
+            account:null,
+            handle:'',
             version:0,
         },
         properties:{
@@ -307,14 +318,9 @@ let lists = {
             items:0,
         },
         references:{
-            type:{
-                uid:'incoming',
-                scheme:'common',
-            },
             subscriptions:[],
             owneritem:'henrik',
             parentlists:[],
-            account:null,
         },
         data:{
             lists:[],
@@ -332,6 +338,12 @@ let lists = {
             },
         },
         identity:{
+            type:{
+                uid:'outgoing',
+                scheme:'common',
+            },
+            account:null,
+            handle:'',
             version:0,
         },
         properties:{
@@ -342,14 +354,9 @@ let lists = {
             items:0,
         },
         references:{
-            type:{
-                uid:'outgoing',
-                scheme:'common',
-            },
             subscriptions:[],
             owneritem:'henrik',
             parentlists:[],
-            account:null,
         },
         data:{
             lists:[],
@@ -367,6 +374,12 @@ let lists = {
             },
         },
         identity:{
+            type:{
+                uid:'outgoing',
+                scheme:'common',
+            },
+            account:null,
+            handle:'',
             version:0,
         },
         properties:{
@@ -381,14 +394,9 @@ let lists = {
             items:0,
         },
         references:{
-            type:{
-                uid:'outgoing',
-                scheme:'common',
-            },
             subscriptions:[],
             owneritem:'henrik',
             parentlists:[],
-            account:null,
         },
         data:{
             lists:[],
@@ -406,6 +414,12 @@ let lists = {
             },
         },
         identity:{
+            type:{
+                uid:'outgoing',
+                scheme:'common',
+            },
+            account:null,
+            handle:'',
             version:0,
         },
         properties:{
@@ -416,14 +430,9 @@ let lists = {
             items:0,
         },
         references:{
-            type:{
-                uid:'outgoing',
-                scheme:'common',
-            },
             subscriptions:[],
             owneritem:'henrik',
             parentlists:[],
-            account:null,
         },
         data:{
             lists:[],
@@ -441,6 +450,11 @@ let lists = {
             },
         },
         identity:{
+            type:{
+                uid:'outgoing',
+                scheme:'common',
+            },
+            account:null,
             version:0,
         },
         properties:{
@@ -451,14 +465,9 @@ let lists = {
             items:0,
         },
         references:{
-            type:{
-                uid:'outgoing',
-                scheme:'common',
-            },
             subscriptions:[],
             owneritem:'henrik',
             parentlists:[],
-            account:null,
         },
         data:{
             lists:[],
@@ -476,6 +485,12 @@ let lists = {
             },
         },
         identity:{
+            type:{
+                uid:'incoming',
+                scheme:'common',
+            },
+            account:null,
+            handle:'',
             version:0,
         },
         properties:{
@@ -486,14 +501,9 @@ let lists = {
             items:0,
         },
         references:{
-            type:{
-                uid:'incoming',
-                scheme:'common',
-            },
             subscriptions:[],
             owneritem:'henrik',
             parentlists:[],
-            account:null,
         },
         data:{
             lists:[],
@@ -511,6 +521,12 @@ let lists = {
             },
         },
         identity:{
+            type:{
+                uid:'incoming',
+                scheme:'common',
+            },
+            account:null,
+            handle:'',
             version:0,
         },
         properties:{
@@ -521,14 +537,9 @@ let lists = {
             items:0,
         },
         references:{
-            type:{
-                uid:'incoming',
-                scheme:'common',
-            },
             subscriptions:[],
             owneritem:'henrik',
             parentlists:[],
-            account:null,
         },
         data:{
             lists:[],
@@ -546,6 +557,12 @@ let lists = {
             },
         },
         identity:{
+            type:{
+                uid:'outgoing',
+                scheme:'common',
+            },
+            account:null,
+            handle:'',
             version:0,
         },
         properties:{
@@ -556,14 +573,9 @@ let lists = {
             items:0,
         },
         references:{
-            type:{
-                uid:'outgoing',
-                scheme:'common',
-            },
             subscriptions:[],
             owneritem:'henrik',
             parentlists:[],
-            account:null,
         },
         data:{
             lists:[],
@@ -581,6 +593,12 @@ let lists = {
             },
         },
         identity:{
+            type:{
+                uid:'incoming',
+                scheme:'common',
+            },
+            account:null,
+            handle:'',
             version:0,
         },
         properties:{
@@ -591,14 +609,9 @@ let lists = {
             items:0,
         },
         references:{
-            type:{
-                uid:'incoming',
-                scheme:'common',
-            },
             subscriptions:[],
             owneritem:'henrik',
             parentlists:[],
-            account:null,
         },
         data:{
             lists:[],
@@ -616,6 +629,12 @@ let lists = {
             },
         },
         identity:{
+            type:{
+                uid:'outgoing',
+                scheme:'common',
+            },
+            account:null,
+            handle:'',
             version:0,
         },
         properties:{
@@ -626,14 +645,9 @@ let lists = {
             items:0,
         },
         references:{
-            type:{
-                uid:'outgoing',
-                scheme:'common',
-            },
             subscriptions:[],
             owneritem:'henrik',
             parentlists:[],
-            account:null,
         },
         data:{
             lists:[],
@@ -651,6 +665,12 @@ let lists = {
             },
         },
         identity:{
+            type:{
+                uid:'incoming',
+                scheme:'common',
+            },
+            account:null,
+            handle:'',
             version:0,
         },
         properties:{
@@ -661,14 +681,9 @@ let lists = {
             items:0,
         },
         references:{
-            type:{
-                uid:'incoming',
-                scheme:'common',
-            },
             subscriptions:[],
             owneritem:'henrik',
             parentlists:[],
-            account:null,
         },
         data:{
             lists:[],
@@ -687,6 +702,12 @@ let lists = {
             },
         },
         identity:{
+            type:{
+                uid:'incoming',
+                scheme:'common',
+            },
+            account:null,
+            handle:'',
             version:0,
         },
         properties:{
@@ -697,14 +718,9 @@ let lists = {
             items:0,
         },
         references:{
-            type:{
-                uid:'incoming',
-                scheme:'common',
-            },
             subscriptions:[],
             owneritem:'henrik',
             parentlists:[],
-            account:null,
         },
         data:{
             lists:[],
@@ -722,6 +738,12 @@ let lists = {
             },
         },
         identity:{
+            type:{
+                uid:'incoming',
+                scheme:'common',
+            },
+            account:null,
+            handle:'',
             version:0,
         },
         properties:{
@@ -733,14 +755,9 @@ let lists = {
             items:0,
         },
         references:{
-            type:{
-                uid:'incoming',
-                scheme:'common',
-            },
             subscriptions:[],
             owneritem:'henrik',
             parentlists:[],
-            account:null,
         },
         data:{
             lists:[
@@ -831,6 +848,12 @@ let items = {
             },
         },
         identity:{
+            type:{
+                uid:'incoming',
+                name:'User', // TODO: should be obtained from type object
+                scheme:'common',
+            },
+            account:'henrik',
             handle:'henrik',
             version:0,
         },
@@ -845,14 +868,8 @@ let items = {
         },
         counts:{},
         references:{
-            type:{
-                uid:'incoming',
-                name:'User', // TODO: should be obtained from type object
-                scheme:'common',
-            },
             list:{repo:'lists',uid:'henrik'},
             parentlists:[],
-            account:'henrik',
         },
         data:{},
     },

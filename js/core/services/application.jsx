@@ -56,7 +56,7 @@ const updateCacheData = (path, data, type) => {
 const setItemListener = (token, instanceid, callback) => {
     addCacheListener(token, instanceid, callback);
     let item = domain.setItemListener(token);
-    let type = domain.setTypeListener(item.references.type);
+    let type = domain.setTypeListener(item.identity.type);
     let path = getTokenPath(token);
     updateCacheData(path, item, type);
     // setTimeout(()=> {
@@ -89,7 +89,7 @@ const removeListListener = (token, instanceid) => {
 const setListListener = (token, instanceid, callback) => {
     addCacheListener(token, instanceid, callback);
     let list = domain.setListListener(token);
-    let type = domain.setTypeListener(list.references.type);
+    let type = domain.setTypeListener(list.identity.type);
     let path = getTokenPath(token);
     updateCacheData(path, list, type);
     // setTimeout(()=>{
