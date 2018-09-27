@@ -76,7 +76,7 @@ const setItemListener = (token,instanceid,callback) => {
     addCacheListener(token,instanceid,callback)
 
     let item = domain.setItemListener(token)
-    let type = domain.setTypeListener(item.type)
+    let type = domain.setTypeListener(item.references.type)
 
     let path = getTokenPath(token)
 
@@ -124,7 +124,7 @@ const setListListener = (token,instanceid,callback) => {
     addCacheListener(token,instanceid,callback)
 
     let list = domain.setListListener(token)
-    let type = domain.setTypeListener(list.type)
+    let type = domain.setTypeListener(list.references.type)
 
     let path = getTokenPath(token)
 

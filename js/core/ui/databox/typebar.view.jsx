@@ -103,7 +103,7 @@ class BoxToolbar extends React.Component {
             maxWidth: '38%',
             overflow: 'hidden',
         }}>
-                {props.item.type.name}
+                [to be determined]
             </div>
             <ActionButton icon='arrow_drop_down' buttonStyle={{ verticalAlign: 'top', float: 'none' }}/>
 

@@ -11,22 +11,28 @@ let folders = {
                 acl: {}
             },
         },
-        type: {},
-        identity: {},
-        properties: {},
-        generations: {
-            meta: 0,
-            properties: 0,
+        identity: {
+            version: 0,
         },
+        properties: {},
         counts: {},
         references: {
-            list: {},
+            type: {},
+            list: '',
             parentlists: [],
             account: null,
         },
+        data: {},
     }
 };
-let schemes = {};
+let schemes = {
+    system: {},
+    identity: {},
+    properties: {},
+    counts: {},
+    references: {},
+    data: {},
+};
 let types = {
     incoming: {
         system: {
@@ -37,50 +43,53 @@ let types = {
                 acl: {}
             },
         },
-        type: {
-            linktypes: [],
+        identity: {
+            handle: '',
+            map: {},
+            version: 0,
         },
-        identity: {},
         properties: {
-            is: {},
-            has: {},
-        },
-        list: {},
-        generations: {
-            meta: 0,
-            properties: 0,
+            static: {
+                is: {},
+                has: {},
+            }
         },
         counts: {},
         references: {
+            type: {},
             parentlists: [],
             account: null,
+            list: {},
         },
+        data: {},
     },
     outgoing: {
         system: {
             attributes: {},
             permissions: {},
         },
-        type: {
-            linktypes: [],
+        identity: {
+            handle: '',
+            map: {},
+            version: 0,
         },
-        identity: {},
         properties: {
-            is: {
-                outgoing: true,
+            specifications: {},
+            static: {
+                is: {
+                    outgoing: true,
+                },
+                has: {},
             },
-            has: {},
-        },
-        list: {},
-        generations: {
-            meta: 0,
-            properties: 0,
         },
         counts: {},
         references: {
+            type: {},
+            list: '',
             parentlists: [],
             account: null,
         },
+        data: {},
     },
 };
 let lists = {
@@ -89,19 +98,11 @@ let lists = {
             attributes: {},
             permissions: {},
         },
-        type: {
-            uid: 'outgoing',
-            scheme: 'common',
-        },
         identity: {
-            uid: 'x',
+            version: 0,
         },
         properties: {
             name: 'Diaries',
-        },
-        generations: {
-            meta: 0,
-            properties: 0,
         },
         counts: {
             lists: 0,
@@ -112,6 +113,9 @@ let lists = {
             owneritem: 'henrik',
             parentlists: [],
             account: null,
+            type: {
+                scheme: 'common',
+            },
         },
         data: {
             lists: [],
@@ -123,27 +127,20 @@ let lists = {
             attributes: {},
             permissions: {},
         },
-        type: {
-            uid: 'outgoing',
-            scheme: 'common',
-        },
         identity: {
-            uid: 'x',
+            version: 0,
         },
         properties: {
             name: 'Notes',
-        },
-        generations: {
-            meta: 0,
-            properties: 0,
         },
         counts: {
             lists: 0,
             items: 0,
         },
         references: {
-            lists: [],
-            items: [],
+            type: {
+                scheme: 'common',
+            },
             subscriptions: [],
             owneritem: 'henrik',
             parentlists: [],
@@ -161,27 +158,21 @@ let lists = {
             },
             permissions: {},
         },
-        type: {
-            uid: 'outgoing',
-            scheme: 'common',
-        },
         identity: {
-            uid: 'x',
+            version: 0,
         },
         properties: {
             name: 'Tribes',
-        },
-        generations: {
-            meta: 0,
-            properties: 0,
         },
         counts: {
             lists: 0,
             items: 0,
         },
         references: {
-            lists: [],
-            items: [],
+            type: {
+                uid: 'outgoing',
+                scheme: 'common',
+            },
             subscriptions: [],
             owneritem: 'henrik',
             parentlists: [],
@@ -197,31 +188,25 @@ let lists = {
             attributes: {},
             permissions: {},
         },
-        type: {
-            uid: 'outgoing',
-            scheme: 'common',
-        },
         identity: {
-            uid: 'x',
+            version: 0,
         },
         properties: {
             name: 'Contacts',
-        },
-        generations: {
-            meta: 0,
-            properties: 0,
         },
         counts: {
             lists: 0,
             items: 0,
         },
         references: {
-            lists: [],
-            items: [],
             subscriptions: [],
             owneritem: 'henrik',
             parentlists: [],
             account: null,
+            type: {
+                uid: 'outgoing',
+                scheme: 'common',
+            },
         },
         data: {
             lists: [],
@@ -233,27 +218,21 @@ let lists = {
             attributes: {},
             permissions: {},
         },
-        type: {
-            uid: 'outgoing',
-            scheme: 'common',
-        },
         identity: {
-            uid: 'x',
+            version: 0,
         },
         properties: {
             name: 'Outgoing action requests',
-        },
-        generations: {
-            meta: 0,
-            properties: 0,
         },
         counts: {
             lists: 0,
             items: 0,
         },
         references: {
-            lists: [],
-            items: [],
+            type: {
+                uid: 'outgoing',
+                scheme: 'common',
+            },
             subscriptions: [],
             owneritem: 'henrik',
             parentlists: [],
@@ -269,27 +248,21 @@ let lists = {
             attributes: {},
             permissions: {},
         },
-        type: {
-            uid: 'incoming',
-            scheme: 'common',
-        },
         identity: {
-            uid: 'x',
+            version: 0,
         },
         properties: {
             name: 'Incoming action requests',
-        },
-        generations: {
-            meta: 0,
-            properties: 0,
         },
         counts: {
             lists: 0,
             items: 0,
         },
         references: {
-            lists: [],
-            items: [],
+            type: {
+                uid: 'incoming',
+                scheme: 'common',
+            },
             subscriptions: [],
             owneritem: 'henrik',
             parentlists: [],
@@ -305,27 +278,21 @@ let lists = {
             attributes: {},
             permissions: {},
         },
-        type: {
-            uid: 'outgoing',
-            scheme: 'common',
-        },
         identity: {
-            uid: 'x',
+            version: 0,
         },
         properties: {
             name: 'Roles',
-        },
-        generations: {
-            meta: 0,
-            properties: 0,
         },
         counts: {
             lists: 0,
             items: 0,
         },
         references: {
-            lists: [],
-            items: [],
+            type: {
+                uid: 'outgoing',
+                scheme: 'common',
+            },
             subscriptions: [],
             owneritem: 'henrik',
             parentlists: [],
@@ -341,12 +308,8 @@ let lists = {
             attributes: {},
             permissions: {},
         },
-        type: {
-            uid: 'outgoing',
-            scheme: 'common',
-        },
         identity: {
-            uid: 'x',
+            version: 0,
         },
         properties: {
             name: 'Programs',
@@ -360,8 +323,10 @@ let lists = {
             items: 0,
         },
         references: {
-            lists: [],
-            items: [],
+            type: {
+                uid: 'outgoing',
+                scheme: 'common',
+            },
             subscriptions: [],
             owneritem: 'henrik',
             parentlists: [],
@@ -377,27 +342,21 @@ let lists = {
             attributes: {},
             permissions: {},
         },
-        type: {
-            uid: 'outgoing',
-            scheme: 'common',
-        },
         identity: {
-            uid: 'x',
+            version: 0,
         },
         properties: {
             name: 'Projects',
-        },
-        generations: {
-            meta: 0,
-            properties: 0,
         },
         counts: {
             lists: 0,
             items: 0,
         },
         references: {
-            lists: [],
-            items: [],
+            type: {
+                uid: 'outgoing',
+                scheme: 'common',
+            },
             subscriptions: [],
             owneritem: 'henrik',
             parentlists: [],
@@ -413,27 +372,21 @@ let lists = {
             attributes: {},
             permissions: {},
         },
-        type: {
-            uid: 'outgoing',
-            scheme: 'common',
-        },
         identity: {
-            uid: 'x',
+            version: 0,
         },
         properties: {
             name: 'Tasks',
-        },
-        generations: {
-            meta: 0,
-            properties: 0,
         },
         counts: {
             lists: 0,
             items: 0,
         },
         references: {
-            lists: [],
-            items: [],
+            type: {
+                uid: 'outgoing',
+                scheme: 'common',
+            },
             subscriptions: [],
             owneritem: 'henrik',
             parentlists: [],
@@ -449,27 +402,21 @@ let lists = {
             attributes: {},
             permissions: {},
         },
-        type: {
-            uid: 'incoming',
-            scheme: 'common',
-        },
         identity: {
-            uid: 'x',
+            version: 0,
         },
         properties: {
             name: 'Direct Messages ',
-        },
-        generations: {
-            meta: 0,
-            properties: 0,
         },
         counts: {
             lists: 0,
             items: 0,
         },
         references: {
-            lists: [],
-            items: [],
+            type: {
+                uid: 'incoming',
+                scheme: 'common',
+            },
             subscriptions: [],
             owneritem: 'henrik',
             parentlists: [],
@@ -485,27 +432,21 @@ let lists = {
             attributes: {},
             permissions: {},
         },
-        type: {
-            uid: 'incoming',
-            scheme: 'common',
-        },
         identity: {
-            uid: 'x',
+            version: 0,
         },
         properties: {
             name: 'Message Streams ',
-        },
-        generations: {
-            meta: 0,
-            properties: 0,
         },
         counts: {
             lists: 0,
             items: 0,
         },
         references: {
-            lists: [],
-            items: [],
+            type: {
+                uid: 'incoming',
+                scheme: 'common',
+            },
             subscriptions: [],
             owneritem: 'henrik',
             parentlists: [],
@@ -521,27 +462,21 @@ let lists = {
             attributes: {},
             permissions: {},
         },
-        type: {
-            uid: 'outgoing',
-            scheme: 'common',
-        },
         identity: {
-            uid: 'x',
+            version: 0,
         },
         properties: {
             name: 'Resources',
-        },
-        generations: {
-            meta: 0,
-            properties: 0,
         },
         counts: {
             lists: 0,
             items: 0,
         },
         references: {
-            lists: [],
-            items: [],
+            type: {
+                uid: 'outgoing',
+                scheme: 'common',
+            },
             subscriptions: [],
             owneritem: 'henrik',
             parentlists: [],
@@ -557,27 +492,21 @@ let lists = {
             attributes: {},
             permissions: {},
         },
-        type: {
-            uid: 'incoming',
-            scheme: 'common',
-        },
         identity: {
-            uid: 'x',
+            version: 0,
         },
         properties: {
             name: 'Calendars',
-        },
-        generations: {
-            meta: 0,
-            properties: 0,
         },
         counts: {
             lists: 0,
             items: 0,
         },
         references: {
-            lists: [],
-            items: [],
+            type: {
+                uid: 'incoming',
+                scheme: 'common',
+            },
             subscriptions: [],
             owneritem: 'henrik',
             parentlists: [],
@@ -593,27 +522,21 @@ let lists = {
             attributes: {},
             permissions: {},
         },
-        type: {
-            uid: 'outgoing',
-            scheme: 'common',
-        },
         identity: {
-            uid: 'x',
+            version: 0,
         },
         properties: {
             name: 'Accounting',
-        },
-        generations: {
-            meta: 0,
-            properties: 0,
         },
         counts: {
             lists: 0,
             items: 0,
         },
         references: {
-            lists: [],
-            items: [],
+            type: {
+                uid: 'outgoing',
+                scheme: 'common',
+            },
             subscriptions: [],
             owneritem: 'henrik',
             parentlists: [],
@@ -631,27 +554,21 @@ let lists = {
             },
             permissions: {},
         },
-        type: {
-            uid: 'incoming',
-            scheme: 'common',
-        },
         identity: {
-            uid: 'x',
+            version: 0,
         },
         properties: {
             name: 'Tribalopolis Membership',
-        },
-        generations: {
-            meta: 0,
-            properties: 0,
         },
         counts: {
             lists: 0,
             items: 0,
         },
         references: {
-            lists: [],
-            items: [],
+            type: {
+                uid: 'incoming',
+                scheme: 'common',
+            },
             subscriptions: [],
             owneritem: 'henrik',
             parentlists: [],
@@ -669,27 +586,21 @@ let lists = {
             },
             permissions: {},
         },
-        type: {
-            uid: 'incoming',
-            scheme: 'common',
-        },
         identity: {
-            uid: 'x',
+            version: 0,
         },
         properties: {
             name: 'More...',
-        },
-        generations: {
-            meta: 0,
-            properties: 0,
         },
         counts: {
             lists: 0,
             items: 0,
         },
         references: {
-            lists: [],
-            items: [],
+            type: {
+                uid: 'incoming',
+                scheme: 'common',
+            },
             subscriptions: [],
             owneritem: 'henrik',
             parentlists: [],
@@ -707,26 +618,22 @@ let lists = {
             },
             permissions: {},
         },
-        type: {
-            uid: 'incoming',
-            scheme: 'common',
-        },
         identity: {
-            uid: 'x',
+            version: 0,
         },
         properties: {
             name: 'Links Directory',
             linkedlist: false,
-        },
-        generations: {
-            meta: 0,
-            properties: 0,
         },
         counts: {
             lists: 17,
             items: 0,
         },
         references: {
+            type: {
+                uid: 'incoming',
+                scheme: 'common',
+            },
             subscriptions: [],
             owneritem: 'henrik',
             parentlists: [],
@@ -814,15 +721,9 @@ let items = {
             attributes: {},
             permissions: {},
         },
-        type: {
-            uid: 'incoming',
-            name: 'User',
-            scheme: 'common',
-        },
         identity: {
-            uid: 'henrik',
-            account: 'henrik',
-            alias: 'henrik',
+            handle: 'henrik',
+            version: 0,
         },
         properties: {
             tag: 'Henrik',
@@ -833,18 +734,27 @@ let items = {
             location: 'Toronto',
             locationid: 'Toronto',
         },
-        generations: {
-            meta: 0,
-            properties: 0,
-        },
         counts: {},
         references: {
+            type: {
+                uid: 'incoming',
+                name: 'User',
+                scheme: 'common',
+            },
             list: { repo: 'lists', uid: 'henrik' },
             parentlists: [],
-            account: null,
+            account: 'henrik',
         },
+        data: {},
     },
 };
-let accounts = {};
+let accounts = {
+    system: {},
+    identity: {},
+    properties: {},
+    counts: {},
+    references: {},
+    data: {},
+};
 export { schemes, types, items, lists, links, folders, accounts }; //, subscriptions }
 //# sourceMappingURL=repositories.jsx.map

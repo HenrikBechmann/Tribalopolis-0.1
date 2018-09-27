@@ -149,7 +149,7 @@ class BoxToolbar extends React.Component<any,any> {
                     overflow: 'hidden',
                 }
             }>
-                {props.item.type.name}
+                [to be determined]{/*props.item.type.name*/}
             </div>
             <ActionButton 
                 icon = 'arrow_drop_down'

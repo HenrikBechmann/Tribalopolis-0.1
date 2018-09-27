@@ -201,7 +201,7 @@ class DirectoryListBase extends React.Component<any,any> {
 
         if (!listItemType) return null
 
-        let outgoing = listItemType.properties.is.outgoing
+        let outgoing = listItemType.properties.static.is.outgoing
 
         let retval = outgoing?
             <div style = {{position:'absolute',bottom:'-8px',right:'0'}}>
