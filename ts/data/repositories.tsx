@@ -135,12 +135,14 @@ let lists = {
             items:0,
         },
         references:{
-            lists:[],
-            items:[],
             subscriptions:[],
             owneritem:'henrik',
             parentlists:[],
             account:null,
+        },
+        data:{
+            lists:[],
+            items:[],
         },
     },
     notes:
@@ -179,6 +181,10 @@ let lists = {
             parentlists:[],
             account:null,
         },
+        data:{
+            lists:[],
+            items:[],
+        },
     },
     tribes:
     {
@@ -215,6 +221,10 @@ let lists = {
             owneritem:'henrik',
             parentlists:[],
             account:null,
+        },
+        data:{
+            lists:[],
+            items:[],
         },
     },
     connections:
@@ -253,6 +263,10 @@ let lists = {
             parentlists:[],
             account:null,
         },
+        data:{
+            lists:[],
+            items:[],
+        },
     },
     requesting:
     {
@@ -289,6 +303,10 @@ let lists = {
             owneritem:'henrik',
             parentlists:[],
             account:null,
+        },
+        data:{
+            lists:[],
+            items:[],
         },
     },
     pending:
@@ -327,6 +345,10 @@ let lists = {
             parentlists:[],
             account:null,
         },
+        data:{
+            lists:[],
+            items:[],
+        },
     },
     roles:
     {
@@ -363,6 +385,10 @@ let lists = {
             owneritem:'henrik',
             parentlists:[],
             account:null,
+        },
+        data:{
+            lists:[],
+            items:[],
         },
     },
     programs:
@@ -401,6 +427,10 @@ let lists = {
             parentlists:[],
             account:null,
         },
+        data:{
+            lists:[],
+            items:[],
+        },
     },
     projects:
     {
@@ -437,6 +467,10 @@ let lists = {
             owneritem:'henrik',
             parentlists:[],
             account:null,
+        },
+        data:{
+            lists:[],
+            items:[],
         },
     },
     tasks:
@@ -475,6 +509,10 @@ let lists = {
             parentlists:[],
             account:null,
         },
+        data:{
+            lists:[],
+            items:[],
+        },
     },
     messages:
     {
@@ -511,6 +549,10 @@ let lists = {
             owneritem:'henrik',
             parentlists:[],
             account:null,
+        },
+        data:{
+            lists:[],
+            items:[],
         },
     },
     streams:
@@ -549,6 +591,10 @@ let lists = {
             parentlists:[],
             account:null,
         },
+        data:{
+            lists:[],
+            items:[],
+        },
     },
     resources:
     {
@@ -585,6 +631,10 @@ let lists = {
             owneritem:'henrik',
             parentlists:[],
             account:null,
+        },
+        data:{
+            lists:[],
+            items:[],
         },
     },
     calendars:
@@ -623,6 +673,10 @@ let lists = {
             parentlists:[],
             account:null,
         },
+        data:{
+            lists:[],
+            items:[],
+        },
     },
     accounting:
     {
@@ -660,6 +714,10 @@ let lists = {
             parentlists:[],
             account:null,
         },
+        data:{
+            lists:[],
+            items:[],
+        },
     },
     membership:
     {
@@ -696,6 +754,10 @@ let lists = {
             owneritem:'henrik',
             parentlists:[],
             account:null,
+        },
+        data:{
+            lists:[],
+            items:[],
         },
 // account, website, home
     },
@@ -735,6 +797,10 @@ let lists = {
             parentlists:[],
             account:null,
         },
+        data:{
+            lists:[],
+            items:[],
+        },
     },
     henrik:
     {
@@ -766,6 +832,12 @@ let lists = {
             items:0,
         },
         references:{
+            subscriptions:[],
+            owneritem:'henrik',
+            parentlists:[],
+            account:null,
+        },
+        data:{
             lists:[
                 {
                     repo:'lists',
@@ -837,10 +909,6 @@ let lists = {
                 },
             ],
             items:[],
-            subscriptions:[],
-            owneritem:'henrik',
-            parentlists:[],
-            account:null,
         },
     },
 }

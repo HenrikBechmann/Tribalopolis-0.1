@@ -108,12 +108,14 @@ let lists = {
             items: 0,
         },
         references: {
-            lists: [],
-            items: [],
             subscriptions: [],
             owneritem: 'henrik',
             parentlists: [],
             account: null,
+        },
+        data: {
+            lists: [],
+            items: [],
         },
     },
     notes: {
@@ -146,6 +148,10 @@ let lists = {
             owneritem: 'henrik',
             parentlists: [],
             account: null,
+        },
+        data: {
+            lists: [],
+            items: [],
         },
     },
     tribes: {
@@ -181,6 +187,10 @@ let lists = {
             parentlists: [],
             account: null,
         },
+        data: {
+            lists: [],
+            items: [],
+        },
     },
     connections: {
         system: {
@@ -212,6 +222,10 @@ let lists = {
             owneritem: 'henrik',
             parentlists: [],
             account: null,
+        },
+        data: {
+            lists: [],
+            items: [],
         },
     },
     requesting: {
@@ -245,6 +259,10 @@ let lists = {
             parentlists: [],
             account: null,
         },
+        data: {
+            lists: [],
+            items: [],
+        },
     },
     pending: {
         system: {
@@ -276,6 +294,10 @@ let lists = {
             owneritem: 'henrik',
             parentlists: [],
             account: null,
+        },
+        data: {
+            lists: [],
+            items: [],
         },
     },
     roles: {
@@ -309,6 +331,10 @@ let lists = {
             parentlists: [],
             account: null,
         },
+        data: {
+            lists: [],
+            items: [],
+        },
     },
     programs: {
         system: {
@@ -340,6 +366,10 @@ let lists = {
             owneritem: 'henrik',
             parentlists: [],
             account: null,
+        },
+        data: {
+            lists: [],
+            items: [],
         },
     },
     projects: {
@@ -373,6 +403,10 @@ let lists = {
             parentlists: [],
             account: null,
         },
+        data: {
+            lists: [],
+            items: [],
+        },
     },
     tasks: {
         system: {
@@ -404,6 +438,10 @@ let lists = {
             owneritem: 'henrik',
             parentlists: [],
             account: null,
+        },
+        data: {
+            lists: [],
+            items: [],
         },
     },
     messages: {
@@ -437,6 +475,10 @@ let lists = {
             parentlists: [],
             account: null,
         },
+        data: {
+            lists: [],
+            items: [],
+        },
     },
     streams: {
         system: {
@@ -468,6 +510,10 @@ let lists = {
             owneritem: 'henrik',
             parentlists: [],
             account: null,
+        },
+        data: {
+            lists: [],
+            items: [],
         },
     },
     resources: {
@@ -501,6 +547,10 @@ let lists = {
             parentlists: [],
             account: null,
         },
+        data: {
+            lists: [],
+            items: [],
+        },
     },
     calendars: {
         system: {
@@ -533,6 +583,10 @@ let lists = {
             parentlists: [],
             account: null,
         },
+        data: {
+            lists: [],
+            items: [],
+        },
     },
     accounting: {
         system: {
@@ -564,6 +618,10 @@ let lists = {
             owneritem: 'henrik',
             parentlists: [],
             account: null,
+        },
+        data: {
+            lists: [],
+            items: [],
         },
     },
     membership: {
@@ -599,6 +657,10 @@ let lists = {
             parentlists: [],
             account: null,
         },
+        data: {
+            lists: [],
+            items: [],
+        },
     },
     other: {
         system: {
@@ -633,6 +695,10 @@ let lists = {
             parentlists: [],
             account: null,
         },
+        data: {
+            lists: [],
+            items: [],
+        },
     },
     henrik: {
         system: {
@@ -661,6 +727,12 @@ let lists = {
             items: 0,
         },
         references: {
+            subscriptions: [],
+            owneritem: 'henrik',
+            parentlists: [],
+            account: null,
+        },
+        data: {
             lists: [
                 {
                     repo: 'lists',
@@ -732,10 +804,6 @@ let lists = {
                 },
             ],
             items: [],
-            subscriptions: [],
-            owneritem: 'henrik',
-            parentlists: [],
-            account: null,
         },
     },
 };
