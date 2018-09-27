@@ -7,7 +7,6 @@ let folders = {
     henrikacf:{
         system:{
             attributes:{
-
             },
             permissions:{
                 acl:{},
@@ -46,7 +45,6 @@ let types = {
     incoming:{
         system:{
             attributes:{
-
             },
             permissions:{
                 folder:'',
@@ -61,8 +59,11 @@ let types = {
             handle:'',
             version:0,
             map:{},
+            parent:'',
         },
         properties:{
+            interface:{},
+            defaults:{},
             static:{
                 is:{},
                 has:{},
@@ -78,10 +79,8 @@ let types = {
     outgoing: {
         system:{
             attributes:{
-
             },
             permissions:{
-
             },
         },
         identity: {
@@ -92,11 +91,11 @@ let types = {
             handle:'',
             version:0,
             map:{},
+            parent:'',
         },
         properties: {
-            specifications:{
-
-            },
+            interface:{},
+            defaults:{},
             static:{
                 is:{
                     outgoing:true,
@@ -105,7 +104,6 @@ let types = {
             },
         },
         counts:{
-
         },
         references:{
             list:'',
@@ -120,10 +118,8 @@ let lists = {
     {
         system:{
             attributes:{
-
             },
             permissions:{
-
             },
         },
         identity:{
@@ -155,10 +151,8 @@ let lists = {
     {
         system:{
             attributes:{
-
             },
             permissions:{
-
             },
         },
         identity:{
@@ -193,7 +187,6 @@ let lists = {
                 sysnode:true,
             },
             permissions:{
-
             },
         },
         identity:{
@@ -225,10 +218,8 @@ let lists = {
     {
         system:{
             attributes:{
-
             },
             permissions:{
-
             },
         },
         identity:{
@@ -260,10 +251,8 @@ let lists = {
     {
         system:{
             attributes:{
-
             },
             permissions:{
-
             },
         },
         identity:{
@@ -295,10 +284,8 @@ let lists = {
     {
         system:{
             attributes:{
-
             },
             permissions:{
-
             },
         },
         identity:{
@@ -330,10 +317,8 @@ let lists = {
     {
         system:{
             attributes:{
-
             },
             permissions:{
-
             },
         },
         identity:{
@@ -365,10 +350,8 @@ let lists = {
     {
         system:{
             attributes:{
-
             },
             permissions:{
-
             },
         },
         identity:{
@@ -404,10 +387,8 @@ let lists = {
     {
         system:{
             attributes:{
-
             },
             permissions:{
-
             },
         },
         identity:{
@@ -439,10 +420,8 @@ let lists = {
     {
         system:{
             attributes:{
-
             },
             permissions:{
-
             },
         },
         identity:{
@@ -473,10 +452,8 @@ let lists = {
     {
         system:{
             attributes:{
-
             },
             permissions:{
-
             },
         },
         identity:{
@@ -508,10 +485,8 @@ let lists = {
     {
         system:{
             attributes:{
-
             },
             permissions:{
-
             },
         },
         identity:{
@@ -543,10 +518,8 @@ let lists = {
     {
         system:{
             attributes:{
-
             },
             permissions:{
-
             },
         },
         identity:{
@@ -578,10 +551,8 @@ let lists = {
     {
         system:{
             attributes:{
-
             },
             permissions:{
-
             },
         },
         identity:{
@@ -613,10 +584,8 @@ let lists = {
     {
         system:{
             attributes:{
-
             },
             permissions:{
-
             },
         },
         identity:{
@@ -651,7 +620,6 @@ let lists = {
                 sysnode:true,
             },
             permissions:{
-
             },
         },
         identity:{
@@ -687,7 +655,6 @@ let lists = {
                 sysnode:true,
             },
             permissions:{
-
             },
         },
         identity:{
@@ -722,7 +689,6 @@ let lists = {
                 sysnode:true,
             },
             permissions:{
-
             },
         },
         identity:{
@@ -828,10 +794,8 @@ let items = {
     henrik:{
         system:{
             attributes:{
-
             },
             permissions:{
-
             },
         },
         identity:{

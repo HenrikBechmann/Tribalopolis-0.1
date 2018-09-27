@@ -55,6 +55,8 @@ let types = {
             map: {},
         },
         properties: {
+            interface: {},
+            defaults: {},
             static: {
                 is: {},
                 has: {},
@@ -82,7 +84,8 @@ let types = {
             map: {},
         },
         properties: {
-            specifications: {},
+            interface: {},
+            defaults: {},
             static: {
                 is: {
                     outgoing: true,
