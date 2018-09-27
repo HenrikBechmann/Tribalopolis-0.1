@@ -14,13 +14,14 @@ interface propsInterface {
     action?:Function,
     icon?:string,
     img?:string,
+    component?:any,
     disabled?:boolean,
     badgequantity?:number,
 }
 
 const ActionButton = (props:propsInterface) => {
 
-    let {buttonStyle, iconStyle, action, icon, img, disabled} = props
+    let {buttonStyle, iconStyle, action, icon, img, component, disabled} = props
 
     let defaultButtonStyle:React.CSSProperties = {
         padding:'0',
@@ -46,7 +47,7 @@ const ActionButton = (props:propsInterface) => {
     let theIconStyle = {...defaultIconStyle, ...iconStyle}
 
     let iconcomponent = icon?<Icon style = {theIconStyle}>{icon}</Icon>:
-    <img style = {theIconStyle} src = {img} />
+    img?<img style = {theIconStyle} src = {img} />:component
     let onClickVal = 
         (action && !disabled)
             ?() => {action()}

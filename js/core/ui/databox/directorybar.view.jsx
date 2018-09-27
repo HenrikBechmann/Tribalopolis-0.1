@@ -6,6 +6,7 @@ import Icon from '@material-ui/core/Icon';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import QuantityBadge from '../common/quantitybadge.view';
 import ActionButton from '../common/actionbutton.view';
+import InfoOutlined from '@material-ui/icons/InfoOutlined';
 class DirectoryBar extends React.Component {
     constructor() {
         super(...arguments);
@@ -75,7 +76,7 @@ class DirectoryBar extends React.Component {
         return <div>
             <div style={this.barstyle}>
                 {listDocument ? (<div style={this.tabwrapperstyle}>
-                    {false ? <ActionButton icon='more_vert'/> : null}
+                    <ActionButton component={<InfoOutlined />}/>
                     <ActionButton img='/public/icons/org_chart.svg'/>
                     {false ? <ActionButton icon='info'/> : null}
                     {listStack.length ?

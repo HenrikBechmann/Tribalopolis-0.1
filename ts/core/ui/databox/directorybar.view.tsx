@@ -9,6 +9,7 @@ import CircularProgress from '@material-ui/core/CircularProgress'
 
 import QuantityBadge from '../common/quantitybadge.view'
 import ActionButton from '../common/actionbutton.view'
+import InfoOutlined from '@material-ui/icons/InfoOutlined'
 
 class DirectoryBar extends React.Component<any,any> {
 
@@ -94,9 +95,9 @@ class DirectoryBar extends React.Component<any,any> {
                 style = {this.barstyle}
             >
                 {listDocument?(<div style = {this.tabwrapperstyle}>
-                    {false?<ActionButton 
-                        icon = 'more_vert'
-                    />:null}
+                    <ActionButton 
+                        component = {<InfoOutlined  />}
+                    />
                     <ActionButton 
                         img = '/public/icons/org_chart.svg'
                     />

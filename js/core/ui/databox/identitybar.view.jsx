@@ -20,8 +20,8 @@ const BoxHeader = props => {
         backgroundColor: '#f2f2f2',
     };
     return <div style={styles}>
-        <ActionButton icon='lock'/>
-        <ActionButton icon='info'/>
+        {false && <ActionButton icon='lock'/>}
+        <ActionButton icon='expand_more'/>
         <img style={{ verticalAlign: 'middle', width: '32px', margin: '0 3px' }} src={avatar}/> 
         <div style={{
         display: 'inline-block',

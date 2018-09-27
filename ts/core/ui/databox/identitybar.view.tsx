@@ -27,11 +27,11 @@ const BoxHeader = props => {
     }
 
     return <div style = {styles}>
-        <ActionButton 
+        {false && <ActionButton 
             icon = 'lock' 
-        />
+        />}
         <ActionButton 
-            icon = 'info' 
+            icon = 'expand_more' 
         />
         <img style = {{verticalAlign:'middle',width:'32px', margin:'0 3px'}} src = {avatar} /> 
         <div style = {

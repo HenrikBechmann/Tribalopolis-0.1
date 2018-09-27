@@ -5,7 +5,7 @@ import React from 'react';
 import IconButton from '@material-ui/core/IconButton';
 import Icon from '@material-ui/core/Icon';
 const ActionButton = (props) => {
-    let { buttonStyle, iconStyle, action, icon, img, disabled } = props;
+    let { buttonStyle, iconStyle, action, icon, img, component, disabled } = props;
     let defaultButtonStyle = {
         padding: '0',
         width: '32px',
@@ -26,7 +26,7 @@ const ActionButton = (props) => {
     let theButtonStyle = Object.assign({}, defaultButtonStyle, buttonStyle);
     let theIconStyle = Object.assign({}, defaultIconStyle, iconStyle);
     let iconcomponent = icon ? <Icon style={theIconStyle}>{icon}</Icon> :
-        <img style={theIconStyle} src={img}/>;
+        img ? <img style={theIconStyle} src={img}/> : component;
     let onClickVal = (action && !disabled)
         ? () => { action(); }
         : () => { };
