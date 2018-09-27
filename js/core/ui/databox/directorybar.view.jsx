@@ -76,8 +76,9 @@ class DirectoryBar extends React.Component {
         return <div>
             <div style={this.barstyle}>
                 {listDocument ? (<div style={this.tabwrapperstyle}>
-                    <ActionButton component={<InfoOutlined />}/>
-                    <ActionButton img='/public/icons/org_chart.svg'/>
+                    {false && <ActionButton component={<InfoOutlined />}/>}
+                    {false && <ActionButton img='/public/icons/org_chart.svg'/>}
+                    <ActionButton icon='more_vert'/>
                     {false ? <ActionButton icon='info'/> : null}
                     {listStack.length ?
             <div style={{ float: 'right', width: '32px', height: '32px', position: 'relative' }}>
