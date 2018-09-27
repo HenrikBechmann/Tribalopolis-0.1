@@ -31,15 +31,18 @@ import MainView from './main.view';
 import authapi from '../services/auth.api';
 import UserContext from '../services/user.context';
 import { toast } from 'react-toastify';
+import { withStyles, createStyles } from '@material-ui/core/styles';
+let styles = createStyles({
+    mainviewstyle: {
+        fontFamily: fontFamily,
+    }
+});
 let Main = class Main extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             user: null,
             userProviderData: null,
-        };
-        this.mainviewstyle = {
-            fontFamily,
         };
         this.getUserCallback = (user) => {
             if (user) {
@@ -54,14 +57,14 @@ let Main = class Main extends React.Component {
         authapi.setUpdateCallback(this.getUserCallback);
     }
     render() {
-        let { globalmessage, version } = this.props;
+        let { globalmessage, version, classes } = this.props;
         return (<UserContext.Provider value={this.state.userProviderData}>
-                <MainView globalmessage={globalmessage} style={this.mainviewstyle}/>
+                <MainView globalmessage={globalmessage} className={classes.mainviewstyle}/>
             </UserContext.Provider>);
     }
 };
 Main = __decorate([
     DragDropContext(DnDBackend)
 ], Main);
-export default Main;
+export default withStyles(styles)(Main);
 //# sourceMappingURL=main.controller.jsx.map

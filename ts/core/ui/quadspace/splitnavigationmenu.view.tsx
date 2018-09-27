@@ -6,10 +6,23 @@ import React from 'react'
 
 import IconButton from '@material-ui/core/IconButton'
 
-const SplitNavigationMenu = ({split,changeSplitFrom}) => {
-    return <div style = {{display:'inline-block',verticalAlign:'middle'}}>
+import { withStyles, createStyles } from '@material-ui/core/styles'
+
+const styles = createStyles({
+    root: {
+        display:'inline-block',
+        verticalAlign:'middle',
+    },
+    iconbutton: {
+        verticalAlign:'bottom',         
+    }
+})
+
+const SplitNavigationMenu = ({split,changeSplitFrom, classes}) => {
+    return <div className = { classes.root }>
         <IconButton
-            style = {{verticalAlign:'bottom', marginBottom:'5px'}/*margin???*/}
+            className = { classes.iconbutton }
+            style = {{marginBottom:'5px'}/*margin???*/}
             onClick = {() => changeSplitFrom('horizontal')}
         >
             <img 
@@ -22,7 +35,8 @@ const SplitNavigationMenu = ({split,changeSplitFrom}) => {
         </IconButton>
 
         <IconButton
-            style = {{verticalAlign:'bottom',marginBottom:'5px'}/*margin???*/}
+            className = { classes.iconbutton }
+            style = {{marginBottom:'5px'}/*margin???*/}
             onClick = {() => changeSplitFrom('vertical')}
         >
             <img 
@@ -36,7 +50,7 @@ const SplitNavigationMenu = ({split,changeSplitFrom}) => {
         </IconButton>
 
         <IconButton
-            style = {{verticalAlign:'bottom'}}
+            className = { classes.iconbutton }
             onClick = {() => changeSplitFrom('matrix')}
         >
             <img 
@@ -50,4 +64,4 @@ const SplitNavigationMenu = ({split,changeSplitFrom}) => {
     </div>
 }
 
-export default SplitNavigationMenu
+export default withStyles(styles)(SplitNavigationMenu)

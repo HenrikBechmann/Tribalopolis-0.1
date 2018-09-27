@@ -9,7 +9,7 @@ import QuadSpaceFrame from './quadspace/quadspaceframe.view';
 import QuadBasket from './quadspace/quadbasket.view';
 import QuadViewport from './quadspace/quadviewport.view';
 import QuantityBadge from './common/quantitybadge.view';
-import QuadStatusBar from './quadspace/quadstatusbar.view';
+// import QuadStatusBar from './quadspace/quadstatusbar.view'
 import Quadrants from './quadrants.controller';
 import VerticalDivider from './common/verticaldivider.view';
 import { datastacks } from '../../data/datastacks';
@@ -142,7 +142,6 @@ class QuadspaceController extends React.Component {
                 <QuadViewport>
                     <Quadrants quadrantIdentifiers={this.quadrantIdentifiers} split={this.state.split} datastacks={this.state.datastacks} currentQuadPosition={this.state.currentQuadPosition} callbacks={this.quadrantcallbacks}/>
                 </QuadViewport>
-                {false ? <QuadStatusBar status='prompts'/> : null}
             </QuadSpaceFrame>);
     }
 }

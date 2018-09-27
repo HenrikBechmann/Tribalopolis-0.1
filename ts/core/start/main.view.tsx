@@ -14,8 +14,8 @@ import AppRouter from './approuter'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 
-const MainView = ({globalmessage, style}) => (
-    <div style = {style}>
+const MainView = ({globalmessage, className}) => (
+    <div className = {className}>
         {globalmessage}
 
         <AppRouter />

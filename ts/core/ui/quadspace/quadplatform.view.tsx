@@ -4,6 +4,15 @@
 
 import React from 'react'
 
+import { withStyles, createStyles } from '@material-ui/core/styles'
+
+const styles = createStyles({
+    root: {
+        position:'absolute',
+        transition: 'top .5s ease,left .5s ease, width .5s ease, height .5s ease',
+    }
+})
+
 class QuadPlatform extends React.Component<any,any> {
 
     constructor(props) {
@@ -46,21 +55,20 @@ class QuadPlatform extends React.Component<any,any> {
 
                 },() => { // restore settings to be able to respond to user resize of window
 
-                        setTimeout(()=> {
+                    setTimeout(()=> {
 
-                            this.calculatePosition(nextquadposition)
+                        this.calculatePosition(nextquadposition)
 
-                            this.setState({
-                                currentQuadPosition:nextquadposition,
-                            },
-                            ()=>{
-                                // console.log('DONE changing quad',nextquadposition,this.positions)
-                            })
+                        this.setState({
+                            currentQuadPosition:nextquadposition,
+                        },
+                        ()=>{
+                            // console.log('DONE changing quad',nextquadposition,this.positions)
+                        })
 
-                        },600)
+                    },600)
 
-                    }
-                )
+                })
             },50)
         })
     }
@@ -257,6 +265,7 @@ class QuadPlatform extends React.Component<any,any> {
     }
 
     render() {
+        const { classes } = this.props
         let { left, right, top, bottom } = this.positions
 
         let {width, height} = this.dimensions
@@ -264,18 +273,16 @@ class QuadPlatform extends React.Component<any,any> {
         // console.log('render quadplatform',this.positions,this.dimensions)
 
         return (
-            <div id = "quadplatform" style={
-                {
-                    position:'absolute',
+            <div id = "quadplatform"
+                className = { classes.root }
+                style = {{
                     width,
                     height,
                     top,
                     left,
                     bottom,
                     right,
-                    transition: 'top .5s ease,left .5s ease, width .5s ease, height .5s ease'
-                }
-            } 
+                }} 
             ref = {el => {
                 this.element = el
             }}
@@ -286,4 +293,4 @@ class QuadPlatform extends React.Component<any,any> {
     }
 }
 
-export default QuadPlatform
+export default withStyles(styles)(QuadPlatform)

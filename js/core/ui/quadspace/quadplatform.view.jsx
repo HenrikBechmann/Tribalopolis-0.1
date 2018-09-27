@@ -2,6 +2,13 @@
 // copyright (c) 2018 Henrik Bechmann, Toronto, MIT Licence
 'use strict';
 import React from 'react';
+import { withStyles, createStyles } from '@material-ui/core/styles';
+const styles = createStyles({
+    root: {
+        position: 'absolute',
+        transition: 'top .5s ease,left .5s ease, width .5s ease, height .5s ease',
+    }
+});
 class QuadPlatform extends React.Component {
     constructor(props) {
         super(props);
@@ -222,18 +229,17 @@ class QuadPlatform extends React.Component {
         }
     }
     render() {
+        const { classes } = this.props;
         let { left, right, top, bottom } = this.positions;
         let { width, height } = this.dimensions;
         // console.log('render quadplatform',this.positions,this.dimensions)
-        return (<div id="quadplatform" style={{
-            position: 'absolute',
+        return (<div id="quadplatform" className={classes.root} style={{
             width,
             height,
             top,
             left,
             bottom,
             right,
-            transition: 'top .5s ease,left .5s ease, width .5s ease, height .5s ease'
         }} ref={el => {
             this.element = el;
         }}>
@@ -241,5 +247,5 @@ class QuadPlatform extends React.Component {
             </div>);
     }
 }
-export default QuadPlatform;
+export default withStyles(styles)(QuadPlatform);
 //# sourceMappingURL=quadplatform.view.jsx.map

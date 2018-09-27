@@ -12,7 +12,7 @@ import QuadSpaceFrame from './quadspace/quadspaceframe.view'
 import QuadBasket from './quadspace/quadbasket.view'
 import QuadViewport from './quadspace/quadviewport.view'
 import QuantityBadge from './common/quantitybadge.view'
-import QuadStatusBar from './quadspace/quadstatusbar.view'
+// import QuadStatusBar from './quadspace/quadstatusbar.view'
 import Quadrants from './quadrants.controller'
 import VerticalDivider from './common/verticaldivider.view'
 
@@ -191,7 +191,6 @@ class QuadspaceController extends React.Component<any,any> {
                         callbacks = {this.quadrantcallbacks}
                     />
                 </QuadViewport>
-                {false?<QuadStatusBar status = 'prompts' />:null}
             </QuadSpaceFrame>
         )
     }

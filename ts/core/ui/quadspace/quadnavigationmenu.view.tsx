@@ -5,11 +5,22 @@
 import React from 'react'
 
 import IconButton from '@material-ui/core/IconButton'
+import { withStyles, createStyles } from '@material-ui/core/styles'
 
-const QuadNavigationMenu = ({ currentQuadPosition, split, selectQuad }) => {
-    return <div style = {{display:'inline-block',verticalAlign:'middle'}}>
+const styles = createStyles({
+    root:{
+        display:'inline-block',
+        verticalAlign:'middle',
+    },
+    iconbutton: {
+        verticalAlign:'bottom',
+    }
+})
+
+const QuadNavigationMenu = ({ currentQuadPosition, split, selectQuad, classes }) => {
+    return <div className = {classes.root}>
         <IconButton
-            style = {{verticalAlign:'bottom',}}
+            className = {classes.iconbutton}
             onClick = {() => {
                 selectQuad('topleft')
             }}
@@ -34,7 +45,7 @@ const QuadNavigationMenu = ({ currentQuadPosition, split, selectQuad }) => {
         </IconButton>
 
         <IconButton
-            style = {{verticalAlign:'bottom'}}
+            className = {classes.iconbutton}
             onClick = {() => {
                 selectQuad('topright')
             }}
@@ -59,7 +70,7 @@ const QuadNavigationMenu = ({ currentQuadPosition, split, selectQuad }) => {
         </IconButton>
 
         <IconButton
-            style = {{verticalAlign:'bottom'}}
+            className = {classes.iconbutton}
             onClick = {() => {
                 selectQuad('bottomleft')
             }}
@@ -84,7 +95,7 @@ const QuadNavigationMenu = ({ currentQuadPosition, split, selectQuad }) => {
         </IconButton>
 
         <IconButton
-            style = {{verticalAlign:'bottom'}}
+            className = {classes.iconbutton}
             onClick = {() => {
                 selectQuad('bottomright')
             }}
@@ -111,4 +122,4 @@ const QuadNavigationMenu = ({ currentQuadPosition, split, selectQuad }) => {
     </div>
 }
 
-export default QuadNavigationMenu
+export default withStyles(styles)(QuadNavigationMenu)

@@ -41,6 +41,15 @@ import UserContext from '../services/user.context'
 
 import { toast } from 'react-toastify'
 
+import { withStyles, createStyles } from '@material-ui/core/styles'
+
+let styles = createStyles({
+    mainviewstyle: {
+        fontFamily:fontFamily,
+    }
+})
+
+
 @DragDropContext(DnDBackend)
 class Main extends React.Component<any,any> {
 
@@ -52,10 +61,6 @@ class Main extends React.Component<any,any> {
     state = {
         user:null,
         userProviderData:null,
-    }
-
-    mainviewstyle:React.CSSProperties = {
-        fontFamily,
     }
 
     getUserCallback = (user) => {
@@ -70,16 +75,16 @@ class Main extends React.Component<any,any> {
     }
 
     render() {
-        let { globalmessage, version } = this.props
+        let { globalmessage, version, classes } = this.props
 
         return (
             <UserContext.Provider value = {this.state.userProviderData}>
                 <MainView globalmessage={globalmessage}
-                    style = {this.mainviewstyle} 
+                    className = {classes.mainviewstyle} 
                 />
             </UserContext.Provider>
         )
     }
 }
 
-export default Main
+export default withStyles(styles)(Main)
