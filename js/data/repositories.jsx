@@ -7,12 +7,14 @@ let folders = {
         system: {
             attributes: {},
             permissions: {
-                owner: 'henrikaccount',
-                acl: {}
+                acl: {},
+                folder: '',
             },
         },
         identity: {
-            type: {},
+            container: '',
+            id: '',
+            type: '',
             account: null,
             handle: '',
             version: 0,
@@ -39,13 +41,14 @@ let types = {
         system: {
             attributes: {},
             permissions: {
-                owner: 'henrikaccount',
-                acf: 'henrikacf',
-                acl: {}
+                folder: '',
+                acl: {},
             },
         },
         identity: {
-            type: {},
+            container: '',
+            id: '',
+            type: '',
             account: null,
             handle: '',
             version: 0,
@@ -70,7 +73,9 @@ let types = {
             permissions: {},
         },
         identity: {
-            type: {},
+            container: '',
+            id: '',
+            type: '',
             account: null,
             handle: '',
             version: 0,
@@ -100,9 +105,9 @@ let lists = {
             permissions: {},
         },
         identity: {
-            type: {
-                scheme: 'common',
-            },
+            container: '',
+            id: '',
+            type: '',
             account: null,
             handle: '',
             version: 0,
@@ -130,10 +135,11 @@ let lists = {
             permissions: {},
         },
         identity: {
-            type: {
-                scheme: 'common',
-            },
+            container: '',
+            id: '',
+            type: '',
             account: null,
+            handle: '',
             version: 0,
         },
         properties: {
@@ -161,10 +167,9 @@ let lists = {
             permissions: {},
         },
         identity: {
-            type: {
-                uid: 'outgoing',
-                scheme: 'common',
-            },
+            container: '',
+            id: '',
+            type: '',
             account: null,
             handle: '',
             version: 0,
@@ -192,10 +197,9 @@ let lists = {
             permissions: {},
         },
         identity: {
-            type: {
-                uid: 'outgoing',
-                scheme: 'common',
-            },
+            container: '',
+            id: '',
+            type: '',
             account: null,
             handle: '',
             version: 0,
@@ -223,10 +227,9 @@ let lists = {
             permissions: {},
         },
         identity: {
-            type: {
-                uid: 'outgoing',
-                scheme: 'common',
-            },
+            container: '',
+            id: '',
+            type: '',
             account: null,
             handle: '',
             version: 0,
@@ -254,10 +257,9 @@ let lists = {
             permissions: {},
         },
         identity: {
-            type: {
-                uid: 'incoming',
-                scheme: 'common',
-            },
+            container: '',
+            id: '',
+            type: '',
             account: null,
             handle: '',
             version: 0,
@@ -285,10 +287,9 @@ let lists = {
             permissions: {},
         },
         identity: {
-            type: {
-                uid: 'outgoing',
-                scheme: 'common',
-            },
+            container: '',
+            id: '',
+            type: '',
             account: null,
             handle: '',
             version: 0,
@@ -316,10 +317,9 @@ let lists = {
             permissions: {},
         },
         identity: {
-            type: {
-                uid: 'outgoing',
-                scheme: 'common',
-            },
+            container: '',
+            id: '',
+            type: '',
             account: null,
             handle: '',
             version: 0,
@@ -351,10 +351,9 @@ let lists = {
             permissions: {},
         },
         identity: {
-            type: {
-                uid: 'outgoing',
-                scheme: 'common',
-            },
+            container: '',
+            id: '',
+            type: '',
             account: null,
             handle: '',
             version: 0,
@@ -382,10 +381,9 @@ let lists = {
             permissions: {},
         },
         identity: {
-            type: {
-                uid: 'outgoing',
-                scheme: 'common',
-            },
+            container: '',
+            id: '',
+            type: '',
             account: null,
             version: 0,
         },
@@ -412,10 +410,9 @@ let lists = {
             permissions: {},
         },
         identity: {
-            type: {
-                uid: 'incoming',
-                scheme: 'common',
-            },
+            container: '',
+            id: '',
+            type: '',
             account: null,
             handle: '',
             version: 0,
@@ -443,10 +440,9 @@ let lists = {
             permissions: {},
         },
         identity: {
-            type: {
-                uid: 'incoming',
-                scheme: 'common',
-            },
+            container: '',
+            id: '',
+            type: '',
             account: null,
             handle: '',
             version: 0,
@@ -474,10 +470,9 @@ let lists = {
             permissions: {},
         },
         identity: {
-            type: {
-                uid: 'outgoing',
-                scheme: 'common',
-            },
+            container: '',
+            id: '',
+            type: '',
             account: null,
             handle: '',
             version: 0,
@@ -505,10 +500,9 @@ let lists = {
             permissions: {},
         },
         identity: {
-            type: {
-                uid: 'incoming',
-                scheme: 'common',
-            },
+            container: '',
+            id: '',
+            type: '',
             account: null,
             handle: '',
             version: 0,
@@ -536,10 +530,9 @@ let lists = {
             permissions: {},
         },
         identity: {
-            type: {
-                uid: 'outgoing',
-                scheme: 'common',
-            },
+            container: '',
+            id: '',
+            type: '',
             account: null,
             handle: '',
             version: 0,
@@ -569,10 +562,9 @@ let lists = {
             permissions: {},
         },
         identity: {
-            type: {
-                uid: 'incoming',
-                scheme: 'common',
-            },
+            container: '',
+            id: '',
+            type: '',
             account: null,
             handle: '',
             version: 0,
@@ -602,10 +594,9 @@ let lists = {
             permissions: {},
         },
         identity: {
-            type: {
-                uid: 'incoming',
-                scheme: 'common',
-            },
+            container: '',
+            id: '',
+            type: '',
             account: null,
             handle: '',
             version: 0,
@@ -635,10 +626,9 @@ let lists = {
             permissions: {},
         },
         identity: {
-            type: {
-                uid: 'incoming',
-                scheme: 'common',
-            },
+            container: '',
+            id: '',
+            type: '',
             account: null,
             handle: '',
             version: 0,
@@ -739,11 +729,9 @@ let items = {
             permissions: {},
         },
         identity: {
-            type: {
-                uid: 'incoming',
-                name: 'User',
-                scheme: 'common',
-            },
+            container: '',
+            id: '',
+            type: '',
             account: 'henrik',
             handle: 'henrik',
             version: 0,
