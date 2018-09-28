@@ -283,7 +283,7 @@ class DataBox extends React.Component<any,any> {
             <div className = {classes.frameStyle} style = {frameStyle}
                 ref = {this.boxframe}
             >
-                { haspeers?null:<ResizeTab 
+                { !haspeers && <ResizeTab 
                     boxwidth = {this.props.boxwidth} 
                     boxframe = {this.boxframe}
                     setBoxWidth = { this.props.callbacks.setBoxWidth }
@@ -297,18 +297,17 @@ class DataBox extends React.Component<any,any> {
                     callbacks = {this.typecallbacks}
                 />
                 <BoxIdentityBar item = {item} />
+
                 <div className = {classes.identityBar}
                 >
-                    <div>
-                        <DirectoryBar 
-                            listProxy = {this.state.BarlistProxy}
-                            setListListener = {this.props.callbacks.setListListener}
-                            removeListListener = {this.props.callbacks.removeListListener}
+                    <DirectoryBar 
+                        listProxy = {this.state.BarlistProxy}
+                        setListListener = {this.props.callbacks.setListListener}
+                        removeListListener = {this.props.callbacks.removeListListener}
 
-                            listStack = {this.itemProxy.liststack}
-                            collapseDirectoryItem = {this.collapseDirectoryItem}
-                        />
-                    </div>
+                        listStack = {this.itemProxy.liststack}
+                        collapseDirectoryItem = {this.collapseDirectoryItem}
+                    />
                     
                     <DirectoryList 
                         ref = {this.listcomponent}
@@ -323,6 +322,7 @@ class DataBox extends React.Component<any,any> {
                     { this.indexmarker(classes) }
 
                 </div>
+
             </div>
         </div>
     }

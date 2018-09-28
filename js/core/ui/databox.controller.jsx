@@ -212,19 +212,19 @@ class DataBox extends React.Component {
         };
         return <div data-index={this.props.index} className={classes.wrapperStyle} style={wrapperStyle}>
             <div className={classes.frameStyle} style={frameStyle} ref={this.boxframe}>
-                {haspeers ? null : <ResizeTab boxwidth={this.props.boxwidth} boxframe={this.boxframe} setBoxWidth={this.props.callbacks.setBoxWidth}/>}
+                {!haspeers && <ResizeTab boxwidth={this.props.boxwidth} boxframe={this.boxframe} setBoxWidth={this.props.callbacks.setBoxWidth}/>}
                 <BoxTypebar item={item} itemType={itemType /*future*/} listProxy={this.state.TypelistProxy} haspeers={this.props.haspeers} callbacks={this.typecallbacks}/>
                 <BoxIdentityBar item={item}/>
+
                 <div className={classes.identityBar}>
-                    <div>
-                        <DirectoryBar listProxy={this.state.BarlistProxy} setListListener={this.props.callbacks.setListListener} removeListListener={this.props.callbacks.removeListListener} listStack={this.itemProxy.liststack} collapseDirectoryItem={this.collapseDirectoryItem}/>
-                    </div>
+                    <DirectoryBar listProxy={this.state.BarlistProxy} setListListener={this.props.callbacks.setListListener} removeListListener={this.props.callbacks.removeListListener} listStack={this.itemProxy.liststack} collapseDirectoryItem={this.collapseDirectoryItem}/>
                     
                     <DirectoryList ref={this.listcomponent} listProxy={this.state.MainlistProxy} highlightrefuid={this.state.highlightrefuid} containerHeight={this.props.containerHeight} callbacks={this.listcallbacks}/>
                     
                     {this.indexmarker(classes)}
 
                 </div>
+
             </div>
         </div>;
     }

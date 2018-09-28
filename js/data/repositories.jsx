@@ -4,40 +4,66 @@
 // repositories.tsx
 let folders = {
     henrikacf: {
+        identity: {
+            container: '',
+            id: '',
+            type: '',
+            account: '',
+            handle: '',
+            version: 0,
+        },
+        properties: {},
+        references: {
+            list: '',
+            parentlists: [],
+        },
+        counts: {},
         system: {
             attributes: {},
             permissions: {
                 acl: {},
                 folder: '',
             },
-        },
-        identity: {
-            container: '',
-            id: '',
-            type: '',
-            account: null,
-            handle: '',
-            version: 0,
-        },
-        properties: {},
-        counts: {},
-        references: {
-            list: '',
-            parentlists: [],
         },
         data: {},
     }
 };
 let schemes = {
-    system: {},
-    identity: {},
-    properties: {},
-    counts: {},
-    references: {},
-    data: {},
+    somescheme: {
+        identity: {},
+        properties: {},
+        references: {},
+        counts: {},
+        system: {},
+        data: {},
+    }
 };
 let types = {
     incoming: {
+        identity: {
+            container: '',
+            id: '',
+            type: '',
+            account: '',
+            handle: '',
+            version: 0,
+            map: {},
+            parent: '',
+        },
+        properties: {
+            interface: {},
+            defaults: {},
+            display: {},
+            static: {
+                is: {},
+                has: {},
+            }
+        },
+        references: {
+            parentlists: [],
+            list: '',
+        },
+        counts: {},
         system: {
             attributes: {},
             permissions: {
@@ -45,41 +71,14 @@ let types = {
                 acl: {},
             },
         },
-        identity: {
-            container: '',
-            id: '',
-            type: '',
-            account: null,
-            handle: '',
-            version: 0,
-            map: {},
-            parent: '',
-        },
-        properties: {
-            interface: {},
-            defaults: {},
-            static: {
-                is: {},
-                has: {},
-            }
-        },
-        counts: {},
-        references: {
-            parentlists: [],
-            list: {},
-        },
         data: {},
     },
     outgoing: {
-        system: {
-            attributes: {},
-            permissions: {},
-        },
         identity: {
             container: '',
             id: '',
             type: '',
-            account: null,
+            account: '',
             handle: '',
             version: 0,
             map: {},
@@ -88,6 +87,7 @@ let types = {
         properties: {
             interface: {},
             defaults: {},
+            display: {},
             static: {
                 is: {
                     outgoing: true,
@@ -95,39 +95,43 @@ let types = {
                 has: {},
             },
         },
-        counts: {},
         references: {
             list: '',
             parentlists: [],
+        },
+        counts: {},
+        system: {
+            attributes: {},
+            permissions: {},
         },
         data: {},
     },
 };
 let lists = {
     diaries: {
-        system: {
-            attributes: {},
-            permissions: {},
-        },
         identity: {
             container: '',
             id: '',
             type: '',
-            account: null,
+            account: '',
             handle: '',
             version: 0,
         },
         properties: {
             name: 'Diaries',
         },
-        counts: {
-            lists: 0,
-            items: 0,
-        },
         references: {
             subscriptions: [],
             owneritem: 'henrik',
             parentlists: [],
+        },
+        counts: {
+            lists: 0,
+            items: 0,
+        },
+        system: {
+            attributes: {},
+            permissions: {},
         },
         data: {
             lists: [],
@@ -135,29 +139,29 @@ let lists = {
         },
     },
     notes: {
-        system: {
-            attributes: {},
-            permissions: {},
-        },
         identity: {
             container: '',
             id: '',
             type: '',
-            account: null,
+            account: '',
             handle: '',
             version: 0,
         },
         properties: {
             name: 'Notes',
         },
-        counts: {
-            lists: 0,
-            items: 0,
-        },
         references: {
             subscriptions: [],
             owneritem: 'henrik',
             parentlists: [],
+        },
+        counts: {
+            lists: 0,
+            items: 0,
+        },
+        system: {
+            attributes: {},
+            permissions: {},
         },
         data: {
             lists: [],
@@ -165,31 +169,31 @@ let lists = {
         },
     },
     tribes: {
-        system: {
-            attributes: {
-                sysnode: true,
-            },
-            permissions: {},
-        },
         identity: {
             container: '',
             id: '',
             type: '',
-            account: null,
+            account: '',
             handle: '',
             version: 0,
         },
         properties: {
             name: 'Tribes',
         },
-        counts: {
-            lists: 0,
-            items: 0,
-        },
         references: {
             subscriptions: [],
             owneritem: 'henrik',
             parentlists: [],
+        },
+        counts: {
+            lists: 0,
+            items: 0,
+        },
+        system: {
+            attributes: {
+                sysnode: true,
+            },
+            permissions: {},
         },
         data: {
             lists: [],
@@ -197,59 +201,59 @@ let lists = {
         },
     },
     connections: {
-        system: {
-            attributes: {},
-            permissions: {},
-        },
         identity: {
             container: '',
             id: '',
             type: '',
-            account: null,
+            account: '',
             handle: '',
             version: 0,
         },
         properties: {
             name: 'Contacts',
         },
-        counts: {
-            lists: 0,
-            items: 0,
-        },
         references: {
             subscriptions: [],
             owneritem: 'henrik',
             parentlists: [],
         },
-        data: {
-            lists: [],
-            items: [],
-        },
-    },
-    requesting: {
         system: {
             attributes: {},
             permissions: {},
         },
+        data: {
+            lists: [],
+            items: [],
+        },
+        counts: {
+            lists: 0,
+            items: 0,
+        },
+    },
+    requesting: {
         identity: {
             container: '',
             id: '',
             type: '',
-            account: null,
+            account: '',
             handle: '',
             version: 0,
         },
         properties: {
             name: 'Outgoing action requests',
         },
-        counts: {
-            lists: 0,
-            items: 0,
-        },
         references: {
             subscriptions: [],
             owneritem: 'henrik',
             parentlists: [],
+        },
+        counts: {
+            lists: 0,
+            items: 0,
+        },
+        system: {
+            attributes: {},
+            permissions: {},
         },
         data: {
             lists: [],
@@ -257,29 +261,29 @@ let lists = {
         },
     },
     pending: {
-        system: {
-            attributes: {},
-            permissions: {},
-        },
         identity: {
             container: '',
             id: '',
             type: '',
-            account: null,
+            account: '',
             handle: '',
             version: 0,
         },
         properties: {
             name: 'Incoming action requests',
         },
-        counts: {
-            lists: 0,
-            items: 0,
-        },
         references: {
             subscriptions: [],
             owneritem: 'henrik',
             parentlists: [],
+        },
+        counts: {
+            lists: 0,
+            items: 0,
+        },
+        system: {
+            attributes: {},
+            permissions: {},
         },
         data: {
             lists: [],
@@ -287,29 +291,29 @@ let lists = {
         },
     },
     roles: {
-        system: {
-            attributes: {},
-            permissions: {},
-        },
         identity: {
             container: '',
             id: '',
             type: '',
-            account: null,
+            account: '',
             handle: '',
             version: 0,
         },
         properties: {
             name: 'Roles',
         },
-        counts: {
-            lists: 0,
-            items: 0,
-        },
         references: {
             subscriptions: [],
             owneritem: 'henrik',
             parentlists: [],
+        },
+        counts: {
+            lists: 0,
+            items: 0,
+        },
+        system: {
+            attributes: {},
+            permissions: {},
         },
         data: {
             lists: [],
@@ -317,15 +321,11 @@ let lists = {
         },
     },
     programs: {
-        system: {
-            attributes: {},
-            permissions: {},
-        },
         identity: {
             container: '',
             id: '',
             type: '',
-            account: null,
+            account: '',
             handle: '',
             version: 0,
         },
@@ -336,14 +336,18 @@ let lists = {
             meta: 0,
             properties: 0,
         },
-        counts: {
-            lists: 0,
-            items: 0,
-        },
         references: {
             subscriptions: [],
             owneritem: 'henrik',
             parentlists: [],
+        },
+        counts: {
+            lists: 0,
+            items: 0,
+        },
+        system: {
+            attributes: {},
+            permissions: {},
         },
         data: {
             lists: [],
@@ -351,29 +355,29 @@ let lists = {
         },
     },
     projects: {
-        system: {
-            attributes: {},
-            permissions: {},
-        },
         identity: {
             container: '',
             id: '',
             type: '',
-            account: null,
+            account: '',
             handle: '',
             version: 0,
         },
         properties: {
             name: 'Projects',
         },
-        counts: {
-            lists: 0,
-            items: 0,
-        },
         references: {
             subscriptions: [],
             owneritem: 'henrik',
             parentlists: [],
+        },
+        counts: {
+            lists: 0,
+            items: 0,
+        },
+        system: {
+            attributes: {},
+            permissions: {},
         },
         data: {
             lists: [],
@@ -381,28 +385,28 @@ let lists = {
         },
     },
     tasks: {
-        system: {
-            attributes: {},
-            permissions: {},
-        },
         identity: {
             container: '',
             id: '',
             type: '',
-            account: null,
+            account: '',
             version: 0,
         },
         properties: {
             name: 'Tasks',
         },
-        counts: {
-            lists: 0,
-            items: 0,
-        },
         references: {
             subscriptions: [],
             owneritem: 'henrik',
             parentlists: [],
+        },
+        counts: {
+            lists: 0,
+            items: 0,
+        },
+        system: {
+            attributes: {},
+            permissions: {},
         },
         data: {
             lists: [],
@@ -410,29 +414,29 @@ let lists = {
         },
     },
     messages: {
-        system: {
-            attributes: {},
-            permissions: {},
-        },
         identity: {
             container: '',
             id: '',
             type: '',
-            account: null,
+            account: '',
             handle: '',
             version: 0,
         },
         properties: {
             name: 'Direct Messages ',
         },
-        counts: {
-            lists: 0,
-            items: 0,
-        },
         references: {
             subscriptions: [],
             owneritem: 'henrik',
             parentlists: [],
+        },
+        counts: {
+            lists: 0,
+            items: 0,
+        },
+        system: {
+            attributes: {},
+            permissions: {},
         },
         data: {
             lists: [],
@@ -440,29 +444,29 @@ let lists = {
         },
     },
     streams: {
-        system: {
-            attributes: {},
-            permissions: {},
-        },
         identity: {
             container: '',
             id: '',
             type: '',
-            account: null,
+            account: '',
             handle: '',
             version: 0,
         },
         properties: {
             name: 'Message Streams ',
         },
-        counts: {
-            lists: 0,
-            items: 0,
-        },
         references: {
             subscriptions: [],
             owneritem: 'henrik',
             parentlists: [],
+        },
+        counts: {
+            lists: 0,
+            items: 0,
+        },
+        system: {
+            attributes: {},
+            permissions: {},
         },
         data: {
             lists: [],
@@ -470,29 +474,29 @@ let lists = {
         },
     },
     resources: {
-        system: {
-            attributes: {},
-            permissions: {},
-        },
         identity: {
             container: '',
             id: '',
             type: '',
-            account: null,
+            account: '',
             handle: '',
             version: 0,
         },
         properties: {
             name: 'Resources',
         },
-        counts: {
-            lists: 0,
-            items: 0,
-        },
         references: {
             subscriptions: [],
             owneritem: 'henrik',
             parentlists: [],
+        },
+        counts: {
+            lists: 0,
+            items: 0,
+        },
+        system: {
+            attributes: {},
+            permissions: {},
         },
         data: {
             lists: [],
@@ -500,29 +504,29 @@ let lists = {
         },
     },
     calendars: {
-        system: {
-            attributes: {},
-            permissions: {},
-        },
         identity: {
             container: '',
             id: '',
             type: '',
-            account: null,
+            account: '',
             handle: '',
             version: 0,
         },
         properties: {
             name: 'Calendars',
         },
-        counts: {
-            lists: 0,
-            items: 0,
-        },
         references: {
             subscriptions: [],
             owneritem: 'henrik',
             parentlists: [],
+        },
+        counts: {
+            lists: 0,
+            items: 0,
+        },
+        system: {
+            attributes: {},
+            permissions: {},
         },
         data: {
             lists: [],
@@ -530,29 +534,29 @@ let lists = {
         },
     },
     accounting: {
-        system: {
-            attributes: {},
-            permissions: {},
-        },
         identity: {
             container: '',
             id: '',
             type: '',
-            account: null,
+            account: '',
             handle: '',
             version: 0,
         },
         properties: {
             name: 'Accounting',
         },
-        counts: {
-            lists: 0,
-            items: 0,
-        },
         references: {
             subscriptions: [],
             owneritem: 'henrik',
             parentlists: [],
+        },
+        counts: {
+            lists: 0,
+            items: 0,
+        },
+        system: {
+            attributes: {},
+            permissions: {},
         },
         data: {
             lists: [],
@@ -560,31 +564,31 @@ let lists = {
         },
     },
     membership: {
-        system: {
-            attributes: {
-                sysnode: true,
-            },
-            permissions: {},
-        },
         identity: {
             container: '',
             id: '',
             type: '',
-            account: null,
+            account: '',
             handle: '',
             version: 0,
         },
         properties: {
             name: 'Tribalopolis Membership',
         },
-        counts: {
-            lists: 0,
-            items: 0,
-        },
         references: {
             subscriptions: [],
             owneritem: 'henrik',
             parentlists: [],
+        },
+        counts: {
+            lists: 0,
+            items: 0,
+        },
+        system: {
+            attributes: {
+                sysnode: true,
+            },
+            permissions: {},
         },
         data: {
             lists: [],
@@ -592,31 +596,31 @@ let lists = {
         },
     },
     other: {
-        system: {
-            attributes: {
-                sysnode: true,
-            },
-            permissions: {},
-        },
         identity: {
             container: '',
             id: '',
             type: '',
-            account: null,
+            account: '',
             handle: '',
             version: 0,
         },
         properties: {
             name: 'More...',
         },
-        counts: {
-            lists: 0,
-            items: 0,
-        },
         references: {
             subscriptions: [],
             owneritem: 'henrik',
             parentlists: [],
+        },
+        counts: {
+            lists: 0,
+            items: 0,
+        },
+        system: {
+            attributes: {
+                sysnode: true,
+            },
+            permissions: {},
         },
         data: {
             lists: [],
@@ -624,17 +628,11 @@ let lists = {
         },
     },
     henrik: {
-        system: {
-            attributes: {
-                sysnode: true,
-            },
-            permissions: {},
-        },
         identity: {
             container: '',
             id: '',
             type: '',
-            account: null,
+            account: '',
             handle: '',
             version: 0,
         },
@@ -642,14 +640,20 @@ let lists = {
             name: 'Links Directory',
             linkedlist: false,
         },
-        counts: {
-            lists: 17,
-            items: 0,
-        },
         references: {
             subscriptions: [],
             owneritem: 'henrik',
             parentlists: [],
+        },
+        counts: {
+            lists: 17,
+            items: 0,
+        },
+        system: {
+            attributes: {
+                sysnode: true,
+            },
+            permissions: {},
         },
         data: {
             lists: [
@@ -726,13 +730,18 @@ let lists = {
         },
     },
 };
-let links = {};
+let links = {
+    somelink: {
+        identity: {},
+        properties: {},
+        references: {},
+        counts: {},
+        system: {},
+        data: {},
+    }
+};
 let items = {
     henrik: {
-        system: {
-            attributes: {},
-            permissions: {},
-        },
         identity: {
             container: '',
             id: '',
@@ -750,21 +759,27 @@ let items = {
             location: 'Toronto',
             locationid: 'Toronto',
         },
-        counts: {},
         references: {
             list: { repo: 'lists', uid: 'henrik' },
             parentlists: [],
+        },
+        counts: {},
+        system: {
+            attributes: {},
+            permissions: {},
         },
         data: {},
     },
 };
 let accounts = {
-    system: {},
-    identity: {},
-    properties: {},
-    counts: {},
-    references: {},
-    data: {},
+    someaccount: {
+        identity: {},
+        properties: {},
+        references: {},
+        counts: {},
+        system: {},
+        data: {},
+    }
 };
 export { schemes, types, items, lists, links, folders, accounts }; //, subscriptions }
 //# sourceMappingURL=repositories.jsx.map
