@@ -9,6 +9,7 @@ let folders = {
             container:'',
             id:'',
             type:'',
+            typehandle:'',
             account:'',
             handle:'',
             version:0,
@@ -47,12 +48,26 @@ let types = {
         identity:{
             container:'',
             id:'',
-            type:'',
+            type:{
+                id:'',
+                handle:'',
+                account:{
+                    id:'',
+                    handle:'',
+                },
+            },
             account:'',
             handle:'',
             version:0,
             map:{},
-            parent:'',
+            parent:{
+                id:'',
+                handle:'',
+                account:{
+                    id:'',
+                    handle:'',
+                },
+            },
         },
         properties:{
             interface:{},
@@ -81,12 +96,27 @@ let types = {
         identity: {
             container:'',
             id:'',
-            type:'',
+            type:{
+                id:'',
+                handle:'',
+                account:{
+                    id:'',
+                    handle:'',
+                },
+            },
+            typehandle:'',
             account:'',
             handle:'',
             version:0,
             map:{},
-            parent:'',
+            parent:{
+                id:'',
+                handle:'',
+                account:{
+                    id:'',
+                    handle:'',
+                },
+            },
         },
         properties: {
             interface:{},
@@ -117,7 +147,10 @@ let lists = {
         identity:{
             container:'',
             id:'',
-            type:'',
+            type:{
+                id:'',
+                handle:'',
+            },
             account:'',
             handle:'',
             version:0,
@@ -148,7 +181,10 @@ let lists = {
         identity:{
             container:'',
             id:'',
-            type:'',
+            type:{
+                id:'',
+                handle:'',
+            },
             account:'',
             handle:'',
             version:0,
@@ -178,8 +214,11 @@ let lists = {
     {
         identity:{
             container:'',
-            id:'',
-            type:'',
+            type:{
+                id:'',
+                handle:'',
+            },
+            typehandle:'',
             account:'',
             handle:'',
             version:0,
@@ -212,7 +251,10 @@ let lists = {
         identity:{
             container:'',
             id:'',
-            type:'',
+            type:{
+                id:'',
+                handle:'',
+            },
             account:'',
             handle:'',
             version:0,
@@ -243,7 +285,10 @@ let lists = {
         identity:{
             container:'',
             id:'',
-            type:'',
+            type:{
+                id:'',
+                handle:'',
+            },
             account:'',
             handle:'',
             version:0,
@@ -274,7 +319,10 @@ let lists = {
         identity:{
             container:'',
             id:'',
-            type:'',
+            type:{
+                id:'',
+                handle:'',
+            },
             account:'',
             handle:'',
             version:0,
@@ -305,7 +353,10 @@ let lists = {
         identity:{
             container:'',
             id:'',
-            type:'',
+            type:{
+                id:'',
+                handle:'',
+            },
             account:'',
             handle:'',
             version:0,
@@ -336,7 +387,10 @@ let lists = {
         identity:{
             container:'',
             id:'',
-            type:'',
+            type:{
+                id:'',
+                handle:'',
+            },
             account:'',
             handle:'',
             version:0,
@@ -371,7 +425,10 @@ let lists = {
         identity:{
             container:'',
             id:'',
-            type:'',
+            type:{
+                id:'',
+                handle:'',
+            },
             account:'',
             handle:'',
             version:0,
@@ -402,7 +459,10 @@ let lists = {
         identity:{
             container:'',
             id:'',
-            type:'',
+            type:{
+                id:'',
+                handle:'',
+            },
             account:'',
             version:0,
         },
@@ -432,7 +492,10 @@ let lists = {
         identity:{
             container:'',
             id:'',
-            type:'',
+            type:{
+                id:'',
+                handle:'',
+            },
             account:'',
             handle:'',
             version:0,
@@ -463,7 +526,10 @@ let lists = {
         identity:{
             container:'',
             id:'',
-            type:'',
+            type:{
+                id:'',
+                handle:'',
+            },
             account:'',
             handle:'',
             version:0,
@@ -494,7 +560,10 @@ let lists = {
         identity:{
             container:'',
             id:'',
-            type:'',
+            type:{
+                id:'',
+                handle:'',
+            },
             account:'',
             handle:'',
             version:0,
@@ -525,7 +594,10 @@ let lists = {
         identity:{
             container:'',
             id:'',
-            type:'',
+            type:{
+                id:'',
+                handle:'',
+            },
             account:'',
             handle:'',
             version:0,
@@ -556,7 +628,10 @@ let lists = {
         identity:{
             container:'',
             id:'',
-            type:'',
+            type:{
+                id:'',
+                handle:'',
+            },
             account:'',
             handle:'',
             version:0,
@@ -587,7 +662,10 @@ let lists = {
         identity:{
             container:'',
             id:'',
-            type:'',
+            type:{
+                id:'',
+                handle:'',
+            },
             account:'',
             handle:'',
             version:0,
@@ -621,7 +699,10 @@ let lists = {
         identity:{
             container:'',
             id:'',
-            type:'',
+            type:{
+                id:'',
+                handle:'',
+            },
             account:'',
             handle:'',
             version:0,
@@ -654,7 +735,10 @@ let lists = {
         identity:{
             container:'',
             id:'',
-            type:'',
+            type:{
+                id:'',
+                handle:'',
+            },
             account:'',
             handle:'',
             version:0,
@@ -770,7 +854,10 @@ let items = {
         identity:{
             container:'',
             id:'',
-            type:'',
+            type:{
+                id:'',
+                handle:'',
+            },
             account:'henrik',
             handle:'henrik',
             version:0,
