@@ -30,7 +30,7 @@ const BoxHeader = props => {
         maxWidth: '63%',
         overflow: 'hidden',
     }}>
-            {item.properties.name}
+            {item.properties.name.fullname}
         </div>
     </div>;
 };

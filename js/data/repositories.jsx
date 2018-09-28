@@ -15,7 +15,6 @@ let folders = {
         properties: {},
         references: {
             list: '',
-            parentlists: [],
         },
         counts: {},
         system: {
@@ -60,7 +59,6 @@ let types = {
             }
         },
         references: {
-            parentlists: [],
             list: '',
         },
         counts: {},
@@ -97,7 +95,6 @@ let types = {
         },
         references: {
             list: '',
-            parentlists: [],
         },
         counts: {},
         system: {
@@ -751,9 +748,16 @@ let items = {
             version: 0,
         },
         properties: {
-            tag: 'Henrik',
-            name: 'Henrik Bechmann',
-            title: null,
+            name: {
+                honorific: 'Mr.',
+                firstname: 'Henrik',
+                lastname: 'Bechmann',
+                middlenames: 'Emanuel',
+                givenname: 'Henrik',
+                fullname: 'Henrik Bechmann',
+                designations: '',
+            },
+            genderpronoun: '',
             description: 'Creator of Tribalopolis',
             birthdate: '1950-08-23',
             address: {

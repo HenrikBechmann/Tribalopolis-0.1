@@ -43,7 +43,7 @@ const BoxHeader = props => {
                 overflow: 'hidden',
             }
         } >
-            {item.properties.name}
+            {item.properties.name.fullname}
         </div>
     </div>
 }
