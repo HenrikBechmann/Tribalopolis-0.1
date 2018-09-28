@@ -784,12 +784,18 @@ let items = {
             title:null,
             description:'Creator of Tribalopolis',
             birthdate:'1950-08-23',
-            location:'Toronto',
-            locationid:'Toronto',
+            address:{
+                unit:'',
+                streetnumber:'',
+                streetname:'',
+                locality:'',
+                region:'',
+                country:'',
+                locationcode:'',
+            },
         },
         references:{
-            list:{repo:'lists',uid:'henrik'},
-            parentlists:[],
+            list:'henrik',
         },
         counts:{},
         system:{

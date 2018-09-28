@@ -127,7 +127,7 @@ let lists = {
         },
         counts: {
             lists: 0,
-            items: 0,
+            links: 0,
         },
         system: {
             attributes: {},
@@ -135,7 +135,7 @@ let lists = {
         },
         data: {
             lists: [],
-            items: [],
+            links: [],
         },
     },
     notes: {
@@ -157,7 +157,7 @@ let lists = {
         },
         counts: {
             lists: 0,
-            items: 0,
+            links: 0,
         },
         system: {
             attributes: {},
@@ -165,7 +165,7 @@ let lists = {
         },
         data: {
             lists: [],
-            items: [],
+            links: [],
         },
     },
     tribes: {
@@ -187,7 +187,7 @@ let lists = {
         },
         counts: {
             lists: 0,
-            items: 0,
+            links: 0,
         },
         system: {
             attributes: {
@@ -197,7 +197,7 @@ let lists = {
         },
         data: {
             lists: [],
-            items: [],
+            links: [],
         },
     },
     connections: {
@@ -223,11 +223,11 @@ let lists = {
         },
         data: {
             lists: [],
-            items: [],
+            links: [],
         },
         counts: {
             lists: 0,
-            items: 0,
+            links: 0,
         },
     },
     requesting: {
@@ -249,7 +249,7 @@ let lists = {
         },
         counts: {
             lists: 0,
-            items: 0,
+            links: 0,
         },
         system: {
             attributes: {},
@@ -257,7 +257,7 @@ let lists = {
         },
         data: {
             lists: [],
-            items: [],
+            links: [],
         },
     },
     pending: {
@@ -279,7 +279,7 @@ let lists = {
         },
         counts: {
             lists: 0,
-            items: 0,
+            links: 0,
         },
         system: {
             attributes: {},
@@ -287,7 +287,7 @@ let lists = {
         },
         data: {
             lists: [],
-            items: [],
+            links: [],
         },
     },
     roles: {
@@ -309,7 +309,7 @@ let lists = {
         },
         counts: {
             lists: 0,
-            items: 0,
+            links: 0,
         },
         system: {
             attributes: {},
@@ -317,7 +317,7 @@ let lists = {
         },
         data: {
             lists: [],
-            items: [],
+            links: [],
         },
     },
     programs: {
@@ -343,7 +343,7 @@ let lists = {
         },
         counts: {
             lists: 0,
-            items: 0,
+            links: 0,
         },
         system: {
             attributes: {},
@@ -351,7 +351,7 @@ let lists = {
         },
         data: {
             lists: [],
-            items: [],
+            links: [],
         },
     },
     projects: {
@@ -373,7 +373,7 @@ let lists = {
         },
         counts: {
             lists: 0,
-            items: 0,
+            links: 0,
         },
         system: {
             attributes: {},
@@ -381,7 +381,7 @@ let lists = {
         },
         data: {
             lists: [],
-            items: [],
+            links: [],
         },
     },
     tasks: {
@@ -402,7 +402,7 @@ let lists = {
         },
         counts: {
             lists: 0,
-            items: 0,
+            links: 0,
         },
         system: {
             attributes: {},
@@ -410,7 +410,7 @@ let lists = {
         },
         data: {
             lists: [],
-            items: [],
+            links: [],
         },
     },
     messages: {
@@ -432,7 +432,7 @@ let lists = {
         },
         counts: {
             lists: 0,
-            items: 0,
+            links: 0,
         },
         system: {
             attributes: {},
@@ -440,7 +440,7 @@ let lists = {
         },
         data: {
             lists: [],
-            items: [],
+            links: [],
         },
     },
     streams: {
@@ -462,7 +462,7 @@ let lists = {
         },
         counts: {
             lists: 0,
-            items: 0,
+            links: 0,
         },
         system: {
             attributes: {},
@@ -470,7 +470,7 @@ let lists = {
         },
         data: {
             lists: [],
-            items: [],
+            links: [],
         },
     },
     resources: {
@@ -492,7 +492,7 @@ let lists = {
         },
         counts: {
             lists: 0,
-            items: 0,
+            links: 0,
         },
         system: {
             attributes: {},
@@ -500,7 +500,7 @@ let lists = {
         },
         data: {
             lists: [],
-            items: [],
+            links: [],
         },
     },
     calendars: {
@@ -522,7 +522,7 @@ let lists = {
         },
         counts: {
             lists: 0,
-            items: 0,
+            links: 0,
         },
         system: {
             attributes: {},
@@ -530,7 +530,7 @@ let lists = {
         },
         data: {
             lists: [],
-            items: [],
+            links: [],
         },
     },
     accounting: {
@@ -552,7 +552,7 @@ let lists = {
         },
         counts: {
             lists: 0,
-            items: 0,
+            links: 0,
         },
         system: {
             attributes: {},
@@ -560,7 +560,7 @@ let lists = {
         },
         data: {
             lists: [],
-            items: [],
+            links: [],
         },
     },
     membership: {
@@ -582,7 +582,7 @@ let lists = {
         },
         counts: {
             lists: 0,
-            items: 0,
+            links: 0,
         },
         system: {
             attributes: {
@@ -592,7 +592,7 @@ let lists = {
         },
         data: {
             lists: [],
-            items: [],
+            links: [],
         },
     },
     other: {
@@ -614,7 +614,7 @@ let lists = {
         },
         counts: {
             lists: 0,
-            items: 0,
+            links: 0,
         },
         system: {
             attributes: {
@@ -624,7 +624,7 @@ let lists = {
         },
         data: {
             lists: [],
-            items: [],
+            links: [],
         },
     },
     henrik: {
@@ -647,7 +647,7 @@ let lists = {
         },
         counts: {
             lists: 17,
-            items: 0,
+            links: 0,
         },
         system: {
             attributes: {
@@ -726,7 +726,7 @@ let lists = {
                     uid: 'other',
                 },
             ],
-            items: [],
+            links: [],
         },
     },
 };
@@ -756,12 +756,18 @@ let items = {
             title: null,
             description: 'Creator of Tribalopolis',
             birthdate: '1950-08-23',
-            location: 'Toronto',
-            locationid: 'Toronto',
+            address: {
+                unit: '',
+                streetnumber: '',
+                streetname: '',
+                locality: '',
+                region: '',
+                country: '',
+                locationcode: '',
+            },
         },
         references: {
-            list: { repo: 'lists', uid: 'henrik' },
-            parentlists: [],
+            list: 'henrik',
         },
         counts: {},
         system: {

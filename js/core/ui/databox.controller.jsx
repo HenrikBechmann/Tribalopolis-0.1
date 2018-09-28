@@ -76,7 +76,10 @@ class DataBox extends React.Component {
                         listdoctoken = this.itemProxy.liststack[this.itemProxy.liststack.length - 1];
                     }
                     else {
-                        listdoctoken = this.state.item.document.references.list;
+                        listdoctoken = {
+                            uid: this.state.item.document.references.list,
+                            repo: 'lists',
+                        };
                     }
                     this.setState({
                         MainlistProxy: new proxy({ token: listdoctoken }),
