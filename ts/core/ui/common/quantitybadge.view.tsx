@@ -17,7 +17,7 @@ const QuantityBadge = (props:propsInterface) => {
         position:'absolute',
         top:'-2px',
         left:'0',
-        backgroundColor:'gold',
+        backgroundColor:'palegoldenrod',
         height:'16px',
         borderRadius:'8px',
         minWidth:'16px',

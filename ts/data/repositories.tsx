@@ -267,6 +267,10 @@ let lists = {
             owneritem:'henrik',
             parentlists:[],
         },
+        counts:{
+            lists:0,
+            links:0,
+        },
         system:{
             attributes:{},
             permissions:{},
@@ -274,10 +278,6 @@ let lists = {
         data:{
             lists:[],
             links:[],
-        },
-        counts:{
-            lists:0,
-            links:0,
         },
     },
     requesting:
@@ -856,7 +856,7 @@ let items = {
             id:'',
             type:{
                 id:'',
-                handle:'',
+                handle:'person',
             },
             account:'henrik',
             handle:'henrik',
@@ -870,11 +870,21 @@ let items = {
                 middlenames:'Emanuel',
                 givenname:'Henrik',
                 fullname:'Henrik Bechmann',
+                fullnamecomposite:{
+                    composite:true,
+                    honorific:false,
+                    firstname:true,
+                    lastname:true,
+                    middlenames:false,
+                    givenname:false,
+                    designations:false,
+                },
                 designations:'',
             },
-            genderpronoun:'',
+            genderpronoun:'he',
             description:'Creator of Tribalopolis',
             birthdate:'1950-08-23',
+            enddate:null,
             address:{
                 unit:'',
                 streetnumber:'',
@@ -883,6 +893,8 @@ let items = {
                 region:'',
                 country:'',
                 locationcode:'',
+                startdate:null,
+                enddate:null,
             },
         },
         references:{

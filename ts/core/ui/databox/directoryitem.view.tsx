@@ -26,6 +26,7 @@ class DirectoryItem extends React.Component<any,any> {
         {
             padding:'3px',
             height:'25px',
+            cursor:'pointer',
         }
 
     tabwrapperstyle:React.CSSProperties = {
@@ -47,14 +48,12 @@ class DirectoryItem extends React.Component<any,any> {
         verticalAlign:'middle',
         borderWidth:'1px',
         borderRadius:'6px 6px 0 0',
-        borderColor:'#e2e6e9',
-        borderBottomColor:'white',
+        borderColor:'transparent',
         borderStyle:'solid',
         paddingRight:'3px',
         marginLeft:'-1px',
         marginBottom:'-1px',
-        backgroundColor:'white',
-        cursor:'pointer',
+        // backgroundColor:'white',
         maxWidth:'90%',
         whiteSpace:'nowrap',
     }
@@ -106,13 +105,13 @@ class DirectoryItem extends React.Component<any,any> {
             style = {
                 this.barstyle
             }
+            onClick = {this.expandDirectoryItem}
             ref = {this.barelementref}
         >
             {listDocument?<div style = {this.tabwrapperstyle}>
                 <div style = {this.pretabstyle}></div>
                 <div 
                     style = {this.tabstyle}
-                    onClick = {this.expandDirectoryItem}
                 > 
                     <Icon 
                         style = {
@@ -134,7 +133,7 @@ class DirectoryItem extends React.Component<any,any> {
                     }}>
                         {listDocument && listDocument.properties.name}
                     </div>
-                    <QuantityBadge quantity = {listDocument?(listDocument.counts.lists + listDocument.counts.items):0} style = {
+                    <QuantityBadge quantity = {listDocument?(listDocument.counts.lists + listDocument.counts.links):0} style = {
                         {
                             left:'-10px',
                             top:'-5px',

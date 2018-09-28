@@ -50,12 +50,12 @@ class DirectoryBar extends React.Component {
             verticalAlign: 'middle',
             borderWidth: '1px',
             borderRadius: '6px 6px 0 0',
-            borderColor: 'silver silver white silver',
+            borderColor: 'transparent',
             borderStyle: 'solid',
             paddingRight: '3px',
             marginLeft: '-1px',
             marginBottom: '-7px',
-            backgroundColor: 'white',
+            // backgroundColor:'white',
             maxWidth: 'calc(100% - 80px)',
         };
     }
@@ -89,7 +89,7 @@ class DirectoryBar extends React.Component {
                     <div style={this.pretabstyle}></div>
                     <div style={this.tabstyle}> 
                         <Icon style={{ verticalAlign: 'middle' }}>folder_open</Icon> 
-                        <QuantityBadge quantity={listDocument.counts.lists + listDocument.counts.items} style={{ left: '-6px', top: '-8px' }}/>
+                        <QuantityBadge quantity={listDocument.counts.lists + listDocument.counts.links} style={{ left: '-6px', top: '-8px' }}/>
 
                         <div style={{
             display: 'inline-block',
