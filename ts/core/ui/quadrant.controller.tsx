@@ -3,6 +3,7 @@
 
 /*
     TODO: keep scrollbox pos in settings when navigating stack levels
+    TODO: rationalize render hierarchy
 */
 'use strict'
 
@@ -72,7 +73,8 @@ class Quadrant extends React.Component<any,any>  {
             quadrant:this, 
             animationwrapper:this.animationwrapper, 
             listcomponent:this.listcomponent, 
-            scrollboxelement:this.scrollboxelement
+            scrollboxelement:this.scrollboxelement,
+            shared:this.shared
         })
 
         window.addEventListener('resize',this.onResize)

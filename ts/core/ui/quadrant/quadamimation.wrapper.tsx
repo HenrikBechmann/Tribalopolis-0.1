@@ -38,6 +38,9 @@ class QuadAnimationWrapper extends React.Component<any,any>  {
         this.originanimationblock = React.createRef()
         this.maskanimationblock = React.createRef()
 
+        this.scrollboxelement = this.props.scrollboxelement
+        this.originelement = this.props.originelement
+
     }
 
     drillanimationblock
@@ -45,8 +48,8 @@ class QuadAnimationWrapper extends React.Component<any,any>  {
     maskanimationblock
     quadcontentelement
 
-    scrollboxelement = this.props.scrollboxelement
-    originelement = this.props.originelement
+    scrollboxelement
+    originelement
 
 /********************************************************
 ----------------------[ animation ]---------------------

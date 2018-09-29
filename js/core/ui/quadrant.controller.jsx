@@ -2,6 +2,7 @@
 // copyright (c) 2018 Henrik Bechmann, Toronto, MIT Licence
 /*
     TODO: keep scrollbox pos in settings when navigating stack levels
+    TODO: rationalize render hierarchy
 */
 'use strict';
 import React from 'react';
@@ -127,7 +128,8 @@ class Quadrant extends React.Component {
             quadrant: this,
             animationwrapper: this.animationwrapper,
             listcomponent: this.listcomponent,
-            scrollboxelement: this.scrollboxelement
+            scrollboxelement: this.scrollboxelement,
+            shared: this.shared
         });
         window.addEventListener('resize', this.onResize);
     }

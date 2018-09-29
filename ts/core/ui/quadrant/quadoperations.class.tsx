@@ -5,11 +5,12 @@ import proxy from '../../../core/utilities/proxy'
 
 class quadoperations {
 
-    constructor({ animationwrapper, quadrant, listcomponent, scrollboxelement }) {
+    constructor({ animationwrapper, quadrant, listcomponent, scrollboxelement, shared }) {
         this.animationwrapper = animationwrapper
         this.quadrant = quadrant
         this.listcomponent = listcomponent
         this.scrollboxelement = scrollboxelement
+        this.shared = shared
     }
 
     // imported
@@ -17,6 +18,7 @@ class quadoperations {
     quadrant
     listcomponent
     scrollboxelement
+    shared
 
 /********************************************************
 ----------------------[ operations ]---------------------
@@ -171,7 +173,7 @@ class quadoperations {
         }
 
         setTimeout(()=>{
-            this.quadrant.shared.collapseTargetProxy = Object.assign({},itemProxy)
+            this.shared.collapseTargetProxy = Object.assign({},itemProxy)
 
             this.decrementStackSelector()
         },100)
@@ -195,13 +197,13 @@ class quadoperations {
 
     _updateCollapseSettings = (stackpointer, datastack) => {
 
-        if (this.quadrant.shared.collapseTargetProxy) {
+        if (this.shared.collapseTargetProxy) {
             let sourcelayer = datastack[this.quadrant.state.stackpointer]
             if (sourcelayer) {
                 let stacksource = sourcelayer.source
                 if (stacksource) {
-                    this.quadrant.shared.collapseTargetProxy.action = stacksource.action
-                    this.quadrant.shared.collapseTargetProxy.sourceinstanceid = stacksource.instanceid
+                    this.shared.collapseTargetProxy.action = stacksource.action
+                    this.shared.collapseTargetProxy.sourceinstanceid = stacksource.instanceid
                 }
             }
             if (stackpointer > 0) {
@@ -221,7 +223,7 @@ class quadoperations {
         let stacklayer = datastack[stackpointer]
         let { items } = stacklayer
 
-        if ((items.length > 1) && (!this.quadrant.shared.collapseTargetProxy)) {
+        if ((items.length > 1) && (!this.shared.collapseTargetProxy)) {
             if (stacklayer.settings.scrollOffset !== null) {
                 setTimeout(() => { // give deference to formation of scroll object
 

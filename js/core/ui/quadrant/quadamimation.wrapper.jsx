@@ -23,8 +23,6 @@ let styles = {
 class QuadAnimationWrapper extends React.Component {
     constructor(props) {
         super(props);
-        this.scrollboxelement = this.props.scrollboxelement;
-        this.originelement = this.props.originelement;
         /********************************************************
         ----------------------[ animation ]---------------------
         *********************************************************/
@@ -87,6 +85,8 @@ class QuadAnimationWrapper extends React.Component {
         this.drillanimationblock = React.createRef();
         this.originanimationblock = React.createRef();
         this.maskanimationblock = React.createRef();
+        this.scrollboxelement = this.props.scrollboxelement;
+        this.originelement = this.props.originelement;
     }
     render() {
         let { classes, quadcontentStyle } = this.props;
