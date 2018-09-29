@@ -25,7 +25,6 @@ let styles = createStyles({
     viewportFrameStyle: {
         position: 'absolute',
         top: 'calc(25px + 2%)',
-        backgroundColor: '',
         left: '2%',
         bottom: '2%',
         right: '2%',
@@ -354,16 +353,16 @@ class Quadrant extends React.Component {
         //     height:'100%',
         //     overflow:'hidden',
         // }
-        this.viewportFrameStyle = {
-            position: 'absolute',
-            top: 'calc(25px + 2%)',
-            backgroundColor: '',
-            left: '2%',
-            bottom: '2%',
-            right: '2%',
-            borderRadius: '8px',
-            overflow: 'hidden',
-        };
+        // viewportFrameStyle:React.CSSProperties = {
+        //     position:'absolute',
+        //     top:'calc(25px + 2%)',
+        //     backgroundColor:'',
+        //     left:'2%',
+        //     bottom:'2%',
+        //     right:'2%',
+        //     borderRadius:'8px',
+        //     overflow:'hidden',
+        // }
         this.viewportStyle = {
             width: '100%',
             height: '100%',
@@ -459,7 +458,7 @@ class Quadrant extends React.Component {
                 </div>
                 <QuadTitleBar title={'Account:'} quadidentifier={this.props.quadidentifier}/>
                 <QuadOrigin stackpointer={this.state.stackpointer} stackdepth={datastack ? datastack.length : 0} incrementStackSelector={this.incrementStackSelector} decrementStackSelector={this.decrementStackSelector} ref={this.originelement}/>
-                <div style={this.viewportFrameStyle}>
+                <div className={classes.viewportFrameStyle}>
                     <div style={viewportStyle} ref={this.scrollboxelement}>
                         {haspeers
             ? <Lister axis='x' itemRenderer={this.getBox} length={datastack ? datastack[this.state.stackpointer].items.length : 0} type='uniform' ref={this.listcomponent} useStaticSize/>

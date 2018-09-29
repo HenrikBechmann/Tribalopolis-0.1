@@ -33,7 +33,6 @@ let styles = createStyles({
     viewportFrameStyle: {
         position:'absolute',
         top:'calc(25px + 2%)',
-        backgroundColor:'',
         left:'2%',
         bottom:'2%',
         right:'2%',
@@ -549,16 +548,16 @@ class Quadrant extends React.Component<any,any>  {
     //     overflow:'hidden',
     // }
 
-    viewportFrameStyle:React.CSSProperties = {
-        position:'absolute',
-        top:'calc(25px + 2%)',
-        backgroundColor:'',
-        left:'2%',
-        bottom:'2%',
-        right:'2%',
-        borderRadius:'8px',
-        overflow:'hidden',
-    }
+    // viewportFrameStyle:React.CSSProperties = {
+    //     position:'absolute',
+    //     top:'calc(25px + 2%)',
+    //     backgroundColor:'',
+    //     left:'2%',
+    //     bottom:'2%',
+    //     right:'2%',
+    //     borderRadius:'8px',
+    //     overflow:'hidden',
+    // }
 
     viewportStyle:React.CSSProperties = { // borderRadius on scroller breaks scrollbar
         width: '100%',
@@ -623,7 +622,7 @@ class Quadrant extends React.Component<any,any>  {
                     decrementStackSelector = {this.decrementStackSelector}
                     ref = {this.originelement}
                 />
-                <div style = {this.viewportFrameStyle}>
+                <div className = {classes.viewportFrameStyle}>
                     <div 
                         style = {viewportStyle}
                         ref = {this.scrollboxelement}
