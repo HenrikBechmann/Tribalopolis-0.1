@@ -6,9 +6,25 @@ import React from 'react'
 
 import IconButton from '@material-ui/core/IconButton'
 import Icon from '@material-ui/core/Icon'
+import { withStyles, createStyles } from '@material-ui/core/styles'
 import ActionButton from '../common/actionbutton.view'
 
-const SwapMenu = ({ quadrantPosition,handleSwap }) => {
+
+const styles = createStyles({
+    root:{
+        position:'absolute',
+        right:'0',
+        top:'0',
+        border:'1px solid silver',
+        borderRadius:'0 0 0 8px',
+        backgroundColor:'lightgray',
+        zIndex:1,
+        padding:'3px',
+        opacity:0.7,
+    },
+})
+
+const SwapMenu = ({ quadrantPosition, handleSwap, classes }) => {
 
     let tilt = null
     if (quadrantPosition == 'topleft' || quadrantPosition == 'bottomright') {
@@ -18,19 +34,7 @@ const SwapMenu = ({ quadrantPosition,handleSwap }) => {
     }
 
     return <div 
-        style = {
-            {
-                position:'absolute',
-                right:'0',
-                top:'0',
-                border:'1px solid silver',
-                borderRadius:'0 0 0 8px',
-                backgroundColor:'lightgray',
-                zIndex:1,
-                padding:'3px',
-                opacity:0.7,
-            }
-        } 
+        className = {classes.root} 
     >
         <ActionButton 
             iconStyle = {{color:'green'}}
@@ -53,7 +57,4 @@ const SwapMenu = ({ quadrantPosition,handleSwap }) => {
     </div>
 }
 
-            // style = {{color:'green',marginRight:'8px',border:'1px solid silver',borderRadius:'50%',}} 
-
-
-export default SwapMenu
+export default withStyles(styles)(SwapMenu)
