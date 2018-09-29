@@ -18,9 +18,6 @@ class quadoperations {
     listcomponent
     scrollboxelement
 
-    // local
-    collapseTargetProxy
-
 /********************************************************
 ----------------------[ operations ]---------------------
 *********************************************************/
@@ -174,7 +171,7 @@ class quadoperations {
         }
 
         setTimeout(()=>{
-            this.collapseTargetProxy = Object.assign({},itemProxy)
+            this.quadrant.collapseTargetProxy = Object.assign({},itemProxy)
 
             this.decrementStackSelector()
         },100)
@@ -198,13 +195,13 @@ class quadoperations {
 
     _updateCollapseSettings = (stackpointer, datastack) => {
 
-        if (this.collapseTargetProxy) {
+        if (this.quadrant.collapseTargetProxy) {
             let sourcelayer = datastack[this.quadrant.state.stackpointer]
             if (sourcelayer) {
                 let stacksource = sourcelayer.source
                 if (stacksource) {
-                    this.collapseTargetProxy.action = stacksource.action
-                    this.collapseTargetProxy.sourceinstanceid = stacksource.instanceid
+                    this.quadrant.collapseTargetProxy.action = stacksource.action
+                    this.quadrant.collapseTargetProxy.sourceinstanceid = stacksource.instanceid
                 }
             }
             if (stackpointer > 0) {
@@ -224,7 +221,7 @@ class quadoperations {
         let stacklayer = datastack[stackpointer]
         let { items } = stacklayer
 
-        if ((items.length > 1) && (!this.collapseTargetProxy)) {
+        if ((items.length > 1) && (!this.quadrant.collapseTargetProxy)) {
             if (stacklayer.settings.scrollOffset !== null) {
                 setTimeout(() => { // give deference to formation of scroll object
 

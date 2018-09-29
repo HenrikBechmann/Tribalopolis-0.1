@@ -69,8 +69,8 @@ class Quadrant extends React.Component<any,any>  {
 
         // delegate methods to a class
         this.operations = new quadoperations({
-            animationwrapper:this.animationwrapper, 
             quadrant:this, 
+            animationwrapper:this.animationwrapper, 
             listcomponent:this.listcomponent, 
             scrollboxelement:this.scrollboxelement
         })
@@ -94,13 +94,14 @@ class Quadrant extends React.Component<any,any>  {
     listcomponent
     animationwrapper
 
-    // callbacks get records
+    // callbacks get database records
     setItemListener
     setListListener
     removeItemListener
     removeListListener
 
     // trigger for animation and reset
+    // this is referenced and set directly by operations class
     collapseTargetProxy = null
 
     operations

@@ -46,6 +46,7 @@ class Quadrant extends React.Component {
             boxwidth: 300
         };
         // trigger for animation and reset
+        // this is referenced and set directly by operations class
         this.collapseTargetProxy = null;
         this._findlinkIndex = (instanceid) => {
             return (itemDocumentProxy) => {
@@ -121,8 +122,8 @@ class Quadrant extends React.Component {
         this.removeListListener = this.props.callbacks.removeListListener;
         // delegate methods to a class
         this.operations = new quadoperations({
-            animationwrapper: this.animationwrapper,
             quadrant: this,
+            animationwrapper: this.animationwrapper,
             listcomponent: this.listcomponent,
             scrollboxelement: this.scrollboxelement
         });
