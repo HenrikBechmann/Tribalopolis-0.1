@@ -47,6 +47,7 @@ const QuadOriginBase = props => {
                     opacity:.3,
                     width:'100%',
                     textAlign:'center',
+                    cursor:'pointer',
                 }
             }
             >

@@ -16,6 +16,7 @@ const styles = createStyles({
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
+        cursor: 'pointer',
     },
     transfermoniker: {
         fontWeight: 'bold',

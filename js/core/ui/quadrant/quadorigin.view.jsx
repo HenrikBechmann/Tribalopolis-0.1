@@ -36,6 +36,7 @@ const QuadOriginBase = props => {
         opacity: .3,
         width: '100%',
         textAlign: 'center',
+        cursor: 'pointer',
     }}>
                 <img style={{ width: '40px' }} src='/public/icons/OriginStack.svg'/>
             </div>

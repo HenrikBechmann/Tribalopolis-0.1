@@ -8,6 +8,8 @@
 
 import React from 'react'
 
+import { withStyles, createStyles } from '@material-ui/core/styles'
+
 import QuadOrigin from './quadrant/quadorigin.view'
 import QuadTitleBar from './quadrant/quadtitlebar.view'
 
@@ -16,6 +18,39 @@ import DataBox from './databox.controller'
 import Lister from 'react-list'
 
 import animations from './quadrant/quadanimations.utilities'
+
+let styles = createStyles({
+   quadcontentStyle: {
+        boxSizing: 'border-box',
+        border: '3px outset gray',
+        position:'relative',
+        borderRadius:'8px',
+        width:'100%',
+        height:'100%',
+        overflow:'hidden',
+    },
+
+    viewportFrameStyle: {
+        position:'absolute',
+        top:'calc(25px + 2%)',
+        backgroundColor:'',
+        left:'2%',
+        bottom:'2%',
+        right:'2%',
+        borderRadius:'8px',
+        overflow:'hidden',
+    },
+
+    viewportStyle: {
+        width: '100%',
+        height:'100%',
+        overflow:'auto',
+        border: '1px solid gray',
+        boxSizing: 'border-box',
+        borderRadius: '8px',
+        position:'relative',
+    }
+})
 
 class Quadrant extends React.Component<any,any>  {
 
@@ -503,16 +538,16 @@ class Quadrant extends React.Component<any,any>  {
 ------------------------[ render ]-----------------------
 *********************************************************/
 
-    quadcontentstyle:React.CSSProperties = {
-        boxSizing: 'border-box',
-        border: '3px outset gray',
-        position:'relative',
-        backgroundColor:'',
-        borderRadius:'8px',
-        width:'100%',
-        height:'100%',
-        overflow:'hidden',
-    }
+    // quadcontentStyle:React.CSSProperties = {
+    //     boxSizing: 'border-box',
+    //     border: '3px outset gray',
+    //     position:'relative',
+    //     backgroundColor:'',
+    //     borderRadius:'8px',
+    //     width:'100%',
+    //     height:'100%',
+    //     overflow:'hidden',
+    // }
 
     viewportFrameStyle:React.CSSProperties = {
         position:'absolute',
@@ -538,7 +573,7 @@ class Quadrant extends React.Component<any,any>  {
     // TODO: move style blocks out of render code
     render() {
         
-        let { color } = this.props
+        let { color, classes } = this.props
 
         let { datastack } = this.state
 
@@ -546,9 +581,11 @@ class Quadrant extends React.Component<any,any>  {
 
         // object assignment defeats purpose of immutable objects, but avoids:
         // Uncaught TypeError: Cannot assign to read only property 'backgroundColor' of object '#<Object>'
-        let quadcontentstyle = Object.assign({},this.quadcontentstyle)
+        // let quadcontentStyle = Object.assign({},this.quadcontentStyle)
         let viewportStyle = Object.assign({},this.viewportStyle)
-        quadcontentstyle.backgroundColor = color
+        let quadcontentStyle = {
+            backgroundColor: color
+        }
         viewportStyle.backgroundColor = haspeers?'#e8e8e8':'lightblue'
 
         // Safari keeps scrollleft with content changes
@@ -558,7 +595,9 @@ class Quadrant extends React.Component<any,any>  {
         // useStaticSize Lister attribute below is required to avoid setState 
         // recursion overload and crash
         return (
-            <div style = {quadcontentstyle} 
+            <div
+                className = {classes.quadcontentStyle} 
+                style = {quadcontentStyle} 
                 ref = {this.quadcontentelement}
             >
                 <div
@@ -609,4 +648,4 @@ class Quadrant extends React.Component<any,any>  {
     }
 }
 
-export default Quadrant
+export default withStyles(styles)(Quadrant)

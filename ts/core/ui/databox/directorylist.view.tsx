@@ -86,8 +86,6 @@ class DirectoryListBase extends React.Component<any,any> {
 
     cacheListDocument = (document,type) => {
 
-        console.log('caching list document, type', document, type)
-
         let listproxies
         if (!this.state.listproxies) {
             listproxies = this.generateListProxies(document)
@@ -200,8 +198,6 @@ class DirectoryListBase extends React.Component<any,any> {
     }
 
     modifybuttons = (listItemType) => {
-
-        console.log('modifybuttons listItemType',this.state,listItemType)
 
         if (!listItemType) return null
 
