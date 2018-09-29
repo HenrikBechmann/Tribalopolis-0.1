@@ -14,7 +14,7 @@
         - trigger subscriptions to containerstore with changes
 */
 
-import domain from './domain'
+import domain from './gateway'
 
 enum StoreEndpoints {
     data = "data",

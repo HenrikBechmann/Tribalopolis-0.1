@@ -12,7 +12,7 @@
 
 */
 // import Datamodel from './datamodel'
-import domain from './domain';
+import domain from './gateway';
 const cache = new Map();
 const properties = {
     ismobile: /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)

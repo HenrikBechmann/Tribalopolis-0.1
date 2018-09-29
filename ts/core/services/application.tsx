@@ -15,7 +15,7 @@
 
 // import Datamodel from './datamodel'
 
-import domain from './domain'
+import domain from './gateway'
 
 const cache = new Map()
 
