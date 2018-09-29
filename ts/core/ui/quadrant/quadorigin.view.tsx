@@ -6,24 +6,48 @@ import React from 'react'
 import OriginMenu from './quadoriginmenu.view'
 import QuantityBadge from '../common/quantitybadge.view'
 
-const QuadOriginBase = props => {
+import { withStyles, createStyles } from '@material-ui/core/styles'
+
+const styles = createStyles({
+    root:{
+        position:'absolute',
+        top:'24px',
+        left:'0',
+        width:'40px',
+        height:'60px',
+        backgroundColor:'green',
+        borderRadius:'8px',
+        zIndex:5,
+        display:'flex',
+        justifyContent:'center',
+        alignItems:'center',
+    },
+    moniker:{
+        opacity:0.5,
+        fontSize:'.7em',
+    },
+    icon:{
+        position:'absolute',
+        margin:'auto',
+        top:'10px',
+        left:'0',
+        opacity:.3,
+        width:'100%',
+        textAlign:'center',
+        cursor:'pointer',
+    },
+    image:{width:'40px'},
+
+})
+
+let QuadOriginBase = withStyles(styles)(
+    (props:any) => {
+
+    const { classes } = props
+
     return (
         <div 
-            style = {
-                {
-                    position:'absolute',
-                    top:'24px',
-                    left:'0',
-                    width:'40px',
-                    height:'60px',
-                    backgroundColor:'green',
-                    borderRadius:'8px',
-                    zIndex:5,
-                    display:'flex',
-                    justifyContent:'center',
-                    alignItems:'center',
-                }
-            }
+            className = {classes.root}
             ref = {props.forwardedRef}
         >
             <QuantityBadge quantity = {props.stackdepth} />
@@ -37,21 +61,10 @@ const QuadOriginBase = props => {
                     color:'white',
                }}
             />
-            <div style = {{opacity:0.5,fontSize:'.7em'}}>STACK</div>
-            <div style = {
-                {
-                    position:'absolute',
-                    margin:'auto',
-                    top:'10px',
-                    left:'0',
-                    opacity:.3,
-                    width:'100%',
-                    textAlign:'center',
-                    cursor:'pointer',
-                }
-            }
+            <div className = { classes.moniker }>STACK</div>
+            <div className = { classes.icon }
             >
-                <img style = {{width:'40px'}} src = '/public/icons/OriginStack.svg' />
+                <img className = {classes.image} src = '/public/icons/OriginStack.svg' />
             </div>
             <OriginMenu 
                 stackdepth = {props.stackdepth}  
@@ -61,7 +74,7 @@ const QuadOriginBase = props => {
             />
         </div>    
     )
-}
+})
 
 const QuadOrigin = React.forwardRef((props:any,ref:any) => {
     return <QuadOriginBase {...props} forwardedRef = {ref} />
