@@ -5,6 +5,34 @@
 import React from 'react'
 
 import IconButton from '@material-ui/core/IconButton'
+import { withStyles, createStyles } from '@material-ui/core/styles'
+
+const styles = createStyles({
+    root:{
+        position:'absolute',
+        bottom:'0',
+        height:'32px',
+        width:'32px',
+        backgroundColor:'lightgray',
+        border:'1px solid silver',
+        zIndex:3,
+    },
+    message:{
+        position:'absolute',
+        top:'-30px',
+        color:'white',
+        border:'2px solid silver',
+        borderRadius:'8px',
+        backgroundColor:'gray',
+        fontSize:'x-small',
+        padding:'8px',
+    },
+    iconbutton:{
+        height:'32px',
+        width:'32px',
+        padding:'0',
+    }
+})
 
 class QuadSelector extends React.Component<any,any> {
 
@@ -14,7 +42,7 @@ class QuadSelector extends React.Component<any,any> {
 
     render() {
 
-        let {quadrantPosition, split, selectQuadrant } = this.props
+        let {quadrantPosition, split, selectQuadrant, classes } = this.props
         let component = null
 
         let element:any = null
@@ -37,37 +65,25 @@ class QuadSelector extends React.Component<any,any> {
             }
             let leftside = (quadrantPosition == 'topleft' || quadrantPosition == 'bottomleft')
             component = <div
+                className = {classes.root}
                 style = {{
-                    position:'absolute',
-                    bottom:'0',
                     left:leftside?'0':'auto',
                     right:leftside?'auto':'0',
-                    height:'32px',
-                    width:'32px',
-                    backgroundColor:'lightgray',
-                    border:'1px solid silver',
-                    zIndex:3,
                     borderRadius:leftside?'0 8px 0 0':'8px 0 0 0',
                 }}
             >
-                <div style = {
-                    {
-                        visibility:this.state.selected?'visible':'hidden',
-                        position:'absolute',
-                        top:'-30px',
-                        left:leftside?'20px':'-60px',
-                        color:'white',
-                        border:'2px solid silver',
-                        borderRadius:'8px',
-                        backgroundColor:'gray',
-                        fontSize:'x-small',
-                        padding:'8px',
-                    }
+                <div 
+                    className = {classes.message}
+                    style = {
+                        {
+                            visibility:this.state.selected?'visible':'hidden',
+                            left:leftside?'20px':'-60px',
+                        }
                 }>
                     working...
                 </div>
                 <IconButton 
-                    style = {{height:'32px',width:'32px',padding:'0'}} 
+                    className = {classes.iconbutton} 
                     onClick = {() => {
                         this.setState({
                             selected:true
@@ -90,4 +106,4 @@ class QuadSelector extends React.Component<any,any> {
 
 }
 
-export default QuadSelector
+export default withStyles(styles)(QuadSelector)
