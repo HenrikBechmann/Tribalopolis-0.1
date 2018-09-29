@@ -19,17 +19,9 @@ import Lister from 'react-list'
 
 import animations from './quadrant/quadanimations.utilities'
 
-let styles = createStyles({
-   quadcontent: {
-        boxSizing: 'border-box',
-        border: '3px outset gray',
-        position:'relative',
-        borderRadius:'8px',
-        width:'100%',
-        height:'100%',
-        overflow:'hidden',
-    },
+import AnimationWrapper from './quadrant/quadamimation.wrapper'
 
+let styles = createStyles({
     viewportFrame: {
         position:'absolute',
         top:'calc(25px + 2%)',
@@ -60,17 +52,20 @@ class Quadrant extends React.Component<any,any>  {
     constructor(props) {
         super(props)
 
-        this.quadcontentelement = React.createRef()
+        // this.quadcontentelement = React.createRef()
 
-        // animation dom elements
-        this.drillanimationblock = React.createRef()
-        this.originanimationblock = React.createRef()
-        this.maskanimationblock = React.createRef()
+        // // animation dom elements
+        // this.drillanimationblock = React.createRef()
+        // this.originanimationblock = React.createRef()
+        // this.maskanimationblock = React.createRef()
 
         // structure dom elements
         this.originelement = React.createRef()
         this.scrollboxelement = React.createRef()
+
+        // components
         this.listcomponent = React.createRef()
+        this.animationwrapper = React.createRef()
 
         // callbacks
         this.setItemListener = this.props.callbacks.setItemListener
@@ -90,13 +85,16 @@ class Quadrant extends React.Component<any,any>  {
     }
 
     // dom refs
-    quadcontentelement
-    drillanimationblock
-    originanimationblock
-    maskanimationblock
+    // quadcontentelement
+    // drillanimationblock
+    // originanimationblock
+    // maskanimationblock
     originelement
     scrollboxelement
+
+    // component ref
     listcomponent
+    animationwrapper
 
     // callbacks get records
     setItemListener
@@ -180,80 +178,15 @@ class Quadrant extends React.Component<any,any>  {
     }
 
 /********************************************************
-----------------------[ animation ]---------------------
-*********************************************************/
-
-    // animation calls
-
-    animateToOrigin = () => {
-        animations.animateToOrigin({
-            sourceElement:this.scrollboxelement.current, 
-            originElement:this.originelement.current,  
-            containerElement:this.quadcontentelement.current, 
-            originAnimationElement:this.originanimationblock.current,
-            maskAnimationElement:this.maskanimationblock.current,
-        })        
-    }
-
-    animateToDataBox = (domSource) => {
-        animations.animateToDatabox({
-            sourceElement:domSource,
-            targetElement:this.scrollboxelement.current,
-            containerElement:this.quadcontentelement.current,
-            drillAnimationElement:this.drillanimationblock.current,
-            boxwidth:this.state.boxwidth,
-        })        
-    }
-
-    animateToDataBoxList = (domSource) => {
-        animations.animateToDataboxList({
-            sourceElement:domSource,
-            targetElement:this.scrollboxelement.current,
-            containerElement:this.quadcontentelement.current,
-            drillAnimationElement:this.drillanimationblock.current,  
-        })        
-    }
-
-    animateOriginToDatabox = () => {
-        animations.animateMask({
-            sourceElement:this.scrollboxelement.current,
-            containerElement:this.quadcontentelement.current,
-            maskAnimationElement:this.maskanimationblock.current,
-        })
-        animations.animateOriginToDataBox({
-            sourceElement:this.originelement.current,
-            targetElement:this.scrollboxelement.current,
-            containerElement:this.quadcontentelement.current,
-            drillAnimationElement:this.drillanimationblock.current,
-            boxwidth:this.state.boxwidth,
-        })        
-    }
-
-    animateOriginToDataBoxList = () => {
-        animations.animateMask({
-            sourceElement:this.scrollboxelement.current,
-            containerElement:this.quadcontentelement.current,
-            maskAnimationElement:this.maskanimationblock.current,
-        })
-        animations.animateOriginToDataBoxList({
-            sourceElement:this.originelement.current,
-            targetElement:this.scrollboxelement.current,
-            containerElement:this.quadcontentelement.current,
-            drillAnimationElement:this.drillanimationblock.current,
-        })
-    }
-
-
-/********************************************************
 ----------------------[ operations ]---------------------
 *********************************************************/
 
     //-------------------------------[ forward ]---------------------------
     expandDirectoryItem = (boxptr, listtoken, domSource) => {
 
-        this.animateToOrigin()
+        this.animationwrapper.current.animateToOrigin()
 
-        this.animateToDataBox(domSource)
+        this.animationwrapper.current.animateToDataBox(domSource)
 
         let {datastack, stackpointer} = this.state
         this._captureSettings(stackpointer,datastack)
@@ -288,9 +221,9 @@ class Quadrant extends React.Component<any,any>  {
 
         let visiblerange = sourcelistcomponent.current.getVisibleRange()
 
-        this.animateToOrigin()
+        this.animationwrapper.current.animateToOrigin()
 
-        this.animateToDataBoxList(domSource)
+        this.animationwrapper.current.animateToDataBoxList(domSource)
 
         let {datastack, stackpointer} = this.state
         this._captureSettings(stackpointer,datastack)
@@ -334,9 +267,9 @@ class Quadrant extends React.Component<any,any>  {
 
     selectFromSplay = (boxptr:number,domSource) => {
 
-        this.animateToOrigin()
+        this.animationwrapper.current.animateToOrigin()
 
-        this.animateToDataBox(domSource)
+        this.animationwrapper.current.animateToDataBox(domSource)
 
         let {datastack, stackpointer} = this.state
         this._captureSettings(stackpointer,datastack)
@@ -389,9 +322,9 @@ class Quadrant extends React.Component<any,any>  {
         if (this.state.stackpointer) {
             let targetStackLayer = this.state.datastack[this.state.stackpointer - 1]
             if (targetStackLayer.items.length > 1) {
-                this.animateOriginToDataBoxList()
+                this.animationwrapper.current.animateOriginToDataBoxList()
             } else {
-                this.animateOriginToDatabox()
+                this.animationwrapper.current.animateOriginToDatabox()
             }
             // console.log('collapseDirectoryItem',itemProxy,this.state.datastack)
         }
@@ -558,50 +491,52 @@ class Quadrant extends React.Component<any,any>  {
         }
         // useStaticSize Lister attribute below is required to avoid setState 
         // recursion overload and crash
-        return (
-            <div
-                className = {classes.quadcontent} 
-                style = {quadcontentStyle} 
-                ref = {this.quadcontentelement}
-            >
-                <div ref = {this.drillanimationblock} ></div>
-                <div ref = {this.originanimationblock} ></div>
-                <div ref = {this.maskanimationblock} ></div>
+        return ( 
+        <AnimationWrapper 
 
-                <QuadTitleBar 
-                    title = {'Account:'} 
-                    quadidentifier={this.props.quadidentifier}
-                />
-                <QuadOrigin 
-                    stackpointer = {this.state.stackpointer} 
-                    stackdepth = {datastack?datastack.length:0}
-                    incrementStackSelector = {this.incrementStackSelector}
-                    decrementStackSelector = {this.decrementStackSelector}
-                    ref = {this.originelement}
-                />
-                <div className = {classes.viewportFrame}>
-                    <div 
-                        className = {classes.viewport}
-                        style = {viewportStyle}
-                        ref = {this.scrollboxelement}
-                    >
-                        {haspeers
-                            ?<Lister 
-                                axis = 'x'
-                                itemRenderer = {this.getBox}
-                                length = { 
-                                    datastack?datastack[this.state.stackpointer].items.length:0
-                                }
-                                type = 'uniform'
-                                ref = {this.listcomponent}
-                                useStaticSize
-                             />
-                            :this.getBox(0,'singleton')
-                        }
-                    </div>
+            ref = {this.animationwrapper}
+
+            quadcontentStyle = {quadcontentStyle}
+            scrollboxelement = {this.scrollboxelement}
+            originelement = {this.originelement}
+            boxwidth = {this.state.boxwidth}
+            
+        >
+
+            <QuadTitleBar 
+                title = {'Account:'} 
+                quadidentifier={this.props.quadidentifier}
+            />
+            <QuadOrigin 
+                stackpointer = {this.state.stackpointer} 
+                stackdepth = {datastack?datastack.length:0}
+                incrementStackSelector = {this.incrementStackSelector}
+                decrementStackSelector = {this.decrementStackSelector}
+                ref = {this.originelement}
+            />
+            <div className = {classes.viewportFrame}>
+                <div 
+                    className = {classes.viewport}
+                    style = {viewportStyle}
+                    ref = {this.scrollboxelement}
+                >
+                    {haspeers
+                        ?<Lister 
+                            axis = 'x'
+                            itemRenderer = {this.getBox}
+                            length = { 
+                                datastack?datastack[this.state.stackpointer].items.length:0
+                            }
+                            type = 'uniform'
+                            ref = {this.listcomponent}
+                            useStaticSize
+                         />
+                        :this.getBox(0,'singleton')
+                    }
                 </div>
             </div>
-        )
+
+        </AnimationWrapper>)
     }
 }
 
