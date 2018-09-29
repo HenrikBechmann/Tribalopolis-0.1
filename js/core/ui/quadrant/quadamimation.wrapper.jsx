@@ -3,6 +3,8 @@
 /*
     TODO: the div can be pushed down to a view component to use withStyles
     can't be used here as the layer hides methods accessed by parent
+
+    TODO: this is likely an antipattern. Find another way, like operations class
 */
 'use strict';
 import React from 'react';

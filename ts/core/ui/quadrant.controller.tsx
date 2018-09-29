@@ -13,13 +13,14 @@ import { withStyles, createStyles } from '@material-ui/core/styles'
 import QuadOrigin from './quadrant/quadorigin.view'
 import QuadTitleBar from './quadrant/quadtitlebar.view'
 
-import proxy from '../../core/utilities/proxy'
 import DataBox from './databox.controller'
 import Lister from 'react-list'
 
 import animations from './quadrant/quadanimations.utilities'
 
 import AnimationWrapper from './quadrant/quadamimation.wrapper'
+
+import quadoperations from './quadrant/quadoperations.class'
 
 let styles = createStyles({
     viewportFrame: {
@@ -52,13 +53,6 @@ class Quadrant extends React.Component<any,any>  {
     constructor(props) {
         super(props)
 
-        // this.quadcontentelement = React.createRef()
-
-        // // animation dom elements
-        // this.drillanimationblock = React.createRef()
-        // this.originanimationblock = React.createRef()
-        // this.maskanimationblock = React.createRef()
-
         // structure dom elements
         this.originelement = React.createRef()
         this.scrollboxelement = React.createRef()
@@ -73,6 +67,14 @@ class Quadrant extends React.Component<any,any>  {
         this.removeItemListener = this.props.callbacks.removeItemListener
         this.removeListListener = this.props.callbacks.removeListListener
 
+        // delegate methods to a class
+        this.operations = new quadoperations({
+            animationwrapper:this.animationwrapper, 
+            quadrant:this, 
+            listcomponent:this.listcomponent, 
+            scrollboxelement:this.scrollboxelement
+        })
+
         window.addEventListener('resize',this.onResize)
 
     }
@@ -85,10 +87,6 @@ class Quadrant extends React.Component<any,any>  {
     }
 
     // dom refs
-    // quadcontentelement
-    // drillanimationblock
-    // originanimationblock
-    // maskanimationblock
     originelement
     scrollboxelement
 
@@ -104,6 +102,8 @@ class Quadrant extends React.Component<any,any>  {
 
     // trigger for animation and reset
     collapseTargetProxy = null
+
+    operations
 
 /********************************************************
 ------------------[ lifecycle methods ]------------------
@@ -178,220 +178,6 @@ class Quadrant extends React.Component<any,any>  {
     }
 
 /********************************************************
-----------------------[ operations ]---------------------
-*********************************************************/
-
-    //-------------------------------[ forward ]---------------------------
-    expandDirectoryItem = (boxptr, listtoken, domSource) => {
-
-        this.animationwrapper.current.animateToOrigin()
-
-        this.animationwrapper.current.animateToDataBox(domSource)
-
-        let {datastack, stackpointer} = this.state
-        this._captureSettings(stackpointer,datastack)
-
-        let itemProxy = datastack[stackpointer].items[boxptr]
-
-        stackpointer++
-        let newstacklayer = {items:[], settings:{}, source:{
-            instanceid:itemProxy.instanceid,
-            token:itemProxy.token,
-            action:'expand',
-        }}
-
-        // replace forward stack items
-        datastack.splice(stackpointer,datastack.length,newstacklayer)
-
-        let newItemProxy = new proxy({token:itemProxy.token})
-
-        newItemProxy.liststack.push(listtoken)
-
-        newstacklayer.items.push(newItemProxy)
-
-        setTimeout(() => { // delay for animation
-            this.setState({
-                stackpointer,
-                datastack,
-            })
-        },100)
-    }
-
-    splayBox = (boxptr, domSource, sourcelistcomponent,listDocument) => {
-
-        let visiblerange = sourcelistcomponent.current.getVisibleRange()
-
-        this.animationwrapper.current.animateToOrigin()
-
-        this.animationwrapper.current.animateToDataBoxList(domSource)
-
-        let {datastack, stackpointer} = this.state
-        this._captureSettings(stackpointer,datastack)
-
-        let itemProxy = datastack[stackpointer].items[boxptr]
-        let itemToken = itemProxy.token
-
-        let listtokens = listDocument.data.lists
-
-        if (!listtokens || !listtokens.length) return
-
-        stackpointer++
-        let newstacklayer = {items:[], settings:{}, source:{
-            instanceid:itemProxy.instanceid,
-            token:itemProxy.token,
-            action:'splay',
-            visiblerange,
-        }}
-
-        // replace forward stack items
-        datastack.splice(stackpointer,datastack.length,newstacklayer)
-
-        for (let token of listtokens) {
-            let newItemProxy = new proxy({token:itemToken})
-            newItemProxy.liststack = itemProxy.liststack.slice() // copy
-            newItemProxy.liststack.push(token)
-            newstacklayer.items.push(newItemProxy)
-        }
-
-        setTimeout(() => { // delay for animation
-            this.setState({
-                stackpointer,
-                datastack,
-            },() => {
-                setTimeout(() =>{
-                    this.listcomponent.current.scrollTo(visiblerange[0])
-                })
-            })
-        },100)
-    }
-
-    selectFromSplay = (boxptr:number,domSource) => {
-
-        this.animationwrapper.current.animateToOrigin()
-
-        this.animationwrapper.current.animateToDataBox(domSource)
-
-        let {datastack, stackpointer} = this.state
-        this._captureSettings(stackpointer,datastack)
-
-        let itemProxy = datastack[stackpointer].items[boxptr]
-        let itemToken = itemProxy.token
-
-        stackpointer++
-        let newstacklayer = {items:[], settings:{}, source:{
-            instanceid:itemProxy.instanceid,
-            token:itemProxy.token,
-            action:'select',
-        }}
-
-        // replace forward stack items
-        datastack.splice(stackpointer,datastack.length,newstacklayer)
-
-        let newItemProxy = new proxy({token:itemToken})
-        newItemProxy.liststack = itemProxy.liststack.slice() // copy
-        
-        newstacklayer.items.push(newItemProxy)
-
-        setTimeout(() => { // delay for animation
-            this.setState({
-                stackpointer,
-                datastack,
-            })
-        },100)
-    }
-
-    incrementStackSelector = () => {
-        let { stackpointer, datastack } = this.state
-        this._captureSettings(stackpointer,datastack)
-        let depth = this.state.datastack.length
-        if (stackpointer < (depth - 1)) {
-            stackpointer++
-            this.setState({
-                stackpointer,
-                datastack,
-            },() => {
-                this._applySettings(stackpointer,datastack)
-            })
-        }
-    }
-
-    //-------------------------------[ backward ]----------------------------
-
-    collapseDirectoryItem = (itemProxy) => {
-
-        if (this.state.stackpointer) {
-            let targetStackLayer = this.state.datastack[this.state.stackpointer - 1]
-            if (targetStackLayer.items.length > 1) {
-                this.animationwrapper.current.animateOriginToDataBoxList()
-            } else {
-                this.animationwrapper.current.animateOriginToDatabox()
-            }
-            // console.log('collapseDirectoryItem',itemProxy,this.state.datastack)
-        }
-
-        setTimeout(()=>{
-            this.collapseTargetProxy = Object.assign({},itemProxy)
-
-            this.decrementStackSelector()
-        },100)
-
-    }
-
-    decrementStackSelector = () => {
-        let { stackpointer, datastack } = this.state
-        this._captureSettings(stackpointer,datastack)
-        this._updateCollapseSettings(stackpointer,datastack)
-        if (stackpointer > 0) {
-            stackpointer--
-            this.setState({
-                stackpointer,
-                datastack,
-            },() => {
-                this._applySettings(stackpointer,datastack)
-            })
-        }
-    }
-
-    _updateCollapseSettings = (stackpointer, datastack) => {
-
-        if (this.collapseTargetProxy) {
-            let sourcelayer = datastack[this.state.stackpointer]
-            if (sourcelayer) {
-                let stacksource = sourcelayer.source
-                if (stacksource) {
-                    this.collapseTargetProxy.action = stacksource.action
-                    this.collapseTargetProxy.sourceinstanceid = stacksource.instanceid
-                }
-            }
-            if (stackpointer > 0) {
-                datastack[stackpointer - 1].settings.scrollOffset = null
-            }
-        }
-    }
-
-    _captureSettings = (stackpointer, datastack) => {
-        let stacklayer = datastack[stackpointer]
-        let { items } = stacklayer
-        stacklayer.settings.scrollOffset = 
-            (items.length > 1)?this.scrollboxelement.current.scrollLeft:0
-    }
-
-    _applySettings = (stackpointer, datastack) => {
-        let stacklayer = datastack[stackpointer]
-        let { items } = stacklayer
-
-        if ((items.length > 1) && (!this.collapseTargetProxy)) {
-            if (stacklayer.settings.scrollOffset !== null) {
-                setTimeout(() => { // give deference to formation of scroll object
-
-                    this.scrollboxelement.current.scrollLeft = stacklayer.settings.scrollOffset
-
-                })
-            }
-        }
-    }
-
-/********************************************************
 -------------------[ assembly support ]------------------
 *********************************************************/
 
@@ -435,12 +221,12 @@ class Quadrant extends React.Component<any,any>  {
             // animations and operations
             highlightBox:animations.highlightBox,
             splayBox:(domSource, listcomponent,listdoctoken) => {
-                this.splayBox(index, domSource, listcomponent,listdoctoken)},
+                this.operations.splayBox(index, domSource, listcomponent,listdoctoken)},
             selectFromSplay:(domSource) => {
-                this.selectFromSplay(index,domSource)},
+                this.operations.selectFromSplay(index,domSource)},
             expandDirectoryItem:(token, domSource) => {
-                this.expandDirectoryItem(index,token, domSource)},
-            collapseDirectoryItem:this.collapseDirectoryItem,
+                this.operations.expandDirectoryItem(index,token, domSource)},
+            collapseDirectoryItem:this.operations.collapseDirectoryItem,
             setBoxWidth:this.setBoxWidth,
         }
         return (
@@ -510,8 +296,8 @@ class Quadrant extends React.Component<any,any>  {
             <QuadOrigin 
                 stackpointer = {this.state.stackpointer} 
                 stackdepth = {datastack?datastack.length:0}
-                incrementStackSelector = {this.incrementStackSelector}
-                decrementStackSelector = {this.decrementStackSelector}
+                incrementStackSelector = {this.operations.incrementStackSelector}
+                decrementStackSelector = {this.operations.decrementStackSelector}
                 ref = {this.originelement}
             />
             <div className = {classes.viewportFrame}>

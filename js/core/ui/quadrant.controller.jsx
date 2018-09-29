@@ -8,11 +8,11 @@ import React from 'react';
 import { withStyles, createStyles } from '@material-ui/core/styles';
 import QuadOrigin from './quadrant/quadorigin.view';
 import QuadTitleBar from './quadrant/quadtitlebar.view';
-import proxy from '../../core/utilities/proxy';
 import DataBox from './databox.controller';
 import Lister from 'react-list';
 import animations from './quadrant/quadanimations.utilities';
 import AnimationWrapper from './quadrant/quadamimation.wrapper';
+import quadoperations from './quadrant/quadoperations.class';
 let styles = createStyles({
     viewportFrame: {
         position: 'absolute',
@@ -57,173 +57,6 @@ class Quadrant extends React.Component {
             this.forceUpdate();
         };
         /********************************************************
-        ----------------------[ operations ]---------------------
-        *********************************************************/
-        //-------------------------------[ forward ]---------------------------
-        this.expandDirectoryItem = (boxptr, listtoken, domSource) => {
-            this.animationwrapper.current.animateToOrigin();
-            this.animationwrapper.current.animateToDataBox(domSource);
-            let { datastack, stackpointer } = this.state;
-            this._captureSettings(stackpointer, datastack);
-            let itemProxy = datastack[stackpointer].items[boxptr];
-            stackpointer++;
-            let newstacklayer = { items: [], settings: {}, source: {
-                    instanceid: itemProxy.instanceid,
-                    token: itemProxy.token,
-                    action: 'expand',
-                } };
-            // replace forward stack items
-            datastack.splice(stackpointer, datastack.length, newstacklayer);
-            let newItemProxy = new proxy({ token: itemProxy.token });
-            newItemProxy.liststack.push(listtoken);
-            newstacklayer.items.push(newItemProxy);
-            setTimeout(() => {
-                this.setState({
-                    stackpointer,
-                    datastack,
-                });
-            }, 100);
-        };
-        this.splayBox = (boxptr, domSource, sourcelistcomponent, listDocument) => {
-            let visiblerange = sourcelistcomponent.current.getVisibleRange();
-            this.animationwrapper.current.animateToOrigin();
-            this.animationwrapper.current.animateToDataBoxList(domSource);
-            let { datastack, stackpointer } = this.state;
-            this._captureSettings(stackpointer, datastack);
-            let itemProxy = datastack[stackpointer].items[boxptr];
-            let itemToken = itemProxy.token;
-            let listtokens = listDocument.data.lists;
-            if (!listtokens || !listtokens.length)
-                return;
-            stackpointer++;
-            let newstacklayer = { items: [], settings: {}, source: {
-                    instanceid: itemProxy.instanceid,
-                    token: itemProxy.token,
-                    action: 'splay',
-                    visiblerange,
-                } };
-            // replace forward stack items
-            datastack.splice(stackpointer, datastack.length, newstacklayer);
-            for (let token of listtokens) {
-                let newItemProxy = new proxy({ token: itemToken });
-                newItemProxy.liststack = itemProxy.liststack.slice(); // copy
-                newItemProxy.liststack.push(token);
-                newstacklayer.items.push(newItemProxy);
-            }
-            setTimeout(() => {
-                this.setState({
-                    stackpointer,
-                    datastack,
-                }, () => {
-                    setTimeout(() => {
-                        this.listcomponent.current.scrollTo(visiblerange[0]);
-                    });
-                });
-            }, 100);
-        };
-        this.selectFromSplay = (boxptr, domSource) => {
-            this.animationwrapper.current.animateToOrigin();
-            this.animationwrapper.current.animateToDataBox(domSource);
-            let { datastack, stackpointer } = this.state;
-            this._captureSettings(stackpointer, datastack);
-            let itemProxy = datastack[stackpointer].items[boxptr];
-            let itemToken = itemProxy.token;
-            stackpointer++;
-            let newstacklayer = { items: [], settings: {}, source: {
-                    instanceid: itemProxy.instanceid,
-                    token: itemProxy.token,
-                    action: 'select',
-                } };
-            // replace forward stack items
-            datastack.splice(stackpointer, datastack.length, newstacklayer);
-            let newItemProxy = new proxy({ token: itemToken });
-            newItemProxy.liststack = itemProxy.liststack.slice(); // copy
-            newstacklayer.items.push(newItemProxy);
-            setTimeout(() => {
-                this.setState({
-                    stackpointer,
-                    datastack,
-                });
-            }, 100);
-        };
-        this.incrementStackSelector = () => {
-            let { stackpointer, datastack } = this.state;
-            this._captureSettings(stackpointer, datastack);
-            let depth = this.state.datastack.length;
-            if (stackpointer < (depth - 1)) {
-                stackpointer++;
-                this.setState({
-                    stackpointer,
-                    datastack,
-                }, () => {
-                    this._applySettings(stackpointer, datastack);
-                });
-            }
-        };
-        //-------------------------------[ backward ]----------------------------
-        this.collapseDirectoryItem = (itemProxy) => {
-            if (this.state.stackpointer) {
-                let targetStackLayer = this.state.datastack[this.state.stackpointer - 1];
-                if (targetStackLayer.items.length > 1) {
-                    this.animationwrapper.current.animateOriginToDataBoxList();
-                }
-                else {
-                    this.animationwrapper.current.animateOriginToDatabox();
-                }
-                // console.log('collapseDirectoryItem',itemProxy,this.state.datastack)
-            }
-            setTimeout(() => {
-                this.collapseTargetProxy = Object.assign({}, itemProxy);
-                this.decrementStackSelector();
-            }, 100);
-        };
-        this.decrementStackSelector = () => {
-            let { stackpointer, datastack } = this.state;
-            this._captureSettings(stackpointer, datastack);
-            this._updateCollapseSettings(stackpointer, datastack);
-            if (stackpointer > 0) {
-                stackpointer--;
-                this.setState({
-                    stackpointer,
-                    datastack,
-                }, () => {
-                    this._applySettings(stackpointer, datastack);
-                });
-            }
-        };
-        this._updateCollapseSettings = (stackpointer, datastack) => {
-            if (this.collapseTargetProxy) {
-                let sourcelayer = datastack[this.state.stackpointer];
-                if (sourcelayer) {
-                    let stacksource = sourcelayer.source;
-                    if (stacksource) {
-                        this.collapseTargetProxy.action = stacksource.action;
-                        this.collapseTargetProxy.sourceinstanceid = stacksource.instanceid;
-                    }
-                }
-                if (stackpointer > 0) {
-                    datastack[stackpointer - 1].settings.scrollOffset = null;
-                }
-            }
-        };
-        this._captureSettings = (stackpointer, datastack) => {
-            let stacklayer = datastack[stackpointer];
-            let { items } = stacklayer;
-            stacklayer.settings.scrollOffset =
-                (items.length > 1) ? this.scrollboxelement.current.scrollLeft : 0;
-        };
-        this._applySettings = (stackpointer, datastack) => {
-            let stacklayer = datastack[stackpointer];
-            let { items } = stacklayer;
-            if ((items.length > 1) && (!this.collapseTargetProxy)) {
-                if (stacklayer.settings.scrollOffset !== null) {
-                    setTimeout(() => {
-                        this.scrollboxelement.current.scrollLeft = stacklayer.settings.scrollOffset;
-                    });
-                }
-            }
-        };
-        /********************************************************
         -------------------[ assembly support ]------------------
         *********************************************************/
         // Lister item renderer
@@ -257,15 +90,15 @@ class Quadrant extends React.Component {
                 // animations and operations
                 highlightBox: animations.highlightBox,
                 splayBox: (domSource, listcomponent, listdoctoken) => {
-                    this.splayBox(index, domSource, listcomponent, listdoctoken);
+                    this.operations.splayBox(index, domSource, listcomponent, listdoctoken);
                 },
                 selectFromSplay: (domSource) => {
-                    this.selectFromSplay(index, domSource);
+                    this.operations.selectFromSplay(index, domSource);
                 },
                 expandDirectoryItem: (token, domSource) => {
-                    this.expandDirectoryItem(index, token, domSource);
+                    this.operations.expandDirectoryItem(index, token, domSource);
                 },
-                collapseDirectoryItem: this.collapseDirectoryItem,
+                collapseDirectoryItem: this.operations.collapseDirectoryItem,
                 setBoxWidth: this.setBoxWidth,
             };
             return (<DataBox key={itemProxy.instanceid} itemProxy={itemProxy} collapseTargetProxy={matchForTarget ? collapseTargetProxy : null} haspeers={haspeers} index={index} containerHeight={containerHeight} boxwidth={this.state.boxwidth} callbacks={boxcallbacks}/>);
@@ -275,11 +108,6 @@ class Quadrant extends React.Component {
                 boxwidth: width,
             });
         };
-        // this.quadcontentelement = React.createRef()
-        // // animation dom elements
-        // this.drillanimationblock = React.createRef()
-        // this.originanimationblock = React.createRef()
-        // this.maskanimationblock = React.createRef()
         // structure dom elements
         this.originelement = React.createRef();
         this.scrollboxelement = React.createRef();
@@ -291,6 +119,13 @@ class Quadrant extends React.Component {
         this.setListListener = this.props.callbacks.setListListener;
         this.removeItemListener = this.props.callbacks.removeItemListener;
         this.removeListListener = this.props.callbacks.removeListListener;
+        // delegate methods to a class
+        this.operations = new quadoperations({
+            animationwrapper: this.animationwrapper,
+            quadrant: this,
+            listcomponent: this.listcomponent,
+            scrollboxelement: this.scrollboxelement
+        });
         window.addEventListener('resize', this.onResize);
     }
     /********************************************************
@@ -357,7 +192,7 @@ class Quadrant extends React.Component {
         return (<AnimationWrapper ref={this.animationwrapper} quadcontentStyle={quadcontentStyle} scrollboxelement={this.scrollboxelement} originelement={this.originelement} boxwidth={this.state.boxwidth}>
 
             <QuadTitleBar title={'Account:'} quadidentifier={this.props.quadidentifier}/>
-            <QuadOrigin stackpointer={this.state.stackpointer} stackdepth={datastack ? datastack.length : 0} incrementStackSelector={this.incrementStackSelector} decrementStackSelector={this.decrementStackSelector} ref={this.originelement}/>
+            <QuadOrigin stackpointer={this.state.stackpointer} stackdepth={datastack ? datastack.length : 0} incrementStackSelector={this.operations.incrementStackSelector} decrementStackSelector={this.operations.decrementStackSelector} ref={this.originelement}/>
             <div className={classes.viewportFrame}>
                 <div className={classes.viewport} style={viewportStyle} ref={this.scrollboxelement}>
                     {haspeers
