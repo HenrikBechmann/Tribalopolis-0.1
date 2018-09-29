@@ -140,7 +140,7 @@ let lists = {
             container: '',
             id: '',
             type: {
-                id: '',
+                id: 'outgoing',
                 handle: '',
             },
             account: '',
@@ -173,7 +173,7 @@ let lists = {
             container: '',
             id: '',
             type: {
-                id: '',
+                id: 'outgoing',
                 handle: '',
             },
             account: '',
@@ -205,7 +205,7 @@ let lists = {
         identity: {
             container: '',
             type: {
-                id: '',
+                id: 'outgoing',
                 handle: '',
             },
             typehandle: '',
@@ -241,7 +241,7 @@ let lists = {
             container: '',
             id: '',
             type: {
-                id: '',
+                id: 'outgoing',
                 handle: '',
             },
             account: '',
@@ -305,7 +305,7 @@ let lists = {
     pending: {
         identity: {
             container: '',
-            id: '',
+            id: 'outgoing',
             type: {
                 id: '',
                 handle: '',
@@ -340,7 +340,7 @@ let lists = {
             container: '',
             id: '',
             type: {
-                id: '',
+                id: 'outgoing',
                 handle: '',
             },
             account: '',
@@ -373,7 +373,7 @@ let lists = {
             container: '',
             id: '',
             type: {
-                id: '',
+                id: 'outgoing',
                 handle: '',
             },
             account: '',
@@ -408,7 +408,7 @@ let lists = {
     projects: {
         identity: {
             container: '',
-            id: '',
+            id: 'outgoing',
             type: {
                 id: '',
                 handle: '',
@@ -443,7 +443,7 @@ let lists = {
             container: '',
             id: '',
             type: {
-                id: '',
+                id: 'outgoing',
                 handle: '',
             },
             account: '',
@@ -541,7 +541,7 @@ let lists = {
             container: '',
             id: '',
             type: {
-                id: '',
+                id: 'outgoing',
                 handle: '',
             },
             account: '',
@@ -574,7 +574,7 @@ let lists = {
             container: '',
             id: '',
             type: {
-                id: '',
+                id: 'outgoing',
                 handle: '',
             },
             account: '',
@@ -607,7 +607,7 @@ let lists = {
             container: '',
             id: '',
             type: {
-                id: '',
+                id: 'outgoing',
                 handle: '',
             },
             account: '',
@@ -640,7 +640,7 @@ let lists = {
             container: '',
             id: '',
             type: {
-                id: '',
+                id: 'outgoing',
                 handle: '',
             },
             account: '',

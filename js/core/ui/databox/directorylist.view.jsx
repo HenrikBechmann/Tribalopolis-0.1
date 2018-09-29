@@ -36,6 +36,7 @@ class DirectoryListBase extends React.Component {
         this.pathToIndexMap = null;
         this.highlightrefuid = null;
         this.cacheListDocument = (document, type) => {
+            console.log('caching list document, type', document, type);
             let listproxies;
             if (!this.state.listproxies) {
                 listproxies = this.generateListProxies(document);
@@ -125,6 +126,7 @@ class DirectoryListBase extends React.Component {
             return directoryitem;
         };
         this.modifybuttons = (listItemType) => {
+            console.log('modifybuttons listItemType', this.state, listItemType);
             if (!listItemType)
                 return null;
             let outgoing = listItemType.properties.static.is.outgoing;
