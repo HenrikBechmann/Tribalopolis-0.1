@@ -2,9 +2,9 @@
 // copyright (c) 2018 Henrik Bechmann, Toronto, MIT Licence
 'use strict';
 import React from 'react';
-const QuadTitleBar = props => {
-    let { quadidentifier: alias } = props;
-    return (<div style={{
+import { withStyles, createStyles } from '@material-ui/core/styles';
+const styles = createStyles({
+    root: {
         position: 'relative',
         height: '25px',
         backgroundColor: 'white',
@@ -14,8 +14,8 @@ const QuadTitleBar = props => {
         borderBottom: '1px solid silver',
         overflow: 'hidden',
         fontSize: 'smaller',
-    }}>
-            <div style={{
+    },
+    aliasbox: {
         position: 'absolute',
         top: '0',
         left: '0',
@@ -29,10 +29,8 @@ const QuadTitleBar = props => {
         textAlign: 'center',
         fontWeight: 'bold',
         color: 'gray',
-    }}>
-                {alias} 
-            </div>
-            <div style={{
+    },
+    titlebox: {
         position: 'absolute',
         top: '0',
         width: '100%',
@@ -42,14 +40,23 @@ const QuadTitleBar = props => {
         flexWrap: 'nowrap',
         boxSizing: 'border-box',
         padding: '3px 0 0 30px',
-    }}>
-                <div style={{
+    },
+    titlewrap: {
         whiteSpace: 'nowrap',
-    }}>
+    },
+});
+const QuadTitleBar = props => {
+    let { quadidentifier: alias, classes } = props;
+    return (<div className={classes.root}>
+            <div className={classes.aliasbox}>
+                {alias} 
+            </div>
+            <div className={classes.titlebox}>
+                <div className={classes.titlewrap}>
                     {props.title}
                 </div>
             </div>
         </div>);
 };
-export default QuadTitleBar;
+export default withStyles(styles)(QuadTitleBar);
 //# sourceMappingURL=quadtitlebar.view.jsx.map
