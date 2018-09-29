@@ -102,7 +102,9 @@ class Quadrant extends React.Component<any,any>  {
 
     // trigger for animation and reset
     // this is referenced and set directly by operations class
-    collapseTargetProxy = null
+    shared = {
+        collapseTargetProxy: null
+    }
 
     operations
 
@@ -123,11 +125,11 @@ class Quadrant extends React.Component<any,any>  {
     componentDidUpdate() {
 
         // animation and visibilit based on return from descendant stack level
-        if (!this.collapseTargetProxy) return
+        if (!this.shared.collapseTargetProxy) return
 
         // keep; value will be purged
-        let collapseTargetProxy = this.collapseTargetProxy
-        this.collapseTargetProxy = null
+        let collapseTargetProxy = this.shared.collapseTargetProxy
+        this.shared.collapseTargetProxy = null
         // get index for Lister
         let index = this.state.datastack
             [this.state.stackpointer].items

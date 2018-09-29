@@ -171,7 +171,7 @@ class quadoperations {
         }
 
         setTimeout(()=>{
-            this.quadrant.collapseTargetProxy = Object.assign({},itemProxy)
+            this.quadrant.shared.collapseTargetProxy = Object.assign({},itemProxy)
 
             this.decrementStackSelector()
         },100)
@@ -195,13 +195,13 @@ class quadoperations {
 
     _updateCollapseSettings = (stackpointer, datastack) => {
 
-        if (this.quadrant.collapseTargetProxy) {
+        if (this.quadrant.shared.collapseTargetProxy) {
             let sourcelayer = datastack[this.quadrant.state.stackpointer]
             if (sourcelayer) {
                 let stacksource = sourcelayer.source
                 if (stacksource) {
-                    this.quadrant.collapseTargetProxy.action = stacksource.action
-                    this.quadrant.collapseTargetProxy.sourceinstanceid = stacksource.instanceid
+                    this.quadrant.shared.collapseTargetProxy.action = stacksource.action
+                    this.quadrant.shared.collapseTargetProxy.sourceinstanceid = stacksource.instanceid
                 }
             }
             if (stackpointer > 0) {
@@ -221,7 +221,7 @@ class quadoperations {
         let stacklayer = datastack[stackpointer]
         let { items } = stacklayer
 
-        if ((items.length > 1) && (!this.quadrant.collapseTargetProxy)) {
+        if ((items.length > 1) && (!this.quadrant.shared.collapseTargetProxy)) {
             if (stacklayer.settings.scrollOffset !== null) {
                 setTimeout(() => { // give deference to formation of scroll object
 
