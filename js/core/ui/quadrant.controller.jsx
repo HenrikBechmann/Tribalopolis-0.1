@@ -13,7 +13,7 @@ import DataBox from './databox.controller';
 import Lister from 'react-list';
 import animations from './quadrant/quadanimations.utilities';
 let styles = createStyles({
-    quadcontentStyle: {
+    quadcontent: {
         boxSizing: 'border-box',
         border: '3px outset gray',
         position: 'relative',
@@ -22,7 +22,7 @@ let styles = createStyles({
         height: '100%',
         overflow: 'hidden',
     },
-    viewportFrameStyle: {
+    viewportFrame: {
         position: 'absolute',
         top: 'calc(25px + 2%)',
         left: '2%',
@@ -31,7 +31,7 @@ let styles = createStyles({
         borderRadius: '8px',
         overflow: 'hidden',
     },
-    viewportStyle: {
+    viewport: {
         width: '100%',
         height: '100%',
         overflow: 'auto',
@@ -340,38 +340,6 @@ class Quadrant extends React.Component {
                 boxwidth: width,
             });
         };
-        /********************************************************
-        ------------------------[ render ]-----------------------
-        *********************************************************/
-        // quadcontentStyle:React.CSSProperties = {
-        //     boxSizing: 'border-box',
-        //     border: '3px outset gray',
-        //     position:'relative',
-        //     backgroundColor:'',
-        //     borderRadius:'8px',
-        //     width:'100%',
-        //     height:'100%',
-        //     overflow:'hidden',
-        // }
-        // viewportFrameStyle:React.CSSProperties = {
-        //     position:'absolute',
-        //     top:'calc(25px + 2%)',
-        //     backgroundColor:'',
-        //     left:'2%',
-        //     bottom:'2%',
-        //     right:'2%',
-        //     borderRadius:'8px',
-        //     overflow:'hidden',
-        // }
-        this.viewportStyle = {
-            width: '100%',
-            height: '100%',
-            overflow: 'auto',
-            border: '1px solid gray',
-            boxSizing: 'border-box',
-            borderRadius: '8px',
-            position: 'relative',
-        };
         this.quadcontentelement = React.createRef();
         // animation dom elements
         this.drillanimationblock = React.createRef();
@@ -430,36 +398,34 @@ class Quadrant extends React.Component {
     componentWillUnmount() {
         window.removeEventListener('resize', this.onResize);
     }
-    // TODO: move style blocks out of render code
+    /********************************************************
+    ------------------------[ render ]-----------------------
+    *********************************************************/
     render() {
         let { color, classes } = this.props;
         let { datastack } = this.state;
         let haspeers = datastack ? (this.state.datastack[this.state.stackpointer].items.length > 1) : false;
-        // object assignment defeats purpose of immutable objects, but avoids:
-        // Uncaught TypeError: Cannot assign to read only property 'backgroundColor' of object '#<Object>'
-        // let quadcontentStyle = Object.assign({},this.quadcontentStyle)
-        let viewportStyle = Object.assign({}, this.viewportStyle);
         let quadcontentStyle = {
-            backgroundColor: color
+            backgroundColor: color,
         };
-        viewportStyle.backgroundColor = haspeers ? '#e8e8e8' : 'lightblue';
+        let viewportStyle = {
+            backgroundColor: haspeers ? '#e8e8e8' : 'lightblue',
+        };
         // Safari keeps scrollleft with content changes
         if (!haspeers && this.scrollboxelement.current && (this.scrollboxelement.current.scrollLeft != 0)) {
             this.scrollboxelement.current.scrollLeft = 0;
         }
         // useStaticSize Lister attribute below is required to avoid setState 
         // recursion overload and crash
-        return (<div className={classes.quadcontentStyle} style={quadcontentStyle} ref={this.quadcontentelement}>
-                <div ref={this.drillanimationblock}>
-                </div>
-                <div ref={this.originanimationblock}>
-                </div>
-                <div ref={this.maskanimationblock}>
-                </div>
+        return (<div className={classes.quadcontent} style={quadcontentStyle} ref={this.quadcontentelement}>
+                <div ref={this.drillanimationblock}></div>
+                <div ref={this.originanimationblock}></div>
+                <div ref={this.maskanimationblock}></div>
+
                 <QuadTitleBar title={'Account:'} quadidentifier={this.props.quadidentifier}/>
                 <QuadOrigin stackpointer={this.state.stackpointer} stackdepth={datastack ? datastack.length : 0} incrementStackSelector={this.incrementStackSelector} decrementStackSelector={this.decrementStackSelector} ref={this.originelement}/>
-                <div className={classes.viewportFrameStyle}>
-                    <div style={viewportStyle} ref={this.scrollboxelement}>
+                <div className={classes.viewportFrame}>
+                    <div className={classes.viewport} style={viewportStyle} ref={this.scrollboxelement}>
                         {haspeers
             ? <Lister axis='x' itemRenderer={this.getBox} length={datastack ? datastack[this.state.stackpointer].items.length : 0} type='uniform' ref={this.listcomponent} useStaticSize/>
             : this.getBox(0, 'singleton')}

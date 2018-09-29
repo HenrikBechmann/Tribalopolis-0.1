@@ -20,7 +20,7 @@ import Lister from 'react-list'
 import animations from './quadrant/quadanimations.utilities'
 
 let styles = createStyles({
-   quadcontentStyle: {
+   quadcontent: {
         boxSizing: 'border-box',
         border: '3px outset gray',
         position:'relative',
@@ -30,7 +30,7 @@ let styles = createStyles({
         overflow:'hidden',
     },
 
-    viewportFrameStyle: {
+    viewportFrame: {
         position:'absolute',
         top:'calc(25px + 2%)',
         left:'2%',
@@ -40,7 +40,7 @@ let styles = createStyles({
         overflow:'hidden',
     },
 
-    viewportStyle: {
+    viewport: {
         width: '100%',
         height:'100%',
         overflow:'auto',
@@ -537,39 +537,6 @@ class Quadrant extends React.Component<any,any>  {
 ------------------------[ render ]-----------------------
 *********************************************************/
 
-    // quadcontentStyle:React.CSSProperties = {
-    //     boxSizing: 'border-box',
-    //     border: '3px outset gray',
-    //     position:'relative',
-    //     backgroundColor:'',
-    //     borderRadius:'8px',
-    //     width:'100%',
-    //     height:'100%',
-    //     overflow:'hidden',
-    // }
-
-    // viewportFrameStyle:React.CSSProperties = {
-    //     position:'absolute',
-    //     top:'calc(25px + 2%)',
-    //     backgroundColor:'',
-    //     left:'2%',
-    //     bottom:'2%',
-    //     right:'2%',
-    //     borderRadius:'8px',
-    //     overflow:'hidden',
-    // }
-
-    viewportStyle:React.CSSProperties = { // borderRadius on scroller breaks scrollbar
-        width: '100%',
-        height:'100%',
-        overflow:'auto',
-        border: '1px solid gray',
-        boxSizing: 'border-box',
-        borderRadius: '8px',
-        position:'relative',
-    }
-
-    // TODO: move style blocks out of render code
     render() {
         
         let { color, classes } = this.props
@@ -578,14 +545,12 @@ class Quadrant extends React.Component<any,any>  {
 
         let haspeers = datastack?(this.state.datastack[this.state.stackpointer].items.length > 1):false
 
-        // object assignment defeats purpose of immutable objects, but avoids:
-        // Uncaught TypeError: Cannot assign to read only property 'backgroundColor' of object '#<Object>'
-        // let quadcontentStyle = Object.assign({},this.quadcontentStyle)
-        let viewportStyle = Object.assign({},this.viewportStyle)
         let quadcontentStyle = {
-            backgroundColor: color
+            backgroundColor: color,
         }
-        viewportStyle.backgroundColor = haspeers?'#e8e8e8':'lightblue'
+        let viewportStyle = {
+            backgroundColor:haspeers?'#e8e8e8':'lightblue',
+        }
 
         // Safari keeps scrollleft with content changes
         if (!haspeers && this.scrollboxelement.current && (this.scrollboxelement.current.scrollLeft != 0)) {
@@ -595,22 +560,14 @@ class Quadrant extends React.Component<any,any>  {
         // recursion overload and crash
         return (
             <div
-                className = {classes.quadcontentStyle} 
+                className = {classes.quadcontent} 
                 style = {quadcontentStyle} 
                 ref = {this.quadcontentelement}
             >
-                <div
-                    ref = {this.drillanimationblock}
-                >
-                </div>
-                <div
-                    ref = {this.originanimationblock}
-                >
-                </div>
-                <div
-                    ref = {this.maskanimationblock}
-                >
-                </div>
+                <div ref = {this.drillanimationblock} ></div>
+                <div ref = {this.originanimationblock} ></div>
+                <div ref = {this.maskanimationblock} ></div>
+
                 <QuadTitleBar 
                     title = {'Account:'} 
                     quadidentifier={this.props.quadidentifier}
@@ -622,8 +579,9 @@ class Quadrant extends React.Component<any,any>  {
                     decrementStackSelector = {this.decrementStackSelector}
                     ref = {this.originelement}
                 />
-                <div className = {classes.viewportFrameStyle}>
+                <div className = {classes.viewportFrame}>
                     <div 
+                        className = {classes.viewport}
                         style = {viewportStyle}
                         ref = {this.scrollboxelement}
                     >
@@ -637,7 +595,7 @@ class Quadrant extends React.Component<any,any>  {
                                 type = 'uniform'
                                 ref = {this.listcomponent}
                                 useStaticSize
-                            />
+                             />
                             :this.getBox(0,'singleton')
                         }
                     </div>
