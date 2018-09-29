@@ -4,9 +4,9 @@
 import React from 'react';
 import ActionButton from '../common/actionbutton.view';
 import Divider from '@material-ui/core/Divider';
-const OriginMenu = (props) => {
-    let { stackpointer: pointer, stackdepth: depth } = props;
-    return <div style={{
+import { withStyles, createStyles } from '@material-ui/core/styles';
+const styles = createStyles({
+    root: {
         position: 'absolute',
         top: '100%',
         border: '1px solid silver',
@@ -16,7 +16,11 @@ const OriginMenu = (props) => {
         padding: '3px',
         opacity: 0.7,
         width: '32px',
-    }}>
+    },
+});
+const OriginMenu = (props) => {
+    let { stackpointer: pointer, stackdepth: depth, classes } = props;
+    return <div className={classes.root}>
         <ActionButton icon='arrow_back' disabled={pointer == 0} action={props.decrementStackSelector}/>
         <ActionButton icon='arrow_forward' disabled={(pointer + 1) == depth} action={props.incrementStackSelector}/>
 
@@ -26,5 +30,5 @@ const OriginMenu = (props) => {
 
     </div>;
 };
-export default OriginMenu;
+export default withStyles(styles)(OriginMenu);
 //# sourceMappingURL=quadoriginmenu.view.jsx.map

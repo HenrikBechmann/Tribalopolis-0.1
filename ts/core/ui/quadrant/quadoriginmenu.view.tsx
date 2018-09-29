@@ -6,25 +6,29 @@ import React from 'react'
 
 import ActionButton from '../common/actionbutton.view'
 import Divider from '@material-ui/core/Divider'
+import { withStyles, createStyles } from '@material-ui/core/styles'
+
+const styles = createStyles({
+    root:{
+        position:'absolute',
+        top:'100%',
+        border:'1px solid silver',
+        borderRadius:'0 8px 8px 0',
+        backgroundColor:'lightgray',
+        zIndex:1,
+        padding:'3px',
+        opacity:0.7,
+        width:'32px',
+    },
+
+})
 
 const OriginMenu = (props) => {
 
-    let { stackpointer:pointer, stackdepth:depth } = props
+    let { stackpointer:pointer, stackdepth:depth, classes } = props
 
     return <div 
-        style = {
-            {
-                position:'absolute',
-                top:'100%',
-                border:'1px solid silver',
-                borderRadius:'0 8px 8px 0',
-                backgroundColor:'lightgray',
-                zIndex:1,
-                padding:'3px',
-                opacity:0.7,
-                width:'32px',
-            }
-        } 
+        className = {classes.root}
     >
         <ActionButton 
             icon = 'arrow_back'
@@ -46,4 +50,4 @@ const OriginMenu = (props) => {
     </div>
 }
 
-export default OriginMenu
+export default withStyles(styles)(OriginMenu)
