@@ -19,11 +19,18 @@ import Lister from 'react-list'
 
 import animations from './quadrant/quadanimations.utilities'
 
-import AnimationWrapper from './quadrant/quadamimation.wrapper'
-
 import quadoperations from './quadrant/quadoperations.class'
 
 let styles = createStyles({
+   quadcontent: {
+        boxSizing: 'border-box',
+        border: '3px outset gray',
+        position:'relative',
+        borderRadius:'8px',
+        width:'100%',
+        height:'100%',
+        overflow:'hidden',
+    },
     viewportFrame: {
         position:'absolute',
         top:'calc(25px + 2%)',
@@ -54,6 +61,16 @@ class Quadrant extends React.Component<any,any>  {
     constructor(props) {
         super(props)
 
+        this.quadcontentelement = React.createRef()
+
+        // animation dom elements
+        this.drillanimationblock = React.createRef()
+        this.originanimationblock = React.createRef()
+        this.maskanimationblock = React.createRef()
+
+        this.scrollboxelement = this.props.scrollboxelement
+        this.originelement = this.props.originelement
+
         // structure dom elements
         this.originelement = React.createRef()
         this.scrollboxelement = React.createRef()
@@ -71,7 +88,6 @@ class Quadrant extends React.Component<any,any>  {
         // delegate methods to a class
         this.operations = new quadoperations({
             quadrant:this, 
-            animationwrapper:this.animationwrapper, 
             listcomponent:this.listcomponent, 
             scrollboxelement:this.scrollboxelement,
         })
@@ -88,8 +104,12 @@ class Quadrant extends React.Component<any,any>  {
     }
 
     // dom refs
+    quadcontentelement
     originelement
     scrollboxelement
+    drillanimationblock
+    originanimationblock
+    maskanimationblock
 
     // component ref
     listcomponent
@@ -173,6 +193,70 @@ class Quadrant extends React.Component<any,any>  {
     // for reset of containerHeight
     onResize = () => {
         this.forceUpdate()
+    }
+
+/********************************************************
+----------------------[ animation ]---------------------
+*********************************************************/
+
+    // animation calls
+
+    animateToOrigin = () => {
+        animations.animateToOrigin({
+            sourceElement:this.scrollboxelement.current, 
+            originElement:this.originelement.current,  
+            containerElement:this.quadcontentelement.current, 
+            originAnimationElement:this.originanimationblock.current,
+            maskAnimationElement:this.maskanimationblock.current,
+        })        
+    }
+
+    animateToDataBox = (domSource) => {
+        animations.animateToDatabox({
+            sourceElement:domSource,
+            targetElement:this.scrollboxelement.current,
+            containerElement:this.quadcontentelement.current,
+            drillAnimationElement:this.drillanimationblock.current,
+            boxwidth:this.props.boxwidth,
+        })        
+    }
+
+    animateToDataBoxList = (domSource) => {
+        animations.animateToDataboxList({
+            sourceElement:domSource,
+            targetElement:this.scrollboxelement.current,
+            containerElement:this.quadcontentelement.current,
+            drillAnimationElement:this.drillanimationblock.current,  
+        })        
+    }
+
+    animateOriginToDatabox = () => {
+        animations.animateMask({
+            sourceElement:this.scrollboxelement.current,
+            containerElement:this.quadcontentelement.current,
+            maskAnimationElement:this.maskanimationblock.current,
+        })
+        animations.animateOriginToDataBox({
+            sourceElement:this.originelement.current,
+            targetElement:this.scrollboxelement.current,
+            containerElement:this.quadcontentelement.current,
+            drillAnimationElement:this.drillanimationblock.current,
+            boxwidth:this.props.boxwidth,
+        })        
+    }
+
+    animateOriginToDataBoxList = () => {
+        animations.animateMask({
+            sourceElement:this.scrollboxelement.current,
+            containerElement:this.quadcontentelement.current,
+            maskAnimationElement:this.maskanimationblock.current,
+        })
+        animations.animateOriginToDataBoxList({
+            sourceElement:this.originelement.current,
+            targetElement:this.scrollboxelement.current,
+            containerElement:this.quadcontentelement.current,
+            drillAnimationElement:this.drillanimationblock.current,
+        })
     }
 
 /********************************************************
@@ -276,16 +360,13 @@ class Quadrant extends React.Component<any,any>  {
         // useStaticSize Lister attribute below is required to avoid setState 
         // recursion overload and crash
         return ( 
-        <AnimationWrapper 
-
-            ref = {this.animationwrapper}
-
-            quadcontentStyle = {quadcontentStyle}
-            scrollboxelement = {this.scrollboxelement}
-            originelement = {this.originelement}
-            boxwidth = {this.state.boxwidth}
-            
+        <div
+            style = {{...styles.quadcontent,...quadcontentStyle}}
+            ref = {this.quadcontentelement}
         >
+            <div ref = {this.drillanimationblock} ></div>
+            <div ref = {this.originanimationblock} ></div>
+            <div ref = {this.maskanimationblock} ></div>
 
             <QuadTitleBar 
                 title = {'Account:'} 
@@ -320,7 +401,7 @@ class Quadrant extends React.Component<any,any>  {
                 </div>
             </div>
 
-        </AnimationWrapper>)
+        </div>)
     }
 }
 

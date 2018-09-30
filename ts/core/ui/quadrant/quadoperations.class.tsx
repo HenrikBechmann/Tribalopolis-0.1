@@ -5,15 +5,13 @@ import proxy from '../../../core/utilities/proxy'
 
 class quadoperations {
 
-    constructor({ animationwrapper, quadrant, listcomponent, scrollboxelement }) {
-        this.animationwrapper = animationwrapper
+    constructor({ quadrant, listcomponent, scrollboxelement }) {
         this.quadrant = quadrant
         this.listcomponent = listcomponent
         this.scrollboxelement = scrollboxelement
     }
 
     // imported
-    animationwrapper
     quadrant
     listcomponent
     scrollboxelement
@@ -40,9 +38,9 @@ class quadoperations {
     //-------------------------------[ forward ]---------------------------
     expandDirectoryItem = (boxptr, listtoken, domSource) => {
 
-        this.animationwrapper.current.animateToOrigin()
+        this.quadrant.animateToOrigin()
 
-        this.animationwrapper.current.animateToDataBox(domSource)
+        this.quadrant.animateToDataBox(domSource)
 
         let { datastack, stackpointer } = this.quadrant.state
         this._captureSettings(stackpointer,datastack)
@@ -77,9 +75,9 @@ class quadoperations {
 
         let visiblerange = sourcelistcomponent.current.getVisibleRange()
 
-        this.animationwrapper.current.animateToOrigin()
+        this.quadrant.animateToOrigin()
 
-        this.animationwrapper.current.animateToDataBoxList(domSource)
+        this.quadrant.animateToDataBoxList(domSource)
 
         let { datastack, stackpointer } = this.quadrant.state
         this._captureSettings(stackpointer,datastack)
@@ -123,9 +121,9 @@ class quadoperations {
 
     selectFromSplay = (boxptr:number,domSource) => {
 
-        this.animationwrapper.current.animateToOrigin()
+        this.quadrant.animateToOrigin()
 
-        this.animationwrapper.current.animateToDataBox(domSource)
+        this.quadrant.animateToDataBox(domSource)
 
         let {datastack, stackpointer} = this.quadrant.state
         this._captureSettings(stackpointer,datastack)
@@ -178,9 +176,9 @@ class quadoperations {
         if (this.quadrant.state.stackpointer) {
             let targetStackLayer = this.quadrant.state.datastack[this.quadrant.state.stackpointer - 1]
             if (targetStackLayer.items.length > 1) {
-                this.animationwrapper.current.animateOriginToDataBoxList()
+                this.quadrant.animateOriginToDataBoxList()
             } else {
-                this.animationwrapper.current.animateOriginToDatabox()
+                this.quadrant.animateOriginToDatabox()
             }
             // console.log('collapseDirectoryItem',itemProxy,this.state.datastack)
         }

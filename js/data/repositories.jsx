@@ -7,11 +7,14 @@ let folders = {
         identity: {
             container: '',
             id: '',
-            type: '',
-            typehandle: '',
+            type: {
+                id: '',
+                handle: '',
+            },
             account: '',
             handle: '',
             version: 0,
+            parent: '',
         },
         properties: {},
         references: {
@@ -152,7 +155,10 @@ let lists = {
         },
         references: {
             subscriptions: [],
-            owneritem: 'henrik',
+            owner: {
+                id: 'henrik',
+                collection: 'items',
+            },
             parentlists: [],
         },
         counts: {
@@ -185,7 +191,10 @@ let lists = {
         },
         references: {
             subscriptions: [],
-            owneritem: 'henrik',
+            owner: {
+                id: 'henrik',
+                collection: 'items',
+            },
             parentlists: [],
         },
         counts: {
@@ -218,7 +227,10 @@ let lists = {
         },
         references: {
             subscriptions: [],
-            owneritem: 'henrik',
+            owner: {
+                id: 'henrik',
+                collection: 'items',
+            },
             parentlists: [],
         },
         counts: {
@@ -253,7 +265,10 @@ let lists = {
         },
         references: {
             subscriptions: [],
-            owneritem: 'henrik',
+            owner: {
+                id: 'henrik',
+                collection: 'items',
+            },
             parentlists: [],
         },
         counts: {
@@ -286,7 +301,10 @@ let lists = {
         },
         references: {
             subscriptions: [],
-            owneritem: 'henrik',
+            owner: {
+                id: 'henrik',
+                collection: 'items',
+            },
             parentlists: [],
         },
         counts: {
@@ -319,7 +337,10 @@ let lists = {
         },
         references: {
             subscriptions: [],
-            owneritem: 'henrik',
+            owner: {
+                id: 'henrik',
+                collection: 'items',
+            },
             parentlists: [],
         },
         counts: {
@@ -352,7 +373,10 @@ let lists = {
         },
         references: {
             subscriptions: [],
-            owneritem: 'henrik',
+            owner: {
+                id: 'henrik',
+                collection: 'items',
+            },
             parentlists: [],
         },
         counts: {
@@ -389,7 +413,10 @@ let lists = {
         },
         references: {
             subscriptions: [],
-            owneritem: 'henrik',
+            owner: {
+                id: 'henrik',
+                collection: 'items',
+            },
             parentlists: [],
         },
         counts: {
@@ -422,7 +449,10 @@ let lists = {
         },
         references: {
             subscriptions: [],
-            owneritem: 'henrik',
+            owner: {
+                id: 'henrik',
+                collection: 'items',
+            },
             parentlists: [],
         },
         counts: {
@@ -454,7 +484,10 @@ let lists = {
         },
         references: {
             subscriptions: [],
-            owneritem: 'henrik',
+            owner: {
+                id: 'henrik',
+                collection: 'items',
+            },
             parentlists: [],
         },
         counts: {
@@ -487,7 +520,10 @@ let lists = {
         },
         references: {
             subscriptions: [],
-            owneritem: 'henrik',
+            owner: {
+                id: 'henrik',
+                collection: 'items',
+            },
             parentlists: [],
         },
         counts: {
@@ -520,7 +556,10 @@ let lists = {
         },
         references: {
             subscriptions: [],
-            owneritem: 'henrik',
+            owner: {
+                id: 'henrik',
+                collection: 'items',
+            },
             parentlists: [],
         },
         counts: {
@@ -553,7 +592,10 @@ let lists = {
         },
         references: {
             subscriptions: [],
-            owneritem: 'henrik',
+            owner: {
+                id: 'henrik',
+                collection: 'items',
+            },
             parentlists: [],
         },
         counts: {
@@ -586,7 +628,10 @@ let lists = {
         },
         references: {
             subscriptions: [],
-            owneritem: 'henrik',
+            owner: {
+                id: 'henrik',
+                collection: 'items',
+            },
             parentlists: [],
         },
         counts: {
@@ -619,7 +664,10 @@ let lists = {
         },
         references: {
             subscriptions: [],
-            owneritem: 'henrik',
+            owner: {
+                id: 'henrik',
+                collection: 'items',
+            },
             parentlists: [],
         },
         counts: {
@@ -652,7 +700,10 @@ let lists = {
         },
         references: {
             subscriptions: [],
-            owneritem: 'henrik',
+            owner: {
+                id: 'henrik',
+                collection: 'items',
+            },
             parentlists: [],
         },
         counts: {
@@ -687,7 +738,10 @@ let lists = {
         },
         references: {
             subscriptions: [],
-            owneritem: 'henrik',
+            owner: {
+                id: 'henrik',
+                collection: 'items',
+            },
             parentlists: [],
         },
         counts: {
@@ -723,7 +777,10 @@ let lists = {
         },
         references: {
             subscriptions: [],
-            owneritem: 'henrik',
+            owner: {
+                id: 'henrik',
+                collection: 'items',
+            },
             parentlists: [],
         },
         counts: {

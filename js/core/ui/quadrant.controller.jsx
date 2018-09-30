@@ -12,9 +12,17 @@ import QuadTitleBar from './quadrant/quadtitlebar.view';
 import DataBox from './databox.controller';
 import Lister from 'react-list';
 import animations from './quadrant/quadanimations.utilities';
-import AnimationWrapper from './quadrant/quadamimation.wrapper';
 import quadoperations from './quadrant/quadoperations.class';
 let styles = createStyles({
+    quadcontent: {
+        boxSizing: 'border-box',
+        border: '3px outset gray',
+        position: 'relative',
+        borderRadius: '8px',
+        width: '100%',
+        height: '100%',
+        overflow: 'hidden',
+    },
     viewportFrame: {
         position: 'absolute',
         top: 'calc(25px + 2%)',
@@ -54,6 +62,63 @@ class Quadrant extends React.Component {
         // for reset of containerHeight
         this.onResize = () => {
             this.forceUpdate();
+        };
+        /********************************************************
+        ----------------------[ animation ]---------------------
+        *********************************************************/
+        // animation calls
+        this.animateToOrigin = () => {
+            animations.animateToOrigin({
+                sourceElement: this.scrollboxelement.current,
+                originElement: this.originelement.current,
+                containerElement: this.quadcontentelement.current,
+                originAnimationElement: this.originanimationblock.current,
+                maskAnimationElement: this.maskanimationblock.current,
+            });
+        };
+        this.animateToDataBox = (domSource) => {
+            animations.animateToDatabox({
+                sourceElement: domSource,
+                targetElement: this.scrollboxelement.current,
+                containerElement: this.quadcontentelement.current,
+                drillAnimationElement: this.drillanimationblock.current,
+                boxwidth: this.props.boxwidth,
+            });
+        };
+        this.animateToDataBoxList = (domSource) => {
+            animations.animateToDataboxList({
+                sourceElement: domSource,
+                targetElement: this.scrollboxelement.current,
+                containerElement: this.quadcontentelement.current,
+                drillAnimationElement: this.drillanimationblock.current,
+            });
+        };
+        this.animateOriginToDatabox = () => {
+            animations.animateMask({
+                sourceElement: this.scrollboxelement.current,
+                containerElement: this.quadcontentelement.current,
+                maskAnimationElement: this.maskanimationblock.current,
+            });
+            animations.animateOriginToDataBox({
+                sourceElement: this.originelement.current,
+                targetElement: this.scrollboxelement.current,
+                containerElement: this.quadcontentelement.current,
+                drillAnimationElement: this.drillanimationblock.current,
+                boxwidth: this.props.boxwidth,
+            });
+        };
+        this.animateOriginToDataBoxList = () => {
+            animations.animateMask({
+                sourceElement: this.scrollboxelement.current,
+                containerElement: this.quadcontentelement.current,
+                maskAnimationElement: this.maskanimationblock.current,
+            });
+            animations.animateOriginToDataBoxList({
+                sourceElement: this.originelement.current,
+                targetElement: this.scrollboxelement.current,
+                containerElement: this.quadcontentelement.current,
+                drillAnimationElement: this.drillanimationblock.current,
+            });
         };
         /********************************************************
         -------------------[ assembly support ]------------------
@@ -107,6 +172,13 @@ class Quadrant extends React.Component {
                 boxwidth: width,
             });
         };
+        this.quadcontentelement = React.createRef();
+        // animation dom elements
+        this.drillanimationblock = React.createRef();
+        this.originanimationblock = React.createRef();
+        this.maskanimationblock = React.createRef();
+        this.scrollboxelement = this.props.scrollboxelement;
+        this.originelement = this.props.originelement;
         // structure dom elements
         this.originelement = React.createRef();
         this.scrollboxelement = React.createRef();
@@ -121,7 +193,6 @@ class Quadrant extends React.Component {
         // delegate methods to a class
         this.operations = new quadoperations({
             quadrant: this,
-            animationwrapper: this.animationwrapper,
             listcomponent: this.listcomponent,
             scrollboxelement: this.scrollboxelement,
         });
@@ -188,7 +259,10 @@ class Quadrant extends React.Component {
         }
         // useStaticSize Lister attribute below is required to avoid setState 
         // recursion overload and crash
-        return (<AnimationWrapper ref={this.animationwrapper} quadcontentStyle={quadcontentStyle} scrollboxelement={this.scrollboxelement} originelement={this.originelement} boxwidth={this.state.boxwidth}>
+        return (<div style={Object.assign({}, styles.quadcontent, quadcontentStyle)} ref={this.quadcontentelement}>
+            <div ref={this.drillanimationblock}></div>
+            <div ref={this.originanimationblock}></div>
+            <div ref={this.maskanimationblock}></div>
 
             <QuadTitleBar title={'Account:'} quadidentifier={this.props.quadidentifier}/>
             <QuadOrigin stackpointer={this.state.stackpointer} stackdepth={datastack ? datastack.length : 0} incrementStackSelector={this.operations.incrementStackSelector} decrementStackSelector={this.operations.decrementStackSelector} ref={this.originelement}/>
@@ -200,7 +274,7 @@ class Quadrant extends React.Component {
                 </div>
             </div>
 
-        </AnimationWrapper>);
+        </div>);
     }
 }
 export default withStyles(styles)(Quadrant);
