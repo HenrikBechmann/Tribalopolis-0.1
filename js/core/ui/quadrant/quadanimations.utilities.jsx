@@ -120,14 +120,16 @@ const _animateOriginDrill = (sourceStyle, targetStyle, targetElement) => {
         originanimationBlock.classList.remove('origindrill');
     }, 2000);
 };
-let animations = {
-    highlightBox,
-    animateToOrigin,
-    animateToDatabox,
-    animateToDataboxList,
-    animateMask,
-    animateOriginToDataBox,
-    animateOriginToDataBoxList,
-};
-export default animations;
+class animations {
+    constructor() {
+        this.highlightBox = highlightBox;
+        this.animateToOrigin = animateToOrigin;
+        this.animateToDatabox = animateToDatabox;
+        this.animateToDataboxList = animateToDataboxList;
+        this.animateMask = animateMask;
+        this.animateOriginToDataBox = animateOriginToDataBox;
+        this.animateOriginToDataBoxList = animateOriginToDataBoxList;
+    }
+}
+export default new animations;
 //# sourceMappingURL=quadanimations.utilities.jsx.map

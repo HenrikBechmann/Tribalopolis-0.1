@@ -182,14 +182,23 @@ const _animateOriginDrill = (sourceStyle, targetStyle, targetElement) => {
     },2000)
 }
 
-let animations = {
-    highlightBox,
-    animateToOrigin,
-    animateToDatabox,
-    animateToDataboxList,
-    animateMask,
-    animateOriginToDataBox,
-    animateOriginToDataBoxList,
+class animations {
+    constructor() {
+        this.highlightBox = highlightBox
+        this.animateToOrigin = animateToOrigin
+        this.animateToDatabox = animateToDatabox
+        this.animateToDataboxList = animateToDataboxList
+        this.animateMask = animateMask
+        this.animateOriginToDataBox = animateOriginToDataBox
+        this.animateOriginToDataBoxList = animateOriginToDataBoxList
+    }
+    highlightBox
+    animateToOrigin
+    animateToDatabox
+    animateToDataboxList
+    animateMask
+    animateOriginToDataBox
+    animateOriginToDataBoxList
 }
 
-export default animations
+export default new animations
