@@ -2,7 +2,7 @@
 // copyright (c) 2018 Henrik Bechmann, Toronto, MIT Licence
 import proxy from '../../../core/utilities/proxy';
 class quadoperations {
-    constructor({ quadrant, listcomponent, scrollboxelement }) {
+    constructor({ quadrant, animations, listcomponent, scrollboxelement }) {
         // set from callback
         this.collapseTargetProxy = null;
         /********************************************************
@@ -20,8 +20,8 @@ class quadoperations {
         };
         //-------------------------------[ forward ]---------------------------
         this.expandDirectoryItem = (boxptr, listtoken, domSource) => {
-            this.quadrant.animateToOrigin();
-            this.quadrant.animateToDataBox(domSource);
+            this.animations.animateToOrigin();
+            this.animations.animateToDataBox(domSource, this.quadrant.state.boxwidth);
             let { datastack, stackpointer } = this.quadrant.state;
             this._captureSettings(stackpointer, datastack);
             let itemProxy = datastack[stackpointer].items[boxptr];
@@ -45,8 +45,8 @@ class quadoperations {
         };
         this.splayBox = (boxptr, domSource, sourcelistcomponent, listDocument) => {
             let visiblerange = sourcelistcomponent.current.getVisibleRange();
-            this.quadrant.animateToOrigin();
-            this.quadrant.animateToDataBoxList(domSource);
+            this.animations.animateToOrigin();
+            this.animations.animateToDataBoxList(domSource);
             let { datastack, stackpointer } = this.quadrant.state;
             this._captureSettings(stackpointer, datastack);
             let itemProxy = datastack[stackpointer].items[boxptr];
@@ -81,8 +81,8 @@ class quadoperations {
             }, 100);
         };
         this.selectFromSplay = (boxptr, domSource) => {
-            this.quadrant.animateToOrigin();
-            this.quadrant.animateToDataBox(domSource);
+            this.animations.animateToOrigin();
+            this.animations.animateToDataBox(domSource);
             let { datastack, stackpointer } = this.quadrant.state;
             this._captureSettings(stackpointer, datastack);
             let itemProxy = datastack[stackpointer].items[boxptr];
@@ -108,7 +108,7 @@ class quadoperations {
         this.incrementStackSelector = () => {
             let { stackpointer, datastack } = this.quadrant.state;
             this._captureSettings(stackpointer, datastack);
-            let depth = datastack.length; // this.quadrant.state.datastack.length
+            let depth = datastack.length;
             if (stackpointer < (depth - 1)) {
                 stackpointer++;
                 this.quadrant.setState({
@@ -124,10 +124,10 @@ class quadoperations {
             if (this.quadrant.state.stackpointer) {
                 let targetStackLayer = this.quadrant.state.datastack[this.quadrant.state.stackpointer - 1];
                 if (targetStackLayer.items.length > 1) {
-                    this.quadrant.animateOriginToDataBoxList();
+                    this.animations.animateOriginToDataBoxList(this.quadrant.state.boxwidth);
                 }
                 else {
-                    this.quadrant.animateOriginToDatabox();
+                    this.animations.animateOriginToDatabox();
                 }
                 // console.log('collapseDirectoryItem',itemProxy,this.state.datastack)
             }
@@ -185,6 +185,7 @@ class quadoperations {
         this.quadrant = quadrant;
         this.listcomponent = listcomponent;
         this.scrollboxelement = scrollboxelement;
+        this.animations = animations;
     }
 }
 export default quadoperations;

@@ -64,63 +64,6 @@ class Quadrant extends React.Component {
             this.forceUpdate();
         };
         /********************************************************
-        ----------------------[ animation ]---------------------
-        *********************************************************/
-        // animation calls
-        this.animateToOrigin = () => {
-            this.animations.animateToOrigin({
-                sourceElement: this.scrollboxelement.current,
-                originElement: this.originelement.current,
-                containerElement: this.quadcontentelement.current,
-                originAnimationElement: this.originanimationblock.current,
-                maskAnimationElement: this.maskanimationblock.current,
-            });
-        };
-        this.animateToDataBox = (domSource) => {
-            this.animations.animateToDatabox({
-                sourceElement: domSource,
-                targetElement: this.scrollboxelement.current,
-                containerElement: this.quadcontentelement.current,
-                drillAnimationElement: this.drillanimationblock.current,
-                boxwidth: this.props.boxwidth,
-            });
-        };
-        this.animateToDataBoxList = (domSource) => {
-            this.animations.animateToDataboxList({
-                sourceElement: domSource,
-                targetElement: this.scrollboxelement.current,
-                containerElement: this.quadcontentelement.current,
-                drillAnimationElement: this.drillanimationblock.current,
-            });
-        };
-        this.animateOriginToDatabox = () => {
-            this.animations.animateMask({
-                sourceElement: this.scrollboxelement.current,
-                containerElement: this.quadcontentelement.current,
-                maskAnimationElement: this.maskanimationblock.current,
-            });
-            this.animations.animateOriginToDataBox({
-                sourceElement: this.originelement.current,
-                targetElement: this.scrollboxelement.current,
-                containerElement: this.quadcontentelement.current,
-                drillAnimationElement: this.drillanimationblock.current,
-                boxwidth: this.props.boxwidth,
-            });
-        };
-        this.animateOriginToDataBoxList = () => {
-            this.animations.animateMask({
-                sourceElement: this.scrollboxelement.current,
-                containerElement: this.quadcontentelement.current,
-                maskAnimationElement: this.maskanimationblock.current,
-            });
-            this.animations.animateOriginToDataBoxList({
-                sourceElement: this.originelement.current,
-                targetElement: this.scrollboxelement.current,
-                containerElement: this.quadcontentelement.current,
-                drillAnimationElement: this.drillanimationblock.current,
-            });
-        };
-        /********************************************************
         -------------------[ assembly support ]------------------
         *********************************************************/
         // Lister item renderer
@@ -177,26 +120,31 @@ class Quadrant extends React.Component {
         this.drillanimationblock = React.createRef();
         this.originanimationblock = React.createRef();
         this.maskanimationblock = React.createRef();
-        this.scrollboxelement = this.props.scrollboxelement;
-        this.originelement = this.props.originelement;
-        // structure dom elements
-        this.originelement = React.createRef();
+        // animation elements
         this.scrollboxelement = React.createRef();
+        this.originelement = React.createRef();
         // components
         this.listcomponent = React.createRef();
-        this.animationwrapper = React.createRef();
         // callbacks
         this.setItemListener = this.props.callbacks.setItemListener;
         this.setListListener = this.props.callbacks.setListListener;
         this.removeItemListener = this.props.callbacks.removeItemListener;
         this.removeListListener = this.props.callbacks.removeListListener;
-        // delegate methods to a class
+        // delegation classes for methods
+        this.animations = new quadanimations({
+            scrollboxelement: this.scrollboxelement,
+            originelement: this.originelement,
+            quadcontentelement: this.quadcontentelement,
+            originanimationblock: this.originanimationblock,
+            maskanimationblock: this.maskanimationblock,
+            drillanimationblock: this.drillanimationblock,
+        });
         this.operations = new quadoperations({
             quadrant: this,
+            animations: this.animations,
             listcomponent: this.listcomponent,
             scrollboxelement: this.scrollboxelement,
         });
-        this.animations = new quadanimations(null);
         window.addEventListener('resize', this.onResize);
     }
     /********************************************************
@@ -260,7 +208,7 @@ class Quadrant extends React.Component {
         }
         // useStaticSize Lister attribute below is required to avoid setState 
         // recursion overload and crash
-        return (<div style={Object.assign({}, styles.quadcontent, quadcontentStyle)} ref={this.quadcontentelement}>
+        return (<div className={classes.quadcontent} style={quadcontentStyle} ref={this.quadcontentelement}>
             <div ref={this.drillanimationblock}></div>
             <div ref={this.originanimationblock}></div>
             <div ref={this.maskanimationblock}></div>

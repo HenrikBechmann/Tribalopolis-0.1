@@ -8,14 +8,14 @@ const highlightBox = ({boxElement}) => {
 
 }
 
-const animateMask = ({sourceElement,containerElement,maskAnimationElement}) => {
+const _animateMask = ({sourceElement,containerElement,maskAnimationElement}) => {
 
     let sourcePack = _getAnimationElementVars(sourceElement, containerElement)
     _animateMaskDrill(sourcePack, maskAnimationElement)
 
 }
 
-const animateOriginToDataBox = ({sourceElement, targetElement, containerElement, drillAnimationElement, boxwidth}) => {
+const _animateOriginToDataBox = ({sourceElement, targetElement, containerElement, drillAnimationElement, boxwidth}) => {
 
     let { domSourcePack:drillSourcePack, domTargetPack:drillTargetPack } = 
         _getAnimationSelectDrillVars( sourceElement, targetElement, containerElement, boxwidth )
@@ -24,7 +24,7 @@ const animateOriginToDataBox = ({sourceElement, targetElement, containerElement,
    
 }
 
-const animateOriginToDataBoxList = ({sourceElement, targetElement, containerElement, drillAnimationElement}) => {
+const _animateOriginToDataBoxList = ({sourceElement, targetElement, containerElement, drillAnimationElement}) => {
 
     let {domSourcePack:drillSourcePack,domTargetPack:drillTargetPack} = 
         _getAnimationDrillVars(sourceElement,targetElement, containerElement)
@@ -33,7 +33,7 @@ const animateOriginToDataBoxList = ({sourceElement, targetElement, containerElem
 
 }
 
-const animateToOrigin = ({sourceElement, originElement, containerElement, originAnimationElement, maskAnimationElement}) => {
+const _animateToOrigin = ({sourceElement, originElement, containerElement, originAnimationElement, maskAnimationElement}) => {
 
     let sourcePack = _getAnimationElementVars(sourceElement, containerElement)
     let targetPack = _getAnimationElementVars(originElement, containerElement)
@@ -43,7 +43,7 @@ const animateToOrigin = ({sourceElement, originElement, containerElement, origin
 
 }
 
-const animateToDatabox = ({sourceElement, targetElement, containerElement, drillAnimationElement, boxwidth}) => {
+const _animateToDatabox = ({sourceElement, targetElement, containerElement, drillAnimationElement, boxwidth}) => {
 
     let { domSourcePack:drillSourcePack, domTargetPack:drillTargetPack } = 
         _getAnimationSelectDrillVars( sourceElement, targetElement, containerElement, boxwidth )
@@ -52,7 +52,7 @@ const animateToDatabox = ({sourceElement, targetElement, containerElement, drill
 
 }
 
-const animateToDataboxList = ({sourceElement, targetElement, containerElement, drillAnimationElement }) => {
+const _animateToDataboxList = ({sourceElement, targetElement, containerElement, drillAnimationElement }) => {
 
     let {domSourcePack:drillSourcePack,domTargetPack:drillTargetPack} = 
         _getAnimationDrillVars(sourceElement,targetElement, containerElement)
@@ -183,22 +183,112 @@ const _animateOriginDrill = (sourceStyle, targetStyle, targetElement) => {
 }
 
 class animations {
-    constructor(props) {
+    constructor({
+        scrollboxelement,
+        originelement,
+        quadcontentelement,
+        originanimationblock,
+        maskanimationblock,
+        drillanimationblock
+    }) {
         this.highlightBox = highlightBox
-        this.animateToOrigin = animateToOrigin
-        this.animateToDatabox = animateToDatabox
-        this.animateToDataboxList = animateToDataboxList
-        this.animateMask = animateMask
-        this.animateOriginToDataBox = animateOriginToDataBox
-        this.animateOriginToDataBoxList = animateOriginToDataBoxList
+        this._animateToOrigin = _animateToOrigin
+        this._animateToDatabox = _animateToDatabox
+        this._animateToDataboxList = _animateToDataboxList
+        this._animateMask = _animateMask
+        this._animateOriginToDataBox = _animateOriginToDataBox
+        this._animateOriginToDataBoxList = _animateOriginToDataBoxList
+
+        this.scrollboxelement = scrollboxelement
+        this.originelement = originelement
+        this.quadcontentelement = quadcontentelement
+        this.originanimationblock = originanimationblock
+        this.maskanimationblock = maskanimationblock
+        this.drillanimationblock = drillanimationblock
     }
+
+    // arguments -- animation elements
+    scrollboxelement
+    originelement
+    quadcontentelement
+    originanimationblock
+    maskanimationblock
+    drillanimationblock
+
+    // source methods
     highlightBox
-    animateToOrigin
-    animateToDatabox
-    animateToDataboxList
-    animateMask
-    animateOriginToDataBox
-    animateOriginToDataBoxList
+    _animateToOrigin
+    _animateToDatabox
+    _animateToDataboxList
+    _animateMask
+    _animateOriginToDataBox
+    _animateOriginToDataBoxList
+
+
+/********************************************************
+----------------------[ animation ]---------------------
+*********************************************************/
+
+    // animation calls
+
+    animateToOrigin = () => {
+        this._animateToOrigin({
+            sourceElement:this.scrollboxelement.current, 
+            originElement:this.originelement.current,  
+            containerElement:this.quadcontentelement.current, 
+            originAnimationElement:this.originanimationblock.current,
+            maskAnimationElement:this.maskanimationblock.current,
+        })        
+    }
+
+    animateToDataBox = (domSource,boxwidth) => {
+        this._animateToDatabox({
+            sourceElement:domSource,
+            targetElement:this.scrollboxelement.current,
+            containerElement:this.quadcontentelement.current,
+            drillAnimationElement:this.drillanimationblock.current,
+            boxwidth,
+        })        
+    }
+
+    animateToDataBoxList = (domSource) => {
+        this._animateToDataboxList({
+            sourceElement:domSource,
+            targetElement:this.scrollboxelement.current,
+            containerElement:this.quadcontentelement.current,
+            drillAnimationElement:this.drillanimationblock.current,  
+        })        
+    }
+
+    animateOriginToDatabox = (boxwidth) => {
+        this._animateMask({
+            sourceElement:this.scrollboxelement.current,
+            containerElement:this.quadcontentelement.current,
+            maskAnimationElement:this.maskanimationblock.current,
+        })
+        this._animateOriginToDataBox({
+            sourceElement:this.originelement.current,
+            targetElement:this.scrollboxelement.current,
+            containerElement:this.quadcontentelement.current,
+            drillAnimationElement:this.drillanimationblock.current,
+            boxwidth,
+        })        
+    }
+
+    animateOriginToDataBoxList = () => {
+        this._animateMask({
+            sourceElement:this.scrollboxelement.current,
+            containerElement:this.quadcontentelement.current,
+            maskAnimationElement:this.maskanimationblock.current,
+        })
+        this._animateOriginToDataBoxList({
+            sourceElement:this.originelement.current,
+            targetElement:this.scrollboxelement.current,
+            containerElement:this.quadcontentelement.current,
+            drillAnimationElement:this.drillanimationblock.current,
+        })
+    }
+
 }
 
 export default animations
