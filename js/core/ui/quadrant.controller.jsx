@@ -11,7 +11,7 @@ import QuadOrigin from './quadrant/quadorigin.view';
 import QuadTitleBar from './quadrant/quadtitlebar.view';
 import DataBox from './databox.controller';
 import Lister from 'react-list';
-import quadanimations from './quadrant/quadanimations.utilities';
+import quadanimations from './quadrant/quadanimations.class';
 import quadoperations from './quadrant/quadoperations.class';
 let styles = createStyles({
     quadcontent: {

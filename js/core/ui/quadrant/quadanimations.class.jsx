@@ -195,4 +195,4 @@ class animations {
     }
 }
 export default animations;
-//# sourceMappingURL=quadanimations.utilities.jsx.map
+//# sourceMappingURL=quadanimations.class.jsx.map
