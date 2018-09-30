@@ -15,6 +15,7 @@ let folders = {
             account:'',
             handle:'',
             version:0,
+            parent:'',
         },
         properties:{
         },
