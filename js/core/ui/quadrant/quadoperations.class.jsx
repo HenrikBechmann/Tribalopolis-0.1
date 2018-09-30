@@ -124,12 +124,11 @@ class quadoperations {
             if (this.quadrant.state.stackpointer) {
                 let targetStackLayer = this.quadrant.state.datastack[this.quadrant.state.stackpointer - 1];
                 if (targetStackLayer.items.length > 1) {
-                    this.animations.animateOriginToDataBoxList(this.quadrant.state.boxwidth);
+                    this.animations.animateOriginToDataBoxList();
                 }
                 else {
-                    this.animations.animateOriginToDatabox();
+                    this.animations.animateOriginToDatabox(this.quadrant.state.boxwidth);
                 }
-                // console.log('collapseDirectoryItem',itemProxy,this.state.datastack)
             }
             setTimeout(() => {
                 this.collapseTargetProxy = Object.assign({}, itemProxy);

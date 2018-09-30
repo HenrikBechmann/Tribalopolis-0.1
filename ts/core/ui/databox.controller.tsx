@@ -90,20 +90,16 @@ class DataBox extends React.Component<any,any> {
 
         if (!this.queueCollapseTargetProxy) return
 
-        // console.log('updating ',this.itemProxy?this.itemProxy.instanceid:'no item',this.itemProxy.path)
         // pick up and clear the queue
         collapseTargetProxy = this.queueCollapseTargetProxy
         this.queueCollapseTargetProxy = null
 
-        // check sentinel
-        if (this.collapseTargetProxy) return // avoid infinite recursion, triggered by list highlight
-        // set sentinel
-        this.collapseTargetProxy = collapseTargetProxy
+        this.collapseTargetProxy = collapseTargetProxy // for coloring target box border
 
         setTimeout(()=>{
             this.doHighlights(collapseTargetProxy)
             setTimeout(()=>{
-                this.collapseTargetProxy = null // clear sentinel
+                this.collapseTargetProxy = null // clear queue for box border
             },2000)
         })
     }
@@ -290,7 +286,7 @@ class DataBox extends React.Component<any,any> {
                 <BoxIdentityBar item = {item} />
 
                 <div className = {classes.identityBar} >
-                
+
                     <DirectoryBar 
                         listProxy = {this.state.BarlistProxy}
                         setListListener = {this.props.callbacks.setListListener}
