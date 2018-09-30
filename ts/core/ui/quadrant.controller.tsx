@@ -83,7 +83,7 @@ class Quadrant extends React.Component<any,any>  {
     state = {
         datastack:null,
         stackpointer:0,
-        collapseTargetProxy:null,
+        activeTargetProxy:null,
         boxwidth:300
     }
 
@@ -123,17 +123,17 @@ class Quadrant extends React.Component<any,any>  {
         if (!this.operations.getTargetProxy()) return
 
         // keep; value will be purged
-        let collapseTargetProxy = this.operations.getTargetProxy()
+        let activeTargetProxy = this.operations.getTargetProxy()
         this.operations.setTargetProxy(null)
         // get index for Lister
         let index = this.state.datastack
             [this.state.stackpointer].items
             .findIndex
                 (this._findlinkIndex
-                    (collapseTargetProxy.sourceinstanceid))
+                    (activeTargetProxy.sourceinstanceid))
 
         // update scroll display with selected highlight item
-        collapseTargetProxy.index = index
+        activeTargetProxy.index = index
 
         setTimeout( () => { // defer to currently running code
 
@@ -143,11 +143,11 @@ class Quadrant extends React.Component<any,any>  {
 
             setTimeout(()=>{ // time for scroll to take place
                 this.setState({ // trigger animation response
-                    collapseTargetProxy,
+                    activeTargetProxy,
                 },()=> {
                     setTimeout(()=>{
                         this.setState({ // cancel animation response
-                            collapseTargetProxy:null
+                            activeTargetProxy:null
                         })                        
                     })
                 })
@@ -205,9 +205,9 @@ class Quadrant extends React.Component<any,any>  {
         let containerHeight = this.scrollboxelement.current.offsetHeight
 
         let matchForTarget = false
-        let { collapseTargetProxy } = this.state
-        if (collapseTargetProxy) {
-            matchForTarget = (collapseTargetProxy.index == index)
+        let { activeTargetProxy } = this.state
+        if (activeTargetProxy) {
+            matchForTarget = (activeTargetProxy.index == index)
         }
         let boxcallbacks = {
             // data fulfillment
@@ -232,7 +232,7 @@ class Quadrant extends React.Component<any,any>  {
                 key = { itemProxy.instanceid } 
 
                 itemProxy = { itemProxy }
-                collapseTargetProxy = {matchForTarget?collapseTargetProxy:null}
+                collapseTargetProxy = {matchForTarget?activeTargetProxy:null}
                 haspeers = { haspeers }
                 index = { index }
                 containerHeight = { containerHeight }

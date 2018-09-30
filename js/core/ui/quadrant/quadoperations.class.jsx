@@ -3,10 +3,12 @@
 import proxy from '../../../core/utilities/proxy';
 class quadoperations {
     constructor({ animationwrapper, quadrant, listcomponent, scrollboxelement }) {
+        // set from callback
         this.collapseTargetProxy = null;
         /********************************************************
         ----------------------[ operations ]---------------------
         *********************************************************/
+        // for call from quadrant.controller component
         this.getTargetProxy = () => {
             return this.collapseTargetProxy;
         };

@@ -43,7 +43,7 @@ class Quadrant extends React.Component {
         this.state = {
             datastack: null,
             stackpointer: 0,
-            collapseTargetProxy: null,
+            activeTargetProxy: null,
             boxwidth: 300
         };
         this._findlinkIndex = (instanceid) => {
@@ -76,9 +76,9 @@ class Quadrant extends React.Component {
             // console.log('instanceid, index, key, path',itemProxy.instanceid,index,key, itemProxy.path)
             let containerHeight = this.scrollboxelement.current.offsetHeight;
             let matchForTarget = false;
-            let { collapseTargetProxy } = this.state;
-            if (collapseTargetProxy) {
-                matchForTarget = (collapseTargetProxy.index == index);
+            let { activeTargetProxy } = this.state;
+            if (activeTargetProxy) {
+                matchForTarget = (activeTargetProxy.index == index);
             }
             let boxcallbacks = {
                 // data fulfillment
@@ -100,7 +100,7 @@ class Quadrant extends React.Component {
                 collapseDirectoryItem: this.operations.collapseDirectoryItem,
                 setBoxWidth: this.setBoxWidth,
             };
-            return (<DataBox key={itemProxy.instanceid} itemProxy={itemProxy} collapseTargetProxy={matchForTarget ? collapseTargetProxy : null} haspeers={haspeers} index={index} containerHeight={containerHeight} boxwidth={this.state.boxwidth} callbacks={boxcallbacks}/>);
+            return (<DataBox key={itemProxy.instanceid} itemProxy={itemProxy} collapseTargetProxy={matchForTarget ? activeTargetProxy : null} haspeers={haspeers} index={index} containerHeight={containerHeight} boxwidth={this.state.boxwidth} callbacks={boxcallbacks}/>);
         };
         this.setBoxWidth = (width) => {
             this.setState({
@@ -142,24 +142,24 @@ class Quadrant extends React.Component {
         if (!this.operations.getTargetProxy())
             return;
         // keep; value will be purged
-        let collapseTargetProxy = this.operations.getTargetProxy();
+        let activeTargetProxy = this.operations.getTargetProxy();
         this.operations.setTargetProxy(null);
         // get index for Lister
         let index = this.state.datastack[this.state.stackpointer].items
-            .findIndex(this._findlinkIndex(collapseTargetProxy.sourceinstanceid));
+            .findIndex(this._findlinkIndex(activeTargetProxy.sourceinstanceid));
         // update scroll display with selected highlight item
-        collapseTargetProxy.index = index;
+        activeTargetProxy.index = index;
         setTimeout(() => {
             if (this.listcomponent && (this.state.datastack[this.state.stackpointer].items.length > 1)) {
                 this.listcomponent.current.scrollAround(index);
             }
             setTimeout(() => {
                 this.setState({
-                    collapseTargetProxy,
+                    activeTargetProxy,
                 }, () => {
                     setTimeout(() => {
                         this.setState({
-                            collapseTargetProxy: null
+                            activeTargetProxy: null
                         });
                     });
                 });

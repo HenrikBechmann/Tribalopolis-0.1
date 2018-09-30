@@ -17,11 +17,14 @@ class quadoperations {
     quadrant
     listcomponent
     scrollboxelement
+
+    // set from callback
     collapseTargetProxy = null
 /********************************************************
 ----------------------[ operations ]---------------------
 *********************************************************/
 
+    // for call from quadrant.controller component
     getTargetProxy = () => {
         return this.collapseTargetProxy
     }
