@@ -120,7 +120,7 @@ class Quadrant extends React.Component<any,any>  {
     componentDidUpdate() {
 
         // animation and visibilit based on return from descendant stack level
-        if (!this.operations.getTargetProxy()) return
+        if (!this.operations.isTargetProxy()) return
 
         // keep; value will be purged
         let activeTargetProxy = this.operations.getTargetProxy()

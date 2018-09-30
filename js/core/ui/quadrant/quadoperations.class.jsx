@@ -8,7 +8,10 @@ class quadoperations {
         /********************************************************
         ----------------------[ operations ]---------------------
         *********************************************************/
-        // for call from quadrant.controller component
+        // for calls from quadrant.controller component
+        this.isTargetProxy = () => {
+            return !!this.collapseTargetProxy;
+        };
         this.getTargetProxy = () => {
             return this.collapseTargetProxy;
         };
@@ -105,7 +108,7 @@ class quadoperations {
         this.incrementStackSelector = () => {
             let { stackpointer, datastack } = this.quadrant.state;
             this._captureSettings(stackpointer, datastack);
-            let depth = this.quadrant.state.datastack.length;
+            let depth = datastack.length; // this.quadrant.state.datastack.length
             if (stackpointer < (depth - 1)) {
                 stackpointer++;
                 this.quadrant.setState({
