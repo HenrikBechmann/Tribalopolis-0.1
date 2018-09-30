@@ -11,7 +11,7 @@ import QuadOrigin from './quadrant/quadorigin.view';
 import QuadTitleBar from './quadrant/quadtitlebar.view';
 import DataBox from './databox.controller';
 import Lister from 'react-list';
-import animations from './quadrant/quadanimations.utilities';
+import quadanimations from './quadrant/quadanimations.utilities';
 import quadoperations from './quadrant/quadoperations.class';
 let styles = createStyles({
     quadcontent: {
@@ -68,7 +68,7 @@ class Quadrant extends React.Component {
         *********************************************************/
         // animation calls
         this.animateToOrigin = () => {
-            animations.animateToOrigin({
+            this.animations.animateToOrigin({
                 sourceElement: this.scrollboxelement.current,
                 originElement: this.originelement.current,
                 containerElement: this.quadcontentelement.current,
@@ -77,7 +77,7 @@ class Quadrant extends React.Component {
             });
         };
         this.animateToDataBox = (domSource) => {
-            animations.animateToDatabox({
+            this.animations.animateToDatabox({
                 sourceElement: domSource,
                 targetElement: this.scrollboxelement.current,
                 containerElement: this.quadcontentelement.current,
@@ -86,7 +86,7 @@ class Quadrant extends React.Component {
             });
         };
         this.animateToDataBoxList = (domSource) => {
-            animations.animateToDataboxList({
+            this.animations.animateToDataboxList({
                 sourceElement: domSource,
                 targetElement: this.scrollboxelement.current,
                 containerElement: this.quadcontentelement.current,
@@ -94,12 +94,12 @@ class Quadrant extends React.Component {
             });
         };
         this.animateOriginToDatabox = () => {
-            animations.animateMask({
+            this.animations.animateMask({
                 sourceElement: this.scrollboxelement.current,
                 containerElement: this.quadcontentelement.current,
                 maskAnimationElement: this.maskanimationblock.current,
             });
-            animations.animateOriginToDataBox({
+            this.animations.animateOriginToDataBox({
                 sourceElement: this.originelement.current,
                 targetElement: this.scrollboxelement.current,
                 containerElement: this.quadcontentelement.current,
@@ -108,12 +108,12 @@ class Quadrant extends React.Component {
             });
         };
         this.animateOriginToDataBoxList = () => {
-            animations.animateMask({
+            this.animations.animateMask({
                 sourceElement: this.scrollboxelement.current,
                 containerElement: this.quadcontentelement.current,
                 maskAnimationElement: this.maskanimationblock.current,
             });
-            animations.animateOriginToDataBoxList({
+            this.animations.animateOriginToDataBoxList({
                 sourceElement: this.originelement.current,
                 targetElement: this.scrollboxelement.current,
                 containerElement: this.quadcontentelement.current,
@@ -152,7 +152,7 @@ class Quadrant extends React.Component {
                 removeItemListener: this.removeItemListener,
                 removeListListener: this.removeListListener,
                 // animations and operations
-                highlightBox: animations.highlightBox,
+                highlightBox: this.animations.highlightBox,
                 splayBox: (domSource, listcomponent, listdoctoken) => {
                     this.operations.splayBox(index, domSource, listcomponent, listdoctoken);
                 },
@@ -196,6 +196,7 @@ class Quadrant extends React.Component {
             listcomponent: this.listcomponent,
             scrollboxelement: this.scrollboxelement,
         });
+        this.animations = new quadanimations(null);
         window.addEventListener('resize', this.onResize);
     }
     /********************************************************

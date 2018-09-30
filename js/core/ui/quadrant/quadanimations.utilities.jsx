@@ -121,7 +121,7 @@ const _animateOriginDrill = (sourceStyle, targetStyle, targetElement) => {
     }, 2000);
 };
 class animations {
-    constructor() {
+    constructor(props) {
         this.highlightBox = highlightBox;
         this.animateToOrigin = animateToOrigin;
         this.animateToDatabox = animateToDatabox;
@@ -131,5 +131,5 @@ class animations {
         this.animateOriginToDataBoxList = animateOriginToDataBoxList;
     }
 }
-export default new animations;
+export default animations;
 //# sourceMappingURL=quadanimations.utilities.jsx.map

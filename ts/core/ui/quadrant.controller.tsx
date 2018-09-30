@@ -17,7 +17,7 @@ import QuadTitleBar from './quadrant/quadtitlebar.view'
 import DataBox from './databox.controller'
 import Lister from 'react-list'
 
-import animations from './quadrant/quadanimations.utilities'
+import quadanimations from './quadrant/quadanimations.utilities'
 
 import quadoperations from './quadrant/quadoperations.class'
 
@@ -92,6 +92,8 @@ class Quadrant extends React.Component<any,any>  {
             scrollboxelement:this.scrollboxelement,
         })
 
+        this.animations = new quadanimations(null)
+
         window.addEventListener('resize',this.onResize)
 
     }
@@ -122,6 +124,7 @@ class Quadrant extends React.Component<any,any>  {
     removeListListener
 
     operations
+    animations
 
 /********************************************************
 ------------------[ lifecycle methods ]------------------
@@ -202,7 +205,7 @@ class Quadrant extends React.Component<any,any>  {
     // animation calls
 
     animateToOrigin = () => {
-        animations.animateToOrigin({
+        this.animations.animateToOrigin({
             sourceElement:this.scrollboxelement.current, 
             originElement:this.originelement.current,  
             containerElement:this.quadcontentelement.current, 
@@ -212,7 +215,7 @@ class Quadrant extends React.Component<any,any>  {
     }
 
     animateToDataBox = (domSource) => {
-        animations.animateToDatabox({
+        this.animations.animateToDatabox({
             sourceElement:domSource,
             targetElement:this.scrollboxelement.current,
             containerElement:this.quadcontentelement.current,
@@ -222,7 +225,7 @@ class Quadrant extends React.Component<any,any>  {
     }
 
     animateToDataBoxList = (domSource) => {
-        animations.animateToDataboxList({
+        this.animations.animateToDataboxList({
             sourceElement:domSource,
             targetElement:this.scrollboxelement.current,
             containerElement:this.quadcontentelement.current,
@@ -231,12 +234,12 @@ class Quadrant extends React.Component<any,any>  {
     }
 
     animateOriginToDatabox = () => {
-        animations.animateMask({
+        this.animations.animateMask({
             sourceElement:this.scrollboxelement.current,
             containerElement:this.quadcontentelement.current,
             maskAnimationElement:this.maskanimationblock.current,
         })
-        animations.animateOriginToDataBox({
+        this.animations.animateOriginToDataBox({
             sourceElement:this.originelement.current,
             targetElement:this.scrollboxelement.current,
             containerElement:this.quadcontentelement.current,
@@ -246,12 +249,12 @@ class Quadrant extends React.Component<any,any>  {
     }
 
     animateOriginToDataBoxList = () => {
-        animations.animateMask({
+        this.animations.animateMask({
             sourceElement:this.scrollboxelement.current,
             containerElement:this.quadcontentelement.current,
             maskAnimationElement:this.maskanimationblock.current,
         })
-        animations.animateOriginToDataBoxList({
+        this.animations.animateOriginToDataBoxList({
             sourceElement:this.originelement.current,
             targetElement:this.scrollboxelement.current,
             containerElement:this.quadcontentelement.current,
@@ -301,7 +304,7 @@ class Quadrant extends React.Component<any,any>  {
             removeListListener:this.removeListListener,
 
             // animations and operations
-            highlightBox:animations.highlightBox,
+            highlightBox:this.animations.highlightBox,
             splayBox:(domSource, listcomponent,listdoctoken) => {
                 this.operations.splayBox(index, domSource, listcomponent,listdoctoken)},
             selectFromSplay:(domSource) => {
