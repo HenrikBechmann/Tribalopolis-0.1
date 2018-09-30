@@ -18,7 +18,6 @@ import DataBox from './databox.controller'
 import Lister from 'react-list'
 
 import quadanimations from './quadrant/quadanimations.class'
-
 import quadoperations from './quadrant/quadoperations.class'
 
 let styles = createStyles({
@@ -67,7 +66,7 @@ class Quadrant extends React.Component<any,any>  {
         this.drillanimationblock = React.createRef()
         this.originanimationblock = React.createRef()
         this.maskanimationblock = React.createRef()
-        // animation elements
+        // animation source elements
         this.scrollboxelement = React.createRef()
         this.originelement = React.createRef()
 
