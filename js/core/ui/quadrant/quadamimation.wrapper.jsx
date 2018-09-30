@@ -1,10 +1,13 @@
 // quadamimations.wrapper.tsx
 // copyright (c) 2018 Henrik Bechmann, Toronto, MIT Licence
 /*
-    TODO: the div can be pushed down to a view component to use withStyles
+    THOUGHT: the div can be pushed down to a view component to use withStyles
     can't be used here as the layer hides methods accessed by parent
 
-    TODO: this is likely an antipattern. Find another way, like operations class
+    THOUGHT: this is likely an antipattern. Find another way, like operations class
+
+    TODO: move the elements back up to quadrant; move the methods into
+    quadanimations.utilities, and make animations a class rather than an object
 */
 'use strict';
 import React from 'react';

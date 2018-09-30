@@ -74,7 +74,6 @@ class Quadrant extends React.Component<any,any>  {
             animationwrapper:this.animationwrapper, 
             listcomponent:this.listcomponent, 
             scrollboxelement:this.scrollboxelement,
-            shared:this.shared
         })
 
         window.addEventListener('resize',this.onResize)
@@ -102,12 +101,6 @@ class Quadrant extends React.Component<any,any>  {
     removeItemListener
     removeListListener
 
-    // trigger for animation and reset
-    // this is referenced and set directly by operations class
-    shared = {
-        collapseTargetProxy: null
-    }
-
     operations
 
 /********************************************************
@@ -127,11 +120,11 @@ class Quadrant extends React.Component<any,any>  {
     componentDidUpdate() {
 
         // animation and visibilit based on return from descendant stack level
-        if (!this.shared.collapseTargetProxy) return
+        if (!this.operations.getTargetProxy()) return
 
         // keep; value will be purged
-        let collapseTargetProxy = this.shared.collapseTargetProxy
-        this.shared.collapseTargetProxy = null
+        let collapseTargetProxy = this.operations.getTargetProxy()
+        this.operations.setTargetProxy(null)
         // get index for Lister
         let index = this.state.datastack
             [this.state.stackpointer].items

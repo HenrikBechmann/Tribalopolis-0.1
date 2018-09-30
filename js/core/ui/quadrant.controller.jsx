@@ -46,11 +46,6 @@ class Quadrant extends React.Component {
             collapseTargetProxy: null,
             boxwidth: 300
         };
-        // trigger for animation and reset
-        // this is referenced and set directly by operations class
-        this.shared = {
-            collapseTargetProxy: null
-        };
         this._findlinkIndex = (instanceid) => {
             return (itemDocumentProxy) => {
                 return itemDocumentProxy.instanceid == instanceid;
@@ -129,7 +124,6 @@ class Quadrant extends React.Component {
             animationwrapper: this.animationwrapper,
             listcomponent: this.listcomponent,
             scrollboxelement: this.scrollboxelement,
-            shared: this.shared
         });
         window.addEventListener('resize', this.onResize);
     }
@@ -145,11 +139,11 @@ class Quadrant extends React.Component {
     }
     componentDidUpdate() {
         // animation and visibilit based on return from descendant stack level
-        if (!this.shared.collapseTargetProxy)
+        if (!this.operations.getTargetProxy())
             return;
         // keep; value will be purged
-        let collapseTargetProxy = this.shared.collapseTargetProxy;
-        this.shared.collapseTargetProxy = null;
+        let collapseTargetProxy = this.operations.getTargetProxy();
+        this.operations.setTargetProxy(null);
         // get index for Lister
         let index = this.state.datastack[this.state.stackpointer].items
             .findIndex(this._findlinkIndex(collapseTargetProxy.sourceinstanceid));

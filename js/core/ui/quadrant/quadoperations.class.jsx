@@ -2,10 +2,17 @@
 // copyright (c) 2018 Henrik Bechmann, Toronto, MIT Licence
 import proxy from '../../../core/utilities/proxy';
 class quadoperations {
-    constructor({ animationwrapper, quadrant, listcomponent, scrollboxelement, shared }) {
+    constructor({ animationwrapper, quadrant, listcomponent, scrollboxelement }) {
+        this.collapseTargetProxy = null;
         /********************************************************
         ----------------------[ operations ]---------------------
         *********************************************************/
+        this.getTargetProxy = () => {
+            return this.collapseTargetProxy;
+        };
+        this.setTargetProxy = value => {
+            this.collapseTargetProxy = value;
+        };
         //-------------------------------[ forward ]---------------------------
         this.expandDirectoryItem = (boxptr, listtoken, domSource) => {
             this.animationwrapper.current.animateToOrigin();
@@ -120,7 +127,7 @@ class quadoperations {
                 // console.log('collapseDirectoryItem',itemProxy,this.state.datastack)
             }
             setTimeout(() => {
-                this.shared.collapseTargetProxy = Object.assign({}, itemProxy);
+                this.collapseTargetProxy = Object.assign({}, itemProxy);
                 this.decrementStackSelector();
             }, 100);
         };
@@ -139,13 +146,13 @@ class quadoperations {
             }
         };
         this._updateCollapseSettings = (stackpointer, datastack) => {
-            if (this.shared.collapseTargetProxy) {
+            if (this.collapseTargetProxy) {
                 let sourcelayer = datastack[this.quadrant.state.stackpointer];
                 if (sourcelayer) {
                     let stacksource = sourcelayer.source;
                     if (stacksource) {
-                        this.shared.collapseTargetProxy.action = stacksource.action;
-                        this.shared.collapseTargetProxy.sourceinstanceid = stacksource.instanceid;
+                        this.collapseTargetProxy.action = stacksource.action;
+                        this.collapseTargetProxy.sourceinstanceid = stacksource.instanceid;
                     }
                 }
                 if (stackpointer > 0) {
@@ -162,7 +169,7 @@ class quadoperations {
         this._applySettings = (stackpointer, datastack) => {
             let stacklayer = datastack[stackpointer];
             let { items } = stacklayer;
-            if ((items.length > 1) && (!this.shared.collapseTargetProxy)) {
+            if ((items.length > 1) && (!this.collapseTargetProxy)) {
                 if (stacklayer.settings.scrollOffset !== null) {
                     setTimeout(() => {
                         this.scrollboxelement.current.scrollLeft = stacklayer.settings.scrollOffset;
@@ -174,7 +181,6 @@ class quadoperations {
         this.quadrant = quadrant;
         this.listcomponent = listcomponent;
         this.scrollboxelement = scrollboxelement;
-        this.shared = shared;
     }
 }
 export default quadoperations;

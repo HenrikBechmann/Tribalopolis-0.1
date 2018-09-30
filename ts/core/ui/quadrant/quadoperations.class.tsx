@@ -5,12 +5,11 @@ import proxy from '../../../core/utilities/proxy'
 
 class quadoperations {
 
-    constructor({ animationwrapper, quadrant, listcomponent, scrollboxelement, shared }) {
+    constructor({ animationwrapper, quadrant, listcomponent, scrollboxelement }) {
         this.animationwrapper = animationwrapper
         this.quadrant = quadrant
         this.listcomponent = listcomponent
         this.scrollboxelement = scrollboxelement
-        this.shared = shared
     }
 
     // imported
@@ -18,11 +17,18 @@ class quadoperations {
     quadrant
     listcomponent
     scrollboxelement
-    shared
-
+    collapseTargetProxy = null
 /********************************************************
 ----------------------[ operations ]---------------------
 *********************************************************/
+
+    getTargetProxy = () => {
+        return this.collapseTargetProxy
+    }
+
+    setTargetProxy = value => {
+        this.collapseTargetProxy = value
+    }
 
     //-------------------------------[ forward ]---------------------------
     expandDirectoryItem = (boxptr, listtoken, domSource) => {
@@ -173,7 +179,7 @@ class quadoperations {
         }
 
         setTimeout(()=>{
-            this.shared.collapseTargetProxy = Object.assign({},itemProxy)
+            this.collapseTargetProxy = Object.assign({},itemProxy)
 
             this.decrementStackSelector()
         },100)
@@ -197,13 +203,13 @@ class quadoperations {
 
     _updateCollapseSettings = (stackpointer, datastack) => {
 
-        if (this.shared.collapseTargetProxy) {
+        if (this.collapseTargetProxy) {
             let sourcelayer = datastack[this.quadrant.state.stackpointer]
             if (sourcelayer) {
                 let stacksource = sourcelayer.source
                 if (stacksource) {
-                    this.shared.collapseTargetProxy.action = stacksource.action
-                    this.shared.collapseTargetProxy.sourceinstanceid = stacksource.instanceid
+                    this.collapseTargetProxy.action = stacksource.action
+                    this.collapseTargetProxy.sourceinstanceid = stacksource.instanceid
                 }
             }
             if (stackpointer > 0) {
@@ -223,7 +229,7 @@ class quadoperations {
         let stacklayer = datastack[stackpointer]
         let { items } = stacklayer
 
-        if ((items.length > 1) && (!this.shared.collapseTargetProxy)) {
+        if ((items.length > 1) && (!this.collapseTargetProxy)) {
             if (stacklayer.settings.scrollOffset !== null) {
                 setTimeout(() => { // give deference to formation of scroll object
 
