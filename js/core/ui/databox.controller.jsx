@@ -14,22 +14,10 @@ import DirectoryList from './databox/directorylist.view';
 import ResizeTab from './databox/resizetab.view';
 import proxy from '../utilities/proxy';
 const styles = createStyles({
-    tabstyles: {
-        position: 'absolute',
-        right: '-22px',
-        top: 'calc(50% - 16px)',
-        width: '20px',
-        height: '32px',
-        border: '1px solid gray',
-        borderLeft: '1px solid transparent',
-        backgroundColor: 'white',
-        borderRadius: '0 8px 8px 0',
-        opacity: .54,
-    },
-    wrapperStyle: {
+    wrapper: {
         boxSizing: 'border-box',
     },
-    frameStyle: {
+    frame: {
         backgroundColor: 'white',
         maxHeight: '96%',
         minHeight: '60%',
@@ -195,8 +183,8 @@ class DataBox extends React.Component {
                 width: haspeers ? 'none' : (this.props.boxwidth) + 'px',
                 margin: haspeers ? '16px' : 'auto',
             };
-            return <div className={classes.wrapperStyle} style={wrapperStyle}>
-                <div className={classes.frameStyle} style={frameStyle}>
+            return <div className={classes.wrapper} style={wrapperStyle}>
+                <div className={classes.frame} style={frameStyle}>
                     <CircularProgress size={24}/>
                 </div>
             </div>;
@@ -213,13 +201,14 @@ class DataBox extends React.Component {
             width: haspeers ? 'none' : (this.props.boxwidth) + 'px',
             margin: haspeers ? '16px' : 'auto',
         };
-        return <div data-index={this.props.index} className={classes.wrapperStyle} style={wrapperStyle}>
-            <div className={classes.frameStyle} style={frameStyle} ref={this.boxframe}>
+        return <div data-index={this.props.index} className={classes.wrapper} style={wrapperStyle}>
+            <div className={classes.frame} style={frameStyle} ref={this.boxframe}>
                 {!haspeers && <ResizeTab boxwidth={this.props.boxwidth} boxframe={this.boxframe} setBoxWidth={this.props.callbacks.setBoxWidth}/>}
                 <BoxTypebar item={item} itemType={itemType /*future*/} listProxy={this.state.TypelistProxy} haspeers={this.props.haspeers} callbacks={this.typecallbacks}/>
                 <BoxIdentityBar item={item}/>
 
                 <div className={classes.identityBar}>
+                
                     <DirectoryBar listProxy={this.state.BarlistProxy} setListListener={this.props.callbacks.setListListener} removeListListener={this.props.callbacks.removeListListener} listStack={this.itemProxy.liststack} collapseDirectoryItem={this.collapseDirectoryItem}/>
                     
                     <DirectoryList ref={this.listcomponent} listProxy={this.state.MainlistProxy} highlightrefuid={this.state.highlightrefuid} containerHeight={this.props.containerHeight} callbacks={this.listcallbacks}/>

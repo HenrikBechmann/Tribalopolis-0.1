@@ -3,7 +3,6 @@
 
 /*
     TODO: keep scrollbox pos in settings when navigating stack levels
-    TODO: rationalize render hierarchy
 */
 'use strict'
 
@@ -60,26 +59,25 @@ class Quadrant extends React.Component<any,any>  {
     constructor(props) {
         super(props)
 
-        this.quadcontentelement = React.createRef()
-
-        // animation dom elements
+        // ----------[ refs ]----------
         this.drillanimationblock = React.createRef()
         this.originanimationblock = React.createRef()
         this.maskanimationblock = React.createRef()
         // animation source elements
+        this.quadcontentelement = React.createRef()
         this.scrollboxelement = React.createRef()
         this.originelement = React.createRef()
 
         // components
         this.listcomponent = React.createRef()
 
-        // callbacks
+        // ----------[ callbacks ]----------
         this.setItemListener = this.props.callbacks.setItemListener
         this.setListListener = this.props.callbacks.setListListener
         this.removeItemListener = this.props.callbacks.removeItemListener
         this.removeListListener = this.props.callbacks.removeListListener
 
-        // delegation classes for methods
+        // ------[ delegation classes ]------
         this.animations = new quadanimations({
             scrollboxelement:this.scrollboxelement,
             originelement:this.originelement,
@@ -96,6 +94,7 @@ class Quadrant extends React.Component<any,any>  {
             scrollboxelement:this.scrollboxelement,
         })
 
+        // -----------[ window listener ]-----------
         window.addEventListener('resize',this.onResize)
 
     }
@@ -201,7 +200,7 @@ class Quadrant extends React.Component<any,any>  {
     }
 
 /********************************************************
--------------------[ assembly support ]------------------
+-------------------[ databox assembly ]------------------
 *********************************************************/
 
     // Lister item renderer
@@ -224,8 +223,6 @@ class Quadrant extends React.Component<any,any>  {
     }
 
     getBoxComponent = (itemProxy, index, haspeers, key) => {
-
-        // console.log('instanceid, index, key, path',itemProxy.instanceid,index,key, itemProxy.path)
 
         let containerHeight = this.scrollboxelement.current.offsetHeight
 
