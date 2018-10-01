@@ -4,15 +4,10 @@
 'use strict'
 
 import React from 'react'
+import { withStyles, createStyles } from '@material-ui/core/styles'
 
-interface propsInterface {
-    style?:React.CSSProperties,
-    quantity:number,
-}
-
-const QuantityBadge = (props:propsInterface) => {
-
-    let defaultstyles:React.CSSProperties = {
+const styles = createStyles({
+    root:{
         display:'block',
         position:'absolute',
         top:'-2px',
@@ -28,11 +23,20 @@ const QuantityBadge = (props:propsInterface) => {
         boxSizing:'border-box',
         opacity:.7,
     }
-    let style = props.style || {}
-    let badgestyles = {...defaultstyles, ...style}
-    let {quantity} = props
+})
 
-    return <div style = {badgestyles}>{quantity}</div>
+interface propsInterface {
+    style?:React.CSSProperties,
+    quantity:number,
+    classes:any,
 }
 
-export default QuantityBadge
+const QuantityBadge = (props:propsInterface) => {
+
+    let { classes, quantity } = props
+
+    return <div className = {classes.root} style = {props.style}>{quantity}</div>
+
+}
+
+export default withStyles(styles)(QuantityBadge)
