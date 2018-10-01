@@ -13,30 +13,48 @@ import Lister from 'react-list'
 
 import CircularProgress from '@material-ui/core/CircularProgress'
 
-import { withStyles } from '@material-ui/core/styles'
+import { withStyles, createStyles } from '@material-ui/core/styles'
 import Button from '@material-ui/core/Button'
 import AddIcon from '@material-ui/icons/Add'
 
 import DirectoryItem from './directoryitem.view'
 import proxy from '../../utilities/proxy'
 
-const styles = theme => ({
+const buttonstyles = theme => createStyles({
   button: {
     marginRight: theme.spacing.unit
   },
 })
 
-const BaseFloatingAddButton = (props) => {
-    const { classes } = props
-    return <Button variant = 'fab' mini color = 'secondary' aria-label = 'Add' className = {classes.button} >
+const FloatingAddButton = withStyles(buttonstyles)((props:any) => {
+    let { classes } = props
+    return <Button 
+        variant = 'fab' 
+        mini 
+        color = 'secondary' 
+        aria-label = 'Add' 
+        className = {classes.button} 
+    >
       <AddIcon />
     </Button>
-}
+})
 
-const FloatingAddButton = withStyles(styles)(BaseFloatingAddButton)
+const styles = createStyles({
+    buttonwrapper:{
+        position:'absolute',
+        bottom:'-8px',
+        right:'0',
+    },
+    scrollbox:{            
+        overflow:'auto',
+        position:'relative', // required for offsetParent of highlightItem search
+        paddingLeft:'6px',
+        paddingBottom:'32px',
+    }
+})
 
-
-class DirectoryListBase extends React.Component<any,any> {
+const DirectoryListBase = withStyles(styles)( 
+class extends React.Component<any,any> {
 
     constructor(props) {
         super(props)
@@ -199,12 +217,14 @@ class DirectoryListBase extends React.Component<any,any> {
 
     modifybuttons = (listItemType) => {
 
+        let {classes} = this.props
+
         if (!listItemType) return null
 
         let outgoing = listItemType.properties.static.is.outgoing
 
         let retval = outgoing?
-            <div style = {{position:'absolute',bottom:'-8px',right:'0'}}>
+            <div className = {classes.buttonwrapper}>
                 <FloatingAddButton />
             </div>
             : null
@@ -214,19 +234,19 @@ class DirectoryListBase extends React.Component<any,any> {
 
     render() {
 
+        let { classes } = this.props
+
         let scrollboxstyle:React.CSSProperties = {
             height:(this.props.containerHeight - 185) + 'px', // this figure is the net of many inside amounts!
-            overflow:'auto',
-            position:'relative', // required for offsetParent of highlightItem search
-            paddingLeft:'6px',
-            paddingBottom:'32px',
         }
 
         let length = this.state.listproxies?this.state.listproxies.length:0
 
         return (
         <div style = {{position:'relative'}}>
-            <div style = {scrollboxstyle}>
+            <div
+                className = {classes.scrollbox} 
+                style = {scrollboxstyle}>
                 {this.state.listproxies?<Lister 
                     ref = {this.props.forwardedRef}
                     itemRenderer = {this.itemRenderer}
@@ -239,7 +259,7 @@ class DirectoryListBase extends React.Component<any,any> {
         </div>
         )
     }
-}
+})
 
 const DirectoryList = React.forwardRef((props:any,ref:any) => {
     return <DirectoryListBase {...props} forwardedRef = {ref} />

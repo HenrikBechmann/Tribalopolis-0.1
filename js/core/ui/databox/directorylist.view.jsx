@@ -7,24 +7,36 @@
 import React from 'react';
 import Lister from 'react-list';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles, createStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
 import DirectoryItem from './directoryitem.view';
 import proxy from '../../utilities/proxy';
-const styles = theme => ({
+const buttonstyles = theme => createStyles({
     button: {
         marginRight: theme.spacing.unit
     },
 });
-const BaseFloatingAddButton = (props) => {
-    const { classes } = props;
+const FloatingAddButton = withStyles(buttonstyles)((props) => {
+    let { classes } = props;
     return <Button variant='fab' mini color='secondary' aria-label='Add' className={classes.button}>
       <AddIcon />
     </Button>;
-};
-const FloatingAddButton = withStyles(styles)(BaseFloatingAddButton);
-class DirectoryListBase extends React.Component {
+});
+const styles = createStyles({
+    buttonwrapper: {
+        position: 'absolute',
+        bottom: '-8px',
+        right: '0',
+    },
+    scrollbox: {
+        overflow: 'auto',
+        position: 'relative',
+        paddingLeft: '6px',
+        paddingBottom: '32px',
+    }
+});
+const DirectoryListBase = withStyles(styles)(class extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -125,11 +137,12 @@ class DirectoryListBase extends React.Component {
             return directoryitem;
         };
         this.modifybuttons = (listItemType) => {
+            let { classes } = this.props;
             if (!listItemType)
                 return null;
             let outgoing = listItemType.properties.static.is.outgoing;
             let retval = outgoing ?
-                <div style={{ position: 'absolute', bottom: '-8px', right: '0' }}>
+                <div className={classes.buttonwrapper}>
                 <FloatingAddButton />
             </div>
                 : null;
@@ -157,22 +170,19 @@ class DirectoryListBase extends React.Component {
         }
     }
     render() {
+        let { classes } = this.props;
         let scrollboxstyle = {
             height: (this.props.containerHeight - 185) + 'px',
-            overflow: 'auto',
-            position: 'relative',
-            paddingLeft: '6px',
-            paddingBottom: '32px',
         };
         let length = this.state.listproxies ? this.state.listproxies.length : 0;
         return (<div style={{ position: 'relative' }}>
-            <div style={scrollboxstyle}>
+            <div className={classes.scrollbox} style={scrollboxstyle}>
                 {this.state.listproxies ? <Lister ref={this.props.forwardedRef} itemRenderer={this.itemRenderer} length={length} type='uniform' useStaticSize/> : <CircularProgress size={24}/>}
             </div>
             {this.modifybuttons(this.state.list ? this.state.list.type : null)}
         </div>);
     }
-}
+});
 const DirectoryList = React.forwardRef((props, ref) => {
     return <DirectoryListBase {...props} forwardedRef={ref}/>;
 });
