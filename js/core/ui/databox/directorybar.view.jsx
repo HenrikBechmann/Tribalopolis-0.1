@@ -15,7 +15,6 @@ const styles = createStyles({
         whiteSpace: 'nowrap',
         overflow: 'hidden',
         boxSizing: 'border-box',
-        marginBottom: '1px',
         top: '0',
         backgroundColor: '#f2f2f2',
         zIndex: 1,
@@ -23,7 +22,6 @@ const styles = createStyles({
     rowwrapperstyle: {
         borderBottom: '1px solid silver',
         position: 'relative',
-        height: '32px',
     },
     rowstyle: {
         display: 'inline-block',
@@ -98,7 +96,7 @@ class DirectoryBar extends React.Component {
                 : null}
                     <div className={classes.rowstyle}> 
 
-                        <Icon>folder_open</Icon> 
+                        <Icon style={{ verticalAlign: 'baseline' }}>folder_open</Icon> 
                         <QuantityBadge quantity={listDocument.counts.lists + listDocument.counts.links} style={{ left: '-6px', top: '-8px' }}/>
                         <div className={classes.namestyle}>
                             {listDocument.properties.name}
