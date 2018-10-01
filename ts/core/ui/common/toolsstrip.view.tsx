@@ -300,7 +300,7 @@ class QuadToolsStrip extends React.Component<any,any> {
         }
 
     render() {
-        let wrapperstyle = Object.assign({},this.defaultstyle,this.props.style)
+        let wrapperstyle = {...this.defaultstyle,...this.props.style}
         return (
             <div 
                 style = {
@@ -336,9 +336,8 @@ class QuadToolsStrip extends React.Component<any,any> {
 
                             <VerticalDivider />
 
-                            {(this.props.childrenposition == 'middle')?
+                            {(this.props.childrenposition == 'middle') &&
                                 this.props.children
-                                :null
                             }
 
                             <IconButton 
@@ -363,9 +362,8 @@ class QuadToolsStrip extends React.Component<any,any> {
 
                             { this.accountmenu() }
 
-                            {(this.props.childrenposition == 'end')?
+                            {(this.props.childrenposition == 'end') &&
                                 this.props.children
-                                :null
                             }
 
                             { this.menudrawer() }

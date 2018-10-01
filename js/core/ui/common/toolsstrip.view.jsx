@@ -223,9 +223,8 @@ class QuadToolsStrip extends React.Component {
 
                             <VerticalDivider />
 
-                            {(this.props.childrenposition == 'middle') ?
-            this.props.children
-            : null}
+                            {(this.props.childrenposition == 'middle') &&
+            this.props.children}
 
                             <IconButton>
                                 <Icon>notifications</Icon>
@@ -245,9 +244,8 @@ class QuadToolsStrip extends React.Component {
 
                             {this.accountmenu()}
 
-                            {(this.props.childrenposition == 'end') ?
-            this.props.children
-            : null}
+                            {(this.props.childrenposition == 'end') &&
+            this.props.children}
 
                             {this.menudrawer()}
 
