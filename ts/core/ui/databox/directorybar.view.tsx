@@ -1,9 +1,6 @@
 // directorybar.view.tsx
 // copyright (c) 2018 Henrik Bechmann, Toronto, MIT Licence
 
-/*
-    TODO: tabs no longer used, currently hidden. purge them
-*/
 'use strict'
 
 import React from 'react'
@@ -13,7 +10,6 @@ import CircularProgress from '@material-ui/core/CircularProgress'
 
 import QuantityBadge from '../common/quantitybadge.view'
 import ActionButton from '../common/actionbutton.view'
-import InfoOutlined from '@material-ui/icons/InfoOutlined'
 import { withStyles, createStyles } from '@material-ui/core/styles'
 
 const styles = createStyles({ 
@@ -30,40 +26,30 @@ const styles = createStyles({
         zIndex:1,
     },
 
-    tabwrapperstyle:{
+    rowwrapperstyle:{
         borderBottom:'1px solid silver',
         position:'relative',
         height:'32px',
     },
 
-    pretabstyle:{
-        display:'inline-block',
-        height:'32px',
-        width:'5px',
-        verticalAlign:'middle',
-    },
-
-    tabstyle:{
+    rowstyle:{
         display:'inline-block',
         position:'relative',
-        verticalAlign:'middle',
-        borderWidth:'1px',
-        borderRadius:'6px 6px 0 0',
-        borderColor:'transparent',
-        borderStyle:'solid',
         paddingRight:'3px',
-        marginLeft:'-1px',
-        marginBottom:'-7px',
+        marginLeft:'7px',
+        marginTop:'3px',
         // backgroundColor:'white',
         maxWidth:'calc(100% - 80px)',
         // cursor:'pointer',
     },
     namestyle:{
         display:'inline-block',
-        verticalAlign:'middle',                        
         textOverflow: 'ellipsis',
+        whiteSpace:'nowrap',
         maxWidth: '90%',
         overflow: 'hidden',
+        marginBottom:'6px',
+        verticalAlign:'bottom',
     },
     arrowstyle:{
         float:'right',
@@ -118,7 +104,7 @@ class DirectoryBar extends React.Component<any,any> {
                 className = {classes.barstyle}
             >
                 {listDocument
-                ?(<div className = {classes.tabwrapperstyle}>
+                ?(<div className = {classes.rowwrapperstyle}>
 
                     <ActionButton icon = 'more_vert' />
                     { listStack.length
@@ -126,7 +112,7 @@ class DirectoryBar extends React.Component<any,any> {
 
                             <QuantityBadge 
                                 quantity = {listStack.length} 
-                                style = {{left:'-6px',top:'-6px'}}
+                                style = {{left:'-8px',top:'-4px'}}
                             />
                             <ActionButton 
                                 icon = 'arrow_back'
@@ -137,10 +123,9 @@ class DirectoryBar extends React.Component<any,any> {
 
                         :null
                     }
-                    <div className = {classes.pretabstyle}></div>
-                    <div className = {classes.tabstyle} > 
+                    <div className = {classes.rowstyle} > 
 
-                        <Icon style = {{verticalAlign:'middle'}}>folder_open</Icon> 
+                        <Icon >folder_open</Icon> 
                         <QuantityBadge 
                             quantity = {listDocument.counts.lists + listDocument.counts.links} 
                             style = {{left:'-6px',top:'-8px'}}

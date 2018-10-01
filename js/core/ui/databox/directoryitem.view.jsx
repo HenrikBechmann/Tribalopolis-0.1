@@ -16,25 +16,15 @@ class DirectoryItem extends React.Component {
             height: '25px',
             cursor: 'pointer',
         };
-        this.tabwrapperstyle = {
+        this.rowwrapperstyle = {
             borderBottom: '1px solid #e2e6e9',
             position: 'relative',
             height: '24px',
         };
-        this.pretabstyle = {
-            display: 'inline-block',
-            height: '24px',
-            width: '5px',
-            verticalAlign: 'middle',
-        };
-        this.tabstyle = {
+        this.rowstyle = {
             display: 'inline-block',
             position: 'relative',
             verticalAlign: 'middle',
-            borderWidth: '1px',
-            borderRadius: '6px 6px 0 0',
-            borderColor: 'transparent',
-            borderStyle: 'solid',
             paddingRight: '3px',
             marginLeft: '-1px',
             marginBottom: '-1px',
@@ -56,33 +46,39 @@ class DirectoryItem extends React.Component {
         this.barcomponent = () => {
             let listDocument = this.state.list ? this.state.list.document : null;
             return <div style={this.barstyle} onClick={this.expandDirectoryItem} ref={this.barelementref}>
-            {listDocument ? <div style={this.tabwrapperstyle}>
-                <div style={this.pretabstyle}></div>
-                <div style={this.tabstyle}> 
-                    <Icon style={{
-                verticalAlign: 'middle',
-                color: listDocument ? listDocument.system.attributes.sysnode ? 'green' : 'gray' : 'gray',
-            }}>
-                        folder
-                    </Icon> 
-                    <div style={{
-                display: 'inline-block',
-                whiteSpace: 'nowrap',
-                overflow: 'hidden',
-                maxWidth: '92%',
-                textOverflow: 'ellipsis',
-                verticalAlign: 'middle',
-            }}>
-                        {listDocument && listDocument.properties.name}
+            {listDocument
+                ? <div style={this.rowwrapperstyle}>
+
+                    <div style={this.rowstyle}> 
+                        <Icon style={{
+                    verticalAlign: 'middle',
+                    color: listDocument ? listDocument.system.attributes.sysnode ? 'green' : 'gray' : 'gray',
+                }}>
+                            folder
+                        </Icon> 
+
+                        <div style={{
+                    display: 'inline-block',
+                    whiteSpace: 'nowrap',
+                    overflow: 'hidden',
+                    maxWidth: '92%',
+                    textOverflow: 'ellipsis',
+                    verticalAlign: 'middle',
+                }}>
+                            {listDocument && listDocument.properties.name}
+                        </div>
+
+                        <QuantityBadge quantity={listDocument ? (listDocument.counts.lists + listDocument.counts.links) : 0} style={{
+                    left: '-10px',
+                    top: '-5px',
+                }}/>
+
                     </div>
-                    <QuantityBadge quantity={listDocument ? (listDocument.counts.lists + listDocument.counts.links) : 0} style={{
-                left: '-10px',
-                top: '-5px',
-            }}/>
+
                 </div>
-            </div> : <div style={{ height: '25px' }}> 
-                <CircularProgress size={16}/>
-            </div>}
+                : <div style={{ height: '25px' }}> 
+                    <CircularProgress size={16}/>
+                </div>}
         </div>;
         };
         this.barelementref = React.createRef();

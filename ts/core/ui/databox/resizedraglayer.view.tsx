@@ -75,21 +75,24 @@ class ResizeDragLayer extends React.Component<any,any> {
             zIndex:100,
         }
 
-        return <div 
+        return (
+        <div 
             ref = { this.previewElement }
             className = { classes.frame } 
             style = { framestyles }
         >
-            <div className = { this.props.resizeTabStyles.tabstyles } 
+            <div 
+                className = { this.props.resizeTabStyles.tabstyles } 
                 style = {{ backgroundColor:'silver',opacity:1 }}
             >
-                { 
-                    <div className = { this.props.resizeTabStyles.iconwrapperstyles } >
-                        <Icon className = { this.props.resizeTabStyles.iconstyles } > drag_handle </Icon>
-                    </div> 
-                }
+                <div className = { this.props.resizeTabStyles.iconwrapperstyles } >
+                    <Icon className = { this.props.resizeTabStyles.iconstyles } > drag_handle </Icon>
+                </div> 
+
             </div>
+
         </div>
+        )
     }
 
 }

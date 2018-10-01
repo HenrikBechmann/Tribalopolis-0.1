@@ -1,8 +1,5 @@
 // directorybar.view.tsx
 // copyright (c) 2018 Henrik Bechmann, Toronto, MIT Licence
-/*
-    TODO: tabs no longer used, currently hidden. purge them
-*/
 'use strict';
 import React from 'react';
 import Icon from '@material-ui/core/Icon';
@@ -23,37 +20,28 @@ const styles = createStyles({
         backgroundColor: '#f2f2f2',
         zIndex: 1,
     },
-    tabwrapperstyle: {
+    rowwrapperstyle: {
         borderBottom: '1px solid silver',
         position: 'relative',
         height: '32px',
     },
-    pretabstyle: {
-        display: 'inline-block',
-        height: '32px',
-        width: '5px',
-        verticalAlign: 'middle',
-    },
-    tabstyle: {
+    rowstyle: {
         display: 'inline-block',
         position: 'relative',
-        verticalAlign: 'middle',
-        borderWidth: '1px',
-        borderRadius: '6px 6px 0 0',
-        borderColor: 'transparent',
-        borderStyle: 'solid',
         paddingRight: '3px',
-        marginLeft: '-1px',
-        marginBottom: '-7px',
+        marginLeft: '7px',
+        marginTop: '3px',
         // backgroundColor:'white',
         maxWidth: 'calc(100% - 80px)',
     },
     namestyle: {
         display: 'inline-block',
-        verticalAlign: 'middle',
         textOverflow: 'ellipsis',
+        whiteSpace: 'nowrap',
         maxWidth: '90%',
         overflow: 'hidden',
+        marginBottom: '6px',
+        verticalAlign: 'bottom',
     },
     arrowstyle: {
         float: 'right',
@@ -97,21 +85,20 @@ class DirectoryBar extends React.Component {
         return <div>
             <div className={classes.barstyle}>
                 {listDocument
-            ? (<div className={classes.tabwrapperstyle}>
+            ? (<div className={classes.rowwrapperstyle}>
 
                     <ActionButton icon='more_vert'/>
                     {listStack.length
                 ? <div className={classes.arrowstyle}>
 
-                            <QuantityBadge quantity={listStack.length} style={{ left: '-6px', top: '-6px' }}/>
+                            <QuantityBadge quantity={listStack.length} style={{ left: '-8px', top: '-4px' }}/>
                             <ActionButton icon='arrow_back' action={this.props.collapseDirectoryItem}/>
 
                         </div>
                 : null}
-                    <div className={classes.pretabstyle}></div>
-                    <div className={classes.tabstyle}> 
+                    <div className={classes.rowstyle}> 
 
-                        <Icon style={{ verticalAlign: 'middle' }}>folder_open</Icon> 
+                        <Icon>folder_open</Icon> 
                         <QuantityBadge quantity={listDocument.counts.lists + listDocument.counts.links} style={{ left: '-6px', top: '-8px' }}/>
                         <div className={classes.namestyle}>
                             {listDocument.properties.name}
