@@ -11,8 +11,30 @@ import Icon from '@material-ui/core/Icon'
 import UserContext from '../../services/user.context'
 import QuadToolsStrip from './toolsstrip.view'
 import VerticalDivider from './verticaldivider.view'
+import { withStyles, createStyles } from '@material-ui/core/styles'
+
+const styles = createStyles({
+    toolstrip:{
+        display:'inline-block',
+        verticalAlign:'middle',
+        marginLeft:'12px',
+        borderLeft:'1px solid gray',
+    },
+    name:{
+        display:'inline',
+        color:'dimgray',
+        fontSize:'smaller',
+        fontStyle:'italic',
+    },
+    spacer:{
+        height:'48px',
+        width:'100%',
+    }
+
+})
 
 const StandardToolbar = (props) => {
+    let { classes } = props
     return (
         <div>
             <UserContext.Consumer>
@@ -21,31 +43,23 @@ const StandardToolbar = (props) => {
                     user = {user}
                     childrenposition = 'end'
                 >
-                    <div style = {{display:'inline-block',verticalAlign:'middle',
-                        marginLeft:'12px',borderLeft:'1px solid gray'}}>
+                    <div className = { classes.toolstrip }>
                         <Icon style = {{margin:'0 8px 0 8px',verticalAlign:'middle'}}>
                             <img
                                 src='/public/icons/fire.svg'
                             />
                         </Icon>
                         <div 
-                            style = {
-                                {
-                                    display:'inline',
-                                    color:'dimgray',
-                                    fontSize:'smaller',
-                                    fontStyle:'italic',
-                                }
-                            }>
+                            className = { classes.name }>
                             Tribalopolis is a virtual city of tribes
                         </div>
                     </div>
                 </QuadToolsStrip>)
             }
             </UserContext.Consumer>
-            <div style = {{height:'48px',width:'100%'}}></div>
+            <div className = {classes.spacer} ></div>
         </div>
     )
 }
 
-export default StandardToolbar
+export default withStyles(styles)(StandardToolbar)
