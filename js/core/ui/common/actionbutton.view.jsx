@@ -4,35 +4,37 @@
 import React from 'react';
 import IconButton from '@material-ui/core/IconButton';
 import Icon from '@material-ui/core/Icon';
-const ActionButton = (props) => {
-    let { buttonStyle, iconStyle, action, icon, img, component, disabled } = props;
-    let defaultButtonStyle = {
+import { withStyles, createStyles } from '@material-ui/core/styles';
+const styles = createStyles({
+    defaultButtonStyle: {
         padding: '0',
         width: '32px',
         height: '32px',
         float: 'right',
         verticalAlign: 'bottom',
         marginRight: '3px'
-    };
-    let defaultIconStyle = {
+    },
+    defaultIconStyle: {
         width: '1em'
-    };
+    },
+});
+const ActionButton = (props) => {
+    let { buttonStyle, iconStyle, action, icon, img, component, disabled, classes } = props;
+    let localiconstyle;
     if (!icon) { // it's an image, manual opacity required
-        defaultIconStyle = Object.assign({}, defaultIconStyle, {
+        localiconstyle = {
             verticalAlign: 'middle',
             opacity: disabled ? .26 : .54 // material ui values: TODO: take these settings from theme
-        });
+        };
     }
-    let theButtonStyle = Object.assign({}, defaultButtonStyle, buttonStyle);
-    let theIconStyle = Object.assign({}, defaultIconStyle, iconStyle);
-    let iconcomponent = icon ? <Icon style={theIconStyle}>{icon}</Icon> :
-        img ? <img style={theIconStyle} src={img}/> : component;
+    let iconcomponent = icon ? <Icon className={classes.defaultIconStyle} style={Object.assign({}, localiconstyle, iconStyle)}>{icon}</Icon> :
+        img ? <img className={classes.defaultIconStyle} style={Object.assign({}, localiconstyle, iconStyle)} src={img}/> : component;
     let onClickVal = (action && !disabled)
         ? () => { action(); }
         : () => { };
-    return (<IconButton style={theButtonStyle} onClick={onClickVal} disabled={disabled}>
+    return (<IconButton className={classes.defaultButtonStyle} style={buttonStyle} onClick={onClickVal} disabled={disabled}>
             {iconcomponent}
         </IconButton>);
 };
-export default ActionButton;
+export default withStyles(styles)(ActionButton);
 //# sourceMappingURL=actionbutton.view.jsx.map

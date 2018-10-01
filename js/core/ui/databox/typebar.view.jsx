@@ -41,7 +41,7 @@ const styles = createStyles({
         boxSizing: 'border-box',
         border: '1px solid transparent',
         borderRadius: '8px',
-        padding: '5px 3px 3px',
+        padding: '7px 3px 5px',
         fontStyle: 'italic',
         position: 'relative',
         textOverflow: 'ellipsis',

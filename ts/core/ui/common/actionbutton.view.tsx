@@ -8,6 +8,24 @@ import React from 'react'
 import IconButton from '@material-ui/core/IconButton'
 import Icon from '@material-ui/core/Icon'
 
+import { withStyles, createStyles } from '@material-ui/core/styles'
+
+const styles = createStyles({
+    defaultButtonStyle:{
+        padding:'0',
+        width:'32px',
+        height:'32px',
+        float:'right',
+        verticalAlign:'bottom',
+        marginRight:'3px'
+    },
+
+    defaultIconStyle:{
+        width:'1em'
+    },
+
+})
+
 interface propsInterface {
     buttonStyle?:React.CSSProperties,
     iconStyle?:React.CSSProperties
@@ -17,44 +35,33 @@ interface propsInterface {
     component?:any,
     disabled?:boolean,
     badgequantity?:number,
+    classes:any,
 }
 
 const ActionButton = (props:propsInterface) => {
 
-    let {buttonStyle, iconStyle, action, icon, img, component, disabled} = props
+    let {buttonStyle, iconStyle, action, icon, img, component, disabled, classes} = props
 
-    let defaultButtonStyle:React.CSSProperties = {
-        padding:'0',
-        width:'32px',
-        height:'32px',
-        float:'right',
-        verticalAlign:'bottom',
-        marginRight:'3px'
-    }
-
-    let defaultIconStyle:React.CSSProperties = {
-        width:'1em'
-    }
-
+    let localiconstyle
     if (!icon) { // it's an image, manual opacity required
-        defaultIconStyle = {...defaultIconStyle,...{
+        localiconstyle = {
             verticalAlign:'middle',
             opacity:disabled?.26:.54 // material ui values: TODO: take these settings from theme
-        }}
+        }
     }
-    let theButtonStyle = {...defaultButtonStyle, ...buttonStyle}    
-
-    let theIconStyle = {...defaultIconStyle, ...iconStyle}
-
-    let iconcomponent = icon?<Icon style = {theIconStyle}>{icon}</Icon>:
-    img?<img style = {theIconStyle} src = {img} />:component
+    let iconcomponent = icon?<Icon 
+        className = {classes.defaultIconStyle}
+        style = {{...localiconstyle,...iconStyle}} >{icon}</Icon>:
+    img?<img className = {classes.defaultIconStyle}
+        style = {{...localiconstyle,...iconStyle}} src = {img} />:component
     let onClickVal = 
         (action && !disabled)
             ?() => {action()}
             :() => {}
     return (
         <IconButton
-            style = {theButtonStyle}
+            className = {classes.defaultButtonStyle}
+            style = {buttonStyle}
             onClick = {onClickVal}
             disabled = {disabled}
         >
@@ -63,4 +70,4 @@ const ActionButton = (props:propsInterface) => {
     )
 }
 
-export default ActionButton
+export default withStyles(styles)(ActionButton)
