@@ -166,7 +166,7 @@
 .maskdrill {
     position:absolute;
     border: 6px solid silver;
-    animation: maskdrill 1.5s;
+    animation: maskdrill 1.25s;
     z-index: 3;
     border-radius: 8px;
     box-sizing: border-box;
