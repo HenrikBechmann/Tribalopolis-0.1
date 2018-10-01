@@ -94,7 +94,7 @@ class DirectoryBar extends React.Component {
                     {listStack.length
                 ? <div className={classes.arrowstyle}>
 
-                            {false && <QuantityBadge quantity={listStack.length} style={{ left: '-8px', top: '-4px' }}/>}
+                            <QuantityBadge quantity={listStack.length} style={{ left: '-8px', top: '-4px' }}/>
                             <ActionButton icon='arrow_back' action={this.props.collapseDirectoryItem}/>
 
                         </div>
