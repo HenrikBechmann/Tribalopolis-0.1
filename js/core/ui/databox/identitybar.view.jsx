@@ -3,10 +3,9 @@
 'use strict';
 import React from 'react';
 import ActionButton from '../common/actionbutton.view';
-const BoxHeader = props => {
-    let { item } = props;
-    let avatar = '/public/avatars/henrik_in_circle.png';
-    let styles = {
+import { withStyles, createStyles } from '@material-ui/core/styles';
+const styles = createStyles({
+    root: {
         position: 'relative',
         width: '100%',
         border: '1px solid transparent',
@@ -18,21 +17,32 @@ const BoxHeader = props => {
         marginBottom: '1px',
         fontSize: 'larger',
         backgroundColor: '#f2f2f2',
-    };
-    return <div style={styles}>
-        {false && <ActionButton icon='lock'/>}
-        <ActionButton icon='expand_more'/>
-        <img style={{ verticalAlign: 'middle', width: '32px', margin: '0 3px' }} src={avatar}/> 
-        <div style={{
+    },
+    avatar: {
+        verticalAlign: 'middle',
+        width: '32px',
+        margin: '0 3px'
+    },
+    name: {
         display: 'inline-block',
         verticalAlign: 'middle',
         textOverflow: 'ellipsis',
         maxWidth: '63%',
         overflow: 'hidden',
-    }}>
+    },
+});
+const IdentityBar = props => {
+    let { item } = props;
+    let avatar = '/public/avatars/henrik_in_circle.png';
+    let { classes } = props;
+    return <div className={classes.root}>
+        {false && <ActionButton icon='lock'/>}
+        <ActionButton icon='expand_more'/>
+        <img className={classes.avatar} src={avatar}/> 
+        <div className={classes.name}>
             {item.properties.name.fullname}
         </div>
     </div>;
 };
-export default BoxHeader;
+export default withStyles(styles)(IdentityBar);
 //# sourceMappingURL=identitybar.view.jsx.map
