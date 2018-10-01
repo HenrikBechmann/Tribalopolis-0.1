@@ -147,7 +147,7 @@
         height:var(--targetheight);
         width:var(--targetwidth);
         background-color: palegoldenrod;
-        opacity:.5;
+        opacity:.7;
     }
     100% {
         top:var(--targettop);
@@ -184,7 +184,7 @@
 .origindrill {
     position:absolute;
     border: 6px solid silver;
-    animation: origindrill 1.25s;
+    animation: origindrill 1s;
     z-index: 6;
     border-radius: 8px;
     box-sizing: border-box;

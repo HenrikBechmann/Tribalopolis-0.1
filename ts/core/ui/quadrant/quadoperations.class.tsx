@@ -125,7 +125,7 @@ class quadoperations {
 
         this.animations.animateToOrigin()
 
-        this.animations.animateToDataBox(domSource)
+        this.animations.animateToDataBox(domSource,this.quadrant.state.boxwidth)
 
         let {datastack, stackpointer} = this.quadrant.state
         this._captureSettings(stackpointer,datastack)
