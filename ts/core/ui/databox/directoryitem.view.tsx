@@ -10,6 +10,44 @@ import CircularProgress from '@material-ui/core/CircularProgress'
 
 import QuantityBadge from '../common/quantitybadge.view'
 
+import { withStyles, createStyles } from '@material-ui/core/styles'
+
+const styles = createStyles({
+    barstyle: {
+        padding:'3px',
+        height:'25px',
+        cursor:'pointer',
+    },
+
+    rowwrapperstyle:{
+        borderBottom:'1px solid #e2e6e9',
+        position:'relative',
+        height:'24px',
+    },
+
+    rowstyle:{
+        display:'inline-block',
+        position:'relative',
+        verticalAlign:'middle',
+        paddingRight:'3px',
+        marginLeft:'-1px',
+        marginBottom:'-1px',
+        // backgroundColor:'white',
+        maxWidth:'90%',
+        whiteSpace:'nowrap',
+    },
+
+    namestyle:{
+        display:'inline-block',
+        whiteSpace: 'nowrap',
+        overflow: 'hidden',
+        maxWidth: '92%',
+        textOverflow: 'ellipsis',
+        verticalAlign: 'middle',
+    },
+    progress: {height:'25px'},
+})
+
 class DirectoryItem extends React.Component<any,any> {
 
     constructor(props) {
@@ -22,31 +60,6 @@ class DirectoryItem extends React.Component<any,any> {
     }
 
     listProxy
-
-    barstyle = 
-        {
-            padding:'3px',
-            height:'25px',
-            cursor:'pointer',
-        }
-
-    rowwrapperstyle:React.CSSProperties = {
-        borderBottom:'1px solid #e2e6e9',
-        position:'relative',
-        height:'24px',
-    }
-
-    rowstyle:React.CSSProperties = {
-        display:'inline-block',
-        position:'relative',
-        verticalAlign:'middle',
-        paddingRight:'3px',
-        marginLeft:'-1px',
-        marginBottom:'-1px',
-        // backgroundColor:'white',
-        maxWidth:'90%',
-        whiteSpace:'nowrap',
-    }
 
     barelementref
 
@@ -89,20 +102,22 @@ class DirectoryItem extends React.Component<any,any> {
         this.props.expandDirectoryItem(this.barelementref.current)
     }
 
-    barcomponent = () => {
+    render() {
+
+        let { classes } = this.props
         let listDocument = this.state.list?this.state.list.document:null
         return <div 
-            style = {
-                this.barstyle
+            className = {
+                classes.barstyle
             }
             onClick = {this.expandDirectoryItem}
             ref = {this.barelementref}
         >
             {listDocument
-                ?<div style = {this.rowwrapperstyle}>
+                ?<div className = {classes.rowwrapperstyle}>
 
                     <div 
-                        style = {this.rowstyle}
+                        className = {classes.rowstyle}
                     > 
                         <Icon 
                             style = {
@@ -115,14 +130,7 @@ class DirectoryItem extends React.Component<any,any> {
                             folder
                         </Icon> 
 
-                        <div style = {{
-                            display:'inline-block',
-                            whiteSpace: 'nowrap',
-                            overflow: 'hidden',
-                            maxWidth: '92%',
-                            textOverflow: 'ellipsis',
-                            verticalAlign: 'middle',
-                        }}>
+                        <div className = {classes.namestyle}>
                             {listDocument && listDocument.properties.name}
                         </div>
 
@@ -139,18 +147,12 @@ class DirectoryItem extends React.Component<any,any> {
 
                 </div>
 
-                :<div style = {{height:'25px'}}> 
+                :<div className = {classes.progress}> 
                     <CircularProgress size = {16} />
                 </div>
             }
         </div>
     }
-
-    render() {
-
-        return this.barcomponent()
-
-    }
 }
 
-export default DirectoryItem
+export default withStyles(styles)(DirectoryItem)

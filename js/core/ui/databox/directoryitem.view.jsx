@@ -5,32 +5,44 @@ import React from 'react';
 import Icon from '@material-ui/core/Icon';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import QuantityBadge from '../common/quantitybadge.view';
+import { withStyles, createStyles } from '@material-ui/core/styles';
+const styles = createStyles({
+    barstyle: {
+        padding: '3px',
+        height: '25px',
+        cursor: 'pointer',
+    },
+    rowwrapperstyle: {
+        borderBottom: '1px solid #e2e6e9',
+        position: 'relative',
+        height: '24px',
+    },
+    rowstyle: {
+        display: 'inline-block',
+        position: 'relative',
+        verticalAlign: 'middle',
+        paddingRight: '3px',
+        marginLeft: '-1px',
+        marginBottom: '-1px',
+        // backgroundColor:'white',
+        maxWidth: '90%',
+        whiteSpace: 'nowrap',
+    },
+    namestyle: {
+        display: 'inline-block',
+        whiteSpace: 'nowrap',
+        overflow: 'hidden',
+        maxWidth: '92%',
+        textOverflow: 'ellipsis',
+        verticalAlign: 'middle',
+    },
+    progress: { height: '25px' },
+});
 class DirectoryItem extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             list: null,
-        };
-        this.barstyle = {
-            padding: '3px',
-            height: '25px',
-            cursor: 'pointer',
-        };
-        this.rowwrapperstyle = {
-            borderBottom: '1px solid #e2e6e9',
-            position: 'relative',
-            height: '24px',
-        };
-        this.rowstyle = {
-            display: 'inline-block',
-            position: 'relative',
-            verticalAlign: 'middle',
-            paddingRight: '3px',
-            marginLeft: '-1px',
-            marginBottom: '-1px',
-            // backgroundColor:'white',
-            maxWidth: '90%',
-            whiteSpace: 'nowrap',
         };
         this.cacheListDocument = (document, type) => {
             this.setState({
@@ -42,44 +54,6 @@ class DirectoryItem extends React.Component {
         };
         this.expandDirectoryItem = () => {
             this.props.expandDirectoryItem(this.barelementref.current);
-        };
-        this.barcomponent = () => {
-            let listDocument = this.state.list ? this.state.list.document : null;
-            return <div style={this.barstyle} onClick={this.expandDirectoryItem} ref={this.barelementref}>
-            {listDocument
-                ? <div style={this.rowwrapperstyle}>
-
-                    <div style={this.rowstyle}> 
-                        <Icon style={{
-                    verticalAlign: 'middle',
-                    color: listDocument ? listDocument.system.attributes.sysnode ? 'green' : 'gray' : 'gray',
-                }}>
-                            folder
-                        </Icon> 
-
-                        <div style={{
-                    display: 'inline-block',
-                    whiteSpace: 'nowrap',
-                    overflow: 'hidden',
-                    maxWidth: '92%',
-                    textOverflow: 'ellipsis',
-                    verticalAlign: 'middle',
-                }}>
-                            {listDocument && listDocument.properties.name}
-                        </div>
-
-                        <QuantityBadge quantity={listDocument ? (listDocument.counts.lists + listDocument.counts.links) : 0} style={{
-                    left: '-10px',
-                    top: '-5px',
-                }}/>
-
-                    </div>
-
-                </div>
-                : <div style={{ height: '25px' }}> 
-                    <CircularProgress size={16}/>
-                </div>}
-        </div>;
         };
         this.barelementref = React.createRef();
     }
@@ -100,8 +74,37 @@ class DirectoryItem extends React.Component {
         }
     }
     render() {
-        return this.barcomponent();
+        let { classes } = this.props;
+        let listDocument = this.state.list ? this.state.list.document : null;
+        return <div className={classes.barstyle} onClick={this.expandDirectoryItem} ref={this.barelementref}>
+            {listDocument
+            ? <div className={classes.rowwrapperstyle}>
+
+                    <div className={classes.rowstyle}> 
+                        <Icon style={{
+                verticalAlign: 'middle',
+                color: listDocument ? listDocument.system.attributes.sysnode ? 'green' : 'gray' : 'gray',
+            }}>
+                            folder
+                        </Icon> 
+
+                        <div className={classes.namestyle}>
+                            {listDocument && listDocument.properties.name}
+                        </div>
+
+                        <QuantityBadge quantity={listDocument ? (listDocument.counts.lists + listDocument.counts.links) : 0} style={{
+                left: '-10px',
+                top: '-5px',
+            }}/>
+
+                    </div>
+
+                </div>
+            : <div className={classes.progress}> 
+                    <CircularProgress size={16}/>
+                </div>}
+        </div>;
     }
 }
-export default DirectoryItem;
+export default withStyles(styles)(DirectoryItem);
 //# sourceMappingURL=directoryitem.view.jsx.map
