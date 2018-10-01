@@ -44,6 +44,11 @@ const styles = createStyles({
         maxWidth: '92%',
         textOverflow: 'ellipsis',
         verticalAlign: 'middle',
+        paddingLeft:'3px',
+    },
+    countstyle:{
+        fontSize:'smaller',
+        color:'silver',
     },
     progress: {height:'25px'},
 })
@@ -131,17 +136,19 @@ class DirectoryItem extends React.Component<any,any> {
                         </Icon> 
 
                         <div className = {classes.namestyle}>
-                            {listDocument && listDocument.properties.name}
+                            {listDocument.properties.name}  <span 
+                                className = {classes.countstyle}>{listDocument.counts.lists + 
+                                    listDocument.counts.links}</span>
                         </div>
 
-                        <QuantityBadge 
+                        { false && <QuantityBadge 
                             quantity = {listDocument?(listDocument.counts.lists + listDocument.counts.links):0} 
                             style = {
                             {
                                 left:'-10px',
                                 top:'-5px',
                             }}
-                        />
+                        /> }
 
                     </div>
 

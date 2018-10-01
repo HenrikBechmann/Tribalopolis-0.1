@@ -534,7 +534,7 @@ let lists = {
             version:0,
         },
         properties:{
-            name:'Direct Messages ',
+            name:'Direct Messages',
         },
         references:{
             subscriptions:[],
@@ -571,7 +571,7 @@ let lists = {
             version:0,
         },
         properties:{
-            name:'Message Streams ',
+            name:'Message Streams',
         },
         references:{
             subscriptions:[],

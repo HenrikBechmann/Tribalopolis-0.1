@@ -48,6 +48,11 @@ const styles = createStyles({
         overflow: 'hidden',
         marginBottom:'6px',
         verticalAlign:'bottom',
+        paddingLeft:'3px',
+    },
+    countstyle:{
+        fontSize:'smaller',
+        color:'silver',
     },
     arrowstyle:{
         float:'right',
@@ -108,10 +113,10 @@ class DirectoryBar extends React.Component<any,any> {
                     { listStack.length
                         ?<div className = {classes.arrowstyle}>
 
-                            <QuantityBadge 
+                            {false && <QuantityBadge 
                                 quantity = {listStack.length} 
                                 style = {{left:'-8px',top:'-4px'}}
-                            />
+                            />}
                             <ActionButton 
                                 icon = 'arrow_back'
                                 action = {this.props.collapseDirectoryItem}
@@ -124,12 +129,12 @@ class DirectoryBar extends React.Component<any,any> {
                     <div className = {classes.rowstyle} > 
 
                         <Icon style={{verticalAlign:'baseline'}} >folder_open</Icon> 
-                        <QuantityBadge 
+                        {false && <QuantityBadge 
                             quantity = {listDocument.counts.lists + listDocument.counts.links} 
                             style = {{left:'-6px',top:'-8px'}}
-                        />
+                        />}
                         <div className = {classes.namestyle} >
-                            {listDocument.properties.name}
+                            { listDocument.properties.name } <span className = {classes.countstyle}>{listDocument.counts.lists + listDocument.counts.links}</span>
                         </div>
 
                     </div>
