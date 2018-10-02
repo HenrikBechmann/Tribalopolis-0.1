@@ -21,7 +21,6 @@ let folders = {
         properties:{
             version:0,
         },
-        constraints:{},
         references:{
             parent:'',
             list:'',
@@ -44,7 +43,6 @@ let schemes = {
     somescheme:{
         identity:{},
         properties:{},
-        constraints:{},
         references:{},
         counts:{},
         system:{},
@@ -69,7 +67,7 @@ let types = {
         },
         properties:{
             metatype:'',
-            constraints:{
+            fields:{
                 links:[],
                 origin:[],
                 target:[],
@@ -90,7 +88,6 @@ let types = {
                 id:'',
                 handle:'',
             },
-            folder:'',
         },
         counts:{},
         system:{
@@ -130,7 +127,7 @@ let types = {
                 },
                 has:{},
             },
-            constraints:{},
+            fields:{},
         },
         references:{
             list:'',
@@ -142,12 +139,13 @@ let types = {
                     handle:'',
                 },
             },
-            folder:'',
         },
         counts:{},
         system:{
             attributes:{},
-            permissions:{},
+            permissions:{
+                folder:'',
+            },
         },
         data:{},
     },
@@ -875,7 +873,7 @@ let lists = {
         },
         properties:{
             version:0,
-            name:'Links Directory',
+            name:'Fields',
             linkedlist:false,
         },
         references:{
@@ -1075,7 +1073,6 @@ let accounts = {
     someaccount:{
         identity:{},
         properties:{},
-        constraints:{},
         references:{},
         counts:{},
         system:{},

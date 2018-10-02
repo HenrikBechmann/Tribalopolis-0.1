@@ -7,19 +7,24 @@ let folders = {
         identity: {
             container: '',
             id: '',
+            handle: '',
             type: {
                 id: '',
                 handle: '',
             },
-            account: '',
-            handle: '',
-            version: 0,
-            parent: '',
+            account: {
+                id: '',
+                handle: '',
+            },
         },
-        properties: {},
+        properties: {
+            version: 0,
+        },
         constraints: {},
         references: {
+            parent: '',
             list: '',
+            folder: '',
         },
         counts: {},
         system: {
@@ -48,29 +53,25 @@ let types = {
         identity: {
             container: '',
             id: '',
+            handle: '',
             type: {
                 id: '',
                 handle: '',
-                account: {
-                    id: '',
-                    handle: '',
-                },
             },
-            account: '',
-            handle: '',
-            version: 0,
-            map: {},
-            parent: {
+            account: {
                 id: '',
                 handle: '',
-                account: {
-                    id: '',
-                    handle: '',
-                },
             },
         },
-        constraints: {},
         properties: {
+            metatype: '',
+            constraints: {
+                links: [],
+                origin: [],
+                target: [],
+            },
+            version: 0,
+            map: {},
             interface: {},
             defaults: {},
             display: {},
@@ -81,6 +82,10 @@ let types = {
         },
         references: {
             list: '',
+            parent: {
+                id: '',
+                handle: '',
+            },
         },
         counts: {},
         system: {
@@ -96,29 +101,20 @@ let types = {
         identity: {
             container: '',
             id: '',
+            handle: '',
             type: {
                 id: '',
                 handle: '',
-                account: {
-                    id: '',
-                    handle: '',
-                },
             },
-            typehandle: '',
-            account: '',
-            handle: '',
-            version: 0,
-            map: {},
-            parent: {
+            account: {
                 id: '',
                 handle: '',
-                account: {
-                    id: '',
-                    handle: '',
-                },
             },
         },
         properties: {
+            metatype: '',
+            version: 0,
+            map: {},
             interface: {},
             defaults: {},
             display: {},
@@ -128,15 +124,25 @@ let types = {
                 },
                 has: {},
             },
+            constraints: {},
         },
-        constraints: {},
         references: {
             list: '',
+            parent: {
+                id: '',
+                handle: '',
+                account: {
+                    id: '',
+                    handle: '',
+                },
+            },
         },
         counts: {},
         system: {
             attributes: {},
-            permissions: {},
+            permissions: {
+                folder: '',
+            },
         },
         data: {},
     },
@@ -146,19 +152,19 @@ let lists = {
         identity: {
             container: '',
             id: '',
+            handle: '',
             type: {
                 id: 'outgoing',
                 handle: '',
             },
-            account: '',
-            handle: '',
-            version: 0,
+            account: {
+                id: '',
+                handle: '',
+            },
         },
         properties: {
+            version: 0,
             name: 'Diaries',
-        },
-        constraints: {
-            links: [],
         },
         references: {
             subscriptions: [],
@@ -167,6 +173,7 @@ let lists = {
                 collection: 'items',
             },
             parentlists: [],
+            folder: '',
         },
         counts: {
             lists: 0,
@@ -185,19 +192,19 @@ let lists = {
         identity: {
             container: '',
             id: '',
+            handle: '',
             type: {
                 id: 'outgoing',
                 handle: '',
             },
-            account: '',
-            handle: '',
-            version: 0,
+            account: {
+                id: '',
+                handle: '',
+            },
         },
         properties: {
+            version: 0,
             name: 'Notes',
-        },
-        constraints: {
-            links: [],
         },
         references: {
             subscriptions: [],
@@ -206,6 +213,7 @@ let lists = {
                 collection: 'items',
             },
             parentlists: [],
+            folder: '',
         },
         counts: {
             lists: 0,
@@ -223,20 +231,20 @@ let lists = {
     tribes: {
         identity: {
             container: '',
+            id: '',
+            handle: '',
             type: {
                 id: 'outgoing',
                 handle: '',
             },
-            typehandle: '',
-            account: '',
-            handle: '',
-            version: 0,
+            account: {
+                id: '',
+                handle: '',
+            },
         },
         properties: {
+            version: 0,
             name: 'Tribes',
-        },
-        constraints: {
-            links: [],
         },
         references: {
             subscriptions: [],
@@ -245,6 +253,7 @@ let lists = {
                 collection: 'items',
             },
             parentlists: [],
+            folder: '',
         },
         counts: {
             lists: 0,
@@ -265,19 +274,19 @@ let lists = {
         identity: {
             container: '',
             id: '',
+            handle: '',
             type: {
                 id: 'outgoing',
                 handle: '',
             },
-            account: '',
-            handle: '',
-            version: 0,
+            account: {
+                id: '',
+                handle: '',
+            },
         },
         properties: {
+            version: 0,
             name: 'Contacts',
-        },
-        constraints: {
-            links: [],
         },
         references: {
             subscriptions: [],
@@ -286,6 +295,7 @@ let lists = {
                 collection: 'items',
             },
             parentlists: [],
+            folder: '',
         },
         counts: {
             lists: 0,
@@ -304,19 +314,19 @@ let lists = {
         identity: {
             container: '',
             id: '',
+            handle: '',
             type: {
                 id: '',
                 handle: '',
             },
-            account: '',
-            handle: '',
-            version: 0,
+            account: {
+                id: '',
+                handle: '',
+            },
         },
         properties: {
+            version: 0,
             name: 'Outgoing action requests',
-        },
-        constraints: {
-            links: [],
         },
         references: {
             subscriptions: [],
@@ -325,6 +335,7 @@ let lists = {
                 collection: 'items',
             },
             parentlists: [],
+            folder: '',
         },
         counts: {
             lists: 0,
@@ -343,19 +354,19 @@ let lists = {
         identity: {
             container: '',
             id: 'outgoing',
+            handle: '',
             type: {
                 id: '',
                 handle: '',
             },
-            account: '',
-            handle: '',
-            version: 0,
+            account: {
+                id: '',
+                handle: '',
+            },
         },
         properties: {
+            version: 0,
             name: 'Incoming action requests',
-        },
-        constraints: {
-            links: [],
         },
         references: {
             subscriptions: [],
@@ -364,6 +375,7 @@ let lists = {
                 collection: 'items',
             },
             parentlists: [],
+            folder: '',
         },
         counts: {
             lists: 0,
@@ -382,19 +394,19 @@ let lists = {
         identity: {
             container: '',
             id: '',
+            handle: '',
             type: {
                 id: 'outgoing',
                 handle: '',
             },
-            account: '',
-            handle: '',
-            version: 0,
+            account: {
+                id: '',
+                handle: '',
+            },
         },
         properties: {
+            version: 0,
             name: 'Roles',
-        },
-        constraints: {
-            links: [],
         },
         references: {
             subscriptions: [],
@@ -403,6 +415,7 @@ let lists = {
                 collection: 'items',
             },
             parentlists: [],
+            folder: '',
         },
         counts: {
             lists: 0,
@@ -421,19 +434,19 @@ let lists = {
         identity: {
             container: '',
             id: '',
+            handle: '',
             type: {
                 id: 'outgoing',
                 handle: '',
             },
-            account: '',
-            handle: '',
-            version: 0,
+            account: {
+                id: '',
+                handle: '',
+            },
         },
         properties: {
+            version: 0,
             name: 'Programs',
-        },
-        constraints: {
-            links: [],
         },
         references: {
             subscriptions: [],
@@ -442,6 +455,7 @@ let lists = {
                 collection: 'items',
             },
             parentlists: [],
+            folder: '',
         },
         counts: {
             lists: 0,
@@ -460,19 +474,19 @@ let lists = {
         identity: {
             container: '',
             id: 'outgoing',
+            handle: '',
             type: {
                 id: '',
                 handle: '',
             },
-            account: '',
-            handle: '',
-            version: 0,
+            account: {
+                id: '',
+                handle: '',
+            },
         },
         properties: {
+            version: 0,
             name: 'Projects',
-        },
-        constraints: {
-            links: [],
         },
         references: {
             subscriptions: [],
@@ -481,6 +495,7 @@ let lists = {
                 collection: 'items',
             },
             parentlists: [],
+            folder: '',
         },
         counts: {
             lists: 0,
@@ -499,18 +514,19 @@ let lists = {
         identity: {
             container: '',
             id: '',
+            handle: '',
             type: {
                 id: 'outgoing',
                 handle: '',
             },
-            account: '',
-            version: 0,
+            account: {
+                id: '',
+                handle: '',
+            },
         },
         properties: {
+            version: 0,
             name: 'Tasks',
-        },
-        constraints: {
-            links: [],
         },
         references: {
             subscriptions: [],
@@ -519,6 +535,7 @@ let lists = {
                 collection: 'items',
             },
             parentlists: [],
+            folder: '',
         },
         counts: {
             lists: 0,
@@ -537,19 +554,19 @@ let lists = {
         identity: {
             container: '',
             id: '',
+            handle: '',
             type: {
                 id: '',
                 handle: '',
             },
-            account: '',
-            handle: '',
-            version: 0,
+            account: {
+                id: '',
+                handle: '',
+            },
         },
         properties: {
+            version: 0,
             name: 'Direct Messages',
-        },
-        constraints: {
-            links: [],
         },
         references: {
             subscriptions: [],
@@ -558,6 +575,7 @@ let lists = {
                 collection: 'items',
             },
             parentlists: [],
+            folder: '',
         },
         counts: {
             lists: 0,
@@ -576,19 +594,19 @@ let lists = {
         identity: {
             container: '',
             id: '',
+            handle: '',
             type: {
                 id: '',
                 handle: '',
             },
-            account: '',
-            handle: '',
-            version: 0,
+            account: {
+                id: '',
+                handle: '',
+            },
         },
         properties: {
+            version: 0,
             name: 'Message Streams',
-        },
-        constraints: {
-            links: [],
         },
         references: {
             subscriptions: [],
@@ -597,6 +615,7 @@ let lists = {
                 collection: 'items',
             },
             parentlists: [],
+            folder: '',
         },
         counts: {
             lists: 0,
@@ -615,19 +634,19 @@ let lists = {
         identity: {
             container: '',
             id: '',
+            handle: '',
             type: {
                 id: 'outgoing',
                 handle: '',
             },
-            account: '',
-            handle: '',
-            version: 0,
+            account: {
+                id: '',
+                handle: '',
+            },
         },
         properties: {
+            version: 0,
             name: 'Resources',
-        },
-        constraints: {
-            links: [],
         },
         references: {
             subscriptions: [],
@@ -636,6 +655,7 @@ let lists = {
                 collection: 'items',
             },
             parentlists: [],
+            folder: '',
         },
         counts: {
             lists: 0,
@@ -654,19 +674,19 @@ let lists = {
         identity: {
             container: '',
             id: '',
+            handle: '',
             type: {
                 id: 'outgoing',
                 handle: '',
             },
-            account: '',
-            handle: '',
-            version: 0,
+            account: {
+                id: '',
+                handle: '',
+            },
         },
         properties: {
+            version: 0,
             name: 'Calendars',
-        },
-        constraints: {
-            links: [],
         },
         references: {
             subscriptions: [],
@@ -675,6 +695,7 @@ let lists = {
                 collection: 'items',
             },
             parentlists: [],
+            folder: '',
         },
         counts: {
             lists: 0,
@@ -693,19 +714,19 @@ let lists = {
         identity: {
             container: '',
             id: '',
+            handle: '',
             type: {
                 id: 'outgoing',
                 handle: '',
             },
-            account: '',
-            handle: '',
-            version: 0,
+            account: {
+                id: '',
+                handle: '',
+            },
         },
         properties: {
+            version: 0,
             name: 'Accounting',
-        },
-        constraints: {
-            links: [],
         },
         references: {
             subscriptions: [],
@@ -714,6 +735,7 @@ let lists = {
                 collection: 'items',
             },
             parentlists: [],
+            folder: '',
         },
         counts: {
             lists: 0,
@@ -732,19 +754,19 @@ let lists = {
         identity: {
             container: '',
             id: '',
+            handle: '',
             type: {
                 id: 'outgoing',
                 handle: '',
             },
-            account: '',
-            handle: '',
-            version: 0,
+            account: {
+                id: '',
+                handle: '',
+            },
         },
         properties: {
+            version: 0,
             name: 'Tribalopolis Membership',
-        },
-        constraints: {
-            links: [],
         },
         references: {
             subscriptions: [],
@@ -753,6 +775,7 @@ let lists = {
                 collection: 'items',
             },
             parentlists: [],
+            folder: '',
         },
         counts: {
             lists: 0,
@@ -773,19 +796,19 @@ let lists = {
         identity: {
             container: '',
             id: '',
+            handle: '',
             type: {
                 id: '',
                 handle: '',
             },
-            account: '',
-            handle: '',
-            version: 0,
+            account: {
+                id: '',
+                handle: '',
+            },
         },
         properties: {
+            version: 0,
             name: 'More...',
-        },
-        constraints: {
-            links: [],
         },
         references: {
             subscriptions: [],
@@ -794,6 +817,7 @@ let lists = {
                 collection: 'items',
             },
             parentlists: [],
+            folder: '',
         },
         counts: {
             lists: 0,
@@ -814,20 +838,20 @@ let lists = {
         identity: {
             container: '',
             id: '',
+            handle: '',
             type: {
                 id: '',
                 handle: '',
             },
-            account: '',
-            handle: '',
-            version: 0,
+            account: {
+                id: '',
+                handle: '',
+            },
         },
         properties: {
-            name: 'Links Directory',
+            version: 0,
+            name: 'Fields',
             linkedlist: false,
-        },
-        constraints: {
-            links: [],
         },
         references: {
             subscriptions: [],
@@ -836,6 +860,7 @@ let lists = {
                 collection: 'items',
             },
             parentlists: [],
+            folder: '',
         },
         counts: {
             lists: 17,
@@ -927,20 +952,25 @@ let links = {
         identity: {
             container: '',
             id: '',
+            handle: '',
             type: {
                 id: '',
                 handle: '',
             },
-            account: '',
-            handle: '',
+            account: {
+                id: '',
+                handle: '',
+            },
+        },
+        properties: {
             version: 0,
+            startdate: null,
+            enddate: null,
         },
-        properties: {},
-        constraints: {
-            origin: [],
-            target: [],
+        references: {
+            lists: [],
+            folder: '',
         },
-        references: {},
         counts: {},
         system: {},
         data: {},
@@ -951,15 +981,18 @@ let items = {
         identity: {
             container: '',
             id: '',
+            handle: 'henrik',
             type: {
                 id: '',
                 handle: 'person',
             },
-            account: 'henrik',
-            handle: 'henrik',
-            version: 0,
+            account: {
+                id: '',
+                handle: '',
+            },
         },
         properties: {
+            version: 0,
             name: {
                 honorific: 'Mr.',
                 firstname: 'Henrik',
@@ -994,14 +1027,13 @@ let items = {
                 enddate: null,
             },
         },
-        constraints: {
+        references: {
             chain: {
                 prior: '',
                 next: '',
             },
-        },
-        references: {
             list: 'henrik',
+            folder: '',
         },
         counts: {},
         system: {
