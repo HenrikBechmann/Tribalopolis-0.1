@@ -41,9 +41,15 @@ let folders = {
 
 let schemes = {
     somescheme:{
-        identity:{},
+        identity:{
+        },
         properties:{},
-        references:{},
+        references:{
+            parent:{
+                id:'',
+                handle:'',
+            },
+        },
         counts:{},
         system:{},
         data:{},
