@@ -8,19 +8,22 @@ let folders = {
         identity:{
             container:'',
             id:'',
+            handle:'',
             type:{
                 id:'',
                 handle:'',
             },
-            account:'',
-            handle:'',
-            version:0,
-            parent:'',
+            account:{
+                id:'',
+                handle:'',
+            },
         },
         properties:{
+            version:0,
         },
         constraints:{},
         references:{
+            parent:'',
             list:'',
         },
         counts:{},
@@ -53,29 +56,24 @@ let types = {
         identity:{
             container:'',
             id:'',
+            handle:'',
             type:{
                 id:'',
                 handle:'',
-                account:{
-                    id:'',
-                    handle:'',
-                },
             },
-            account:'',
-            handle:'',
-            version:0,
-            map:{},
-            parent:{
+            account:{
                 id:'',
                 handle:'',
-                account:{
-                    id:'',
-                    handle:'',
-                },
             },
         },
-        constraints:{},
+        constraints:{
+            links:[],
+            origin:[],
+            target:[],
+        },
         properties:{
+            version:0,
+            map:{},
             interface:{},
             defaults:{},
             display:{},
@@ -86,6 +84,10 @@ let types = {
         },
         references:{
             list:'',
+            parent:{
+                id:'',
+                handle:'',
+            },
         },
         counts:{},
         system:{
@@ -102,29 +104,19 @@ let types = {
         identity: {
             container:'',
             id:'',
+            handle:'',
             type:{
                 id:'',
                 handle:'',
-                account:{
-                    id:'',
-                    handle:'',
-                },
             },
-            typehandle:'',
-            account:'',
-            handle:'',
-            version:0,
-            map:{},
-            parent:{
+            account:{
                 id:'',
                 handle:'',
-                account:{
-                    id:'',
-                    handle:'',
-                },
             },
         },
         properties: {
+            version:0,
+            map:{},
             interface:{},
             defaults:{},
             display:{},
@@ -138,6 +130,14 @@ let types = {
         constraints:{},
         references:{
             list:'',
+            parent:{
+                id:'',
+                handle:'',
+                account:{
+                    id:'',
+                    handle:'',
+                },
+            },
         },
         counts:{},
         system:{
@@ -154,22 +154,25 @@ let lists = {
         identity:{
             container:'',
             id:'',
+            handle:'',
             type:{
                 id:'outgoing',
                 handle:'',
             },
-            account:'',
-            handle:'',
-            version:0,
+            account:{
+                id:'',
+                handle:'',
+            },
         },
         properties:{
+            version:0,
             name:'Diaries',
         },
         constraints:{
             links:[],
         },
         references:{
-            subscriptions:[],
+            subscriptions:[], // {path:[],list:''}
             owner:{
                 id:'henrik',
                 collection:'items',
@@ -194,15 +197,18 @@ let lists = {
         identity:{
             container:'',
             id:'',
+            handle:'',
             type:{
                 id:'outgoing',
                 handle:'',
             },
-            account:'',
-            handle:'',
-            version:0,
+            account:{
+                id:'',
+                handle:'',
+            },
        },
         properties:{
+            version:0,
             name:'Notes',
         },
         constraints:{
@@ -233,16 +239,19 @@ let lists = {
     {
         identity:{
             container:'',
+            id:'',
+            handle:'',
             type:{
                 id:'outgoing',
                 handle:'',
             },
-            typehandle:'',
-            account:'',
-            handle:'',
-            version:0,
+            account:{
+                id:'',
+                handle:'',
+            },
         },
         properties:{
+            version:0,
             name:'Tribes',
         },
         constraints:{
@@ -276,15 +285,18 @@ let lists = {
         identity:{
             container:'',
             id:'',
+            handle:'',
             type:{
                 id:'outgoing',
                 handle:'',
             },
-            account:'',
-            handle:'',
-            version:0,
+            account:{
+                id:'',
+                handle:'',
+            },
         },
         properties:{
+            version:0,
             name:'Contacts',
         },
         constraints:{
@@ -316,15 +328,18 @@ let lists = {
         identity:{
             container:'',
             id:'',
+            handle:'',
             type:{
                 id:'',
                 handle:'',
             },
-            account:'',
-            handle:'',
-            version:0,
+            account:{
+                id:'',
+                handle:'',
+            },
         },
         properties:{
+            version:0,
             name:'Outgoing action requests',
         },
         constraints:{
@@ -356,15 +371,18 @@ let lists = {
         identity:{
             container:'',
             id:'outgoing',
+            handle:'',
             type:{
                 id:'',
                 handle:'',
             },
-            account:'',
-            handle:'',
-            version:0,
+            account:{
+                id:'',
+                handle:'',
+            },
         },
         properties:{
+            version:0,
             name:'Incoming action requests',
         },
         constraints:{
@@ -396,15 +414,18 @@ let lists = {
         identity:{
             container:'',
             id:'',
+            handle:'',
             type:{
                 id:'outgoing',
                 handle:'',
             },
-            account:'',
-            handle:'',
-            version:0,
+            account:{
+                id:'',
+                handle:'',
+            },
         },
         properties:{
+            version:0,
             name:'Roles',
         },
         constraints:{
@@ -436,15 +457,18 @@ let lists = {
         identity:{
             container:'',
             id:'',
+            handle:'',
             type:{
                 id:'outgoing',
                 handle:'',
             },
-            account:'',
-            handle:'',
-            version:0,
+            account:{
+                id:'',
+                handle:'',
+            },
         },
         properties:{
+            version:0,
             name:'Programs',
         },
         constraints:{
@@ -476,15 +500,18 @@ let lists = {
         identity:{
             container:'',
             id:'outgoing',
+            handle:'',
             type:{
                 id:'',
                 handle:'',
             },
-            account:'',
-            handle:'',
-            version:0,
+            account:{
+                id:'',
+                handle:'',
+            },
         },
         properties:{
+            version:0,
             name:'Projects',
         },
         constraints:{
@@ -516,14 +543,18 @@ let lists = {
         identity:{
             container:'',
             id:'',
+            handle:'',
             type:{
                 id:'outgoing',
                 handle:'',
             },
-            account:'',
-            version:0,
+            account:{
+                id:'',
+                handle:'',
+            },
         },
         properties:{
+            version:0,
             name:'Tasks',
         },
         constraints:{
@@ -555,15 +586,18 @@ let lists = {
         identity:{
             container:'',
             id:'',
+            handle:'',
             type:{
                 id:'',
                 handle:'',
             },
-            account:'',
-            handle:'',
-            version:0,
+            account:{
+                id:'',
+                handle:'',
+            },
         },
         properties:{
+            version:0,
             name:'Direct Messages',
         },
         constraints:{
@@ -595,15 +629,18 @@ let lists = {
         identity:{
             container:'',
             id:'',
+            handle:'',
             type:{
                 id:'',
                 handle:'',
             },
-            account:'',
-            handle:'',
-            version:0,
+            account:{
+                id:'',
+                handle:'',
+            },
         },
         properties:{
+            version:0,
             name:'Message Streams',
         },
         constraints:{
@@ -635,15 +672,18 @@ let lists = {
         identity:{
             container:'',
             id:'',
+            handle:'',
             type:{
                 id:'outgoing',
                 handle:'',
             },
-            account:'',
-            handle:'',
-            version:0,
+            account:{
+                id:'',
+                handle:'',
+            },
         },
         properties:{
+            version:0,
             name:'Resources',
         },
         constraints:{
@@ -675,15 +715,18 @@ let lists = {
         identity:{
             container:'',
             id:'',
+            handle:'',
             type:{
                 id:'outgoing',
                 handle:'',
             },
-            account:'',
-            handle:'',
-            version:0,
+            account:{
+                id:'',
+                handle:'',
+            },
         },
         properties:{
+            version:0,
             name:'Calendars',
         },
         constraints:{
@@ -715,15 +758,18 @@ let lists = {
         identity:{
             container:'',
             id:'',
+            handle:'',
             type:{
                 id:'outgoing',
                 handle:'',
             },
-            account:'',
-            handle:'',
-            version:0,
+            account:{
+                id:'',
+                handle:'',
+            },
         },
         properties:{
+            version:0,
             name:'Accounting',
         },
         constraints:{
@@ -755,15 +801,18 @@ let lists = {
         identity:{
             container:'',
             id:'',
+            handle:'',
             type:{
                 id:'outgoing',
                 handle:'',
             },
-            account:'',
-            handle:'',
-            version:0,
+            account:{
+                id:'',
+                handle:'',
+            },
         },
         properties:{
+            version:0,
             name:'Tribalopolis Membership',
         },
         constraints:{
@@ -798,15 +847,18 @@ let lists = {
         identity:{
             container:'',
             id:'',
+            handle:'',
             type:{
                 id:'',
                 handle:'',
             },
-            account:'',
-            handle:'',
-            version:0,
+            account:{
+                id:'',
+                handle:'',
+            },
         },
         properties:{
+            version:0,
             name:'More...',
         },
         constraints:{
@@ -840,15 +892,18 @@ let lists = {
         identity:{
             container:'',
             id:'',
+            handle:'',
             type:{
                 id:'',
                 handle:'',
             },
-            account:'',
-            handle:'',
-            version:0,
+            account:{
+                id:'',
+                handle:'',
+            },
         },
         properties:{
+            version:0,
             name:'Links Directory',
             linkedlist:false,
         },
@@ -954,21 +1009,26 @@ let links = {
         identity:{
             container:'',
             id:'',
+            handle:'',
             type:{
                 id:'',
                 handle:'',
             },
-            account:'',
-            handle:'',
-            version:0,
+            account:{
+                id:'',
+                handle:'',
+            },
         },
         properties:{
+            version:0,
         },
         constraints:{
             origin:[],
             target:[],
         },
-        references:{},
+        references:{
+            lists:[],
+        },
         counts:{},
         system:{},
         data:{},
@@ -980,15 +1040,18 @@ let items = {
         identity:{
             container:'',
             id:'',
+            handle:'henrik',
             type:{
                 id:'',
                 handle:'person',
             },
-            account:'henrik',
-            handle:'henrik',
-            version:0,
+            account:{
+                id:'',
+                handle:'',
+            },
         },
         properties:{
+            version:0,
             name:{
                 honorific:'Mr.',
                 firstname:'Henrik',
