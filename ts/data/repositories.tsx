@@ -19,6 +19,7 @@ let folders = {
         },
         properties:{
         },
+        constraints:{},
         references:{
             list:'',
         },
@@ -39,6 +40,7 @@ let schemes = {
     somescheme:{
         identity:{},
         properties:{},
+        constraints:{},
         references:{},
         counts:{},
         system:{},
@@ -72,6 +74,7 @@ let types = {
                 },
             },
         },
+        constraints:{},
         properties:{
             interface:{},
             defaults:{},
@@ -132,6 +135,7 @@ let types = {
                 has:{},
             },
         },
+        constraints:{},
         references:{
             list:'',
         },
@@ -160,6 +164,9 @@ let lists = {
         },
         properties:{
             name:'Diaries',
+        },
+        constraints:{
+            links:[],
         },
         references:{
             subscriptions:[],
@@ -198,6 +205,9 @@ let lists = {
         properties:{
             name:'Notes',
         },
+        constraints:{
+            links:[],
+        },
         references:{
             subscriptions:[],
             owner:{
@@ -234,6 +244,9 @@ let lists = {
         },
         properties:{
             name:'Tribes',
+        },
+        constraints:{
+            links:[],
         },
         references:{
             subscriptions:[],
@@ -274,6 +287,9 @@ let lists = {
         properties:{
             name:'Contacts',
         },
+        constraints:{
+            links:[],
+        },
         references:{
             subscriptions:[],
             owner:{
@@ -310,6 +326,9 @@ let lists = {
         },
         properties:{
             name:'Outgoing action requests',
+        },
+        constraints:{
+            links:[],
         },
         references:{
             subscriptions:[],
@@ -348,6 +367,9 @@ let lists = {
         properties:{
             name:'Incoming action requests',
         },
+        constraints:{
+            links:[],
+        },
         references:{
             subscriptions:[],
             owner:{
@@ -384,6 +406,9 @@ let lists = {
         },
         properties:{
             name:'Roles',
+        },
+        constraints:{
+            links:[],
         },
         references:{
             subscriptions:[],
@@ -422,9 +447,8 @@ let lists = {
         properties:{
             name:'Programs',
         },
-        generations:{
-            meta:0,
-            properties:0,
+        constraints:{
+            links:[],
         },
         references:{
             subscriptions:[],
@@ -463,6 +487,9 @@ let lists = {
         properties:{
             name:'Projects',
         },
+        constraints:{
+            links:[],
+        },
         references:{
             subscriptions:[],
             owner:{
@@ -498,6 +525,9 @@ let lists = {
         },
         properties:{
             name:'Tasks',
+        },
+        constraints:{
+            links:[],
         },
         references:{
             subscriptions:[],
@@ -536,6 +566,9 @@ let lists = {
         properties:{
             name:'Direct Messages',
         },
+        constraints:{
+            links:[],
+        },
         references:{
             subscriptions:[],
             owner:{
@@ -572,6 +605,9 @@ let lists = {
         },
         properties:{
             name:'Message Streams',
+        },
+        constraints:{
+            links:[],
         },
         references:{
             subscriptions:[],
@@ -610,6 +646,9 @@ let lists = {
         properties:{
             name:'Resources',
         },
+        constraints:{
+            links:[],
+        },
         references:{
             subscriptions:[],
             owner:{
@@ -646,6 +685,9 @@ let lists = {
         },
         properties:{
             name:'Calendars',
+        },
+        constraints:{
+            links:[],
         },
         references:{
             subscriptions:[],
@@ -684,6 +726,9 @@ let lists = {
         properties:{
             name:'Accounting',
         },
+        constraints:{
+            links:[],
+        },
         references:{
             subscriptions:[],
             owner:{
@@ -720,6 +765,9 @@ let lists = {
         },
         properties:{
             name:'Tribalopolis Membership',
+        },
+        constraints:{
+            links:[],
         },
         references:{
             subscriptions:[],
@@ -761,6 +809,9 @@ let lists = {
         properties:{
             name:'More...',
         },
+        constraints:{
+            links:[],
+        },
         references:{
             subscriptions:[],
             owner:{
@@ -800,6 +851,9 @@ let lists = {
         properties:{
             name:'Links Directory',
             linkedlist:false,
+        },
+        constraints:{
+            links:[],
         },
         references:{
             subscriptions:[],
@@ -897,8 +951,23 @@ let lists = {
 
 let links = {
     somelink:{
-        identity:{},
-        properties:{},
+        identity:{
+            container:'',
+            id:'',
+            type:{
+                id:'',
+                handle:'',
+            },
+            account:'',
+            handle:'',
+            version:0,
+        },
+        properties:{
+        },
+        constraints:{
+            origin:[],
+            target:[],
+        },
         references:{},
         counts:{},
         system:{},
@@ -954,6 +1023,12 @@ let items = {
                 enddate:null,
             },
         },
+        constraints:{
+            chain:{
+                prior:'',
+                next:'',
+            },
+        },
         references:{
             list:'henrik',
         },
@@ -970,6 +1045,7 @@ let accounts = {
     someaccount:{
         identity:{},
         properties:{},
+        constraints:{},
         references:{},
         counts:{},
         system:{},
@@ -977,4 +1053,4 @@ let accounts = {
     }
 }
 
-export { schemes, types, items, lists, links, folders, accounts } //, subscriptions }
+export { schemes, types, items, lists, links, folders, accounts } 
