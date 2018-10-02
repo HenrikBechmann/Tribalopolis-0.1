@@ -25,6 +25,7 @@ let folders = {
         references:{
             parent:'',
             list:'',
+            folder:'',
         },
         counts:{},
         system:{
@@ -66,12 +67,13 @@ let types = {
                 handle:'',
             },
         },
-        constraints:{
-            links:[],
-            origin:[],
-            target:[],
-        },
         properties:{
+            metatype:'',
+            constraints:{
+                links:[],
+                origin:[],
+                target:[],
+            },
             version:0,
             map:{},
             interface:{},
@@ -88,6 +90,7 @@ let types = {
                 id:'',
                 handle:'',
             },
+            folder:'',
         },
         counts:{},
         system:{
@@ -115,6 +118,7 @@ let types = {
             },
         },
         properties: {
+            metatype:'',
             version:0,
             map:{},
             interface:{},
@@ -126,8 +130,8 @@ let types = {
                 },
                 has:{},
             },
+            constraints:{},
         },
-        constraints:{},
         references:{
             list:'',
             parent:{
@@ -138,6 +142,7 @@ let types = {
                     handle:'',
                 },
             },
+            folder:'',
         },
         counts:{},
         system:{
@@ -168,9 +173,6 @@ let lists = {
             version:0,
             name:'Diaries',
         },
-        constraints:{
-            links:[],
-        },
         references:{
             subscriptions:[], // {path:[],list:''}
             owner:{
@@ -178,6 +180,7 @@ let lists = {
                 collection:'items',
             },
             parentlists:[],
+            folder:'',
         },
         counts:{
             lists:0,
@@ -211,9 +214,6 @@ let lists = {
             version:0,
             name:'Notes',
         },
-        constraints:{
-            links:[],
-        },
         references:{
             subscriptions:[],
             owner:{
@@ -221,6 +221,7 @@ let lists = {
                 collection:'items',
             },
             parentlists:[],
+            folder:'',
         },
         counts:{
             lists:0,
@@ -254,9 +255,6 @@ let lists = {
             version:0,
             name:'Tribes',
         },
-        constraints:{
-            links:[],
-        },
         references:{
             subscriptions:[],
             owner:{
@@ -264,6 +262,7 @@ let lists = {
                 collection:'items',
             },
             parentlists:[],
+            folder:'',
         },
         counts:{
             lists:0,
@@ -299,9 +298,6 @@ let lists = {
             version:0,
             name:'Contacts',
         },
-        constraints:{
-            links:[],
-        },
         references:{
             subscriptions:[],
             owner:{
@@ -309,6 +305,7 @@ let lists = {
                 collection:'items',
             },
             parentlists:[],
+            folder:'',
         },
         counts:{
             lists:0,
@@ -342,9 +339,6 @@ let lists = {
             version:0,
             name:'Outgoing action requests',
         },
-        constraints:{
-            links:[],
-        },
         references:{
             subscriptions:[],
             owner:{
@@ -352,6 +346,7 @@ let lists = {
                 collection:'items',
             },
             parentlists:[],
+            folder:'',
         },
         counts:{
             lists:0,
@@ -385,9 +380,6 @@ let lists = {
             version:0,
             name:'Incoming action requests',
         },
-        constraints:{
-            links:[],
-        },
         references:{
             subscriptions:[],
             owner:{
@@ -395,6 +387,7 @@ let lists = {
                 collection:'items',
             },
             parentlists:[],
+            folder:'',
         },
         counts:{
             lists:0,
@@ -428,9 +421,6 @@ let lists = {
             version:0,
             name:'Roles',
         },
-        constraints:{
-            links:[],
-        },
         references:{
             subscriptions:[],
             owner:{
@@ -438,6 +428,7 @@ let lists = {
                 collection:'items',
             },
             parentlists:[],
+            folder:'',
         },
         counts:{
             lists:0,
@@ -471,9 +462,6 @@ let lists = {
             version:0,
             name:'Programs',
         },
-        constraints:{
-            links:[],
-        },
         references:{
             subscriptions:[],
             owner:{
@@ -481,6 +469,7 @@ let lists = {
                 collection:'items',
             },
             parentlists:[],
+            folder:'',
         },
         counts:{
             lists:0,
@@ -514,9 +503,6 @@ let lists = {
             version:0,
             name:'Projects',
         },
-        constraints:{
-            links:[],
-        },
         references:{
             subscriptions:[],
             owner:{
@@ -524,6 +510,7 @@ let lists = {
                 collection:'items',
             },
             parentlists:[],
+            folder:'',
         },
         counts:{
             lists:0,
@@ -557,9 +544,6 @@ let lists = {
             version:0,
             name:'Tasks',
         },
-        constraints:{
-            links:[],
-        },
         references:{
             subscriptions:[],
             owner:{
@@ -567,6 +551,7 @@ let lists = {
                 collection:'items',
             },
             parentlists:[],
+            folder:'',
         },
         counts:{
             lists:0,
@@ -600,9 +585,6 @@ let lists = {
             version:0,
             name:'Direct Messages',
         },
-        constraints:{
-            links:[],
-        },
         references:{
             subscriptions:[],
             owner:{
@@ -610,6 +592,7 @@ let lists = {
                 collection:'items',
             },
             parentlists:[],
+            folder:'',
         },
         counts:{
             lists:0,
@@ -643,9 +626,6 @@ let lists = {
             version:0,
             name:'Message Streams',
         },
-        constraints:{
-            links:[],
-        },
         references:{
             subscriptions:[],
             owner:{
@@ -653,6 +633,7 @@ let lists = {
                 collection:'items',
             },
             parentlists:[],
+            folder:'',
         },
         counts:{
             lists:0,
@@ -686,9 +667,6 @@ let lists = {
             version:0,
             name:'Resources',
         },
-        constraints:{
-            links:[],
-        },
         references:{
             subscriptions:[],
             owner:{
@@ -696,6 +674,7 @@ let lists = {
                 collection:'items',
             },
             parentlists:[],
+            folder:'',
         },
         counts:{
             lists:0,
@@ -729,9 +708,6 @@ let lists = {
             version:0,
             name:'Calendars',
         },
-        constraints:{
-            links:[],
-        },
         references:{
             subscriptions:[],
             owner:{
@@ -739,6 +715,7 @@ let lists = {
                 collection:'items',
             },
             parentlists:[],
+            folder:'',
         },
         counts:{
             lists:0,
@@ -772,9 +749,6 @@ let lists = {
             version:0,
             name:'Accounting',
         },
-        constraints:{
-            links:[],
-        },
         references:{
             subscriptions:[],
             owner:{
@@ -782,6 +756,7 @@ let lists = {
                 collection:'items',
             },
             parentlists:[],
+            folder:'',
         },
         counts:{
             lists:0,
@@ -815,9 +790,6 @@ let lists = {
             version:0,
             name:'Tribalopolis Membership',
         },
-        constraints:{
-            links:[],
-        },
         references:{
             subscriptions:[],
             owner:{
@@ -825,6 +797,7 @@ let lists = {
                 collection:'items',
             },
             parentlists:[],
+            folder:'',
         },
         counts:{
             lists:0,
@@ -861,9 +834,6 @@ let lists = {
             version:0,
             name:'More...',
         },
-        constraints:{
-            links:[],
-        },
         references:{
             subscriptions:[],
             owner:{
@@ -871,6 +841,7 @@ let lists = {
                 collection:'items',
             },
             parentlists:[],
+            folder:'',
         },
         counts:{
             lists:0,
@@ -907,9 +878,6 @@ let lists = {
             name:'Links Directory',
             linkedlist:false,
         },
-        constraints:{
-            links:[],
-        },
         references:{
             subscriptions:[],
             owner:{
@@ -917,6 +885,7 @@ let lists = {
                 collection:'items',
             },
             parentlists:[],
+            folder:'',
         },
         counts:{
             lists:17,
@@ -1021,13 +990,12 @@ let links = {
         },
         properties:{
             version:0,
-        },
-        constraints:{
-            origin:[],
-            target:[],
+            startdate:null,
+            enddate:null,
         },
         references:{
             lists:[],
+            folder:'',
         },
         counts:{},
         system:{},
@@ -1086,14 +1054,13 @@ let items = {
                 enddate:null,
             },
         },
-        constraints:{
+        references:{
             chain:{
                 prior:'',
                 next:'',
             },
-        },
-        references:{
             list:'henrik',
+            folder:'',
         },
         counts:{},
         system:{
