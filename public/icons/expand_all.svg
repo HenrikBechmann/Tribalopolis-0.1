@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52 (66869) - http://www.bohemiancoding.com/sketch -->
+    <title>Artboard</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Artboard" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="square">
+        <path d="M2.5,8.5 L11.5,3.5" id="Line" stroke="#979797" fill-rule="nonzero"></path>
+        <path d="M11.5,3.5 L20.5,8.5" id="Line-2" stroke="#979797" fill-rule="nonzero"></path>
+        <g id="Group" transform="translate(11.500000, 17.000000) rotate(-180.000000) translate(-11.500000, -17.000000) translate(2.000000, 14.000000)" fill-rule="nonzero" stroke="#979797">
+            <path d="M0.5,5.5 L9.5,0.5" id="Line-Copy"></path>
+            <path d="M9.5,0.5 L18.5,5.5" id="Line-2-Copy"></path>
+        </g>
+    </g>
+</svg>

@@ -91,6 +91,7 @@ class DirectoryBar extends React.Component {
             ? (<div className={classes.rowwrapperstyle}>
 
                     <ActionButton icon='more_vert'/>
+                    <ActionButton img='/public/icons/expand_all.svg'/>
                     {listStack.length
                 ? <div className={classes.arrowstyle}>
 
