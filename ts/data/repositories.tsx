@@ -587,7 +587,7 @@ let lists = {
         },
         properties:{
             version:0,
-            name:'Direct Messages',
+            name:'Private Messages',
         },
         references:{
             subscriptions:[],
@@ -792,7 +792,7 @@ let lists = {
         },
         properties:{
             version:0,
-            name:'Tribalopolis Membership',
+            name:'My Account',
         },
         references:{
             subscriptions:[],

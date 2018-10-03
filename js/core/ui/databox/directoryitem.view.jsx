@@ -4,6 +4,7 @@
 import React from 'react';
 import Icon from '@material-ui/core/Icon';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import ActionButton from '../common/actionbutton.view';
 import QuantityBadge from '../common/quantitybadge.view';
 import { withStyles, createStyles } from '@material-ui/core/styles';
 const styles = createStyles({
@@ -86,6 +87,7 @@ class DirectoryItem extends React.Component {
             ? <div className={classes.rowwrapperstyle}>
 
                     <div className={classes.rowstyle}> 
+                        <ActionButton buttonStyle={{ float: 'none', width: '24px', height: '24px' }} icon='arrow_right'/>
                         <Icon style={{
                 verticalAlign: 'middle',
                 color: listDocument ? listDocument.system.attributes.sysnode ? 'green' : 'gray' : 'gray',

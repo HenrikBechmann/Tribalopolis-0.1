@@ -20,7 +20,6 @@ let folders = {
         properties: {
             version: 0,
         },
-        constraints: {},
         references: {
             parent: '',
             list: '',
@@ -41,8 +40,12 @@ let schemes = {
     somescheme: {
         identity: {},
         properties: {},
-        constraints: {},
-        references: {},
+        references: {
+            parent: {
+                id: '',
+                handle: '',
+            },
+        },
         counts: {},
         system: {},
         data: {},
@@ -65,7 +68,7 @@ let types = {
         },
         properties: {
             metatype: '',
-            constraints: {
+            fields: {
                 links: [],
                 origin: [],
                 target: [],
@@ -124,7 +127,7 @@ let types = {
                 },
                 has: {},
             },
-            constraints: {},
+            fields: {},
         },
         references: {
             list: '',
@@ -566,7 +569,7 @@ let lists = {
         },
         properties: {
             version: 0,
-            name: 'Direct Messages',
+            name: 'Private Messages',
         },
         references: {
             subscriptions: [],
@@ -766,7 +769,7 @@ let lists = {
         },
         properties: {
             version: 0,
-            name: 'Tribalopolis Membership',
+            name: 'My Account',
         },
         references: {
             subscriptions: [],
@@ -1047,7 +1050,6 @@ let accounts = {
     someaccount: {
         identity: {},
         properties: {},
-        constraints: {},
         references: {},
         counts: {},
         system: {},
