@@ -34,6 +34,8 @@ const styles = createStyles({
         position: 'relative',
         paddingLeft: '6px',
         paddingBottom: '32px',
+        width: '100%',
+        boxSizing: 'border-box',
     }
 });
 const DirectoryListBase = withStyles(styles)(class extends React.Component {
@@ -172,7 +174,7 @@ const DirectoryListBase = withStyles(styles)(class extends React.Component {
     render() {
         let { classes } = this.props;
         let scrollboxstyle = {
-            height: (this.props.containerHeight - 185) + 'px',
+            height: (this.props.containerHeight - 149) + 'px',
         };
         let length = this.state.listproxies ? this.state.listproxies.length : 0;
         return (<div style={{ position: 'relative' }}>

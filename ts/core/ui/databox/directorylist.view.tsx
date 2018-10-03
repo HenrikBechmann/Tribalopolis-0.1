@@ -50,6 +50,8 @@ const styles = createStyles({
         position:'relative', // required for offsetParent of highlightItem search
         paddingLeft:'6px',
         paddingBottom:'32px',
+        width:'100%',
+        boxSizing:'border-box',
     }
 })
 
@@ -237,7 +239,7 @@ class extends React.Component<any,any> {
         let { classes } = this.props
 
         let scrollboxstyle:React.CSSProperties = {
-            height:(this.props.containerHeight - 185) + 'px', // this figure is the net of many inside amounts!
+            height:(this.props.containerHeight - 149) + 'px', // this figure is the net of many inside amounts!
         }
 
         let length = this.state.listproxies?this.state.listproxies.length:0

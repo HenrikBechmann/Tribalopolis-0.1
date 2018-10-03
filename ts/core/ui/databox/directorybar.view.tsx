@@ -11,14 +11,18 @@ import CircularProgress from '@material-ui/core/CircularProgress'
 import QuantityBadge from '../common/quantitybadge.view'
 import ActionButton from '../common/actionbutton.view'
 import { withStyles, createStyles } from '@material-ui/core/styles'
+import ClickAwayListener from '@material-ui/core/ClickAwayListener';
+import Grow from '@material-ui/core/Grow';
+import Paper from '@material-ui/core/Paper';
+import Popper from '@material-ui/core/Popper';
+import MenuItem from '@material-ui/core/MenuItem';
+import MenuList from '@material-ui/core/MenuList';
 
 const styles = createStyles({ 
     barstyle:{
         width:'100%',
         borderRadius:'8px 8px 0 0',
         paddingTop:'3px',
-        whiteSpace:'nowrap',
-        overflow:'hidden',
         boxSizing:'border-box',
         top:'0',
         backgroundColor:'#f2f2f2',
@@ -67,11 +71,18 @@ const styles = createStyles({
 
 class DirectoryBar extends React.Component<any,any> {
 
+    constructor(props) {
+        super(props)
+        this.menuAnchor = React.createRef()
+    }
+
     state = {
-        list:null
+        list:null,
+        menuopen:false,
     }
 
     listProxy
+    menuAnchor
 
     componentDidUpdate() {
         if (!this.listProxy && this.props.listProxy) {
@@ -97,6 +108,18 @@ class DirectoryBar extends React.Component<any,any> {
         })
     }
 
+    toggleMenu = () => {
+        this.setState(state => ({ menuopen: !state.menuopen }));
+    }
+
+    menuClose = event => {
+        if (this.menuAnchor.current.contains(event.target)) {
+          return;
+        }
+
+        this.setState({ menuopen: false });
+    };
+
     render() {
 
         let { listStack, classes } = this.props
@@ -109,8 +132,56 @@ class DirectoryBar extends React.Component<any,any> {
                 {listDocument
                 ?(<div className = {classes.rowwrapperstyle}>
 
-                    <ActionButton icon = 'more_vert' />
-                    <ActionButton img = '/public/icons/expand_all.svg' />
+                    <div 
+                        style = {{float:'right'}}
+                        ref = {this.menuAnchor}
+                    >
+                        <ActionButton icon = 'more_vert' action = {this.toggleMenu}/>
+                    </div>
+                      <Popper 
+                          open={this.state.menuopen} 
+                          anchorEl={this.menuAnchor.current} 
+                          transition 
+                          disablePortal
+                          style = {{zIndex:3}}
+                      >
+                        {({ TransitionProps, placement }) => (
+                          <Grow
+                            {...TransitionProps}
+                            style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
+                          >
+                            <Paper>
+                              <ClickAwayListener onClickAway={this.menuClose}>
+                                <MenuList>
+                                  <MenuItem onClick={this.menuClose}>
+                                      <div 
+                                          style = {
+                                              {
+                                                  display:'inline-block',
+                                                  marginRight:'6px',
+                                              }
+                                          }>Layouts</div>
+                                      <ActionButton 
+                                          buttonStyle = {{backgroundColor:'lightcyan',}}
+                                          icon = 'list'/>
+                                      <ActionButton 
+                                          iconStyle = {{width:'16px'}} 
+                                          img = '/public/icons/cards.svg'
+                                      />
+                                      <ActionButton 
+                                          iconStyle = {{width:'16px'}} 
+                                          img = '/public/icons/tiles.svg'
+                                      />
+                                  </MenuItem>
+                                </MenuList>
+                              </ClickAwayListener>
+                            </Paper>
+                          </Grow>
+                        )}
+                      </Popper>
+                    <ActionButton img = '/public/icons/expand_all.svg' 
+                        iconStyle = {{width:'16px'}}
+                    />
                     { listStack.length
                         ?<div className = {classes.arrowstyle}>
 
