@@ -56,7 +56,7 @@ const ActionButton = (props:propsInterface) => {
         style = {{...localiconstyle,...iconStyle}} src = {img} />:component
     let onClickVal = 
         (action && !disabled)
-            ?() => {action()}
+            ?(e) => {action(e)}
             :() => {}
     return (
         <IconButton

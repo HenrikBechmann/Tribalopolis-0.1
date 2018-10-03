@@ -30,7 +30,7 @@ const ActionButton = (props) => {
     let iconcomponent = icon ? <Icon className={classes.defaultIconStyle} style={Object.assign({}, localiconstyle, iconStyle)}>{icon}</Icon> :
         img ? <img className={classes.defaultIconStyle} style={Object.assign({}, localiconstyle, iconStyle)} src={img}/> : component;
     let onClickVal = (action && !disabled)
-        ? () => { action(); }
+        ? (e) => { action(e); }
         : () => { };
     return (<IconButton className={classes.defaultButtonStyle} style={buttonStyle} onClick={onClickVal} disabled={disabled}>
             {iconcomponent}

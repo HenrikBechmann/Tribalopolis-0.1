@@ -126,7 +126,18 @@ class DirectoryItem extends React.Component<any,any> {
                     <div 
                         className = {classes.rowstyle}
                     > 
-                        <ActionButton buttonStyle = {{float:'none',width:'24px',height:'24px'}} icon = 'arrow_right' />
+                        <ActionButton 
+                            buttonStyle = {
+                                {
+                                    float:'none',
+                                    width:'24px',
+                                    height:'24px'}
+                                } 
+                            icon = 'arrow_right' 
+                            action = {(e)=>{
+                                e.stopPropagation()
+                            }}
+                        />
                         <Icon 
                             style = {
                                 {

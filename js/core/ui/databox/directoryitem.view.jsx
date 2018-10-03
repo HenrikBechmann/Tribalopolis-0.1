@@ -87,7 +87,13 @@ class DirectoryItem extends React.Component {
             ? <div className={classes.rowwrapperstyle}>
 
                     <div className={classes.rowstyle}> 
-                        <ActionButton buttonStyle={{ float: 'none', width: '24px', height: '24px' }} icon='arrow_right'/>
+                        <ActionButton buttonStyle={{
+                float: 'none',
+                width: '24px',
+                height: '24px'
+            }} icon='arrow_right' action={(e) => {
+                e.stopPropagation();
+            }}/>
                         <Icon style={{
                 verticalAlign: 'middle',
                 color: listDocument ? listDocument.system.attributes.sysnode ? 'green' : 'gray' : 'gray',
