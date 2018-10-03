@@ -113,6 +113,7 @@ class DirectoryItem extends React.Component<any,any> {
 
         let { classes } = this.props
         let listDocument = this.state.list?this.state.list.document:null
+        let quantity = listDocument?(listDocument.counts.lists + listDocument.counts.links):0
         return <div 
             className = {
                 classes.barstyle
@@ -126,18 +127,26 @@ class DirectoryItem extends React.Component<any,any> {
                     <div 
                         className = {classes.rowstyle}
                     > 
-                        <ActionButton 
+                        {quantity?<ActionButton 
                             buttonStyle = {
                                 {
                                     float:'none',
                                     width:'24px',
-                                    height:'24px'}
-                                } 
+                                    height:'24px',
+                                }
+                            } 
                             icon = 'arrow_right' 
                             action = {(e)=>{
                                 e.stopPropagation()
                             }}
-                        />
+                        />:<div style = {
+                            {
+                                display:'inline-block',
+                                width:'24px',
+                                height:'24px',
+                                verticalAlign:'top',
+                            }
+                        }></div>}
                         <Icon 
                             style = {
                                 {
@@ -156,7 +165,7 @@ class DirectoryItem extends React.Component<any,any> {
                         </div>
 
                         { false && <QuantityBadge 
-                            quantity = {listDocument?(listDocument.counts.lists + listDocument.counts.links):0} 
+                            quantity = {quantity} 
                             style = {
                             {
                                 left:'-10px',

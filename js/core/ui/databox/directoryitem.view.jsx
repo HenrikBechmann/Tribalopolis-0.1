@@ -82,18 +82,24 @@ class DirectoryItem extends React.Component {
     render() {
         let { classes } = this.props;
         let listDocument = this.state.list ? this.state.list.document : null;
+        let quantity = listDocument ? (listDocument.counts.lists + listDocument.counts.links) : 0;
         return <div className={classes.barstyle} onClick={this.expandDirectoryItem} ref={this.barelementref}>
             {listDocument
             ? <div className={classes.rowwrapperstyle}>
 
                     <div className={classes.rowstyle}> 
-                        <ActionButton buttonStyle={{
+                        {quantity ? <ActionButton buttonStyle={{
                 float: 'none',
                 width: '24px',
-                height: '24px'
+                height: '24px',
             }} icon='arrow_right' action={(e) => {
                 e.stopPropagation();
-            }}/>
+            }}/> : <div style={{
+                display: 'inline-block',
+                width: '24px',
+                height: '24px',
+                verticalAlign: 'top',
+            }}></div>}
                         <Icon style={{
                 verticalAlign: 'middle',
                 color: listDocument ? listDocument.system.attributes.sysnode ? 'green' : 'gray' : 'gray',
@@ -106,7 +112,7 @@ class DirectoryItem extends React.Component {
                 listDocument.counts.links}</span>
                         </div>
 
-                        {false && <QuantityBadge quantity={listDocument ? (listDocument.counts.lists + listDocument.counts.links) : 0} style={{
+                        {false && <QuantityBadge quantity={quantity} style={{
                 left: '-10px',
                 top: '-5px',
             }}/>}
