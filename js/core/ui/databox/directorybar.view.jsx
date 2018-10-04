@@ -120,7 +120,7 @@ class DirectoryBar extends React.Component {
             }}>Layout</div>
                                       <ActionButton buttonStyle={{ backgroundColor: 'lightcyan', }} icon='list'/>
                                       <ActionButton iconStyle={{ width: '16px' }} img='/public/icons/cards.svg'/>
-                                      <ActionButton iconStyle={{ width: '16px' }} img='/public/icons/tiles.svg'/>
+                                      {false && <ActionButton iconStyle={{ width: '16px' }} img='/public/icons/tiles.svg'/>}
                                   </MenuItem>
                                 </MenuList>
                               </ClickAwayListener>

@@ -174,6 +174,7 @@ let lists = {
             },
         },
         properties:{
+            class:'field',
             version:0,
             name:'Diaries',
         },
