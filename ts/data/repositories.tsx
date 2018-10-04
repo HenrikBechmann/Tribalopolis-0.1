@@ -775,50 +775,50 @@ let lists = {
             links:[],
         },
     },
-    membership:
-    {
-        identity:{
-            container:'',
-            id:'',
-            handle:'',
-            type:{
-                id:'outgoing',
-                handle:'',
-            },
-            account:{
-                id:'',
-                handle:'',
-            },
-        },
-        properties:{
-            version:0,
-            name:'My Account',
-        },
-        references:{
-            subscriptions:[],
-            owner:{
-                id:'henrik',
-                collection:'items',
-            },
-            parentlists:[],
-            folder:'',
-        },
-        counts:{
-            lists:0,
-            links:0,
-        },
-        system:{
-            attributes:{
-                sysnode:true,
-            },
-            permissions:{},
-        },
-        data:{
-            lists:[],
-            links:[],
-        },
-// account, website, home
-    },
+//     membership:
+//     {
+//         identity:{
+//             container:'',
+//             id:'',
+//             handle:'',
+//             type:{
+//                 id:'outgoing',
+//                 handle:'',
+//             },
+//             account:{
+//                 id:'',
+//                 handle:'',
+//             },
+//         },
+//         properties:{
+//             version:0,
+//             name:'My Account',
+//         },
+//         references:{
+//             subscriptions:[],
+//             owner:{
+//                 id:'henrik',
+//                 collection:'items',
+//             },
+//             parentlists:[],
+//             folder:'',
+//         },
+//         counts:{
+//             lists:0,
+//             links:0,
+//         },
+//         system:{
+//             attributes:{
+//                 sysnode:true,
+//             },
+//             permissions:{},
+//         },
+//         data:{
+//             lists:[],
+//             links:[],
+//         },
+// // account, website, home
+//     },
     other:
     {
         identity:{
@@ -892,7 +892,7 @@ let lists = {
             folder:'',
         },
         counts:{
-            lists:17,
+            lists:16,
             links:0,
         },
         system:{
@@ -903,10 +903,10 @@ let lists = {
         },
         data:{
             lists:[
-                {
-                    repo:'lists',
-                    uid:'membership',
-                },
+                // {
+                //     repo:'lists',
+                //     uid:'membership',
+                // },
                 {
                     repo:'lists',
                     uid:'tribes',

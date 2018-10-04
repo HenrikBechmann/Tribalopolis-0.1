@@ -123,7 +123,7 @@ class Quadrant extends React.Component<any,any>  {
     removeItemListener
     removeListListener
 
-    // deledation classes
+    // delegation classes
     operations
     animations
 
