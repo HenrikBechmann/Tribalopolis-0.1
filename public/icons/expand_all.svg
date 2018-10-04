@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg width="21px" height="19px" viewBox="0 0 21 19" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
     <!-- Generator: Sketch 52 (66869) - http://www.bohemiancoding.com/sketch -->
-    <title>expand_all</title>
+    <title>Artboard</title>
     <desc>Created with Sketch.</desc>
-    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linejoin="round">
-        <g id="expand_all" transform="translate(1.000000, 1.000000)" stroke="#000000" stroke-width="2">
-            <g id="Group-2">
-                <path d="M0.5,5.5 L9.5,0.5 L0.5,5.5 Z M9.5,0.5 L18.5,5.5 L9.5,0.5 Z" id="Combined-Shape"></path>
-            </g>
-            <g id="Group" transform="translate(9.500000, 14.000000) rotate(-180.000000) translate(-9.500000, -14.000000) translate(0.000000, 11.000000)">
-                <path d="M0.5,5.5 L9.5,0.5 L0.5,5.5 Z M9.5,0.5 L18.5,5.5 L9.5,0.5 Z" id="Combined-Shape"></path>
-            </g>
+    <g id="Artboard" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linejoin="round">
+        <g id="Group-2" transform="translate(6.000000, 3.000000)" stroke="#000000" stroke-linecap="round" stroke-width="2">
+            <path d="M0,6 L6,0 L0,6 Z" id="Combined-Shape-path"></path>
+            <path d="M6,0 L12,6 L6,0 Z" id="Combined-Shape-path"></path>
+        </g>
+        <g id="Group" transform="translate(6.000000, 15.000000)" stroke="#000000" stroke-width="2">
+            <polygon id="Combined-Shape-path" transform="translate(9.000000, 3.000000) rotate(-180.000000) translate(-9.000000, -3.000000) " points="6 6 8.45861438 3.54138562 12 4.18545046e-14"></polygon>
+            <path d="M4.4408921e-16,-4.4408921e-16 L6,6 L4.4408921e-16,-4.4408921e-16 Z" id="Combined-Shape-path" transform="translate(3.000000, 3.000000) rotate(-180.000000) translate(-3.000000, -3.000000) "></path>
         </g>
     </g>
 </svg>

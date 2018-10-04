@@ -160,7 +160,7 @@ class DirectoryBar extends React.Component<any,any> {
                                                   display:'inline-block',
                                                   marginRight:'6px',
                                               }
-                                          }>Layouts</div>
+                                          }>Layout</div>
                                       <ActionButton 
                                           buttonStyle = {{backgroundColor:'lightcyan',}}
                                           icon = 'list'/>

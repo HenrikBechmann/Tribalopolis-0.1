@@ -117,7 +117,7 @@ class DirectoryBar extends React.Component {
                                       <div style={{
                 display: 'inline-block',
                 marginRight: '6px',
-            }}>Layouts</div>
+            }}>Layout</div>
                                       <ActionButton buttonStyle={{ backgroundColor: 'lightcyan', }} icon='list'/>
                                       <ActionButton iconStyle={{ width: '16px' }} img='/public/icons/cards.svg'/>
                                       <ActionButton iconStyle={{ width: '16px' }} img='/public/icons/tiles.svg'/>
