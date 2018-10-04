@@ -140,14 +140,13 @@ const DirectoryListBase = withStyles(styles)(class extends React.Component {
         };
         this.modifybuttons = (listItemType) => {
             let { classes } = this.props;
-            if (!listItemType)
-                return null;
-            let outgoing = listItemType.properties.static.is.outgoing;
-            let retval = outgoing ?
-                <div className={classes.buttonwrapper}>
+            // if (!listItemType) return null
+            // let outgoing = listItemType.properties.static.is.outgoing
+            let retval = // outgoing?
+             <div className={classes.buttonwrapper}>
                 <FloatingAddButton />
-            </div>
-                : null;
+            </div>;
+            // : null
             return retval;
         };
         this.listcomponent = this.props.forwardedRef;

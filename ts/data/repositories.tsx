@@ -546,7 +546,7 @@ let lists = {
         },
         properties:{
             version:0,
-            name:'Tasks',
+            name:'Chores',
         },
         references:{
             subscriptions:[],
@@ -819,49 +819,49 @@ let lists = {
 //         },
 // // account, website, home
 //     },
-    other:
-    {
-        identity:{
-            container:'',
-            id:'',
-            handle:'',
-            type:{
-                id:'',
-                handle:'',
-            },
-            account:{
-                id:'',
-                handle:'',
-            },
-        },
-        properties:{
-            version:0,
-            name:'More...',
-        },
-        references:{
-            subscriptions:[],
-            owner:{
-                id:'henrik',
-                collection:'items',
-            },
-            parentlists:[],
-            folder:'',
-        },
-        counts:{
-            lists:0,
-            links:0,
-        },
-        system:{
-            attributes:{
-                sysnode:true,
-            },
-            permissions:{},
-        },
-        data:{
-            lists:[],
-            links:[],
-        },
-    },
+    // other:
+    // {
+    //     identity:{
+    //         container:'',
+    //         id:'',
+    //         handle:'',
+    //         type:{
+    //             id:'',
+    //             handle:'',
+    //         },
+    //         account:{
+    //             id:'',
+    //             handle:'',
+    //         },
+    //     },
+    //     properties:{
+    //         version:0,
+    //         name:'More...',
+    //     },
+    //     references:{
+    //         subscriptions:[],
+    //         owner:{
+    //             id:'henrik',
+    //             collection:'items',
+    //         },
+    //         parentlists:[],
+    //         folder:'',
+    //     },
+    //     counts:{
+    //         lists:0,
+    //         links:0,
+    //     },
+    //     system:{
+    //         attributes:{
+    //             sysnode:true,
+    //         },
+    //         permissions:{},
+    //     },
+    //     data:{
+    //         lists:[],
+    //         links:[],
+    //     },
+    // },
     henrik:
     {
         identity:{
@@ -966,10 +966,6 @@ let lists = {
                 {
                     repo:'lists',
                     uid:'resources',
-                },
-                {
-                    repo:'lists',
-                    uid:'other',
                 },
             ],
             links:[],

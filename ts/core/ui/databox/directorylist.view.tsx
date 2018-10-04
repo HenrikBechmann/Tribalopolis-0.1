@@ -221,15 +221,15 @@ class extends React.Component<any,any> {
 
         let {classes} = this.props
 
-        if (!listItemType) return null
+        // if (!listItemType) return null
 
-        let outgoing = listItemType.properties.static.is.outgoing
+        // let outgoing = listItemType.properties.static.is.outgoing
 
-        let retval = outgoing?
+        let retval = // outgoing?
             <div className = {classes.buttonwrapper}>
                 <FloatingAddButton />
             </div>
-            : null
+            // : null
 
         return retval
     }

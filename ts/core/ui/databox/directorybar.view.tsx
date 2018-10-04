@@ -32,6 +32,7 @@ const styles = createStyles({
     rowwrapperstyle:{
         borderBottom:'1px solid silver',
         position:'relative',
+        whiteSpace:'nowrap',
     },
 
     rowstyle:{
@@ -40,15 +41,15 @@ const styles = createStyles({
         paddingRight:'3px',
         marginLeft:'7px',
         marginTop:'3px',
+        width:'calc(100% - 120px)',
         // backgroundColor:'white',
-        maxWidth:'calc(100% - 80px)',
         // cursor:'pointer',
     },
     namestyle:{
         display:'inline-block',
         textOverflow: 'ellipsis',
         whiteSpace:'nowrap',
-        maxWidth: '90%',
+        maxWidth: '80%',
         overflow: 'hidden',
         marginBottom:'6px',
         verticalAlign:'bottom',
