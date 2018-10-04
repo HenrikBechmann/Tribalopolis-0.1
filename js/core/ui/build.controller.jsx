@@ -74,38 +74,18 @@ class BuildController extends React.Component {
             // console.log('user',superuser,user)
             return <div>
             <BaseForm>
-                <SelectField label={'Collection'} name='collection' value={this.state.values.collection} onChange={this.onChangeValue} helperText={'select a collection for the object'} options={[
+                <SelectField label={'Collection'} name='collection' value={this.state.values.collection} onChange={this.onChangeValue} helperText={'select an object to build'} options={[
                 {
                     value: 'types',
-                    text: 'types',
+                    text: 'Type',
                 },
                 {
-                    value: 'schemas',
-                    text: 'schemas',
-                },
-                {
-                    value: 'items',
-                    text: 'items',
-                },
-                {
-                    value: 'lists',
-                    text: 'lists',
-                },
-                {
-                    value: 'links',
-                    text: 'links',
-                },
-                {
-                    value: 'folders',
-                    text: 'folders',
-                },
-                {
-                    value: 'accounts',
-                    text: 'accounts',
+                    value: 'schemes',
+                    text: 'Scheme',
                 },
             ]}/>
 
-                <TextField label='Alias' name='alias' value={this.state.values.alias} onChange={this.onChangeValue} helperText='enter the alias of the requested object'/>
+                <TextField label='Handle' name='handle' value={this.state.values.alias} onChange={this.onChangeValue} helperText='enter the handle of the requested object'/>
             </BaseForm>
             <div>
                 <Button variant='contained' onClick={this.fetchObject} className={this.props.classes.button} disabled={!superuser}>
