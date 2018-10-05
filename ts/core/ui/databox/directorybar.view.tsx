@@ -15,12 +15,9 @@ import CircularProgress from '@material-ui/core/CircularProgress'
 import QuantityBadge from '../common/quantitybadge.view'
 import ActionButton from '../common/actionbutton.view'
 import { withStyles, createStyles } from '@material-ui/core/styles'
-import ClickAwayListener from '@material-ui/core/ClickAwayListener';
-import Grow from '@material-ui/core/Grow';
-import Paper from '@material-ui/core/Paper';
-import Popper from '@material-ui/core/Popper';
 import MenuItem from '@material-ui/core/MenuItem';
-import MenuList from '@material-ui/core/MenuList';
+
+import PopupMenu from '../common/popupmenu.view'
 
 const styles = createStyles({ 
     barstyle:{
@@ -143,46 +140,31 @@ class DirectoryBar extends React.Component<any,any> {
                     >
                         <ActionButton icon = 'more_vert' action = {this.toggleMenu}/>
                     </div>
-                      <Popper 
-                          open={this.state.menuopen} 
-                          anchorEl={this.menuAnchor.current} 
-                          transition 
-                          disablePortal
-                          style = {{zIndex:3}}
-                      >
-                        {({ TransitionProps, placement }) => (
-                          <Grow
-                            {...TransitionProps}
-                            style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
-                          >
-                            <Paper>
-                              <ClickAwayListener onClickAway={this.menuClose}>
-                                <MenuList>
-                                  <MenuItem onClick={this.menuClose}>
-                                      <div 
-                                          style = {
-                                              {
-                                                  display:'inline-block',
-                                                  marginRight:'6px',
-                                              }
-                                          }>Layout</div>
-                                      <ActionButton 
-                                          icon = 'list'/>
-                                      <ActionButton 
-                                          iconStyle = {{width:'16px'}} 
-                                          img = '/public/icons/cards.svg'
-                                      />
-                                      <ActionButton 
-                                          iconStyle = {{width:'16px'}} 
-                                          img = '/public/icons/tiles.svg'
-                                      />
-                                  </MenuItem>
-                                </MenuList>
-                              </ClickAwayListener>
-                            </Paper>
-                          </Grow>
-                        )}
-                      </Popper>
+                    <PopupMenu
+                        menuopen = {this.state.menuopen}
+                        menuAnchor = {this.menuAnchor}
+                        menuClose = {this.menuClose}
+                    >
+                        <MenuItem onClick={this.menuClose}>
+                            <div 
+                                style = {
+                                    {
+                                        display:'inline-block',
+                                        marginRight:'6px',
+                                    }
+                                }>Layout</div>
+                            <ActionButton 
+                                icon = 'list'/>
+                            <ActionButton 
+                                iconStyle = {{width:'16px'}} 
+                                img = '/public/icons/cards.svg'
+                            />
+                            <ActionButton 
+                                iconStyle = {{width:'16px'}} 
+                                img = '/public/icons/tiles.svg'
+                            />
+                        </MenuItem>
+                    </PopupMenu>
                     <ActionButton img = '/public/icons/expand_all.svg' 
                         iconStyle = {{width:'16px'}}
                     />
