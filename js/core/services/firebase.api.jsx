@@ -13,5 +13,10 @@ let config = {
     messagingSenderId: "547793952145"
 };
 firebase.initializeApp(config);
+// Disable deprecated features
+// required according to https://firebase.google.com/docs/firestore/quickstart
+firebase.firestore().settings({
+    timestampsInSnapshots: true
+});
 export default firebase;
 //# sourceMappingURL=firebase.api.jsx.map

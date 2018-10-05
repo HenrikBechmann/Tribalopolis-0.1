@@ -1,6 +1,10 @@
 // directorybar.view.tsx
 // copyright (c) 2018 Henrik Bechmann, Toronto, MIT Licence
 
+/*
+    TODO: isolate popup menu to common component
+*/
+
 'use strict'
 
 import React from 'react'
@@ -163,16 +167,15 @@ class DirectoryBar extends React.Component<any,any> {
                                               }
                                           }>Layout</div>
                                       <ActionButton 
-                                          buttonStyle = {{backgroundColor:'lightcyan',}}
                                           icon = 'list'/>
                                       <ActionButton 
                                           iconStyle = {{width:'16px'}} 
                                           img = '/public/icons/cards.svg'
                                       />
-                                      {false && <ActionButton 
+                                      <ActionButton 
                                           iconStyle = {{width:'16px'}} 
                                           img = '/public/icons/tiles.svg'
-                                      />}
+                                      />
                                   </MenuItem>
                                 </MenuList>
                               </ClickAwayListener>

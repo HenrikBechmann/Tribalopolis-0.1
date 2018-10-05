@@ -1,5 +1,8 @@
 // directorybar.view.tsx
 // copyright (c) 2018 Henrik Bechmann, Toronto, MIT Licence
+/*
+    TODO: isolate popup menu to common component
+*/
 'use strict';
 import React from 'react';
 import Icon from '@material-ui/core/Icon';
@@ -118,9 +121,9 @@ class DirectoryBar extends React.Component {
                 display: 'inline-block',
                 marginRight: '6px',
             }}>Layout</div>
-                                      <ActionButton buttonStyle={{ backgroundColor: 'lightcyan', }} icon='list'/>
+                                      <ActionButton icon='list'/>
                                       <ActionButton iconStyle={{ width: '16px' }} img='/public/icons/cards.svg'/>
-                                      {false && <ActionButton iconStyle={{ width: '16px' }} img='/public/icons/tiles.svg'/>}
+                                      <ActionButton iconStyle={{ width: '16px' }} img='/public/icons/tiles.svg'/>
                                   </MenuItem>
                                 </MenuList>
                               </ClickAwayListener>

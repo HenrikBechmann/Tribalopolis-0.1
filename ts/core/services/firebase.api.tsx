@@ -18,4 +18,10 @@ let config = {
 
 firebase.initializeApp(config)
 
+// Disable deprecated features
+// required according to https://firebase.google.com/docs/firestore/quickstart
+firebase.firestore().settings({
+  timestampsInSnapshots: true
+})
+
 export default firebase

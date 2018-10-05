@@ -1,7 +1,7 @@
 // datamodel.tsx
 /*
 
-    THIS IS JUST A PROTOTYPE AND IS OUT OF DATA September 2018
+    THIS IS JUST A PROTOTYPE AND IS OUT OF USE September 2018
     should sit between application and domain
     currently being bypassed
     This is the runtime memory data model
