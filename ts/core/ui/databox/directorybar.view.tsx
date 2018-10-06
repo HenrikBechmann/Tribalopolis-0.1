@@ -22,7 +22,7 @@ import PopupMenu from '../common/popupmenu.view'
 const styles = createStyles({ 
     barstyle:{
         width:'100%',
-        borderRadius:'8px 8px 0 0',
+        borderRadius:'8px 0 0 0',
         paddingTop:'3px',
         boxSizing:'border-box',
         top:'0',

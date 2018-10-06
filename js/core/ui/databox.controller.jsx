@@ -23,7 +23,7 @@ const styles = createStyles({
         maxHeight: '96%',
         minHeight: '60%',
         boxSizing: 'border-box',
-        borderRadius: '8px',
+        borderRadius: '8px 0 8px 8px',
         fontSize: 'smaller',
         position: 'relative',
         transition: 'width .5s',
@@ -193,13 +193,12 @@ class DataBox extends React.Component {
         };
         let frameStyle = {
             border: this.collapseTargetProxy ? '1px solid blue' : '1px solid silver',
-            boxShadow: haspeers ? 'none' : '0 0 12px black',
             width: haspeers ? 'none' : (this.props.boxwidth) + 'px',
             margin: haspeers ? '16px 40px 16px 16px' : 'auto',
         };
         return <div data-index={this.props.index} className={classes.wrapper} style={wrapperStyle}>
             <div className={classes.frame} style={frameStyle} ref={this.boxframe}>
-                <NavigationMenuTab />
+                <NavigationMenuTab itemType={itemType /*future*/} listProxy={this.state.TypelistProxy} haspeers={this.props.haspeers} callbacks={this.typecallbacks}/>
                 {!haspeers && <ResizeTab boxwidth={this.props.boxwidth} boxframe={this.boxframe} setBoxWidth={this.props.callbacks.setBoxWidth}/>}
                 {false && <BoxTypebar item={item} itemType={itemType /*future*/} listProxy={this.state.TypelistProxy} haspeers={this.props.haspeers} callbacks={this.typecallbacks}/>}
                 {false && <BoxIdentityBar item={item}/>}

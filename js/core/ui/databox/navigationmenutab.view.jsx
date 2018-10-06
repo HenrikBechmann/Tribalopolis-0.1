@@ -8,24 +8,27 @@ const styles = createStyles({
     tabstyles: {
         position: 'absolute',
         right: '-38px',
-        top: '10px',
+        top: '-1px',
         width: '36px',
-        border: '1px solid gray',
-        borderLeft: '1px solid transparent',
-        backgroundColor: 'white',
+        border: '1px solid silver',
+        backgroundColor: '#f2f2f2',
         borderRadius: '0 8px 8px 0',
-        opacity: .54,
-    },
-    iconwrapperstyles: {
-        margin: '4px 0 0 -3px',
-    },
-    iconstyles: {
-        transform: 'rotate(90deg)', opacity: .54
     },
 });
 class NavigationMenuTab extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {
+            list: null
+        };
+        this.cacheListDocument = (document, type) => {
+            this.setState({
+                list: {
+                    document,
+                    type
+                }
+            });
+        };
         this.selectFromSplay = () => {
             return () => {
                 this.props.callbacks.selectFromSplay(this.selectdomsource.current);
@@ -40,17 +43,29 @@ class NavigationMenuTab extends React.Component {
         this.selectdomsource = React.createRef();
         this.zoomdomsource = React.createRef();
     }
+    componentDidUpdate() {
+        if (!this.listProxy && this.props.listProxy) {
+            this.listProxy = this.props.listProxy;
+            this.props.callbacks.setListListener(this.listProxy.token, this.listProxy.instanceid, this.cacheListDocument);
+        }
+    }
+    componentWillUnmount() {
+        if (this.listProxy) {
+            this.props.callbacks.removeListListener(this.listProxy.token, this.listProxy.instanceid);
+        }
+    }
     render() {
         const { classes } = this.props;
+        let listcount = this.state.list ? this.state.list.document.data.lists.length : 0;
         return (<div className={classes.tabstyles}>
-                <div className={classes.buttonwrapper} ref={this.zoomdomsource}>
-                    <ActionButton icon='zoom_out_map'/>
+                <div className={classes.splaybuttonwrapper} ref={this.splaydomsource}>
+                    <ActionButton img='/public/icons/ic_splay_24px.svg' disabled={!listcount} action={this.splayBox()}/>
                 </div>
                 <div className={classes.buttonwrapper} ref={this.selectdomsource}>
                     <ActionButton iconStyle={{ transform: 'rotate(90deg)' }} disabled={!this.props.haspeers} img='/public/icons/ic_splay_24px.svg' action={this.selectFromSplay()}/>
                 </div>
-                <div className={classes.splaybuttonwrapper} ref={this.splaydomsource}>
-                    <ActionButton img='/public/icons/ic_splay_24px.svg' disabled={!this.props.listcount} action={this.splayBox()}/>
+                <div className={classes.buttonwrapper} ref={this.zoomdomsource}>
+                    <ActionButton icon='zoom_out_map'/>
                 </div>
             </div>);
     }
