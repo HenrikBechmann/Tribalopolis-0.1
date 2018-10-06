@@ -173,7 +173,7 @@ const DirectoryListBase = withStyles(styles)(class extends React.Component {
     render() {
         let { classes } = this.props;
         let scrollboxstyle = {
-            height: (this.props.containerHeight - 149) + 'px',
+            height: (this.props.containerHeight - 73) + 'px',
         };
         let length = this.state.listproxies ? this.state.listproxies.length : 0;
         return (<div style={{ position: 'relative' }}>

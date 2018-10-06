@@ -12,6 +12,7 @@ import DirectoryBar from './databox/directorybar.view';
 import DirectoryList from './databox/directorylist.view';
 // import ScanBar from './databox/scanbar.view'
 import ResizeTab from './databox/resizetab.view';
+import NavigationMenuTab from './databox/navigationmenutab.view';
 import proxy from '../utilities/proxy';
 const styles = createStyles({
     wrapper: {
@@ -198,9 +199,10 @@ class DataBox extends React.Component {
         };
         return <div data-index={this.props.index} className={classes.wrapper} style={wrapperStyle}>
             <div className={classes.frame} style={frameStyle} ref={this.boxframe}>
+                <NavigationMenuTab />
                 {!haspeers && <ResizeTab boxwidth={this.props.boxwidth} boxframe={this.boxframe} setBoxWidth={this.props.callbacks.setBoxWidth}/>}
-                <BoxTypebar item={item} itemType={itemType /*future*/} listProxy={this.state.TypelistProxy} haspeers={this.props.haspeers} callbacks={this.typecallbacks}/>
-                <BoxIdentityBar item={item}/>
+                {false && <BoxTypebar item={item} itemType={itemType /*future*/} listProxy={this.state.TypelistProxy} haspeers={this.props.haspeers} callbacks={this.typecallbacks}/>}
+                {false && <BoxIdentityBar item={item}/>}
 
                 <div className={classes.identityBar}>
 

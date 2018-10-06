@@ -16,6 +16,7 @@ import DirectoryList from './databox/directorylist.view'
 // import ScanBar from './databox/scanbar.view'
 
 import ResizeTab from './databox/resizetab.view'
+import NavigationMenuTab from './databox/navigationmenutab.view'
 
 import proxy from '../utilities/proxy'
 
@@ -270,20 +271,21 @@ class DataBox extends React.Component<any,any> {
             <div className = {classes.frame} style = {frameStyle}
                 ref = {this.boxframe}
             >
+                <NavigationMenuTab />
                 { !haspeers && <ResizeTab 
                     boxwidth = {this.props.boxwidth} 
                     boxframe = {this.boxframe}
                     setBoxWidth = { this.props.callbacks.setBoxWidth }
                 /> }
-                <BoxTypebar 
+                {false && <BoxTypebar 
                     item = { item } 
                     itemType = { itemType /*future*/}
                     listProxy = {this.state.TypelistProxy}
                     haspeers = {this.props.haspeers}
 
                     callbacks = {this.typecallbacks}
-                />
-                <BoxIdentityBar item = {item} />
+                />}
+                {false && <BoxIdentityBar item = {item} />}
 
                 <div className = {classes.identityBar} >
 
