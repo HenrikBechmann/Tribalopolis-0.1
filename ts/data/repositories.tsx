@@ -547,7 +547,7 @@ let lists = {
         },
         properties:{
             version:0,
-            name:'Chores',
+            name:'To Do Lists',
         },
         references:{
             subscriptions:[],
