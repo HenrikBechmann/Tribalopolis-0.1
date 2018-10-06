@@ -23,6 +23,7 @@ import proxy from '../utilities/proxy'
 const styles = createStyles({
     wrapper:{
         boxSizing:'border-box',
+        position:'relative',
     },
     frame:{
         backgroundColor:'white',
@@ -231,6 +232,7 @@ class DataBox extends React.Component<any,any> {
             let wrapperStyle:React.CSSProperties = {
                 height:(this.props.containerHeight - 16) + 'px',
                 width:haspeers?(this.props.boxwidth + 56) + 'px':'auto',
+                left:haspeers?'auto':'-20px',
                 float:haspeers?'left':'none',
                 padding:haspeers?'initial':'16px',
             }
@@ -253,6 +255,7 @@ class DataBox extends React.Component<any,any> {
             {
                 float:haspeers?'left':'none',
                 width:haspeers?(this.props.boxwidth + 56) + 'px':'none',
+                left:haspeers?'auto':'-20px',
                 padding: haspeers?'none':'16px',
             }
         let frameStyle:React.CSSProperties =  
