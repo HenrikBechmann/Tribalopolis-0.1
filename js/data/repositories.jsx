@@ -570,7 +570,7 @@ let lists = {
         },
         properties: {
             version: 0,
-            name: 'Private Messages',
+            name: 'Messages',
         },
         references: {
             subscriptions: [],
@@ -610,7 +610,7 @@ let lists = {
         },
         properties: {
             version: 0,
-            name: 'Message Streams',
+            name: 'Chat Rooms',
         },
         references: {
             subscriptions: [],
@@ -891,6 +891,26 @@ let lists = {
                 },
                 {
                     repo: 'lists',
+                    uid: 'tasks',
+                },
+                {
+                    repo: 'lists',
+                    uid: 'projects',
+                },
+                {
+                    repo: 'lists',
+                    uid: 'programs',
+                },
+                {
+                    repo: 'lists',
+                    uid: 'messages',
+                },
+                {
+                    repo: 'lists',
+                    uid: 'streams',
+                },
+                {
+                    repo: 'lists',
                     uid: 'connections',
                 },
                 {
@@ -911,18 +931,6 @@ let lists = {
                 },
                 {
                     repo: 'lists',
-                    uid: 'tasks',
-                },
-                {
-                    repo: 'lists',
-                    uid: 'messages',
-                },
-                {
-                    repo: 'lists',
-                    uid: 'streams',
-                },
-                {
-                    repo: 'lists',
                     uid: 'calendars',
                 },
                 {
@@ -932,14 +940,6 @@ let lists = {
                 {
                     repo: 'lists',
                     uid: 'roles',
-                },
-                {
-                    repo: 'lists',
-                    uid: 'programs',
-                },
-                {
-                    repo: 'lists',
-                    uid: 'projects',
                 },
                 {
                     repo: 'lists',
