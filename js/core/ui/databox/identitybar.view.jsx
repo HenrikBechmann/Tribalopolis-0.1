@@ -3,6 +3,7 @@
 'use strict';
 import React from 'react';
 import ActionButton from '../common/actionbutton.view';
+import Info from '@material-ui/icons/InfoOutlined';
 import { withStyles, createStyles } from '@material-ui/core/styles';
 const styles = createStyles({
     root: {
@@ -37,7 +38,7 @@ const IdentityBar = props => {
     let { classes } = props;
     return <div className={classes.root}>
         {false && <ActionButton icon='lock'/>}
-        <ActionButton icon='expand_more'/>
+        <ActionButton component={<Info />}/>
         <img className={classes.avatar} src={avatar}/> 
         <div className={classes.name}>
             {item.properties.name.fullname}

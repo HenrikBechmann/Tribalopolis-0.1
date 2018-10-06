@@ -109,9 +109,9 @@ class BoxToolbar extends React.Component {
                 <img className={classes.boxiconimage} src={boxicon}/>
             </div>
             <div className={classes.name}>
-                [to be determined]
+                User 
             </div>
-            <ActionButton icon='arrow_drop_down' buttonStyle={{ verticalAlign: 'top', float: 'none' }}/>
+            {false && <ActionButton icon='arrow_drop_down' buttonStyle={{ verticalAlign: 'top', float: 'none' }}/>}
 
         </div>;
     }

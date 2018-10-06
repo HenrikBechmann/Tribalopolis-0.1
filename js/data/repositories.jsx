@@ -857,7 +857,7 @@ let lists = {
         },
         properties: {
             version: 0,
-            name: 'Fields',
+            name: 'Links',
             linkedlist: false,
         },
         references: {

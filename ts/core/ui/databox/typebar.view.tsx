@@ -153,12 +153,12 @@ class BoxToolbar extends React.Component<any,any> {
                 <img className = {classes.boxiconimage} src = {boxicon} />
             </div>
             <div className = { classes.name }>
-                [to be determined]{/*props.item.type.name*/}
+                User {/*props.item.type.name*/}
             </div>
-            <ActionButton 
+            {false && <ActionButton 
                 icon = 'arrow_drop_down'
                 buttonStyle = {{verticalAlign:'top',float:'none'}}
-            />
+            />}
 
         </div>
     }
