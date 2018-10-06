@@ -168,7 +168,7 @@ class DataBox extends React.Component {
         if (!item) {
             let wrapperStyle = {
                 height: (this.props.containerHeight - 16) + 'px',
-                width: haspeers ? (this.props.boxwidth + 32) + 'px' : 'auto',
+                width: haspeers ? (this.props.boxwidth + 56) + 'px' : 'auto',
                 float: haspeers ? 'left' : 'none',
                 padding: haspeers ? 'initial' : '16px',
             };
@@ -176,7 +176,7 @@ class DataBox extends React.Component {
                 maxHeight: '100%',
                 height: '96%',
                 width: haspeers ? 'none' : (this.props.boxwidth) + 'px',
-                margin: haspeers ? '16px' : 'auto',
+                margin: haspeers ? '16px 40px 16px 16px' : 'auto',
             };
             return <div className={classes.wrapper} style={wrapperStyle}>
                 <div className={classes.frame} style={frameStyle}>
@@ -187,14 +187,14 @@ class DataBox extends React.Component {
         // over-rides
         let wrapperStyle = {
             float: haspeers ? 'left' : 'none',
-            width: haspeers ? (this.props.boxwidth + 32) + 'px' : 'none',
+            width: haspeers ? (this.props.boxwidth + 56) + 'px' : 'none',
             padding: haspeers ? 'none' : '16px',
         };
         let frameStyle = {
             border: this.collapseTargetProxy ? '1px solid blue' : '1px solid silver',
             boxShadow: haspeers ? 'none' : '0 0 12px black',
             width: haspeers ? 'none' : (this.props.boxwidth) + 'px',
-            margin: haspeers ? '16px' : 'auto',
+            margin: haspeers ? '16px 40px 16px 16px' : 'auto',
         };
         return <div data-index={this.props.index} className={classes.wrapper} style={wrapperStyle}>
             <div className={classes.frame} style={frameStyle} ref={this.boxframe}>

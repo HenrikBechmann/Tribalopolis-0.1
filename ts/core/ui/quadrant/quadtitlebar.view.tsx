@@ -9,7 +9,7 @@ import { withStyles, createStyles } from '@material-ui/core/styles'
 const styles = createStyles({
     root:{
         position:'relative',
-        height:'25px',
+        height:'33px',
         backgroundColor:'white',
         boxSizing:'border-box',
         width:'100%',
