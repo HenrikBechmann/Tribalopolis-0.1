@@ -857,7 +857,7 @@ let lists = {
         },
         properties: {
             version: 0,
-            name: 'Directory',
+            name: 'Links Directory',
             linkedlist: false,
         },
         references: {
