@@ -730,7 +730,7 @@ let lists = {
         },
         properties: {
             version: 0,
-            name: 'Accounting',
+            name: 'Ledgers',
         },
         references: {
             subscriptions: [],

@@ -118,17 +118,17 @@ class DirectoryBar extends React.Component {
                             <Icon style={{ opacity: .54 }}>label</Icon> New Label
                         </MenuItem>
                         <MenuItem className={classes.menustyle} onClick={this.menuClose}>
-                            <Icon>check</Icon> Show All
+                            <Icon style={{ opacity: .54 }}>check</Icon> Show All
                         </MenuItem>
                         <Divider />
                         <MenuItem className={classes.menustyle} onClick={this.menuClose}>
-                            <Info /> Info
+                            <Info style={{ opacity: .54 }}/> Info
                         </MenuItem>
                         <MenuItem className={classes.menustyle} onClick={this.menuClose}>
-                            <Icon>edit</Icon> Edit
+                            <Icon style={{ opacity: .54 }}>edit</Icon> Edit
                         </MenuItem>
                         <MenuItem className={classes.menustyle} onClick={this.menuClose}>
-                            <Icon>delete</Icon> Delete
+                            <Icon style={{ opacity: .54 }}>delete</Icon> Delete
                         </MenuItem>
                         <Divider />
                         <MenuItem className={classes.menustyle} onClick={this.menuClose}>
