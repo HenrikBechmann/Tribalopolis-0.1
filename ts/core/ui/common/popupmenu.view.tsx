@@ -5,33 +5,20 @@
 
 import React from 'react'
 
-import ClickAwayListener from '@material-ui/core/ClickAwayListener';
-import Grow from '@material-ui/core/Grow';
-import Paper from '@material-ui/core/Paper';
-import Popper from '@material-ui/core/Popper';
-import MenuList from '@material-ui/core/MenuList';
+import Menu from '@material-ui/core/Menu';
 
 const PopupMenu = props => {
 
     let { menuopen, menuAnchor, menuClose } = props
 
     return (
-    <Popper 
-      open={menuopen} 
-      anchorEl={menuAnchor.current} 
-      transition 
-      disablePortal
-      style = {{zIndex:3}}
-    >
-        <Paper>
-          <ClickAwayListener onClickAway={menuClose}>
-            <MenuList>
-                { props.children }
-            </MenuList>
-          </ClickAwayListener>
-        </Paper>
-    )}
-    </Popper>
+        <Menu
+          open={menuopen} 
+          anchorEl={menuAnchor.current}
+          onClick ={menuClose} 
+        >
+            { props.children }
+        </Menu>
     )
 }
 

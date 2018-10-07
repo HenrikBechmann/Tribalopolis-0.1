@@ -59,6 +59,10 @@ const styles = createStyles({
     },
     progress: {
         height: '33px',
+    },
+    menustyle: {
+        padding: '6px',
+        fontSize: '.86rem',
     }
 });
 class DirectoryBar extends React.Component {
@@ -110,24 +114,24 @@ class DirectoryBar extends React.Component {
                         <ActionButton icon='more_vert' action={this.toggleMenu}/>
                     </div>
                     <PopupMenu menuopen={this.state.menuopen} menuAnchor={this.menuAnchor} menuClose={this.menuClose}>
-                        <MenuItem onClick={this.menuClose}>
+                        <MenuItem className={classes.menustyle} onClick={this.menuClose}>
                             <Icon style={{ opacity: .54 }}>label</Icon> New Label
                         </MenuItem>
-                        <MenuItem onClick={this.menuClose}>
+                        <MenuItem className={classes.menustyle} onClick={this.menuClose}>
                             <Icon>check</Icon> Show All
                         </MenuItem>
                         <Divider />
-                        <MenuItem onClick={this.menuClose}>
+                        <MenuItem className={classes.menustyle} onClick={this.menuClose}>
                             <Info /> Info
                         </MenuItem>
-                        <MenuItem onClick={this.menuClose}>
+                        <MenuItem className={classes.menustyle} onClick={this.menuClose}>
                             <Icon>edit</Icon> Edit
                         </MenuItem>
-                        <MenuItem onClick={this.menuClose}>
+                        <MenuItem className={classes.menustyle} onClick={this.menuClose}>
                             <Icon>delete</Icon> Delete
                         </MenuItem>
                         <Divider />
-                        <MenuItem onClick={this.menuClose}>
+                        <MenuItem className={classes.menustyle} onClick={this.menuClose}>
                             <div style={{
                 display: 'inline-block',
                 marginRight: '6px',
