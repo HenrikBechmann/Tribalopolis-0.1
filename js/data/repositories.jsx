@@ -903,6 +903,10 @@ let lists = {
                 },
                 {
                     repo: 'lists',
+                    uid: 'accounting',
+                },
+                {
+                    repo: 'lists',
                     uid: 'messages',
                 },
                 {
@@ -932,10 +936,6 @@ let lists = {
                 {
                     repo: 'lists',
                     uid: 'calendars',
-                },
-                {
-                    repo: 'lists',
-                    uid: 'accounting',
                 },
                 {
                     repo: 'lists',
