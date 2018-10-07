@@ -308,7 +308,7 @@ class Quadrant extends React.Component<any,any>  {
             <div ref = {this.maskanimationblock} ></div>
 
             <QuadTitleBar 
-                title = {'Tribalopolis'} 
+                title = {'[Context]'} 
                 quadidentifier={this.props.quadidentifier}
             />
             <QuadOrigin 

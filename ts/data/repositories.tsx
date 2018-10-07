@@ -880,7 +880,7 @@ let lists = {
         },
         properties:{
             version:0,
-            name:'Links Directory',
+            name:'Attachments Directory',
             linkedlist:false,
         },
         references:{

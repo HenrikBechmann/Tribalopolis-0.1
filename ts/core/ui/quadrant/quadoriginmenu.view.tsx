@@ -44,7 +44,7 @@ const OriginMenu = (props) => {
         <Divider style = {{float:'right',width:'100%'}}/>
 
         <ActionButton 
-            icon = 'menu'
+            icon = 'expand_more'
         />
 
     </div>

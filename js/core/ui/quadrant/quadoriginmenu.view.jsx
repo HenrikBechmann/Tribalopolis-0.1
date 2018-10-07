@@ -26,7 +26,7 @@ const OriginMenu = (props) => {
 
         <Divider style={{ float: 'right', width: '100%' }}/>
 
-        <ActionButton icon='menu'/>
+        <ActionButton icon='expand_more'/>
 
     </div>;
 };

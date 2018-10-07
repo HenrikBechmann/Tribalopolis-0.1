@@ -212,7 +212,7 @@ class Quadrant extends React.Component {
             <div ref={this.originanimationblock}></div>
             <div ref={this.maskanimationblock}></div>
 
-            <QuadTitleBar title={'Tribalopolis'} quadidentifier={this.props.quadidentifier}/>
+            <QuadTitleBar title={'[Context]'} quadidentifier={this.props.quadidentifier}/>
             <QuadOrigin stackpointer={this.state.stackpointer} stackdepth={datastack ? datastack.length : 0} incrementStackSelector={this.operations.incrementStackSelector} decrementStackSelector={this.operations.decrementStackSelector} ref={this.originelement}/>
             <div className={classes.viewportFrame}>
                 <div className={classes.viewport} style={viewportStyle} ref={this.scrollboxelement}>
