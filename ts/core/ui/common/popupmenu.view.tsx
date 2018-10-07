@@ -23,11 +23,6 @@ const PopupMenu = props => {
       disablePortal
       style = {{zIndex:3}}
     >
-    {({ TransitionProps, placement }) => (
-      <Grow
-        {...TransitionProps}
-        style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
-      >
         <Paper>
           <ClickAwayListener onClickAway={menuClose}>
             <MenuList>
@@ -35,10 +30,16 @@ const PopupMenu = props => {
             </MenuList>
           </ClickAwayListener>
         </Paper>
-      </Grow>
     )}
     </Popper>
     )
 }
 
 export default PopupMenu
+
+    // {({ TransitionProps, placement }) => (
+    //   <Grow
+    //     {...TransitionProps}
+    //     style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
+    //   >
+      // </Grow>

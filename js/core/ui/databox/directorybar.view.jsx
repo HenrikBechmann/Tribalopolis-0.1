@@ -11,7 +11,9 @@ import QuantityBadge from '../common/quantitybadge.view';
 import ActionButton from '../common/actionbutton.view';
 import { withStyles, createStyles } from '@material-ui/core/styles';
 import MenuItem from '@material-ui/core/MenuItem';
+import Divider from '@material-ui/core/Divider';
 import PopupMenu from '../common/popupmenu.view';
+import Info from '@material-ui/icons/InfoOutlined';
 const styles = createStyles({
     barstyle: {
         width: '100%',
@@ -108,6 +110,23 @@ class DirectoryBar extends React.Component {
                         <ActionButton icon='more_vert' action={this.toggleMenu}/>
                     </div>
                     <PopupMenu menuopen={this.state.menuopen} menuAnchor={this.menuAnchor} menuClose={this.menuClose}>
+                        <MenuItem onClick={this.menuClose}>
+                            <Icon style={{ opacity: .54 }}>label</Icon> New Label
+                        </MenuItem>
+                        <MenuItem onClick={this.menuClose}>
+                            <Icon>check</Icon> Show All
+                        </MenuItem>
+                        <Divider />
+                        <MenuItem onClick={this.menuClose}>
+                            <Info /> Info
+                        </MenuItem>
+                        <MenuItem onClick={this.menuClose}>
+                            <Icon>edit</Icon> Edit
+                        </MenuItem>
+                        <MenuItem onClick={this.menuClose}>
+                            <Icon>delete</Icon> Delete
+                        </MenuItem>
+                        <Divider />
                         <MenuItem onClick={this.menuClose}>
                             <div style={{
                 display: 'inline-block',
