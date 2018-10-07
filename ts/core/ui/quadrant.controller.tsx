@@ -70,6 +70,7 @@ class Quadrant extends React.Component<any,any>  {
 
         // components
         this.listcomponent = React.createRef()
+        this.datadrawerelement = React.createRef()
 
         // ----------[ callbacks ]----------
         this.setItemListener = this.props.callbacks.setItemListener
@@ -116,6 +117,7 @@ class Quadrant extends React.Component<any,any>  {
 
     // component ref
     listcomponent
+    datadrawerelement
 
     // callbacks get database records
     setItemListener
@@ -319,6 +321,26 @@ class Quadrant extends React.Component<any,any>  {
                 ref = {this.originelement}
             />
             <div className = {classes.viewportFrame}>
+                <div style = {
+                    {
+                        width:'300px',
+                        backgroundColor:'white',
+                        height:'100%',
+                        padding:'3px',
+                        position:'absolute',
+                        right:'0',
+                        top:'0',
+                        zIndex:1,
+                        transition:'right .5s',
+                    }}
+                    ref = {this.datadrawerelement}
+                    data-name = 'data-drawer'
+                    onClick = {()=>{
+                        this.datadrawerelement.current.style.right = '-310px'
+                    }}
+                >
+                    data drawer
+                </div>
                 <div 
                     className = {classes.viewport}
                     style = {viewportStyle}

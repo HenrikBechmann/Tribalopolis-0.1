@@ -123,6 +123,7 @@ class Quadrant extends React.Component {
         this.originelement = React.createRef();
         // components
         this.listcomponent = React.createRef();
+        this.datadrawerelement = React.createRef();
         // ----------[ callbacks ]----------
         this.setItemListener = this.props.callbacks.setItemListener;
         this.setListListener = this.props.callbacks.setListListener;
@@ -215,6 +216,21 @@ class Quadrant extends React.Component {
             <QuadTitleBar title={'[Context]'} quadidentifier={this.props.quadidentifier}/>
             <QuadOrigin stackpointer={this.state.stackpointer} stackdepth={datastack ? datastack.length : 0} incrementStackSelector={this.operations.incrementStackSelector} decrementStackSelector={this.operations.decrementStackSelector} ref={this.originelement}/>
             <div className={classes.viewportFrame}>
+                <div style={{
+            width: '300px',
+            backgroundColor: 'white',
+            height: '100%',
+            padding: '3px',
+            position: 'absolute',
+            right: '0',
+            top: '0',
+            zIndex: 1,
+            transition: 'right .5s',
+        }} ref={this.datadrawerelement} data-name='data-drawer' onClick={() => {
+            this.datadrawerelement.current.style.right = '-310px';
+        }}>
+                    data drawer
+                </div>
                 <div className={classes.viewport} style={viewportStyle} ref={this.scrollboxelement}>
                     {haspeers
             ? <Lister axis='x' itemRenderer={this.getBox} length={datastack ? datastack[this.state.stackpointer].items.length : 0} type='uniform' ref={this.listcomponent} useStaticSize/>
