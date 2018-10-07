@@ -8,6 +8,8 @@ import React from 'react'
 import { withStyles, createStyles } from '@material-ui/core/styles'
 import Icon from '@material-ui/core/Icon'
 
+import Divider from '@material-ui/core/Divider'
+
 import ActionButton from '../common/actionbutton.view'
 
 const styles = createStyles({
@@ -108,6 +110,14 @@ class NavigationMenuTab extends React.Component<any,any> {
                 >
                     <ActionButton 
                         icon = 'zoom_out_map' 
+                    />
+                </div>
+                <hr style ={{margin:'0'}} />
+                <div className = {classes.buttonwrapper}
+                    ref = {this.zoomdomsource}
+                >
+                    <ActionButton 
+                        icon = 'expand_more' 
                     />
                 </div>
             </div>

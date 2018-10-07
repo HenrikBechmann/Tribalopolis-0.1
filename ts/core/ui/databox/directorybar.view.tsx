@@ -193,9 +193,10 @@ class DirectoryBar extends React.Component<any,any> {
                             />
                         </MenuItem>
                     </PopupMenu>
-                    <ActionButton img = '/public/icons/expand_all.svg' 
+                    {false && <ActionButton img = '/public/icons/expand_all.svg' 
                         iconStyle = {{width:'16px'}}
-                    />
+                    />}
+                    <ActionButton icon = 'unfold_more' />
                     { listStack.length
                         ?<div className = {classes.arrowstyle}>
 

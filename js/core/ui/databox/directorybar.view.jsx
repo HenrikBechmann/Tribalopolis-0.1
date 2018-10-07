@@ -141,7 +141,8 @@ class DirectoryBar extends React.Component {
                             <ActionButton iconStyle={{ width: '16px' }} img='/public/icons/tiles.svg'/>
                         </MenuItem>
                     </PopupMenu>
-                    <ActionButton img='/public/icons/expand_all.svg' iconStyle={{ width: '16px' }}/>
+                    {false && <ActionButton img='/public/icons/expand_all.svg' iconStyle={{ width: '16px' }}/>}
+                    <ActionButton icon='unfold_more'/>
                     {listStack.length
                 ? <div className={classes.arrowstyle}>
 
