@@ -12,6 +12,7 @@ import { withStyles, createStyles } from '@material-ui/core/styles'
 
 import QuadOrigin from './quadrant/quadorigin.view'
 import QuadTitleBar from './quadrant/quadtitlebar.view'
+import QuadDataDrawer from './quadrant/quaddatadrawer.view'
 
 import DataBox from './databox.controller'
 import Lister from 'react-list'
@@ -321,26 +322,7 @@ class Quadrant extends React.Component<any,any>  {
                 ref = {this.originelement}
             />
             <div className = {classes.viewportFrame}>
-                <div style = {
-                    {
-                        width:'300px',
-                        backgroundColor:'white',
-                        height:'100%',
-                        padding:'3px',
-                        position:'absolute',
-                        right:'0',
-                        top:'0',
-                        zIndex:1,
-                        transition:'right .5s',
-                    }}
-                    ref = {this.datadrawerelement}
-                    data-name = 'data-drawer'
-                    onClick = {()=>{
-                        this.datadrawerelement.current.style.right = '-310px'
-                    }}
-                >
-                    data drawer
-                </div>
+                <QuadDataDrawer />
                 <div 
                     className = {classes.viewport}
                     style = {viewportStyle}
