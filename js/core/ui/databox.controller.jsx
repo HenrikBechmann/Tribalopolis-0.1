@@ -204,7 +204,7 @@ class DataBox extends React.Component {
                 <NavigationMenuTab itemType={itemType /*future*/} listProxy={this.state.TypelistProxy} haspeers={haspeers} callbacks={this.typecallbacks}/>
                 {!haspeers && <ResizeTab boxwidth={this.props.boxwidth} boxframe={this.boxframe} setBoxWidth={this.props.callbacks.setBoxWidth}/>}
                 {false && <BoxTypebar item={item} itemType={itemType /*future*/} listProxy={this.state.TypelistProxy} haspeers={haspeers} callbacks={this.typecallbacks}/>}
-                {false && <BoxIdentityBar item={item}/>}
+                {true && <BoxIdentityBar item={item}/>}
 
                 <div className={classes.identityBar}>
 

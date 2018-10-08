@@ -159,6 +159,7 @@ class DirectoryBar extends React.Component<any,any> {
                             <Icon style = {{opacity:.54}} >edit</Icon> Edit
                         </MenuItem>
                         <MenuItem className = {classes.menustyle}
+                            disabled
                             onClick = {this.menuClose}>
                             <Icon style = {{opacity:.54}} >delete</Icon> Delete
                         </MenuItem>

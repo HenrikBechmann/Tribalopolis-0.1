@@ -120,7 +120,7 @@ class DirectoryBar extends React.Component {
                         <MenuItem className={classes.menustyle} onClick={this.menuClose}>
                             <Icon style={{ opacity: .54 }}>edit</Icon> Edit
                         </MenuItem>
-                        <MenuItem className={classes.menustyle} onClick={this.menuClose}>
+                        <MenuItem className={classes.menustyle} disabled onClick={this.menuClose}>
                             <Icon style={{ opacity: .54 }}>delete</Icon> Delete
                         </MenuItem>
                         <Divider />
