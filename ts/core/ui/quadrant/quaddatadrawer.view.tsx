@@ -34,12 +34,32 @@ class QuadDataDrawer extends React.Component<any,any>  {
     }
 
     state = {
-        open:true,
+        open:false,
         width:300,
-        right:0,
+        right:-310,
     }
 
     datadrawerelement
+
+    componentDidMount() {
+        this.assertOpen(this.props.startopen)
+    }
+
+    assertOpen = (open) => {
+        if ( !!open != this.state.open) {
+            let right
+            if (!!open) {
+                right = 0
+            } else {
+                right = -(this.state.width + 10)
+            }
+            this.setState({
+                open,
+                right,
+            })
+
+        } 
+    }
 
     handleClose = ()=>{
         this.setState({
@@ -57,12 +77,12 @@ class QuadDataDrawer extends React.Component<any,any>  {
                  right:this.state.right + 'px',
             }}
             className = {classes.root}
-            ref = {this.datadrawerelement}
+            ref = { this.datadrawerelement }
             data-name = 'data-drawer'
         >
             <IconButton
-                 className = {classes.button}
-                 onClick = {this.handleClose}
+                 className = { classes.button }
+                 onClick = { this.handleClose }
             >
                 <Icon>close</Icon>
             </IconButton>

@@ -24,9 +24,24 @@ class QuadDataDrawer extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            open: true,
+            open: false,
             width: 300,
-            right: 0,
+            right: -310,
+        };
+        this.assertOpen = (open) => {
+            if (!!open != this.state.open) {
+                let right;
+                if (!!open) {
+                    right = 0;
+                }
+                else {
+                    right = -(this.state.width + 10);
+                }
+                this.setState({
+                    open,
+                    right,
+                });
+            }
         };
         this.handleClose = () => {
             this.setState({
@@ -35,6 +50,9 @@ class QuadDataDrawer extends React.Component {
             });
         };
         this.datadrawerelement = React.createRef();
+    }
+    componentDidMount() {
+        this.assertOpen(this.props.startopen);
     }
     render() {
         let { classes } = this.props;
