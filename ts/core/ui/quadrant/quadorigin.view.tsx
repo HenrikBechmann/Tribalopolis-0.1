@@ -67,6 +67,7 @@ let QuadOriginBase = withStyles(styles)(
                 <img className = {classes.image} src = '/public/icons/OriginStack.svg' />
             </div>
             <OriginMenu 
+                haspeers = {props.haspeers}
                 stackdepth = {props.stackdepth}  
                 stackpointer = {props.stackpointer}
                 incrementStackSelector = {props.incrementStackSelector}

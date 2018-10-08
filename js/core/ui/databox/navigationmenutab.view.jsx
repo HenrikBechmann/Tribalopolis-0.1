@@ -67,10 +67,10 @@ class NavigationMenuTab extends React.Component {
                 <div className={classes.buttonwrapper} ref={this.zoomdomsource}>
                     <ActionButton icon='zoom_out_map'/>
                 </div>
-                <hr style={{ margin: '0' }}/>
-                <div className={classes.buttonwrapper} ref={this.zoomdomsource}>
+                {false && <hr style={{ margin: '0' }}/>}
+                {false && <div className={classes.buttonwrapper} ref={this.zoomdomsource}>
                     <ActionButton icon='expand_more'/>
-                </div>
+                </div>}
             </div>);
     }
 }

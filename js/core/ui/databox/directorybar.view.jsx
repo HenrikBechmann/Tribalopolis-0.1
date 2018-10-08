@@ -103,17 +103,17 @@ class DirectoryBar extends React.Component {
         }
     }
     render() {
-        let { listStack, classes } = this.props;
+        let { listStack, classes, haspeers } = this.props;
         let listDocument = this.state.list ? this.state.list.document : null;
         return <div>
             <div className={classes.barstyle}>
                 {listDocument
             ? (<div className={classes.rowwrapperstyle}>
 
-                    <div style={{ float: 'right' }} ref={this.menuAnchor}>
+                    {!haspeers && <div style={{ float: 'right' }} ref={this.menuAnchor}>
                         <ActionButton icon='more_vert' action={this.toggleMenu}/>
-                    </div>
-                    <PopupMenu menuopen={this.state.menuopen} menuAnchor={this.menuAnchor} menuClose={this.menuClose}>
+                    </div>}
+                    {!haspeers && <PopupMenu menuopen={this.state.menuopen} menuAnchor={this.menuAnchor} menuClose={this.menuClose}>
                         <MenuItem className={classes.menustyle} onClick={this.menuClose}>
                             <Info style={{ opacity: .54 }}/> Info
                         </MenuItem>
@@ -147,7 +147,7 @@ class DirectoryBar extends React.Component {
                             <ActionButton iconStyle={{ width: '16px' }} img='/public/icons/cards.svg'/>
                             <ActionButton iconStyle={{ width: '16px' }} img='/public/icons/tiles.svg'/>
                         </MenuItem>
-                    </PopupMenu>
+                    </PopupMenu>}
                     {false && <ActionButton img='/public/icons/expand_all.svg' iconStyle={{ width: '16px' }}/>}
                     <ActionButton icon='unfold_more'/>
                     {listStack.length

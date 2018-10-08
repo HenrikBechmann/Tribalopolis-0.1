@@ -41,11 +41,11 @@ const OriginMenu = (props) => {
             action = {props.incrementStackSelector}
         />
 
-        <Divider style = {{float:'right',width:'100%'}}/>
+        {props.haspeers && <Divider style = {{float:'right',width:'100%'}}/>}
 
-        <ActionButton 
+        {props.haspeers && <ActionButton 
             icon = 'expand_more'
-        />
+        />}
 
     </div>
 }

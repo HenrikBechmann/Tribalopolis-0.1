@@ -129,7 +129,7 @@ class DirectoryBar extends React.Component<any,any> {
 
     render() {
 
-        let { listStack, classes } = this.props
+        let { listStack, classes, haspeers } = this.props
         let listDocument = this.state.list?this.state.list.document:null
 
         return <div>
@@ -139,13 +139,13 @@ class DirectoryBar extends React.Component<any,any> {
                 {listDocument
                 ?(<div className = {classes.rowwrapperstyle}>
 
-                    <div 
+                    {!haspeers && <div 
                         style = {{float:'right'}}
                         ref = {this.menuAnchor}
                     >
                         <ActionButton icon = 'more_vert' action = {this.toggleMenu}/>
-                    </div>
-                    <PopupMenu
+                    </div>}
+                    {!haspeers && <PopupMenu
                         menuopen = {this.state.menuopen}
                         menuAnchor = {this.menuAnchor}
                         menuClose = {this.menuClose}
@@ -203,7 +203,7 @@ class DirectoryBar extends React.Component<any,any> {
                                 img = '/public/icons/tiles.svg'
                             />
                         </MenuItem>
-                    </PopupMenu>
+                    </PopupMenu>}
                     {false && <ActionButton img = '/public/icons/expand_all.svg' 
                         iconStyle = {{width:'16px'}}
                     />}

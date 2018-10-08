@@ -276,7 +276,7 @@ class DataBox extends React.Component<any,any> {
                 <NavigationMenuTab 
                     itemType = { itemType /*future*/}
                     listProxy = {this.state.TypelistProxy}
-                    haspeers = {this.props.haspeers}
+                    haspeers = {haspeers}
 
                     callbacks = {this.typecallbacks}
                 />
@@ -289,7 +289,7 @@ class DataBox extends React.Component<any,any> {
                     item = { item } 
                     itemType = { itemType /*future*/}
                     listProxy = {this.state.TypelistProxy}
-                    haspeers = {this.props.haspeers}
+                    haspeers = {haspeers}
 
                     callbacks = {this.typecallbacks}
                 />}
@@ -298,6 +298,7 @@ class DataBox extends React.Component<any,any> {
                 <div className = {classes.identityBar} >
 
                     <DirectoryBar 
+                        haspeers = {haspeers}
                         listProxy = {this.state.BarlistProxy}
                         setListListener = {this.props.callbacks.setListListener}
                         removeListListener = {this.props.callbacks.removeListListener}

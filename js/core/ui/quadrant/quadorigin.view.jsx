@@ -51,7 +51,7 @@ let QuadOriginBase = withStyles(styles)((props) => {
             <div className={classes.icon}>
                 <img className={classes.image} src='/public/icons/OriginStack.svg'/>
             </div>
-            <OriginMenu stackdepth={props.stackdepth} stackpointer={props.stackpointer} incrementStackSelector={props.incrementStackSelector} decrementStackSelector={props.decrementStackSelector}/>
+            <OriginMenu haspeers={props.haspeers} stackdepth={props.stackdepth} stackpointer={props.stackpointer} incrementStackSelector={props.incrementStackSelector} decrementStackSelector={props.decrementStackSelector}/>
         </div>);
 });
 const QuadOrigin = React.forwardRef((props, ref) => {
