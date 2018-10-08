@@ -105,7 +105,8 @@ class Quadrant extends React.Component<any,any>  {
         datastack:null,
         stackpointer:0,
         activeTargetProxy:null,
-        boxwidth:300
+        boxwidth:300,
+        draweropen:true,
     }
 
     // dom refs
@@ -275,6 +276,12 @@ class Quadrant extends React.Component<any,any>  {
         })
     }
 
+    closeDrawer = () => {
+        this.setState({
+            draweropen:false,
+        })
+    }
+
 /********************************************************
 ------------------------[ render ]-----------------------
 *********************************************************/
@@ -322,7 +329,11 @@ class Quadrant extends React.Component<any,any>  {
                 ref = {this.originelement}
             />
             <div className = {classes.viewportFrame}>
-                <QuadDataDrawer />
+                <QuadDataDrawer open = {this.state.draweropen}
+                    handleClose = {this.closeDrawer}
+                >
+                    <div>data drawer</div>
+                </QuadDataDrawer>
                 <div 
                     className = {classes.viewport}
                     style = {viewportStyle}

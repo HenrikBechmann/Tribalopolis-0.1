@@ -52,7 +52,8 @@ class Quadrant extends React.Component {
             datastack: null,
             stackpointer: 0,
             activeTargetProxy: null,
-            boxwidth: 300
+            boxwidth: 300,
+            draweropen: true,
         };
         this._findlinkIndex = (instanceid) => {
             return (itemDocumentProxy) => {
@@ -112,6 +113,11 @@ class Quadrant extends React.Component {
         this.setBoxWidth = (width) => {
             this.setState({
                 boxwidth: width,
+            });
+        };
+        this.closeDrawer = () => {
+            this.setState({
+                draweropen: false,
             });
         };
         // ----------[ refs ]----------
@@ -217,7 +223,9 @@ class Quadrant extends React.Component {
             <QuadTitleBar title={'[Context]'} quadidentifier={this.props.quadidentifier}/>
             <QuadOrigin stackpointer={this.state.stackpointer} stackdepth={datastack ? datastack.length : 0} incrementStackSelector={this.operations.incrementStackSelector} decrementStackSelector={this.operations.decrementStackSelector} ref={this.originelement}/>
             <div className={classes.viewportFrame}>
-                <QuadDataDrawer />
+                <QuadDataDrawer open={this.state.draweropen} handleClose={this.closeDrawer}>
+                    <div>data drawer</div>
+                </QuadDataDrawer>
                 <div className={classes.viewport} style={viewportStyle} ref={this.scrollboxelement}>
                     {haspeers
             ? <Lister axis='x' itemRenderer={this.getBox} length={datastack ? datastack[this.state.stackpointer].items.length : 0} type='uniform' ref={this.listcomponent} useStaticSize/>
