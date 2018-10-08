@@ -6,9 +6,23 @@
 import React from 'react'
 
 import { withStyles, createStyles } from '@material-ui/core/styles'
+import IconButton from '@material-ui/core/IconButton'
+import Icon from '@material-ui/core/Icon'
 
 let styles = createStyles({
-   root: {}
+   root: {
+        backgroundColor:'white',
+        height:'100%',
+        padding:'3px',
+        position:'absolute',
+        top:'0',
+        overflow:'auto',
+        zIndex:1,
+        transition:'right .5s',
+   },
+   button:{
+       float:'right',
+   }
 })
 
 class QuadDataDrawer extends React.Component<any,any>  {
@@ -19,28 +33,39 @@ class QuadDataDrawer extends React.Component<any,any>  {
         this.datadrawerelement = React.createRef()
     }
 
+    state = {
+        open:true,
+        width:300,
+        right:0,
+    }
+
     datadrawerelement
 
+    handleClose = ()=>{
+        this.setState({
+            open:false,
+            right:-(this.state.width + 10)
+        })
+    }
+
     render() {
+        let { classes } = this.props
         return (
-         <div style = {
+        <div style = {
             {
-                width:'300px',
-                backgroundColor:'white',
-                height:'100%',
-                padding:'3px',
-                position:'absolute',
-                right:'0',
-                top:'0',
-                zIndex:1,
-                transition:'right .5s',
+                 width:this.state.width + 'px',
+                 right:this.state.right + 'px',
             }}
+            className = {classes.root}
             ref = {this.datadrawerelement}
             data-name = 'data-drawer'
-            onClick = {()=>{
-                this.datadrawerelement.current.style.right = '-310px'
-            }}
         >
+            <IconButton
+                 className = {classes.button}
+                 onClick = {this.handleClose}
+            >
+                <Icon>close</Icon>
+            </IconButton>
             data drawer
         </div>
         )
@@ -48,4 +73,4 @@ class QuadDataDrawer extends React.Component<any,any>  {
 
 }
 
-export default QuadDataDrawer
+export default withStyles(styles)(QuadDataDrawer)
