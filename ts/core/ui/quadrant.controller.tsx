@@ -106,7 +106,7 @@ class Quadrant extends React.Component<any,any>  {
         stackpointer:0,
         activeTargetProxy:null,
         boxwidth:300,
-        draweropen:true,
+        draweropen:false,
     }
 
     // dom refs

@@ -53,7 +53,7 @@ class Quadrant extends React.Component {
             stackpointer: 0,
             activeTargetProxy: null,
             boxwidth: 300,
-            draweropen: true,
+            draweropen: false,
         };
         this._findlinkIndex = (instanceid) => {
             return (itemDocumentProxy) => {
