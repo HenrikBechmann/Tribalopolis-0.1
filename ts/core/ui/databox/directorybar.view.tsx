@@ -165,6 +165,10 @@ class DirectoryBar extends React.Component<any,any> {
                         </MenuItem>
                         <MenuItem className = {classes.menustyle}
                             onClick = {this.menuClose}>
+                            <Icon style = {{opacity:.54}} >close</Icon> Remove
+                        </MenuItem>
+                        <MenuItem className = {classes.menustyle}
+                            onClick = {this.menuClose}>
                             <Icon style = {{opacity:.54}} >delete</Icon> Delete
                         </MenuItem>
                         <Divider />
@@ -192,7 +196,9 @@ class DirectoryBar extends React.Component<any,any> {
                                     }
                                 }>Layout</div>
                             <ActionButton 
-                                icon = 'list'/>
+                                icon = 'list'
+                                iconStyle = {{border:'1px solid gray',borderRadius:'50%'}}
+                            />
                             <ActionButton 
                                 iconStyle = {{width:'16px'}} 
                                 img = '/public/icons/cards.svg'
