@@ -191,7 +191,7 @@ class DataBox extends React.Component {
         }
         // over-rides
         let wrapperStyle = {
-            height: haspeers ? (this.props.containerHeight - 32) + 'px' : (this.props.containerHeight - 2) + 'px',
+            height: haspeers ? (this.props.containerHeight - 34) + 'px' : (this.props.containerHeight - 2) + 'px',
             float: haspeers ? 'left' : 'none',
             width: haspeers ? (this.props.boxwidth + 56) + 'px' : 'none',
             left: haspeers ? 'auto' : '-20px',
