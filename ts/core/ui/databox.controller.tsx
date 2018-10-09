@@ -42,8 +42,11 @@ const styles = createStyles({
         color:'gray',
     },
     identityBar:{
-        height:'calc(100% - 78px)',
+        // height:'calc(100% - 78px)',
+        display:'flex',
+        flexDirection:'column',
         position:'relative',
+        height:'100%',
     },
 })
 
@@ -252,7 +255,7 @@ class DataBox extends React.Component<any,any> {
         // over-rides
         let wrapperStyle:React.CSSProperties = 
             {
-                height:haspeers?'100%':(this.props.containerHeight) + 'px',
+                height:haspeers?(this.props.containerHeight - 32) + 'px':this.props.containerHeight + 'px',
                 float:haspeers?'left':'none',
                 width:haspeers?(this.props.boxwidth + 56) + 'px':'none',
                 left:haspeers?'auto':'-20px',
@@ -291,6 +294,8 @@ class DataBox extends React.Component<any,any> {
                         {
                             display:'flex',
                             flexDirection:'column',
+                            flexWrap:'nowrap',
+                            alignContent:'flex-start',
                             height:'100%',
                         }
                     }>
@@ -315,17 +320,27 @@ class DataBox extends React.Component<any,any> {
                             listStack = {this.itemProxy.liststack}
                             collapseDirectoryItem = {this.collapseDirectoryItem}
                         />
-                        
-                        <DirectoryList 
-                            ref = {this.listcomponent}
+                        <div data-name = 'directory-list' style = {{
+                            display:'flex',
+                            flexDirection:'row',
+                            height:'100%',
+                        }}>
+                            <div style = {{
+                                alignSelf:'stretch',
+                                display:'flex',
+                                width:'100%',
+                            }}>
+                                <DirectoryList 
+                                    ref = {this.listcomponent}
 
-                            listProxy = {this.state.MainlistProxy}
-                            highlightrefuid = {this.state.highlightrefuid}
-                            containerHeight = {this.props.containerHeight}
+                                    listProxy = {this.state.MainlistProxy}
+                                    highlightrefuid = {this.state.highlightrefuid}
+                                    containerHeight = {this.props.containerHeight}
 
-                            callbacks = {this.listcallbacks}
-                        />
-                        
+                                    callbacks = {this.listcallbacks}
+                                />
+                            </div>
+                        </div>
                         { this.indexmarker(classes) }
 
                     </div>

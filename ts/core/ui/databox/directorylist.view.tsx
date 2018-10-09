@@ -239,13 +239,14 @@ class extends React.Component<any,any> {
         let { classes } = this.props
 
         let scrollboxstyle:React.CSSProperties = {
-            height:(this.props.containerHeight - 73) + 'px', // this figure is the net of many inside amounts!
+            // height:(this.props.containerHeight - 73) + 'px', // this figure is the net of many inside amounts!
+            height:'100%',
         }
 
         let length = this.state.listproxies?this.state.listproxies.length:0
 
         return (
-        <div style = {{position:'relative'}}>
+        <div style = {{position:'relative', height:'100%', width:'100%',}}>
             <div
                 className = {classes.scrollbox} 
                 style = {scrollboxstyle}>
