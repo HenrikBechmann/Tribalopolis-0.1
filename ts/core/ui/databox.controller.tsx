@@ -286,42 +286,49 @@ class DataBox extends React.Component<any,any> {
                     boxframe = {this.boxframe}
                     setBoxWidth = { this.props.callbacks.setBoxWidth }
                 /> }
-                {false && <BoxTypebar 
-                    item = { item } 
-                    itemType = { itemType /*future*/}
-                    listProxy = {this.state.TypelistProxy}
-                    haspeers = {haspeers}
-
-                    callbacks = {this.typecallbacks}
-                />}
-                {false && <BoxIdentityBar item = {item} />}
-
-                <div className = {classes.identityBar} >
-
-                    <DirectoryBar 
+                <div data-name = 'box-contents-wrapper'
+                    style = {
+                        {
+                            display:'flex',
+                            flexDirection:'column',
+                        }
+                    }>
+                    {false && <BoxTypebar 
+                        item = { item } 
+                        itemType = { itemType /*future*/}
+                        listProxy = {this.state.TypelistProxy}
                         haspeers = {haspeers}
-                        listProxy = {this.state.BarlistProxy}
-                        setListListener = {this.props.callbacks.setListListener}
-                        removeListListener = {this.props.callbacks.removeListListener}
 
-                        listStack = {this.itemProxy.liststack}
-                        collapseDirectoryItem = {this.collapseDirectoryItem}
-                    />
-                    
-                    <DirectoryList 
-                        ref = {this.listcomponent}
+                        callbacks = {this.typecallbacks}
+                    />}
+                    {false && <BoxIdentityBar item = {item} />}
 
-                        listProxy = {this.state.MainlistProxy}
-                        highlightrefuid = {this.state.highlightrefuid}
-                        containerHeight = {this.props.containerHeight}
+                    <div className = {classes.identityBar} >
 
-                        callbacks = {this.listcallbacks}
-                    />
-                    
-                    { this.indexmarker(classes) }
+                        <DirectoryBar 
+                            haspeers = {haspeers}
+                            listProxy = {this.state.BarlistProxy}
+                            setListListener = {this.props.callbacks.setListListener}
+                            removeListListener = {this.props.callbacks.removeListListener}
 
+                            listStack = {this.itemProxy.liststack}
+                            collapseDirectoryItem = {this.collapseDirectoryItem}
+                        />
+                        
+                        <DirectoryList 
+                            ref = {this.listcomponent}
+
+                            listProxy = {this.state.MainlistProxy}
+                            highlightrefuid = {this.state.highlightrefuid}
+                            containerHeight = {this.props.containerHeight}
+
+                            callbacks = {this.listcallbacks}
+                        />
+                        
+                        { this.indexmarker(classes) }
+
+                    </div>
                 </div>
-
             </div>
         </div>
     }

@@ -204,19 +204,23 @@ class DataBox extends React.Component {
             <div className={classes.frame} style={frameStyle} ref={this.boxframe}>
                 <NavigationMenuTab itemType={itemType /*future*/} listProxy={this.state.TypelistProxy} haspeers={haspeers} callbacks={this.typecallbacks}/>
                 {!haspeers && <ResizeTab boxwidth={this.props.boxwidth} boxframe={this.boxframe} setBoxWidth={this.props.callbacks.setBoxWidth}/>}
-                {false && <BoxTypebar item={item} itemType={itemType /*future*/} listProxy={this.state.TypelistProxy} haspeers={haspeers} callbacks={this.typecallbacks}/>}
-                {false && <BoxIdentityBar item={item}/>}
+                <div data-name='box-contents-wrapper' style={{
+            display: 'flex',
+            flexDirection: 'column',
+        }}>
+                    {false && <BoxTypebar item={item} itemType={itemType /*future*/} listProxy={this.state.TypelistProxy} haspeers={haspeers} callbacks={this.typecallbacks}/>}
+                    {false && <BoxIdentityBar item={item}/>}
 
-                <div className={classes.identityBar}>
+                    <div className={classes.identityBar}>
 
-                    <DirectoryBar haspeers={haspeers} listProxy={this.state.BarlistProxy} setListListener={this.props.callbacks.setListListener} removeListListener={this.props.callbacks.removeListListener} listStack={this.itemProxy.liststack} collapseDirectoryItem={this.collapseDirectoryItem}/>
-                    
-                    <DirectoryList ref={this.listcomponent} listProxy={this.state.MainlistProxy} highlightrefuid={this.state.highlightrefuid} containerHeight={this.props.containerHeight} callbacks={this.listcallbacks}/>
-                    
-                    {this.indexmarker(classes)}
+                        <DirectoryBar haspeers={haspeers} listProxy={this.state.BarlistProxy} setListListener={this.props.callbacks.setListListener} removeListListener={this.props.callbacks.removeListListener} listStack={this.itemProxy.liststack} collapseDirectoryItem={this.collapseDirectoryItem}/>
+                        
+                        <DirectoryList ref={this.listcomponent} listProxy={this.state.MainlistProxy} highlightrefuid={this.state.highlightrefuid} containerHeight={this.props.containerHeight} callbacks={this.listcallbacks}/>
+                        
+                        {this.indexmarker(classes)}
 
+                    </div>
                 </div>
-
             </div>
         </div>;
     }
