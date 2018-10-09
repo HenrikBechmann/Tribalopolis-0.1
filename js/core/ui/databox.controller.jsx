@@ -191,7 +191,7 @@ class DataBox extends React.Component {
         }
         // over-rides
         let wrapperStyle = {
-            height: haspeers ? (this.props.containerHeight - 32) + 'px' : this.props.containerHeight + 'px',
+            height: haspeers ? (this.props.containerHeight - 32) + 'px' : (this.props.containerHeight - 2) + 'px',
             float: haspeers ? 'left' : 'none',
             width: haspeers ? (this.props.boxwidth + 56) + 'px' : 'none',
             left: haspeers ? 'auto' : '-20px',
@@ -215,11 +215,11 @@ class DataBox extends React.Component {
             height: '100%',
         }}>
                     {false && <BoxTypebar item={item} itemType={itemType /*future*/} listProxy={this.state.TypelistProxy} haspeers={haspeers} callbacks={this.typecallbacks}/>}
-                    {true && <BoxIdentityBar item={item}/>}
+                    {!listStack.length && <BoxIdentityBar item={item}/>}
 
                     <div className={classes.identityBar}>
 
-                        <DirectoryBar haspeers={haspeers} listProxy={this.state.BarlistProxy} setListListener={this.props.callbacks.setListListener} removeListListener={this.props.callbacks.removeListListener} listStack={this.itemProxy.liststack} collapseDirectoryItem={this.collapseDirectoryItem}/>
+                        <DirectoryBar haspeers={haspeers} listProxy={this.state.BarlistProxy} setListListener={this.props.callbacks.setListListener} removeListListener={this.props.callbacks.removeListListener} listStack={listStack} collapseDirectoryItem={this.collapseDirectoryItem}/>
                         <div data-name='directory-list' style={{
             display: 'flex',
             flexDirection: 'row',

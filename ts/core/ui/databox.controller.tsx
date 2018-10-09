@@ -255,7 +255,7 @@ class DataBox extends React.Component<any,any> {
         // over-rides
         let wrapperStyle:React.CSSProperties = 
             {
-                height:haspeers?(this.props.containerHeight - 32) + 'px':this.props.containerHeight + 'px',
+                height:haspeers?(this.props.containerHeight - 32) + 'px':(this.props.containerHeight -2) + 'px',
                 float:haspeers?'left':'none',
                 width:haspeers?(this.props.boxwidth + 56) + 'px':'none',
                 left:haspeers?'auto':'-20px',
@@ -307,7 +307,7 @@ class DataBox extends React.Component<any,any> {
 
                         callbacks = {this.typecallbacks}
                     />}
-                    {true && <BoxIdentityBar item = {item} />}
+                    {!listStack.length && <BoxIdentityBar item = {item} />}
 
                     <div className = {classes.identityBar} >
 
@@ -317,7 +317,7 @@ class DataBox extends React.Component<any,any> {
                             setListListener = {this.props.callbacks.setListListener}
                             removeListListener = {this.props.callbacks.removeListListener}
 
-                            listStack = {this.itemProxy.liststack}
+                            listStack = {listStack}
                             collapseDirectoryItem = {this.collapseDirectoryItem}
                         />
                         <div data-name = 'directory-list' style = {{
