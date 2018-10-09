@@ -196,12 +196,13 @@ class DataBox extends React.Component {
             width: haspeers ? (this.props.boxwidth + 56) + 'px' : 'none',
             left: haspeers ? 'auto' : '-20px',
             padding: haspeers ? 'none' : '16px',
+            margin: haspeers ? '16px 0' : 'inherit'
         };
         let frameStyle = {
             height: '100%',
             border: this.collapseTargetProxy ? '1px solid blue' : '1px solid silver',
             width: haspeers ? 'none' : (this.props.boxwidth) + 'px',
-            margin: haspeers ? '16px 40px 16px 16px' : 'auto',
+            margin: haspeers ? '0 40px 0 16px' : 'auto',
         };
         return <div data-index={this.props.index} className={classes.wrapper} style={wrapperStyle}>
             <div className={classes.frame} style={frameStyle} ref={this.boxframe}>
