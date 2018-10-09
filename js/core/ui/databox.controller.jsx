@@ -21,7 +21,6 @@ const styles = createStyles({
     },
     frame: {
         backgroundColor: 'white',
-        maxHeight: '96%',
         minHeight: '60%',
         boxSizing: 'border-box',
         borderRadius: '8px 0 8px 8px',
@@ -170,9 +169,9 @@ class DataBox extends React.Component {
         if (!item) {
             let wrapperStyle = {
                 height: (this.props.containerHeight - 16) + 'px',
+                float: haspeers ? 'left' : 'none',
                 width: haspeers ? (this.props.boxwidth + 56) + 'px' : 'auto',
                 left: haspeers ? 'auto' : '-20px',
-                float: haspeers ? 'left' : 'none',
                 padding: haspeers ? 'initial' : '16px',
             };
             let frameStyle = {
@@ -189,12 +188,14 @@ class DataBox extends React.Component {
         }
         // over-rides
         let wrapperStyle = {
+            height: (this.props.containerHeight) + 'px',
             float: haspeers ? 'left' : 'none',
             width: haspeers ? (this.props.boxwidth + 56) + 'px' : 'none',
             left: haspeers ? 'auto' : '-20px',
             padding: haspeers ? 'none' : '16px',
         };
         let frameStyle = {
+            height: '100%',
             border: this.collapseTargetProxy ? '1px solid blue' : '1px solid silver',
             width: haspeers ? 'none' : (this.props.boxwidth) + 'px',
             margin: haspeers ? '16px 40px 16px 16px' : 'auto',
