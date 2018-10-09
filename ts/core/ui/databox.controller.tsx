@@ -293,7 +293,7 @@ class DataBox extends React.Component<any,any> {
 
                     callbacks = {this.typecallbacks}
                 />}
-                {true && <BoxIdentityBar item = {item} />}
+                {false && <BoxIdentityBar item = {item} />}
 
                 <div className = {classes.identityBar} >
 
