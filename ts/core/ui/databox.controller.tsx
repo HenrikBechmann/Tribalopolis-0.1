@@ -252,7 +252,7 @@ class DataBox extends React.Component<any,any> {
         // over-rides
         let wrapperStyle:React.CSSProperties = 
             {
-                height:(this.props.containerHeight) + 'px',
+                height:haspeers?'100%':(this.props.containerHeight) + 'px',
                 float:haspeers?'left':'none',
                 width:haspeers?(this.props.boxwidth + 56) + 'px':'none',
                 left:haspeers?'auto':'-20px',
