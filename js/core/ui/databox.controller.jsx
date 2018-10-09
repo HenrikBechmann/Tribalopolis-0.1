@@ -207,9 +207,10 @@ class DataBox extends React.Component {
                 <div data-name='box-contents-wrapper' style={{
             display: 'flex',
             flexDirection: 'column',
+            height: '100%',
         }}>
                     {false && <BoxTypebar item={item} itemType={itemType /*future*/} listProxy={this.state.TypelistProxy} haspeers={haspeers} callbacks={this.typecallbacks}/>}
-                    {false && <BoxIdentityBar item={item}/>}
+                    {true && <BoxIdentityBar item={item}/>}
 
                     <div className={classes.identityBar}>
 

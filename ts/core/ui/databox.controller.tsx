@@ -291,6 +291,7 @@ class DataBox extends React.Component<any,any> {
                         {
                             display:'flex',
                             flexDirection:'column',
+                            height:'100%',
                         }
                     }>
                     {false && <BoxTypebar 
@@ -301,7 +302,7 @@ class DataBox extends React.Component<any,any> {
 
                         callbacks = {this.typecallbacks}
                     />}
-                    {false && <BoxIdentityBar item = {item} />}
+                    {true && <BoxIdentityBar item = {item} />}
 
                     <div className = {classes.identityBar} >
 
