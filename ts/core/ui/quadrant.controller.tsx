@@ -11,7 +11,7 @@ import React from 'react'
 import { withStyles, createStyles } from '@material-ui/core/styles'
 
 import QuadOrigin from './quadrant/quadorigin.view'
-import QuadTitleBar from './quadrant/quadtitlebar.view'
+import QuadContextBar from './quadrant/quadcontextbar.view'
 import QuadDataDrawer from './quadrant/quaddatadrawer.view'
 
 import DataBox from './databox.controller'
@@ -317,7 +317,7 @@ class Quadrant extends React.Component<any,any>  {
             <div ref = {this.originanimationblock} ></div>
             <div ref = {this.maskanimationblock} ></div>
 
-            <QuadTitleBar 
+            <QuadContextBar 
                 title = {'[Context]'} 
                 quadidentifier={this.props.quadidentifier}
             />

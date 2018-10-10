@@ -7,7 +7,7 @@
 import React from 'react';
 import { withStyles, createStyles } from '@material-ui/core/styles';
 import QuadOrigin from './quadrant/quadorigin.view';
-import QuadTitleBar from './quadrant/quadtitlebar.view';
+import QuadContextBar from './quadrant/quadcontextbar.view';
 import QuadDataDrawer from './quadrant/quaddatadrawer.view';
 import DataBox from './databox.controller';
 import Lister from 'react-list';
@@ -220,7 +220,7 @@ class Quadrant extends React.Component {
             <div ref={this.originanimationblock}></div>
             <div ref={this.maskanimationblock}></div>
 
-            <QuadTitleBar title={'[Context]'} quadidentifier={this.props.quadidentifier}/>
+            <QuadContextBar title={'[Context]'} quadidentifier={this.props.quadidentifier}/>
             <QuadOrigin haspeers={haspeers} stackpointer={this.state.stackpointer} stackdepth={datastack ? datastack.length : 0} incrementStackSelector={this.operations.incrementStackSelector} decrementStackSelector={this.operations.decrementStackSelector} ref={this.originelement}/>
             <div className={classes.viewportFrame}>
                 <QuadDataDrawer open={this.state.draweropen} handleClose={this.closeDrawer}>
