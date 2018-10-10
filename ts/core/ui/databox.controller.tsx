@@ -232,7 +232,7 @@ class DataBox extends React.Component<any,any> {
         // over-rides for placeholder
         if (!item) {
             let wrapperStyle:React.CSSProperties = {
-                height:(this.props.containerHeight - 16) + 'px',
+                height:(this.props.containerHeight - 2) + 'px',
                 float:haspeers?'left':'none',
                 width:haspeers?(this.props.boxwidth + 56) + 'px':'auto',
                 left:haspeers?'auto':'-20px',
@@ -240,8 +240,7 @@ class DataBox extends React.Component<any,any> {
             }
 
             let frameStyle:React.CSSProperties = {
-                maxHeight:'100%',
-                height:'96%',
+                height:'100%',
                 width:haspeers?'none':(this.props.boxwidth) + 'px',
                 margin:haspeers?'16px 40px 16px 16px':'auto',
             }
