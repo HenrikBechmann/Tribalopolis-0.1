@@ -107,6 +107,7 @@ class Quadrant extends React.Component {
                 },
                 collapseDirectoryItem: this.operations.collapseDirectoryItem,
                 setBoxWidth: this.setBoxWidth,
+                callDataDrawer: this.callDataDrawer,
             };
             return (<DataBox key={itemProxy.instanceid} itemProxy={itemProxy} collapseTargetProxy={matchForTarget ? activeTargetProxy : null} haspeers={haspeers} index={index} containerHeight={containerHeight} boxwidth={this.state.boxwidth} callbacks={boxcallbacks}/>);
         };
@@ -118,6 +119,12 @@ class Quadrant extends React.Component {
         this.closeDrawer = () => {
             this.setState({
                 draweropen: false,
+            });
+        };
+        this.callDataDrawer = (proxy, opcode) => {
+            this.drawerdatapackage = { proxy, opcode };
+            this.setState({
+                draweropen: true,
             });
         };
         // ----------[ refs ]----------
@@ -223,7 +230,7 @@ class Quadrant extends React.Component {
             <QuadContextBar title={'[Context]'} quadidentifier={this.props.quadidentifier}/>
             <QuadOrigin haspeers={haspeers} stackpointer={this.state.stackpointer} stackdepth={datastack ? datastack.length : 0} incrementStackSelector={this.operations.incrementStackSelector} decrementStackSelector={this.operations.decrementStackSelector} ref={this.originelement}/>
             <div className={classes.viewportFrame}>
-                <QuadDataDrawer open={this.state.draweropen} handleClose={this.closeDrawer}>
+                <QuadDataDrawer open={this.state.draweropen} handleClose={this.closeDrawer} drawerDataPackage={this.drawerdatapackage}>
                     <div>data drawer</div>
                 </QuadDataDrawer>
                 <div className={classes.viewport} style={viewportStyle} ref={this.scrollboxelement}>

@@ -20,8 +20,8 @@ const buttonstyles = theme => createStyles({
     },
 });
 const FloatingAddButton = withStyles(buttonstyles)((props) => {
-    let { classes } = props;
-    return <Button variant='fab' mini color='secondary' aria-label='Add' className={classes.button}>
+    let { classes, onClick } = props;
+    return <Button variant='fab' mini color='secondary' aria-label='Add' className={classes.button} onClick={onClick}>
       <AddIcon />
     </Button>;
 });
@@ -144,6 +144,10 @@ class DataBox extends React.Component {
                 <div className={classes.indexMarker}>{this.props.index + 1}</div>
                 : null);
         };
+        this.onClickAdd = (proxy) => {
+            this.props.callbacks.callDataDrawer(proxy, 'add');
+            console.log('proxy', proxy);
+        };
         this.listcallbacks = {
             setListListener: this.props.callbacks.setListListener,
             removeListListener: this.props.callbacks.removeListListener,
@@ -246,11 +250,11 @@ class DataBox extends React.Component {
 
                     {false && <BoxTypebar /* suspended */ item={item} itemType={itemType /*future*/} listProxy={this.state.TypelistProxy} haspeers={haspeers} callbacks={this.typecallbacks}/>}
 
-                    {!listStack.length && <BoxIdentityBar item={item}/>}
+                    {!listStack.length && <BoxIdentityBar item={item} callDataDrawer={this.props.callbacks.callDataDrawer}/>}
 
                     <div className={classes.directoryBlock}>
 
-                        <DirectoryBar haspeers={haspeers} listProxy={this.state.BarlistProxy} setListListener={this.props.callbacks.setListListener} removeListListener={this.props.callbacks.removeListListener} listStack={listStack} collapseDirectoryItem={this.collapseDirectoryItem}/>
+                        <DirectoryBar haspeers={haspeers} listProxy={this.state.BarlistProxy} setListListener={this.props.callbacks.setListListener} removeListListener={this.props.callbacks.removeListListener} callDataDrawer={this.props.callbacks.callDataDrawer} listStack={listStack} collapseDirectoryItem={this.collapseDirectoryItem}/>
                         
                         <div className={classes.directorylistwrapper}>
                             
@@ -260,7 +264,9 @@ class DataBox extends React.Component {
                     </div>
                     {this.indexmarker(classes)}
                     <div className={classes.buttonwrapper}>
-                        <FloatingAddButton />
+                        <FloatingAddButton onClick={() => {
+            this.onClickAdd(this.state.MainlistProxy);
+        }}/>
                     </div>
                 </div>
             </div>

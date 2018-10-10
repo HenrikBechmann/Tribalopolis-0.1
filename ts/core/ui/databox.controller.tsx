@@ -28,13 +28,14 @@ const buttonstyles = theme => createStyles({
 })
 
 const FloatingAddButton = withStyles(buttonstyles)((props:any) => {
-    let { classes } = props
+    let { classes, onClick } = props
     return <Button 
         variant = 'fab' 
         mini 
         color = 'secondary' 
         aria-label = 'Add' 
         className = {classes.button} 
+        onClick = {onClick}
     >
       <AddIcon />
     </Button>
@@ -243,6 +244,11 @@ class DataBox extends React.Component<any,any> {
         )
     }
 
+    onClickAdd = (proxy) => {
+        this.props.callbacks.callDataDrawer(proxy, 'add')
+        console.log('proxy',proxy)
+    }
+
     listcallbacks = {
         setListListener:this.props.callbacks.setListListener,
         removeListListener:this.props.callbacks.removeListListener,
@@ -348,7 +354,9 @@ class DataBox extends React.Component<any,any> {
                         callbacks = {this.typecallbacks}
                     />}
 
-                    {!listStack.length && <BoxIdentityBar item = {item} />}
+                    {!listStack.length && <BoxIdentityBar item = {item} 
+                        callDataDrawer = { this.props.callbacks.callDataDrawer }
+                    />}
 
                     <div className = {classes.directoryBlock} >
 
@@ -357,6 +365,7 @@ class DataBox extends React.Component<any,any> {
                             listProxy = {this.state.BarlistProxy}
                             setListListener = {this.props.callbacks.setListListener}
                             removeListListener = {this.props.callbacks.removeListListener}
+                            callDataDrawer = {this.props.callbacks.callDataDrawer}
 
                             listStack = {listStack}
                             collapseDirectoryItem = {this.collapseDirectoryItem}
@@ -377,7 +386,11 @@ class DataBox extends React.Component<any,any> {
                     </div>
                     { this.indexmarker(classes) }
                     <div className = {classes.buttonwrapper}>
-                        <FloatingAddButton />
+                        <FloatingAddButton 
+                            onClick = {() => {
+                                this.onClickAdd(this.state.MainlistProxy)
+                            }}
+                        />
                     </div>
                 </div>
             </div>

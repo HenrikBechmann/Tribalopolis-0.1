@@ -131,6 +131,8 @@ class Quadrant extends React.Component<any,any>  {
     operations
     animations
 
+    drawerdatapackage
+
 /********************************************************
 ------------------[ lifecycle methods ]------------------
 *********************************************************/
@@ -252,6 +254,7 @@ class Quadrant extends React.Component<any,any>  {
                 this.operations.expandDirectoryItem(index,token, domSource)},
             collapseDirectoryItem:this.operations.collapseDirectoryItem,
             setBoxWidth:this.setBoxWidth,
+            callDataDrawer:this.callDataDrawer,
         }
         return (
             <DataBox 
@@ -279,6 +282,13 @@ class Quadrant extends React.Component<any,any>  {
     closeDrawer = () => {
         this.setState({
             draweropen:false,
+        })
+    }
+
+    callDataDrawer = (proxy,opcode) => {
+        this.drawerdatapackage = {proxy, opcode}
+        this.setState({
+            draweropen:true,
         })
     }
 
@@ -332,6 +342,7 @@ class Quadrant extends React.Component<any,any>  {
             <div className = {classes.viewportFrame}>
                 <QuadDataDrawer open = {this.state.draweropen}
                     handleClose = {this.closeDrawer}
+                    drawerDataPackage = {this.drawerdatapackage}
                 >
                     <div>data drawer</div>
                 </QuadDataDrawer>
