@@ -38,7 +38,7 @@ const IdentityBar = props => {
     let { classes } = props;
     return <div className={classes.root}>
         {false && <ActionButton icon='lock'/>}
-        <ActionButton component={<Info />}/>
+        <ActionButton action={() => { props.callDataDrawer('info'); }} component={<Info />}/>
         <img className={classes.avatar} src={avatar}/> 
         <div className={classes.name}>
             {item.properties.name.fullname}

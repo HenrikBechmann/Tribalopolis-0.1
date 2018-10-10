@@ -89,6 +89,10 @@ class DirectoryBar extends React.Component {
             }
             this.setState({ menuopen: false });
         };
+        this.callDataDrawer = (e, opcode) => {
+            this.menuClose(e);
+            this.props.callDataDrawer(this.listProxy, opcode);
+        };
         this.menuAnchor = React.createRef();
     }
     componentDidUpdate() {
@@ -114,20 +118,28 @@ class DirectoryBar extends React.Component {
                         <ActionButton icon='more_vert' action={this.toggleMenu}/>
                     </div>}
                     {!haspeers && <PopupMenu menuopen={this.state.menuopen} menuAnchor={this.menuAnchor} menuClose={this.menuClose}>
-                        <MenuItem className={classes.menustyle} onClick={this.menuClose}>
+                        <MenuItem className={classes.menustyle} onClick={(e) => {
+                this.callDataDrawer(e, 'info');
+            }}>
                             <Info style={{ opacity: .54 }}/> Info
                         </MenuItem>
-                        <MenuItem className={classes.menustyle} onClick={this.menuClose}>
+                        <MenuItem className={classes.menustyle} onClick={(e) => {
+                this.callDataDrawer(e, 'edit');
+            }}>
                             <Icon style={{ opacity: .54 }}>edit</Icon> Edit
                         </MenuItem>
-                        <MenuItem className={classes.menustyle} disabled onClick={this.menuClose}>
+                        <MenuItem className={classes.menustyle} disabled onClick={(e) => {
+                this.callDataDrawer(e, 'delete');
+            }}>
                             <Icon style={{ opacity: .54 }}>delete</Icon> Delete
                         </MenuItem>
                         <Divider />
                         <MenuItem className={classes.menustyle} onClick={this.menuClose}>
                             <div style={{ display: 'inline-block', width: '24px', height: '24px' }}></div>{false && <Icon style={{ opacity: .54 }}>check</Icon>} Select Mode
                         </MenuItem>
-                        <MenuItem className={classes.menustyle} onClick={this.menuClose}>
+                        <MenuItem className={classes.menustyle} onClick={(e) => {
+                this.callDataDrawer(e, 'add-label');
+            }}>
                             <Icon style={{ opacity: .54 }}>label</Icon> New Label
                         </MenuItem>
                         <Divider />

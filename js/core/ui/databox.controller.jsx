@@ -250,7 +250,9 @@ class DataBox extends React.Component {
 
                     {false && <BoxTypebar /* suspended */ item={item} itemType={itemType /*future*/} listProxy={this.state.TypelistProxy} haspeers={haspeers} callbacks={this.typecallbacks}/>}
 
-                    {!listStack.length && <BoxIdentityBar item={item} callDataDrawer={this.props.callbacks.callDataDrawer}/>}
+                    {!listStack.length && <BoxIdentityBar item={item} callDataDrawer={(opcode) => {
+            this.props.callbacks.callDataDrawer(this.itemProxy, opcode);
+        }}/>}
 
                     <div className={classes.directoryBlock}>
 

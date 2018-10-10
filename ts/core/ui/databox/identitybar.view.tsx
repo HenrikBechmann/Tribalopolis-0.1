@@ -52,6 +52,9 @@ const IdentityBar = props => {
             icon = 'lock' 
         />}
         <ActionButton 
+            action = {
+                () => {props.callDataDrawer('info')}
+            }
             component = {<Info  />}
         />
         <img className = {classes.avatar} src = {avatar} /> 
