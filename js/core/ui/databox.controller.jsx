@@ -196,24 +196,25 @@ class DataBox extends React.Component {
         let itemType = this.state.item ? this.state.item.type : null;
         let listStack = this.itemProxy.liststack;
         let wrapperStyle = {
-            height: haspeers
-                ? (containerHeight - 32 - 2) + 'px'
-                : (containerHeight - 2) + 'px',
-            float: haspeers
-                ? 'left'
-                : 'none',
             width: haspeers
                 ? (this.props.boxwidth + 56) + 'px'
                 : 'none',
+            height: haspeers
+                ? (containerHeight - 2) + 'px'
+                : (containerHeight - 2) + 'px',
+            // float: haspeers
+            //     ?'left'
+            //     :'none',
+            // try (unsuccessfully) to migigate FF mobile scroll problem
+            display: haspeers
+                ? 'inline-block'
+                : 'block',
             left: haspeers
                 ? 'auto'
                 : '-20px',
             padding: haspeers
-                ? 'initial'
-                : '16px',
-            margin: haspeers
                 ? '16px 0'
-                : 'inherit',
+                : '16px',
         };
         let frameStyle = {
             border: this.collapseTargetProxy
