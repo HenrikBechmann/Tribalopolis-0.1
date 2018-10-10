@@ -18,7 +18,7 @@ const styles = createStyles({
         borderRadius:'8px',
         padding:'3px',
         whiteSpace:'nowrap',
-        overflow:'hidden',
+        // overflow:'hidden',
         boxSizing:'border-box',
         marginBottom: '1px',
         fontSize:'larger',

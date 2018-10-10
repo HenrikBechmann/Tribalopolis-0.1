@@ -44,25 +44,32 @@ const styles = createStyles({
     boxcontentswrapper:{
         display:'flex',
         flexDirection:'column',
-        flexWrap:'nowrap',
-        alignContent:'flex-start',
+        // flexWrap:'nowrap',
+        // alignContent:'flex-start',
         height:'100%',
     },
     directoryBlock:{
         display:'flex',
         flexDirection:'column',
         position:'relative',
-        height:'100%',
+        // height:'100%',
+        flex:1,
+        overflow:'hidden',
     },
     directorylist:{
         display:'flex',
-        flexDirection:'row',
-        height:'100%',
+        flowFlow:'column',
+        overflow:'hidden',
+        flex:1,
+        // flexDirection:'row',
+        // height:'100%',
     },
     directorylistwrapper:{
-        alignSelf:'stretch',
-        display:'flex',
+        // alignSelf:'stretch',
+        // display:'flex',
         width:'100%',
+        overflow:'hidden',
+        flex:1,
     },
 
 })
@@ -339,7 +346,7 @@ class DataBox extends React.Component<any,any> {
                         />
                         {/* flex wrappers */}
                         <div data-name = 'directory-list' className = {classes.directorylist}>
-                            <div className = {classes.directorulistwrapper}>
+                            <div className = {classes.directorylistwrapper}>
                                 {/* wrapped directory list */}
                                 <DirectoryList 
                                     ref = {this.listcomponent}
