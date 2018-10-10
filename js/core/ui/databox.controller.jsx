@@ -6,8 +6,6 @@ import { withStyles, createStyles } from '@material-ui/core/styles';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import BoxIdentityBar from './databox/identitybar.view';
 import BoxTypebar from './databox/typebar.view';
-// import ProfileBar from './databox/profilebar.view'
-// import ProfileForm from './databox/profileform.view'
 import DirectoryBar from './databox/directorybar.view';
 import DirectoryList from './databox/directorylist.view';
 // import ScanBar from './databox/scanbar.view'
@@ -36,11 +34,28 @@ const styles = createStyles({
         fontSize: 'smaller',
         color: 'gray',
     },
-    identityBar: {
+    boxcontentswrapper: {
+        display: 'flex',
+        flexDirection: 'column',
+        flexWrap: 'nowrap',
+        alignContent: 'flex-start',
+        height: '100%',
+    },
+    directoryBlock: {
         display: 'flex',
         flexDirection: 'column',
         position: 'relative',
         height: '100%',
+    },
+    directorylist: {
+        display: 'flex',
+        flexDirection: 'row',
+        height: '100%',
+    },
+    directorylistwrapper: {
+        alignSelf: 'stretch',
+        display: 'flex',
+        width: '100%',
     },
 });
 class DataBox extends React.Component {
@@ -149,7 +164,7 @@ class DataBox extends React.Component {
         // pick up and clear the queue
         collapseTargetProxy = this.queueCollapseTargetProxy;
         this.queueCollapseTargetProxy = null;
-        this.collapseTargetProxy = collapseTargetProxy; // for coloring target box border
+        this.collapseTargetProxy = collapseTargetProxy; // trigger for coloring target box border
         setTimeout(() => {
             this.doHighlights(collapseTargetProxy);
             setTimeout(() => {
@@ -169,19 +184,37 @@ class DataBox extends React.Component {
         let itemType = this.state.item ? this.state.item.type : null;
         let listStack = this.itemProxy.liststack;
         let wrapperStyle = {
-            height: haspeers ? (containerHeight - 32 - 2) + 'px' : (containerHeight - 2) + 'px',
-            float: haspeers ? 'left' : 'none',
-            width: haspeers ? (this.props.boxwidth + 56) + 'px' : 'none',
-            left: haspeers ? 'auto' : '-20px',
-            padding: haspeers ? 'initial' : '16px',
-            margin: haspeers ? '16px 0' : 'inherit',
+            height: haspeers
+                ? (containerHeight - 32 - 2) + 'px'
+                : (containerHeight - 2) + 'px',
+            float: haspeers
+                ? 'left'
+                : 'none',
+            width: haspeers
+                ? (this.props.boxwidth + 56) + 'px'
+                : 'none',
+            left: haspeers
+                ? 'auto'
+                : '-20px',
+            padding: haspeers
+                ? 'initial'
+                : '16px',
+            margin: haspeers
+                ? '16px 0'
+                : 'inherit',
         };
         let frameStyle = {
-            border: this.collapseTargetProxy ? '1px solid blue' : '1px solid silver',
-            width: haspeers ? 'none' : (this.props.boxwidth) + 'px',
-            margin: haspeers ? '0 40px 0 16px' : 'auto',
+            border: this.collapseTargetProxy
+                ? '1px solid blue'
+                : '1px solid silver',
+            width: haspeers
+                ? 'none'
+                : (this.props.boxwidth) + 'px',
+            margin: haspeers
+                ? '0 40px 0 16px'
+                : 'auto',
         };
-        // over-rides for placeholder
+        // placeholder for display if item hasn't been received yet
         if (!item) {
             return <div className={classes.wrapper} style={wrapperStyle}>
                 <div className={classes.frame} style={frameStyle}>
@@ -189,42 +222,37 @@ class DataBox extends React.Component {
                 </div>
             </div>;
         }
-        return <div data-index={this.props.index} className={classes.wrapper} style={wrapperStyle}>
+        return (<div data-index={this.props.index} className={classes.wrapper} style={wrapperStyle}>
             <div className={classes.frame} style={frameStyle} ref={this.boxframe}>
+                
                 <NavigationMenuTab itemType={itemType /*future*/} listProxy={this.state.TypelistProxy} haspeers={haspeers} callbacks={this.typecallbacks}/>
+
                 {!haspeers && <ResizeTab boxwidth={this.props.boxwidth} boxframe={this.boxframe} setBoxWidth={this.props.callbacks.setBoxWidth}/>}
-                <div data-name='box-contents-wrapper' style={{
-            display: 'flex',
-            flexDirection: 'column',
-            flexWrap: 'nowrap',
-            alignContent: 'flex-start',
-            height: '100%',
-        }}>
-                    {false && <BoxTypebar item={item} itemType={itemType /*future*/} listProxy={this.state.TypelistProxy} haspeers={haspeers} callbacks={this.typecallbacks}/>}
+                
+                <div data-name='box-contents-wrapper' className={classes.boxcontentswrapper}>
+
+                    {false && <BoxTypebar /* suspended */ item={item} itemType={itemType /*future*/} listProxy={this.state.TypelistProxy} haspeers={haspeers} callbacks={this.typecallbacks}/>}
+
                     {!listStack.length && <BoxIdentityBar item={item}/>}
 
-                    <div className={classes.identityBar}>
+                    <div className={classes.directoryBlock}>
 
                         <DirectoryBar haspeers={haspeers} listProxy={this.state.BarlistProxy} setListListener={this.props.callbacks.setListListener} removeListListener={this.props.callbacks.removeListListener} listStack={listStack} collapseDirectoryItem={this.collapseDirectoryItem}/>
-                        <div data-name='directory-list' style={{
-            display: 'flex',
-            flexDirection: 'row',
-            height: '100%',
-        }}>
-                            <div style={{
-            alignSelf: 'stretch',
-            display: 'flex',
-            width: '100%',
-        }}>
+                        
+                        <div data-name='directory-list' className={classes.directorylist}>
+                            <div className={classes.directorulistwrapper}>
+                                
                                 <DirectoryList ref={this.listcomponent} listProxy={this.state.MainlistProxy} highlightrefuid={this.state.highlightrefuid} callbacks={this.listcallbacks}/>
+
                             </div>
                         </div>
+
                         {this.indexmarker(classes)}
 
                     </div>
                 </div>
             </div>
-        </div>;
+        </div>);
     }
 }
 export default withStyles(styles)(DataBox);
