@@ -1,10 +1,6 @@
 // directorylist.view.tsx
 // copyright (c) 2018 Henrik Bechmann, Toronto, MIT Licence
 
-/*
-    MOVE MODIFYBUTTONS TO HERE
-*/
-
 'use strict'
 
 import React from 'react'
@@ -14,37 +10,10 @@ import Lister from 'react-list'
 import CircularProgress from '@material-ui/core/CircularProgress'
 
 import { withStyles, createStyles } from '@material-ui/core/styles'
-import Button from '@material-ui/core/Button'
-import AddIcon from '@material-ui/icons/Add'
-
 import DirectoryItem from './directoryitem.view'
 import proxy from '../../utilities/proxy'
 
-const buttonstyles = theme => createStyles({
-  button: {
-    marginRight: theme.spacing.unit
-  },
-})
-
-const FloatingAddButton = withStyles(buttonstyles)((props:any) => {
-    let { classes } = props
-    return <Button 
-        variant = 'fab' 
-        mini 
-        color = 'secondary' 
-        aria-label = 'Add' 
-        className = {classes.button} 
-    >
-      <AddIcon />
-    </Button>
-})
-
 const styles = createStyles({
-    buttonwrapper:{
-        position:'absolute',
-        bottom:'-8px',
-        right:'0',
-    },
     scrollbox:{            
         overflow:'auto',
         position:'relative', // required for offsetParent of highlightItem search
@@ -218,23 +187,6 @@ class extends React.Component<any,any> {
 
     }
 
-    modifybuttons = (listItemType) => {
-
-        let {classes} = this.props
-
-        // if (!listItemType) return null
-
-        // let outgoing = listItemType.properties.static.is.outgoing
-
-        let retval = // outgoing?
-            <div className = {classes.buttonwrapper}>
-                <FloatingAddButton />
-            </div>
-            // : null
-
-        return retval
-    }
-
     render() {
 
         let { classes } = this.props
@@ -254,7 +206,6 @@ class extends React.Component<any,any> {
                     useStaticSize
                 />:<CircularProgress size = {24} />}
             </div>
-            {this.modifybuttons(this.state.list?this.state.list.type:null)}
         </div>
         )
     }

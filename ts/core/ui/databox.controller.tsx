@@ -6,6 +6,8 @@ import React from 'react'
 
 import { withStyles, createStyles } from '@material-ui/core/styles'
 import CircularProgress from '@material-ui/core/CircularProgress'
+import Button from '@material-ui/core/Button'
+import AddIcon from '@material-ui/icons/Add'
 
 import BoxIdentityBar from './databox/identitybar.view'
 import BoxTypebar from './databox/typebar.view'
@@ -19,7 +21,31 @@ import NavigationMenuTab from './databox/navigationmenutab.view'
 
 import proxy from '../utilities/proxy'
 
+const buttonstyles = theme => createStyles({
+  button: {
+    marginRight: theme.spacing.unit
+  },
+})
+
+const FloatingAddButton = withStyles(buttonstyles)((props:any) => {
+    let { classes } = props
+    return <Button 
+        variant = 'fab' 
+        mini 
+        color = 'secondary' 
+        aria-label = 'Add' 
+        className = {classes.button} 
+    >
+      <AddIcon />
+    </Button>
+})
+
 const styles = createStyles({
+    buttonwrapper:{
+        position:'absolute',
+        bottom:'-8px',
+        right:'0',
+    },
     wrapper:{
         boxSizing:'border-box',
         position:'relative',
@@ -43,30 +69,17 @@ const styles = createStyles({
     },
     boxcontentswrapper:{
         display:'flex',
-        flexDirection:'column',
-        // flexWrap:'nowrap',
-        // alignContent:'flex-start',
+        flexFlow:'column',
         height:'100%',
     },
     directoryBlock:{
         display:'flex',
-        flexDirection:'column',
+        flexFlow:'column',
         position:'relative',
-        // height:'100%',
         flex:1,
         overflow:'hidden',
-    },
-    directorylist:{
-        display:'flex',
-        flowFlow:'column',
-        overflow:'hidden',
-        flex:1,
-        // flexDirection:'row',
-        // height:'100%',
     },
     directorylistwrapper:{
-        // alignSelf:'stretch',
-        // display:'flex',
         width:'100%',
         overflow:'hidden',
         flex:1,
@@ -344,24 +357,23 @@ class DataBox extends React.Component<any,any> {
                             listStack = {listStack}
                             collapseDirectoryItem = {this.collapseDirectoryItem}
                         />
-                        {/* flex wrappers */}
-                        <div data-name = 'directory-list' className = {classes.directorylist}>
-                            <div className = {classes.directorylistwrapper}>
-                                {/* wrapped directory list */}
-                                <DirectoryList 
-                                    ref = {this.listcomponent}
+                        {/* flex wrapper */}
+                        <div className = {classes.directorylistwrapper}>
+                            {/* wrapped directory list */}
+                            <DirectoryList 
+                                ref = {this.listcomponent}
 
-                                    listProxy = {this.state.MainlistProxy}
-                                    highlightrefuid = {this.state.highlightrefuid}
+                                listProxy = {this.state.MainlistProxy}
+                                highlightrefuid = {this.state.highlightrefuid}
 
-                                    callbacks = {this.listcallbacks}
-                                />
+                                callbacks = {this.listcallbacks}
+                            />
 
-                            </div>
                         </div>
-
-                        { this.indexmarker(classes) }
-
+                    </div>
+                    { this.indexmarker(classes) }
+                    <div className = {classes.buttonwrapper}>
+                        <FloatingAddButton />
                     </div>
                 </div>
             </div>

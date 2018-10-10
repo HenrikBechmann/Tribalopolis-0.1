@@ -1,34 +1,13 @@
 // directorylist.view.tsx
 // copyright (c) 2018 Henrik Bechmann, Toronto, MIT Licence
-/*
-    MOVE MODIFYBUTTONS TO HERE
-*/
 'use strict';
 import React from 'react';
 import Lister from 'react-list';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { withStyles, createStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
-import AddIcon from '@material-ui/icons/Add';
 import DirectoryItem from './directoryitem.view';
 import proxy from '../../utilities/proxy';
-const buttonstyles = theme => createStyles({
-    button: {
-        marginRight: theme.spacing.unit
-    },
-});
-const FloatingAddButton = withStyles(buttonstyles)((props) => {
-    let { classes } = props;
-    return <Button variant='fab' mini color='secondary' aria-label='Add' className={classes.button}>
-      <AddIcon />
-    </Button>;
-});
 const styles = createStyles({
-    buttonwrapper: {
-        position: 'absolute',
-        bottom: '-8px',
-        right: '0',
-    },
     scrollbox: {
         overflow: 'auto',
         position: 'relative',
@@ -139,17 +118,6 @@ const DirectoryListBase = withStyles(styles)(class extends React.Component {
             let directoryitem = <DirectoryItem key={proxy.instanceid} listProxy={proxy} setListListener={this.props.callbacks.setListListener} removeListListener={this.props.callbacks.removeListListener} expandDirectoryItem={this.expandDirectoryItem(proxy.token)} highlight={highlight} highlightItem={this.props.callbacks.highlightItem}/>;
             return directoryitem;
         };
-        this.modifybuttons = (listItemType) => {
-            let { classes } = this.props;
-            // if (!listItemType) return null
-            // let outgoing = listItemType.properties.static.is.outgoing
-            let retval = // outgoing?
-             <div className={classes.buttonwrapper}>
-                <FloatingAddButton />
-            </div>;
-            // : null
-            return retval;
-        };
         this.listcomponent = this.props.forwardedRef;
     }
     componentDidUpdate() {
@@ -178,7 +146,6 @@ const DirectoryListBase = withStyles(styles)(class extends React.Component {
             <div className={classes.scrollbox}>
                 {this.state.listproxies ? <Lister ref={this.props.forwardedRef} itemRenderer={this.itemRenderer} length={length} type='uniform' useStaticSize/> : <CircularProgress size={24}/>}
             </div>
-            {this.modifybuttons(this.state.list ? this.state.list.type : null)}
         </div>);
     }
 });
