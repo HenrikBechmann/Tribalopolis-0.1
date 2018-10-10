@@ -52,6 +52,7 @@ const styles = createStyles({
         paddingBottom:'32px',
         width:'100%',
         boxSizing:'border-box',
+        height:'100%',
     }
 })
 
@@ -238,18 +239,13 @@ class extends React.Component<any,any> {
 
         let { classes } = this.props
 
-        let scrollboxstyle:React.CSSProperties = {
-            // height:(this.props.containerHeight - 73) + 'px', // this figure is the net of many inside amounts!
-            height:'100%',
-        }
-
         let length = this.state.listproxies?this.state.listproxies.length:0
 
         return (
         <div style = {{position:'relative', height:'100%', width:'100%',}}>
             <div
                 className = {classes.scrollbox} 
-                style = {scrollboxstyle}>
+            >
                 {this.state.listproxies?<Lister 
                     ref = {this.props.forwardedRef}
                     itemRenderer = {this.itemRenderer}

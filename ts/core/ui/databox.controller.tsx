@@ -26,6 +26,7 @@ const styles = createStyles({
         position:'relative',
     },
     frame:{
+        height:'100%',
         backgroundColor:'white',
         minHeight:'60%',
         boxSizing:'border-box',
@@ -42,7 +43,6 @@ const styles = createStyles({
         color:'gray',
     },
     identityBar:{
-        // height:'calc(100% - 78px)',
         display:'flex',
         flexDirection:'column',
         position:'relative',
@@ -222,28 +222,30 @@ class DataBox extends React.Component<any,any> {
 
     render() {
 
-        let { haspeers, classes } = this.props
+        let { haspeers, classes, containerHeight } = this.props
 
         let item = this.state.item?this.state.item.document:null
         let itemType = this.state.item?this.state.item.type:null
 
         let listStack = this.itemProxy.liststack
 
+        let wrapperStyle:React.CSSProperties = {
+            height:haspeers?(containerHeight - 32 -2) + 'px':(containerHeight -2) + 'px',
+            float:haspeers?'left':'none',
+            width:haspeers?(this.props.boxwidth + 56) + 'px':'none',
+            left:haspeers?'auto':'-20px',
+            padding:haspeers?'initial':'16px',
+            margin: haspeers?'16px 0':'inherit',
+        }
+
+        let frameStyle:React.CSSProperties = {
+            border:this.collapseTargetProxy?'1px solid blue':'1px solid silver',
+            width:haspeers?'none':(this.props.boxwidth) + 'px',
+            margin:haspeers?'0 40px 0 16px':'auto',
+        }
+
         // over-rides for placeholder
         if (!item) {
-            let wrapperStyle:React.CSSProperties = {
-                height:(this.props.containerHeight - 2) + 'px',
-                float:haspeers?'left':'none',
-                width:haspeers?(this.props.boxwidth + 56) + 'px':'auto',
-                left:haspeers?'auto':'-20px',
-                padding:haspeers?'initial':'16px',
-            }
-
-            let frameStyle:React.CSSProperties = {
-                height:'100%',
-                width:haspeers?'none':(this.props.boxwidth) + 'px',
-                margin:haspeers?'16px 40px 16px 16px':'auto',
-            }
             return <div className = {classes.wrapper} style = {wrapperStyle}>
                 <div className = {classes.frame} style = {frameStyle}>
                     <CircularProgress size = {24}/>
@@ -251,24 +253,6 @@ class DataBox extends React.Component<any,any> {
             </div>
         }
         
-        // over-rides
-        let wrapperStyle:React.CSSProperties = 
-            {
-                height:haspeers?(this.props.containerHeight - 34) + 'px':(this.props.containerHeight -2) + 'px',
-                float:haspeers?'left':'none',
-                width:haspeers?(this.props.boxwidth + 56) + 'px':'none',
-                left:haspeers?'auto':'-20px',
-                padding: haspeers?'none':'16px',
-                margin: haspeers?'16px 0':'inherit'
-            }
-        let frameStyle:React.CSSProperties =  
-            {
-                height:'100%',
-                border:this.collapseTargetProxy?'1px solid blue':'1px solid silver',
-                width: haspeers?'none':(this.props.boxwidth) + 'px',
-                margin:haspeers?'0 40px 0 16px':'auto',
-            }
-
         return  <div 
             data-index = {this.props.index} 
             className = {classes.wrapper} 
@@ -335,7 +319,6 @@ class DataBox extends React.Component<any,any> {
 
                                     listProxy = {this.state.MainlistProxy}
                                     highlightrefuid = {this.state.highlightrefuid}
-                                    containerHeight = {this.props.containerHeight}
 
                                     callbacks = {this.listcallbacks}
                                 />
