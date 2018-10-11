@@ -50,6 +50,7 @@ const styles = createStyles({
     wrapper:{
         boxSizing:'border-box',
         position:'relative',
+        // overflow:'hidden', // creates problems on mobile
     },
     frame:{
         height:'100%',
@@ -279,13 +280,13 @@ class DataBox extends React.Component<any,any> {
             height: haspeers
                 ?(containerHeight -2) + 'px'
                 :(containerHeight -2) + 'px',
-            // float: haspeers
-            //     ?'left'
-            //     :'none',
+            float: haspeers
+                ?'left'
+                :'none',
             // try (unsuccessfully) to migigate FF mobile scroll problem
-            display: haspeers
-                ?'inline-block'
-                :'block',
+            // display: haspeers
+            //     ?'inline-block'
+            //     :'block',
             left: haspeers
                 ?'auto'
                 :'-20px',

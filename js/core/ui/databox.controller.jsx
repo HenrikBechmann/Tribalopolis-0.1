@@ -206,13 +206,13 @@ class DataBox extends React.Component {
             height: haspeers
                 ? (containerHeight - 2) + 'px'
                 : (containerHeight - 2) + 'px',
-            // float: haspeers
-            //     ?'left'
-            //     :'none',
+            float: haspeers
+                ? 'left'
+                : 'none',
             // try (unsuccessfully) to migigate FF mobile scroll problem
-            display: haspeers
-                ? 'inline-block'
-                : 'block',
+            // display: haspeers
+            //     ?'inline-block'
+            //     :'block',
             left: haspeers
                 ? 'auto'
                 : '-20px',

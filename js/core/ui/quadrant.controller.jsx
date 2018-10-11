@@ -231,7 +231,7 @@ class Quadrant extends React.Component {
             <QuadOrigin haspeers={haspeers} stackpointer={this.state.stackpointer} stackdepth={datastack ? datastack.length : 0} incrementStackSelector={this.operations.incrementStackSelector} decrementStackSelector={this.operations.decrementStackSelector} ref={this.originelement}/>
             <div className={classes.viewportFrame}>
                 <QuadDataDrawer open={this.state.draweropen} handleClose={this.closeDrawer} drawerDataPackage={this.drawerdatapackage}>
-                    <div>data drawer</div>
+                    <div>data shelf</div>
                 </QuadDataDrawer>
                 <div className={classes.viewport} style={viewportStyle} ref={this.scrollboxelement}>
                     {haspeers
