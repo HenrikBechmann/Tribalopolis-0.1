@@ -10,6 +10,7 @@ let styles = createStyles({
         backgroundColor: 'white',
         height: '100%',
         padding: '3px',
+        paddingTop: '16px',
         position: 'absolute',
         top: '0',
         overflow: 'auto',
@@ -17,7 +18,17 @@ let styles = createStyles({
         transition: 'right .5s',
     },
     button: {
-        float: 'right',
+        position: 'absolute',
+        top: '0',
+        right: '0',
+    },
+    moniker: {
+        fontSize: 'x-small',
+        fontStyle: 'italic',
+        position: 'absolute',
+        top: '0',
+        left: '0',
+        padding: '3px',
     }
 });
 class QuadDataDrawer extends React.Component {
@@ -55,6 +66,7 @@ class QuadDataDrawer extends React.Component {
             width: this.state.width + 'px',
             right: this.state.right + 'px',
         }} className={classes.root} ref={this.datadrawerelement} data-name='data-drawer'>
+            <div className={classes.moniker}>data shelf</div>
             <IconButton className={classes.button} onClick={this.props.handleClose}>
                 <Icon>close</Icon>
             </IconButton>
