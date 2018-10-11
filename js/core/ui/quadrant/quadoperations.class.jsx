@@ -28,6 +28,7 @@ class quadoperations {
             stackpointer++;
             let newstacklayer = { items: [], settings: {}, source: {
                     instanceid: itemProxy.instanceid,
+                    itemProxy,
                     token: itemProxy.token,
                     action: 'expand',
                 } };
@@ -57,6 +58,7 @@ class quadoperations {
             stackpointer++;
             let newstacklayer = { items: [], settings: {}, source: {
                     instanceid: itemProxy.instanceid,
+                    itemProxy,
                     token: itemProxy.token,
                     action: 'splay',
                     visiblerange,
@@ -90,6 +92,7 @@ class quadoperations {
             stackpointer++;
             let newstacklayer = { items: [], settings: {}, source: {
                     instanceid: itemProxy.instanceid,
+                    itemProxy,
                     token: itemProxy.token,
                     action: 'select',
                 } };

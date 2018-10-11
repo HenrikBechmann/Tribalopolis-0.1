@@ -51,7 +51,8 @@ const styles = createStyles({
 })
 
 const QuadContextBar = props => {
-    let { quadidentifier:alias, classes } = props
+    let { quadidentifier:alias, classes, datastack, stackpointer } = props
+    console.log('datastack, stackpointer', datastack, stackpointer)
     return (
         <div className = { classes.root } >
             <div className = { classes.aliasbox } >

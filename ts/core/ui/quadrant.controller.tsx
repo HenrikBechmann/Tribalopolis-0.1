@@ -337,6 +337,8 @@ class Quadrant extends React.Component<any,any>  {
             <QuadContextBar 
                 title = {'[Context]'} 
                 quadidentifier={this.props.quadidentifier}
+                datastack = {this.state.datastack}
+                stackpointer = {this.state.stackpointer}
             />
             <QuadOrigin 
                 haspeers = {haspeers}
