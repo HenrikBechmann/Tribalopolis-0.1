@@ -50,9 +50,12 @@ const styles = createStyles({
 
 })
 
-const QuadContextBar = props => {
-    let { quadidentifier:alias, classes, datastack, stackpointer } = props
-    console.log('datastack, stackpointer', datastack, stackpointer)
+class QuadContextBar extends React.Component<any> {
+
+    render() {
+
+    let { quadidentifier:alias, classes, datastack, stackpointer, title } = this.props
+    // console.log('datastack, stackpointer', datastack, stackpointer)
     return (
         <div className = { classes.root } >
             <div className = { classes.aliasbox } >
@@ -60,11 +63,13 @@ const QuadContextBar = props => {
             </div>
             <div className = { classes.titlebox }>
                 <div className = { classes.titlewrap }>
-                    {props.title}
+                    {title}
                 </div>
             </div>
         </div>
     )
+
+    }
 }
 
 export default withStyles(styles)(QuadContextBar)
