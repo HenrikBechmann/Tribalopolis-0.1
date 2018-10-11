@@ -10,6 +10,7 @@ import { toast } from 'react-toastify';
 import QuadOrigin from './quadrant/quadorigin.view';
 import QuadContextBar from './quadrant/quadcontextbar.view';
 import QuadDataDrawer from './quadrant/quaddatadrawer.view';
+import QuadDataPane from './quadrant/quaddatapane.view';
 import DataBox from './databox.controller';
 import Lister from 'react-list';
 import quadanimations from './quadrant/quadanimations.class';
@@ -118,6 +119,7 @@ class Quadrant extends React.Component {
             });
         };
         this.closeDrawer = () => {
+            this.drawerdatapackage = null;
             this.setState({
                 draweropen: false,
             });
@@ -235,8 +237,8 @@ class Quadrant extends React.Component {
             <QuadContextBar title={'[Context]'} quadidentifier={this.props.quadidentifier}/>
             <QuadOrigin haspeers={haspeers} stackpointer={this.state.stackpointer} stackdepth={datastack ? datastack.length : 0} incrementStackSelector={this.operations.incrementStackSelector} decrementStackSelector={this.operations.decrementStackSelector} ref={this.originelement}/>
             <div className={classes.viewportFrame}>
-                <QuadDataDrawer open={this.state.draweropen} handleClose={this.closeDrawer} drawerDataPackage={this.drawerdatapackage}>
-                    <div>data shelf</div>
+                <QuadDataDrawer open={this.state.draweropen} handleClose={this.closeDrawer}>
+                    <QuadDataPane drawerDataPackage={this.drawerdatapackage}/>
                 </QuadDataDrawer>
                 <div className={classes.viewport} style={viewportStyle} ref={this.scrollboxelement}>
                     {haspeers

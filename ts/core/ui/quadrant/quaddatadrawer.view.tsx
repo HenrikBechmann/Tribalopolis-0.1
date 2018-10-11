@@ -12,7 +12,7 @@ import Icon from '@material-ui/core/Icon'
 let styles = createStyles({
    root: {
         backgroundColor:'white',
-        height:'100%',
+        height:'calc(100% - 19px)',
         padding:'3px',
         paddingTop:'16px',
         position:'absolute',
@@ -20,11 +20,13 @@ let styles = createStyles({
         overflow:'auto',
         zIndex:1,
         transition:'right .2s',
+        borderLeft:'1px solid silver',
    },
    button:{
        position:'absolute',
        top:'0',
        right:'0',
+       zIndex:1,
    },
    moniker:{
        fontSize:'x-small',
