@@ -19,7 +19,7 @@ let styles = createStyles({
         top:'0',
         overflow:'auto',
         zIndex:1,
-        transition:'right .5s',
+        transition:'right .2s',
    },
    button:{
        position:'absolute',

@@ -6,6 +6,7 @@
 'use strict';
 import React from 'react';
 import { withStyles, createStyles } from '@material-ui/core/styles';
+import { toast } from 'react-toastify';
 import QuadOrigin from './quadrant/quadorigin.view';
 import QuadContextBar from './quadrant/quadcontextbar.view';
 import QuadDataDrawer from './quadrant/quaddatadrawer.view';
@@ -122,6 +123,10 @@ class Quadrant extends React.Component {
             });
         };
         this.callDataDrawer = (proxy, opcode) => {
+            if (this.state.draweropen) {
+                toast.info('The data shelf is in use. Close the shelf and try again.');
+                return;
+            }
             this.drawerdatapackage = { proxy, opcode };
             this.setState({
                 draweropen: true,

@@ -7,13 +7,13 @@
 'use strict';
 import React from 'react';
 import AppRouter from './approuter';
-import { ToastContainer } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 const MainView = ({ globalmessage, className }) => (<div className={className}>
         {globalmessage}
 
         <AppRouter />
-        <ToastContainer />
+        <ToastContainer position={toast.POSITION.BOTTOM_CENTER}/>
         
     </div>);
 export default MainView;
