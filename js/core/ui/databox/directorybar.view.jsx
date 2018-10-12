@@ -72,6 +72,12 @@ class DirectoryBar extends React.Component {
             list: null,
             menuopen: false,
         };
+        this.assertList = () => {
+            if (!this.listProxy && this.props.listProxy) {
+                this.listProxy = this.props.listProxy;
+                this.props.setListListener(this.listProxy.token, this.listProxy.instanceid, this.cacheListDocument);
+            }
+        };
         this.cacheListDocument = (document, type) => {
             this.setState({
                 list: {
@@ -95,11 +101,11 @@ class DirectoryBar extends React.Component {
         };
         this.menuAnchor = React.createRef();
     }
+    componentDidMount() {
+        this.assertList();
+    }
     componentDidUpdate() {
-        if (!this.listProxy && this.props.listProxy) {
-            this.listProxy = this.props.listProxy;
-            this.props.setListListener(this.listProxy.token, this.listProxy.instanceid, this.cacheListDocument);
-        }
+        this.assertList();
     }
     componentWillUnmount() {
         if (this.listProxy) {

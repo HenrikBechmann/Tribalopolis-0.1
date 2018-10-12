@@ -3,7 +3,9 @@
 'use strict';
 import React from 'react';
 import { withStyles, createStyles } from '@material-ui/core/styles';
+import Icon from '@material-ui/core/Icon';
 import BoxIdentityBar from '../databox/identitybar.view';
+import DirectoryBar from '../databox/directorybar.view';
 import proxy from '../../utilities/proxy';
 const styles = createStyles({
     root: {
@@ -61,7 +63,7 @@ class QuadContextBar extends React.Component {
         this.datastack = null;
         this.stackpointer = null;
         this.createcontext = () => {
-            console.log('create context', this.datastack, this.stackpointer);
+            // console.log('create context',this.datastack, this.stackpointer)
             if (this.datastack.length <= 1 || !this.stackpointer) { // no context
                 if (this.state.context) {
                     this.setState({
@@ -87,10 +89,23 @@ class QuadContextBar extends React.Component {
                         token: itemProxy.token,
                         liststack: itemProxy.liststack.slice(),
                     });
-                    console.log('args for identity', itemProxy, newItemProxy, this.props.callbacks);
+                    // console.log('args for identity', itemProxy, newItemProxy, this.props.callbacks)
                     context.push(<BoxIdentityBar className={classes.identitybar} key={n + 'item'} itemProxy={newItemProxy} setItemListener={this.props.callbacks.setItemListener} removeItemListener={this.props.callbacks.removeItemListener} callDataDrawer={(opcode) => {
                         this.props.callDataDrawer(newItemProxy, opcode);
                     }}/>);
+                    let item = this.props.callbacks.getItemFromCache(newItemProxy.path);
+                    // console.log('item from cache',item)
+                    if (item) { // defensive
+                        let listtoken = {
+                            repo: 'lists',
+                            uid: item.references.list,
+                        };
+                        let listProxy = new proxy({ token: listtoken });
+                        let component = <DirectoryBar key={n + 'list'} haspeers={false} listProxy={listProxy} setListListener={this.props.callbacks.setListListener} removeListListener={this.props.callbacks.removeListListener} callDataDrawer={this.props.callDataDrawer} listStack={newItemProxy.liststack} collapseDirectoryItem={() => { }}/>;
+                        context.push(<Icon key={n + 'icon'}>chevron_right</Icon>);
+                        context.push(component);
+                        context.push(<Icon key={n + 'iconend'}>chevron_right</Icon>);
+                    }
                 }
             }
             if (context.length) {

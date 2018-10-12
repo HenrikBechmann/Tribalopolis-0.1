@@ -60,7 +60,7 @@ const getItemFromCache = path => {
     let cacheitem
     if (cache.has(path)) {
 
-        cacheitem = cache.get(path)
+        cacheitem = cache.get(path).data.document
 
     } else {
 

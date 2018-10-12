@@ -91,13 +91,21 @@ class DirectoryBar extends React.Component<any,any> {
     listProxy
     menuAnchor
 
+    componentDidMount() {
+        this.assertList()
+    }
+
     componentDidUpdate() {
+        this.assertList()
+    } 
+
+    assertList = () => {
         if (!this.listProxy && this.props.listProxy) {
             this.listProxy = this.props.listProxy
             this.props.setListListener(
                 this.listProxy.token,this.listProxy.instanceid,this.cacheListDocument)
         }        
-    } 
+    }
 
     componentWillUnmount() {
         if (this.listProxy) {
