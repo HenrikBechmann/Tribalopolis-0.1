@@ -148,7 +148,7 @@ class QuadContextBar extends React.Component<any> {
                     />
                     context.push(<Icon key = {n + 'icon'}>chevron_right</Icon>)
                     context.push(component)
-                    context.push(<Icon key = {n + 'iconend'}>chevron_right</Icon>)
+                    context.push(<Icon key = {n + 'iconend'}>arrow_drop_down</Icon>)
 
                 }
 

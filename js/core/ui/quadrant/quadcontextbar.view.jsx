@@ -104,7 +104,7 @@ class QuadContextBar extends React.Component {
                         let component = <DirectoryBar key={n + 'list'} haspeers={false} listProxy={listProxy} setListListener={this.props.callbacks.setListListener} removeListListener={this.props.callbacks.removeListListener} callDataDrawer={this.props.callDataDrawer} listStack={newItemProxy.liststack} collapseDirectoryItem={() => { }}/>;
                         context.push(<Icon key={n + 'icon'}>chevron_right</Icon>);
                         context.push(component);
-                        context.push(<Icon key={n + 'iconend'}>chevron_right</Icon>);
+                        context.push(<Icon key={n + 'iconend'}>arrow_drop_down</Icon>);
                     }
                 }
             }
