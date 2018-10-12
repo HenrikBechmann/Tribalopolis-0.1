@@ -56,6 +56,20 @@ const getCacheItem = (path) => {
     return cacheitem
 }
 
+const getItemFromCache = path => {
+    let cacheitem
+    if (cache.has(path)) {
+
+        cacheitem = cache.get(path)
+
+    } else {
+
+        cacheitem = null
+
+    }
+    return cacheitem
+}
+
 const addCacheListener = (token,instanceid,callback) => {
 
     let path = getTokenPath(token)
@@ -164,6 +178,7 @@ let application = {
     setListListener,
     removeItemListener,
     removeListListener,
+    getItemFromCache,
     getLink,
     getScheme,
     getFolder,

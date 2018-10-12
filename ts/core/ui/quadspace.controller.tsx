@@ -149,6 +149,7 @@ class QuadspaceController extends React.Component<any,any> {
         setListListener:application.setListListener, 
         removeItemListener:application.removeItemListener,
         removeListListener:application.removeListListener,
+        getItemFromCache:application.getItemFromCache,
         selectQuadrant:this.selectQuadrant, 
         calcQuadrantPosition:this.calcQuadrantPosition,
     }

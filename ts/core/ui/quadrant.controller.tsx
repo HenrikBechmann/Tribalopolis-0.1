@@ -338,6 +338,7 @@ class Quadrant extends React.Component<any,any>  {
                 quadidentifier={this.props.quadidentifier}
                 datastack = {this.state.datastack}
                 stackpointer = {this.state.stackpointer}
+                callbacks = {this.props.callbacks}
             />
             <QuadOrigin 
                 haspeers = {haspeers}

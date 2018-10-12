@@ -99,7 +99,10 @@ class quadoperations {
                 } };
             // replace forward stack items
             datastack.splice(stackpointer, datastack.length, newstacklayer);
-            let newItemProxy = new proxy({ token: itemToken, liststack: itemProxy.liststack.slice() });
+            let newItemProxy = new proxy({
+                token: itemToken,
+                liststack: itemProxy.liststack.slice(),
+            });
             newstacklayer.items.push(newItemProxy);
             setTimeout(() => {
                 this.quadrant.setState({

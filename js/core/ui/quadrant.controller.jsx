@@ -234,7 +234,7 @@ class Quadrant extends React.Component {
             <div ref={this.originanimationblock}></div>
             <div ref={this.maskanimationblock}></div>
 
-            <QuadContextBar quadidentifier={this.props.quadidentifier} datastack={this.state.datastack} stackpointer={this.state.stackpointer}/>
+            <QuadContextBar quadidentifier={this.props.quadidentifier} datastack={this.state.datastack} stackpointer={this.state.stackpointer} callbacks={this.props.callbacks}/>
             <QuadOrigin haspeers={haspeers} stackpointer={this.state.stackpointer} stackdepth={datastack ? datastack.length : 0} incrementStackSelector={this.operations.incrementStackSelector} decrementStackSelector={this.operations.decrementStackSelector} ref={this.originelement}/>
             <div className={classes.viewportFrame}>
                 <QuadDataDrawer open={this.state.draweropen} handleClose={this.closeDrawer}>
