@@ -95,6 +95,13 @@ class DataBox extends React.Component<any,any> {
         super(props)
         this.boxframe = React.createRef()
         this.listcomponent = React.createRef()
+        this.itemProxy = this.props.itemProxy
+        this.identityItemProxy = new proxy(
+            {
+                token:this.itemProxy.token,
+                liststack:this.itemProxy.liststack.slice()
+            }
+        )
     }
 
     state = {
@@ -106,8 +113,8 @@ class DataBox extends React.Component<any,any> {
     }
 
     // always available; no need to check state
-    itemProxy = this.props.itemProxy
-    identityItemProxy = new proxy({token:this.itemProxy.token})
+    itemProxy
+    identityItemProxy
 
     boxframe
     listcomponent
@@ -248,7 +255,7 @@ class DataBox extends React.Component<any,any> {
 
     onClickAdd = (proxy) => {
         this.props.callbacks.callDataDrawer(proxy, 'add')
-        console.log('proxy',proxy)
+        // console.log('proxy',proxy)
     }
 
     listcallbacks = {

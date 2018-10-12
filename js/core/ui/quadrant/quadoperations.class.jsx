@@ -34,8 +34,9 @@ class quadoperations {
                 } };
             // replace forward stack items
             datastack.splice(stackpointer, datastack.length, newstacklayer);
-            let newItemProxy = new proxy({ token: itemProxy.token });
-            newItemProxy.liststack.push(listtoken);
+            let newliststack = itemProxy.liststack.splice();
+            newliststack.push(listtoken);
+            let newItemProxy = new proxy({ token: itemProxy.token, liststack: newliststack });
             newstacklayer.items.push(newItemProxy);
             setTimeout(() => {
                 this.quadrant.setState({
@@ -66,9 +67,9 @@ class quadoperations {
             // replace forward stack items
             datastack.splice(stackpointer, datastack.length, newstacklayer);
             for (let token of listtokens) {
-                let newItemProxy = new proxy({ token: itemToken });
-                newItemProxy.liststack = itemProxy.liststack.slice(); // copy
-                newItemProxy.liststack.push(token);
+                let newliststack = itemProxy.liststack.slice(); // copy
+                newliststack.push(token);
+                let newItemProxy = new proxy({ token: itemToken, liststack: newliststack });
                 newstacklayer.items.push(newItemProxy);
             }
             setTimeout(() => {
@@ -98,8 +99,7 @@ class quadoperations {
                 } };
             // replace forward stack items
             datastack.splice(stackpointer, datastack.length, newstacklayer);
-            let newItemProxy = new proxy({ token: itemToken });
-            newItemProxy.liststack = itemProxy.liststack.slice(); // copy
+            let newItemProxy = new proxy({ token: itemToken, liststack: itemProxy.liststack.slice() });
             newstacklayer.items.push(newItemProxy);
             setTimeout(() => {
                 this.quadrant.setState({

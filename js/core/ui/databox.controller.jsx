@@ -80,9 +80,6 @@ class DataBox extends React.Component {
             BarlistProxy: null,
             TypelistProxy: null,
         };
-        // always available; no need to check state
-        this.itemProxy = this.props.itemProxy;
-        this.identityItemProxy = new proxy({ token: this.itemProxy.token });
         this.cacheItemData = (document, type) => {
             this.setState({
                 item: {
@@ -147,7 +144,7 @@ class DataBox extends React.Component {
         };
         this.onClickAdd = (proxy) => {
             this.props.callbacks.callDataDrawer(proxy, 'add');
-            console.log('proxy', proxy);
+            // console.log('proxy',proxy)
         };
         this.listcallbacks = {
             setListListener: this.props.callbacks.setListListener,
@@ -163,6 +160,11 @@ class DataBox extends React.Component {
         };
         this.boxframe = React.createRef();
         this.listcomponent = React.createRef();
+        this.itemProxy = this.props.itemProxy;
+        this.identityItemProxy = new proxy({
+            token: this.itemProxy.token,
+            liststack: this.itemProxy.liststack.slice()
+        });
     }
     componentDidMount() {
         // console.log('did mount',this.itemProxy?this.itemProxy.instanceid:'no item')

@@ -3,17 +3,17 @@
 'use strict';
 import { serializer } from './serializer';
 class proxy {
-    constructor({ token }) {
+    constructor(data) {
         this.path = null;
         this.uid = null;
         this.token = null;
         this.instanceid = null;
         this.liststack = null;
         this.settings = {};
-        this.token = token;
+        let token = this.token = data.token;
         this.instanceid = serializer.getid();
         if (token.repo == 'items') {
-            this.liststack = [];
+            this.liststack = data.liststack || [];
         }
         this.path = `${token.repo}/${token.uid}`;
         this.uid = token.uid;

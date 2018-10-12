@@ -52,6 +52,10 @@ const styles = createStyles({
 
 class QuadContextBar extends React.Component<any> {
 
+    state = {
+        context:null
+    }
+
     datastack = null
     stackpointer = null
 
@@ -62,8 +66,13 @@ class QuadContextBar extends React.Component<any> {
             ) {
             this.stackpointer = this.props.stackpointer
             this.datastack = this.props.datastack
+            this.createcontext()
         }
 
+    }
+
+    createcontext = () => {
+        console.log('create context',this.datastack, this.stackpointer)
     }
 
     render() {
@@ -77,6 +86,7 @@ class QuadContextBar extends React.Component<any> {
             </div>
             <div className = { classes.titlebox }>
                 <div className = { classes.titlewrap }>
+                    {this.state.context}
                 </div>
             </div>
         </div>

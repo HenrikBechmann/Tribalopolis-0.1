@@ -5,11 +5,11 @@
 import {serializer} from './serializer'
 
 class proxy {
-    constructor({token}) {
-        this.token = token
+    constructor(data:{token:any,liststack?:any}) {
+        let token = this.token = data.token
         this.instanceid = serializer.getid()
         if (token.repo == 'items') {
-            this.liststack = []
+            this.liststack = data.liststack || []
         }
         this.path = `${token.repo}/${token.uid}`
         this.uid = token.uid
