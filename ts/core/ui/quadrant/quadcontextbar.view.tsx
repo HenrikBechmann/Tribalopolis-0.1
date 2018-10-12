@@ -77,7 +77,6 @@ class QuadContextBar extends React.Component<any> {
             </div>
             <div className = { classes.titlebox }>
                 <div className = { classes.titlewrap }>
-                    [context]
                 </div>
             </div>
         </div>

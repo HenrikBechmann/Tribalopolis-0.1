@@ -15,7 +15,7 @@ let styles = createStyles({
         top: '0',
         overflow: 'auto',
         zIndex: 1,
-        transition: 'right .2s',
+        transition: 'right .25s',
         borderLeft: '1px solid silver',
     },
     button: {
