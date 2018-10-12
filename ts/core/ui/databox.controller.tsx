@@ -355,7 +355,11 @@ class DataBox extends React.Component<any,any> {
                         callbacks = {this.typecallbacks}
                     />}
 
-                    {!listStack.length && <BoxIdentityBar item = {item} 
+                    {!listStack.length && <BoxIdentityBar 
+                        itemProxy = {this.props.itemProxy}
+                        setItemListener = {this.props.callbacks.setItemListener}
+                        removeItemListener = {this.props.callbacks.removeItemListener}
+                        item = {item} 
                         callDataDrawer = { (opcode ) => {
                             this.props.callbacks.callDataDrawer(this.itemProxy,opcode)
                         }}
