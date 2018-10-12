@@ -47,15 +47,21 @@ class IdentityBar extends React.Component<any> {
 
     itemProxy
 
-    componentDidUpdate() {
-        if (!this.itemProxy && this.props.itemProxy) {
-                    let newItemProxy = 
+    componentDidMount() {
+        this.assertListener()
+    }
 
+    componentDidUpdate() {
+        this.assertListener()
+    } 
+
+    assertListener = () => {
+        if (!this.itemProxy && this.props.itemProxy) {
             this.itemProxy = this.props.itemProxy
             this.props.setItemListener(
                 this.itemProxy.token,this.itemProxy.instanceid,this.cacheItemDocument)
         }        
-    } 
+    }
 
     componentWillUnmount() {
         if (this.itemProxy) {
@@ -80,7 +86,7 @@ class IdentityBar extends React.Component<any> {
 
     let avatar = '/public/avatars/henrik_in_circle.png'
 
-    return <div className = {classes.root}>
+    return <div className = {classes.root + ' ' + this.props.className}>
         {false && <ActionButton 
             icon = 'lock' 
         />}

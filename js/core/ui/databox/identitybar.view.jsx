@@ -38,6 +38,12 @@ class IdentityBar extends React.Component {
         this.state = {
             item: null,
         };
+        this.assertListener = () => {
+            if (!this.itemProxy && this.props.itemProxy) {
+                this.itemProxy = this.props.itemProxy;
+                this.props.setItemListener(this.itemProxy.token, this.itemProxy.instanceid, this.cacheItemDocument);
+            }
+        };
         this.cacheItemDocument = (document, type) => {
             this.setState({
                 item: {
@@ -47,11 +53,11 @@ class IdentityBar extends React.Component {
             });
         };
     }
+    componentDidMount() {
+        this.assertListener();
+    }
     componentDidUpdate() {
-        if (!this.itemProxy && this.props.itemProxy) {
-            let newItemProxy = this.itemProxy = this.props.itemProxy;
-            this.props.setItemListener(this.itemProxy.token, this.itemProxy.instanceid, this.cacheItemDocument);
-        }
+        this.assertListener();
     }
     componentWillUnmount() {
         if (this.itemProxy) {
@@ -61,7 +67,7 @@ class IdentityBar extends React.Component {
     render() {
         let { classes } = this.props;
         let avatar = '/public/avatars/henrik_in_circle.png';
-        return <div className={classes.root}>
+        return <div className={classes.root + ' ' + this.props.className}>
         {false && <ActionButton icon='lock'/>}
         <ActionButton action={() => { this.props.callDataDrawer('info'); }} component={<Info />}/>
         <img className={classes.avatar} src={avatar}/> 

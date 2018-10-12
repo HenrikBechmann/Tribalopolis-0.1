@@ -46,6 +46,11 @@ const styles = createStyles({
     titlewrap: {
         whiteSpace: 'nowrap',
     },
+    identitybar: {
+        display: 'inline-block',
+        fontSize: 'small',
+        height: '24px',
+    },
 });
 class QuadContextBar extends React.Component {
     constructor() {
@@ -66,6 +71,7 @@ class QuadContextBar extends React.Component {
                 return;
             }
             const { datastack, stackpointer } = this;
+            let { classes } = this.props;
             let context = [];
             for (let n = 1; n < datastack.length; n++) {
                 let stacklayer = datastack[n];
@@ -81,8 +87,9 @@ class QuadContextBar extends React.Component {
                         token: itemProxy.token,
                         liststack: itemProxy.liststack.slice(),
                     });
-                    context.push(<BoxIdentityBar key={n + 'item'} itemProxy={newItemProxy} setItemListener={this.props.callbacks.setItemListener} removeItemListener={this.props.callbacks.removeItemListener} callDataDrawer={(opcode) => {
-                        this.props.callbacks.callDataDrawer(newItemProxy, opcode);
+                    console.log('args for identity', itemProxy, newItemProxy, this.props.callbacks);
+                    context.push(<BoxIdentityBar className={classes.identitybar} key={n + 'item'} itemProxy={newItemProxy} setItemListener={this.props.callbacks.setItemListener} removeItemListener={this.props.callbacks.removeItemListener} callDataDrawer={(opcode) => {
+                        this.props.callDataDrawer(newItemProxy, opcode);
                     }}/>);
                 }
             }
