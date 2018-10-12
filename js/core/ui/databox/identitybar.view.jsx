@@ -32,18 +32,44 @@ const styles = createStyles({
         overflow: 'hidden',
     },
 });
-const IdentityBar = props => {
-    let { item } = props;
-    let avatar = '/public/avatars/henrik_in_circle.png';
-    let { classes } = props;
-    return <div className={classes.root}>
+class IdentityBar extends React.Component {
+    constructor() {
+        super(...arguments);
+        this.state = {
+            item: null,
+        };
+        this.cacheItemDocument = (document, type) => {
+            this.setState({
+                item: {
+                    document,
+                    type
+                }
+            });
+        };
+    }
+    componentDidUpdate() {
+        if (!this.itemProxy && this.props.itemProxy) {
+            let newItemProxy = this.itemProxy = this.props.itemProxy;
+            this.props.setItemListener(this.itemProxy.token, this.itemProxy.instanceid, this.cacheItemDocument);
+        }
+    }
+    componentWillUnmount() {
+        if (this.itemProxy) {
+            this.props.removeItemListener(this.itemProxy.token, this.itemProxy.instanceid);
+        }
+    }
+    render() {
+        let { classes } = this.props;
+        let avatar = '/public/avatars/henrik_in_circle.png';
+        return <div className={classes.root}>
         {false && <ActionButton icon='lock'/>}
-        <ActionButton action={() => { props.callDataDrawer('info'); }} component={<Info />}/>
+        <ActionButton action={() => { this.props.callDataDrawer('info'); }} component={<Info />}/>
         <img className={classes.avatar} src={avatar}/> 
         <div className={classes.name}>
-            {item.properties.name.fullname}
+            {this.state.item && this.state.item.document.properties.name.fullname}
         </div>
     </div>;
-};
+    }
+}
 export default withStyles(styles)(IdentityBar);
 //# sourceMappingURL=identitybar.view.jsx.map

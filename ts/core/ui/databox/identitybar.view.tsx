@@ -39,13 +39,46 @@ const styles = createStyles({
 
 })
 
-const IdentityBar = props => {
+class IdentityBar extends React.Component<any> {
 
-    let { item } = props
+    state = {
+        item:null,
+    }
+
+    itemProxy
+
+    componentDidUpdate() {
+        if (!this.itemProxy && this.props.itemProxy) {
+                    let newItemProxy = 
+
+            this.itemProxy = this.props.itemProxy
+            this.props.setItemListener(
+                this.itemProxy.token,this.itemProxy.instanceid,this.cacheItemDocument)
+        }        
+    } 
+
+    componentWillUnmount() {
+        if (this.itemProxy) {
+            this.props.removeItemListener(
+                this.itemProxy.token,this.itemProxy.instanceid)
+        }        
+    }
+
+    cacheItemDocument = (document,type) => {
+
+        this.setState({
+            item:{
+                document,
+                type
+            }
+        })
+    }
+
+    render() {
+
+    let { classes} = this.props
 
     let avatar = '/public/avatars/henrik_in_circle.png'
-
-    let { classes } = props
 
     return <div className = {classes.root}>
         {false && <ActionButton 
@@ -53,15 +86,16 @@ const IdentityBar = props => {
         />}
         <ActionButton 
             action = {
-                () => {props.callDataDrawer('info')}
+                () => {this.props.callDataDrawer('info')}
             }
             component = {<Info  />}
         />
         <img className = {classes.avatar} src = {avatar} /> 
         <div className = { classes.name } >
-            {item.properties.name.fullname}
+            {this.state.item && this.state.item.document.properties.name.fullname}
         </div>
     </div>
+    }
 }
 
 export default withStyles(styles)(IdentityBar)

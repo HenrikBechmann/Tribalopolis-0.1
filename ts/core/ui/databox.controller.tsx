@@ -107,6 +107,7 @@ class DataBox extends React.Component<any,any> {
 
     // always available; no need to check state
     itemProxy = this.props.itemProxy
+    identityItemProxy = new proxy({token:this.itemProxy.token})
 
     boxframe
     listcomponent
@@ -356,10 +357,9 @@ class DataBox extends React.Component<any,any> {
                     />}
 
                     {!listStack.length && <BoxIdentityBar 
-                        itemProxy = {this.props.itemProxy}
+                        itemProxy = {this.identityItemProxy}
                         setItemListener = {this.props.callbacks.setItemListener}
                         removeItemListener = {this.props.callbacks.removeItemListener}
-                        item = {item} 
                         callDataDrawer = { (opcode ) => {
                             this.props.callbacks.callDataDrawer(this.itemProxy,opcode)
                         }}
