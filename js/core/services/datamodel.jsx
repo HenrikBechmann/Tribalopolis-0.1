@@ -108,11 +108,11 @@ let findtargetstore = (containerpath, themodel = Datamodel) => {
     if (!containerpath) {
         throw ('store operation requires containerpath values');
     }
-    let path = assertArray(containerpath);
+    let cpath = assertArray(containerpath);
     let target = themodel.store;
     let container, index;
     try {
-        for (index in path) {
+        for (index in cpath) {
             container = target;
             target = target[index];
         }

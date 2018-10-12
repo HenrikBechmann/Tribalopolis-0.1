@@ -6,6 +6,11 @@ import React from 'react'
 
 import { withStyles, createStyles } from '@material-ui/core/styles'
 
+import BoxIdentityBar from '../databox/identitybar.view'
+import DirectoryBar from '../databox/directorybar.view'
+
+import proxy from '../../utilities/proxy'
+
 const styles = createStyles({
     root:{
         position:'relative',
@@ -60,6 +65,7 @@ class QuadContextBar extends React.Component<any> {
     stackpointer = null
 
     componentDidUpdate(prevProps) {
+
         if ((this.stackpointer === null) || 
             (prevProps.stackpointer != this.props.stackpointer) ||
             (prevProps.datastack.length != this.datastack.length)
@@ -73,6 +79,58 @@ class QuadContextBar extends React.Component<any> {
 
     createcontext = () => {
         console.log('create context',this.datastack, this.stackpointer)
+        if ( this.datastack.length <= 1 || !this.stackpointer ) { // no context
+            if (this.state.context) {
+                this.setState({
+                    context:null
+                })
+            }
+            return
+        }
+        const { datastack, stackpointer } = this
+        let context = []
+        for (let n = 1;n < datastack.length;n++) {
+            let stacklayer = datastack[n]
+            if (stacklayer.source.action == 'select') { // ignore; no change in context
+                continue
+            }
+
+            let itemProxy = stacklayer.source.itemProxy
+            if (itemProxy.liststack.length) {// make list entry
+
+
+            } else { // make item entry and root list entry
+                let { itemProxy } = stacklayer.source
+                let newItemProxy = new proxy(
+                    {
+                        token:itemProxy.token,
+                        liststack:itemProxy.liststack.slice(),
+                    }
+                )
+
+                context.push(<BoxIdentityBar 
+                    key = {n + 'item'}
+                    itemProxy = {newItemProxy}
+                    setItemListener = {this.props.callbacks.setItemListener}
+                    removeItemListener = {this.props.callbacks.removeItemListener}
+                    callDataDrawer = { (opcode ) => {
+                            this.props.callbacks.callDataDrawer(newItemProxy,opcode)
+                    }}
+                />)
+
+            }
+        }
+        if (context.length) {
+            this.setState({
+                context,
+            })
+        } else {
+            if (this.state.context) { // defensive
+                this.setState({
+                    context:null,
+                })
+            }
+        }
     }
 
     render() {
