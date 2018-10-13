@@ -22,37 +22,45 @@ import Info from '@material-ui/icons/InfoOutlined'
 
 const styles = createStyles({ 
     barstyle:{
-        borderRadius:'8px 0 0 0',
-        paddingTop:'3px',
         boxSizing:'border-box',
+        position:'relative',
+        borderBottom:'1px solid #e2e6e9',
+
+        borderRadius:'8px',
         backgroundColor:'#f2f2f2',
     },
 
-    rowwrapperstyle:{
-        borderBottom:'1px solid silver',
-        position:'relative',
-        whiteSpace:'nowrap',
-    },
-
     rowstyle:{
-        display:'inline-block',
         position:'relative',
-        paddingRight:'3px',
-        marginLeft:'7px',
-        marginTop:'3px',
-        width:'calc(100% - 120px)',
+        padding:'0 3px',
+        display:'flex',
+        flexFlow:'row nowrap',
+        alignItems:'center',
+
+        // display:'inline-block',
+        // position:'relative',
+        // paddingRight:'3px',
+        // marginLeft:'7px',
+        // marginTop:'3px',
+        // width:'calc(100% - 120px)',
         // backgroundColor:'white',
         // cursor:'pointer',
     },
     namestyle:{
-        display:'inline-block',
-        textOverflow: 'ellipsis',
-        whiteSpace:'nowrap',
-        maxWidth: '80%',
         overflow: 'hidden',
-        marginBottom:'6px',
-        verticalAlign:'bottom',
+        textOverflow: 'ellipsis',
         paddingLeft:'3px',
+        whiteSpace:'nowrap',
+        flex:1,
+
+        // display:'inline-block',
+        // textOverflow: 'ellipsis',
+        // whiteSpace:'nowrap',
+        // maxWidth: '80%',
+        // overflow: 'hidden',
+        // marginBottom:'6px',
+        // verticalAlign:'bottom',
+        // paddingLeft:'3px',
     },
     countstyle:{
         fontSize:'smaller',
@@ -146,13 +154,33 @@ class DirectoryBar extends React.Component<any,any> {
                 className = {classes.barstyle}
             >
                 {listDocument
-                ?(<div className = {classes.rowwrapperstyle}>
+                ?(<div className = {classes.rowstyle}>
 
+                    <Icon >folder_open</Icon> 
+                    <div className = {classes.namestyle} >
+                        <span>{ listDocument.properties.name } </span>
+                        <span 
+                            className = {
+                                classes.countstyle
+                            }
+                        >
+                            {listDocument.counts.lists + listDocument.counts.links}
+                        </span>
+                    </div>
                     {!haspeers && <div 
-                        style = {{float:'right'}}
                         ref = {this.menuAnchor}
                     >
-                        <ActionButton icon = 'more_vert' action = {this.toggleMenu}/>
+                        <ActionButton 
+                            buttonStyle = {
+                                {
+                                    float:'none',
+                                    width:'24px',
+                                    height:'24px',
+                                }
+                            } 
+                            icon = 'more_vert' 
+                            action = {this.toggleMenu}
+                        />
                     </div>}
                     {!haspeers && <PopupMenu
                         menuopen = {this.state.menuopen}
@@ -222,18 +250,7 @@ class DirectoryBar extends React.Component<any,any> {
                             />}
                         </MenuItem>
                     </PopupMenu>}
-                    {false && <ActionButton img = '/public/icons/expand_all.svg' 
-                        iconStyle = {{width:'16px'}}
-                    />}
                     <ActionButton icon = 'unfold_more' />
-                    <div className = {classes.rowstyle} > 
-
-                        <Icon style={{verticalAlign:'baseline'}} >folder_open</Icon> 
-                        <div className = {classes.namestyle} >
-                            { listDocument.properties.name } <span className = {classes.countstyle}>{listDocument.counts.lists + listDocument.counts.links}</span>
-                        </div>
-
-                    </div>
 
                 </div>)
 

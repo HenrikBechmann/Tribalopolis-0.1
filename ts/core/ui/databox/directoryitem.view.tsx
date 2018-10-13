@@ -17,7 +17,6 @@ import { withStyles, createStyles } from '@material-ui/core/styles'
 const styles = createStyles({
     barstyle: {
         padding:'3px',
-        height:'30px',
         boxSizing:'border-box',
         cursor:'pointer',
         position:'relative',
@@ -43,7 +42,9 @@ const styles = createStyles({
         fontSize:'smaller',
         color:'silver',
     },
-    progress: {height:'25px'},
+    progress: {
+        height:'25px',
+    },
 })
 
 class DirectoryItem extends React.Component<any,any> {
