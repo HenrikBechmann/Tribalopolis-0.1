@@ -68,7 +68,7 @@ class IdentityBar extends React.Component {
     render() {
         let { classes } = this.props;
         let avatar = '/public/avatars/henrik_in_circle.png';
-        return <div className={classes.barstyle + ' ' + this.props.className}>
+        return <div className={classes.barstyle}>
         <div className={classes.rowstyle}>
             {false && <ActionButton icon='lock'/>}
             <img className={classes.avatar} src={avatar}/> 

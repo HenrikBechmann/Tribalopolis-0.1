@@ -15,7 +15,7 @@ import proxy from '../../utilities/proxy'
 const styles = createStyles({
     root:{
         position:'relative',
-        height:'33px',
+        height:'38px',
         backgroundColor:'white',
         boxSizing:'border-box',
         width:'100%',
@@ -50,13 +50,8 @@ const styles = createStyles({
     },
     titlewrap:{
         display:'flex',
-        flexFlow:'row',
-        flexWrap:'nowrap',
-    },
-    identitybar: {
-        display: 'inline-block',
-        fontSize: 'small',
-        height: '24px',
+        flexFlow:'row nowrap',
+        alignItems: 'center',
     },
 })
 
@@ -131,7 +126,6 @@ class QuadContextBar extends React.Component<any> {
                 )
                 // console.log('args for identity', itemProxy, newItemProxy, this.props.callbacks)
                 context.push(<BoxIdentityBar 
-                    className = {classes.identitybar}
                     key = {n + 'item'}
                     itemProxy = {newItemProxy}
                     setItemListener = {this.props.callbacks.setItemListener}

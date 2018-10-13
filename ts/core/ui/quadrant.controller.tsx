@@ -34,7 +34,7 @@ let styles = createStyles({
     },
     viewportFrame: {
         position:'absolute',
-        top:'calc(25px + 2%)',
+        top:'calc(32px + 2%)',
         left:'2%',
         bottom:'2%',
         right:'2%',
