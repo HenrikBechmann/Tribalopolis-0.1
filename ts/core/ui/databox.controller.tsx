@@ -50,7 +50,7 @@ const styles = createStyles({
     wrapper:{
         boxSizing:'border-box',
         position:'relative',
-        // overflow:'hidden', // creates problems on mobile
+        overflow:'hidden', // creates problems on mobile
     },
     frame:{
         height:'100%',

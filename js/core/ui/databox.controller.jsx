@@ -34,6 +34,7 @@ const styles = createStyles({
     wrapper: {
         boxSizing: 'border-box',
         position: 'relative',
+        overflow: 'hidden',
     },
     frame: {
         height: '100%',
