@@ -344,8 +344,10 @@ class DataBox extends React.Component<any,any> {
                     itemType = { itemType /*future*/}
                     listProxy = {this.state.TypelistProxy}
                     haspeers = {haspeers}
+                    liststack = {listStack}
 
                     callbacks = {this.typecallbacks}
+                    collapseDirectoryItem = {this.collapseDirectoryItem}
                 />
 
                 { !haspeers && <ResizeTab 
@@ -385,7 +387,6 @@ class DataBox extends React.Component<any,any> {
                             callDataDrawer = {this.props.callbacks.callDataDrawer}
 
                             listStack = {listStack}
-                            collapseDirectoryItem = {this.collapseDirectoryItem}
                         />
                         {/* flex wrapper */}
                         <div className = {classes.directorylistwrapper}>

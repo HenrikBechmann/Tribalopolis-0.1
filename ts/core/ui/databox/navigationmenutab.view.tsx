@@ -84,6 +84,8 @@ class NavigationMenuTab extends React.Component<any,any> {
 
         let listcount = this.state.list?this.state.list.document.data.lists.length:0
 
+        console.log('listcount', listcount, this.listProxy,this.state.list)
+
         return (
             <div className = { classes.tabstyles } >
                 <div className = {classes.splaybuttonwrapper}
@@ -105,6 +107,13 @@ class NavigationMenuTab extends React.Component<any,any> {
                         action = {this.selectFromSplay()}
                     />
                 </div>
+                <div className = {classes.buttonwrapper}>
+                    <ActionButton 
+                        icon = 'arrow_back'
+                        action = {this.props.collapseDirectoryItem}
+                        disabled = {!this.props.liststack.length}
+                    />
+                </div>
                 {false && <div className = {classes.buttonwrapper}
                     ref = {this.zoomdomsource}
                 >
@@ -112,7 +121,6 @@ class NavigationMenuTab extends React.Component<any,any> {
                         icon = 'zoom_out_map' 
                     />
                 </div>}
-                {false && <hr style ={{margin:'0'}} />}
                 {false && <div className = {classes.buttonwrapper}
                     ref = {this.zoomdomsource}
                 >

@@ -249,7 +249,7 @@ class DataBox extends React.Component {
         return (<div data-index={this.props.index} className={classes.wrapper} style={wrapperStyle}>
             <div className={classes.frame} style={frameStyle} ref={this.boxframe}>
                 
-                <NavigationMenuTab itemType={itemType /*future*/} listProxy={this.state.TypelistProxy} haspeers={haspeers} callbacks={this.typecallbacks}/>
+                <NavigationMenuTab itemType={itemType /*future*/} listProxy={this.state.TypelistProxy} haspeers={haspeers} liststack={listStack} callbacks={this.typecallbacks} collapseDirectoryItem={this.collapseDirectoryItem}/>
 
                 {!haspeers && <ResizeTab boxwidth={this.props.boxwidth} boxframe={this.boxframe} setBoxWidth={this.props.callbacks.setBoxWidth}/>}
                 
@@ -263,7 +263,7 @@ class DataBox extends React.Component {
 
                     <div className={classes.directoryBlock}>
 
-                        <DirectoryBar haspeers={haspeers} listProxy={this.state.BarlistProxy} setListListener={this.props.callbacks.setListListener} removeListListener={this.props.callbacks.removeListListener} callDataDrawer={this.props.callbacks.callDataDrawer} listStack={listStack} collapseDirectoryItem={this.collapseDirectoryItem}/>
+                        <DirectoryBar haspeers={haspeers} listProxy={this.state.BarlistProxy} setListListener={this.props.callbacks.setListListener} removeListListener={this.props.callbacks.removeListListener} callDataDrawer={this.props.callbacks.callDataDrawer} listStack={listStack}/>
                         
                         <div className={classes.directorylistwrapper}>
                             

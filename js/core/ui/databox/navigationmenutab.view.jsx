@@ -57,6 +57,7 @@ class NavigationMenuTab extends React.Component {
     render() {
         const { classes } = this.props;
         let listcount = this.state.list ? this.state.list.document.data.lists.length : 0;
+        console.log('listcount', listcount, this.listProxy, this.state.list);
         return (<div className={classes.tabstyles}>
                 <div className={classes.splaybuttonwrapper} ref={this.splaydomsource}>
                     <ActionButton img='/public/icons/ic_splay_24px.svg' disabled={!listcount} action={this.splayBox()}/>
@@ -64,10 +65,12 @@ class NavigationMenuTab extends React.Component {
                 <div className={classes.buttonwrapper} ref={this.selectdomsource}>
                     <ActionButton iconStyle={{ transform: 'rotate(90deg)' }} disabled={!this.props.haspeers} img='/public/icons/ic_splay_24px.svg' action={this.selectFromSplay()}/>
                 </div>
+                <div className={classes.buttonwrapper}>
+                    <ActionButton icon='arrow_back' action={this.props.collapseDirectoryItem} disabled={!this.props.liststack.length}/>
+                </div>
                 {false && <div className={classes.buttonwrapper} ref={this.zoomdomsource}>
                     <ActionButton icon='zoom_out_map'/>
                 </div>}
-                {false && <hr style={{ margin: '0' }}/>}
                 {false && <div className={classes.buttonwrapper} ref={this.zoomdomsource}>
                     <ActionButton icon='expand_more'/>
                 </div>}

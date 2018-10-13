@@ -226,29 +226,9 @@ class DirectoryBar extends React.Component<any,any> {
                         iconStyle = {{width:'16px'}}
                     />}
                     <ActionButton icon = 'unfold_more' />
-                    { listStack.length
-                        ?<div className = {classes.arrowstyle}>
-
-                            <QuantityBadge 
-                                quantity = {listStack.length} 
-                                style = {{left:'-8px',top:'-4px'}}
-                            />
-                            <ActionButton 
-                                icon = 'arrow_back'
-                                action = {this.props.collapseDirectoryItem}
-                            />
-
-                        </div>
-
-                        :null
-                    }
                     <div className = {classes.rowstyle} > 
 
                         <Icon style={{verticalAlign:'baseline'}} >folder_open</Icon> 
-                        {false && <QuantityBadge 
-                            quantity = {listDocument.counts.lists + listDocument.counts.links} 
-                            style = {{left:'-6px',top:'-8px'}}
-                        />}
                         <div className = {classes.namestyle} >
                             { listDocument.properties.name } <span className = {classes.countstyle}>{listDocument.counts.lists + listDocument.counts.links}</span>
                         </div>
