@@ -207,6 +207,9 @@ class DataBox extends React.Component {
             width: haspeers
                 ? (this.props.boxwidth + 56) + 'px'
                 : 'none',
+            minWidth: !haspeers
+                ? (this.props.boxwidth + 56) + 'px'
+                : 'none',
             height: haspeers
                 ? (containerHeight - 2) + 'px'
                 : (containerHeight - 2) + 'px',
@@ -217,9 +220,9 @@ class DataBox extends React.Component {
             // display: haspeers
             //     ?'inline-block'
             //     :'block',
-            left: haspeers
-                ? 'auto'
-                : '-20px',
+            // left: haspeers
+            //     ?'auto'
+            //     :'-20px',
             padding: haspeers
                 ? '16px 0'
                 : '16px',
