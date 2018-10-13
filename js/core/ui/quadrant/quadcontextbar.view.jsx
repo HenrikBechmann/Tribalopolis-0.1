@@ -37,7 +37,7 @@ const styles = createStyles({
     titlebox: {
         position: 'absolute',
         top: '0',
-        width: '100%',
+        width: 'calc(100% - 32px)',
         height: '42px',
         overflow: 'auto',
         boxSizing: 'border-box',
