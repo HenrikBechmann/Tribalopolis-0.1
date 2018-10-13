@@ -12,11 +12,11 @@ import { withStyles, createStyles } from '@material-ui/core/styles'
 
 const styles = createStyles({
     defaultButtonStyle:{
+        display:'inline-block',
         padding:'0',
         width:'32px',
         height:'32px',
         float:'right',
-        verticalAlign:'bottom',
         marginRight:'3px'
     },
 

@@ -25,25 +25,19 @@ const styles = createStyles({
     },
 
     rowstyle:{
-        display:'inline-block',
         position:'relative',
-        verticalAlign:'middle',
         paddingRight:'3px',
-        marginLeft:'-1px',
-        marginBottom:'-1px',
-        // backgroundColor:'white',
-        maxWidth:'90%',
-        whiteSpace:'nowrap',
+        display:'flex',
+        flexFlow:'row nowrap',
+        alignItems:'center',
     },
 
     namestyle:{
-        display:'inline-block',
-        whiteSpace: 'nowrap',
         overflow: 'hidden',
-        maxWidth: '92%',
         textOverflow: 'ellipsis',
-        verticalAlign: 'middle',
         paddingLeft:'3px',
+        whiteSpace:'nowrap',
+        flex:1,
     },
     countstyle:{
         fontSize:'smaller',
@@ -139,13 +133,11 @@ class DirectoryItem extends React.Component<any,any> {
                                 display:'inline-block',
                                 width:'24px',
                                 height:'24px',
-                                verticalAlign:'top',
                             }
                         }></div>}
                         <Icon 
                             style = {
                                 {
-                                    verticalAlign:'middle',
                                     color:listDocument?listDocument.system.attributes.sysnode?'green':'gray':'gray',
                                 }
                             } 
@@ -154,19 +146,10 @@ class DirectoryItem extends React.Component<any,any> {
                         </Icon> 
 
                         <div className = {classes.namestyle}>
-                            {listDocument.properties.name}  <span 
+                            <span>{listDocument.properties.name}</span>  <span 
                                 className = {classes.countstyle}>{listDocument.counts.lists + 
                                     listDocument.counts.links}</span>
                         </div>
-
-                        { false && <QuantityBadge 
-                            quantity = {quantity} 
-                            style = {
-                            {
-                                left:'-10px',
-                                top:'-5px',
-                            }}
-                        /> }
 
                     </div>
 
