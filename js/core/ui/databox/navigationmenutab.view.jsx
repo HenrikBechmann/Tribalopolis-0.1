@@ -57,7 +57,6 @@ class NavigationMenuTab extends React.Component {
     render() {
         const { classes } = this.props;
         let listcount = this.state.list ? this.state.list.document.data.lists.length : 0;
-        console.log('listcount', listcount, this.listProxy, this.state.list);
         return (<div className={classes.tabstyles}>
                 <div className={classes.splaybuttonwrapper} ref={this.splaydomsource}>
                     <ActionButton img='/public/icons/ic_splay_24px.svg' disabled={!listcount} action={this.splayBox()}/>

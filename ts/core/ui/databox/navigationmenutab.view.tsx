@@ -84,8 +84,6 @@ class NavigationMenuTab extends React.Component<any,any> {
 
         let listcount = this.state.list?this.state.list.document.data.lists.length:0
 
-        console.log('listcount', listcount, this.listProxy,this.state.list)
-
         return (
             <div className = { classes.tabstyles } >
                 <div className = {classes.splaybuttonwrapper}
