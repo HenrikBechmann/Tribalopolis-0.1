@@ -11,7 +11,6 @@ const styles = createStyles({
     scrollbox: {
         overflow: 'auto',
         position: 'relative',
-        paddingLeft: '6px',
         paddingBottom: '32px',
         width: '100%',
         boxSizing: 'border-box',

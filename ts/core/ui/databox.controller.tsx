@@ -79,10 +79,8 @@ const styles = createStyles({
         flexFlow:'column',
         position:'relative',
         flex:1,
-        overflow:'hidden',
     },
     directorylistwrapper:{
-        width:'100%',
         overflow:'hidden',
         flex:1,
     },
