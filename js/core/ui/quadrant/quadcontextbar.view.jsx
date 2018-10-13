@@ -85,7 +85,7 @@ class QuadContextBar extends React.Component {
                     let listtoken = itemProxy.listStack[itemProxy.liststack.length - 1];
                     let listProxy = new proxy(listtoken);
                     let component = <DirectoryBar key={n + 'list'} haspeers={false} listProxy={listProxy} setListListener={this.props.callbacks.setListListener} removeListListener={this.props.callbacks.removeListListener} callDataDrawer={this.props.callDataDrawer} listStack={itemProxy.liststack} collapseDirectoryItem={() => { }}/>;
-                    context.push(<Icon key={n + 'icon'}>chevron_right</Icon>);
+                    context.push(<Icon key={n + 'icon'} style={{ opacity: .54 }}>chevron_right</Icon>);
                     context.push(component);
                 }
                 else { // make item entry and root list entry
@@ -107,13 +107,13 @@ class QuadContextBar extends React.Component {
                         };
                         let listProxy = new proxy({ token: listtoken });
                         let component = <DirectoryBar key={n + 'list'} haspeers={false} listProxy={listProxy} setListListener={this.props.callbacks.setListListener} removeListListener={this.props.callbacks.removeListListener} callDataDrawer={this.props.callDataDrawer} listStack={newItemProxy.liststack} collapseDirectoryItem={() => { }}/>;
-                        context.push(<Icon key={n + 'icon'}>chevron_right</Icon>);
+                        context.push(<Icon key={n + 'icon'} style={{ opacity: .54 }}>chevron_right</Icon>);
                         context.push(component);
                     }
                 }
             }
             if (context.length) {
-                context.push(<Icon key={'iconend'}>arrow_drop_down</Icon>);
+                context.push(<Icon key={'iconend'} style={{ opacity: .54 }}>arrow_drop_down</Icon>);
                 this.setState({
                     context,
                 });
