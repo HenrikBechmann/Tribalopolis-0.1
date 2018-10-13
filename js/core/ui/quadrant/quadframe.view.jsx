@@ -44,6 +44,7 @@ class QuadFrame extends React.Component {
                     break;
                 }
             }
+            // console.log('calculateTransitionPosition',quadrantPosition,top,right,bottom,left)
             this.position = {
                 top,
                 left,
@@ -78,6 +79,7 @@ class QuadFrame extends React.Component {
                     break;
                 }
             }
+            // console.log('calculatePosition',quadrantPosition, top, right, bottom,  left)
             this.position = {
                 top,
                 left,

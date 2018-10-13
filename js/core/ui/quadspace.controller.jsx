@@ -79,6 +79,7 @@ class QuadspaceController extends React.Component {
         };
         this.handleSwap = (quadrantPosition, direction) => {
             let { quadrantPositions } = this.state;
+            // console.log('start positions',quadrantPositions, quadrantPosition, direction)
             let sourcequadindex = this.positions.indexOf(quadrantPosition);
             let targetquadposition = this.quadmap[quadrantPosition][direction];
             let targetquadindex = this.positions.indexOf(targetquadposition);
@@ -87,8 +88,19 @@ class QuadspaceController extends React.Component {
             // the swap
             quadrantPositions[sourcequadindex] = targetpositionindex;
             quadrantPositions[targetquadindex] = sourcepositionindex;
+            // console.log('end positions',quadrantPositions)
             this.setState({
                 quadrantPositions
+            }, () => {
+                setTimeout(() => {
+                    console.log('display workaround for Chrome');
+                    let quadplatform = document.getElementById('quadplatform');
+                    quadplatform.style.display = 'none';
+                    quadplatform.clientHeight;
+                    // setTimeout(()=>{
+                    quadplatform.style.display = 'block';
+                    // })
+                }, 1000);
             });
         };
         this.calcPos = instanceid => {

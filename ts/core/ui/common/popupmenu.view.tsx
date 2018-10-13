@@ -11,13 +11,15 @@ import Menu from '@material-ui/core/Menu';
 
 const PopupMenu = props => {
 
-    let { menuopen, menuAnchor, menuClose } = props
+    let { menuopen, menuAnchor, menuClose, anchorOrigin } = props
 
     return (
         <Menu
           open={menuopen} 
           anchorEl={menuAnchor.current}
           onClick ={menuClose} 
+          anchorOrigin = {anchorOrigin}
+          getContentAnchorEl = {null}
         >
             { props.children }
         </Menu>

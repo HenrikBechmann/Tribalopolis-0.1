@@ -19,6 +19,7 @@ class QuadPlatform extends React.Component<any,any> {
         super(props)
         this.calculateDimensions(this.state.split)
         this.calculatePosition(this.state.currentQuadPosition)
+        this.element = React.createRef()
     }
 
     state = {
@@ -33,7 +34,7 @@ class QuadPlatform extends React.Component<any,any> {
     element = null
 
     changeCurrentQuad = nextProps => {
-        let element = this.element
+        let element = this.element.current
         // set top left for animation
 
         let nextquadposition = nextProps.currentQuadPosition
@@ -127,7 +128,7 @@ class QuadPlatform extends React.Component<any,any> {
                 switch (split) {
                     case 'none':
                         top = '0'
-                        left = -this.element.parentElement.offsetWidth + 'px' 
+                        left = -this.element.current.parentElement.offsetWidth + 'px' 
                         break
                     case 'horizontal':
                         top = '0'
@@ -135,7 +136,7 @@ class QuadPlatform extends React.Component<any,any> {
                         break
                     case 'vertical':
                         top = '0'
-                        left = -this.element.parentElement.offsetWidth + 'px' 
+                        left = -this.element.current.parentElement.offsetWidth + 'px' 
                         break
                     case 'matrix':
                         top = '0'
@@ -147,11 +148,11 @@ class QuadPlatform extends React.Component<any,any> {
             case 'bottomleft': {
                 switch (split) {
                     case 'none':
-                        top = -this.element.parentElement.offsetHeight + 'px' 
+                        top = -this.element.current.parentElement.offsetHeight + 'px' 
                         left = '0'
                         break
                     case 'horizontal':
-                        top = -this.element.parentElement.offsetHeight + 'px' 
+                        top = -this.element.current.parentElement.offsetHeight + 'px' 
                         left = '0'
                         break
                     case 'vertical':
@@ -168,16 +169,16 @@ class QuadPlatform extends React.Component<any,any> {
             case 'bottomright': {
                 switch (split) {
                     case 'none':
-                        top = -this.element.parentElement.clientHeight + 'px' //offsetHeight + 'px'
-                        left = -this.element.parentElement.clientWidth + 'px' //offsetWidth + 'px'
+                        top = -this.element.current.parentElement.clientHeight + 'px' //offsetHeight + 'px'
+                        left = -this.element.current.parentElement.clientWidth + 'px' //offsetWidth + 'px'
                         break
                     case 'horizontal':
-                        top = -this.element.parentElement.clientHeight + 'px' //offsetHeight + 'px'
+                        top = -this.element.current.parentElement.clientHeight + 'px' //offsetHeight + 'px'
                         left = '0'
                         break
                     case 'vertical':
                         top = '0'
-                        left = -this.element.parentElement.clientWidth + 'px' //offsetWidth + 'px'
+                        left = -this.element.current.parentElement.clientWidth + 'px' //offsetWidth + 'px'
                         break
                     case 'matrix':
                         top = '0'
@@ -197,6 +198,7 @@ class QuadPlatform extends React.Component<any,any> {
     }
 
     calculatePosition = (quadrant) => {
+
         let top = 'auto'
         let left = 'auto'
         let right = 'auto'
@@ -223,6 +225,7 @@ class QuadPlatform extends React.Component<any,any> {
                 break
             }
         }
+        // console.log('calculate current position', quadrant, top, right, bottom, left)
         this.positions = {
             top,
             left,
@@ -283,9 +286,7 @@ class QuadPlatform extends React.Component<any,any> {
                     bottom,
                     right,
                 }} 
-            ref = {el => {
-                this.element = el
-            }}
+            ref = {this.element}
             >
                 { this.props.children }
             </div>        
