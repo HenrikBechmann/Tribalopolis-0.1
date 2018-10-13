@@ -64,9 +64,9 @@ class NavigationMenuTab extends React.Component {
                 <div className={classes.buttonwrapper} ref={this.selectdomsource}>
                     <ActionButton iconStyle={{ transform: 'rotate(90deg)' }} disabled={!this.props.haspeers} img='/public/icons/ic_splay_24px.svg' action={this.selectFromSplay()}/>
                 </div>
-                <div className={classes.buttonwrapper} ref={this.zoomdomsource}>
+                {false && <div className={classes.buttonwrapper} ref={this.zoomdomsource}>
                     <ActionButton icon='zoom_out_map'/>
-                </div>
+                </div>}
                 {false && <hr style={{ margin: '0' }}/>}
                 {false && <div className={classes.buttonwrapper} ref={this.zoomdomsource}>
                     <ActionButton icon='expand_more'/>

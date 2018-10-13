@@ -216,10 +216,10 @@ class DirectoryBar extends React.Component<any,any> {
                                 iconStyle = {{width:'16px'}} 
                                 img = '/public/icons/cards.svg'
                             />
-                            <ActionButton 
+                            {false && <ActionButton 
                                 iconStyle = {{width:'16px'}} 
                                 img = '/public/icons/tiles.svg'
-                            />
+                            />}
                         </MenuItem>
                     </PopupMenu>}
                     {false && <ActionButton img = '/public/icons/expand_all.svg' 

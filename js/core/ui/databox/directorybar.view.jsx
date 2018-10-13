@@ -159,7 +159,7 @@ class DirectoryBar extends React.Component {
             }}>Layout</div>
                             <ActionButton icon='list' iconStyle={{ border: '1px solid gray', borderRadius: '50%' }}/>
                             <ActionButton iconStyle={{ width: '16px' }} img='/public/icons/cards.svg'/>
-                            <ActionButton iconStyle={{ width: '16px' }} img='/public/icons/tiles.svg'/>
+                            {false && <ActionButton iconStyle={{ width: '16px' }} img='/public/icons/tiles.svg'/>}
                         </MenuItem>
                     </PopupMenu>}
                     {false && <ActionButton img='/public/icons/expand_all.svg' iconStyle={{ width: '16px' }}/>}

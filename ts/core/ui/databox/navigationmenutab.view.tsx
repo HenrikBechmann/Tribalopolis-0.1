@@ -105,13 +105,13 @@ class NavigationMenuTab extends React.Component<any,any> {
                         action = {this.selectFromSplay()}
                     />
                 </div>
-                <div className = {classes.buttonwrapper}
+                {false && <div className = {classes.buttonwrapper}
                     ref = {this.zoomdomsource}
                 >
                     <ActionButton 
                         icon = 'zoom_out_map' 
                     />
-                </div>
+                </div>}
                 {false && <hr style ={{margin:'0'}} />}
                 {false && <div className = {classes.buttonwrapper}
                     ref = {this.zoomdomsource}
