@@ -6,29 +6,31 @@ import ActionButton from '../common/actionbutton.view';
 import Info from '@material-ui/icons/InfoOutlined';
 import { withStyles, createStyles } from '@material-ui/core/styles';
 const styles = createStyles({
-    root: {
-        position: 'relative',
-        border: '1px solid transparent',
-        borderRadius: '8px',
-        padding: '3px',
-        whiteSpace: 'nowrap',
-        // overflow:'hidden',
+    barstyle: {
         boxSizing: 'border-box',
-        marginBottom: '1px',
-        fontSize: 'larger',
+        position: 'relative',
+        borderBottom: '1px solid #e2e6e9',
+        borderRadius: '8px',
         backgroundColor: '#f2f2f2',
+    },
+    rowstyle: {
+        position: 'relative',
+        padding: '3px',
+        display: 'flex',
+        flexFlow: 'row nowrap',
+        alignItems: 'center',
+    },
+    namestyle: {
+        overflow: 'hidden',
+        textOverflow: 'ellipsis',
+        paddingLeft: '3px',
+        whiteSpace: 'nowrap',
+        flex: 1,
     },
     avatar: {
         verticalAlign: 'middle',
-        width: '32px',
-        margin: '0 3px'
-    },
-    name: {
-        display: 'inline-block',
-        verticalAlign: 'middle',
-        textOverflow: 'ellipsis',
-        maxWidth: '63%',
-        overflow: 'hidden',
+        width: '24px',
+        marginRight: '3px'
     },
 });
 class IdentityBar extends React.Component {
@@ -66,12 +68,18 @@ class IdentityBar extends React.Component {
     render() {
         let { classes } = this.props;
         let avatar = '/public/avatars/henrik_in_circle.png';
-        return <div className={classes.root + ' ' + this.props.className}>
-        {false && <ActionButton icon='lock'/>}
-        <ActionButton action={() => { this.props.callDataDrawer('info'); }} component={<Info />}/>
-        <img className={classes.avatar} src={avatar}/> 
-        <div className={classes.name}>
-            {this.state.item && this.state.item.document.properties.name.fullname}
+        return <div className={classes.barstyle + ' ' + this.props.className}>
+        <div className={classes.rowstyle}>
+            {false && <ActionButton icon='lock'/>}
+            <img className={classes.avatar} src={avatar}/> 
+            <div className={classes.namestyle}>
+                {this.state.item && this.state.item.document.properties.name.fullname}
+            </div>
+            <ActionButton buttonStyle={{
+            float: 'none',
+            width: '24px',
+            height: '24px',
+        }} action={() => { this.props.callDataDrawer('info'); }} component={<Info />}/>
         </div>
     </div>;
     }

@@ -36,15 +36,6 @@ const styles = createStyles({
         display:'flex',
         flexFlow:'row nowrap',
         alignItems:'center',
-
-        // display:'inline-block',
-        // position:'relative',
-        // paddingRight:'3px',
-        // marginLeft:'7px',
-        // marginTop:'3px',
-        // width:'calc(100% - 120px)',
-        // backgroundColor:'white',
-        // cursor:'pointer',
     },
     namestyle:{
         overflow: 'hidden',
@@ -52,15 +43,6 @@ const styles = createStyles({
         paddingLeft:'3px',
         whiteSpace:'nowrap',
         flex:1,
-
-        // display:'inline-block',
-        // textOverflow: 'ellipsis',
-        // whiteSpace:'nowrap',
-        // maxWidth: '80%',
-        // overflow: 'hidden',
-        // marginBottom:'6px',
-        // verticalAlign:'bottom',
-        // paddingLeft:'3px',
     },
     countstyle:{
         fontSize:'smaller',
