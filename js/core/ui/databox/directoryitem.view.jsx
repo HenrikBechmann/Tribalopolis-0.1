@@ -10,13 +10,11 @@ import { withStyles, createStyles } from '@material-ui/core/styles';
 const styles = createStyles({
     barstyle: {
         padding: '3px',
-        height: '25px',
+        height: '30px',
+        boxSizing: 'border-box',
         cursor: 'pointer',
-    },
-    rowwrapperstyle: {
-        borderBottom: '1px solid #e2e6e9',
         position: 'relative',
-        height: '24px',
+        borderBottom: '1px solid #e2e6e9',
     },
     rowstyle: {
         display: 'inline-block',
@@ -85,9 +83,7 @@ class DirectoryItem extends React.Component {
         let quantity = listDocument ? (listDocument.counts.lists + listDocument.counts.links) : 0;
         return <div className={classes.barstyle} onClick={this.expandDirectoryItem} ref={this.barelementref}>
             {listDocument
-            ? <div className={classes.rowwrapperstyle}>
-
-                    <div className={classes.rowstyle}> 
+            ? <div className={classes.rowstyle}> 
                         {quantity ? <ActionButton buttonStyle={{
                 float: 'none',
                 width: '24px',
@@ -118,8 +114,6 @@ class DirectoryItem extends React.Component {
             }}/>}
 
                     </div>
-
-                </div>
             : <div className={classes.progress}> 
                     <CircularProgress size={16}/>
                 </div>}

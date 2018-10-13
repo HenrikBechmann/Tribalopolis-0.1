@@ -17,14 +17,11 @@ import { withStyles, createStyles } from '@material-ui/core/styles'
 const styles = createStyles({
     barstyle: {
         padding:'3px',
-        height:'25px',
+        height:'30px',
+        boxSizing:'border-box',
         cursor:'pointer',
-    },
-
-    rowwrapperstyle:{
-        borderBottom:'1px solid #e2e6e9',
         position:'relative',
-        height:'24px',
+        borderBottom:'1px solid #e2e6e9',
     },
 
     rowstyle:{
@@ -122,9 +119,7 @@ class DirectoryItem extends React.Component<any,any> {
             ref = {this.barelementref}
         >
             {listDocument
-                ?<div className = {classes.rowwrapperstyle}>
-
-                    <div 
+                ?<div 
                         className = {classes.rowstyle}
                     > 
                         {quantity?<ActionButton 
@@ -174,8 +169,6 @@ class DirectoryItem extends React.Component<any,any> {
                         /> }
 
                     </div>
-
-                </div>
 
                 :<div className = {classes.progress}> 
                     <CircularProgress size = {16} />
