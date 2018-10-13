@@ -224,7 +224,7 @@ class DataBox extends React.Component {
             //     ?'auto'
             //     :'-20px',
             padding: haspeers
-                ? '16px 0'
+                ? '16px 40px 16px 16px'
                 : '16px',
         };
         let frameStyle = {
@@ -235,7 +235,7 @@ class DataBox extends React.Component {
                 ? 'none'
                 : (this.props.boxwidth) + 'px',
             margin: haspeers
-                ? '0 40px 0 16px'
+                ? '0'
                 : 'auto',
         };
         // placeholder for display if item hasn't been received yet

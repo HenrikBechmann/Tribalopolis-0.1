@@ -302,7 +302,7 @@ class DataBox extends React.Component<any,any> {
             //     ?'auto'
             //     :'-20px',
             padding: haspeers
-                ?'16px 0'
+                ?'16px 40px 16px 16px'
                 :'16px',
             // margin: haspeers
             //     ?'16px 0'
@@ -317,7 +317,7 @@ class DataBox extends React.Component<any,any> {
                 ?'none'
                 :(this.props.boxwidth) + 'px',
             margin: haspeers
-                ?'0 40px 0 16px'
+                ?'0'
                 :'auto',
         }
 
