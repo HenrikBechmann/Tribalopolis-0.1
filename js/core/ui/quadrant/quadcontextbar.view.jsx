@@ -40,13 +40,13 @@ const styles = createStyles({
         width: '100%',
         height: '42px',
         overflow: 'auto',
-        display: 'flex',
-        flexWrap: 'nowrap',
         boxSizing: 'border-box',
         padding: '3px 0 0 30px',
     },
     titlewrap: {
-        whiteSpace: 'nowrap',
+        display: 'flex',
+        flexFlow: 'row',
+        flexWrap: 'nowrap',
     },
     identitybar: {
         display: 'inline-block',
@@ -82,6 +82,11 @@ class QuadContextBar extends React.Component {
                 }
                 let itemProxy = stacklayer.source.itemProxy;
                 if (itemProxy.liststack.length) { // make list entry
+                    let listtoken = itemProxy.listStack[itemProxy.liststack.length - 1];
+                    let listProxy = new proxy(listtoken);
+                    let component = <DirectoryBar key={n + 'list'} haspeers={false} listProxy={listProxy} setListListener={this.props.callbacks.setListListener} removeListListener={this.props.callbacks.removeListListener} callDataDrawer={this.props.callDataDrawer} listStack={itemProxy.liststack} collapseDirectoryItem={() => { }}/>;
+                    context.push(<Icon key={n + 'icon'}>chevron_right</Icon>);
+                    context.push(component);
                 }
                 else { // make item entry and root list entry
                     let { itemProxy } = stacklayer.source;
@@ -104,11 +109,11 @@ class QuadContextBar extends React.Component {
                         let component = <DirectoryBar key={n + 'list'} haspeers={false} listProxy={listProxy} setListListener={this.props.callbacks.setListListener} removeListListener={this.props.callbacks.removeListListener} callDataDrawer={this.props.callDataDrawer} listStack={newItemProxy.liststack} collapseDirectoryItem={() => { }}/>;
                         context.push(<Icon key={n + 'icon'}>chevron_right</Icon>);
                         context.push(component);
-                        context.push(<Icon key={n + 'iconend'}>arrow_drop_down</Icon>);
                     }
                 }
             }
             if (context.length) {
+                context.push(<Icon key={'iconend'}>arrow_drop_down</Icon>);
                 this.setState({
                     context,
                 });

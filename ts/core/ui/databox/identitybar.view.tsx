@@ -13,7 +13,6 @@ import { withStyles, createStyles } from '@material-ui/core/styles'
 const styles = createStyles({
     root:{
         position:'relative',
-        width:'100%',
         border:'1px solid transparent',
         borderRadius:'8px',
         padding:'3px',

@@ -22,13 +22,10 @@ import Info from '@material-ui/icons/InfoOutlined'
 
 const styles = createStyles({ 
     barstyle:{
-        width:'100%',
         borderRadius:'8px 0 0 0',
         paddingTop:'3px',
         boxSizing:'border-box',
-        top:'0',
         backgroundColor:'#f2f2f2',
-        zIndex:1,
     },
 
     rowwrapperstyle:{
@@ -145,8 +142,7 @@ class DirectoryBar extends React.Component<any,any> {
         let { listStack, classes, haspeers } = this.props
         let listDocument = this.state.list?this.state.list.document:null
 
-        return <div>
-            <div 
+        return <div 
                 className = {classes.barstyle}
             >
                 {listDocument
@@ -268,7 +264,6 @@ class DirectoryBar extends React.Component<any,any> {
                 </div>}
             </div>
             
-        </div>
     }
 }
 

@@ -16,13 +16,10 @@ import PopupMenu from '../common/popupmenu.view';
 import Info from '@material-ui/icons/InfoOutlined';
 const styles = createStyles({
     barstyle: {
-        width: '100%',
         borderRadius: '8px 0 0 0',
         paddingTop: '3px',
         boxSizing: 'border-box',
-        top: '0',
         backgroundColor: '#f2f2f2',
-        zIndex: 1,
     },
     rowwrapperstyle: {
         borderBottom: '1px solid silver',
@@ -115,8 +112,7 @@ class DirectoryBar extends React.Component {
     render() {
         let { listStack, classes, haspeers } = this.props;
         let listDocument = this.state.list ? this.state.list.document : null;
-        return <div>
-            <div className={classes.barstyle}>
+        return <div className={classes.barstyle}>
                 {listDocument
             ? (<div className={classes.rowwrapperstyle}>
 
@@ -192,9 +188,7 @@ class DirectoryBar extends React.Component {
                     <CircularProgress size={12}/>
 
                 </div>}
-            </div>
-            
-        </div>;
+            </div>;
     }
 }
 export default withStyles(styles)(DirectoryBar);
