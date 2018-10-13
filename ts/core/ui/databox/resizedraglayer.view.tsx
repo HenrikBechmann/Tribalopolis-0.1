@@ -52,9 +52,9 @@ class ResizeDragLayer extends React.Component<any,any> {
 
                 let widthnumber = this.startingwidth + (diff * 2)
 
-                if (widthnumber < 300) {
-                    widthnumber = 300
-                    diff = (300 - this.startingwidth) / 2
+                if (widthnumber < 200) {
+                    widthnumber = 200
+                    diff = (200 - this.startingwidth) / 2
                 }
                 else if (widthnumber > 600) {
                     widthnumber = 600

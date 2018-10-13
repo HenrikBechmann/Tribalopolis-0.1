@@ -38,9 +38,9 @@ let ResizeDragLayer = class ResizeDragLayer extends React.Component {
             if (Math.abs(this.lastoffset - diff) > 1) { // optimization
                 this.lastoffset = diff;
                 let widthnumber = this.startingwidth + (diff * 2);
-                if (widthnumber < 300) {
-                    widthnumber = 300;
-                    diff = (300 - this.startingwidth) / 2;
+                if (widthnumber < 200) {
+                    widthnumber = 200;
+                    diff = (200 - this.startingwidth) / 2;
                 }
                 else if (widthnumber > 600) {
                     widthnumber = 600;

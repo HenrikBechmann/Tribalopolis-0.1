@@ -54,8 +54,8 @@ const resizeHandlers = {
         if (newboxwidth > 600) {
             newboxwidth = 600;
         }
-        else if (newboxwidth < 300) {
-            newboxwidth = 300;
+        else if (newboxwidth < 200) {
+            newboxwidth = 200;
         }
         props.setBoxWidth(newboxwidth);
     },
