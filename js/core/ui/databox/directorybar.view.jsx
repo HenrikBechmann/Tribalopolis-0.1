@@ -101,7 +101,7 @@ class DirectoryBar extends React.Component {
         }
     }
     render() {
-        let { listStack, classes, haspeers } = this.props;
+        let { listStack, classes, haspeers, contextitem } = this.props;
         let listDocument = this.state.list ? this.state.list.document : null;
         return <div className={classes.barstyle}>
                 {listDocument
@@ -114,14 +114,14 @@ class DirectoryBar extends React.Component {
                             {listDocument.counts.lists + listDocument.counts.links}
                         </span>
                     </div>
-                    {!haspeers && <div ref={this.menuAnchor}>
+                    {(!haspeers && !contextitem) && <div ref={this.menuAnchor}>
                         <ActionButton buttonStyle={{
                 float: 'none',
                 width: '24px',
                 height: '24px',
             }} icon='more_vert' action={this.toggleMenu}/>
                     </div>}
-                    {!haspeers && <PopupMenu menuopen={this.state.menuopen} menuAnchor={this.menuAnchor} menuClose={this.menuClose}>
+                    {(!haspeers && !contextitem) && <PopupMenu menuopen={this.state.menuopen} menuAnchor={this.menuAnchor} menuClose={this.menuClose}>
                         <MenuItem className={classes.menustyle} onClick={(e) => {
                 this.callDataDrawer(e, 'info');
             }}>
@@ -164,7 +164,13 @@ class DirectoryBar extends React.Component {
                             {false && <ActionButton iconStyle={{ width: '16px' }} img='/public/icons/tiles.svg'/>}
                         </MenuItem>
                     </PopupMenu>}
-                    <ActionButton icon='unfold_more'/>
+                    {!contextitem && <ActionButton icon='unfold_more'/>}
+                    {contextitem && <ActionButton buttonStyle={{
+                float: 'none',
+                width: '24px',
+                height: '24px',
+                marginLeft: '6px',
+            }} action={() => { this.props.callDataDrawer('info'); }} component={<Info />}/>}
 
                 </div>)
             : <div className={classes.progress}>

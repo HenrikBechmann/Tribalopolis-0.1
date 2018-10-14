@@ -129,7 +129,7 @@ class DirectoryBar extends React.Component<any,any> {
 
     render() {
 
-        let { listStack, classes, haspeers } = this.props
+        let { listStack, classes, haspeers, contextitem } = this.props
         let listDocument = this.state.list?this.state.list.document:null
 
         return <div 
@@ -149,7 +149,7 @@ class DirectoryBar extends React.Component<any,any> {
                             {listDocument.counts.lists + listDocument.counts.links}
                         </span>
                     </div>
-                    {!haspeers && <div 
+                    {(!haspeers && !contextitem) && <div 
                         ref = {this.menuAnchor}
                     >
                         <ActionButton 
@@ -164,7 +164,7 @@ class DirectoryBar extends React.Component<any,any> {
                             action = {this.toggleMenu}
                         />
                     </div>}
-                    {!haspeers && <PopupMenu
+                    {(!haspeers && !contextitem) && <PopupMenu
                         menuopen = {this.state.menuopen}
                         menuAnchor = {this.menuAnchor}
                         menuClose = {this.menuClose}
@@ -232,7 +232,21 @@ class DirectoryBar extends React.Component<any,any> {
                             />}
                         </MenuItem>
                     </PopupMenu>}
-                    <ActionButton icon = 'unfold_more' />
+                    {!contextitem && <ActionButton icon = 'unfold_more' />}
+                    {contextitem && <ActionButton 
+                        buttonStyle = {
+                            {
+                                float:'none',
+                                width:'24px',
+                                height:'24px',
+                                marginLeft:'6px',
+                            }
+                        } 
+                        action = {
+                            () => {this.props.callDataDrawer('info')}
+                        }
+                        component = {<Info  />}
+                    />}
 
                 </div>)
 

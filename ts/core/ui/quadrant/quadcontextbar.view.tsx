@@ -111,6 +111,7 @@ class QuadContextBar extends React.Component<any> {
 
                     listStack = {itemProxy.liststack}
                     collapseDirectoryItem = {() => {}} 
+                    contextitem
                 />
                 context.push(<Icon key = {n + 'icon'} style = {{opacity:.54}}>chevron_right</Icon>)
                 context.push(component)
@@ -133,6 +134,7 @@ class QuadContextBar extends React.Component<any> {
                     callDataDrawer = { (opcode ) => {
                             this.props.callDataDrawer(newItemProxy,opcode)
                     }}
+                    contextitem
                 />)
 
                 let item = this.props.callbacks.getItemFromCache(newItemProxy.path)
@@ -155,6 +157,7 @@ class QuadContextBar extends React.Component<any> {
 
                         listStack = {newItemProxy.liststack}
                         collapseDirectoryItem = {() => {}} 
+                        contextitem
                     />
                     context.push(<Icon key = {n + 'icon'}  style = {{opacity:.54}}>chevron_right</Icon>)
                     context.push(component)
