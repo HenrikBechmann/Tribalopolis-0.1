@@ -118,7 +118,7 @@ class QuadspaceController extends React.Component<any,any> {
 
         this.setState({
             quadrantPositions
-        },()=>{
+        }/*,()=>{
             setTimeout(()=> {
                 console.log('display workaround for Chrome')
                 let quadplatform = document.getElementById('quadplatform')
@@ -128,7 +128,7 @@ class QuadspaceController extends React.Component<any,any> {
                     quadplatform.style.display = 'block'
                 // })
             },1000)
-        })
+        }*/)
 
     }
 

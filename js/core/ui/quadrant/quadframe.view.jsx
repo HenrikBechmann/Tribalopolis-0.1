@@ -108,7 +108,7 @@ class QuadFrame extends React.Component {
                             });
                         }, 600);
                     });
-                });
+                }, 300);
             });
         }
     }

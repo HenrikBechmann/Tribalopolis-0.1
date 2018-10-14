@@ -91,17 +91,17 @@ class QuadspaceController extends React.Component {
             // console.log('end positions',quadrantPositions)
             this.setState({
                 quadrantPositions
-            }, () => {
-                setTimeout(() => {
-                    console.log('display workaround for Chrome');
-                    let quadplatform = document.getElementById('quadplatform');
-                    quadplatform.style.display = 'none';
-                    quadplatform.clientHeight;
+            } /*,()=>{
+                setTimeout(()=> {
+                    console.log('display workaround for Chrome')
+                    let quadplatform = document.getElementById('quadplatform')
+                    quadplatform.style.display = 'none'
+                    quadplatform.clientHeight
                     // setTimeout(()=>{
-                    quadplatform.style.display = 'block';
+                        quadplatform.style.display = 'block'
                     // })
-                }, 1000);
-            });
+                },1000)
+            }*/);
         };
         this.calcPos = instanceid => {
             return this.state.quadrantPositions.indexOf(instanceid);
