@@ -4,11 +4,13 @@
 
 import React from 'react'
 
-import ActionButton from '../common/actionbutton.view'
-
+import Icon from '@material-ui/core/Icon'
 import Info from '@material-ui/icons/InfoOutlined'
-
 import { withStyles, createStyles } from '@material-ui/core/styles'
+import MenuItem from '@material-ui/core/MenuItem';
+
+import ActionButton from '../common/actionbutton.view'
+import PopupMenu from '../common/popupmenu.view'
 
 const styles = createStyles({
     barstyle:{
@@ -41,13 +43,20 @@ const styles = createStyles({
 
 })
 
-class IdentityBar extends React.Component<any> {
+class IdentityBar extends React.Component<any, any> {
+
+    constructor(props) {
+        super(props)
+        this.menuAnchor = React.createRef()
+    }
 
     state = {
         item:null,
+        menuopen:false,
     }
 
     itemProxy
+    menuAnchor
 
     componentDidMount() {
         this.assertListener()
@@ -82,9 +91,26 @@ class IdentityBar extends React.Component<any> {
         })
     }
 
+    toggleMenu = () => {
+        this.setState(state => ({ menuopen: !state.menuopen }));
+    }
+
+    menuClose = event => {
+        if (this.menuAnchor.current.contains(event.target)) {
+          return;
+        }
+
+        this.setState({ menuopen: false });
+    }
+
+    callDataDrawer = (e,opcode) => {
+        this.menuClose(e)
+        this.props.callDataDrawer(this.itemProxy, opcode)
+    }
+
     render() {
 
-    let { classes} = this.props
+    let { classes, contextitem } = this.props
 
     let avatar = '/public/avatars/henrik_in_circle.png'
 
@@ -106,10 +132,44 @@ class IdentityBar extends React.Component<any> {
                     }
                 } 
                 action = {
-                    () => {this.props.callDataDrawer('info')}
+                    () => { this.props.callDataDrawer( this.itemProxy, 'info') }
                 }
                 component = {<Info  />}
             />
+            {(!contextitem) && <div 
+                ref = {this.menuAnchor}
+            >
+                <ActionButton 
+                    buttonStyle = {
+                        {
+                            float:'none',
+                            width:'24px',
+                            height:'24px',
+                        }
+                    } 
+                    icon = 'more_vert' 
+                    action = {this.toggleMenu}
+                />
+                {(!contextitem) && <PopupMenu
+                    menuopen = {this.state.menuopen}
+                    menuAnchor = {this.menuAnchor}
+                    menuClose = {this.menuClose}
+                >
+                    <MenuItem className = {classes.menustyle}
+                        onClick = {(e) =>{
+                            this.callDataDrawer(e,'edit')}
+                        }>
+                        <Icon style = {{opacity:.54}} >edit</Icon> Edit
+                    </MenuItem>
+                    <MenuItem className = {classes.menustyle}
+                        disabled
+                        onClick = {(e) =>{
+                            this.callDataDrawer(e,'delete')}
+                        }>
+                        <Icon style = {{opacity:.54}} >delete</Icon> Delete
+                    </MenuItem>
+                </PopupMenu>}
+            </div>}
         </div>
     </div>
     }

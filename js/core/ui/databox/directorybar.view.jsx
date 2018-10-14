@@ -114,6 +114,7 @@ class DirectoryBar extends React.Component {
                             {listDocument.counts.lists + listDocument.counts.links}
                         </span>
                     </div>
+                    {!contextitem && <ActionButton icon='unfold_more'/>}
                     {(!contextitem) && <div ref={this.menuAnchor}>
                         <ActionButton buttonStyle={{
                 float: 'none',
@@ -164,13 +165,12 @@ class DirectoryBar extends React.Component {
                             {false && <ActionButton iconStyle={{ width: '16px' }} img='/public/icons/tiles.svg'/>}
                         </MenuItem>
                     </PopupMenu>}
-                    {!contextitem && <ActionButton icon='unfold_more'/>}
                     {contextitem && <ActionButton buttonStyle={{
                 float: 'none',
                 width: '24px',
                 height: '24px',
                 marginLeft: '6px',
-            }} action={() => { this.props.callDataDrawer('info'); }} component={<Info />}/>}
+            }} action={() => { this.props.callDataDrawer(this.listProxy, 'info'); }} component={<Info />}/>}
 
                 </div>)
             : <div className={classes.progress}>

@@ -131,9 +131,7 @@ class QuadContextBar extends React.Component<any> {
                     itemProxy = {newItemProxy}
                     setItemListener = {this.props.callbacks.setItemListener}
                     removeItemListener = {this.props.callbacks.removeItemListener}
-                    callDataDrawer = { (opcode ) => {
-                            this.props.callDataDrawer(newItemProxy,opcode)
-                    }}
+                    callDataDrawer = { this.props.callDataDrawer }
                     contextitem
                 />)
 

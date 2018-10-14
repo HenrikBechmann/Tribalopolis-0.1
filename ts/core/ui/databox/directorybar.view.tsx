@@ -149,6 +149,7 @@ class DirectoryBar extends React.Component<any,any> {
                             {listDocument.counts.lists + listDocument.counts.links}
                         </span>
                     </div>
+                    {!contextitem && <ActionButton icon = 'unfold_more' />}
                     {(!contextitem) && <div 
                         ref = {this.menuAnchor}
                     >
@@ -232,7 +233,6 @@ class DirectoryBar extends React.Component<any,any> {
                             />}
                         </MenuItem>
                     </PopupMenu>}
-                    {!contextitem && <ActionButton icon = 'unfold_more' />}
                     {contextitem && <ActionButton 
                         buttonStyle = {
                             {
@@ -243,7 +243,7 @@ class DirectoryBar extends React.Component<any,any> {
                             }
                         } 
                         action = {
-                            () => {this.props.callDataDrawer('info')}
+                            () => {this.props.callDataDrawer(this.listProxy,'info')}
                         }
                         component = {<Info  />}
                     />}

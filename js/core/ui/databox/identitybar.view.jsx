@@ -2,9 +2,12 @@
 // copyright (c) 2018 Henrik Bechmann, Toronto, MIT Licence
 'use strict';
 import React from 'react';
-import ActionButton from '../common/actionbutton.view';
+import Icon from '@material-ui/core/Icon';
 import Info from '@material-ui/icons/InfoOutlined';
 import { withStyles, createStyles } from '@material-ui/core/styles';
+import MenuItem from '@material-ui/core/MenuItem';
+import ActionButton from '../common/actionbutton.view';
+import PopupMenu from '../common/popupmenu.view';
 const styles = createStyles({
     barstyle: {
         boxSizing: 'border-box',
@@ -34,10 +37,11 @@ const styles = createStyles({
     },
 });
 class IdentityBar extends React.Component {
-    constructor() {
-        super(...arguments);
+    constructor(props) {
+        super(props);
         this.state = {
             item: null,
+            menuopen: false,
         };
         this.assertListener = () => {
             if (!this.itemProxy && this.props.itemProxy) {
@@ -53,6 +57,20 @@ class IdentityBar extends React.Component {
                 }
             });
         };
+        this.toggleMenu = () => {
+            this.setState(state => ({ menuopen: !state.menuopen }));
+        };
+        this.menuClose = event => {
+            if (this.menuAnchor.current.contains(event.target)) {
+                return;
+            }
+            this.setState({ menuopen: false });
+        };
+        this.callDataDrawer = (e, opcode) => {
+            this.menuClose(e);
+            this.props.callDataDrawer(this.itemProxy, opcode);
+        };
+        this.menuAnchor = React.createRef();
     }
     componentDidMount() {
         this.assertListener();
@@ -66,7 +84,7 @@ class IdentityBar extends React.Component {
         }
     }
     render() {
-        let { classes } = this.props;
+        let { classes, contextitem } = this.props;
         let avatar = '/public/avatars/henrik_in_circle.png';
         return <div className={classes.barstyle}>
         <div className={classes.rowstyle}>
@@ -79,7 +97,26 @@ class IdentityBar extends React.Component {
             float: 'none',
             width: '24px',
             height: '24px',
-        }} action={() => { this.props.callDataDrawer('info'); }} component={<Info />}/>
+        }} action={() => { this.props.callDataDrawer(this.itemProxy, 'info'); }} component={<Info />}/>
+            {(!contextitem) && <div ref={this.menuAnchor}>
+                <ActionButton buttonStyle={{
+            float: 'none',
+            width: '24px',
+            height: '24px',
+        }} icon='more_vert' action={this.toggleMenu}/>
+                {(!contextitem) && <PopupMenu menuopen={this.state.menuopen} menuAnchor={this.menuAnchor} menuClose={this.menuClose}>
+                    <MenuItem className={classes.menustyle} onClick={(e) => {
+            this.callDataDrawer(e, 'edit');
+        }}>
+                        <Icon style={{ opacity: .54 }}>edit</Icon> Edit
+                    </MenuItem>
+                    <MenuItem className={classes.menustyle} disabled onClick={(e) => {
+            this.callDataDrawer(e, 'delete');
+        }}>
+                        <Icon style={{ opacity: .54 }}>delete</Icon> Delete
+                    </MenuItem>
+                </PopupMenu>}
+            </div>}
         </div>
     </div>;
     }

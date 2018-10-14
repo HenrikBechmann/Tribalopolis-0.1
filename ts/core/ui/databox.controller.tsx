@@ -371,9 +371,7 @@ class DataBox extends React.Component<any,any> {
                         itemProxy = {this.identityItemProxy}
                         setItemListener = {this.props.callbacks.setItemListener}
                         removeItemListener = {this.props.callbacks.removeItemListener}
-                        callDataDrawer = { ( opcode ) => {
-                            this.props.callbacks.callDataDrawer(this.identityItemProxy,opcode)
-                        }}
+                        callDataDrawer = { this.props.callbacks.callDataDrawer }
                     />}
 
                     <div className = {classes.directoryBlock} >
