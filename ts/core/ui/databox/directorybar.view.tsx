@@ -149,7 +149,15 @@ class DirectoryBar extends React.Component<any,any> {
                             {listDocument.counts.lists + listDocument.counts.links}
                         </span>
                     </div>
-                    {!contextitem && <ActionButton icon = 'unfold_more' />}
+                    {!contextitem && <ActionButton 
+                        buttonStyle = {
+                            {
+                                float:'none',
+                                width:'24px',
+                                height:'24px',
+                            }
+                        } 
+                        icon = 'unfold_more' />}
                     {(!contextitem) && <div 
                         ref = {this.menuAnchor}
                     >
