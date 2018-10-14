@@ -114,14 +114,14 @@ class DirectoryBar extends React.Component {
                             {listDocument.counts.lists + listDocument.counts.links}
                         </span>
                     </div>
-                    {(!haspeers && !contextitem) && <div ref={this.menuAnchor}>
+                    {(!contextitem) && <div ref={this.menuAnchor}>
                         <ActionButton buttonStyle={{
                 float: 'none',
                 width: '24px',
                 height: '24px',
             }} icon='more_vert' action={this.toggleMenu}/>
                     </div>}
-                    {(!haspeers && !contextitem) && <PopupMenu menuopen={this.state.menuopen} menuAnchor={this.menuAnchor} menuClose={this.menuClose}>
+                    {(!contextitem) && <PopupMenu menuopen={this.state.menuopen} menuAnchor={this.menuAnchor} menuClose={this.menuClose}>
                         <MenuItem className={classes.menustyle} onClick={(e) => {
                 this.callDataDrawer(e, 'info');
             }}>

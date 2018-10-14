@@ -880,7 +880,7 @@ let lists = {
         },
         properties:{
             version:0,
-            name:'Related Records',
+            name:'Records',
             linkedlist:false,
         },
         references:{
