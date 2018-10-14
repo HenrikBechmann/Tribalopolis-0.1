@@ -118,7 +118,7 @@ class QuadspaceController extends React.Component<any,any> {
 
         this.setState({
             quadrantPositions
-        }/*,()=>{
+        }/*,()=>{ // fixed by adding delay to initial timeout in quadframe
             setTimeout(()=> {
                 console.log('display workaround for Chrome')
                 let quadplatform = document.getElementById('quadplatform')

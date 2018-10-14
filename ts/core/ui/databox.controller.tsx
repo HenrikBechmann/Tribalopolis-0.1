@@ -79,6 +79,7 @@ const styles = createStyles({
         flexFlow:'column',
         position:'relative',
         flex:1,
+        overflow:'hidden', // for FF to allow scroll
     },
     directorylistwrapper:{
         overflow:'hidden',
