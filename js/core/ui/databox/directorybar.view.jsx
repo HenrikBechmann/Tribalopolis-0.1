@@ -20,10 +20,10 @@ const styles = createStyles({
         borderBottom: '1px solid #e2e6e9',
         borderRadius: '8px',
         backgroundColor: '#f2f2f2',
+        padding: '3px',
     },
     rowstyle: {
         position: 'relative',
-        padding: '0 3px',
         display: 'flex',
         flexFlow: 'row nowrap',
         alignItems: 'center',
