@@ -14,7 +14,7 @@ const styles = createStyles({
         position: 'relative',
         borderBottom: '1px solid #e2e6e9',
         borderRadius: '8px',
-        backgroundColor: '#f2f2f2',
+        backgroundColor: '#c7ddc7',
     },
     rowstyle: {
         position: 'relative',
