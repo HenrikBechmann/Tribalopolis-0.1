@@ -11,7 +11,8 @@ const styles = createStyles({
     scrollbox: {
         overflow: 'auto',
         position: 'relative',
-        paddingBottom: '32px',
+        // paddingBottom:'32px', // leave room for add button
+        WebkitOverflowScrolling: 'touch',
         width: '100%',
         boxSizing: 'border-box',
         height: '100%',

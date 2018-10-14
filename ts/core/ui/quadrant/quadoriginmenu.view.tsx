@@ -19,6 +19,7 @@ const styles = createStyles({
         padding:'3px',
         opacity:0.7,
         width:'32px',
+        left:0,
     },
 
 })

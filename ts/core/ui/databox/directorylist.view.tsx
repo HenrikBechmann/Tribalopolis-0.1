@@ -17,7 +17,8 @@ const styles = createStyles({
     scrollbox:{            
         overflow:'auto',
         position:'relative', // required for offsetParent of highlightItem search
-        paddingBottom:'32px', // leave room for add button
+        // paddingBottom:'32px', // leave room for add button
+        WebkitOverflowScrolling:'touch', // attempt to achieve scrolling on ios
         width:'100%',
         boxSizing:'border-box',
         height:'100%',

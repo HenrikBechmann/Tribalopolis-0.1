@@ -46,6 +46,7 @@ let styles = createStyles({
         width: '100%',
         height:'100%',
         overflow:'auto',
+        webkitOverflowSrolling:'touch',
         border: '1px solid gray',
         boxSizing: 'border-box',
         borderRadius: '8px',
