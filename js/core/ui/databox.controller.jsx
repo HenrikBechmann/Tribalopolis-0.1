@@ -63,12 +63,14 @@ const styles = createStyles({
         display: 'flex',
         flexFlow: 'column',
         position: 'relative',
-        flex: 1,
+        flex: '1',
+        minHeight: '0',
         overflow: 'hidden',
     },
     directorylistwrapper: {
-        overflow: 'hidden',
-        flex: 1,
+        flex: '1 1 0',
+        display: 'flex',
+        flexFlow: 'column',
     },
 });
 class DataBox extends React.Component {

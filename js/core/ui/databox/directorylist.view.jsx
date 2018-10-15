@@ -8,21 +8,22 @@ import { withStyles, createStyles } from '@material-ui/core/styles';
 import DirectoryItem from './directoryitem.view';
 import proxy from '../../utilities/proxy';
 const styles = createStyles({
+    scrollboxcontainer: {
+        position: 'relative',
+        flex: '1 1 0',
+        width: '100%',
+        overflow: 'hidden',
+        display: 'flex',
+        flexFlow: 'column'
+    },
     scrollbox: {
+        flex: '1 1 0',
         overflow: 'auto',
         position: 'relative',
         // paddingBottom:'32px', // leave room for add button
-        WebkitOverflowScrolling: 'touch',
+        // WebkitOverflowScrolling:'touch', // attempt to achieve scrolling on ios
         width: '100%',
         boxSizing: 'border-box',
-        height: '100%',
-    },
-    scrollboxcontainer: {
-        position: 'relative',
-        height: '100%',
-        width: '100%',
-        overflow: 'hidden',
-        minHeight: '0',
     },
 });
 const DirectoryListBase = withStyles(styles)(class extends React.Component {

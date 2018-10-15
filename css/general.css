@@ -2,6 +2,10 @@
 .base-appear.base-appear-active { opacity: 1; transition: opacity 0.5s ease-in; }
 */
 
+body {
+    -webkit-overflow-scrolling: touch;
+}
+
 @keyframes maskdrill {
     0% {
         top:var(--top);

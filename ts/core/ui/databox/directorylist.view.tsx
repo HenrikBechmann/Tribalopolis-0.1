@@ -14,21 +14,23 @@ import DirectoryItem from './directoryitem.view'
 import proxy from '../../utilities/proxy'
 
 const styles = createStyles({
-    scrollbox:{            
+    scrollboxcontainer:{
+        position:'relative', 
+        flex: '1 1 0',
+        width:'100%',
+        overflow:'hidden',
+        display:'flex',
+        flexFlow:'column'
+    },
+    scrollbox:{
+        flex: '1 1 0',
         overflow:'auto',
         position:'relative', // required for offsetParent of highlightItem search
         // paddingBottom:'32px', // leave room for add button
-        WebkitOverflowScrolling:'touch', // attempt to achieve scrolling on ios
+        // WebkitOverflowScrolling:'touch', // attempt to achieve scrolling on ios
         width:'100%',
         boxSizing:'border-box',
-        height:'100%',
-    },
-    scrollboxcontainer:{
-        position:'relative', 
-        height:'100%', 
-        width:'100%',
-        overflow:'hidden',
-        minHeight:'0', // trick for Safari??
+        // height:'100%',
     },
 })
 
