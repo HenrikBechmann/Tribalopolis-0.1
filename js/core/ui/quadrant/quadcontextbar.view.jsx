@@ -91,7 +91,7 @@ class QuadContextBar extends React.Component {
                     });
                     // console.log('args for identity', itemProxy, newItemProxy, this.props.callbacks)
                     context.push(<BoxIdentityBar key={n + 'item'} itemProxy={newItemProxy} setItemListener={this.props.callbacks.setItemListener} removeItemListener={this.props.callbacks.removeItemListener} callDataDrawer={this.props.callDataDrawer} contextitem/>);
-                    let item = this.props.callbacks.getItemFromCache(newItemProxy.path);
+                    let item = this.props.callbacks.getItemFromCache(newItemProxy.reference);
                     // console.log('item from cache',item)
                     if (item) { // defensive
                         let listtoken = {

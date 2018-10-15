@@ -135,7 +135,7 @@ class QuadContextBar extends React.Component<any> {
                     contextitem
                 />)
 
-                let item = this.props.callbacks.getItemFromCache(newItemProxy.path)
+                let item = this.props.callbacks.getItemFromCache(newItemProxy.reference)
 
                 // console.log('item from cache',item)
 

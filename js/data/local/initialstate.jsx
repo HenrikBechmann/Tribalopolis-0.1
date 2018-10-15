@@ -8,7 +8,11 @@
 // let budgetdata = {} // require('../../explorerprototypedata/2015budgetA.json')
 import { createMuiTheme } from '@material-ui/core/styles';
 import * as colors from '@material-ui/core/colors';
-let theme = createMuiTheme();
+let theme = createMuiTheme({
+    typography: {
+        useNextVariants: true,
+    },
+});
 // console.log('theme, colors', theme, colors)
 // import database, {CurrencyDataset,ItemDataset} from '../addins/classes/databaseapi'
 // fontFamily: "Roboto, sans-serif"

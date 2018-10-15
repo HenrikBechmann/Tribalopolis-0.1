@@ -179,7 +179,7 @@ let lists = {
             name:'Diaries',
         },
         references:{
-            subscriptions:[], // {path:[],list:''}
+            subscriptions:[], // {reference:[],list:''}
             owner:{
                 id:'henrik',
                 collection:'items',

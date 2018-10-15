@@ -14,7 +14,11 @@
 import { createMuiTheme } from '@material-ui/core/styles';
 import * as colors from '@material-ui/core/colors';
 
-let theme = createMuiTheme()
+let theme = createMuiTheme({ // per https://material-ui.com/style/typography/#migration-to-typography-v2
+  typography: {
+    useNextVariants: true,
+  },
+})
 
 // console.log('theme, colors', theme, colors)
 

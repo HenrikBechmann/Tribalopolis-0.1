@@ -37,30 +37,30 @@ const getNewCacheItem = () => {
     }
 }
 
-const getTokenPath = (token) => {
+const getTokenReference = (token) => {
     return `${token.repo}/${token.uid}`
 }
 
-const getCacheItem = (path) => {
+const getCacheItem = (reference) => {
     let cacheitem
-    if (cache.has(path)) {
+    if (cache.has(reference)) {
 
-        cacheitem = cache.get(path)
+        cacheitem = cache.get(reference)
 
     } else {
 
         cacheitem = getNewCacheItem()
-        cache.set(path,cacheitem)
+        cache.set(reference,cacheitem)
 
     }
     return cacheitem
 }
 
-const getItemFromCache = path => {
+const getItemFromCache = reference => {
     let cacheitem
-    if (cache.has(path)) {
+    if (cache.has(reference)) {
 
-        cacheitem = cache.get(path).data.document
+        cacheitem = cache.get(reference).data.document
 
     } else {
 
@@ -72,15 +72,15 @@ const getItemFromCache = path => {
 
 const addCacheListener = (token,instanceid,callback) => {
 
-    let path = getTokenPath(token)
-    let cacheitem = getCacheItem(path)
+    let reference = getTokenReference(token)
+    let cacheitem = getCacheItem(reference)
 
     cacheitem.listeners.set(instanceid,callback)
 
 }
 
-const updateCacheData = (path,data,type) => {
-    let cacheitem = getCacheItem(path)
+const updateCacheData = (reference,data,type) => {
+    let cacheitem = getCacheItem(reference)
     cacheitem.data.document = data
     cacheitem.data.type = type
 }
@@ -92,12 +92,12 @@ const setItemListener = (token,instanceid,callback) => {
     let item = domain.setItemListener(token)
     let type = domain.setTypeListener(item.identity.type.id)
 
-    let path = getTokenPath(token)
+    let reference = getTokenReference(token)
 
-    updateCacheData(path,item,type)
+    updateCacheData(reference,item,type)
 
     // setTimeout(()=> {
-        let cacheditem = getCacheItem(path)
+        let cacheditem = getCacheItem(reference)
         let cachedcallback = cacheditem.listeners.get(instanceid)
         if (cachedcallback) {
             cachedcallback(item,type)
@@ -111,9 +111,9 @@ const setItemListener = (token,instanceid,callback) => {
 
 const removeDocumentListener = (token, instanceid) => {
 
-    let path = getTokenPath(token)
-    if (!cache.has(path)) return
-    let cacheitem = cache.get(path)
+    let reference = getTokenReference(token)
+    if (!cache.has(reference)) return
+    let cacheitem = cache.get(reference)
     cacheitem.listeners.delete(instanceid)
 
 }
@@ -140,12 +140,12 @@ const setListListener = (token,instanceid,callback) => {
     let list = domain.setListListener(token)
     let type = domain.setTypeListener({uid:list.identity.type.id,repo:'lists'})
 
-    let path = getTokenPath(token)
+    let reference = getTokenReference(token)
 
-    updateCacheData(path,list,type)
+    updateCacheData(reference,list,type)
 
     // setTimeout(()=>{
-        let cachedcallback = getCacheItem(path).listeners.get(instanceid)
+        let cachedcallback = getCacheItem(reference).listeners.get(instanceid)
         if (cachedcallback) {
             cachedcallback(list,type)
         }
