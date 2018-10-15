@@ -16,7 +16,14 @@ const styles = createStyles({
         width: '100%',
         boxSizing: 'border-box',
         height: '100%',
-    }
+    },
+    scrollboxcontainer: {
+        position: 'relative',
+        height: '100%',
+        width: '100%',
+        overflow: 'hidden',
+        minHeight: '0',
+    },
 });
 const DirectoryListBase = withStyles(styles)(class extends React.Component {
     constructor(props) {
@@ -141,7 +148,7 @@ const DirectoryListBase = withStyles(styles)(class extends React.Component {
     render() {
         let { classes } = this.props;
         let length = this.state.listproxies ? this.state.listproxies.length : 0;
-        return (<div style={{ position: 'relative', height: '100%', width: '100%', }}>
+        return (<div className={classes.scrollboxcontainer}>
             <div className={classes.scrollbox}>
                 {this.state.listproxies ? <Lister ref={this.props.forwardedRef} itemRenderer={this.itemRenderer} length={length} type='uniform' useStaticSize/> : <CircularProgress size={24}/>}
             </div>

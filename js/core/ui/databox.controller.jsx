@@ -57,6 +57,7 @@ const styles = createStyles({
         display: 'flex',
         flexFlow: 'column',
         height: '100%',
+        overflow: 'hidden',
     },
     directoryBlock: {
         display: 'flex',

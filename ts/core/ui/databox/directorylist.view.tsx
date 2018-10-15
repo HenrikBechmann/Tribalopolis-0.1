@@ -22,7 +22,14 @@ const styles = createStyles({
         width:'100%',
         boxSizing:'border-box',
         height:'100%',
-    }
+    },
+    scrollboxcontainer:{
+        position:'relative', 
+        height:'100%', 
+        width:'100%',
+        overflow:'hidden',
+        minHeight:'0', // trick for Safari??
+    },
 })
 
 const DirectoryListBase = withStyles(styles)( 
@@ -193,7 +200,7 @@ class extends React.Component<any,any> {
         let length = this.state.listproxies?this.state.listproxies.length:0
 
         return (
-        <div style = {{position:'relative', height:'100%', width:'100%',}}>
+        <div className = {classes.scrollboxcontainer}>
             <div
                 className = {classes.scrollbox} 
             >
