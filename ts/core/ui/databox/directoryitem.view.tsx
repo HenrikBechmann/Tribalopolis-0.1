@@ -66,7 +66,7 @@ class DirectoryItem extends React.Component<any,any> {
 
         if ((!this.listProxy) && this.props.listProxy) {
             this.listProxy = this.props.listProxy
-            this.props.setListListener(
+            this.props.setDocumentListener(
                 this.listProxy.token,this.listProxy.instanceid,this.cacheListDocument)
         }
 
@@ -81,7 +81,7 @@ class DirectoryItem extends React.Component<any,any> {
 
     componentWillUnmount() {
         if (this.listProxy) {
-            this.props.removeListListener(
+            this.props.removeDocumentListener(
                 this.listProxy.token,this.listProxy.instanceid)
         }        
     }

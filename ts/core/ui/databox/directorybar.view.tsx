@@ -89,14 +89,14 @@ class DirectoryBar extends React.Component<any,any> {
     assertList = () => {
         if (!this.listProxy && this.props.listProxy) {
             this.listProxy = this.props.listProxy
-            this.props.setListListener(
+            this.props.setDocumentListener(
                 this.listProxy.token,this.listProxy.instanceid,this.cacheListDocument)
         }        
     }
 
     componentWillUnmount() {
         if (this.listProxy) {
-            this.props.removeListListener(
+            this.props.removeDocumentListener(
                 this.listProxy.token,this.listProxy.instanceid)
         }        
     }

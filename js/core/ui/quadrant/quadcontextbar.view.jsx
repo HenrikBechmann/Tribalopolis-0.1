@@ -79,7 +79,7 @@ class QuadContextBar extends React.Component {
                 if (itemProxy.liststack.length) { // make list entry
                     let listtoken = itemProxy.listStack[itemProxy.liststack.length - 1];
                     let listProxy = new proxy(listtoken);
-                    let component = <DirectoryBar key={n + 'list'} haspeers={false} listProxy={listProxy} setListListener={this.props.callbacks.setListListener} removeListListener={this.props.callbacks.removeListListener} callDataDrawer={this.props.callDataDrawer} listStack={itemProxy.liststack} collapseDirectoryItem={() => { }} contextitem/>;
+                    let component = <DirectoryBar key={n + 'list'} haspeers={false} listProxy={listProxy} setDocumentListener={this.props.callbacks.setDocumentListener} removeDocumentListener={this.props.callbacks.removeDocumentListener} callDataDrawer={this.props.callDataDrawer} listStack={itemProxy.liststack} collapseDirectoryItem={() => { }} contextitem/>;
                     context.push(<Icon key={n + 'icon'} style={{ opacity: .54 }}>chevron_right</Icon>);
                     context.push(component);
                 }
@@ -90,8 +90,8 @@ class QuadContextBar extends React.Component {
                         liststack: itemProxy.liststack.slice(),
                     });
                     // console.log('args for identity', itemProxy, newItemProxy, this.props.callbacks)
-                    context.push(<BoxIdentityBar key={n + 'item'} itemProxy={newItemProxy} setItemListener={this.props.callbacks.setItemListener} removeItemListener={this.props.callbacks.removeItemListener} callDataDrawer={this.props.callDataDrawer} contextitem/>);
-                    let item = this.props.callbacks.getItemFromCache(newItemProxy.reference);
+                    context.push(<BoxIdentityBar key={n + 'item'} itemProxy={newItemProxy} setDocumentListener={this.props.callbacks.setDocumentListener} removeDocumentListener={this.props.callbacks.removeDocumentListener} callDataDrawer={this.props.callDataDrawer} contextitem/>);
+                    let item = this.props.callbacks.getDocumentFromCache(newItemProxy.reference);
                     // console.log('item from cache',item)
                     if (item) { // defensive
                         let listtoken = {
@@ -99,7 +99,7 @@ class QuadContextBar extends React.Component {
                             uid: item.references.list,
                         };
                         let listProxy = new proxy({ token: listtoken });
-                        let component = <DirectoryBar key={n + 'list'} haspeers={false} listProxy={listProxy} setListListener={this.props.callbacks.setListListener} removeListListener={this.props.callbacks.removeListListener} callDataDrawer={this.props.callDataDrawer} listStack={newItemProxy.liststack} collapseDirectoryItem={() => { }} contextitem/>;
+                        let component = <DirectoryBar key={n + 'list'} haspeers={false} listProxy={listProxy} setDocumentListener={this.props.callbacks.setDocumentListener} removeDocumentListener={this.props.callbacks.removeDocumentListener} callDataDrawer={this.props.callDataDrawer} listStack={newItemProxy.liststack} collapseDirectoryItem={() => { }} contextitem/>;
                         context.push(<Icon key={n + 'icon'} style={{ opacity: .54 }}>chevron_right</Icon>);
                         context.push(component);
                     }

@@ -105,8 +105,8 @@ class QuadContextBar extends React.Component<any> {
                     key = {n + 'list'}
                     haspeers = {false}
                     listProxy = {listProxy}
-                    setListListener = {this.props.callbacks.setListListener}
-                    removeListListener = {this.props.callbacks.removeListListener}
+                    setDocumentListener = {this.props.callbacks.setDocumentListener}
+                    removeDocumentListener = {this.props.callbacks.removeDocumentListener}
                     callDataDrawer = {this.props.callDataDrawer}
 
                     listStack = {itemProxy.liststack}
@@ -129,13 +129,13 @@ class QuadContextBar extends React.Component<any> {
                 context.push(<BoxIdentityBar 
                     key = {n + 'item'}
                     itemProxy = {newItemProxy}
-                    setItemListener = {this.props.callbacks.setItemListener}
-                    removeItemListener = {this.props.callbacks.removeItemListener}
+                    setDocumentListener = {this.props.callbacks.setDocumentListener}
+                    removeDocumentListener = {this.props.callbacks.removeDocumentListener}
                     callDataDrawer = { this.props.callDataDrawer }
                     contextitem
                 />)
 
-                let item = this.props.callbacks.getItemFromCache(newItemProxy.reference)
+                let item = this.props.callbacks.getDocumentFromCache(newItemProxy.reference)
 
                 // console.log('item from cache',item)
 
@@ -149,8 +149,8 @@ class QuadContextBar extends React.Component<any> {
                         key = {n + 'list'}
                         haspeers = {false}
                         listProxy = {listProxy}
-                        setListListener = {this.props.callbacks.setListListener}
-                        removeListListener = {this.props.callbacks.removeListListener}
+                        setDocumentListener = {this.props.callbacks.setDocumentListener}
+                        removeDocumentListener = {this.props.callbacks.removeDocumentListener}
                         callDataDrawer = {this.props.callDataDrawer}
 
                         listStack = {newItemProxy.liststack}

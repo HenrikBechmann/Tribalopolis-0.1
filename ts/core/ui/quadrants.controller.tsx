@@ -14,21 +14,17 @@ const Quadrants = props => {
     // repackage callbacks for children
     let { 
         handleSwap, 
-        setItemListener, 
-        setListListener, 
-        removeItemListener,
-        removeListListener,
-        getItemFromCache, 
+        setDocumentListener, 
+        removeDocumentListener,
+        getDocumentFromCache, 
         selectQuadrant, 
         calcQuadrantPosition,
     } = props.callbacks
     
     let quadcallbacks = {
-        setItemListener,
-        setListListener,
-        removeItemListener,
-        removeListListener,
-        getItemFromCache,
+        setDocumentListener,
+        removeDocumentListener,
+        getDocumentFromCache,
     }
     let framecallbacks = {
         handleSwap,

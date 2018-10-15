@@ -50,7 +50,7 @@ class extends React.Component<any,any> {
 
         if (!this.listProxy && this.props.listProxy) {
             this.listProxy = this.props.listProxy
-            this.props.callbacks.setListListener(
+            this.props.callbacks.setDocumentListener(
                 this.listProxy.token,this.listProxy.instanceid,this.cacheListDocument)
         }
 
@@ -69,7 +69,7 @@ class extends React.Component<any,any> {
 
     componentWillUnmount() {
         if (this.listProxy) {
-            this.props.callbacks.removeListListener(
+            this.props.callbacks.removeDocumentListener(
                 this.listProxy.token,this.listProxy.instanceid)
         }        
     }
@@ -170,14 +170,13 @@ class extends React.Component<any,any> {
 
     getListComponent = (proxy, key, index) => {
 
-        // let listDocument = this.setListListener(token)
         let highlight = (proxy.uid === this.state.highlightrefuid)
         let directoryitem = 
             <DirectoryItem 
                 key = {proxy.instanceid} 
                 listProxy = {proxy} 
-                setListListener = {this.props.callbacks.setListListener}
-                removeListListener = {this.props.callbacks.removeListListener}
+                setDocumentListener = {this.props.callbacks.setDocumentListener}
+                removeDocumentListener = {this.props.callbacks.removeDocumentListener}
                 expandDirectoryItem = {this.expandDirectoryItem(proxy.token)}
                 highlight = {highlight}
                 highlightItem = {this.props.callbacks.highlightItem}

@@ -7,13 +7,11 @@ import QuadFrame from './quadrant/quadframe.view';
 import Quadrant from './quadrant.controller';
 const Quadrants = props => {
     // repackage callbacks for children
-    let { handleSwap, setItemListener, setListListener, removeItemListener, removeListListener, getItemFromCache, selectQuadrant, calcQuadrantPosition, } = props.callbacks;
+    let { handleSwap, setDocumentListener, removeDocumentListener, getDocumentFromCache, selectQuadrant, calcQuadrantPosition, } = props.callbacks;
     let quadcallbacks = {
-        setItemListener,
-        setListListener,
-        removeItemListener,
-        removeListListener,
-        getItemFromCache,
+        setDocumentListener,
+        removeDocumentListener,
+        getDocumentFromCache,
     };
     let framecallbacks = {
         handleSwap,

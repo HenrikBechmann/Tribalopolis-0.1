@@ -69,14 +69,14 @@ class IdentityBar extends React.Component<any, any> {
     assertListener = () => {
         if (!this.itemProxy && this.props.itemProxy) {
             this.itemProxy = this.props.itemProxy
-            this.props.setItemListener(
+            this.props.setDocumentListener(
                 this.itemProxy.token,this.itemProxy.instanceid,this.cacheItemDocument)
         }        
     }
 
     componentWillUnmount() {
         if (this.itemProxy) {
-            this.props.removeItemListener(
+            this.props.removeDocumentListener(
                 this.itemProxy.token,this.itemProxy.instanceid)
         }        
     }

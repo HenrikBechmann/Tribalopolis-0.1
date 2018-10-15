@@ -21,43 +21,21 @@ import firebase from './firebase.api'
 
 let firestore = firebase.firestore()
 
-const setItemListener = (token) => {
-    return items[token.uid]
-}
-
-const setListListener = (token) => {
-    return lists[token.uid]
-}
-
-    // TODO: should always return an object
-const setTypeListener = (token) => {
-    return types[token.uid]
-}
-
-const getLink = (token) => {
-    return links[token.uid]
-}
-
-const getScheme = (token) => {
-    return schemes[token.uid]
-}
-
-const getFolder = (token) => {
-    return folders[token.uid]
-}
-
-const getAccount = (token) => {
-    return accounts[token.uid]
+const setDocumentListener = (token) => {
+    if (token.collection == 'lists')
+        return lists[token.uid]
+    else if (token.collection == 'items')
+        return items[token.uid]
+    else if (token.collection == 'types')
+        return types[token.uid]
+    else {
+        console.error('unrecognized collection',token)
+        return null
+    }
 }
 
 let domain = {
-    setItemListener,
-    setListListener,
-    setTypeListener,
-    getLink,
-    getScheme,
-    getFolder,
-    getAccount,
+    setDocumentListener,
 }
 
 export default domain

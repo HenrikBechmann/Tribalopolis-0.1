@@ -23,10 +23,6 @@ const properties = {
     ismobile: /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)
 }
 
-const setTypeListener = (token) => {
-    return gateway.setTypeListener(token)
-}
-
 const getNewCacheItem = () => {
     return {
         data:{
@@ -56,7 +52,7 @@ const getCacheItem = (reference) => {
     return cacheitem
 }
 
-const getItemFromCache = reference => {
+const getDocumentFromCache = reference => {
     let cacheitem
     if (cache.has(reference)) {
 
@@ -85,28 +81,27 @@ const updateCacheData = (reference,data,type) => {
     cacheitem.data.type = type
 }
 
-const setItemListener = (token,instanceid,callback) => {
+const setDocumentListener = (token,instanceid,callback) => {
 
     addCacheListener(token,instanceid,callback)
 
-    let item = gateway.setItemListener(token)
-    let type = gateway.setTypeListener(item.identity.type.id)
+    let document = gateway.setDocumentListener(token)
+    let type = gateway.setDocumentListener({uid:document.identity.type.id,collection:'types'})
 
     let reference = getTokenReference(token)
 
-    updateCacheData(reference,item,type)
+    updateCacheData(reference,document,type)
 
-    // setTimeout(()=> {
-        let cacheditem = getCacheItem(reference)
-        let cachedcallback = cacheditem.listeners.get(instanceid)
+    // setTimeout(()=>{
+        let cachedcallback = getCacheItem(reference).listeners.get(instanceid)
         if (cachedcallback) {
-            cachedcallback(item,type)
+            cachedcallback(document,type)
         }
     // },1000)
-
-    // setTimeout(() => {
-    //     console.log('cache',cache)
+    // setTimeout(()=>{
+    //     callback(list,type)
     // },4000)
+
 }
 
 const removeDocumentListener = (token, instanceid) => {
@@ -118,51 +113,12 @@ const removeDocumentListener = (token, instanceid) => {
 
 }
 
-const removeItemListener = (token, instanceid) => {
-
-    removeDocumentListener(token, instanceid)
-    // setTimeout(() => {
-    //     console.log('cache after remove',cache)
-    // },6000)
-
-}
-
-const removeListListener = (token, instanceid) => {
-
-    removeDocumentListener(token, instanceid)
-
-}
-
-const setListListener = (token,instanceid,callback) => {
-
-    addCacheListener(token,instanceid,callback)
-
-    let list = gateway.setListListener(token)
-    let type = gateway.setTypeListener({uid:list.identity.type.id,collection:'lists'})
-
-    let reference = getTokenReference(token)
-
-    updateCacheData(reference,list,type)
-
-    // setTimeout(()=>{
-        let cachedcallback = getCacheItem(reference).listeners.get(instanceid)
-        if (cachedcallback) {
-            cachedcallback(list,type)
-        }
-    // },1000)
-    // setTimeout(()=>{
-    //     callback(list,type)
-    // },4000)
-
-}
 
 let application = {
     properties,
-    setItemListener,
-    setListListener,
-    removeItemListener,
-    removeListListener,
-    getItemFromCache,
+    setDocumentListener,
+    removeDocumentListener,
+    getDocumentFromCache,
 }
 
 export default application

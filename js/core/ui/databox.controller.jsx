@@ -147,14 +147,14 @@ class DataBox extends React.Component {
             // console.log('proxy',proxy)
         };
         this.listcallbacks = {
-            setListListener: this.props.callbacks.setListListener,
-            removeListListener: this.props.callbacks.removeListListener,
+            setDocumentListener: this.props.callbacks.setDocumentListener,
+            removeDocumentListener: this.props.callbacks.removeDocumentListener,
             expandDirectoryItem: this.props.callbacks.expandDirectoryItem,
             highlightItem: this.highlightItem,
         };
         this.typecallbacks = {
-            setListListener: this.props.callbacks.setListListener,
-            removeListListener: this.props.callbacks.removeListListener,
+            setDocumentListener: this.props.callbacks.setDocumentListener,
+            removeDocumentListener: this.props.callbacks.removeDocumentListener,
             splayBox: this.splayBox,
             selectFromSplay: this.props.callbacks.selectFromSplay,
         };
@@ -169,7 +169,7 @@ class DataBox extends React.Component {
     componentDidMount() {
         // console.log('did mount',this.itemProxy?this.itemProxy.instanceid:'no item')
         let { itemProxy } = this;
-        this.props.callbacks.setItemListener(itemProxy.token, itemProxy.instanceid, this.cacheItemData);
+        this.props.callbacks.setDocumentListener(itemProxy.token, itemProxy.instanceid, this.cacheItemData);
     }
     componentDidUpdate() {
         let { collapseTargetProxy } = this.props; // gets set then cancelled by parent
@@ -195,7 +195,7 @@ class DataBox extends React.Component {
         // unsubscribe data
         // console.log('unmounting',this.itemProxy.instanceid)
         let { itemProxy } = this;
-        this.props.callbacks.removeItemListener(itemProxy.token, itemProxy.instanceid);
+        this.props.callbacks.removeDocumentListener(itemProxy.token, itemProxy.instanceid);
     }
     render() {
         let { haspeers, classes, containerHeight } = this.props;
@@ -256,11 +256,11 @@ class DataBox extends React.Component {
 
                     {false && <BoxTypebar /* suspended */ item={item} itemType={itemType /*future*/} listProxy={this.state.TypelistProxy} haspeers={haspeers} callbacks={this.typecallbacks}/>}
 
-                    {!listStack.length && <BoxIdentityBar itemProxy={this.identityItemProxy} setItemListener={this.props.callbacks.setItemListener} removeItemListener={this.props.callbacks.removeItemListener} callDataDrawer={this.props.callbacks.callDataDrawer}/>}
+                    {!listStack.length && <BoxIdentityBar itemProxy={this.identityItemProxy} setDocumentListener={this.props.callbacks.setDocumentListener} removeDocumentListener={this.props.callbacks.removeDocumentListener} callDataDrawer={this.props.callbacks.callDataDrawer}/>}
 
                     <div className={classes.directoryBlock}>
 
-                        <DirectoryBar haspeers={haspeers} listProxy={this.state.BarlistProxy} setListListener={this.props.callbacks.setListListener} removeListListener={this.props.callbacks.removeListListener} callDataDrawer={this.props.callbacks.callDataDrawer} listStack={listStack}/>
+                        <DirectoryBar haspeers={haspeers} listProxy={this.state.BarlistProxy} setDocumentListener={this.props.callbacks.setDocumentListener} removeDocumentListener={this.props.callbacks.removeDocumentListener} callDataDrawer={this.props.callbacks.callDataDrawer} listStack={listStack}/>
                         
                         <div className={classes.directorylistwrapper}>
                             

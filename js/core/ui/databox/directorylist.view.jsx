@@ -113,9 +113,8 @@ const DirectoryListBase = withStyles(styles)(class extends React.Component {
             return this.getListComponent(proxy, key, index);
         };
         this.getListComponent = (proxy, key, index) => {
-            // let listDocument = this.setListListener(token)
             let highlight = (proxy.uid === this.state.highlightrefuid);
-            let directoryitem = <DirectoryItem key={proxy.instanceid} listProxy={proxy} setListListener={this.props.callbacks.setListListener} removeListListener={this.props.callbacks.removeListListener} expandDirectoryItem={this.expandDirectoryItem(proxy.token)} highlight={highlight} highlightItem={this.props.callbacks.highlightItem}/>;
+            let directoryitem = <DirectoryItem key={proxy.instanceid} listProxy={proxy} setDocumentListener={this.props.callbacks.setDocumentListener} removeDocumentListener={this.props.callbacks.removeDocumentListener} expandDirectoryItem={this.expandDirectoryItem(proxy.token)} highlight={highlight} highlightItem={this.props.callbacks.highlightItem}/>;
             return directoryitem;
         };
         this.listcomponent = this.props.forwardedRef;
@@ -123,7 +122,7 @@ const DirectoryListBase = withStyles(styles)(class extends React.Component {
     componentDidUpdate() {
         if (!this.listProxy && this.props.listProxy) {
             this.listProxy = this.props.listProxy;
-            this.props.callbacks.setListListener(this.listProxy.token, this.listProxy.instanceid, this.cacheListDocument);
+            this.props.callbacks.setDocumentListener(this.listProxy.token, this.listProxy.instanceid, this.cacheListDocument);
         }
         if (this.props.highlightrefuid) {
             this.highlightrefuid = this.props.highlightrefuid;
@@ -136,7 +135,7 @@ const DirectoryListBase = withStyles(styles)(class extends React.Component {
     }
     componentWillUnmount() {
         if (this.listProxy) {
-            this.props.callbacks.removeListListener(this.listProxy.token, this.listProxy.instanceid);
+            this.props.callbacks.removeDocumentListener(this.listProxy.token, this.listProxy.instanceid);
         }
     }
     render() {
