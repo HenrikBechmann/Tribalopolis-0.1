@@ -105,7 +105,7 @@ class extends React.Component<any,any> {
         let pathMap = this.pathToIndexMap
         let listtokens = listDocument.data.lists
         let listproxies = listtokens.map((token) => {
-            let reference = `${token.repo}/${token.uid}`
+            let reference = `${token.collection}/${token.uid}`
             let proxy = oldListProxies[pathMap[reference]]
             if (!proxy) {
                 // console.log('generating new proxy')

@@ -10,7 +10,7 @@ let datastacks = [ // four quadrant stacks
             items:[ // items in the stack layer
                 new proxy(
                     {token:{
-                        repo:'items',
+                        collection:'items',
                         uid:'henrik',
                     }}),
             ],
@@ -24,7 +24,7 @@ let datastacks = [ // four quadrant stacks
             items:[
                 new proxy(
                     {token:{
-                        repo:'items',
+                        collection:'items',
                         uid:'henrik',
                     }}),
             ],
@@ -39,7 +39,7 @@ let datastacks = [ // four quadrant stacks
             items:[
                 new proxy(
                     {token:{
-                        repo:'items',
+                        collection:'items',
                         uid:'henrik',
                     }}),
             ],
@@ -55,7 +55,7 @@ let datastacks = [ // four quadrant stacks
             items:[
                 new proxy(
                     {token:{
-                        repo:'items',
+                        collection:'items',
                         uid:'henrik',
                     }}),
             ],

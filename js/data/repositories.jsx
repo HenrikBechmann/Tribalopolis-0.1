@@ -882,67 +882,67 @@ let lists = {
         data: {
             lists: [
                 // {
-                //     repo:'lists',
+                //     collection:'lists',
                 //     uid:'membership',
                 // },
                 {
-                    repo: 'lists',
+                    collection: 'lists',
                     uid: 'tribes',
                 },
                 {
-                    repo: 'lists',
+                    collection: 'lists',
                     uid: 'tasks',
                 },
                 {
-                    repo: 'lists',
+                    collection: 'lists',
                     uid: 'projects',
                 },
                 {
-                    repo: 'lists',
+                    collection: 'lists',
                     uid: 'programs',
                 },
                 {
-                    repo: 'lists',
+                    collection: 'lists',
                     uid: 'accounting',
                 },
                 {
-                    repo: 'lists',
+                    collection: 'lists',
                     uid: 'messages',
                 },
                 {
-                    repo: 'lists',
+                    collection: 'lists',
                     uid: 'streams',
                 },
                 {
-                    repo: 'lists',
+                    collection: 'lists',
                     uid: 'connections',
                 },
                 {
-                    repo: 'lists',
+                    collection: 'lists',
                     uid: 'requesting',
                 },
                 {
-                    repo: 'lists',
+                    collection: 'lists',
                     uid: 'pending',
                 },
                 {
-                    repo: 'lists',
+                    collection: 'lists',
                     uid: 'diaries',
                 },
                 {
-                    repo: 'lists',
+                    collection: 'lists',
                     uid: 'notes',
                 },
                 {
-                    repo: 'lists',
+                    collection: 'lists',
                     uid: 'calendars',
                 },
                 {
-                    repo: 'lists',
+                    collection: 'lists',
                     uid: 'roles',
                 },
                 {
-                    repo: 'lists',
+                    collection: 'lists',
                     uid: 'resources',
                 },
             ],

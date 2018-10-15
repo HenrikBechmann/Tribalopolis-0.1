@@ -95,7 +95,7 @@ class QuadContextBar extends React.Component {
                     // console.log('item from cache',item)
                     if (item) { // defensive
                         let listtoken = {
-                            repo: 'lists',
+                            collection: 'lists',
                             uid: item.references.list,
                         };
                         let listProxy = new proxy({ token: listtoken });

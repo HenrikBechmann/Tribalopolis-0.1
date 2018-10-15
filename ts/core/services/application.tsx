@@ -38,7 +38,7 @@ const getNewCacheItem = () => {
 }
 
 const getTokenReference = (token) => {
-    return `${token.repo}/${token.uid}`
+    return `${token.collection}/${token.uid}`
 }
 
 const getCacheItem = (reference) => {
@@ -138,7 +138,7 @@ const setListListener = (token,instanceid,callback) => {
     addCacheListener(token,instanceid,callback)
 
     let list = gateway.setListListener(token)
-    let type = gateway.setTypeListener({uid:list.identity.type.id,repo:'lists'})
+    let type = gateway.setTypeListener({uid:list.identity.type.id,collection:'lists'})
 
     let reference = getTokenReference(token)
 
@@ -154,22 +154,6 @@ const setListListener = (token,instanceid,callback) => {
     //     callback(list,type)
     // },4000)
 
-}
-
-const getScheme = (token) => {
-    return gateway.getScheme(token)
-}
-
-const getLink = (token) => {
-    return gateway.getLink(token)
-}
-
-const getFolder = (token) => {
-    return gateway.getFolder(token)
-}
-
-const getAccount = (token) => {
-    return gateway.getAccount(token)
 }
 
 let application = {

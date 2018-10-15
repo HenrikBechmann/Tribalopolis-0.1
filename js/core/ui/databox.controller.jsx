@@ -95,7 +95,7 @@ class DataBox extends React.Component {
                     else {
                         listdoctoken = {
                             uid: this.state.item.document.references.list,
-                            repo: 'lists',
+                            collection: 'lists',
                         };
                     }
                     this.setState({

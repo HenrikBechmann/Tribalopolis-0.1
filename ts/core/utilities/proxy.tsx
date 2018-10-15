@@ -8,10 +8,10 @@ class proxy {
     constructor(data:{token:any,liststack?:any}) {
         let token = this.token = data.token
         this.instanceid = serializer.getid()
-        if (token.repo == 'items') {
+        if (token.collection == 'items') {
             this.liststack = data.liststack || []
         }
-        this.reference = `${token.repo}/${token.uid}`
+        this.reference = `${token.collection}/${token.uid}`
         this.uid = token.uid
     }
     reference = null
