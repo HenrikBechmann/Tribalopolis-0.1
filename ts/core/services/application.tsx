@@ -9,19 +9,14 @@
 
 /*
     TODO
-    - consider abstracting to a sing setDocumentListener and removeDocumentListener
 
 */
 
-// import Datamodel from './datamodel'
-
 import gateway from './gateway'
 
-const cache = new Map()
+// ==============[ Internal ]===============
 
-const properties = {
-    ismobile: /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)
-}
+const cache = new Map()
 
 const getNewCacheItem = () => {
     return {
@@ -52,43 +47,34 @@ const getCacheItem = (reference) => {
     return cacheitem
 }
 
-const getDocumentFromCache = reference => {
-    let cacheitem
-    if (cache.has(reference)) {
+const addCacheListener = (reference,instanceid,callback) => {
 
-        cacheitem = cache.get(reference).data.document
-
-    } else {
-
-        cacheitem = null
-
-    }
-    return cacheitem
-}
-
-const addCacheListener = (token,instanceid,callback) => {
-
-    let reference = getTokenReference(token)
     let cacheitem = getCacheItem(reference)
 
     cacheitem.listeners.set(instanceid,callback)
 
 }
 
-const updateCacheData = (reference,data,type) => {
+// =================[ API ]=======================
+
+const properties = {
+    ismobile: /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)
+}
+
+const updateCacheData = (reference,document,type) => {
     let cacheitem = getCacheItem(reference)
-    cacheitem.data.document = data
+    cacheitem.data.document = document
     cacheitem.data.type = type
 }
 
 const setDocumentListener = (token,instanceid,callback) => {
 
-    addCacheListener(token,instanceid,callback)
+    let reference = getTokenReference(token)
+
+    addCacheListener(reference,instanceid,callback)
 
     let document = gateway.setDocumentListener(token)
     let type = gateway.setDocumentListener({uid:document.identity.type.id,collection:'types'})
-
-    let reference = getTokenReference(token)
 
     updateCacheData(reference,document,type)
 
@@ -113,6 +99,19 @@ const removeDocumentListener = (token, instanceid) => {
 
 }
 
+const getDocumentFromCache = reference => {
+    let cacheitem
+    if (cache.has(reference)) {
+
+        cacheitem = cache.get(reference).data.document
+
+    } else {
+
+        cacheitem = null
+
+    }
+    return cacheitem
+}
 
 let application = {
     properties,
