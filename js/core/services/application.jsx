@@ -12,13 +12,13 @@
 
 */
 // import Datamodel from './datamodel'
-import domain from './gateway';
+import gateway from './gateway';
 const cache = new Map();
 const properties = {
     ismobile: /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)
 };
 const setTypeListener = (token) => {
-    return domain.setTypeListener(token);
+    return gateway.setTypeListener(token);
 };
 const getNewCacheItem = () => {
     return {
@@ -65,8 +65,8 @@ const updateCacheData = (reference, data, type) => {
 };
 const setItemListener = (token, instanceid, callback) => {
     addCacheListener(token, instanceid, callback);
-    let item = domain.setItemListener(token);
-    let type = domain.setTypeListener(item.identity.type.id);
+    let item = gateway.setItemListener(token);
+    let type = gateway.setTypeListener(item.identity.type.id);
     let reference = getTokenReference(token);
     updateCacheData(reference, item, type);
     // setTimeout(()=> {
@@ -98,8 +98,8 @@ const removeListListener = (token, instanceid) => {
 };
 const setListListener = (token, instanceid, callback) => {
     addCacheListener(token, instanceid, callback);
-    let list = domain.setListListener(token);
-    let type = domain.setTypeListener({ uid: list.identity.type.id, repo: 'lists' });
+    let list = gateway.setListListener(token);
+    let type = gateway.setTypeListener({ uid: list.identity.type.id, repo: 'lists' });
     let reference = getTokenReference(token);
     updateCacheData(reference, list, type);
     // setTimeout(()=>{
@@ -113,16 +113,16 @@ const setListListener = (token, instanceid, callback) => {
     // },4000)
 };
 const getScheme = (token) => {
-    return domain.getScheme(token);
+    return gateway.getScheme(token);
 };
 const getLink = (token) => {
-    return domain.getLink(token);
+    return gateway.getLink(token);
 };
 const getFolder = (token) => {
-    return domain.getFolder(token);
+    return gateway.getFolder(token);
 };
 const getAccount = (token) => {
-    return domain.getAccount(token);
+    return gateway.getAccount(token);
 };
 let application = {
     properties,
@@ -131,10 +131,6 @@ let application = {
     removeItemListener,
     removeListListener,
     getItemFromCache,
-    getLink,
-    getScheme,
-    getFolder,
-    getAccount,
 };
 export default application;
 //# sourceMappingURL=application.jsx.map

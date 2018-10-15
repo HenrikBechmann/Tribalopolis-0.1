@@ -15,7 +15,7 @@
 
 // import Datamodel from './datamodel'
 
-import domain from './gateway'
+import gateway from './gateway'
 
 const cache = new Map()
 
@@ -24,7 +24,7 @@ const properties = {
 }
 
 const setTypeListener = (token) => {
-    return domain.setTypeListener(token)
+    return gateway.setTypeListener(token)
 }
 
 const getNewCacheItem = () => {
@@ -89,8 +89,8 @@ const setItemListener = (token,instanceid,callback) => {
 
     addCacheListener(token,instanceid,callback)
 
-    let item = domain.setItemListener(token)
-    let type = domain.setTypeListener(item.identity.type.id)
+    let item = gateway.setItemListener(token)
+    let type = gateway.setTypeListener(item.identity.type.id)
 
     let reference = getTokenReference(token)
 
@@ -137,8 +137,8 @@ const setListListener = (token,instanceid,callback) => {
 
     addCacheListener(token,instanceid,callback)
 
-    let list = domain.setListListener(token)
-    let type = domain.setTypeListener({uid:list.identity.type.id,repo:'lists'})
+    let list = gateway.setListListener(token)
+    let type = gateway.setTypeListener({uid:list.identity.type.id,repo:'lists'})
 
     let reference = getTokenReference(token)
 
@@ -157,19 +157,19 @@ const setListListener = (token,instanceid,callback) => {
 }
 
 const getScheme = (token) => {
-    return domain.getScheme(token)
+    return gateway.getScheme(token)
 }
 
 const getLink = (token) => {
-    return domain.getLink(token)
+    return gateway.getLink(token)
 }
 
 const getFolder = (token) => {
-    return domain.getFolder(token)
+    return gateway.getFolder(token)
 }
 
 const getAccount = (token) => {
-    return domain.getAccount(token)
+    return gateway.getAccount(token)
 }
 
 let application = {
@@ -179,10 +179,6 @@ let application = {
     removeItemListener,
     removeListListener,
     getItemFromCache,
-    getLink,
-    getScheme,
-    getFolder,
-    getAccount,
 }
 
 export default application
