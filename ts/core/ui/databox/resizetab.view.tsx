@@ -21,7 +21,7 @@ const styles = createStyles({
     tabstyles:{
         position:'absolute',
         right:'-22px',
-        top:'calc(50% - 16px)',
+        bottom:'6px',
         width:'20px',
         height:'32px',
         border:'1px solid gray',

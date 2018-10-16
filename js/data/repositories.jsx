@@ -330,7 +330,7 @@ let lists = {
         },
         properties: {
             version: 0,
-            name: 'Outgoing action requests',
+            name: 'Action requests',
         },
         references: {
             subscriptions: [],
@@ -354,10 +354,10 @@ let lists = {
             links: [],
         },
     },
-    pending: {
+    assets: {
         identity: {
             container: '',
-            id: 'outgoing',
+            id: 'assets',
             handle: '',
             type: {
                 id: '',
@@ -370,7 +370,7 @@ let lists = {
         },
         properties: {
             version: 0,
-            name: 'Incoming action requests',
+            name: 'Assets',
         },
         references: {
             subscriptions: [],
@@ -530,7 +530,7 @@ let lists = {
         },
         properties: {
             version: 0,
-            name: 'To Do Lists',
+            name: 'To do lists',
         },
         references: {
             subscriptions: [],
@@ -610,7 +610,7 @@ let lists = {
         },
         properties: {
             version: 0,
-            name: 'Chat Rooms',
+            name: 'Group Chats',
         },
         references: {
             subscriptions: [],
@@ -650,7 +650,7 @@ let lists = {
         },
         properties: {
             version: 0,
-            name: 'Resources',
+            name: 'Literature',
         },
         references: {
             subscriptions: [],
@@ -731,6 +731,46 @@ let lists = {
         properties: {
             version: 0,
             name: 'Ledgers',
+        },
+        references: {
+            subscriptions: [],
+            owner: {
+                id: 'henrik',
+                collection: 'items',
+            },
+            parentlists: [],
+            folder: '',
+        },
+        counts: {
+            lists: 0,
+            links: 0,
+        },
+        system: {
+            attributes: {},
+            permissions: {},
+        },
+        data: {
+            lists: [],
+            links: [],
+        },
+    },
+    recipes: {
+        identity: {
+            container: '',
+            id: '',
+            handle: '',
+            type: {
+                id: 'recipes',
+                handle: '',
+            },
+            account: {
+                id: '',
+                handle: '',
+            },
+        },
+        properties: {
+            version: 0,
+            name: 'Recipes',
         },
         references: {
             subscriptions: [],
@@ -870,7 +910,7 @@ let lists = {
             folder: '',
         },
         counts: {
-            lists: 15,
+            lists: 14,
             links: 0,
         },
         system: {
@@ -891,7 +931,15 @@ let lists = {
                 },
                 {
                     collection: 'lists',
+                    uid: 'connections',
+                },
+                {
+                    collection: 'lists',
                     uid: 'tasks',
+                },
+                {
+                    collection: 'lists',
+                    uid: 'calendars',
                 },
                 {
                     collection: 'lists',
@@ -903,10 +951,6 @@ let lists = {
                 },
                 {
                     collection: 'lists',
-                    uid: 'accounting',
-                },
-                {
-                    collection: 'lists',
                     uid: 'messages',
                 },
                 {
@@ -915,15 +959,11 @@ let lists = {
                 },
                 {
                     collection: 'lists',
-                    uid: 'connections',
-                },
-                {
-                    collection: 'lists',
                     uid: 'requesting',
                 },
                 {
                     collection: 'lists',
-                    uid: 'pending',
+                    uid: 'accounting',
                 },
                 {
                     collection: 'lists',
@@ -935,15 +975,19 @@ let lists = {
                 },
                 {
                     collection: 'lists',
-                    uid: 'calendars',
-                },
-                {
-                    collection: 'lists',
                     uid: 'roles',
                 },
                 {
                     collection: 'lists',
                     uid: 'resources',
+                },
+                {
+                    collection: 'lists',
+                    uid: 'assets',
+                },
+                {
+                    collection: 'lists',
+                    uid: 'recipes',
                 },
             ],
             links: [],
