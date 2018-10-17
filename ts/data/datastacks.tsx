@@ -22,11 +22,11 @@ let datastacks = [ // four quadrant stacks
     [
         {
             items:[
-                new proxy(
-                    {token:{
-                        collection:'items',
-                        id:'henrik',
-                    }}),
+                // new proxy(
+                //     {token:{
+                //         collection:'items',
+                //         id:'henrik',
+                //     }}),
             ],
             source:{
             },
@@ -37,11 +37,11 @@ let datastacks = [ // four quadrant stacks
     [
         {
             items:[
-                new proxy(
-                    {token:{
-                        collection:'items',
-                        id:'henrik',
-                    }}),
+                // new proxy(
+                //     {token:{
+                //         collection:'items',
+                //         id:'henrik',
+                //     }}),
             ],
             source: {
             },
@@ -53,11 +53,11 @@ let datastacks = [ // four quadrant stacks
     [
         {
             items:[
-                new proxy(
-                    {token:{
-                        collection:'items',
-                        id:'henrik',
-                    }}),
+                // new proxy(
+                //     {token:{
+                //         collection:'items',
+                //         id:'henrik',
+                //     }}),
             ],
             source: {
             },

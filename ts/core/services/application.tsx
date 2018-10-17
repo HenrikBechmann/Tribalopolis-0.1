@@ -16,7 +16,9 @@ import gateway from './gateway'
 
 // ==============[ Internal ]===============
 
-const cache = new Map()
+const documentcache = new Map()
+const typecache = new Map()
+
 
 let tokenvar = null // TODO: remove this transition item
 
@@ -32,16 +34,16 @@ const newCacheItem = () => {
 
 const getCacheItem = (reference) => {
     let cacheitem
-    if (cache.has(reference)) {
+    if (documentcache.has(reference)) {
 
-        cacheitem = cache.get(reference)
+        cacheitem = documentcache.get(reference)
 
     } else {
 
         cacheitem = newCacheItem()
-        cache.set(reference,cacheitem)
+        documentcache.set(reference,cacheitem)
 
-        console.log('cache size after set new', cache.size, reference)
+        // console.log('cache size after set new', cache.size, reference, cache)
 
         // TODO: update this transition code
         let document = gateway.setDocumentListener(tokenvar)
@@ -54,8 +56,8 @@ const getCacheItem = (reference) => {
 }
 
 const removeCacheItem = (reference) => {
-    cache.delete(reference)
-    console.log('cache size after remove cache', cache.size, reference)
+    documentcache.delete(reference)
+    // console.log('cache size after remove cache', cache.size, reference, cache)
     // TODO: remove gateway listeners
 }
 
@@ -64,14 +66,15 @@ const addCacheListener = (reference,instanceid,callback) => {
     let cacheitem = getCacheItem(reference)
 
     cacheitem.listeners.set(instanceid,callback)
+    // console.log('listener size after add',cacheitem.listeners.size,reference, instanceid)
 
 }
 
 const removeCacheListener = (reference, instanceid) => {
-    if (!cache.has(reference)) return
-    let cacheitem = cache.get(reference)
+    if (!documentcache.has(reference)) return
+    let cacheitem = documentcache.get(reference)
     cacheitem.listeners.delete(instanceid)
-    console.log('listener size',cacheitem.listeners.size,reference)
+    // console.log('listener size after remove',cacheitem.listeners.size,reference, instanceid)
     if (cacheitem.listeners.size == 0) {
         removeCacheItem(reference) // filter by cache size?
     }
@@ -102,7 +105,7 @@ const setDocumentListener = (token,instanceid,callback) => {
     addCacheListener(reference,instanceid,callback)
     // setTimeout(()=>{
 
-        let cachedata = cache.get(reference).data
+        let cachedata = documentcache.get(reference).data
 
         // console.log('cachedata',cachedata)
         if (cachedata.document) { // && cachedata.type) { TODO: temp until type never missing
@@ -125,9 +128,9 @@ const removeDocumentListener = (token, instanceid) => {
 const getDocumentFromCache = reference => {
     let cachedocument = null
 
-    if (cache.has(reference)) {
+    if (documentcache.has(reference)) {
 
-        cachedocument = cache.get(reference).data.document
+        cachedocument = documentcache.get(reference).data.document
 
     }
 
@@ -138,9 +141,9 @@ const getDocumentFromCache = reference => {
 const getTypeFromCache = reference => {
     let cachetype = null
 
-    if (cache.has(reference)) {
+    if (documentcache.has(reference)) {
 
-        cachetype = cache.get(reference).data.type
+        cachetype = documentcache.get(reference).data.type
 
     }
 

@@ -18,10 +18,11 @@ let datastacks = [
     [
         {
             items: [
-                new proxy({ token: {
-                        collection: 'items',
-                        id: 'henrik',
-                    } }),
+            // new proxy(
+            //     {token:{
+            //         collection:'items',
+            //         id:'henrik',
+            //     }}),
             ],
             source: {},
             settings: {},
@@ -30,10 +31,11 @@ let datastacks = [
     [
         {
             items: [
-                new proxy({ token: {
-                        collection: 'items',
-                        id: 'henrik',
-                    } }),
+            // new proxy(
+            //     {token:{
+            //         collection:'items',
+            //         id:'henrik',
+            //     }}),
             ],
             source: {},
             settings: {},
@@ -42,10 +44,11 @@ let datastacks = [
     [
         {
             items: [
-                new proxy({ token: {
-                        collection: 'items',
-                        id: 'henrik',
-                    } }),
+            // new proxy(
+            //     {token:{
+            //         collection:'items',
+            //         id:'henrik',
+            //     }}),
             ],
             source: {},
             settings: {},
