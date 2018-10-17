@@ -22,7 +22,7 @@ const typecache = new Map()
 
 let tokenvar = null // TODO: remove this transition item
 
-const newCacheItem = () => {
+const newDocumentCacheItem = () => {
     return {
         data:{
             document:null,
@@ -32,7 +32,7 @@ const newCacheItem = () => {
     }
 }
 
-const getCacheItem = (reference) => {
+const getDocumentCacheItem = (reference) => {
     let cacheitem
     if (documentcache.has(reference)) {
 
@@ -40,7 +40,7 @@ const getCacheItem = (reference) => {
 
     } else {
 
-        cacheitem = newCacheItem()
+        cacheitem = newDocumentCacheItem()
         documentcache.set(reference,cacheitem)
 
         // console.log('cache size after set new', cache.size, reference, cache)
@@ -55,39 +55,45 @@ const getCacheItem = (reference) => {
     return cacheitem
 }
 
-const removeCacheItem = (reference) => {
+const removeDocumentCacheItem = (reference) => {
     documentcache.delete(reference)
     // console.log('cache size after remove cache', cache.size, reference, cache)
     // TODO: remove gateway listeners
 }
 
-const addCacheListener = (reference,instanceid,callback) => {
+const addDocumentCacheListener = (reference,instanceid,callback) => {
 
-    let cacheitem = getCacheItem(reference)
+    let cacheitem = getDocumentCacheItem(reference)
 
     cacheitem.listeners.set(instanceid,callback)
     // console.log('listener size after add',cacheitem.listeners.size,reference, instanceid)
 
 }
 
-const removeCacheListener = (reference, instanceid) => {
+const removeDocumentCacheListener = (reference, instanceid) => {
     if (!documentcache.has(reference)) return
     let cacheitem = documentcache.get(reference)
     cacheitem.listeners.delete(instanceid)
     // console.log('listener size after remove',cacheitem.listeners.size,reference, instanceid)
     if (cacheitem.listeners.size == 0) {
-        removeCacheItem(reference) // filter by cache size?
+        removeDocumentCacheItem(reference) // filter by cache size?
     }
 }
 
 const updateCacheData = (reference,document,type) => {
-    let cacheitem = getCacheItem(reference)
+    let cacheitem = getDocumentCacheItem(reference)
     cacheitem.data.document = document
     cacheitem.data.type = type
 }
 
-const getTokenReference = (token) => {
+const getTokenReference = token => {
     return `${token.collection}/${token.id}`
+}
+
+const getDocumentPack = reference => {
+
+    let cachedata = documentcache.get(reference).data
+    return cachedata
 }
 
 // =================[ API ]=======================
@@ -102,10 +108,9 @@ const setDocumentListener = (token,instanceid,callback) => {
 
     let reference = getTokenReference(token)
 
-    addCacheListener(reference,instanceid,callback)
+    addDocumentCacheListener(reference,instanceid,callback)
     // setTimeout(()=>{
-
-        let cachedata = documentcache.get(reference).data
+        let cachedata = getDocumentPack(reference)
 
         // console.log('cachedata',cachedata)
         if (cachedata.document) { // && cachedata.type) { TODO: temp until type never missing
@@ -122,7 +127,7 @@ const setDocumentListener = (token,instanceid,callback) => {
 const removeDocumentListener = (token, instanceid) => {
 
     let reference = getTokenReference(token)
-    removeCacheListener(reference,instanceid)
+    removeDocumentCacheListener(reference,instanceid)
 }
 
 const getDocumentFromCache = reference => {
@@ -130,20 +135,21 @@ const getDocumentFromCache = reference => {
 
     if (documentcache.has(reference)) {
 
-        cachedocument = documentcache.get(reference).data.document
+        let cachedata = getDocumentPack(reference)
+        cachedocument = cachedata.document
 
     }
 
     return cachedocument
 }
 
-// combine with getDocumentFrom Cache?
-const getTypeFromCache = reference => {
+const getDocumentTypeFromCache = reference => { // document reference
     let cachetype = null
 
     if (documentcache.has(reference)) {
 
-        cachetype = documentcache.get(reference).data.type
+        let cachedata = getDocumentPack(reference)
+        cachetype = cachedata.type
 
     }
 
@@ -155,7 +161,7 @@ let application = {
     setDocumentListener,
     removeDocumentListener,
     getDocumentFromCache,
-    getTypeFromCache,
+    getDocumentTypeFromCache,
 }
 
 export default application
