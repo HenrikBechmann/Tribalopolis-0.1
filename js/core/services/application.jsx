@@ -7,13 +7,14 @@
     datamodel and viewmodel are both bypassed
 */
 /*
-    TODO
+    TODO separate document and type caches, as type caches should be more reusable
 
 */
 import gateway from './gateway';
 // ==============[ Internal ]===============
 const cache = new Map();
-const getNewCacheItem = () => {
+let tokenvar = null; // TODO: remove this transition item
+const newCacheItem = () => {
     return {
         data: {
             document: null,
@@ -22,43 +23,62 @@ const getNewCacheItem = () => {
         listeners: new Map(),
     };
 };
-const getTokenReference = (token) => {
-    return `${token.collection}/${token.id}`;
-};
 const getCacheItem = (reference) => {
     let cacheitem;
     if (cache.has(reference)) {
         cacheitem = cache.get(reference);
     }
     else {
-        cacheitem = getNewCacheItem();
+        cacheitem = newCacheItem();
         cache.set(reference, cacheitem);
+        console.log('cache size after set new', cache.size, reference);
+        // TODO: update this transition code
+        let document = gateway.setDocumentListener(tokenvar);
+        let type = gateway.setDocumentListener({ id: document.identity.type.id, collection: 'types' });
+        updateCacheData(reference, document, type);
     }
     return cacheitem;
+};
+const removeCacheItem = (reference) => {
+    cache.delete(reference);
+    console.log('cache size after remove cache', cache.size, reference);
+    // TODO: remove gateway listeners
 };
 const addCacheListener = (reference, instanceid, callback) => {
     let cacheitem = getCacheItem(reference);
     cacheitem.listeners.set(instanceid, callback);
 };
-// =================[ API ]=======================
-const properties = {
-    ismobile: /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)
+const removeCacheListener = (reference, instanceid) => {
+    if (!cache.has(reference))
+        return;
+    let cacheitem = cache.get(reference);
+    cacheitem.listeners.delete(instanceid);
+    console.log('listener size', cacheitem.listeners.size, reference);
+    if (cacheitem.listeners.size == 0) {
+        removeCacheItem(reference); // filter by cache size?
+    }
 };
 const updateCacheData = (reference, document, type) => {
     let cacheitem = getCacheItem(reference);
     cacheitem.data.document = document;
     cacheitem.data.type = type;
 };
+const getTokenReference = (token) => {
+    return `${token.collection}/${token.id}`;
+};
+// =================[ API ]=======================
+const properties = {
+    ismobile: /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)
+};
 const setDocumentListener = (token, instanceid, callback) => {
+    tokenvar = token; // TODO: temp transition item
     let reference = getTokenReference(token);
     addCacheListener(reference, instanceid, callback);
-    let document = gateway.setDocumentListener(token);
-    let type = gateway.setDocumentListener({ id: document.identity.type.id, collection: 'types' });
-    updateCacheData(reference, document, type);
     // setTimeout(()=>{
-    let cachedcallback = getCacheItem(reference).listeners.get(instanceid);
-    if (cachedcallback) {
-        cachedcallback(document, type);
+    let cachedata = cache.get(reference).data;
+    // console.log('cachedata',cachedata)
+    if (cachedata.document) { // && cachedata.type) { TODO: temp until type never missing
+        callback(cachedata.document, cachedata.type);
     }
     // },1000)
     // setTimeout(()=>{
@@ -67,26 +87,29 @@ const setDocumentListener = (token, instanceid, callback) => {
 };
 const removeDocumentListener = (token, instanceid) => {
     let reference = getTokenReference(token);
-    if (!cache.has(reference))
-        return;
-    let cacheitem = cache.get(reference);
-    cacheitem.listeners.delete(instanceid);
+    removeCacheListener(reference, instanceid);
 };
 const getDocumentFromCache = reference => {
-    let cacheitem;
+    let cachedocument = null;
     if (cache.has(reference)) {
-        cacheitem = cache.get(reference).data.document;
+        cachedocument = cache.get(reference).data.document;
     }
-    else {
-        cacheitem = null;
+    return cachedocument;
+};
+// combine with getDocumentFrom Cache?
+const getTypeFromCache = reference => {
+    let cachetype = null;
+    if (cache.has(reference)) {
+        cachetype = cache.get(reference).data.type;
     }
-    return cacheitem;
+    return cachetype;
 };
 let application = {
     properties,
     setDocumentListener,
     removeDocumentListener,
     getDocumentFromCache,
+    getTypeFromCache,
 };
 export default application;
 //# sourceMappingURL=application.jsx.map
