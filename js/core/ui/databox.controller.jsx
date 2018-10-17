@@ -97,7 +97,7 @@ class DataBox extends React.Component {
                     }
                     else {
                         listdoctoken = {
-                            uid: this.state.item.document.references.list,
+                            id: this.state.item.document.references.list,
                             collection: 'lists',
                         };
                     }
@@ -117,7 +117,7 @@ class DataBox extends React.Component {
                 if (token) {
                     setTimeout(() => {
                         this.setState({
-                            highlightrefuid: token.uid,
+                            highlightrefuid: token.id,
                         }, () => {
                             this.setState({
                                 highlightrefuid: null

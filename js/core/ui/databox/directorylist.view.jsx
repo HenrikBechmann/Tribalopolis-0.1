@@ -66,7 +66,7 @@ const DirectoryListBase = withStyles(styles)(class extends React.Component {
             let pathMap = this.pathToIndexMap;
             let listtokens = listDocument.data.lists;
             let listproxies = listtokens.map((token) => {
-                let reference = `${token.collection}/${token.uid}`;
+                let reference = `${token.collection}/${token.id}`;
                 let proxy = oldListProxies[pathMap[reference]];
                 if (!proxy) {
                     // console.log('generating new proxy')
@@ -106,9 +106,9 @@ const DirectoryListBase = withStyles(styles)(class extends React.Component {
                 });
             }, 300);
         };
-        this.findlinkIndex = (uid) => {
+        this.findlinkIndex = (id) => {
             return (item) => {
-                return item.uid == uid;
+                return item.id == id;
             };
         };
         this.expandDirectoryItem = (token) => {
@@ -121,7 +121,7 @@ const DirectoryListBase = withStyles(styles)(class extends React.Component {
             return this.getListComponent(proxy, key, index);
         };
         this.getListComponent = (proxy, key, index) => {
-            let highlight = (proxy.uid === this.state.highlightrefuid);
+            let highlight = (proxy.id === this.state.highlightrefuid);
             let directoryitem = <DirectoryItem key={proxy.instanceid} listProxy={proxy} setDocumentListener={this.props.callbacks.setDocumentListener} removeDocumentListener={this.props.callbacks.removeDocumentListener} expandDirectoryItem={this.expandDirectoryItem(proxy.token)} highlight={highlight} highlightItem={this.props.callbacks.highlightItem}/>;
             return directoryitem;
         };

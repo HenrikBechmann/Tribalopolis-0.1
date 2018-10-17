@@ -29,7 +29,7 @@ const getNewCacheItem = () => {
 }
 
 const getTokenReference = (token) => {
-    return `${token.collection}/${token.uid}`
+    return `${token.collection}/${token.id}`
 }
 
 const getCacheItem = (reference) => {
@@ -74,7 +74,7 @@ const setDocumentListener = (token,instanceid,callback) => {
     addCacheListener(reference,instanceid,callback)
 
     let document = gateway.setDocumentListener(token)
-    let type = gateway.setDocumentListener({uid:document.identity.type.id,collection:'types'})
+    let type = gateway.setDocumentListener({id:document.identity.type.id,collection:'types'})
 
     updateCacheData(reference,document,type)
 

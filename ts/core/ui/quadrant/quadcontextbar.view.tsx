@@ -142,7 +142,7 @@ class QuadContextBar extends React.Component<any> {
                 if (item) { // defensive
                     let listtoken = {
                         collection:'lists', 
-                        uid:item.references.list,
+                        id:item.references.list,
                     }
                     let listProxy = new proxy({token:listtoken})
                     let component = <DirectoryBar 

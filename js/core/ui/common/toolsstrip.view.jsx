@@ -213,7 +213,7 @@ class QuadToolsStrip extends React.Component {
     render() {
         let wrapperstyle = Object.assign({}, this.defaultstyle, this.props.style);
         return (<div style={wrapperstyle}>
-                <ScrollControlsView uid='scrollcontrolsview' scroller={this.state.scroller}>
+                <ScrollControlsView scroller={this.state.scroller}>
                     <div style={{
             display: 'flex',
             flexWrap: 'nowrap',

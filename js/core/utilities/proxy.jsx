@@ -5,7 +5,7 @@ import { serializer } from './serializer';
 class proxy {
     constructor(data) {
         this.reference = null;
-        this.uid = null;
+        this.id = null;
         this.token = null;
         this.instanceid = null;
         this.liststack = null;
@@ -15,8 +15,8 @@ class proxy {
         if (token.collection == 'items') {
             this.liststack = data.liststack || [];
         }
-        this.reference = `${token.collection}/${token.uid}`;
-        this.uid = token.uid;
+        this.reference = `${token.collection}/${token.id}`;
+        this.id = token.id;
     }
 }
 export default proxy;

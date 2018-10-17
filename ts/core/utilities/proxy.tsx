@@ -11,11 +11,11 @@ class proxy {
         if (token.collection == 'items') {
             this.liststack = data.liststack || []
         }
-        this.reference = `${token.collection}/${token.uid}`
-        this.uid = token.uid
+        this.reference = `${token.collection}/${token.id}`
+        this.id = token.id
     }
     reference = null
-    uid = null
+    id = null
     token = null
     instanceid = null
     liststack = null

@@ -910,7 +910,7 @@ let lists = {
             folder: '',
         },
         counts: {
-            lists: 14,
+            lists: 16,
             links: 0,
         },
         system: {
@@ -923,71 +923,71 @@ let lists = {
             lists: [
                 // {
                 //     collection:'lists',
-                //     uid:'membership',
+                //     id:'membership',
                 // },
                 {
                     collection: 'lists',
-                    uid: 'tribes',
+                    id: 'tribes',
                 },
                 {
                     collection: 'lists',
-                    uid: 'connections',
+                    id: 'connections',
                 },
                 {
                     collection: 'lists',
-                    uid: 'tasks',
+                    id: 'tasks',
                 },
                 {
                     collection: 'lists',
-                    uid: 'calendars',
+                    id: 'calendars',
                 },
                 {
                     collection: 'lists',
-                    uid: 'projects',
+                    id: 'projects',
                 },
                 {
                     collection: 'lists',
-                    uid: 'programs',
+                    id: 'programs',
                 },
                 {
                     collection: 'lists',
-                    uid: 'messages',
+                    id: 'messages',
                 },
                 {
                     collection: 'lists',
-                    uid: 'streams',
+                    id: 'streams',
                 },
                 {
                     collection: 'lists',
-                    uid: 'requesting',
+                    id: 'requesting',
                 },
                 {
                     collection: 'lists',
-                    uid: 'accounting',
+                    id: 'accounting',
                 },
                 {
                     collection: 'lists',
-                    uid: 'diaries',
+                    id: 'diaries',
                 },
                 {
                     collection: 'lists',
-                    uid: 'notes',
+                    id: 'notes',
                 },
                 {
                     collection: 'lists',
-                    uid: 'roles',
+                    id: 'roles',
                 },
                 {
                     collection: 'lists',
-                    uid: 'resources',
+                    id: 'resources',
                 },
                 {
                     collection: 'lists',
-                    uid: 'assets',
+                    id: 'assets',
                 },
                 {
                     collection: 'lists',
-                    uid: 'recipes',
+                    id: 'recipes',
                 },
             ],
             links: [],

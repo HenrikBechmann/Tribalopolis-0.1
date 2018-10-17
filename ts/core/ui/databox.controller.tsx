@@ -182,7 +182,7 @@ class DataBox extends React.Component<any,any> {
                     listdoctoken = this.itemProxy.liststack[this.itemProxy.liststack.length -1]
                 } else {
                     listdoctoken = {
-                        uid:this.state.item.document.references.list,
+                        id:this.state.item.document.references.list,
                         collection:'lists',
                     }
                 }
@@ -212,7 +212,7 @@ class DataBox extends React.Component<any,any> {
 
                 setTimeout(()=>{
                     this.setState({
-                        highlightrefuid:token.uid,
+                        highlightrefuid:token.id,
                     },() => {
                         this.setState({
                             highlightrefuid:null

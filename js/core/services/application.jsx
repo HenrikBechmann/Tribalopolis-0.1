@@ -23,7 +23,7 @@ const getNewCacheItem = () => {
     };
 };
 const getTokenReference = (token) => {
-    return `${token.collection}/${token.uid}`;
+    return `${token.collection}/${token.id}`;
 };
 const getCacheItem = (reference) => {
     let cacheitem;
@@ -53,7 +53,7 @@ const setDocumentListener = (token, instanceid, callback) => {
     let reference = getTokenReference(token);
     addCacheListener(reference, instanceid, callback);
     let document = gateway.setDocumentListener(token);
-    let type = gateway.setDocumentListener({ uid: document.identity.type.id, collection: 'types' });
+    let type = gateway.setDocumentListener({ id: document.identity.type.id, collection: 'types' });
     updateCacheData(reference, document, type);
     // setTimeout(()=>{
     let cachedcallback = getCacheItem(reference).listeners.get(instanceid);

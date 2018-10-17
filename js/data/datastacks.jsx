@@ -8,7 +8,7 @@ let datastacks = [
             items: [
                 new proxy({ token: {
                         collection: 'items',
-                        uid: 'henrik',
+                        id: 'henrik',
                     } }),
             ],
             source: {},
@@ -20,7 +20,7 @@ let datastacks = [
             items: [
                 new proxy({ token: {
                         collection: 'items',
-                        uid: 'henrik',
+                        id: 'henrik',
                     } }),
             ],
             source: {},
@@ -32,7 +32,7 @@ let datastacks = [
             items: [
                 new proxy({ token: {
                         collection: 'items',
-                        uid: 'henrik',
+                        id: 'henrik',
                     } }),
             ],
             source: {},
@@ -44,7 +44,7 @@ let datastacks = [
             items: [
                 new proxy({ token: {
                         collection: 'items',
-                        uid: 'henrik',
+                        id: 'henrik',
                     } }),
             ],
             source: {},

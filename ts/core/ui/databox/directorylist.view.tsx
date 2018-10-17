@@ -114,7 +114,7 @@ class extends React.Component<any,any> {
         let pathMap = this.pathToIndexMap
         let listtokens = listDocument.data.lists
         let listproxies = listtokens.map((token) => {
-            let reference = `${token.collection}/${token.uid}`
+            let reference = `${token.collection}/${token.id}`
             let proxy = oldListProxies[pathMap[reference]]
             if (!proxy) {
                 // console.log('generating new proxy')
@@ -158,10 +158,10 @@ class extends React.Component<any,any> {
         },300)
     }
 
-    findlinkIndex = (uid) => {
+    findlinkIndex = (id) => {
 
         return (item) => {
-            return item.uid == uid
+            return item.id == id
         }
 
     }
@@ -179,7 +179,7 @@ class extends React.Component<any,any> {
 
     getListComponent = (proxy, key, index) => {
 
-        let highlight = (proxy.uid === this.state.highlightrefuid)
+        let highlight = (proxy.id === this.state.highlightrefuid)
         let directoryitem = 
             <DirectoryItem 
                 key = {proxy.instanceid} 

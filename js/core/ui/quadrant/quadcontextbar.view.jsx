@@ -96,7 +96,7 @@ class QuadContextBar extends React.Component {
                     if (item) { // defensive
                         let listtoken = {
                             collection: 'lists',
-                            uid: item.references.list,
+                            id: item.references.list,
                         };
                         let listProxy = new proxy({ token: listtoken });
                         let component = <DirectoryBar key={n + 'list'} haspeers={false} listProxy={listProxy} setDocumentListener={this.props.callbacks.setDocumentListener} removeDocumentListener={this.props.callbacks.removeDocumentListener} callDataDrawer={this.props.callDataDrawer} listStack={newItemProxy.liststack} collapseDirectoryItem={() => { }} contextitem/>;

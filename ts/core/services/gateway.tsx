@@ -23,11 +23,11 @@ let firestore = firebase.firestore()
 
 const setDocumentListener = (token) => {
     if (token.collection == 'lists')
-        return lists[token.uid]
+        return lists[token.id]
     else if (token.collection == 'items')
-        return items[token.uid]
+        return items[token.id]
     else if (token.collection == 'types')
-        return types[token.uid]
+        return types[token.id]
     else {
         console.error('unrecognized collection',token)
         return null
