@@ -128,6 +128,7 @@ const setDocumentListener = (token, instanceid, callback) => {
     addDocumentCacheListener(reference, instanceid, callback);
     // setTimeout(()=>{
     let cachedata = getDocumentPack(reference);
+    // console.log('cachedata fetched, caches', reference, cachedata, documentcache, typecache)
     if (cachedata.document) { // && cachedata.type) { TODO: temp until type never missing
         callback(cachedata.document, cachedata.type);
     }
@@ -139,6 +140,7 @@ const setDocumentListener = (token, instanceid, callback) => {
 const removeDocumentListener = (token, instanceid) => {
     let reference = getTokenReference(token);
     removeDocumentCacheListener(reference, instanceid);
+    // console.log('remove document listener',reference,instanceid,documentcache.size)
 };
 let application = {
     properties,
