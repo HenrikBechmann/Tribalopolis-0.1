@@ -110,7 +110,7 @@ const removeTypeCacheListener = (reference, instanceid) => {
 };
 // ===============[ General Utilities ]===============
 const getTokenReference = token => {
-    return `${token.collection}/${token.id}`;
+    return `/${token.collection}/${token.id}`;
 };
 const getDocumentPack = reference => {
     let cachedata = documentcache.get(reference).data;

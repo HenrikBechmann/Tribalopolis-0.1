@@ -180,14 +180,16 @@ const removeTypeCacheListener = (reference, instanceid) => {
 
 const getTokenReference = token => {
 
-    return `${token.collection}/${token.id}`
+    return `/${token.collection}/${token.id}`
 
 }
 
 const getDocumentPack = reference => {
 
     let cachedata = documentcache.get(reference).data
+
     return cachedata
+
 }
 
 // =================[ API ]=======================
@@ -205,6 +207,7 @@ const setDocumentListener = (token,instanceid,callback) => {
     let reference = getTokenReference(token)
 
     addDocumentCacheListener(reference,instanceid,callback)
+
     // setTimeout(()=>{
 
     let cachedata = getDocumentPack(reference)
@@ -224,6 +227,7 @@ const removeDocumentListener = (token, instanceid) => {
 
     let reference = getTokenReference(token)
     removeDocumentCacheListener(reference,instanceid)
+
 }
 
 let application = {

@@ -4,7 +4,7 @@
     It is accessed by services
 
     The pattern is to return a new promise, wait for
-    firestore promies, then coerce the result into standard application
+    firestore promises, then coerce the result into standard application
     format.
 
     if there is an error generate application error

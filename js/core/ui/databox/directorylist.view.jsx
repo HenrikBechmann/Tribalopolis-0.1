@@ -66,7 +66,7 @@ const DirectoryListBase = withStyles(styles)(class extends React.Component {
             let pathMap = this.pathToIndexMap;
             let listtokens = listDocument.data.lists;
             let listproxies = listtokens.map((token) => {
-                let reference = `${token.collection}/${token.id}`;
+                let reference = `/${token.collection}/${token.id}`;
                 let proxy = oldListProxies[pathMap[reference]];
                 if (!proxy) {
                     // console.log('generating new proxy')
