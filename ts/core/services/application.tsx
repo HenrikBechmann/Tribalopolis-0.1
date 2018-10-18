@@ -46,11 +46,11 @@ const getDocumentCacheItem = (reference) => {
         let document = gateway.setDocumentListener(reference)
         updateDocumentCacheData(reference,document)
 
+        // trigger matching type
         let typeref = document.identity.type
-        if (!typecache.has(typeref)) {
-            let type = gateway.setDocumentListener(typeref)
-            updateTypeCacheData(typeref,type)
-        }
+        let type = getTypeCacheItem(typeref)
+
+        // TODO set type listener
 
     }
 
