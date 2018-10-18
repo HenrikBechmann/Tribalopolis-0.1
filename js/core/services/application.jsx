@@ -113,6 +113,7 @@ const getTokenReference = token => {
 };
 const getDocumentPack = reference => {
     let cachedata = documentcache.get(reference).data;
+    // console.log('cachedata',cachedata, reference)
     return cachedata;
 };
 // =================[ API ]=======================
@@ -138,28 +139,10 @@ const removeDocumentListener = (token, instanceid) => {
     let reference = getTokenReference(token);
     removeDocumentCacheListener(reference, instanceid);
 };
-const getDocumentFromCache = reference => {
-    let cachedocument = null;
-    if (documentcache.has(reference)) {
-        let cachedata = getDocumentPack(reference);
-        cachedocument = cachedata.document;
-    }
-    return cachedocument;
-};
-const getDocumentTypeFromCache = reference => {
-    let cachetype = null;
-    if (documentcache.has(reference)) {
-        let cachedata = getDocumentPack(reference);
-        cachetype = cachedata.type;
-    }
-    return cachetype;
-};
 let application = {
     properties,
     setDocumentListener,
     removeDocumentListener,
-    getDocumentFromCache,
-    getDocumentTypeFromCache,
 };
 export default application;
 //# sourceMappingURL=application.jsx.map

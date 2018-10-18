@@ -6,6 +6,7 @@ import { withStyles, createStyles } from '@material-ui/core/styles';
 import Icon from '@material-ui/core/Icon';
 import BoxIdentityBar from '../databox/identitybar.view';
 import DirectoryBar from '../databox/directorybar.view';
+import RootDirectoryBarHolder from '../databox/rootdirectorybarholder.view';
 import proxy from '../../utilities/proxy';
 const styles = createStyles({
     root: {
@@ -89,20 +90,14 @@ class QuadContextBar extends React.Component {
                         token: itemProxy.token,
                         liststack: itemProxy.liststack.slice(),
                     });
-                    // console.log('args for identity', itemProxy, newItemProxy, this.props.callbacks)
                     context.push(<BoxIdentityBar key={n + 'item'} itemProxy={newItemProxy} setDocumentListener={this.props.callbacks.setDocumentListener} removeDocumentListener={this.props.callbacks.removeDocumentListener} callDataDrawer={this.props.callDataDrawer} contextitem/>);
-                    let item = this.props.callbacks.getDocumentFromCache(newItemProxy.reference);
-                    // console.log('item from cache',item)
-                    if (item) { // defensive
-                        let listtoken = {
-                            collection: 'lists',
-                            id: item.references.list,
-                        };
-                        let listProxy = new proxy({ token: listtoken });
-                        let component = <DirectoryBar key={n + 'list'} haspeers={false} listProxy={listProxy} setDocumentListener={this.props.callbacks.setDocumentListener} removeDocumentListener={this.props.callbacks.removeDocumentListener} callDataDrawer={this.props.callDataDrawer} listStack={newItemProxy.liststack} collapseDirectoryItem={() => { }} contextitem/>;
-                        context.push(<Icon key={n + 'icon'} style={{ opacity: .54 }}>chevron_right</Icon>);
-                        context.push(component);
-                    }
+                    let holderItemProxy = new proxy({
+                        token: itemProxy.token,
+                        liststack: itemProxy.liststack.slice(),
+                    });
+                    let component = <RootDirectoryBarHolder key={n + 'list'} itemProxy={holderItemProxy} setDocumentListener={this.props.callbacks.setDocumentListener} removeDocumentListener={this.props.callbacks.removeDocumentListener} callDataDrawer={this.props.callDataDrawer}/>;
+                    context.push(<Icon key={n + 'icon'} style={{ opacity: .54 }}>chevron_right</Icon>);
+                    context.push(component);
                 }
             }
             if (context.length) {

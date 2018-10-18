@@ -16,7 +16,6 @@ const Quadrants = props => {
         handleSwap, 
         setDocumentListener, 
         removeDocumentListener,
-        getDocumentFromCache, 
         selectQuadrant, 
         calcQuadrantPosition,
     } = props.callbacks
@@ -24,7 +23,6 @@ const Quadrants = props => {
     let quadcallbacks = {
         setDocumentListener,
         removeDocumentListener,
-        getDocumentFromCache,
     }
     let framecallbacks = {
         handleSwap,
