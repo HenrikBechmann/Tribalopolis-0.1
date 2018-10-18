@@ -25,10 +25,7 @@ const typecache = new Map()
 const newDocumentCacheItem = () => {
 
     return {
-        data:{
-            document:null,
-            type:null,
-        },
+        document:null,
         listeners:new Map(),
     }
 
@@ -46,12 +43,14 @@ const getDocumentCacheItem = (reference) => {
         cacheitem = newDocumentCacheItem()
         documentcache.set(reference,cacheitem)
 
-        // TODO: update this transition code
         let document = gateway.setDocumentListener(reference)
-        let typeref = getTokenReference({id:document.identity.type.id,collection:'types'})
-        let type = gateway.setDocumentListener(typeref)
+        updateDocumentCacheData(reference,document)
 
-        updateDocumentCacheData(reference,document,type)
+        let typeref = document.identity.type
+        if (!typecache.has(typeref)) {
+            let type = gateway.setDocumentListener(typeref)
+            updateTypeCacheData(typeref,type)
+        }
 
     }
 
@@ -67,12 +66,11 @@ const removeDocumentCacheItem = (reference) => {
 
 // document data
 
-const updateDocumentCacheData = (reference,document,type) => {
+const updateDocumentCacheData = (reference,document) => {
 
-    let cacheitem = getDocumentCacheItem(reference)
+    let documentcacheitem = getDocumentCacheItem(reference)
 
-    cacheitem.data.document = document
-    cacheitem.data.type = type
+    documentcacheitem.document = document
 
 }
 
@@ -184,7 +182,13 @@ const getTokenReference = token => {
 
 const getDocumentPack = reference => {
 
-    let cachedata = documentcache.get(reference).data
+    let document = documentcache.get(reference).document
+    let type = typecache.get(document.identity.type)
+
+    let cachedata = {
+        document,
+        type,
+    }
 
     return cachedata
 

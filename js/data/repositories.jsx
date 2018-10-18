@@ -8,10 +8,7 @@ let folders = {
             container: '',
             id: '',
             handle: '',
-            type: {
-                id: '',
-                handle: '',
-            },
+            type: '/types/henrikacf',
             account: {
                 id: '',
                 handle: '',
@@ -57,10 +54,7 @@ let types = {
             container: '',
             id: '',
             handle: '',
-            type: {
-                id: '',
-                handle: '',
-            },
+            type: '/types/incoming',
             account: {
                 id: '',
                 handle: '',
@@ -105,10 +99,7 @@ let types = {
             container: '',
             id: '',
             handle: '',
-            type: {
-                id: '',
-                handle: '',
-            },
+            type: '/types/outgoing',
             account: {
                 id: '',
                 handle: '',
@@ -156,10 +147,7 @@ let lists = {
             container: '',
             id: '',
             handle: '',
-            type: {
-                id: 'outgoing',
-                handle: '',
-            },
+            type: '/types/diaries',
             account: {
                 id: '',
                 handle: '',
@@ -197,10 +185,7 @@ let lists = {
             container: '',
             id: '',
             handle: '',
-            type: {
-                id: 'outgoing',
-                handle: '',
-            },
+            type: '/types/notes',
             account: {
                 id: '',
                 handle: '',
@@ -237,10 +222,7 @@ let lists = {
             container: '',
             id: '',
             handle: '',
-            type: {
-                id: 'outgoing',
-                handle: '',
-            },
+            type: '/types/tribes/',
             account: {
                 id: '',
                 handle: '',
@@ -279,10 +261,7 @@ let lists = {
             container: '',
             id: '',
             handle: '',
-            type: {
-                id: 'outgoing',
-                handle: '',
-            },
+            type: '/types/connections',
             account: {
                 id: '',
                 handle: '',
@@ -319,10 +298,7 @@ let lists = {
             container: '',
             id: '',
             handle: '',
-            type: {
-                id: '',
-                handle: '',
-            },
+            type: '/types/requesting',
             account: {
                 id: '',
                 handle: '',
@@ -359,10 +335,7 @@ let lists = {
             container: '',
             id: 'assets',
             handle: '',
-            type: {
-                id: '',
-                handle: '',
-            },
+            type: '/types/assets',
             account: {
                 id: '',
                 handle: '',
@@ -399,10 +372,7 @@ let lists = {
             container: '',
             id: '',
             handle: '',
-            type: {
-                id: 'outgoing',
-                handle: '',
-            },
+            type: '/types/roles',
             account: {
                 id: '',
                 handle: '',
@@ -439,10 +409,7 @@ let lists = {
             container: '',
             id: '',
             handle: '',
-            type: {
-                id: 'outgoing',
-                handle: '',
-            },
+            type: '/types/programs',
             account: {
                 id: '',
                 handle: '',
@@ -479,10 +446,7 @@ let lists = {
             container: '',
             id: 'outgoing',
             handle: '',
-            type: {
-                id: '',
-                handle: '',
-            },
+            type: '/types/projects',
             account: {
                 id: '',
                 handle: '',
@@ -519,10 +483,7 @@ let lists = {
             container: '',
             id: '',
             handle: '',
-            type: {
-                id: 'outgoing',
-                handle: '',
-            },
+            type: '/types/tasks',
             account: {
                 id: '',
                 handle: '',
@@ -559,10 +520,7 @@ let lists = {
             container: '',
             id: '',
             handle: '',
-            type: {
-                id: '',
-                handle: '',
-            },
+            type: '/types/messages',
             account: {
                 id: '',
                 handle: '',
@@ -599,10 +557,7 @@ let lists = {
             container: '',
             id: '',
             handle: '',
-            type: {
-                id: '',
-                handle: '',
-            },
+            type: '/types/streams',
             account: {
                 id: '',
                 handle: '',
@@ -639,10 +594,7 @@ let lists = {
             container: '',
             id: '',
             handle: '',
-            type: {
-                id: 'outgoing',
-                handle: '',
-            },
+            type: '/types/resources',
             account: {
                 id: '',
                 handle: '',
@@ -679,10 +631,7 @@ let lists = {
             container: '',
             id: '',
             handle: '',
-            type: {
-                id: 'outgoing',
-                handle: '',
-            },
+            type: '/types/calendars',
             account: {
                 id: '',
                 handle: '',
@@ -719,10 +668,7 @@ let lists = {
             container: '',
             id: '',
             handle: '',
-            type: {
-                id: 'outgoing',
-                handle: '',
-            },
+            type: '/types/accounting',
             account: {
                 id: '',
                 handle: '',
@@ -759,10 +705,7 @@ let lists = {
             container: '',
             id: '',
             handle: '',
-            type: {
-                id: 'recipes',
-                handle: '',
-            },
+            types: '/types/recipes',
             account: {
                 id: '',
                 handle: '',
@@ -886,10 +829,7 @@ let lists = {
             container: '',
             id: '',
             handle: '',
-            type: {
-                id: '',
-                handle: '',
-            },
+            type: '/types/henrik',
             account: {
                 id: '',
                 handle: '',
@@ -1000,10 +940,7 @@ let links = {
             container: '',
             id: '',
             handle: '',
-            type: {
-                id: '',
-                handle: '',
-            },
+            type: '/types/somelink',
             account: {
                 id: '',
                 handle: '',
@@ -1029,10 +966,7 @@ let items = {
             container: '',
             id: '',
             handle: 'henrik',
-            type: {
-                id: '',
-                handle: 'person',
-            },
+            type: '/types/person',
             account: {
                 id: '',
                 handle: '',

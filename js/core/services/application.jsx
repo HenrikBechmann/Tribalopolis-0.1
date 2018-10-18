@@ -17,27 +17,25 @@ const typecache = new Map();
 // document cache
 const newDocumentCacheItem = () => {
     return {
-        data: {
-            document: null,
-            type: null,
-        },
+        document: null,
         listeners: new Map(),
     };
 };
 const getDocumentCacheItem = (reference) => {
     let cacheitem;
-    console.log('reference destructured', reference.split('/'));
     if (documentcache.has(reference)) {
         cacheitem = documentcache.get(reference);
     }
     else {
         cacheitem = newDocumentCacheItem();
         documentcache.set(reference, cacheitem);
-        // TODO: update this transition code
         let document = gateway.setDocumentListener(reference);
-        let typeref = getTokenReference({ id: document.identity.type.id, collection: 'types' });
-        let type = gateway.setDocumentListener(typeref);
-        updateDocumentCacheData(reference, document, type);
+        updateDocumentCacheData(reference, document);
+        let typeref = document.identity.type;
+        if (!typecache.has(typeref)) {
+            let type = gateway.setDocumentListener(typeref);
+            updateTypeCacheData(typeref, type);
+        }
     }
     return cacheitem;
 };
@@ -46,10 +44,9 @@ const removeDocumentCacheItem = (reference) => {
     // TODO: remove gateway listeners
 };
 // document data
-const updateDocumentCacheData = (reference, document, type) => {
-    let cacheitem = getDocumentCacheItem(reference);
-    cacheitem.data.document = document;
-    cacheitem.data.type = type;
+const updateDocumentCacheData = (reference, document) => {
+    let documentcacheitem = getDocumentCacheItem(reference);
+    documentcacheitem.document = document;
 };
 // document listeners
 const addDocumentCacheListener = (reference, instanceid, callback) => {
@@ -114,7 +111,12 @@ const getTokenReference = token => {
     return `/${token.collection}/${token.id}`;
 };
 const getDocumentPack = reference => {
-    let cachedata = documentcache.get(reference).data;
+    let document = documentcache.get(reference).document;
+    let type = typecache.get(document.identity.type);
+    let cachedata = {
+        document,
+        type,
+    };
     return cachedata;
 };
 // =================[ API ]=======================
