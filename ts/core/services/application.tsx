@@ -104,7 +104,7 @@ const removeDocumentCacheListener = (reference, instanceid) => {
 const newTypeCacheItem = () => {
 
     return {
-        type:null,
+        document:null,
         listeners:new Map(),
     }
 
@@ -144,7 +144,7 @@ const removeTypeCacheItem = (reference) => {
 const updateTypeCacheData = (reference,type) => {
 
     let cacheitem = getTypeCacheItem(reference)
-    cacheitem.type = type
+    cacheitem.document = type
 
 }
 
@@ -183,7 +183,14 @@ const getTokenReference = token => {
 const getDocumentPack = reference => {
 
     let document = documentcache.get(reference).document
-    let type = typecache.get(document.identity.type)
+    let type = null
+    let typeref = null
+    if (document) {
+        typeref = document.identity.type
+        if (typecache.has(typeref)) {
+            type = typecache.get(document.identity.type).document
+        }
+    }
 
     let cachedata = {
         document,
