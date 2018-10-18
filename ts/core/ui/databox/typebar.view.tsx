@@ -87,7 +87,7 @@ class BoxToolbar extends React.Component<any,any> {
                 this.listProxy.token,this.listProxy.instanceid)
         }        
     }
-    cacheListDocument = (document,type) => {
+    cacheListDocument = (document, type, change) => {
         this.setState({
             list:{
                 document,

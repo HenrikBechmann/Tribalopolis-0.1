@@ -66,7 +66,7 @@ class DirectoryBar extends React.Component {
                 this.props.setDocumentListener(this.listProxy.token, this.listProxy.instanceid, this.cacheListDocument);
             }
         };
-        this.cacheListDocument = (document, type) => {
+        this.cacheListDocument = (document, type, change) => {
             this.setState({
                 list: {
                     document,

@@ -27,7 +27,7 @@ class RootDirectoryBarHolder extends React.Component {
                 this.props.setDocumentListener(this.itemProxy.token, this.itemProxy.instanceid, this.cacheItemDocument);
             }
         };
-        this.cacheItemDocument = (document, type) => {
+        this.cacheItemDocument = (document, type, change) => {
             // console.log('caching item',document)
             this.setState({
                 item: {

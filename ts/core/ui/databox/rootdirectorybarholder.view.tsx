@@ -51,7 +51,7 @@ class RootDirectoryBarHolder extends React.Component<any, any> {
         }        
     }
 
-    cacheItemDocument = (document,type) => {
+    cacheItemDocument = (document, type, change) => {
         // console.log('caching item',document)
         this.setState({
             item:{

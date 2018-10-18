@@ -101,7 +101,7 @@ class DirectoryBar extends React.Component<any,any> {
         }        
     }
 
-    cacheListDocument = (document,type) => {
+    cacheListDocument = (document,type, change) => {
         this.setState({
             list:{
                 document,

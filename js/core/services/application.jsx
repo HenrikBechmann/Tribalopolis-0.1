@@ -130,7 +130,7 @@ const setDocumentListener = (token, instanceid, callback) => {
     let cachedata = getDocumentPack(reference);
     // console.log('cachedata fetched, caches', reference, cachedata, documentcache, typecache)
     if (cachedata.document) { // && cachedata.type) { TODO: temp until type never missing
-        callback(cachedata.document, cachedata.type);
+        callback(cachedata.document, cachedata.type, { documents: { document: true, type: true, } });
     }
     // },1000)
     // setTimeout(()=>{

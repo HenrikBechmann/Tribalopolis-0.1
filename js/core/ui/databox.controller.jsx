@@ -83,7 +83,7 @@ class DataBox extends React.Component {
             BarlistProxy: null,
             TypelistProxy: null,
         };
-        this.cacheItemData = (document, type) => {
+        this.cacheItemData = (document, type, change) => {
             this.setState({
                 item: {
                     document,

@@ -81,7 +81,7 @@ class IdentityBar extends React.Component<any, any> {
         }        
     }
 
-    cacheItemDocument = (document,type) => {
+    cacheItemDocument = (document, type, change) => {
 
         this.setState({
             item:{

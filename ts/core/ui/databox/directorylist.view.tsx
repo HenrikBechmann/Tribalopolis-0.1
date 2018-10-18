@@ -83,7 +83,7 @@ class extends React.Component<any,any> {
         }        
     }
 
-    cacheListDocument = (document,type) => {
+    cacheListDocument = (document, type, change) => {
 
         let listproxies
         if (!this.state.listproxies) {

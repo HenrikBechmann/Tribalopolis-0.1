@@ -55,7 +55,7 @@ class BoxToolbar extends React.Component {
         this.state = {
             list: null
         };
-        this.cacheListDocument = (document, type) => {
+        this.cacheListDocument = (document, type, change) => {
             this.setState({
                 list: {
                     document,

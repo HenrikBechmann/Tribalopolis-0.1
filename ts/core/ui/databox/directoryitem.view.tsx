@@ -86,7 +86,7 @@ class DirectoryItem extends React.Component<any,any> {
         }        
     }
 
-    cacheListDocument = (document,type) => {
+    cacheListDocument = (document, type, change) => {
 
         this.setState({
             list:{

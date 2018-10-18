@@ -166,7 +166,7 @@ class DataBox extends React.Component<any,any> {
         )
     }
 
-    cacheItemData = (document,type) => {
+    cacheItemData = ( document, type, change) => {
 
         this.setState({
             item:{

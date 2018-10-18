@@ -37,7 +37,7 @@ const DirectoryListBase = withStyles(styles)(class extends React.Component {
         this.listProxy = null;
         this.pathToIndexMap = null;
         this.highlightrefuid = null;
-        this.cacheListDocument = (document, type) => {
+        this.cacheListDocument = (document, type, change) => {
             let listproxies;
             if (!this.state.listproxies) {
                 listproxies = this.generateListProxies(document);
