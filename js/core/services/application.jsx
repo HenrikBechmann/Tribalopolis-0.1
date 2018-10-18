@@ -98,14 +98,12 @@ const updateTypeCacheData = (reference, type) => {
 const addTypeCacheListener = (reference, instanceid, callback) => {
     let cacheitem = getTypeCacheItem(reference);
     cacheitem.listeners.set(instanceid, callback);
-    // console.log('listener size after add',cacheitem.listeners.size,reference, instanceid)
 };
 const removeTypeCacheListener = (reference, instanceid) => {
     if (!typecache.has(reference))
         return;
     let cacheitem = typecache.get(reference);
     cacheitem.listeners.delete(instanceid);
-    // console.log('listener size after remove',cacheitem.listeners.size,reference, instanceid)
     if (cacheitem.listeners.size == 0) {
         removeTypeCacheItem(reference); // filter by cache size?
     }
