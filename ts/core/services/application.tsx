@@ -18,9 +18,6 @@ import gateway from './gateway'
 const documentcache = new Map()
 const typecache = new Map()
 
-
-let tokenvar = null // TODO: remove this transition item
-
 // ===========[ Document Cache Management ]============
 
 // document cache
@@ -50,8 +47,9 @@ const getDocumentCacheItem = (reference) => {
         documentcache.set(reference,cacheitem)
 
         // TODO: update this transition code
-        let document = gateway.setDocumentListener(tokenvar)
-        let type = gateway.setDocumentListener({id:document.identity.type.id,collection:'types'})
+        let document = gateway.setDocumentListener(reference)
+        let typeref = getTokenReference({id:document.identity.type.id,collection:'types'})
+        let type = gateway.setDocumentListener(typeref)
 
         updateDocumentCacheData(reference,document,type)
 
@@ -201,8 +199,6 @@ const properties = {
 }
 
 const setDocumentListener = (token,instanceid,callback) => {
-
-    tokenvar = token // TODO: temp transition item
 
     let reference = getTokenReference(token)
 

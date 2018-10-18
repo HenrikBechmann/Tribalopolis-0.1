@@ -13,7 +13,6 @@ import gateway from './gateway';
 // ==============[ Internal ]===============
 const documentcache = new Map();
 const typecache = new Map();
-let tokenvar = null; // TODO: remove this transition item
 // ===========[ Document Cache Management ]============
 // document cache
 const newDocumentCacheItem = () => {
@@ -27,6 +26,7 @@ const newDocumentCacheItem = () => {
 };
 const getDocumentCacheItem = (reference) => {
     let cacheitem;
+    console.log('reference destructured', reference.split('/'));
     if (documentcache.has(reference)) {
         cacheitem = documentcache.get(reference);
     }
@@ -34,8 +34,9 @@ const getDocumentCacheItem = (reference) => {
         cacheitem = newDocumentCacheItem();
         documentcache.set(reference, cacheitem);
         // TODO: update this transition code
-        let document = gateway.setDocumentListener(tokenvar);
-        let type = gateway.setDocumentListener({ id: document.identity.type.id, collection: 'types' });
+        let document = gateway.setDocumentListener(reference);
+        let typeref = getTokenReference({ id: document.identity.type.id, collection: 'types' });
+        let type = gateway.setDocumentListener(typeref);
         updateDocumentCacheData(reference, document, type);
     }
     return cacheitem;
@@ -121,7 +122,6 @@ const properties = {
     ismobile: /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)
 };
 const setDocumentListener = (token, instanceid, callback) => {
-    tokenvar = token; // TODO: temp transition item
     let reference = getTokenReference(token);
     addDocumentCacheListener(reference, instanceid, callback);
     // setTimeout(()=>{

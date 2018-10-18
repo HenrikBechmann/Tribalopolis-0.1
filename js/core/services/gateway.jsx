@@ -17,7 +17,9 @@
 import { types, items, lists } from '../../data/repositories';
 import firebase from './firebase.api';
 let firestore = firebase.firestore();
-const setDocumentListener = (token) => {
+const setDocumentListener = (reference) => {
+    let refsplit = reference.split('/');
+    let token = { collection: refsplit[1], id: refsplit[2] };
     if (token.collection == 'lists')
         return lists[token.id];
     else if (token.collection == 'items')
