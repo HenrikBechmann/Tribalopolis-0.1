@@ -50,6 +50,7 @@ const removeDocumentListener = reference => {
 
 let domain = {
     setDocumentListener,
+    removeDocumentListener,
 }
 
 export default domain
