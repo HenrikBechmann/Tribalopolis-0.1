@@ -133,9 +133,14 @@ const processDocumentCallbacks = (reference, change) => {
 */
 const removeDocumentCacheItem = (reference) => {
 
+    // unhook from gateway
     gateway.removeDocumentListener(reference)
+
+    // anticipate need for type cache listener...
     let documentcacheitem = documentcache.get(reference)
     documentcache.delete(reference)
+
+    // deal with type cache listener
     let document = documentcacheitem.document
     if (document) {
         let typeref = document?document.identity.type:null
