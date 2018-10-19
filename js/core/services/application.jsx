@@ -112,17 +112,19 @@ const removeTypeCacheItem = (reference) => {
     // TODO: remove gateway listeners
 };
 // type listeners
-const addTypeCacheListener = (reference, backreference, callback) => {
-    let cacheitem = getTypeCacheItem(reference);
-    cacheitem.listeners.set(backreference, callback);
+const addTypeCacheListener = (typereference, documentreference, callback) => {
+    let cacheitem = getTypeCacheItem(typereference);
+    if (!cacheitem.listeners.has(documentreference)) {
+        cacheitem.listeners.set(documentreference, callback);
+    }
 };
-const removeTypeCacheListener = (reference, backreference) => {
-    if (!typecache.has(reference))
+const removeTypeCacheListener = (typereference, documentreference) => {
+    if (!typecache.has(typereference))
         return;
-    let cacheitem = typecache.get(reference);
-    cacheitem.listeners.delete(backreference);
+    let cacheitem = typecache.get(documentreference);
+    cacheitem.listeners.delete(documentreference);
     if (cacheitem.listeners.size == 0) {
-        removeTypeCacheItem(reference); // filter by cache size?
+        removeTypeCacheItem(typereference); // filter by cache size?
     }
 };
 // ===============[ General Utilities ]===============

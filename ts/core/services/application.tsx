@@ -171,24 +171,25 @@ const removeTypeCacheItem = (reference) => {
 
 // type listeners
 
-const addTypeCacheListener = (reference,backreference,callback) => {
+const addTypeCacheListener = (typereference,documentreference,callback) => {
 
-    let cacheitem = getTypeCacheItem(reference)
+    let cacheitem = getTypeCacheItem(typereference)
 
-    cacheitem.listeners.set(backreference,callback)
-
+    if (!cacheitem.listeners.has(documentreference)) {
+        cacheitem.listeners.set(documentreference,callback)
+    }
 }
 
-const removeTypeCacheListener = (reference, backreference) => {
+const removeTypeCacheListener = (typereference, documentreference) => {
 
-    if (!typecache.has(reference)) return
+    if (!typecache.has(typereference)) return
 
-    let cacheitem = typecache.get(reference)
-    cacheitem.listeners.delete(backreference)
+    let cacheitem = typecache.get(documentreference)
+    cacheitem.listeners.delete(documentreference)
 
     if (cacheitem.listeners.size == 0) {
 
-        removeTypeCacheItem(reference) // filter by cache size?
+        removeTypeCacheItem(typereference) // filter by cache size?
 
     }
 }
