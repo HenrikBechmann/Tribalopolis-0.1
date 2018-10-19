@@ -17,22 +17,30 @@
 import { types, items, lists } from '../../data/repositories';
 import firebase from './firebase.api';
 let firestore = firebase.firestore();
-const setDocumentListener = (reference) => {
+const setDocumentListener = (reference, callback) => {
+    let data;
     if (!reference) {
-        return null;
+        data = null;
     }
-    let refsplit = reference.split('/');
-    let token = { collection: refsplit[1], id: refsplit[2] };
-    if (token.collection == 'lists')
-        return lists[token.id];
-    else if (token.collection == 'items')
-        return items[token.id];
-    else if (token.collection == 'types')
-        return types[token.id];
     else {
-        console.error('unrecognized collection', token);
-        return null;
+        let refsplit = reference.split('/');
+        let token = { collection: refsplit[1], id: refsplit[2] };
+        if (token.collection == 'lists')
+            data = lists[token.id];
+        else if (token.collection == 'items')
+            data = items[token.id];
+        else if (token.collection == 'types')
+            data = types[token.id];
+        else {
+            console.error('unrecognized collection', token);
+            data = null;
+        }
     }
+    // setTimeout(()=>{
+    callback(reference, data, {});
+    // },1000)
+};
+const removeDocumentListener = reference => {
 };
 let domain = {
     setDocumentListener,

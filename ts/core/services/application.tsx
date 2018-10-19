@@ -8,7 +8,7 @@
 */
 
 /*
-    TODO:
+    TODO: OPTIMIZE!! Maintain cache items by some criterion such as usage or age
 */
 
 import gateway from './gateway'
@@ -43,18 +43,23 @@ const getDocumentCacheItem = (reference) => {
         cacheitem = newDocumentCacheItem()
         documentcache.set(reference,cacheitem)
 
-        let document = gateway.setDocumentListener(reference)
-        updateDocumentCacheData(reference,document)
-
-        // trigger matching type
-        let typeref = document.identity.type
-        let type = getTypeCacheItem(typeref)
-
-        addTypeCacheListener(typeref,reference,processDocumentCallbacksFromType)
+        gateway.setDocumentListener(reference,processDocumentCallbacksFromGateway)
 
     }
 
     return cacheitem
+}
+
+const processDocumentCallbacksFromGateway = ( reference, document, change ) => {
+
+    let cacheitem = documentcache.get(reference)
+    cacheitem.document = document
+
+    processDocumentCallbacks(reference,change)
+
+    let typeref = document.identity.type
+    addTypeCacheListener(typeref, reference, processDocumentCallbacksFromType)
+
 }
 
 const processDocumentCallbacksFromType = ( reference, change ) => { // document reference
@@ -63,22 +68,20 @@ const processDocumentCallbacksFromType = ( reference, change ) => { // document 
 
 }
 
-const processDocumentCallbacksFromGateway = ( reference, document, change ) => {
-
-    let cacheitem = documentcache.get(reference)
-    cacheitem.document = document
-    processDocumentCallbacks(reference,change)
-
-}
-
 const processDocumentCallbacks = (reference, change) => {
+    // console.log('processing document callbacks',reference)
     let documentcacheitem = documentcache.get(reference)
     let document = documentcacheitem.document
-    let type = typecache.get(document.identity.type).document
-    let listeners = documentcacheitem.listeners
-    listeners.forEach((callback,key) => {
-        callback(document,type,change)
-    })
+    let typeref = document.identity.type
+    // console.log('typeref',typeref)
+    if (typecache.has(typeref)) {
+        // console.log('implementing document callbacks',reference)
+        let type = typecache.get(typeref).document
+        let listeners = documentcacheitem.listeners
+        listeners.forEach((callback,key) => {
+            callback(document,type,change)
+        })
+    }
 }
 
 const removeDocumentCacheItem = (reference) => {
@@ -86,16 +89,6 @@ const removeDocumentCacheItem = (reference) => {
     documentcache.delete(reference)
 
     // TODO: remove gateway listeners
-}
-
-// document data
-
-const updateDocumentCacheData = (reference,document) => {
-
-    let documentcacheitem = getDocumentCacheItem(reference)
-
-    documentcacheitem.document = document
-
 }
 
 // document listeners
@@ -143,12 +136,11 @@ const getTypeCacheItem = (reference) => { // type reference
 
     } else {
 
+        // console.log('creating type cache',reference)
         cacheitem = newTypeCacheItem()
         typecache.set(reference,cacheitem)
 
-        let type = gateway.setDocumentListener(reference)
-
-        updateTypeCacheData(reference,type)
+        gateway.setDocumentListener(reference, processTypeCallbacksFromGateway)
 
     }
 
@@ -158,11 +150,13 @@ const getTypeCacheItem = (reference) => { // type reference
 
 const processTypeCallbacksFromGateway = ( reference, type, change ) => {
 
+    // console.log('processing type callback from gateway',reference)
     let cacheitem = typecache.get(reference)
     cacheitem.document = type
     let listeners = cacheitem.listeners
     listeners.forEach((callback,key) => {
-        callback(document,type,change)
+        // console.log('implementing callback from type for ',key)
+        callback(key,change)
     })
 
 }
@@ -173,15 +167,6 @@ const removeTypeCacheItem = (reference) => {
     typecache.delete(reference)
 
     // TODO: remove gateway listeners
-}
-
-// type data
-
-const updateTypeCacheData = (reference,type) => {
-
-    let cacheitem = getTypeCacheItem(reference)
-    cacheitem.document = type
-
 }
 
 // type listeners
@@ -224,7 +209,7 @@ const getDocumentPack = reference => {
     if (document) {
         typeref = document.identity.type
         if (typecache.has(typeref)) {
-            type = typecache.get(document.identity.type).document
+            type = typecache.get(document.identity.type).document || {}
         }
     }
 
@@ -251,13 +236,12 @@ const setDocumentListener = (token,instanceid,callback) => {
 
     addDocumentCacheListener(reference,instanceid,callback)
 
-    // setTimeout(()=>{
-
     let cachedata = getDocumentPack(reference)
 
     // console.log('cachedata fetched, caches', reference, cachedata, documentcache, typecache)
 
-    if (cachedata.document) { // && cachedata.type) { TODO: temp until type never missing
+    if (cachedata.document && cachedata.type) { // TODO: temp until type never missing
+        // console.log('IMMEDIATE callback',reference)
         callback(cachedata.document, cachedata.type, 
             {
                 documents:{
@@ -269,19 +253,12 @@ const setDocumentListener = (token,instanceid,callback) => {
         )
     }
 
-    // },1000)
-    // setTimeout(()=>{
-    //     callback(list,type)
-    // },4000)
-
 }
 
 const removeDocumentListener = (token, instanceid) => {
 
     let reference = getTokenReference(token)
     removeDocumentCacheListener(reference,instanceid)
-
-    // console.log('remove document listener',reference,instanceid,documentcache.size)
 
 }
 

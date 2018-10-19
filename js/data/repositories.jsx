@@ -565,7 +565,7 @@ let lists = {
         },
         properties: {
             version: 0,
-            name: 'Group Chats',
+            name: 'Social Chats',
         },
         references: {
             subscriptions: [],
