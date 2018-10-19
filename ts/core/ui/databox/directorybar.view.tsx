@@ -228,17 +228,17 @@ class DirectoryBar extends React.Component<any,any> {
                                     }
                                 }>Layout</div>
                             <ActionButton 
-                                icon = 'list'
+                                icon = 'view_headline'
                                 iconStyle = {{border:'1px solid gray',borderRadius:'50%'}}
                             />
                             <ActionButton 
                                 iconStyle = {{width:'16px'}} 
                                 img = '/public/icons/cards.svg'
                             />
-                            {false && <ActionButton 
+                            <ActionButton 
                                 iconStyle = {{width:'16px'}} 
-                                img = '/public/icons/tiles.svg'
-                            />}
+                                img = '/public/icons/variablecards.svg'
+                            />
                         </MenuItem>
                     </PopupMenu>}
                     {contextitem && <ActionButton 

@@ -112,10 +112,11 @@ class NavigationMenuTab extends React.Component<any,any> {
                         disabled = {!this.props.liststack.length}
                     />
                 </div>
-                {false && <div className = {classes.buttonwrapper}
+                {true && <div className = {classes.buttonwrapper}
                     ref = {this.zoomdomsource}
                 >
                     <ActionButton 
+                        disabled
                         icon = 'zoom_out_map' 
                     />
                 </div>}

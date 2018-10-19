@@ -164,9 +164,9 @@ class DirectoryBar extends React.Component {
                 display: 'inline-block',
                 marginRight: '6px',
             }}>Layout</div>
-                            <ActionButton icon='list' iconStyle={{ border: '1px solid gray', borderRadius: '50%' }}/>
+                            <ActionButton icon='view_headline' iconStyle={{ border: '1px solid gray', borderRadius: '50%' }}/>
                             <ActionButton iconStyle={{ width: '16px' }} img='/public/icons/cards.svg'/>
-                            {false && <ActionButton iconStyle={{ width: '16px' }} img='/public/icons/tiles.svg'/>}
+                            <ActionButton iconStyle={{ width: '16px' }} img='/public/icons/variablecards.svg'/>
                         </MenuItem>
                     </PopupMenu>}
                     {contextitem && <ActionButton buttonStyle={{

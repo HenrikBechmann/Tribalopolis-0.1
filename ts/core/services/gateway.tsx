@@ -23,6 +23,9 @@ let firestore = firebase.firestore()
 
 const setDocumentListener = (reference) => {
 
+    if (!reference) {
+        return null
+    }
     let refsplit = reference.split('/')
     let token = {collection:refsplit[1],id:refsplit[2]}
     if (token.collection == 'lists')

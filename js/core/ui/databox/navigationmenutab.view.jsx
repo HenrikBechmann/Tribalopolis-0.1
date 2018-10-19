@@ -67,8 +67,8 @@ class NavigationMenuTab extends React.Component {
                 <div className={classes.buttonwrapper}>
                     <ActionButton icon='arrow_back' action={this.props.collapseDirectoryItem} disabled={!this.props.liststack.length}/>
                 </div>
-                {false && <div className={classes.buttonwrapper} ref={this.zoomdomsource}>
-                    <ActionButton icon='zoom_out_map'/>
+                {true && <div className={classes.buttonwrapper} ref={this.zoomdomsource}>
+                    <ActionButton disabled icon='zoom_out_map'/>
                 </div>}
                 {false && <div className={classes.buttonwrapper} ref={this.zoomdomsource}>
                     <ActionButton icon='expand_more'/>
