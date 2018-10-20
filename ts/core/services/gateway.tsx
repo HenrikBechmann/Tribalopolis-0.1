@@ -39,9 +39,9 @@ const setDocumentListener = (reference,callback) => {
             data = null
         }
     }
-    // setTimeout(()=>{
+    setTimeout(()=>{
         callback(reference, data, {})
-    // },1000)
+    },1000)
 }
 
 const removeDocumentListener = reference => {
