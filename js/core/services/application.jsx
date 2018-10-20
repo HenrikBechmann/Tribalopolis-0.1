@@ -11,6 +11,9 @@
         - OPTIMIZE!! Maintain cache items by some criterion such as usage or age
         - rationalize "change" object
         - enhance to handle types as documents (when edited or created)
+        - add CREATED, UPDATED, LASTUSED, and USAGECOUNT stamps to cache items
+        - implement state item garbage collection (no listeners)
+        - implement general max for cache (1000?) with trigger to reduce to 900 or so
 */
 import gateway from './gateway';
 // ==============[ Internal ]===============

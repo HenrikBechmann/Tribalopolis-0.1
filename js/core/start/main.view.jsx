@@ -13,7 +13,7 @@ const MainView = ({ globalmessage, className }) => (<div className={className}>
         {globalmessage}
 
         <AppRouter />
-        <ToastContainer position={toast.POSITION.BOTTOM_CENTER}/>
+        <ToastContainer position={toast.POSITION.BOTTOM_LEFT}/>
         
     </div>);
 export default MainView;
