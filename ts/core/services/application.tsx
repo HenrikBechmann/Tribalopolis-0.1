@@ -38,16 +38,39 @@ const debug2 = false
     There is a separate set of methods for each of the document and type caches.
 */
 
-// -----------[ document cache ]-----------
 /*
-    Returns a initialized document cache item
-*/
-const newDocumentCacheItem = () => {
 
-    return {
-        document:null,
-        listeners: new Map(),
-    }
+    (addDocumentCacheListener)
+        (getDocumentCacheItem) which
+            creates a new document-cache with
+            (newDocumentCacheItem) if necessary
+                sets document-cache item
+                sets gateway document callback
+                (processDocumentCallbackFromGateway)
+                    sets document-cache document
+                    (addTypeCacheListener) which
+                        (getTypeCacheItem)
+                        creates a type-cache item, if necessary which
+                        sets a geteway type-listener callback, which
+                        sets the cache type-document, which triggers
+                        processing of document callbacks
+            
+
+
+        sets cache item listener
+    create document cache item, which 
+    sets gateway document listener callback, which
+    sets the cache document and
+    and 
+    set document cache listener callback
+
+*/
+// adds a document listener to be updated when a document changes or is set
+const addDocumentCacheListener = (reference,instanceid,callback) => {
+
+    let cacheitem = getDocumentCacheItem(reference)
+
+    cacheitem.listeners.set(instanceid,callback)
 
 }
 
@@ -71,11 +94,24 @@ const getDocumentCacheItem = (reference) => {
         documentcache.set(reference,cacheitem)
 
         // connect to data source
-        gateway.setDocumentListener(reference,processDocumentCallbacksFromGateway)
+        gateway.setDocumentListener(reference, processDocumentCallbackFromGateway)
 
     }
 
     return cacheitem
+}
+
+// -----------[ document cache ]-----------
+/*
+    Returns a initialized document cache item
+*/
+const newDocumentCacheItem = () => {
+
+    return {
+        document:null,
+        listeners: new Map(),
+    }
+
 }
 
 /*
@@ -86,7 +122,7 @@ const getDocumentCacheItem = (reference) => {
 
     if there is no type yet recorded, callbacks will not be processed.
 */
-const processDocumentCallbacksFromGateway = ( reference, document, change ) => {
+const processDocumentCallbackFromGateway = ( reference, document, change ) => {
 
     debug && console.log('document callback from gateway', reference)
     // set or update document
@@ -99,6 +135,72 @@ const processDocumentCallbacksFromGateway = ( reference, document, change ) => {
 
     // will not process without type
     processDocumentCallbacks(reference,change) 
+
+}
+
+const addTypeCacheListener = (typereference, documentreference, callback) => {
+
+    let cacheitem = getTypeCacheItem(typereference)
+
+    debug && console.log("add TypeCacheListener", typereference, documentreference, cacheitem)
+
+    if (!cacheitem.listeners.has(documentreference)) {
+
+        cacheitem.listeners.set(documentreference,callback)
+
+        debug && console.log('creating type cache listener',cacheitem.listeners)
+
+    }
+}
+
+const getTypeCacheItem = (reference) => { // type reference
+    let cacheitem
+
+    if (typecache.has(reference)) {
+
+        debug && console.log('get TypeCacheItem',reference)
+
+        cacheitem = typecache.get(reference)
+
+    } else {
+
+        debug && console.log('create TypeCacheItem',reference)
+
+        cacheitem = newTypeCacheItem()
+        typecache.set(reference,cacheitem)
+
+        gateway.setDocumentListener(reference, processTypeCallbacksFromGateway)
+
+    }
+
+    return cacheitem
+    
+}
+
+const newTypeCacheItem = () => {
+
+    return {
+        document:null,
+        listeners:new Map(),
+    }
+
+}
+
+const processTypeCallbacksFromGateway = ( reference, type, change ) => {
+
+    debug && console.log('initializing type callback from gateway',reference)
+
+    let typedoc = type || {}
+    let cacheitem = typecache.get(reference)
+    cacheitem.document = typedoc
+    let listeners = cacheitem.listeners
+
+    debug && console.log('type cache item listeners',listeners)
+
+    listeners.forEach((callback,key) => {
+        debug && console.log('processing callback from type for ',key)
+        callback(key,change)
+    })
 
 }
 
@@ -162,15 +264,6 @@ const removeDocumentCacheItem = (reference) => {
 
 // ------------[ document listeners ]---------------
 
-// adds a document listener to be updated when a document changes or is set
-const addDocumentCacheListener = (reference,instanceid,callback) => {
-
-    let cacheitem = getDocumentCacheItem(reference)
-
-    cacheitem.listeners.set(instanceid,callback)
-
-}
-
 // removes a document listener when the observer is dismounted
 const removeDocumentCacheListener = (reference, instanceid) => {
 
@@ -191,58 +284,6 @@ const removeDocumentCacheListener = (reference, instanceid) => {
 
 // type cache
 
-const newTypeCacheItem = () => {
-
-    return {
-        document:null,
-        listeners:new Map(),
-    }
-
-}
-
-const getTypeCacheItem = (reference) => { // type reference
-    let cacheitem
-
-    if (typecache.has(reference)) {
-
-        debug && console.log('get TypeCacheItem',reference)
-
-        cacheitem = typecache.get(reference)
-
-    } else {
-
-        debug && console.log('create TypeCacheItem',reference)
-
-        cacheitem = newTypeCacheItem()
-        typecache.set(reference,cacheitem)
-
-        gateway.setDocumentListener(reference, processTypeCallbacksFromGateway)
-
-    }
-
-    return cacheitem
-    
-}
-
-const processTypeCallbacksFromGateway = ( reference, type, change ) => {
-
-    debug && console.log('initializing type callback from gateway',reference)
-
-    let typedoc = type || {}
-    let cacheitem = typecache.get(reference)
-    cacheitem.document = typedoc
-    let listeners = cacheitem.listeners
-
-    debug && console.log('type cache item listeners',listeners)
-
-    listeners.forEach((callback,key) => {
-        debug && console.log('processing callback from type for ',key)
-        callback(key,change)
-    })
-
-}
-
-
 const removeTypeCacheItem = (reference) => {
 
     typecache.delete(reference)
@@ -251,21 +292,6 @@ const removeTypeCacheItem = (reference) => {
 }
 
 // type listeners
-
-const addTypeCacheListener = (typereference,documentreference,callback) => {
-
-    let cacheitem = getTypeCacheItem(typereference)
-
-    debug && console.log("add TypeCacheListener", typereference, documentreference, cacheitem)
-
-    if (!cacheitem.listeners.has(documentreference)) {
-
-        cacheitem.listeners.set(documentreference,callback)
-
-        debug && console.log('creating type cache listener',cacheitem.listeners)
-
-    }
-}
 
 const removeTypeCacheListener = (typereference, documentreference) => {
 
