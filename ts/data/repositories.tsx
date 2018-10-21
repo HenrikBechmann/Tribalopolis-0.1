@@ -188,6 +188,45 @@ let lists = {
             links:[],
         },
     },
+    logs:
+    {
+        identity:{
+            container:'',
+            id:'',
+            handle:'',
+            type:'/types/logs',
+            account:{
+                id:'',
+                handle:'',
+            },
+        },
+        properties:{
+            class:'field',
+            version:0,
+            name:'Logs',
+        },
+        references:{
+            subscriptions:[], // {reference:[],list:''}
+            owner:{
+                id:'henrik',
+                collection:'items',
+            },
+            parentlists:[],
+            folder:'',
+        },
+        counts:{
+            lists:0,
+            links:0,
+        },
+        system:{
+            attributes:{},
+            permissions:{},
+        },
+        data:{
+            lists:[],
+            links:[],
+        },
+    },
     notes:
     {
         identity:{
@@ -456,6 +495,44 @@ let lists = {
             links:[],
         },
     },
+    plans:
+    {
+        identity:{
+            container:'',
+            id:'',
+            handle:'',
+            type:'/types/plans',
+            account:{
+                id:'',
+                handle:'',
+            },
+        },
+        properties:{
+            version:0,
+            name:'Plans',
+        },
+        references:{
+            subscriptions:[],
+            owner:{
+                id:'henrik',
+                collection:'items',
+            },
+            parentlists:[],
+            folder:'',
+        },
+        counts:{
+            lists:0,
+            links:0,
+        },
+        system:{
+            attributes:{},
+            permissions:{},
+        },
+        data:{
+            lists:[],
+            links:[],
+        },
+    },
     projects:
     {
         identity:{
@@ -584,7 +661,7 @@ let lists = {
         },
         properties:{
             version:0,
-            name:'Social Chats',
+            name:'Discussion Forums',
         },
         references:{
             subscriptions:[],
@@ -684,6 +761,44 @@ let lists = {
             links:[],
         },
     },
+    timesheets:
+    {
+        identity:{
+            container:'',
+            id:'',
+            handle:'',
+            type:'/types/timesheets',
+            account:{
+                id:'',
+                handle:'',
+            },
+        },
+        properties:{
+            version:0,
+            name:'Timesheets',
+        },
+        references:{
+            subscriptions:[],
+            owner:{
+                id:'henrik',
+                collection:'items',
+            },
+            parentlists:[],
+            folder:'',
+        },
+        counts:{
+            lists:0,
+            links:0,
+        },
+        system:{
+            attributes:{},
+            permissions:{},
+        },
+        data:{
+            lists:[],
+            links:[],
+        },
+    },
     accounting:
     {
         identity:{
@@ -699,6 +814,44 @@ let lists = {
         properties:{
             version:0,
             name:'Ledgers',
+        },
+        references:{
+            subscriptions:[],
+            owner:{
+                id:'henrik',
+                collection:'items',
+            },
+            parentlists:[],
+            folder:'',
+        },
+        counts:{
+            lists:0,
+            links:0,
+        },
+        system:{
+            attributes:{},
+            permissions:{},
+        },
+        data:{
+            lists:[],
+            links:[],
+        },
+    },
+    budgets:
+    {
+        identity:{
+            container:'',
+            id:'',
+            handle:'',
+            type:'/types/budgets',
+            account:{
+                id:'',
+                handle:'',
+            },
+        },
+        properties:{
+            version:0,
+            name:'Budgets',
         },
         references:{
             subscriptions:[],
@@ -874,7 +1027,7 @@ let lists = {
             folder:'',
         },
         counts:{
-            lists:16,
+            lists:20,
             links:0,
         },
         system:{
@@ -895,23 +1048,15 @@ let lists = {
                 },
                 {
                     collection:'lists',
+                    id:'roles',
+                },
+                {
+                    collection:'lists',
                     id:'connections',
                 },
                 {
                     collection:'lists',
-                    id:'tasks',
-                },
-                {
-                    collection:'lists',
-                    id:'calendars',
-                },
-                {
-                    collection:'lists',
-                    id:'projects',
-                },
-                {
-                    collection:'lists',
-                    id:'programs',
+                    id:'requesting',
                 },
                 {
                     collection:'lists',
@@ -923,11 +1068,39 @@ let lists = {
                 },
                 {
                     collection:'lists',
-                    id:'requesting',
+                    id:'tasks',
+                },
+                {
+                    collection:'lists',
+                    id:'projects',
+                },
+                {
+                    collection:'lists',
+                    id:'programs',
+                },
+                {
+                    collection:'lists',
+                    id:'plans',
+                },
+                {
+                    collection:'lists',
+                    id:'calendars',
+                },
+                {
+                    collection:'lists',
+                    id:'timesheets',
                 },
                 {
                     collection:'lists',
                     id:'accounting',
+                },
+                {
+                    collection:'lists',
+                    id:'budgets',
+                },
+                {
+                    collection:'lists',
+                    id:'logs',
                 },
                 {
                     collection:'lists',
@@ -936,10 +1109,6 @@ let lists = {
                 {
                     collection:'lists',
                     id:'notes',
-                },
-                {
-                    collection:'lists',
-                    id:'roles',
                 },
                 {
                     collection:'lists',

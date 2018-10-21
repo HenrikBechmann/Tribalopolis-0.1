@@ -47,12 +47,13 @@ class BuildController extends React.Component<any,any> {
     latestjson = {}
 
     fetchObject = () => {
-        // console.log('fetching', this.state.values)
-        gateway.getDocument(
-            `/${this.state.values.collection}/${this.state.values.id}`,
-            this.getCallback,
-            this.getErrorCallback
-        )
+        if (!this.savejson || (confirm('replace current object?'))) {
+            gateway.getDocument(
+                `/${this.state.values.collection}/${this.state.values.id}`,
+                this.getCallback,
+                this.getErrorCallback
+            )
+        }
     }
 
 
@@ -218,7 +219,7 @@ class BuildController extends React.Component<any,any> {
             </div>
             }}
             </UserContext.Consumer>
-            :<div>The build Utility is only available on desktops</div>}
+            :<div>The build utility is only available on desktops</div>}
         </div>
         
     }

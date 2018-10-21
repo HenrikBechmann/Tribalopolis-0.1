@@ -34,8 +34,9 @@ class BuildController extends React.Component {
         this.savejson = null;
         this.latestjson = {};
         this.fetchObject = () => {
-            // console.log('fetching', this.state.values)
-            gateway.getDocument(`/${this.state.values.collection}/${this.state.values.id}`, this.getCallback, this.getErrorCallback);
+            if (!this.savejson || (confirm('replace current object?'))) {
+                gateway.getDocument(`/${this.state.values.collection}/${this.state.values.id}`, this.getCallback, this.getErrorCallback);
+            }
         };
         this.getCallback = (data, id) => {
             this.latestjson = data;
@@ -144,7 +145,7 @@ class BuildController extends React.Component {
             </div>;
         }}
             </UserContext.Consumer>
-            : <div>The build Utility is only available on desktops</div>}
+            : <div>The build utility is only available on desktops</div>}
         </div>;
     }
 }
