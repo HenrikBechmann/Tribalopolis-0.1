@@ -192,7 +192,7 @@ class BuildController extends React.Component<any,any> {
                     onClick = {this.rollbackObject}
                     className = {this.props.classes.button}
                 >
-                    Roll Back
+                    Rollback
                 </Button>
                 <Button 
                     variant = 'contained'

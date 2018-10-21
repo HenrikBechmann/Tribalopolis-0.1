@@ -132,7 +132,7 @@ class BuildController extends React.Component {
                     Save for Rollback
                 </Button>
                 <Button variant='contained' onClick={this.rollbackObject} className={this.props.classes.button}>
-                    Roll Back
+                    Rollback
                 </Button>
                 <Button variant='contained' onClick={this.postObject} className={this.props.classes.button} disabled={(!superuser) || (!this.savejson)}>
                     Post
