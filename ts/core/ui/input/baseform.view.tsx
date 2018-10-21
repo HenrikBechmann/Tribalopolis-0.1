@@ -22,10 +22,19 @@ const styles = ( theme:Theme ) => createStyles({
 class BaseForm extends React.Component<any,any> {
 
     render() {
-        const { classes } = this.props
+        const { classes, onEnterKey } = this.props
 
         return (
-            <form className = { classes.root } autoComplete="off">
+            <form className = { classes.root } autoComplete="off" onKeyDown = {(event) => {
+                  // Number 13 is the "Enter" key on the keyboard
+                  if (event.keyCode === 13) {
+                    // Trigger the button element with a click
+                    event.preventDefault()
+                    event.stopPropagation()
+                    this.props.onEnterKey()
+                  }
+                }                
+            } >
                 { this.props.children }
             </form>
         )

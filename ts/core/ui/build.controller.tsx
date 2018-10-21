@@ -59,6 +59,10 @@ class BuildController extends React.Component<any,any> {
 
     getCallback = (data,id) => {
 
+        if (!data) {
+            data = {}
+            toast.warn('new object')
+        }
         this.latestjson = data
         this.savejson = data
         this.setState({
@@ -132,7 +136,7 @@ class BuildController extends React.Component<any,any> {
             // console.log('user',superuser,user)
             return <div>
             <div>The build utility is currently only available to Henrik Bechmann, the author.</div>
-            <BaseForm>
+            <BaseForm onEnterKey = {this.fetchObject}>
                 <SelectField
                     label = {'Collection'}
                     name = 'collection'
@@ -140,6 +144,10 @@ class BuildController extends React.Component<any,any> {
                     onChange = {this.onChangeValue}
                     helperText = {'select an object to build'}
                     options = {[
+                        {
+                            value:'sourcetypes',
+                            text:'Source Types',
+                        },
                         {
                             value:'types',
                             text:'Type',
