@@ -158,7 +158,7 @@ class DirectoryBar extends React.Component {
                         </MenuItem>
                         <MenuItem className={classes.menustyle} onClick={this.menuClose}>
                             <div style={{ display: 'inline-block', width: '24px', height: '24px' }}></div> 
-                            {false && <Icon style={{ opacity: .54 }}>check</Icon>} Show Only Labels
+                            {false && <Icon style={{ opacity: .54 }}>check</Icon>} Show Labels Only
                         </MenuItem>
                         <Divider />
                         <MenuItem className={classes.menustyle} onClick={this.menuClose}>
