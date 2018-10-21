@@ -19,6 +19,10 @@ import BasicEditor from './input/basiceditor.view'
 
 import UserContext from '../services/user.context'
 
+import gateway from '../services/gateway'
+
+import merge from 'deepmerge'
+
 const styles = theme => ({
   button: {
     margin: theme.spacing.unit,
@@ -43,9 +47,13 @@ class BuildController extends React.Component<any,any> {
     state = {
         values:{
             collection:'types',
-            alias:'',
+            id:'',
         },
         json:{},
+        doc:{
+            data:{},
+            id:null,
+        }
     }
 
     savejson = {}
@@ -53,7 +61,34 @@ class BuildController extends React.Component<any,any> {
     latestjson = {}
 
     fetchObject = () => {
-        console.log('fetching', this.state.values)
+        // console.log('fetching', this.state.values)
+        gateway.getDocument(
+            `/${this.state.values.collection}/${this.state.values.id}`,
+            this.getCallback,
+            this.errorCallback
+        )
+        // console.log('done fetching')
+    }
+
+
+    getCallback = (data,id) => {
+        // console.log('got doc',data,id)
+        // debugger
+
+        this.setState({
+            doc:{
+                data:data,
+                id:id
+            }
+        })//,() => {
+        //     console.log('state',this.state)
+        // })
+        this.latestjson = data
+        // console.log('fetchresult',this.fetchresult)
+    }
+
+    errorCallback = (error) => {
+        console.log('error',error)
     }
 
     saveObject = () => {
@@ -67,7 +102,20 @@ class BuildController extends React.Component<any,any> {
     }
 
     postObject = () => {
-        console.log('posting', this.state.values)
+        gateway.setDocument(
+            `/${this.state.values.collection}/${this.state.values.id}`,
+            this.latestjson,
+            this.postSuccess,
+            this.postFailure
+        )        
+    }
+
+    postSuccess = () => {
+        console.log('successful post')
+    }
+
+    postFailure = (error) => {
+        console.log('post error',error)
     }
 
     clearObject = () => {
@@ -78,6 +126,7 @@ class BuildController extends React.Component<any,any> {
     }
 
     onChangeValue = event => {
+        // console.log('event',event)
         let { values } = this.state
         values[event.target.name] = event.target.value
         this.setState({ values })    
@@ -108,15 +157,19 @@ class BuildController extends React.Component<any,any> {
                             value:'schemes',
                             text:'Scheme',
                         },
+                        {
+                            value:'system',
+                            text:'System',
+                        },
                     ]}
                 />
 
                 <TextField 
-                    label = 'Handle'
-                    name = 'handle'
-                    value = {this.state.values.alias}
+                    label = 'Id'
+                    name = 'id'
+                    value = {this.state.values.id}
                     onChange = { this.onChangeValue }
-                    helperText = 'enter the handle of the requested object'
+                    helperText = 'enter the id of the requested object'
                 />
             </BaseForm>
             <div>
@@ -160,7 +213,7 @@ class BuildController extends React.Component<any,any> {
             </div>
             <div>
                 <ReactJson 
-                    src = {this.state.json} 
+                    src = {this.state.doc.data} 
                     onEdit = {props => {
                         this.latestjson = props.updated_src
                     }}

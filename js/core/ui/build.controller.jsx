@@ -10,6 +10,7 @@ import BaseForm from './input/baseform.view';
 import SelectField from './input/selectfield.view';
 import TextField from './input/textfield.view';
 import UserContext from '../services/user.context';
+import gateway from '../services/gateway';
 const styles = theme => ({
     button: {
         margin: theme.spacing.unit,
@@ -33,14 +34,37 @@ class BuildController extends React.Component {
         this.state = {
             values: {
                 collection: 'types',
-                alias: '',
+                id: '',
             },
             json: {},
+            doc: {
+                data: {},
+                id: null,
+            }
         };
         this.savejson = {};
         this.latestjson = {};
         this.fetchObject = () => {
-            console.log('fetching', this.state.values);
+            // console.log('fetching', this.state.values)
+            gateway.getDocument(`/${this.state.values.collection}/${this.state.values.id}`, this.getCallback, this.errorCallback);
+            // console.log('done fetching')
+        };
+        this.getCallback = (data, id) => {
+            // console.log('got doc',data,id)
+            // debugger
+            this.setState({
+                doc: {
+                    data: data,
+                    id: id
+                }
+            }); //,() => {
+            //     console.log('state',this.state)
+            // })
+            this.latestjson = data;
+            // console.log('fetchresult',this.fetchresult)
+        };
+        this.errorCallback = (error) => {
+            console.log('error', error);
         };
         this.saveObject = () => {
             this.savejson = this.latestjson;
@@ -51,7 +75,13 @@ class BuildController extends React.Component {
             });
         };
         this.postObject = () => {
-            console.log('posting', this.state.values);
+            gateway.setDocument(`/${this.state.values.collection}/${this.state.values.id}`, this.latestjson, this.postSuccess, this.postFailure);
+        };
+        this.postSuccess = () => {
+            console.log('successful post');
+        };
+        this.postFailure = (error) => {
+            console.log('post error', error);
         };
         this.clearObject = () => {
             this.savejson = {};
@@ -60,6 +90,7 @@ class BuildController extends React.Component {
             });
         };
         this.onChangeValue = event => {
+            // console.log('event',event)
             let { values } = this.state;
             values[event.target.name] = event.target.value;
             this.setState({ values });
@@ -83,9 +114,13 @@ class BuildController extends React.Component {
                     value: 'schemes',
                     text: 'Scheme',
                 },
+                {
+                    value: 'system',
+                    text: 'System',
+                },
             ]}/>
 
-                <TextField label='Handle' name='handle' value={this.state.values.alias} onChange={this.onChangeValue} helperText='enter the handle of the requested object'/>
+                <TextField label='Id' name='id' value={this.state.values.id} onChange={this.onChangeValue} helperText='enter the id of the requested object'/>
             </BaseForm>
             <div>
                 <Button variant='contained' onClick={this.fetchObject} className={this.props.classes.button} disabled={!superuser}>
@@ -105,7 +140,7 @@ class BuildController extends React.Component {
                 </Button>
             </div>
             <div>
-                <ReactJson src={this.state.json} onEdit={props => {
+                <ReactJson src={this.state.doc.data} onEdit={props => {
                 this.latestjson = props.updated_src;
             }} onAdd={props => {
                 this.latestjson = props.updated_src;
