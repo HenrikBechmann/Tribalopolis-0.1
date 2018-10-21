@@ -10,24 +10,14 @@ import BaseForm from './input/baseform.view';
 import SelectField from './input/selectfield.view';
 import TextField from './input/textfield.view';
 import UserContext from '../services/user.context';
+import application from '../services/application';
 import gateway from '../services/gateway';
+import { toast } from 'react-toastify';
 const styles = theme => ({
     button: {
         margin: theme.spacing.unit,
     },
 });
-let testJson = {
-    one: {
-        first: 1,
-        second: "second"
-    },
-    two: "two",
-    three: [
-        "first",
-        2,
-        "third"
-    ]
-};
 class BuildController extends React.Component {
     constructor() {
         super(...arguments);
@@ -36,58 +26,60 @@ class BuildController extends React.Component {
                 collection: 'types',
                 id: '',
             },
-            json: {},
             doc: {
                 data: {},
                 id: null,
             }
         };
-        this.savejson = {};
+        this.savejson = null;
         this.latestjson = {};
         this.fetchObject = () => {
             // console.log('fetching', this.state.values)
-            gateway.getDocument(`/${this.state.values.collection}/${this.state.values.id}`, this.getCallback, this.errorCallback);
-            // console.log('done fetching')
+            gateway.getDocument(`/${this.state.values.collection}/${this.state.values.id}`, this.getCallback, this.getErrorCallback);
         };
         this.getCallback = (data, id) => {
-            // console.log('got doc',data,id)
-            // debugger
+            this.latestjson = data;
+            this.savejson = data;
             this.setState({
                 doc: {
                     data: data,
                     id: id
                 }
-            }); //,() => {
-            //     console.log('state',this.state)
-            // })
-            this.latestjson = data;
-            // console.log('fetchresult',this.fetchresult)
+            });
         };
-        this.errorCallback = (error) => {
-            console.log('error', error);
+        this.getErrorCallback = (error) => {
+            toast.error(error);
         };
         this.saveObject = () => {
             this.savejson = this.latestjson;
+            toast.info('object saved');
         };
         this.rollbackObject = () => {
-            this.setState({
-                json: this.savejson
-            });
+            this.latestjson = this.savejson;
+            this.forceUpdate();
+            toast.info('object was rolled back from most recent save');
         };
         this.postObject = () => {
-            gateway.setDocument(`/${this.state.values.collection}/${this.state.values.id}`, this.latestjson, this.postSuccess, this.postFailure);
+            if (confirm('Post this object?')) {
+                gateway.setDocument(`/${this.state.values.collection}/${this.state.values.id}`, this.latestjson, this.postSuccessCallback, this.postFailureCallback);
+            }
         };
-        this.postSuccess = () => {
-            console.log('successful post');
+        this.postSuccessCallback = () => {
+            toast.info('object was successfully posted');
         };
-        this.postFailure = (error) => {
-            console.log('post error', error);
+        this.postFailureCallback = (error) => {
+            toast.error(error);
         };
         this.clearObject = () => {
-            this.savejson = {};
+            this.savejson = null;
+            this.latestjson = {};
             this.setState({
-                json: {},
+                doc: {
+                    data: {},
+                    id: null,
+                }
             });
+            toast.info('object was cleared');
         };
         this.onChangeValue = event => {
             // console.log('event',event)
@@ -99,11 +91,12 @@ class BuildController extends React.Component {
     render() {
         return <div>
             <StandardToolbar />
-            <UserContext.Consumer>
+            {!application.properties.ismobile ? <UserContext.Consumer>
             {user => {
             let superuser = !!(user && (user.uid == '112979797407042560714'));
             // console.log('user',superuser,user)
             return <div>
+            <div>The build utility is currently only available to Henrik Bechmann, the author.</div>
             <BaseForm>
                 <SelectField label={'Collection'} name='collection' value={this.state.values.collection} onChange={this.onChangeValue} helperText={'select an object to build'} options={[
                 {
@@ -127,12 +120,12 @@ class BuildController extends React.Component {
                     Fetch
                 </Button>
                 <Button variant='contained' onClick={this.saveObject} className={this.props.classes.button}>
-                    Save
+                    Save for Rollback
                 </Button>
                 <Button variant='contained' onClick={this.rollbackObject} className={this.props.classes.button}>
                     Roll Back
                 </Button>
-                <Button variant='contained' onClick={this.postObject} className={this.props.classes.button} disabled={!superuser}>
+                <Button variant='contained' onClick={this.postObject} className={this.props.classes.button} disabled={(!superuser) || (!this.savejson)}>
                     Post
                 </Button>
                 <Button variant='contained' onClick={this.clearObject} className={this.props.classes.button}>
@@ -151,7 +144,7 @@ class BuildController extends React.Component {
             </div>;
         }}
             </UserContext.Consumer>
-            
+            : <div>The build Utility is only available on desktops</div>}
         </div>;
     }
 }

@@ -15,32 +15,19 @@ import StandardToolbar from './common/standardtoolbar.view'
 import BaseForm from './input/baseform.view'
 import SelectField from './input/selectfield.view'
 import TextField from './input/textfield.view'
-import BasicEditor from './input/basiceditor.view'
 
 import UserContext from '../services/user.context'
 
+import application from '../services/application'
 import gateway from '../services/gateway'
 
-import merge from 'deepmerge'
+import { toast } from 'react-toastify'
 
 const styles = theme => ({
   button: {
     margin: theme.spacing.unit,
   },
 })
-
-let testJson = {
-    one:{
-        first:1,
-        second:"second"
-    },
-    two:"two",
-    three:[
-        "first",
-        2,
-        "third"
-    ]
-}
 
 class BuildController extends React.Component<any,any> {
 
@@ -49,14 +36,13 @@ class BuildController extends React.Component<any,any> {
             collection:'types',
             id:'',
         },
-        json:{},
         doc:{
             data:{},
             id:null,
         }
     }
 
-    savejson = {}
+    savejson = null
 
     latestjson = {}
 
@@ -65,64 +51,68 @@ class BuildController extends React.Component<any,any> {
         gateway.getDocument(
             `/${this.state.values.collection}/${this.state.values.id}`,
             this.getCallback,
-            this.errorCallback
+            this.getErrorCallback
         )
-        // console.log('done fetching')
     }
 
 
     getCallback = (data,id) => {
-        // console.log('got doc',data,id)
-        // debugger
 
+        this.latestjson = data
+        this.savejson = data
         this.setState({
             doc:{
                 data:data,
                 id:id
             }
-        })//,() => {
-        //     console.log('state',this.state)
-        // })
-        this.latestjson = data
-        // console.log('fetchresult',this.fetchresult)
+        })
+
     }
 
-    errorCallback = (error) => {
-        console.log('error',error)
+    getErrorCallback = (error) => {
+        toast.error(error)
     }
 
     saveObject = () => {
         this.savejson = this.latestjson
+        toast.info('object saved')
     }
 
     rollbackObject = () => {
-        this.setState({
-            json:this.savejson
-        })
+        this.latestjson = this.savejson
+        this.forceUpdate()
+        toast.info('object was rolled back from most recent save')
     }
 
     postObject = () => {
-        gateway.setDocument(
-            `/${this.state.values.collection}/${this.state.values.id}`,
-            this.latestjson,
-            this.postSuccess,
-            this.postFailure
-        )        
+        if (confirm('Post this object?')) {
+            gateway.setDocument(
+                `/${this.state.values.collection}/${this.state.values.id}`,
+                this.latestjson,
+                this.postSuccessCallback,
+                this.postFailureCallback
+            )
+        }
     }
 
-    postSuccess = () => {
-        console.log('successful post')
+    postSuccessCallback = () => {
+        toast.info('object was successfully posted')
     }
 
-    postFailure = (error) => {
-        console.log('post error',error)
+    postFailureCallback = (error) => {
+        toast.error(error)
     }
 
     clearObject = () => {
-        this.savejson = {}
+        this.savejson = null
+        this.latestjson = {}
         this.setState({
-            json:{},
+            doc:{
+                data:{},
+                id:null,
+            }
         })
+        toast.info('object was cleared')
     }
 
     onChangeValue = event => {
@@ -133,14 +123,14 @@ class BuildController extends React.Component<any,any> {
     }
 
     render() {
-
         return <div>
             <StandardToolbar />
-            <UserContext.Consumer>
+            {!application.properties.ismobile?<UserContext.Consumer>
             { user => {
             let superuser = !!(user && (user.uid == '112979797407042560714'))
             // console.log('user',superuser,user)
             return <div>
+            <div>The build utility is currently only available to Henrik Bechmann, the author.</div>
             <BaseForm>
                 <SelectField
                     label = {'Collection'}
@@ -186,7 +176,7 @@ class BuildController extends React.Component<any,any> {
                     onClick = {this.saveObject}
                     className = {this.props.classes.button}
                 >
-                    Save
+                    Save for Rollback
                 </Button>
                 <Button 
                     variant = 'contained'
@@ -199,7 +189,7 @@ class BuildController extends React.Component<any,any> {
                     variant = 'contained'
                     onClick = {this.postObject}
                     className = {this.props.classes.button}
-                    disabled = {!superuser}
+                    disabled = {(!superuser) || (!this.savejson)}
                 >
                     Post
                 </Button>
@@ -228,8 +218,9 @@ class BuildController extends React.Component<any,any> {
             </div>
             }}
             </UserContext.Consumer>
-            {/*<BasicEditor />*/}
+            :<div>The build Utility is only available on desktops</div>}
         </div>
+        
     }
 }
 

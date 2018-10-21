@@ -13,7 +13,7 @@ const MainView = ({ globalmessage, className }) => (<div className={className}>
         {globalmessage}
 
         <AppRouter />
-        <ToastContainer position={toast.POSITION.BOTTOM_LEFT}/>
+        <ToastContainer position={toast.POSITION.BOTTOM_LEFT} autoClose={3000} hideProgressBar/>
         
     </div>);
 export default MainView;
