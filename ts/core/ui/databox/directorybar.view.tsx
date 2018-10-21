@@ -200,7 +200,8 @@ class DirectoryBar extends React.Component<any,any> {
                         <Divider />
                         <MenuItem className = {classes.menustyle}
                             onClick = {this.menuClose}>
-                            <div style = {{display:'inline-block',width:'24px', height:'24px'}}></div>{false && <Icon style = {{opacity:.54}} >check</Icon>} Select Mode
+                            <div style = {{display:'inline-block',width:'24px', height:'24px'}}></div>
+                            {false && <Icon style = {{opacity:.54}} >check</Icon>} Select Mode
                         </MenuItem>
                         <MenuItem className = {classes.menustyle}
                             onClick = {(e) =>{
@@ -215,7 +216,8 @@ class DirectoryBar extends React.Component<any,any> {
                         </MenuItem>
                         <MenuItem className = {classes.menustyle}
                             onClick = {this.menuClose}>
-                            <div style = {{display:'inline-block',width:'24px', height:'24px'}}></div> {false && <Icon style = {{opacity:.54}} >check</Icon>} Show Only Labels
+                            <div style = {{display:'inline-block',width:'24px', height:'24px'}}></div> 
+                            {false && <Icon style = {{opacity:.54}} >check</Icon>} Show Only Labels
                         </MenuItem>
                         <Divider />
                         <MenuItem className = {classes.menustyle}
