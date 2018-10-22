@@ -15,11 +15,11 @@ const styles = (theme) => createStyles({
 });
 class BaseForm extends React.Component {
     render() {
-        const { classes, fetchObject, superuser } = this.props;
+        const { classes, onSubmit, disabled } = this.props;
         return (<form onSubmit={(event) => {
             event.preventDefault();
-            if (superuser) {
-                fetchObject();
+            if (!disabled) {
+                onSubmit();
             }
         }} className={classes.root} autoComplete="off"> 
                 {this.props.children}

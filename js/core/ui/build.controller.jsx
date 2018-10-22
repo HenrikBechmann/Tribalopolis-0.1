@@ -102,7 +102,7 @@ class BuildController extends React.Component {
             // console.log('user',superuser,user)
             return <div>
             <div>The build utility is currently only available to Henrik Bechmann, the author.</div>
-            <BaseForm fetchObject={this.fetchObject} superuser={superuser}>
+            <BaseForm onSubmit={this.fetchObject} disabled={!superuser}>
                 <SelectField label={'Collection'} name='collection' value={this.state.values.collection} onChange={this.onChangeValue} helperText={'select an object to build'} options={[
                 {
                     value: 'sourcetypes',

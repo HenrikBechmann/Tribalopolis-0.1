@@ -22,14 +22,14 @@ const styles = ( theme:Theme ) => createStyles({
 class BaseForm extends React.Component<any,any> {
 
     render() {
-        const { classes, fetchObject, superuser } = this.props
+        const { classes, onSubmit, disabled } = this.props
 
         return (
             <form 
                 onSubmit = {(event) => {
                     event.preventDefault()
-                    if (superuser) {
-                        fetchObject()
+                    if (!disabled) {
+                        onSubmit()
                     }
                 }}
                 className = { classes.root } 
