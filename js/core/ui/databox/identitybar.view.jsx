@@ -111,6 +111,11 @@ class IdentityBar extends React.Component {
                         <Icon style={{ opacity: .54 }}>edit</Icon> Edit
                     </MenuItem>
                     <MenuItem className={classes.menustyle} disabled onClick={(e) => {
+            this.callDataDrawer(e, 'remove');
+        }}>
+                        <Icon style={{ opacity: .54 }}>close</Icon> Remove
+                    </MenuItem>
+                    <MenuItem className={classes.menustyle} disabled onClick={(e) => {
             this.callDataDrawer(e, 'delete');
         }}>
                         <Icon style={{ opacity: .54 }}>delete</Icon> Delete

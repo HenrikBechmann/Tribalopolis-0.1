@@ -48,7 +48,8 @@ const removeDocumentListener = reference => {
 const getDocument = (reference, callback, errorback) => {
     // console.log('getting document',reference)
     let docref = firestore.doc(reference);
-    docref.get().then((doc) => {
+    docref.get()
+        .then((doc) => {
         // console.log('returning doc with callback')
         let data = doc.data();
         let id = doc.id;
@@ -60,7 +61,11 @@ const getDocument = (reference, callback, errorback) => {
 };
 const setDocument = (reference, data, success, failure) => {
     let doc = firestore.doc(reference);
-    doc.set(data).then(() => { success(); }).catch((error) => failure(error));
+    doc.set(data)
+        .then(() => {
+        success();
+    })
+        .catch((error) => failure(error));
 };
 let domain = {
     setDocumentListener,
