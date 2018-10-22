@@ -47,6 +47,7 @@ class BuildController extends React.Component<any,any> {
     latestjson = {}
 
     fetchObject = () => {
+
         if (!this.savejson || (confirm('replace current object?'))) {
             gateway.getDocument(
                 `/${this.state.values.collection}/${this.state.values.id}`,
@@ -136,7 +137,7 @@ class BuildController extends React.Component<any,any> {
             // console.log('user',superuser,user)
             return <div>
             <div>The build utility is currently only available to Henrik Bechmann, the author.</div>
-            <BaseForm onEnterKey = {this.fetchObject}>
+            <BaseForm fetchObject = {this.fetchObject} superuser = {superuser}>
                 <SelectField
                     label = {'Collection'}
                     name = 'collection'
@@ -173,6 +174,7 @@ class BuildController extends React.Component<any,any> {
             </BaseForm>
             <div>
                 <Button 
+                    type = 'submit'
                     variant = 'contained'
                     onClick = {this.fetchObject}
                     className = {this.props.classes.button}

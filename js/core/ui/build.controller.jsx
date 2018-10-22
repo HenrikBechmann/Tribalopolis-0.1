@@ -102,7 +102,7 @@ class BuildController extends React.Component {
             // console.log('user',superuser,user)
             return <div>
             <div>The build utility is currently only available to Henrik Bechmann, the author.</div>
-            <BaseForm onEnterKey={this.fetchObject}>
+            <BaseForm fetchObject={this.fetchObject} superuser={superuser}>
                 <SelectField label={'Collection'} name='collection' value={this.state.values.collection} onChange={this.onChangeValue} helperText={'select an object to build'} options={[
                 {
                     value: 'sourcetypes',
@@ -125,7 +125,7 @@ class BuildController extends React.Component {
                 <TextField label='Id' name='id' value={this.state.values.id} onChange={this.onChangeValue} helperText='enter the id of the requested object'/>
             </BaseForm>
             <div>
-                <Button variant='contained' onClick={this.fetchObject} className={this.props.classes.button} disabled={!superuser}>
+                <Button type='submit' variant='contained' onClick={this.fetchObject} className={this.props.classes.button} disabled={!superuser}>
                     Fetch
                 </Button>
                 <Button variant='contained' onClick={this.saveObject} className={this.props.classes.button}>
