@@ -22,6 +22,7 @@ import application from '../services/application'
 import gateway from '../services/gateway'
 
 import { toast } from 'react-toastify'
+import ActionButton from './common/actionbutton.view'
 
 const styles = theme => ({
   button: {
@@ -171,6 +172,7 @@ class BuildController extends React.Component<any,any> {
                     onChange = { this.onChangeValue }
                     helperText = 'enter the id of the requested object'
                 />
+                <ActionButton icon = 'list'/>
             </BaseForm>
             <div>
                 <Button 

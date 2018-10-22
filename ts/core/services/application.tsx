@@ -354,8 +354,8 @@ const properties = {
 
 const setDocumentListener = (token,instanceid,callback) => {
 
-    setTimeout(()=>{
-        
+    setTimeout(()=>{ // give animations a chance to run
+
     let reference = getTokenReference(token)
 
     addDocumentCacheListener(reference,instanceid,callback)

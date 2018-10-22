@@ -11,6 +11,7 @@ const styles = (theme) => createStyles({
     root: {
         display: 'flex',
         flexWrap: 'wrap',
+        alignItems: 'center',
     },
 });
 class BaseForm extends React.Component {

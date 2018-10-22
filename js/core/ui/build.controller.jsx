@@ -13,6 +13,7 @@ import UserContext from '../services/user.context';
 import application from '../services/application';
 import gateway from '../services/gateway';
 import { toast } from 'react-toastify';
+import ActionButton from './common/actionbutton.view';
 const styles = theme => ({
     button: {
         margin: theme.spacing.unit,
@@ -123,6 +124,7 @@ class BuildController extends React.Component {
             ]}/>
 
                 <TextField label='Id' name='id' value={this.state.values.id} onChange={this.onChangeValue} helperText='enter the id of the requested object'/>
+                <ActionButton icon='list'/>
             </BaseForm>
             <div>
                 <Button type='submit' variant='contained' onClick={this.fetchObject} className={this.props.classes.button} disabled={!superuser}>
