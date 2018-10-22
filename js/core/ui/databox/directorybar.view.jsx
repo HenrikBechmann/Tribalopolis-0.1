@@ -186,7 +186,7 @@ class DirectoryBar extends React.Component {
                 </div>)
             : <div className={classes.progress}>
 
-                    <CircularProgress size={12}/>
+                    Loading... {false && <CircularProgress size={12}/>}
 
                 </div>}
             </div>;

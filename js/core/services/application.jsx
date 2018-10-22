@@ -237,20 +237,22 @@ const properties = {
     ismobile: /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)
 };
 const setDocumentListener = (token, instanceid, callback) => {
-    let reference = getTokenReference(token);
-    addDocumentCacheListener(reference, instanceid, callback);
-    debug && console.log('calling getDocumentPack from setDocumentListener', instanceid, reference);
-    let cachedata = getDocumentPack(reference);
-    if (cachedata.document && cachedata.type) { // defer if waiting for type
-        debug && console.log('IMMEDIATE callback', reference);
-        callback(cachedata.document, cachedata.type, {
-            documents: {
-                reason: 'newcallback',
-                document: true,
-                type: true,
-            }
-        });
-    }
+    setTimeout(() => {
+        let reference = getTokenReference(token);
+        addDocumentCacheListener(reference, instanceid, callback);
+        debug && console.log('calling getDocumentPack from setDocumentListener', instanceid, reference);
+        let cachedata = getDocumentPack(reference);
+        if (cachedata.document && cachedata.type) { // defer if waiting for type
+            debug && console.log('IMMEDIATE callback', reference);
+            callback(cachedata.document, cachedata.type, {
+                documents: {
+                    reason: 'newcallback',
+                    document: true,
+                    type: true,
+                }
+            });
+        }
+    });
 };
 const removeDocumentListener = (token, instanceid) => {
     let reference = getTokenReference(token);

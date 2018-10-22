@@ -354,6 +354,8 @@ const properties = {
 
 const setDocumentListener = (token,instanceid,callback) => {
 
+    setTimeout(()=>{
+        
     let reference = getTokenReference(token)
 
     addDocumentCacheListener(reference,instanceid,callback)
@@ -376,6 +378,7 @@ const setDocumentListener = (token,instanceid,callback) => {
             }
         )
     }
+    })
 
 }
 

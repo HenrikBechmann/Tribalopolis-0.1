@@ -62,7 +62,7 @@ class RootDirectoryBarHolder extends React.Component {
         return (this.state.item ?
             <DirectoryBar haspeers={false} listProxy={listProxy} setDocumentListener={this.props.setDocumentListener} removeDocumentListener={this.props.removeDocumentListener} callDataDrawer={this.props.callDataDrawer} listStack={this.itemProxy.liststack} collapseDirectoryItem={() => { }} contextitem/>
             : <div className={classes.holderstyle}>
-        <CircularProgress size={24}/>
+       Loading... {false && <CircularProgress size={24}/>}
     </div>);
     }
 }

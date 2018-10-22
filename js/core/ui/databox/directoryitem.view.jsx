@@ -102,7 +102,7 @@ class DirectoryItem extends React.Component {
 
                     </div>
             : <div className={classes.progress}> 
-                    <CircularProgress size={16}/>
+                    Loading... {false && <CircularProgress size={16}/>}
                 </div>}
         </div>;
     }

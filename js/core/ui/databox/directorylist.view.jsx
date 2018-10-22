@@ -151,7 +151,7 @@ const DirectoryListBase = withStyles(styles)(class extends React.Component {
         let length = this.state.listproxies ? this.state.listproxies.length : 0;
         return (<div className={classes.scrollboxcontainer}>
             <div className={classes.scrollbox}>
-                {this.state.listproxies ? <Lister ref={this.props.forwardedRef} itemRenderer={this.itemRenderer} length={length} type='uniform' useStaticSize/> : <CircularProgress size={24}/>}
+                {this.state.listproxies ? <Lister ref={this.props.forwardedRef} itemRenderer={this.itemRenderer} length={length} type='uniform' useStaticSize/> : <div> Loading... {false && <CircularProgress size={24}/>}</div>}
             </div>
         </div>);
     }

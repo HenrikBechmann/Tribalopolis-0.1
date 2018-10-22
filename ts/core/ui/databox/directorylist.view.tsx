@@ -212,7 +212,7 @@ class extends React.Component<any,any> {
                     length = {length}
                     type = 'uniform'
                     useStaticSize
-                />:<CircularProgress size = {24} />}
+                />:<div> Loading... {false && <CircularProgress size = {24}/>}</div>}
             </div>
         </div>
         )
