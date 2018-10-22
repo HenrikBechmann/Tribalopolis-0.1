@@ -30,7 +30,7 @@ class BaseForm extends React.Component<any,any> {
                   if (event.keyCode === 13) {
                     // Trigger the button element with a click
                     event.preventDefault()
-                    event.stopPropagation()
+                    // event.stopPropagation()
                     this.props.onEnterKey()
                   }
                 }                
