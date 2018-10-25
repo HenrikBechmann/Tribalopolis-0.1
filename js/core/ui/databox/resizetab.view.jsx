@@ -62,9 +62,9 @@ const resizeHandlers = {
 };
 let ResizeTab = class ResizeTab extends React.Component {
     render() {
-        const boxframeelement = this.props.boxframe.current;
-        const offsetWidth = boxframeelement.offsetWidth;
-        const offsetHeight = boxframeelement.offsetHeight;
+        const subjectelement = this.props.boxframe.current;
+        const offsetWidth = subjectelement.offsetWidth;
+        const offsetHeight = subjectelement.offsetHeight;
         const { isDragging, connectDragSource, connectDragPreview } = this.props;
         const { classes } = this.props;
         return (<React.Fragment>

@@ -36,10 +36,12 @@ const styles = createStyles({
     image: { width: '40px' },
 });
 let QuadOriginBase = withStyles(styles)((props) => {
-    const { classes } = props;
+    const { classes, stackdepth, stackpointer, itemdepth, haspeers, incrementStackSelector, decrementStackSelector, } = props;
+    let originextent = itemdepth ? stackdepth : 0;
+    let origindepth = originextent ? stackpointer + 1 : 0;
     return (<div className={classes.root} ref={props.forwardedRef}>
-            <QuantityBadge quantity={props.stackdepth}/>
-            <QuantityBadge quantity={props.stackpointer + 1} style={{
+            <QuantityBadge quantity={originextent}/>
+            <QuantityBadge quantity={origindepth} style={{
         top: 'auto',
         bottom: '0',
         right: 'auto',
@@ -51,7 +53,7 @@ let QuadOriginBase = withStyles(styles)((props) => {
             <div className={classes.icon}>
                 <img className={classes.image} src='/public/icons/OriginStack.svg'/>
             </div>
-            <OriginMenu haspeers={props.haspeers} stackdepth={props.stackdepth} stackpointer={props.stackpointer} incrementStackSelector={props.incrementStackSelector} decrementStackSelector={props.decrementStackSelector}/>
+            <OriginMenu haspeers={haspeers} stackdepth={stackdepth} stackpointer={stackpointer} incrementStackSelector={incrementStackSelector} decrementStackSelector={decrementStackSelector}/>
         </div>);
 });
 const QuadOrigin = React.forwardRef((props, ref) => {

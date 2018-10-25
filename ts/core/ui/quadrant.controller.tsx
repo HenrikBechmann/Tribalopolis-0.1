@@ -340,6 +340,7 @@ class Quadrant extends React.Component<any,any>  {
                 haspeers = {haspeers}
                 stackpointer = {this.state.stackpointer} 
                 stackdepth = {datastack?datastack.length:0}
+                itemdepth = {datastack?datastack[this.state.stackpointer].items.length:0}
                 incrementStackSelector = {this.operations.incrementStackSelector}
                 decrementStackSelector = {this.operations.decrementStackSelector}
                 ref = {this.originelement}
