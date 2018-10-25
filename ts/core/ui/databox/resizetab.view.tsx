@@ -76,11 +76,14 @@ const resizeHandlers = {
 @DragSource( DragTypes.RESIZETAB, resizeHandlers, resizeProps )
 class ResizeTab extends React.Component<any,any> {
 
+    adjustSize = difference => {
+        
+    }
+
     render() {
 
-        const boxframeelement:HTMLElement = this.props.boxframe.current
-        const offsetWidth = boxframeelement.offsetWidth
-        const offsetHeight = boxframeelement.offsetHeight
+        const subjectelement:HTMLElement = this.props.subjectelement.current
+        const offsetWidth = subjectelement.offsetWidth
 
         const { isDragging, connectDragSource, connectDragPreview } = this.props
         const { classes } = this.props
@@ -103,9 +106,7 @@ class ResizeTab extends React.Component<any,any> {
                 </div>
                 {
                     isDragging && <ResizeDragLayer 
-                        offsetWidth = { offsetWidth } 
-                        offsetHeight = { offsetHeight }
-                        resizeTabStyles = { classes }
+                        adjustSize = {this.adjustSize}
                     />
                 }
             </React.Fragment>
