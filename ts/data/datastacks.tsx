@@ -32,6 +32,13 @@ let datastacks = [ // four quadrant stacks
             },
             settings:{
             },
+            defaultitems:[
+                new proxy(
+                    {token:{
+                        collection:'items',
+                        id:'henrik',
+                    }}),
+            ],
         },
     ],
     [
@@ -48,6 +55,13 @@ let datastacks = [ // four quadrant stacks
             settings:{
 
             },
+            defaultitems:[
+                new proxy(
+                    {token:{
+                        collection:'items',
+                        id:'henrik',
+                    }}),
+            ],
         },
     ],
     [
@@ -64,6 +78,13 @@ let datastacks = [ // four quadrant stacks
             settings:{
 
             },
+            defaultitems:[
+                new proxy(
+                    {token:{
+                        collection:'items',
+                        id:'henrik',
+                    }}),
+            ],
         },
     ]
 ]

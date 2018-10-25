@@ -26,6 +26,12 @@ let datastacks = [
             ],
             source: {},
             settings: {},
+            defaultitems: [
+                new proxy({ token: {
+                        collection: 'items',
+                        id: 'henrik',
+                    } }),
+            ],
         },
     ],
     [
@@ -39,6 +45,12 @@ let datastacks = [
             ],
             source: {},
             settings: {},
+            defaultitems: [
+                new proxy({ token: {
+                        collection: 'items',
+                        id: 'henrik',
+                    } }),
+            ],
         },
     ],
     [
@@ -52,6 +64,12 @@ let datastacks = [
             ],
             source: {},
             settings: {},
+            defaultitems: [
+                new proxy({ token: {
+                        collection: 'items',
+                        id: 'henrik',
+                    } }),
+            ],
         },
     ]
 ];

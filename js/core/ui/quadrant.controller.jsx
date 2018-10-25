@@ -43,6 +43,19 @@ let styles = createStyles({
         boxSizing: 'border-box',
         borderRadius: '8px',
         position: 'relative',
+    },
+    startscreen: {
+        display: 'flex',
+        position: 'absolute',
+        height: '100%',
+        width: '100%',
+        alignContent: 'center',
+        justifyContent: 'center',
+        alignItems: 'center',
+        fontSize: 'larger',
+        fontStyle: 'italic',
+        fontWeight: 'bold',
+        opacity: .54,
     }
 });
 class Quadrant extends React.Component {
@@ -133,6 +146,15 @@ class Quadrant extends React.Component {
                 draweropen: true,
             });
         };
+        this.setDefault = () => {
+            let { datastack } = this.state;
+            datastack[this.state.stackpointer].items = datastack[this.state.stackpointer].defaultitems;
+            this.setState({
+                datastack,
+            }, () => {
+                this.forceUpdate(); // fetch data box
+            });
+        };
         // ----------[ refs ]----------
         this.drillanimationblock = React.createRef();
         this.originanimationblock = React.createRef();
@@ -214,6 +236,7 @@ class Quadrant extends React.Component {
         let { color, classes } = this.props;
         let { datastack } = this.state;
         let haspeers = datastack ? (this.state.datastack[this.state.stackpointer].items.length > 1) : false;
+        let isempty = datastack ? !(this.state.datastack[this.state.stackpointer].items.length) : true;
         let quadcontentStyle = {
             backgroundColor: color,
         };
@@ -237,11 +260,14 @@ class Quadrant extends React.Component {
                 <QuadDataDrawer open={this.state.draweropen} handleClose={this.closeDrawer}>
                     <QuadDataPane drawerDataPackage={this.drawerdatapackage}/>
                 </QuadDataDrawer>
-                <div className={classes.viewport} style={viewportStyle} ref={this.scrollboxelement}>
+                {!isempty ? <div className={classes.viewport} style={viewportStyle} ref={this.scrollboxelement}>
                     {haspeers
             ? <Lister axis='x' itemRenderer={this.getBox} length={datastack ? datastack[this.state.stackpointer].items.length : 0} type='uniform' ref={this.listcomponent} useStaticSize/>
             : this.getBox(0, 'singleton')}
-                </div>
+                </div> :
+            <div className={classes.startscreen} onClick={this.setDefault}>
+                    <div>Tap to start</div>
+                </div>}
             </div>
 
         </div>);
