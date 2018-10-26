@@ -68,12 +68,18 @@ class QuadDataDrawer extends React.Component {
         }
     }
     render() {
-        let { classes } = this.props;
+        let { classes, containerelement } = this.props;
+        let maxwidthcalc = containerelement.current ?
+            (containerelement.current.offsetWidth - 60) :
+            null;
+        let maxwidth = maxwidthcalc ? maxwidthcalc + 'px' : 'none';
+        console.log('maxwidth', maxwidth);
         return (<div style={{
             width: this.state.width + 'px',
             right: this.state.right + 'px',
+            maxWidth: maxwidth,
         }} className={classes.root} ref={this.datadrawerelement} data-name='data-drawer'>
-            <ResizeTab orientation='left' minwidth={200} maxwidth={600} currentwidth={this.state.width} setNewWidth={this.setNewWidth} hostelement={this.datadrawerelement}/>
+            <ResizeTab orientation='left' minwidth={200} maxwidth={600} currentwidth={maxwidthcalc ? Math.min(maxwidthcalc, this.state.width) : this.state.width} setNewWidth={this.setNewWidth} hostelement={this.datadrawerelement}/>
             <div className={classes.moniker}>data shelf</div>
             <IconButton className={classes.button} onClick={this.props.handleClose}>
                 <Icon>close</Icon>

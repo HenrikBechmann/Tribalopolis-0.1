@@ -18,46 +18,33 @@ import application from '../../services/application';
 const draglayerstyles = createStyles({
     frame: {
         position: 'absolute',
-        top: -6,
+        top: '0',
+        left: '0',
+        width: '12px',
+        height: '12px',
     },
 });
 let ResizeDragLayerBase = class ResizeDragLayerBase extends React.Component {
-    constructor(props) {
-        super(props);
+    constructor() {
+        super(...arguments);
         this.lastoffset = 0;
-        this.previewElement = React.createRef();
     }
     render() {
-        const { classes } = this.props;
-        if (this.previewElement.current) {
-            let diff = this.props.currentDifference.x;
-            if (Math.abs(this.lastoffset - diff) > 1) { // optimization
-                this.lastoffset = diff;
-                let widthnumber = this.startingwidth + diff;
-                if (widthnumber < (this.startingwidth + this.mindiff)) {
-                    widthnumber = (this.startingwidth + this.mindiff);
-                    diff = this.mindiff;
-                }
-                else if (widthnumber > this.startingwidth + this.maxdiff) {
-                    widthnumber = (this.startingwidth + this.maxdiff);
-                    diff = this.maxdiff;
-                }
-                let width = (widthnumber) + 'px';
+        const { classes, currentwidth, minwidth, maxwidth, hostelement, currentDifference, } = this.props;
+        if (hostelement.current) {
+            let diff = currentDifference.x;
+            this.lastoffset = diff;
+            let newwidth = currentwidth + -diff;
+            if (newwidth > maxwidth) {
+                newwidth = maxwidth;
             }
+            else if (newwidth < minwidth) {
+                newwidth = minwidth;
+            }
+            let width = (newwidth) + 'px';
+            hostelement.current.style.width = width;
         }
-        const framestyles = {
-            height: this.props.offsetHeight,
-            zIndex: 100,
-        };
-        return (<div ref={this.previewElement} className={classes.frame} style={framestyles}>
-            <div className={this.props.resizeTabStyles.tabstyles} style={{ backgroundColor: 'silver', opacity: 1 }}>
-                <div className={this.props.resizeTabStyles.iconwrapperstyles}>
-                    <Icon className={this.props.resizeTabStyles.iconstyles}> drag_handle </Icon>
-                </div> 
-
-            </div>
-
-        </div>);
+        return (<div className={classes.frame}></div>);
     }
 };
 ResizeDragLayerBase = __decorate([
@@ -133,7 +120,7 @@ let GeneralResizeTab = class GeneralResizeTab extends React.Component {
                             <Icon className={classes.iconstyles}> drag_handle </Icon>
                         </div>)}
                 {!application.properties.ismobile && connectDragPreview(getEmptyImage())}
-                {false && isDragging &&
+                {isDragging &&
             <ResizeDragLayer minwidth={minwidth} maxwidth={maxwidth} currentwidth={currentwidth} hostelement={hostelement}/>}
             </div>);
     }

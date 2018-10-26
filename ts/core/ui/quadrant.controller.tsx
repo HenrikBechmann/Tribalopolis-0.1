@@ -372,6 +372,7 @@ class Quadrant extends React.Component<any,any>  {
             <div className = {classes.viewportFrame}>
                 <QuadDataDrawer open = {this.state.draweropen}
                     handleClose = {this.closeDrawer}
+                    containerelement = {this.quadcontentelement}
                 >
                     <QuadDataPane
                         drawerDataPackage = {this.drawerdatapackage}

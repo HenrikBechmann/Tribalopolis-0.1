@@ -87,12 +87,18 @@ class QuadDataDrawer extends React.Component<any,any>  {
     }
 
     render() {
-        let { classes } = this.props
+        let { classes, containerelement } = this.props
+        let maxwidthcalc = containerelement.current?
+                     (containerelement.current.offsetWidth - 60) :
+                     null
+        let maxwidth = maxwidthcalc?maxwidthcalc + 'px':'none'
+        console.log('maxwidth',maxwidth)
         return (
         <div style = {
             {
                  width:this.state.width + 'px',
                  right:this.state.right + 'px',
+                 maxWidth:maxwidth,
             }}
             className = {classes.root}
             ref = { this.datadrawerelement }
@@ -102,7 +108,7 @@ class QuadDataDrawer extends React.Component<any,any>  {
                 orientation = 'left' 
                 minwidth = {200}
                 maxwidth = {600}
-                currentwidth = {this.state.width}
+                currentwidth = {maxwidthcalc?Math.min(maxwidthcalc,this.state.width):this.state.width}
                 setNewWidth = {this.setNewWidth}
                 hostelement = {this.datadrawerelement}
             />

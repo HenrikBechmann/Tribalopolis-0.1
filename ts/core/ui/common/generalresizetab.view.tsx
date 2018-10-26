@@ -20,7 +20,10 @@ import application from '../../services/application'
 const draglayerstyles = createStyles({
     frame:{
         position:'absolute',
-        top:-6,
+        top:'0',
+        left:'0',
+        width:'12px',
+        height:'12px',
     },
 })
 
@@ -29,66 +32,37 @@ const draglayerstyles = createStyles({
 }))
 class ResizeDragLayerBase extends React.Component<any,any> {
 
-    constructor(props) {
-        super(props)
-        this.previewElement = React.createRef()
-    }
-
-    startingwidth
-    mindiff
-    maxdiff
-
-    previewElement
-
     lastoffset = 0
 
     render() {
-        const { classes } = this.props
 
-        if (this.previewElement.current) {
+        const { 
+            classes,
+            currentwidth,
+            minwidth,
+            maxwidth,
+            hostelement,
+            currentDifference,
+        } = this.props
 
-            let diff = this.props.currentDifference.x
-            if (Math.abs(this.lastoffset - diff) > 1) { // optimization
-                this.lastoffset = diff
+        if (hostelement.current) {
 
-                let widthnumber = this.startingwidth + diff
-
-                if (widthnumber < (this.startingwidth + this.mindiff)) {
-                    widthnumber = (this.startingwidth + this.mindiff)
-                    diff = this.mindiff
-                }
-                else if (widthnumber > this.startingwidth + this.maxdiff) {
-                    widthnumber = (this.startingwidth + this.maxdiff)
-                    diff = this.maxdiff
-                }
-
-                let width = (widthnumber) + 'px'
+            let diff = currentDifference.x
+            this.lastoffset = diff
+            let newwidth = currentwidth + -diff
+            if ( newwidth > maxwidth) {
+                newwidth = maxwidth
+            } else if (newwidth < minwidth) {
+                newwidth = minwidth
             }
-        }
-
-        const framestyles:React.CSSProperties = {
-            height:this.props.offsetHeight,
-            zIndex:100,
+            let width = (newwidth) + 'px'
+            hostelement.current.style.width = width
         }
 
         return (
         <div 
-            ref = { this.previewElement }
             className = { classes.frame } 
-            style = { framestyles }
-        >
-            <div 
-                className = { this.props.resizeTabStyles.tabstyles } 
-                style = {{ backgroundColor:'silver',opacity:1 }}
-            >
-                <div className = { this.props.resizeTabStyles.iconwrapperstyles } >
-                    <Icon className = { this.props.resizeTabStyles.iconstyles } > drag_handle </Icon>
-                </div> 
-
-            </div>
-
-        </div>
-        )
+        ></div> )
     }
 
 }
@@ -199,7 +173,7 @@ class GeneralResizeTab extends React.Component<any,any> {
                 {
                     !application.properties.ismobile && connectDragPreview(getEmptyImage())
                 }
-                {false && isDragging && 
+                {isDragging && 
                     <ResizeDragLayer 
                         minwidth = {minwidth}
                         maxwidth = {maxwidth}
