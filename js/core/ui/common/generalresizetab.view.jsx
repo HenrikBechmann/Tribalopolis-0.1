@@ -72,9 +72,8 @@ const styles = createStyles({
         position: 'absolute',
         width: '20px',
         height: '32px',
-        border: '1px solid gray',
+        border: '1px solid silver',
         backgroundColor: 'white',
-        opacity: .54,
         cursor: 'ew-resize',
         bottom: '6px',
     },
@@ -123,9 +122,10 @@ let GeneralResizeTab = class GeneralResizeTab extends React.Component {
                 borderRadius: '8px 0 0 8px',
             };
         }
+        styles.top = 'calc(50% - 16px)';
         const { isDragging, connectDragSource, connectDragPreview } = this.props;
         const { classes } = this.props;
-        return (<div className={classes.tabstyles} style={{ visibility: !isDragging ? 'visible' : 'hidden' }}>
+        return (<div className={classes.tabstyles} style={styles} data-name='General Resize Tab'>
                 {connectDragSource(<div className={classes.iconwrapperstyles}>
                             <Icon className={classes.iconstyles}> drag_handle </Icon>
                         </div>)}

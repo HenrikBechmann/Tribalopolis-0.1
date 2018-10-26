@@ -9,6 +9,8 @@ import { withStyles, createStyles } from '@material-ui/core/styles'
 import IconButton from '@material-ui/core/IconButton'
 import Icon from '@material-ui/core/Icon'
 
+import ResizeTab from '../common/generalresizetab.view'
+
 let styles = createStyles({
    root: {
         backgroundColor:'white',
@@ -17,7 +19,6 @@ let styles = createStyles({
         paddingTop:'16px',
         position:'absolute',
         top:'0',
-        overflow:'auto',
         zIndex:1,
         transition:'right .25s',
         borderLeft:'1px solid silver',
@@ -70,7 +71,7 @@ class QuadDataDrawer extends React.Component<any,any>  {
         if (open) {
             right = 0
         } else {
-            right = -(this.state.width + 10)
+            right = -(this.state.width + 10 + 26) // for padding and resize tab
         }
 
         this.setState({
@@ -91,6 +92,7 @@ class QuadDataDrawer extends React.Component<any,any>  {
             ref = { this.datadrawerelement }
             data-name = 'data-drawer'
         >
+            <ResizeTab orientation = 'left' />
             <div className = {classes.moniker}>data shelf</div>
             <IconButton
                  className = { classes.button }
