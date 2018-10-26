@@ -57,8 +57,8 @@ const ResizeDragLayer = withStyles(draglayerstyles)(ResizeDragLayerBase);
 const styles = createStyles({
     tabstyles: {
         position: 'absolute',
-        width: '20px',
-        height: '32px',
+        width: '40px',
+        height: '40px',
         border: '1px solid silver',
         backgroundColor: 'white',
         cursor: 'ew-resize',
@@ -101,14 +101,14 @@ let GeneralResizeTab = class GeneralResizeTab extends React.Component {
         let styles;
         if (orientation == 'right') {
             styles = {
-                right: '-22px',
+                right: '-32px',
                 borderLeft: '1px solid transparent',
                 borderRadius: '0 8px 8px 0',
             };
         }
         else { // orientation == 'left'
             styles = {
-                left: '-22px',
+                left: '-32px',
                 borderRight: '1px solid transparent',
                 borderRadius: '8px 0 0 8px',
             };
