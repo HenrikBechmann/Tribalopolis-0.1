@@ -38,7 +38,7 @@ class QuadDataDrawer extends React.Component {
         super(props);
         this.state = {
             width: 300,
-            right: -336,
+            right: -350,
         };
         this.assertOpen = (open) => {
             let right;
@@ -46,7 +46,7 @@ class QuadDataDrawer extends React.Component {
                 right = 0;
             }
             else {
-                right = -(this.state.width + 10 + 26); // for padding and resize tab
+                right = -(this.state.width + 10 + 40); // for padding and resize tab
             }
             this.setState({
                 right,
@@ -73,7 +73,6 @@ class QuadDataDrawer extends React.Component {
             (containerelement.current.offsetWidth - 60) :
             null;
         let maxwidth = maxwidthcalc ? maxwidthcalc + 'px' : 'none';
-        console.log('maxwidth', maxwidth);
         return (<div style={{
             width: this.state.width + 'px',
             right: this.state.right + 'px',
