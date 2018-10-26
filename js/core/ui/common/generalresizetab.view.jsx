@@ -20,8 +20,8 @@ const draglayerstyles = createStyles({
         position: 'absolute',
         top: '0',
         left: '0',
-        width: '12px',
-        height: '12px',
+        width: '32px',
+        height: '32px',
     },
 });
 let ResizeDragLayerBase = class ResizeDragLayerBase extends React.Component {
