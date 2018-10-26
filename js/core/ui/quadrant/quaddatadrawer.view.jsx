@@ -38,7 +38,7 @@ class QuadDataDrawer extends React.Component {
         super(props);
         this.state = {
             width: 300,
-            right: -310,
+            right: -336,
         };
         this.assertOpen = (open) => {
             let right;
@@ -50,6 +50,11 @@ class QuadDataDrawer extends React.Component {
             }
             this.setState({
                 right,
+            });
+        };
+        this.setNewWidth = width => {
+            this.setState({
+                width,
             });
         };
         this.datadrawerelement = React.createRef();
@@ -68,7 +73,7 @@ class QuadDataDrawer extends React.Component {
             width: this.state.width + 'px',
             right: this.state.right + 'px',
         }} className={classes.root} ref={this.datadrawerelement} data-name='data-drawer'>
-            <ResizeTab orientation='left'/>
+            <ResizeTab orientation='left' minwidth={200} maxwidth={600} currentwidth={this.state.width} setNewWidth={this.setNewWidth} hostelement={this.datadrawerelement}/>
             <div className={classes.moniker}>data shelf</div>
             <IconButton className={classes.button} onClick={this.props.handleClose}>
                 <Icon>close</Icon>

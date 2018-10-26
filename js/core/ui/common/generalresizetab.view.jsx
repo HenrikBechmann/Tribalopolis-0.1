@@ -92,16 +92,20 @@ const resizeProps = (connect, monitor) => {
     };
 };
 const resizeHandlers = {
-    beginDrag: (props, monitor, component) => {
-        if (props.beginDrag) {
-            return props.beginDrag(props, monitor, component);
-        }
-        else {
-            return {};
-        }
+    beginDrag: () => {
+        return {};
     },
-    endDrag: (props, monitor, component) => {
-        props.endDrag && props.endDrag(props, monitor, component);
+    endDrag: (props, monitor) => {
+        const diff = monitor.getDifferenceFromInitialOffset().x;
+        const { currentwidth, maxwidth, minwidth, setNewWidth } = props;
+        let newwidth = currentwidth + -diff;
+        if (newwidth > maxwidth) {
+            newwidth = maxwidth;
+        }
+        else if (newwidth < minwidth) {
+            newwidth = minwidth;
+        }
+        setNewWidth(newwidth);
     },
 };
 let GeneralResizeTab = class GeneralResizeTab extends React.Component {
@@ -123,14 +127,14 @@ let GeneralResizeTab = class GeneralResizeTab extends React.Component {
             };
         }
         styles.top = 'calc(50% - 16px)';
-        const { isDragging, connectDragSource, connectDragPreview } = this.props;
-        const { classes } = this.props;
+        const { isDragging, connectDragSource, connectDragPreview, classes, minwidth, maxwidth, currentwidth, hostelement, } = this.props;
         return (<div className={classes.tabstyles} style={styles} data-name='General Resize Tab'>
                 {connectDragSource(<div className={classes.iconwrapperstyles}>
                             <Icon className={classes.iconstyles}> drag_handle </Icon>
                         </div>)}
                 {!application.properties.ismobile && connectDragPreview(getEmptyImage())}
-                {isDragging && <ResizeDragLayer />}
+                {false && isDragging &&
+            <ResizeDragLayer minwidth={minwidth} maxwidth={maxwidth} currentwidth={currentwidth} hostelement={hostelement}/>}
             </div>);
     }
 };

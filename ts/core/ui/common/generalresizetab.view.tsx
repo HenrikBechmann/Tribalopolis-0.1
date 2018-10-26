@@ -129,18 +129,22 @@ const resizeProps = (connect, monitor) => {
 
 const resizeHandlers = {
 
-    beginDrag: (props,monitor,component) => {
+    beginDrag: () => {
 
-        if (props.beginDrag) {
-            return props.beginDrag(props,monitor,component)
-        } else {
-            return {}
-        }
+        return {}
 
     },
-    endDrag: (props,monitor,component) => {
+    endDrag: (props,monitor) => {
 
-        props.endDrag && props.endDrag(props,monitor,component)
+        const diff = monitor.getDifferenceFromInitialOffset().x
+        const { currentwidth, maxwidth, minwidth, setNewWidth } = props
+        let newwidth = currentwidth + -diff
+        if ( newwidth > maxwidth) {
+            newwidth = maxwidth
+        } else if (newwidth < minwidth) {
+            newwidth = minwidth
+        }
+        setNewWidth(newwidth)
 
     },
 }
@@ -169,8 +173,16 @@ class GeneralResizeTab extends React.Component<any,any> {
         }
         styles.top = 'calc(50% - 16px)'
 
-        const { isDragging, connectDragSource, connectDragPreview } = this.props
-        const { classes } = this.props
+        const { 
+            isDragging, 
+            connectDragSource, 
+            connectDragPreview,
+            classes, 
+            minwidth,
+            maxwidth,
+            currentwidth,
+            hostelement,
+        } = this.props
 
         return (
             <div className = { classes.tabstyles } 
@@ -187,7 +199,14 @@ class GeneralResizeTab extends React.Component<any,any> {
                 {
                     !application.properties.ismobile && connectDragPreview(getEmptyImage())
                 }
-                {isDragging && <ResizeDragLayer />}
+                {false && isDragging && 
+                    <ResizeDragLayer 
+                        minwidth = {minwidth}
+                        maxwidth = {maxwidth}
+                        currentwidth = {currentwidth}
+                        hostelement = {hostelement}
+                    />
+                }
             </div>
         )
     } 
