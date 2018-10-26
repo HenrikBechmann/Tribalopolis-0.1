@@ -43,7 +43,7 @@ const styles = createStyles({
         color:'silver',
     },
     progress: {
-        height:'25px',
+        // height:'25px',
     },
 })
 
@@ -155,7 +155,7 @@ class DirectoryItem extends React.Component<any,any> {
                     </div>
 
                 :<div className = {classes.progress}> 
-                    Loading... {false && <CircularProgress size = {16}/>}
+                    Loading directory item... {false && <CircularProgress size = {16}/>}
                 </div>
             }
         </div>

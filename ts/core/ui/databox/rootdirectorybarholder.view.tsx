@@ -89,7 +89,7 @@ class RootDirectoryBarHolder extends React.Component<any, any> {
     
     />    
     :<div className = {classes.holderstyle}>
-       Loading... {false && <CircularProgress size = {24}/>}
+       Loading directory bar... {false && <CircularProgress size = {24}/>}
     </div>)
     }
 }

@@ -55,7 +55,7 @@ const styles = createStyles({
         position:'relative',
     },
     progress:{
-        height:'33px',
+        // height:'33px',
     },
     menustyle:{
         padding:'6px',
@@ -268,9 +268,7 @@ class DirectoryBar extends React.Component<any,any> {
                 </div>)
 
                 :<div className = {classes.progress}>
-
-                    Loading... {false && <CircularProgress size = {12}/>}
-
+                    Loading directory bar... {false && <CircularProgress size = {12}/>}
                 </div>}
             </div>
             

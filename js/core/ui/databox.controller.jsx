@@ -244,7 +244,7 @@ class DataBox extends React.Component {
         if (!item) {
             return <div className={classes.wrapper} style={wrapperStyle}>
                 <div className={classes.frame} style={frameStyle}>
-                    Loading... {false && <CircularProgress size={24}/>}
+                    Loading databox... {false && <CircularProgress size={24}/>}
                 </div>
             </div>;
         }

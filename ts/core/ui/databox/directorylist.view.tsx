@@ -212,7 +212,7 @@ class extends React.Component<any,any> {
                     length = {length}
                     type = 'uniform'
                     useStaticSize
-                />:<div> Loading... {false && <CircularProgress size = {24}/>}</div>}
+                />:<div> Loading directory list... {false && <CircularProgress size = {24}/>}</div>}
             </div>
         </div>
         )
