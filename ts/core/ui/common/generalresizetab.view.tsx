@@ -22,7 +22,7 @@ const draglayerstyles = createStyles({
         position:'absolute',
         top:'0',
         left:'0',
-        width:'32px',
+        width:'25px',
         height:'32px',
         opacity:.2,
         backgroundColor:'green',
@@ -45,6 +45,7 @@ class ResizeDragLayerBase extends React.Component<any,any> {
             maxwidth,
             hostelement,
             currentDifference,
+            orientation,
         } = this.props
 
         if (hostelement.current) {
@@ -64,6 +65,7 @@ class ResizeDragLayerBase extends React.Component<any,any> {
         return (
         <div 
             className = { classes.frame } 
+            style = {{borderRadius:(orientation == 'left')?'8px 0 0 8px':'0 8px 8px 0'}}
         ></div> )
     }
 
@@ -76,7 +78,7 @@ const ResizeDragLayer = withStyles(draglayerstyles)(ResizeDragLayerBase)
 const styles = createStyles({
     tabstyles:{
         position:'absolute',
-        width:'32px',
+        width:'24px',
         height:'32px',
         border:'1px solid silver',
         backgroundColor:'white',
@@ -84,7 +86,7 @@ const styles = createStyles({
         bottom:'6px',
     },
     iconwrapperstyles:{
-        margin:'4px 0 0 4px',
+        margin:'4px 0 0 0',
     },
     iconstyles: {
         transform:'rotate(90deg)',opacity:.54
@@ -136,14 +138,14 @@ class GeneralResizeTab extends React.Component<any,any> {
         let styles 
         if (orientation == 'right') {
             styles = {
-                right:'-34px',
-                borderLeft:'1px solid transparent',
+                right:'-26px',
+                borderLeft:'1px solid white',
                 borderRadius:'0 8px 8px 0',
             }
         } else { // orientation == 'left'
             styles = {
-                left:'-34px',
-                borderRight:'1px solid transparent',
+                left:'-26px',
+                borderRight:'1px solid white',
                 borderRadius:'8px 0 0 8px',
             }
         }
@@ -177,6 +179,7 @@ class GeneralResizeTab extends React.Component<any,any> {
                 }
                 {isDragging && 
                     <ResizeDragLayer 
+                        orientation = {orientation}
                         minwidth = {minwidth}
                         maxwidth = {maxwidth}
                         currentwidth = {currentwidth}

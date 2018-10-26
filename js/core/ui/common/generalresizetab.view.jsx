@@ -20,7 +20,7 @@ const draglayerstyles = createStyles({
         position: 'absolute',
         top: '0',
         left: '0',
-        width: '32px',
+        width: '25px',
         height: '32px',
         opacity: .2,
         backgroundColor: 'green',
@@ -32,7 +32,7 @@ let ResizeDragLayerBase = class ResizeDragLayerBase extends React.Component {
         this.lastoffset = 0;
     }
     render() {
-        const { classes, currentwidth, minwidth, maxwidth, hostelement, currentDifference, } = this.props;
+        const { classes, currentwidth, minwidth, maxwidth, hostelement, currentDifference, orientation, } = this.props;
         if (hostelement.current) {
             let diff = currentDifference.x;
             this.lastoffset = diff;
@@ -46,7 +46,7 @@ let ResizeDragLayerBase = class ResizeDragLayerBase extends React.Component {
             let width = (newwidth) + 'px';
             hostelement.current.style.width = width;
         }
-        return (<div className={classes.frame}></div>);
+        return (<div className={classes.frame} style={{ borderRadius: (orientation == 'left') ? '8px 0 0 8px' : '0 8px 8px 0' }}></div>);
     }
 };
 ResizeDragLayerBase = __decorate([
@@ -59,7 +59,7 @@ const ResizeDragLayer = withStyles(draglayerstyles)(ResizeDragLayerBase);
 const styles = createStyles({
     tabstyles: {
         position: 'absolute',
-        width: '32px',
+        width: '24px',
         height: '32px',
         border: '1px solid silver',
         backgroundColor: 'white',
@@ -67,7 +67,7 @@ const styles = createStyles({
         bottom: '6px',
     },
     iconwrapperstyles: {
-        margin: '4px 0 0 4px',
+        margin: '4px 0 0 0',
     },
     iconstyles: {
         transform: 'rotate(90deg)', opacity: .54
@@ -103,15 +103,15 @@ let GeneralResizeTab = class GeneralResizeTab extends React.Component {
         let styles;
         if (orientation == 'right') {
             styles = {
-                right: '-34px',
-                borderLeft: '1px solid transparent',
+                right: '-26px',
+                borderLeft: '1px solid white',
                 borderRadius: '0 8px 8px 0',
             };
         }
         else { // orientation == 'left'
             styles = {
-                left: '-34px',
-                borderRight: '1px solid transparent',
+                left: '-26px',
+                borderRight: '1px solid white',
                 borderRadius: '8px 0 0 8px',
             };
         }
@@ -123,7 +123,7 @@ let GeneralResizeTab = class GeneralResizeTab extends React.Component {
                         </div>)}
                 {!application.properties.ismobile && connectDragPreview(getEmptyImage())}
                 {isDragging &&
-            <ResizeDragLayer minwidth={minwidth} maxwidth={maxwidth} currentwidth={currentwidth} hostelement={hostelement}/>}
+            <ResizeDragLayer orientation={orientation} minwidth={minwidth} maxwidth={maxwidth} currentwidth={currentwidth} hostelement={hostelement}/>}
             </div>);
     }
 };
