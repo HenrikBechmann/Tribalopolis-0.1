@@ -2,7 +2,7 @@
 // copyright (c) 2018 Henrik Bechmann, Toronto, MIT Licence
 
 /*
-    TODO: switch to function components
+    react components are used to support decorator notation
 */
 
 'use strict'
@@ -64,10 +64,11 @@ class ResizeDragLayerBase extends React.Component<any,any> {
         }
 
         return (
-        <div 
-            className = { classes.frame } 
-            style = {{borderRadius:(orientation == 'left')?'8px 0 0 8px':'0 8px 8px 0'}}
-        ></div> )
+            <div 
+                className = { classes.frame } 
+                style = {{borderRadius:(orientation == 'left')?'8px 0 0 8px':'0 8px 8px 0'}}
+            ></div> 
+        )
     }
 
 }

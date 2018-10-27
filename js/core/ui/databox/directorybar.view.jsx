@@ -6,13 +6,13 @@
 'use strict';
 import React from 'react';
 import Icon from '@material-ui/core/Icon';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import ActionButton from '../common/actionbutton.view';
-import { withStyles, createStyles } from '@material-ui/core/styles';
 import MenuItem from '@material-ui/core/MenuItem';
 import Divider from '@material-ui/core/Divider';
 import PopupMenu from '../common/popupmenu.view';
 import Info from '@material-ui/icons/InfoOutlined';
+import { withStyles, createStyles } from '@material-ui/core/styles';
+import ActionButton from '../common/actionbutton.view';
+import LoadingMessage from '../common/loadingmessage.view';
 const styles = createStyles({
     barstyle: {
         boxSizing: 'border-box',
@@ -185,7 +185,7 @@ class DirectoryBar extends React.Component {
 
                 </div>)
             : <div className={classes.progress}>
-                    Loading directory bar... {false && <CircularProgress size={12}/>}
+                    <LoadingMessage />
                 </div>}
             </div>;
     }

@@ -12,6 +12,7 @@ import CircularProgress from '@material-ui/core/CircularProgress'
 import { withStyles, createStyles } from '@material-ui/core/styles'
 import DirectoryItem from './directoryitem.view'
 import proxy from '../../utilities/proxy'
+import LoadingMessage from '../common/loadingmessage.view'
 
 const styles = createStyles({
     scrollboxcontainer:{
@@ -212,7 +213,10 @@ class extends React.Component<any,any> {
                     length = {length}
                     type = 'uniform'
                     useStaticSize
-                />:<div> Loading directory list... {false && <CircularProgress size = {24}/>}</div>}
+                />:<div>
+                    <LoadingMessage />
+                </div>
+                }
             </div>
         </div>
         )

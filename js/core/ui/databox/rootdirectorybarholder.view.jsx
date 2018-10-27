@@ -3,9 +3,9 @@
 'use strict';
 import React from 'react';
 import { withStyles, createStyles } from '@material-ui/core/styles';
-import CircularProgress from '@material-ui/core/CircularProgress';
 import DirectoryBar from './directorybar.view';
 import proxy from '../../utilities/proxy';
+import LoadingMessage from '../common/loadingmessage.view';
 const styles = createStyles({
     holderstyle: {
         boxSizing: 'border-box',
@@ -62,7 +62,7 @@ class RootDirectoryBarHolder extends React.Component {
         return (this.state.item ?
             <DirectoryBar haspeers={false} listProxy={listProxy} setDocumentListener={this.props.setDocumentListener} removeDocumentListener={this.props.removeDocumentListener} callDataDrawer={this.props.callDataDrawer} listStack={this.itemProxy.liststack} collapseDirectoryItem={() => { }} contextitem/>
             : <div className={classes.holderstyle}>
-       Loading directory bar... {false && <CircularProgress size={24}/>}
+        <LoadingMessage />
     </div>);
     }
 }

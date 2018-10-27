@@ -3,7 +3,6 @@
 'use strict';
 import React from 'react';
 import { withStyles, createStyles } from '@material-ui/core/styles';
-import CircularProgress from '@material-ui/core/CircularProgress';
 import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
 import BoxIdentityBar from './databox/identitybar.view';
@@ -13,6 +12,7 @@ import DirectoryList from './databox/directorylist.view';
 // import ScanBar from './databox/scanbar.view'
 import ResizeTab from './databox/resizetab.view';
 import NavigationMenuTab from './databox/navigationmenutab.view';
+import LoadingMessage from './common/loadingmessage.view';
 import proxy from '../utilities/proxy';
 const buttonstyles = theme => createStyles({
     button: {
@@ -244,7 +244,7 @@ class DataBox extends React.Component {
         if (!item) {
             return <div className={classes.wrapper} style={wrapperStyle}>
                 <div className={classes.frame} style={frameStyle}>
-                    Loading databox... {false && <CircularProgress size={24}/>}
+                    <LoadingMessage />
                 </div>
             </div>;
         }

@@ -1,5 +1,8 @@
 // generalresizetab.view.tsx
 // copyright (c) 2018 Henrik Bechmann, Toronto, MIT Licence
+/*
+    react components are used to support decorator notation
+*/
 'use strict';
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;

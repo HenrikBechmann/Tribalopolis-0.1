@@ -10,6 +10,8 @@ import CircularProgress from '@material-ui/core/CircularProgress'
 import DirectoryBar from './directorybar.view'
 import proxy from '../../utilities/proxy'
 
+import LoadingMessage from '../common/loadingmessage.view'
+
 const styles = createStyles({
     holderstyle:{
         boxSizing:'border-box',
@@ -89,7 +91,7 @@ class RootDirectoryBarHolder extends React.Component<any, any> {
     
     />    
     :<div className = {classes.holderstyle}>
-       Loading directory bar... {false && <CircularProgress size = {24}/>}
+        <LoadingMessage />
     </div>)
     }
 }

@@ -3,10 +3,10 @@
 'use strict';
 import React from 'react';
 import Lister from 'react-list';
-import CircularProgress from '@material-ui/core/CircularProgress';
 import { withStyles, createStyles } from '@material-ui/core/styles';
 import DirectoryItem from './directoryitem.view';
 import proxy from '../../utilities/proxy';
+import LoadingMessage from '../common/loadingmessage.view';
 const styles = createStyles({
     scrollboxcontainer: {
         position: 'relative',
@@ -151,7 +151,9 @@ const DirectoryListBase = withStyles(styles)(class extends React.Component {
         let length = this.state.listproxies ? this.state.listproxies.length : 0;
         return (<div className={classes.scrollboxcontainer}>
             <div className={classes.scrollbox}>
-                {this.state.listproxies ? <Lister ref={this.props.forwardedRef} itemRenderer={this.itemRenderer} length={length} type='uniform' useStaticSize/> : <div> Loading directory list... {false && <CircularProgress size={24}/>}</div>}
+                {this.state.listproxies ? <Lister ref={this.props.forwardedRef} itemRenderer={this.itemRenderer} length={length} type='uniform' useStaticSize/> : <div>
+                    <LoadingMessage />
+                </div>}
             </div>
         </div>);
     }

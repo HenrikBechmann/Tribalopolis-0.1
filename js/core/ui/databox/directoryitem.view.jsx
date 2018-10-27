@@ -3,9 +3,9 @@
 'use strict';
 import React from 'react';
 import Icon from '@material-ui/core/Icon';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import ActionButton from '../common/actionbutton.view';
 import { withStyles, createStyles } from '@material-ui/core/styles';
+import ActionButton from '../common/actionbutton.view';
+import LoadingMessage from '../common/loadingmessage.view';
 const styles = createStyles({
     barstyle: {
         padding: '3px',
@@ -102,7 +102,7 @@ class DirectoryItem extends React.Component {
 
                     </div>
             : <div className={classes.progress}> 
-                    Loading directory item... {false && <CircularProgress size={16}/>}
+                    <LoadingMessage />
                 </div>}
         </div>;
     }

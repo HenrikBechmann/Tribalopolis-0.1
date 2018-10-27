@@ -18,6 +18,7 @@ import DirectoryList from './databox/directorylist.view'
 
 import ResizeTab from './databox/resizetab.view'
 import NavigationMenuTab from './databox/navigationmenutab.view'
+import LoadingMessage from './common/loadingmessage.view'
 
 import proxy from '../utilities/proxy'
 
@@ -327,7 +328,7 @@ class DataBox extends React.Component<any,any> {
         if (!item) {
             return <div className = {classes.wrapper} style = {wrapperStyle}>
                 <div className = {classes.frame} style = {frameStyle}>
-                    Loading databox... {false && <CircularProgress size = {24}/>}
+                    <LoadingMessage />
                 </div>
             </div>
         }

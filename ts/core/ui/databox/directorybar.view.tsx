@@ -11,14 +11,15 @@ import React from 'react'
 
 import Icon from '@material-ui/core/Icon'
 import CircularProgress from '@material-ui/core/CircularProgress'
-
-import QuantityBadge from '../common/quantitybadge.view'
-import ActionButton from '../common/actionbutton.view'
-import { withStyles, createStyles } from '@material-ui/core/styles'
 import MenuItem from '@material-ui/core/MenuItem';
 import Divider from '@material-ui/core/Divider'
 import PopupMenu from '../common/popupmenu.view'
 import Info from '@material-ui/icons/InfoOutlined'
+import { withStyles, createStyles } from '@material-ui/core/styles'
+
+import QuantityBadge from '../common/quantitybadge.view'
+import ActionButton from '../common/actionbutton.view'
+import LoadingMessage from '../common/loadingmessage.view'
 
 const styles = createStyles({ 
     barstyle:{
@@ -268,7 +269,7 @@ class DirectoryBar extends React.Component<any,any> {
                 </div>)
 
                 :<div className = {classes.progress}>
-                    Loading directory bar... {false && <CircularProgress size = {12}/>}
+                    <LoadingMessage />
                 </div>}
             </div>
             
