@@ -233,9 +233,10 @@ class DataBox extends React.Component {
             border: this.collapseTargetProxy
                 ? '1px solid blue'
                 : '1px solid silver',
-            width: haspeers
-                ? 'none'
-                : (this.props.boxwidth) + 'px',
+            // width: haspeers
+            //     ?'none'
+            //     :(this.props.boxwidth) + 'px',
+            width: (this.props.boxwidth) + 'px',
             margin: haspeers
                 ? '0'
                 : 'auto',

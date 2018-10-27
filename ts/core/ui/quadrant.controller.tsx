@@ -266,20 +266,27 @@ class Quadrant extends React.Component<any,any>  {
             setBoxWidth:this.setBoxWidth,
             callDataDrawer:this.callDataDrawer,
         }
-        return (
-            <DataBox 
+        let databox = <DataBox 
                 key = { itemProxy.instanceid } 
 
                 itemProxy = { itemProxy }
                 collapseTargetProxy = {matchForTarget?activeTargetProxy:null}
                 haspeers = { haspeers }
                 index = { index }
-                containerHeight = { containerHeight }
+                containerHeight = { containerHeight -1 }
                 boxwidth = { this.state.boxwidth }
 
                 callbacks = { boxcallbacks }
             />
-        )
+
+        return databox
+        // return haspeers?<div key = {key} data-key = {key} style = {{
+        //     width:(this.state.boxwidth + 80) + 'px',
+        //     height:'480px',
+        //     border:'1px solid green',
+        //     float:'left',
+        //     overflow:'hidden',
+        // }}>{databox}</div>:databox
     }
 
     setBoxWidth = (width) => {
