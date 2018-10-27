@@ -145,7 +145,7 @@ class extends React.Component<any,any> {
         let index = listproxies.findIndex(this.findlinkIndex(highlightrefuid))
         // update scroll display with selected highlight item
         this.listcomponent.current.scrollAround(index)
-
+        console.log('index',index)
         setTimeout(() => { // let scroll update finish
             // animate highlight
             this.setState({
@@ -156,7 +156,7 @@ class extends React.Component<any,any> {
                 })
             })
 
-        },300)
+        },500)
     }
 
     findlinkIndex = (id) => {

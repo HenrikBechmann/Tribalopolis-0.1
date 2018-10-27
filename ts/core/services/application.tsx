@@ -354,7 +354,7 @@ const properties = {
 
 const setDocumentListener = (token,instanceid,callback) => {
 
-    setTimeout(()=>{ // give animations a chance to run
+    // setTimeout(()=>{ // give animations a chance to run
 
     let reference = getTokenReference(token)
 
@@ -378,15 +378,16 @@ const setDocumentListener = (token,instanceid,callback) => {
             }
         )
     }
-    })
+    // })
 
 }
 
 const removeDocumentListener = (token, instanceid) => {
 
-    let reference = getTokenReference(token)
-    removeDocumentCacheListener(reference,instanceid)
-
+    // setTimeout(()=>{
+        let reference = getTokenReference(token)
+        removeDocumentCacheListener(reference,instanceid)
+    // })
 }
 
 let application = {

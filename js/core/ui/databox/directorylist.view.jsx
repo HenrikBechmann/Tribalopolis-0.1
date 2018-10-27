@@ -95,6 +95,7 @@ const DirectoryListBase = withStyles(styles)(class extends React.Component {
             let index = listproxies.findIndex(this.findlinkIndex(highlightrefuid));
             // update scroll display with selected highlight item
             this.listcomponent.current.scrollAround(index);
+            console.log('index', index);
             setTimeout(() => {
                 // animate highlight
                 this.setState({
@@ -104,7 +105,7 @@ const DirectoryListBase = withStyles(styles)(class extends React.Component {
                         highlightrefuid: null
                     });
                 });
-            }, 300);
+            }, 500);
         };
         this.findlinkIndex = (id) => {
             return (item) => {
