@@ -8,6 +8,11 @@
 */
 /*
     TODO:
+
+        consider creating a sentinel when callbacks are de-registered to avoid race
+        condition of calling setState after component is unmounted
+        NOTE: sentinels, commented out, not working Oct 27, 2018
+
         - OPTIMIZE!! Maintain cache items by some criterion such as usage or age
         - rationalize "change" object
         - enhance to handle types as documents (when edited or created)
@@ -25,12 +30,17 @@ const documentcache = new Map();
 const typecache = new Map();
 const debug = false; // show console messages
 const debug2 = false;
+// const sentinels = {
+// }
 // ===========[ Document Cache Management ]============
 /*
     There is a separate set of methods for each of the document and type caches.
 */
 // adds a document listener to be updated when a document changes or is set
 const addDocumentCacheListener = (reference, instanceid, callback) => {
+    // if (sentinels[instanceid]) {
+    //     delete sentinels[instanceid]
+    // }
     // debugger
     let cacheitem = getDocumentCacheItem(reference);
     cacheitem.listeners.set(instanceid, callback);
@@ -151,7 +161,9 @@ const processDocumentCallbacks = (reference, change) => {
         let listeners = documentcacheitem.listeners;
         debug && console.log('processing document callbacks', reference, listeners);
         listeners.forEach((callback, key) => {
+            // if (!sentinels[key]) {
             callback(document, type, change);
+            // }
         });
     }
     // }
@@ -244,6 +256,7 @@ const setDocumentListener = (token, instanceid, callback) => {
     let cachedata = getDocumentPack(reference);
     if (cachedata.document && cachedata.type) { // defer if waiting for type
         debug && console.log('IMMEDIATE callback', reference);
+        // if (!sentinels[instanceid]) {
         callback(cachedata.document, cachedata.type, {
             documents: {
                 reason: 'newcallback',
@@ -251,10 +264,12 @@ const setDocumentListener = (token, instanceid, callback) => {
                 type: true,
             }
         });
+        // }
     }
     // })
 };
 const removeDocumentListener = (token, instanceid) => {
+    // sentinels[instanceid] = true
     // setTimeout(()=>{
     let reference = getTokenReference(token);
     removeDocumentCacheListener(reference, instanceid);
