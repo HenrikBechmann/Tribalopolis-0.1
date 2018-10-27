@@ -25,6 +25,7 @@ const styles = createStyles({
     },
     scrollbox:{
         flex: '1 1 0',
+        // height:'100%',
         overflow:'auto',
         position:'relative', // required for offsetParent of highlightItem search
         // paddingBottom:'32px', // leave room for add button
@@ -144,8 +145,9 @@ class extends React.Component<any,any> {
         // get index for Lister
         let index = listproxies.findIndex(this.findlinkIndex(highlightrefuid))
         // update scroll display with selected highlight item
+        // this.listcomponent.current.scrollAround(index)
         this.listcomponent.current.scrollAround(index)
-        console.log('index',index)
+        // console.log('index',index)
         setTimeout(() => { // let scroll update finish
             // animate highlight
             this.setState({
@@ -157,6 +159,7 @@ class extends React.Component<any,any> {
             })
 
         },500)
+
     }
 
     findlinkIndex = (id) => {
@@ -208,12 +211,13 @@ class extends React.Component<any,any> {
                 className = {classes.scrollbox} 
             >
                 {this.state.listproxies?<Lister 
+                    axis = 'y'
                     ref = {this.props.forwardedRef}
                     itemRenderer = {this.itemRenderer}
                     length = {length}
                     type = 'uniform'
                     useStaticSize
-                />:<div>
+                />:<div style = {{height:'31px'}}>
                     <LoadingMessage />
                 </div>
                 }

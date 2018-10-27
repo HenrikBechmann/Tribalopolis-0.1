@@ -268,7 +268,7 @@ class Quadrant extends React.Component {
                 </QuadDataDrawer>
                 <div className={classes.viewport} style={viewportStyle} ref={this.scrollboxelement}>{!isempty ?
             haspeers
-                ? <Lister axis='x' itemRenderer={this.getBox} length={datastack ? datastack[this.state.stackpointer].items.length : 0} type='uniform' ref={this.listcomponent} useStaticSize/>
+                ? <Lister axis='x' itemRenderer={this.getBox} length={datastack ? datastack[this.state.stackpointer].items.length : 0} type='uniform' ref={this.listcomponent} useStaticSize threshold={800}/>
                 : this.getBox(0, 'singleton')
             :
                 <div className={classes.startscreen} onClick={this.setDefault}>

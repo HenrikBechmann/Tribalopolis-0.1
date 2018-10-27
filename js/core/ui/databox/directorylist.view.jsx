@@ -18,6 +18,7 @@ const styles = createStyles({
     },
     scrollbox: {
         flex: '1 1 0',
+        // height:'100%',
         overflow: 'auto',
         position: 'relative',
         // paddingBottom:'32px', // leave room for add button
@@ -94,8 +95,9 @@ const DirectoryListBase = withStyles(styles)(class extends React.Component {
             // get index for Lister
             let index = listproxies.findIndex(this.findlinkIndex(highlightrefuid));
             // update scroll display with selected highlight item
+            // this.listcomponent.current.scrollAround(index)
             this.listcomponent.current.scrollAround(index);
-            console.log('index', index);
+            // console.log('index',index)
             setTimeout(() => {
                 // animate highlight
                 this.setState({
@@ -152,7 +154,7 @@ const DirectoryListBase = withStyles(styles)(class extends React.Component {
         let length = this.state.listproxies ? this.state.listproxies.length : 0;
         return (<div className={classes.scrollboxcontainer}>
             <div className={classes.scrollbox}>
-                {this.state.listproxies ? <Lister ref={this.props.forwardedRef} itemRenderer={this.itemRenderer} length={length} type='uniform' useStaticSize/> : <div>
+                {this.state.listproxies ? <Lister axis='y' ref={this.props.forwardedRef} itemRenderer={this.itemRenderer} length={length} type='uniform' useStaticSize/> : <div style={{ height: '31px' }}>
                     <LoadingMessage />
                 </div>}
             </div>

@@ -398,6 +398,7 @@ class Quadrant extends React.Component<any,any>  {
                             type = 'uniform'
                             ref = {this.listcomponent}
                             useStaticSize
+                            threshold = {800}
                          />
                         :this.getBox(0,'singleton')
                     :
