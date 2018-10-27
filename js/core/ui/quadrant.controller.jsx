@@ -151,8 +151,6 @@ class Quadrant extends React.Component {
             datastack[this.state.stackpointer].items = datastack[this.state.stackpointer].defaultitems;
             this.setState({
                 datastack,
-            }, () => {
-                this.forceUpdate(); // fetch data box
             });
         };
         // ----------[ refs ]----------
@@ -260,14 +258,16 @@ class Quadrant extends React.Component {
                 <QuadDataDrawer open={this.state.draweropen} handleClose={this.closeDrawer} containerelement={this.quadcontentelement}>
                     <QuadDataPane drawerDataPackage={this.drawerdatapackage}/>
                 </QuadDataDrawer>
-                {!isempty ? <div className={classes.viewport} style={viewportStyle} ref={this.scrollboxelement}>
-                    {haspeers
-            ? <Lister axis='x' itemRenderer={this.getBox} length={datastack ? datastack[this.state.stackpointer].items.length : 0} type='uniform' ref={this.listcomponent} useStaticSize/>
-            : this.getBox(0, 'singleton')}
-                </div> :
-            <div className={classes.startscreen} onClick={this.setDefault}>
-                    <div>Tap to start</div>
-                </div>}
+                <div className={classes.viewport} style={viewportStyle} ref={this.scrollboxelement}>{!isempty ?
+            haspeers
+                ? <Lister axis='x' itemRenderer={this.getBox} length={datastack ? datastack[this.state.stackpointer].items.length : 0} type='uniform' ref={this.listcomponent} useStaticSize/>
+                : this.getBox(0, 'singleton')
+            :
+                <div className={classes.startscreen} onClick={this.setDefault}>
+                        <div>Tap to start</div>
+                    </div>}
+                </div>
+            }
             </div>
 
         </div>);

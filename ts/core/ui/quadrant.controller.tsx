@@ -312,8 +312,6 @@ class Quadrant extends React.Component<any,any>  {
         datastack[this.state.stackpointer].items = datastack[this.state.stackpointer].defaultitems
         this.setState({
             datastack, // set workspace
-        },() => {
-            this.forceUpdate() // fetch data box
         })
     }
 
@@ -378,12 +376,12 @@ class Quadrant extends React.Component<any,any>  {
                         drawerDataPackage = {this.drawerdatapackage}
                     />
                 </QuadDataDrawer>
-                {!isempty?<div 
+                <div 
                     className = {classes.viewport}
                     style = {viewportStyle}
                     ref = {this.scrollboxelement}
-                >
-                    {haspeers
+                >{!isempty?
+                    haspeers
                         ?<Lister 
                             axis = 'x'
                             itemRenderer = {this.getBox}
@@ -395,12 +393,13 @@ class Quadrant extends React.Component<any,any>  {
                             useStaticSize
                          />
                         :this.getBox(0,'singleton')
-                    }
-                </div>:
-                <div className = {classes.startscreen}
-                    onClick = {this.setDefault}
-                >
-                    <div>Tap to start</div>
+                    :
+                    <div className = {classes.startscreen}
+                        onClick = {this.setDefault}
+                    >
+                        <div>Tap to start</div>
+                    </div>
+                }
                 </div>
             }
             </div>
