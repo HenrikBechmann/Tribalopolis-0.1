@@ -1,6 +1,10 @@
 // generalresizetab.view.tsx
 // copyright (c) 2018 Henrik Bechmann, Toronto, MIT Licence
 
+/*
+    TODO: switch to function components
+*/
+
 'use strict'
 
 import React from 'react'
@@ -34,8 +38,6 @@ const draglayerstyles = createStyles({
 }))
 class ResizeDragLayerBase extends React.Component<any,any> {
 
-    lastoffset = 0
-
     render() {
 
         const { 
@@ -51,7 +53,6 @@ class ResizeDragLayerBase extends React.Component<any,any> {
         if (hostelement.current) {
 
             let diff = currentDifference.x
-            this.lastoffset = diff
             let newwidth = currentwidth + -diff
             if ( newwidth > maxwidth) {
                 newwidth = maxwidth
@@ -117,11 +118,13 @@ const resizeHandlers = {
         const diff = monitor.getDifferenceFromInitialOffset().x
         const { currentwidth, maxwidth, minwidth, setNewWidth } = props
         let newwidth = currentwidth + -diff
+
         if ( newwidth > maxwidth) {
             newwidth = maxwidth
         } else if (newwidth < minwidth) {
             newwidth = minwidth
         }
+
         setNewWidth(newwidth)
 
     },
@@ -131,7 +134,6 @@ const resizeHandlers = {
 class GeneralResizeTab extends React.Component<any,any> {
 
     render() {
-
 
         let { orientation } = this.props
 

@@ -27,15 +27,10 @@ const draglayerstyles = createStyles({
     },
 });
 let ResizeDragLayerBase = class ResizeDragLayerBase extends React.Component {
-    constructor() {
-        super(...arguments);
-        this.lastoffset = 0;
-    }
     render() {
         const { classes, currentwidth, minwidth, maxwidth, hostelement, currentDifference, orientation, } = this.props;
         if (hostelement.current) {
             let diff = currentDifference.x;
-            this.lastoffset = diff;
             let newwidth = currentwidth + -diff;
             if (newwidth > maxwidth) {
                 newwidth = maxwidth;
