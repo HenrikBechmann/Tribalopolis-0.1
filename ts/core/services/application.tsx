@@ -217,12 +217,10 @@ const processDocumentCallbacks = (reference, change) => {
     // let document = documentcacheitem.document
     // let typeref = document.identity.type
 
-    // if (typecache.has(typeref)) {
     debug && console.log('calling getDocumentPack from processDocumentCallbacks',reference)
 
     let {document,type} = getDocumentPack(reference)
 
-    // let type = typecache.get(typeref).document
     if (type) {
 
         let listeners = documentcacheitem.listeners
@@ -234,7 +232,6 @@ const processDocumentCallbacks = (reference, change) => {
             callback(document,type,change)
         })
     }
-    // }
 }
 
 /*
@@ -360,6 +357,7 @@ const properties = {
 
 }
 
+// called from component componentDidMount or componentWillUpdate
 const setDocumentListener = (token,instanceid,callback) => {
 
     // if (sentinels[instanceid] !== undefined) return
@@ -408,6 +406,7 @@ const setDocumentListener = (token,instanceid,callback) => {
 
 }
 
+// called from compoent componentWillUnmount
 const removeDocumentListener = (token, instanceid) => {
 
     if (sentinels[instanceid]===false) {
