@@ -23,6 +23,8 @@ import gateway from '../services/gateway'
 
 import { toast } from 'react-toastify'
 import ActionButton from './common/actionbutton.view'
+import DataDrawer from './common/datadrawer.view'
+import BuildDataPane from './build/builddatapane.view'
 
 const styles = theme => ({
   button: {
@@ -32,6 +34,11 @@ const styles = theme => ({
 
 class BuildController extends React.Component<any,any> {
 
+    constructor(props) {
+        super(props)
+        this.contentelement = React.createRef()
+    }
+
     state = {
         values:{
             collection:'types',
@@ -40,12 +47,16 @@ class BuildController extends React.Component<any,any> {
         doc:{
             data:{},
             id:null,
-        }
+        },
+        draweropen:true,
     }
 
     savejson = null
 
     latestjson = {}
+
+    drawerdatapackage
+    contentelement
 
     fetchObject = () => {
 
@@ -129,9 +140,25 @@ class BuildController extends React.Component<any,any> {
         this.setState({ values })    
     }
 
+    closeDrawer = () => {
+        this.drawerdatapackage = null
+        this.setState({
+            draweropen:false,
+        })
+    }
+
     render() {
         return <div>
             <StandardToolbar />
+            <DataDrawer open = {this.state.draweropen}
+                handleClose = {this.closeDrawer}
+                containerelement = {this.contentelement}
+            >
+                <BuildDataPane
+                    drawerDataPackage = {this.drawerdatapackage}
+                />
+            </DataDrawer>
+
             {!application.properties.ismobile?<UserContext.Consumer>
             { user => {
             let superuser = !!(user && (user.uid == '112979797407042560714'))

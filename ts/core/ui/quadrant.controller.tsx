@@ -13,7 +13,7 @@ import { toast } from 'react-toastify'
 
 import QuadOrigin from './quadrant/quadorigin.view'
 import QuadContextBar from './quadrant/quadcontextbar.view'
-import QuadDataDrawer from './quadrant/quaddatadrawer.view'
+import DataDrawer from './common/datadrawer.view'
 import QuadDataPane from './quadrant/quaddatapane.view'
 
 import DataBox from './databox.controller'
@@ -375,14 +375,14 @@ class Quadrant extends React.Component<any,any>  {
                 ref = {this.originelement}
             />
             <div className = {classes.viewportFrame}>
-                <QuadDataDrawer open = {this.state.draweropen}
+                <DataDrawer open = {this.state.draweropen}
                     handleClose = {this.closeDrawer}
                     containerelement = {this.quadcontentelement}
                 >
                     <QuadDataPane
                         drawerDataPackage = {this.drawerdatapackage}
                     />
-                </QuadDataDrawer>
+                </DataDrawer>
                 <div 
                     className = {classes.viewport}
                     style = {viewportStyle}

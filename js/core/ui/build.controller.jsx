@@ -14,14 +14,16 @@ import application from '../services/application';
 import gateway from '../services/gateway';
 import { toast } from 'react-toastify';
 import ActionButton from './common/actionbutton.view';
+import DataDrawer from './common/datadrawer.view';
+import BuildDataPane from './build/builddatapane.view';
 const styles = theme => ({
     button: {
         margin: theme.spacing.unit,
     },
 });
 class BuildController extends React.Component {
-    constructor() {
-        super(...arguments);
+    constructor(props) {
+        super(props);
         this.state = {
             values: {
                 collection: 'types',
@@ -30,7 +32,8 @@ class BuildController extends React.Component {
             doc: {
                 data: {},
                 id: null,
-            }
+            },
+            draweropen: true,
         };
         this.savejson = null;
         this.latestjson = {};
@@ -93,10 +96,21 @@ class BuildController extends React.Component {
             values[event.target.name] = event.target.value;
             this.setState({ values });
         };
+        this.closeDrawer = () => {
+            this.drawerdatapackage = null;
+            this.setState({
+                draweropen: false,
+            });
+        };
+        this.contentelement = React.createRef();
     }
     render() {
         return <div>
             <StandardToolbar />
+            <DataDrawer open={this.state.draweropen} handleClose={this.closeDrawer} containerelement={this.contentelement}>
+                <BuildDataPane drawerDataPackage={this.drawerdatapackage}/>
+            </DataDrawer>
+
             {!application.properties.ismobile ? <UserContext.Consumer>
             {user => {
             let superuser = !!(user && (user.uid == '112979797407042560714'));

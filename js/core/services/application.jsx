@@ -149,10 +149,8 @@ const processDocumentCallbacks = (reference, change) => {
     let documentcacheitem = documentcache.get(reference);
     // let document = documentcacheitem.document
     // let typeref = document.identity.type
-    // if (typecache.has(typeref)) {
     debug && console.log('calling getDocumentPack from processDocumentCallbacks', reference);
     let { document, type } = getDocumentPack(reference);
-    // let type = typecache.get(typeref).document
     if (type) {
         let listeners = documentcacheitem.listeners;
         debug && console.log('processing document callbacks', reference, listeners);
@@ -161,7 +159,6 @@ const processDocumentCallbacks = (reference, change) => {
             callback(document, type, change);
         });
     }
-    // }
 };
 /*
     removes a document item from the document cache
@@ -243,6 +240,7 @@ const getDocumentPack = reference => {
 const properties = {
     ismobile: /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)
 };
+// called from component componentDidMount or componentWillUpdate
 const setDocumentListener = (token, instanceid, callback) => {
     // if (sentinels[instanceid] !== undefined) return
     // console.log('setting false sentinel for ', instanceid)
@@ -277,6 +275,7 @@ const setDocumentListener = (token, instanceid, callback) => {
         }
     });
 };
+// called from compoent componentWillUnmount
 const removeDocumentListener = (token, instanceid) => {
     if (sentinels[instanceid] === false) {
         // console.log('setting false sentinel to true', instanceid)
