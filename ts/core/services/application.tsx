@@ -37,9 +37,9 @@ const typecache = new Map()
 const debug = false // show console messages
 const debug2 = false
 
-// const sentinels = {
+const sentinels = {
 
-// }
+}
 
 // ===========[ Document Cache Management ]============
 
@@ -50,12 +50,9 @@ const debug2 = false
 // adds a document listener to be updated when a document changes or is set
 const addDocumentCacheListener = (reference,instanceid,callback) => {
 
-    // if (sentinels[instanceid]) {
-    //     delete sentinels[instanceid]
-    // }
-    // debugger
     let cacheitem = getDocumentCacheItem(reference)
 
+    // console.log('adding document listener',instanceid)
     cacheitem.listeners.set(instanceid,callback)
 
     debug && console.log('created document cache LISTENER',reference,cacheitem.listeners)
@@ -233,9 +230,8 @@ const processDocumentCallbacks = (reference, change) => {
         debug && console.log('processing document callbacks',reference,listeners)
 
         listeners.forEach((callback,key) => {
-            // if (!sentinels[key]) {
-                callback(document,type,change)
-            // }
+            console.log('calling PROCESS callback ', key)
+            callback(document,type,change)
         })
     }
     // }
@@ -366,39 +362,58 @@ const properties = {
 
 const setDocumentListener = (token,instanceid,callback) => {
 
-    // setTimeout(()=>{ // give animations a chance to run
+    // if (sentinels[instanceid] !== undefined) return
+    // console.log('setting false sentinel for ', instanceid)
+    sentinels[instanceid] = false
 
-    let reference = getTokenReference(token)
+    setTimeout(()=>{ // give animations a chance to run
 
-    addDocumentCacheListener(reference,instanceid,callback)
+        let reference = getTokenReference(token)
 
-    debug && console.log('calling getDocumentPack from setDocumentListener',instanceid,reference)
+        addDocumentCacheListener(reference,instanceid,callback)
 
-    let cachedata = getDocumentPack(reference)
+        debug && console.log('calling getDocumentPack from setDocumentListener',instanceid,reference)
 
-    if (cachedata.document && cachedata.type) { // defer if waiting for type
+        let cachedata = getDocumentPack(reference)
 
-        debug && console.log('IMMEDIATE callback',reference)
+        if (sentinels[instanceid] === false) {
 
-        // if (!sentinels[instanceid]) {
-            callback(cachedata.document, cachedata.type, 
-                {
-                    documents:{
-                        reason:'newcallback',
-                        document:true, 
-                        type:true,
-                    }
-                }
-            )
-        // }
-    }
-    // })
+            if (cachedata.document && cachedata.type) { // defer if waiting for type
+
+                debug && console.log('IMMEDIATE callback',reference)
+                // setTimeout(()=>{
+
+                    // console.log('calling false sentinel IMMEDIATE callback',instanceid )
+                    callback(cachedata.document, cachedata.type, 
+                        {
+                            documents:{
+                                reason:'newcallback',
+                                document:true, 
+                                type:true,
+                            }
+                        }
+                    )
+                // })
+            }
+            // console.log('deleting false sentinel after IMMEDIATE', instanceid)
+            delete sentinels[instanceid]
+
+        } else {
+            if (sentinels[instanceid] === true) {
+                // console.log('deleting IMMEDATE true sentinal',instanceid)
+                delete sentinels[instanceid]
+            }
+        }
+    })
 
 }
 
 const removeDocumentListener = (token, instanceid) => {
 
-    // sentinels[instanceid] = true
+    if (sentinels[instanceid]===false) {
+        // console.log('setting false sentinel to true', instanceid)
+        sentinels[instanceid] = true
+    }
     // setTimeout(()=>{
         let reference = getTokenReference(token)
         removeDocumentCacheListener(reference,instanceid)

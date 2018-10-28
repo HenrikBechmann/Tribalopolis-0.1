@@ -30,19 +30,15 @@ const documentcache = new Map();
 const typecache = new Map();
 const debug = false; // show console messages
 const debug2 = false;
-// const sentinels = {
-// }
+const sentinels = {};
 // ===========[ Document Cache Management ]============
 /*
     There is a separate set of methods for each of the document and type caches.
 */
 // adds a document listener to be updated when a document changes or is set
 const addDocumentCacheListener = (reference, instanceid, callback) => {
-    // if (sentinels[instanceid]) {
-    //     delete sentinels[instanceid]
-    // }
-    // debugger
     let cacheitem = getDocumentCacheItem(reference);
+    // console.log('adding document listener',instanceid)
     cacheitem.listeners.set(instanceid, callback);
     debug && console.log('created document cache LISTENER', reference, cacheitem.listeners);
 };
@@ -161,9 +157,8 @@ const processDocumentCallbacks = (reference, change) => {
         let listeners = documentcacheitem.listeners;
         debug && console.log('processing document callbacks', reference, listeners);
         listeners.forEach((callback, key) => {
-            // if (!sentinels[key]) {
+            console.log('calling PROCESS callback ', key);
             callback(document, type, change);
-            // }
         });
     }
     // }
@@ -249,27 +244,44 @@ const properties = {
     ismobile: /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)
 };
 const setDocumentListener = (token, instanceid, callback) => {
-    // setTimeout(()=>{ // give animations a chance to run
-    let reference = getTokenReference(token);
-    addDocumentCacheListener(reference, instanceid, callback);
-    debug && console.log('calling getDocumentPack from setDocumentListener', instanceid, reference);
-    let cachedata = getDocumentPack(reference);
-    if (cachedata.document && cachedata.type) { // defer if waiting for type
-        debug && console.log('IMMEDIATE callback', reference);
-        // if (!sentinels[instanceid]) {
-        callback(cachedata.document, cachedata.type, {
-            documents: {
-                reason: 'newcallback',
-                document: true,
-                type: true,
+    // if (sentinels[instanceid] !== undefined) return
+    // console.log('setting false sentinel for ', instanceid)
+    sentinels[instanceid] = false;
+    setTimeout(() => {
+        let reference = getTokenReference(token);
+        addDocumentCacheListener(reference, instanceid, callback);
+        debug && console.log('calling getDocumentPack from setDocumentListener', instanceid, reference);
+        let cachedata = getDocumentPack(reference);
+        if (sentinels[instanceid] === false) {
+            if (cachedata.document && cachedata.type) { // defer if waiting for type
+                debug && console.log('IMMEDIATE callback', reference);
+                // setTimeout(()=>{
+                // console.log('calling false sentinel IMMEDIATE callback',instanceid )
+                callback(cachedata.document, cachedata.type, {
+                    documents: {
+                        reason: 'newcallback',
+                        document: true,
+                        type: true,
+                    }
+                });
+                // })
             }
-        });
-        // }
-    }
-    // })
+            // console.log('deleting false sentinel after IMMEDIATE', instanceid)
+            delete sentinels[instanceid];
+        }
+        else {
+            if (sentinels[instanceid] === true) {
+                // console.log('deleting IMMEDATE true sentinal',instanceid)
+                delete sentinels[instanceid];
+            }
+        }
+    });
 };
 const removeDocumentListener = (token, instanceid) => {
-    // sentinels[instanceid] = true
+    if (sentinels[instanceid] === false) {
+        // console.log('setting false sentinel to true', instanceid)
+        sentinels[instanceid] = true;
+    }
     // setTimeout(()=>{
     let reference = getTokenReference(token);
     removeDocumentCacheListener(reference, instanceid);
