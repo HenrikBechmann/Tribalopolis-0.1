@@ -6,9 +6,10 @@
 import React from 'react'
 
 import Button from '@material-ui/core/Button'
-import { withStyles } from '@material-ui/core/styles'
+import { withStyles, createStyles } from '@material-ui/core/styles'
 
 import ReactJson from 'react-json-view'
+import { toast } from 'react-toastify'
 
 import StandardToolbar from './common/standardtoolbar.view'
 
@@ -20,16 +21,15 @@ import UserContext from '../services/user.context'
 
 import application from '../services/application'
 
-import { toast } from 'react-toastify'
 import ActionButton from './common/actionbutton.view'
 import DataDrawer from './common/datadrawer.view'
 import BuildDataPane from './build/builddatapane.view'
 
-const styles = theme => ({
+const styles = theme => (createStyles({
   button: {
     margin: theme.spacing.unit,
   },
-})
+}))
 
 class BuildController extends React.Component<any,any> {
 
@@ -49,7 +49,6 @@ class BuildController extends React.Component<any,any> {
         },
         draweropen:false,
     }
-
     savejson = null
 
     latestjson = {}
