@@ -85,6 +85,8 @@ const processDocumentCallbackFromGateway = (reference, document, change) => {
     debug && console.log('process document callback from gateway', reference);
     // set or update document
     let cacheitem = documentcache.get(reference);
+    if (!cacheitem)
+        return; // async
     cacheitem.document = document;
     let typeref = document.identity.type; // all documents have a type
     // will only create if doesn't already exist
@@ -124,13 +126,18 @@ const processTypeCallbacksFromGateway = (reference, type, change) => {
     debug && console.log('initializing type callback from gateway', reference);
     let typedoc = type || {};
     let cacheitem = typecache.get(reference);
-    cacheitem.document = typedoc;
-    let listeners = cacheitem.listeners;
+    let listeners = null;
+    if (cacheitem) {
+        cacheitem.document = typedoc;
+        listeners = cacheitem.listeners;
+    }
     debug && console.log('data: type cache item listeners', listeners);
-    listeners.forEach((callback, key) => {
-        debug && console.log('processing callback from type for ', key);
-        callback(key, change);
-    });
+    if (listeners) {
+        listeners.forEach((callback, key) => {
+            debug && console.log('processing callback from type for ', key);
+            callback(key, change);
+        });
+    }
 };
 /*
     triggers document callbacks when the document's type is first set, or is updated.
@@ -155,7 +162,7 @@ const processDocumentCallbacks = (reference, change) => {
         let listeners = documentcacheitem.listeners;
         debug && console.log('processing document callbacks', reference, listeners);
         listeners.forEach((callback, key) => {
-            console.log('calling PROCESS callback ', key);
+            // console.log('calling PROCESS callback ', key)
             callback(document, type, change);
         });
     }
@@ -217,7 +224,8 @@ const getTokenReference = token => {
     return `/${token.collection}/${token.id}`;
 };
 const getDocumentPack = reference => {
-    let document = documentcache.get(reference).document;
+    let cachedocument = documentcache.get(reference);
+    let document = cachedocument ? cachedocument.document : null;
     let type = null;
     let typeref = null;
     if (document) {

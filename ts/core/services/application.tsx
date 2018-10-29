@@ -115,6 +115,9 @@ const processDocumentCallbackFromGateway = ( reference, document, change ) => {
     debug && console.log('process document callback from gateway', reference)
     // set or update document
     let cacheitem = documentcache.get(reference)
+
+    if (!cacheitem) return // async
+
     cacheitem.document = document
 
     let typeref = document.identity.type // all documents have a type
@@ -180,16 +183,22 @@ const processTypeCallbacksFromGateway = ( reference, type, change ) => {
 
     let typedoc = type || {}
     let cacheitem = typecache.get(reference)
-    cacheitem.document = typedoc
-    let listeners = cacheitem.listeners
+    let listeners = null
+    if (cacheitem) {
+        cacheitem.document = typedoc
+        listeners = cacheitem.listeners
+    }
 
     debug && console.log('data: type cache item listeners',listeners)
 
-    listeners.forEach((callback,key) => {
+    if (listeners) {
+        listeners.forEach((callback,key) => {
 
-        debug && console.log('processing callback from type for ',key)
-        callback(key,change)
-    })
+            debug && console.log('processing callback from type for ',key)
+            callback(key,change)
+
+        })
+    }
 
 }
 
@@ -228,7 +237,7 @@ const processDocumentCallbacks = (reference, change) => {
         debug && console.log('processing document callbacks',reference,listeners)
 
         listeners.forEach((callback,key) => {
-            console.log('calling PROCESS callback ', key)
+            // console.log('calling PROCESS callback ', key)
             callback(document,type,change)
         })
     }
@@ -322,7 +331,8 @@ const getTokenReference = token => {
 
 const getDocumentPack = reference => {
 
-    let document = documentcache.get(reference).document
+    let cachedocument = documentcache.get(reference)
+    let document = cachedocument?cachedocument.document:null
     let type = null
     let typeref = null
     if (document) {
