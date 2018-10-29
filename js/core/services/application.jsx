@@ -63,7 +63,7 @@ const getDocumentCacheItem = (reference) => {
     }
     return cacheitem;
 };
-// -----------[ document cache ]-----------
+// -----------[ document and type cache flow ]-----------
 /*
     Returns a initialized document cache item
 */
@@ -180,7 +180,7 @@ const removeDocumentCacheItem = (reference) => {
         }
     }
 };
-// ------------[ document listeners ]---------------
+// ------------[ remove listeners and cache items ]---------------
 // removes a document listener when the observer is dismounted
 const removeDocumentCacheListener = (reference, instanceid) => {
     if (!documentcache.has(reference))
@@ -194,15 +194,12 @@ const removeDocumentCacheListener = (reference, instanceid) => {
         }
     }
 };
-// ===========[ Type Cache Management ]============
-// type cache
 const removeTypeCacheItem = (reference) => {
     // unhook from gateway
     gateway.removeDocumentListener(reference);
     typecache.delete(reference);
     debug && console.log('removed type cache item', reference, typecache);
 };
-// type listeners
 const removeTypeCacheListener = (typereference, documentreference) => {
     if (!typecache.has(typereference))
         return;
@@ -286,10 +283,18 @@ const removeDocumentListener = (token, instanceid) => {
     removeDocumentCacheListener(reference, instanceid);
     // })
 };
+const getDocument = (reference, callback, errorback) => {
+    gateway.getDocument(reference, callback, errorback);
+};
+const setDocument = (reference, data, success, failure) => {
+    gateway.setDocument(reference, data, success, failure);
+};
 let application = {
     properties,
     setDocumentListener,
     removeDocumentListener,
+    getDocument,
+    setDocument,
 };
 export default application;
 //# sourceMappingURL=application.jsx.map

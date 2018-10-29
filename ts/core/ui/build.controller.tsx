@@ -19,7 +19,6 @@ import TextField from './input/textfield.view'
 import UserContext from '../services/user.context'
 
 import application from '../services/application'
-import gateway from '../services/gateway'
 
 import { toast } from 'react-toastify'
 import ActionButton from './common/actionbutton.view'
@@ -48,7 +47,7 @@ class BuildController extends React.Component<any,any> {
             data:{},
             id:null,
         },
-        draweropen:true,
+        draweropen:false,
     }
 
     savejson = null
@@ -61,14 +60,13 @@ class BuildController extends React.Component<any,any> {
     fetchObject = () => {
 
         if (!this.savejson || (confirm('replace current object?'))) {
-            gateway.getDocument(
+            application.getDocument(
                 `/${this.state.values.collection}/${this.state.values.id}`,
                 this.getCallback,
                 this.getErrorCallback
             )
         }
     }
-
 
     getCallback = (data,id) => {
 
@@ -104,7 +102,7 @@ class BuildController extends React.Component<any,any> {
 
     postObject = () => {
         if (confirm('Post this object?')) {
-            gateway.setDocument(
+            application.setDocument(
                 `/${this.state.values.collection}/${this.state.values.id}`,
                 this.latestjson,
                 this.postSuccessCallback,

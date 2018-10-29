@@ -11,7 +11,6 @@ import SelectField from './input/selectfield.view';
 import TextField from './input/textfield.view';
 import UserContext from '../services/user.context';
 import application from '../services/application';
-import gateway from '../services/gateway';
 import { toast } from 'react-toastify';
 import ActionButton from './common/actionbutton.view';
 import DataDrawer from './common/datadrawer.view';
@@ -33,13 +32,13 @@ class BuildController extends React.Component {
                 data: {},
                 id: null,
             },
-            draweropen: true,
+            draweropen: false,
         };
         this.savejson = null;
         this.latestjson = {};
         this.fetchObject = () => {
             if (!this.savejson || (confirm('replace current object?'))) {
-                gateway.getDocument(`/${this.state.values.collection}/${this.state.values.id}`, this.getCallback, this.getErrorCallback);
+                application.getDocument(`/${this.state.values.collection}/${this.state.values.id}`, this.getCallback, this.getErrorCallback);
             }
         };
         this.getCallback = (data, id) => {
@@ -70,7 +69,7 @@ class BuildController extends React.Component {
         };
         this.postObject = () => {
             if (confirm('Post this object?')) {
-                gateway.setDocument(`/${this.state.values.collection}/${this.state.values.id}`, this.latestjson, this.postSuccessCallback, this.postFailureCallback);
+                application.setDocument(`/${this.state.values.collection}/${this.state.values.id}`, this.latestjson, this.postSuccessCallback, this.postFailureCallback);
             }
         };
         this.postSuccessCallback = () => {
