@@ -36,6 +36,9 @@ class BuildController extends React.Component {
         };
         this.savejson = null;
         this.latestjson = {};
+        this.onResize = () => {
+            this.forceUpdate();
+        };
         this.fetchObject = () => {
             if (!this.savejson || (confirm('replace current object?'))) {
                 application.getDocument(`/${this.state.values.collection}/${this.state.values.id}`, this.getCallback, this.getErrorCallback);
@@ -112,9 +115,17 @@ class BuildController extends React.Component {
             });
         };
         this.contentelement = React.createRef();
+        window.addEventListener('resize', this.onResize);
+    }
+    componentWillUnmount() {
+        window.removeEventListener('resize', this.onResize);
     }
     render() {
-        return <div>
+        return <div style={{
+            overflow: 'hidden',
+            position: 'relative',
+            height: '100vh',
+        }} ref={this.contentelement}>
             <StandardToolbar />
             <DataDrawer open={this.state.draweropen} handleClose={this.closeDrawer} containerelement={this.contentelement}>
                 <BuildDataPane drawerDataPackage={this.drawerdatapackage}/>

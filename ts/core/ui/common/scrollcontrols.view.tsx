@@ -23,9 +23,9 @@ class ScrollControlsView extends React.Component<any,any> {
             let scroller = this.scroller = this.props.scroller
             this.calcScrollerData()
             scroller.addEventListener('scroll',this.onScroll)
-            window.addEventListener('resize',this.onResize)
         }
 
+        window.addEventListener('resize',this.onResize)
         this.onScroll()
     }
 
@@ -43,8 +43,8 @@ class ScrollControlsView extends React.Component<any,any> {
 
         if (this.scroller) {
             this.scroller.removeEventListener('scroll',this.onScroll)        
-            window.removeEventListener('resize',this.onResize)
         }
+        window.removeEventListener('resize',this.onResize)
     }
 
     calcScrollRight = () => {

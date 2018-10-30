@@ -22,6 +22,7 @@ let styles = createStyles({
         zIndex:1,
         transition:'right .25s',
         borderLeft:'1px solid silver',
+        boxSizing:'border-box',
    },
    button:{
        position:'absolute',

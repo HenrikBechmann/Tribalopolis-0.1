@@ -36,6 +36,7 @@ class BuildController extends React.Component<any,any> {
     constructor(props) {
         super(props)
         this.contentelement = React.createRef()
+        window.addEventListener('resize',this.onResize)
     }
 
     state = {
@@ -55,6 +56,14 @@ class BuildController extends React.Component<any,any> {
 
     drawerdatapackage
     contentelement
+
+    onResize = () => {
+        this.forceUpdate()
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('resize',this.onResize)
+    }
 
     fetchObject = () => {
 
@@ -156,7 +165,16 @@ class BuildController extends React.Component<any,any> {
     }
 
     render() {
-        return <div>
+        return <div 
+            style = {
+                {
+                    overflow:'hidden',
+                    position:'relative',
+                    height:'100vh',
+                }
+            }
+            ref = {this.contentelement}
+        >
             <StandardToolbar />
             <DataDrawer open = {this.state.draweropen}
                 handleClose = {this.closeDrawer}
