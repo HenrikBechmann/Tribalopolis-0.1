@@ -4,7 +4,7 @@
 import React from 'react';
 import Icon from '@material-ui/core/Icon';
 import UserContext from '../../services/user.context';
-import QuadToolsStrip from './toolsstrip.view';
+import ToolsStrip from './toolsstrip.view';
 import { withStyles, createStyles } from '@material-ui/core/styles';
 const styles = createStyles({
     toolstrip: {
@@ -28,7 +28,7 @@ const StandardToolbar = (props) => {
     let { classes } = props;
     return (<div>
             <UserContext.Consumer>
-            {user => (<QuadToolsStrip user={user} childrenposition='end'>
+            {user => (<ToolsStrip user={user} childrenposition='end'>
                     <div className={classes.toolstrip}>
                         <Icon style={{ margin: '0 8px 0 8px', verticalAlign: 'middle' }}>
                             <img src='/public/icons/fire.svg'/>
@@ -37,7 +37,7 @@ const StandardToolbar = (props) => {
                             Tribalopolis is a virtual city of tribes
                         </div>
                     </div>
-                </QuadToolsStrip>)}
+                </ToolsStrip>)}
             </UserContext.Consumer>
             <div className={classes.spacer}></div>
         </div>);

@@ -9,7 +9,7 @@ import React from 'react'
 import Icon from '@material-ui/core/Icon'
 
 import UserContext from '../../services/user.context'
-import QuadToolsStrip from './toolsstrip.view'
+import ToolsStrip from './toolsstrip.view'
 import VerticalDivider from './verticaldivider.view'
 import { withStyles, createStyles } from '@material-ui/core/styles'
 
@@ -39,7 +39,7 @@ const StandardToolbar = (props) => {
         <div>
             <UserContext.Consumer>
             { user => (
-                <QuadToolsStrip
+                <ToolsStrip
                     user = {user}
                     childrenposition = 'end'
                 >
@@ -54,7 +54,7 @@ const StandardToolbar = (props) => {
                             Tribalopolis is a virtual city of tribes
                         </div>
                     </div>
-                </QuadToolsStrip>)
+                </ToolsStrip>)
             }
             </UserContext.Consumer>
             <div className = {classes.spacer} ></div>

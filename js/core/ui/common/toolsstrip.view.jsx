@@ -15,6 +15,7 @@ import Icon from '@material-ui/core/Icon';
 import IconButton from '@material-ui/core/IconButton';
 import Divider from '@material-ui/core/Divider';
 import Drawer from '@material-ui/core/Drawer';
+import ToolTip from '@material-ui/core/Tooltip';
 import ScrollControlsView from '../common/scrollcontrols.view';
 import VerticalDivider from '../common/verticaldivider.view';
 import authapi from '../../services/auth.api';
@@ -233,22 +234,28 @@ class QuadToolsStrip extends React.Component {
 
                             {(this.props.childrenposition == 'middle') &&
             this.props.children}
-
+                            <ToolTip title='Notifications'>
                             <IconButton>
                                 <Icon>notifications</Icon>
                             </IconButton>
+                            </ToolTip>
 
-                            <IconButton>
+                            {false && <IconButton>
                                 <Icon>apps</Icon>
-                            </IconButton>
-
+                            </IconButton>}
+                            <ToolTip title='Settings'>
                             <IconButton>
                                 <Icon>settings</Icon>
                             </IconButton>
+                            </ToolTip>
 
+                            <ToolTip title='Help'>
                             <IconButton>
                                 <Icon>help_outline</Icon>
                             </IconButton>
+                            </ToolTip>
+
+                            <VerticalDivider />
 
                             {this.accountmenu()}
 
