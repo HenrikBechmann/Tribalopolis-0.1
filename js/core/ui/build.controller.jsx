@@ -128,7 +128,7 @@ class BuildController extends React.Component {
         }} ref={this.contentelement}>
             <StandardToolbar />
             <DataDrawer open={this.state.draweropen} handleClose={this.closeDrawer} containerelement={this.contentelement}>
-                <BuildDataPane drawerDataPackage={this.drawerdatapackage}/>
+                <BuildDataPane dataPack={this.drawerdatapackage} open={this.state.draweropen}/>
             </DataDrawer>
 
             {!application.properties.ismobile ? <UserContext.Consumer>

@@ -181,7 +181,8 @@ class BuildController extends React.Component<any,any> {
                 containerelement = {this.contentelement}
             >
                 <BuildDataPane
-                    drawerDataPackage = {this.drawerdatapackage}
+                    dataPack = {this.drawerdatapackage}
+                    open = {this.state.draweropen}
                 />
             </DataDrawer>
 
