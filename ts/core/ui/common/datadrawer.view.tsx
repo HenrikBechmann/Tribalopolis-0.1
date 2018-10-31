@@ -14,7 +14,7 @@ import ResizeTab from '../common/generalresizetab.view'
 let styles = createStyles({
    root: {
         backgroundColor:'white',
-        height:'calc(100% - 19px)',
+        height:'100%',
         padding:'3px',
         paddingTop:'16px',
         position:'absolute',

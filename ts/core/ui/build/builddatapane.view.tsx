@@ -29,7 +29,9 @@ class BuildDataPane extends React.Component<any,any>  {
         // console.log('props',this.props)
         return <Paper className = {classes.root}>
             <div className = { classes.content }>
-                Build Data shelf {drawerDataPackage?drawerDataPackage.opcode:null}
+                <div style = {{height:'1000px',width:'100%',padding:'3px',}}>
+                    Build Data shelf {drawerDataPackage?drawerDataPackage.opcode:null}
+                </div>
             </div>
         </Paper>
     }
