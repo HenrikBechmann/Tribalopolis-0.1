@@ -310,6 +310,7 @@ class QuadToolsStrip extends React.Component<any,any> {
             top:0,
             left:0,
             right:0,
+            zIndex:1,
         }
 
     render() {

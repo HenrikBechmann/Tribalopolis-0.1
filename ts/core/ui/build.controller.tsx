@@ -181,7 +181,6 @@ class BuildController extends React.Component<any,any> {
             let superuser = !!(user && (user.uid == '112979797407042560714'))
             // console.log('user',superuser,user)
             return <div>
-            <div>The build utility is currently only available to Henrik Bechmann, the author.</div>
 
             <DataDrawer open = {this.state.draweropen}
                 handleClose = {this.closeDrawer}
@@ -193,6 +192,8 @@ class BuildController extends React.Component<any,any> {
                     user = {user}
                 />
             </DataDrawer>
+            <div style = {{position:'absolute',top:'0',left:'0',paddingTop:'48px',overflow:'auto',height:'100vh',width:'100%'}}>
+            <div>The build utility is currently only available to Henrik Bechmann, the author.</div>
 
             <BaseForm onSubmit = {this.fetchObject} disabled = {!superuser}>
                 <SelectField
@@ -289,6 +290,7 @@ class BuildController extends React.Component<any,any> {
                         this.latestjson = props.updated_src
                     }}
                 />
+            </div>
             </div>
             </div>
             }}
