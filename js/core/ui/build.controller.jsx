@@ -104,12 +104,12 @@ class BuildController extends React.Component {
                 draweropen: false,
             });
         };
-        this.callDataDrawer = (proxy, opcode) => {
+        this.callDataDrawer = (opcode, specs) => {
             if (this.state.draweropen) {
                 toast.info('The data shelf is in use. Close the shelf and try again.');
                 return;
             }
-            this.drawerdatapackage = { proxy, opcode };
+            this.drawerdatapackage = { specs, opcode };
             this.setState({
                 draweropen: true,
             });
@@ -159,7 +159,7 @@ class BuildController extends React.Component {
 
                 <TextField label='Id' name='id' value={this.state.values.id} onChange={this.onChangeValue} helperText='enter the id of the requested object'/>
                 <ActionButton icon='list' action={() => {
-                this.callDataDrawer({}, 'search');
+                this.callDataDrawer('list', { collection: this.state.values.collection });
             }}/>
             </BaseForm>
             <div>

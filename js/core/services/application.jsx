@@ -28,8 +28,6 @@ import gateway from './gateway';
 */
 const documentcache = new Map();
 const typecache = new Map();
-const debug = false; // show console messages
-const debug2 = false;
 const sentinels = {};
 // ===========[ Document Cache Management ]============
 /*
@@ -257,7 +255,7 @@ const setDocumentListener = (token, instanceid, callback) => {
         }
     });
 };
-// called from compoent componentWillUnmount
+// called from component componentWillUnmount
 const removeDocumentListener = (token, instanceid) => {
     let reference = getTokenReference(token);
     let sentinel = sentinels[instanceid]

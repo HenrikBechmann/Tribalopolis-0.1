@@ -153,12 +153,12 @@ class BuildController extends React.Component<any,any> {
         })
     }
 
-    callDataDrawer = (proxy,opcode) => {
+    callDataDrawer = (opcode, specs) => {
         if (this.state.draweropen) {
             toast.info('The data shelf is in use. Close the shelf and try again.')
             return
         }
-        this.drawerdatapackage = {proxy, opcode}
+        this.drawerdatapackage = {specs, opcode}
         this.setState({
             draweropen:true,
         })
@@ -228,7 +228,7 @@ class BuildController extends React.Component<any,any> {
                 <ActionButton 
                     icon = 'list'
                     action = {() => {
-                            this.callDataDrawer({},'search')
+                            this.callDataDrawer('list',{collection:this.state.values.collection})
                         }
                     }
                 />
