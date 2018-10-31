@@ -115,7 +115,7 @@ class BuildController extends React.Component {
             });
         };
         this.contentelement = React.createRef();
-        window.addEventListener('resize', this.onResize);
+        window.addEventListener('resize', this.onResize); // to reacalc datadrawer maxwidth. There may be a better way
     }
     componentWillUnmount() {
         window.removeEventListener('resize', this.onResize);

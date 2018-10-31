@@ -36,7 +36,7 @@ class BuildController extends React.Component<any,any> {
     constructor(props) {
         super(props)
         this.contentelement = React.createRef()
-        window.addEventListener('resize',this.onResize)
+        window.addEventListener('resize',this.onResize) // to reacalc datadrawer maxwidth. There may be a better way
     }
 
     state = {

@@ -135,7 +135,13 @@ const processTypeCallbacksFromGateway = (reference, type, change) => {
     if (listeners) {
         listeners.forEach((callback, key) => {
             debug && console.log('processing callback from type for ', key);
-            callback(key, change);
+            let slist = sentinels[key];
+            if (slist) {
+                let slocallist = slist[key];
+                if (slocallist && slocallist[slocallist.length - 1]) {
+                    callback(key, change);
+                }
+            }
         });
     }
 };
@@ -162,8 +168,13 @@ const processDocumentCallbacks = (reference, change) => {
         let listeners = documentcacheitem.listeners;
         debug && console.log('processing document callbacks', reference, listeners);
         listeners.forEach((callback, key) => {
-            // console.log('calling PROCESS callback ', key)
-            callback(document, type, change);
+            let slist = sentinels[key];
+            if (slist) {
+                let slocallist = slist[key];
+                if (slocallist && slocallist[slocallist.length - 1]) {
+                    callback(document, type, change);
+                }
+            }
         });
     }
 };
@@ -249,45 +260,80 @@ const properties = {
 const setDocumentListener = (token, instanceid, callback) => {
     // if (sentinels[instanceid] !== undefined) return
     // console.log('setting false sentinel for ', instanceid)
-    sentinels[instanceid] = false;
     setTimeout(() => {
         let reference = getTokenReference(token);
         addDocumentCacheListener(reference, instanceid, callback);
         debug && console.log('calling getDocumentPack from setDocumentListener', instanceid, reference);
         let cachedata = getDocumentPack(reference);
-        if (sentinels[instanceid] === false) {
-            if (cachedata.document && cachedata.type) { // defer if waiting for type
-                debug && console.log('IMMEDIATE callback', reference);
-                // setTimeout(()=>{
-                // console.log('calling false sentinel IMMEDIATE callback',instanceid )
-                callback(cachedata.document, cachedata.type, {
-                    documents: {
-                        reason: 'newcallback',
-                        document: true,
-                        type: true,
-                    }
-                });
-                // })
-            }
-            // console.log('deleting false sentinel after IMMEDIATE', instanceid)
-            delete sentinels[instanceid];
+        console.log('setting listener', reference, instanceid, sentinels[instanceid], sentinels);
+        let sentinel = sentinels[instanceid]
+            ? sentinels[instanceid][0]
+            : undefined;
+        console.log('setting sentinel value = ', sentinel);
+        if (sentinel === undefined) { // create listener
+            sentinels[instanceid] = [false]; // allow continuation with set listener
+            console.log('create sentinel = false; continue', sentinels[instanceid]);
         }
-        else {
-            if (sentinels[instanceid] === true) {
-                // console.log('deleting IMMEDATE true sentinal',instanceid)
+        else if (sentinel === true) { // stop was set; clear sentinal; abandon
+            console.log('length of instance sentinels BEFORE', sentinels[instanceid].length, sentinels[instanceid]);
+            sentinels[instanceid].splice(0, 1);
+            console.log('length of instance sentinels AFTER', sentinels[instanceid].length, sentinels[instanceid]);
+            if (sentinels[instanceid].length === 0) {
+                console.log('deleting sentinels for', instanceid);
                 delete sentinels[instanceid];
             }
+            console.log('remove sentinel, return, value of sentinel = ', sentinels[instanceid]);
+            return;
         }
+        else { // sentinel = false; continue with set listener
+            sentinels[instanceid].push(false);
+            console.log('add sentinel, continue, value of sentinel = ', sentinels[instanceid]);
+        }
+        console.log('continuing with set', sentinels[instanceid], sentinels);
+        // if (sentinels[instanceid] === false) {
+        if (cachedata.document && cachedata.type) { // defer if waiting for type
+            debug && console.log('IMMEDIATE callback', reference);
+            // setTimeout(()=>{
+            callback(cachedata.document, cachedata.type, {
+                documents: {
+                    reason: 'newcallback',
+                    document: true,
+                    type: true,
+                }
+            });
+            // })
+        }
+        // } 
     });
 };
 // called from compoent componentWillUnmount
 const removeDocumentListener = (token, instanceid) => {
-    if (sentinels[instanceid] === false) {
-        // console.log('setting false sentinel to true', instanceid)
-        sentinels[instanceid] = true;
-    }
-    // setTimeout(()=>{
     let reference = getTokenReference(token);
+    console.log('remove listener', reference, instanceid, sentinels[instanceid], sentinels);
+    let sentinel = sentinels[instanceid]
+        ? sentinels[instanceid][0]
+        : undefined;
+    console.log('removal sentinel value =', sentinel);
+    if (sentinel === undefined) { // create sentinal; set before listener
+        sentinels[instanceid] = [true];
+        console.log('create sentinal, return; sentinels[instanceid] = ', sentinels[instanceid]);
+        return;
+    }
+    else if (sentinel === false) { // clear sentinal; continue delete listener
+        sentinels[instanceid].shift();
+        if (sentinels[instanceid].length === 0) {
+            console.log('deleting sentinels for', instanceid);
+            delete sentinels[instanceid];
+        }
+        console.log('clear sentinal, continue; sentinels[instanceid] = ', sentinels[instanceid]);
+    }
+    else { // sentinal === true; was set for previous call; queue next
+        sentinels[instanceid].push(true);
+        console.log('add sentinal, continue; sentinels[instanceid] = ', sentinels[instanceid]);
+        return;
+    }
+    console.log('continuing with remove; sentinels[instanceid] = ', sentinels[instanceid], sentinels);
+    // setTimeout(()=>{
     removeDocumentCacheListener(reference, instanceid);
     // })
 };
