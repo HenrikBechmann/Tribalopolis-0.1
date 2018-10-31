@@ -67,11 +67,36 @@ const setDocument = (reference, data, success, failure) => {
     })
         .catch((error) => failure(error));
 };
+const getCollection = (reference, success, failure) => {
+    let query = firestore.collection(reference);
+    query.get()
+        .then(querySnapshot => {
+        if (querySnapshot.empty) {
+            return [];
+        }
+        else {
+            let result = [];
+            querySnapshot.forEach(document => {
+                let doc = {
+                    id: document.id,
+                    data: document.data()
+                };
+                result.push(doc);
+            });
+            return result;
+        }
+    })
+        .then(queryData => {
+        success(queryData);
+    })
+        .catch(error => failure(error));
+};
 let domain = {
     setDocumentListener,
     removeDocumentListener,
     getDocument,
     setDocument,
+    getCollection,
 };
 export default domain;
 //# sourceMappingURL=gateway.jsx.map

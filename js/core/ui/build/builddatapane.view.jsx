@@ -4,8 +4,9 @@
 import React from 'react';
 import { withStyles, createStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
+import application from '../../services/application';
+import { toast } from 'react-toastify';
 let _ = require('lodash');
-console.log('lodash', _);
 const styles = createStyles({
     root: {
         position: 'absolute',
@@ -31,8 +32,26 @@ class BuildDataPane extends React.Component {
             opcode: this.props.dataPack ? this.props.dataPack.opcode : undefined,
             specs: this.props.dataPack ? this.props.dataPack.specs : undefined,
         };
+        this.data = null;
         this.updateData = () => {
             console.log('updating data');
+            if (this.state.open) {
+                application.getCollection(this.state.specs.collection, this.dataSuccess, this.dataFailure);
+            }
+            else {
+                console.log('clearing data');
+                this.data = null;
+                this.forceUpdate();
+            }
+        };
+        this.dataSuccess = queryData => {
+            console.log('queryData', queryData);
+            this.data = queryData;
+            this.forceUpdate();
+        };
+        this.dataFailure = error => {
+            console.log('collection fetch error', error);
+            toast.error(error);
         };
     }
     componentDidUpdate() {
@@ -42,7 +61,7 @@ class BuildDataPane extends React.Component {
         if (!_.isEqual(open, this.state.open) ||
             !_.isEqual(opcode, this.state.opcode) ||
             !_.isEqual(specs, this.state.specs)) {
-            console.log('not equal; run setState', this.props, this.state);
+            // console.log('not equal; run setState',this.props, this.state)
             this.setState({
                 open,
                 opcode,
@@ -54,7 +73,7 @@ class BuildDataPane extends React.Component {
     }
     render() {
         const { classes, dataPack } = this.props;
-        // console.log('props',this.props)
+        console.log('props', this.props);
         return <Paper className={classes.root}>
             <div className={classes.content}>
                 <div className={classes.platform}>

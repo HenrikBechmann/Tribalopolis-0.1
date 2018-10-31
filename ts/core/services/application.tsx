@@ -436,12 +436,17 @@ const setDocument = (reference, data, success, failure) => {
 
 }
 
+const getCollection = (reference, success, failure) => {
+    gateway.getCollection(reference,success,failure)
+}
+
 let application = {
     properties,
     setDocumentListener,
     removeDocumentListener,
     getDocument,
     setDocument,
+    getCollection,
 }
 
 export default application
