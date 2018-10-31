@@ -34,9 +34,6 @@ import gateway from './gateway'
 const documentcache = new Map()
 const typecache = new Map()
 
-const debug = false // show console messages
-const debug2 = false
-
 const sentinels = {}
 
 // ===========[ Document Cache Management ]============
@@ -165,12 +162,16 @@ const processTypeCallbacksFromGateway = ( reference, type, change ) => {
     let typedoc = type || {}
     let cacheitem = typecache.get(reference)
     let listeners = null
+
     if (cacheitem) {
+
         cacheitem.document = typedoc
         listeners = cacheitem.listeners
+
     }
 
     if (listeners) {
+
         listeners.forEach((callback,key) => {
 
             callback(key,change)
@@ -369,25 +370,25 @@ const setDocumentListener = (token,instanceid,callback) => {
 
         let cachedata = getDocumentPack(reference)
 
-            if (cachedata.document && cachedata.type) { // defer if waiting for type
+        if (cachedata.document && cachedata.type) { // defer if waiting for type
 
-                callback(cachedata.document, cachedata.type, 
-                    {
-                        documents:{
-                            reason:'newcallback',
-                            document:true, 
-                            type:true,
-                        }
+            callback(cachedata.document, cachedata.type, 
+                {
+                    documents:{
+                        reason:'newcallback',
+                        document:true, 
+                        type:true,
                     }
-                )
+                }
+            )
 
-            }
+        }
 
     })
 
 }
 
-// called from compoent componentWillUnmount
+// called from component componentWillUnmount
 const removeDocumentListener = (token, instanceid) => {
 
     let reference = getTokenReference(token)
