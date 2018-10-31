@@ -166,14 +166,12 @@ const processDocumentCallbacks = (reference, change) => {
     let { document, type } = getDocumentPack(reference);
     if (type) {
         let listeners = documentcacheitem.listeners;
-        debug && console.log('processing document callbacks', reference, listeners);
+        debug && console.log('processing document callbacks', reference, listeners, sentinels);
         listeners.forEach((callback, key) => {
             let slist = sentinels[key];
-            if (slist) {
-                let slocallist = slist[key];
-                if (slocallist && slocallist[slocallist.length - 1]) {
-                    callback(document, type, change);
-                }
+            // console.log('each listener',key,slist)
+            if (slist && (slist[slist.length - 1]) === false) {
+                callback(document, type, change);
             }
         });
     }
@@ -262,34 +260,34 @@ const setDocumentListener = (token, instanceid, callback) => {
     // console.log('setting false sentinel for ', instanceid)
     setTimeout(() => {
         let reference = getTokenReference(token);
-        addDocumentCacheListener(reference, instanceid, callback);
         debug && console.log('calling getDocumentPack from setDocumentListener', instanceid, reference);
-        let cachedata = getDocumentPack(reference);
-        console.log('setting listener', reference, instanceid, sentinels[instanceid], sentinels);
+        // console.log('setting listener', reference, instanceid, sentinels[instanceid], sentinels)
         let sentinel = sentinels[instanceid]
             ? sentinels[instanceid][0]
             : undefined;
-        console.log('setting sentinel value = ', sentinel);
+        // console.log('setting sentinel value = ',sentinel)
         if (sentinel === undefined) { // create listener
             sentinels[instanceid] = [false]; // allow continuation with set listener
-            console.log('create sentinel = false; continue', sentinels[instanceid]);
+            // console.log('create sentinel = false; continue', sentinels[instanceid])
         }
         else if (sentinel === true) { // stop was set; clear sentinal; abandon
-            console.log('length of instance sentinels BEFORE', sentinels[instanceid].length, sentinels[instanceid]);
+            // console.log('length of instance sentinels BEFORE',sentinels[instanceid].length,sentinels[instanceid])
             sentinels[instanceid].splice(0, 1);
-            console.log('length of instance sentinels AFTER', sentinels[instanceid].length, sentinels[instanceid]);
+            // console.log('length of instance sentinels AFTER',sentinels[instanceid].length,sentinels[instanceid])
             if (sentinels[instanceid].length === 0) {
-                console.log('deleting sentinels for', instanceid);
+                // console.log('deleting sentinels for',instanceid)
                 delete sentinels[instanceid];
             }
-            console.log('remove sentinel, return, value of sentinel = ', sentinels[instanceid]);
+            // console.log('remove sentinel, return, value of sentinel = ',sentinels[instanceid])
             return;
         }
         else { // sentinel = false; continue with set listener
             sentinels[instanceid].push(false);
-            console.log('add sentinel, continue, value of sentinel = ', sentinels[instanceid]);
+            // console.log('add sentinel, continue, value of sentinel = ',sentinels[instanceid])
         }
-        console.log('continuing with set', sentinels[instanceid], sentinels);
+        // console.log('continuing with set',sentinels[instanceid], sentinels)
+        addDocumentCacheListener(reference, instanceid, callback);
+        let cachedata = getDocumentPack(reference);
         // if (sentinels[instanceid] === false) {
         if (cachedata.document && cachedata.type) { // defer if waiting for type
             debug && console.log('IMMEDIATE callback', reference);
@@ -309,30 +307,30 @@ const setDocumentListener = (token, instanceid, callback) => {
 // called from compoent componentWillUnmount
 const removeDocumentListener = (token, instanceid) => {
     let reference = getTokenReference(token);
-    console.log('remove listener', reference, instanceid, sentinels[instanceid], sentinels);
+    // console.log('remove listener', reference, instanceid, sentinels[instanceid], sentinels)
     let sentinel = sentinels[instanceid]
         ? sentinels[instanceid][0]
         : undefined;
-    console.log('removal sentinel value =', sentinel);
+    // console.log('removal sentinel value =', sentinel )
     if (sentinel === undefined) { // create sentinal; set before listener
         sentinels[instanceid] = [true];
-        console.log('create sentinal, return; sentinels[instanceid] = ', sentinels[instanceid]);
+        // console.log('create sentinal, return; sentinels[instanceid] = ', sentinels[instanceid])
         return;
     }
     else if (sentinel === false) { // clear sentinal; continue delete listener
         sentinels[instanceid].shift();
         if (sentinels[instanceid].length === 0) {
-            console.log('deleting sentinels for', instanceid);
+            // console.log('deleting sentinels for',instanceid)
             delete sentinels[instanceid];
         }
-        console.log('clear sentinal, continue; sentinels[instanceid] = ', sentinels[instanceid]);
+        // console.log('clear sentinal, continue; sentinels[instanceid] = ', sentinels[instanceid])
     }
     else { // sentinal === true; was set for previous call; queue next
         sentinels[instanceid].push(true);
-        console.log('add sentinal, continue; sentinels[instanceid] = ', sentinels[instanceid]);
+        // console.log('add sentinal, continue; sentinels[instanceid] = ', sentinels[instanceid])
         return;
     }
-    console.log('continuing with remove; sentinels[instanceid] = ', sentinels[instanceid], sentinels);
+    // console.log('continuing with remove; sentinels[instanceid] = ',sentinels[instanceid], sentinels)
     // setTimeout(()=>{
     removeDocumentCacheListener(reference, instanceid);
     // })
