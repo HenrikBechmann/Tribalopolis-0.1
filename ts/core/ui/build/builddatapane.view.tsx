@@ -7,6 +7,9 @@ import React from 'react'
 
 import { withStyles, createStyles } from '@material-ui/core/styles'
 import Paper from '@material-ui/core/Paper'
+import List from '@material-ui/core/List'
+import ListItem from '@material-ui/core/ListItem'
+import ListItemText from '@material-ui/core/ListItemText'
 
 import application from '../../services/application'
 import { toast } from 'react-toastify'
@@ -61,18 +64,15 @@ class BuildDataPane extends React.Component<any,any>  {
     }
 
     updateData = () => {
-        console.log('updating data')
         if (this.state.open) {
             application.getCollection(this.state.specs.collection,this.dataSuccess,this.dataFailure)
         } else {
-            console.log('clearing data')
             this.data = null
             this.forceUpdate()            
         }
     }
 
     dataSuccess = queryData => {
-        console.log('queryData',queryData)
         this.data = queryData
         this.forceUpdate()
     }
@@ -82,13 +82,31 @@ class BuildDataPane extends React.Component<any,any>  {
         toast.error(error)
     }
 
+    getListItems = () => {
+        let items = []
+        let data = this.data
+
+        if (!data) return items
+
+        for (let item of data) {
+            items.push(
+                <ListItem dense key = {item.id}>
+                    <ListItemText primary = {item.id} />
+                </ListItem>
+            )
+        }
+        return items
+    }
+
     render() {
         const { classes, dataPack } = this.props
-        console.log('props',this.props)
+
         return <Paper className = {classes.root}>
             <div className = { classes.content }>
                 <div className = { classes.platform }>
-                    Build Data shelf {dataPack?dataPack.opcode:null}
+                    <List dense disablePadding >
+                        {this.getListItems()}
+                    </List>
                 </div>
             </div>
         </Paper>
