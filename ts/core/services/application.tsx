@@ -23,7 +23,7 @@
 */
 
 import gateway from './gateway'
-
+import auth from './auth.api'
 // ==============[ Internal ]===============
 
 /*

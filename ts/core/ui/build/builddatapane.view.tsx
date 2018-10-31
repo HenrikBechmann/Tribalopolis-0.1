@@ -64,11 +64,19 @@ class BuildDataPane extends React.Component<any,any>  {
     }
 
     updateData = () => {
+        let superuser = ((this.props.user) && (this.props.user.uid =='112979797407042560714'))
+
         if (this.state.open) {
-            application.getCollection(this.state.specs.collection,this.dataSuccess,this.dataFailure)
+            if (!superuser) {
+                toast.info('Data Drawer data is only available to Henrik Bechmann as this time')
+            } else {
+                application.getCollection(this.state.specs.collection,this.dataSuccess,this.dataFailure)
+            }
         } else {
-            this.data = null
-            this.forceUpdate()            
+            if (superuser) {
+                this.data = null
+                this.forceUpdate()
+            }
         }
     }
 

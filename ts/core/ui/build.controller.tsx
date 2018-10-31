@@ -176,6 +176,13 @@ class BuildController extends React.Component<any,any> {
             ref = {this.contentelement}
         >
             <StandardToolbar />
+            {!application.properties.ismobile?<UserContext.Consumer>
+            { user => {
+            let superuser = !!(user && (user.uid == '112979797407042560714'))
+            // console.log('user',superuser,user)
+            return <div>
+            <div>The build utility is currently only available to Henrik Bechmann, the author.</div>
+
             <DataDrawer open = {this.state.draweropen}
                 handleClose = {this.closeDrawer}
                 containerelement = {this.contentelement}
@@ -183,15 +190,10 @@ class BuildController extends React.Component<any,any> {
                 <BuildDataPane
                     dataPack = {this.drawerdatapackage}
                     open = {this.state.draweropen}
+                    user = {user}
                 />
             </DataDrawer>
 
-            {!application.properties.ismobile?<UserContext.Consumer>
-            { user => {
-            let superuser = !!(user && (user.uid == '112979797407042560714'))
-            // console.log('user',superuser,user)
-            return <div>
-            <div>The build utility is currently only available to Henrik Bechmann, the author.</div>
             <BaseForm onSubmit = {this.fetchObject} disabled = {!superuser}>
                 <SelectField
                     label = {'Collection'}

@@ -127,16 +127,17 @@ class BuildController extends React.Component {
             height: '100vh',
         }} ref={this.contentelement}>
             <StandardToolbar />
-            <DataDrawer open={this.state.draweropen} handleClose={this.closeDrawer} containerelement={this.contentelement}>
-                <BuildDataPane dataPack={this.drawerdatapackage} open={this.state.draweropen}/>
-            </DataDrawer>
-
             {!application.properties.ismobile ? <UserContext.Consumer>
             {user => {
             let superuser = !!(user && (user.uid == '112979797407042560714'));
             // console.log('user',superuser,user)
             return <div>
             <div>The build utility is currently only available to Henrik Bechmann, the author.</div>
+
+            <DataDrawer open={this.state.draweropen} handleClose={this.closeDrawer} containerelement={this.contentelement}>
+                <BuildDataPane dataPack={this.drawerdatapackage} open={this.state.draweropen} user={user}/>
+            </DataDrawer>
+
             <BaseForm onSubmit={this.fetchObject} disabled={!superuser}>
                 <SelectField label={'Collection'} name='collection' value={this.state.values.collection} onChange={this.onChangeValue} helperText={'select an object to build'} options={[
                 {
