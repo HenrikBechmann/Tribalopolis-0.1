@@ -272,7 +272,7 @@ const setDocumentListener = (token, instanceid, callback) => {
         }
         else if (sentinel === true) { // stop was set; clear sentinal; abandon
             // console.log('length of instance sentinels BEFORE',sentinels[instanceid].length,sentinels[instanceid])
-            sentinels[instanceid].splice(0, 1);
+            sentinels[instanceid].shift();
             // console.log('length of instance sentinels AFTER',sentinels[instanceid].length,sentinels[instanceid])
             if (sentinels[instanceid].length === 0) {
                 // console.log('deleting sentinels for',instanceid)
