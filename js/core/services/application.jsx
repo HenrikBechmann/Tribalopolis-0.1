@@ -38,9 +38,7 @@ const sentinels = {};
 // adds a document listener to be updated when a document changes or is set
 const addDocumentCacheListener = (reference, instanceid, callback) => {
     let cacheitem = getDocumentCacheItem(reference);
-    // console.log('adding document listener',instanceid)
     cacheitem.listeners.set(instanceid, callback);
-    debug && console.log('created document cache LISTENER', reference, cacheitem.listeners);
 };
 /*
     Retrieves an existing cache item, or creates and retrieves a new one.
@@ -51,11 +49,9 @@ const addDocumentCacheListener = (reference, instanceid, callback) => {
 const getDocumentCacheItem = (reference) => {
     let cacheitem;
     if (documentcache.has(reference)) { // update if exists
-        (debug || debug2) && console.log('GET DocumentCacheItem', reference);
         cacheitem = documentcache.get(reference);
     }
     else { // create if doesn't exist
-        (debug || debug2) && console.log('MAKE DocumentCacheItem', reference);
         cacheitem = newDocumentCacheItem();
         documentcache.set(reference, cacheitem);
         // connect to data source
@@ -82,7 +78,6 @@ const newDocumentCacheItem = () => {
     if there is no type yet recorded, callbacks will not be processed.
 */
 const processDocumentCallbackFromGateway = (reference, document, change) => {
-    debug && console.log('process document callback from gateway', reference);
     // set or update document
     let cacheitem = documentcache.get(reference);
     if (!cacheitem)
@@ -96,20 +91,16 @@ const processDocumentCallbackFromGateway = (reference, document, change) => {
 };
 const addTypeCacheListener = (typereference, documentreference, callback) => {
     let cacheitem = getTypeCacheItem(typereference);
-    debug && console.log("add TypeCacheListener", typereference, documentreference, cacheitem);
     if (!cacheitem.listeners.has(documentreference)) {
         cacheitem.listeners.set(documentreference, callback);
-        debug && console.log('created type cache LISTENER', cacheitem.listeners);
     }
 };
 const getTypeCacheItem = (reference) => {
     let cacheitem;
     if (typecache.has(reference)) {
-        debug && console.log('get TypeCacheItem', reference);
         cacheitem = typecache.get(reference);
     }
     else {
-        debug && console.log('create TypeCacheItem', reference);
         cacheitem = newTypeCacheItem();
         typecache.set(reference, cacheitem);
         gateway.setDocumentListener(reference, processTypeCallbacksFromGateway);
@@ -123,7 +114,6 @@ const newTypeCacheItem = () => {
     };
 };
 const processTypeCallbacksFromGateway = (reference, type, change) => {
-    debug && console.log('initializing type callback from gateway', reference);
     let typedoc = type || {};
     let cacheitem = typecache.get(reference);
     let listeners = null;
@@ -131,17 +121,9 @@ const processTypeCallbacksFromGateway = (reference, type, change) => {
         cacheitem.document = typedoc;
         listeners = cacheitem.listeners;
     }
-    debug && console.log('data: type cache item listeners', listeners);
     if (listeners) {
         listeners.forEach((callback, key) => {
-            debug && console.log('processing callback from type for ', key);
-            let slist = sentinels[key];
-            if (slist) {
-                let slocallist = slist[key];
-                if (slocallist && slocallist[slocallist.length - 1]) {
-                    callback(key, change);
-                }
-            }
+            callback(key, change);
         });
     }
 };
@@ -149,7 +131,6 @@ const processTypeCallbacksFromGateway = (reference, type, change) => {
     triggers document callbacks when the document's type is first set, or is updated.
 */
 const processDocumentCallbacksFromType = (reference, change) => {
-    debug && console.log('document callback from type', reference);
     processDocumentCallbacks(reference, change);
 };
 /*
@@ -158,18 +139,12 @@ const processDocumentCallbacksFromType = (reference, change) => {
     listeners are not updated if there is not yet a type, or a type cache item
 */
 const processDocumentCallbacks = (reference, change) => {
-    debug && console.log('initializing document callbacks', reference);
     let documentcacheitem = documentcache.get(reference);
-    // let document = documentcacheitem.document
-    // let typeref = document.identity.type
-    debug && console.log('calling getDocumentPack from processDocumentCallbacks', reference);
     let { document, type } = getDocumentPack(reference);
     if (type) {
         let listeners = documentcacheitem.listeners;
-        debug && console.log('processing document callbacks', reference, listeners, sentinels);
         listeners.forEach((callback, key) => {
             let slist = sentinels[key];
-            // console.log('each listener',key,slist)
             if (slist && (slist[slist.length - 1]) === false) {
                 callback(document, type, change);
             }
@@ -186,7 +161,6 @@ const removeDocumentCacheItem = (reference) => {
     // anticipate need for type cache listener...
     let documentcacheitem = documentcache.get(reference);
     documentcache.delete(reference);
-    debug && console.log('removed document cache item', reference, documentcache);
     // deal with type cache listener
     let document = documentcacheitem.document;
     if (document) {
@@ -202,7 +176,6 @@ const removeDocumentCacheListener = (reference, instanceid) => {
     if (!documentcache.has(reference))
         return;
     let cacheitem = documentcache.get(reference);
-    debug && console.log('removing document cache listener', reference, instanceid, cacheitem);
     if (cacheitem.listeners) {
         cacheitem.listeners.delete(instanceid);
         if (cacheitem.listeners.size == 0) {
@@ -214,7 +187,6 @@ const removeTypeCacheItem = (reference) => {
     // unhook from gateway
     gateway.removeDocumentListener(reference);
     typecache.delete(reference);
-    debug && console.log('removed type cache item', reference, typecache);
 };
 const removeTypeCacheListener = (typereference, documentreference) => {
     if (!typecache.has(typereference))
@@ -226,7 +198,6 @@ const removeTypeCacheListener = (typereference, documentreference) => {
             removeTypeCacheItem(typereference); // filter by cache size?
         }
     }
-    debug && console.log('removed type cache listener', typereference, documentreference, cacheitem);
 };
 // ===============[ General Utilities ]===============
 const getTokenReference = token => {
@@ -247,7 +218,6 @@ const getDocumentPack = reference => {
         document,
         type,
     };
-    (debug || debug2) && console.log('returning Document PACK', reference, cachedata);
     return cachedata;
 };
 // =================[ API ]=======================
@@ -256,42 +226,27 @@ const properties = {
 };
 // called from component componentDidMount or componentWillUpdate
 const setDocumentListener = (token, instanceid, callback) => {
-    // if (sentinels[instanceid] !== undefined) return
-    // console.log('setting false sentinel for ', instanceid)
     setTimeout(() => {
         let reference = getTokenReference(token);
-        debug && console.log('calling getDocumentPack from setDocumentListener', instanceid, reference);
-        // console.log('setting listener', reference, instanceid, sentinels[instanceid], sentinels)
         let sentinel = sentinels[instanceid]
             ? sentinels[instanceid][0]
             : undefined;
-        // console.log('setting sentinel value = ',sentinel)
         if (sentinel === undefined) { // create listener
             sentinels[instanceid] = [false]; // allow continuation with set listener
-            // console.log('create sentinel = false; continue', sentinels[instanceid])
         }
         else if (sentinel === true) { // stop was set; clear sentinal; abandon
-            // console.log('length of instance sentinels BEFORE',sentinels[instanceid].length,sentinels[instanceid])
             sentinels[instanceid].shift();
-            // console.log('length of instance sentinels AFTER',sentinels[instanceid].length,sentinels[instanceid])
             if (sentinels[instanceid].length === 0) {
-                // console.log('deleting sentinels for',instanceid)
                 delete sentinels[instanceid];
             }
-            // console.log('remove sentinel, return, value of sentinel = ',sentinels[instanceid])
             return;
         }
         else { // sentinel = false; continue with set listener
             sentinels[instanceid].push(false);
-            // console.log('add sentinel, continue, value of sentinel = ',sentinels[instanceid])
         }
-        // console.log('continuing with set',sentinels[instanceid], sentinels)
         addDocumentCacheListener(reference, instanceid, callback);
         let cachedata = getDocumentPack(reference);
-        // if (sentinels[instanceid] === false) {
         if (cachedata.document && cachedata.type) { // defer if waiting for type
-            debug && console.log('IMMEDIATE callback', reference);
-            // setTimeout(()=>{
             callback(cachedata.document, cachedata.type, {
                 documents: {
                     reason: 'newcallback',
@@ -299,41 +254,30 @@ const setDocumentListener = (token, instanceid, callback) => {
                     type: true,
                 }
             });
-            // })
         }
-        // } 
     });
 };
 // called from compoent componentWillUnmount
 const removeDocumentListener = (token, instanceid) => {
     let reference = getTokenReference(token);
-    // console.log('remove listener', reference, instanceid, sentinels[instanceid], sentinels)
     let sentinel = sentinels[instanceid]
         ? sentinels[instanceid][0]
         : undefined;
-    // console.log('removal sentinel value =', sentinel )
     if (sentinel === undefined) { // create sentinal; set before listener
         sentinels[instanceid] = [true];
-        // console.log('create sentinal, return; sentinels[instanceid] = ', sentinels[instanceid])
         return;
     }
     else if (sentinel === false) { // clear sentinal; continue delete listener
         sentinels[instanceid].shift();
         if (sentinels[instanceid].length === 0) {
-            // console.log('deleting sentinels for',instanceid)
             delete sentinels[instanceid];
         }
-        // console.log('clear sentinal, continue; sentinels[instanceid] = ', sentinels[instanceid])
     }
     else { // sentinal === true; was set for previous call; queue next
         sentinels[instanceid].push(true);
-        // console.log('add sentinal, continue; sentinels[instanceid] = ', sentinels[instanceid])
         return;
     }
-    // console.log('continuing with remove; sentinels[instanceid] = ',sentinels[instanceid], sentinels)
-    // setTimeout(()=>{
     removeDocumentCacheListener(reference, instanceid);
-    // })
 };
 const getDocument = (reference, callback, errorback) => {
     gateway.getDocument(reference, callback, errorback);
