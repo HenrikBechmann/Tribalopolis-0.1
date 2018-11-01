@@ -25,7 +25,7 @@ class BuildController extends React.Component {
         super(props);
         this.state = {
             values: {
-                collection: 'types',
+                collection: 'sourcetypes',
                 id: '',
             },
             doc: {
@@ -137,7 +137,7 @@ class BuildController extends React.Component {
                 <BuildDataPane dataPack={this.drawerdatapackage} open={this.state.draweropen} user={user}/>
             </DataDrawer>
             <div style={{ position: 'absolute', top: '0', left: '0', paddingTop: '48px', overflow: 'auto', height: '100vh', width: '100%' }}>
-            <div>The build utility is currently only available to Henrik Bechmann, the author.</div>
+            <div>This build utility is currently only available to Henrik Bechmann, the author.</div>
 
             <BaseForm onSubmit={this.fetchObject} disabled={!superuser}>
                 <SelectField label={'Collection'} name='collection' value={this.state.values.collection} onChange={this.onChangeValue} helperText={'select an object to build'} options={[
