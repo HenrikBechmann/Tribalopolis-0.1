@@ -157,6 +157,10 @@ class BuildController extends React.Component {
                     value: 'system',
                     text: 'System',
                 },
+                {
+                    value: 'accounts',
+                    text: 'Account',
+                },
             ]}/>
 
                 <TextField label='Id' name='id' value={this.state.values.id} onChange={this.onChangeValue} helperText='enter the id of the requested object'/>

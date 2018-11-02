@@ -219,6 +219,10 @@ class BuildController extends React.Component<any,any> {
                             value:'system',
                             text:'System',
                         },
+                        {
+                            value:'accounts',
+                            text:'Account',
+                        },
                     ]}
                 />
 
