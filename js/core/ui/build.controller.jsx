@@ -122,7 +122,6 @@ class BuildController extends React.Component {
     }
     render() {
         return <div style={{
-            overflow: 'hidden',
             position: 'relative',
             height: '100vh',
         }} ref={this.contentelement}>
@@ -192,7 +191,7 @@ class BuildController extends React.Component {
                 this.latestjson = props.updated_src;
             }} onDelete={props => {
                 this.latestjson = props.updated_src;
-            }}/>
+            }} name='document'/>
             </div>
             </div>
             </div>;
