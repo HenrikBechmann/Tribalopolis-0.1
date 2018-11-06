@@ -25,7 +25,7 @@ class BuildController extends React.Component {
         super(props);
         this.state = {
             values: {
-                collection: 'sourcetypes',
+                collection: 'types',
                 id: '',
             },
             doc: {
@@ -140,10 +140,6 @@ class BuildController extends React.Component {
 
             <BaseForm onSubmit={this.fetchObject} disabled={!superuser}>
                 <SelectField label={'Collection'} name='collection' value={this.state.values.collection} onChange={this.onChangeValue} helperText={'select an object to build'} options={[
-                {
-                    value: 'sourcetypes',
-                    text: 'Source Types',
-                },
                 {
                     value: 'types',
                     text: 'Type',

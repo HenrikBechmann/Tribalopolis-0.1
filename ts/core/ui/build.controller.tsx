@@ -41,7 +41,7 @@ class BuildController extends React.Component<any,any> {
 
     state = {
         values:{
-            collection:'sourcetypes',
+            collection:'types',
             id:'',
         },
         doc:{
@@ -202,10 +202,6 @@ class BuildController extends React.Component<any,any> {
                     onChange = {this.onChangeValue}
                     helperText = {'select an object to build'}
                     options = {[
-                        {
-                            value:'sourcetypes',
-                            text:'Source Types',
-                        },
                         {
                             value:'types',
                             text:'Type',
