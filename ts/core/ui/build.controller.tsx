@@ -25,6 +25,8 @@ import ActionButton from './common/actionbutton.view'
 import DataDrawer from './common/datadrawer.view'
 import BuildDataPane from './build/builddatapane.view'
 
+import { DeepDiff } from 'deep-diff'
+
 const styles = theme => (createStyles({
   button: {
     margin: theme.spacing.unit,
