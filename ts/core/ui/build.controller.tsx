@@ -1,6 +1,10 @@
 // build.controller.tsx
 // copyright (c) 2018 Henrik Bechmann, Toronto, MIT Licence
 
+/*
+    TODO: straighten out dom tree; currently data drawer scrolls a bit
+*/
+
 'use strict'
 
 import React from 'react'
@@ -9,6 +13,8 @@ import Button from '@material-ui/core/Button'
 import { withStyles, createStyles } from '@material-ui/core/styles'
 
 import ReactJson from 'react-json-view'
+import { DeepDiff } from 'deep-diff'
+
 import { toast } from 'react-toastify'
 
 import StandardToolbar from './common/standardtoolbar.view'
@@ -20,12 +26,11 @@ import TextField from './input/textfield.view'
 import UserContext from '../services/user.context'
 
 import application from '../services/application'
+import schemesupport from './build/schemesupport.class'
 
 import ActionButton from './common/actionbutton.view'
 import DataDrawer from './common/datadrawer.view'
 import BuildDataPane from './build/builddatapane.view'
-
-import { DeepDiff } from 'deep-diff'
 
 const styles = theme => (createStyles({
   button: {
@@ -37,7 +42,7 @@ class BuildController extends React.Component<any,any> {
 
     constructor(props) {
         super(props)
-        this.contentelement = React.createRef()
+        this.buildelement = React.createRef()
         window.addEventListener('resize',this.onResize) // to reacalc datadrawer maxwidth. There may be a better way
     }
 
@@ -52,12 +57,14 @@ class BuildController extends React.Component<any,any> {
         },
         draweropen:false,
     }
-    savejson = null
 
+    savejson = null
     latestjson = {}
 
     drawerdatapackage
-    contentelement
+    buildelement
+
+    doctype
 
     onResize = () => {
         this.forceUpdate()
@@ -67,18 +74,20 @@ class BuildController extends React.Component<any,any> {
         window.removeEventListener('resize',this.onResize)
     }
 
+    // =================[ fetch ]==========================
+
     fetchObject = () => {
 
         if (!this.savejson || (confirm('replace current object?'))) {
             application.getDocument(
                 `/${this.state.values.collection}/${this.state.values.id}`,
-                this.getCallback,
-                this.getErrorCallback
+                this.fetchSuccessCallback,
+                this.fetchErrorCallback
             )
         }
     }
 
-    getCallback = (data,id) => {
+    fetchSuccessCallback = (data,id) => {
 
         if (!data) {
             data = {}
@@ -95,9 +104,11 @@ class BuildController extends React.Component<any,any> {
 
     }
 
-    getErrorCallback = (error) => {
+    fetchErrorCallback = (error) => {
         toast.error(error)
     }
+
+    // =================[ save/rollback ]==========================
 
     saveObject = () => {
         this.savejson = this.latestjson
@@ -109,6 +120,8 @@ class BuildController extends React.Component<any,any> {
         this.forceUpdate()
         toast.info('object was rolled back from most recent save')
     }
+
+    // =================[ post ]==========================
 
     postObject = () => {
         if (confirm('Post this object?')) {
@@ -129,6 +142,8 @@ class BuildController extends React.Component<any,any> {
         toast.error(error)
     }
 
+    // =================[ clear ]==========================
+
     clearObject = () => {
         this.savejson = null
         this.latestjson = {}
@@ -141,19 +156,17 @@ class BuildController extends React.Component<any,any> {
         toast.info('object was cleared')
     }
 
+    // ==============[ ui field change responses ]================
+
     onChangeValue = event => {
-        // console.log('event',event)
+
         let { values } = this.state
         values[event.target.name] = event.target.value
         this.setState({ values })    
+
     }
 
-    closeDrawer = () => {
-        this.drawerdatapackage = null
-        this.setState({
-            draweropen:false,
-        })
-    }
+    // ============[ data drawer responses ]=================
 
     callDataDrawer = (opcode, specs) => {
         if (this.state.draweropen) {
@@ -166,6 +179,15 @@ class BuildController extends React.Component<any,any> {
         })
     }
 
+    closeDrawer = () => {
+        this.drawerdatapackage = null
+        this.setState({
+            draweropen:false,
+        })
+    }
+
+    // ===============[ render ]==================
+
     render() {
         return <div 
             style = {
@@ -174,7 +196,7 @@ class BuildController extends React.Component<any,any> {
                     height:'100vh',
                 }
             }
-            ref = {this.contentelement}
+            ref = {this.buildelement}
         >
             <StandardToolbar />
             {!application.properties.ismobile?<UserContext.Consumer>
@@ -185,7 +207,7 @@ class BuildController extends React.Component<any,any> {
 
             <DataDrawer open = {this.state.draweropen}
                 handleClose = {this.closeDrawer}
-                containerelement = {this.contentelement}
+                containerelement = {this.buildelement}
             >
                 <BuildDataPane
                     dataPack = {this.drawerdatapackage}

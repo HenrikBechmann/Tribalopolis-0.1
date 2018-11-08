@@ -1,5 +1,8 @@
 // build.controller.tsx
 // copyright (c) 2018 Henrik Bechmann, Toronto, MIT Licence
+/*
+    TODO: straighten out dom tree; currently data drawer scrolls a bit
+*/
 'use strict';
 import React from 'react';
 import Button from '@material-ui/core/Button';
@@ -39,12 +42,13 @@ class BuildController extends React.Component {
         this.onResize = () => {
             this.forceUpdate();
         };
+        // =================[ fetch ]==========================
         this.fetchObject = () => {
             if (!this.savejson || (confirm('replace current object?'))) {
-                application.getDocument(`/${this.state.values.collection}/${this.state.values.id}`, this.getCallback, this.getErrorCallback);
+                application.getDocument(`/${this.state.values.collection}/${this.state.values.id}`, this.fetchSuccessCallback, this.fetchErrorCallback);
             }
         };
-        this.getCallback = (data, id) => {
+        this.fetchSuccessCallback = (data, id) => {
             if (!data) {
                 data = {};
                 toast.warn('new object');
@@ -58,9 +62,10 @@ class BuildController extends React.Component {
                 }
             });
         };
-        this.getErrorCallback = (error) => {
+        this.fetchErrorCallback = (error) => {
             toast.error(error);
         };
+        // =================[ save/rollback ]==========================
         this.saveObject = () => {
             this.savejson = this.latestjson;
             toast.info('object saved');
@@ -70,6 +75,7 @@ class BuildController extends React.Component {
             this.forceUpdate();
             toast.info('object was rolled back from most recent save');
         };
+        // =================[ post ]==========================
         this.postObject = () => {
             if (confirm('Post this object?')) {
                 application.setDocument(`/${this.state.values.collection}/${this.state.values.id}`, this.latestjson, this.postSuccessCallback, this.postFailureCallback);
@@ -81,6 +87,7 @@ class BuildController extends React.Component {
         this.postFailureCallback = (error) => {
             toast.error(error);
         };
+        // =================[ clear ]==========================
         this.clearObject = () => {
             this.savejson = null;
             this.latestjson = {};
@@ -92,18 +99,13 @@ class BuildController extends React.Component {
             });
             toast.info('object was cleared');
         };
+        // ==============[ ui field change responses ]================
         this.onChangeValue = event => {
-            // console.log('event',event)
             let { values } = this.state;
             values[event.target.name] = event.target.value;
             this.setState({ values });
         };
-        this.closeDrawer = () => {
-            this.drawerdatapackage = null;
-            this.setState({
-                draweropen: false,
-            });
-        };
+        // ============[ data drawer responses ]=================
         this.callDataDrawer = (opcode, specs) => {
             if (this.state.draweropen) {
                 toast.info('The data shelf is in use. Close the shelf and try again.');
@@ -114,17 +116,24 @@ class BuildController extends React.Component {
                 draweropen: true,
             });
         };
-        this.contentelement = React.createRef();
+        this.closeDrawer = () => {
+            this.drawerdatapackage = null;
+            this.setState({
+                draweropen: false,
+            });
+        };
+        this.buildelement = React.createRef();
         window.addEventListener('resize', this.onResize); // to reacalc datadrawer maxwidth. There may be a better way
     }
     componentWillUnmount() {
         window.removeEventListener('resize', this.onResize);
     }
+    // ===============[ render ]==================
     render() {
         return <div style={{
             position: 'relative',
             height: '100vh',
-        }} ref={this.contentelement}>
+        }} ref={this.buildelement}>
             <StandardToolbar />
             {!application.properties.ismobile ? <UserContext.Consumer>
             {user => {
@@ -132,7 +141,7 @@ class BuildController extends React.Component {
             // console.log('user',superuser,user)
             return <div>
 
-            <DataDrawer open={this.state.draweropen} handleClose={this.closeDrawer} containerelement={this.contentelement}>
+            <DataDrawer open={this.state.draweropen} handleClose={this.closeDrawer} containerelement={this.buildelement}>
                 <BuildDataPane dataPack={this.drawerdatapackage} open={this.state.draweropen} user={user}/>
             </DataDrawer>
             <div style={{ position: 'absolute', top: '0', left: '0', paddingTop: '48px', overflow: 'auto', height: '100vh', width: '100%' }}>
