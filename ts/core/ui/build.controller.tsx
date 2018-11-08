@@ -26,7 +26,7 @@ import TextField from './input/textfield.view'
 import UserContext from '../services/user.context'
 
 import application from '../services/application'
-import schemesupport from './build/schemesupport.class'
+import schemesupport from '../services/schemesupport'
 
 import ActionButton from './common/actionbutton.view'
 import DataDrawer from './common/datadrawer.view'
