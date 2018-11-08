@@ -57,13 +57,36 @@ class BuildController extends React.Component {
             this.savejson = data;
             this.setState({
                 doc: {
-                    data: data,
-                    id: id
+                    data,
+                    id,
+                }
+            }, () => {
+                console.log('fetch document', id, data);
+                if (data.identity) {
+                    let typetoken = data.identity.type;
+                    if (typetoken) {
+                        let typeref = typetoken.reference;
+                        if (typeref) {
+                            application.getDocument(typeref, this.fetchTypeSuccessCallback, this.fetchTypeErrorCallback);
+                        }
+                    }
                 }
             });
         };
-        this.fetchErrorCallback = (error) => {
+        this.fetchErrorCallback = error => {
             toast.error(error);
+        };
+        this.fetchTypeSuccessCallback = (data, id) => {
+            let type = {
+                data,
+                id
+            };
+            this.doctype = type;
+            toast.info('type has been loaded ' + id);
+            console.log('type loaded', type);
+        };
+        this.fetchTypeErrorCallback = error => {
+            toast.error('error getting type' + error);
         };
         // =================[ save/rollback ]==========================
         this.saveObject = () => {
