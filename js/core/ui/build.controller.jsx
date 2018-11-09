@@ -15,6 +15,7 @@ import SelectField from './input/selectfield.view';
 import TextField from './input/textfield.view';
 import UserContext from '../services/user.context';
 import application from '../services/application';
+import schemesupport from '../services/schemesupport';
 import ActionButton from './common/actionbutton.view';
 import DataDrawer from './common/datadrawer.view';
 import BuildDataPane from './build/builddatapane.view';
@@ -83,6 +84,13 @@ class BuildController extends React.Component {
             };
             this.doctype = type;
             toast.info('type has been loaded ' + id);
+            let results = schemesupport.assertType(this.state.doc, this.doctype);
+            console.log('returned from assertType', results);
+            if (results.changed) {
+                this.latestjson = results.document;
+                this.savejson = results.document;
+                this.forceUpdate();
+            }
             // console.log('type loaded',type)
         };
         this.fetchTypeErrorCallback = error => {

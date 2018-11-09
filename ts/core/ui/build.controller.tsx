@@ -13,7 +13,6 @@ import Button from '@material-ui/core/Button'
 import { withStyles, createStyles } from '@material-ui/core/styles'
 
 import ReactJson from 'react-json-view'
-import { DeepDiff } from 'deep-diff'
 
 import { toast } from 'react-toastify'
 
@@ -130,6 +129,14 @@ class BuildController extends React.Component<any,any> {
         }
         this.doctype = type
         toast.info('type has been loaded ' + id)
+
+        let results = schemesupport.assertType(this.state.doc,this.doctype)
+        console.log('returned from assertType',results)
+        if (results.changed) {
+            this.latestjson = results.document
+            this.savejson = results.document
+            this.forceUpdate()
+        }
         // console.log('type loaded',type)
     }
 
