@@ -32,7 +32,7 @@ class BuildController extends React.Component {
                 collection: 'types',
                 id: '',
             },
-            doc: {
+            docpack: {
                 data: {},
                 id: null,
             },
@@ -57,7 +57,7 @@ class BuildController extends React.Component {
             this.latestjson = data;
             this.savejson = data;
             this.setState({
-                doc: {
+                docpack: {
                     data,
                     id,
                 }
@@ -77,14 +77,15 @@ class BuildController extends React.Component {
         this.fetchErrorCallback = error => {
             toast.error(error);
         };
+        // apply type template to document
         this.fetchTypeSuccessCallback = (data, id) => {
-            let type = {
+            let typepack = {
                 data,
                 id
             };
-            this.doctype = type;
+            this.doctypepack = typepack;
             toast.info('type has been loaded ' + id);
-            let results = schemesupport.assertType(this.state.doc, this.doctype);
+            let results = schemesupport.assertType(this.state.docpack, this.doctypepack);
             console.log('returned from assertType', results);
             if (results.changed) {
                 this.latestjson = results.document;
@@ -221,7 +222,7 @@ class BuildController extends React.Component {
                 </Button>
             </div>
             <div>
-                <ReactJson src={this.state.doc.data} onEdit={props => {
+                <ReactJson src={this.state.docpack.data} onEdit={props => {
                 this.latestjson = props.updated_src;
             }} onAdd={props => {
                 this.latestjson = props.updated_src;
