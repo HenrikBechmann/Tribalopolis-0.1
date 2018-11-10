@@ -9,13 +9,13 @@ const assertType = (docpack, typepack) => {
 
     console.log('assertType',docpack, typepack)
     let localdocpack:any = merge({},docpack)
-    let {structure, defaults, constraints} = typepack.data.properties
-    console.log('structure, defaults, contraints',structure, defaults, constraints, localdocpack)
+    let {structure, defaults, constraints, template} = typepack.document.properties
+    console.log('structure, defaults, contraints',structure, defaults, constraints, template, localdocpack)
     let differences = getDiffs(
-        localdocpack.data,
-        structure,
+        localdocpack.document,
+        template,
     )
-    let upgradedoc = getUpgrade(localdocpack.data, differences, defaults, constraints)
+    let upgradedoc = getUpgrade(localdocpack.document, differences, defaults, constraints)
     console.log('differences, upgrade', differences, upgradedoc)
     return {
         document:upgradedoc,
@@ -29,6 +29,13 @@ const getDiffs = (document,structure) => {
 }
 
 const getUpgrade = (original, differences, defaults, constraints) => {
+    for (let changerecord of differences) {
+        if ((changerecord.kind == 'N') || (changerecord.kind == 'D') ) {
+
+            DeepDiff.applyChange(original,null,changerecord)
+
+        }
+    }
     return original
 }
 

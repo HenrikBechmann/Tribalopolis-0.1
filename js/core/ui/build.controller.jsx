@@ -33,7 +33,7 @@ class BuildController extends React.Component {
                 id: '',
             },
             docpack: {
-                data: {},
+                document: {},
                 id: null,
             },
             draweropen: false,
@@ -58,7 +58,7 @@ class BuildController extends React.Component {
             this.savejson = data;
             this.setState({
                 docpack: {
-                    data,
+                    document: data,
                     id,
                 }
             }, () => {
@@ -80,7 +80,7 @@ class BuildController extends React.Component {
         // apply type template to document
         this.fetchTypeSuccessCallback = (data, id) => {
             let typepack = {
-                data,
+                document: data,
                 id
             };
             this.doctypepack = typepack;
@@ -90,6 +90,13 @@ class BuildController extends React.Component {
             if (results.changed) {
                 this.latestjson = results.document;
                 this.savejson = results.document;
+                let docpack = this.state.docpack;
+                this.setState({
+                    docpack: {
+                        id: docpack.id,
+                        document: results.document,
+                    }
+                });
                 this.forceUpdate();
             }
             // console.log('type loaded',type)
@@ -222,7 +229,7 @@ class BuildController extends React.Component {
                 </Button>
             </div>
             <div>
-                <ReactJson src={this.state.docpack.data} onEdit={props => {
+                <ReactJson src={this.state.docpack.document} onEdit={props => {
                 this.latestjson = props.updated_src;
             }} onAdd={props => {
                 this.latestjson = props.updated_src;
