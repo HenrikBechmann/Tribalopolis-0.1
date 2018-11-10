@@ -9,11 +9,11 @@ const assertType = (docpack, typepack) => {
     let { structure, defaults, constraints, template } = typepack.document.properties;
     console.log('structure, defaults, contraints', structure, defaults, constraints, template, localdocpack);
     let differences = getDiffs(localdocpack.document, template);
-    let upgradedoc = getUpgrade(localdocpack.document, differences, defaults, constraints);
-    console.log('differences, upgrade', differences, upgradedoc);
+    let { document, changed } = getUpgrade(localdocpack.document, differences, defaults, constraints);
+    console.log('differences, upgrade', differences, document);
     return {
-        document: upgradedoc,
-        changed: true,
+        document,
+        changed,
     };
 };
 const getDiffs = (document, structure) => {
@@ -21,12 +21,18 @@ const getDiffs = (document, structure) => {
     return differences;
 };
 const getUpgrade = (original, differences, defaults, constraints) => {
+    let changed = false;
     for (let changerecord of differences) {
         if ((changerecord.kind == 'N') || (changerecord.kind == 'D')) {
+            if (!changed)
+                changed = true;
             DeepDiff.applyChange(original, null, changerecord);
         }
     }
-    return original;
+    return {
+        document: original,
+        changed,
+    };
 };
 const schemesupport = {
     assertType,

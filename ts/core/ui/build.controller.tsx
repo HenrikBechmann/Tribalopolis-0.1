@@ -143,7 +143,7 @@ class BuildController extends React.Component<any,any> {
                     document:results.document,
                 }
             })
-            this.forceUpdate()
+            toast.info('document has been upgraded from type (' + this.state.docpack.id + ')' )
         }
         // console.log('type loaded',type)
     }
