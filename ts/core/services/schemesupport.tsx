@@ -7,7 +7,7 @@ import merge from 'deepmerge'
 // TODO: test current document version of type against type version
 const assertType = (docpack, typepack) => {
 
-    console.log('assertType',docpack, typepack)
+    // console.log('assertType',docpack, typepack)
     let localdocpack:any = merge({},docpack)
     let {structure, defaults, constraints, template} = typepack.document.properties
     // console.log('structure, defaults, contraints',structure, defaults, constraints, template, localdocpack)
@@ -15,6 +15,7 @@ const assertType = (docpack, typepack) => {
         localdocpack.document,
         template,
     )
+    // console.log('differences',differences)
     let {document, changed} = getUpgrade(localdocpack.document, differences, defaults)
     // console.log('differences, upgrade', differences, document)
     return {
@@ -33,12 +34,11 @@ const getUpgrade = (original, differences, defaults) => {
     for (let changerecord of differences) {
         if ((changerecord.kind == 'N') || (changerecord.kind == 'D') ) {
 
-            !changed && console.log('defaults',defaults)
+            // !changed && console.log('defaults',defaults)
             if (!changed) changed = true
 
             deepdiff.applyChange(original,null,changerecord)
             if (changerecord.kind == 'N') {
-                console.log('changerecord',changerecord)
                 original = applyDefault(original, changerecord, defaults)
                 // apply defaults
             }
@@ -57,6 +57,7 @@ const isObject = value => {
 // apply default value to individual change
 // this could involve an entire subtree
 const applyDefault = (original, changerecord, defaults) => {
+    // console.log('applyDefault original, changerecord, defaults',original, changerecord, defaults)
 
     // get the path of the value to change
     let path = changerecord.path
@@ -72,7 +73,7 @@ const applyDefault = (original, changerecord, defaults) => {
         return original 
     }
 
-    // get the original property to change to default
+    // get the matching original property to change to default, based on change path
     let originalproperty = original
     let originalindex // next index
     let originalnext // lookahead
@@ -98,17 +99,17 @@ const applyDefault = (original, changerecord, defaults) => {
     let originalvalue = originalproperty[originalindex]
 
     if (isObject(defaultvalue)) {
-        console.log('todo: apply defaultvalue',defaultvalue)
-        // let objectcontainer = defaultvalue
-        // let objectvalue
-        // let objectindex
-        // for (objectindex in objectcontainer) {
-        //     objectvalue = objectcontainer[objectindex]
-        // }
-        // console.log('deeper defaults: defaultobject, defaultindex, value, parentvar, parentindex',objectcontainer, objectindex, objectvalue, parentvar, parentindex)
+        let defaultproperty = defaultvalue
+        // console.log('defaultValue object: originalproperty, originalindex, defaultvalue',originalproperty, defaultproperty)
+        let diffs = getDiffs(originalproperty,defaultproperty)
+        // console.log('diffs',diffs)
+        for (let diff of diffs) {
+            if ((diff.kind == 'E') || (diff.kind == 'A')) {
+                deepdiff.applyChange(originalproperty, null, diff)
+            }
+        }
     } else {
         originalproperty[originalindex] = defaultvalue
-        console.log('applying default:originalproperty, originalindex, originalvalue, defaultvalue',originalproperty,originalindex,originalvalue,defaultvalue)
     }
 
     return original
