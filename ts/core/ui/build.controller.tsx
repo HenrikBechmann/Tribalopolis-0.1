@@ -132,7 +132,7 @@ class BuildController extends React.Component<any,any> {
         toast.info('type has been loaded ' + id)
 
         let results = schemesupport.assertType(this.state.docpack,this.doctypepack)
-        console.log('returned from assertType',results)
+        // console.log('returned from assertType',results)
         if (results.changed) {
             this.latestjson = results.document
             this.savejson = results.document
