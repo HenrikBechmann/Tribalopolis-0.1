@@ -4,10 +4,10 @@ import deepdiff from 'deep-diff';
 import merge from 'deepmerge';
 // TODO: test current document version of type against type version
 const assertType = (docpack, typepack) => {
-    // make deep copy of docpack
+    // make deep local copy of docpack
     let localdocpack = merge({}, docpack);
-    // unpack type data
-    let { structure, defaults, constraints, template } = typepack.document.properties;
+    // unpack type data for upgrades
+    let { template, defaults } = typepack.document.properties;
     // get differences between template and current document
     let differences = getDiffs(localdocpack.document, template);
     // upgrade document with template
@@ -30,8 +30,7 @@ const getUpgrade = (original, differences, defaults) => {
                 changed = true;
             deepdiff.applyChange(original, null, changerecord);
             if (changerecord.kind == 'N') {
-                original = applyDefault(original, changerecord, defaults);
-                // apply defaults
+                applyNewDefaults(original, changerecord, defaults);
             }
         }
     }
@@ -40,55 +39,46 @@ const getUpgrade = (original, differences, defaults) => {
         changed,
     };
 };
-const isObject = value => {
-    return ((typeof value === 'object') && (value !== null));
-};
-// TODO: deal with deletion
-// apply default value for each individual change
-// this could involve an entire branch
-const applyDefault = (original, changerecord, defaults) => {
+// this applies default value for each individual change
+// change could involve an entire branch
+const applyNewDefaults = (original, changerecord, defaults) => {
     // =========[ get the default value to apply ]==========
     // get the path of the value to change
     let path = changerecord.path;
     // get the default value to set
+    let defaultproperty;
+    let defaultindex;
     let defaultvalue = defaults;
-    for (let defaultindex of path) {
-        defaultvalue = defaultvalue[defaultindex];
-        if (defaultvalue === undefined) {
+    for (defaultindex of path) {
+        defaultproperty = defaultvalue;
+        defaultvalue = defaultproperty[defaultindex];
+        if (defaultproperty === undefined) {
             break;
         }
     }
     if (defaultvalue === undefined) { // no default value for the change; return
-        return original;
+        return;
     }
     // =========[ get the document node to apply the default value to ]==========
     // get the matching original property to change to default, based on change path
-    let originalproperty = original;
-    let originalindex; // next index
-    let originalnext; // lookahead
+    let originalproperty;
+    let originalindex;
+    let originalvalue = original;
     for (originalindex of path) {
-        originalnext = originalproperty[originalindex];
-        if (originalnext === undefined) { // defensive; shouldn't happen
-            originalproperty = originalnext;
-            break;
-        }
-        if (isObject(originalnext)) { // continue to iterate
-            originalproperty = originalnext; // the most common case
-        }
-        else { // originalproperty[originalindex] === value
-            break;
-        }
+        originalproperty = originalvalue;
+        originalvalue = originalproperty[originalindex];
     } // yields originalproperty and originalindex of that property
-    if (originalproperty === undefined) { // TODO: error! should never happen
-        console.log('error: change record path not found in original', changerecord);
-        return original;
-    }
     // =================[ apply the default value to the document node ]=============
     if (isObject(defaultvalue)) { // a branch of defaults is available
-        let defaultproperty = defaultvalue; // better name!
+        let defaultproperty = defaultvalue; // better name
+        originalproperty = originalvalue;
+        if (!isObject(originalproperty)) {
+            console.log('error: mismatch of property and defualts', original, defaults, originalproperty, defaultproperty);
+            return;
+        }
         let differences = getDiffs(originalproperty, defaultproperty);
         for (let difference of differences) {
-            if ((difference.kind == 'E') || (difference.kind == 'A')) { // TODO: test and review the 'A' case
+            if (difference.kind == 'E') {
                 deepdiff.applyChange(originalproperty, null, difference);
             }
         }
@@ -96,8 +86,12 @@ const applyDefault = (original, changerecord, defaults) => {
     else { // a default value is available
         originalproperty[originalindex] = defaultvalue;
     }
-    return original;
 };
+// ========================[ utilities ]========================
+const isObject = value => {
+    return ((typeof value === 'object') && (value !== null));
+};
+// =========================[ export ]==========================
 const schemesupport = {
     assertType,
 };
