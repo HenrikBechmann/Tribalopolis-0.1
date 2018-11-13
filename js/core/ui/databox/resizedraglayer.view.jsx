@@ -1,12 +1,6 @@
 // resizedraglayer.view.tsx
 // copyright (c) 2018 Henrik Bechmann, Toronto, MIT Licence
 'use strict';
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
 import React from 'react';
 import { withStyles, createStyles } from '@material-ui/core/styles';
 import Icon from '@material-ui/core/Icon';
@@ -19,7 +13,7 @@ const styles = createStyles({
         borderRadius: 12,
     },
 });
-let ResizeDragLayer = class ResizeDragLayer extends React.Component {
+class ResizeDragLayer extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -66,11 +60,8 @@ let ResizeDragLayer = class ResizeDragLayer extends React.Component {
 
         </div>);
     }
-};
-ResizeDragLayer = __decorate([
-    DragLayer(monitor => ({
-        currentDifference: monitor.getDifferenceFromInitialOffset(),
-    }))
-], ResizeDragLayer);
-export default withStyles(styles)(ResizeDragLayer);
+}
+export default withStyles(styles)(DragLayer(monitor => ({
+    currentDifference: monitor.getDifferenceFromInitialOffset(),
+}))(ResizeDragLayer));
 //# sourceMappingURL=resizedraglayer.view.jsx.map

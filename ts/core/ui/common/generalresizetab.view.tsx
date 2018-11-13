@@ -33,9 +33,6 @@ const draglayerstyles = createStyles({
     },
 })
 
-@DragLayer(monitor => ({
-  currentDifference: monitor.getDifferenceFromInitialOffset(),
-}))
 class ResizeDragLayerBase extends React.Component<any,any> {
 
     render() {
@@ -73,7 +70,11 @@ class ResizeDragLayerBase extends React.Component<any,any> {
 
 }
 
-const ResizeDragLayer = withStyles(draglayerstyles)(ResizeDragLayerBase)
+const ResizeDragLayer:any = withStyles(draglayerstyles)(
+    DragLayer(monitor => ({
+        currentDifference: monitor.getDifferenceFromInitialOffset(),
+    })
+)(ResizeDragLayerBase))
 
 // =============================[ DRAG SOURCE ]===========================
 
@@ -131,7 +132,6 @@ const resizeHandlers = {
     },
 }
 
-@DragSource( DragTypes.RESIZETAB, resizeHandlers, resizeProps )
 class GeneralResizeTab extends React.Component<any,any> {
 
     render() {
@@ -194,4 +194,7 @@ class GeneralResizeTab extends React.Component<any,any> {
     } 
 }
 
-export default withStyles( styles )( GeneralResizeTab )
+export default withStyles( styles )( 
+    DragSource( DragTypes.RESIZETAB, resizeHandlers, resizeProps )(GeneralResizeTab) 
+)
+

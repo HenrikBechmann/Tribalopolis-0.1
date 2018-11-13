@@ -19,9 +19,6 @@ const styles = createStyles({
     },
 })
 
-@DragLayer(monitor => ({
-  currentDifference: monitor.getDifferenceFromInitialOffset(),
-}))
 class ResizeDragLayer extends React.Component<any,any> {
 
     constructor(props) {
@@ -97,4 +94,8 @@ class ResizeDragLayer extends React.Component<any,any> {
 
 }
 
-export default withStyles(styles)(ResizeDragLayer)
+export default withStyles(styles)(
+    DragLayer(monitor => ({
+        currentDifference: monitor.getDifferenceFromInitialOffset(),
+    })
+)(ResizeDragLayer))

@@ -1,20 +1,15 @@
 // resizetab.view.tsx
 // copyright (c) 2018 Henrik Bechmann, Toronto, MIT Licence
 'use strict';
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
 import React from 'react';
 import { DragSource } from 'react-dnd';
 import { getEmptyImage } from 'react-dnd-html5-backend';
 import { withStyles, createStyles } from '@material-ui/core/styles';
 import Icon from '@material-ui/core/Icon';
 import DragTypes from '../../dragitemtypes';
-import ResizeDragLayer from './resizedraglayer.view';
 import application from '../../services/application';
+import ResizeDragLayerBase from './resizedraglayer.view';
+const ResizeDragLayer = ResizeDragLayerBase;
 const styles = createStyles({
     tabstyles: {
         position: 'absolute',
@@ -60,7 +55,7 @@ const resizeHandlers = {
         props.setBoxWidth(newboxwidth);
     },
 };
-let ResizeTab = class ResizeTab extends React.Component {
+class ResizeTab extends React.Component {
     render() {
         const subjectelement = this.props.boxframe.current;
         const offsetWidth = subjectelement.offsetWidth;
@@ -77,9 +72,6 @@ let ResizeTab = class ResizeTab extends React.Component {
                 {isDragging && <ResizeDragLayer offsetWidth={offsetWidth} offsetHeight={offsetHeight} resizeTabStyles={classes}/>}
             </React.Fragment>);
     }
-};
-ResizeTab = __decorate([
-    DragSource(DragTypes.RESIZETAB, resizeHandlers, resizeProps)
-], ResizeTab);
-export default withStyles(styles)(ResizeTab);
+}
+export default withStyles(styles)(DragSource(DragTypes.RESIZETAB, resizeHandlers, resizeProps)(ResizeTab));
 //# sourceMappingURL=resizetab.view.jsx.map

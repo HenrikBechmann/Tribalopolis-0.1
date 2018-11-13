@@ -4,12 +4,6 @@
     react components are used to support decorator notation
 */
 'use strict';
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
 import React from 'react';
 import { DragSource, DragLayer } from 'react-dnd';
 import { getEmptyImage } from 'react-dnd-html5-backend';
@@ -29,7 +23,7 @@ const draglayerstyles = createStyles({
         backgroundColor: 'green',
     },
 });
-let ResizeDragLayerBase = class ResizeDragLayerBase extends React.Component {
+class ResizeDragLayerBase extends React.Component {
     render() {
         const { classes, currentwidth, minwidth, maxwidth, hostelement, currentDifference, orientation, } = this.props;
         if (hostelement.current) {
@@ -46,13 +40,10 @@ let ResizeDragLayerBase = class ResizeDragLayerBase extends React.Component {
         }
         return (<div className={classes.frame} style={{ borderRadius: (orientation == 'left') ? '8px 0 0 8px' : '0 8px 8px 0' }}></div>);
     }
-};
-ResizeDragLayerBase = __decorate([
-    DragLayer(monitor => ({
-        currentDifference: monitor.getDifferenceFromInitialOffset(),
-    }))
-], ResizeDragLayerBase);
-const ResizeDragLayer = withStyles(draglayerstyles)(ResizeDragLayerBase);
+}
+const ResizeDragLayer = withStyles(draglayerstyles)(DragLayer(monitor => ({
+    currentDifference: monitor.getDifferenceFromInitialOffset(),
+}))(ResizeDragLayerBase));
 // =============================[ DRAG SOURCE ]===========================
 const styles = createStyles({
     tabstyles: {
@@ -95,7 +86,7 @@ const resizeHandlers = {
         setNewWidth(newwidth);
     },
 };
-let GeneralResizeTab = class GeneralResizeTab extends React.Component {
+class GeneralResizeTab extends React.Component {
     render() {
         let { orientation } = this.props;
         let styles;
@@ -124,9 +115,6 @@ let GeneralResizeTab = class GeneralResizeTab extends React.Component {
             <ResizeDragLayer orientation={orientation} minwidth={minwidth} maxwidth={maxwidth} currentwidth={currentwidth} hostelement={hostelement}/>}
             </div>);
     }
-};
-GeneralResizeTab = __decorate([
-    DragSource(DragTypes.RESIZETAB, resizeHandlers, resizeProps)
-], GeneralResizeTab);
-export default withStyles(styles)(GeneralResizeTab);
+}
+export default withStyles(styles)(DragSource(DragTypes.RESIZETAB, resizeHandlers, resizeProps)(GeneralResizeTab));
 //# sourceMappingURL=generalresizetab.view.jsx.map

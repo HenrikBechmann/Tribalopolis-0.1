@@ -12,10 +12,11 @@ import { withStyles, createStyles } from '@material-ui/core/styles'
 import Icon from '@material-ui/core/Icon'
 
 import DragTypes from '../../dragitemtypes'
-import ResizeDragLayer from './resizedraglayer.view'
-
 import application from '../../services/application'
 
+import ResizeDragLayerBase from './resizedraglayer.view'
+
+const ResizeDragLayer:any = ResizeDragLayerBase
 
 const styles = createStyles({
     tabstyles:{
@@ -73,7 +74,6 @@ const resizeHandlers = {
     },
 }
 
-@DragSource( DragTypes.RESIZETAB, resizeHandlers, resizeProps )
 class ResizeTab extends React.Component<any,any> {
 
     render() {
@@ -113,4 +113,5 @@ class ResizeTab extends React.Component<any,any> {
     } 
 }
 
-export default withStyles( styles )( ResizeTab )
+export default withStyles( styles )( DragSource( DragTypes.RESIZETAB, resizeHandlers, resizeProps )(ResizeTab) )
+
