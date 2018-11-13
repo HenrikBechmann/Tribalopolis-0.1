@@ -1,4 +1,5 @@
 // domain.tsx
+// copyright (c) 2018 Henrik Bechmann, Toronto, MIT Licence
 /*
     This is a gateway to the underlaying domain data
     It is accessed by services

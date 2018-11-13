@@ -18,6 +18,8 @@ const assertType = (docpack, typepack) => {
         template,
     )
 
+    // console.log('differences',differences)
+
     // upgrade document with template
     let {document, changed} = getUpgrade(localdocpack.document, differences, defaults)
 
@@ -30,7 +32,30 @@ const assertType = (docpack, typepack) => {
 
 const getDiffs = (document,template) => {
 
-    let differences = deepdiff.diff(document,template)
+    let differences = deepdiff.diff(document, template, (path, key) => {
+        // console.log('getDiffs path, key',path,key)
+        // test scope. if out of scope, stop comparison
+        let filter = false
+        let templateproperty
+        let templateindex
+        let templatevalue = template
+        for (templateindex of path) {
+            templateproperty = templatevalue
+            templatevalue = templateproperty[templateindex]
+            if (templatevalue === undefined) { // out of scope
+                filter = true
+                break
+            }
+        }
+        if (!filter) {
+            templateproperty = templatevalue
+            templatevalue = templateproperty[key]
+            if (templatevalue === undefined) {
+                filter = true
+            }
+        }
+        return filter
+    })
 
     return differences
 
@@ -39,7 +64,8 @@ const getDiffs = (document,template) => {
 const getUpgrade = (original, differences, defaults) => {
     let changed = false
     for (let changerecord of differences) {
-        if ((changerecord.kind == 'N') || (changerecord.kind == 'D') ) {
+
+        if ((changerecord.kind == 'N') || (changerecord.kind == 'D')) {
 
             if (!changed) changed = true
 
@@ -47,11 +73,12 @@ const getUpgrade = (original, differences, defaults) => {
 
             if (changerecord.kind == 'N') {
 
-                applyNewDefaults(original, changerecord, defaults)
+                applyNewBranchDefaults(original, changerecord, defaults)
 
             }
 
         }
+
     }
     return {
         document:original,
@@ -61,7 +88,7 @@ const getUpgrade = (original, differences, defaults) => {
 
 // this applies default value for each individual change
 // change could involve an entire branch
-const applyNewDefaults = (original, changerecord, defaults) => {
+const applyNewBranchDefaults = (original, changerecord, defaults) => {
 
     // =========[ get the default value to apply ]==========
 
@@ -73,15 +100,16 @@ const applyNewDefaults = (original, changerecord, defaults) => {
     let defaultindex
     let defaultvalue = defaults
     for (defaultindex of path) {
+
         defaultproperty = defaultvalue
         defaultvalue = defaultproperty[defaultindex]
-        if (defaultproperty === undefined) {
-            break
-        }
+
+        if (defaultvalue === undefined) return
+
     }
-    if (defaultvalue === undefined) { // no default value for the change; return
-        return 
-    }
+    // if (defaultvalue === undefined) { // no default value for the change; return
+    //     return 
+    // }
 
     // =========[ get the document node to apply the default value to ]==========
 
@@ -92,9 +120,9 @@ const applyNewDefaults = (original, changerecord, defaults) => {
     for (originalindex of path) {
 
         originalproperty = originalvalue
-
         originalvalue = originalproperty[originalindex]
 
+        if (originalvalue === undefined) return
 
     } // yields originalproperty and originalindex of that property
 
@@ -114,11 +142,11 @@ const applyNewDefaults = (original, changerecord, defaults) => {
 
         let differences = getDiffs(originalproperty,defaultproperty)
 
-        for (let difference of differences) {
+        for (let changerecord of differences) {
 
-            if (difference.kind == 'E') {
+            if (changerecord.kind == 'E') {
 
-                deepdiff.applyChange(originalproperty, null, difference)
+                deepdiff.applyChange(originalproperty, null, changerecord)
 
             }
 

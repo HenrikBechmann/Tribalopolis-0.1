@@ -10,6 +10,7 @@ const assertType = (docpack, typepack) => {
     let { template, defaults } = typepack.document.properties;
     // get differences between template and current document
     let differences = getDiffs(localdocpack.document, template);
+    // console.log('differences',differences)
     // upgrade document with template
     let { document, changed } = getUpgrade(localdocpack.document, differences, defaults);
     // return updgraded document
@@ -19,7 +20,30 @@ const assertType = (docpack, typepack) => {
     };
 };
 const getDiffs = (document, template) => {
-    let differences = deepdiff.diff(document, template);
+    let differences = deepdiff.diff(document, template, (path, key) => {
+        // console.log('getDiffs path, key',path,key)
+        // test scope. if out of scope, stop comparison
+        let filter = false;
+        let templateproperty;
+        let templateindex;
+        let templatevalue = template;
+        for (templateindex of path) {
+            templateproperty = templatevalue;
+            templatevalue = templateproperty[templateindex];
+            if (templatevalue === undefined) { // out of scope
+                filter = true;
+                break;
+            }
+        }
+        if (!filter) {
+            templateproperty = templatevalue;
+            templatevalue = templateproperty[key];
+            if (templatevalue === undefined) {
+                filter = true;
+            }
+        }
+        return filter;
+    });
     return differences;
 };
 const getUpgrade = (original, differences, defaults) => {
@@ -30,7 +54,7 @@ const getUpgrade = (original, differences, defaults) => {
                 changed = true;
             deepdiff.applyChange(original, null, changerecord);
             if (changerecord.kind == 'N') {
-                applyNewDefaults(original, changerecord, defaults);
+                applyNewBranchDefaults(original, changerecord, defaults);
             }
         }
     }
@@ -41,7 +65,7 @@ const getUpgrade = (original, differences, defaults) => {
 };
 // this applies default value for each individual change
 // change could involve an entire branch
-const applyNewDefaults = (original, changerecord, defaults) => {
+const applyNewBranchDefaults = (original, changerecord, defaults) => {
     // =========[ get the default value to apply ]==========
     // get the path of the value to change
     let path = changerecord.path;
@@ -52,13 +76,12 @@ const applyNewDefaults = (original, changerecord, defaults) => {
     for (defaultindex of path) {
         defaultproperty = defaultvalue;
         defaultvalue = defaultproperty[defaultindex];
-        if (defaultproperty === undefined) {
-            break;
-        }
+        if (defaultvalue === undefined)
+            return;
     }
-    if (defaultvalue === undefined) { // no default value for the change; return
-        return;
-    }
+    // if (defaultvalue === undefined) { // no default value for the change; return
+    //     return 
+    // }
     // =========[ get the document node to apply the default value to ]==========
     // get the matching original property to change to default, based on change path
     let originalproperty;
@@ -67,6 +90,8 @@ const applyNewDefaults = (original, changerecord, defaults) => {
     for (originalindex of path) {
         originalproperty = originalvalue;
         originalvalue = originalproperty[originalindex];
+        if (originalvalue === undefined)
+            return;
     } // yields originalproperty and originalindex of that property
     // =================[ apply the default value to the document node ]=============
     if (isObject(defaultvalue)) { // a branch of defaults is available
@@ -77,9 +102,9 @@ const applyNewDefaults = (original, changerecord, defaults) => {
             return;
         }
         let differences = getDiffs(originalproperty, defaultproperty);
-        for (let difference of differences) {
-            if (difference.kind == 'E') {
-                deepdiff.applyChange(originalproperty, null, difference);
+        for (let changerecord of differences) {
+            if (changerecord.kind == 'E') {
+                deepdiff.applyChange(originalproperty, null, changerecord);
             }
         }
     }
