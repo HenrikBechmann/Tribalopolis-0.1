@@ -10,7 +10,6 @@ const assertType = (docpack, typepack) => {
     let { template, defaults } = typepack.document.properties;
     // get differences between template and current document
     let differences = getDiffs(localdocpack.document, template);
-    // console.log('differences',differences)
     // upgrade document with template
     let { document, changed } = getUpgrade(localdocpack.document, differences, defaults);
     // return updgraded document
@@ -21,7 +20,6 @@ const assertType = (docpack, typepack) => {
 };
 const getDiffs = (document, template) => {
     let differences = deepdiff.diff(document, template, (path, key) => {
-        // console.log('getDiffs path, key',path,key)
         // test scope. if out of scope, stop comparison
         let filter = false;
         let templateproperty;
@@ -79,9 +77,6 @@ const applyNewBranchDefaults = (original, changerecord, defaults) => {
         if (defaultvalue === undefined)
             return;
     }
-    // if (defaultvalue === undefined) { // no default value for the change; return
-    //     return 
-    // }
     // =========[ get the document node to apply the default value to ]==========
     // get the matching original property to change to default, based on change path
     let originalproperty;
@@ -91,7 +86,7 @@ const applyNewBranchDefaults = (original, changerecord, defaults) => {
         originalproperty = originalvalue;
         originalvalue = originalproperty[originalindex];
         if (originalvalue === undefined)
-            return;
+            return; // no doc node available
     } // yields originalproperty and originalindex of that property
     // =================[ apply the default value to the document node ]=============
     if (isObject(defaultvalue)) { // a branch of defaults is available
