@@ -7,17 +7,21 @@ import merge from 'deepmerge'
 // TODO: test current document version of type against type version
 const assertType = (docpack, typepack) => {
 
-    // console.log('assertType',docpack, typepack)
+    // make deep copy of docpack
     let localdocpack:any = merge({},docpack)
+    // unpack type data
     let {structure, defaults, constraints, template} = typepack.document.properties
-    // console.log('structure, defaults, contraints',structure, defaults, constraints, template, localdocpack)
+
+    // get differences between template and current document
     let differences = getDiffs(
         localdocpack.document,
         template,
     )
-    // console.log('differences',differences)
+
+    // upgrade document with template
     let {document, changed} = getUpgrade(localdocpack.document, differences, defaults)
-    // console.log('differences, upgrade', differences, document)
+
+    // return updgraded document
     return {
         document,
         changed,
@@ -25,8 +29,11 @@ const assertType = (docpack, typepack) => {
 }
 
 const getDiffs = (document,template) => {
+
     let differences = deepdiff.diff(document,template)
+
     return differences
+
 }
 
 const getUpgrade = (original, differences, defaults) => {
@@ -34,7 +41,6 @@ const getUpgrade = (original, differences, defaults) => {
     for (let changerecord of differences) {
         if ((changerecord.kind == 'N') || (changerecord.kind == 'D') ) {
 
-            // !changed && console.log('defaults',defaults)
             if (!changed) changed = true
 
             deepdiff.applyChange(original,null,changerecord)
@@ -54,10 +60,13 @@ const getUpgrade = (original, differences, defaults) => {
 const isObject = value => {
     return ((typeof value === 'object') && (value !== null))
 }
-// apply default value to individual change
-// this could involve an entire subtree
+
+// TODO: deal with deletion
+// apply default value for each individual change
+// this could involve an entire branch
 const applyDefault = (original, changerecord, defaults) => {
-    // console.log('applyDefault original, changerecord, defaults',original, changerecord, defaults)
+
+    // =========[ get the default value to apply ]==========
 
     // get the path of the value to change
     let path = changerecord.path
@@ -73,6 +82,8 @@ const applyDefault = (original, changerecord, defaults) => {
         return original 
     }
 
+    // =========[ get the document node to apply the default value to ]==========
+
     // get the matching original property to change to default, based on change path
     let originalproperty = original
     let originalindex // next index
@@ -84,32 +95,43 @@ const applyDefault = (original, changerecord, defaults) => {
             break
         }
         if (isObject(originalnext)) { // continue to iterate
-            originalproperty = originalnext
-        } else {
-            // originalproperty[originalindex] == value
+
+            originalproperty = originalnext // the most common case
+
+        } else { // originalproperty[originalindex] === value
+
             break
+
         }
-    } // yields original property and originalindex of that property
+    } // yields originalproperty and originalindex of that property
 
     if (originalproperty === undefined) { // TODO: error! should never happen
         console.log('error: change record path not found in original',changerecord)
         return original
     }
 
-    let originalvalue = originalproperty[originalindex]
+    // =================[ apply the default value to the document node ]=============
 
-    if (isObject(defaultvalue)) {
-        let defaultproperty = defaultvalue
-        // console.log('defaultValue object: originalproperty, originalindex, defaultvalue',originalproperty, defaultproperty)
-        let diffs = getDiffs(originalproperty,defaultproperty)
-        // console.log('diffs',diffs)
-        for (let diff of diffs) {
-            if ((diff.kind == 'E') || (diff.kind == 'A')) {
-                deepdiff.applyChange(originalproperty, null, diff)
+    if (isObject(defaultvalue)) { // a branch of defaults is available
+
+        let defaultproperty = defaultvalue // better name!
+
+        let differences = getDiffs(originalproperty,defaultproperty)
+
+        for (let difference of differences) {
+
+            if ((difference.kind == 'E') || (difference.kind == 'A')) { // TODO: test and review the 'A' case
+
+                deepdiff.applyChange(originalproperty, null, difference)
+
             }
+
         }
-    } else {
+
+    } else { // a default value is available
+
         originalproperty[originalindex] = defaultvalue
+
     }
 
     return original
