@@ -1,31 +1,49 @@
 // schemesupport.class.tsx
 // copyright (c) 2018 Henrik Bechmann, Toronto, MIT Licence
 
+/*
+    TODO:
+    - for deletions, this process should compare previous and current versions of the 
+    template based on versions that are recorded in the document and 
+    template.
+*/
+
 import deepdiff from 'deep-diff'
 import merge from 'deepmerge'
 
 // TODO: test current document version of type against type version
 const assertType = (docpack, typepack) => {
 
-    // make deep local copy of docpack
-    let localdocpack:any = merge({},docpack)
-    // unpack type data for upgrades
-    let {template, defaults } = typepack.document.properties
+    try {
 
-    // get differences between template and current document
-    let differences = getDiffs(
-        localdocpack.document,
-        template,
-    )
+        // make deep local copy of docpack
+        let localdocpack:any = merge({},docpack)
+        // unpack type data for upgrades
+        let {template, defaults } = typepack.document.properties
 
-    // upgrade document with template
-    let {document, changed} = getUpgrade(localdocpack.document, differences, defaults)
+        // get differences between template and current document
+        let differences = getDiffs(
+            localdocpack.document,
+            template,
+        )
 
-    // return updgraded document
-    return {
-        document,
-        changed,
+        console.log('differences',differences)
+
+        // upgrade document with template
+        let {document, changed} = getUpgrade(localdocpack.document, differences, defaults)
+
+        // return updgraded document
+        return {
+            document,
+            changed,
+        }
+
+    } catch (e) {
+
+        console.log('error in assertType',e)
+
     }
+
 }
 
 const getDiffs = (document,template) => {
@@ -33,6 +51,7 @@ const getDiffs = (document,template) => {
     let differences = deepdiff.diff(document, template, (path, key) => {
 
         // test scope. if out of scope, stop comparison
+        // note: this blocks out legitimate deletions, which need to be handled some other way
         let filter = false
         let templateproperty
         let templateindex
@@ -65,22 +84,24 @@ const getDiffs = (document,template) => {
 
 const getUpgrade = (original, differences, defaults) => {
     let changed = false
-    for (let changerecord of differences) {
+    if (differences) {
+        for (let changerecord of differences) {
 
-        if ((changerecord.kind == 'N') || (changerecord.kind == 'D')) {
+            if ((changerecord.kind == 'N') || (changerecord.kind == 'D')) {
 
-            if (!changed) changed = true
+                if (!changed) changed = true
 
-            deepdiff.applyChange(original,null,changerecord)
+                deepdiff.applyChange(original,null,changerecord)
 
-            if (changerecord.kind == 'N') {
+                if (changerecord.kind == 'N') {
 
-                applyNewBranchDefaults(original, changerecord, defaults)
+                    applyNewBranchDefaults(original, changerecord, defaults)
+
+                }
 
             }
 
         }
-
     }
     return {
         document:original,
