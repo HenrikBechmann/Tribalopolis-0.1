@@ -10,7 +10,7 @@ import { toast } from 'react-toastify';
 import QuadOrigin from './quadrant/quadorigin.view';
 import QuadContextBar from './quadrant/quadcontextbar.view';
 import DataDrawer from './common/datadrawer.view';
-import QuadDataPane from './quadrant/quaddatapane.view';
+import DataPane from './common/datapane.view';
 import DataBox from './databox.controller';
 import Lister from 'react-list';
 import quadanimations from './quadrant/quadanimations.class';
@@ -264,7 +264,7 @@ class Quadrant extends React.Component {
             <QuadOrigin haspeers={haspeers} stackpointer={this.state.stackpointer} stackdepth={datastack ? datastack.length : 0} itemdepth={datastack ? datastack[this.state.stackpointer].items.length : 0} incrementStackSelector={this.operations.incrementStackSelector} decrementStackSelector={this.operations.decrementStackSelector} ref={this.originelement}/>
             <div className={classes.viewportFrame}>
                 <DataDrawer open={this.state.draweropen} handleClose={this.closeDrawer} containerelement={this.quadcontentelement}>
-                    <QuadDataPane drawerDataPackage={this.drawerdatapackage}/>
+                    <DataPane drawerDataPackage={this.drawerdatapackage}/>
                 </DataDrawer>
                 <div className={classes.viewport} style={viewportStyle} ref={this.scrollboxelement}>{!isempty ?
             haspeers

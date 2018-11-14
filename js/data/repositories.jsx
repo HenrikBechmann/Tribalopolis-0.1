@@ -142,44 +142,6 @@ let types = {
     },
 };
 let lists = {
-    account: {
-        identity: {
-            container: '',
-            id: '',
-            handle: '',
-            type: '/types/account',
-            account: {
-                id: '',
-                handle: '',
-            },
-        },
-        properties: {
-            class: 'field',
-            version: 0,
-            name: 'Account for Henrik Bechmann',
-        },
-        references: {
-            subscriptions: [],
-            owner: {
-                id: 'henrik',
-                collection: 'items',
-            },
-            parentlists: [],
-            folder: '',
-        },
-        counts: {
-            lists: 0,
-            links: 0,
-        },
-        system: {
-            attributes: {},
-            permissions: {},
-        },
-        data: {
-            lists: [],
-            links: [],
-        },
-    },
     diaries: {
         identity: {
             container: '',
@@ -1052,10 +1014,6 @@ let lists = {
                 //     collection:'lists',
                 //     id:'membership',
                 // },
-                {
-                    collection: 'lists',
-                    id: 'account',
-                },
                 {
                     collection: 'lists',
                     id: 'tribes',
