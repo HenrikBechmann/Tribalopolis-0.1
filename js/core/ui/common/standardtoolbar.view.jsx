@@ -2,10 +2,10 @@
 // copyright (c) 2018 Henrik Bechmann, Toronto, MIT Licence
 'use strict';
 import React from 'react';
+import { withStyles, createStyles } from '@material-ui/core/styles';
 import Icon from '@material-ui/core/Icon';
 import UserContext from '../../services/user.context';
 import ToolsStrip from './toolsstrip.view';
-import { withStyles, createStyles } from '@material-ui/core/styles';
 const styles = createStyles({
     toolstrip: {
         display: 'inline-block',

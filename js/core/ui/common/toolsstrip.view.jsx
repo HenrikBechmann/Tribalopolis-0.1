@@ -2,128 +2,37 @@
 // copyright (c) 2018 Henrik Bechmann, Toronto, MIT Licence
 'use strict';
 import React from 'react';
-import { withRouter } from 'react-router-dom';
 // for toolbar menus
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
+import Dialog from '@material-ui/core/Dialog';
+import Slide from '@material-ui/core/Slide';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
+import CloseIcon from '@material-ui/icons/Close';
+import { withStyles, createStyles } from '@material-ui/core/styles';
 // for drawer menus
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
 import Icon from '@material-ui/core/Icon';
 import IconButton from '@material-ui/core/IconButton';
-import Divider from '@material-ui/core/Divider';
 import Drawer from '@material-ui/core/Drawer';
 import ToolTip from '@material-ui/core/Tooltip';
+import MenuList from './menulist';
 import ScrollControlsView from '../common/scrollcontrols.view';
 import VerticalDivider from '../common/verticaldivider.view';
 import authapi from '../../services/auth.api';
-const MenuList = withRouter((routerdata) => {
-    let { history, location } = routerdata;
-    let { pathname } = location; // to highlight current location in menu
-    return (<List>
-            <ListItem button onClick={() => history.push('/')} style={{
-        border: (pathname == "/") ? '2px solid lightblue' : '2px solid transparent',
-        backgroundColor: (pathname == "/") ? 'lightyellow' : 'transparent',
-    }}> 
-                <ListItemIcon> 
-                    <img src='/public/icons/fire.svg'/>
-                </ListItemIcon>
-                <ListItemText primary="Home"/>
-            </ListItem>
-            <Divider />
-            <ListItem button onClick={() => history.push('/workspace')} style={{
-        border: (pathname == "/workspace") ? '2px solid lightblue' : '2px solid transparent',
-        backgroundColor: (pathname == "/workspace") ? 'lightyellow' : 'transparent',
-    }}>
-                <ListItemIcon>
-                    <Icon style={{ color: 'brown' }}>
-                        work
-                    </Icon>
-                </ListItemIcon>
-                <ListItemText primary="My Workspace"/>
-            </ListItem>
-            <ListItem button disabled>
-                <ListItemIcon>
-                    <Icon style={{ color: 'brown' }}>
-                        account_box
-                    </Icon>
-                </ListItemIcon>
-                <ListItemText primary="My Account"/>
-            </ListItem>
-            <ListItem button disabled>
-                <ListItemIcon>
-                    <Icon style={{ color: 'brown' }}>
-                        web
-                    </Icon>
-                </ListItemIcon>
-                <ListItemText primary="My Website"/>
-            </ListItem>
-            <Divider />
-            <ListItem button disabled>
-                <ListItemIcon>
-                    <Icon style={{ color: 'steelblue' }}>
-                        group
-                    </Icon>
-                </ListItemIcon>
-                <ListItemText primary="Users"/>
-            </ListItem>
-            <ListItem button disabled>
-                <ListItemIcon>
-                    <img src='/public/icons/fire.svg'/>
-                </ListItemIcon>
-                <ListItemText primary="Tribes"/>
-            </ListItem>
-            <ListItem button disabled>
-                <ListItemIcon>
-                    <Icon style={{ color: 'steelblue' }}>
-                        share
-                    </Icon>
-                </ListItemIcon>
-                <ListItemText primary="Networks"/>
-            </ListItem>
-            <ListItem button disabled>
-                <ListItemIcon>
-                    <Icon style={{ color: 'brown' }}>
-                        group_work
-                    </Icon>
-                </ListItemIcon>
-                <ListItemText primary="Commons"/>
-            </ListItem>
-            <ListItem button disabled>
-                <ListItemIcon>
-                    <Icon style={{ color: 'green' }}>
-                        monetization_on
-                    </Icon>
-                </ListItemIcon>
-                <ListItemText primary="Markets"/>
-            </ListItem>
-            <Divider />
-            <ListItem button disabled>
-                <ListItemIcon>
-                    <Icon>local_library</Icon>
-                </ListItemIcon>
-                <ListItemText primary="Tutorials"/>
-            </ListItem>
-            <ListItem button onClick={() => history.push('/build')} style={{
-        border: (pathname == "/build") ? '2px solid lightblue' : '2px solid transparent',
-        backgroundColor: (pathname == "/build") ? 'lightyellow' : 'transparent',
-    }}>
-                <ListItemIcon>
-                    <Icon className='material-icons'>build</Icon>
-                </ListItemIcon>
-                <ListItemText primary="Build"/>
-            </ListItem>
-            <Divider />
-            <ListItem button disabled>
-                <ListItemIcon>
-                    <img src='/public/icons/fire.svg'/>
-                </ListItemIcon>
-                <ListItemText primary="About"/>
-            </ListItem>
-        </List>);
+const styles = createStyles({
+    appBar: {
+        position: 'relative',
+    },
+    flex: {
+        flex: 1,
+    },
 });
+function Transition(props) {
+    return <Slide direction="down" {...props}/>;
+}
 class QuadToolsStrip extends React.Component {
     constructor() {
         super(...arguments);
@@ -132,6 +41,7 @@ class QuadToolsStrip extends React.Component {
             scroller: null,
             accountAnchorElement: null,
             user: this.props.user,
+            settingsopen: false,
         };
         this.scroller = null;
         this.toggleDrawer = (open) => () => {
@@ -160,7 +70,35 @@ class QuadToolsStrip extends React.Component {
             this.handleAccountClose();
             authapi.googlesignout();
         };
-        this.accountmenu = () => {
+        this.openSettings = () => {
+            this.setState({
+                accountAnchorElement: null,
+                settingsopen: true,
+            });
+        };
+        this.closeSettings = () => {
+            this.setState({
+                settingsopen: false,
+            });
+        };
+        this.settingsDialog = (classes) => {
+            return <Dialog fullScreen open={this.state.settingsopen} onClose={this.closeSettings} TransitionComponent={Transition}>
+          <AppBar className={classes.appBar}>
+            <Toolbar>
+              <IconButton color="inherit" onClick={this.closeSettings} aria-label="Close">
+                <CloseIcon />
+              </IconButton>
+              <Typography variant="h6" color="inherit" className={classes.flex}>
+                Account Settings
+              </Typography>
+              <Button color="inherit" onClick={this.closeSettings}>
+                save
+              </Button>
+            </Toolbar>
+          </AppBar>
+         </Dialog>;
+        };
+        this.accountmenu = (classes) => {
             const { accountAnchorElement } = this.state;
             return <div style={{ display: 'inline-block', verticalAlign: 'middle', position: 'relative' }}>
             <IconButton aria-owns={accountAnchorElement ? 'simple-menu' : null} aria-haspopup="true" onClick={this.handleAccountClick}>
@@ -177,13 +115,14 @@ class QuadToolsStrip extends React.Component {
                 {!this.state.user ? <MenuItem onClick={this.handleLogin}>
                     Sign in using Google
                 </MenuItem> : null}
-                {this.state.user ? <MenuItem>
+                {this.state.user ? <MenuItem onClick={this.openSettings}>
                     Account settings
                 </MenuItem> : null}
                 {this.state.user ? <MenuItem onClick={this.handleLogout}>
                     Sign out
                 </MenuItem> : null}
             </Menu>
+            {this.settingsDialog(classes)}
         </div>;
         };
         this.defaultstyle = {
@@ -214,6 +153,7 @@ class QuadToolsStrip extends React.Component {
     }
     render() {
         let wrapperstyle = Object.assign({}, this.defaultstyle, this.props.style);
+        let { classes } = this.props;
         return (<div style={wrapperstyle}>
                 <ScrollControlsView scroller={this.state.scroller}>
                     <div style={{
@@ -258,7 +198,7 @@ class QuadToolsStrip extends React.Component {
 
                             <VerticalDivider />
 
-                            {this.accountmenu()}
+                            {this.accountmenu(classes)}
 
                             {(this.props.childrenposition == 'end') &&
             this.props.children}
@@ -271,5 +211,5 @@ class QuadToolsStrip extends React.Component {
             </div>);
     }
 }
-export default QuadToolsStrip;
+export default withStyles(styles)(QuadToolsStrip);
 //# sourceMappingURL=toolsstrip.view.jsx.map

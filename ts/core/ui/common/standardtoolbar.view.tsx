@@ -6,12 +6,12 @@
 
 import React from 'react'
 
+import { withStyles, createStyles } from '@material-ui/core/styles'
 import Icon from '@material-ui/core/Icon'
 
 import UserContext from '../../services/user.context'
 import ToolsStrip from './toolsstrip.view'
 import VerticalDivider from './verticaldivider.view'
-import { withStyles, createStyles } from '@material-ui/core/styles'
 
 const styles = createStyles({
     toolstrip:{
