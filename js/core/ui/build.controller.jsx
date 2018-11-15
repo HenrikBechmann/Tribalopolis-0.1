@@ -36,6 +36,11 @@ const styles = theme => (createStyles({
         position: 'relative',
         height: '100vh',
     },
+    jsoninput: {
+        border: '1px solid gray',
+        padding: '3px',
+        margin: '6px',
+    }
 }));
 class BuildController extends React.Component {
     constructor(props) {
@@ -44,7 +49,7 @@ class BuildController extends React.Component {
             values: {
                 collection: 'types',
                 id: '',
-                json: null,
+                json: '',
             },
             docpack: {
                 document: {},
@@ -56,6 +61,37 @@ class BuildController extends React.Component {
         this.latestjson = {};
         this.onResize = () => {
             this.forceUpdate();
+        };
+        // =================[ apply ]=========================
+        this.applyJson = () => {
+            if (!this.savejson || (confirm('replace current object?'))) {
+                let data = this.state.values.json;
+                try {
+                    data = JSON.parse(data);
+                }
+                catch (e) {
+                    alert('invalid json');
+                    return;
+                }
+                this.latestjson = data;
+                this.savejson = data;
+                this.setState({
+                    docpack: {
+                        document: data,
+                        id: this.state.values.id
+                    }
+                }, () => {
+                    if (data.identity) {
+                        let typetoken = data.identity.type;
+                        if (typetoken) {
+                            let typeref = typetoken.reference;
+                            if (typeref) {
+                                application.getDocument(typeref, this.fetchTypeSuccessCallback, this.fetchTypeErrorCallback);
+                            }
+                        }
+                    }
+                });
+            }
         };
         // =================[ fetch ]==========================
         this.fetchObject = () => {
@@ -242,6 +278,14 @@ class BuildController extends React.Component {
         }} name='document'/>
 
             </div>);
+        const jsoninput = (superuser, classes) => (<div className={classes.jsoninput}>
+            <Button type='submit' variant='contained' onClick={this.applyJson} className={classes.button} disabled={!superuser}>
+                Apply Json
+            </Button>
+            <BaseForm onSubmit={this.applyJson} disabled={!superuser}>
+                <TextField label='Json' name='json' value={this.state.values.json} onChange={this.onChangeValue} multiline helperText='paste in or create json'/>
+            </BaseForm> 
+            </div>);
         const { classes } = this.props;
         // --------------[ return component ]--------------
         return <div className={classes.pagewrapper} ref={this.buildelement}>
@@ -264,6 +308,8 @@ class BuildController extends React.Component {
                             {datacontrols(superuser, classes)}
 
                             {jsoneditor}
+
+                            {jsoninput(superuser, classes)}
 
                         </div>
 
