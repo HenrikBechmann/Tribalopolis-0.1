@@ -23,6 +23,19 @@ const styles = theme => (createStyles({
     button: {
         margin: theme.spacing.unit,
     },
+    panewrapper: {
+        position: 'absolute',
+        top: '0',
+        left: '0',
+        paddingTop: '48px',
+        overflow: 'auto',
+        height: '100vh',
+        width: '100%'
+    },
+    pagewrapper: {
+        position: 'relative',
+        height: '100vh',
+    },
 }));
 class BuildController extends React.Component {
     constructor(props) {
@@ -31,6 +44,7 @@ class BuildController extends React.Component {
             values: {
                 collection: 'types',
                 id: '',
+                json: null,
             },
             docpack: {
                 document: {},
@@ -169,77 +183,93 @@ class BuildController extends React.Component {
     }
     // ===============[ render ]==================
     render() {
-        return <div style={{
-            position: 'relative',
-            height: '100vh',
-        }} ref={this.buildelement}>
-            <StandardToolbar />
-            {!application.properties.ismobile ? <UserContext.Consumer>
-            {user => {
-            let superuser = !!(user && (user.uid == '112979797407042560714'));
-            // console.log('user',superuser,user)
-            return <div>
-
-            <DataDrawer open={this.state.draweropen} handleClose={this.closeDrawer} containerelement={this.buildelement}>
+        // --------[ sections of the page follow ]--------
+        const datadrawer = user => (<DataDrawer open={this.state.draweropen} handleClose={this.closeDrawer} containerelement={this.buildelement}>
                 <BuildDataPane dataPack={this.drawerdatapackage} open={this.state.draweropen} user={user}/>
-            </DataDrawer>
-            <div style={{ position: 'absolute', top: '0', left: '0', paddingTop: '48px', overflow: 'auto', height: '100vh', width: '100%' }}>
-            <div>This build utility is currently only available to Henrik Bechmann, the author.</div>
-
-            <BaseForm onSubmit={this.fetchObject} disabled={!superuser}>
+            </DataDrawer>);
+        const inputcontrols = (superuser, classes) => (<BaseForm onSubmit={this.fetchObject} disabled={!superuser}>
                 <SelectField label={'Collection'} name='collection' value={this.state.values.collection} onChange={this.onChangeValue} helperText={'select an object to build'} options={[
-                {
-                    value: 'types',
-                    text: 'Type',
-                },
-                {
-                    value: 'schemes',
-                    text: 'Scheme',
-                },
-                {
-                    value: 'system',
-                    text: 'System',
-                },
-                {
-                    value: 'accounts',
-                    text: 'Account',
-                },
-            ]}/>
+            {
+                value: 'types',
+                text: 'Type',
+            },
+            {
+                value: 'schemes',
+                text: 'Scheme',
+            },
+            {
+                value: 'system',
+                text: 'System',
+            },
+            {
+                value: 'accounts',
+                text: 'Account',
+            },
+        ]}/>
 
                 <TextField label='Id' name='id' value={this.state.values.id} onChange={this.onChangeValue} helperText='enter the id of the requested object'/>
                 <ActionButton icon='list' action={() => {
-                this.callDataDrawer('list', { collection: this.state.values.collection });
-            }}/>
-            </BaseForm>
+            this.callDataDrawer('list', { collection: this.state.values.collection });
+        }}/>
+            </BaseForm>); //--end
+        const datacontrols = (superuser, classes) => (<React.Fragment>
             <div>
-                <Button type='submit' variant='contained' onClick={this.fetchObject} className={this.props.classes.button} disabled={!superuser}>
+                <Button type='submit' variant='contained' onClick={this.fetchObject} className={classes.button} disabled={!superuser}>
                     Fetch
                 </Button>
-                <Button variant='contained' onClick={this.saveObject} className={this.props.classes.button}>
+                <Button variant='contained' onClick={this.saveObject} className={classes.button}>
                     Save for Rollback
                 </Button>
-                <Button variant='contained' onClick={this.rollbackObject} className={this.props.classes.button}>
+                <Button variant='contained' onClick={this.rollbackObject} className={classes.button}>
                     Rollback
                 </Button>
-                <Button variant='contained' onClick={this.postObject} className={this.props.classes.button} disabled={(!superuser) || (!this.savejson)}>
+                <Button variant='contained' onClick={this.postObject} className={classes.button} disabled={(!superuser) || (!this.savejson)}>
                     Post
                 </Button>
-                <Button variant='contained' onClick={this.clearObject} className={this.props.classes.button}>
+                <Button variant='contained' onClick={this.clearObject} className={classes.button}>
                     Clear
                 </Button>
             </div>
-            <div>
+            </React.Fragment>);
+        const jsoneditor = (<div>
+
                 <ReactJson src={this.state.docpack.document} onEdit={props => {
-                this.latestjson = props.updated_src;
-            }} onAdd={props => {
-                this.latestjson = props.updated_src;
-            }} onDelete={props => {
-                this.latestjson = props.updated_src;
-            }} name='document'/>
-            </div>
-            </div>
-            </div>;
-        }}
+            this.latestjson = props.updated_src;
+        }} onAdd={props => {
+            this.latestjson = props.updated_src;
+        }} onDelete={props => {
+            this.latestjson = props.updated_src;
+        }} name='document'/>
+
+            </div>);
+        const { classes } = this.props;
+        // --------------[ return component ]--------------
+        return <div className={classes.pagewrapper} ref={this.buildelement}>
+            <StandardToolbar />
+            {!application.properties.ismobile ?
+            <UserContext.Consumer>
+
+                {user => {
+                let superuser = !!(user && (user.uid == '112979797407042560714'));
+                return (<div>
+
+                        {datadrawer(user)}
+
+                        <div className={classes.panewrapper}>
+
+                            <div>This build utility is currently only available to Henrik Bechmann, the author.</div>
+
+                            {inputcontrols(superuser, classes)}
+
+                            {datacontrols(superuser, classes)}
+
+                            {jsoneditor}
+
+                        </div>
+
+                    </div>);
+            }}
+
             </UserContext.Consumer>
             : <div>The build utility is only available on desktops</div>}
         </div>;

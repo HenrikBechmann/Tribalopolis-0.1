@@ -26,10 +26,11 @@ interface TextFieldInterface {
    value:any, 
    helperText:any, 
    margin?:any, 
+   multiline?:boolean
    onChange:any, 
 }
 
-const TextField = ({ classes, name, label, value, helperText, margin, onChange }:TextFieldInterface) => {
+const TextField = ({ classes, name, label, value, helperText, margin, multiline, onChange }:TextFieldInterface) => {
 
     let marginval = (margin)?margin:'normal'
 
@@ -45,6 +46,7 @@ const TextField = ({ classes, name, label, value, helperText, margin, onChange }
           value = { value }
           className = { classes.textField }
           helperText = { helperText }
+          multiline = {multiline?multiline:false}
           margin = { marginval }
           onChange = { onChange }
         />

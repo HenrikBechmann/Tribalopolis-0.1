@@ -32,9 +32,23 @@ import DataDrawer from './common/datadrawer.view'
 import BuildDataPane from './build/builddatapane.view'
 
 const styles = theme => (createStyles({
-  button: {
-    margin: theme.spacing.unit,
-  },
+    button: {
+        margin: theme.spacing.unit,
+    },
+    panewrapper: {
+        position:'absolute',
+        top:'0',
+        left:'0',
+        paddingTop:'48px',
+        overflow:'auto',
+        height:'100vh',
+        width:'100%'
+    },
+    pagewrapper: {
+        position:'relative',
+        height:'100vh',
+    },
+
 }))
 
 class BuildController extends React.Component<any,any> {
@@ -49,6 +63,7 @@ class BuildController extends React.Component<any,any> {
         values:{
             collection:'types',
             id:'',
+            json:null,
         },
         docpack:{
             document:{},
@@ -233,22 +248,10 @@ class BuildController extends React.Component<any,any> {
     // ===============[ render ]==================
 
     render() {
-        return <div 
-            style = {
-                {
-                    position:'relative',
-                    height:'100vh',
-                }
-            }
-            ref = {this.buildelement}
-        >
-            <StandardToolbar />
-            {!application.properties.ismobile?<UserContext.Consumer>
-            { user => {
-            let superuser = !!(user && (user.uid == '112979797407042560714'))
-            // console.log('user',superuser,user)
-            return <div>
 
+        // --------[ sections of the page follow ]--------
+
+        const datadrawer = user => (
             <DataDrawer open = {this.state.draweropen}
                 handleClose = {this.closeDrawer}
                 containerelement = {this.buildelement}
@@ -259,9 +262,9 @@ class BuildController extends React.Component<any,any> {
                     user = {user}
                 />
             </DataDrawer>
-            <div style = {{position:'absolute',top:'0',left:'0',paddingTop:'48px',overflow:'auto',height:'100vh',width:'100%'}}>
-            <div>This build utility is currently only available to Henrik Bechmann, the author.</div>
+        )
 
+        const inputcontrols = (superuser,classes) => (
             <BaseForm onSubmit = {this.fetchObject} disabled = {!superuser}>
                 <SelectField
                     label = {'Collection'}
@@ -303,13 +306,17 @@ class BuildController extends React.Component<any,any> {
                         }
                     }
                 />
-            </BaseForm>
+            </BaseForm> 
+        ) //--end
+
+        const datacontrols = (superuser,classes) => (
+            <React.Fragment>
             <div>
                 <Button 
                     type = 'submit'
                     variant = 'contained'
                     onClick = {this.fetchObject}
-                    className = {this.props.classes.button}
+                    className = {classes.button}
                     disabled = {!superuser}
                 >
                     Fetch
@@ -317,21 +324,21 @@ class BuildController extends React.Component<any,any> {
                 <Button 
                     variant = 'contained'
                     onClick = {this.saveObject}
-                    className = {this.props.classes.button}
+                    className = {classes.button}
                 >
                     Save for Rollback
                 </Button>
                 <Button 
                     variant = 'contained'
                     onClick = {this.rollbackObject}
-                    className = {this.props.classes.button}
+                    className = {classes.button}
                 >
                     Rollback
                 </Button>
                 <Button 
                     variant = 'contained'
                     onClick = {this.postObject}
-                    className = {this.props.classes.button}
+                    className = {classes.button}
                     disabled = {(!superuser) || (!this.savejson)}
                 >
                     Post
@@ -339,12 +346,17 @@ class BuildController extends React.Component<any,any> {
                 <Button 
                     variant = 'contained'
                     onClick = {this.clearObject}
-                    className = {this.props.classes.button}
+                    className = {classes.button}
                 >
                     Clear
                 </Button>
             </div>
+            </React.Fragment>
+        )
+
+        const jsoneditor = (
             <div>
+
                 <ReactJson 
                     src = {this.state.docpack.document} 
                     onEdit = {props => {
@@ -358,12 +370,52 @@ class BuildController extends React.Component<any,any> {
                     }}
                     name = 'document'
                 />
+
             </div>
-            </div>
-            </div>
-            }}
+        )
+
+        const { classes } = this.props
+
+        // --------------[ return component ]--------------
+        
+        return <div 
+            className = { classes.pagewrapper }
+            ref = {this.buildelement}
+        >
+            <StandardToolbar />
+            {!application.properties.ismobile?
+            <UserContext.Consumer>
+
+                { user => {
+
+                    let superuser = !!(user && (user.uid == '112979797407042560714'))
+
+                    return (
+
+                    <div>
+
+                        { datadrawer(user) }
+
+                        <div className = { classes.panewrapper } >
+
+                            <div>This build utility is currently only available to Henrik Bechmann, the author.</div>
+
+                            {inputcontrols(superuser,classes)}
+
+                            {datacontrols(superuser,classes)}
+
+                            { jsoneditor }
+
+                        </div>
+
+                    </div> )
+                }}
+
             </UserContext.Consumer>
-            :<div>The build utility is only available on desktops</div>}
+
+            :<div>The build utility is only available on desktops</div>
+
+            }
         </div>
         
     }
