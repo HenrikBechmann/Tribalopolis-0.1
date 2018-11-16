@@ -96,17 +96,34 @@ class BuildController extends React.Component {
         // =================[ fetch ]==========================
         this.fetchObject = () => {
             if (!this.savejson || (confirm('replace current object?'))) {
-                application.getDocument(`/${this.state.values.collection}/${this.state.values.id}`, this.fetchSuccessCallback, this.fetchErrorCallback);
+                if (!this.state.values.collection) {
+                    toast.error('collection required');
+                    return;
+                }
+                if (this.state.values.collection && (!this.state.values.id)) {
+                    application.getNewDocument(this.state.values.collection, this.fetchSuccessCallback, this.fetchErrorCallback);
+                }
+                else {
+                    application.getDocument(`/${this.state.values.collection}/${this.state.values.id}`, this.fetchSuccessCallback, this.fetchErrorCallback);
+                }
             }
         };
         this.fetchSuccessCallback = (data, id) => {
+            let newobject = false;
             if (!data) {
                 data = {};
                 toast.warn('new object');
+                newobject = true;
             }
+            // console.log('data,id',data,id)
             this.latestjson = data;
             this.savejson = data;
+            let values = this.state.values;
+            if (newobject) {
+                values.id = id;
+            }
             this.setState({
+                values,
                 docpack: {
                     document: data,
                     id,

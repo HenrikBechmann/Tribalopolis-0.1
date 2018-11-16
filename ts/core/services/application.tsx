@@ -431,6 +431,12 @@ const getDocument = (reference, callback, errorback) => {
 
 }
 
+const getNewDocument = (collection, callback, errorback) => {
+
+    gateway.getNewDocument(collection, callback, errorback)
+
+}
+
 const setDocument = (reference, data, success, failure) => {
 
     gateway.setDocument(reference, data, success, failure)
@@ -446,6 +452,7 @@ let application = {
     setDocumentListener,
     removeDocumentListener,
     getDocument,
+    getNewDocument,
     setDocument,
     getCollection,
 }

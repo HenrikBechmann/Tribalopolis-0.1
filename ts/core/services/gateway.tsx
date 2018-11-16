@@ -67,6 +67,21 @@ const getDocument = (reference, callback, errorback) => {
     })
 }
 
+const getNewDocument = (collection, callback, errorback) => {
+    // console.log('getting document',reference)
+    let docref = firestore.collection(collection).doc()
+    docref.get()
+    .then((doc)=>{
+        // console.log('returning doc with callback')
+        let data = doc.data()
+        let id = doc.id
+        callback(data,id)
+    })
+    .catch((error)=> {
+        errorback(error)
+    })
+}
+
 const setDocument = (reference, data, success, failure) => {
     let doc = firestore.doc(reference)
     doc.set(data)
@@ -104,6 +119,7 @@ let domain = {
     setDocumentListener,
     removeDocumentListener,
     getDocument,
+    getNewDocument,
     setDocument,
     getCollection,
 }
