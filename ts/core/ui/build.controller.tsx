@@ -277,7 +277,7 @@ class BuildController extends React.Component<any,any> {
         this.savejson = null
         this.latestjson = {}
         this.setState({
-            doc:{
+            docpack:{
                 data:{},
                 id:null,
             }
@@ -345,11 +345,11 @@ class BuildController extends React.Component<any,any> {
                     options = {[
                         {
                             value:'types',
-                            text:'Type',
+                            text:'Types',
                         },
                         {
                             value:'schemes',
-                            text:'Scheme',
+                            text:'Schemes',
                         },
                         {
                             value:'system',
@@ -357,7 +357,15 @@ class BuildController extends React.Component<any,any> {
                         },
                         {
                             value:'accounts',
-                            text:'Account',
+                            text:'Accounts',
+                        },
+                        {
+                            value:'users',
+                            text:'Users',
+                        },
+                        {
+                            value:'handles',
+                            text:'Handles',
                         },
                     ]}
                 />

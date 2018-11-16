@@ -17,7 +17,7 @@ const assertType = (docpack, typepack) => {
         let { template, defaults } = typepack.document.properties;
         // get differences between template and current document
         let differences = getDiffs(localdocpack.document, template);
-        console.log('differences', differences);
+        // console.log('differences',differences)
         // upgrade document with template
         let { document, changed } = getUpgrade(localdocpack.document, differences, defaults);
         // return updgraded document

@@ -198,7 +198,7 @@ class BuildController extends React.Component {
             this.savejson = null;
             this.latestjson = {};
             this.setState({
-                doc: {
+                docpack: {
                     data: {},
                     id: null,
                 }
@@ -244,11 +244,11 @@ class BuildController extends React.Component {
                 <SelectField label={'Collection'} name='collection' value={this.state.values.collection} onChange={this.onChangeValue} helperText={'select an object to build'} options={[
             {
                 value: 'types',
-                text: 'Type',
+                text: 'Types',
             },
             {
                 value: 'schemes',
-                text: 'Scheme',
+                text: 'Schemes',
             },
             {
                 value: 'system',
@@ -256,7 +256,15 @@ class BuildController extends React.Component {
             },
             {
                 value: 'accounts',
-                text: 'Account',
+                text: 'Accounts',
+            },
+            {
+                value: 'users',
+                text: 'Users',
+            },
+            {
+                value: 'handles',
+                text: 'Handles',
             },
         ]}/>
 
