@@ -191,7 +191,7 @@ class QuadToolsStrip extends React.Component {
                             {false && <IconButton>
                                 <Icon>apps</Icon>
                             </IconButton>}
-                            <ToolTip title='Settings'>
+                            <ToolTip title='Application Settings'>
                             <IconButton>
                                 <Icon>settings</Icon>
                             </IconButton>

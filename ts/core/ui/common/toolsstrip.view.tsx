@@ -265,7 +265,7 @@ class QuadToolsStrip extends React.Component<any,any> {
                             >
                                 <Icon>apps</Icon>
                             </IconButton>}
-                            <ToolTip title = 'Settings'>
+                            <ToolTip title = 'Application Settings'>
                             <IconButton
                             >
                                 <Icon>settings</Icon>
