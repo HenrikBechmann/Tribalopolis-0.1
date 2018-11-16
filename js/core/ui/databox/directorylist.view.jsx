@@ -4,7 +4,7 @@
 import React from 'react';
 import Lister from 'react-list';
 import { withStyles, createStyles } from '@material-ui/core/styles';
-import DirectoryItem from './directoryitem.view';
+import DirectoryListItem from './directorylistitem.view';
 import proxy from '../../utilities/proxy';
 import LoadingMessage from '../common/loadingmessage.view';
 const styles = createStyles({
@@ -125,8 +125,8 @@ const DirectoryListBase = withStyles(styles)(class extends React.Component {
         };
         this.getListComponent = (proxy, key, index) => {
             let highlight = (proxy.id === this.state.highlightrefuid);
-            let directoryitem = <DirectoryItem key={proxy.instanceid} listProxy={proxy} setDocumentListener={this.props.callbacks.setDocumentListener} removeDocumentListener={this.props.callbacks.removeDocumentListener} expandDirectoryItem={this.expandDirectoryItem(proxy.token)} highlight={highlight} highlightItem={this.props.callbacks.highlightItem}/>;
-            return directoryitem;
+            let directorylistitem = <DirectoryListItem key={proxy.instanceid} listProxy={proxy} setDocumentListener={this.props.callbacks.setDocumentListener} removeDocumentListener={this.props.callbacks.removeDocumentListener} expandDirectoryItem={this.expandDirectoryItem(proxy.token)} highlight={highlight} highlightItem={this.props.callbacks.highlightItem}/>;
+            return directorylistitem;
         };
         this.listcomponent = this.props.forwardedRef;
     }

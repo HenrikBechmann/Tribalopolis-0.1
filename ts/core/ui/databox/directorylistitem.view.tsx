@@ -53,7 +53,7 @@ const styles = createStyles({
     },
 })
 
-class DirectoryItem extends React.Component<any,any> {
+class DirectoryListItem extends React.Component<any,any> {
 
     constructor(props) {
         super(props)
@@ -168,4 +168,4 @@ class DirectoryItem extends React.Component<any,any> {
     }
 }
 
-export default withStyles(styles)(DirectoryItem)
+export default withStyles(styles)(DirectoryListItem)

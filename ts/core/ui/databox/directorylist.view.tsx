@@ -10,7 +10,7 @@ import Lister from 'react-list'
 import CircularProgress from '@material-ui/core/CircularProgress'
 
 import { withStyles, createStyles } from '@material-ui/core/styles'
-import DirectoryItem from './directoryitem.view'
+import DirectoryListItem from './directorylistitem.view'
 import proxy from '../../utilities/proxy'
 import LoadingMessage from '../common/loadingmessage.view'
 
@@ -184,8 +184,8 @@ class extends React.Component<any,any> {
     getListComponent = (proxy, key, index) => {
 
         let highlight = (proxy.id === this.state.highlightrefuid)
-        let directoryitem = 
-            <DirectoryItem 
+        let directorylistitem = 
+            <DirectoryListItem 
                 key = {proxy.instanceid} 
                 listProxy = {proxy} 
                 setDocumentListener = {this.props.callbacks.setDocumentListener}
@@ -195,7 +195,7 @@ class extends React.Component<any,any> {
                 highlightItem = {this.props.callbacks.highlightItem}
             />
 
-        return directoryitem
+        return directorylistitem
 
     }
 
