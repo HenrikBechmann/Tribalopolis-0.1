@@ -21,6 +21,7 @@ import ToolTip from '@material-ui/core/Tooltip';
 import MenuList from './menulist';
 import ScrollControlsView from '../common/scrollcontrols.view';
 import VerticalDivider from '../common/verticaldivider.view';
+import DataPane from './datapane.view';
 import authapi from '../../services/auth.api';
 const styles = createStyles({
     appBar: {
@@ -83,19 +84,25 @@ class QuadToolsStrip extends React.Component {
         };
         this.settingsDialog = (classes) => {
             return <Dialog fullScreen open={this.state.settingsopen} onClose={this.closeSettings} TransitionComponent={Transition}>
-          <AppBar className={classes.appBar}>
-            <Toolbar>
-              <IconButton color="inherit" onClick={this.closeSettings} aria-label="Close">
-                <CloseIcon />
-              </IconButton>
-              <Typography variant="h6" color="inherit" className={classes.flex}>
-                Account Settings
-              </Typography>
-              <Button color="inherit" onClick={this.closeSettings}>
-                save
-              </Button>
-            </Toolbar>
-          </AppBar>
+          <div style={{ display: 'flex', flexFlow: 'column nowrap', height: '100%' }}>
+              <AppBar>
+                <Toolbar>
+                  <IconButton color="inherit" onClick={this.closeSettings} aria-label="Close">
+                    <CloseIcon />
+                  </IconButton>
+                  <Typography variant="h6" color="inherit" className={classes.flex}>
+                    Account Settings
+                  </Typography>
+                  <Button color="inherit" onClick={this.closeSettings}>
+                    save
+                  </Button>
+                </Toolbar>
+              </AppBar>
+              <div style={{ height: '55px' }}></div>
+              <div style={{ position: 'relative', flex: 1 }}>
+                  <DataPane />
+              </div>
+          </div>
          </Dialog>;
         };
         this.accountmenu = (classes) => {
