@@ -279,6 +279,7 @@ const removeDocumentListener = (token, instanceid) => {
     removeDocumentCacheListener(reference, instanceid);
 };
 const getDocument = (reference, callback, errorback) => {
+    // console.log('application.getDocument',reference)
     gateway.getDocument(reference, callback, errorback);
 };
 const getNewDocument = (collection, callback, errorback) => {

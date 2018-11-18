@@ -47,11 +47,11 @@ const setDocumentListener = (reference, callback) => {
 const removeDocumentListener = reference => {
 };
 const getDocument = (reference, callback, errorback) => {
-    // console.log('getting document',reference)
     let docref = firestore.doc(reference);
+    // console.log('gateway getting document',reference, docref)
     docref.get()
         .then((doc) => {
-        // console.log('returning doc with callback')
+        // console.log('returning doc with callback',doc.data())
         let data = doc.data();
         let id = doc.id;
         callback(data, id);

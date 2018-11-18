@@ -427,6 +427,7 @@ const removeDocumentListener = (token, instanceid) => {
 
 const getDocument = (reference, callback, errorback) => {
 
+    // console.log('application.getDocument',reference)
     gateway.getDocument(reference, callback, errorback)
 
 }

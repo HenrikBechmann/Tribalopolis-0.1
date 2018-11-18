@@ -185,7 +185,7 @@ class BuildController extends React.Component<any,any> {
                 id,
             }
         },() => {
-            // console.log('fetch document', id, data)
+            // console.log('fetch document type', id, data)
             if (data.identity) {
                 let typetoken = data.identity.type 
                 if (typetoken) {
@@ -213,6 +213,7 @@ class BuildController extends React.Component<any,any> {
             document:data,
             id
         }
+        // console.log('fetchTypeSuccessCallback', typepack)
         this.doctypepack = typepack
         toast.info('type has been loaded ' + id)
 

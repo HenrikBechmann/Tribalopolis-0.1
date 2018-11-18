@@ -10,6 +10,7 @@ import deepdiff from 'deep-diff';
 import merge from 'deepmerge';
 // TODO: test current document version of type against type version
 const assertType = (docpack, typepack) => {
+    // console.log('assertType docpack, typepack', docpack, typepack)
     try {
         // make deep local copy of docpack
         let localdocpack = merge({}, docpack);
