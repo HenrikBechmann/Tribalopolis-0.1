@@ -16,7 +16,7 @@ firebase.auth().onAuthStateChanged((newuser) => {
   let currentUser = firebase.auth().currentUser
   if (newuser) {
     // console.log('onAuthStateChanged signed in',newuser)
-    user = newuser.providerData[0] // google provider
+    login = newuser.providerData[0] // google provider
     currentUser.getIdToken().then(token =>{
       idToken = token
       // console.log('idtoken set',token)
@@ -42,10 +42,11 @@ const googlesignout = () => {
 
 let accessToken = null
 let idToken = null
-let user = null
+let login = null
 
 function getRedirectResult() {
     firebase.auth().getRedirectResult().then(function(result:any) {
+
       if (result.credential) {
         // This gives you a Google Access Token. You can use it to access the Google API.
         let newaccesstoken = result.credential.accessToken;
@@ -54,18 +55,18 @@ function getRedirectResult() {
         }
         // ...
       }
-      let redirectuser = result.user
-      // The signed-in user info.
-      // console.log('getRedirectResult', redirectuser, accessToken)
+
     }).catch(function(error) {
+
       // Handle Errors here.
       var errorCode = error.code;
       var errorMessage = error.message;
-      // The email of the user's account used.
+      // The email of the login's account used.
       var email = error.email;
       // The firebase.auth.AuthCredential type that was used.
       var credential = error.credential;
       console.log('error of getRedirect',{errorCode,errorMessage,email,credential,error})
+
     });
 }
 
@@ -74,7 +75,7 @@ const getUser = (callback:Function) => {
         if (stateresolved) {
             clearInterval(intervalId)
             setTimeout(()=>{ // clear code queue
-                callback(user)
+                callback(login)
             })
         }
     },30)

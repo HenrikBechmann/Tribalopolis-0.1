@@ -34,6 +34,10 @@ const assertType = (docpack, typepack) => {
         // upgrade document with template
         let {document, changed} = getUpgrade(localdocpack.document, differences, defaults)
 
+        //TODO: deletions
+
+        //TODO: extension
+
         // return updgraded document
         return {
             document,

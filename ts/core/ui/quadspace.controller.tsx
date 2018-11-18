@@ -19,7 +19,7 @@ import VerticalDivider from './common/verticaldivider.view'
 import { datastacks } from '../../data/datastacks'
 import application from '../services/application'
 
-import UserContext from '../services/user.context'
+import UserDataContext from '../services/userdata.context'
 
 class QuadspaceController extends React.Component<any,any> {
 
@@ -172,10 +172,10 @@ class QuadspaceController extends React.Component<any,any> {
     render() {
         return (
             <QuadSpaceFrame>
-                <UserContext.Consumer>
-                { user => (
+                <UserDataContext.Consumer>
+                { userdata => (
                     <QuadToolsStrip 
-                        user = {user}
+                        user = {userdata.login}
                         childrenposition = 'middle'
                         style = {this.quadtoolsstyle}
                     >
@@ -191,7 +191,7 @@ class QuadspaceController extends React.Component<any,any> {
                         <VerticalDivider />
                     </QuadToolsStrip>)
                 }
-                </UserContext.Consumer>
+                </UserDataContext.Consumer>
                 <QuadBasket><QuantityBadge quantity = {0} style = {this.badgestyle} /></QuadBasket>
                 <QuadViewport>
                     <Quadrants                         

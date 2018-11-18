@@ -4,7 +4,7 @@
 import React from 'react';
 import { withStyles, createStyles } from '@material-ui/core/styles';
 import Icon from '@material-ui/core/Icon';
-import UserContext from '../../services/user.context';
+import UserDataContext from '../../services/userdata.context';
 import ToolsStrip from './toolsstrip.view';
 const styles = createStyles({
     toolstrip: {
@@ -27,8 +27,8 @@ const styles = createStyles({
 const StandardToolbar = (props) => {
     let { classes } = props;
     return (<div>
-            <UserContext.Consumer>
-            {user => (<ToolsStrip user={user} childrenposition='end'>
+            <UserDataContext.Consumer>
+            {userdata => (<ToolsStrip user={userdata.login} childrenposition='end'>
                     <div className={classes.toolstrip}>
                         <Icon style={{ margin: '0 8px 0 8px', verticalAlign: 'middle' }}>
                             <img src='/public/icons/fire.svg'/>
@@ -38,7 +38,7 @@ const StandardToolbar = (props) => {
                         </div>
                     </div>
                 </ToolsStrip>)}
-            </UserContext.Consumer>
+            </UserDataContext.Consumer>
             <div className={classes.spacer}></div>
         </div>);
 };

@@ -14,7 +14,7 @@ import Quadrants from './quadrants.controller';
 import VerticalDivider from './common/verticaldivider.view';
 import { datastacks } from '../../data/datastacks';
 import application from '../services/application';
-import UserContext from '../services/user.context';
+import UserDataContext from '../services/userdata.context';
 class QuadspaceController extends React.Component {
     constructor(props) {
         super(props);
@@ -140,14 +140,14 @@ class QuadspaceController extends React.Component {
     }
     render() {
         return (<QuadSpaceFrame>
-                <UserContext.Consumer>
-                {user => (<QuadToolsStrip user={user} childrenposition='middle' style={this.quadtoolsstyle}>
+                <UserDataContext.Consumer>
+                {userdata => (<QuadToolsStrip user={userdata.login} childrenposition='middle' style={this.quadtoolsstyle}>
                         <QuadNavigationMenu currentQuadPosition={this.state.currentQuadPosition} split={this.state.split} selectQuad={this.selectQuad}/>
                         <VerticalDivider />
                         <SplitNavigationMenu split={this.state.split} changeSplitFrom={this.changeSplitFrom}/>
                         <VerticalDivider />
                     </QuadToolsStrip>)}
-                </UserContext.Consumer>
+                </UserDataContext.Consumer>
                 <QuadBasket><QuantityBadge quantity={0} style={this.badgestyle}/></QuadBasket>
                 <QuadViewport>
                     <Quadrants quadrantIdentifiers={this.quadrantIdentifiers} split={this.state.split} datastacks={this.state.datastacks} currentQuadPosition={this.state.currentQuadPosition} callbacks={this.quadrantcallbacks}/>

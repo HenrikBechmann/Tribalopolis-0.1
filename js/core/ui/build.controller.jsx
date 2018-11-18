@@ -13,7 +13,7 @@ import StandardToolbar from './common/standardtoolbar.view';
 import BaseForm from './input/baseform.view';
 import SelectField from './input/selectfield.view';
 import TextField from './input/textfield.view';
-import UserContext from '../services/user.context';
+import UserDataContext from '../services/userdata.context';
 import application from '../services/application';
 import schemesupport from '../services/schemesupport';
 import ActionButton from './common/actionbutton.view';
@@ -238,8 +238,8 @@ class BuildController extends React.Component {
     // ===============[ render ]==================
     render() {
         // --------[ sections of the page follow ]--------
-        const datadrawer = user => (<DataDrawer open={this.state.draweropen} handleClose={this.closeDrawer} containerelement={this.buildelement}>
-                <BuildDataPane dataPack={this.drawerdatapackage} open={this.state.draweropen} user={user}/>
+        const datadrawer = login => (<DataDrawer open={this.state.draweropen} handleClose={this.closeDrawer} containerelement={this.buildelement}>
+                <BuildDataPane dataPack={this.drawerdatapackage} open={this.state.draweropen} user={login}/>
             </DataDrawer>);
         const inputcontrols = (superuser, classes) => (<BaseForm onSubmit={this.fetchObject} disabled={!superuser}>
                 <SelectField label={'Collection'} name='collection' value={this.state.values.collection} onChange={this.onChangeValue} helperText={'select an object to build'} options={[
@@ -317,13 +317,14 @@ class BuildController extends React.Component {
         return <div className={classes.pagewrapper} ref={this.buildelement}>
             <StandardToolbar />
             {!application.properties.ismobile ?
-            <UserContext.Consumer>
+            <UserDataContext.Consumer>
 
-                {user => {
-                let superuser = !!(user && (user.uid == '112979797407042560714'));
+                {userdata => {
+                let { login } = userdata;
+                let superuser = !!(login && (login.uid == '112979797407042560714'));
                 return (<div>
 
-                        {datadrawer(user)}
+                        {datadrawer(login)}
 
                         <div className={classes.panewrapper}>
 
@@ -342,7 +343,7 @@ class BuildController extends React.Component {
                     </div>);
             }}
 
-            </UserContext.Consumer>
+            </UserDataContext.Consumer>
             : <div>The build utility is only available on desktops</div>}
         </div>;
     }

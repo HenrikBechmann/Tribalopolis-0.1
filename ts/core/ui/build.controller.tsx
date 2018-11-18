@@ -22,7 +22,7 @@ import BaseForm from './input/baseform.view'
 import SelectField from './input/selectfield.view'
 import TextField from './input/textfield.view'
 
-import UserContext from '../services/user.context'
+import UserDataContext from '../services/userdata.context'
 
 import application from '../services/application'
 import schemesupport from '../services/schemesupport'
@@ -322,7 +322,7 @@ class BuildController extends React.Component<any,any> {
 
         // --------[ sections of the page follow ]--------
 
-        const datadrawer = user => (
+        const datadrawer = login => (
             <DataDrawer open = {this.state.draweropen}
                 handleClose = {this.closeDrawer}
                 containerelement = {this.buildelement}
@@ -330,7 +330,7 @@ class BuildController extends React.Component<any,any> {
                 <BuildDataPane
                     dataPack = {this.drawerdatapackage}
                     open = {this.state.draweropen}
-                    user = {user}
+                    user = {login}
                 />
             </DataDrawer>
         )
@@ -487,17 +487,19 @@ class BuildController extends React.Component<any,any> {
         >
             <StandardToolbar />
             {!application.properties.ismobile?
-            <UserContext.Consumer>
+            <UserDataContext.Consumer>
 
-                { user => {
+                { userdata => {
 
-                    let superuser = !!(user && (user.uid == '112979797407042560714'))
+                    let { login } = userdata
+
+                    let superuser = !!(login && (login.uid == '112979797407042560714'))
 
                     return (
 
                     <div>
 
-                        { datadrawer(user) }
+                        { datadrawer(login) }
 
                         <div className = { classes.panewrapper } >
 
@@ -516,7 +518,7 @@ class BuildController extends React.Component<any,any> {
                     </div> )
                 }}
 
-            </UserContext.Consumer>
+            </UserDataContext.Consumer>
 
             :<div>The build utility is only available on desktops</div>
 

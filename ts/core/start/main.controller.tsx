@@ -37,7 +37,7 @@ let DnDBackend = isMobile?DnDTouchBackend:DnDHtml5Backend
 import MainView from './main.view'
 
 import authapi from '../services/auth.api'
-import UserContext from '../services/user.context'
+import UserDataContext from '../services/userdata.context'
 
 import { toast } from 'react-toastify'
 
@@ -59,17 +59,17 @@ class Main extends React.Component<any,any> {
     }
 
     state = {
-        user:null,
+        login:null,
         userProviderData:null,
     }
 
-    getUserCallback = (user) => {
-        if (user) {
-            toast.success(`signed in as ${user.displayName}`,{autoClose:2500})
+    getUserCallback = (login) => {
+        if (login) {
+            toast.success(`signed in as ${login.displayName}`,{autoClose:2500})
         }
-        let userProviderData = user?user.providerData[0]:null
+        let userProviderData = login?login.providerData[0]:null
         this.setState({
-            user,
+            login,
             userProviderData,
         })
     }
@@ -77,12 +77,18 @@ class Main extends React.Component<any,any> {
     render() {
         let { globalmessage, version, classes } = this.props
 
+        let userdata = {
+            login:this.state.userProviderData,
+            user:null,
+            account:null,
+        }
+
         return (
-            <UserContext.Provider value = {this.state.userProviderData}>
+            <UserDataContext.Provider value = {userdata}>
                 <MainView globalmessage={globalmessage}
                     className = {classes.mainviewstyle} 
                 />
-            </UserContext.Provider>
+            </UserDataContext.Provider>
         )
     }
 }

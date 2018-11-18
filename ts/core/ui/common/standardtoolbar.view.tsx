@@ -9,7 +9,7 @@ import React from 'react'
 import { withStyles, createStyles } from '@material-ui/core/styles'
 import Icon from '@material-ui/core/Icon'
 
-import UserContext from '../../services/user.context'
+import UserDataContext from '../../services/userdata.context'
 import ToolsStrip from './toolsstrip.view'
 import VerticalDivider from './verticaldivider.view'
 
@@ -37,10 +37,10 @@ const StandardToolbar = (props) => {
     let { classes } = props
     return (
         <div>
-            <UserContext.Consumer>
-            { user => (
+            <UserDataContext.Consumer>
+            { userdata => (
                 <ToolsStrip
-                    user = {user}
+                    user = {userdata.login}
                     childrenposition = 'end'
                 >
                     <div className = { classes.toolstrip }>
@@ -56,7 +56,7 @@ const StandardToolbar = (props) => {
                     </div>
                 </ToolsStrip>)
             }
-            </UserContext.Consumer>
+            </UserDataContext.Consumer>
             <div className = {classes.spacer} ></div>
         </div>
     )

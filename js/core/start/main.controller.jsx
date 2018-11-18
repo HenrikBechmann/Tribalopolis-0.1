@@ -29,7 +29,7 @@ let isMobile = application.properties.ismobile;
 let DnDBackend = isMobile ? DnDTouchBackend : DnDHtml5Backend;
 import MainView from './main.view';
 import authapi from '../services/auth.api';
-import UserContext from '../services/user.context';
+import UserDataContext from '../services/userdata.context';
 import { toast } from 'react-toastify';
 import { withStyles, createStyles } from '@material-ui/core/styles';
 let styles = createStyles({
@@ -41,16 +41,16 @@ let Main = class Main extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            user: null,
+            login: null,
             userProviderData: null,
         };
-        this.getUserCallback = (user) => {
-            if (user) {
-                toast.success(`signed in as ${user.displayName}`, { autoClose: 2500 });
+        this.getUserCallback = (login) => {
+            if (login) {
+                toast.success(`signed in as ${login.displayName}`, { autoClose: 2500 });
             }
-            let userProviderData = user ? user.providerData[0] : null;
+            let userProviderData = login ? login.providerData[0] : null;
             this.setState({
-                user,
+                login,
                 userProviderData,
             });
         };
@@ -58,9 +58,14 @@ let Main = class Main extends React.Component {
     }
     render() {
         let { globalmessage, version, classes } = this.props;
-        return (<UserContext.Provider value={this.state.userProviderData}>
+        let userdata = {
+            login: this.state.userProviderData,
+            user: null,
+            account: null,
+        };
+        return (<UserDataContext.Provider value={userdata}>
                 <MainView globalmessage={globalmessage} className={classes.mainviewstyle}/>
-            </UserContext.Provider>);
+            </UserDataContext.Provider>);
     }
 };
 Main = __decorate([

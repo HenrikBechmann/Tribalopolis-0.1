@@ -11,7 +11,7 @@ firebase.auth().onAuthStateChanged((newuser) => {
     let currentUser = firebase.auth().currentUser;
     if (newuser) {
         // console.log('onAuthStateChanged signed in',newuser)
-        user = newuser.providerData[0]; // google provider
+        login = newuser.providerData[0]; // google provider
         currentUser.getIdToken().then(token => {
             idToken = token;
             // console.log('idtoken set',token)
@@ -36,7 +36,7 @@ const googlesignout = () => {
 };
 let accessToken = null;
 let idToken = null;
-let user = null;
+let login = null;
 function getRedirectResult() {
     firebase.auth().getRedirectResult().then(function (result) {
         if (result.credential) {
@@ -47,14 +47,11 @@ function getRedirectResult() {
             }
             // ...
         }
-        let redirectuser = result.user;
-        // The signed-in user info.
-        // console.log('getRedirectResult', redirectuser, accessToken)
     }).catch(function (error) {
         // Handle Errors here.
         var errorCode = error.code;
         var errorMessage = error.message;
-        // The email of the user's account used.
+        // The email of the login's account used.
         var email = error.email;
         // The firebase.auth.AuthCredential type that was used.
         var credential = error.credential;
@@ -66,7 +63,7 @@ const getUser = (callback) => {
         if (stateresolved) {
             clearInterval(intervalId);
             setTimeout(() => {
-                callback(user);
+                callback(login);
             });
         }
     }, 30);
