@@ -31,12 +31,20 @@ const assertType = (docpack, typepack) => {
 
         // console.log('differences',differences)
 
+        //TODO: deletions
+
         // upgrade document with template
         let {document, changed} = getUpgrade(localdocpack.document, differences, defaults)
 
-        //TODO: deletions
-
         //TODO: extension
+
+        const { extension } = typepack.document.properties
+        if (extension !== undefined) {
+            document.__proto__ = extension
+            console.log('adding extension', extension, document.triggers)
+        }
+
+        console.log('document with extension',document,typepack)
 
         // return updgraded document
         return {
