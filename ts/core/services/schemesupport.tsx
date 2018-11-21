@@ -40,10 +40,10 @@ const assertType = (docpack, typepack) => {
         const { extension } = typepack.document.properties
         if (extension !== undefined) {
             document.__proto__ = extension
-            console.log('adding extension', extension, document.triggers)
+            // console.log('adding extension', extension, document.triggers)
         }
 
-        console.log('document with extension',document,typepack)
+        // console.log('document with extension',document,typepack)
 
         // return updgraded document
         return {
