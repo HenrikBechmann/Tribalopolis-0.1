@@ -18,7 +18,7 @@
     "deep-diff": "^1.0.2",
     "deepmerge": "^2.2.1",
     "draft-js": "^0.10.5",
-    "firebase": "^5.5.8",
+    "firebase": "^5.5.9",
     "firebaseui": "^3.4.1",
     "format-number": "^3.0.0",
     "isomorphic-fetch": "^2.2.1",
