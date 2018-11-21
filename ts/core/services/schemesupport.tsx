@@ -31,13 +31,12 @@ const assertType = (docpack, typepack) => {
 
         // console.log('differences',differences)
 
-        //TODO: deletions
+        //TODO: deletions (from previous versions)
 
         // upgrade document with template
         let {document, changed} = getUpgrade(localdocpack.document, differences, defaults)
 
-        //TODO: extension
-
+        //extension
         const { extension } = typepack.document.properties
         if (extension !== undefined) {
             document.__proto__ = extension
@@ -64,23 +63,24 @@ const getDiffs = (document,template) => {
 
     let differences = deepdiff.diff(document, template, (path, key) => {
 
+        // this item is filtered -- return true means exclude (filter); return false(ish?) means include
         // test scope. if out of scope, stop comparison
         // note: this blocks out legitimate deletions, which need to be handled some other way
         let filter = false
-        let templateproperty
-        let templateindex
-        let templatevalue = template
 
-        for (templateindex of path) {
-            templateproperty = templatevalue
-            templatevalue = templateproperty[templateindex]
-            if (templatevalue === undefined) { // out of scope
-                filter = true
-                break
-            }
+        let templatetreeposition = getTreePosition(template,path)
+
+        if (!templatetreeposition) {
+            filter = true
         }
 
         if (!filter) {
+            let {
+                comparandproperty:templateproperty,
+                comparandindex:templateindex,
+                comparandvalue:templatevalue
+            } = templatetreeposition
+
             templateproperty = templatevalue
             templatevalue = templateproperty[key]
             if (templatevalue === undefined) {
@@ -132,33 +132,28 @@ const applyNewBranchDefaults = (original, changerecord, defaults) => {
     // get the path of the value to change
     let path = changerecord.path
 
-    // get the default value to set
-    let defaultproperty
-    let defaultindex
-    let defaultvalue = defaults
-    for (defaultindex of path) {
+    let defaulttreeposition = getTreePosition(original,path)
 
-        defaultproperty = defaultvalue
-        defaultvalue = defaultproperty[defaultindex]
+    if (!defaulttreeposition) return
 
-        if (defaultvalue === undefined) return
-
-    }
+    let {
+        comparandproperty:defaultproperty,
+        comparandindex:defaultlindex,
+        comparandvalue:defaultvalue,
+    } = defaulttreeposition
 
     // =========[ get the document node to apply the default value to ]==========
 
     // get the matching original property to change to default, based on change path
-    let originalproperty
-    let originalindex
-    let originalvalue = original
-    for (originalindex of path) {
+    let comparandtreeposition = getTreePosition(original,path)
 
-        originalproperty = originalvalue
-        originalvalue = originalproperty[originalindex]
+    if (!comparandtreeposition) return
 
-        if (originalvalue === undefined) return // no doc node available
-
-    } // yields originalproperty and originalindex of that property
+    let {
+        comparandproperty:sourceproperty,
+        comparandindex:sourceindex,
+        comparandvalue:sourcevalue,
+    } = comparandtreeposition
 
     // =================[ apply the default value to the document node ]=============
 
@@ -166,21 +161,21 @@ const applyNewBranchDefaults = (original, changerecord, defaults) => {
 
         let defaultproperty = defaultvalue // better name
 
-        originalproperty = originalvalue
+        sourceproperty = sourcevalue
 
-        if (!isObject(originalproperty)) {
+        if (!isObject(sourceproperty)) {
             console.log('error: mismatch of property and defualts',
-                original, defaults, originalproperty, defaultproperty)
+                original, defaults, sourceproperty, defaultproperty)
             return
         }
 
-        let differences = getDiffs(originalproperty,defaultproperty)
+        let differences = getDiffs(sourceproperty,defaultproperty)
 
         for (let changerecord of differences) {
 
             if (changerecord.kind == 'E') {
 
-                deepdiff.applyChange(originalproperty, null, changerecord)
+                deepdiff.applyChange(sourceproperty, null, changerecord)
 
             }
 
@@ -188,8 +183,31 @@ const applyNewBranchDefaults = (original, changerecord, defaults) => {
 
     } else { // a default value is available
 
-        originalproperty[originalindex] = defaultvalue
+        sourceproperty[sourceindex] = defaultvalue
 
+    }
+
+}
+
+const getTreePosition = (comparand, path) => {
+
+    let comparandproperty
+    let comparandindex
+    let comparandvalue = comparand
+
+    for (comparandindex of path) {
+
+        comparandproperty = comparandvalue
+        comparandvalue = comparandproperty[comparandindex]
+
+        if (comparandvalue === undefined) return undefined// no doc node available
+
+    } // yields comparandproperty and comparandindex of that property
+
+    return {
+        comparandproperty,
+        comparandindex,
+        comparandvalue,
     }
 
 }
