@@ -2,10 +2,9 @@
 // copyright (c) 2018 Henrik Bechmann, Toronto, MIT Licence
 
 /*
-    TODO:
-    - for deletions, this process should compare previous and current versions of the 
-    template based on versions that are recorded in the document and 
-    template.
+    TODO: 
+    - automatic set of deletion list (compare type versions)
+    - set change flag when deletions are applied
 */
 
 import deepdiff from 'deep-diff'
