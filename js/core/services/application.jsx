@@ -22,6 +22,7 @@
         - implement general max for cache (1000?) with trigger to reduce to 900 or so
 */
 import gateway from './gateway';
+import merge from 'deepmerge';
 // ==============[ Internal ]===============
 /*
     Each document has an accompanying type. Types are shared, therefore far less numerous.
@@ -286,7 +287,8 @@ const getNewDocument = (collection, callback, errorback) => {
     gateway.getNewDocument(collection, callback, errorback);
 };
 const setDocument = (reference, data, success, failure) => {
-    gateway.setDocument(reference, data, success, failure);
+    let simpleobject = merge({}, data); // strip out any extensions; restore as simple object
+    gateway.setDocument(reference, simpleobject, success, failure);
 };
 const getCollection = (reference, success, failure) => {
     gateway.getCollection(reference, success, failure);

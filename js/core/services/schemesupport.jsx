@@ -10,23 +10,47 @@ import deepdiff from 'deep-diff';
 import merge from 'deepmerge';
 // TODO: test current document version of type against type version
 const assertType = (docpack, typepack) => {
+    if (!docpack || !typepack)
+        return;
     // console.log('assertType docpack, typepack', docpack, typepack)
     try {
         // make deep local copy of docpack
         let localdocpack = merge({}, docpack);
         // unpack type data for upgrades
-        let { template, defaults } = typepack.document.properties;
+        let { template, defaults, deletions } = typepack.document.properties;
+        //TODO: deletions (from previous versions)
+        let { document: localdoc } = localdocpack;
+        // console.log('localdoc',localdoc)
+        let { version: doctypeversion } = localdoc.identity.type;
+        let { version: typeversion } = typepack.document.identity;
+        // console.log('doctypeversion, typeversion',doctypeversion,typeversion)
+        if ((doctypeversion === typeversion) && (typeversion !== null)) {
+            // check for deletions
+            let deletions = typepack.document.properties.deletions.versions[doctypeversion];
+            if (deletions) {
+                let paths = deletions.map((value) => {
+                    let path = value.split('.');
+                    return path;
+                });
+                // console.log('deletions to perform',deletions,paths)
+                for (let path of paths) {
+                    let treePosition = getTreePosition(localdocpack.document, path);
+                    if (treePosition) {
+                        let { comparandproperty, comparandindex } = treePosition;
+                        delete comparandproperty[comparandindex];
+                        // console.log('deleted comparandproperty, comparandindex',localdocpack.document,comparandproperty,comparandindex)
+                    }
+                }
+            }
+        }
         // get differences between template and current document
         let differences = getDiffs(localdocpack.document, template);
-        // console.log('differences',differences)
-        //TODO: deletions (from previous versions)
         // upgrade document with template
         let { document, changed } = getUpgrade(localdocpack.document, differences, defaults);
         //extension
         const { extension } = typepack.document.properties;
         if (extension !== undefined) {
             document.__proto__ = extension;
-            // console.log('adding extension', extension, document.triggers)
         }
         // console.log('document with extension',document,typepack)
         // return updgraded document
@@ -62,6 +86,7 @@ const getDiffs = (document, template) => {
     return differences;
 };
 const getUpgrade = (original, differences, defaults) => {
+    // console.log('getUpgrade original, differences',original,differences)
     let changed = false;
     if (differences) {
         for (let changerecord of differences) {
@@ -70,6 +95,7 @@ const getUpgrade = (original, differences, defaults) => {
                     changed = true;
                 deepdiff.applyChange(original, null, changerecord);
                 if (changerecord.kind == 'N') {
+                    // console.log('applying new change record',original, changerecord, defaults)
                     applyNewBranchDefaults(original, changerecord, defaults);
                 }
             }
@@ -101,13 +127,15 @@ const applyNewBranchDefaults = (original, changerecord, defaults) => {
         let defaultproperty = defaultvalue; // better name
         sourceproperty = sourcevalue;
         if (!isObject(sourceproperty)) {
-            console.log('error: mismatch of property and defualts', original, defaults, sourceproperty, defaultproperty);
+            console.log('error: mismatch of property and defaults', original, defaults, sourceproperty, defaultproperty);
             return;
         }
         let differences = getDiffs(sourceproperty, defaultproperty);
-        for (let changerecord of differences) {
-            if (changerecord.kind == 'E') {
-                deepdiff.applyChange(sourceproperty, null, changerecord);
+        if (differences) {
+            for (let changerecord of differences) {
+                if (changerecord.kind == 'E') {
+                    deepdiff.applyChange(sourceproperty, null, changerecord);
+                }
             }
         }
     }
