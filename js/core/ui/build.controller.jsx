@@ -153,7 +153,7 @@ class BuildController extends React.Component {
             };
             // console.log('fetchTypeSuccessCallback', typepack)
             this.doctypepack = typepack;
-            toast.info('type has been loaded (' + id + ')');
+            toast.info('type has also been loaded (' + id + ')');
             let results = schemesupport.assertType(this.state.docpack, this.doctypepack);
             // console.log('returned from assertType',results)
             if (results.changed || results.extended) {
