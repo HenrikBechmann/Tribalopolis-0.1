@@ -2,9 +2,7 @@
 // copyright (c) 2018 Henrik Bechmann, Toronto, MIT Licence
 /*
     TODO:
-    - for deletions, this process should compare previous and current versions of the
-    template based on versions that are recorded in the document and
-    template.
+    - automatic set of deletion list (compare type versions)
 */
 import deepdiff from 'deep-diff';
 import merge from 'deepmerge';
@@ -24,6 +22,7 @@ const assertType = (docpack, typepack) => {
         let { version: doctypeversion } = localdoc.identity.type;
         let { version: typeversion } = typepack.document.identity;
         // console.log('doctypeversion, typeversion',doctypeversion,typeversion)
+        let deletionsperformed = false;
         if ((doctypeversion === typeversion) && (typeversion !== null)) {
             // check for deletions
             let deletions = typepack.document.properties.deletions.versions[doctypeversion];
@@ -34,11 +33,13 @@ const assertType = (docpack, typepack) => {
                 });
                 // console.log('deletions to perform',deletions,paths)
                 for (let path of paths) {
-                    let treePosition = getTreePosition(localdocpack.document, path);
-                    if (treePosition) {
-                        let { comparandproperty, comparandindex } = treePosition;
-                        delete comparandproperty[comparandindex];
-                        // console.log('deleted comparandproperty, comparandindex',localdocpack.document,comparandproperty,comparandindex)
+                    let nodePosition = getNodePosition(localdocpack.document, path);
+                    if (nodePosition) {
+                        let { nodeproperty, nodeindex } = nodePosition;
+                        delete nodeproperty[nodeindex];
+                        if (!deletionsperformed)
+                            deletionsperformed = true;
+                        // console.log('deleted comparandproperty, comparandindex',localdocpack.document,nodeproperty,nodeindex)
                     }
                 }
             }
@@ -46,17 +47,21 @@ const assertType = (docpack, typepack) => {
         // get differences between template and current document
         let differences = getDiffs(localdocpack.document, template);
         // upgrade document with template
-        let { document, changed } = getUpgrade(localdocpack.document, differences, defaults);
+        let { document, changed: datachanged } = getUpgrade(localdocpack.document, differences, defaults);
+        let extensionadded = false;
         //extension
         const { extension } = typepack.document.properties;
         if (extension !== undefined) {
             document.__proto__ = extension;
+            extensionadded = true;
         }
         // console.log('document with extension',document,typepack)
+        datachanged = (datachanged || deletionsperformed);
         // return updgraded document
         return {
             document,
-            changed,
+            changed: datachanged,
+            extended: extensionadded,
         };
     }
     catch (e) {
@@ -69,12 +74,12 @@ const getDiffs = (document, template) => {
         // test scope. if out of scope, stop comparison
         // note: this blocks out legitimate deletions, which need to be handled some other way
         let filter = false;
-        let templatetreeposition = getTreePosition(template, path);
-        if (!templatetreeposition) {
+        let templatenodeposition = getNodePosition(template, path);
+        if (!templatenodeposition) {
             filter = true;
         }
         if (!filter) {
-            let { comparandproperty: templateproperty, comparandindex: templateindex, comparandvalue: templatevalue } = templatetreeposition;
+            let { nodeproperty: templateproperty, nodeindex: templateindex, nodevalue: templatevalue } = templatenodeposition;
             templateproperty = templatevalue;
             templatevalue = templateproperty[key];
             if (templatevalue === undefined) {
@@ -90,9 +95,18 @@ const getUpgrade = (original, differences, defaults) => {
     let changed = false;
     if (differences) {
         for (let changerecord of differences) {
-            if ((changerecord.kind == 'N') || (changerecord.kind == 'D')) {
+            if ((changerecord.kind == 'N') || (changerecord.kind == 'E')) {
+                // console.log('changerecord',changerecord)
+                if (changerecord.kind == 'E') {
+                    if (!((typeof changerecord.rhs === 'object') && (changerecord.rhs !== null))) {
+                        // if ((typeof changerecord.lhs === "object") && (changerecord.lhs !== null)) {
+                        continue;
+                        // }
+                    }
+                }
                 if (!changed)
                     changed = true;
+                // console.log('applying change')
                 deepdiff.applyChange(original, null, changerecord);
                 if (changerecord.kind == 'N') {
                     // console.log('applying new change record',original, changerecord, defaults)
@@ -112,16 +126,16 @@ const applyNewBranchDefaults = (original, changerecord, defaults) => {
     // =========[ get the default value to apply ]==========
     // get the path of the value to change
     let path = changerecord.path;
-    let defaulttreeposition = getTreePosition(original, path);
-    if (!defaulttreeposition)
+    let defaultnodeposition = getNodePosition(original, path);
+    if (!defaultnodeposition)
         return;
-    let { comparandproperty: defaultproperty, comparandindex: defaultlindex, comparandvalue: defaultvalue, } = defaulttreeposition;
+    let { nodeproperty: defaultproperty, nodeindex: defaultlindex, nodevalue: defaultvalue, } = defaultnodeposition;
     // =========[ get the document node to apply the default value to ]==========
     // get the matching original property to change to default, based on change path
-    let comparandtreeposition = getTreePosition(original, path);
-    if (!comparandtreeposition)
+    let comparandnodeposition = getNodePosition(original, path);
+    if (!comparandnodeposition)
         return;
-    let { comparandproperty: sourceproperty, comparandindex: sourceindex, comparandvalue: sourcevalue, } = comparandtreeposition;
+    let { nodeproperty: sourceproperty, nodeindex: sourceindex, nodevalue: sourcevalue, } = comparandnodeposition;
     // =================[ apply the default value to the document node ]=============
     if (isObject(defaultvalue)) { // a branch of defaults is available
         let defaultproperty = defaultvalue; // better name
@@ -143,20 +157,20 @@ const applyNewBranchDefaults = (original, changerecord, defaults) => {
         sourceproperty[sourceindex] = defaultvalue;
     }
 };
-const getTreePosition = (comparand, path) => {
-    let comparandproperty;
-    let comparandindex;
-    let comparandvalue = comparand;
-    for (comparandindex of path) {
-        comparandproperty = comparandvalue;
-        comparandvalue = comparandproperty[comparandindex];
-        if (comparandvalue === undefined)
+const getNodePosition = (branch, path) => {
+    let nodeproperty;
+    let nodeindex;
+    let nodevalue = branch;
+    for (nodeindex of path) {
+        nodeproperty = nodevalue;
+        nodevalue = nodeproperty[nodeindex];
+        if (nodevalue === undefined)
             return undefined; // no doc node available
     } // yields comparandproperty and comparandindex of that property
     return {
-        comparandproperty,
-        comparandindex,
-        comparandvalue,
+        nodeproperty,
+        nodeindex,
+        nodevalue,
     };
 };
 // ========================[ utilities ]========================

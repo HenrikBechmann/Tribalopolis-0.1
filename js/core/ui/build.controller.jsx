@@ -135,6 +135,7 @@ class BuildController extends React.Component {
                     if (typetoken) {
                         let typeref = typetoken.reference;
                         if (typeref) {
+                            // console.log('typeref',typeref)
                             application.getDocument(typeref, this.fetchTypeSuccessCallback, this.fetchTypeErrorCallback);
                         }
                     }
@@ -152,10 +153,10 @@ class BuildController extends React.Component {
             };
             // console.log('fetchTypeSuccessCallback', typepack)
             this.doctypepack = typepack;
-            toast.info('type has been loaded ' + id);
+            toast.info('type has been loaded (' + id + ')');
             let results = schemesupport.assertType(this.state.docpack, this.doctypepack);
             // console.log('returned from assertType',results)
-            if (results.changed) {
+            if (results.changed || results.extended) {
                 this.latestjson = results.document;
                 this.savejson = results.document;
                 let docpack = this.state.docpack;
@@ -165,7 +166,7 @@ class BuildController extends React.Component {
                         document: results.document,
                     }
                 });
-                toast.info('document has been upgraded by type (' + id + ')');
+                results.changed && toast.info('document data has been upgraded by type (' + id + ')');
             }
             // console.log('type loaded',type)
         };

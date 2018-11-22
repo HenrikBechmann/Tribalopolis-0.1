@@ -1166,9 +1166,9 @@ let items = {
                 id:'',
                 handle:'',
             },
+            version:0,
         },
         properties:{
-            version:0,
             name:{
                 honorific:'Mr.',
                 firstname:'Henrik',
