@@ -98,8 +98,8 @@ const getUpgrade = (original, differences, defaults) => {
             if ((changerecord.kind == 'N') || (changerecord.kind == 'E')) {
                 // console.log('changerecord',changerecord)
                 if (changerecord.kind == 'E') {
-                    if (!((typeof changerecord.rhs === 'object') && (changerecord.rhs !== null))) {
-                        // if ((typeof changerecord.lhs === "object") && (changerecord.lhs !== null)) {
+                    if (!isObject(changerecord.rhs)) {
+                        // if (isObject(changerecord.lhs)) {
                         continue;
                         // }
                     }
