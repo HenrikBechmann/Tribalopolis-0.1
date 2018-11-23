@@ -8,6 +8,7 @@
 
 import deepdiff from 'deep-diff'
 import merge from 'deepmerge'
+
 import utilities from '../utilities/utilities'
 
 // TODO: test current document version of type against type version
