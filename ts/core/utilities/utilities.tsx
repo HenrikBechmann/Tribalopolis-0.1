@@ -16,6 +16,36 @@ const getJsonFile = (spec) => {
     return promise
 }
 
-export {
-    getJsonFile
+const getNodePosition = (branch, path) => {
+
+    let nodeproperty
+    let nodeindex
+    let nodevalue = branch
+
+    for (nodeindex of path) {
+
+        nodeproperty = nodevalue
+        nodevalue = nodeproperty[nodeindex]
+
+        if (nodevalue === undefined) return undefined// no doc node available
+
+    } // yields comparandproperty and comparandindex of that property
+
+    return {
+        nodeproperty,
+        nodeindex,
+        nodevalue,
+    }
+
+}
+
+const isObject = value => {
+    return ((typeof value === 'object') && (value !== null))
+}
+
+
+export default {
+    getJsonFile,
+    getNodePosition,
+    isObject,
 }

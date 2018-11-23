@@ -8,6 +8,7 @@
 
 import deepdiff from 'deep-diff'
 import merge from 'deepmerge'
+import utilities from '../utilities/utilities'
 
 // TODO: test current document version of type against type version
 const assertType = (docpack, typepack) => {
@@ -40,7 +41,7 @@ const assertType = (docpack, typepack) => {
                 })
                 // console.log('deletions to perform',deletions,paths)
                 for (let path of paths) {
-                    let nodePosition = getNodePosition(localdocpack.document,path)
+                    let nodePosition = utilities.getNodePosition(localdocpack.document,path)
                     if (nodePosition) {
                         let { nodeproperty, nodeindex } = nodePosition
                         delete nodeproperty[nodeindex]
@@ -97,7 +98,7 @@ const getDiffs = (document,template) => {
         // note: this blocks out legitimate deletions, which need to be handled some other way
         let filter = false
 
-        let templatenodeposition = getNodePosition(template,path)
+        let templatenodeposition = utilities.getNodePosition(template,path)
 
         if (!templatenodeposition) {
             filter = true
@@ -136,7 +137,7 @@ const getUpgrade = (original, differences, defaults) => {
                 // console.log('changerecord',changerecord)
 
                 if (changerecord.kind == 'E') {
-                    if (!isObject(changerecord.rhs)) {
+                    if (!utilities.isObject(changerecord.rhs)) {
                         // if (isObject(changerecord.lhs)) {
                             continue
                         // }
@@ -173,7 +174,7 @@ const applyNewBranchDefaults = (original, changerecord, defaults) => {
     // get the path of the value to change
     let path = changerecord.path
 
-    let defaultnodeposition = getNodePosition(original,path)
+    let defaultnodeposition = utilities.getNodePosition(original,path)
 
     if (!defaultnodeposition) return
 
@@ -186,7 +187,7 @@ const applyNewBranchDefaults = (original, changerecord, defaults) => {
     // =========[ get the document node to apply the default value to ]==========
 
     // get the matching original property to change to default, based on change path
-    let comparandnodeposition = getNodePosition(original,path)
+    let comparandnodeposition = utilities.getNodePosition(original,path)
 
     if (!comparandnodeposition) return
 
@@ -198,13 +199,13 @@ const applyNewBranchDefaults = (original, changerecord, defaults) => {
 
     // =================[ apply the default value to the document node ]=============
 
-    if (isObject(defaultvalue)) { // a branch of defaults is available
+    if (utilities.isObject(defaultvalue)) { // a branch of defaults is available
 
         let defaultproperty = defaultvalue // better name
 
         sourceproperty = sourcevalue
 
-        if (!isObject(sourceproperty)) {
+        if (!utilities.isObject(sourceproperty)) {
             console.log('error: mismatch of property and defaults',
                 original, defaults, sourceproperty, defaultproperty)
             return
@@ -230,35 +231,6 @@ const applyNewBranchDefaults = (original, changerecord, defaults) => {
 
     }
 
-}
-
-const getNodePosition = (branch, path) => {
-
-    let nodeproperty
-    let nodeindex
-    let nodevalue = branch
-
-    for (nodeindex of path) {
-
-        nodeproperty = nodevalue
-        nodevalue = nodeproperty[nodeindex]
-
-        if (nodevalue === undefined) return undefined// no doc node available
-
-    } // yields comparandproperty and comparandindex of that property
-
-    return {
-        nodeproperty,
-        nodeindex,
-        nodevalue,
-    }
-
-}
-
-// ========================[ utilities ]========================
-
-const isObject = value => {
-    return ((typeof value === 'object') && (value !== null))
 }
 
 // =========================[ export ]==========================
