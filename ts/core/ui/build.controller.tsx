@@ -369,6 +369,14 @@ class BuildController extends React.Component<any,any> {
                             value:'handles',
                             text:'Handles',
                         },
+                        {
+                            value:'pages',
+                            text:'Pages',
+                        },
+                        {
+                            value:'links',
+                            text:'Links',
+                        },
                     ]}
                 />
 
@@ -419,7 +427,7 @@ class BuildController extends React.Component<any,any> {
                     variant = 'contained'
                     onClick = {this.postObject}
                     className = {classes.button}
-                    disabled = {(!superuser) || (!this.savejson)}
+                    disabled = {!superuser}
                 >
                     Post
                 </Button>

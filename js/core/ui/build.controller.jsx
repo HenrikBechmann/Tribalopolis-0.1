@@ -268,6 +268,14 @@ class BuildController extends React.Component {
                 value: 'handles',
                 text: 'Handles',
             },
+            {
+                value: 'pages',
+                text: 'Pages',
+            },
+            {
+                value: 'links',
+                text: 'Links',
+            },
         ]}/>
 
                 <TextField label='Id' name='id' value={this.state.values.id} onChange={this.onChangeValue} helperText='enter the id of the requested object'/>
@@ -286,7 +294,7 @@ class BuildController extends React.Component {
                 <Button variant='contained' onClick={this.rollbackObject} className={classes.button}>
                     Rollback
                 </Button>
-                <Button variant='contained' onClick={this.postObject} className={classes.button} disabled={(!superuser) || (!this.savejson)}>
+                <Button variant='contained' onClick={this.postObject} className={classes.button} disabled={!superuser}>
                     Post
                 </Button>
                 <Button variant='contained' onClick={this.clearObject} className={classes.button}>

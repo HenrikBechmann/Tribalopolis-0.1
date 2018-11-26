@@ -4,6 +4,7 @@
     TODO:
     - automatic set of deletion list (compare type versions)
 */
+'use strict';
 import deepdiff from 'deep-diff';
 import merge from 'deepmerge';
 import utilities from '../utilities/utilities';
