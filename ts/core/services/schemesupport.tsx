@@ -3,6 +3,7 @@
 
 /*
     TODO: 
+    - program transfer function; must succeed if deletions is implemented
     - automatic set of deletion list (compare type versions)
 */
 
