@@ -285,6 +285,7 @@ class BuildController extends React.Component {
             </BaseForm>); //--end
         const datacontrols = (superuser, classes) => (<React.Fragment>
             <div>
+                <p>For a new object, fetch without an id</p>
                 <Button type='submit' variant='contained' onClick={this.fetchObject} className={classes.button} disabled={!superuser}>
                     Fetch
                 </Button>
@@ -294,7 +295,7 @@ class BuildController extends React.Component {
                 <Button variant='contained' onClick={this.rollbackObject} className={classes.button}>
                     Rollback
                 </Button>
-                <Button variant='contained' onClick={this.postObject} className={classes.button} disabled={!superuser}>
+                <Button variant='contained' onClick={this.postObject} className={classes.button} disabled={((!superuser) || (!this.savejson))}>
                     Post
                 </Button>
                 <Button variant='contained' onClick={this.clearObject} className={classes.button}>

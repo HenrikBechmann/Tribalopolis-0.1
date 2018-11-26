@@ -400,6 +400,7 @@ class BuildController extends React.Component<any,any> {
         const datacontrols = (superuser,classes) => (
             <React.Fragment>
             <div>
+                <p>For a new object, fetch without an id</p>
                 <Button 
                     type = 'submit'
                     variant = 'contained'
@@ -427,7 +428,7 @@ class BuildController extends React.Component<any,any> {
                     variant = 'contained'
                     onClick = {this.postObject}
                     className = {classes.button}
-                    disabled = {!superuser}
+                    disabled = {((!superuser) || (!this.savejson))}
                 >
                     Post
                 </Button>
