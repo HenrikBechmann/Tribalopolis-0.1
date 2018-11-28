@@ -285,6 +285,9 @@ const getDocument = (reference, callback, errorback) => {
 const getNewDocument = (collection, callback, errorback) => {
     gateway.getNewDocument(collection, callback, errorback);
 };
+const queryCollection = (collection, whereclauses, success, failure) => {
+    gateway.queryCollection(collection, whereclauses, success, failure);
+};
 const setDocument = (reference, data, success, failure) => {
     // let simpleobject:any = merge({},data) // strip out any extensions; restore as simple object
     gateway.setDocument(reference, data, success, failure);
@@ -298,6 +301,7 @@ let application = {
     removeDocumentListener,
     getDocument,
     getNewDocument,
+    queryCollection,
     setDocument,
     getCollection,
 };

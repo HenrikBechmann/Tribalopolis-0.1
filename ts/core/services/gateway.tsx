@@ -82,6 +82,35 @@ const getNewDocument = (collection, callback, errorback) => {
     })
 }
 
+const queryCollection = (reference, whereclauses, success, failure) => {
+
+    if ((!whereclauses) || (whereclauses.length == 0)) {
+        failure('no where clauses defined for query')
+        return // nothing to do
+    }
+
+    let collection = firestore.collection(reference)
+    for (let whereclause of whereclauses) {
+        collection.where(whereclause[0],whereclause[1],whereclause[2])
+    }
+    collection.get().then((querySnapshot)=>{
+        if (querySnapshot.empty) return []
+        let docs = []
+        querySnapshot.forEach(document => {
+            let doc = {
+                id:document.id,
+                data:document.data()
+            }
+            docs.push(doc)
+        })
+        return docs
+    }).then((docs) => {
+        success(docs)
+    }).catch(error =>{
+        failure(error)
+    }) 
+}
+
 const setDocument = (reference, data, success, failure) => {
     let doc = firestore.doc(reference)
     doc.set(data)
@@ -120,6 +149,7 @@ let domain = {
     removeDocumentListener,
     getDocument,
     getNewDocument,
+    queryCollection,
     setDocument,
     getCollection,
 }

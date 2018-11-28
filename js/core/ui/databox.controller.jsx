@@ -3,7 +3,7 @@
 'use strict';
 import React from 'react';
 import { withStyles, createStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
+import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 import BoxIdentityBar from './databox/identitybar.view';
 import BoxTypebar from './databox/typebar.view';
@@ -21,9 +21,9 @@ const buttonstyles = theme => createStyles({
 });
 const FloatingAddButton = withStyles(buttonstyles)((props) => {
     let { classes, onClick } = props;
-    return <Button variant='fab' mini color='secondary' aria-label='Add' className={classes.button} onClick={onClick}>
+    return <Fab size='small' color='secondary' aria-label='Add' className={classes.button} onClick={onClick}>
       <AddIcon />
-    </Button>;
+    </Fab>;
 });
 const styles = createStyles({
     buttonwrapper: {

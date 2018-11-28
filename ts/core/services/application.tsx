@@ -24,7 +24,6 @@
 */
 
 import gateway from './gateway'
-import auth from './auth.api'
 import merge from 'deepmerge'
 // ==============[ Internal ]===============
 
@@ -439,6 +438,10 @@ const getNewDocument = (collection, callback, errorback) => {
 
 }
 
+const queryCollection = (collection, whereclauses, success, failure) => {
+    gateway.queryCollection(collection, whereclauses, success, failure)
+}
+
 const setDocument = (reference, data, success, failure) => {
 
     // let simpleobject:any = merge({},data) // strip out any extensions; restore as simple object
@@ -457,6 +460,7 @@ let application = {
     removeDocumentListener,
     getDocument,
     getNewDocument,
+    queryCollection,
     setDocument,
     getCollection,
 }
