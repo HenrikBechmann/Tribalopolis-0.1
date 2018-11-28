@@ -15,6 +15,7 @@
     TODO:
     - collect fetch of login, user, and account together with promise collection 
         so as to render only once for those
+    - accomodate need to asynchronously update account and user data from other sources
 */
 
 'use strict'
