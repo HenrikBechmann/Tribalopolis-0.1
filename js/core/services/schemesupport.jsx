@@ -2,6 +2,7 @@
 // copyright (c) 2018 Henrik Bechmann, Toronto, MIT Licence
 /*
     TODO:
+    - program transfer function; must succeed if deletions is implemented
     - automatic set of deletion list (compare type versions)
 */
 'use strict';
@@ -52,11 +53,11 @@ const assertType = (docpack, typepack) => {
         let { document, changed: datachanged } = getUpgrade(localdocpack.document, differences, defaults);
         let extensionadded = false;
         //extension
-        const { extension } = typepack.document.properties;
-        if (extension !== undefined) {
-            document.__proto__ = extension;
-            extensionadded = true;
-        }
+        // const { extension } = typepack.document.properties
+        // if (extension !== undefined) {
+        //     document.__proto__ = extension
+        //     extensionadded = true
+        // }
         // console.log('document with extension',document,typepack)
         datachanged = (datachanged || deletionsperformed);
         // return updgraded document
@@ -126,9 +127,10 @@ const getUpgrade = (original, differences, defaults) => {
 // change could involve an entire branch
 const applyNewBranchDefaults = (original, changerecord, defaults) => {
     // =========[ get the default value to apply ]==========
+    // console.log('applyNewBranchDefaults original, changerecord, defaults',original, changerecord, defaults)
     // get the path of the value to change
     let path = changerecord.path;
-    let defaultnodeposition = utilities.getNodePosition(original, path);
+    let defaultnodeposition = utilities.getNodePosition(defaults, path);
     if (!defaultnodeposition)
         return;
     let { nodeproperty: defaultproperty, nodeindex: defaultlindex, nodevalue: defaultvalue, } = defaultnodeposition;
