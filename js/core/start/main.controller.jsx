@@ -45,10 +45,12 @@ let Main = class Main extends React.Component {
             userProviderData: null,
         };
         this.getUserCallback = (login) => {
+            let userProviderData = null;
             if (login) {
                 toast.success(`signed in as ${login.displayName}`, { autoClose: 2500 });
+                userProviderData = login.providerData[0];
+                console.log('user provider data', userProviderData);
             }
-            let userProviderData = login ? login.providerData[0] : null;
             this.setState({
                 login,
                 userProviderData,
