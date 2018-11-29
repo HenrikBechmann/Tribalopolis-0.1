@@ -15,7 +15,8 @@
     TODO:
     - collect fetch of login, user, and account together with promise collection 
         so as to render only once for those
-    - accomodate need to asynchronously update account and user data from other sources
+    - accomodate need to asynchronously update account and user data from other sources 
+        (user and account document listeners)
     - handle network failure - system data
     - add general error catch lifecycle method
 */
@@ -67,7 +68,7 @@ class Main extends React.Component<any,any> {
     constructor(props) {
         super(props)
         this.getSystemData()
-        authapi.setUpdateCallback(this.getUserCallback)
+        authapi.setUpdateCallback(this.updateUserData) // (this.getUserCallback)
     }
 
     state = {
@@ -78,38 +79,48 @@ class Main extends React.Component<any,any> {
         account:null,
     }
 
-    getSystemData = () => {
-        application.getDocument('/system/parameters',this.getSystemDataCallback,this.getSystemDataError)
+    promises = {
+        user:{
+            resolve:null,
+            reject:null,
+        },
+        account:{
+            resolve:null,
+            reject:null,
+        },
     }
 
-    getSystemDataCallback = data => {
-        toast.success('setting system data')
-        this.setState({
-            system:data,
-        })
-    }
+    userPromise = new Promise((resolveuser, rejectuser) => {
 
-    getSystemDataError = error => {
-        toast.error('Unable to get system data (' + error + ')')
-    }
+        this.promises.user.resolve = resolveuser
+        this.promises.user.reject = rejectuser
 
-    getUserCallback = (login) => {
-        console.log('getUserCallback',login)
-        let userProviderData = null
+    })
+
+    accountPromise = new Promise((resolveaccount, rejectaccount) => {
+        this.promises.account.resolve = resolveaccount
+        this.promises.account.reject = rejectaccount
+    })
+
+    updateUserData = (login) => {
+
         if (login) {
             toast.success(`signed in as ${login.displayName}`,{autoClose:2500})
-            userProviderData = login.providerData[0] // only google for now
-            // console.log('user provider data',userProviderData)
-            this.setState({
-                login,
-                userProviderData,
-            }, () => {
-                    if (userProviderData) {
-                        this.getUserDocument(userProviderData.uid)
-                    }
-                }
-            )
-        } else {
+            let userProviderData = login.providerData[0] // only google for now
+            this.getUserDocument(userProviderData.uid)
+            Promise.all([this.userPromise,this.accountPromise]).then(values => {
+                this.setState({
+                    login,
+                    userProviderData,
+                    user:values[0],
+                    account:values[1],
+                })
+            }).catch(error => {
+                toast.error('unable to get user data (' + error + ')')
+                // logout
+                authapi.googlesignout()
+            })
+        } else { // clear userdata
             this.setState({
                 login:null,
                 userProviderData:null,
@@ -117,49 +128,88 @@ class Main extends React.Component<any,any> {
                 account:null,
             })
         }
+
+    }
+
+    getSystemData = () => {
+        application.getDocument('/system/parameters',this.getSystemDataCallback,this.getSystemDataError)
+    }
+
+    getSystemDataCallback = data => {
+
+        toast.success('setting system data')
+        this.setState({
+            system:data,
+        })
+
+    }
+
+    getSystemDataError = error => {
+
+        toast.error('Unable to get system data (' + error + ')')
+
     }
 
     getUserDocument = uid => {
+
         application.queryCollection('users',[['identity.loginid.uid','==',uid]],this.userDocumentSuccess, this.userDocumentFailure)
+
     }
 
     userDocumentSuccess = doclist => {
+
         // console.log('doclist from userdoc',doclist)
-        if (!doclist.length) return
+        if (!doclist.length) {
+            this.userDocumentFailure('no user document found')
+            return
+        }
         if (doclist.length > 1) {
             // toast.error('duplicate user id')
             this.userDocumentFailure('duplicate user id')
             return
         }
         toast.success('setting user record')
-        this.setState({
-            user:doclist[0]
-        },() => {
-            this.getAccountDocument(this.state.user.data.identity.account)
-        })
+        let user = doclist[0]
+        this.promises.user.resolve(user)
+        this.getAccountDocument(user.data.identity.account)
+
     }
 
     userDocumentFailure = error => {
         toast.error('unable to get user data (' + error + ')')
+        this.promises.user.reject('unable to get user data (' + error + ')')
     }
 
     getAccountDocument = reference => {
         application.getDocument(reference,this.userAccountSuccess, this.userAccountFailure)
     }
 
-    userAccountSuccess = document => {
-        if (!document) return
+    userAccountSuccess = (document,id) => {
+
+        if (!document) {
+            this.userAccountFailure('unable to get user account document')
+            return
+        }
+
+        let docpack = {
+            data:document,
+            id,
+        }
+
         toast.success('setting account record')
-        this.setState({
-            account:document,
-        })
+        this.promises.account.resolve(docpack)
+
     }
 
     userAccountFailure = error => {
+
         toast.error('unable to get account data' + error + ')')
+        this.promises.account.reject('unable to get account data' + error + ')')
+
     }
 
     render() {
+
         let { globalmessage, version, classes } = this.props
 
         let userdata = {
@@ -171,6 +221,7 @@ class Main extends React.Component<any,any> {
         console.log('userdata',userdata)
 
         return (
+
             <SystemDataContext.Provider value = {this.state.system}>
                 <UserDataContext.Provider value = {userdata}>
                     <MainView globalmessage={globalmessage}
@@ -178,6 +229,7 @@ class Main extends React.Component<any,any> {
                     />
                 </UserDataContext.Provider>
             </SystemDataContext.Provider>
+
         )
     }
 }

@@ -1,4 +1,4 @@
-// firebaseui.api.tsx
+// auth.api.tsx
 import firebase from './firebase.api';
 let provider = new firebase.auth.GoogleAuthProvider();
 function getToken() {

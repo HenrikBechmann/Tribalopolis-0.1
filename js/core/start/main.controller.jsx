@@ -57,6 +57,51 @@ let Main = class Main extends React.Component {
             user: null,
             account: null,
         };
+        this.promises = {
+            user: {
+                resolve: null,
+                reject: null,
+            },
+            account: {
+                resolve: null,
+                reject: null,
+            },
+        };
+        this.userPromise = new Promise((resolveuser, rejectuser) => {
+            this.promises.user.resolve = resolveuser;
+            this.promises.user.reject = rejectuser;
+        });
+        this.accountPromise = new Promise((resolveaccount, rejectaccount) => {
+            this.promises.account.resolve = resolveaccount;
+            this.promises.account.reject = rejectaccount;
+        });
+        this.updateUserData = (login) => {
+            if (login) {
+                toast.success(`signed in as ${login.displayName}`, { autoClose: 2500 });
+                let userProviderData = login.providerData[0]; // only google for now
+                this.getUserDocument(userProviderData.uid);
+                Promise.all([this.userPromise, this.accountPromise]).then(values => {
+                    this.setState({
+                        login,
+                        userProviderData,
+                        user: values[0],
+                        account: values[1],
+                    });
+                }).catch(error => {
+                    toast.error('unable to get user data (' + error + ')');
+                    // logout
+                    authapi.googlesignout();
+                });
+            }
+            else { // clear userdata
+                this.setState({
+                    login: null,
+                    userProviderData: null,
+                    user: null,
+                    account: null,
+                });
+            }
+        };
         this.getSystemData = () => {
             application.getDocument('/system/parameters', this.getSystemDataCallback, this.getSystemDataError);
         };
@@ -69,69 +114,50 @@ let Main = class Main extends React.Component {
         this.getSystemDataError = error => {
             toast.error('Unable to get system data (' + error + ')');
         };
-        this.getUserCallback = (login) => {
-            console.log('getUserCallback', login);
-            let userProviderData = null;
-            if (login) {
-                toast.success(`signed in as ${login.displayName}`, { autoClose: 2500 });
-                userProviderData = login.providerData[0]; // only google for now
-                // console.log('user provider data',userProviderData)
-                this.setState({
-                    login,
-                    userProviderData,
-                }, () => {
-                    if (userProviderData) {
-                        this.getUserDocument(userProviderData.uid);
-                    }
-                });
-            }
-            else {
-                this.setState({
-                    login: null,
-                    userProviderData: null,
-                    user: null,
-                    account: null,
-                });
-            }
-        };
         this.getUserDocument = uid => {
             application.queryCollection('users', [['identity.loginid.uid', '==', uid]], this.userDocumentSuccess, this.userDocumentFailure);
         };
         this.userDocumentSuccess = doclist => {
             // console.log('doclist from userdoc',doclist)
-            if (!doclist.length)
+            if (!doclist.length) {
+                this.userDocumentFailure('no user document found');
                 return;
+            }
             if (doclist.length > 1) {
                 // toast.error('duplicate user id')
                 this.userDocumentFailure('duplicate user id');
                 return;
             }
             toast.success('setting user record');
-            this.setState({
-                user: doclist[0]
-            }, () => {
-                this.getAccountDocument(this.state.user.data.identity.account);
-            });
+            let user = doclist[0];
+            this.promises.user.resolve(user);
+            this.getAccountDocument(user.data.identity.account);
         };
         this.userDocumentFailure = error => {
             toast.error('unable to get user data (' + error + ')');
+            this.promises.user.reject('unable to get user data (' + error + ')');
         };
         this.getAccountDocument = reference => {
             application.getDocument(reference, this.userAccountSuccess, this.userAccountFailure);
         };
-        this.userAccountSuccess = document => {
-            if (!document)
+        this.userAccountSuccess = (document, id) => {
+            if (!document) {
+                this.userAccountFailure('unable to get user account document');
                 return;
+            }
+            let docpack = {
+                data: document,
+                id,
+            };
             toast.success('setting account record');
-            this.setState({
-                account: document,
-            });
+            this.promises.account.resolve(docpack);
         };
         this.userAccountFailure = error => {
             toast.error('unable to get account data' + error + ')');
+            this.promises.account.reject('unable to get account data' + error + ')');
         };
         this.getSystemData();
-        authapi.setUpdateCallback(this.getUserCallback);
+        authapi.setUpdateCallback(this.updateUserData); // (this.getUserCallback)
     }
     render() {
         let { globalmessage, version, classes } = this.props;
