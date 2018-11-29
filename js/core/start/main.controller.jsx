@@ -11,9 +11,12 @@
 */
 /*
     TODO:
+    - getSystem data should be synchronized with get login data -- system data first
+        - integrate with updateUserData - call it updateSystemControlData perhaps
     - collect fetch of login, user, and account together with promise collection
         so as to render only once for those
     - accomodate need to asynchronously update account and user data from other sources
+        (user and account document listeners)
     - handle network failure - system data
     - add general error catch lifecycle method
 */
@@ -156,7 +159,7 @@ let Main = class Main extends React.Component {
             toast.error('unable to get account data' + error + ')');
             this.promises.account.reject('unable to get account data' + error + ')');
         };
-        this.getSystemData();
+        this.getSystemData(); // integrate with updateUserData (but call initapp or some such)
         authapi.setUpdateCallback(this.updateUserData); // (this.getUserCallback)
     }
     render() {

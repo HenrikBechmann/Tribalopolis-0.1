@@ -13,6 +13,8 @@
 
 /*
     TODO:
+    - getSystem data should be synchronized with get login data -- system data first 
+        - integrate with updateUserData - call it updateSystemControlData perhaps
     - collect fetch of login, user, and account together with promise collection 
         so as to render only once for those
     - accomodate need to asynchronously update account and user data from other sources 
@@ -67,7 +69,7 @@ class Main extends React.Component<any,any> {
 
     constructor(props) {
         super(props)
-        this.getSystemData()
+        this.getSystemData() // integrate with updateUserData (but call initapp or some such)
         authapi.setUpdateCallback(this.updateUserData) // (this.getUserCallback)
     }
 
@@ -105,34 +107,44 @@ class Main extends React.Component<any,any> {
     updateUserData = (login) => {
 
         if (login) {
+
             toast.success(`signed in as ${login.displayName}`,{autoClose:2500})
             let userProviderData = login.providerData[0] // only google for now
             this.getUserDocument(userProviderData.uid)
             Promise.all([this.userPromise,this.accountPromise]).then(values => {
+
                 this.setState({
                     login,
                     userProviderData,
                     user:values[0],
                     account:values[1],
+
                 })
             }).catch(error => {
+
                 toast.error('unable to get user data (' + error + ')')
                 // logout
                 authapi.googlesignout()
+
             })
+
         } else { // clear userdata
+
             this.setState({
                 login:null,
                 userProviderData:null,
                 user:null,
                 account:null,
             })
+
         }
 
     }
 
     getSystemData = () => {
+
         application.getDocument('/system/parameters',this.getSystemDataCallback,this.getSystemDataError)
+
     }
 
     getSystemDataCallback = data => {
