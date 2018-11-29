@@ -17,6 +17,7 @@
         so as to render only once for those
     - accomodate need to asynchronously update account and user data from other sources
     - handle network failure - system data
+    - add general error catch lifecycle method
 */
 
 'use strict'
@@ -29,12 +30,13 @@ import coredata from  '../../data/coredata'
 let fontFamily = coredata.theme.typography.fontFamily
 
 import { DragDropContext } from 'react-dnd'
+
 // import DnDHTMLBackend from 'react-dnd-html5-backend'
 import DnDTouchBackend from 'react-dnd-touch-backend'
 
 import DnDHtml5Backend from 'react-dnd-html5-backend'
 
-import DnDManager from 'react-dnd'
+// import DnDManager from 'react-dnd'
 
 import application from '../services/application'
 
