@@ -69,7 +69,7 @@ class Main extends React.Component<any,any> {
 
     constructor(props) {
         super(props)
-        this.getSystemData() // integrate with updateUserData (but call initapp or some such)
+        // this.getSystemData() // integrate with updateUserData (but call initapp or some such)
         authapi.setUpdateCallback(this.updateUserData) // (this.getUserCallback)
     }
 
@@ -82,6 +82,10 @@ class Main extends React.Component<any,any> {
     }
 
     promises = {
+        system:{
+            resolve:null,
+            reject:null,
+        },
         user:{
             resolve:null,
             reject:null,
@@ -91,6 +95,11 @@ class Main extends React.Component<any,any> {
             reject:null,
         },
     }
+
+    systemPromise = new Promise((resolvesystem, rejectsystem) => {
+        this.promises.system.resolve = resolvesystem
+        this.promises.system.reject = rejectsystem
+    })
 
     userPromise = new Promise((resolveuser, rejectuser) => {
 
@@ -111,15 +120,17 @@ class Main extends React.Component<any,any> {
             toast.success(`signed in as ${login.displayName}`,{autoClose:2500})
             let userProviderData = login.providerData[0] // only google for now
             this.getUserDocument(userProviderData.uid)
-            Promise.all([this.userPromise,this.accountPromise]).then(values => {
+            this.getSystemData()
+            Promise.all([this.userPromise,this.accountPromise, this.systemPromise]).then(values => {
 
                 this.setState({
                     login,
                     userProviderData,
                     user:values[0],
                     account:values[1],
-
+                    system:values[2],
                 })
+
             }).catch(error => {
 
                 toast.error('unable to get user data (' + error + ')')
@@ -130,11 +141,21 @@ class Main extends React.Component<any,any> {
 
         } else { // clear userdata
 
-            this.setState({
-                login:null,
-                userProviderData:null,
-                user:null,
-                account:null,
+            let systemPromise = new Promise((resolvesystem, rejectsystem) => {
+                this.promises.system.resolve = resolvesystem
+                this.promises.system.reject = rejectsystem
+            })
+
+            this.getSystemData()
+
+            systemPromise.then((system) => {
+                this.setState({
+                    login:null,
+                    userProviderData:null,
+                    user:null,
+                    system,
+                    account:null,
+                })
             })
 
         }
@@ -150,15 +171,17 @@ class Main extends React.Component<any,any> {
     getSystemDataCallback = data => {
 
         toast.success('setting system data')
-        this.setState({
-            system:data,
-        })
+        this.promises.system.resolve(data)
+        // this.setState({
+        //     system:data,
+        // })
 
     }
 
     getSystemDataError = error => {
 
         toast.error('Unable to get system data (' + error + ')')
+        this.promises.system.reject('Unable to get system data (' + error + ')')
 
     }
 
@@ -230,7 +253,7 @@ class Main extends React.Component<any,any> {
             account:this.state.account,
         }
 
-        console.log('userdata',userdata)
+        console.log('state',this.state)
 
         return (
 

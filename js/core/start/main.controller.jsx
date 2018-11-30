@@ -61,6 +61,10 @@ let Main = class Main extends React.Component {
             account: null,
         };
         this.promises = {
+            system: {
+                resolve: null,
+                reject: null,
+            },
             user: {
                 resolve: null,
                 reject: null,
@@ -70,6 +74,10 @@ let Main = class Main extends React.Component {
                 reject: null,
             },
         };
+        this.systemPromise = new Promise((resolvesystem, rejectsystem) => {
+            this.promises.system.resolve = resolvesystem;
+            this.promises.system.reject = rejectsystem;
+        });
         this.userPromise = new Promise((resolveuser, rejectuser) => {
             this.promises.user.resolve = resolveuser;
             this.promises.user.reject = rejectuser;
@@ -83,12 +91,14 @@ let Main = class Main extends React.Component {
                 toast.success(`signed in as ${login.displayName}`, { autoClose: 2500 });
                 let userProviderData = login.providerData[0]; // only google for now
                 this.getUserDocument(userProviderData.uid);
-                Promise.all([this.userPromise, this.accountPromise]).then(values => {
+                this.getSystemData();
+                Promise.all([this.userPromise, this.accountPromise, this.systemPromise]).then(values => {
                     this.setState({
                         login,
                         userProviderData,
                         user: values[0],
                         account: values[1],
+                        system: values[2],
                     });
                 }).catch(error => {
                     toast.error('unable to get user data (' + error + ')');
@@ -97,11 +107,19 @@ let Main = class Main extends React.Component {
                 });
             }
             else { // clear userdata
-                this.setState({
-                    login: null,
-                    userProviderData: null,
-                    user: null,
-                    account: null,
+                let systemPromise = new Promise((resolvesystem, rejectsystem) => {
+                    this.promises.system.resolve = resolvesystem;
+                    this.promises.system.reject = rejectsystem;
+                });
+                this.getSystemData();
+                systemPromise.then((system) => {
+                    this.setState({
+                        login: null,
+                        userProviderData: null,
+                        user: null,
+                        system,
+                        account: null,
+                    });
                 });
             }
         };
@@ -110,12 +128,14 @@ let Main = class Main extends React.Component {
         };
         this.getSystemDataCallback = data => {
             toast.success('setting system data');
-            this.setState({
-                system: data,
-            });
+            this.promises.system.resolve(data);
+            // this.setState({
+            //     system:data,
+            // })
         };
         this.getSystemDataError = error => {
             toast.error('Unable to get system data (' + error + ')');
+            this.promises.system.reject('Unable to get system data (' + error + ')');
         };
         this.getUserDocument = uid => {
             application.queryCollection('users', [['identity.loginid.uid', '==', uid]], this.userDocumentSuccess, this.userDocumentFailure);
@@ -159,7 +179,7 @@ let Main = class Main extends React.Component {
             toast.error('unable to get account data' + error + ')');
             this.promises.account.reject('unable to get account data' + error + ')');
         };
-        this.getSystemData(); // integrate with updateUserData (but call initapp or some such)
+        // this.getSystemData() // integrate with updateUserData (but call initapp or some such)
         authapi.setUpdateCallback(this.updateUserData); // (this.getUserCallback)
     }
     render() {
@@ -169,7 +189,7 @@ let Main = class Main extends React.Component {
             user: this.state.user,
             account: this.state.account,
         };
-        console.log('userdata', userdata);
+        console.log('state', this.state);
         return (<SystemDataContext.Provider value={this.state.system}>
                 <UserDataContext.Provider value={userdata}>
                     <MainView globalmessage={globalmessage} className={classes.mainviewstyle}/>
