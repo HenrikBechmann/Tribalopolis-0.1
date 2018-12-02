@@ -25,7 +25,7 @@ import TextField from './input/textfield.view'
 import UserDataContext from '../services/userdata.context'
 
 import application from '../services/application'
-import schemesupport from '../services/schemesupport'
+import typefilter from '../services/type.filter'
 
 import ActionButton from './common/actionbutton.view'
 import DataDrawer from './common/datadrawer.view'
@@ -218,17 +218,13 @@ class BuildController extends React.Component<any,any> {
         this.doctypepack = typepack
         toast.info('type has also been loaded (' + id + ')')
 
-        let results = schemesupport.assertType(this.state.docpack,this.doctypepack)
+        let results = typefilter.assertType(this.state.docpack,this.doctypepack)
         // console.log('returned from assertType',results)
-        if (results.changed || results.extended) {
-            this.latestjson = results.document
-            this.savejson = results.document
-            let docpack = this.state.docpack
+        if (results.changed) {
+            this.latestjson = results.docpack.document
+            this.savejson = results.docpack.document
             this.setState({
-                docpack:{
-                    id:docpack.id,
-                    document:results.document,
-                }
+                docpack:results.docpack,
             })
             results.changed && toast.info('document data has been upgraded by type (' + id + ')' )
         }
