@@ -10,10 +10,13 @@ import deepdiff from 'deep-diff';
 import merge from 'deepmerge';
 import utilities from '../utilities/utilities';
 // TODO: test current document version of type against type version
+// returns new json object as possibly modified docpack with changed flag
 const assertType = (docpack, typepack) => {
     if (!docpack || !typepack)
-        return;
-    // console.log('assertType docpack, typepack', docpack, typepack)
+        return {
+            docpack,
+            changed: false,
+        };
     try {
         // make deep local copy of docpack
         let localdocpack = merge({}, docpack);
@@ -21,7 +24,6 @@ const assertType = (docpack, typepack) => {
         let { template, defaults, deletions } = typepack.document.properties;
         //TODO: deletions (from previous versions)
         let { document: localdoc } = localdocpack;
-        // console.log('localdoc',localdoc)
         let { version: doctypeversion } = localdoc.identity.type;
         let { version: typeversion } = typepack.document.identity;
         // console.log('doctypeversion, typeversion',doctypeversion,typeversion)
@@ -34,7 +36,6 @@ const assertType = (docpack, typepack) => {
                     let path = value.split('.');
                     return path;
                 });
-                // console.log('deletions to perform',deletions,paths)
                 for (let path of paths) {
                     let nodePosition = utilities.getNodePosition(localdocpack.document, path);
                     if (nodePosition) {
@@ -42,7 +43,6 @@ const assertType = (docpack, typepack) => {
                         delete nodeproperty[nodeindex];
                         if (!deletionsperformed)
                             deletionsperformed = true;
-                        // console.log('deleted comparandproperty, comparandindex',localdocpack.document,nodeproperty,nodeindex)
                     }
                 }
             }

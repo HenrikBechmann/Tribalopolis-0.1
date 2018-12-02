@@ -15,10 +15,13 @@ import merge from 'deepmerge'
 import utilities from '../utilities/utilities'
 
 // TODO: test current document version of type against type version
+// returns new json object as possibly modified docpack with changed flag
 const assertType = (docpack, typepack) => {
 
-    if (!docpack || !typepack) return
-    // console.log('assertType docpack, typepack', docpack, typepack)
+    if (!docpack || !typepack) return {
+        docpack,
+        changed:false,
+    }
 
     try {
 
@@ -29,28 +32,35 @@ const assertType = (docpack, typepack) => {
 
         //TODO: deletions (from previous versions)
         let { document:localdoc } = localdocpack
-        // console.log('localdoc',localdoc)
         let { version:doctypeversion } = localdoc.identity.type
         let { version:typeversion } = typepack.document.identity
 
         // console.log('doctypeversion, typeversion',doctypeversion,typeversion)
         let deletionsperformed = false
         if ((doctypeversion === typeversion) && (typeversion !== null)) {
+
             // check for deletions
             let deletions:[] = typepack.document.properties.deletions.versions[doctypeversion]
+
             if (deletions) {
+
                 let paths = deletions.map((value:string) => {
+
                     let path = value.split('.')
                     return path
+
                 })
-                // console.log('deletions to perform',deletions,paths)
+
                 for (let path of paths) {
+
                     let nodePosition = utilities.getNodePosition(localdocpack.document,path)
+
                     if (nodePosition) {
+
                         let { nodeproperty, nodeindex } = nodePosition
                         delete nodeproperty[nodeindex]
                         if (!deletionsperformed) deletionsperformed = true
-                        // console.log('deleted comparandproperty, comparandindex',localdocpack.document,nodeproperty,nodeindex)
+
                     }
                 }
             }
