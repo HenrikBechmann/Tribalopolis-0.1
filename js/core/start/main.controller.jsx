@@ -189,7 +189,7 @@ let Main = class Main extends React.Component {
             user: this.state.user,
             account: this.state.account,
         };
-        console.log('state', this.state);
+        // console.log('state',this.state)
         return (<SystemDataContext.Provider value={this.state.system}>
                 <UserDataContext.Provider value={userdata}>
                     <MainView globalmessage={globalmessage} className={classes.mainviewstyle}/>

@@ -253,7 +253,7 @@ class Main extends React.Component<any,any> {
             account:this.state.account,
         }
 
-        console.log('state',this.state)
+        // console.log('state',this.state)
 
         return (
 

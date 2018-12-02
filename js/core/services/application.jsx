@@ -10,6 +10,7 @@
 /*
     TODO:
 
+        - process document changed by type in processDocumentCallbacks
         consider creating a sentinel when callbacks are de-registered to avoid race
         condition of calling setState after component is unmounted
         NOTE: sentinels, commented out, not working Oct 27, 2018
@@ -22,6 +23,7 @@
         - implement general max for cache (1000?) with trigger to reduce to 900 or so
 */
 import gateway from './gateway';
+import typefilter from './type.filter';
 // ==============[ Internal ]===============
 /*
     Each document has an accompanying type. Types are shared, therefore far less numerous.
@@ -140,7 +142,13 @@ const processDocumentCallbacksFromType = (reference, change) => {
 const processDocumentCallbacks = (reference, change) => {
     let documentcacheitem = documentcache.get(reference);
     let { document, type } = getDocumentPack(reference);
+    // console.log('processDocumentCallbacks document,type',document,type)
     if (type) {
+        let result = typefilter.assertType(document, type);
+        if (result.changed) {
+            document = result.document;
+            // update source; wait for response
+        }
         let listeners = documentcacheitem.listeners;
         listeners.forEach((callback, key) => {
             let slist = sentinels[key];

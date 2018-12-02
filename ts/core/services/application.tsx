@@ -11,6 +11,7 @@
 /*
     TODO: 
 
+        - process document changed by type in processDocumentCallbacks
         consider creating a sentinel when callbacks are de-registered to avoid race
         condition of calling setState after component is unmounted
         NOTE: sentinels, commented out, not working Oct 27, 2018
@@ -25,6 +26,7 @@
 
 import gateway from './gateway'
 import merge from 'deepmerge'
+import typefilter from './type.filter'
 // ==============[ Internal ]===============
 
 /*
@@ -202,7 +204,15 @@ const processDocumentCallbacks = (reference, change) => {
 
     let {document,type} = getDocumentPack(reference)
 
+    // console.log('processDocumentCallbacks document,type',document,type)
+
     if (type) {
+
+        let result = typefilter.assertType(document,type)
+        if (result.changed) {
+            document = result.document
+            // update source; wait for response
+        }
 
         let listeners = documentcacheitem.listeners
 

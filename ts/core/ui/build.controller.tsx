@@ -221,14 +221,16 @@ class BuildController extends React.Component<any,any> {
         let results = typefilter.assertType(this.state.docpack,this.doctypepack)
         // console.log('returned from assertType',results)
         if (results.changed) {
-            this.latestjson = results.docpack.document
-            this.savejson = results.docpack.document
+            this.latestjson = results.document
+            this.savejson = results.document
             this.setState({
-                docpack:results.docpack,
+                docpack:{
+                    document:results.document,
+                    id,
+                }
             })
             results.changed && toast.info('document data has been upgraded by type (' + id + ')' )
         }
-        // console.log('type loaded',type)
     }
 
     fetchTypeErrorCallback = error => {

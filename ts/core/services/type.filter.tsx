@@ -16,31 +16,33 @@ import utilities from '../utilities/utilities'
 
 // TODO: test current document version of type against type version
 // returns new json object as possibly modified docpack with changed flag
-const assertType = (docpack, typepack) => {
+const assertType = (document, type) => {
 
-    if (!docpack || !typepack) return {
-        docpack,
-        changed:false,
+    if ((!document) || (!type) || (!type.properties)) {
+        // console.log('return without change assertType')
+        return {
+            document,
+            changed:false,
+        }
     }
 
     try {
 
         // make deep local copy of docpack
-        let localdocpack:any = merge({},docpack)
+        let localdocument:any = merge({},document)
         // unpack type data for upgrades
-        let {template, defaults, deletions } = typepack.document.properties
+        let {template, defaults, deletions } = type.properties
 
         //TODO: deletions (from previous versions)
-        let { document:localdoc } = localdocpack
-        let { version:doctypeversion } = localdoc.identity.type
-        let { version:typeversion } = typepack.document.identity
+        let { version:doctypeversion } = localdocument.identity.type
+        let { version:typeversion } = type.identity
 
         // console.log('doctypeversion, typeversion',doctypeversion,typeversion)
         let deletionsperformed = false
         if ((doctypeversion === typeversion) && (typeversion !== null)) {
 
             // check for deletions
-            let deletions:[] = typepack.document.properties.deletions.versions[doctypeversion]
+            let deletions:[] = type.properties.deletions.versions[doctypeversion]
 
             if (deletions) {
 
@@ -53,7 +55,7 @@ const assertType = (docpack, typepack) => {
 
                 for (let path of paths) {
 
-                    let nodePosition = utilities.getNodePosition(localdocpack.document,path)
+                    let nodePosition = utilities.getNodePosition(localdocument,path)
 
                     if (nodePosition) {
 
@@ -68,20 +70,17 @@ const assertType = (docpack, typepack) => {
 
         // get differences between template and current document
         let differences = getDiffs(
-            localdocpack.document,
+            localdocument,
             template,
         )
 
         // upgrade document with template
-        let {document, changed:datachanged} = getUpgrade(localdocpack.document, differences, defaults)
+        let {document:reviseddocument, changed:datachanged} = getUpgrade(localdocument, differences, defaults)
 
         datachanged = (datachanged || deletionsperformed)
         // return updgraded document
         return {
-            docpack:{
-                document,
-                id:docpack.id,
-            },
+            document:reviseddocument,
             changed:datachanged,
         }
 

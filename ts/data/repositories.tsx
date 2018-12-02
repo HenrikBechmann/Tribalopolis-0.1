@@ -9,7 +9,7 @@ let folders = {
             container:'',
             id:'',
             handle:'',
-            type:'/types/henrikacf',
+            type:null,
             account:{
                 id:'',
                 handle:'',
@@ -59,7 +59,7 @@ let types = {
             container:'',
             id:'',
             handle:'',
-            type:'/types/incoming',
+            type:null,
             account:{
                 id:'',
                 handle:'',
@@ -105,7 +105,7 @@ let types = {
             container:'',
             id:'',
             handle:'',
-            type:'/types/outgoing',
+            type:null,
             account:{
                 id:'',
                 handle:'',
@@ -155,7 +155,7 @@ let lists = {
             container:'',
             id:'',
             handle:'',
-            type:'/types/diaries',
+            type:null,
             account:{
                 id:'',
                 handle:'',
@@ -194,7 +194,7 @@ let lists = {
             container:'',
             id:'',
             handle:'',
-            type:'/types/logs',
+            type:null,
             account:{
                 id:'',
                 handle:'',
@@ -233,7 +233,7 @@ let lists = {
             container:'',
             id:'',
             handle:'',
-            type:'/types/notes',
+            type:null,
             account:{
                 id:'',
                 handle:'',
@@ -271,7 +271,7 @@ let lists = {
             container:'',
             id:'',
             handle:'',
-            type:'/types/tribes/',
+            type:null,
             account:{
                 id:'',
                 handle:'',
@@ -311,7 +311,7 @@ let lists = {
             container:'',
             id:'',
             handle:'',
-            type:'/types/connections',
+            type:null,
             account:{
                 id:'',
                 handle:'',
@@ -349,7 +349,7 @@ let lists = {
             container:'',
             id:'',
             handle:'',
-            type:'/types/requesting',
+            type:null,
             account:{
                 id:'',
                 handle:'',
@@ -387,7 +387,7 @@ let lists = {
             container:'',
             id:'assets',
             handle:'',
-            type:'/types/assets',
+            type:null,
             account:{
                 id:'',
                 handle:'',
@@ -425,7 +425,7 @@ let lists = {
             container:'',
             id:'',
             handle:'',
-            type:'/types/roles',
+            type:null,
             account:{
                 id:'',
                 handle:'',
@@ -463,7 +463,7 @@ let lists = {
             container:'',
             id:'',
             handle:'',
-            type:'/types/programs',
+            type:null,
             account:{
                 id:'',
                 handle:'',
@@ -501,7 +501,7 @@ let lists = {
             container:'',
             id:'',
             handle:'',
-            type:'/types/plans',
+            type:null,
             account:{
                 id:'',
                 handle:'',
@@ -539,7 +539,7 @@ let lists = {
             container:'',
             id:'outgoing',
             handle:'',
-            type:'/types/projects',
+            type:null,
             account:{
                 id:'',
                 handle:'',
@@ -577,7 +577,7 @@ let lists = {
             container:'',
             id:'',
             handle:'',
-            type:'/types/tasks',
+            type:null,
             account:{
                 id:'',
                 handle:'',
@@ -615,7 +615,7 @@ let lists = {
             container:'',
             id:'',
             handle:'',
-            type:'/types/messages',
+            type:null,
             account:{
                 id:'',
                 handle:'',
@@ -653,7 +653,7 @@ let lists = {
             container:'',
             id:'',
             handle:'',
-            type:'/types/streams',
+            type:null,
             account:{
                 id:'',
                 handle:'',
@@ -691,7 +691,7 @@ let lists = {
             container:'',
             id:'',
             handle:'',
-            type:'/types/resources',
+            type:null,
             account:{
                 id:'',
                 handle:'',
@@ -729,7 +729,7 @@ let lists = {
             container:'',
             id:'',
             handle:'',
-            type:'/types/calendars',
+            type:null,
             account:{
                 id:'',
                 handle:'',
@@ -767,7 +767,7 @@ let lists = {
             container:'',
             id:'',
             handle:'',
-            type:'/types/timesheets',
+            type:null,
             account:{
                 id:'',
                 handle:'',
@@ -805,7 +805,7 @@ let lists = {
             container:'',
             id:'',
             handle:'',
-            type:'/types/accounting',
+            type:null,
             account:{
                 id:'',
                 handle:'',
@@ -843,7 +843,7 @@ let lists = {
             container:'',
             id:'',
             handle:'',
-            type:'/types/budgets',
+            type:null,
             account:{
                 id:'',
                 handle:'',
@@ -1006,7 +1006,7 @@ let lists = {
             container:'',
             id:'',
             handle:'',
-            type:'/types/henrik',
+            type:null,
             account:{
                 id:'',
                 handle:'',
@@ -1134,7 +1134,7 @@ let links = {
             container:'',
             id:'',
             handle:'',
-            type:'/types/somelink',
+            type:null,
             account:{
                 id:'',
                 handle:'',
@@ -1161,7 +1161,7 @@ let items = {
             container:'',
             id:'',
             handle:'henrik',
-            type:'/types/person',
+            type:null,
             account:{
                 id:'',
                 handle:'',
