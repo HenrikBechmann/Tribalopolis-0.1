@@ -14,6 +14,8 @@
 /*
     TODO:
     - upgrade getDocument to getAsyncDocument
+    - defend against race condition of multiple adjacent async updates: 
+        sentinel for state, user, account updates
     - handle network failure - system data
     - add general error catch lifecycle method
 */
