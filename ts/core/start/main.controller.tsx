@@ -13,12 +13,7 @@
 
 /*
     TODO:
-    - getSystem data should be synchronized with get login data -- system data first 
-        - integrate with updateUserData - call it updateSystemControlData perhaps
-    - collect fetch of login, user, and account together with promise collection 
-        so as to render only once for those
-    - accomodate need to asynchronously update account and user data from other sources 
-        (user and account document listeners)
+    - upgrade getDocument to getAsyncDocument
     - handle network failure - system data
     - add general error catch lifecycle method
 */
@@ -68,9 +63,11 @@ let styles = createStyles({
 class Main extends React.Component<any,any> {
 
     constructor(props) {
+
         super(props)
-        // this.getSystemData() // integrate with updateUserData (but call initapp or some such)
-        authapi.setUpdateCallback(this.updateUserData) // (this.getUserCallback)
+
+        authapi.setUpdateCallback(this.updateUserData) 
+
     }
 
     state = {
@@ -96,32 +93,62 @@ class Main extends React.Component<any,any> {
         },
     }
 
-    systemPromise = new Promise((resolvesystem, rejectsystem) => {
-        this.promises.system.resolve = resolvesystem
-        this.promises.system.reject = rejectsystem
-    })
+    systemPromise
+    userPromise
+    accountPromise
 
-    userPromise = new Promise((resolveuser, rejectuser) => {
+    setLoginPromises = () => {
 
-        this.promises.user.resolve = resolveuser
-        this.promises.user.reject = rejectuser
+        this.systemPromise = new Promise((resolvesystem, rejectsystem) => {
 
-    })
+            this.promises.system.resolve = resolvesystem
+            this.promises.system.reject = rejectsystem
 
-    accountPromise = new Promise((resolveaccount, rejectaccount) => {
-        this.promises.account.resolve = resolveaccount
-        this.promises.account.reject = rejectaccount
-    })
+        })
+
+        this.userPromise = new Promise((resolveuser, rejectuser) => {
+
+            this.promises.user.resolve = resolveuser
+            this.promises.user.reject = rejectuser
+
+        })
+
+        this.accountPromise = new Promise((resolveaccount, rejectaccount) => {
+
+            this.promises.account.resolve = resolveaccount
+            this.promises.account.reject = rejectaccount
+
+        })
+
+    }
+
+    updatinguserdata
 
     updateUserData = (login) => {
 
         if (login) {
 
-            toast.success(`signed in as ${login.displayName}`,{autoClose:2500})
+            if (!this.state.login) {
+
+                toast.success(`signed in as ${login.displayName}`,{autoClose:2500})
+
+            } else {
+
+                toast.success(`updated data for ${login.displayName}`,{autoClose:2500})
+
+            }
+
+            this.updatinguserdata = true
+
+            this.setLoginPromises() 
+
             let userProviderData = login.providerData[0] // only google for now
             this.getUserDocument(userProviderData.uid)
             this.getSystemData()
+
             Promise.all([this.userPromise,this.accountPromise, this.systemPromise]).then(values => {
+
+                this. updatinguserdata = false
 
                 this.setState({
                     login,
@@ -133,6 +160,8 @@ class Main extends React.Component<any,any> {
 
             }).catch(error => {
 
+                this. updatinguserdata = false
+
                 toast.error('unable to get user data (' + error + ')')
                 // logout
                 authapi.googlesignout()
@@ -142,13 +171,16 @@ class Main extends React.Component<any,any> {
         } else { // clear userdata
 
             let systemPromise = new Promise((resolvesystem, rejectsystem) => {
+
                 this.promises.system.resolve = resolvesystem
                 this.promises.system.reject = rejectsystem
+
             })
 
             this.getSystemData()
 
             systemPromise.then((system) => {
+
                 this.setState({
                     login:null,
                     userProviderData:null,
@@ -156,6 +188,7 @@ class Main extends React.Component<any,any> {
                     system,
                     account:null,
                 })
+
             })
 
         }
@@ -170,12 +203,19 @@ class Main extends React.Component<any,any> {
 
     getSystemDataCallback = data => {
 
-        toast.success('setting system data')
-        this.promises.system.resolve(data)
-        // this.setState({
-        //     system:data,
-        // })
+        if ((!this.state.system) || this.updatinguserdata) {
 
+            toast.success('setting system data')
+            this.promises.system.resolve(data)
+
+        } else {
+
+            toast.success('updating system data')
+            this.setState({
+                system:data,
+            })
+
+        }
     }
 
     getSystemDataError = error => {
@@ -199,31 +239,49 @@ class Main extends React.Component<any,any> {
             return
         }
         if (doclist.length > 1) {
+
             // toast.error('duplicate user id')
             this.userDocumentFailure('duplicate user id')
             return
         }
-        toast.success('setting user record')
+
         let user = doclist[0]
-        this.promises.user.resolve(user)
-        this.getAccountDocument(user.data.identity.account)
+
+        if ((!this.state.user) || this.updatinguserdata) {
+
+            toast.success('setting user record')
+            this.promises.user.resolve(user)
+            this.getAccountDocument(user.data.identity.account)
+
+        } else {
+
+            this.setState({
+                user,
+            })
+        }
 
     }
 
     userDocumentFailure = error => {
+
         toast.error('unable to get user data (' + error + ')')
         this.promises.user.reject('unable to get user data (' + error + ')')
+
     }
 
     getAccountDocument = reference => {
+
         application.getDocument(reference,this.userAccountSuccess, this.userAccountFailure)
+
     }
 
     userAccountSuccess = (document,id) => {
 
         if (!document) {
+
             this.userAccountFailure('unable to get user account document')
             return
+
         }
 
         let docpack = {
@@ -231,8 +289,18 @@ class Main extends React.Component<any,any> {
             id,
         }
 
-        toast.success('setting account record')
-        this.promises.account.resolve(docpack)
+        if ((!this.state.account) || this.updatinguserdata) {
+
+            toast.success('setting account record')
+            this.promises.account.resolve(docpack)
+
+        } else {
+
+            this.setState({
+                user:docpack,
+            })
+
+        }
 
     }
 
@@ -252,8 +320,6 @@ class Main extends React.Component<any,any> {
             user:this.state.user,
             account:this.state.account,
         }
-
-        // console.log('state',this.state)
 
         return (
 

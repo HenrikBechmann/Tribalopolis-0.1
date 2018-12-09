@@ -11,12 +11,7 @@
 */
 /*
     TODO:
-    - getSystem data should be synchronized with get login data -- system data first
-        - integrate with updateUserData - call it updateSystemControlData perhaps
-    - collect fetch of login, user, and account together with promise collection
-        so as to render only once for those
-    - accomodate need to asynchronously update account and user data from other sources
-        (user and account document listeners)
+    - upgrade getDocument to getAsyncDocument
     - handle network failure - system data
     - add general error catch lifecycle method
 */
@@ -74,25 +69,35 @@ let Main = class Main extends React.Component {
                 reject: null,
             },
         };
-        this.systemPromise = new Promise((resolvesystem, rejectsystem) => {
-            this.promises.system.resolve = resolvesystem;
-            this.promises.system.reject = rejectsystem;
-        });
-        this.userPromise = new Promise((resolveuser, rejectuser) => {
-            this.promises.user.resolve = resolveuser;
-            this.promises.user.reject = rejectuser;
-        });
-        this.accountPromise = new Promise((resolveaccount, rejectaccount) => {
-            this.promises.account.resolve = resolveaccount;
-            this.promises.account.reject = rejectaccount;
-        });
+        this.setLoginPromises = () => {
+            this.systemPromise = new Promise((resolvesystem, rejectsystem) => {
+                this.promises.system.resolve = resolvesystem;
+                this.promises.system.reject = rejectsystem;
+            });
+            this.userPromise = new Promise((resolveuser, rejectuser) => {
+                this.promises.user.resolve = resolveuser;
+                this.promises.user.reject = rejectuser;
+            });
+            this.accountPromise = new Promise((resolveaccount, rejectaccount) => {
+                this.promises.account.resolve = resolveaccount;
+                this.promises.account.reject = rejectaccount;
+            });
+        };
         this.updateUserData = (login) => {
             if (login) {
-                toast.success(`signed in as ${login.displayName}`, { autoClose: 2500 });
+                if (!this.state.login) {
+                    toast.success(`signed in as ${login.displayName}`, { autoClose: 2500 });
+                }
+                else {
+                    toast.success(`updated data for ${login.displayName}`, { autoClose: 2500 });
+                }
+                this.updatinguserdata = true;
+                this.setLoginPromises();
                 let userProviderData = login.providerData[0]; // only google for now
                 this.getUserDocument(userProviderData.uid);
                 this.getSystemData();
                 Promise.all([this.userPromise, this.accountPromise, this.systemPromise]).then(values => {
+                    this.updatinguserdata = false;
                     this.setState({
                         login,
                         userProviderData,
@@ -101,6 +106,7 @@ let Main = class Main extends React.Component {
                         system: values[2],
                     });
                 }).catch(error => {
+                    this.updatinguserdata = false;
                     toast.error('unable to get user data (' + error + ')');
                     // logout
                     authapi.googlesignout();
@@ -127,11 +133,16 @@ let Main = class Main extends React.Component {
             application.getDocument('/system/parameters', this.getSystemDataCallback, this.getSystemDataError);
         };
         this.getSystemDataCallback = data => {
-            toast.success('setting system data');
-            this.promises.system.resolve(data);
-            // this.setState({
-            //     system:data,
-            // })
+            if ((!this.state.system) || this.updatinguserdata) {
+                toast.success('setting system data');
+                this.promises.system.resolve(data);
+            }
+            else {
+                toast.success('updating system data');
+                this.setState({
+                    system: data,
+                });
+            }
         };
         this.getSystemDataError = error => {
             toast.error('Unable to get system data (' + error + ')');
@@ -151,10 +162,17 @@ let Main = class Main extends React.Component {
                 this.userDocumentFailure('duplicate user id');
                 return;
             }
-            toast.success('setting user record');
             let user = doclist[0];
-            this.promises.user.resolve(user);
-            this.getAccountDocument(user.data.identity.account);
+            if ((!this.state.user) || this.updatinguserdata) {
+                toast.success('setting user record');
+                this.promises.user.resolve(user);
+                this.getAccountDocument(user.data.identity.account);
+            }
+            else {
+                this.setState({
+                    user,
+                });
+            }
         };
         this.userDocumentFailure = error => {
             toast.error('unable to get user data (' + error + ')');
@@ -172,15 +190,21 @@ let Main = class Main extends React.Component {
                 data: document,
                 id,
             };
-            toast.success('setting account record');
-            this.promises.account.resolve(docpack);
+            if ((!this.state.account) || this.updatinguserdata) {
+                toast.success('setting account record');
+                this.promises.account.resolve(docpack);
+            }
+            else {
+                this.setState({
+                    user: docpack,
+                });
+            }
         };
         this.userAccountFailure = error => {
             toast.error('unable to get account data' + error + ')');
             this.promises.account.reject('unable to get account data' + error + ')');
         };
-        // this.getSystemData() // integrate with updateUserData (but call initapp or some such)
-        authapi.setUpdateCallback(this.updateUserData); // (this.getUserCallback)
+        authapi.setUpdateCallback(this.updateUserData);
     }
     render() {
         let { globalmessage, version, classes } = this.props;
@@ -189,7 +213,6 @@ let Main = class Main extends React.Component {
             user: this.state.user,
             account: this.state.account,
         };
-        // console.log('state',this.state)
         return (<SystemDataContext.Provider value={this.state.system}>
                 <UserDataContext.Provider value={userdata}>
                     <MainView globalmessage={globalmessage} className={classes.mainviewstyle}/>

@@ -24,9 +24,13 @@ let firestore = firebase.firestore()
 
 const setDocumentListener = (reference,callback) => {
     let data
+
     if (!reference) {
+
         data = null
+
     } else {
+
         let refsplit = reference.split('/')
         let token = {collection:refsplit[1],id:refsplit[2]}
         if (token.collection == 'lists')
@@ -39,6 +43,7 @@ const setDocumentListener = (reference,callback) => {
             console.error('unrecognized collection',token)
             data = null
         }
+
     }
     // setTimeout(()=>{
         callback(reference, data, {})
@@ -53,6 +58,7 @@ const removeDocumentListener = reference => {
 }
 
 const getDocument = (reference, callback, errorback) => {
+
     let docref = firestore.doc(reference)
     // console.log('gateway getting document',reference, docref)
     docref.get()
@@ -61,10 +67,14 @@ const getDocument = (reference, callback, errorback) => {
         let data = doc.data()
         let id = doc.id
         callback(data,id)
+
     })
     .catch((error)=> {
+
         errorback(error)
+
     })
+    
 }
 
 const getNewDocument = (collection, callback, errorback) => {
