@@ -143,7 +143,7 @@ class Main extends React.Component<any,any> {
             this.setLoginPromises() 
 
             let userProviderData = login.providerData[0] // only google for now
-            this.getUserDocument(userProviderData.uid)
+            this.getUserDocument(userProviderData.uid) // and account document
             this.getSystemData()
 
             Promise.all([this.userPromise,this.accountPromise, this.systemPromise]).then(values => {
@@ -162,7 +162,7 @@ class Main extends React.Component<any,any> {
 
                 this. updatinguserdata = false
 
-                toast.error('unable to get user data (' + error + ')')
+                toast.error('unable to get user data - signing out (' + error + ')')
                 // logout
                 authapi.googlesignout()
 
@@ -325,9 +325,11 @@ class Main extends React.Component<any,any> {
 
             <SystemDataContext.Provider value = {this.state.system}>
                 <UserDataContext.Provider value = {userdata}>
+
                     <MainView globalmessage={globalmessage}
                         className = {classes.mainviewstyle} 
                     />
+                    
                 </UserDataContext.Provider>
             </SystemDataContext.Provider>
 
