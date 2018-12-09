@@ -41,7 +41,7 @@ const styles = createStyles({
 })
 
 function Transition(props) {
-  return <Slide direction="down" {...props} />;
+  return <Slide direction="left" {...props} />;
 }
 
 class QuadToolsStrip extends React.Component<any,any> {
