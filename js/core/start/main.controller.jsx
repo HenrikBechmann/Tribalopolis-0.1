@@ -12,6 +12,8 @@
 /*
     TODO:
     - upgrade getDocument to getAsyncDocument
+    - defend against race condition of multiple adjacent async updates:
+        sentinel for state, user, account updates
     - handle network failure - system data
     - add general error catch lifecycle method
 */
@@ -95,7 +97,7 @@ let Main = class Main extends React.Component {
                 this.setLoginPromises();
                 let userProviderData = login.providerData[0]; // only google for now
                 this.getUserDocument(userProviderData.uid); // and account document
-                this.getSystemData();
+                this.getSystemDocument();
                 Promise.all([this.userPromise, this.accountPromise, this.systemPromise]).then(values => {
                     this.updatinguserdata = false;
                     this.setState({
@@ -117,7 +119,7 @@ let Main = class Main extends React.Component {
                     this.promises.system.resolve = resolvesystem;
                     this.promises.system.reject = rejectsystem;
                 });
-                this.getSystemData();
+                this.getSystemDocument();
                 systemPromise.then((system) => {
                     this.setState({
                         login: null,
@@ -129,10 +131,10 @@ let Main = class Main extends React.Component {
                 });
             }
         };
-        this.getSystemData = () => {
-            application.getDocument('/system/parameters', this.getSystemDataCallback, this.getSystemDataError);
+        this.getSystemDocument = () => {
+            application.getDocument('/system/parameters', this.systemDocumentSuccess, this.systemDocumentFailure);
         };
-        this.getSystemDataCallback = data => {
+        this.systemDocumentSuccess = data => {
             if ((!this.state.system) || this.updatinguserdata) {
                 toast.success('setting system data');
                 this.promises.system.resolve(data);
@@ -144,7 +146,7 @@ let Main = class Main extends React.Component {
                 });
             }
         };
-        this.getSystemDataError = error => {
+        this.systemDocumentFailure = error => {
             toast.error('Unable to get system data (' + error + ')');
             this.promises.system.reject('Unable to get system data (' + error + ')');
         };

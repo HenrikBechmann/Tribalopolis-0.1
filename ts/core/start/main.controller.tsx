@@ -146,7 +146,7 @@ class Main extends React.Component<any,any> {
 
             let userProviderData = login.providerData[0] // only google for now
             this.getUserDocument(userProviderData.uid) // and account document
-            this.getSystemData()
+            this.getSystemDocument()
 
             Promise.all([this.userPromise,this.accountPromise, this.systemPromise]).then(values => {
 
@@ -162,7 +162,7 @@ class Main extends React.Component<any,any> {
 
             }).catch(error => {
 
-                this. updatinguserdata = false
+                this.updatinguserdata = false
 
                 toast.error('unable to get user data - signing out (' + error + ')')
                 // logout
@@ -179,7 +179,7 @@ class Main extends React.Component<any,any> {
 
             })
 
-            this.getSystemData()
+            this.getSystemDocument()
 
             systemPromise.then((system) => {
 
@@ -197,13 +197,13 @@ class Main extends React.Component<any,any> {
 
     }
 
-    getSystemData = () => {
+    getSystemDocument = () => {
 
-        application.getDocument('/system/parameters',this.getSystemDataCallback,this.getSystemDataError)
+        application.getDocument('/system/parameters',this.systemDocumentSuccess,this.systemDocumentFailure)
 
     }
 
-    getSystemDataCallback = data => {
+    systemDocumentSuccess = data => {
 
         if ((!this.state.system) || this.updatinguserdata) {
 
@@ -220,7 +220,7 @@ class Main extends React.Component<any,any> {
         }
     }
 
-    getSystemDataError = error => {
+    systemDocumentFailure = error => {
 
         toast.error('Unable to get system data (' + error + ')')
         this.promises.system.reject('Unable to get system data (' + error + ')')
