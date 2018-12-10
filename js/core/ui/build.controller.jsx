@@ -328,7 +328,7 @@ class BuildController extends React.Component {
             <UserDataContext.Consumer>
 
                 {userdata => {
-                let { login } = userdata;
+                let login = userdata ? userdata.login : null;
                 let superuser = !!(login && (login.uid == '112979797407042560714'));
                 return (<div>
 

@@ -28,7 +28,7 @@ const StandardToolbar = (props) => {
     let { classes } = props;
     return (<div>
             <UserDataContext.Consumer>
-            {userdata => (<ToolsStrip user={userdata.login} childrenposition='end'>
+            {userdata => (<ToolsStrip user={userdata ? userdata.login : null} childrenposition='end'>
                     <div className={classes.toolstrip}>
                         <Icon style={{ margin: '0 8px 0 8px', verticalAlign: 'middle' }}>
                             <img src='/public/icons/fire.svg'/>

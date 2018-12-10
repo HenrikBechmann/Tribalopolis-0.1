@@ -175,7 +175,7 @@ class QuadspaceController extends React.Component<any,any> {
                 <UserDataContext.Consumer>
                 { userdata => (
                     <QuadToolsStrip 
-                        user = {userdata.login}
+                        user = {userdata?userdata.login:null}
                         childrenposition = 'middle'
                         style = {this.quadtoolsstyle}
                     >

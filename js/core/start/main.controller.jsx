@@ -224,11 +224,18 @@ let Main = class Main extends React.Component {
     }
     render() {
         let { globalmessage, version, classes } = this.props;
-        let userdata = {
-            login: this.state.userProviderData,
-            user: this.state.user,
-            account: this.state.account,
-        };
+        let { userProviderData, user, account } = this.state;
+        let userdata;
+        if (!(userProviderData && user && account)) {
+            userdata = null;
+        }
+        else {
+            userdata = {
+                login: this.state.userProviderData,
+                user: this.state.user,
+                account: this.state.account,
+            };
+        }
         // console.log('user data',userdata)
         return (<SystemDataContext.Provider value={this.state.system}>
                 <UserDataContext.Provider value={userdata}>

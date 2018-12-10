@@ -141,7 +141,7 @@ class QuadspaceController extends React.Component {
     render() {
         return (<QuadSpaceFrame>
                 <UserDataContext.Consumer>
-                {userdata => (<QuadToolsStrip user={userdata.login} childrenposition='middle' style={this.quadtoolsstyle}>
+                {userdata => (<QuadToolsStrip user={userdata ? userdata.login : null} childrenposition='middle' style={this.quadtoolsstyle}>
                         <QuadNavigationMenu currentQuadPosition={this.state.currentQuadPosition} split={this.state.split} selectQuad={this.selectQuad}/>
                         <VerticalDivider />
                         <SplitNavigationMenu split={this.state.split} changeSplitFrom={this.changeSplitFrom}/>
