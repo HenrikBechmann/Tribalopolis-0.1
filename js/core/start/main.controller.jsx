@@ -206,6 +206,7 @@ let Main = class Main extends React.Component {
             toast.error('unable to get account data' + error + ')');
             this.promises.account.reject('unable to get account data' + error + ')');
         };
+        toast.info('resolving login status...');
         authapi.setUpdateCallback(this.updateUserData);
     }
     render() {

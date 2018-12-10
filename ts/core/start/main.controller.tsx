@@ -67,7 +67,7 @@ class Main extends React.Component<any,any> {
     constructor(props) {
 
         super(props)
-
+        toast.info('resolving login status...')
         authapi.setUpdateCallback(this.updateUserData) 
 
     }
