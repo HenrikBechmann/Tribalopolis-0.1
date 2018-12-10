@@ -204,6 +204,14 @@ class Main extends React.Component<any,any> {
 
                 toast.error('unable to set system data ' + error)
 
+                this.setState({
+                    login:null,
+                    userProviderData:null,
+                    user:null,
+                    system:null,
+                    account:null,
+                })
+
             })
 
         }

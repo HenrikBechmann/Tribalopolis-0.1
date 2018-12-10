@@ -134,6 +134,13 @@ let Main = class Main extends React.Component {
                 }).catch(error => {
                     this.updatinguserdata = false;
                     toast.error('unable to set system data ' + error);
+                    this.setState({
+                        login: null,
+                        userProviderData: null,
+                        user: null,
+                        system: null,
+                        account: null,
+                    });
                 });
             }
         };
