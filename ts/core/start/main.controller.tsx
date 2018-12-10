@@ -99,7 +99,7 @@ class Main extends React.Component<any,any> {
     userPromise
     accountPromise
 
-    setLoginPromises = () => {
+    setSystemPromise = () => {
 
         this.systemPromise = new Promise((resolvesystem, rejectsystem) => {
 
@@ -107,6 +107,12 @@ class Main extends React.Component<any,any> {
             this.promises.system.reject = rejectsystem
 
         })
+
+    }
+
+    setLoginPromises = () => {
+
+        this.setSystemPromise()
 
         this.userPromise = new Promise((resolveuser, rejectuser) => {
 
@@ -128,6 +134,10 @@ class Main extends React.Component<any,any> {
 
     updateUserData = (login) => {
 
+        // console.log('update login object',login)
+
+        this.updatinguserdata = true
+
         if (login) {
 
             if (!this.state.login) {
@@ -139,8 +149,6 @@ class Main extends React.Component<any,any> {
                 toast.success(`updated data for ${login.displayName}`,{autoClose:2500})
 
             }
-
-            this.updatinguserdata = true
 
             this.setLoginPromises() 
 
@@ -172,16 +180,15 @@ class Main extends React.Component<any,any> {
 
         } else { // clear userdata
 
-            let systemPromise = new Promise((resolvesystem, rejectsystem) => {
-
-                this.promises.system.resolve = resolvesystem
-                this.promises.system.reject = rejectsystem
-
-            })
+            this.setSystemPromise()
 
             this.getSystemDocument()
 
-            systemPromise.then((system) => {
+            this.systemPromise.then((system) => {
+
+                // console.log('updating state with empty login')
+
+                this.updatinguserdata = false
 
                 this.setState({
                     login:null,
@@ -190,6 +197,12 @@ class Main extends React.Component<any,any> {
                     system,
                     account:null,
                 })
+
+            }).catch(error => {
+
+                this.updatinguserdata = false
+
+                toast.error('unable to set system data ' + error)
 
             })
 
@@ -322,6 +335,8 @@ class Main extends React.Component<any,any> {
             user:this.state.user,
             account:this.state.account,
         }
+
+        // console.log('user data',userdata)
 
         return (
 

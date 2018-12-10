@@ -71,11 +71,14 @@ let Main = class Main extends React.Component {
                 reject: null,
             },
         };
-        this.setLoginPromises = () => {
+        this.setSystemPromise = () => {
             this.systemPromise = new Promise((resolvesystem, rejectsystem) => {
                 this.promises.system.resolve = resolvesystem;
                 this.promises.system.reject = rejectsystem;
             });
+        };
+        this.setLoginPromises = () => {
+            this.setSystemPromise();
             this.userPromise = new Promise((resolveuser, rejectuser) => {
                 this.promises.user.resolve = resolveuser;
                 this.promises.user.reject = rejectuser;
@@ -86,6 +89,8 @@ let Main = class Main extends React.Component {
             });
         };
         this.updateUserData = (login) => {
+            // console.log('update login object',login)
+            this.updatinguserdata = true;
             if (login) {
                 if (!this.state.login) {
                     toast.success(`signed in as ${login.displayName}`, { autoClose: 2500 });
@@ -93,7 +98,6 @@ let Main = class Main extends React.Component {
                 else {
                     toast.success(`updated data for ${login.displayName}`, { autoClose: 2500 });
                 }
-                this.updatinguserdata = true;
                 this.setLoginPromises();
                 let userProviderData = login.providerData[0]; // only google for now
                 this.getUserDocument(userProviderData.uid); // and account document
@@ -115,12 +119,11 @@ let Main = class Main extends React.Component {
                 });
             }
             else { // clear userdata
-                let systemPromise = new Promise((resolvesystem, rejectsystem) => {
-                    this.promises.system.resolve = resolvesystem;
-                    this.promises.system.reject = rejectsystem;
-                });
+                this.setSystemPromise();
                 this.getSystemDocument();
-                systemPromise.then((system) => {
+                this.systemPromise.then((system) => {
+                    // console.log('updating state with empty login')
+                    this.updatinguserdata = false;
                     this.setState({
                         login: null,
                         userProviderData: null,
@@ -128,6 +131,9 @@ let Main = class Main extends React.Component {
                         system,
                         account: null,
                     });
+                }).catch(error => {
+                    this.updatinguserdata = false;
+                    toast.error('unable to set system data ' + error);
                 });
             }
         };
@@ -216,6 +222,7 @@ let Main = class Main extends React.Component {
             user: this.state.user,
             account: this.state.account,
         };
+        // console.log('user data',userdata)
         return (<SystemDataContext.Provider value={this.state.system}>
                 <UserDataContext.Provider value={userdata}>
 
