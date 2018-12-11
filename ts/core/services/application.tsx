@@ -161,7 +161,7 @@ const newTypeCacheItem = () => {
 
 }
 
-const processTypeCallbacksFromGateway = ( reference, type, change ) => {
+const processTypeCallbacksFromGateway = ( reference, type, reason ) => {
 
     let typedoc = type || {}
     let cacheitem = typecache.get(reference)
@@ -178,7 +178,7 @@ const processTypeCallbacksFromGateway = ( reference, type, change ) => {
 
         listeners.forEach((callback,key) => {
 
-            callback(key,change)
+            callback(key,reason)
 
         })
     }
@@ -199,7 +199,7 @@ const processDocumentCallbacksFromType = ( reference, change ) => { // document 
     document update from the gateway, or a document's type update from the gateway.
     listeners are not updated if there is not yet a type, or a type cache item
 */
-const processDocumentCallbacks = (reference, change) => {
+const processDocumentCallbacks = (reference, reason) => {
 
     let documentcacheitem = documentcache.get(reference)
 
@@ -211,18 +211,22 @@ const processDocumentCallbacks = (reference, change) => {
 
         let result = typefilter.assertType(document,type)
         if (result.changed) {
+
             document = result.document
             // update source; wait for response
+
         }
 
         let listeners = documentcacheitem.listeners
 
         listeners.forEach((callback,key) => {
+
             let slist = sentinels[key]
 
-            if (slist && (slist[slist.length - 1]) === false) {
-                callback(document,type,change)
+            if (slist && ((slist[slist.length - 1]) === false)) {
+                callback( document, type, reason)
             }
+
         })
     }
 }
@@ -243,12 +247,14 @@ const removeDocumentCacheItem = (reference) => {
     // deal with type cache listener
     let document = documentcacheitem.document
     if (document) {
+
         let typeref = document?document.identity.type:null
         if (typeref) {
 
             removeTypeCacheListener(typeref,reference)
 
         }
+
     }
 
 }
@@ -263,6 +269,7 @@ const removeDocumentCacheListener = (reference, instanceid) => {
     let cacheitem = documentcache.get(reference)
 
     if (cacheitem.listeners) {
+
         cacheitem.listeners.delete(instanceid)
 
         if (cacheitem.listeners.size == 0) {
@@ -270,6 +277,7 @@ const removeDocumentCacheListener = (reference, instanceid) => {
             removeDocumentCacheItem(reference) // filter by cache size?
 
         }
+
     }
 
 }
@@ -290,6 +298,7 @@ const removeTypeCacheListener = (typereference, documentreference) => {
     let cacheitem = typecache.get(typereference)
 
     if (cacheitem.listeners) {
+
         cacheitem.listeners.delete(documentreference)
 
         if (cacheitem.listeners.size == 0) {
@@ -297,6 +306,7 @@ const removeTypeCacheListener = (typereference, documentreference) => {
             removeTypeCacheItem(typereference) // filter by cache size?
 
         }
+
     }
 
 }
@@ -315,6 +325,7 @@ const getDocumentPack = reference => {
     let document = cachedocument?cachedocument.document:null
     let type = null
     let typeref = null
+
     if (document) {
 
         typeref = document.identity.type
@@ -462,7 +473,9 @@ const setDocument = (reference, data, success, failure) => {
 }
 
 const getCollection = (reference, success, failure) => {
+
     gateway.getCollection(reference,success,failure)
+    
 }
 
 let application = {
