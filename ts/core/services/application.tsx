@@ -11,6 +11,7 @@
 /*
     TODO: 
 
+        - add documentSubscribe for single documents (without type) for things like /system/parameters
         - process document changed by type in processDocumentCallbacks
         consider creating a sentinel when callbacks are de-registered to avoid race
         condition of calling setState after component is unmounted

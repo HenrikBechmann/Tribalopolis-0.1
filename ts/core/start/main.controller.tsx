@@ -13,6 +13,7 @@
 
 /*
     TODO:
+    - use setDocumentListener for user/account to sync with type
     - upgrade getDocument to getAsyncDocument
     - defend against race condition of multiple adjacent async updates: 
         sentinel for state, user, account updates
