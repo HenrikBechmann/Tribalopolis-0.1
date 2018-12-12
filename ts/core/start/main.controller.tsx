@@ -13,8 +13,9 @@
 
 /*
     TODO:
+    - switch to setDocumentListener from getDocument
     - use setDocumentListener for user/account to sync with type
-    - upgrade getDocument to getAsyncDocument
+    - upgrade getDocument to getAsyncDocument == 'documentSubscribe'
     - defend against race condition of multiple adjacent async updates: 
         sentinel for state, user, account updates
     - handle network failure - system data

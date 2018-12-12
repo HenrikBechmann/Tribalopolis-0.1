@@ -3,7 +3,7 @@
 
 /****************************************************************************
 
-    This is a multi-proged hook for business logic
+    This is a multi-proged hook for business logic filters
 
     No content yet, just pass-through
 
