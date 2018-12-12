@@ -1,5 +1,7 @@
 // auth.api.tsx
 
+'use strict'
+
 import firebase from './firebase.api'
 
 let provider = new firebase.auth.GoogleAuthProvider()

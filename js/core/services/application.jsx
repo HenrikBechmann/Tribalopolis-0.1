@@ -3,13 +3,14 @@
 /*
     This is the high level application controller
     It's main responsibility is to co-ordinate the store and the domain
-    application -> datamodel + viewmodel -> domain (gateway) -> firebase
+    application -> datamodel + viewmodel -> domain -> gateway -> firebase
 
     datamodel and viewmodel are both bypassed
 */
 /*
     TODO:
 
+        - add documentSubscribe for single documents (without type) for things like /system/parameters
         - process document changed by type in processDocumentCallbacks
         consider creating a sentinel when callbacks are de-registered to avoid race
         condition of calling setState after component is unmounted
@@ -22,7 +23,8 @@
         - implement state item garbage collection (no listeners)
         - implement general max for cache (1000?) with trigger to reduce to 900 or so
 */
-import gateway from './gateway';
+'use strict';
+import domain from './domain';
 import typefilter from './type.filter';
 // ==============[ Internal ]===============
 /*
@@ -56,7 +58,7 @@ const getDocumentCacheItem = (reference) => {
         cacheitem = newDocumentCacheItem();
         documentcache.set(reference, cacheitem);
         // connect to data source
-        gateway.setDocumentListener(reference, processDocumentCallbackFromGateway);
+        domain.setDocumentListener(reference, processDocumentCallbackFromGateway);
     }
     return cacheitem;
 };
@@ -104,7 +106,7 @@ const getTypeCacheItem = (reference) => {
     else {
         cacheitem = newTypeCacheItem();
         typecache.set(reference, cacheitem);
-        gateway.setDocumentListener(reference, processTypeCallbacksFromGateway);
+        domain.setDocumentListener(reference, processTypeCallbacksFromGateway);
     }
     return cacheitem;
 };
@@ -114,7 +116,7 @@ const newTypeCacheItem = () => {
         listeners: new Map(),
     };
 };
-const processTypeCallbacksFromGateway = (reference, type, change) => {
+const processTypeCallbacksFromGateway = (reference, type, reason) => {
     let typedoc = type || {};
     let cacheitem = typecache.get(reference);
     let listeners = null;
@@ -124,7 +126,7 @@ const processTypeCallbacksFromGateway = (reference, type, change) => {
     }
     if (listeners) {
         listeners.forEach((callback, key) => {
-            callback(key, change);
+            callback(key, reason);
         });
     }
 };
@@ -139,7 +141,7 @@ const processDocumentCallbacksFromType = (reference, change) => {
     document update from the gateway, or a document's type update from the gateway.
     listeners are not updated if there is not yet a type, or a type cache item
 */
-const processDocumentCallbacks = (reference, change) => {
+const processDocumentCallbacks = (reference, reason) => {
     let documentcacheitem = documentcache.get(reference);
     let { document, type } = getDocumentPack(reference);
     // console.log('processDocumentCallbacks document,type',document,type)
@@ -152,8 +154,8 @@ const processDocumentCallbacks = (reference, change) => {
         let listeners = documentcacheitem.listeners;
         listeners.forEach((callback, key) => {
             let slist = sentinels[key];
-            if (slist && (slist[slist.length - 1]) === false) {
-                callback(document, type, change);
+            if (slist && ((slist[slist.length - 1]) === false)) {
+                callback(document, type, reason);
             }
         });
     }
@@ -164,7 +166,7 @@ const processDocumentCallbacks = (reference, change) => {
 */
 const removeDocumentCacheItem = (reference) => {
     // unhook from gateway
-    gateway.removeDocumentListener(reference);
+    domain.removeDocumentListener(reference);
     // anticipate need for type cache listener...
     let documentcacheitem = documentcache.get(reference);
     documentcache.delete(reference);
@@ -191,8 +193,8 @@ const removeDocumentCacheListener = (reference, instanceid) => {
     }
 };
 const removeTypeCacheItem = (reference) => {
-    // unhook from gateway
-    gateway.removeDocumentListener(reference);
+    // unhook from domain
+    domain.removeDocumentListener(reference);
     typecache.delete(reference);
 };
 const removeTypeCacheListener = (typereference, documentreference) => {
@@ -288,20 +290,20 @@ const removeDocumentListener = (token, instanceid) => {
 };
 const getDocument = (reference, callback, errorback) => {
     // console.log('application.getDocument',reference)
-    gateway.getDocument(reference, callback, errorback);
+    domain.getDocument(reference, callback, errorback);
 };
 const getNewDocument = (collection, callback, errorback) => {
-    gateway.getNewDocument(collection, callback, errorback);
+    domain.getNewDocument(collection, callback, errorback);
 };
 const queryCollection = (collection, whereclauses, success, failure) => {
-    gateway.queryCollection(collection, whereclauses, success, failure);
+    domain.queryCollection(collection, whereclauses, success, failure);
 };
 const setDocument = (reference, data, success, failure) => {
     // let simpleobject:any = merge({},data) // strip out any extensions; restore as simple object
-    gateway.setDocument(reference, data, success, failure);
+    domain.setDocument(reference, data, success, failure);
 };
 const getCollection = (reference, success, failure) => {
-    gateway.getCollection(reference, success, failure);
+    domain.getCollection(reference, success, failure);
 };
 let application = {
     properties,

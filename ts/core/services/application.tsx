@@ -3,7 +3,7 @@
 /*
     This is the high level application controller
     It's main responsibility is to co-ordinate the store and the domain
-    application -> datamodel + viewmodel -> domain (gateway) -> firebase
+    application -> datamodel + viewmodel -> domain -> gateway -> firebase
 
     datamodel and viewmodel are both bypassed
 */
@@ -25,7 +25,9 @@
         - implement general max for cache (1000?) with trigger to reduce to 900 or so
 */
 
-import gateway from './gateway'
+'use strict'
+
+import domain from './domain'
 import merge from 'deepmerge'
 import typefilter from './type.filter'
 // ==============[ Internal ]===============
@@ -74,7 +76,7 @@ const getDocumentCacheItem = (reference) => {
         documentcache.set(reference,cacheitem)
 
         // connect to data source
-        gateway.setDocumentListener(reference, processDocumentCallbackFromGateway)
+        domain.setDocumentListener(reference, processDocumentCallbackFromGateway)
 
     }
 
@@ -144,7 +146,7 @@ const getTypeCacheItem = (reference) => { // type reference
         cacheitem = newTypeCacheItem()
         typecache.set(reference,cacheitem)
 
-        gateway.setDocumentListener(reference, processTypeCallbacksFromGateway)
+        domain.setDocumentListener(reference, processTypeCallbacksFromGateway)
 
     }
 
@@ -238,7 +240,7 @@ const processDocumentCallbacks = (reference, reason) => {
 const removeDocumentCacheItem = (reference) => {
 
     // unhook from gateway
-    gateway.removeDocumentListener(reference)
+    domain.removeDocumentListener(reference)
 
     // anticipate need for type cache listener...
     let documentcacheitem = documentcache.get(reference)
@@ -284,8 +286,8 @@ const removeDocumentCacheListener = (reference, instanceid) => {
 
 const removeTypeCacheItem = (reference) => {
 
-    // unhook from gateway
-    gateway.removeDocumentListener(reference)
+    // unhook from domain
+    domain.removeDocumentListener(reference)
 
     typecache.delete(reference)
 
@@ -450,31 +452,33 @@ const removeDocumentListener = (token, instanceid) => {
 const getDocument = (reference, callback, errorback) => {
 
     // console.log('application.getDocument',reference)
-    gateway.getDocument(reference, callback, errorback)
+    domain.getDocument(reference, callback, errorback)
 
 }
 
 const getNewDocument = (collection, callback, errorback) => {
 
-    gateway.getNewDocument(collection, callback, errorback)
+    domain.getNewDocument(collection, callback, errorback)
 
 }
 
 const queryCollection = (collection, whereclauses, success, failure) => {
-    gateway.queryCollection(collection, whereclauses, success, failure)
+
+    domain.queryCollection(collection, whereclauses, success, failure)
+    
 }
 
 const setDocument = (reference, data, success, failure) => {
 
     // let simpleobject:any = merge({},data) // strip out any extensions; restore as simple object
 
-    gateway.setDocument(reference, data, success, failure)
+    domain.setDocument(reference, data, success, failure)
 
 }
 
 const getCollection = (reference, success, failure) => {
 
-    gateway.getCollection(reference,success,failure)
+    domain.getCollection(reference,success,failure)
     
 }
 

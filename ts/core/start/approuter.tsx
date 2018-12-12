@@ -4,6 +4,8 @@
     - implement call to googla analytics
 */
 
+'use strict'
+
 import React from 'react'
 import { Switch, Router } from 'react-router-dom'
 import routes from "./routes"
