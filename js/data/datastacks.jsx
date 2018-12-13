@@ -1,14 +1,13 @@
 // datastacks.tsx
 // copyright (c) 2018 Henrik Bechmann, Toronto, MIT Licence
 'use strict';
-import proxy from '../core/utilities/proxy';
+import docproxy from '../core/utilities/docproxy';
 let datastacks = [
     [
         {
             items: [
-                new proxy({ doctoken: {
-                        collection: 'items',
-                        id: 'henrik',
+                new docproxy({ doctoken: {
+                        reference: '/items/henrik',
                     } }),
             ],
             source: {},
@@ -18,7 +17,7 @@ let datastacks = [
     [
         {
             items: [
-            // new proxy(
+            // new docproxy(
             //     {doctoken:{
             //         collection:'items',
             //         id:'henrik',
@@ -27,9 +26,8 @@ let datastacks = [
             source: {},
             settings: {},
             defaultitems: [
-                new proxy({ doctoken: {
-                        collection: 'items',
-                        id: 'henrik',
+                new docproxy({ doctoken: {
+                        reference: '/items/henrik',
                     } }),
             ],
         },
@@ -37,7 +35,7 @@ let datastacks = [
     [
         {
             items: [
-            // new proxy(
+            // new docproxy(
             //     {doctoken:{
             //         collection:'items',
             //         id:'henrik',
@@ -46,9 +44,8 @@ let datastacks = [
             source: {},
             settings: {},
             defaultitems: [
-                new proxy({ doctoken: {
-                        collection: 'items',
-                        id: 'henrik',
+                new docproxy({ doctoken: {
+                        reference: '/items/henrik',
                     } }),
             ],
         },
@@ -56,7 +53,7 @@ let datastacks = [
     [
         {
             items: [
-            // new proxy(
+            // new docproxy(
             //     {doctoken:{
             //         collection:'items',
             //         id:'henrik',
@@ -65,9 +62,8 @@ let datastacks = [
             source: {},
             settings: {},
             defaultitems: [
-                new proxy({ doctoken: {
-                        collection: 'items',
-                        id: 'henrik',
+                new docproxy({ doctoken: {
+                        reference: '/items/henrik',
                     } }),
             ],
         },

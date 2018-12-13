@@ -20,7 +20,7 @@ import ResizeTab from './databox/resizetab.view'
 import NavigationMenuTab from './databox/navigationmenutab.view'
 import LoadingMessage from './common/loadingmessage.view'
 
-import proxy from '../utilities/proxy'
+import docproxy from '../utilities/docproxy'
 
 const buttonstyles = theme => createStyles({
   button: {
@@ -98,7 +98,7 @@ class DataBox extends React.Component<any,any> {
         this.boxframe = React.createRef()
         this.listcomponent = React.createRef()
         this.itemProxy = this.props.itemProxy
-        this.identityItemProxy = new proxy(
+        this.identityItemProxy = new docproxy(
             {
                 doctoken:this.itemProxy.doctoken,
                 liststack:this.itemProxy.liststack.slice()
@@ -182,14 +182,15 @@ class DataBox extends React.Component<any,any> {
                     listdoctoken = this.itemProxy.liststack[this.itemProxy.liststack.length -1]
                 } else {
                     listdoctoken = {
-                        id:this.state.item.document.references.list,
-                        collection:'lists',
+                        reference:'/lists/' + this.state.item.document.references.list,
+                        // id:this.state.item.document.references.list,
+                        // collection:'lists',
                     }
                 }
                 this.setState({
-                    MainlistProxy: new proxy({doctoken:listdoctoken}),
-                    BarlistProxy: new proxy({doctoken:listdoctoken}),
-                    TypelistProxy: new proxy({doctoken:listdoctoken}),
+                    MainlistProxy: new docproxy({doctoken:listdoctoken}),
+                    BarlistProxy: new docproxy({doctoken:listdoctoken}),
+                    TypelistProxy: new docproxy({doctoken:listdoctoken}),
                 })
 
             }
@@ -209,10 +210,11 @@ class DataBox extends React.Component<any,any> {
                     collapseTargetProxy.liststack.length -1]
 
             if (doctoken) {
-
+                let splitref = doctoken.reference.split('/')
+                let id = splitref[splitref.length - 1]
                 setTimeout(()=>{
                     this.setState({
-                        highlightrefuid:doctoken.id,
+                        highlightrefuid:id,
                     },() => {
                         this.setState({
                             highlightrefuid:null
@@ -255,9 +257,9 @@ class DataBox extends React.Component<any,any> {
         )
     }
 
-    onClickAdd = (proxy) => {
-        this.props.callbacks.callDataDrawer(proxy, 'add')
-        // console.log('proxy',proxy)
+    onClickAdd = (docproxy) => {
+        this.props.callbacks.callDataDrawer(docproxy, 'add')
+        // console.log('docproxy',docproxy)
     }
 
     listcallbacks = {

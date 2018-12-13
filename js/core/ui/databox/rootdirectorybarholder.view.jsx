@@ -4,7 +4,7 @@
 import React from 'react';
 import { withStyles, createStyles } from '@material-ui/core/styles';
 import DirectoryBar from './directorybar.view';
-import proxy from '../../utilities/proxy';
+import docproxy from '../../utilities/docproxy';
 import LoadingMessage from '../common/loadingmessage.view';
 const styles = createStyles({
     holderstyle: {
@@ -54,10 +54,9 @@ class RootDirectoryBarHolder extends React.Component {
         let listProxy;
         if (this.state.item) {
             let listtoken = {
-                collection: 'lists',
-                id: this.state.item.document.references.list,
+                reference: '/lists/' + this.state.item.document.references.list,
             };
-            listProxy = new proxy({ doctoken: listtoken });
+            listProxy = new docproxy({ doctoken: listtoken });
         }
         return (this.state.item ?
             <DirectoryBar haspeers={false} listProxy={listProxy} setDocumentListener={this.props.setDocumentListener} removeDocumentListener={this.props.removeDocumentListener} callDataDrawer={this.props.callDataDrawer} listStack={this.itemProxy.liststack} collapseDirectoryItem={() => { }} contextitem/>

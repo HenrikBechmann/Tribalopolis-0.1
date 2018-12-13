@@ -11,7 +11,7 @@ import BoxIdentityBar from '../databox/identitybar.view'
 import DirectoryBar from '../databox/directorybar.view'
 import RootDirectoryBarHolder from '../databox/rootdirectorybarholder.view'
 
-import proxy from '../../utilities/proxy'
+import docproxy from '../../utilities/docproxy'
 
 const styles = createStyles({
     root:{
@@ -101,7 +101,7 @@ class QuadContextBar extends React.Component<any> {
             if (itemProxy.liststack.length) {// make list entry
 
                 let listtoken = itemProxy.listStack[itemProxy.liststack.length - 1]
-                let listProxy = new proxy(listtoken)
+                let listProxy = new docproxy(listtoken)
                 let component = <DirectoryBar 
                     key = {n + 'list'}
                     haspeers = {false}
@@ -120,7 +120,7 @@ class QuadContextBar extends React.Component<any> {
 
             } else { // make item entry and root list entry
                 let { itemProxy } = stacklayer.source
-                let newItemProxy = new proxy(
+                let newItemProxy = new docproxy(
                     {
                         doctoken:itemProxy.doctoken,
                         liststack:itemProxy.liststack.slice(),
@@ -135,7 +135,7 @@ class QuadContextBar extends React.Component<any> {
                     contextitem
                 />)
 
-                let holderItemProxy = new proxy(
+                let holderItemProxy = new docproxy(
                     {
                         doctoken:itemProxy.doctoken,
                         liststack:itemProxy.liststack.slice(),

@@ -315,11 +315,12 @@ const removeTypeCacheListener = (typereference, documentreference) => {
 
 // ===============[ General Utilities ]===============
 
-const getTokenReference = doctoken => {
+// const getTokenReference = doctoken => {
 
-    return `/${doctoken.collection}/${doctoken.id}`
+//     // return `/${doctoken.collection}/${doctoken.id}`
+//     return doctoken.reference
 
-}
+// }
 
 const getDocumentPack = reference => {
 
@@ -362,7 +363,7 @@ const setDocumentListener = (doctoken,instanceid,callback) => {
 
     setTimeout(()=>{ // give animations a chance to run
 
-        let reference = getTokenReference(doctoken)
+        let reference = doctoken.reference // getTokenReference(doctoken)
 
         let sentinel = 
             sentinels[instanceid]
@@ -416,7 +417,7 @@ const setDocumentListener = (doctoken,instanceid,callback) => {
 // called from component componentWillUnmount
 const removeDocumentListener = (doctoken, instanceid) => {
 
-    let reference = getTokenReference(doctoken)
+    let reference = doctoken.reference // getTokenReference(doctoken)
 
     let sentinel = 
         sentinels[instanceid]

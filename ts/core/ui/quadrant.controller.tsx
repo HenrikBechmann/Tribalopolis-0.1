@@ -303,12 +303,12 @@ class Quadrant extends React.Component<any,any>  {
         })
     }
 
-    callDataDrawer = (proxy,opcode) => {
+    callDataDrawer = (docproxy,opcode) => {
         if (this.state.draweropen) {
             toast.info('The data shelf is in use. Close the shelf and try again.')
             return
         }
-        this.drawerdatapackage = {proxy, opcode}
+        this.drawerdatapackage = {docproxy, opcode}
         this.setState({
             draweropen:true,
         })

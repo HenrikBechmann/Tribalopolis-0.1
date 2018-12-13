@@ -13,7 +13,7 @@ import DirectoryList from './databox/directorylist.view';
 import ResizeTab from './databox/resizetab.view';
 import NavigationMenuTab from './databox/navigationmenutab.view';
 import LoadingMessage from './common/loadingmessage.view';
-import proxy from '../utilities/proxy';
+import docproxy from '../utilities/docproxy';
 const buttonstyles = theme => createStyles({
     button: {
         marginRight: theme.spacing.unit
@@ -97,14 +97,13 @@ class DataBox extends React.Component {
                     }
                     else {
                         listdoctoken = {
-                            id: this.state.item.document.references.list,
-                            collection: 'lists',
+                            reference: '/lists/' + this.state.item.document.references.list,
                         };
                     }
                     this.setState({
-                        MainlistProxy: new proxy({ doctoken: listdoctoken }),
-                        BarlistProxy: new proxy({ doctoken: listdoctoken }),
-                        TypelistProxy: new proxy({ doctoken: listdoctoken }),
+                        MainlistProxy: new docproxy({ doctoken: listdoctoken }),
+                        BarlistProxy: new docproxy({ doctoken: listdoctoken }),
+                        TypelistProxy: new docproxy({ doctoken: listdoctoken }),
                     });
                 }
             });
@@ -115,9 +114,11 @@ class DataBox extends React.Component {
                 collapseTargetProxy.action == 'splay') {
                 let doctoken = collapseTargetProxy.liststack[collapseTargetProxy.liststack.length - 1];
                 if (doctoken) {
+                    let splitref = doctoken.reference.split('/');
+                    let id = splitref[splitref.length - 1];
                     setTimeout(() => {
                         this.setState({
-                            highlightrefuid: doctoken.id,
+                            highlightrefuid: id,
                         }, () => {
                             this.setState({
                                 highlightrefuid: null
@@ -145,9 +146,9 @@ class DataBox extends React.Component {
                 <div className={classes.indexMarker}>{this.props.index + 1}</div>
                 : null);
         };
-        this.onClickAdd = (proxy) => {
-            this.props.callbacks.callDataDrawer(proxy, 'add');
-            // console.log('proxy',proxy)
+        this.onClickAdd = (docproxy) => {
+            this.props.callbacks.callDataDrawer(docproxy, 'add');
+            // console.log('docproxy',docproxy)
         };
         this.listcallbacks = {
             setDocumentListener: this.props.callbacks.setDocumentListener,
@@ -164,7 +165,7 @@ class DataBox extends React.Component {
         this.boxframe = React.createRef();
         this.listcomponent = React.createRef();
         this.itemProxy = this.props.itemProxy;
-        this.identityItemProxy = new proxy({
+        this.identityItemProxy = new docproxy({
             doctoken: this.itemProxy.doctoken,
             liststack: this.itemProxy.liststack.slice()
         });

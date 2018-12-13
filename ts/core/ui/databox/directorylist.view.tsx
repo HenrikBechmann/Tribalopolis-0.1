@@ -11,7 +11,7 @@ import CircularProgress from '@material-ui/core/CircularProgress'
 
 import { withStyles, createStyles } from '@material-ui/core/styles'
 import DirectoryListItem from './directorylistitem.view'
-import proxy from '../../utilities/proxy'
+import docproxy from '../../utilities/docproxy'
 import LoadingMessage from '../common/loadingmessage.view'
 
 const styles = createStyles({
@@ -106,7 +106,7 @@ class extends React.Component<any,any> {
     generateListProxies = (listDocument) => {
         let listtokens = listDocument.data.lists
         let listproxies = listtokens.map((doctoken) => {
-            return new proxy({doctoken})
+            return new docproxy({doctoken})
         })
         return listproxies
     }
@@ -116,13 +116,13 @@ class extends React.Component<any,any> {
         let pathMap = this.pathToIndexMap
         let listtokens = listDocument.data.lists
         let listproxies = listtokens.map((doctoken) => {
-            let reference = `/${doctoken.collection}/${doctoken.id}`
-            let proxy = oldListProxies[pathMap[reference]]
-            if (!proxy) {
-                // console.log('generating new proxy')
-                proxy = new proxy({doctoken})
+            let reference = doctoken.reference // `/${doctoken.collection}/${doctoken.id}`
+            let docproxy = oldListProxies[pathMap[reference]]
+            if (!docproxy) {
+                // console.log('generating new docproxy')
+                docproxy = new docproxy({doctoken})
             }
-            return proxy
+            return docproxy
         })
         // console.log('updated list proxies',listproxies)
         return listproxies
@@ -177,20 +177,20 @@ class extends React.Component<any,any> {
     }
 
     itemRenderer = (index,key) => {
-        let proxy = this.state.listproxies[index]
-        return this.getListComponent(proxy,key,index)
+        let docproxy = this.state.listproxies[index]
+        return this.getListComponent(docproxy,key,index)
     }
 
-    getListComponent = (proxy, key, index) => {
+    getListComponent = (docproxy, key, index) => {
 
-        let highlight = (proxy.id === this.state.highlightrefuid)
+        let highlight = (docproxy.id === this.state.highlightrefuid)
         let directorylistitem = 
             <DirectoryListItem 
-                key = {proxy.instanceid} 
-                listProxy = {proxy} 
+                key = {docproxy.instanceid} 
+                listProxy = {docproxy} 
                 setDocumentListener = {this.props.callbacks.setDocumentListener}
                 removeDocumentListener = {this.props.callbacks.removeDocumentListener}
-                expandDirectoryItem = {this.expandDirectoryItem(proxy.doctoken)}
+                expandDirectoryItem = {this.expandDirectoryItem(docproxy.doctoken)}
                 highlight = {highlight}
                 highlightItem = {this.props.callbacks.highlightItem}
             />

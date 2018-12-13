@@ -1,6 +1,6 @@
 // quadoperations.class.tsx
 // copyright (c) 2018 Henrik Bechmann, Toronto, MIT Licence
-import proxy from '../../../core/utilities/proxy';
+import docproxy from '../../../core/utilities/docproxy';
 class quadoperations {
     constructor({ quadrant, animations, listcomponent, scrollboxelement }) {
         // set from callback
@@ -36,7 +36,7 @@ class quadoperations {
             datastack.splice(stackpointer, datastack.length, newstacklayer);
             let newliststack = itemProxy.liststack.splice();
             newliststack.push(listtoken);
-            let newItemProxy = new proxy({ doctoken: itemProxy.doctoken, liststack: newliststack });
+            let newItemProxy = new docproxy({ doctoken: itemProxy.doctoken, liststack: newliststack });
             newstacklayer.items.push(newItemProxy);
             setTimeout(() => {
                 this.quadrant.setState({
@@ -69,7 +69,7 @@ class quadoperations {
             for (let doctoken of listtokens) {
                 let newliststack = itemProxy.liststack.slice(); // copy
                 newliststack.push(doctoken);
-                let newItemProxy = new proxy({ doctoken: itemToken, liststack: newliststack });
+                let newItemProxy = new docproxy({ doctoken: itemToken, liststack: newliststack });
                 newstacklayer.items.push(newItemProxy);
             }
             setTimeout(() => {
@@ -99,7 +99,7 @@ class quadoperations {
                 } };
             // replace forward stack items
             datastack.splice(stackpointer, datastack.length, newstacklayer);
-            let newItemProxy = new proxy({
+            let newItemProxy = new docproxy({
                 doctoken: itemToken,
                 liststack: itemProxy.liststack.slice(),
             });

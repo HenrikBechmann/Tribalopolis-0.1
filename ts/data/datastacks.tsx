@@ -2,16 +2,17 @@
 // copyright (c) 2018 Henrik Bechmann, Toronto, MIT Licence
 'use strict'
 
-import proxy from '../core/utilities/proxy'
+import docproxy from '../core/utilities/docproxy'
 
 let datastacks = [ // four quadrant stacks
     [ // each quadrant stack
         { // each quadrant stack layer
             items:[ // items in the stack layer
-                new proxy(
+                new docproxy(
                     {doctoken:{
-                        collection:'items',
-                        id:'henrik',
+                        reference:'/items/henrik',
+                        // collection:'items',
+                        // id:'henrik',
                     }}),
             ],
             source: {},
@@ -22,7 +23,7 @@ let datastacks = [ // four quadrant stacks
     [
         {
             items:[
-                // new proxy(
+                // new docproxy(
                 //     {doctoken:{
                 //         collection:'items',
                 //         id:'henrik',
@@ -33,10 +34,11 @@ let datastacks = [ // four quadrant stacks
             settings:{
             },
             defaultitems:[
-                new proxy(
+                new docproxy(
                     {doctoken:{
-                        collection:'items',
-                        id:'henrik',
+                        reference: '/items/henrik',
+                        // collection:'items',
+                        // id:'henrik',
                     }}),
             ],
         },
@@ -44,7 +46,7 @@ let datastacks = [ // four quadrant stacks
     [
         {
             items:[
-                // new proxy(
+                // new docproxy(
                 //     {doctoken:{
                 //         collection:'items',
                 //         id:'henrik',
@@ -56,10 +58,11 @@ let datastacks = [ // four quadrant stacks
 
             },
             defaultitems:[
-                new proxy(
+                new docproxy(
                     {doctoken:{
-                        collection:'items',
-                        id:'henrik',
+                        reference:'/items/henrik',
+                        // collection:'items',
+                        // id:'henrik',
                     }}),
             ],
         },
@@ -67,7 +70,7 @@ let datastacks = [ // four quadrant stacks
     [
         {
             items:[
-                // new proxy(
+                // new docproxy(
                 //     {doctoken:{
                 //         collection:'items',
                 //         id:'henrik',
@@ -79,10 +82,11 @@ let datastacks = [ // four quadrant stacks
 
             },
             defaultitems:[
-                new proxy(
+                new docproxy(
                     {doctoken:{
-                        collection:'items',
-                        id:'henrik',
+                        reference:'/items/henrik',
+                        // collection:'items',
+                        // id:'henrik',
                     }}),
             ],
         },

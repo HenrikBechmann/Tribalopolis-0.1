@@ -8,7 +8,7 @@ import { withStyles, createStyles } from '@material-ui/core/styles'
 import CircularProgress from '@material-ui/core/CircularProgress'
 
 import DirectoryBar from './directorybar.view'
-import proxy from '../../utilities/proxy'
+import docproxy from '../../utilities/docproxy'
 
 import LoadingMessage from '../common/loadingmessage.view'
 
@@ -70,10 +70,11 @@ class RootDirectoryBarHolder extends React.Component<any, any> {
     let listProxy
     if (this.state.item) {
         let listtoken = {
-            collection:'lists', 
-            id:this.state.item.document.references.list,
+            reference:'/lists/' + this.state.item.document.references.list,
+            // collection:'lists', 
+            // id:this.state.item.document.references.list,
         }
-        listProxy = new proxy({doctoken:listtoken})
+        listProxy = new docproxy({doctoken:listtoken})
     }
 
     return (

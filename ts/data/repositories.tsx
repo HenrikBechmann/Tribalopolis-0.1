@@ -169,8 +169,7 @@ let lists = {
         references:{
             subscriptions:[], // {reference:[],list:''}
             owner:{
-                id:'henrik',
-                collection:'items',
+                reference:'/items/henrik',
             },
             parentlists:[],
             folder:'',
@@ -208,8 +207,7 @@ let lists = {
         references:{
             subscriptions:[], // {reference:[],list:''}
             owner:{
-                id:'henrik',
-                collection:'items',
+                reference:'/items/henrik',
             },
             parentlists:[],
             folder:'',
@@ -246,8 +244,7 @@ let lists = {
         references:{
             subscriptions:[],
             owner:{
-                id:'henrik',
-                collection:'items',
+                reference:'/items/henrik',
             },
             parentlists:[],
             folder:'',
@@ -284,8 +281,7 @@ let lists = {
         references:{
             subscriptions:[],
             owner:{
-                id:'henrik',
-                collection:'items',
+                reference:'/items/henrik',
             },
             parentlists:[],
             folder:'',
@@ -324,8 +320,7 @@ let lists = {
         references:{
             subscriptions:[],
             owner:{
-                id:'henrik',
-                collection:'items',
+                reference:'/items/henrik',
             },
             parentlists:[],
             folder:'',
@@ -362,8 +357,7 @@ let lists = {
         references:{
             subscriptions:[],
             owner:{
-                id:'henrik',
-                collection:'items',
+                reference:'/items/henrik',
             },
             parentlists:[],
             folder:'',
@@ -400,8 +394,7 @@ let lists = {
         references:{
             subscriptions:[],
             owner:{
-                id:'henrik',
-                collection:'items',
+                reference:'/items/henrik',
             },
             parentlists:[],
             folder:'',
@@ -438,8 +431,7 @@ let lists = {
         references:{
             subscriptions:[],
             owner:{
-                id:'henrik',
-                collection:'items',
+                reference:'/items/henrik',
             },
             parentlists:[],
             folder:'',
@@ -476,8 +468,7 @@ let lists = {
         references:{
             subscriptions:[],
             owner:{
-                id:'henrik',
-                collection:'items',
+                reference:'/items/henrik',
             },
             parentlists:[],
             folder:'',
@@ -514,8 +505,7 @@ let lists = {
         references:{
             subscriptions:[],
             owner:{
-                id:'henrik',
-                collection:'items',
+                reference:'/items/henrik',
             },
             parentlists:[],
             folder:'',
@@ -552,8 +542,7 @@ let lists = {
         references:{
             subscriptions:[],
             owner:{
-                id:'henrik',
-                collection:'items',
+                reference:'/items/henrik',
             },
             parentlists:[],
             folder:'',
@@ -590,8 +579,7 @@ let lists = {
         references:{
             subscriptions:[],
             owner:{
-                id:'henrik',
-                collection:'items',
+                reference:'/items/henrik',
             },
             parentlists:[],
             folder:'',
@@ -628,8 +616,7 @@ let lists = {
         references:{
             subscriptions:[],
             owner:{
-                id:'henrik',
-                collection:'items',
+                reference:'/items/henrik',
             },
             parentlists:[],
             folder:'',
@@ -666,8 +653,7 @@ let lists = {
         references:{
             subscriptions:[],
             owner:{
-                id:'henrik',
-                collection:'items',
+                reference:'/items/henrik',
             },
             parentlists:[],
             folder:'',
@@ -704,8 +690,7 @@ let lists = {
         references:{
             subscriptions:[],
             owner:{
-                id:'henrik',
-                collection:'items',
+                reference:'/items/henrik',
             },
             parentlists:[],
             folder:'',
@@ -742,8 +727,7 @@ let lists = {
         references:{
             subscriptions:[],
             owner:{
-                id:'henrik',
-                collection:'items',
+                reference:'/items/henrik',
             },
             parentlists:[],
             folder:'',
@@ -780,8 +764,7 @@ let lists = {
         references:{
             subscriptions:[],
             owner:{
-                id:'henrik',
-                collection:'items',
+                reference:'/items/henrik',
             },
             parentlists:[],
             folder:'',
@@ -818,8 +801,7 @@ let lists = {
         references:{
             subscriptions:[],
             owner:{
-                id:'henrik',
-                collection:'items',
+                reference:'/items/henrik',
             },
             parentlists:[],
             folder:'',
@@ -856,8 +838,7 @@ let lists = {
         references:{
             subscriptions:[],
             owner:{
-                id:'henrik',
-                collection:'items',
+                reference:'/items/henrik',
             },
             parentlists:[],
             folder:'',
@@ -894,8 +875,7 @@ let lists = {
         references:{
             subscriptions:[],
             owner:{
-                id:'henrik',
-                collection:'items',
+                reference:'/items/henrik',
             },
             parentlists:[],
             folder:'',
@@ -1020,8 +1000,7 @@ let lists = {
         references:{
             subscriptions:[],
             owner:{
-                id:'henrik',
-                collection:'items',
+                reference:'/items/henrik',
             },
             parentlists:[],
             folder:'',
@@ -1043,84 +1022,64 @@ let lists = {
                 //     id:'membership',
                 // },
                 {
-                    collection:'lists',
-                    id:'tribes',
+                    reference:'/lists/tribes',
                 },
                 {
-                    collection:'lists',
-                    id:'roles',
+                    reference:'/lists/roles',
                 },
                 {
-                    collection:'lists',
-                    id:'connections',
+                    reference:'/lists/connections',
                 },
                 {
-                    collection:'lists',
-                    id:'requesting',
+                    reference:'/lists/requesting',
                 },
                 {
-                    collection:'lists',
-                    id:'messages',
+                    reference:'/lists/messages',
                 },
                 {
-                    collection:'lists',
-                    id:'streams',
+                    reference:'/lists/streams',
                 },
                 {
-                    collection:'lists',
-                    id:'tasks',
+                    reference:'/lists/tasks',
                 },
                 {
-                    collection:'lists',
-                    id:'projects',
+                    reference:'/lists/projects',
                 },
                 {
-                    collection:'lists',
-                    id:'programs',
+                    reference:'/lists/programs',
                 },
                 {
-                    collection:'lists',
-                    id:'plans',
+                    reference:'/lists/plans',
                 },
                 {
-                    collection:'lists',
-                    id:'calendars',
+                    reference:'/lists/calendars',
                 },
                 {
-                    collection:'lists',
-                    id:'timesheets',
+                    reference:'/lists/timesheets',
                 },
                 {
-                    collection:'lists',
-                    id:'accounting',
+                    reference:'/lists/accounting',
                 },
                 {
-                    collection:'lists',
-                    id:'budgets',
+                    reference:'/lists/budgets',
                 },
                 {
-                    collection:'lists',
-                    id:'logs',
+                    reference:'/lists/logs',
                 },
                 {
-                    collection:'lists',
-                    id:'diaries',
+                    reference:'/lists/diaries',
                 },
                 {
-                    collection:'lists',
-                    id:'notes',
+                    reference:'/lists/notes',
                 },
                 {
-                    collection:'lists',
-                    id:'resources',
+                    reference:'/lists/resources',
                 },
                 {
-                    collection:'lists',
-                    id:'assets',
+                    reference:'/lists/assets',
                 },
                 {
-                    collection:'lists',
-                    id:'recipes',
+                    reference:'/lists/recipes',
                 },
             ],
             links:[],

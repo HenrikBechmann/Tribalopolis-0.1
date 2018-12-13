@@ -7,7 +7,7 @@ import Icon from '@material-ui/core/Icon';
 import BoxIdentityBar from '../databox/identitybar.view';
 import DirectoryBar from '../databox/directorybar.view';
 import RootDirectoryBarHolder from '../databox/rootdirectorybarholder.view';
-import proxy from '../../utilities/proxy';
+import docproxy from '../../utilities/docproxy';
 const styles = createStyles({
     root: {
         position: 'relative',
@@ -79,19 +79,19 @@ class QuadContextBar extends React.Component {
                 let itemProxy = stacklayer.source.itemProxy;
                 if (itemProxy.liststack.length) { // make list entry
                     let listtoken = itemProxy.listStack[itemProxy.liststack.length - 1];
-                    let listProxy = new proxy(listtoken);
+                    let listProxy = new docproxy(listtoken);
                     let component = <DirectoryBar key={n + 'list'} haspeers={false} listProxy={listProxy} setDocumentListener={this.props.callbacks.setDocumentListener} removeDocumentListener={this.props.callbacks.removeDocumentListener} callDataDrawer={this.props.callDataDrawer} listStack={itemProxy.liststack} collapseDirectoryItem={() => { }} contextitem/>;
                     context.push(<Icon key={n + 'icon'} style={{ opacity: .54 }}>chevron_right</Icon>);
                     context.push(component);
                 }
                 else { // make item entry and root list entry
                     let { itemProxy } = stacklayer.source;
-                    let newItemProxy = new proxy({
+                    let newItemProxy = new docproxy({
                         doctoken: itemProxy.doctoken,
                         liststack: itemProxy.liststack.slice(),
                     });
                     context.push(<BoxIdentityBar key={n + 'item'} itemProxy={newItemProxy} setDocumentListener={this.props.callbacks.setDocumentListener} removeDocumentListener={this.props.callbacks.removeDocumentListener} callDataDrawer={this.props.callDataDrawer} contextitem/>);
-                    let holderItemProxy = new proxy({
+                    let holderItemProxy = new docproxy({
                         doctoken: itemProxy.doctoken,
                         liststack: itemProxy.liststack.slice(),
                     });

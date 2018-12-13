@@ -209,9 +209,10 @@ const removeTypeCacheListener = (typereference, documentreference) => {
     }
 };
 // ===============[ General Utilities ]===============
-const getTokenReference = doctoken => {
-    return `/${doctoken.collection}/${doctoken.id}`;
-};
+// const getTokenReference = doctoken => {
+//     // return `/${doctoken.collection}/${doctoken.id}`
+//     return doctoken.reference
+// }
 const getDocumentPack = reference => {
     let cachedocument = documentcache.get(reference);
     let document = cachedocument ? cachedocument.document : null;
@@ -236,7 +237,7 @@ const properties = {
 // called from component componentDidMount or componentWillUpdate
 const setDocumentListener = (doctoken, instanceid, callback) => {
     setTimeout(() => {
-        let reference = getTokenReference(doctoken);
+        let reference = doctoken.reference; // getTokenReference(doctoken)
         let sentinel = sentinels[instanceid]
             ? sentinels[instanceid][0]
             : undefined;
@@ -268,7 +269,7 @@ const setDocumentListener = (doctoken, instanceid, callback) => {
 };
 // called from component componentWillUnmount
 const removeDocumentListener = (doctoken, instanceid) => {
-    let reference = getTokenReference(doctoken);
+    let reference = doctoken.reference; // getTokenReference(doctoken)
     let sentinel = sentinels[instanceid]
         ? sentinels[instanceid][0]
         : undefined;
