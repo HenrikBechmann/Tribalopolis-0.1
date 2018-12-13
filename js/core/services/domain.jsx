@@ -28,7 +28,8 @@ const queryCollection = ({ reference, whereclauses, success, failure }) => {
     gateway.queryCollection(parm);
 };
 const setDocument = ({ reference, data, success, failure }) => {
-    gateway.setDocument({ reference, data, success, failure });
+    let parm = { reference, data, success, failure };
+    gateway.setDocument(parm);
 };
 const getCollection = ({ reference, success, failure }) => {
     gateway.getCollection({ reference, success, failure });

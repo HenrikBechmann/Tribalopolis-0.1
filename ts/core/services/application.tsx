@@ -30,7 +30,7 @@
 import domain from './domain'
 import merge from 'deepmerge'
 import typefilter from './type.filter'
-import { GetDocumentInterface, GetNewDocumentInterface, QueryCollectionInterface } from './interfaces'
+import { GetDocumentInterface, GetNewDocumentInterface, QueryCollectionInterface, SetDocumentInterface } from './interfaces'
 // ==============[ Internal ]===============
 
 /*
@@ -473,11 +473,12 @@ const queryCollection = ({reference, whereclauses, success, failure}:QueryCollec
     
 }
 
-const setDocument = ({reference, data, success, failure}) => {
+const setDocument = ({reference, data, success, failure}:SetDocumentInterface) => {
 
     // let simpleobject:any = merge({},data) // strip out any extensions; restore as simple object
 
-    domain.setDocument({reference, data, success, failure})
+    let parm:SetDocumentInterface = {reference, data, success, failure}
+    domain.setDocument(parm)
 
 }
 

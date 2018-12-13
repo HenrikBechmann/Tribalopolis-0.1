@@ -19,7 +19,7 @@
 import { schemes, types, items, lists, links, folders, accounts } from '../../data/repositories'
 
 import firebase from './firebase.api'
-import { GetDocumentInterface, GetNewDocumentInterface, QueryCollectionInterface } from './interfaces'
+import { GetDocumentInterface, GetNewDocumentInterface, QueryCollectionInterface, SetDocumentInterface } from './interfaces'
 
 let firestore = firebase.firestore()
 
@@ -123,7 +123,7 @@ const queryCollection = ({reference, whereclauses, success, failure}:QueryCollec
     }) 
 }
 
-const setDocument = ({reference, data, success, failure}) => {
+const setDocument = ({reference, data, success, failure}:SetDocumentInterface) => {
     let doc = firestore.doc(reference)
     doc.set(data)
     .then(()=>{

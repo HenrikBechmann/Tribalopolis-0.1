@@ -30,7 +30,10 @@ export interface QueryCollectionInterface {
 }
 
 export interface SetDocumentInterface {
-
+    reference:string, 
+    data:Object, 
+    success:Function, 
+    failure:Function,
 }
 
 export interface GetCollectionInterface {
