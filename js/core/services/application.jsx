@@ -303,8 +303,8 @@ const setDocument = (reference, data, success, failure) => {
     // let simpleobject:any = merge({},data) // strip out any extensions; restore as simple object
     domain.setDocument(reference, data, success, failure);
 };
-const getCollection = (reference, success, failure) => {
-    domain.getCollection(reference, success, failure);
+const getCollection = ({ reference, success, failure }) => {
+    domain.getCollection({ reference, success, failure });
 };
 let application = {
     properties,

@@ -70,7 +70,11 @@ class BuildDataPane extends React.Component<any,any>  {
             if (!superuser) {
                 toast.info('Data Drawer data is only available to Henrik Bechmann as this time')
             } else {
-                application.getCollection(this.state.specs.collection,this.dataSuccess,this.dataFailure)
+                application.getCollection({
+                    reference:this.state.specs.collection,
+                    success:this.dataSuccess,
+                    failure:this.dataFailure,
+                })
             }
         } else {
             if (superuser) {

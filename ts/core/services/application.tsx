@@ -477,9 +477,9 @@ const setDocument = (reference, data, success, failure) => {
 
 }
 
-const getCollection = (reference, success, failure) => {
+const getCollection = ({reference, success, failure}) => {
 
-    domain.getCollection(reference,success,failure)
+    domain.getCollection({reference,success,failure})
     
 }
 

@@ -131,7 +131,7 @@ const setDocument = (reference, data, success, failure) => {
     .catch((error)=>failure(error))
 }
 
-const getCollection = (reference, success, failure) => {
+const getCollection = ({reference, success, failure}) => {
     let query = firestore.collection(reference)
     query.get()
     .then(querySnapshot => {
