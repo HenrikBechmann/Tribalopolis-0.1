@@ -19,9 +19,9 @@ firebase.auth().onAuthStateChanged((newuser) => {
   if (newuser) {
     // console.log('onAuthStateChanged signed in',newuser)
     login = newuser.providerData[0] // google provider
-    currentUser.getIdToken().then(token =>{
-      idToken = token
-      // console.log('idtoken set',token)
+    currentUser.getIdToken().then(doctoken =>{
+      idToken = doctoken
+      // console.log('idtoken set',doctoken)
     })
     getRedirectResult()
   } else {

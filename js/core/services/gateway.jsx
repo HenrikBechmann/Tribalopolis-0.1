@@ -25,15 +25,15 @@ const setDocumentListener = (reference, callback) => {
     }
     else {
         let refsplit = reference.split('/');
-        let token = { collection: refsplit[1], id: refsplit[2] };
-        if (token.collection == 'lists')
-            data = lists[token.id];
-        else if (token.collection == 'items')
-            data = items[token.id];
-        else if (token.collection == 'types')
-            data = types[token.id];
+        let doctoken = { collection: refsplit[1], id: refsplit[2] };
+        if (doctoken.collection == 'lists')
+            data = lists[doctoken.id];
+        else if (doctoken.collection == 'items')
+            data = items[doctoken.id];
+        else if (doctoken.collection == 'types')
+            data = types[doctoken.id];
         else {
-            console.error('unrecognized collection', token);
+            console.error('unrecognized collection', doctoken);
             data = null;
         }
     }

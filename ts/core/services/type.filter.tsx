@@ -15,7 +15,7 @@ import merge from 'deepmerge'
 import utilities from '../utilities/utilities'
 
 // TODO: test current document version of type against type version
-// returns new json object as possibly modified docpack with changed flag
+// returns new json object as possibly modified document with changed flag
 const assertType = (document, type, forceupdate = false) => {
 
     if ((!document) || (!type) || (!type.properties)) {
@@ -32,7 +32,7 @@ const assertType = (document, type, forceupdate = false) => {
 
     try {
 
-        // make deep local copy of docpack
+        // make deep local copy of document
         let localdocument:any = merge({},document)
         // unpack type data for upgrades
         let {template, defaults, deletions } = type.properties

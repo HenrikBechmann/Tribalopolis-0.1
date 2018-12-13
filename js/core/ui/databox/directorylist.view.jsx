@@ -57,8 +57,8 @@ const DirectoryListBase = withStyles(styles)(class extends React.Component {
         };
         this.generateListProxies = (listDocument) => {
             let listtokens = listDocument.data.lists;
-            let listproxies = listtokens.map((token) => {
-                return new proxy({ token });
+            let listproxies = listtokens.map((doctoken) => {
+                return new proxy({ doctoken });
             });
             return listproxies;
         };
@@ -66,12 +66,12 @@ const DirectoryListBase = withStyles(styles)(class extends React.Component {
             // console.log('updating listproxies')
             let pathMap = this.pathToIndexMap;
             let listtokens = listDocument.data.lists;
-            let listproxies = listtokens.map((token) => {
-                let reference = `/${token.collection}/${token.id}`;
+            let listproxies = listtokens.map((doctoken) => {
+                let reference = `/${doctoken.collection}/${doctoken.id}`;
                 let proxy = oldListProxies[pathMap[reference]];
                 if (!proxy) {
                     // console.log('generating new proxy')
-                    proxy = new proxy({ token });
+                    proxy = new proxy({ doctoken });
                 }
                 return proxy;
             });
@@ -114,9 +114,9 @@ const DirectoryListBase = withStyles(styles)(class extends React.Component {
                 return item.id == id;
             };
         };
-        this.expandDirectoryItem = (token) => {
+        this.expandDirectoryItem = (doctoken) => {
             return (domSource) => {
-                this.props.callbacks.expandDirectoryItem(token, domSource);
+                this.props.callbacks.expandDirectoryItem(doctoken, domSource);
             };
         };
         this.itemRenderer = (index, key) => {
@@ -125,7 +125,7 @@ const DirectoryListBase = withStyles(styles)(class extends React.Component {
         };
         this.getListComponent = (proxy, key, index) => {
             let highlight = (proxy.id === this.state.highlightrefuid);
-            let directorylistitem = <DirectoryListItem key={proxy.instanceid} listProxy={proxy} setDocumentListener={this.props.callbacks.setDocumentListener} removeDocumentListener={this.props.callbacks.removeDocumentListener} expandDirectoryItem={this.expandDirectoryItem(proxy.token)} highlight={highlight} highlightItem={this.props.callbacks.highlightItem}/>;
+            let directorylistitem = <DirectoryListItem key={proxy.instanceid} listProxy={proxy} setDocumentListener={this.props.callbacks.setDocumentListener} removeDocumentListener={this.props.callbacks.removeDocumentListener} expandDirectoryItem={this.expandDirectoryItem(proxy.doctoken)} highlight={highlight} highlightItem={this.props.callbacks.highlightItem}/>;
             return directorylistitem;
         };
         this.listcomponent = this.props.forwardedRef;
@@ -133,7 +133,7 @@ const DirectoryListBase = withStyles(styles)(class extends React.Component {
     componentDidUpdate() {
         if (!this.listProxy && this.props.listProxy) {
             this.listProxy = this.props.listProxy;
-            this.props.callbacks.setDocumentListener(this.listProxy.token, this.listProxy.instanceid, this.cacheListDocument);
+            this.props.callbacks.setDocumentListener(this.listProxy.doctoken, this.listProxy.instanceid, this.cacheListDocument);
         }
         if (this.props.highlightrefuid) {
             this.highlightrefuid = this.props.highlightrefuid;
@@ -146,7 +146,7 @@ const DirectoryListBase = withStyles(styles)(class extends React.Component {
     }
     componentWillUnmount() {
         if (this.listProxy) {
-            this.props.callbacks.removeDocumentListener(this.listProxy.token, this.listProxy.instanceid);
+            this.props.callbacks.removeDocumentListener(this.listProxy.doctoken, this.listProxy.instanceid);
         }
     }
     render() {

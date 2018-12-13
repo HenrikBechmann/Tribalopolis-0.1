@@ -122,7 +122,7 @@ class QuadContextBar extends React.Component<any> {
                 let { itemProxy } = stacklayer.source
                 let newItemProxy = new proxy(
                     {
-                        token:itemProxy.token,
+                        doctoken:itemProxy.doctoken,
                         liststack:itemProxy.liststack.slice(),
                     }
                 )
@@ -137,7 +137,7 @@ class QuadContextBar extends React.Component<any> {
 
                 let holderItemProxy = new proxy(
                     {
-                        token:itemProxy.token,
+                        doctoken:itemProxy.doctoken,
                         liststack:itemProxy.liststack.slice(),
                     }
                 )

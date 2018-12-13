@@ -11,8 +11,9 @@
 */
 /*
     TODO:
+    - switch to setDocumentListener from getDocument
     - use setDocumentListener for user/account to sync with type
-    - upgrade getDocument to getAsyncDocument
+    - upgrade getDocument to getAsyncDocument == 'documentSubscribe'
     - defend against race condition of multiple adjacent async updates:
         sentinel for state, user, account updates
     - handle network failure - system data
@@ -89,7 +90,9 @@ let Main = class Main extends React.Component {
                 this.promises.account.reject = rejectaccount;
             });
         };
-        this.updateUserData = (login) => {
+        // ==============================[ TRIGGER: LOGIN DATA ]=========================================
+        // including login, user, account data
+        this.updateLoginData = (login) => {
             // console.log('update login object',login)
             this.updatinguserdata = true;
             if (login) {
@@ -101,8 +104,8 @@ let Main = class Main extends React.Component {
                 }
                 this.setLoginPromises();
                 let userProviderData = login.providerData[0]; // only google for now
-                this.getUserDocument(userProviderData.uid); // and account document
                 this.getSystemDocument();
+                this.getUserDocument(userProviderData.uid); // and account document
                 Promise.all([this.userPromise, this.accountPromise, this.systemPromise]).then(values => {
                     this.updatinguserdata = false;
                     this.setState({
@@ -145,10 +148,12 @@ let Main = class Main extends React.Component {
                 });
             }
         };
+        // ==============================[ SYSTEM DOCUMENT ]=========================================
         this.getSystemDocument = () => {
             application.getDocument('/system/parameters', this.systemDocumentSuccess, this.systemDocumentFailure);
         };
         this.systemDocumentSuccess = data => {
+            console.log('system from systemDocumentSucess', data);
             if ((!this.state.system) || this.updatinguserdata) {
                 toast.success('setting system data');
                 this.promises.system.resolve(data);
@@ -164,6 +169,7 @@ let Main = class Main extends React.Component {
             toast.error('Unable to get system data (' + error + ')');
             this.promises.system.reject('Unable to get system data (' + error + ')');
         };
+        // ==============================[ USER DOCUMENT ]=========================================
         this.getUserDocument = uid => {
             application.queryCollection('users', [['identity.loginid.uid', '==', uid]], this.userDocumentSuccess, this.userDocumentFailure);
         };
@@ -179,6 +185,7 @@ let Main = class Main extends React.Component {
                 return;
             }
             let user = doclist[0];
+            console.log('user from userDocumentSucess', user);
             if ((!this.state.user) || this.updatinguserdata) {
                 toast.success('setting user record');
                 this.promises.user.resolve(user);
@@ -194,10 +201,12 @@ let Main = class Main extends React.Component {
             toast.error('unable to get user data (' + error + ')');
             this.promises.user.reject('unable to get user data (' + error + ')');
         };
+        // ==============================[ ACCOUNT DOCUMENT ]=========================================
         this.getAccountDocument = reference => {
             application.getDocument(reference, this.userAccountSuccess, this.userAccountFailure);
         };
         this.userAccountSuccess = (document, id) => {
+            console.log('account doc and id from accountDocumentSucess', document, id);
             if (!document) {
                 this.userAccountFailure('unable to get user account document');
                 return;
@@ -221,8 +230,9 @@ let Main = class Main extends React.Component {
             this.promises.account.reject('unable to get account data' + error + ')');
         };
         toast.info('resolving login status...');
-        authapi.setUpdateCallback(this.updateUserData);
+        authapi.setUpdateCallback(this.updateLoginData);
     }
+    // ==============================[ RENDER ]=========================================
     render() {
         let { globalmessage, version, classes } = this.props;
         let { userProviderData, user, account } = this.state;

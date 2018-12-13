@@ -260,8 +260,8 @@ class Quadrant extends React.Component<any,any>  {
                 this.operations.splayBox(index, domSource, listcomponent,listdoctoken)},
             selectFromSplay:(domSource) => {
                 this.operations.selectFromSplay(index,domSource)},
-            expandDirectoryItem:(token, domSource) => {
-                this.operations.expandDirectoryItem(index,token, domSource)},
+            expandDirectoryItem:(doctoken, domSource) => {
+                this.operations.expandDirectoryItem(index,doctoken, domSource)},
             collapseDirectoryItem:this.operations.collapseDirectoryItem,
             setBoxWidth:this.setBoxWidth,
             callDataDrawer:this.callDataDrawer,

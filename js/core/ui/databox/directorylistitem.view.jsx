@@ -63,7 +63,7 @@ class DirectoryListItem extends React.Component {
     componentDidMount() {
         if ((!this.listProxy) && this.props.listProxy) {
             this.listProxy = this.props.listProxy;
-            this.props.setDocumentListener(this.listProxy.token, this.listProxy.instanceid, this.cacheListDocument);
+            this.props.setDocumentListener(this.listProxy.doctoken, this.listProxy.instanceid, this.cacheListDocument);
         }
     }
     componentDidUpdate() {
@@ -73,7 +73,7 @@ class DirectoryListItem extends React.Component {
     }
     componentWillUnmount() {
         if (this.listProxy) {
-            this.props.removeDocumentListener(this.listProxy.token, this.listProxy.instanceid);
+            this.props.removeDocumentListener(this.listProxy.doctoken, this.listProxy.instanceid);
         }
     }
     render() {

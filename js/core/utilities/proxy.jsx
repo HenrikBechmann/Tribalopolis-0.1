@@ -6,17 +6,17 @@ class proxy {
     constructor(data) {
         this.reference = null;
         this.id = null;
-        this.token = null;
+        this.doctoken = null;
         this.instanceid = null;
         this.liststack = null;
         this.settings = {};
-        let token = this.token = data.token;
+        let doctoken = this.doctoken = data.doctoken;
         this.instanceid = serializer.getid();
-        if (token.collection == 'items') {
+        if (doctoken.collection == 'items') {
             this.liststack = data.liststack || [];
         }
-        this.reference = `/${token.collection}/${token.id}`;
-        this.id = token.id;
+        this.reference = `/${doctoken.collection}/${doctoken.id}`;
+        this.id = doctoken.id;
     }
 }
 export default proxy;

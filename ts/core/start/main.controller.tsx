@@ -70,7 +70,7 @@ class Main extends React.Component<any,any> {
 
         super(props)
         toast.info('resolving login status...')
-        authapi.setUpdateCallback(this.updateUserData) 
+        authapi.setUpdateCallback(this.updateLoginData) 
 
     }
 
@@ -81,6 +81,12 @@ class Main extends React.Component<any,any> {
         user:null,
         account:null,
     }
+
+    systemPromise
+    userPromise
+    accountPromise
+
+    updatinguserdata // sentinel
 
     promises = {
         system:{
@@ -96,10 +102,6 @@ class Main extends React.Component<any,any> {
             reject:null,
         },
     }
-
-    systemPromise
-    userPromise
-    accountPromise
 
     setSystemPromise = () => {
 
@@ -132,9 +134,10 @@ class Main extends React.Component<any,any> {
 
     }
 
-    updatinguserdata
+    // ==============================[ TRIGGER: LOGIN DATA ]=========================================
+    // including login, user, account data
 
-    updateUserData = (login) => {
+    updateLoginData = (login) => {
 
         // console.log('update login object',login)
 
@@ -155,8 +158,8 @@ class Main extends React.Component<any,any> {
             this.setLoginPromises() 
 
             let userProviderData = login.providerData[0] // only google for now
-            this.getUserDocument(userProviderData.uid) // and account document
             this.getSystemDocument()
+            this.getUserDocument(userProviderData.uid) // and account document
 
             Promise.all([this.userPromise,this.accountPromise, this.systemPromise]).then(values => {
 
@@ -220,6 +223,8 @@ class Main extends React.Component<any,any> {
 
     }
 
+    // ==============================[ SYSTEM DOCUMENT ]=========================================
+
     getSystemDocument = () => {
 
         application.getDocument('/system/parameters',this.systemDocumentSuccess,this.systemDocumentFailure)
@@ -227,6 +232,8 @@ class Main extends React.Component<any,any> {
     }
 
     systemDocumentSuccess = data => {
+
+        console.log('system from systemDocumentSucess',data)
 
         if ((!this.state.system) || this.updatinguserdata) {
 
@@ -250,6 +257,8 @@ class Main extends React.Component<any,any> {
 
     }
 
+    // ==============================[ USER DOCUMENT ]=========================================
+
     getUserDocument = uid => {
 
         application.queryCollection('users',[['identity.loginid.uid','==',uid]],this.userDocumentSuccess, this.userDocumentFailure)
@@ -271,6 +280,8 @@ class Main extends React.Component<any,any> {
         }
 
         let user = doclist[0]
+
+        console.log('user from userDocumentSucess',user)
 
         if ((!this.state.user) || this.updatinguserdata) {
 
@@ -294,6 +305,8 @@ class Main extends React.Component<any,any> {
 
     }
 
+    // ==============================[ ACCOUNT DOCUMENT ]=========================================
+
     getAccountDocument = reference => {
 
         application.getDocument(reference,this.userAccountSuccess, this.userAccountFailure)
@@ -301,6 +314,8 @@ class Main extends React.Component<any,any> {
     }
 
     userAccountSuccess = (document,id) => {
+
+        console.log('account doc and id from accountDocumentSucess',document, id)
 
         if (!document) {
 
@@ -335,6 +350,8 @@ class Main extends React.Component<any,any> {
         this.promises.account.reject('unable to get account data' + error + ')')
 
     }
+
+    // ==============================[ RENDER ]=========================================
 
     render() {
 

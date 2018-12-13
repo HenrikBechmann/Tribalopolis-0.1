@@ -219,7 +219,7 @@ const processDocumentCallbacks = (reference, reason) => {
 
         }
 
-        let listeners = documentcacheitem.listeners
+        let { listeners } = documentcacheitem
 
         listeners.forEach((callback,key) => {
 
@@ -315,9 +315,9 @@ const removeTypeCacheListener = (typereference, documentreference) => {
 
 // ===============[ General Utilities ]===============
 
-const getTokenReference = token => {
+const getTokenReference = doctoken => {
 
-    return `/${token.collection}/${token.id}`
+    return `/${doctoken.collection}/${doctoken.id}`
 
 }
 
@@ -358,11 +358,11 @@ const properties = {
 }
 
 // called from component componentDidMount or componentWillUpdate
-const setDocumentListener = (token,instanceid,callback) => {
+const setDocumentListener = (doctoken,instanceid,callback) => {
 
     setTimeout(()=>{ // give animations a chance to run
 
-        let reference = getTokenReference(token)
+        let reference = getTokenReference(doctoken)
 
         let sentinel = 
             sentinels[instanceid]
@@ -414,9 +414,9 @@ const setDocumentListener = (token,instanceid,callback) => {
 }
 
 // called from component componentWillUnmount
-const removeDocumentListener = (token, instanceid) => {
+const removeDocumentListener = (doctoken, instanceid) => {
 
-    let reference = getTokenReference(token)
+    let reference = getTokenReference(doctoken)
 
     let sentinel = 
         sentinels[instanceid]

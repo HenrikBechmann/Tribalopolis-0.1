@@ -10,7 +10,7 @@ import deepdiff from 'deep-diff';
 import merge from 'deepmerge';
 import utilities from '../utilities/utilities';
 // TODO: test current document version of type against type version
-// returns new json object as possibly modified docpack with changed flag
+// returns new json object as possibly modified document with changed flag
 const assertType = (document, type, forceupdate = false) => {
     if ((!document) || (!type) || (!type.properties)) {
         // console.log('return without change assertType')
@@ -23,7 +23,7 @@ const assertType = (document, type, forceupdate = false) => {
     // check versions to see if an update is required; return if not
     // if forceupdate is true then continue in any case
     try {
-        // make deep local copy of docpack
+        // make deep local copy of document
         let localdocument = merge({}, document);
         // unpack type data for upgrades
         let { template, defaults, deletions } = type.properties;

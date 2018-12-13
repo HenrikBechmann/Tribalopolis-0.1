@@ -87,12 +87,12 @@ class QuadContextBar extends React.Component {
                 else { // make item entry and root list entry
                     let { itemProxy } = stacklayer.source;
                     let newItemProxy = new proxy({
-                        token: itemProxy.token,
+                        doctoken: itemProxy.doctoken,
                         liststack: itemProxy.liststack.slice(),
                     });
                     context.push(<BoxIdentityBar key={n + 'item'} itemProxy={newItemProxy} setDocumentListener={this.props.callbacks.setDocumentListener} removeDocumentListener={this.props.callbacks.removeDocumentListener} callDataDrawer={this.props.callDataDrawer} contextitem/>);
                     let holderItemProxy = new proxy({
-                        token: itemProxy.token,
+                        doctoken: itemProxy.doctoken,
                         liststack: itemProxy.liststack.slice(),
                     });
                     let component = <RootDirectoryBarHolder key={n + 'list'} itemProxy={holderItemProxy} setDocumentListener={this.props.callbacks.setDocumentListener} removeDocumentListener={this.props.callbacks.removeDocumentListener} callDataDrawer={this.props.callDataDrawer}/>;

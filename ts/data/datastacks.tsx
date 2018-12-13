@@ -9,7 +9,7 @@ let datastacks = [ // four quadrant stacks
         { // each quadrant stack layer
             items:[ // items in the stack layer
                 new proxy(
-                    {token:{
+                    {doctoken:{
                         collection:'items',
                         id:'henrik',
                     }}),
@@ -23,7 +23,7 @@ let datastacks = [ // four quadrant stacks
         {
             items:[
                 // new proxy(
-                //     {token:{
+                //     {doctoken:{
                 //         collection:'items',
                 //         id:'henrik',
                 //     }}),
@@ -34,7 +34,7 @@ let datastacks = [ // four quadrant stacks
             },
             defaultitems:[
                 new proxy(
-                    {token:{
+                    {doctoken:{
                         collection:'items',
                         id:'henrik',
                     }}),
@@ -45,7 +45,7 @@ let datastacks = [ // four quadrant stacks
         {
             items:[
                 // new proxy(
-                //     {token:{
+                //     {doctoken:{
                 //         collection:'items',
                 //         id:'henrik',
                 //     }}),
@@ -57,7 +57,7 @@ let datastacks = [ // four quadrant stacks
             },
             defaultitems:[
                 new proxy(
-                    {token:{
+                    {doctoken:{
                         collection:'items',
                         id:'henrik',
                     }}),
@@ -68,7 +68,7 @@ let datastacks = [ // four quadrant stacks
         {
             items:[
                 // new proxy(
-                //     {token:{
+                //     {doctoken:{
                 //         collection:'items',
                 //         id:'henrik',
                 //     }}),
@@ -80,7 +80,7 @@ let datastacks = [ // four quadrant stacks
             },
             defaultitems:[
                 new proxy(
-                    {token:{
+                    {doctoken:{
                         collection:'items',
                         id:'henrik',
                     }}),

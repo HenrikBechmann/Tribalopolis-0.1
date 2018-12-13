@@ -151,7 +151,7 @@ const processDocumentCallbacks = (reference, reason) => {
             document = result.document;
             // update source; wait for response
         }
-        let listeners = documentcacheitem.listeners;
+        let { listeners } = documentcacheitem;
         listeners.forEach((callback, key) => {
             let slist = sentinels[key];
             if (slist && ((slist[slist.length - 1]) === false)) {
@@ -209,8 +209,8 @@ const removeTypeCacheListener = (typereference, documentreference) => {
     }
 };
 // ===============[ General Utilities ]===============
-const getTokenReference = token => {
-    return `/${token.collection}/${token.id}`;
+const getTokenReference = doctoken => {
+    return `/${doctoken.collection}/${doctoken.id}`;
 };
 const getDocumentPack = reference => {
     let cachedocument = documentcache.get(reference);
@@ -234,9 +234,9 @@ const properties = {
     ismobile: /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)
 };
 // called from component componentDidMount or componentWillUpdate
-const setDocumentListener = (token, instanceid, callback) => {
+const setDocumentListener = (doctoken, instanceid, callback) => {
     setTimeout(() => {
-        let reference = getTokenReference(token);
+        let reference = getTokenReference(doctoken);
         let sentinel = sentinels[instanceid]
             ? sentinels[instanceid][0]
             : undefined;
@@ -267,8 +267,8 @@ const setDocumentListener = (token, instanceid, callback) => {
     });
 };
 // called from component componentWillUnmount
-const removeDocumentListener = (token, instanceid) => {
-    let reference = getTokenReference(token);
+const removeDocumentListener = (doctoken, instanceid) => {
+    let reference = getTokenReference(doctoken);
     let sentinel = sentinels[instanceid]
         ? sentinels[instanceid][0]
         : undefined;

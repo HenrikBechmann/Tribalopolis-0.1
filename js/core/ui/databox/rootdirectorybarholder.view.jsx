@@ -24,7 +24,7 @@ class RootDirectoryBarHolder extends React.Component {
             if (!this.itemProxy && this.props.itemProxy) {
                 // console.log('asserting listener')
                 this.itemProxy = this.props.itemProxy;
-                this.props.setDocumentListener(this.itemProxy.token, this.itemProxy.instanceid, this.cacheItemDocument);
+                this.props.setDocumentListener(this.itemProxy.doctoken, this.itemProxy.instanceid, this.cacheItemDocument);
             }
         };
         this.cacheItemDocument = (document, type, change) => {
@@ -45,7 +45,7 @@ class RootDirectoryBarHolder extends React.Component {
     }
     componentWillUnmount() {
         if (this.itemProxy) {
-            this.props.removeDocumentListener(this.itemProxy.token, this.itemProxy.instanceid);
+            this.props.removeDocumentListener(this.itemProxy.doctoken, this.itemProxy.instanceid);
         }
     }
     render() {
@@ -57,7 +57,7 @@ class RootDirectoryBarHolder extends React.Component {
                 collection: 'lists',
                 id: this.state.item.document.references.list,
             };
-            listProxy = new proxy({ token: listtoken });
+            listProxy = new proxy({ doctoken: listtoken });
         }
         return (this.state.item ?
             <DirectoryBar haspeers={false} listProxy={listProxy} setDocumentListener={this.props.setDocumentListener} removeDocumentListener={this.props.removeDocumentListener} callDataDrawer={this.props.callDataDrawer} listStack={this.itemProxy.liststack} collapseDirectoryItem={() => { }} contextitem/>

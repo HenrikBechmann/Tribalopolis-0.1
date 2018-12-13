@@ -100,7 +100,7 @@ class DataBox extends React.Component<any,any> {
         this.itemProxy = this.props.itemProxy
         this.identityItemProxy = new proxy(
             {
-                token:this.itemProxy.token,
+                doctoken:this.itemProxy.doctoken,
                 liststack:this.itemProxy.liststack.slice()
             }
         )
@@ -128,7 +128,7 @@ class DataBox extends React.Component<any,any> {
         // console.log('did mount',this.itemProxy?this.itemProxy.instanceid:'no item')
         let { itemProxy } = this
         this.props.callbacks.setDocumentListener(
-            itemProxy.token, itemProxy.instanceid,this.cacheItemData
+            itemProxy.doctoken, itemProxy.instanceid,this.cacheItemData
         )
     }
 
@@ -162,11 +162,11 @@ class DataBox extends React.Component<any,any> {
         // console.log('unmounting',this.itemProxy.instanceid)
         let { itemProxy } = this
         this.props.callbacks.removeDocumentListener(
-            itemProxy.token, itemProxy.instanceid
+            itemProxy.doctoken, itemProxy.instanceid
         )
     }
 
-    cacheItemData = ( document, type, change) => {
+    cacheItemData = ( document, type, changedata) => {
 
         this.setState({
             item:{
@@ -187,9 +187,9 @@ class DataBox extends React.Component<any,any> {
                     }
                 }
                 this.setState({
-                    MainlistProxy: new proxy({token:listdoctoken}),
-                    BarlistProxy: new proxy({token:listdoctoken}),
-                    TypelistProxy: new proxy({token:listdoctoken}),
+                    MainlistProxy: new proxy({doctoken:listdoctoken}),
+                    BarlistProxy: new proxy({doctoken:listdoctoken}),
+                    TypelistProxy: new proxy({doctoken:listdoctoken}),
                 })
 
             }
@@ -204,15 +204,15 @@ class DataBox extends React.Component<any,any> {
         if (collapseTargetProxy.action == 'expand' || 
             collapseTargetProxy.action == 'splay') {
 
-            let token = 
+            let doctoken = 
                 collapseTargetProxy.liststack[
                     collapseTargetProxy.liststack.length -1]
 
-            if (token) {
+            if (doctoken) {
 
                 setTimeout(()=>{
                     this.setState({
-                        highlightrefuid:token.id,
+                        highlightrefuid:doctoken.id,
                     },() => {
                         this.setState({
                             highlightrefuid:null
@@ -296,28 +296,15 @@ class DataBox extends React.Component<any,any> {
             float: haspeers
                 ?'left'
                 :'none',
-            // try (unsuccessfully) to migigate FF mobile scroll problem
-            // display: haspeers
-            //     ?'inline-block'
-            //     :'block',
-            // left: haspeers
-            //     ?'auto'
-            //     :'-20px',
             padding: haspeers
                 ?'16px 40px 16px 16px'
                 :'16px',
-            // margin: haspeers
-            //     ?'16px 0'
-            //     :'inherit',
         }
 
         let frameStyle:React.CSSProperties = {
             border: this.collapseTargetProxy
                 ?'1px solid blue'
                 :'1px solid silver',
-            // width: haspeers
-            //     ?'none'
-            //     :(this.props.boxwidth) + 'px',
             width:(this.props.boxwidth) + 'px',
             margin: haspeers
                 ?'0'

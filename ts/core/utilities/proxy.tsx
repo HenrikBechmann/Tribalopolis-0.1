@@ -5,18 +5,18 @@
 import {serializer} from './serializer'
 
 class proxy {
-    constructor(data:{token:any,liststack?:any}) {
-        let token = this.token = data.token
+    constructor(data:{doctoken:any,liststack?:any}) {
+        let doctoken = this.doctoken = data.doctoken
         this.instanceid = serializer.getid()
-        if (token.collection == 'items') {
+        if (doctoken.collection == 'items') {
             this.liststack = data.liststack || []
         }
-        this.reference = `/${token.collection}/${token.id}`
-        this.id = token.id
+        this.reference = `/${doctoken.collection}/${doctoken.id}`
+        this.id = doctoken.id
     }
     reference = null
     id = null
-    token = null
+    doctoken = null
     instanceid = null
     liststack = null
     settings = {}

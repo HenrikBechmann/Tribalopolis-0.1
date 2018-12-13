@@ -6,7 +6,7 @@ let datastacks = [
     [
         {
             items: [
-                new proxy({ token: {
+                new proxy({ doctoken: {
                         collection: 'items',
                         id: 'henrik',
                     } }),
@@ -19,7 +19,7 @@ let datastacks = [
         {
             items: [
             // new proxy(
-            //     {token:{
+            //     {doctoken:{
             //         collection:'items',
             //         id:'henrik',
             //     }}),
@@ -27,7 +27,7 @@ let datastacks = [
             source: {},
             settings: {},
             defaultitems: [
-                new proxy({ token: {
+                new proxy({ doctoken: {
                         collection: 'items',
                         id: 'henrik',
                     } }),
@@ -38,7 +38,7 @@ let datastacks = [
         {
             items: [
             // new proxy(
-            //     {token:{
+            //     {doctoken:{
             //         collection:'items',
             //         id:'henrik',
             //     }}),
@@ -46,7 +46,7 @@ let datastacks = [
             source: {},
             settings: {},
             defaultitems: [
-                new proxy({ token: {
+                new proxy({ doctoken: {
                         collection: 'items',
                         id: 'henrik',
                     } }),
@@ -57,7 +57,7 @@ let datastacks = [
         {
             items: [
             // new proxy(
-            //     {token:{
+            //     {doctoken:{
             //         collection:'items',
             //         id:'henrik',
             //     }}),
@@ -65,7 +65,7 @@ let datastacks = [
             source: {},
             settings: {},
             defaultitems: [
-                new proxy({ token: {
+                new proxy({ doctoken: {
                         collection: 'items',
                         id: 'henrik',
                     } }),

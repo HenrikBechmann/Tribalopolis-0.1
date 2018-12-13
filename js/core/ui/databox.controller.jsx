@@ -83,7 +83,7 @@ class DataBox extends React.Component {
             BarlistProxy: null,
             TypelistProxy: null,
         };
-        this.cacheItemData = (document, type, change) => {
+        this.cacheItemData = (document, type, changedata) => {
             this.setState({
                 item: {
                     document,
@@ -102,9 +102,9 @@ class DataBox extends React.Component {
                         };
                     }
                     this.setState({
-                        MainlistProxy: new proxy({ token: listdoctoken }),
-                        BarlistProxy: new proxy({ token: listdoctoken }),
-                        TypelistProxy: new proxy({ token: listdoctoken }),
+                        MainlistProxy: new proxy({ doctoken: listdoctoken }),
+                        BarlistProxy: new proxy({ doctoken: listdoctoken }),
+                        TypelistProxy: new proxy({ doctoken: listdoctoken }),
                     });
                 }
             });
@@ -113,11 +113,11 @@ class DataBox extends React.Component {
             this.props.callbacks.highlightBox({ boxElement: this.boxframe.current });
             if (collapseTargetProxy.action == 'expand' ||
                 collapseTargetProxy.action == 'splay') {
-                let token = collapseTargetProxy.liststack[collapseTargetProxy.liststack.length - 1];
-                if (token) {
+                let doctoken = collapseTargetProxy.liststack[collapseTargetProxy.liststack.length - 1];
+                if (doctoken) {
                     setTimeout(() => {
                         this.setState({
-                            highlightrefuid: token.id,
+                            highlightrefuid: doctoken.id,
                         }, () => {
                             this.setState({
                                 highlightrefuid: null
@@ -165,14 +165,14 @@ class DataBox extends React.Component {
         this.listcomponent = React.createRef();
         this.itemProxy = this.props.itemProxy;
         this.identityItemProxy = new proxy({
-            token: this.itemProxy.token,
+            doctoken: this.itemProxy.doctoken,
             liststack: this.itemProxy.liststack.slice()
         });
     }
     componentDidMount() {
         // console.log('did mount',this.itemProxy?this.itemProxy.instanceid:'no item')
         let { itemProxy } = this;
-        this.props.callbacks.setDocumentListener(itemProxy.token, itemProxy.instanceid, this.cacheItemData);
+        this.props.callbacks.setDocumentListener(itemProxy.doctoken, itemProxy.instanceid, this.cacheItemData);
     }
     componentDidUpdate() {
         let { collapseTargetProxy } = this.props; // gets set then cancelled by parent
@@ -198,7 +198,7 @@ class DataBox extends React.Component {
         // unsubscribe data
         // console.log('unmounting',this.itemProxy.instanceid)
         let { itemProxy } = this;
-        this.props.callbacks.removeDocumentListener(itemProxy.token, itemProxy.instanceid);
+        this.props.callbacks.removeDocumentListener(itemProxy.doctoken, itemProxy.instanceid);
     }
     render() {
         let { haspeers, classes, containerHeight } = this.props;
@@ -218,13 +218,6 @@ class DataBox extends React.Component {
             float: haspeers
                 ? 'left'
                 : 'none',
-            // try (unsuccessfully) to migigate FF mobile scroll problem
-            // display: haspeers
-            //     ?'inline-block'
-            //     :'block',
-            // left: haspeers
-            //     ?'auto'
-            //     :'-20px',
             padding: haspeers
                 ? '16px 40px 16px 16px'
                 : '16px',
@@ -233,9 +226,6 @@ class DataBox extends React.Component {
             border: this.collapseTargetProxy
                 ? '1px solid blue'
                 : '1px solid silver',
-            // width: haspeers
-            //     ?'none'
-            //     :(this.props.boxwidth) + 'px',
             width: (this.props.boxwidth) + 'px',
             margin: haspeers
                 ? '0'

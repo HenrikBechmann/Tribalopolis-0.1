@@ -62,7 +62,7 @@ class extends React.Component<any,any> {
         if (!this.listProxy && this.props.listProxy) {
             this.listProxy = this.props.listProxy
             this.props.callbacks.setDocumentListener(
-                this.listProxy.token,this.listProxy.instanceid,this.cacheListDocument)
+                this.listProxy.doctoken,this.listProxy.instanceid,this.cacheListDocument)
         }
 
         if (this.props.highlightrefuid) {
@@ -81,7 +81,7 @@ class extends React.Component<any,any> {
     componentWillUnmount() {
         if (this.listProxy) {
             this.props.callbacks.removeDocumentListener(
-                this.listProxy.token,this.listProxy.instanceid)
+                this.listProxy.doctoken,this.listProxy.instanceid)
         }        
     }
 
@@ -105,8 +105,8 @@ class extends React.Component<any,any> {
 
     generateListProxies = (listDocument) => {
         let listtokens = listDocument.data.lists
-        let listproxies = listtokens.map((token) => {
-            return new proxy({token})
+        let listproxies = listtokens.map((doctoken) => {
+            return new proxy({doctoken})
         })
         return listproxies
     }
@@ -115,12 +115,12 @@ class extends React.Component<any,any> {
         // console.log('updating listproxies')
         let pathMap = this.pathToIndexMap
         let listtokens = listDocument.data.lists
-        let listproxies = listtokens.map((token) => {
-            let reference = `/${token.collection}/${token.id}`
+        let listproxies = listtokens.map((doctoken) => {
+            let reference = `/${doctoken.collection}/${doctoken.id}`
             let proxy = oldListProxies[pathMap[reference]]
             if (!proxy) {
                 // console.log('generating new proxy')
-                proxy = new proxy({token})
+                proxy = new proxy({doctoken})
             }
             return proxy
         })
@@ -170,9 +170,9 @@ class extends React.Component<any,any> {
 
     }
 
-    expandDirectoryItem = (token) => {
+    expandDirectoryItem = (doctoken) => {
         return (domSource) => {
-            this.props.callbacks.expandDirectoryItem(token, domSource)
+            this.props.callbacks.expandDirectoryItem(doctoken, domSource)
         }
     }
 
@@ -190,7 +190,7 @@ class extends React.Component<any,any> {
                 listProxy = {proxy} 
                 setDocumentListener = {this.props.callbacks.setDocumentListener}
                 removeDocumentListener = {this.props.callbacks.removeDocumentListener}
-                expandDirectoryItem = {this.expandDirectoryItem(proxy.token)}
+                expandDirectoryItem = {this.expandDirectoryItem(proxy.doctoken)}
                 highlight = {highlight}
                 highlightItem = {this.props.callbacks.highlightItem}
             />
