@@ -23,7 +23,10 @@ export interface GetNewDocumentInterface {
 }
 
 export interface QueryCollectionInterface {
-
+    reference:string, 
+    whereclauses:Array<any>, 
+    success:Function, 
+    failure:Function,
 }
 
 export interface SetDocumentInterface {

@@ -24,7 +24,8 @@ const getNewDocument = ({ reference, callback, errorback }) => {
     gateway.getNewDocument(parm);
 };
 const queryCollection = ({ reference, whereclauses, success, failure }) => {
-    gateway.queryCollection({ reference, whereclauses, success, failure });
+    let parm = { reference, whereclauses, success, failure };
+    gateway.queryCollection(parm);
 };
 const setDocument = ({ reference, data, success, failure }) => {
     gateway.setDocument({ reference, data, success, failure });

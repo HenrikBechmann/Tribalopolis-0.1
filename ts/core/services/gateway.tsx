@@ -19,7 +19,7 @@
 import { schemes, types, items, lists, links, folders, accounts } from '../../data/repositories'
 
 import firebase from './firebase.api'
-import { GetDocumentInterface, GetNewDocumentInterface } from './interfaces'
+import { GetDocumentInterface, GetNewDocumentInterface, QueryCollectionInterface } from './interfaces'
 
 let firestore = firebase.firestore()
 
@@ -94,7 +94,7 @@ const getNewDocument = ({reference, callback, errorback}:GetNewDocumentInterface
     })
 }
 
-const queryCollection = ({reference, whereclauses, success, failure}) => {
+const queryCollection = ({reference, whereclauses, success, failure}:QueryCollectionInterface) => {
 
     if ((!whereclauses) || (whereclauses.length == 0)) {
         failure('no where clauses defined for query')

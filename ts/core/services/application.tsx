@@ -30,7 +30,7 @@
 import domain from './domain'
 import merge from 'deepmerge'
 import typefilter from './type.filter'
-import { GetDocumentInterface, GetNewDocumentInterface } from './interfaces'
+import { GetDocumentInterface, GetNewDocumentInterface, QueryCollectionInterface } from './interfaces'
 // ==============[ Internal ]===============
 
 /*
@@ -466,9 +466,10 @@ const getNewDocument = ({reference, callback, errorback}:GetNewDocumentInterface
 
 }
 
-const queryCollection = ({reference, whereclauses, success, failure}) => {
+const queryCollection = ({reference, whereclauses, success, failure}:QueryCollectionInterface) => {
 
-    domain.queryCollection({reference, whereclauses, success, failure})
+    let parm:QueryCollectionInterface = {reference, whereclauses, success, failure}
+    domain.queryCollection(parm)
     
 }
 

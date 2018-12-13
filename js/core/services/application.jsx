@@ -299,7 +299,8 @@ const getNewDocument = ({ reference, callback, errorback }) => {
     domain.getNewDocument(parm);
 };
 const queryCollection = ({ reference, whereclauses, success, failure }) => {
-    domain.queryCollection({ reference, whereclauses, success, failure });
+    let parm = { reference, whereclauses, success, failure };
+    domain.queryCollection(parm);
 };
 const setDocument = ({ reference, data, success, failure }) => {
     // let simpleobject:any = merge({},data) // strip out any extensions; restore as simple object
