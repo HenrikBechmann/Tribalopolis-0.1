@@ -14,6 +14,8 @@ import ListItemText from '@material-ui/core/ListItemText'
 import application from '../../services/application'
 import { toast } from 'react-toastify'
 
+import { GetCollectionInterface } from '../../services/interfaces'
+
 let _ = require('lodash')
 
 const styles = createStyles({
@@ -70,11 +72,12 @@ class BuildDataPane extends React.Component<any,any>  {
             if (!superuser) {
                 toast.info('Data Drawer data is only available to Henrik Bechmann as this time')
             } else {
-                application.getCollection({
+                let parm:GetCollectionInterface = {
                     reference:this.state.specs.collection,
                     success:this.dataSuccess,
                     failure:this.dataFailure,
-                })
+                }
+                application.getCollection(parm)
             }
         } else {
             if (superuser) {

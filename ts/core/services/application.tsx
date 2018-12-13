@@ -30,7 +30,13 @@
 import domain from './domain'
 import merge from 'deepmerge'
 import typefilter from './type.filter'
-import { GetDocumentInterface, GetNewDocumentInterface, QueryCollectionInterface, SetDocumentInterface } from './interfaces'
+import { 
+    GetDocumentInterface, 
+    GetNewDocumentInterface, 
+    QueryCollectionInterface, 
+    SetDocumentInterface, 
+    GetCollectionInterface 
+} from './interfaces'
 // ==============[ Internal ]===============
 
 /*
@@ -482,9 +488,10 @@ const setDocument = ({reference, data, success, failure}:SetDocumentInterface) =
 
 }
 
-const getCollection = ({reference, success, failure}) => {
+const getCollection = ({reference, success, failure}:GetCollectionInterface) => {
 
-    domain.getCollection({reference,success,failure})
+    let parm:GetCollectionInterface = {reference,success,failure}
+    domain.getCollection(parm)
     
 }
 

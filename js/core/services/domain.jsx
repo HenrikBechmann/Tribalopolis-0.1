@@ -32,7 +32,8 @@ const setDocument = ({ reference, data, success, failure }) => {
     gateway.setDocument(parm);
 };
 const getCollection = ({ reference, success, failure }) => {
-    gateway.getCollection({ reference, success, failure });
+    let parm = { reference, success, failure };
+    gateway.getCollection(parm);
 };
 let domain = {
     setDocumentListener,

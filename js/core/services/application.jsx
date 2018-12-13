@@ -308,7 +308,8 @@ const setDocument = ({ reference, data, success, failure }) => {
     domain.setDocument(parm);
 };
 const getCollection = ({ reference, success, failure }) => {
-    domain.getCollection({ reference, success, failure });
+    let parm = { reference, success, failure };
+    domain.getCollection(parm);
 };
 let application = {
     properties,

@@ -43,11 +43,12 @@ class BuildDataPane extends React.Component {
                     toast.info('Data Drawer data is only available to Henrik Bechmann as this time');
                 }
                 else {
-                    application.getCollection({
+                    let parm = {
                         reference: this.state.specs.collection,
                         success: this.dataSuccess,
                         failure: this.dataFailure,
-                    });
+                    };
+                    application.getCollection(parm);
                 }
             }
             else {

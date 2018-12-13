@@ -37,5 +37,7 @@ export interface SetDocumentInterface {
 }
 
 export interface GetCollectionInterface {
-
+    reference:string, 
+    success:Function, 
+    failure:Function,
 }
