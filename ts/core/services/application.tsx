@@ -469,11 +469,11 @@ const queryCollection = (collection, whereclauses, success, failure) => {
     
 }
 
-const setDocument = (reference, data, success, failure) => {
+const setDocument = ({reference, data, success, failure}) => {
 
     // let simpleobject:any = merge({},data) // strip out any extensions; restore as simple object
 
-    domain.setDocument(reference, data, success, failure)
+    domain.setDocument({reference, data, success, failure})
 
 }
 

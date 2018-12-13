@@ -184,7 +184,12 @@ class BuildController extends React.Component {
         // =================[ post ]==========================
         this.postObject = () => {
             if (confirm('Post this object?')) {
-                application.setDocument(`/${this.state.values.collection}/${this.state.values.id}`, this.latestjson, this.postSuccessCallback, this.postFailureCallback);
+                application.setDocument({
+                    reference: `/${this.state.values.collection}/${this.state.values.id}`,
+                    data: this.latestjson,
+                    success: this.postSuccessCallback,
+                    failure: this.postFailureCallback,
+                });
             }
         };
         this.postSuccessCallback = () => {

@@ -122,7 +122,7 @@ const queryCollection = (reference, whereclauses, success, failure) => {
     }) 
 }
 
-const setDocument = (reference, data, success, failure) => {
+const setDocument = ({reference, data, success, failure}) => {
     let doc = firestore.doc(reference)
     doc.set(data)
     .then(()=>{
