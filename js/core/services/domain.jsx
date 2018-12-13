@@ -16,10 +16,12 @@ const removeDocumentListener = (reference) => {
     gateway.removeDocumentListener(reference);
 };
 const getDocument = ({ reference, callback, errorback }) => {
-    gateway.getDocument({ reference, callback, errorback });
+    let parm = { reference, callback, errorback };
+    gateway.getDocument(parm);
 };
 const getNewDocument = ({ reference, callback, errorback }) => {
-    gateway.getNewDocument({ reference, callback, errorback });
+    let parm = { reference, callback, errorback };
+    gateway.getNewDocument(parm);
 };
 const queryCollection = ({ reference, whereclauses, success, failure }) => {
     gateway.queryCollection({ reference, whereclauses, success, failure });

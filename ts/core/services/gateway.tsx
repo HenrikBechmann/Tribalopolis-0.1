@@ -19,7 +19,7 @@
 import { schemes, types, items, lists, links, folders, accounts } from '../../data/repositories'
 
 import firebase from './firebase.api'
-import { GetDocumentInterface } from './interfaces'
+import { GetDocumentInterface, GetNewDocumentInterface } from './interfaces'
 
 let firestore = firebase.firestore()
 
@@ -79,7 +79,7 @@ const getDocument = ({reference, callback, errorback}:GetDocumentInterface) => {
     
 }
 
-const getNewDocument = ({reference, callback, errorback}) => {
+const getNewDocument = ({reference, callback, errorback}:GetNewDocumentInterface) => {
     // console.log('getting document',reference)
     let docref = firestore.collection(reference).doc()
     docref.get()

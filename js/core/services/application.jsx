@@ -291,10 +291,12 @@ const removeDocumentListener = (doctoken, instanceid) => {
 };
 const getDocument = ({ reference, callback, errorback }) => {
     // console.log('application.getDocument',reference)
-    domain.getDocument({ reference, callback, errorback });
+    let parm = { reference, callback, errorback };
+    domain.getDocument(parm);
 };
 const getNewDocument = ({ reference, callback, errorback }) => {
-    domain.getNewDocument({ reference, callback, errorback });
+    let parm = { reference, callback, errorback };
+    domain.getNewDocument(parm);
 };
 const queryCollection = ({ reference, whereclauses, success, failure }) => {
     domain.queryCollection({ reference, whereclauses, success, failure });

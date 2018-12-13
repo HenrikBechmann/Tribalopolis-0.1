@@ -17,7 +17,9 @@ export interface GetDocumentInterface {
 }
 
 export interface GetNewDocumentInterface {
-
+    reference:string,
+    callback:Function, 
+    errorback:Function,
 }
 
 export interface QueryCollectionInterface {

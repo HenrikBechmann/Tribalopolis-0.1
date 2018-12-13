@@ -30,7 +30,7 @@
 import domain from './domain'
 import merge from 'deepmerge'
 import typefilter from './type.filter'
-import { GetDocumentInterface } from './interfaces'
+import { GetDocumentInterface, GetNewDocumentInterface } from './interfaces'
 // ==============[ Internal ]===============
 
 /*
@@ -454,13 +454,15 @@ const removeDocumentListener = (doctoken, instanceid) => {
 const getDocument = ({reference, callback, errorback}:GetDocumentInterface) => {
 
     // console.log('application.getDocument',reference)
-    domain.getDocument({reference, callback, errorback})
+    let parm:GetDocumentInterface = {reference, callback, errorback}
+    domain.getDocument(parm)
 
 }
 
-const getNewDocument = ({reference, callback, errorback}) => {
+const getNewDocument = ({reference, callback, errorback}:GetNewDocumentInterface) => {
 
-    domain.getNewDocument({reference, callback, errorback})
+    let parm:GetNewDocumentInterface = {reference, callback, errorback}
+    domain.getNewDocument(parm)
 
 }
 

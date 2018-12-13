@@ -12,7 +12,7 @@
 'use strict'
 
 import gateway from './gateway'
-import { GetDocumentInterface } from './interfaces'
+import { GetDocumentInterface, GetNewDocumentInterface } from './interfaces'
 
 const setDocumentListener = (reference, processDocumentCallbackFromGateway) => {
 
@@ -28,13 +28,15 @@ const removeDocumentListener =  (reference) => {
 
 const getDocument = ({reference, callback, errorback}:GetDocumentInterface) => {
 
-    gateway.getDocument({reference, callback, errorback})
+    let parm:GetDocumentInterface = {reference, callback, errorback}
+    gateway.getDocument(parm)
 
 }
 
-const getNewDocument = ({reference, callback, errorback}) => {
+const getNewDocument = ({reference, callback, errorback}:GetNewDocumentInterface) => {
 
-    gateway.getNewDocument({reference, callback, errorback})
+    let parm:GetNewDocumentInterface = {reference, callback, errorback}
+    gateway.getNewDocument(parm)
 
 }
 
