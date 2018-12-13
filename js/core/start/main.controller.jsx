@@ -150,7 +150,12 @@ let Main = class Main extends React.Component {
         };
         // ==============================[ SYSTEM DOCUMENT ]=========================================
         this.getSystemDocument = () => {
-            application.getDocument('/system/parameters', this.systemDocumentSuccess, this.systemDocumentFailure);
+            let parm = {
+                reference: '/system/parameters',
+                callback: this.systemDocumentSuccess,
+                errorback: this.systemDocumentFailure,
+            };
+            application.getDocument(parm);
         };
         this.systemDocumentSuccess = data => {
             console.log('system from systemDocumentSucess', data);
@@ -171,7 +176,12 @@ let Main = class Main extends React.Component {
         };
         // ==============================[ USER DOCUMENT ]=========================================
         this.getUserDocument = uid => {
-            application.queryCollection('users', [['identity.loginid.uid', '==', uid]], this.userDocumentSuccess, this.userDocumentFailure);
+            application.queryCollection({
+                reference: 'users',
+                whereclauses: [['identity.loginid.uid', '==', uid]],
+                success: this.userDocumentSuccess,
+                failure: this.userDocumentFailure,
+            });
         };
         this.userDocumentSuccess = doclist => {
             // console.log('doclist from userdoc',doclist)
@@ -203,7 +213,12 @@ let Main = class Main extends React.Component {
         };
         // ==============================[ ACCOUNT DOCUMENT ]=========================================
         this.getAccountDocument = reference => {
-            application.getDocument(reference, this.userAccountSuccess, this.userAccountFailure);
+            let parm = {
+                reference,
+                callback: this.userAccountSuccess,
+                errorback: this.userAccountFailure
+            };
+            application.getDocument(parm);
         };
         this.userAccountSuccess = (document, id) => {
             console.log('account doc and id from accountDocumentSucess', document, id);

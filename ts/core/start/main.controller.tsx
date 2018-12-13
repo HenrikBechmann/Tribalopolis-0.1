@@ -56,6 +56,8 @@ import { toast } from 'react-toastify'
 
 import { withStyles, createStyles } from '@material-ui/core/styles'
 
+import { GetDocumentInterface } from '../services/interfaces'
+
 let styles = createStyles({
     mainviewstyle: {
         fontFamily:fontFamily,
@@ -227,7 +229,13 @@ class Main extends React.Component<any,any> {
 
     getSystemDocument = () => {
 
-        application.getDocument('/system/parameters',this.systemDocumentSuccess,this.systemDocumentFailure)
+        let parm:GetDocumentInterface = {
+            reference:'/system/parameters',
+            callback:this.systemDocumentSuccess,
+            errorback:this.systemDocumentFailure,
+        }
+
+        application.getDocument(parm)
 
     }
 
@@ -261,7 +269,12 @@ class Main extends React.Component<any,any> {
 
     getUserDocument = uid => {
 
-        application.queryCollection('users',[['identity.loginid.uid','==',uid]],this.userDocumentSuccess, this.userDocumentFailure)
+        application.queryCollection({
+            reference:'users',
+            whereclauses:[['identity.loginid.uid','==',uid]],
+            success:this.userDocumentSuccess, 
+            failure:this.userDocumentFailure,
+        })
 
     }
 
@@ -309,7 +322,12 @@ class Main extends React.Component<any,any> {
 
     getAccountDocument = reference => {
 
-        application.getDocument(reference,this.userAccountSuccess, this.userAccountFailure)
+        let parm:GetDocumentInterface = {
+            reference,
+            callback:this.userAccountSuccess, 
+            errorback:this.userAccountFailure
+        }
+        application.getDocument(parm)
 
     }
 

@@ -31,6 +31,8 @@ import ActionButton from './common/actionbutton.view'
 import DataDrawer from './common/datadrawer.view'
 import BuildDataPane from './build/builddatapane.view'
 
+import { GetDocumentInterface } from '../services/interfaces'
+
 const styles = theme => (createStyles({
     button: {
         margin: theme.spacing.unit,
@@ -119,11 +121,12 @@ class BuildController extends React.Component<any,any> {
                     if (typetoken) {
                         let typeref = typetoken.reference
                         if (typeref) {
-                            application.getDocument(
-                                typeref,
-                                this.fetchTypeSuccessCallback,
-                                this.fetchTypeErrorCallback
-                            )
+                            let parm: GetDocumentInterface = {
+                                reference:typeref,
+                                callback:this.fetchTypeSuccessCallback,
+                                errorback:this.fetchTypeErrorCallback,
+                            }
+                            application.getDocument(parm)
                         }
                     }
                 }
@@ -145,19 +148,22 @@ class BuildController extends React.Component<any,any> {
 
             if (this.state.values.collection && (!this.state.values.id)) {
 
-                application.getNewDocument(
-                    this.state.values.collection,
-                    this.fetchSuccessCallback,
-                    this.fetchErrorCallback
-                )
+                let parm:GetDocumentInterface = {
+                    reference:this.state.values.collection,
+                    callback:this.fetchSuccessCallback,
+                    errorback:this.fetchErrorCallback,
+                }
+
+                application.getNewDocument(parm)
 
             } else {
 
-                application.getDocument(
-                    `/${this.state.values.collection}/${this.state.values.id}`,
-                    this.fetchSuccessCallback,
-                    this.fetchErrorCallback
-                )
+                let parm:GetDocumentInterface = {
+                    reference:`/${this.state.values.collection}/${this.state.values.id}`,
+                    callback:this.fetchSuccessCallback,
+                    errorback:this.fetchErrorCallback,
+                }
+                application.getDocument(parm)
 
             }
         }
@@ -192,11 +198,12 @@ class BuildController extends React.Component<any,any> {
                     let typeref = typetoken.reference
                     if (typeref) {
                         // console.log('typeref',typeref)
-                        application.getDocument(
-                            typeref,
-                            this.fetchTypeSuccessCallback,
-                            this.fetchTypeErrorCallback
-                        )
+                        let parm:GetDocumentInterface = {
+                            reference:typeref,
+                            callback:this.fetchTypeSuccessCallback,
+                            errorback:this.fetchTypeErrorCallback,
+                        }
+                        application.getDocument(parm)
                     }
                 }
             }

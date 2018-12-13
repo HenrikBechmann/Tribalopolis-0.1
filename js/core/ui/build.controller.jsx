@@ -86,7 +86,12 @@ class BuildController extends React.Component {
                         if (typetoken) {
                             let typeref = typetoken.reference;
                             if (typeref) {
-                                application.getDocument(typeref, this.fetchTypeSuccessCallback, this.fetchTypeErrorCallback);
+                                let parm = {
+                                    reference: typeref,
+                                    callback: this.fetchTypeSuccessCallback,
+                                    errorback: this.fetchTypeErrorCallback,
+                                };
+                                application.getDocument(parm);
                             }
                         }
                     }
@@ -101,10 +106,20 @@ class BuildController extends React.Component {
                     return;
                 }
                 if (this.state.values.collection && (!this.state.values.id)) {
-                    application.getNewDocument(this.state.values.collection, this.fetchSuccessCallback, this.fetchErrorCallback);
+                    let parm = {
+                        reference: this.state.values.collection,
+                        callback: this.fetchSuccessCallback,
+                        errorback: this.fetchErrorCallback,
+                    };
+                    application.getNewDocument(parm);
                 }
                 else {
-                    application.getDocument(`/${this.state.values.collection}/${this.state.values.id}`, this.fetchSuccessCallback, this.fetchErrorCallback);
+                    let parm = {
+                        reference: `/${this.state.values.collection}/${this.state.values.id}`,
+                        callback: this.fetchSuccessCallback,
+                        errorback: this.fetchErrorCallback,
+                    };
+                    application.getDocument(parm);
                 }
             }
         };
@@ -136,7 +151,12 @@ class BuildController extends React.Component {
                         let typeref = typetoken.reference;
                         if (typeref) {
                             // console.log('typeref',typeref)
-                            application.getDocument(typeref, this.fetchTypeSuccessCallback, this.fetchTypeErrorCallback);
+                            let parm = {
+                                reference: typeref,
+                                callback: this.fetchTypeSuccessCallback,
+                                errorback: this.fetchTypeErrorCallback,
+                            };
+                            application.getDocument(parm);
                         }
                     }
                 }

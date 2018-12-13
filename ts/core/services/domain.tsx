@@ -12,6 +12,7 @@
 'use strict'
 
 import gateway from './gateway'
+import { GetDocumentInterface } from './interfaces'
 
 const setDocumentListener = (reference, processDocumentCallbackFromGateway) => {
 
@@ -25,21 +26,21 @@ const removeDocumentListener =  (reference) => {
 
 }
 
-const getDocument = (reference, callback, errorback) => {
+const getDocument = ({reference, callback, errorback}:GetDocumentInterface) => {
 
-    gateway.getDocument(reference, callback, errorback)
-
-}
-
-const getNewDocument = (reference, callback, errorback) => {
-
-    gateway.getNewDocument(reference, callback, errorback)
+    gateway.getDocument({reference, callback, errorback})
 
 }
 
-const queryCollection = (collection, whereclauses, success, failure) => {
+const getNewDocument = ({reference, callback, errorback}) => {
 
-    gateway.queryCollection(collection, whereclauses, success, failure)
+    gateway.getNewDocument({reference, callback, errorback})
+
+}
+
+const queryCollection = ({reference, whereclauses, success, failure}) => {
+
+    gateway.queryCollection({reference, whereclauses, success, failure})
 
 }
 

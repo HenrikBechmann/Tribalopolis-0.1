@@ -47,7 +47,7 @@ const setDocumentListener = (reference, callback) => {
 };
 const removeDocumentListener = reference => {
 };
-const getDocument = (reference, callback, errorback) => {
+const getDocument = ({ reference, callback, errorback }) => {
     let docref = firestore.doc(reference);
     // console.log('gateway getting document',reference, docref)
     docref.get()
@@ -61,9 +61,9 @@ const getDocument = (reference, callback, errorback) => {
         errorback(error);
     });
 };
-const getNewDocument = (collection, callback, errorback) => {
+const getNewDocument = ({ reference, callback, errorback }) => {
     // console.log('getting document',reference)
-    let docref = firestore.collection(collection).doc();
+    let docref = firestore.collection(reference).doc();
     docref.get()
         .then((doc) => {
         // console.log('returning doc with callback')
@@ -75,7 +75,7 @@ const getNewDocument = (collection, callback, errorback) => {
         errorback(error);
     });
 };
-const queryCollection = (reference, whereclauses, success, failure) => {
+const queryCollection = ({ reference, whereclauses, success, failure }) => {
     if ((!whereclauses) || (whereclauses.length == 0)) {
         failure('no where clauses defined for query');
         return; // nothing to do

@@ -10,3 +10,24 @@
 interfaces for session data transfer objects
 ***************************************************************/
 
+export interface GetDocumentInterface {
+    reference:string,
+    callback:Function, 
+    errorback:Function,
+}
+
+export interface GetNewDocumentInterface {
+
+}
+
+export interface QueryCollectionInterface {
+
+}
+
+export interface SetDocumentInterface {
+
+}
+
+export interface GetCollectionInterface {
+
+}
