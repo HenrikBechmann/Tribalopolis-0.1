@@ -45,3 +45,13 @@ export interface GetCollectionInterface {
 export interface DocTokenInterface {
     reference:string,
 }
+
+export interface DocProxyInterface {
+    doctoken:DocTokenInterface,
+    liststack?:any
+}
+
+export interface DocPackInterface {
+    id:string,
+    document:Object,
+}

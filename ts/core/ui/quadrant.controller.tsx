@@ -22,6 +22,8 @@ import Lister from 'react-list'
 import quadanimations from './quadrant/quadanimations.class'
 import quadoperations from './quadrant/quadoperations.class'
 
+import { DocTokenInterface } from '../services/interfaces'
+
 let styles = createStyles({
    quadcontent: {
         boxSizing: 'border-box',
@@ -260,7 +262,7 @@ class Quadrant extends React.Component<any,any>  {
                 this.operations.splayBox(index, domSource, listcomponent,listdoctoken)},
             selectFromSplay:(domSource) => {
                 this.operations.selectFromSplay(index,domSource)},
-            expandDirectoryItem:(doctoken, domSource) => {
+            expandDirectoryItem:(doctoken:DocTokenInterface, domSource) => {
                 this.operations.expandDirectoryItem(index,doctoken, domSource)},
             collapseDirectoryItem:this.operations.collapseDirectoryItem,
             setBoxWidth:this.setBoxWidth,
