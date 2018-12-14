@@ -3,9 +3,10 @@
 'use strict'
 
 import {serializer} from './serializer'
+import { DocTokenInterface } from '../services/interfaces'
 
 class docproxy {
-    constructor(data:{doctoken:any,liststack?:any}) {
+    constructor(data:{doctoken:DocTokenInterface,liststack?:any}) {
         let doctoken = this.doctoken = data.doctoken
         if (!doctoken) {
             throw Error('no doctoken for docproxy')

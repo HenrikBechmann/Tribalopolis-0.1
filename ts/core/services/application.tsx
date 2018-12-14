@@ -35,7 +35,8 @@ import {
     GetNewDocumentInterface, 
     QueryCollectionInterface, 
     SetDocumentInterface, 
-    GetCollectionInterface 
+    GetCollectionInterface,
+    DocTokenInterface, 
 } from './interfaces'
 // ==============[ Internal ]===============
 
@@ -322,13 +323,6 @@ const removeTypeCacheListener = (typereference, documentreference) => {
 
 // ===============[ General Utilities ]===============
 
-// const getTokenReference = doctoken => {
-
-//     // return `/${doctoken.collection}/${doctoken.id}`
-//     return doctoken.reference
-
-// }
-
 const getDocumentPack = reference => {
 
     let cachedocument = documentcache.get(reference)
@@ -366,7 +360,7 @@ const properties = {
 }
 
 // called from component componentDidMount or componentWillUpdate
-const setDocumentListener = (doctoken,instanceid,callback) => {
+const setDocumentListener = (doctoken:DocTokenInterface,instanceid,callback) => {
 
     setTimeout(()=>{ // give animations a chance to run
 
@@ -422,9 +416,9 @@ const setDocumentListener = (doctoken,instanceid,callback) => {
 }
 
 // called from component componentWillUnmount
-const removeDocumentListener = (doctoken, instanceid) => {
+const removeDocumentListener = (doctoken:DocTokenInterface, instanceid) => {
 
-    let reference = doctoken.reference // getTokenReference(doctoken)
+    let reference = doctoken.reference
 
     let sentinel = 
         sentinels[instanceid]

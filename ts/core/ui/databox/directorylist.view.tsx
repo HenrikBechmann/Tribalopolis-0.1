@@ -13,6 +13,7 @@ import { withStyles, createStyles } from '@material-ui/core/styles'
 import DirectoryListItem from './directorylistitem.view'
 import docproxy from '../../utilities/docproxy'
 import LoadingMessage from '../common/loadingmessage.view'
+import { DocTokenInterface } from '../../services/interfaces'
 
 const styles = createStyles({
     scrollboxcontainer:{
@@ -170,7 +171,7 @@ class extends React.Component<any,any> {
 
     }
 
-    expandDirectoryItem = (doctoken) => {
+    expandDirectoryItem = (doctoken:DocTokenInterface) => {
         return (domSource) => {
             this.props.callbacks.expandDirectoryItem(doctoken, domSource)
         }

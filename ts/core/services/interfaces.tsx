@@ -41,3 +41,7 @@ export interface GetCollectionInterface {
     success:Function, 
     failure:Function,
 }
+
+export interface DocTokenInterface {
+    reference:string,
+}
