@@ -56,7 +56,7 @@ import { toast } from 'react-toastify'
 
 import { withStyles, createStyles } from '@material-ui/core/styles'
 
-import { GetDocumentInterface, QueryCollectionInterface } from '../services/interfaces'
+import { GetDocumentInterface, QueryForDocumentInterface } from '../services/interfaces'
 
 let styles = createStyles({
     mainviewstyle: {
@@ -269,13 +269,13 @@ class Main extends React.Component<any,any> {
 
     getUserDocument = uid => {
 
-        let parm:QueryCollectionInterface = {
+        let parms:QueryForDocumentInterface = {
             reference:'users',
             whereclauses:[['identity.loginid.uid','==',uid]],
             success:this.userDocumentSuccess, 
             failure:this.userDocumentFailure,
         }
-        application.queryCollection(parm)
+        application.queryForDocument(parms)
 
     }
 

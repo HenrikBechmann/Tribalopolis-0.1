@@ -58,7 +58,7 @@ const getDocumentCacheItem = (reference) => {
         cacheitem = newDocumentCacheItem();
         documentcache.set(reference, cacheitem);
         // connect to data source
-        domain.setDocumentListener(reference, processDocumentCallbackFromGateway);
+        domain.setDocumentListener({ reference, callback: processDocumentCallbackFromGateway });
     }
     return cacheitem;
 };
@@ -106,7 +106,7 @@ const getTypeCacheItem = (reference) => {
     else {
         cacheitem = newTypeCacheItem();
         typecache.set(reference, cacheitem);
-        domain.setDocumentListener(reference, processTypeCallbacksFromGateway);
+        domain.setDocumentListener({ reference, callback: processTypeCallbacksFromGateway });
     }
     return cacheitem;
 };
@@ -291,8 +291,8 @@ const getDocument = (parmblock) => {
 const getNewDocument = (parmblock) => {
     domain.getNewDocument(parmblock);
 };
-const queryCollection = (parmblock) => {
-    domain.queryCollection(parmblock);
+const queryForDocument = (parmblock) => {
+    domain.queryForDocument(parmblock);
 };
 const setDocument = (parmblock) => {
     domain.setDocument(parmblock);
@@ -306,7 +306,7 @@ let application = {
     removeDocumentListener,
     getDocument,
     getNewDocument,
-    queryCollection,
+    queryForDocument,
     setDocument,
     getCollection,
 };

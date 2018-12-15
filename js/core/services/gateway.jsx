@@ -18,7 +18,7 @@
 import { types, items, lists } from '../../data/repositories';
 import firebase from './firebase.api';
 let firestore = firebase.firestore();
-const setDocumentListener = (reference, callback) => {
+const setGatewayListener = ({ reference, callback }) => {
     let data;
     if (!reference) {
         data = null;
@@ -45,7 +45,7 @@ const setDocumentListener = (reference, callback) => {
     // },15)
     // },1000)
 };
-const removeDocumentListener = reference => {
+const removeGatewayListener = ({ reference }) => {
 };
 const getDocument = ({ reference, callback, errorback }) => {
     let docref = firestore.doc(reference);
@@ -75,7 +75,7 @@ const getNewDocument = ({ reference, callback, errorback }) => {
         errorback(error);
     });
 };
-const queryCollection = ({ reference, whereclauses, success, failure }) => {
+const queryForDocument = ({ reference, whereclauses, success, failure }) => {
     if ((!whereclauses) || (whereclauses.length == 0)) {
         failure('no where clauses defined for query');
         return; // nothing to do
@@ -135,13 +135,16 @@ const getCollection = ({ reference, success, failure }) => {
         .catch(error => failure(error));
 };
 let domain = {
-    setDocumentListener,
-    removeDocumentListener,
+    // get
     getDocument,
     getNewDocument,
-    queryCollection,
-    setDocument,
+    queryForDocument,
     getCollection,
+    // get asynchronousely, including triggered updates
+    setGatewayListener,
+    removeGatewayListener,
+    // write
+    setDocument,
 };
 export default domain;
 //# sourceMappingURL=gateway.jsx.map

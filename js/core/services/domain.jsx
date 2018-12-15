@@ -9,11 +9,12 @@
 ****************************************************************************/
 'use strict';
 import gateway from './gateway';
-const setDocumentListener = (reference, processDocumentCallbackFromGateway) => {
-    gateway.setDocumentListener(reference, processDocumentCallbackFromGateway);
+const setDocumentListener = ({ reference, callback: processDocumentCallbackFromGateway }) => {
+    gateway.setGatewayListener({ reference, callback: processDocumentCallbackFromGateway });
 };
 const removeDocumentListener = (reference) => {
-    gateway.removeDocumentListener(reference);
+    let parm = { reference };
+    gateway.removeGatewayListener(parm);
 };
 const getDocument = (parmblock) => {
     gateway.getDocument(parmblock);
@@ -21,8 +22,8 @@ const getDocument = (parmblock) => {
 const getNewDocument = (parmblock) => {
     gateway.getNewDocument(parmblock);
 };
-const queryCollection = (parmblock) => {
-    gateway.queryCollection(parmblock);
+const queryForDocument = (parmblock) => {
+    gateway.queryForDocument(parmblock);
 };
 const setDocument = (parmblock) => {
     gateway.setDocument(parmblock);
@@ -35,7 +36,7 @@ let domain = {
     removeDocumentListener,
     getDocument,
     getNewDocument,
-    queryCollection,
+    queryForDocument,
     setDocument,
     getCollection,
 };

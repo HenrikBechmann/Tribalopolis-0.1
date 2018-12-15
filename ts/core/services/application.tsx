@@ -33,7 +33,7 @@ import typefilter from './type.filter'
 import { 
     GetDocumentInterface, 
     GetNewDocumentInterface, 
-    QueryCollectionInterface, 
+    QueryForDocumentInterface, 
     SetDocumentInterface, 
     GetCollectionInterface,
     DocTokenInterface, 
@@ -86,7 +86,7 @@ const getDocumentCacheItem = (reference) => {
         documentcache.set(reference,cacheitem)
 
         // connect to data source
-        domain.setDocumentListener(reference, processDocumentCallbackFromGateway)
+        domain.setDocumentListener({reference, callback:processDocumentCallbackFromGateway})
 
     }
 
@@ -156,7 +156,7 @@ const getTypeCacheItem = (reference) => { // type reference
         cacheitem = newTypeCacheItem()
         typecache.set(reference,cacheitem)
 
-        domain.setDocumentListener(reference, processTypeCallbacksFromGateway)
+        domain.setDocumentListener({reference, callback:processTypeCallbacksFromGateway})
 
     }
 
@@ -465,9 +465,9 @@ const getNewDocument = (parmblock:GetNewDocumentInterface) => {
 
 }
 
-const queryCollection = (parmblock:QueryCollectionInterface) => {
+const queryForDocument = (parmblock:QueryForDocumentInterface) => {
 
-    domain.queryCollection(parmblock)
+    domain.queryForDocument(parmblock)
     
 }
 
@@ -489,7 +489,7 @@ let application = {
     removeDocumentListener,
     getDocument,
     getNewDocument,
-    queryCollection,
+    queryForDocument,
     setDocument,
     getCollection,
 }

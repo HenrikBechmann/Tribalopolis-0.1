@@ -22,14 +22,14 @@ import firebase from './firebase.api'
 import { 
     GetDocumentInterface, 
     GetNewDocumentInterface, 
-    QueryCollectionInterface, 
+    QueryForDocumentInterface, 
     SetDocumentInterface, 
     GetCollectionInterface 
 } from './interfaces'
 
 let firestore = firebase.firestore()
 
-const setDocumentListener = (reference,callback) => {
+const setGatewayListener = ({reference,callback}) => {
     let data
 
     if (!reference) {
@@ -61,7 +61,7 @@ const setDocumentListener = (reference,callback) => {
     // },1000)
 }
 
-const removeDocumentListener = reference => {
+const removeGatewayListener = ({reference}) => {
 
 }
 
@@ -100,7 +100,7 @@ const getNewDocument = ({reference, callback, errorback}:GetNewDocumentInterface
     })
 }
 
-const queryCollection = ({reference, whereclauses, success, failure}:QueryCollectionInterface) => {
+const queryForDocument = ({reference, whereclauses, success, failure}:QueryForDocumentInterface) => {
 
     if ((!whereclauses) || (whereclauses.length == 0)) {
         failure('no where clauses defined for query')
@@ -163,13 +163,17 @@ const getCollection = ({reference, success, failure}:GetCollectionInterface) => 
 }
 
 let domain = {
-    setDocumentListener,
-    removeDocumentListener,
+    // get
     getDocument,
     getNewDocument,
-    queryCollection,
-    setDocument,
+    queryForDocument,
     getCollection,
+    // get asynchronousely, including triggered updates
+    setGatewayListener,
+    removeGatewayListener,
+    // write
+    setDocument,
+
 }
 
 export default domain

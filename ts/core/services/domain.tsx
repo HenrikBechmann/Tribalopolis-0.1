@@ -15,20 +15,23 @@ import gateway from './gateway'
 import { 
     GetDocumentInterface, 
     GetNewDocumentInterface, 
-    QueryCollectionInterface, 
+    QueryForDocumentInterface, 
     SetDocumentInterface, 
-    GetCollectionInterface 
+    GetCollectionInterface,
+    SetGatewayListenerInterface,
+    RemoveGatewayListenerInterface
 } from './interfaces'
 
-const setDocumentListener = (reference, processDocumentCallbackFromGateway) => {
+const setDocumentListener = ({reference, callback:processDocumentCallbackFromGateway}:SetGatewayListenerInterface) => {
 
-    gateway.setDocumentListener(reference, processDocumentCallbackFromGateway)
+    gateway.setGatewayListener({reference, callback:processDocumentCallbackFromGateway})
 
 }
 
 const removeDocumentListener =  (reference) => {
 
-    gateway.removeDocumentListener(reference)
+    let parm:RemoveGatewayListenerInterface = {reference}
+    gateway.removeGatewayListener(parm)
 
 }
 
@@ -44,9 +47,9 @@ const getNewDocument = (parmblock:GetNewDocumentInterface) => {
 
 }
 
-const queryCollection = (parmblock:QueryCollectionInterface) => {
+const queryForDocument = (parmblock:QueryForDocumentInterface) => {
 
-    gateway.queryCollection(parmblock)
+    gateway.queryForDocument(parmblock)
 
 }
 
@@ -68,7 +71,7 @@ let domain = {
     removeDocumentListener,
     getDocument,
     getNewDocument,
-    queryCollection,
+    queryForDocument,
     setDocument,
     getCollection,
 }

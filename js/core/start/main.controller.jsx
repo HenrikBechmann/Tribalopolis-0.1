@@ -176,13 +176,13 @@ let Main = class Main extends React.Component {
         };
         // ==============================[ USER DOCUMENT ]=========================================
         this.getUserDocument = uid => {
-            let parm = {
+            let parms = {
                 reference: 'users',
                 whereclauses: [['identity.loginid.uid', '==', uid]],
                 success: this.userDocumentSuccess,
                 failure: this.userDocumentFailure,
             };
-            application.queryCollection(parm);
+            application.queryForDocument(parms);
         };
         this.userDocumentSuccess = doclist => {
             // console.log('doclist from userdoc',doclist)

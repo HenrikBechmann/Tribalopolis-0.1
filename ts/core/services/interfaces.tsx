@@ -24,7 +24,7 @@ export interface GetNewDocumentInterface {
     errorback:Function,
 }
 
-export interface QueryCollectionInterface {
+export interface QueryForDocumentInterface {
     reference:string, 
     whereclauses:Array<any>, 
     success:Function, 
@@ -55,7 +55,21 @@ export interface RemoveDocumentListenerInterface {
     instanceid:number,
 }
 
+export interface SetGatewayListenerInterface {
+    reference:string, 
+    callback:Function,
+}
+
+export interface RemoveGatewayListenerInterface {
+    reference:string, 
+}
+
 // session objects
+
+export interface DocPackInterface {
+    id:string,
+    document:Object,
+}
 
 export interface DocTokenInterface {
     reference:string,
@@ -64,9 +78,4 @@ export interface DocTokenInterface {
 export interface DocProxyInterface {
     doctoken:DocTokenInterface,
     liststack?:Array<any>
-}
-
-export interface DocPackInterface {
-    id:string,
-    document:Object,
 }
