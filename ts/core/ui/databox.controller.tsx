@@ -128,7 +128,7 @@ class DataBox extends React.Component<any,any> {
         // console.log('did mount',this.itemProxy?this.itemProxy.instanceid:'no item')
         let { itemProxy } = this
         this.props.callbacks.setDocumentListener(
-            itemProxy.doctoken, itemProxy.instanceid,this.cacheItemData
+            {doctoken:itemProxy.doctoken, instanceid:itemProxy.instanceid,callback:this.cacheItemData}
         )
     }
 

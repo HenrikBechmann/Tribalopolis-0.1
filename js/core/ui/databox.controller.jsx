@@ -173,7 +173,7 @@ class DataBox extends React.Component {
     componentDidMount() {
         // console.log('did mount',this.itemProxy?this.itemProxy.instanceid:'no item')
         let { itemProxy } = this;
-        this.props.callbacks.setDocumentListener(itemProxy.doctoken, itemProxy.instanceid, this.cacheItemData);
+        this.props.callbacks.setDocumentListener({ doctoken: itemProxy.doctoken, instanceid: itemProxy.instanceid, callback: this.cacheItemData });
     }
     componentDidUpdate() {
         let { collapseTargetProxy } = this.props; // gets set then cancelled by parent

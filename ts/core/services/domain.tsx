@@ -32,38 +32,33 @@ const removeDocumentListener =  (reference) => {
 
 }
 
-const getDocument = ({reference, callback, errorback}:GetDocumentInterface) => {
+const getDocument = (parmblock:GetDocumentInterface) => {
 
-    let parm:GetDocumentInterface = {reference, callback, errorback}
-    gateway.getDocument(parm)
-
-}
-
-const getNewDocument = ({reference, callback, errorback}:GetNewDocumentInterface) => {
-
-    let parm:GetNewDocumentInterface = {reference, callback, errorback}
-    gateway.getNewDocument(parm)
+    gateway.getDocument(parmblock)
 
 }
 
-const queryCollection = ({reference, whereclauses, success, failure}:QueryCollectionInterface) => {
+const getNewDocument = (parmblock:GetNewDocumentInterface) => {
 
-    let parm:QueryCollectionInterface = {reference, whereclauses, success, failure}
-    gateway.queryCollection(parm)
-
-}
-
-const setDocument = ({reference, data, success, failure}:SetDocumentInterface) => {
-
-    let parm:SetDocumentInterface = {reference, data, success, failure} 
-    gateway.setDocument(parm)
+    gateway.getNewDocument(parmblock)
 
 }
 
-const getCollection = ({reference, success, failure}:GetCollectionInterface) => {
+const queryCollection = (parmblock:QueryCollectionInterface) => {
 
-    let parm:GetCollectionInterface = {reference,success,failure}
-    gateway.getCollection(parm)
+    gateway.queryCollection(parmblock)
+
+}
+
+const setDocument = (parmblock:SetDocumentInterface) => {
+
+    gateway.setDocument(parmblock)
+
+}
+
+const getCollection = (parmblock:GetCollectionInterface) => {
+
+    gateway.getCollection(parmblock)
     
 }
 

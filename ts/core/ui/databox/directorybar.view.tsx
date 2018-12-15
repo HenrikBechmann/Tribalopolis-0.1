@@ -91,7 +91,12 @@ class DirectoryBar extends React.Component<any,any> {
         if (!this.listProxy && this.props.listProxy) {
             this.listProxy = this.props.listProxy
             this.props.setDocumentListener(
-                this.listProxy.doctoken,this.listProxy.instanceid,this.cacheListDocument)
+                {
+                    doctoken:this.listProxy.doctoken,
+                    instanceid:this.listProxy.instanceid,
+                    callback:this.cacheListDocument
+                }
+            )
         }        
     }
 

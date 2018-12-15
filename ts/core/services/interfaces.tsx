@@ -10,6 +10,8 @@
 interfaces for session data transfer objects
 ***************************************************************/
 
+// services
+
 export interface GetDocumentInterface {
     reference:string,
     callback:Function, 
@@ -42,13 +44,21 @@ export interface GetCollectionInterface {
     failure:Function,
 }
 
+export interface SetDocumentListenerInterface {
+    doctoken:DocTokenInterface,
+    instanceid:number,
+    callback:Function,
+}
+
+// session objects
+
 export interface DocTokenInterface {
     reference:string,
 }
 
 export interface DocProxyInterface {
     doctoken:DocTokenInterface,
-    liststack?:any
+    liststack?:Array<any>
 }
 
 export interface DocPackInterface {

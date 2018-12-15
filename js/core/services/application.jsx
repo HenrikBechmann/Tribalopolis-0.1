@@ -231,7 +231,8 @@ const properties = {
     ismobile: /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)
 };
 // called from component componentDidMount or componentWillUpdate
-const setDocumentListener = (doctoken, instanceid, callback) => {
+const setDocumentListener = (parmblock) => {
+    let { doctoken, instanceid, callback } = parmblock;
     setTimeout(() => {
         let reference = doctoken.reference; // getTokenReference(doctoken)
         let sentinel = sentinels[instanceid]
@@ -285,27 +286,20 @@ const removeDocumentListener = (doctoken, instanceid) => {
     }
     removeDocumentCacheListener(reference, instanceid);
 };
-const getDocument = ({ reference, callback, errorback }) => {
-    // console.log('application.getDocument',reference)
-    let parm = { reference, callback, errorback };
-    domain.getDocument(parm);
+const getDocument = (parmblock) => {
+    domain.getDocument(parmblock);
 };
-const getNewDocument = ({ reference, callback, errorback }) => {
-    let parm = { reference, callback, errorback };
-    domain.getNewDocument(parm);
+const getNewDocument = (parmblock) => {
+    domain.getNewDocument(parmblock);
 };
-const queryCollection = ({ reference, whereclauses, success, failure }) => {
-    let parm = { reference, whereclauses, success, failure };
-    domain.queryCollection(parm);
+const queryCollection = (parmblock) => {
+    domain.queryCollection(parmblock);
 };
-const setDocument = ({ reference, data, success, failure }) => {
-    // let simpleobject:any = merge({},data) // strip out any extensions; restore as simple object
-    let parm = { reference, data, success, failure };
-    domain.setDocument(parm);
+const setDocument = (parmblock) => {
+    domain.setDocument(parmblock);
 };
-const getCollection = ({ reference, success, failure }) => {
-    let parm = { reference, success, failure };
-    domain.getCollection(parm);
+const getCollection = (parmblock) => {
+    domain.getCollection(parmblock);
 };
 let application = {
     properties,

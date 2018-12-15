@@ -70,7 +70,12 @@ class IdentityBar extends React.Component<any, any> {
         if (!this.itemProxy && this.props.itemProxy) {
             this.itemProxy = this.props.itemProxy
             this.props.setDocumentListener(
-                this.itemProxy.doctoken,this.itemProxy.instanceid,this.cacheItemDocument)
+                {
+                    doctoken:this.itemProxy.doctoken,
+                    instanceid:this.itemProxy.instanceid,
+                    callback:this.cacheItemDocument
+                }
+            )
         }        
     }
 

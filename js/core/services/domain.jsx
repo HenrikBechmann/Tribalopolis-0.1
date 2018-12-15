@@ -15,25 +15,20 @@ const setDocumentListener = (reference, processDocumentCallbackFromGateway) => {
 const removeDocumentListener = (reference) => {
     gateway.removeDocumentListener(reference);
 };
-const getDocument = ({ reference, callback, errorback }) => {
-    let parm = { reference, callback, errorback };
-    gateway.getDocument(parm);
+const getDocument = (parmblock) => {
+    gateway.getDocument(parmblock);
 };
-const getNewDocument = ({ reference, callback, errorback }) => {
-    let parm = { reference, callback, errorback };
-    gateway.getNewDocument(parm);
+const getNewDocument = (parmblock) => {
+    gateway.getNewDocument(parmblock);
 };
-const queryCollection = ({ reference, whereclauses, success, failure }) => {
-    let parm = { reference, whereclauses, success, failure };
-    gateway.queryCollection(parm);
+const queryCollection = (parmblock) => {
+    gateway.queryCollection(parmblock);
 };
-const setDocument = ({ reference, data, success, failure }) => {
-    let parm = { reference, data, success, failure };
-    gateway.setDocument(parm);
+const setDocument = (parmblock) => {
+    gateway.setDocument(parmblock);
 };
-const getCollection = ({ reference, success, failure }) => {
-    let parm = { reference, success, failure };
-    gateway.getCollection(parm);
+const getCollection = (parmblock) => {
+    gateway.getCollection(parmblock);
 };
 let domain = {
     setDocumentListener,

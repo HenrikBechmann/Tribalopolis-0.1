@@ -37,6 +37,7 @@ import {
     SetDocumentInterface, 
     GetCollectionInterface,
     DocTokenInterface, 
+    SetDocumentListenerInterface,
 } from './interfaces'
 // ==============[ Internal ]===============
 
@@ -360,7 +361,9 @@ const properties = {
 }
 
 // called from component componentDidMount or componentWillUpdate
-const setDocumentListener = (doctoken:DocTokenInterface,instanceid,callback) => {
+const setDocumentListener = (parmblock:SetDocumentListenerInterface) => {
+
+    let {doctoken,instanceid,callback} = parmblock    
 
     setTimeout(()=>{ // give animations a chance to run
 
@@ -451,41 +454,33 @@ const removeDocumentListener = (doctoken:DocTokenInterface, instanceid) => {
 
 }
 
-const getDocument = ({reference, callback, errorback}:GetDocumentInterface) => {
+const getDocument = (parmblock:GetDocumentInterface) => {
 
-    // console.log('application.getDocument',reference)
-    let parm:GetDocumentInterface = {reference, callback, errorback}
-    domain.getDocument(parm)
+    domain.getDocument(parmblock)
 
 }
 
-const getNewDocument = ({reference, callback, errorback}:GetNewDocumentInterface) => {
+const getNewDocument = (parmblock:GetNewDocumentInterface) => {
 
-    let parm:GetNewDocumentInterface = {reference, callback, errorback}
-    domain.getNewDocument(parm)
+    domain.getNewDocument(parmblock)
 
 }
 
-const queryCollection = ({reference, whereclauses, success, failure}:QueryCollectionInterface) => {
+const queryCollection = (parmblock:QueryCollectionInterface) => {
 
-    let parm:QueryCollectionInterface = {reference, whereclauses, success, failure}
-    domain.queryCollection(parm)
+    domain.queryCollection(parmblock)
     
 }
 
-const setDocument = ({reference, data, success, failure}:SetDocumentInterface) => {
+const setDocument = (parmblock:SetDocumentInterface) => {
 
-    // let simpleobject:any = merge({},data) // strip out any extensions; restore as simple object
-
-    let parm:SetDocumentInterface = {reference, data, success, failure}
-    domain.setDocument(parm)
+    domain.setDocument(parmblock)
 
 }
 
-const getCollection = ({reference, success, failure}:GetCollectionInterface) => {
+const getCollection = (parmblock:GetCollectionInterface) => {
 
-    let parm:GetCollectionInterface = {reference,success,failure}
-    domain.getCollection(parm)
+    domain.getCollection(parmblock)
     
 }
 
