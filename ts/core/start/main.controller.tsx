@@ -231,8 +231,8 @@ class Main extends React.Component<any,any> {
 
         let parm:GetDocumentInterface = {
             reference:'/system/parameters',
-            success:this.systemDocumentSuccess,
-            failure:this.systemDocumentFailure,
+            successfunc:this.systemDocumentSuccess,
+            failurefunc:this.systemDocumentFailure,
         }
 
         application.getDocument(parm)
@@ -272,8 +272,8 @@ class Main extends React.Component<any,any> {
         let parms:QueryForDocumentInterface = {
             reference:'users',
             whereclauses:[['identity.loginid.uid','==',uid]],
-            success:this.userDocumentSuccess, 
-            failure:this.userDocumentFailure,
+            successfunc:this.userDocumentSuccess, 
+            failurefunc:this.userDocumentFailure,
         }
         application.queryForDocument(parms)
 
@@ -325,8 +325,8 @@ class Main extends React.Component<any,any> {
 
         let parm:GetDocumentInterface = {
             reference,
-            success:this.userAccountSuccess, 
-            failure:this.userAccountFailure
+            successfunc:this.userAccountSuccess, 
+            failurefunc:this.userAccountFailure
         }
         application.getDocument(parm)
 

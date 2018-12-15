@@ -123,8 +123,8 @@ class BuildController extends React.Component<any,any> {
                         if (typeref) {
                             let parm: GetDocumentInterface = {
                                 reference:typeref,
-                                success:this.fetchTypeSuccessCallback,
-                                failure:this.fetchTypeErrorCallback,
+                                successfunc:this.fetchTypeSuccessCallback,
+                                failurefunc:this.fetchTypeErrorCallback,
                             }
                             application.getDocument(parm)
                         }
@@ -150,8 +150,8 @@ class BuildController extends React.Component<any,any> {
 
                 let parm:GetDocumentInterface = {
                     reference:this.state.values.collection,
-                    success:this.fetchSuccessCallback,
-                    failure:this.fetchErrorCallback,
+                    successfunc:this.fetchSuccessCallback,
+                    failurefunc:this.fetchErrorCallback,
                 }
 
                 application.getNewDocument(parm)
@@ -160,8 +160,8 @@ class BuildController extends React.Component<any,any> {
 
                 let parm:GetDocumentInterface = {
                     reference:`/${this.state.values.collection}/${this.state.values.id}`,
-                    success:this.fetchSuccessCallback,
-                    failure:this.fetchErrorCallback,
+                    successfunc:this.fetchSuccessCallback,
+                    failurefunc:this.fetchErrorCallback,
                 }
                 application.getDocument(parm)
 
@@ -200,8 +200,8 @@ class BuildController extends React.Component<any,any> {
                         // console.log('typeref',typeref)
                         let parm:GetDocumentInterface = {
                             reference:typeref,
-                            success:this.fetchTypeSuccessCallback,
-                            failure:this.fetchTypeErrorCallback,
+                            successfunc:this.fetchTypeSuccessCallback,
+                            failurefunc:this.fetchTypeErrorCallback,
                         }
                         application.getDocument(parm)
                     }
@@ -264,8 +264,8 @@ class BuildController extends React.Component<any,any> {
             let parm:SetDocumentInterface = {
                 reference:`/${this.state.values.collection}/${this.state.values.id}`,
                 data:this.latestjson,
-                success:this.postSuccessCallback,
-                failure:this.postFailureCallback,
+                successfunc:this.postSuccessCallback,
+                failurefunc:this.postFailureCallback,
             }
             application.setDocument(parm)
         }

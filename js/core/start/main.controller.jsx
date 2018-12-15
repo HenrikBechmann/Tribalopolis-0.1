@@ -152,8 +152,8 @@ let Main = class Main extends React.Component {
         this.getSystemDocument = () => {
             let parm = {
                 reference: '/system/parameters',
-                success: this.systemDocumentSuccess,
-                failure: this.systemDocumentFailure,
+                successfunc: this.systemDocumentSuccess,
+                failurefunc: this.systemDocumentFailure,
             };
             application.getDocument(parm);
         };
@@ -179,8 +179,8 @@ let Main = class Main extends React.Component {
             let parms = {
                 reference: 'users',
                 whereclauses: [['identity.loginid.uid', '==', uid]],
-                success: this.userDocumentSuccess,
-                failure: this.userDocumentFailure,
+                successfunc: this.userDocumentSuccess,
+                failurefunc: this.userDocumentFailure,
             };
             application.queryForDocument(parms);
         };
@@ -216,8 +216,8 @@ let Main = class Main extends React.Component {
         this.getAccountDocument = reference => {
             let parm = {
                 reference,
-                success: this.userAccountSuccess,
-                failure: this.userAccountFailure
+                successfunc: this.userAccountSuccess,
+                failurefunc: this.userAccountFailure
             };
             application.getDocument(parm);
         };

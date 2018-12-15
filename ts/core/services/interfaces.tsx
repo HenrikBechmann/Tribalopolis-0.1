@@ -14,21 +14,21 @@ interfaces for session data transfer objects
 
 export interface GetDocumentInterface {
     reference:string,
-    success:Function, 
-    failure:Function,
+    successfunc:Function, 
+    failurefunc:Function,
 }
 
 export interface GetNewDocumentInterface {
     reference:string,
-    success:Function, 
-    failure:Function,
+    successfunc:Function, 
+    failurefunc:Function,
 }
 
 export interface QueryForDocumentInterface {
     reference:string, 
     whereclauses:Array<any>, 
-    success:Function, 
-    failure:Function,
+    successfunc:Function, 
+    failurefunc:Function,
 }
 
 // listeners
@@ -58,14 +58,14 @@ export interface RemoveGatewayListenerInterface {
 export interface SetDocumentInterface {
     reference:string, 
     data:Object, 
-    success:Function, 
-    failure:Function,
+    successfunc:Function, 
+    failurefunc:Function,
 }
 
 export interface GetCollectionInterface {
     reference:string, 
-    success:Function, 
-    failure:Function,
+    successfunc:Function, 
+    failurefunc:Function,
 }
 
 // session objects
