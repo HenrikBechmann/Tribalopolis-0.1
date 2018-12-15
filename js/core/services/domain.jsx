@@ -9,10 +9,12 @@
 ****************************************************************************/
 'use strict';
 import gateway from './gateway';
-const setDocumentListener = ({ reference, callback: processDocumentCallbackFromGateway }) => {
+const noop = () => {
+};
+const setDocumentListener = ({ reference, successfunc: processDocumentCallbackFromGateway, failurefunc: noop }) => {
     gateway.setGatewayListener({ reference, callback: processDocumentCallbackFromGateway });
 };
-const removeDocumentListener = (reference) => {
+const removeDocumentListener = ({ reference }) => {
     let parm = { reference };
     gateway.removeGatewayListener(parm);
 };

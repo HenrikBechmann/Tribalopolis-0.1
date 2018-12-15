@@ -31,7 +31,7 @@ import ActionButton from './common/actionbutton.view'
 import DataDrawer from './common/datadrawer.view'
 import BuildDataPane from './build/builddatapane.view'
 
-import { GetDocumentInterface, SetDocumentInterface } from '../services/interfaces'
+import { GetDocumentMessage, SetDocumentInterface } from '../services/interfaces'
 
 const styles = theme => (createStyles({
     button: {
@@ -121,7 +121,7 @@ class BuildController extends React.Component<any,any> {
                     if (typetoken) {
                         let typeref = typetoken.reference
                         if (typeref) {
-                            let parm: GetDocumentInterface = {
+                            let parm: GetDocumentMessage = {
                                 reference:typeref,
                                 successfunc:this.fetchTypeSuccessCallback,
                                 failurefunc:this.fetchTypeErrorCallback,
@@ -148,7 +148,7 @@ class BuildController extends React.Component<any,any> {
 
             if (this.state.values.collection && (!this.state.values.id)) {
 
-                let parm:GetDocumentInterface = {
+                let parm:GetDocumentMessage = {
                     reference:this.state.values.collection,
                     successfunc:this.fetchSuccessCallback,
                     failurefunc:this.fetchErrorCallback,
@@ -158,7 +158,7 @@ class BuildController extends React.Component<any,any> {
 
             } else {
 
-                let parm:GetDocumentInterface = {
+                let parm:GetDocumentMessage = {
                     reference:`/${this.state.values.collection}/${this.state.values.id}`,
                     successfunc:this.fetchSuccessCallback,
                     failurefunc:this.fetchErrorCallback,
@@ -198,7 +198,7 @@ class BuildController extends React.Component<any,any> {
                     let typeref = typetoken.reference
                     if (typeref) {
                         // console.log('typeref',typeref)
-                        let parm:GetDocumentInterface = {
+                        let parm:GetDocumentMessage = {
                             reference:typeref,
                             successfunc:this.fetchTypeSuccessCallback,
                             failurefunc:this.fetchTypeErrorCallback,

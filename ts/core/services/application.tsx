@@ -31,9 +31,9 @@ import domain from './domain'
 import merge from 'deepmerge'
 import typefilter from './type.filter'
 import { 
-    GetDocumentInterface, 
-    GetNewDocumentInterface, 
-    QueryForDocumentInterface, 
+    GetDocumentMessage, 
+    // GetNewDocumentInterface, 
+    // QueryForDocumentInterface, 
     SetDocumentInterface, 
     GetCollectionInterface,
     DocTokenInterface, 
@@ -86,7 +86,7 @@ const getDocumentCacheItem = (reference) => {
         documentcache.set(reference,cacheitem)
 
         // connect to data source
-        domain.setDocumentListener({reference, callback:processDocumentCallbackFromGateway})
+        domain.setDocumentListener({reference, successfunc:processDocumentCallbackFromGateway, failurefunc:null})
 
     }
 
@@ -156,7 +156,7 @@ const getTypeCacheItem = (reference) => { // type reference
         cacheitem = newTypeCacheItem()
         typecache.set(reference,cacheitem)
 
-        domain.setDocumentListener({reference, callback:processTypeCallbacksFromGateway})
+        domain.setDocumentListener({reference, successfunc:processTypeCallbacksFromGateway,failurefunc:null})
 
     }
 
@@ -249,13 +249,16 @@ const processDocumentCallbacks = (reference, reason) => {
 */
 const removeDocumentCacheItem = (reference) => {
 
+
+
     // unhook from gateway
-    domain.removeDocumentListener(reference)
+    domain.removeDocumentListener({reference})
 
     // anticipate need for type cache listener...
     let documentcacheitem = documentcache.get(reference)
     documentcache.delete(reference)
 
+    // console.log('documentcacheitem, reference', documentcacheitem, reference)
     // deal with type cache listener
     let document = documentcacheitem.document
     if (document) {
@@ -362,7 +365,7 @@ const properties = {
 }
 
 // called from component componentDidMount or componentWillUpdate
-const setDocumentListener = ({doctoken,instanceid,callback}:SetDocumentListenerInterface) => {
+const setDocumentListener = ({doctoken,instanceid,successfunc, failurefunc}:SetDocumentListenerInterface) => {
 
     setTimeout(()=>{ // give animations a chance to run
 
@@ -395,13 +398,13 @@ const setDocumentListener = ({doctoken,instanceid,callback}:SetDocumentListenerI
 
         }
 
-        addDocumentCacheListener(reference,instanceid,callback)
+        addDocumentCacheListener(reference,instanceid,successfunc)
 
         let cachedata = getDocumentPack(reference)
 
         if (cachedata.document && cachedata.type) { // defer if waiting for type
 
-            callback(cachedata.document, cachedata.type, 
+            successfunc(cachedata.document, cachedata.type, 
                 {
                     documents:{
                         reason:'newcallback',
@@ -453,19 +456,19 @@ const removeDocumentListener = ({doctoken, instanceid}:RemoveDocumentListenerInt
 
 }
 
-const getDocument = (parmblock:GetDocumentInterface) => {
+const getDocument = (parmblock:GetDocumentMessage) => {
 
     domain.getDocument(parmblock)
 
 }
 
-const getNewDocument = (parmblock:GetNewDocumentInterface) => {
+const getNewDocument = (parmblock:GetDocumentMessage) => {
 
     domain.getNewDocument(parmblock)
 
 }
 
-const queryForDocument = (parmblock:QueryForDocumentInterface) => {
+const queryForDocument = (parmblock:GetDocumentMessage) => {
 
     domain.queryForDocument(parmblock)
     

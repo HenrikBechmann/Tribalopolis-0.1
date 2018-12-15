@@ -49,7 +49,8 @@ class IdentityBar extends React.Component {
                 let parms = {
                     doctoken: this.itemProxy.doctoken,
                     instanceid: this.itemProxy.instanceid,
-                    callback: this.cacheItemDocument
+                    successfunc: this.cacheItemDocument,
+                    failurefunc: null,
                 };
                 this.props.setDocumentListener(parms);
             }

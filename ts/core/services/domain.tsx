@@ -13,41 +13,45 @@
 
 import gateway from './gateway'
 import { 
-    GetDocumentInterface, 
-    GetNewDocumentInterface, 
-    QueryForDocumentInterface, 
+    GetDocumentMessage, 
+    // GetNewDocumentInterface, 
+    // QueryForDocumentInterface, 
     SetDocumentInterface, 
     GetCollectionInterface,
     SetGatewayListenerInterface,
     RemoveGatewayListenerInterface
 } from './interfaces'
 
-const setDocumentListener = ({reference, callback:processDocumentCallbackFromGateway}:SetGatewayListenerInterface) => {
+const noop = () => {
+
+}
+
+const setDocumentListener = ({reference, successfunc:processDocumentCallbackFromGateway, failurefunc:noop}:SetGatewayListenerInterface) => {
 
     gateway.setGatewayListener({reference, callback:processDocumentCallbackFromGateway})
 
 }
 
-const removeDocumentListener =  (reference) => {
+const removeDocumentListener =  ({reference}:GetDocumentMessage) => {
 
     let parm:RemoveGatewayListenerInterface = {reference}
     gateway.removeGatewayListener(parm)
 
 }
 
-const getDocument = (parmblock:GetDocumentInterface) => {
+const getDocument = (parmblock:GetDocumentMessage) => {
 
     gateway.getDocument(parmblock)
 
 }
 
-const getNewDocument = (parmblock:GetNewDocumentInterface) => {
+const getNewDocument = (parmblock:GetDocumentMessage) => {
 
     gateway.getNewDocument(parmblock)
 
 }
 
-const queryForDocument = (parmblock:QueryForDocumentInterface) => {
+const queryForDocument = (parmblock:GetDocumentMessage) => {
 
     gateway.queryForDocument(parmblock)
 

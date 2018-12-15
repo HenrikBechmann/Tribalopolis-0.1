@@ -20,9 +20,9 @@ import { schemes, types, items, lists, links, folders, accounts } from '../../da
 
 import firebase from './firebase.api'
 import { 
-    GetDocumentInterface, 
-    GetNewDocumentInterface, 
-    QueryForDocumentInterface, 
+    GetDocumentMessage, 
+    // GetNewDocumentInterface, 
+    // QueryForDocumentInterface, 
     SetDocumentInterface, 
     GetCollectionInterface 
 } from './interfaces'
@@ -65,7 +65,7 @@ const removeGatewayListener = ({reference}) => {
 
 }
 
-const getDocument = ({reference, successfunc, failurefunc}:GetDocumentInterface) => {
+const getDocument = ({reference, successfunc, failurefunc}:GetDocumentMessage) => {
 
     let docref = firestore.doc(reference)
     // console.log('gateway getting document',reference, docref)
@@ -85,7 +85,7 @@ const getDocument = ({reference, successfunc, failurefunc}:GetDocumentInterface)
     
 }
 
-const getNewDocument = ({reference, successfunc, failurefunc}:GetNewDocumentInterface) => {
+const getNewDocument = ({reference, successfunc, failurefunc}:GetDocumentMessage) => {
     // console.log('getting document',reference)
     let docref = firestore.collection(reference).doc()
     docref.get()
@@ -100,7 +100,7 @@ const getNewDocument = ({reference, successfunc, failurefunc}:GetNewDocumentInte
     })
 }
 
-const queryForDocument = ({reference, whereclauses, successfunc, failurefunc}:QueryForDocumentInterface) => {
+const queryForDocument = ({reference, whereclauses, successfunc, failurefunc}:GetDocumentMessage) => {
 
     if ((!whereclauses) || (whereclauses.length == 0)) {
         failurefunc('no where clauses defined for query')

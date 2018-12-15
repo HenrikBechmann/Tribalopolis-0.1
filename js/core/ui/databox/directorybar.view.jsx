@@ -66,7 +66,8 @@ class DirectoryBar extends React.Component {
                 let parms = {
                     doctoken: this.listProxy.doctoken,
                     instanceid: this.listProxy.instanceid,
-                    callback: this.cacheListDocument
+                    successfunc: this.cacheListDocument,
+                    failurefunc: null,
                 };
                 this.props.setDocumentListener(parms);
             }
@@ -102,7 +103,10 @@ class DirectoryBar extends React.Component {
     }
     componentWillUnmount() {
         if (this.listProxy) {
-            let parms = { doctoken: this.listProxy.doctoken, instanceid: this.listProxy.instanceid };
+            let parms = {
+                doctoken: this.listProxy.doctoken,
+                instanceid: this.listProxy.instanceid,
+            };
             this.props.removeDocumentListener(parms);
         }
     }

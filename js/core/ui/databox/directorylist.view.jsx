@@ -136,7 +136,8 @@ const DirectoryListBase = withStyles(styles)(class extends React.Component {
             let parms = {
                 doctoken: this.listProxy.doctoken,
                 instanceid: this.listProxy.instanceid,
-                callback: this.cacheListDocument
+                successfunc: this.cacheListDocument,
+                failurefunc: null,
             };
             this.props.callbacks.setDocumentListener(parms);
         }

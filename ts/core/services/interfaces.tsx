@@ -10,25 +10,17 @@
 interfaces for session data transfer objects
 ***************************************************************/
 
+/***************************************************************
+------------------------[ OPERATIONS ]--------------------------
+***************************************************************/
+
 // fetch services
 
-export interface GetDocumentInterface {
+export interface GetDocumentMessage {
     reference:string,
-    successfunc:Function, 
-    failurefunc:Function,
-}
-
-export interface GetNewDocumentInterface {
-    reference:string,
-    successfunc:Function, 
-    failurefunc:Function,
-}
-
-export interface QueryForDocumentInterface {
-    reference:string, 
-    whereclauses:Array<any>, 
-    successfunc:Function, 
-    failurefunc:Function,
+    successfunc?:Function, 
+    failurefunc?:Function,
+    whereclauses?:Array<any>, 
 }
 
 // listeners
@@ -36,7 +28,8 @@ export interface QueryForDocumentInterface {
 export interface SetDocumentListenerInterface {
     doctoken:DocTokenInterface,
     instanceid:number,
-    callback:Function,
+    successfunc:Function,
+    failurefunc:Function,
 }
 
 export interface RemoveDocumentListenerInterface {
@@ -46,7 +39,8 @@ export interface RemoveDocumentListenerInterface {
 
 export interface SetGatewayListenerInterface {
     reference:string, 
-    callback:Function,
+    successfunc:Function,
+    failurefunc:Function,
 }
 
 export interface RemoveGatewayListenerInterface {
@@ -67,6 +61,10 @@ export interface GetCollectionInterface {
     successfunc:Function, 
     failurefunc:Function,
 }
+
+/***************************************************************
+-------------------------[ PAYLOADS ]---------------------------
+***************************************************************/
 
 // session objects
 

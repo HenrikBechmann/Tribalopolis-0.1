@@ -58,7 +58,7 @@ const getDocumentCacheItem = (reference) => {
         cacheitem = newDocumentCacheItem();
         documentcache.set(reference, cacheitem);
         // connect to data source
-        domain.setDocumentListener({ reference, callback: processDocumentCallbackFromGateway });
+        domain.setDocumentListener({ reference, successfunc: processDocumentCallbackFromGateway, failurefunc: null });
     }
     return cacheitem;
 };
@@ -106,7 +106,7 @@ const getTypeCacheItem = (reference) => {
     else {
         cacheitem = newTypeCacheItem();
         typecache.set(reference, cacheitem);
-        domain.setDocumentListener({ reference, callback: processTypeCallbacksFromGateway });
+        domain.setDocumentListener({ reference, successfunc: processTypeCallbacksFromGateway, failurefunc: null });
     }
     return cacheitem;
 };
@@ -166,10 +166,11 @@ const processDocumentCallbacks = (reference, reason) => {
 */
 const removeDocumentCacheItem = (reference) => {
     // unhook from gateway
-    domain.removeDocumentListener(reference);
+    domain.removeDocumentListener({ reference });
     // anticipate need for type cache listener...
     let documentcacheitem = documentcache.get(reference);
     documentcache.delete(reference);
+    // console.log('documentcacheitem, reference', documentcacheitem, reference)
     // deal with type cache listener
     let document = documentcacheitem.document;
     if (document) {
@@ -231,7 +232,7 @@ const properties = {
     ismobile: /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)
 };
 // called from component componentDidMount or componentWillUpdate
-const setDocumentListener = ({ doctoken, instanceid, callback }) => {
+const setDocumentListener = ({ doctoken, instanceid, successfunc, failurefunc }) => {
     setTimeout(() => {
         let reference = doctoken.reference; // getTokenReference(doctoken)
         let sentinel = sentinels[instanceid]
@@ -250,10 +251,10 @@ const setDocumentListener = ({ doctoken, instanceid, callback }) => {
         else { // sentinel = false; continue with set listener
             sentinels[instanceid].push(false);
         }
-        addDocumentCacheListener(reference, instanceid, callback);
+        addDocumentCacheListener(reference, instanceid, successfunc);
         let cachedata = getDocumentPack(reference);
         if (cachedata.document && cachedata.type) { // defer if waiting for type
-            callback(cachedata.document, cachedata.type, {
+            successfunc(cachedata.document, cachedata.type, {
                 documents: {
                     reason: 'newcallback',
                     document: true,

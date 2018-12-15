@@ -56,7 +56,7 @@ import { toast } from 'react-toastify'
 
 import { withStyles, createStyles } from '@material-ui/core/styles'
 
-import { GetDocumentInterface, QueryForDocumentInterface } from '../services/interfaces'
+import { GetDocumentMessage } from '../services/interfaces'
 
 let styles = createStyles({
     mainviewstyle: {
@@ -229,7 +229,7 @@ class Main extends React.Component<any,any> {
 
     getSystemDocument = () => {
 
-        let parm:GetDocumentInterface = {
+        let parm:GetDocumentMessage = {
             reference:'/system/parameters',
             successfunc:this.systemDocumentSuccess,
             failurefunc:this.systemDocumentFailure,
@@ -269,7 +269,7 @@ class Main extends React.Component<any,any> {
 
     getUserDocument = uid => {
 
-        let parms:QueryForDocumentInterface = {
+        let parms:GetDocumentMessage = {
             reference:'users',
             whereclauses:[['identity.loginid.uid','==',uid]],
             successfunc:this.userDocumentSuccess, 
@@ -323,7 +323,7 @@ class Main extends React.Component<any,any> {
 
     getAccountDocument = reference => {
 
-        let parm:GetDocumentInterface = {
+        let parm:GetDocumentMessage = {
             reference,
             successfunc:this.userAccountSuccess, 
             failurefunc:this.userAccountFailure

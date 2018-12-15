@@ -175,7 +175,7 @@ class DataBox extends React.Component {
         let { itemProxy } = this;
         let parms = {
             doctoken: itemProxy.doctoken,
-            instanceid: itemProxy.instanceid, callback: this.cacheItemData
+            instanceid: itemProxy.instanceid, successfunc: this.cacheItemData, failurefunc: null
         };
         this.props.callbacks.setDocumentListener(parms);
     }
@@ -205,7 +205,7 @@ class DataBox extends React.Component {
         let { itemProxy } = this;
         let parms = {
             doctoken: itemProxy.doctoken,
-            instanceid: itemProxy.instanceid
+            instanceid: itemProxy.instanceid,
         };
         this.props.callbacks.removeDocumentListener(parms);
     }

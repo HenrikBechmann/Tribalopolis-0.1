@@ -66,7 +66,8 @@ class extends React.Component<any,any> {
                 {
                     doctoken:this.listProxy.doctoken,
                     instanceid:this.listProxy.instanceid,
-                    callback:this.cacheListDocument
+                    successfunc:this.cacheListDocument,
+                    failurefunc:null,
                 }
             this.props.callbacks.setDocumentListener( parms )
         }
@@ -90,6 +91,8 @@ class extends React.Component<any,any> {
                 {
                     doctoken:this.listProxy.doctoken,
                     instanceid:this.listProxy.instanceid,
+                    // successfunc:null,
+                    // failurefunc:null,
                 }
             this.props.callbacks.removeDocumentListener( parms )
         }        
