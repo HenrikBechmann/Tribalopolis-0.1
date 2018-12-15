@@ -199,7 +199,7 @@ class DataBox extends React.Component {
         // unsubscribe data
         // console.log('unmounting',this.itemProxy.instanceid)
         let { itemProxy } = this;
-        this.props.callbacks.removeDocumentListener(itemProxy.doctoken, itemProxy.instanceid);
+        this.props.callbacks.removeDocumentListener({ doctoken: itemProxy.doctoken, instanceid: itemProxy.instanceid });
     }
     render() {
         let { haspeers, classes, containerHeight } = this.props;

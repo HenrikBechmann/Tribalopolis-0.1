@@ -87,7 +87,11 @@ class extends React.Component<any,any> {
     componentWillUnmount() {
         if (this.listProxy) {
             this.props.callbacks.removeDocumentListener(
-                this.listProxy.doctoken,this.listProxy.instanceid)
+                {
+                    doctoken:this.listProxy.doctoken,
+                    instanceid:this.listProxy.instanceid,
+                }
+            )
         }        
     }
 

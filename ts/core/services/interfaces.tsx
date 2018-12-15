@@ -50,6 +50,11 @@ export interface SetDocumentListenerInterface {
     callback:Function,
 }
 
+export interface RemoveDocumentListenerInterface {
+    doctoken:DocTokenInterface,
+    instanceid:number,
+}
+
 // session objects
 
 export interface DocTokenInterface {

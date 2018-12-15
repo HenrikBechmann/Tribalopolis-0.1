@@ -55,7 +55,10 @@ class NavigationMenuTab extends React.Component {
     }
     componentWillUnmount() {
         if (this.listProxy) {
-            this.props.callbacks.removeDocumentListener(this.listProxy.doctoken, this.listProxy.instanceid);
+            this.props.callbacks.removeDocumentListener({
+                doctoken: this.listProxy.doctoken,
+                instanceid: this.listProxy.instanceid,
+            });
         }
     }
     render() {

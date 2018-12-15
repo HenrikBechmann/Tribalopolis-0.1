@@ -82,7 +82,11 @@ class IdentityBar extends React.Component<any, any> {
     componentWillUnmount() {
         if (this.itemProxy) {
             this.props.removeDocumentListener(
-                this.itemProxy.doctoken,this.itemProxy.instanceid)
+                {
+                    doctoken:this.itemProxy.doctoken,
+                    instanceid:this.itemProxy.instanceid,
+                }
+            )
         }        
     }
 

@@ -103,7 +103,8 @@ class DirectoryBar extends React.Component<any,any> {
     componentWillUnmount() {
         if (this.listProxy) {
             this.props.removeDocumentListener(
-                this.listProxy.doctoken,this.listProxy.instanceid)
+                {doctoken:this.listProxy.doctoken,instanceid:this.listProxy.instanceid}
+            )
         }        
     }
 

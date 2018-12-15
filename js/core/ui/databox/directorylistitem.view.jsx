@@ -77,7 +77,10 @@ class DirectoryListItem extends React.Component {
     }
     componentWillUnmount() {
         if (this.listProxy) {
-            this.props.removeDocumentListener(this.listProxy.doctoken, this.listProxy.instanceid);
+            this.props.removeDocumentListener({
+                doctoken: this.listProxy.doctoken,
+                instanceid: this.listProxy.instanceid,
+            });
         }
     }
     render() {

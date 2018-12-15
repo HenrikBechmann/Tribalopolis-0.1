@@ -38,6 +38,7 @@ import {
     GetCollectionInterface,
     DocTokenInterface, 
     SetDocumentListenerInterface,
+    RemoveDocumentListenerInterface,
 } from './interfaces'
 // ==============[ Internal ]===============
 
@@ -419,7 +420,7 @@ const setDocumentListener = (parmblock:SetDocumentListenerInterface) => {
 }
 
 // called from component componentWillUnmount
-const removeDocumentListener = (doctoken:DocTokenInterface, instanceid) => {
+const removeDocumentListener = ({doctoken, instanceid}:RemoveDocumentListenerInterface) => {
 
     let reference = doctoken.reference
 

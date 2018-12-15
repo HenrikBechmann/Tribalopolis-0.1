@@ -49,7 +49,10 @@ class RootDirectoryBarHolder extends React.Component {
     }
     componentWillUnmount() {
         if (this.itemProxy) {
-            this.props.removeDocumentListener(this.itemProxy.doctoken, this.itemProxy.instanceid);
+            this.props.removeDocumentListener({
+                doctoken: this.itemProxy.doctoken,
+                instanceid: this.itemProxy.instanceid,
+            });
         }
     }
     render() {

@@ -265,7 +265,7 @@ const setDocumentListener = (parmblock) => {
     });
 };
 // called from component componentWillUnmount
-const removeDocumentListener = (doctoken, instanceid) => {
+const removeDocumentListener = ({ doctoken, instanceid }) => {
     let reference = doctoken.reference;
     let sentinel = sentinels[instanceid]
         ? sentinels[instanceid][0]
