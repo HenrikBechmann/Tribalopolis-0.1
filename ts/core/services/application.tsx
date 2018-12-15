@@ -362,9 +362,7 @@ const properties = {
 }
 
 // called from component componentDidMount or componentWillUpdate
-const setDocumentListener = (parmblock:SetDocumentListenerInterface) => {
-
-    let {doctoken,instanceid,callback} = parmblock    
+const setDocumentListener = ({doctoken,instanceid,callback}:SetDocumentListenerInterface) => {
 
     setTimeout(()=>{ // give animations a chance to run
 

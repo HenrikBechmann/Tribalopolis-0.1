@@ -79,19 +79,21 @@ class BoxToolbar extends React.Component {
     componentDidUpdate() {
         if (!this.listProxy && this.props.listProxy) {
             this.listProxy = this.props.listProxy;
-            this.props.callbacks.setDocumentListener({
+            let parms = {
                 doctoken: this.listProxy.doctoken,
                 instanceid: this.listProxy.instanceid,
-                callback: this.cacheListDocument
-            });
+                callback: this.cacheListDocument,
+            };
+            this.props.callbacks.setDocumentListener(parms);
         }
     }
     componentWillUnmount() {
         if (this.listProxy) {
-            this.props.callbacks.removeDocumentListener({
+            let parms = {
                 doctoken: this.listProxy.doctoken,
                 instanceid: this.listProxy.instanceid,
-            });
+            };
+            this.props.callbacks.removeDocumentListener(parms);
         }
     }
     render() {

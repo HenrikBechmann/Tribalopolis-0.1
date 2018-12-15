@@ -21,6 +21,8 @@ import QuantityBadge from '../common/quantitybadge.view'
 import ActionButton from '../common/actionbutton.view'
 import LoadingMessage from '../common/loadingmessage.view'
 
+import { SetDocumentListenerInterface, RemoveDocumentListenerInterface } from '../../services/interfaces'
+
 const styles = createStyles({ 
     barstyle:{
         boxSizing:'border-box',
@@ -90,21 +92,21 @@ class DirectoryBar extends React.Component<any,any> {
     assertList = () => {
         if (!this.listProxy && this.props.listProxy) {
             this.listProxy = this.props.listProxy
-            this.props.setDocumentListener(
+            let parms: SetDocumentListenerInterface = 
                 {
                     doctoken:this.listProxy.doctoken,
                     instanceid:this.listProxy.instanceid,
                     callback:this.cacheListDocument
                 }
-            )
+            this.props.setDocumentListener( parms )
         }        
     }
 
     componentWillUnmount() {
         if (this.listProxy) {
-            this.props.removeDocumentListener(
+            let parms:RemoveDocumentListenerInterface = 
                 {doctoken:this.listProxy.doctoken,instanceid:this.listProxy.instanceid}
-            )
+            this.props.removeDocumentListener( parms )
         }        
     }
 

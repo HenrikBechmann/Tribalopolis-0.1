@@ -173,7 +173,11 @@ class DataBox extends React.Component {
     componentDidMount() {
         // console.log('did mount',this.itemProxy?this.itemProxy.instanceid:'no item')
         let { itemProxy } = this;
-        this.props.callbacks.setDocumentListener({ doctoken: itemProxy.doctoken, instanceid: itemProxy.instanceid, callback: this.cacheItemData });
+        let parms = {
+            doctoken: itemProxy.doctoken,
+            instanceid: itemProxy.instanceid, callback: this.cacheItemData
+        };
+        this.props.callbacks.setDocumentListener(parms);
     }
     componentDidUpdate() {
         let { collapseTargetProxy } = this.props; // gets set then cancelled by parent
@@ -199,7 +203,11 @@ class DataBox extends React.Component {
         // unsubscribe data
         // console.log('unmounting',this.itemProxy.instanceid)
         let { itemProxy } = this;
-        this.props.callbacks.removeDocumentListener({ doctoken: itemProxy.doctoken, instanceid: itemProxy.instanceid });
+        let parms = {
+            doctoken: itemProxy.doctoken,
+            instanceid: itemProxy.instanceid
+        };
+        this.props.callbacks.removeDocumentListener(parms);
     }
     render() {
         let { haspeers, classes, containerHeight } = this.props;

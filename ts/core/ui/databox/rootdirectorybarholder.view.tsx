@@ -12,6 +12,8 @@ import docproxy from '../../utilities/docproxy'
 
 import LoadingMessage from '../common/loadingmessage.view'
 
+import { SetDocumentListenerInterface, RemoveDocumentListenerInterface } from '../../services/interfaces'
+
 const styles = createStyles({
     holderstyle:{
         boxSizing:'border-box',
@@ -41,24 +43,24 @@ class RootDirectoryBarHolder extends React.Component<any, any> {
         if (!this.itemProxy && this.props.itemProxy) {
             // console.log('asserting listener')
             this.itemProxy = this.props.itemProxy
-            this.props.setDocumentListener(
+            let parms:SetDocumentListenerInterface = 
                 {
                     doctoken:this.itemProxy.doctoken,
                     instanceid:this.itemProxy.instanceid,
                     callback:this.cacheItemDocument
                 }
-            )
+            this.props.setDocumentListener( parms )
         }        
     }
 
     componentWillUnmount() {
         if (this.itemProxy) {
-            this.props.removeDocumentListener(
+            let parms: RemoveDocumentListenerInterface = 
                 {
                     doctoken:this.itemProxy.doctoken,
                     instanceid:this.itemProxy.instanceid,
                 }
-            )
+            this.props.removeDocumentListener( parms )
         }        
     }
 

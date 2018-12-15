@@ -12,6 +12,8 @@ import Divider from '@material-ui/core/Divider'
 
 import ActionButton from '../common/actionbutton.view'
 
+import { SetDocumentListenerInterface, RemoveDocumentListenerInterface } from '../../services/interfaces'
+
 const styles = createStyles({
     tabstyles:{
         position:'absolute',
@@ -46,24 +48,24 @@ class NavigationMenuTab extends React.Component<any,any> {
     componentDidUpdate() {
         if (!this.listProxy && this.props.listProxy) {
             this.listProxy = this.props.listProxy
-            this.props.callbacks.setDocumentListener(
+            let parms:SetDocumentListenerInterface = 
                 {
                     doctoken:this.listProxy.doctoken,
                     instanceid:this.listProxy.instanceid,
                     callback:this.cacheListDocument
                 }
-            )
+            this.props.callbacks.setDocumentListener( parms )
         }
     }
 
     componentWillUnmount() {
         if (this.listProxy) {
-            this.props.callbacks.removeDocumentListener(
+            let parms:RemoveDocumentListenerInterface = 
                 {
                     doctoken:this.listProxy.doctoken,
                     instanceid:this.listProxy.instanceid,
                 }
-            )
+            this.props.callbacks.removeDocumentListener( parms )
         }        
     }
     cacheListDocument = (document, type, change) => {

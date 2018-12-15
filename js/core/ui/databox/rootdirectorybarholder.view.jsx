@@ -24,11 +24,12 @@ class RootDirectoryBarHolder extends React.Component {
             if (!this.itemProxy && this.props.itemProxy) {
                 // console.log('asserting listener')
                 this.itemProxy = this.props.itemProxy;
-                this.props.setDocumentListener({
+                let parms = {
                     doctoken: this.itemProxy.doctoken,
                     instanceid: this.itemProxy.instanceid,
                     callback: this.cacheItemDocument
-                });
+                };
+                this.props.setDocumentListener(parms);
             }
         };
         this.cacheItemDocument = (document, type, change) => {
@@ -49,10 +50,11 @@ class RootDirectoryBarHolder extends React.Component {
     }
     componentWillUnmount() {
         if (this.itemProxy) {
-            this.props.removeDocumentListener({
+            let parms = {
                 doctoken: this.itemProxy.doctoken,
                 instanceid: this.itemProxy.instanceid,
-            });
+            };
+            this.props.removeDocumentListener(parms);
         }
     }
     render() {

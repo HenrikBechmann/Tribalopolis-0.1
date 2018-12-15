@@ -12,6 +12,8 @@ import MenuItem from '@material-ui/core/MenuItem';
 import ActionButton from '../common/actionbutton.view'
 import PopupMenu from '../common/popupmenu.view'
 
+import { SetDocumentListenerInterface, RemoveDocumentListenerInterface } from '../../services/interfaces'
+
 const styles = createStyles({
     barstyle:{
         boxSizing:'border-box',
@@ -69,24 +71,24 @@ class IdentityBar extends React.Component<any, any> {
     assertListener = () => {
         if (!this.itemProxy && this.props.itemProxy) {
             this.itemProxy = this.props.itemProxy
-            this.props.setDocumentListener(
+            let parms:SetDocumentListenerInterface = 
                 {
                     doctoken:this.itemProxy.doctoken,
                     instanceid:this.itemProxy.instanceid,
                     callback:this.cacheItemDocument
                 }
-            )
+            this.props.setDocumentListener( parms )
         }        
     }
 
     componentWillUnmount() {
         if (this.itemProxy) {
-            this.props.removeDocumentListener(
+            let parms:RemoveDocumentListenerInterface = 
                 {
                     doctoken:this.itemProxy.doctoken,
                     instanceid:this.itemProxy.instanceid,
                 }
-            )
+            this.props.removeDocumentListener( parms )
         }        
     }
 

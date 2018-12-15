@@ -63,11 +63,12 @@ class DirectoryBar extends React.Component {
         this.assertList = () => {
             if (!this.listProxy && this.props.listProxy) {
                 this.listProxy = this.props.listProxy;
-                this.props.setDocumentListener({
+                let parms = {
                     doctoken: this.listProxy.doctoken,
                     instanceid: this.listProxy.instanceid,
                     callback: this.cacheListDocument
-                });
+                };
+                this.props.setDocumentListener(parms);
             }
         };
         this.cacheListDocument = (document, type, change) => {
@@ -101,7 +102,8 @@ class DirectoryBar extends React.Component {
     }
     componentWillUnmount() {
         if (this.listProxy) {
-            this.props.removeDocumentListener({ doctoken: this.listProxy.doctoken, instanceid: this.listProxy.instanceid });
+            let parms = { doctoken: this.listProxy.doctoken, instanceid: this.listProxy.instanceid };
+            this.props.removeDocumentListener(parms);
         }
     }
     render() {

@@ -231,8 +231,7 @@ const properties = {
     ismobile: /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)
 };
 // called from component componentDidMount or componentWillUpdate
-const setDocumentListener = (parmblock) => {
-    let { doctoken, instanceid, callback } = parmblock;
+const setDocumentListener = ({ doctoken, instanceid, callback }) => {
     setTimeout(() => {
         let reference = doctoken.reference; // getTokenReference(doctoken)
         let sentinel = sentinels[instanceid]

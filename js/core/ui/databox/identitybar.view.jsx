@@ -46,11 +46,12 @@ class IdentityBar extends React.Component {
         this.assertListener = () => {
             if (!this.itemProxy && this.props.itemProxy) {
                 this.itemProxy = this.props.itemProxy;
-                this.props.setDocumentListener({
+                let parms = {
                     doctoken: this.itemProxy.doctoken,
                     instanceid: this.itemProxy.instanceid,
                     callback: this.cacheItemDocument
-                });
+                };
+                this.props.setDocumentListener(parms);
             }
         };
         this.cacheItemDocument = (document, type, change) => {
@@ -85,10 +86,11 @@ class IdentityBar extends React.Component {
     }
     componentWillUnmount() {
         if (this.itemProxy) {
-            this.props.removeDocumentListener({
+            let parms = {
                 doctoken: this.itemProxy.doctoken,
                 instanceid: this.itemProxy.instanceid,
-            });
+            };
+            this.props.removeDocumentListener(parms);
         }
     }
     render() {

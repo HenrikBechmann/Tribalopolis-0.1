@@ -133,11 +133,12 @@ const DirectoryListBase = withStyles(styles)(class extends React.Component {
     componentDidUpdate() {
         if (!this.listProxy && this.props.listProxy) {
             this.listProxy = this.props.listProxy;
-            this.props.callbacks.setDocumentListener({
+            let parms = {
                 doctoken: this.listProxy.doctoken,
                 instanceid: this.listProxy.instanceid,
                 callback: this.cacheListDocument
-            });
+            };
+            this.props.callbacks.setDocumentListener(parms);
         }
         if (this.props.highlightrefuid) {
             this.highlightrefuid = this.props.highlightrefuid;
@@ -150,10 +151,11 @@ const DirectoryListBase = withStyles(styles)(class extends React.Component {
     }
     componentWillUnmount() {
         if (this.listProxy) {
-            this.props.callbacks.removeDocumentListener({
+            let parms = {
                 doctoken: this.listProxy.doctoken,
                 instanceid: this.listProxy.instanceid,
-            });
+            };
+            this.props.callbacks.removeDocumentListener(parms);
         }
     }
     render() {
