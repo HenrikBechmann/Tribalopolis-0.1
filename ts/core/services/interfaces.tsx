@@ -10,18 +10,18 @@
 interfaces for session data transfer objects
 ***************************************************************/
 
-// services
+// fetch services
 
 export interface GetDocumentInterface {
     reference:string,
-    callback:Function, 
-    errorback:Function,
+    success:Function, 
+    failure:Function,
 }
 
 export interface GetNewDocumentInterface {
     reference:string,
-    callback:Function, 
-    errorback:Function,
+    success:Function, 
+    failure:Function,
 }
 
 export interface QueryForDocumentInterface {
@@ -31,18 +31,7 @@ export interface QueryForDocumentInterface {
     failure:Function,
 }
 
-export interface SetDocumentInterface {
-    reference:string, 
-    data:Object, 
-    success:Function, 
-    failure:Function,
-}
-
-export interface GetCollectionInterface {
-    reference:string, 
-    success:Function, 
-    failure:Function,
-}
+// listeners
 
 export interface SetDocumentListenerInterface {
     doctoken:DocTokenInterface,
@@ -64,12 +53,22 @@ export interface RemoveGatewayListenerInterface {
     reference:string, 
 }
 
-// session objects
+// change persistent data
 
-export interface DocPackInterface {
-    id:string,
-    document:Object,
+export interface SetDocumentInterface {
+    reference:string, 
+    data:Object, 
+    success:Function, 
+    failure:Function,
 }
+
+export interface GetCollectionInterface {
+    reference:string, 
+    success:Function, 
+    failure:Function,
+}
+
+// session objects
 
 export interface DocTokenInterface {
     reference:string,
@@ -77,5 +76,10 @@ export interface DocTokenInterface {
 
 export interface DocProxyInterface {
     doctoken:DocTokenInterface,
-    liststack?:Array<any>
+    liststack?:any[]
+}
+
+export interface DocPackInterface {
+    id:string,
+    document:Object,
 }

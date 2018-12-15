@@ -152,8 +152,8 @@ let Main = class Main extends React.Component {
         this.getSystemDocument = () => {
             let parm = {
                 reference: '/system/parameters',
-                callback: this.systemDocumentSuccess,
-                errorback: this.systemDocumentFailure,
+                success: this.systemDocumentSuccess,
+                failure: this.systemDocumentFailure,
             };
             application.getDocument(parm);
         };
@@ -216,8 +216,8 @@ let Main = class Main extends React.Component {
         this.getAccountDocument = reference => {
             let parm = {
                 reference,
-                callback: this.userAccountSuccess,
-                errorback: this.userAccountFailure
+                success: this.userAccountSuccess,
+                failure: this.userAccountFailure
             };
             application.getDocument(parm);
         };

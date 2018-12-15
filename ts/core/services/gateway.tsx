@@ -65,7 +65,7 @@ const removeGatewayListener = ({reference}) => {
 
 }
 
-const getDocument = ({reference, callback, errorback}:GetDocumentInterface) => {
+const getDocument = ({reference, success, failure}:GetDocumentInterface) => {
 
     let docref = firestore.doc(reference)
     // console.log('gateway getting document',reference, docref)
@@ -74,18 +74,18 @@ const getDocument = ({reference, callback, errorback}:GetDocumentInterface) => {
         // console.log('returning doc with callback',doc.data())
         let data = doc.data()
         let id = doc.id
-        callback(data,id)
+        success(data,id)
 
     })
     .catch((error)=> {
 
-        errorback(error)
+        failure(error)
 
     })
     
 }
 
-const getNewDocument = ({reference, callback, errorback}:GetNewDocumentInterface) => {
+const getNewDocument = ({reference, success, failure}:GetNewDocumentInterface) => {
     // console.log('getting document',reference)
     let docref = firestore.collection(reference).doc()
     docref.get()
@@ -93,10 +93,10 @@ const getNewDocument = ({reference, callback, errorback}:GetNewDocumentInterface
         // console.log('returning doc with callback')
         let data = doc.data()
         let id = doc.id
-        callback(data,id)
+        success(data,id)
     })
     .catch((error)=> {
-        errorback(error)
+        failure(error)
     })
 }
 

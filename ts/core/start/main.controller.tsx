@@ -231,8 +231,8 @@ class Main extends React.Component<any,any> {
 
         let parm:GetDocumentInterface = {
             reference:'/system/parameters',
-            callback:this.systemDocumentSuccess,
-            errorback:this.systemDocumentFailure,
+            success:this.systemDocumentSuccess,
+            failure:this.systemDocumentFailure,
         }
 
         application.getDocument(parm)
@@ -325,8 +325,8 @@ class Main extends React.Component<any,any> {
 
         let parm:GetDocumentInterface = {
             reference,
-            callback:this.userAccountSuccess, 
-            errorback:this.userAccountFailure
+            success:this.userAccountSuccess, 
+            failure:this.userAccountFailure
         }
         application.getDocument(parm)
 

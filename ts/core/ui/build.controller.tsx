@@ -123,8 +123,8 @@ class BuildController extends React.Component<any,any> {
                         if (typeref) {
                             let parm: GetDocumentInterface = {
                                 reference:typeref,
-                                callback:this.fetchTypeSuccessCallback,
-                                errorback:this.fetchTypeErrorCallback,
+                                success:this.fetchTypeSuccessCallback,
+                                failure:this.fetchTypeErrorCallback,
                             }
                             application.getDocument(parm)
                         }
@@ -150,8 +150,8 @@ class BuildController extends React.Component<any,any> {
 
                 let parm:GetDocumentInterface = {
                     reference:this.state.values.collection,
-                    callback:this.fetchSuccessCallback,
-                    errorback:this.fetchErrorCallback,
+                    success:this.fetchSuccessCallback,
+                    failure:this.fetchErrorCallback,
                 }
 
                 application.getNewDocument(parm)
@@ -160,8 +160,8 @@ class BuildController extends React.Component<any,any> {
 
                 let parm:GetDocumentInterface = {
                     reference:`/${this.state.values.collection}/${this.state.values.id}`,
-                    callback:this.fetchSuccessCallback,
-                    errorback:this.fetchErrorCallback,
+                    success:this.fetchSuccessCallback,
+                    failure:this.fetchErrorCallback,
                 }
                 application.getDocument(parm)
 
@@ -200,8 +200,8 @@ class BuildController extends React.Component<any,any> {
                         // console.log('typeref',typeref)
                         let parm:GetDocumentInterface = {
                             reference:typeref,
-                            callback:this.fetchTypeSuccessCallback,
-                            errorback:this.fetchTypeErrorCallback,
+                            success:this.fetchTypeSuccessCallback,
+                            failure:this.fetchTypeErrorCallback,
                         }
                         application.getDocument(parm)
                     }
