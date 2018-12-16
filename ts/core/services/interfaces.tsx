@@ -23,37 +23,37 @@ export interface GetDocumentMessage {
     failure:Function,
 }
 
-export interface GetCollectionInterface {
+export interface GetCollectionMessage {
     reference:string, 
     success:Function, 
     failure:Function,
 }
 
-export interface SetDocumentListenerInterface {
-    doctoken:DocTokenInterface,
+export interface SetListenerMessage {
+    doctoken:DocTokenStruc,
     instanceid:number,
     success:Function,
     failure:Function,
 }
 
-export interface RemoveDocumentListenerInterface {
-    doctoken:DocTokenInterface,
+export interface RemoveListenerMessage {
+    doctoken:DocTokenStruc,
     instanceid:number,
 }
 
-export interface SetGatewayListenerInterface {
+export interface SetGatewayListenerMessage {
     reference:string, 
     success:Function,
     failure:Function,
 }
 
-export interface RemoveGatewayListenerInterface {
+export interface RemoveGatewayListenerMessage {
     reference:string, 
 }
 
 // change persistent data s/b Message
 
-export interface SetDocumentInterface {
+export interface SetDocumentMessage {
     reference:string, 
     data:Object, 
     success:Function, 
@@ -66,16 +66,16 @@ export interface SetDocumentInterface {
 
 // session objects s/b struc
 
-export interface DocTokenInterface {
+export interface DocTokenStruc {
     reference:string,
 }
 
-export interface DocProxyInterface {
-    doctoken:DocTokenInterface,
+export interface DocProxyStruc {
+    doctoken:DocTokenStruc,
     liststack?:any[]
 }
 
-export interface DocPackInterface {
+export interface DocPackStruc {
     id:string,
     document:Object,
 }

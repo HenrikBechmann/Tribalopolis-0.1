@@ -34,11 +34,11 @@ import {
     GetDocumentMessage, 
     // GetNewDocumentInterface, 
     // QueryForDocumentInterface, 
-    SetDocumentInterface, 
-    GetCollectionInterface,
-    DocTokenInterface, 
-    SetDocumentListenerInterface,
-    RemoveDocumentListenerInterface,
+    SetDocumentMessage, 
+    GetCollectionMessage,
+    DocTokenStruc, 
+    SetListenerMessage,
+    RemoveListenerMessage,
 } from './interfaces'
 // ==============[ Internal ]===============
 
@@ -365,7 +365,7 @@ const properties = {
 }
 
 // called from component componentDidMount or componentWillUpdate
-const setDocumentListener = ({doctoken,instanceid,success, failure}:SetDocumentListenerInterface) => {
+const setDocumentListener = ({doctoken,instanceid,success, failure}:SetListenerMessage) => {
 
     setTimeout(()=>{ // give animations a chance to run
 
@@ -421,7 +421,7 @@ const setDocumentListener = ({doctoken,instanceid,success, failure}:SetDocumentL
 }
 
 // called from component componentWillUnmount
-const removeDocumentListener = ({doctoken, instanceid}:RemoveDocumentListenerInterface) => {
+const removeDocumentListener = ({doctoken, instanceid}:RemoveListenerMessage) => {
 
     let reference = doctoken.reference
 
@@ -474,13 +474,13 @@ const queryForDocument = (parmblock:GetDocumentMessage) => {
     
 }
 
-const setDocument = (parmblock:SetDocumentInterface) => {
+const setDocument = (parmblock:SetDocumentMessage) => {
 
     domain.setDocument(parmblock)
 
 }
 
-const getCollection = (parmblock:GetCollectionInterface) => {
+const getCollection = (parmblock:GetCollectionMessage) => {
 
     domain.getCollection(parmblock)
     

@@ -22,7 +22,7 @@ import LoadingMessage from './common/loadingmessage.view'
 
 import docproxy from '../utilities/docproxy'
 
-import { SetDocumentListenerInterface, RemoveDocumentListenerInterface } from '../services/interfaces'
+import { SetListenerMessage, RemoveListenerMessage } from '../services/interfaces'
 
 const buttonstyles = theme => createStyles({
   button: {
@@ -129,7 +129,7 @@ class DataBox extends React.Component<any,any> {
     componentDidMount() {
         // console.log('did mount',this.itemProxy?this.itemProxy.instanceid:'no item')
         let { itemProxy } = this
-        let parms:SetDocumentListenerInterface = {
+        let parms:SetListenerMessage = {
             doctoken:itemProxy.doctoken, 
             instanceid:itemProxy.instanceid,success:this.cacheItemData,failure:null
         }
@@ -165,7 +165,7 @@ class DataBox extends React.Component<any,any> {
         // unsubscribe data
         // console.log('unmounting',this.itemProxy.instanceid)
         let { itemProxy } = this
-        let parms:RemoveDocumentListenerInterface = {
+        let parms:RemoveListenerMessage = {
             doctoken:itemProxy.doctoken, 
             instanceid:itemProxy.instanceid,
             // success:null,

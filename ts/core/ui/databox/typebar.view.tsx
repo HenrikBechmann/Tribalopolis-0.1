@@ -8,7 +8,7 @@ import ActionButton from '../common/actionbutton.view'
 
 import { withStyles, createStyles } from '@material-ui/core/styles'
 
-import { SetDocumentListenerInterface, RemoveDocumentListenerInterface } from '../../services/interfaces'
+import { SetListenerMessage, RemoveListenerMessage } from '../../services/interfaces'
 
 const styles = createStyles({
     root:{
@@ -78,7 +78,7 @@ class BoxToolbar extends React.Component<any,any> {
     componentDidUpdate() {
         if (!this.listProxy && this.props.listProxy) {
             this.listProxy = this.props.listProxy
-            let parms:SetDocumentListenerInterface = 
+            let parms:SetListenerMessage = 
                 {
                     doctoken:this.listProxy.doctoken,
                     instanceid:this.listProxy.instanceid,
@@ -91,7 +91,7 @@ class BoxToolbar extends React.Component<any,any> {
 
     componentWillUnmount() {
         if (this.listProxy) {
-            let parms:RemoveDocumentListenerInterface = 
+            let parms:RemoveListenerMessage = 
                 {
                     doctoken:this.listProxy.doctoken,
                     instanceid:this.listProxy.instanceid,

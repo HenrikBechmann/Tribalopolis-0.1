@@ -31,7 +31,7 @@ import ActionButton from './common/actionbutton.view'
 import DataDrawer from './common/datadrawer.view'
 import BuildDataPane from './build/builddatapane.view'
 
-import { GetDocumentMessage, SetDocumentInterface } from '../services/interfaces'
+import { GetDocumentMessage, SetDocumentMessage } from '../services/interfaces'
 
 const styles = theme => (createStyles({
     button: {
@@ -261,7 +261,7 @@ class BuildController extends React.Component<any,any> {
 
     postObject = () => {
         if (confirm('Post this object?')) {
-            let parm:SetDocumentInterface = {
+            let parm:SetDocumentMessage = {
                 reference:`/${this.state.values.collection}/${this.state.values.id}`,
                 data:this.latestjson,
                 success:this.postSuccessCallback,

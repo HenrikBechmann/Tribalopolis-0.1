@@ -16,25 +16,25 @@ import {
     GetDocumentMessage, 
     // GetNewDocumentInterface, 
     // QueryForDocumentInterface, 
-    SetDocumentInterface, 
-    GetCollectionInterface,
-    SetGatewayListenerInterface,
-    RemoveGatewayListenerInterface
+    SetDocumentMessage, 
+    GetCollectionMessage,
+    SetGatewayListenerMessage,
+    RemoveGatewayListenerMessage
 } from './interfaces'
 
 const noop = () => {
 
 }
 
-const setDocumentListener = ({reference, success:processDocumentCallbackFromGateway, failure:noop}:SetGatewayListenerInterface) => {
+const setDocumentListener = ({reference, success:processDocumentCallbackFromGateway, failure:noop}:SetGatewayListenerMessage) => {
 
     gateway.setGatewayListener({reference, callback:processDocumentCallbackFromGateway})
 
 }
 
-const removeDocumentListener =  ({reference}:RemoveGatewayListenerInterface) => {
+const removeDocumentListener =  ({reference}:RemoveGatewayListenerMessage) => {
 
-    let parm:RemoveGatewayListenerInterface = {reference}
+    let parm:RemoveGatewayListenerMessage = {reference}
     gateway.removeGatewayListener(parm)
 
 }
@@ -57,13 +57,13 @@ const queryForDocument = (parmblock:GetDocumentMessage) => {
 
 }
 
-const setDocument = (parmblock:SetDocumentInterface) => {
+const setDocument = (parmblock:SetDocumentMessage) => {
 
     gateway.setDocument(parmblock)
 
 }
 
-const getCollection = (parmblock:GetCollectionInterface) => {
+const getCollection = (parmblock:GetCollectionMessage) => {
 
     gateway.getCollection(parmblock)
     

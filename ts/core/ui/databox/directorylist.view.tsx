@@ -13,7 +13,7 @@ import { withStyles, createStyles } from '@material-ui/core/styles'
 import DirectoryListItem from './directorylistitem.view'
 import docproxy from '../../utilities/docproxy'
 import LoadingMessage from '../common/loadingmessage.view'
-import { DocTokenInterface, SetDocumentListenerInterface, RemoveDocumentListenerInterface } from '../../services/interfaces'
+import { DocTokenStruc, SetListenerMessage, RemoveListenerMessage } from '../../services/interfaces'
 
 const styles = createStyles({
     scrollboxcontainer:{
@@ -62,7 +62,7 @@ class extends React.Component<any,any> {
 
         if (!this.listProxy && this.props.listProxy) {
             this.listProxy = this.props.listProxy
-            let parms:SetDocumentListenerInterface = 
+            let parms:SetListenerMessage = 
                 {
                     doctoken:this.listProxy.doctoken,
                     instanceid:this.listProxy.instanceid,
@@ -87,7 +87,7 @@ class extends React.Component<any,any> {
 
     componentWillUnmount() {
         if (this.listProxy) {
-            let parms:RemoveDocumentListenerInterface = 
+            let parms:RemoveListenerMessage = 
                 {
                     doctoken:this.listProxy.doctoken,
                     instanceid:this.listProxy.instanceid,
@@ -183,7 +183,7 @@ class extends React.Component<any,any> {
 
     }
 
-    expandDirectoryItem = (doctoken:DocTokenInterface) => {
+    expandDirectoryItem = (doctoken:DocTokenStruc) => {
         return (domSource) => {
             this.props.callbacks.expandDirectoryItem(doctoken, domSource)
         }

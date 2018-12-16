@@ -23,8 +23,8 @@ import {
     GetDocumentMessage, 
     // GetNewDocumentInterface, 
     // QueryForDocumentInterface, 
-    SetDocumentInterface, 
-    GetCollectionInterface 
+    SetDocumentMessage, 
+    GetCollectionMessage 
 } from './interfaces'
 
 let firestore = firebase.firestore()
@@ -129,7 +129,7 @@ const queryForDocument = ({reference, whereclauses, success, failure}:GetDocumen
     }) 
 }
 
-const setDocument = ({reference, data, success, failure}:SetDocumentInterface) => {
+const setDocument = ({reference, data, success, failure}:SetDocumentMessage) => {
     let doc = firestore.doc(reference)
     doc.set(data)
     .then(()=>{
@@ -138,7 +138,7 @@ const setDocument = ({reference, data, success, failure}:SetDocumentInterface) =
     .catch((error)=>failure(error))
 }
 
-const getCollection = ({reference, success, failure}:GetCollectionInterface) => {
+const getCollection = ({reference, success, failure}:GetCollectionMessage) => {
     let query = firestore.collection(reference)
     query.get()
     .then(querySnapshot => {
