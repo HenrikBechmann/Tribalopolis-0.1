@@ -11,7 +11,7 @@
 import gateway from './gateway';
 const noop = () => {
 };
-const setDocumentListener = ({ reference, successfunc: processDocumentCallbackFromGateway, failurefunc: noop }) => {
+const setDocumentListener = ({ reference, success: processDocumentCallbackFromGateway, failure: noop }) => {
     gateway.setGatewayListener({ reference, callback: processDocumentCallbackFromGateway });
 };
 const removeDocumentListener = ({ reference }) => {

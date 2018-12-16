@@ -96,8 +96,8 @@ class DirectoryBar extends React.Component<any,any> {
                 {
                     doctoken:this.listProxy.doctoken,
                     instanceid:this.listProxy.instanceid,
-                    successfunc:this.cacheListDocument,
-                    failurefunc:null,
+                    success:this.cacheListDocument,
+                    failure:null,
                 }
             this.props.setDocumentListener( parms )
         }        
@@ -109,8 +109,8 @@ class DirectoryBar extends React.Component<any,any> {
                 {
                     doctoken:this.listProxy.doctoken,
                     instanceid:this.listProxy.instanceid,
-                    // successfunc:null,
-                    // failurefunc:null,
+                    // success:null,
+                    // failure:null,
                 }
             this.props.removeDocumentListener( parms )
         }        

@@ -26,13 +26,13 @@ const noop = () => {
 
 }
 
-const setDocumentListener = ({reference, successfunc:processDocumentCallbackFromGateway, failurefunc:noop}:SetGatewayListenerInterface) => {
+const setDocumentListener = ({reference, success:processDocumentCallbackFromGateway, failure:noop}:SetGatewayListenerInterface) => {
 
     gateway.setGatewayListener({reference, callback:processDocumentCallbackFromGateway})
 
 }
 
-const removeDocumentListener =  ({reference}:GetDocumentMessage) => {
+const removeDocumentListener =  ({reference}:RemoveGatewayListenerInterface) => {
 
     let parm:RemoveGatewayListenerInterface = {reference}
     gateway.removeGatewayListener(parm)

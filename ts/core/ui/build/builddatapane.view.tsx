@@ -74,8 +74,8 @@ class BuildDataPane extends React.Component<any,any>  {
             } else {
                 let parm:GetCollectionInterface = {
                     reference:this.state.specs.collection,
-                    successfunc:this.dataSuccess,
-                    failurefunc:this.dataFailure,
+                    success:this.dataSuccess,
+                    failure:this.dataFailure,
                 }
                 application.getCollection(parm)
             }

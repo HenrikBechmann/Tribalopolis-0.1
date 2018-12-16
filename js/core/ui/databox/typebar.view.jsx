@@ -82,8 +82,8 @@ class BoxToolbar extends React.Component {
             let parms = {
                 doctoken: this.listProxy.doctoken,
                 instanceid: this.listProxy.instanceid,
-                successfunc: this.cacheListDocument,
-                failurefunc: null,
+                success: this.cacheListDocument,
+                failure: null,
             };
             this.props.callbacks.setDocumentListener(parms);
         }

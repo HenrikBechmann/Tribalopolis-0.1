@@ -58,7 +58,7 @@ const getDocumentCacheItem = (reference) => {
         cacheitem = newDocumentCacheItem();
         documentcache.set(reference, cacheitem);
         // connect to data source
-        domain.setDocumentListener({ reference, successfunc: processDocumentCallbackFromGateway, failurefunc: null });
+        domain.setDocumentListener({ reference, success: processDocumentCallbackFromGateway, failure: null });
     }
     return cacheitem;
 };
@@ -106,7 +106,7 @@ const getTypeCacheItem = (reference) => {
     else {
         cacheitem = newTypeCacheItem();
         typecache.set(reference, cacheitem);
-        domain.setDocumentListener({ reference, successfunc: processTypeCallbacksFromGateway, failurefunc: null });
+        domain.setDocumentListener({ reference, success: processTypeCallbacksFromGateway, failure: null });
     }
     return cacheitem;
 };
@@ -232,7 +232,7 @@ const properties = {
     ismobile: /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)
 };
 // called from component componentDidMount or componentWillUpdate
-const setDocumentListener = ({ doctoken, instanceid, successfunc, failurefunc }) => {
+const setDocumentListener = ({ doctoken, instanceid, success, failure }) => {
     setTimeout(() => {
         let reference = doctoken.reference; // getTokenReference(doctoken)
         let sentinel = sentinels[instanceid]
@@ -251,10 +251,10 @@ const setDocumentListener = ({ doctoken, instanceid, successfunc, failurefunc })
         else { // sentinel = false; continue with set listener
             sentinels[instanceid].push(false);
         }
-        addDocumentCacheListener(reference, instanceid, successfunc);
+        addDocumentCacheListener(reference, instanceid, success);
         let cachedata = getDocumentPack(reference);
         if (cachedata.document && cachedata.type) { // defer if waiting for type
-            successfunc(cachedata.document, cachedata.type, {
+            success(cachedata.document, cachedata.type, {
                 documents: {
                     reason: 'newcallback',
                     document: true,

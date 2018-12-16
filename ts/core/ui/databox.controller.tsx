@@ -131,7 +131,7 @@ class DataBox extends React.Component<any,any> {
         let { itemProxy } = this
         let parms:SetDocumentListenerInterface = {
             doctoken:itemProxy.doctoken, 
-            instanceid:itemProxy.instanceid,successfunc:this.cacheItemData,failurefunc:null
+            instanceid:itemProxy.instanceid,success:this.cacheItemData,failure:null
         }
         this.props.callbacks.setDocumentListener(parms)
     }
@@ -168,8 +168,8 @@ class DataBox extends React.Component<any,any> {
         let parms:RemoveDocumentListenerInterface = {
             doctoken:itemProxy.doctoken, 
             instanceid:itemProxy.instanceid,
-            // successfunc:null,
-            // failurefunc:null,
+            // success:null,
+            // failure:null,
         }
 
         this.props.callbacks.removeDocumentListener( parms )

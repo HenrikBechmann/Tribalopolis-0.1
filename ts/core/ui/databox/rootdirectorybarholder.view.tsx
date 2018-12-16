@@ -47,8 +47,8 @@ class RootDirectoryBarHolder extends React.Component<any, any> {
                 {
                     doctoken:this.itemProxy.doctoken,
                     instanceid:this.itemProxy.instanceid,
-                    successfunc:this.cacheItemDocument,
-                    failurefunc:null,
+                    success:this.cacheItemDocument,
+                    failure:null,
                 }
             this.props.setDocumentListener( parms )
         }        
@@ -60,8 +60,8 @@ class RootDirectoryBarHolder extends React.Component<any, any> {
                 {
                     doctoken:this.itemProxy.doctoken,
                     instanceid:this.itemProxy.instanceid,
-                    // successfunc:null,
-                    // failurefunc:null,
+                    // success:null,
+                    // failure:null,
                 }
             this.props.removeDocumentListener( parms )
         }        

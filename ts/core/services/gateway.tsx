@@ -65,7 +65,7 @@ const removeGatewayListener = ({reference}) => {
 
 }
 
-const getDocument = ({reference, successfunc, failurefunc}:GetDocumentMessage) => {
+const getDocument = ({reference, success, failure}:GetDocumentMessage) => {
 
     let docref = firestore.doc(reference)
     // console.log('gateway getting document',reference, docref)
@@ -74,18 +74,18 @@ const getDocument = ({reference, successfunc, failurefunc}:GetDocumentMessage) =
         // console.log('returning doc with callback',doc.data())
         let data = doc.data()
         let id = doc.id
-        successfunc(data,id)
+        success(data,id)
 
     })
     .catch((error)=> {
 
-        failurefunc(error)
+        failure(error)
 
     })
     
 }
 
-const getNewDocument = ({reference, successfunc, failurefunc}:GetDocumentMessage) => {
+const getNewDocument = ({reference, success, failure}:GetDocumentMessage) => {
     // console.log('getting document',reference)
     let docref = firestore.collection(reference).doc()
     docref.get()
@@ -93,17 +93,17 @@ const getNewDocument = ({reference, successfunc, failurefunc}:GetDocumentMessage
         // console.log('returning doc with callback')
         let data = doc.data()
         let id = doc.id
-        successfunc(data,id)
+        success(data,id)
     })
     .catch((error)=> {
-        failurefunc(error)
+        failure(error)
     })
 }
 
-const queryForDocument = ({reference, whereclauses, successfunc, failurefunc}:GetDocumentMessage) => {
+const queryForDocument = ({reference, whereclauses, success, failure}:GetDocumentMessage) => {
 
     if ((!whereclauses) || (whereclauses.length == 0)) {
-        failurefunc('no where clauses defined for query')
+        failure('no where clauses defined for query')
         return // nothing to do
     }
 
@@ -123,22 +123,22 @@ const queryForDocument = ({reference, whereclauses, successfunc, failurefunc}:Ge
         })
         return docs
     }).then((docs) => {
-        successfunc(docs)
+        success(docs)
     }).catch(error =>{
-        failurefunc(error)
+        failure(error)
     }) 
 }
 
-const setDocument = ({reference, data, successfunc, failurefunc}:SetDocumentInterface) => {
+const setDocument = ({reference, data, success, failure}:SetDocumentInterface) => {
     let doc = firestore.doc(reference)
     doc.set(data)
     .then(()=>{
-        successfunc()
+        success()
     })
-    .catch((error)=>failurefunc(error))
+    .catch((error)=>failure(error))
 }
 
-const getCollection = ({reference, successfunc, failurefunc}:GetCollectionInterface) => {
+const getCollection = ({reference, success, failure}:GetCollectionInterface) => {
     let query = firestore.collection(reference)
     query.get()
     .then(querySnapshot => {
@@ -157,9 +157,9 @@ const getCollection = ({reference, successfunc, failurefunc}:GetCollectionInterf
         }
     })
     .then(queryData => {
-        successfunc(queryData)
+        success(queryData)
     }) 
-    .catch(error => failurefunc(error))
+    .catch(error => failure(error))
 }
 
 let domain = {

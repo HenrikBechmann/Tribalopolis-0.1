@@ -52,8 +52,8 @@ class NavigationMenuTab extends React.Component<any,any> {
                 {
                     doctoken:this.listProxy.doctoken,
                     instanceid:this.listProxy.instanceid,
-                    successfunc:this.cacheListDocument,
-                    failurefunc:null,
+                    success:this.cacheListDocument,
+                    failure:null,
                 }
             this.props.callbacks.setDocumentListener( parms )
         }
@@ -65,8 +65,8 @@ class NavigationMenuTab extends React.Component<any,any> {
                 {
                     doctoken:this.listProxy.doctoken,
                     instanceid:this.listProxy.instanceid,
-                    // successfunc:null,
-                    // failurefunc:null,
+                    // success:null,
+                    // failure:null,
                 }
             this.props.callbacks.removeDocumentListener( parms )
         }        

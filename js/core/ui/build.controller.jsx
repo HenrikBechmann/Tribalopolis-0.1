@@ -88,8 +88,8 @@ class BuildController extends React.Component {
                             if (typeref) {
                                 let parm = {
                                     reference: typeref,
-                                    successfunc: this.fetchTypeSuccessCallback,
-                                    failurefunc: this.fetchTypeErrorCallback,
+                                    success: this.fetchTypeSuccessCallback,
+                                    failure: this.fetchTypeErrorCallback,
                                 };
                                 application.getDocument(parm);
                             }
@@ -108,16 +108,16 @@ class BuildController extends React.Component {
                 if (this.state.values.collection && (!this.state.values.id)) {
                     let parm = {
                         reference: this.state.values.collection,
-                        successfunc: this.fetchSuccessCallback,
-                        failurefunc: this.fetchErrorCallback,
+                        success: this.fetchSuccessCallback,
+                        failure: this.fetchErrorCallback,
                     };
                     application.getNewDocument(parm);
                 }
                 else {
                     let parm = {
                         reference: `/${this.state.values.collection}/${this.state.values.id}`,
-                        successfunc: this.fetchSuccessCallback,
-                        failurefunc: this.fetchErrorCallback,
+                        success: this.fetchSuccessCallback,
+                        failure: this.fetchErrorCallback,
                     };
                     application.getDocument(parm);
                 }
@@ -153,8 +153,8 @@ class BuildController extends React.Component {
                             // console.log('typeref',typeref)
                             let parm = {
                                 reference: typeref,
-                                successfunc: this.fetchTypeSuccessCallback,
-                                failurefunc: this.fetchTypeErrorCallback,
+                                success: this.fetchTypeSuccessCallback,
+                                failure: this.fetchTypeErrorCallback,
                             };
                             application.getDocument(parm);
                         }
@@ -207,8 +207,8 @@ class BuildController extends React.Component {
                 let parm = {
                     reference: `/${this.state.values.collection}/${this.state.values.id}`,
                     data: this.latestjson,
-                    successfunc: this.postSuccessCallback,
-                    failurefunc: this.postFailureCallback,
+                    success: this.postSuccessCallback,
+                    failure: this.postFailureCallback,
                 };
                 application.setDocument(parm);
             }
