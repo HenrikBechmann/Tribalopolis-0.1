@@ -12,7 +12,7 @@ import Divider from '@material-ui/core/Divider'
 
 import ActionButton from '../common/actionbutton.view'
 
-import { SetListenerMessage, RemoveListenerMessage } from '../../services/interfaces'
+import { SetListenerMessage, RemoveListenerMessage, ReturnDocPairStruc } from '../../services/interfaces'
 
 const styles = createStyles({
     tabstyles:{
@@ -71,11 +71,11 @@ class NavigationMenuTab extends React.Component<any,any> {
             this.props.callbacks.removeDocumentListener( parms )
         }        
     }
-    cacheListDocument = (document, type, change) => {
+    cacheListDocument = ({docpack, typepack, reason}:ReturnDocPairStruc) => {
         this.setState({
             list:{
-                document,
-                type
+                document:docpack.document,
+                type:typepack.document
             }
         })
     }

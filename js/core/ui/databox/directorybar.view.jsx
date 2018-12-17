@@ -72,11 +72,11 @@ class DirectoryBar extends React.Component {
                 this.props.setDocumentListener(parms);
             }
         };
-        this.cacheListDocument = (document, type, change) => {
+        this.cacheListDocument = ({ docpack, typepack, reason }) => {
             this.setState({
                 list: {
-                    document,
-                    type
+                    document: docpack.document,
+                    type: typepack.document
                 }
             });
         };

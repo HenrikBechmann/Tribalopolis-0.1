@@ -56,7 +56,7 @@ import { toast } from 'react-toastify'
 
 import { withStyles, createStyles } from '@material-ui/core/styles'
 
-import { GetDocumentMessage } from '../services/interfaces'
+import { GetDocumentMessage, ReturnDocPackStruc } from '../services/interfaces'
 
 let styles = createStyles({
     mainviewstyle: {
@@ -239,20 +239,20 @@ class Main extends React.Component<any,any> {
 
     }
 
-    systemDocumentSuccess = data => {
+    systemDocumentSuccess = ({docpack}:ReturnDocPackStruc) => {
 
-        console.log('system from systemDocumentSucess',data)
+        console.log('system from systemDocumentSucess',docpack)
 
         if ((!this.state.system) || this.updatinguserdata) {
 
             toast.success('setting system data')
-            this.promises.system.resolve(data)
+            this.promises.system.resolve(docpack)
 
         } else {
 
             toast.success('updating system data')
             this.setState({
-                system:data,
+                system:docpack.document,
             })
 
         }
@@ -279,21 +279,21 @@ class Main extends React.Component<any,any> {
 
     }
 
-    userDocumentSuccess = doclist => {
+    userDocumentSuccess = ({docpack}:ReturnDocPackStruc) => {
 
         // console.log('doclist from userdoc',doclist)
-        if (!doclist.length) {
-            this.userDocumentFailure('no user document found')
-            return
-        }
-        if (doclist.length > 1) {
+        // if (!doclist.length) {
+        //     this.userDocumentFailure('no user document found')
+        //     return
+        // }
+        // if (doclist.length > 1) {
 
-            // toast.error('duplicate user id')
-            this.userDocumentFailure('duplicate user id')
-            return
-        }
+        //     // toast.error('duplicate user id')
+        //     this.userDocumentFailure('duplicate user id')
+        //     return
+        // }
 
-        let user = doclist[0]
+        let user = docpack.document
 
         console.log('user from userDocumentSucess',user)
 
@@ -301,7 +301,7 @@ class Main extends React.Component<any,any> {
 
             toast.success('setting user record')
             this.promises.user.resolve(user)
-            this.getAccountDocument(user.data.identity.account)
+            this.getAccountDocument(user['identity'].account)
 
         } else {
 
@@ -332,20 +332,15 @@ class Main extends React.Component<any,any> {
 
     }
 
-    userAccountSuccess = (document,id) => {
+    userAccountSuccess = ({docpack}:ReturnDocPackStruc) => {
 
-        console.log('account doc and id from accountDocumentSucess',document, id)
+        console.log('account doc and id from accountDocumentSucess',docpack.document, docpack.reference)
 
-        if (!document) {
+        if (!docpack.document) {
 
             this.userAccountFailure('unable to get user account document')
             return
 
-        }
-
-        let docpack = {
-            data:document,
-            id,
         }
 
         if ((!this.state.account) || this.updatinguserdata) {
@@ -356,7 +351,7 @@ class Main extends React.Component<any,any> {
         } else {
 
             this.setState({
-                user:docpack,
+                account:docpack,
             })
 
         }

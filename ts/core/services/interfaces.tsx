@@ -8,13 +8,15 @@
 
 /***************************************************************
 interfaces for session data transfer objects
+Message: a data structure specifying an action
+Struc: as data structure specifying an object/document
 ***************************************************************/
 
 /***************************************************************
 ------------------------[ OPERATIONS ]--------------------------
 ***************************************************************/
 
-// fetch services s/b Message
+// fetch persistent data
 
 export interface GetDocumentMessage {
     reference:string,
@@ -28,6 +30,8 @@ export interface GetCollectionMessage {
     success:Function, 
     failure:Function,
 }
+
+// subscriptions
 
 export interface SetListenerMessage {
     doctoken:DocTokenStruc,
@@ -51,7 +55,7 @@ export interface RemoveGatewayListenerMessage {
     reference:string, 
 }
 
-// change persistent data s/b Message
+// change persistent data
 
 export interface SetDocumentMessage {
     reference:string, 
@@ -64,7 +68,7 @@ export interface SetDocumentMessage {
 -------------------------[ PAYLOADS ]---------------------------
 ***************************************************************/
 
-// session objects s/b struc
+// session objects
 
 export interface DocTokenStruc {
     reference:string,
@@ -76,6 +80,22 @@ export interface DocProxyStruc {
 }
 
 export interface DocPackStruc {
-    id:string,
+    reference:string,
     document:Object,
+}
+
+export interface ReturnDocPackStruc {
+    docpack:DocPackStruc,
+    reason: Object,
+}
+
+export interface ReturnDocPairStruc {
+    docpack:DocPackStruc,
+    typepack:DocPackStruc,
+    reason:Object,
+}
+
+export interface CacheItemStruc {
+    docpack:DocPackStruc,
+    listeners:Map<string,any>
 }

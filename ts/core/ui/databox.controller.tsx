@@ -22,7 +22,7 @@ import LoadingMessage from './common/loadingmessage.view'
 
 import docproxy from '../utilities/docproxy'
 
-import { SetListenerMessage, RemoveListenerMessage } from '../services/interfaces'
+import { SetListenerMessage, RemoveListenerMessage, ReturnDocPairStruc } from '../services/interfaces'
 
 const buttonstyles = theme => createStyles({
   button: {
@@ -131,7 +131,8 @@ class DataBox extends React.Component<any,any> {
         let { itemProxy } = this
         let parms:SetListenerMessage = {
             doctoken:itemProxy.doctoken, 
-            instanceid:itemProxy.instanceid,success:this.cacheItemData,failure:null
+            instanceid:itemProxy.instanceid,
+            success:this.cacheItemData,failure:null
         }
         this.props.callbacks.setDocumentListener(parms)
     }
@@ -176,12 +177,12 @@ class DataBox extends React.Component<any,any> {
 
     }
 
-    cacheItemData = ( document, type, changedata) => {
+    cacheItemData = ( {docpack, typepack, reason}:ReturnDocPairStruc) => {
 
         this.setState({
             item:{
-                document,
-                type
+                document:docpack.document,
+                type:typepack.document
             }
         },() => { // set matching list proxies for children
 
@@ -193,8 +194,6 @@ class DataBox extends React.Component<any,any> {
                 } else {
                     listdoctoken = {
                         reference:'/lists/' + this.state.item.document.references.list,
-                        // id:this.state.item.document.references.list,
-                        // collection:'lists',
                     }
                 }
                 this.setState({

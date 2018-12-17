@@ -83,11 +83,11 @@ class DataBox extends React.Component {
             BarlistProxy: null,
             TypelistProxy: null,
         };
-        this.cacheItemData = (document, type, changedata) => {
+        this.cacheItemData = ({ docpack, typepack, reason }) => {
             this.setState({
                 item: {
-                    document,
-                    type
+                    document: docpack.document,
+                    type: typepack.document
                 }
             }, () => {
                 if (!this.state.MainlistProxy) { // no proxies have been set
@@ -175,7 +175,8 @@ class DataBox extends React.Component {
         let { itemProxy } = this;
         let parms = {
             doctoken: itemProxy.doctoken,
-            instanceid: itemProxy.instanceid, success: this.cacheItemData, failure: null
+            instanceid: itemProxy.instanceid,
+            success: this.cacheItemData, failure: null
         };
         this.props.callbacks.setDocumentListener(parms);
     }

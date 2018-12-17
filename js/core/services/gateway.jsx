@@ -18,7 +18,7 @@
 import { types, items, lists } from '../../data/repositories';
 import firebase from './firebase.api';
 let firestore = firebase.firestore();
-const setGatewayListener = ({ reference, callback }) => {
+const setGatewayListener = ({ reference, success, failure }) => {
     let data;
     if (!reference) {
         data = null;
@@ -39,7 +39,8 @@ const setGatewayListener = ({ reference, callback }) => {
         }
     }
     // setTimeout(()=>{
-    callback(reference, data, {});
+    let parms = { docpack: { reference, document: data }, reason: {} };
+    success(parms);
     // setTimeout(()=>{
     //     callback(reference, data, {})
     // },15)
@@ -54,11 +55,13 @@ const getDocument = ({ reference, success, failure }) => {
         .then((doc) => {
         // console.log('returning doc with callback',doc.data())
         let data = doc.data();
-        let id = doc.id;
-        success(data, id);
+        // let id = doc.id
+        let returnpack = { docpack: { document: data, reference }, reason: {} };
+        success(returnpack);
     })
         .catch((error) => {
-        failure(error);
+        if (failure)
+            failure(error);
     });
 };
 const getNewDocument = ({ reference, success, failure }) => {
@@ -67,9 +70,10 @@ const getNewDocument = ({ reference, success, failure }) => {
     docref.get()
         .then((doc) => {
         // console.log('returning doc with callback')
-        let data = doc.data();
-        let id = doc.id;
-        success(data, id);
+        let document = doc.data();
+        // let id = doc.id
+        let docpack = { document, reference };
+        success({ docpack, reason: {} });
     })
         .catch((error) => {
         failure(error);
@@ -90,14 +94,20 @@ const queryForDocument = ({ reference, whereclauses, success, failure }) => {
         let docs = [];
         querySnapshot.forEach(document => {
             let doc = {
-                id: document.id,
-                data: document.data()
+                reference,
+                // id:document.id,
+                document: document.data()
             };
             docs.push(doc);
         });
-        return docs;
-    }).then((docs) => {
-        success(docs);
+        return docs[0];
+    }).then((dbdocpack) => {
+        let docpack = {
+            reference: reference + '/' + dbdocpack.id,
+            document: dbdocpack.document
+        };
+        let returnpack = { docpack, reason: {} };
+        success(returnpack);
     }).catch(error => {
         failure(error);
     });
@@ -108,7 +118,7 @@ const setDocument = ({ reference, data, success, failure }) => {
         .then(() => {
         success();
     })
-        .catch((error) => failure(error));
+        .catch(error => failure(error));
 };
 const getCollection = ({ reference, success, failure }) => {
     let query = firestore.collection(reference);

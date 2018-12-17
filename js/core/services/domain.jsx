@@ -11,12 +11,11 @@
 import gateway from './gateway';
 const noop = () => {
 };
-const setDocumentListener = ({ reference, success: processDocumentCallbackFromGateway, failure: noop }) => {
-    gateway.setGatewayListener({ reference, callback: processDocumentCallbackFromGateway });
+const setDocumentListener = (parmblock) => {
+    gateway.setGatewayListener(parmblock);
 };
-const removeDocumentListener = ({ reference }) => {
-    let parm = { reference };
-    gateway.removeGatewayListener(parm);
+const removeDocumentListener = (parmblock) => {
+    gateway.removeGatewayListener(parmblock);
 };
 const getDocument = (parmblock) => {
     gateway.getDocument(parmblock);

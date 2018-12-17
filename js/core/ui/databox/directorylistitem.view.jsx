@@ -47,11 +47,11 @@ class DirectoryListItem extends React.Component {
         this.state = {
             list: null,
         };
-        this.cacheListDocument = (document, type, change) => {
+        this.cacheListDocument = ({ docpack, typepack, reason }) => {
             this.setState({
                 list: {
-                    document,
-                    type
+                    document: docpack.document,
+                    type: typepack.document
                 }
             });
         };

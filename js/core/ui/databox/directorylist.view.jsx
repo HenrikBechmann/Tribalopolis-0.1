@@ -38,19 +38,19 @@ const DirectoryListBase = withStyles(styles)(class extends React.Component {
         this.listProxy = null;
         this.pathToIndexMap = null;
         this.highlightrefuid = null;
-        this.cacheListDocument = (document, type, change) => {
+        this.cacheListDocument = ({ docpack, typepack, reason }) => {
             let listproxies;
             if (!this.state.listproxies) {
-                listproxies = this.generateListProxies(document);
+                listproxies = this.generateListProxies(docpack.document);
             }
             else {
-                listproxies = this.updateListProxies(document, this.state.listproxies);
+                listproxies = this.updateListProxies(docpack.document, this.state.listproxies);
             }
             this.pathToIndexMap = this.generatePathToIndexMap(listproxies);
             this.setState({
                 list: {
-                    document,
-                    type
+                    document: docpack.document,
+                    type: typepack.document
                 },
                 listproxies,
             });

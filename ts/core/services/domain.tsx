@@ -26,16 +26,15 @@ const noop = () => {
 
 }
 
-const setDocumentListener = ({reference, success:processDocumentCallbackFromGateway, failure:noop}:SetGatewayListenerMessage) => {
+const setDocumentListener = (parmblock:SetGatewayListenerMessage) => {
 
-    gateway.setGatewayListener({reference, callback:processDocumentCallbackFromGateway})
+    gateway.setGatewayListener(parmblock)
 
 }
 
-const removeDocumentListener =  ({reference}:RemoveGatewayListenerMessage) => {
+const removeDocumentListener =  (parmblock:RemoveGatewayListenerMessage) => {
 
-    let parm:RemoveGatewayListenerMessage = {reference}
-    gateway.removeGatewayListener(parm)
+    gateway.removeGatewayListener(parmblock)
 
 }
 

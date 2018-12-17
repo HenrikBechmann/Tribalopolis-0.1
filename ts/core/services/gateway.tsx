@@ -21,15 +21,15 @@ import { schemes, types, items, lists, links, folders, accounts } from '../../da
 import firebase from './firebase.api'
 import { 
     GetDocumentMessage, 
-    // GetNewDocumentInterface, 
-    // QueryForDocumentInterface, 
     SetDocumentMessage, 
-    GetCollectionMessage 
+    GetCollectionMessage, 
+    DocPackStruc,
+    ReturnDocPackStruc
 } from './interfaces'
 
 let firestore = firebase.firestore()
 
-const setGatewayListener = ({reference,callback}) => {
+const setGatewayListener = ({reference, success, failure}:GetDocumentMessage) => {
     let data
 
     if (!reference) {
@@ -54,7 +54,8 @@ const setGatewayListener = ({reference,callback}) => {
 
     }
     // setTimeout(()=>{
-        callback(reference, data, {})
+        let parms:ReturnDocPackStruc = {docpack:{reference,document:data}, reason:{}}
+        success(parms)
         // setTimeout(()=>{
         //     callback(reference, data, {})
         // },15)
@@ -73,13 +74,14 @@ const getDocument = ({reference, success, failure}:GetDocumentMessage) => {
     .then((doc)=>{
         // console.log('returning doc with callback',doc.data())
         let data = doc.data()
-        let id = doc.id
-        success(data,id)
+        // let id = doc.id
+        let returnpack:ReturnDocPackStruc = {docpack:{document:data,reference},reason:{}}
+        success(returnpack)
 
     })
     .catch((error)=> {
 
-        failure(error)
+        if (failure) failure(error)
 
     })
     
@@ -91,9 +93,10 @@ const getNewDocument = ({reference, success, failure}:GetDocumentMessage) => {
     docref.get()
     .then((doc)=>{
         // console.log('returning doc with callback')
-        let data = doc.data()
-        let id = doc.id
-        success(data,id)
+        let document = doc.data()
+        // let id = doc.id
+        let docpack:DocPackStruc = {document,reference}
+        success({docpack, reason:{}})
     })
     .catch((error)=> {
         failure(error)
@@ -115,15 +118,21 @@ const queryForDocument = ({reference, whereclauses, success, failure}:GetDocumen
         if (querySnapshot.empty) return []
         let docs = []
         querySnapshot.forEach(document => {
-            let doc = {
-                id:document.id,
-                data:document.data()
+            let doc:DocPackStruc = {
+                reference,
+                // id:document.id,
+                document:document.data()
             }
             docs.push(doc)
         })
-        return docs
-    }).then((docs) => {
-        success(docs)
+        return docs[0]
+    }).then((dbdocpack) => {
+        let docpack = {
+            reference:reference + '/' + dbdocpack.id,
+            document:dbdocpack.document
+        }
+        let returnpack:ReturnDocPackStruc = {docpack,reason:{}}
+        success(returnpack)
     }).catch(error =>{
         failure(error)
     }) 
@@ -135,7 +144,7 @@ const setDocument = ({reference, data, success, failure}:SetDocumentMessage) => 
     .then(()=>{
         success()
     })
-    .catch((error)=>failure(error))
+    .catch( error => failure( error ) )
 }
 
 const getCollection = ({reference, success, failure}:GetCollectionMessage) => {

@@ -157,16 +157,16 @@ let Main = class Main extends React.Component {
             };
             application.getDocument(parm);
         };
-        this.systemDocumentSuccess = data => {
-            console.log('system from systemDocumentSucess', data);
+        this.systemDocumentSuccess = ({ docpack }) => {
+            console.log('system from systemDocumentSucess', docpack);
             if ((!this.state.system) || this.updatinguserdata) {
                 toast.success('setting system data');
-                this.promises.system.resolve(data);
+                this.promises.system.resolve(docpack);
             }
             else {
                 toast.success('updating system data');
                 this.setState({
-                    system: data,
+                    system: docpack.document,
                 });
             }
         };
@@ -184,23 +184,23 @@ let Main = class Main extends React.Component {
             };
             application.queryForDocument(parms);
         };
-        this.userDocumentSuccess = doclist => {
+        this.userDocumentSuccess = ({ docpack }) => {
             // console.log('doclist from userdoc',doclist)
-            if (!doclist.length) {
-                this.userDocumentFailure('no user document found');
-                return;
-            }
-            if (doclist.length > 1) {
-                // toast.error('duplicate user id')
-                this.userDocumentFailure('duplicate user id');
-                return;
-            }
-            let user = doclist[0];
+            // if (!doclist.length) {
+            //     this.userDocumentFailure('no user document found')
+            //     return
+            // }
+            // if (doclist.length > 1) {
+            //     // toast.error('duplicate user id')
+            //     this.userDocumentFailure('duplicate user id')
+            //     return
+            // }
+            let user = docpack.document;
             console.log('user from userDocumentSucess', user);
             if ((!this.state.user) || this.updatinguserdata) {
                 toast.success('setting user record');
                 this.promises.user.resolve(user);
-                this.getAccountDocument(user.data.identity.account);
+                this.getAccountDocument(user['identity'].account);
             }
             else {
                 this.setState({
@@ -221,23 +221,19 @@ let Main = class Main extends React.Component {
             };
             application.getDocument(parm);
         };
-        this.userAccountSuccess = (document, id) => {
-            console.log('account doc and id from accountDocumentSucess', document, id);
-            if (!document) {
+        this.userAccountSuccess = ({ docpack }) => {
+            console.log('account doc and id from accountDocumentSucess', docpack.document, docpack.reference);
+            if (!docpack.document) {
                 this.userAccountFailure('unable to get user account document');
                 return;
             }
-            let docpack = {
-                data: document,
-                id,
-            };
             if ((!this.state.account) || this.updatinguserdata) {
                 toast.success('setting account record');
                 this.promises.account.resolve(docpack);
             }
             else {
                 this.setState({
-                    user: docpack,
+                    account: docpack,
                 });
             }
         };

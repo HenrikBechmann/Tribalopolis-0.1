@@ -32,13 +32,14 @@ import merge from 'deepmerge'
 import typefilter from './type.filter'
 import { 
     GetDocumentMessage, 
-    // GetNewDocumentInterface, 
-    // QueryForDocumentInterface, 
     SetDocumentMessage, 
     GetCollectionMessage,
     DocTokenStruc, 
     SetListenerMessage,
     RemoveListenerMessage,
+    DocPackStruc,
+    CacheItemStruc,
+    ReturnDocPairStruc,
 } from './interfaces'
 // ==============[ Internal ]===============
 
@@ -99,10 +100,12 @@ const getDocumentCacheItem = (reference) => {
 */
 const newDocumentCacheItem = () => {
 
-    return {
-        document:null,
+    let cacheitem:CacheItemStruc = {
+        docpack:null,
         listeners: new Map(),
     }
+
+    return cacheitem
 
 }
 
@@ -114,22 +117,22 @@ const newDocumentCacheItem = () => {
 
     if there is no type yet recorded, callbacks will not be processed.
 */
-const processDocumentCallbackFromGateway = ( reference, document, change ) => {
+const processDocumentCallbackFromGateway = ( {docpack, reason} ) => {
 
     // set or update document
-    let cacheitem = documentcache.get(reference)
+    let cacheitem = documentcache.get(docpack.reference)
 
     if (!cacheitem) return // async
 
-    cacheitem.document = document
+    cacheitem.docpack = docpack
 
-    let typeref = document.identity.type // all documents have a type
+    let typeref = docpack.document.identity.type // all documents have a type
 
     // will only create if doesn't already exist
-    addTypeCacheListener(typeref, reference, processDocumentCallbacksFromType) 
+    addTypeCacheListener(typeref, docpack.reference, processDocumentCallbacksFromType) 
 
     // will not process without type
-    processDocumentCallbacks(reference,change) 
+    processDocumentCallbacks(docpack.reference,reason) 
 
 }
 
@@ -166,10 +169,12 @@ const getTypeCacheItem = (reference) => { // type reference
 
 const newTypeCacheItem = () => {
 
-    return {
-        document:null,
+    let cacheitem:CacheItemStruc = {
+        docpack:null,
         listeners:new Map(),
     }
+
+    return cacheitem
 
 }
 
@@ -181,7 +186,7 @@ const processTypeCallbacksFromGateway = ( reference, type, reason ) => {
 
     if (cacheitem) {
 
-        cacheitem.document = typedoc
+        cacheitem.docpack.document = typedoc
         listeners = cacheitem.listeners
 
     }
@@ -200,9 +205,9 @@ const processTypeCallbacksFromGateway = ( reference, type, reason ) => {
 /*
     triggers document callbacks when the document's type is first set, or is updated.
 */
-const processDocumentCallbacksFromType = ( reference, change ) => { // document reference
+const processDocumentCallbacksFromType = ( reference, reason ) => { // document reference
 
-    processDocumentCallbacks(reference,change)
+    processDocumentCallbacks(reference,reason)
 
 }
 
@@ -215,16 +220,16 @@ const processDocumentCallbacks = (reference, reason) => {
 
     let documentcacheitem = documentcache.get(reference)
 
-    let {document,type} = getDocumentPack(reference)
+    let {docpack,typepack} = getDocumentPack(reference)
 
     // console.log('processDocumentCallbacks document,type',document,type)
 
-    if (type) {
+    if (typepack.document) {
 
-        let result = typefilter.assertType(document,type)
+        let result = typefilter.assertType(docpack.document,typepack.document)
         if (result.changed) {
 
-            document = result.document
+            docpack.document = result.document
             // update source; wait for response
 
         }
@@ -236,7 +241,12 @@ const processDocumentCallbacks = (reference, reason) => {
             let slist = sentinels[key]
 
             if (slist && ((slist[slist.length - 1]) === false)) {
-                callback( document, type, reason)
+
+                let docpac:DocPackStruc = docpack
+
+                let retval:ReturnDocPairStruc = {docpack:docpac, typepack, reason}
+                callback( retval )
+
             }
 
         })
@@ -330,27 +340,27 @@ const removeTypeCacheListener = (typereference, documentreference) => {
 
 const getDocumentPack = reference => {
 
-    let cachedocument = documentcache.get(reference)
-    let document = cachedocument?cachedocument.document:null
-    let type = null
+    let cacheitem = documentcache.get(reference)
+    let docpack:DocPackStruc = cacheitem?cacheitem.docpack:{}
+    let typepack:DocPackStruc = null
     let typeref = null
 
-    if (document) {
+    if (docpack.document) {
 
-        typeref = document.identity.type
+        typeref = docpack.document['identity'].type
 
         if (typecache.has(typeref)) {
 
-            type = typecache.get(document.identity.type).document || {}
+            typepack = typecache.get(docpack.document['identity'].type).docpack || {}
 
         }
         
     }
 
     let cachedata = {
-        document,
-        type,
-    };
+        docpack,
+        typepack,
+    }
 
     return cachedata
 
@@ -402,17 +412,22 @@ const setDocumentListener = ({doctoken,instanceid,success, failure}:SetListenerM
 
         let cachedata = getDocumentPack(reference)
 
-        if (cachedata.document && cachedata.type) { // defer if waiting for type
+        if (cachedata.docpack && cachedata.typepack) { // defer if waiting for type
+            let docpack:DocPackStruc = cachedata.docpack
 
-            success(cachedata.document, cachedata.type, 
-                {
+            let retval:ReturnDocPairStruc = {
+                docpack, 
+                typepack:cachedata.typepack, 
+                reason:{
                     documents:{
                         reason:'newcallback',
                         document:true, 
                         type:true,
                     }
                 }
-            )
+            }
+
+            success(retval)
 
         }
 
