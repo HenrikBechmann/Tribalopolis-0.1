@@ -59,7 +59,7 @@ export interface RemoveGatewayListenerMessage {
 
 export interface SetDocumentMessage {
     reference:string, 
-    data:Object, 
+    document:Object, 
     success:Function, 
     failure:Function,
 }

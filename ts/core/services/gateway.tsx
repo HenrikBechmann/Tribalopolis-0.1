@@ -138,9 +138,9 @@ const queryForDocument = ({reference, whereclauses, success, failure}:GetDocumen
     }) 
 }
 
-const setDocument = ({reference, data, success, failure}:SetDocumentMessage) => {
+const setDocument = ({reference, document, success, failure}:SetDocumentMessage) => {
     let doc = firestore.doc(reference)
-    doc.set(data)
+    doc.set(document)
     .then(()=>{
         success()
     })

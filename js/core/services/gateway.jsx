@@ -112,9 +112,9 @@ const queryForDocument = ({ reference, whereclauses, success, failure }) => {
         failure(error);
     });
 };
-const setDocument = ({ reference, data, success, failure }) => {
+const setDocument = ({ reference, document, success, failure }) => {
     let doc = firestore.doc(reference);
-    doc.set(data)
+    doc.set(document)
         .then(() => {
         success();
     })

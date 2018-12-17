@@ -31,7 +31,7 @@ import ActionButton from './common/actionbutton.view'
 import DataDrawer from './common/datadrawer.view'
 import BuildDataPane from './build/builddatapane.view'
 
-import { GetDocumentMessage, SetDocumentMessage } from '../services/interfaces'
+import { GetDocumentMessage, SetDocumentMessage, ReturnDocPackStruc } from '../services/interfaces'
 
 const styles = theme => (createStyles({
     button: {
@@ -169,10 +169,11 @@ class BuildController extends React.Component<any,any> {
         }
     }
 
-    fetchSuccessCallback = (data,id) => {
+    fetchSuccessCallback = ({docpack, reason}:ReturnDocPackStruc) => {
 
         let newobject = false
-        if (!data) {
+        let data:any = docpack.document
+        if (!docpack.document) {
             data = {}
             toast.warn('new object')
             newobject = true
@@ -182,14 +183,11 @@ class BuildController extends React.Component<any,any> {
         this.savejson = data
         let values = this.state.values
         if (newobject) {
-            values.id = id
+            values.id = docpack.reference.split('/').pop()
         }
         this.setState({
             values,
-            docpack:{
-                document:data,
-                id,
-            }
+            docpack
         },() => {
             // console.log('fetch document type', id, data)
             if (data.identity) {
@@ -216,14 +214,11 @@ class BuildController extends React.Component<any,any> {
     }
 
     // apply type template to document
-    fetchTypeSuccessCallback = (data, id) => {
-        let typepack = {
-            document:data,
-            id
-        }
+    fetchTypeSuccessCallback = ({docpack}:ReturnDocPackStruc) => {
+        let typepack = docpack
         // console.log('fetchTypeSuccessCallback', typepack)
         this.doctypepack = typepack
-        toast.info('type has also been loaded (' + id + ')')
+        toast.info('type has also been loaded (' + docpack.reference + ')')
 
         let results = typefilter.assertType(this.state.docpack,this.doctypepack)
         // console.log('returned from assertType',results)
@@ -233,10 +228,10 @@ class BuildController extends React.Component<any,any> {
             this.setState({
                 docpack:{
                     document:results.document,
-                    id,
+                    reference:docpack.reference,
                 }
             })
-            results.changed && toast.info('document data has been upgraded by type (' + id + ')' )
+            results.changed && toast.info('document data has been upgraded by type (' + docpack.reference + ')' )
         }
     }
 
@@ -263,7 +258,7 @@ class BuildController extends React.Component<any,any> {
         if (confirm('Post this object?')) {
             let parm:SetDocumentMessage = {
                 reference:`/${this.state.values.collection}/${this.state.values.id}`,
-                data:this.latestjson,
+                document:this.latestjson,
                 success:this.postSuccessCallback,
                 failure:this.postFailureCallback,
             }

@@ -123,9 +123,10 @@ class BuildController extends React.Component {
                 }
             }
         };
-        this.fetchSuccessCallback = (data, id) => {
+        this.fetchSuccessCallback = ({ docpack, reason }) => {
             let newobject = false;
-            if (!data) {
+            let data = docpack.document;
+            if (!docpack.document) {
                 data = {};
                 toast.warn('new object');
                 newobject = true;
@@ -135,14 +136,11 @@ class BuildController extends React.Component {
             this.savejson = data;
             let values = this.state.values;
             if (newobject) {
-                values.id = id;
+                values.id = docpack.reference.split('/').pop();
             }
             this.setState({
                 values,
-                docpack: {
-                    document: data,
-                    id,
-                }
+                docpack
             }, () => {
                 // console.log('fetch document type', id, data)
                 if (data.identity) {
@@ -166,14 +164,11 @@ class BuildController extends React.Component {
             toast.error(error);
         };
         // apply type template to document
-        this.fetchTypeSuccessCallback = (data, id) => {
-            let typepack = {
-                document: data,
-                id
-            };
+        this.fetchTypeSuccessCallback = ({ docpack }) => {
+            let typepack = docpack;
             // console.log('fetchTypeSuccessCallback', typepack)
             this.doctypepack = typepack;
-            toast.info('type has also been loaded (' + id + ')');
+            toast.info('type has also been loaded (' + docpack.reference + ')');
             let results = typefilter.assertType(this.state.docpack, this.doctypepack);
             // console.log('returned from assertType',results)
             if (results.changed) {
@@ -182,10 +177,10 @@ class BuildController extends React.Component {
                 this.setState({
                     docpack: {
                         document: results.document,
-                        id,
+                        reference: docpack.reference,
                     }
                 });
-                results.changed && toast.info('document data has been upgraded by type (' + id + ')');
+                results.changed && toast.info('document data has been upgraded by type (' + docpack.reference + ')');
             }
         };
         this.fetchTypeErrorCallback = error => {
@@ -206,7 +201,7 @@ class BuildController extends React.Component {
             if (confirm('Post this object?')) {
                 let parm = {
                     reference: `/${this.state.values.collection}/${this.state.values.id}`,
-                    data: this.latestjson,
+                    document: this.latestjson,
                     success: this.postSuccessCallback,
                     failure: this.postFailureCallback,
                 };
