@@ -138,7 +138,7 @@ const getCollection = ({ reference, success, failure }) => {
         }
     })
         .then(docpacklist => {
-        success(docpacklist);
+        success(docpacklist); // DocPackStruc[]
     })
         .catch(error => failure(error));
 };

@@ -222,7 +222,7 @@ let Main = class Main extends React.Component {
             }
             else {
                 this.setState({
-                    account: docpack,
+                    accountpack: docpack,
                 });
             }
         };
@@ -244,8 +244,8 @@ let Main = class Main extends React.Component {
         else {
             userdata = {
                 login: this.state.userProviderData,
-                user: this.state.userpack.document,
-                account: this.state.accountpack.document,
+                userpack: this.state.userpack,
+                accountpack: this.state.accountpack,
             };
         }
         let systemdata = this.state.systempack ? this.state.systempack.document : null;

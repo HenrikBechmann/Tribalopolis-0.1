@@ -337,7 +337,7 @@ class Main extends React.Component<any,any> {
         } else {
 
             this.setState({
-                account:docpack,
+                accountpack:docpack,
             })
 
         }
@@ -369,8 +369,8 @@ class Main extends React.Component<any,any> {
 
             userdata = {
                 login:this.state.userProviderData,
-                user:this.state.userpack.document,
-                account:this.state.accountpack.document,
+                userpack:this.state.userpack,
+                accountpack:this.state.accountpack,
             }
 
         }
