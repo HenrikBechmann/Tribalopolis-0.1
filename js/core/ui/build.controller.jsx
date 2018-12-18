@@ -164,7 +164,7 @@ class BuildController extends React.Component {
             toast.error(error);
         };
         // apply type template to document
-        this.fetchTypeSuccessCallback = ({ docpack }) => {
+        this.fetchTypeSuccessCallback = ({ docpack, reason }) => {
             let typepack = docpack;
             // console.log('fetchTypeSuccessCallback', typepack)
             this.doctypepack = typepack;

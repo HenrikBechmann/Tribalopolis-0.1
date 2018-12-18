@@ -13,7 +13,7 @@ import { withStyles, createStyles } from '@material-ui/core/styles'
 import DirectoryListItem from './directorylistitem.view'
 import docproxy from '../../utilities/docproxy'
 import LoadingMessage from '../common/loadingmessage.view'
-import { DocTokenStruc, SetListenerMessage, RemoveListenerMessage, ReturnDocPairStruc } from '../../services/interfaces'
+import { DocTokenStruc, SetListenerMessage, RemoveListenerMessage, ReturnDocPairMessage } from '../../services/interfaces'
 
 const styles = createStyles({
     scrollboxcontainer:{
@@ -98,7 +98,7 @@ class extends React.Component<any,any> {
         }        
     }
 
-    cacheListDocument = ({docpack, typepack, reason}:ReturnDocPairStruc) => {
+    cacheListDocument = ({docpack, typepack, reason}:ReturnDocPairMessage) => {
 
         let listproxies
         if (!this.state.listproxies) {

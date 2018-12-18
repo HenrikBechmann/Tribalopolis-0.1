@@ -55,9 +55,9 @@ let Main = class Main extends React.Component {
         this.state = {
             login: null,
             userProviderData: null,
-            system: null,
-            user: null,
-            account: null,
+            systempack: null,
+            userpack: null,
+            accountpack: null,
         };
         this.promises = {
             system: {
@@ -111,9 +111,9 @@ let Main = class Main extends React.Component {
                     this.setState({
                         login,
                         userProviderData,
-                        user: values[0],
-                        account: values[1],
-                        system: values[2],
+                        userpack: values[0],
+                        accountpack: values[1],
+                        systempack: values[2],
                     });
                 }).catch(error => {
                     this.updatinguserdata = false;
@@ -125,15 +125,15 @@ let Main = class Main extends React.Component {
             else { // clear userdata
                 this.setSystemPromise();
                 this.getSystemDocument();
-                this.systemPromise.then((system) => {
+                this.systemPromise.then((systempack) => {
                     // console.log('updating state with empty login')
                     this.updatinguserdata = false;
                     this.setState({
                         login: null,
                         userProviderData: null,
-                        user: null,
-                        system,
-                        account: null,
+                        userpack: null,
+                        systempack,
+                        accountpack: null,
                     });
                 }).catch(error => {
                     this.updatinguserdata = false;
@@ -141,9 +141,9 @@ let Main = class Main extends React.Component {
                     this.setState({
                         login: null,
                         userProviderData: null,
-                        user: null,
-                        system: null,
-                        account: null,
+                        userpack: null,
+                        systempack: null,
+                        accountpack: null,
                     });
                 });
             }
@@ -157,16 +157,16 @@ let Main = class Main extends React.Component {
             };
             application.getDocument(parm);
         };
-        this.systemDocumentSuccess = ({ docpack }) => {
-            console.log('system from systemDocumentSucess', docpack);
-            if ((!this.state.system) || this.updatinguserdata) {
+        this.systemDocumentSuccess = ({ docpack, reason }) => {
+            console.log('system from systemDocumentSuccess', docpack);
+            if ((!this.state.systempack) || this.updatinguserdata) {
                 toast.success('setting system data');
                 this.promises.system.resolve(docpack);
             }
             else {
                 toast.success('updating system data');
                 this.setState({
-                    system: docpack.document,
+                    systempack: docpack,
                 });
             }
         };
@@ -184,27 +184,16 @@ let Main = class Main extends React.Component {
             };
             application.queryForDocument(parms);
         };
-        this.userDocumentSuccess = ({ docpack }) => {
-            // console.log('doclist from userdoc',doclist)
-            // if (!doclist.length) {
-            //     this.userDocumentFailure('no user document found')
-            //     return
-            // }
-            // if (doclist.length > 1) {
-            //     // toast.error('duplicate user id')
-            //     this.userDocumentFailure('duplicate user id')
-            //     return
-            // }
-            let user = docpack.document;
-            console.log('user from userDocumentSucess', user);
-            if ((!this.state.user) || this.updatinguserdata) {
+        this.userDocumentSuccess = ({ docpack, reason }) => {
+            console.log('user from userDocumentSuccess', docpack);
+            if ((!this.state.userpack) || this.updatinguserdata) {
                 toast.success('setting user record');
-                this.promises.user.resolve(user);
-                this.getAccountDocument(user['identity'].account);
+                this.promises.user.resolve(docpack);
+                this.getAccountDocument(docpack.document['identity'].account);
             }
             else {
                 this.setState({
-                    user,
+                    userpack: docpack,
                 });
             }
         };
@@ -221,13 +210,13 @@ let Main = class Main extends React.Component {
             };
             application.getDocument(parm);
         };
-        this.userAccountSuccess = ({ docpack }) => {
-            console.log('account doc and id from accountDocumentSucess', docpack.document, docpack.reference);
-            if (!docpack.document) {
+        this.userAccountSuccess = ({ docpack, reason }) => {
+            console.log('account from accountDocumentSuccess', docpack);
+            if (!docpack) {
                 this.userAccountFailure('unable to get user account document');
                 return;
             }
-            if ((!this.state.account) || this.updatinguserdata) {
+            if ((!this.state.accountpack) || this.updatinguserdata) {
                 toast.success('setting account record');
                 this.promises.account.resolve(docpack);
             }
@@ -247,20 +236,20 @@ let Main = class Main extends React.Component {
     // ==============================[ RENDER ]=========================================
     render() {
         let { globalmessage, version, classes } = this.props;
-        let { userProviderData, user, account } = this.state;
+        let { userProviderData, userpack, accountpack } = this.state;
         let userdata;
-        if (!(userProviderData && user && account)) {
+        if (!(userProviderData && userpack && accountpack)) {
             userdata = null;
         }
         else {
             userdata = {
                 login: this.state.userProviderData,
-                user: this.state.user,
-                account: this.state.account,
+                user: this.state.userpack.document,
+                account: this.state.accountpack.document,
             };
         }
-        // console.log('user data',userdata)
-        return (<SystemDataContext.Provider value={this.state.system}>
+        let systemdata = this.state.systempack ? this.state.systempack.document : null;
+        return (<SystemDataContext.Provider value={systemdata}>
                 <UserDataContext.Provider value={userdata}>
 
                     <MainView globalmessage={globalmessage} className={classes.mainviewstyle}/>

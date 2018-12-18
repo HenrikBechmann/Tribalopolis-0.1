@@ -22,7 +22,7 @@ import LoadingMessage from './common/loadingmessage.view'
 
 import docproxy from '../utilities/docproxy'
 
-import { SetListenerMessage, RemoveListenerMessage, ReturnDocPairStruc } from '../services/interfaces'
+import { SetListenerMessage, RemoveListenerMessage, ReturnDocPairMessage } from '../services/interfaces'
 
 const buttonstyles = theme => createStyles({
   button: {
@@ -177,7 +177,7 @@ class DataBox extends React.Component<any,any> {
 
     }
 
-    cacheItemData = ( {docpack, typepack, reason}:ReturnDocPairStruc) => {
+    cacheItemData = ( {docpack, typepack, reason}:ReturnDocPairMessage) => {
 
         this.setState({
             item:{

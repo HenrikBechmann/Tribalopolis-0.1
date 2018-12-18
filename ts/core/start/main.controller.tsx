@@ -56,7 +56,7 @@ import { toast } from 'react-toastify'
 
 import { withStyles, createStyles } from '@material-ui/core/styles'
 
-import { GetDocumentMessage, ReturnDocPackStruc } from '../services/interfaces'
+import { GetDocumentMessage, ReturnDocPackMessage } from '../services/interfaces'
 
 let styles = createStyles({
     mainviewstyle: {
@@ -79,9 +79,9 @@ class Main extends React.Component<any,any> {
     state = {
         login:null,
         userProviderData:null,
-        system:null,
-        user:null,
-        account:null,
+        systempack:null,
+        userpack:null,
+        accountpack:null,
     }
 
     systemPromise
@@ -170,9 +170,9 @@ class Main extends React.Component<any,any> {
                 this.setState({
                     login,
                     userProviderData,
-                    user:values[0],
-                    account:values[1],
-                    system:values[2],
+                    userpack:values[0],
+                    accountpack:values[1],
+                    systempack:values[2],
                 })
 
             }).catch(error => {
@@ -191,7 +191,7 @@ class Main extends React.Component<any,any> {
 
             this.getSystemDocument()
 
-            this.systemPromise.then((system) => {
+            this.systemPromise.then((systempack) => {
 
                 // console.log('updating state with empty login')
 
@@ -200,9 +200,9 @@ class Main extends React.Component<any,any> {
                 this.setState({
                     login:null,
                     userProviderData:null,
-                    user:null,
-                    system,
-                    account:null,
+                    userpack:null,
+                    systempack,
+                    accountpack:null,
                 })
 
             }).catch(error => {
@@ -214,9 +214,9 @@ class Main extends React.Component<any,any> {
                 this.setState({
                     login:null,
                     userProviderData:null,
-                    user:null,
-                    system:null,
-                    account:null,
+                    userpack:null,
+                    systempack:null,
+                    accountpack:null,
                 })
 
             })
@@ -239,11 +239,11 @@ class Main extends React.Component<any,any> {
 
     }
 
-    systemDocumentSuccess = ({docpack}:ReturnDocPackStruc) => {
+    systemDocumentSuccess = ({docpack, reason}:ReturnDocPackMessage) => {
 
-        console.log('system from systemDocumentSucess',docpack)
+        console.log('system from systemDocumentSuccess',docpack)
 
-        if ((!this.state.system) || this.updatinguserdata) {
+        if ((!this.state.systempack) || this.updatinguserdata) {
 
             toast.success('setting system data')
             this.promises.system.resolve(docpack)
@@ -252,7 +252,7 @@ class Main extends React.Component<any,any> {
 
             toast.success('updating system data')
             this.setState({
-                system:docpack.document,
+                systempack:docpack,
             })
 
         }
@@ -279,34 +279,20 @@ class Main extends React.Component<any,any> {
 
     }
 
-    userDocumentSuccess = ({docpack}:ReturnDocPackStruc) => {
+    userDocumentSuccess = ({docpack, reason}:ReturnDocPackMessage) => {
 
-        // console.log('doclist from userdoc',doclist)
-        // if (!doclist.length) {
-        //     this.userDocumentFailure('no user document found')
-        //     return
-        // }
-        // if (doclist.length > 1) {
+        console.log('user from userDocumentSuccess',docpack)
 
-        //     // toast.error('duplicate user id')
-        //     this.userDocumentFailure('duplicate user id')
-        //     return
-        // }
-
-        let user = docpack.document
-
-        console.log('user from userDocumentSucess',user)
-
-        if ((!this.state.user) || this.updatinguserdata) {
+        if ((!this.state.userpack) || this.updatinguserdata) {
 
             toast.success('setting user record')
-            this.promises.user.resolve(user)
-            this.getAccountDocument(user['identity'].account)
+            this.promises.user.resolve(docpack)
+            this.getAccountDocument(docpack.document['identity'].account)
 
         } else {
 
             this.setState({
-                user,
+                userpack:docpack,
             })
         }
 
@@ -332,18 +318,18 @@ class Main extends React.Component<any,any> {
 
     }
 
-    userAccountSuccess = ({docpack}:ReturnDocPackStruc) => {
+    userAccountSuccess = ({docpack, reason}:ReturnDocPackMessage) => {
 
-        console.log('account doc and id from accountDocumentSucess',docpack.document, docpack.reference)
+        console.log('account from accountDocumentSuccess',docpack)
 
-        if (!docpack.document) {
+        if (!docpack) {
 
             this.userAccountFailure('unable to get user account document')
             return
 
         }
 
-        if ((!this.state.account) || this.updatinguserdata) {
+        if ((!this.state.accountpack) || this.updatinguserdata) {
 
             toast.success('setting account record')
             this.promises.account.resolve(docpack)
@@ -371,11 +357,11 @@ class Main extends React.Component<any,any> {
 
         let { globalmessage, version, classes } = this.props
 
-        let { userProviderData, user, account } = this.state
+        let { userProviderData, userpack, accountpack } = this.state
 
         let userdata
 
-        if (!(userProviderData && user && account)) {
+        if (!(userProviderData && userpack && accountpack)) {
 
             userdata = null
             
@@ -383,16 +369,17 @@ class Main extends React.Component<any,any> {
 
             userdata = {
                 login:this.state.userProviderData,
-                user:this.state.user,
-                account:this.state.account,
+                user:this.state.userpack.document,
+                account:this.state.accountpack.document,
             }
 
         }
-        // console.log('user data',userdata)
+
+        let systemdata = this.state.systempack?this.state.systempack.document:null
 
         return (
 
-            <SystemDataContext.Provider value = {this.state.system}>
+            <SystemDataContext.Provider value = {systemdata}>
                 <UserDataContext.Provider value = {userdata}>
 
                     <MainView globalmessage={globalmessage}

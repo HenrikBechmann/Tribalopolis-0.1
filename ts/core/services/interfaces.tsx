@@ -55,6 +55,17 @@ export interface RemoveGatewayListenerMessage {
     reference:string, 
 }
 
+export interface ReturnDocPackMessage {
+    docpack:DocPackStruc,
+    reason: Object,
+}
+
+export interface ReturnDocPairMessage {
+    docpack:DocPackStruc,
+    typepack:DocPackStruc,
+    reason:Object,
+}
+
 // change persistent data
 
 export interface SetDocumentMessage {
@@ -82,17 +93,6 @@ export interface DocProxyStruc {
 export interface DocPackStruc {
     reference:string,
     document:Object,
-}
-
-export interface ReturnDocPackStruc {
-    docpack:DocPackStruc,
-    reason: Object,
-}
-
-export interface ReturnDocPairStruc {
-    docpack:DocPackStruc,
-    typepack:DocPackStruc,
-    reason:Object,
 }
 
 export interface CacheItemStruc {

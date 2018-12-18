@@ -39,7 +39,7 @@ import {
     RemoveListenerMessage,
     DocPackStruc,
     CacheItemStruc,
-    ReturnDocPairStruc,
+    ReturnDocPairMessage,
 } from './interfaces'
 // ==============[ Internal ]===============
 
@@ -244,7 +244,7 @@ const processDocumentCallbacks = (reference, reason) => {
 
                 let docpac:DocPackStruc = docpack
 
-                let retval:ReturnDocPairStruc = {docpack:docpac, typepack, reason}
+                let retval:ReturnDocPairMessage = {docpack:docpac, typepack, reason}
                 callback( retval )
 
             }
@@ -415,7 +415,7 @@ const setDocumentListener = ({doctoken,instanceid,success, failure}:SetListenerM
         if (cachedata.docpack && cachedata.typepack) { // defer if waiting for type
             let docpack:DocPackStruc = cachedata.docpack
 
-            let retval:ReturnDocPairStruc = {
+            let retval:ReturnDocPairMessage = {
                 docpack, 
                 typepack:cachedata.typepack, 
                 reason:{

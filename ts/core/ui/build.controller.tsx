@@ -31,7 +31,7 @@ import ActionButton from './common/actionbutton.view'
 import DataDrawer from './common/datadrawer.view'
 import BuildDataPane from './build/builddatapane.view'
 
-import { GetDocumentMessage, SetDocumentMessage, ReturnDocPackStruc } from '../services/interfaces'
+import { GetDocumentMessage, SetDocumentMessage, ReturnDocPackMessage } from '../services/interfaces'
 
 const styles = theme => (createStyles({
     button: {
@@ -169,7 +169,7 @@ class BuildController extends React.Component<any,any> {
         }
     }
 
-    fetchSuccessCallback = ({docpack, reason}:ReturnDocPackStruc) => {
+    fetchSuccessCallback = ({docpack, reason}:ReturnDocPackMessage) => {
 
         let newobject = false
         let data:any = docpack.document
@@ -214,7 +214,7 @@ class BuildController extends React.Component<any,any> {
     }
 
     // apply type template to document
-    fetchTypeSuccessCallback = ({docpack}:ReturnDocPackStruc) => {
+    fetchTypeSuccessCallback = ({docpack,reason}:ReturnDocPackMessage) => {
         let typepack = docpack
         // console.log('fetchTypeSuccessCallback', typepack)
         this.doctypepack = typepack

@@ -12,7 +12,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import ActionButton from '../common/actionbutton.view'
 import PopupMenu from '../common/popupmenu.view'
 
-import { SetListenerMessage, RemoveListenerMessage, ReturnDocPairStruc } from '../../services/interfaces'
+import { SetListenerMessage, RemoveListenerMessage, ReturnDocPairMessage } from '../../services/interfaces'
 
 const styles = createStyles({
     barstyle:{
@@ -95,9 +95,9 @@ class IdentityBar extends React.Component<any, any> {
         }        
     }
 
-    cacheItemDocument = ({docpack, typepack, reason}:ReturnDocPairStruc) => {
+    cacheItemDocument = ({docpack, typepack, reason}:ReturnDocPairMessage) => {
 
-    console.log('identity bar cacheItemDocument', document)
+    console.log('identity bar cacheItemDocument', docpack)
 
         this.setState({
             item:{

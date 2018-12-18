@@ -19,7 +19,7 @@ import ActionButton from '../common/actionbutton.view'
 import QuantityBadge from '../common/quantitybadge.view'
 import LoadingMessage from '../common/loadingmessage.view'
 
-import { SetListenerMessage, RemoveListenerMessage, ReturnDocPairStruc } from '../../services/interfaces'
+import { SetListenerMessage, RemoveListenerMessage, ReturnDocPairMessage } from '../../services/interfaces'
 
 const styles = createStyles({
     barstyle: {
@@ -106,7 +106,7 @@ class DirectoryListItem extends React.Component<any,any> {
         }        
     }
 
-    cacheListDocument = ({docpack, typepack, reason}:ReturnDocPairStruc) => {
+    cacheListDocument = ({docpack, typepack, reason}:ReturnDocPairMessage) => {
 
         this.setState({
             list:{

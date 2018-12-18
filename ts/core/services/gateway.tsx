@@ -24,7 +24,7 @@ import {
     SetDocumentMessage, 
     GetCollectionMessage, 
     DocPackStruc,
-    ReturnDocPackStruc
+    ReturnDocPackMessage
 } from './interfaces'
 
 let firestore = firebase.firestore()
@@ -54,7 +54,7 @@ const setGatewayListener = ({reference, success, failure}:GetDocumentMessage) =>
 
     }
     // setTimeout(()=>{
-        let parms:ReturnDocPackStruc = {docpack:{reference,document:data}, reason:{}}
+        let parms:ReturnDocPackMessage = {docpack:{reference,document:data}, reason:{}}
         success(parms)
         // setTimeout(()=>{
         //     callback(reference, data, {})
@@ -75,7 +75,7 @@ const getDocument = ({reference, success, failure}:GetDocumentMessage) => {
         // console.log('returning doc with callback',doc.data())
         let data = doc.data()
         // let id = doc.id
-        let returnpack:ReturnDocPackStruc = {docpack:{document:data,reference},reason:{}}
+        let returnpack:ReturnDocPackMessage = {docpack:{document:data,reference},reason:{}}
         success(returnpack)
 
     })
@@ -131,7 +131,7 @@ const queryForDocument = ({reference, whereclauses, success, failure}:GetDocumen
             reference:reference + '/' + dbdocpack.id,
             document:dbdocpack.document
         }
-        let returnpack:ReturnDocPackStruc = {docpack,reason:{}}
+        let returnpack:ReturnDocPackMessage = {docpack,reason:{}}
         success(returnpack)
     }).catch(error =>{
         failure(error)
