@@ -154,19 +154,19 @@ const getCollection = ({reference, success, failure}:GetCollectionMessage) => {
         if (querySnapshot.empty) {
             return []
         } else {
-            let result = []
+            let result:DocPackStruc[] = []
             querySnapshot.forEach(document => {
-                let doc = {
-                    id:document.id,
-                    data:document.data()
+                let doc:DocPackStruc = {
+                    reference:reference + '/' + document.id,
+                    document:document.data()
                 }
                 result.push(doc)
             })
             return result
         }
     })
-    .then(queryData => {
-        success(queryData)
+    .then(docpacklist => {
+        success(docpacklist)
     }) 
     .catch(error => failure(error))
 }
