@@ -50,7 +50,7 @@ class RootDirectoryBarHolder extends React.Component<any, any> {
                     success:this.cacheItemDocument,
                     failure:null,
                 }
-            this.props.setDocumentListener( parms )
+            this.props.setDocumentPairListener( parms )
         }        
     }
 
@@ -63,7 +63,7 @@ class RootDirectoryBarHolder extends React.Component<any, any> {
                     // success:null,
                     // failure:null,
                 }
-            this.props.removeDocumentListener( parms )
+            this.props.removeDocumentPairListener( parms )
         }        
     }
 
@@ -96,8 +96,8 @@ class RootDirectoryBarHolder extends React.Component<any, any> {
     <DirectoryBar 
         haspeers = {false}
         listProxy = {listProxy}
-        setDocumentListener = {this.props.setDocumentListener}
-        removeDocumentListener = {this.props.removeDocumentListener}
+        setDocumentPairListener = {this.props.setDocumentPairListener}
+        removeDocumentPairListener = {this.props.removeDocumentPairListener}
         callDataDrawer = {this.props.callDataDrawer}
 
         listStack = {this.itemProxy.liststack}

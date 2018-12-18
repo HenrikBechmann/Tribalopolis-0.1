@@ -85,7 +85,7 @@ class BoxToolbar extends React.Component {
                 success: this.cacheListDocument,
                 failure: null,
             };
-            this.props.callbacks.setDocumentListener(parms);
+            this.props.callbacks.setDocumentPairListener(parms);
         }
     }
     componentWillUnmount() {
@@ -94,7 +94,7 @@ class BoxToolbar extends React.Component {
                 doctoken: this.listProxy.doctoken,
                 instanceid: this.listProxy.instanceid,
             };
-            this.props.callbacks.removeDocumentListener(parms);
+            this.props.callbacks.removeDocumentPairListener(parms);
         }
     }
     render() {

@@ -58,7 +58,7 @@ const getDocumentCacheItem = (reference) => {
         cacheitem = newDocumentCacheItem();
         documentcache.set(reference, cacheitem);
         // connect to data source
-        domain.setDocumentListener({ reference, success: processDocumentCallbackFromGateway, failure: null });
+        domain.setDocumentPairListener({ reference, success: processDocumentCallbackFromGateway, failure: null });
     }
     return cacheitem;
 };
@@ -107,7 +107,7 @@ const getTypeCacheItem = (reference) => {
     else {
         cacheitem = newTypeCacheItem();
         typecache.set(reference, cacheitem);
-        domain.setDocumentListener({ reference, success: processTypeCallbacksFromGateway, failure: null });
+        domain.setDocumentPairListener({ reference, success: processTypeCallbacksFromGateway, failure: null });
     }
     return cacheitem;
 };
@@ -170,7 +170,7 @@ const processDocumentCallbacks = (reference, reason) => {
 */
 const removeDocumentCacheItem = (reference) => {
     // unhook from gateway
-    domain.removeDocumentListener({ reference });
+    domain.removeDocumentPairListener({ reference });
     // anticipate need for type cache listener...
     let documentcacheitem = documentcache.get(reference);
     documentcache.delete(reference);
@@ -199,7 +199,7 @@ const removeDocumentCacheListener = (reference, instanceid) => {
 };
 const removeTypeCacheItem = (reference) => {
     // unhook from domain
-    domain.removeDocumentListener(reference);
+    domain.removeDocumentPairListener(reference);
     typecache.delete(reference);
 };
 const removeTypeCacheListener = (typereference, documentreference) => {
@@ -236,7 +236,7 @@ const properties = {
     ismobile: /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)
 };
 // called from component componentDidMount or componentWillUpdate
-const setDocumentListener = ({ doctoken, instanceid, success, failure }) => {
+const setDocumentPairListener = ({ doctoken, instanceid, success, failure }) => {
     setTimeout(() => {
         let reference = doctoken.reference; // getTokenReference(doctoken)
         let sentinel = sentinels[instanceid]
@@ -275,7 +275,7 @@ const setDocumentListener = ({ doctoken, instanceid, success, failure }) => {
     });
 };
 // called from component componentWillUnmount
-const removeDocumentListener = ({ doctoken, instanceid }) => {
+const removeDocumentPairListener = ({ doctoken, instanceid }) => {
     let reference = doctoken.reference;
     let sentinel = sentinels[instanceid]
         ? sentinels[instanceid][0]
@@ -313,8 +313,8 @@ const getCollection = (parmblock) => {
 };
 let application = {
     properties,
-    setDocumentListener,
-    removeDocumentListener,
+    setDocumentPairListener,
+    removeDocumentPairListener,
     getDocument,
     getNewDocument,
     queryForDocument,

@@ -69,7 +69,7 @@ class extends React.Component<any,any> {
                     success:this.cacheListDocument,
                     failure:null,
                 }
-            this.props.callbacks.setDocumentListener( parms )
+            this.props.callbacks.setDocumentPairListener( parms )
         }
 
         if (this.props.highlightrefuid) {
@@ -94,7 +94,7 @@ class extends React.Component<any,any> {
                     // success:null,
                     // failure:null,
                 }
-            this.props.callbacks.removeDocumentListener( parms )
+            this.props.callbacks.removeDocumentPairListener( parms )
         }        
     }
 
@@ -201,8 +201,8 @@ class extends React.Component<any,any> {
             <DirectoryListItem 
                 key = {docproxy.instanceid} 
                 listProxy = {docproxy} 
-                setDocumentListener = {this.props.callbacks.setDocumentListener}
-                removeDocumentListener = {this.props.callbacks.removeDocumentListener}
+                setDocumentPairListener = {this.props.callbacks.setDocumentPairListener}
+                removeDocumentPairListener = {this.props.callbacks.removeDocumentPairListener}
                 expandDirectoryItem = {this.expandDirectoryItem(docproxy.doctoken)}
                 highlight = {highlight}
                 highlightItem = {this.props.callbacks.highlightItem}

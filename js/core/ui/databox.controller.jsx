@@ -151,14 +151,14 @@ class DataBox extends React.Component {
             // console.log('docproxy',docproxy)
         };
         this.listcallbacks = {
-            setDocumentListener: this.props.callbacks.setDocumentListener,
-            removeDocumentListener: this.props.callbacks.removeDocumentListener,
+            setDocumentPairListener: this.props.callbacks.setDocumentPairListener,
+            removeDocumentPairListener: this.props.callbacks.removeDocumentPairListener,
             expandDirectoryItem: this.props.callbacks.expandDirectoryItem,
             highlightItem: this.highlightItem,
         };
         this.typecallbacks = {
-            setDocumentListener: this.props.callbacks.setDocumentListener,
-            removeDocumentListener: this.props.callbacks.removeDocumentListener,
+            setDocumentPairListener: this.props.callbacks.setDocumentPairListener,
+            removeDocumentPairListener: this.props.callbacks.removeDocumentPairListener,
             splayBox: this.splayBox,
             selectFromSplay: this.props.callbacks.selectFromSplay,
         };
@@ -178,7 +178,7 @@ class DataBox extends React.Component {
             instanceid: itemProxy.instanceid,
             success: this.cacheItemData, failure: null
         };
-        this.props.callbacks.setDocumentListener(parms);
+        this.props.callbacks.setDocumentPairListener(parms);
     }
     componentDidUpdate() {
         let { collapseTargetProxy } = this.props; // gets set then cancelled by parent
@@ -208,7 +208,7 @@ class DataBox extends React.Component {
             doctoken: itemProxy.doctoken,
             instanceid: itemProxy.instanceid,
         };
-        this.props.callbacks.removeDocumentListener(parms);
+        this.props.callbacks.removeDocumentPairListener(parms);
     }
     render() {
         let { haspeers, classes, containerHeight } = this.props;
@@ -260,11 +260,11 @@ class DataBox extends React.Component {
 
                     {false && <BoxTypebar /* suspended */ item={item} itemType={itemType /*future*/} listProxy={this.state.TypelistProxy} haspeers={haspeers} callbacks={this.typecallbacks}/>}
 
-                    {!listStack.length && <BoxIdentityBar itemProxy={this.identityItemProxy} setDocumentListener={this.props.callbacks.setDocumentListener} removeDocumentListener={this.props.callbacks.removeDocumentListener} callDataDrawer={this.props.callbacks.callDataDrawer}/>}
+                    {!listStack.length && <BoxIdentityBar itemProxy={this.identityItemProxy} setDocumentPairListener={this.props.callbacks.setDocumentPairListener} removeDocumentPairListener={this.props.callbacks.removeDocumentPairListener} callDataDrawer={this.props.callbacks.callDataDrawer}/>}
 
                     <div className={classes.directoryBlock}>
 
-                        <DirectoryBar haspeers={haspeers} listProxy={this.state.BarlistProxy} setDocumentListener={this.props.callbacks.setDocumentListener} removeDocumentListener={this.props.callbacks.removeDocumentListener} callDataDrawer={this.props.callbacks.callDataDrawer} listStack={listStack}/>
+                        <DirectoryBar haspeers={haspeers} listProxy={this.state.BarlistProxy} setDocumentPairListener={this.props.callbacks.setDocumentPairListener} removeDocumentPairListener={this.props.callbacks.removeDocumentPairListener} callDataDrawer={this.props.callbacks.callDataDrawer} listStack={listStack}/>
                         
                         <div className={classes.directorylistwrapper}>
                             

@@ -69,7 +69,7 @@ class DirectoryListItem extends React.Component {
                 success: this.cacheListDocument,
                 failure: null,
             };
-            this.props.setDocumentListener(parms);
+            this.props.setDocumentPairListener(parms);
         }
     }
     componentDidUpdate() {
@@ -83,7 +83,7 @@ class DirectoryListItem extends React.Component {
                 doctoken: this.listProxy.doctoken,
                 instanceid: this.listProxy.instanceid,
             };
-            this.props.removeDocumentListener(parms);
+            this.props.removeDocumentPairListener(parms);
         }
     }
     render() {

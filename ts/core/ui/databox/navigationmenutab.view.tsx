@@ -55,7 +55,7 @@ class NavigationMenuTab extends React.Component<any,any> {
                     success:this.cacheListDocument,
                     failure:null,
                 }
-            this.props.callbacks.setDocumentListener( parms )
+            this.props.callbacks.setDocumentPairListener( parms )
         }
     }
 
@@ -68,7 +68,7 @@ class NavigationMenuTab extends React.Component<any,any> {
                     // success:null,
                     // failure:null,
                 }
-            this.props.callbacks.removeDocumentListener( parms )
+            this.props.callbacks.removeDocumentPairListener( parms )
         }        
     }
     cacheListDocument = ({docpack, typepack, reason}:ReturnDocPairMessage) => {

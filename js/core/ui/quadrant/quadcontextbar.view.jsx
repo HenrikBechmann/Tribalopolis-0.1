@@ -80,7 +80,7 @@ class QuadContextBar extends React.Component {
                 if (itemProxy.liststack.length) { // make list entry
                     let listtoken = itemProxy.listStack[itemProxy.liststack.length - 1];
                     let listProxy = new docproxy(listtoken);
-                    let component = <DirectoryBar key={n + 'list'} haspeers={false} listProxy={listProxy} setDocumentListener={this.props.callbacks.setDocumentListener} removeDocumentListener={this.props.callbacks.removeDocumentListener} callDataDrawer={this.props.callDataDrawer} listStack={itemProxy.liststack} collapseDirectoryItem={() => { }} contextitem/>;
+                    let component = <DirectoryBar key={n + 'list'} haspeers={false} listProxy={listProxy} setDocumentPairListener={this.props.callbacks.setDocumentPairListener} removeDocumentPairListener={this.props.callbacks.removeDocumentPairListener} callDataDrawer={this.props.callDataDrawer} listStack={itemProxy.liststack} collapseDirectoryItem={() => { }} contextitem/>;
                     context.push(<Icon key={n + 'icon'} style={{ opacity: .54 }}>chevron_right</Icon>);
                     context.push(component);
                 }
@@ -90,12 +90,12 @@ class QuadContextBar extends React.Component {
                         doctoken: itemProxy.doctoken,
                         liststack: itemProxy.liststack.slice(),
                     });
-                    context.push(<BoxIdentityBar key={n + 'item'} itemProxy={newItemProxy} setDocumentListener={this.props.callbacks.setDocumentListener} removeDocumentListener={this.props.callbacks.removeDocumentListener} callDataDrawer={this.props.callDataDrawer} contextitem/>);
+                    context.push(<BoxIdentityBar key={n + 'item'} itemProxy={newItemProxy} setDocumentPairListener={this.props.callbacks.setDocumentPairListener} removeDocumentPairListener={this.props.callbacks.removeDocumentPairListener} callDataDrawer={this.props.callDataDrawer} contextitem/>);
                     let holderItemProxy = new docproxy({
                         doctoken: itemProxy.doctoken,
                         liststack: itemProxy.liststack.slice(),
                     });
-                    let component = <RootDirectoryBarHolder key={n + 'list'} itemProxy={holderItemProxy} setDocumentListener={this.props.callbacks.setDocumentListener} removeDocumentListener={this.props.callbacks.removeDocumentListener} callDataDrawer={this.props.callDataDrawer}/>;
+                    let component = <RootDirectoryBarHolder key={n + 'list'} itemProxy={holderItemProxy} setDocumentPairListener={this.props.callbacks.setDocumentPairListener} removeDocumentPairListener={this.props.callbacks.removeDocumentPairListener} callDataDrawer={this.props.callDataDrawer}/>;
                     context.push(<Icon key={n + 'icon'} style={{ opacity: .54 }}>chevron_right</Icon>);
                     context.push(component);
                 }

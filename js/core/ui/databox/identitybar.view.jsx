@@ -52,7 +52,7 @@ class IdentityBar extends React.Component {
                     success: this.cacheItemDocument,
                     failure: null,
                 };
-                this.props.setDocumentListener(parms);
+                this.props.setDocumentPairListener(parms);
             }
         };
         this.cacheItemDocument = ({ docpack, typepack, reason }) => {
@@ -91,7 +91,7 @@ class IdentityBar extends React.Component {
                 doctoken: this.itemProxy.doctoken,
                 instanceid: this.itemProxy.instanceid,
             };
-            this.props.removeDocumentListener(parms);
+            this.props.removeDocumentPairListener(parms);
         }
     }
     render() {

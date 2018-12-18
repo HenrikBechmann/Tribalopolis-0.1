@@ -87,7 +87,7 @@ const getDocumentCacheItem = (reference) => {
         documentcache.set(reference,cacheitem)
 
         // connect to data source
-        domain.setDocumentListener({reference, success:processDocumentCallbackFromGateway, failure:null})
+        domain.setDocumentPairListener({reference, success:processDocumentCallbackFromGateway, failure:null})
 
     }
 
@@ -159,7 +159,7 @@ const getTypeCacheItem = (reference) => { // type reference
         cacheitem = newTypeCacheItem()
         typecache.set(reference,cacheitem)
 
-        domain.setDocumentListener({reference, success:processTypeCallbacksFromGateway,failure:null})
+        domain.setDocumentPairListener({reference, success:processTypeCallbacksFromGateway,failure:null})
 
     }
 
@@ -262,7 +262,7 @@ const removeDocumentCacheItem = (reference) => {
 
 
     // unhook from gateway
-    domain.removeDocumentListener({reference})
+    domain.removeDocumentPairListener({reference})
 
     // anticipate need for type cache listener...
     let documentcacheitem = documentcache.get(reference)
@@ -310,7 +310,7 @@ const removeDocumentCacheListener = (reference, instanceid) => {
 const removeTypeCacheItem = (reference) => {
 
     // unhook from domain
-    domain.removeDocumentListener(reference)
+    domain.removeDocumentPairListener(reference)
 
     typecache.delete(reference)
 
@@ -375,7 +375,7 @@ const properties = {
 }
 
 // called from component componentDidMount or componentWillUpdate
-const setDocumentListener = ({doctoken,instanceid,success, failure}:SetListenerMessage) => {
+const setDocumentPairListener = ({doctoken,instanceid,success, failure}:SetListenerMessage) => {
 
     setTimeout(()=>{ // give animations a chance to run
 
@@ -436,7 +436,7 @@ const setDocumentListener = ({doctoken,instanceid,success, failure}:SetListenerM
 }
 
 // called from component componentWillUnmount
-const removeDocumentListener = ({doctoken, instanceid}:RemoveListenerMessage) => {
+const removeDocumentPairListener = ({doctoken, instanceid}:RemoveListenerMessage) => {
 
     let reference = doctoken.reference
 
@@ -503,8 +503,8 @@ const getCollection = (parmblock:GetCollectionMessage) => {
 
 let application = {
     properties,
-    setDocumentListener,
-    removeDocumentListener,
+    setDocumentPairListener,
+    removeDocumentPairListener,
     getDocument,
     getNewDocument,
     queryForDocument,

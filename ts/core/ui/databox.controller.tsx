@@ -134,7 +134,7 @@ class DataBox extends React.Component<any,any> {
             instanceid:itemProxy.instanceid,
             success:this.cacheItemData,failure:null
         }
-        this.props.callbacks.setDocumentListener(parms)
+        this.props.callbacks.setDocumentPairListener(parms)
     }
 
     componentDidUpdate() {
@@ -173,7 +173,7 @@ class DataBox extends React.Component<any,any> {
             // failure:null,
         }
 
-        this.props.callbacks.removeDocumentListener( parms )
+        this.props.callbacks.removeDocumentPairListener( parms )
 
     }
 
@@ -272,15 +272,15 @@ class DataBox extends React.Component<any,any> {
     }
 
     listcallbacks = {
-        setDocumentListener:this.props.callbacks.setDocumentListener,
-        removeDocumentListener:this.props.callbacks.removeDocumentListener,
+        setDocumentPairListener:this.props.callbacks.setDocumentPairListener,
+        removeDocumentPairListener:this.props.callbacks.removeDocumentPairListener,
         expandDirectoryItem:this.props.callbacks.expandDirectoryItem,
         highlightItem:this.highlightItem,
     }
 
     typecallbacks = {
-        setDocumentListener:this.props.callbacks.setDocumentListener,
-        removeDocumentListener:this.props.callbacks.removeDocumentListener,
+        setDocumentPairListener:this.props.callbacks.setDocumentPairListener,
+        removeDocumentPairListener:this.props.callbacks.removeDocumentPairListener,
         splayBox:this.splayBox,
         selectFromSplay:this.props.callbacks.selectFromSplay,
     }
@@ -371,8 +371,8 @@ class DataBox extends React.Component<any,any> {
 
                     {!listStack.length && <BoxIdentityBar 
                         itemProxy = {this.identityItemProxy}
-                        setDocumentListener = {this.props.callbacks.setDocumentListener}
-                        removeDocumentListener = {this.props.callbacks.removeDocumentListener}
+                        setDocumentPairListener = {this.props.callbacks.setDocumentPairListener}
+                        removeDocumentPairListener = {this.props.callbacks.removeDocumentPairListener}
                         callDataDrawer = { this.props.callbacks.callDataDrawer }
                     />}
 
@@ -381,8 +381,8 @@ class DataBox extends React.Component<any,any> {
                         <DirectoryBar 
                             haspeers = {haspeers}
                             listProxy = {this.state.BarlistProxy}
-                            setDocumentListener = {this.props.callbacks.setDocumentListener}
-                            removeDocumentListener = {this.props.callbacks.removeDocumentListener}
+                            setDocumentPairListener = {this.props.callbacks.setDocumentPairListener}
+                            removeDocumentPairListener = {this.props.callbacks.removeDocumentPairListener}
                             callDataDrawer = {this.props.callbacks.callDataDrawer}
 
                             listStack = {listStack}

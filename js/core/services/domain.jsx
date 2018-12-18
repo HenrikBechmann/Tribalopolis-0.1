@@ -11,10 +11,10 @@
 import gateway from './gateway';
 const noop = () => {
 };
-const setDocumentListener = (parmblock) => {
+const setDocumentPairListener = (parmblock) => {
     gateway.setGatewayListener(parmblock);
 };
-const removeDocumentListener = (parmblock) => {
+const removeDocumentPairListener = (parmblock) => {
     gateway.removeGatewayListener(parmblock);
 };
 const getDocument = (parmblock) => {
@@ -33,8 +33,8 @@ const getCollection = (parmblock) => {
     gateway.getCollection(parmblock);
 };
 let domain = {
-    setDocumentListener,
-    removeDocumentListener,
+    setDocumentPairListener,
+    removeDocumentPairListener,
     getDocument,
     getNewDocument,
     queryForDocument,

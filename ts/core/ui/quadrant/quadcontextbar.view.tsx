@@ -106,8 +106,8 @@ class QuadContextBar extends React.Component<any> {
                     key = {n + 'list'}
                     haspeers = {false}
                     listProxy = {listProxy}
-                    setDocumentListener = {this.props.callbacks.setDocumentListener}
-                    removeDocumentListener = {this.props.callbacks.removeDocumentListener}
+                    setDocumentPairListener = {this.props.callbacks.setDocumentPairListener}
+                    removeDocumentPairListener = {this.props.callbacks.removeDocumentPairListener}
                     callDataDrawer = {this.props.callDataDrawer}
 
                     listStack = {itemProxy.liststack}
@@ -129,8 +129,8 @@ class QuadContextBar extends React.Component<any> {
                 context.push(<BoxIdentityBar 
                     key = {n + 'item'}
                     itemProxy = {newItemProxy}
-                    setDocumentListener = {this.props.callbacks.setDocumentListener}
-                    removeDocumentListener = {this.props.callbacks.removeDocumentListener}
+                    setDocumentPairListener = {this.props.callbacks.setDocumentPairListener}
+                    removeDocumentPairListener = {this.props.callbacks.removeDocumentPairListener}
                     callDataDrawer = { this.props.callDataDrawer }
                     contextitem
                 />)
@@ -145,8 +145,8 @@ class QuadContextBar extends React.Component<any> {
                 let component = <RootDirectoryBarHolder 
                     key = {n + 'list'}
                     itemProxy = {holderItemProxy}
-                    setDocumentListener = {this.props.callbacks.setDocumentListener}
-                    removeDocumentListener = {this.props.callbacks.removeDocumentListener}
+                    setDocumentPairListener = {this.props.callbacks.setDocumentPairListener}
+                    removeDocumentPairListener = {this.props.callbacks.removeDocumentPairListener}
                     callDataDrawer = {this.props.callDataDrawer}
                 />
                 context.push(<Icon key = {n + 'icon'}  style = {{opacity:.54}}>chevron_right</Icon>)

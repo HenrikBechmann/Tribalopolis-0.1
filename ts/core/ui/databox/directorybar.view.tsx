@@ -99,7 +99,7 @@ class DirectoryBar extends React.Component<any,any> {
                     success:this.cacheListDocument,
                     failure:null,
                 }
-            this.props.setDocumentListener( parms )
+            this.props.setDocumentPairListener( parms )
         }        
     }
 
@@ -112,7 +112,7 @@ class DirectoryBar extends React.Component<any,any> {
                     // success:null,
                     // failure:null,
                 }
-            this.props.removeDocumentListener( parms )
+            this.props.removeDocumentPairListener( parms )
         }        
     }
 

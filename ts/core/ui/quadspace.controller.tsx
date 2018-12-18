@@ -159,8 +159,8 @@ class QuadspaceController extends React.Component<any,any> {
 
     quadrantcallbacks = {
         handleSwap:this.handleSwap, 
-        setDocumentListener:application.setDocumentListener, 
-        removeDocumentListener:application.removeDocumentListener,
+        setDocumentPairListener:application.setDocumentPairListener, 
+        removeDocumentPairListener:application.removeDocumentPairListener,
         selectQuadrant:this.selectQuadrant, 
         calcQuadrantPosition:this.calcQuadrantPosition,
     }
