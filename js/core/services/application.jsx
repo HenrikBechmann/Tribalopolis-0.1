@@ -220,9 +220,9 @@ const getDocumentPack = reference => {
     let typepack = null;
     let typeref = null;
     if (docpack.document) {
-        typeref = docpack.document['identity'].type;
+        typeref = docpack.document.identity.type;
         if (typecache.has(typeref)) {
-            typepack = typecache.get(docpack.document['identity'].type).docpack || {};
+            typepack = typecache.get(docpack.document.identity.type).docpack || {};
         }
     }
     let cachedata = {

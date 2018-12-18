@@ -189,7 +189,7 @@ let Main = class Main extends React.Component {
             if ((!this.state.userpack) || this.updatinguserdata) {
                 toast.success('setting user record');
                 this.promises.user.resolve(docpack);
-                this.getAccountDocument(docpack.document['identity'].account);
+                this.getAccountDocument(docpack.document.identity.account);
             }
             else {
                 this.setState({

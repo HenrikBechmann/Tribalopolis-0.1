@@ -16,7 +16,7 @@ Struc: as data structure specifying an object/document
 ------------------------[ OPERATIONS ]--------------------------
 ***************************************************************/
 
-// fetch persistent data
+// fetch copy of persistent documents
 
 export interface GetDocumentMessage {
     reference:string,
@@ -32,7 +32,12 @@ export interface GetCollectionMessage {
     failure:Function,
 }
 
-// subscriptions
+export interface ReturnDocPackMessage {
+    docpack:DocPackStruc,
+    reason: Object,
+}
+
+// subscriptions to application
 
 export interface SetPairListenerMessage {
     doctoken:DocTokenStruc,
@@ -46,6 +51,16 @@ export interface RemovePairListenerMessage {
     instanceid:number,
 }
 
+export interface ReturnDocPairMessage {
+    docpack:DocPackStruc,
+    typepack:DocPackStruc,
+    reason:Object,
+}
+
+// subscriptions to gateway
+
+// uses ReturnDocPackMessage for return
+
 export interface SetGatewayListenerMessage {
     reference:string, 
     success:Function,
@@ -54,17 +69,6 @@ export interface SetGatewayListenerMessage {
 
 export interface RemoveGatewayListenerMessage {
     reference:string, 
-}
-
-export interface ReturnDocPackMessage {
-    docpack:DocPackStruc,
-    reason: Object,
-}
-
-export interface ReturnDocPairMessage {
-    docpack:DocPackStruc,
-    typepack:DocPackStruc,
-    reason:Object,
 }
 
 // change persistent data
@@ -93,7 +97,9 @@ export interface DocProxyStruc {
 
 export interface DocPackStruc {
     reference:string,
-    document:Object,
+    document:{
+        [index:string]:any
+    },
 }
 
 export interface CacheItemStruc {

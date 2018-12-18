@@ -287,7 +287,7 @@ class Main extends React.Component<any,any> {
 
             toast.success('setting user record')
             this.promises.user.resolve(docpack)
-            this.getAccountDocument(docpack.document['identity'].account)
+            this.getAccountDocument(docpack.document.identity.account)
 
         } else {
 

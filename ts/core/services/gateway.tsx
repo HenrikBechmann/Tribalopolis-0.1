@@ -164,7 +164,7 @@ const getCollection = ({reference, success, failure}:GetCollectionMessage) => {
         }
     })
     .then(docpacklist => {
-        success(docpacklist)
+        success(docpacklist) // DocPackStruc[]
     }) 
     .catch(error => failure(error))
 }
