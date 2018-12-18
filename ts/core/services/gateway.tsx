@@ -116,21 +116,19 @@ const queryForDocument = ({reference, whereclauses, success, failure}:GetDocumen
     }
     collection.get().then((querySnapshot)=>{
         if (querySnapshot.empty) return []
-        let docs = []
-        querySnapshot.forEach(document => {
+        let docs:DocPackStruc[] = []
+        querySnapshot.forEach(dbdocpack => {
             let doc:DocPackStruc = {
-                reference,
+                reference:reference + '/' + dbdocpack.id,
                 // id:document.id,
-                document:document.data()
+                document:dbdocpack.data()
             }
             docs.push(doc)
         })
-        return docs[0]
-    }).then((dbdocpack) => {
-        let docpack = {
-            reference:reference + '/' + dbdocpack.id,
-            document:dbdocpack.document
-        }
+        let docpack:DocPackStruc = docs[0]
+        return docpack
+    }).then((docpackreturn) => {
+        let docpack:DocPackStruc = docpackreturn as DocPackStruc
         let returnpack:ReturnDocPackMessage = {docpack,reason:{}}
         success(returnpack)
     }).catch(error =>{

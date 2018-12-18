@@ -33,12 +33,12 @@ class RootDirectoryBarHolder extends React.Component {
                 this.props.setDocumentListener(parms);
             }
         };
-        this.cacheItemDocument = (document, type, change) => {
+        this.cacheItemDocument = ({ docpack, typepack, reason }) => {
             // console.log('caching item',document)
             this.setState({
                 item: {
-                    document,
-                    type
+                    document: docpack.document,
+                    type: typepack.document
                 }
             });
         };

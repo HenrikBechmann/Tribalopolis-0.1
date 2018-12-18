@@ -92,20 +92,18 @@ const queryForDocument = ({ reference, whereclauses, success, failure }) => {
         if (querySnapshot.empty)
             return [];
         let docs = [];
-        querySnapshot.forEach(document => {
+        querySnapshot.forEach(dbdocpack => {
             let doc = {
-                reference,
+                reference: reference + '/' + dbdocpack.id,
                 // id:document.id,
-                document: document.data()
+                document: dbdocpack.data()
             };
             docs.push(doc);
         });
-        return docs[0];
-    }).then((dbdocpack) => {
-        let docpack = {
-            reference: reference + '/' + dbdocpack.id,
-            document: dbdocpack.document
-        };
+        let docpack = docs[0];
+        return docpack;
+    }).then((docpackreturn) => {
+        let docpack = docpackreturn;
         let returnpack = { docpack, reason: {} };
         success(returnpack);
     }).catch(error => {
@@ -131,16 +129,16 @@ const getCollection = ({ reference, success, failure }) => {
             let result = [];
             querySnapshot.forEach(document => {
                 let doc = {
-                    id: document.id,
-                    data: document.data()
+                    reference: reference + '/' + document.id,
+                    document: document.data()
                 };
                 result.push(doc);
             });
             return result;
         }
     })
-        .then(queryData => {
-        success(queryData);
+        .then(docpacklist => {
+        success(docpacklist);
     })
         .catch(error => failure(error));
 };
