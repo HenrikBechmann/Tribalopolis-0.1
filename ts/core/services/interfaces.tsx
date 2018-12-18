@@ -27,20 +27,21 @@ export interface GetDocumentMessage {
 
 export interface GetCollectionMessage {
     reference:string, 
+    whereclauses?:any[], 
     success:Function, 
     failure:Function,
 }
 
 // subscriptions
 
-export interface SetListenerMessage {
+export interface SetPairListenerMessage {
     doctoken:DocTokenStruc,
     instanceid:number,
     success:Function,
     failure:Function,
 }
 
-export interface RemoveListenerMessage {
+export interface RemovePairListenerMessage {
     doctoken:DocTokenStruc,
     instanceid:number,
 }

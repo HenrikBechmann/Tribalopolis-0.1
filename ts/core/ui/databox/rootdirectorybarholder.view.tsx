@@ -12,7 +12,7 @@ import docproxy from '../../utilities/docproxy'
 
 import LoadingMessage from '../common/loadingmessage.view'
 
-import { SetListenerMessage, RemoveListenerMessage, ReturnDocPairMessage } from '../../services/interfaces'
+import { SetPairListenerMessage, RemovePairListenerMessage, ReturnDocPairMessage } from '../../services/interfaces'
 
 const styles = createStyles({
     holderstyle:{
@@ -43,7 +43,7 @@ class RootDirectoryBarHolder extends React.Component<any, any> {
         if (!this.itemProxy && this.props.itemProxy) {
             // console.log('asserting listener')
             this.itemProxy = this.props.itemProxy
-            let parms:SetListenerMessage = 
+            let parms:SetPairListenerMessage = 
                 {
                     doctoken:this.itemProxy.doctoken,
                     instanceid:this.itemProxy.instanceid,
@@ -56,7 +56,7 @@ class RootDirectoryBarHolder extends React.Component<any, any> {
 
     componentWillUnmount() {
         if (this.itemProxy) {
-            let parms: RemoveListenerMessage = 
+            let parms: RemovePairListenerMessage = 
                 {
                     doctoken:this.itemProxy.doctoken,
                     instanceid:this.itemProxy.instanceid,
