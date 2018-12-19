@@ -7,10 +7,12 @@
 
     source code style:
     local functions are prefixed with underscrore (_)
+    parameters between modules are parmblocks
 */
 /*
     TODO:
 
+        - create document and type cache objects to assemble data and related methods
         - add documentSubscribe for single documents (without type) for things like /system/parameters
         - process document changed by type in processDocumentCallbacks
         consider creating a sentinel when callbacks are de-registered to avoid race
@@ -93,17 +95,17 @@ const processDocumentCallbackFromGateway = ({ docpack, reason }) => {
     cacheitem.docpack = docpack;
     let typeref = docpack.document.identity.type; // all documents have a type
     // will only create if doesn't already exist
-    _addTypeCacheListener(typeref, docpack.reference, _processDocumentCallbacksFromType);
+    _addTypeCacheListener(typeref, docpack.reference, _processDocumentCallbackFromType);
     // will not process without type
     _processDocumentCallbacks(docpack.reference, reason);
 };
 const _addTypeCacheListener = (typereference, documentreference, callback) => {
-    let cacheitem = getTypeCacheItem(typereference);
+    let cacheitem = _getTypeCacheItem(typereference);
     if (!cacheitem.listeners.has(documentreference)) {
         cacheitem.listeners.set(documentreference, callback);
     }
 };
-const getTypeCacheItem = (reference) => {
+const _getTypeCacheItem = (reference) => {
     let cacheitem;
     if (typecache.has(reference)) {
         cacheitem = typecache.get(reference);
@@ -112,7 +114,7 @@ const getTypeCacheItem = (reference) => {
         cacheitem = _newTypeCacheItem();
         typecache.set(reference, cacheitem);
         let parmblock = {
-            reference, success: processTypeCallbacksFromGateway, failure: null
+            reference, success: processTypeCallbackFromGateway, failure: null
         };
         domain.setDocumentListener(parmblock);
     }
@@ -125,7 +127,7 @@ const _newTypeCacheItem = () => {
     };
     return cacheitem;
 };
-const processTypeCallbacksFromGateway = ({ docpack, reason }) => {
+const processTypeCallbackFromGateway = ({ docpack, reason }) => {
     let typedoc = docpack || {};
     let cacheitem = typecache.get(typedoc.reference);
     let listeners = null;
@@ -142,7 +144,7 @@ const processTypeCallbacksFromGateway = ({ docpack, reason }) => {
 /*
     triggers document callbacks when the document's type is first set, or is updated.
 */
-const _processDocumentCallbacksFromType = (reference, reason) => {
+const _processDocumentCallbackFromType = (reference, reason) => {
     _processDocumentCallbacks(reference, reason);
 };
 /*
@@ -153,7 +155,6 @@ const _processDocumentCallbacksFromType = (reference, reason) => {
 const _processDocumentCallbacks = (reference, reason) => {
     let documentcacheitem = documentcache.get(reference);
     let { docpack, typepack } = _getDocumentPack(reference);
-    // console.log('processDocumentCallbacks document,type',document,type)
     if (typepack.document) {
         let result = typefilter.assertType(docpack.document, typepack.document);
         if (result.changed) {
