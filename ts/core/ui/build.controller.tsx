@@ -74,7 +74,7 @@ class BuildController extends React.Component<any,any> {
         },
         docpack:{
             document:{},
-            id:null,
+            reference:null,
         },
         draweropen:false,
     }
@@ -113,7 +113,7 @@ class BuildController extends React.Component<any,any> {
             this.setState({
                 docpack:{
                     document:data,
-                    id:this.state.values.id
+                    refernce:this.state.values.collection + '/' + this.state.values.id
                 }
             },() => {
                 if (data.identity) {
@@ -173,29 +173,26 @@ class BuildController extends React.Component<any,any> {
 
         let newobject = false
         let data:any = docpack.document
-        if (!docpack.document) {
+        if (!data) {
             data = {}
             toast.warn('new object')
             newobject = true
         }
-        // console.log('data,id',data,id)
         this.latestjson = data
         this.savejson = data
         let values = this.state.values
         if (newobject) {
-            values.id = docpack.reference.split('/').pop()
+            values.id = docpack.reference.split('/').slice(-1)[0] // last element
         }
         this.setState({
             values,
             docpack
         },() => {
-            // console.log('fetch document type', id, data)
             if (data.identity) {
                 let typetoken = data.identity.type 
                 if (typetoken) {
                     let typeref = typetoken.reference
                     if (typeref) {
-                        // console.log('typeref',typeref)
                         let parm:GetDocumentMessage = {
                             reference:typeref,
                             success:this.fetchTypeSuccessCallback,
@@ -216,19 +213,17 @@ class BuildController extends React.Component<any,any> {
     // apply type template to document
     fetchTypeSuccessCallback = ({docpack,reason}:ReturnDocPackMessage) => {
         let typepack = docpack
-        // console.log('fetchTypeSuccessCallback', typepack)
         this.doctypepack = typepack
         toast.info('type has also been loaded (' + docpack.reference + ')')
 
-        let results = typefilter.assertType(this.state.docpack,this.doctypepack)
-        // console.log('returned from assertType',results)
+        let results = typefilter.assertType(this.state.docpack.document,this.doctypepack.document)
         if (results.changed) {
             this.latestjson = results.document
             this.savejson = results.document
             this.setState({
                 docpack:{
                     document:results.document,
-                    reference:docpack.reference,
+                    reference:this.state.docpack.reference,
                 }
             })
             results.changed && toast.info('document data has been upgraded by type (' + docpack.reference + ')' )
@@ -247,7 +242,7 @@ class BuildController extends React.Component<any,any> {
     }
 
     rollbackObject = () => {
-        this.latestjson = this.savejson
+        this.latestjson = Object.assign({},this.savejson)
         this.forceUpdate()
         toast.info('object was rolled back from most recent save')
     }
@@ -282,7 +277,7 @@ class BuildController extends React.Component<any,any> {
         this.setState({
             docpack:{
                 data:{},
-                id:null,
+                reference:null,
             }
         })
         toast.info('object was cleared')
@@ -330,7 +325,7 @@ class BuildController extends React.Component<any,any> {
                 containerelement = {this.buildelement}
             >
                 <BuildDataPane
-                    dataPack = {this.drawerdatapackage}
+                    dataspecs = {this.drawerdatapackage}
                     open = {this.state.draweropen}
                     user = {login}
                 />
@@ -444,11 +439,11 @@ class BuildController extends React.Component<any,any> {
             </React.Fragment>
         )
 
-        const jsoneditor = (
-            <div>
+        const jsoneditor = () => {
+            return <div>
 
                 <ReactJson 
-                    src = {this.state.docpack.document} 
+                    src = {this.latestjson} 
                     onEdit = {props => {
                         this.latestjson = props.updated_src
                     }}
@@ -462,7 +457,7 @@ class BuildController extends React.Component<any,any> {
                 />
 
             </div>
-        )
+        }
 
         const jsoninput = (superuser,classes) => (
             <div className = {classes.jsoninput}>
@@ -520,7 +515,7 @@ class BuildController extends React.Component<any,any> {
 
                             {datacontrols(superuser,classes)}
 
-                            { jsoneditor }
+                            { jsoneditor() }
 
                             {jsoninput(superuser,classes)}
 

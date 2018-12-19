@@ -94,8 +94,8 @@ const getNewDocument = ({reference, success, failure}:GetDocumentMessage) => {
     .then((doc)=>{
         // console.log('returning doc with callback')
         let document = doc.data()
-        // let id = doc.id
-        let docpack:DocPackStruc = {document,reference}
+        let id = doc.id
+        let docpack:DocPackStruc = {document,reference:reference + '/' + id}
         success({docpack, reason:{}})
     })
     .catch((error)=> {

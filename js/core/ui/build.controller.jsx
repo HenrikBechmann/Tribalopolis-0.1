@@ -53,7 +53,7 @@ class BuildController extends React.Component {
             },
             docpack: {
                 document: {},
-                id: null,
+                reference: null,
             },
             draweropen: false,
         };
@@ -78,7 +78,7 @@ class BuildController extends React.Component {
                 this.setState({
                     docpack: {
                         document: data,
-                        id: this.state.values.id
+                        refernce: this.state.values.collection + '/' + this.state.values.id
                     }
                 }, () => {
                     if (data.identity) {
@@ -126,29 +126,26 @@ class BuildController extends React.Component {
         this.fetchSuccessCallback = ({ docpack, reason }) => {
             let newobject = false;
             let data = docpack.document;
-            if (!docpack.document) {
+            if (!data) {
                 data = {};
                 toast.warn('new object');
                 newobject = true;
             }
-            // console.log('data,id',data,id)
             this.latestjson = data;
             this.savejson = data;
             let values = this.state.values;
             if (newobject) {
-                values.id = docpack.reference.split('/').pop();
+                values.id = docpack.reference.split('/').slice(-1)[0]; // last element
             }
             this.setState({
                 values,
                 docpack
             }, () => {
-                // console.log('fetch document type', id, data)
                 if (data.identity) {
                     let typetoken = data.identity.type;
                     if (typetoken) {
                         let typeref = typetoken.reference;
                         if (typeref) {
-                            // console.log('typeref',typeref)
                             let parm = {
                                 reference: typeref,
                                 success: this.fetchTypeSuccessCallback,
@@ -166,18 +163,16 @@ class BuildController extends React.Component {
         // apply type template to document
         this.fetchTypeSuccessCallback = ({ docpack, reason }) => {
             let typepack = docpack;
-            // console.log('fetchTypeSuccessCallback', typepack)
             this.doctypepack = typepack;
             toast.info('type has also been loaded (' + docpack.reference + ')');
-            let results = typefilter.assertType(this.state.docpack, this.doctypepack);
-            // console.log('returned from assertType',results)
+            let results = typefilter.assertType(this.state.docpack.document, this.doctypepack.document);
             if (results.changed) {
                 this.latestjson = results.document;
                 this.savejson = results.document;
                 this.setState({
                     docpack: {
                         document: results.document,
-                        reference: docpack.reference,
+                        reference: this.state.docpack.reference,
                     }
                 });
                 results.changed && toast.info('document data has been upgraded by type (' + docpack.reference + ')');
@@ -192,7 +187,7 @@ class BuildController extends React.Component {
             toast.info('object saved');
         };
         this.rollbackObject = () => {
-            this.latestjson = this.savejson;
+            this.latestjson = Object.assign({}, this.savejson);
             this.forceUpdate();
             toast.info('object was rolled back from most recent save');
         };
@@ -221,7 +216,7 @@ class BuildController extends React.Component {
             this.setState({
                 docpack: {
                     data: {},
-                    id: null,
+                    reference: null,
                 }
             });
             toast.info('object was cleared');
@@ -259,7 +254,7 @@ class BuildController extends React.Component {
     render() {
         // --------[ sections of the page follow ]--------
         const datadrawer = login => (<DataDrawer open={this.state.draweropen} handleClose={this.closeDrawer} containerelement={this.buildelement}>
-                <BuildDataPane dataPack={this.drawerdatapackage} open={this.state.draweropen} user={login}/>
+                <BuildDataPane dataspecs={this.drawerdatapackage} open={this.state.draweropen} user={login}/>
             </DataDrawer>);
         const inputcontrols = (superuser, classes) => (<BaseForm onSubmit={this.fetchObject} disabled={!superuser}>
                 <SelectField label={'Collection'} name='collection' value={this.state.values.collection} onChange={this.onChangeValue} helperText={'select an object to build'} options={[
@@ -322,17 +317,19 @@ class BuildController extends React.Component {
                 </Button>
             </div>
             </React.Fragment>);
-        const jsoneditor = (<div>
+        const jsoneditor = () => {
+            return <div>
 
-                <ReactJson src={this.state.docpack.document} onEdit={props => {
-            this.latestjson = props.updated_src;
-        }} onAdd={props => {
-            this.latestjson = props.updated_src;
-        }} onDelete={props => {
-            this.latestjson = props.updated_src;
-        }} name='document'/>
+                <ReactJson src={this.latestjson} onEdit={props => {
+                this.latestjson = props.updated_src;
+            }} onAdd={props => {
+                this.latestjson = props.updated_src;
+            }} onDelete={props => {
+                this.latestjson = props.updated_src;
+            }} name='document'/>
 
-            </div>);
+            </div>;
+        };
         const jsoninput = (superuser, classes) => (<div className={classes.jsoninput}>
             <Button type='submit' variant='contained' onClick={this.applyJson} className={classes.button} disabled={!superuser}>
                 Apply Json
@@ -363,7 +360,7 @@ class BuildController extends React.Component {
 
                             {datacontrols(superuser, classes)}
 
-                            {jsoneditor}
+                            {jsoneditor()}
 
                             {jsoninput(superuser, classes)}
 

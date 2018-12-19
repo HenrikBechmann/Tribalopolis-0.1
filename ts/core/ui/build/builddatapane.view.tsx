@@ -48,9 +48,9 @@ class BuildDataPane extends React.Component<any,any>  {
 
     componentDidUpdate() {
 
-        let { open, dataPack } = this.props
-        dataPack = dataPack || {}
-        let { opcode, specs } = dataPack
+        let { open, dataspecs } = this.props
+        dataspecs = dataspecs || {}
+        let { opcode, specs } = dataspecs
         if (!_.isEqual(open,this.state.open) || 
             !_.isEqual(opcode,this.state.opcode) ||
             !_.isEqual(specs, this.state.specs)) {
@@ -105,8 +105,8 @@ class BuildDataPane extends React.Component<any,any>  {
 
         for (let item of data) {
             items.push(
-                <ListItem dense key = {item.id}>
-                    <ListItemText primary = {item.id} />
+                <ListItem dense key = {item.reference}>
+                    <ListItemText primary = {item.reference} />
                 </ListItem>
             )
         }
@@ -114,7 +114,7 @@ class BuildDataPane extends React.Component<any,any>  {
     }
 
     render() {
-        const { classes, dataPack } = this.props
+        const { classes, dataspecs } = this.props
 
         return <Paper className = {classes.root}>
             <div className = { classes.content }>
