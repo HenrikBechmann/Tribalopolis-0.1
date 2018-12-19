@@ -110,13 +110,80 @@ const documentCache = new class {
 
             // connect to data source
             let parmblock:SetGatewayListenerMessage = {
-                reference, success:processDocumentCallbackFromGateway, failure:null
+                reference, success:this.updateItem, failure:null
             }
             domain.setDocumentListener(parmblock)
 
         }
 
         return cacheitem
+    }
+
+    /*
+        callback from gateway. This sets or updates the document value, and calls
+        callbacks registered for the document. Since every document requires a type, 
+        it also sets up a listener for the document type, such that update or setup of 
+        the type causes the document listeners to be udpated.
+
+        if there is no type yet recorded, callbacks will not be processed.
+    */
+    updateItem = ( {docpack, reason}:ReturnDocPackMessage ) => {
+
+        // set or update document
+        let cacheitem = this.getItem(docpack.reference)
+
+        if (!cacheitem) return // async
+
+        cacheitem.docpack = docpack
+
+        let typeref = docpack.document.identity.type // all documents have a type
+
+        // will only create if doesn't already exist
+        _addTypeCacheListener(typeref, docpack.reference, _processDocumentCallbackFromType) 
+
+        // will not process without type
+        this.processListeners(docpack.reference,reason) 
+
+    }
+
+    /*
+        processes a document's callbacks, whether called as the result of a 
+        document update from the gateway, or a document's type update from the gateway.
+        listeners are not updated if there is not yet a type, or a type cache item
+    */
+    processListeners = (reference, reason) => {
+
+        let documentcacheitem = documentCache.getItem(reference)
+
+        let {docpack,typepack} = _getDocumentPack(reference)
+
+        if (typepack.document) {
+
+            let result = typefilter.assertType(docpack.document,typepack.document)
+            if (result.changed) {
+
+                docpack.document = result.document
+                // update source; wait for response
+
+            }
+
+            let { listeners } = documentcacheitem
+
+            listeners.forEach((callback,key) => {
+
+                let slist = sentinels[key]
+
+                if (slist && ((slist[slist.length - 1]) === false)) {
+
+                    let docpac:DocPackStruc = docpack
+
+                    let parmblock:ReturnDocPairMessage = {docpack:docpac, typepack, reason}
+                    callback( parmblock )
+
+                }
+
+            })
+        }
     }
 
     addListener = (reference,instanceid,callback) => {
@@ -159,34 +226,6 @@ const documentCache = new class {
 const typecache = new Map()
 
 const sentinels = {}
-
-
-/*
-    callback from gateway. This sets or updates the document value, and calls
-    callbacks registered for the document. Since every document requires a type, 
-    it also sets up a listener for the document type, such that update or setup of 
-    the type causes the document listeners to be udpated.
-
-    if there is no type yet recorded, callbacks will not be processed.
-*/
-const processDocumentCallbackFromGateway = ( {docpack, reason}:ReturnDocPackMessage ) => {
-
-    // set or update document
-    let cacheitem = documentCache.getItem(docpack.reference)
-
-    if (!cacheitem) return // async
-
-    cacheitem.docpack = docpack
-
-    let typeref = docpack.document.identity.type // all documents have a type
-
-    // will only create if doesn't already exist
-    _addTypeCacheListener(typeref, docpack.reference, _processDocumentCallbackFromType) 
-
-    // will not process without type
-    _processDocumentCallbacks(docpack.reference,reason) 
-
-}
 
 const _addTypeCacheListener = (typereference, documentreference, callback) => {
 
@@ -262,48 +301,8 @@ const processTypeCallbackFromGateway = ( {docpack, reason}:ReturnDocPackMessage 
 */
 const _processDocumentCallbackFromType = ( reference, reason ) => { // document reference
 
-    _processDocumentCallbacks(reference,reason)
+    documentCache.processListeners(reference,reason)
 
-}
-
-/*
-    processes a document's callbacks, whether called as the result of a 
-    document update from the gateway, or a document's type update from the gateway.
-    listeners are not updated if there is not yet a type, or a type cache item
-*/
-const _processDocumentCallbacks = (reference, reason) => {
-
-    let documentcacheitem = documentCache.getItem(reference)
-
-    let {docpack,typepack} = _getDocumentPack(reference)
-
-    if (typepack.document) {
-
-        let result = typefilter.assertType(docpack.document,typepack.document)
-        if (result.changed) {
-
-            docpack.document = result.document
-            // update source; wait for response
-
-        }
-
-        let { listeners } = documentcacheitem
-
-        listeners.forEach((callback,key) => {
-
-            let slist = sentinels[key]
-
-            if (slist && ((slist[slist.length - 1]) === false)) {
-
-                let docpac:DocPackStruc = docpack
-
-                let parmblock:ReturnDocPairMessage = {docpack:docpac, typepack, reason}
-                callback( parmblock )
-
-            }
-
-        })
-    }
 }
 
 const _removeTypeCacheItem = (reference) => {

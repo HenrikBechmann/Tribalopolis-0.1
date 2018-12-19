@@ -12,6 +12,7 @@
 /*
     TODO:
 
+        - create appManager class for general utilities
         - create document and type cache objects to assemble data and related methods
         - add documentSubscribe for single documents (without type) for things like /system/parameters
         - process document changed by type in processDocumentCallbacks
@@ -29,29 +30,11 @@
 'use strict';
 import domain from './domain';
 import typefilter from './type.filter';
+// ==============================[ DOCUMENT CACHE ]===============================
 const documentCache = new class {
     constructor() {
+        //=====================[ PRIVATE ]======================
         this.cache = new Map();
-        this.addListener = (reference, instanceid, callback) => {
-            let cacheitem = this.getItem(reference);
-            cacheitem.listeners.set(instanceid, callback);
-        };
-        this.getItem = (reference) => {
-            let cacheitem;
-            if (this.cache.has(reference)) { // update if exists
-                cacheitem = this.cache.get(reference);
-            }
-            else { // create if doesn't exist
-                cacheitem = this.newItem();
-                this.cache.set(reference, cacheitem);
-                // connect to data source
-                let parmblock = {
-                    reference, success: processDocumentCallbackFromGateway, failure: null
-                };
-                domain.setDocumentListener(parmblock);
-            }
-            return cacheitem;
-        };
         this.newItem = () => {
             let cacheitem = {
                 docpack: null,
@@ -61,7 +44,8 @@ const documentCache = new class {
         };
         this.removeItem = (reference) => {
             // unhook from gateway
-            domain.removeDocumentListener({ reference });
+            let parmblock = { reference };
+            domain.removeDocumentListener(parmblock);
             // anticipate need for type cache listener...
             let documentcacheitem = this.cache.get(reference);
             this.cache.delete(reference);
@@ -74,6 +58,72 @@ const documentCache = new class {
                     _removeTypeCacheListener(typeref, reference);
                 }
             }
+        };
+        //=====================[ API ]======================
+        this.getItem = (reference) => {
+            let cacheitem;
+            if (this.cache.has(reference)) { // update if exists
+                cacheitem = this.cache.get(reference);
+            }
+            else { // create if doesn't exist
+                cacheitem = this.newItem();
+                this.cache.set(reference, cacheitem);
+                // connect to data source
+                let parmblock = {
+                    reference, success: this.updateItem, failure: null
+                };
+                domain.setDocumentListener(parmblock);
+            }
+            return cacheitem;
+        };
+        /*
+            callback from gateway. This sets or updates the document value, and calls
+            callbacks registered for the document. Since every document requires a type,
+            it also sets up a listener for the document type, such that update or setup of
+            the type causes the document listeners to be udpated.
+    
+            if there is no type yet recorded, callbacks will not be processed.
+        */
+        this.updateItem = ({ docpack, reason }) => {
+            // set or update document
+            let cacheitem = this.getItem(docpack.reference);
+            if (!cacheitem)
+                return; // async
+            cacheitem.docpack = docpack;
+            let typeref = docpack.document.identity.type; // all documents have a type
+            // will only create if doesn't already exist
+            _addTypeCacheListener(typeref, docpack.reference, _processDocumentCallbackFromType);
+            // will not process without type
+            this.processListeners(docpack.reference, reason);
+        };
+        /*
+            processes a document's callbacks, whether called as the result of a
+            document update from the gateway, or a document's type update from the gateway.
+            listeners are not updated if there is not yet a type, or a type cache item
+        */
+        this.processListeners = (reference, reason) => {
+            let documentcacheitem = documentCache.getItem(reference);
+            let { docpack, typepack } = _getDocumentPack(reference);
+            if (typepack.document) {
+                let result = typefilter.assertType(docpack.document, typepack.document);
+                if (result.changed) {
+                    docpack.document = result.document;
+                    // update source; wait for response
+                }
+                let { listeners } = documentcacheitem;
+                listeners.forEach((callback, key) => {
+                    let slist = sentinels[key];
+                    if (slist && ((slist[slist.length - 1]) === false)) {
+                        let docpac = docpack;
+                        let parmblock = { docpack: docpac, typepack, reason };
+                        callback(parmblock);
+                    }
+                });
+            }
+        };
+        this.addListener = (reference, instanceid, callback) => {
+            let cacheitem = this.getItem(reference);
+            cacheitem.listeners.set(instanceid, callback);
         };
         this.removeListener = (reference, instanceid) => {
             if (!this.cache.has(reference))
@@ -96,26 +146,6 @@ const documentCache = new class {
 // const documentcache = new Map()
 const typecache = new Map();
 const sentinels = {};
-/*
-    callback from gateway. This sets or updates the document value, and calls
-    callbacks registered for the document. Since every document requires a type,
-    it also sets up a listener for the document type, such that update or setup of
-    the type causes the document listeners to be udpated.
-
-    if there is no type yet recorded, callbacks will not be processed.
-*/
-const processDocumentCallbackFromGateway = ({ docpack, reason }) => {
-    // set or update document
-    let cacheitem = documentCache.getItem(docpack.reference);
-    if (!cacheitem)
-        return; // async
-    cacheitem.docpack = docpack;
-    let typeref = docpack.document.identity.type; // all documents have a type
-    // will only create if doesn't already exist
-    _addTypeCacheListener(typeref, docpack.reference, _processDocumentCallbackFromType);
-    // will not process without type
-    _processDocumentCallbacks(docpack.reference, reason);
-};
 const _addTypeCacheListener = (typereference, documentreference, callback) => {
     let cacheitem = _getTypeCacheItem(typereference);
     if (!cacheitem.listeners.has(documentreference)) {
@@ -162,32 +192,7 @@ const processTypeCallbackFromGateway = ({ docpack, reason }) => {
     triggers document callbacks when the document's type is first set, or is updated.
 */
 const _processDocumentCallbackFromType = (reference, reason) => {
-    _processDocumentCallbacks(reference, reason);
-};
-/*
-    processes a document's callbacks, whether called as the result of a
-    document update from the gateway, or a document's type update from the gateway.
-    listeners are not updated if there is not yet a type, or a type cache item
-*/
-const _processDocumentCallbacks = (reference, reason) => {
-    let documentcacheitem = documentCache.getItem(reference);
-    let { docpack, typepack } = _getDocumentPack(reference);
-    if (typepack.document) {
-        let result = typefilter.assertType(docpack.document, typepack.document);
-        if (result.changed) {
-            docpack.document = result.document;
-            // update source; wait for response
-        }
-        let { listeners } = documentcacheitem;
-        listeners.forEach((callback, key) => {
-            let slist = sentinels[key];
-            if (slist && ((slist[slist.length - 1]) === false)) {
-                let docpac = docpack;
-                let parmblock = { docpack: docpac, typepack, reason };
-                callback(parmblock);
-            }
-        });
-    }
+    documentCache.processListeners(reference, reason);
 };
 const _removeTypeCacheItem = (reference) => {
     // unhook from domain
