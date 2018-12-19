@@ -3,6 +3,7 @@
 
 /*
     TODO: straighten out dom tree; currently data drawer scrolls a bit
+    allow update of data drawer for benign requests
 */
 
 'use strict'
@@ -121,12 +122,12 @@ class BuildController extends React.Component<any,any> {
                     if (typetoken) {
                         let typeref = typetoken.reference
                         if (typeref) {
-                            let parm: GetDocumentMessage = {
+                            let parmblock: GetDocumentMessage = {
                                 reference:typeref,
                                 success:this.fetchTypeSuccessCallback,
                                 failure:this.fetchTypeErrorCallback,
                             }
-                            application.getDocument(parm)
+                            application.getDocument(parmblock)
                         }
                     }
                 }
@@ -242,7 +243,7 @@ class BuildController extends React.Component<any,any> {
     }
 
     rollbackObject = () => {
-        this.latestjson = Object.assign({},this.savejson)
+        this.latestjson = Object.assign({},this.savejson) // for react to recognize new object
         this.forceUpdate()
         toast.info('object was rolled back from most recent save')
     }
@@ -315,173 +316,173 @@ class BuildController extends React.Component<any,any> {
 
     // ===============[ render ]==================
 
-    render() {
+    // --------[ sections of the renderpage follow ]--------
 
-        // --------[ sections of the page follow ]--------
+    datadrawer = login => (
+        <DataDrawer open = {this.state.draweropen}
+            handleClose = {this.closeDrawer}
+            containerelement = {this.buildelement}
+        >
+            <BuildDataPane
+                dataspecs = {this.drawerdatapackage}
+                open = {this.state.draweropen}
+                user = {login}
+            />
+        </DataDrawer>
+    )
 
-        const datadrawer = login => (
-            <DataDrawer open = {this.state.draweropen}
-                handleClose = {this.closeDrawer}
-                containerelement = {this.buildelement}
-            >
-                <BuildDataPane
-                    dataspecs = {this.drawerdatapackage}
-                    open = {this.state.draweropen}
-                    user = {login}
-                />
-            </DataDrawer>
-        )
+    inputcontrols = (superuser,classes) => (
+        <BaseForm onSubmit = {this.fetchObject} disabled = {!superuser}>
+            <SelectField
+                label = {'Collection'}
+                name = 'collection'
+                value = {this.state.values.collection}
+                onChange = {this.onChangeValue}
+                helperText = {'select an object to build'}
+                options = {[
+                    {
+                        value:'types',
+                        text:'Types',
+                    },
+                    {
+                        value:'schemes',
+                        text:'Schemes',
+                    },
+                    {
+                        value:'system',
+                        text:'System',
+                    },
+                    {
+                        value:'accounts',
+                        text:'Accounts',
+                    },
+                    {
+                        value:'users',
+                        text:'Users',
+                    },
+                    {
+                        value:'handles',
+                        text:'Handles',
+                    },
+                    {
+                        value:'pages',
+                        text:'Pages',
+                    },
+                    {
+                        value:'links',
+                        text:'Links',
+                    },
+                ]}
+            />
 
-        const inputcontrols = (superuser,classes) => (
-            <BaseForm onSubmit = {this.fetchObject} disabled = {!superuser}>
-                <SelectField
-                    label = {'Collection'}
-                    name = 'collection'
-                    value = {this.state.values.collection}
-                    onChange = {this.onChangeValue}
-                    helperText = {'select an object to build'}
-                    options = {[
-                        {
-                            value:'types',
-                            text:'Types',
-                        },
-                        {
-                            value:'schemes',
-                            text:'Schemes',
-                        },
-                        {
-                            value:'system',
-                            text:'System',
-                        },
-                        {
-                            value:'accounts',
-                            text:'Accounts',
-                        },
-                        {
-                            value:'users',
-                            text:'Users',
-                        },
-                        {
-                            value:'handles',
-                            text:'Handles',
-                        },
-                        {
-                            value:'pages',
-                            text:'Pages',
-                        },
-                        {
-                            value:'links',
-                            text:'Links',
-                        },
-                    ]}
-                />
-
-                <TextField 
-                    label = 'Id'
-                    name = 'id'
-                    value = {this.state.values.id}
-                    onChange = { this.onChangeValue }
-                    helperText = 'enter the id of the requested object'
-                />
-                <ActionButton 
-                    icon = 'list'
-                    action = {() => {
-                            this.callDataDrawer('list',{collection:this.state.values.collection})
-                        }
+            <TextField 
+                label = 'Id'
+                name = 'id'
+                value = {this.state.values.id}
+                onChange = { this.onChangeValue }
+                helperText = 'enter the id of the requested object'
+            />
+            <ActionButton 
+                icon = 'list'
+                action = {() => {
+                        this.callDataDrawer('list',{collection:this.state.values.collection})
                     }
-                />
-            </BaseForm> 
-        ) //--end
+                }
+            />
+        </BaseForm> 
+    ) //--end
 
-        const datacontrols = (superuser,classes) => (
-            <React.Fragment>
-            <div>
-                <p>For a new object, fetch without an id</p>
-                <Button 
-                    type = 'submit'
-                    variant = 'contained'
-                    onClick = {this.fetchObject}
-                    className = {classes.button}
-                    disabled = {!superuser}
-                >
-                    Fetch
-                </Button>
-                <Button 
-                    variant = 'contained'
-                    onClick = {this.saveObject}
-                    className = {classes.button}
-                >
-                    Save for Rollback
-                </Button>
-                <Button 
-                    variant = 'contained'
-                    onClick = {this.rollbackObject}
-                    className = {classes.button}
-                >
-                    Rollback
-                </Button>
-                <Button 
-                    variant = 'contained'
-                    onClick = {this.postObject}
-                    className = {classes.button}
-                    disabled = {((!superuser) || (!this.savejson))}
-                >
-                    Post
-                </Button>
-                <Button 
-                    variant = 'contained'
-                    onClick = {this.clearObject}
-                    className = {classes.button}
-                >
-                    Clear
-                </Button>
-            </div>
-            </React.Fragment>
-        )
-
-        const jsoneditor = () => {
-            return <div>
-
-                <ReactJson 
-                    src = {this.latestjson} 
-                    onEdit = {props => {
-                        this.latestjson = props.updated_src
-                    }}
-                    onAdd = {props => {
-                        this.latestjson = props.updated_src
-                    }}
-                    onDelete = {props => {
-                        this.latestjson = props.updated_src
-                    }}
-                    name = 'document'
-                />
-
-            </div>
-        }
-
-        const jsoninput = (superuser,classes) => (
-            <div className = {classes.jsoninput}>
+    datacontrols = (superuser,classes) => (
+        <React.Fragment>
+        <div>
+            <p>For a new object, fetch without an id</p>
             <Button 
                 type = 'submit'
                 variant = 'contained'
-                onClick = {this.applyJson}
+                onClick = {this.fetchObject}
                 className = {classes.button}
                 disabled = {!superuser}
             >
-                Apply Json
+                Fetch
             </Button>
-            <BaseForm onSubmit = {this.applyJson} disabled = {!superuser}>
-                <TextField 
-                    label = 'Json'
-                    name = 'json'
-                    value = {this.state.values.json}
-                    onChange = { this.onChangeValue }
-                    multiline
-                    helperText = 'paste in or create json'
-                />
-            </BaseForm> 
-            </div>
-        )
+            <Button 
+                variant = 'contained'
+                onClick = {this.saveObject}
+                className = {classes.button}
+            >
+                Save for Rollback
+            </Button>
+            <Button 
+                variant = 'contained'
+                onClick = {this.rollbackObject}
+                className = {classes.button}
+            >
+                Rollback
+            </Button>
+            <Button 
+                variant = 'contained'
+                onClick = {this.postObject}
+                className = {classes.button}
+                disabled = {((!superuser) || (!this.savejson))}
+            >
+                Post
+            </Button>
+            <Button 
+                variant = 'contained'
+                onClick = {this.clearObject}
+                className = {classes.button}
+            >
+                Clear
+            </Button>
+        </div>
+        </React.Fragment>
+    )
+
+    jsoneditor = () => {
+        return <div>
+
+            <ReactJson 
+                src = {this.latestjson} 
+                onEdit = {props => {
+                    this.latestjson = props.updated_src
+                }}
+                onAdd = {props => {
+                    this.latestjson = props.updated_src
+                }}
+                onDelete = {props => {
+                    this.latestjson = props.updated_src
+                }}
+                name = 'document'
+            />
+
+        </div>
+    }
+
+    jsoninput = (superuser,classes) => (
+        <div className = {classes.jsoninput}>
+        <Button 
+            type = 'submit'
+            variant = 'contained'
+            onClick = {this.applyJson}
+            className = {classes.button}
+            disabled = {!superuser}
+        >
+            Apply Json
+        </Button>
+        <BaseForm onSubmit = {this.applyJson} disabled = {!superuser}>
+            <TextField 
+                label = 'Json'
+                name = 'json'
+                value = {this.state.values.json}
+                onChange = { this.onChangeValue }
+                multiline
+                helperText = 'paste in or create json'
+            />
+        </BaseForm> 
+        </div>
+    )
+
+    render() {
 
         const { classes } = this.props
 
@@ -492,7 +493,9 @@ class BuildController extends React.Component<any,any> {
             ref = {this.buildelement}
         >
             <StandardToolbar />
+
             {!application.properties.ismobile?
+
             <UserDataContext.Consumer>
 
                 { userdata => {
@@ -505,19 +508,19 @@ class BuildController extends React.Component<any,any> {
 
                     <div>
 
-                        { datadrawer(login) }
+                        { this.datadrawer(login) }
 
                         <div className = { classes.panewrapper } >
 
                             <div>This build utility is currently only available to Henrik Bechmann, the author.</div>
 
-                            {inputcontrols(superuser,classes)}
+                            { this.inputcontrols( superuser, classes ) }
 
-                            {datacontrols(superuser,classes)}
+                            { this.datacontrols( superuser, classes ) }
 
-                            { jsoneditor() }
+                            { this.jsoneditor() }
 
-                            {jsoninput(superuser,classes)}
+                            { this.jsoninput(superuser,classes) }
 
                         </div>
 
@@ -529,6 +532,7 @@ class BuildController extends React.Component<any,any> {
             :<div>The build utility is only available on desktops</div>
 
             }
+
         </div>
         
     }

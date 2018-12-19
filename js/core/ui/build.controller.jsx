@@ -2,6 +2,7 @@
 // copyright (c) 2018 Henrik Bechmann, Toronto, MIT Licence
 /*
     TODO: straighten out dom tree; currently data drawer scrolls a bit
+    allow update of data drawer for benign requests
 */
 'use strict';
 import React from 'react';
@@ -86,12 +87,12 @@ class BuildController extends React.Component {
                         if (typetoken) {
                             let typeref = typetoken.reference;
                             if (typeref) {
-                                let parm = {
+                                let parmblock = {
                                     reference: typeref,
                                     success: this.fetchTypeSuccessCallback,
                                     failure: this.fetchTypeErrorCallback,
                                 };
-                                application.getDocument(parm);
+                                application.getDocument(parmblock);
                             }
                         }
                     }
@@ -187,7 +188,7 @@ class BuildController extends React.Component {
             toast.info('object saved');
         };
         this.rollbackObject = () => {
-            this.latestjson = Object.assign({}, this.savejson);
+            this.latestjson = Object.assign({}, this.savejson); // for react to recognize new object
             this.forceUpdate();
             toast.info('object was rolled back from most recent save');
         };
@@ -244,20 +245,13 @@ class BuildController extends React.Component {
                 draweropen: false,
             });
         };
-        this.buildelement = React.createRef();
-        window.addEventListener('resize', this.onResize); // to reacalc datadrawer maxwidth. There may be a better way
-    }
-    componentWillUnmount() {
-        window.removeEventListener('resize', this.onResize);
-    }
-    // ===============[ render ]==================
-    render() {
-        // --------[ sections of the page follow ]--------
-        const datadrawer = login => (<DataDrawer open={this.state.draweropen} handleClose={this.closeDrawer} containerelement={this.buildelement}>
-                <BuildDataPane dataspecs={this.drawerdatapackage} open={this.state.draweropen} user={login}/>
-            </DataDrawer>);
-        const inputcontrols = (superuser, classes) => (<BaseForm onSubmit={this.fetchObject} disabled={!superuser}>
-                <SelectField label={'Collection'} name='collection' value={this.state.values.collection} onChange={this.onChangeValue} helperText={'select an object to build'} options={[
+        // ===============[ render ]==================
+        // --------[ sections of the render page follow ]--------
+        this.datadrawer = login => (<DataDrawer open={this.state.draweropen} handleClose={this.closeDrawer} containerelement={this.buildelement}>
+            <BuildDataPane dataspecs={this.drawerdatapackage} open={this.state.draweropen} user={login}/>
+        </DataDrawer>);
+        this.inputcontrols = (superuser, classes) => (<BaseForm onSubmit={this.fetchObject} disabled={!superuser}>
+            <SelectField label={'Collection'} name='collection' value={this.state.values.collection} onChange={this.onChangeValue} helperText={'select an object to build'} options={[
             {
                 value: 'types',
                 text: 'Types',
@@ -292,35 +286,35 @@ class BuildController extends React.Component {
             },
         ]}/>
 
-                <TextField label='Id' name='id' value={this.state.values.id} onChange={this.onChangeValue} helperText='enter the id of the requested object'/>
-                <ActionButton icon='list' action={() => {
+            <TextField label='Id' name='id' value={this.state.values.id} onChange={this.onChangeValue} helperText='enter the id of the requested object'/>
+            <ActionButton icon='list' action={() => {
             this.callDataDrawer('list', { collection: this.state.values.collection });
         }}/>
-            </BaseForm>); //--end
-        const datacontrols = (superuser, classes) => (<React.Fragment>
-            <div>
-                <p>For a new object, fetch without an id</p>
-                <Button type='submit' variant='contained' onClick={this.fetchObject} className={classes.button} disabled={!superuser}>
-                    Fetch
-                </Button>
-                <Button variant='contained' onClick={this.saveObject} className={classes.button}>
-                    Save for Rollback
-                </Button>
-                <Button variant='contained' onClick={this.rollbackObject} className={classes.button}>
-                    Rollback
-                </Button>
-                <Button variant='contained' onClick={this.postObject} className={classes.button} disabled={((!superuser) || (!this.savejson))}>
-                    Post
-                </Button>
-                <Button variant='contained' onClick={this.clearObject} className={classes.button}>
-                    Clear
-                </Button>
-            </div>
-            </React.Fragment>);
-        const jsoneditor = () => {
+        </BaseForm>); //--end
+        this.datacontrols = (superuser, classes) => (<React.Fragment>
+        <div>
+            <p>For a new object, fetch without an id</p>
+            <Button type='submit' variant='contained' onClick={this.fetchObject} className={classes.button} disabled={!superuser}>
+                Fetch
+            </Button>
+            <Button variant='contained' onClick={this.saveObject} className={classes.button}>
+                Save for Rollback
+            </Button>
+            <Button variant='contained' onClick={this.rollbackObject} className={classes.button}>
+                Rollback
+            </Button>
+            <Button variant='contained' onClick={this.postObject} className={classes.button} disabled={((!superuser) || (!this.savejson))}>
+                Post
+            </Button>
+            <Button variant='contained' onClick={this.clearObject} className={classes.button}>
+                Clear
+            </Button>
+        </div>
+        </React.Fragment>);
+        this.jsoneditor = () => {
             return <div>
 
-                <ReactJson src={this.latestjson} onEdit={props => {
+            <ReactJson src={this.latestjson} onEdit={props => {
                 this.latestjson = props.updated_src;
             }} onAdd={props => {
                 this.latestjson = props.updated_src;
@@ -328,20 +322,28 @@ class BuildController extends React.Component {
                 this.latestjson = props.updated_src;
             }} name='document'/>
 
-            </div>;
+        </div>;
         };
-        const jsoninput = (superuser, classes) => (<div className={classes.jsoninput}>
-            <Button type='submit' variant='contained' onClick={this.applyJson} className={classes.button} disabled={!superuser}>
-                Apply Json
-            </Button>
-            <BaseForm onSubmit={this.applyJson} disabled={!superuser}>
-                <TextField label='Json' name='json' value={this.state.values.json} onChange={this.onChangeValue} multiline helperText='paste in or create json'/>
-            </BaseForm> 
-            </div>);
+        this.jsoninput = (superuser, classes) => (<div className={classes.jsoninput}>
+        <Button type='submit' variant='contained' onClick={this.applyJson} className={classes.button} disabled={!superuser}>
+            Apply Json
+        </Button>
+        <BaseForm onSubmit={this.applyJson} disabled={!superuser}>
+            <TextField label='Json' name='json' value={this.state.values.json} onChange={this.onChangeValue} multiline helperText='paste in or create json'/>
+        </BaseForm> 
+        </div>);
+        this.buildelement = React.createRef();
+        window.addEventListener('resize', this.onResize); // to reacalc datadrawer maxwidth. There may be a better way
+    }
+    componentWillUnmount() {
+        window.removeEventListener('resize', this.onResize);
+    }
+    render() {
         const { classes } = this.props;
         // --------------[ return component ]--------------
         return <div className={classes.pagewrapper} ref={this.buildelement}>
             <StandardToolbar />
+
             {!application.properties.ismobile ?
             <UserDataContext.Consumer>
 
@@ -350,19 +352,19 @@ class BuildController extends React.Component {
                 let superuser = !!(login && (login.uid == '112979797407042560714'));
                 return (<div>
 
-                        {datadrawer(login)}
+                        {this.datadrawer(login)}
 
                         <div className={classes.panewrapper}>
 
                             <div>This build utility is currently only available to Henrik Bechmann, the author.</div>
 
-                            {inputcontrols(superuser, classes)}
+                            {this.inputcontrols(superuser, classes)}
 
-                            {datacontrols(superuser, classes)}
+                            {this.datacontrols(superuser, classes)}
 
-                            {jsoneditor()}
+                            {this.jsoneditor()}
 
-                            {jsoninput(superuser, classes)}
+                            {this.jsoninput(superuser, classes)}
 
                         </div>
 
@@ -371,6 +373,7 @@ class BuildController extends React.Component {
 
             </UserDataContext.Consumer>
             : <div>The build utility is only available on desktops</div>}
+
         </div>;
     }
 }
