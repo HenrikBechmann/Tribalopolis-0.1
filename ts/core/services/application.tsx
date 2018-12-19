@@ -13,6 +13,7 @@
 /*
     TODO: 
 
+        - create appManager class for general utilities
         - create document and type cache objects to assemble data and related methods
         - add documentSubscribe for single documents (without type) for things like /system/parameters
         - process document changed by type in processDocumentCallbacks
@@ -46,6 +47,107 @@ import {
     ReturnDocPackMessage,
     ReturnDocPairMessage,
 } from './interfaces'
+
+// ==============================[ DOCUMENT CACHE ]===============================
+
+const documentCache = new class {
+
+    //=====================[ PRIVATE ]======================
+    
+    private cache = new Map()
+
+    private newItem = () => {
+
+        let cacheitem:CacheItemStruc = {
+            docpack:null,
+            listeners: new Map(),
+        }
+
+        return cacheitem
+
+    }
+
+    private removeItem = (reference) => {
+
+        // unhook from gateway
+        let parmblock:DocTokenStruc = {reference}
+        domain.removeDocumentListener(parmblock)
+
+        // anticipate need for type cache listener...
+        let documentcacheitem = this.cache.get(reference)
+        this.cache.delete(reference)
+
+        // console.log('documentcacheitem, reference', documentcacheitem, reference)
+        // deal with type cache listener
+        let document = documentcacheitem.document
+        if (document) {
+
+            let typeref = document?document.identity.type:null
+            if (typeref) {
+
+                _removeTypeCacheListener(typeref,reference)
+
+            }
+
+        }
+
+    }
+
+    //=====================[ API ]======================
+
+    getItem = (reference) => {
+
+        let cacheitem
+
+        if (this.cache.has(reference)) { // update if exists
+
+            cacheitem = this.cache.get(reference)
+
+        } else { // create if doesn't exist
+
+            cacheitem = this.newItem()
+            this.cache.set(reference,cacheitem)
+
+            // connect to data source
+            let parmblock:SetGatewayListenerMessage = {
+                reference, success:processDocumentCallbackFromGateway, failure:null
+            }
+            domain.setDocumentListener(parmblock)
+
+        }
+
+        return cacheitem
+    }
+
+    addListener = (reference,instanceid,callback) => {
+
+        let cacheitem = this.getItem(reference)
+
+        cacheitem.listeners.set(instanceid,callback)
+
+    }
+
+    removeListener = (reference, instanceid) => {
+
+        if (!this.cache.has(reference)) return
+
+        let cacheitem = this.cache.get(reference)
+
+        if (cacheitem.listeners) {
+
+            cacheitem.listeners.delete(instanceid)
+
+            if (cacheitem.listeners.size == 0) {
+
+                this.removeItem(reference) // filter by cache size?
+
+            }
+
+        }
+
+    }
+}
+
 // ==============[ Internal ]===============
 
 /*
@@ -53,69 +155,11 @@ import {
     The separation of the two allows for separate caching strategies.
 */
 
-const documentcache = new Map()
+// const documentcache = new Map()
 const typecache = new Map()
 
 const sentinels = {}
 
-// ===========[ Document Cache Management ]============
-
-/*
-    There is a separate set of methods for each of the document and type caches.
-*/
-
-// adds a document listener to be updated when a document changes or is set
-const _addDocumentCacheListener = (reference,instanceid,callback) => {
-
-    let cacheitem = _getDocumentCacheItem(reference)
-
-    cacheitem.listeners.set(instanceid,callback)
-
-}
-
-/*
-    Retrieves an existing cache item, or creates and retrieves a new one.
-    For a new cache item, sets up a document listener with the gateway, for document
-    data updates, and the first version of the document. So when the cache item
-    is first created, it has no document data, just a place for it.
-*/
-const _getDocumentCacheItem = (reference) => {
-    let cacheitem
-
-    if (documentcache.has(reference)) { // update if exists
-
-        cacheitem = documentcache.get(reference)
-
-    } else { // create if doesn't exist
-
-        cacheitem = _newDocumentCacheItem()
-        documentcache.set(reference,cacheitem)
-
-        // connect to data source
-        let parmblock:SetGatewayListenerMessage = {
-            reference, success:processDocumentCallbackFromGateway, failure:null
-        }
-        domain.setDocumentListener(parmblock)
-
-    }
-
-    return cacheitem
-}
-
-// -----------[ document and type cache flow ]-----------
-/*
-    Returns a initialized document cache item
-*/
-const _newDocumentCacheItem = () => {
-
-    let cacheitem:CacheItemStruc = {
-        docpack:null,
-        listeners: new Map(),
-    }
-
-    return cacheitem
-
-}
 
 /*
     callback from gateway. This sets or updates the document value, and calls
@@ -128,7 +172,7 @@ const _newDocumentCacheItem = () => {
 const processDocumentCallbackFromGateway = ( {docpack, reason}:ReturnDocPackMessage ) => {
 
     // set or update document
-    let cacheitem = documentcache.get(docpack.reference)
+    let cacheitem = documentCache.getItem(docpack.reference)
 
     if (!cacheitem) return // async
 
@@ -229,7 +273,7 @@ const _processDocumentCallbackFromType = ( reference, reason ) => { // document 
 */
 const _processDocumentCallbacks = (reference, reason) => {
 
-    let documentcacheitem = documentcache.get(reference)
+    let documentcacheitem = documentCache.getItem(reference)
 
     let {docpack,typepack} = _getDocumentPack(reference)
 
@@ -260,58 +304,6 @@ const _processDocumentCallbacks = (reference, reason) => {
 
         })
     }
-}
-
-/*
-    removes a document item from the document cache
-    also removes the listeners from the gateway and the related type
-*/
-const _removeDocumentCacheItem = (reference) => {
-
-    // unhook from gateway
-    domain.removeDocumentListener({reference})
-
-    // anticipate need for type cache listener...
-    let documentcacheitem = documentcache.get(reference)
-    documentcache.delete(reference)
-
-    // console.log('documentcacheitem, reference', documentcacheitem, reference)
-    // deal with type cache listener
-    let document = documentcacheitem.document
-    if (document) {
-
-        let typeref = document?document.identity.type:null
-        if (typeref) {
-
-            _removeTypeCacheListener(typeref,reference)
-
-        }
-
-    }
-
-}
-
-// ------------[ remove listeners and cache items ]---------------
-
-// removes a document listener when the observer is dismounted
-const _removeDocumentCacheListener = (reference, instanceid) => {
-
-    if (!documentcache.has(reference)) return
-
-    let cacheitem = documentcache.get(reference)
-
-    if (cacheitem.listeners) {
-
-        cacheitem.listeners.delete(instanceid)
-
-        if (cacheitem.listeners.size == 0) {
-
-            _removeDocumentCacheItem(reference) // filter by cache size?
-
-        }
-
-    }
-
 }
 
 const _removeTypeCacheItem = (reference) => {
@@ -347,7 +339,7 @@ const _removeTypeCacheListener = (typereference, documentreference) => {
 
 const _getDocumentPack = reference => {
 
-    let cacheitem = documentcache.get(reference)
+    let cacheitem = documentCache.getItem(reference)
     let docpack:DocPackStruc = cacheitem?cacheitem.docpack:{}
     let typepack:DocPackStruc = null
     let typeref = null
@@ -415,7 +407,7 @@ const setDocumentPairListener = ({doctoken,instanceid,success, failure}:SetPairL
 
         }
 
-        _addDocumentCacheListener(reference,instanceid,success)
+        documentCache.addListener(reference,instanceid,success)
 
         let cachedata = _getDocumentPack(reference)
 
@@ -474,7 +466,7 @@ const removeDocumentPairListener = ({doctoken, instanceid}:RemovePairListenerMes
         return
     }
 
-    _removeDocumentCacheListener(reference,instanceid)
+    documentCache.removeListener(reference,instanceid)
 
 }
 
