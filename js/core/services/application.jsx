@@ -5,7 +5,8 @@
     It's main responsibility is to co-ordinate the store and the domain
     application -> datamodel + viewmodel -> domain -> gateway -> firebase
 
-    datamodel and viewmodel are both bypassed
+    source code style:
+    local functions are prefixed with underscrore (_)
 */
 /*
     TODO:
@@ -39,8 +40,8 @@ const sentinels = {};
     There is a separate set of methods for each of the document and type caches.
 */
 // adds a document listener to be updated when a document changes or is set
-const addDocumentCacheListener = (reference, instanceid, callback) => {
-    let cacheitem = getDocumentCacheItem(reference);
+const _addDocumentCacheListener = (reference, instanceid, callback) => {
+    let cacheitem = _getDocumentCacheItem(reference);
     cacheitem.listeners.set(instanceid, callback);
 };
 /*
@@ -49,16 +50,19 @@ const addDocumentCacheListener = (reference, instanceid, callback) => {
     data updates, and the first version of the document. So when the cache item
     is first created, it has no document data, just a place for it.
 */
-const getDocumentCacheItem = (reference) => {
+const _getDocumentCacheItem = (reference) => {
     let cacheitem;
     if (documentcache.has(reference)) { // update if exists
         cacheitem = documentcache.get(reference);
     }
     else { // create if doesn't exist
-        cacheitem = newDocumentCacheItem();
+        cacheitem = _newDocumentCacheItem();
         documentcache.set(reference, cacheitem);
         // connect to data source
-        domain.setDocumentPairListener({ reference, success: processDocumentCallbackFromGateway, failure: null });
+        let parmblock = {
+            reference, success: processDocumentCallbackFromGateway, failure: null
+        };
+        domain.setDocumentListener(parmblock);
     }
     return cacheitem;
 };
@@ -66,7 +70,7 @@ const getDocumentCacheItem = (reference) => {
 /*
     Returns a initialized document cache item
 */
-const newDocumentCacheItem = () => {
+const _newDocumentCacheItem = () => {
     let cacheitem = {
         docpack: null,
         listeners: new Map(),
@@ -89,11 +93,11 @@ const processDocumentCallbackFromGateway = ({ docpack, reason }) => {
     cacheitem.docpack = docpack;
     let typeref = docpack.document.identity.type; // all documents have a type
     // will only create if doesn't already exist
-    addTypeCacheListener(typeref, docpack.reference, processDocumentCallbacksFromType);
+    _addTypeCacheListener(typeref, docpack.reference, _processDocumentCallbacksFromType);
     // will not process without type
-    processDocumentCallbacks(docpack.reference, reason);
+    _processDocumentCallbacks(docpack.reference, reason);
 };
-const addTypeCacheListener = (typereference, documentreference, callback) => {
+const _addTypeCacheListener = (typereference, documentreference, callback) => {
     let cacheitem = getTypeCacheItem(typereference);
     if (!cacheitem.listeners.has(documentreference)) {
         cacheitem.listeners.set(documentreference, callback);
@@ -105,25 +109,28 @@ const getTypeCacheItem = (reference) => {
         cacheitem = typecache.get(reference);
     }
     else {
-        cacheitem = newTypeCacheItem();
+        cacheitem = _newTypeCacheItem();
         typecache.set(reference, cacheitem);
-        domain.setDocumentPairListener({ reference, success: processTypeCallbacksFromGateway, failure: null });
+        let parmblock = {
+            reference, success: processTypeCallbacksFromGateway, failure: null
+        };
+        domain.setDocumentListener(parmblock);
     }
     return cacheitem;
 };
-const newTypeCacheItem = () => {
+const _newTypeCacheItem = () => {
     let cacheitem = {
         docpack: null,
         listeners: new Map(),
     };
     return cacheitem;
 };
-const processTypeCallbacksFromGateway = (reference, type, reason) => {
-    let typedoc = type || {};
-    let cacheitem = typecache.get(reference);
+const processTypeCallbacksFromGateway = ({ docpack, reason }) => {
+    let typedoc = docpack || {};
+    let cacheitem = typecache.get(typedoc.reference);
     let listeners = null;
     if (cacheitem) {
-        cacheitem.docpack.document = typedoc;
+        cacheitem.docpack = typedoc;
         listeners = cacheitem.listeners;
     }
     if (listeners) {
@@ -135,17 +142,17 @@ const processTypeCallbacksFromGateway = (reference, type, reason) => {
 /*
     triggers document callbacks when the document's type is first set, or is updated.
 */
-const processDocumentCallbacksFromType = (reference, reason) => {
-    processDocumentCallbacks(reference, reason);
+const _processDocumentCallbacksFromType = (reference, reason) => {
+    _processDocumentCallbacks(reference, reason);
 };
 /*
     processes a document's callbacks, whether called as the result of a
     document update from the gateway, or a document's type update from the gateway.
     listeners are not updated if there is not yet a type, or a type cache item
 */
-const processDocumentCallbacks = (reference, reason) => {
+const _processDocumentCallbacks = (reference, reason) => {
     let documentcacheitem = documentcache.get(reference);
-    let { docpack, typepack } = getDocumentPack(reference);
+    let { docpack, typepack } = _getDocumentPack(reference);
     // console.log('processDocumentCallbacks document,type',document,type)
     if (typepack.document) {
         let result = typefilter.assertType(docpack.document, typepack.document);
@@ -158,8 +165,8 @@ const processDocumentCallbacks = (reference, reason) => {
             let slist = sentinels[key];
             if (slist && ((slist[slist.length - 1]) === false)) {
                 let docpac = docpack;
-                let retval = { docpack: docpac, typepack, reason };
-                callback(retval);
+                let parmblock = { docpack: docpac, typepack, reason };
+                callback(parmblock);
             }
         });
     }
@@ -168,9 +175,9 @@ const processDocumentCallbacks = (reference, reason) => {
     removes a document item from the document cache
     also removes the listeners from the gateway and the related type
 */
-const removeDocumentCacheItem = (reference) => {
+const _removeDocumentCacheItem = (reference) => {
     // unhook from gateway
-    domain.removeDocumentPairListener({ reference });
+    domain.removeDocumentListener({ reference });
     // anticipate need for type cache listener...
     let documentcacheitem = documentcache.get(reference);
     documentcache.delete(reference);
@@ -180,41 +187,41 @@ const removeDocumentCacheItem = (reference) => {
     if (document) {
         let typeref = document ? document.identity.type : null;
         if (typeref) {
-            removeTypeCacheListener(typeref, reference);
+            _removeTypeCacheListener(typeref, reference);
         }
     }
 };
 // ------------[ remove listeners and cache items ]---------------
 // removes a document listener when the observer is dismounted
-const removeDocumentCacheListener = (reference, instanceid) => {
+const _removeDocumentCacheListener = (reference, instanceid) => {
     if (!documentcache.has(reference))
         return;
     let cacheitem = documentcache.get(reference);
     if (cacheitem.listeners) {
         cacheitem.listeners.delete(instanceid);
         if (cacheitem.listeners.size == 0) {
-            removeDocumentCacheItem(reference); // filter by cache size?
+            _removeDocumentCacheItem(reference); // filter by cache size?
         }
     }
 };
-const removeTypeCacheItem = (reference) => {
+const _removeTypeCacheItem = (reference) => {
     // unhook from domain
-    domain.removeDocumentPairListener(reference);
+    domain.removeDocumentListener({ reference });
     typecache.delete(reference);
 };
-const removeTypeCacheListener = (typereference, documentreference) => {
+const _removeTypeCacheListener = (typereference, documentreference) => {
     if (!typecache.has(typereference))
         return;
     let cacheitem = typecache.get(typereference);
     if (cacheitem.listeners) {
         cacheitem.listeners.delete(documentreference);
         if (cacheitem.listeners.size == 0) {
-            removeTypeCacheItem(typereference); // filter by cache size?
+            _removeTypeCacheItem(typereference); // filter by cache size?
         }
     }
 };
 // ===============[ General Utilities ]===============
-const getDocumentPack = reference => {
+const _getDocumentPack = reference => {
     let cacheitem = documentcache.get(reference);
     let docpack = cacheitem ? cacheitem.docpack : {};
     let typepack = null;
@@ -255,11 +262,11 @@ const setDocumentPairListener = ({ doctoken, instanceid, success, failure }) => 
         else { // sentinel = false; continue with set listener
             sentinels[instanceid].push(false);
         }
-        addDocumentCacheListener(reference, instanceid, success);
-        let cachedata = getDocumentPack(reference);
+        _addDocumentCacheListener(reference, instanceid, success);
+        let cachedata = _getDocumentPack(reference);
         if (cachedata.docpack && cachedata.typepack) { // defer if waiting for type
             let docpack = cachedata.docpack;
-            let retval = {
+            let parmblock = {
                 docpack,
                 typepack: cachedata.typepack,
                 reason: {
@@ -270,7 +277,7 @@ const setDocumentPairListener = ({ doctoken, instanceid, success, failure }) => 
                     }
                 }
             };
-            success(retval);
+            success(parmblock);
         }
     });
 };
@@ -294,7 +301,7 @@ const removeDocumentPairListener = ({ doctoken, instanceid }) => {
         sentinels[instanceid].push(true);
         return;
     }
-    removeDocumentCacheListener(reference, instanceid);
+    _removeDocumentCacheListener(reference, instanceid);
 };
 const getDocument = (parmblock) => {
     domain.getDocument(parmblock);

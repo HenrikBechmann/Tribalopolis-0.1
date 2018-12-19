@@ -96,7 +96,8 @@ const getNewDocument = ({reference, success, failure}:GetDocumentMessage) => {
         let document = doc.data()
         let id = doc.id
         let docpack:DocPackStruc = {document,reference:reference + '/' + id}
-        success({docpack, reason:{}})
+        let returnpack:ReturnDocPackMessage = {docpack, reason:{}}
+        success(returnpack)
     })
     .catch((error)=> {
         failure(error)

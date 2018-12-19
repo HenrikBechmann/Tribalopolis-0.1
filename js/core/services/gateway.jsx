@@ -73,7 +73,8 @@ const getNewDocument = ({ reference, success, failure }) => {
         let document = doc.data();
         let id = doc.id;
         let docpack = { document, reference: reference + '/' + id };
-        success({ docpack, reason: {} });
+        let returnpack = { docpack, reason: {} };
+        success(returnpack);
     })
         .catch((error) => {
         failure(error);

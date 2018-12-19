@@ -246,7 +246,7 @@ class BuildController extends React.Component {
             });
         };
         // ===============[ render ]==================
-        // --------[ sections of the render page follow ]--------
+        // --------[ sections of the renderpage follow ]--------
         this.datadrawer = login => (<DataDrawer open={this.state.draweropen} handleClose={this.closeDrawer} containerelement={this.buildelement}>
             <BuildDataPane dataspecs={this.drawerdatapackage} open={this.state.draweropen} user={login}/>
         </DataDrawer>);

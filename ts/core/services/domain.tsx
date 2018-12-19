@@ -26,13 +26,13 @@ const noop = () => {
 
 }
 
-const setDocumentPairListener = (parmblock:SetGatewayListenerMessage) => {
+const setDocumentListener = (parmblock:SetGatewayListenerMessage) => {
 
     gateway.setGatewayListener(parmblock)
 
 }
 
-const removeDocumentPairListener =  (parmblock:RemoveGatewayListenerMessage) => {
+const removeDocumentListener =  (parmblock:RemoveGatewayListenerMessage) => {
 
     gateway.removeGatewayListener(parmblock)
 
@@ -70,8 +70,8 @@ const getCollection = (parmblock:GetCollectionMessage) => {
 
 
 let domain = {
-    setDocumentPairListener,
-    removeDocumentPairListener,
+    setDocumentListener,
+    removeDocumentListener,
     getDocument,
     getNewDocument,
     queryForDocument,
