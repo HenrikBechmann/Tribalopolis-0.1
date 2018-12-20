@@ -22,7 +22,7 @@ import LoadingMessage from './common/loadingmessage.view'
 
 import docproxy from '../utilities/docproxy'
 
-import { SetPairListenerMessage, RemovePairListenerMessage, ReturnDocPairMessage } from '../services/interfaces'
+import { SetListenerMessage, RemoveListenerMessage, ReturnDocPairMessage } from '../services/interfaces'
 
 const buttonstyles = theme => createStyles({
   button: {
@@ -129,12 +129,12 @@ class DataBox extends React.Component<any,any> {
     componentDidMount() {
         // console.log('did mount',this.itemProxy?this.itemProxy.instanceid:'no item')
         let { itemProxy } = this
-        let parms:SetPairListenerMessage = {
+        let parms:SetListenerMessage = {
             doctoken:itemProxy.doctoken, 
             instanceid:itemProxy.instanceid,
             success:this.cacheItemData,failure:null
         }
-        this.props.callbacks.setDocumentPairListener(parms)
+        this.props.callbacks.setDocpackPairListener(parms)
     }
 
     componentDidUpdate() {
@@ -166,14 +166,14 @@ class DataBox extends React.Component<any,any> {
         // unsubscribe data
         // console.log('unmounting',this.itemProxy.instanceid)
         let { itemProxy } = this
-        let parms:RemovePairListenerMessage = {
+        let parms:RemoveListenerMessage = {
             doctoken:itemProxy.doctoken, 
             instanceid:itemProxy.instanceid,
             // success:null,
             // failure:null,
         }
 
-        this.props.callbacks.removeDocumentPairListener( parms )
+        this.props.callbacks.removeDocpackPairListener( parms )
 
     }
 
@@ -272,15 +272,15 @@ class DataBox extends React.Component<any,any> {
     }
 
     listcallbacks = {
-        setDocumentPairListener:this.props.callbacks.setDocumentPairListener,
-        removeDocumentPairListener:this.props.callbacks.removeDocumentPairListener,
+        setDocpackPairListener:this.props.callbacks.setDocpackPairListener,
+        removeDocpackPairListener:this.props.callbacks.removeDocpackPairListener,
         expandDirectoryItem:this.props.callbacks.expandDirectoryItem,
         highlightItem:this.highlightItem,
     }
 
     typecallbacks = {
-        setDocumentPairListener:this.props.callbacks.setDocumentPairListener,
-        removeDocumentPairListener:this.props.callbacks.removeDocumentPairListener,
+        setDocpackPairListener:this.props.callbacks.setDocpackPairListener,
+        removeDocpackPairListener:this.props.callbacks.removeDocpackPairListener,
         splayBox:this.splayBox,
         selectFromSplay:this.props.callbacks.selectFromSplay,
     }
@@ -371,8 +371,8 @@ class DataBox extends React.Component<any,any> {
 
                     {!listStack.length && <BoxIdentityBar 
                         itemProxy = {this.identityItemProxy}
-                        setDocumentPairListener = {this.props.callbacks.setDocumentPairListener}
-                        removeDocumentPairListener = {this.props.callbacks.removeDocumentPairListener}
+                        setDocpackPairListener = {this.props.callbacks.setDocpackPairListener}
+                        removeDocpackPairListener = {this.props.callbacks.removeDocpackPairListener}
                         callDataDrawer = { this.props.callbacks.callDataDrawer }
                     />}
 
@@ -381,8 +381,8 @@ class DataBox extends React.Component<any,any> {
                         <DirectoryBar 
                             haspeers = {haspeers}
                             listProxy = {this.state.BarlistProxy}
-                            setDocumentPairListener = {this.props.callbacks.setDocumentPairListener}
-                            removeDocumentPairListener = {this.props.callbacks.removeDocumentPairListener}
+                            setDocpackPairListener = {this.props.callbacks.setDocpackPairListener}
+                            removeDocpackPairListener = {this.props.callbacks.removeDocpackPairListener}
                             callDataDrawer = {this.props.callbacks.callDataDrawer}
 
                             listStack = {listStack}

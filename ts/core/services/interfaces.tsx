@@ -39,14 +39,14 @@ export interface ReturnDocPackMessage {
 
 // subscriptions to application
 
-export interface SetPairListenerMessage {
+export interface SetListenerMessage {
     doctoken:DocTokenStruc,
     instanceid:number,
     success:Function,
     failure:Function,
 }
 
-export interface RemovePairListenerMessage {
+export interface RemoveListenerMessage {
     doctoken:DocTokenStruc,
     instanceid:number,
 }

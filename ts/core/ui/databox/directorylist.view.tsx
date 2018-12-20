@@ -13,7 +13,7 @@ import { withStyles, createStyles } from '@material-ui/core/styles'
 import DirectoryListItem from './directorylistitem.view'
 import docproxy from '../../utilities/docproxy'
 import LoadingMessage from '../common/loadingmessage.view'
-import { DocTokenStruc, SetPairListenerMessage, RemovePairListenerMessage, ReturnDocPairMessage } from '../../services/interfaces'
+import { DocTokenStruc, SetListenerMessage, RemoveListenerMessage, ReturnDocPairMessage } from '../../services/interfaces'
 
 const styles = createStyles({
     scrollboxcontainer:{
@@ -62,14 +62,14 @@ class extends React.Component<any,any> {
 
         if (!this.listProxy && this.props.listProxy) {
             this.listProxy = this.props.listProxy
-            let parms:SetPairListenerMessage = 
+            let parms:SetListenerMessage = 
                 {
                     doctoken:this.listProxy.doctoken,
                     instanceid:this.listProxy.instanceid,
                     success:this.cacheListDocument,
                     failure:null,
                 }
-            this.props.callbacks.setDocumentPairListener( parms )
+            this.props.callbacks.setDocpackPairListener( parms )
         }
 
         if (this.props.highlightrefuid) {
@@ -87,14 +87,14 @@ class extends React.Component<any,any> {
 
     componentWillUnmount() {
         if (this.listProxy) {
-            let parms:RemovePairListenerMessage = 
+            let parms:RemoveListenerMessage = 
                 {
                     doctoken:this.listProxy.doctoken,
                     instanceid:this.listProxy.instanceid,
                     // success:null,
                     // failure:null,
                 }
-            this.props.callbacks.removeDocumentPairListener( parms )
+            this.props.callbacks.removeDocpackPairListener( parms )
         }        
     }
 
@@ -201,8 +201,8 @@ class extends React.Component<any,any> {
             <DirectoryListItem 
                 key = {docproxy.instanceid} 
                 listProxy = {docproxy} 
-                setDocumentPairListener = {this.props.callbacks.setDocumentPairListener}
-                removeDocumentPairListener = {this.props.callbacks.removeDocumentPairListener}
+                setDocpackPairListener = {this.props.callbacks.setDocpackPairListener}
+                removeDocpackPairListener = {this.props.callbacks.removeDocpackPairListener}
                 expandDirectoryItem = {this.expandDirectoryItem(docproxy.doctoken)}
                 highlight = {highlight}
                 highlightItem = {this.props.callbacks.highlightItem}

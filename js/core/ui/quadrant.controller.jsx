@@ -106,8 +106,8 @@ class Quadrant extends React.Component {
             }
             let boxcallbacks = {
                 // data fulfillment
-                setDocumentPairListener: this.setDocumentPairListener,
-                removeDocumentPairListener: this.removeDocumentPairListener,
+                setDocpackPairListener: this.setDocpackPairListener,
+                removeDocpackPairListener: this.removeDocpackPairListener,
                 // animations and operations
                 highlightBox: this.animations.highlightBox,
                 splayBox: (domSource, listcomponent, listdoctoken) => {
@@ -173,8 +173,8 @@ class Quadrant extends React.Component {
         this.listcomponent = React.createRef();
         this.datadrawerelement = React.createRef();
         // ----------[ callbacks ]----------
-        this.setDocumentPairListener = this.props.callbacks.setDocumentPairListener;
-        this.removeDocumentPairListener = this.props.callbacks.removeDocumentPairListener;
+        this.setDocpackPairListener = this.props.callbacks.setDocpackPairListener;
+        this.removeDocpackPairListener = this.props.callbacks.removeDocpackPairListener;
         // ------[ delegation classes ]------
         this.animations = new quadanimations({
             scrollboxelement: this.scrollboxelement,

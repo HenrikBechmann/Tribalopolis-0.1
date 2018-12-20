@@ -38,14 +38,14 @@ import {
     GetDocumentMessage, 
     SetDocumentMessage, 
     GetCollectionMessage,
-    DocTokenStruc, 
-    SetPairListenerMessage,
-    RemovePairListenerMessage,
+    SetListenerMessage,
+    RemoveListenerMessage,
     SetGatewayListenerMessage,
-    DocPackStruc,
-    CacheItemStruc,
     ReturnDocPackMessage,
     ReturnDocPairMessage,
+    DocTokenStruc, 
+    DocPackStruc,
+    CacheItemStruc,
 } from './interfaces'
 
 // ==============[ Internal ]===============
@@ -86,10 +86,9 @@ const documentCache = new class {
         let documentcacheitem = this.cache.get(reference)
         this.cache.delete(reference)
 
-        // console.log('documentcacheitem, reference', documentcacheitem, reference)
         // deal with type cache listener
         let document = documentcacheitem.document
-        if (document) {
+        if (this.isPaired(document)) {
 
             let typeref = document?document.identity.type:null
             if (typeref) {
@@ -100,6 +99,19 @@ const documentCache = new class {
 
         }
 
+    }
+
+    private isPaired = document => {
+        try {
+
+            let identity = document.identity
+            return ('type' in identity)
+
+        } catch(e) {
+
+            return false
+
+        }
     }
 
     //=====================[ API ]======================
@@ -143,21 +155,29 @@ const documentCache = new class {
 
         if (!cacheitem) return // async
 
+        let olddocpack = cacheitem.docpack
         // console.log('docpack, cacheitem in UPDATEITEM',docpack, cacheitem)
-
-        let oldtyperef = cacheitem.docpack? cacheitem.docpack.document.identity.type:null
-
         cacheitem.docpack = docpack
 
-        let typeref = docpack.document.identity.type; // all documents have a type
+        if (this.isPaired(docpack.document)) {
 
-        (oldtyperef && (oldtyperef != typeref)) && typeCache.removeListener(oldtyperef,docpack.reference)
+            let oldtyperef = olddocpack? olddocpack.document.identity.type:null
 
-        // will only create if doesn't already exist
-        typeref && typeCache.addListener(typeref, docpack.reference, typeCache.processDocumentPairListeners) 
+            let typeref = docpack.document.identity.type; // all documents have a type
 
-        // will not process without type
-        this.processPairListeners(docpack.reference,reason) 
+            (oldtyperef && (oldtyperef != typeref)) && typeCache.removeListener(oldtyperef,docpack.reference)
+
+            // will only create if doesn't already exist
+            typeref && typeCache.addListener(typeref, docpack.reference, typeCache.processDocumentPairListeners) 
+
+            // will not process without type
+            this.processPairListeners(docpack.reference,reason) 
+
+        } else {
+
+            this.processListeners(docpack.reference,reason)
+
+        }
 
     }
 
@@ -166,11 +186,35 @@ const documentCache = new class {
         document update from the gateway, or a document's type update from the gateway.
         listeners are not updated if there is not yet a type, or a type cache item
     */
+
+    processListeners = (reference, reason) => {
+
+        let documentcacheitem = documentCache.getItem(reference)
+
+        let { docpack, listeners } = documentcacheitem
+
+        listeners.forEach((callback,key) => {
+
+            let slist = sentinels[key]
+
+            if (slist && ((slist[slist.length - 1]) === false)) {
+
+                let docpac:DocPackStruc = docpack
+
+                let parmblock:ReturnDocPackMessage = {docpack:docpac, reason}
+                callback( parmblock )
+
+            }
+
+        })
+
+    }
+
     processPairListeners = (reference, reason) => {
 
         let documentcacheitem = documentCache.getItem(reference)
 
-        let {docpack,typepack} = appManager.getDocumentPair(reference)
+        let {docpack,typepack}:{docpack:DocPackStruc,typepack:DocPackStruc} = appManager.getCacheDocpackPair(reference)
 
         if (typepack) {
 
@@ -191,9 +235,9 @@ const documentCache = new class {
 
                 if (slist && ((slist[slist.length - 1]) === false)) {
 
-                    let docpac:DocPackStruc = docpack
+                    // let docpac:DocPackStruc = docpack
 
-                    let parmblock:ReturnDocPairMessage = {docpack:docpac, typepack, reason}
+                    let parmblock:ReturnDocPairMessage = {docpack, typepack, reason}
                     callback( parmblock )
 
                 }
@@ -362,7 +406,15 @@ const appManager = new class {
     }
 
     // =================[ INTERNAL TO MODULE ]=======================
-    getDocumentPair = reference => {
+
+    getCacheDocpack = reference => {
+
+        let cacheitem = documentCache.getItem(reference)
+        let docpack:DocPackStruc = cacheitem?cacheitem.docpack:{}
+        return docpack
+    }
+
+    getCacheDocpackPair = reference => {
 
         let cacheitem = documentCache.getItem(reference)
         let docpack:DocPackStruc = cacheitem?cacheitem.docpack:{}
@@ -390,42 +442,78 @@ const appManager = new class {
 
     // =================[ API ]=======================
     // called from component componentDidMount or componentWillUpdate
-    setDocumentPairListener = ({doctoken,instanceid,success, failure}:SetPairListenerMessage) => {
+
+    private updateSetSentinel = instanceid => {
+
+        let sentinel = 
+            sentinels[instanceid]
+            ?sentinels[instanceid][0]
+            :undefined
+
+        if (sentinel === undefined) { // create listener
+
+            sentinels[instanceid]=[false] // allow continuation with set listener
+
+        } else if (sentinel === true) { // stop was set; clear sentinal; abandon
+
+            sentinels[instanceid].shift()
+
+            if (sentinels[instanceid].length === 0) {
+
+                delete sentinels[instanceid]
+
+            }
+
+            return
+
+        } else { // sentinel = false; continue with set listener
+
+            sentinels[instanceid].push(false)   
+
+        }
+
+    }
+
+    setDocpackListener = ({doctoken,instanceid,success, failure}:SetListenerMessage) => {
 
         setTimeout(()=>{ // give animations a chance to run
 
             let reference = doctoken.reference // getTokenReference(doctoken)
 
-            let sentinel = 
-                sentinels[instanceid]
-                ?sentinels[instanceid][0]
-                :undefined
-
-            if (sentinel === undefined) { // create listener
-
-                sentinels[instanceid]=[false] // allow continuation with set listener
-
-            } else if (sentinel === true) { // stop was set; clear sentinal; abandon
-
-                sentinels[instanceid].shift()
-
-                if (sentinels[instanceid].length === 0) {
-
-                    delete sentinels[instanceid]
-
-                }
-
-                return
-
-            } else { // sentinel = false; continue with set listener
-
-                sentinels[instanceid].push(false)   
-
-            }
+            this.updateSetSentinel(instanceid)
 
             documentCache.addListener(reference,instanceid,success)
 
-            let cachedata = appManager.getDocumentPair(reference)
+            let docpack:DocPackStruc = appManager.getCacheDocpack(reference)
+
+            let parmblock:ReturnDocPackMessage = {
+                docpack, 
+                reason:{
+                    documents:{
+                        reason:'newcallback',
+                        document:true, 
+                        type:true,
+                    }
+                }
+            }
+
+            success(parmblock)
+
+        })
+
+    }
+
+    setDocpackPairListener = ({doctoken,instanceid,success, failure}:SetListenerMessage) => {
+
+        setTimeout(()=>{ // give animations a chance to run
+
+            let reference = doctoken.reference // getTokenReference(doctoken)
+
+            this.updateSetSentinel(instanceid)
+
+            documentCache.addListener(reference,instanceid,success)
+
+            let cachedata = appManager.getCacheDocpackPair(reference)
 
             if (cachedata.docpack && cachedata.typepack) { // defer if waiting for type
                 let docpack:DocPackStruc = cachedata.docpack
@@ -450,10 +538,7 @@ const appManager = new class {
 
     }
 
-    // called from component componentWillUnmount
-    removeDocumentPairListener = ({doctoken, instanceid}:RemovePairListenerMessage) => {
-
-        let reference = doctoken.reference
+    updateRemoveSentinel = instanceid => {
 
         let sentinel = 
             sentinels[instanceid]
@@ -481,6 +566,25 @@ const appManager = new class {
 
             return
         }
+
+    }
+
+    removeDocpackListener = ({doctoken, instanceid}:RemoveListenerMessage) => {
+
+        let reference = doctoken.reference
+
+        this.updateRemoveSentinel(instanceid)
+
+        documentCache.removeListener(reference,instanceid)
+
+    }
+
+    // called from component componentWillUnmount
+    removeDocpackPairListener = ({doctoken, instanceid}:RemoveListenerMessage) => {
+
+        let reference = doctoken.reference
+
+        this.updateRemoveSentinel(instanceid)
 
         documentCache.removeListener(reference,instanceid)
 
@@ -521,8 +625,8 @@ const appManager = new class {
 let application = {
 
     properties:appManager.properties,
-    setDocumentPairListener:appManager.setDocumentPairListener,
-    removeDocumentPairListener:appManager.removeDocumentPairListener,
+    setDocpackPairListener:appManager.setDocpackPairListener,
+    removeDocpackPairListener:appManager.removeDocpackPairListener,
     getDocument:appManager.getDocument,
     getNewDocument:appManager.getNewDocument,
     queryForDocument:appManager.queryForDocument,

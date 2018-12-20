@@ -12,7 +12,7 @@ import docproxy from '../../utilities/docproxy'
 
 import LoadingMessage from '../common/loadingmessage.view'
 
-import { SetPairListenerMessage, RemovePairListenerMessage, ReturnDocPairMessage } from '../../services/interfaces'
+import { SetListenerMessage, RemoveListenerMessage, ReturnDocPairMessage } from '../../services/interfaces'
 
 const styles = createStyles({
     holderstyle:{
@@ -43,27 +43,27 @@ class RootDirectoryBarHolder extends React.Component<any, any> {
         if (!this.itemProxy && this.props.itemProxy) {
             // console.log('asserting listener')
             this.itemProxy = this.props.itemProxy
-            let parms:SetPairListenerMessage = 
+            let parms:SetListenerMessage = 
                 {
                     doctoken:this.itemProxy.doctoken,
                     instanceid:this.itemProxy.instanceid,
                     success:this.cacheItemDocument,
                     failure:null,
                 }
-            this.props.setDocumentPairListener( parms )
+            this.props.setDocpackPairListener( parms )
         }        
     }
 
     componentWillUnmount() {
         if (this.itemProxy) {
-            let parms: RemovePairListenerMessage = 
+            let parms: RemoveListenerMessage = 
                 {
                     doctoken:this.itemProxy.doctoken,
                     instanceid:this.itemProxy.instanceid,
                     // success:null,
                     // failure:null,
                 }
-            this.props.removeDocumentPairListener( parms )
+            this.props.removeDocpackPairListener( parms )
         }        
     }
 
@@ -96,8 +96,8 @@ class RootDirectoryBarHolder extends React.Component<any, any> {
     <DirectoryBar 
         haspeers = {false}
         listProxy = {listProxy}
-        setDocumentPairListener = {this.props.setDocumentPairListener}
-        removeDocumentPairListener = {this.props.removeDocumentPairListener}
+        setDocpackPairListener = {this.props.setDocpackPairListener}
+        removeDocpackPairListener = {this.props.removeDocpackPairListener}
         callDataDrawer = {this.props.callDataDrawer}
 
         listStack = {this.itemProxy.liststack}

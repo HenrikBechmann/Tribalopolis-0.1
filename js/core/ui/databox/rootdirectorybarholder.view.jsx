@@ -30,7 +30,7 @@ class RootDirectoryBarHolder extends React.Component {
                     success: this.cacheItemDocument,
                     failure: null,
                 };
-                this.props.setDocumentPairListener(parms);
+                this.props.setDocpackPairListener(parms);
             }
         };
         this.cacheItemDocument = ({ docpack, typepack, reason }) => {
@@ -55,7 +55,7 @@ class RootDirectoryBarHolder extends React.Component {
                 doctoken: this.itemProxy.doctoken,
                 instanceid: this.itemProxy.instanceid,
             };
-            this.props.removeDocumentPairListener(parms);
+            this.props.removeDocpackPairListener(parms);
         }
     }
     render() {
@@ -69,7 +69,7 @@ class RootDirectoryBarHolder extends React.Component {
             listProxy = new docproxy({ doctoken: listtoken });
         }
         return (this.state.item ?
-            <DirectoryBar haspeers={false} listProxy={listProxy} setDocumentPairListener={this.props.setDocumentPairListener} removeDocumentPairListener={this.props.removeDocumentPairListener} callDataDrawer={this.props.callDataDrawer} listStack={this.itemProxy.liststack} collapseDirectoryItem={() => { }} contextitem/>
+            <DirectoryBar haspeers={false} listProxy={listProxy} setDocpackPairListener={this.props.setDocpackPairListener} removeDocpackPairListener={this.props.removeDocpackPairListener} callDataDrawer={this.props.callDataDrawer} listStack={this.itemProxy.liststack} collapseDirectoryItem={() => { }} contextitem/>
             : <div className={classes.holderstyle}>
         <LoadingMessage />
     </div>);

@@ -52,7 +52,7 @@ class NavigationMenuTab extends React.Component {
                 success: this.cacheListDocument,
                 failure: null,
             };
-            this.props.callbacks.setDocumentPairListener(parms);
+            this.props.callbacks.setDocpackPairListener(parms);
         }
     }
     componentWillUnmount() {
@@ -61,7 +61,7 @@ class NavigationMenuTab extends React.Component {
                 doctoken: this.listProxy.doctoken,
                 instanceid: this.listProxy.instanceid,
             };
-            this.props.callbacks.removeDocumentPairListener(parms);
+            this.props.callbacks.removeDocpackPairListener(parms);
         }
     }
     render() {

@@ -69,7 +69,7 @@ class DirectoryBar extends React.Component {
                     success: this.cacheListDocument,
                     failure: null,
                 };
-                this.props.setDocumentPairListener(parms);
+                this.props.setDocpackPairListener(parms);
             }
         };
         this.cacheListDocument = ({ docpack, typepack, reason }) => {
@@ -107,7 +107,7 @@ class DirectoryBar extends React.Component {
                 doctoken: this.listProxy.doctoken,
                 instanceid: this.listProxy.instanceid,
             };
-            this.props.removeDocumentPairListener(parms);
+            this.props.removeDocpackPairListener(parms);
         }
     }
     render() {

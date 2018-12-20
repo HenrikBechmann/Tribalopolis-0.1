@@ -21,7 +21,7 @@ import QuantityBadge from '../common/quantitybadge.view'
 import ActionButton from '../common/actionbutton.view'
 import LoadingMessage from '../common/loadingmessage.view'
 
-import { SetPairListenerMessage, RemovePairListenerMessage, ReturnDocPairMessage } from '../../services/interfaces'
+import { SetListenerMessage, RemoveListenerMessage, ReturnDocPairMessage } from '../../services/interfaces'
 
 const styles = createStyles({ 
     barstyle:{
@@ -92,27 +92,27 @@ class DirectoryBar extends React.Component<any,any> {
     assertList = () => {
         if (!this.listProxy && this.props.listProxy) {
             this.listProxy = this.props.listProxy
-            let parms: SetPairListenerMessage = 
+            let parms: SetListenerMessage = 
                 {
                     doctoken:this.listProxy.doctoken,
                     instanceid:this.listProxy.instanceid,
                     success:this.cacheListDocument,
                     failure:null,
                 }
-            this.props.setDocumentPairListener( parms )
+            this.props.setDocpackPairListener( parms )
         }        
     }
 
     componentWillUnmount() {
         if (this.listProxy) {
-            let parms:RemovePairListenerMessage = 
+            let parms:RemoveListenerMessage = 
                 {
                     doctoken:this.listProxy.doctoken,
                     instanceid:this.listProxy.instanceid,
                     // success:null,
                     // failure:null,
                 }
-            this.props.removeDocumentPairListener( parms )
+            this.props.removeDocpackPairListener( parms )
         }        
     }
 

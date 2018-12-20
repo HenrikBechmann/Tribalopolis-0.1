@@ -55,14 +55,22 @@ const documentCache = new class {
             // anticipate need for type cache listener...
             let documentcacheitem = this.cache.get(reference);
             this.cache.delete(reference);
-            // console.log('documentcacheitem, reference', documentcacheitem, reference)
             // deal with type cache listener
             let document = documentcacheitem.document;
-            if (document) {
+            if (this.isPaired(document)) {
                 let typeref = document ? document.identity.type : null;
                 if (typeref) {
                     typeCache.removeListener(typeref, reference);
                 }
+            }
+        };
+        this.isPaired = document => {
+            try {
+                let identity = document.identity;
+                return ('type' in identity);
+            }
+            catch (e) {
+                return false;
             }
         };
         //=====================[ API ]======================
@@ -95,24 +103,42 @@ const documentCache = new class {
             let cacheitem = this.getItem(docpack.reference);
             if (!cacheitem)
                 return; // async
+            let olddocpack = cacheitem.docpack;
             // console.log('docpack, cacheitem in UPDATEITEM',docpack, cacheitem)
-            let oldtyperef = cacheitem.docpack ? cacheitem.docpack.document.identity.type : null;
             cacheitem.docpack = docpack;
-            let typeref = docpack.document.identity.type; // most documents have a type
-            (oldtyperef && (oldtyperef != typeref)) && typeCache.removeListener(oldtyperef, docpack.reference);
-            // will only create if doesn't already exist
-            typeref && typeCache.addListener(typeref, docpack.reference, typeCache.processDocumentPairListeners);
-            // will not process without type
-            this.processPairListeners(docpack.reference, reason);
+            if (this.isPaired(docpack.document)) {
+                let oldtyperef = olddocpack ? olddocpack.document.identity.type : null;
+                let typeref = docpack.document.identity.type; // all documents have a type
+                (oldtyperef && (oldtyperef != typeref)) && typeCache.removeListener(oldtyperef, docpack.reference);
+                // will only create if doesn't already exist
+                typeref && typeCache.addListener(typeref, docpack.reference, typeCache.processDocumentPairListeners);
+                // will not process without type
+                this.processPairListeners(docpack.reference, reason);
+            }
+            else {
+                this.processListeners(docpack.reference, reason);
+            }
         };
         /*
             processes a document's callbacks, whether called as the result of a
             document update from the gateway, or a document's type update from the gateway.
             listeners are not updated if there is not yet a type, or a type cache item
         */
+        this.processListeners = (reference, reason) => {
+            let documentcacheitem = documentCache.getItem(reference);
+            let { docpack, listeners } = documentcacheitem;
+            listeners.forEach((callback, key) => {
+                let slist = sentinels[key];
+                if (slist && ((slist[slist.length - 1]) === false)) {
+                    let docpac = docpack;
+                    let parmblock = { docpack: docpac, reason };
+                    callback(parmblock);
+                }
+            });
+        };
         this.processPairListeners = (reference, reason) => {
             let documentcacheitem = documentCache.getItem(reference);
-            let { docpack, typepack } = appManager.getDocumentPair(reference);
+            let { docpack, typepack } = appManager.getCacheDocpackPair(reference);
             if (typepack) {
                 let result = typefilter.assertType(docpack.document, typepack.document);
                 if (result.changed) {
@@ -123,8 +149,8 @@ const documentCache = new class {
                 listeners.forEach((callback, key) => {
                     let slist = sentinels[key];
                     if (slist && ((slist[slist.length - 1]) === false)) {
-                        let docpac = docpack;
-                        let parmblock = { docpack: docpac, typepack, reason };
+                        // let docpac:DocPackStruc = docpack
+                        let parmblock = { docpack, typepack, reason };
                         callback(parmblock);
                     }
                 });
@@ -229,7 +255,12 @@ const appManager = new class {
             ismobile: /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)
         };
         // =================[ INTERNAL TO MODULE ]=======================
-        this.getDocumentPair = reference => {
+        this.getCacheDocpack = reference => {
+            let cacheitem = documentCache.getItem(reference);
+            let docpack = cacheitem ? cacheitem.docpack : {};
+            return docpack;
+        };
+        this.getCacheDocpackPair = reference => {
             let cacheitem = documentCache.getItem(reference);
             let docpack = cacheitem ? cacheitem.docpack : {};
             let typepack = null;
@@ -247,27 +278,49 @@ const appManager = new class {
         };
         // =================[ API ]=======================
         // called from component componentDidMount or componentWillUpdate
-        this.setDocumentPairListener = ({ doctoken, instanceid, success, failure }) => {
+        this.updateSetSentinel = instanceid => {
+            let sentinel = sentinels[instanceid]
+                ? sentinels[instanceid][0]
+                : undefined;
+            if (sentinel === undefined) { // create listener
+                sentinels[instanceid] = [false]; // allow continuation with set listener
+            }
+            else if (sentinel === true) { // stop was set; clear sentinal; abandon
+                sentinels[instanceid].shift();
+                if (sentinels[instanceid].length === 0) {
+                    delete sentinels[instanceid];
+                }
+                return;
+            }
+            else { // sentinel = false; continue with set listener
+                sentinels[instanceid].push(false);
+            }
+        };
+        this.setDocpackListener = ({ doctoken, instanceid, success, failure }) => {
             setTimeout(() => {
                 let reference = doctoken.reference; // getTokenReference(doctoken)
-                let sentinel = sentinels[instanceid]
-                    ? sentinels[instanceid][0]
-                    : undefined;
-                if (sentinel === undefined) { // create listener
-                    sentinels[instanceid] = [false]; // allow continuation with set listener
-                }
-                else if (sentinel === true) { // stop was set; clear sentinal; abandon
-                    sentinels[instanceid].shift();
-                    if (sentinels[instanceid].length === 0) {
-                        delete sentinels[instanceid];
-                    }
-                    return;
-                }
-                else { // sentinel = false; continue with set listener
-                    sentinels[instanceid].push(false);
-                }
+                this.updateSetSentinel(instanceid);
                 documentCache.addListener(reference, instanceid, success);
-                let cachedata = appManager.getDocumentPair(reference);
+                let docpack = appManager.getCacheDocpack(reference);
+                let parmblock = {
+                    docpack,
+                    reason: {
+                        documents: {
+                            reason: 'newcallback',
+                            document: true,
+                            type: true,
+                        }
+                    }
+                };
+                success(parmblock);
+            });
+        };
+        this.setDocpackPairListener = ({ doctoken, instanceid, success, failure }) => {
+            setTimeout(() => {
+                let reference = doctoken.reference; // getTokenReference(doctoken)
+                this.updateSetSentinel(instanceid);
+                documentCache.addListener(reference, instanceid, success);
+                let cachedata = appManager.getCacheDocpackPair(reference);
                 if (cachedata.docpack && cachedata.typepack) { // defer if waiting for type
                     let docpack = cachedata.docpack;
                     let parmblock = {
@@ -285,9 +338,7 @@ const appManager = new class {
                 }
             });
         };
-        // called from component componentWillUnmount
-        this.removeDocumentPairListener = ({ doctoken, instanceid }) => {
-            let reference = doctoken.reference;
+        this.updateRemoveSentinel = instanceid => {
             let sentinel = sentinels[instanceid]
                 ? sentinels[instanceid][0]
                 : undefined;
@@ -305,6 +356,16 @@ const appManager = new class {
                 sentinels[instanceid].push(true);
                 return;
             }
+        };
+        this.removeDocpackListener = ({ doctoken, instanceid }) => {
+            let reference = doctoken.reference;
+            this.updateRemoveSentinel(instanceid);
+            documentCache.removeListener(reference, instanceid);
+        };
+        // called from component componentWillUnmount
+        this.removeDocpackPairListener = ({ doctoken, instanceid }) => {
+            let reference = doctoken.reference;
+            this.updateRemoveSentinel(instanceid);
             documentCache.removeListener(reference, instanceid);
         };
         this.getDocument = (parmblock) => {
@@ -326,8 +387,8 @@ const appManager = new class {
 };
 let application = {
     properties: appManager.properties,
-    setDocumentPairListener: appManager.setDocumentPairListener,
-    removeDocumentPairListener: appManager.removeDocumentPairListener,
+    setDocpackPairListener: appManager.setDocpackPairListener,
+    removeDocpackPairListener: appManager.removeDocpackPairListener,
     getDocument: appManager.getDocument,
     getNewDocument: appManager.getNewDocument,
     queryForDocument: appManager.queryForDocument,
