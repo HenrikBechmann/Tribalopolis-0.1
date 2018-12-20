@@ -138,7 +138,6 @@ const documentCache = new class {
     */
     updateItem = ( {docpack, reason}:ReturnDocPackMessage ) => {
 
-
         // set or update document
         let cacheitem = this.getItem(docpack.reference)
 
@@ -150,15 +149,15 @@ const documentCache = new class {
 
         cacheitem.docpack = docpack
 
-        let typeref = docpack.document.identity.type; // most documents have a type
+        let typeref = docpack.document.identity.type; // all documents have a type
 
         (oldtyperef && (oldtyperef != typeref)) && typeCache.removeListener(oldtyperef,docpack.reference)
 
         // will only create if doesn't already exist
-        typeref && typeCache.addListener(typeref, docpack.reference, typeCache.processDocumentListeners) 
+        typeref && typeCache.addListener(typeref, docpack.reference, typeCache.processDocumentPairListeners) 
 
         // will not process without type
-        this.processListeners(docpack.reference,reason) 
+        this.processPairListeners(docpack.reference,reason) 
 
     }
 
@@ -167,13 +166,13 @@ const documentCache = new class {
         document update from the gateway, or a document's type update from the gateway.
         listeners are not updated if there is not yet a type, or a type cache item
     */
-    processListeners = (reference, reason) => {
+    processPairListeners = (reference, reason) => {
 
         let documentcacheitem = documentCache.getItem(reference)
 
         let {docpack,typepack} = appManager.getDocumentPair(reference)
 
-        if (typepack.document) {
+        if (typepack) {
 
             let result = typefilter.assertType(docpack.document,typepack.document)
 
@@ -310,9 +309,9 @@ const typeCache = new class {
     }
 
     // different
-    processDocumentListeners = ( reference, reason ) => { // document reference
+    processDocumentPairListeners = ( reference, reason ) => { // document reference
 
-        documentCache.processListeners(reference,reason)
+        documentCache.processPairListeners(reference,reason)
 
     }
 
@@ -376,7 +375,7 @@ const appManager = new class {
 
             let cacheItem = typeCache.getItem(typeref)
 
-            typepack = cacheItem.docpack || {}
+            typepack = cacheItem.docpack
             
         }
 

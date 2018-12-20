@@ -101,19 +101,19 @@ const documentCache = new class {
             let typeref = docpack.document.identity.type; // most documents have a type
             (oldtyperef && (oldtyperef != typeref)) && typeCache.removeListener(oldtyperef, docpack.reference);
             // will only create if doesn't already exist
-            typeref && typeCache.addListener(typeref, docpack.reference, typeCache.processDocumentListeners);
+            typeref && typeCache.addListener(typeref, docpack.reference, typeCache.processDocumentPairListeners);
             // will not process without type
-            this.processListeners(docpack.reference, reason);
+            this.processPairListeners(docpack.reference, reason);
         };
         /*
             processes a document's callbacks, whether called as the result of a
             document update from the gateway, or a document's type update from the gateway.
             listeners are not updated if there is not yet a type, or a type cache item
         */
-        this.processListeners = (reference, reason) => {
+        this.processPairListeners = (reference, reason) => {
             let documentcacheitem = documentCache.getItem(reference);
             let { docpack, typepack } = appManager.getDocumentPair(reference);
-            if (typepack.document) {
+            if (typepack) {
                 let result = typefilter.assertType(docpack.document, typepack.document);
                 if (result.changed) {
                     docpack.document = result.document;
@@ -198,8 +198,8 @@ const typeCache = new class {
             }
         };
         // different
-        this.processDocumentListeners = (reference, reason) => {
-            documentCache.processListeners(reference, reason);
+        this.processDocumentPairListeners = (reference, reason) => {
+            documentCache.processPairListeners(reference, reason);
         };
         // different
         this.addListener = (typereference, documentreference, callback) => {
@@ -237,7 +237,7 @@ const appManager = new class {
             if (docpack.document) {
                 typeref = docpack.document.identity.type;
                 let cacheItem = typeCache.getItem(typeref);
-                typepack = cacheItem.docpack || {};
+                typepack = cacheItem.docpack;
             }
             let cachedata = {
                 docpack,
