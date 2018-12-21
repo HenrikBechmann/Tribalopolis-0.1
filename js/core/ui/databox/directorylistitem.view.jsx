@@ -50,8 +50,8 @@ class DirectoryListItem extends React.Component {
         this.cacheListDocument = ({ docpack, typepack, reason }) => {
             this.setState({
                 list: {
-                    document: docpack.document,
-                    type: typepack.document
+                    docpack,
+                    typepack,
                 }
             });
         };
@@ -88,7 +88,7 @@ class DirectoryListItem extends React.Component {
     }
     render() {
         let { classes } = this.props;
-        let listDocument = this.state.list ? this.state.list.document : null;
+        let listDocument = this.state.list ? this.state.list.docpack.document : null;
         let quantity = listDocument ? (listDocument.counts.lists + listDocument.counts.links) : 0;
         return <div className={classes.barstyle} onClick={this.expandDirectoryItem} ref={this.barelementref}>
             {listDocument

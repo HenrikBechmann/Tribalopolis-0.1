@@ -110,8 +110,8 @@ class DirectoryListItem extends React.Component<any,any> {
 
         this.setState({
             list:{
-                document:docpack.document,
-                type:typepack.document
+                docpack,
+                typepack,
             }
         })
     }
@@ -124,7 +124,7 @@ class DirectoryListItem extends React.Component<any,any> {
     render() {
 
         let { classes } = this.props
-        let listDocument = this.state.list?this.state.list.document:null
+        let listDocument = this.state.list?this.state.list.docpack.document:null
         let quantity = listDocument?(listDocument.counts.lists + listDocument.counts.links):0
         return <div 
             className = {
