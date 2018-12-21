@@ -86,8 +86,8 @@ class DataBox extends React.Component {
         this.cacheItemData = ({ docpack, typepack, reason }) => {
             this.setState({
                 item: {
-                    docpack: docpack,
-                    typepack: typepack
+                    docpack,
+                    typepack,
                 }
             }, () => {
                 if (!this.state.MainlistProxy) { // no proxies have been set

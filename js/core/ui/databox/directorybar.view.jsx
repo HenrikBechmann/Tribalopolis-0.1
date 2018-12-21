@@ -75,8 +75,8 @@ class DirectoryBar extends React.Component {
         this.cacheListDocument = ({ docpack, typepack, reason }) => {
             this.setState({
                 list: {
-                    document: docpack.document,
-                    type: typepack.document
+                    docpack,
+                    typepack,
                 }
             });
         };
@@ -112,7 +112,7 @@ class DirectoryBar extends React.Component {
     }
     render() {
         let { listStack, classes, haspeers, contextitem } = this.props;
-        let listDocument = this.state.list ? this.state.list.document : null;
+        let listDocument = this.state.list ? this.state.list.docpack.document : null;
         return <div className={classes.barstyle}>
                 {listDocument
             ? (<div className={classes.rowstyle}>

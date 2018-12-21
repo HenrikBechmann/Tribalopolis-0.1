@@ -181,8 +181,8 @@ class DataBox extends React.Component<any,any> {
 
         this.setState({
             item:{
-                docpack:docpack,
-                typepack:typepack
+                docpack,
+                typepack,
             }
         },() => { // set matching list proxies for children
 
