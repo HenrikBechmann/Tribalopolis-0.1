@@ -59,8 +59,8 @@ class IdentityBar extends React.Component {
             console.log('identity bar cacheItemDocument', docpack);
             this.setState({
                 item: {
-                    document: docpack.document,
-                    type: typepack.document
+                    docpack,
+                    typepack,
                 }
             });
         };
@@ -102,7 +102,7 @@ class IdentityBar extends React.Component {
             {false && <ActionButton icon='lock'/>}
             <img className={classes.avatar} src={avatar}/> 
             <div className={classes.namestyle}>
-                {this.state.item && this.state.item.document.properties.name.fullname}
+                {this.state.item && this.state.item.docpack.document.properties.name.fullname}
             </div>
             <ActionButton buttonStyle={{
             float: 'none',
