@@ -6,7 +6,7 @@ import { withStyles, createStyles } from '@material-ui/core/styles';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 import BoxIdentityBar from './databox/identitybar.view';
-import BoxTypebar from './databox/typebar.view';
+// import BoxTypebar from './databox/typebar.view'
 import DirectoryBar from './databox/directorybar.view';
 import DirectoryList from './databox/directorylist.view';
 // import ScanBar from './databox/scanbar.view'
@@ -86,8 +86,8 @@ class DataBox extends React.Component {
         this.cacheItemData = ({ docpack, typepack, reason }) => {
             this.setState({
                 item: {
-                    document: docpack.document,
-                    type: typepack.document
+                    docpack: docpack,
+                    typepack: typepack
                 }
             }, () => {
                 if (!this.state.MainlistProxy) { // no proxies have been set
@@ -97,7 +97,7 @@ class DataBox extends React.Component {
                     }
                     else {
                         listdoctoken = {
-                            reference: '/lists/' + this.state.item.document.references.list,
+                            reference: '/lists/' + this.state.item.docpack.document.references.list,
                         };
                     }
                     this.setState({
@@ -212,8 +212,8 @@ class DataBox extends React.Component {
     }
     render() {
         let { haspeers, classes, containerHeight } = this.props;
-        let item = this.state.item ? this.state.item.document : null;
-        let itemType = this.state.item ? this.state.item.type : null;
+        let docpack = this.state.item ? this.state.item.docpack : null;
+        let typepack = this.state.item ? this.state.item.typepack : null;
         let listStack = this.itemProxy.liststack;
         let wrapperStyle = {
             width: haspeers
@@ -241,8 +241,8 @@ class DataBox extends React.Component {
                 ? '0'
                 : 'auto',
         };
-        // placeholder for display if item hasn't been received yet
-        if (!item) {
+        // placeholder for display if docpack hasn't been received yet
+        if (!docpack) {
             return <div className={classes.wrapper} style={wrapperStyle}>
                 <div className={classes.frame} style={frameStyle}>
                     <LoadingMessage />
@@ -252,13 +252,11 @@ class DataBox extends React.Component {
         return (<div data-index={this.props.index} className={classes.wrapper} style={wrapperStyle}>
             <div className={classes.frame} style={frameStyle} ref={this.boxframe}>
                 
-                <NavigationMenuTab itemType={itemType /*future*/} listProxy={this.state.TypelistProxy} haspeers={haspeers} liststack={listStack} callbacks={this.typecallbacks} collapseDirectoryItem={this.collapseDirectoryItem}/>
+                <NavigationMenuTab listProxy={this.state.TypelistProxy} haspeers={haspeers} liststack={listStack} callbacks={this.typecallbacks} collapseDirectoryItem={this.collapseDirectoryItem}/>
 
                 {!haspeers && <ResizeTab boxwidth={this.props.boxwidth} boxframe={this.boxframe} setBoxWidth={this.props.callbacks.setBoxWidth}/>}
                 
                 <div data-name='box-contents-wrapper' className={classes.boxcontentswrapper}>
-
-                    {false && <BoxTypebar /* suspended */ item={item} itemType={itemType /*future*/} listProxy={this.state.TypelistProxy} haspeers={haspeers} callbacks={this.typecallbacks}/>}
 
                     {!listStack.length && <BoxIdentityBar itemProxy={this.identityItemProxy} setDocpackPairListener={this.props.callbacks.setDocpackPairListener} removeDocpackPairListener={this.props.callbacks.removeDocpackPairListener} callDataDrawer={this.props.callbacks.callDataDrawer}/>}
 
@@ -283,5 +281,12 @@ class DataBox extends React.Component {
         </div>);
     }
 }
+// {false && <BoxTypebar /* suspended */
+//     docpack = { docpack } 
+//     typepack = { typepack /*future*/}
+//     listProxy = {this.state.TypelistProxy}
+//     haspeers = {haspeers}
+//     callbacks = {this.typecallbacks}
+// />}
 export default withStyles(styles)(DataBox);
 //# sourceMappingURL=databox.controller.jsx.map
