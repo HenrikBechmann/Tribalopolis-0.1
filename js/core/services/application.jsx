@@ -30,7 +30,7 @@ import docpackCache from './application/docpackcache';
 */
 export const sentinels = {};
 // =================[ API ]=======================
-export const appManager = new class {
+const appManager = new class {
     constructor() {
         this.properties = {
             ismobile: /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)

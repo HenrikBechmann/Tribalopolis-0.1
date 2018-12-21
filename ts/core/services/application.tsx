@@ -49,7 +49,7 @@ export const sentinels = {}
 
 // =================[ API ]=======================
 
-export const appManager = new class {
+const appManager = new class {
 
     properties = {
 
