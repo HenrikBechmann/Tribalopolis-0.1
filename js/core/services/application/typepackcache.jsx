@@ -5,6 +5,7 @@ import domain from '../domain';
 // ==============================[ TYPE CACHE ]===============================
 const typepackCache = new class {
     constructor() {
+        //=====================[ PRIVATE ]======================
         this.cache = new Map();
         this.newItem = () => {
             let cacheitem = {
@@ -34,6 +35,7 @@ const typepackCache = new class {
             }
             return cacheitem;
         };
+        //=====================[ API ]======================
         this.updateItem = ({ docpack, reason }) => {
             let typedoc = docpack || {};
             let cacheitem = this.cache.get(typedoc.reference);

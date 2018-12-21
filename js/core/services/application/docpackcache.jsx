@@ -42,7 +42,6 @@ const docpackCache = new class {
                 return false;
             }
         };
-        //=====================[ API ]======================
         this.getItem = (reference) => {
             let cacheitem;
             if (this.cache.has(reference)) { // update if exists
@@ -59,6 +58,44 @@ const docpackCache = new class {
             }
             return cacheitem;
         };
+        /*
+            processes a document's callbacks, whether called as the result of a
+            document update from the gateway, or a document's type update from the gateway.
+            listeners are not updated if there is not yet a type, or a type cache item
+        */
+        this.processListeners = (reference, reason) => {
+            let documentcacheitem = this.getItem(reference);
+            let { docpack, listeners } = documentcacheitem;
+            listeners.forEach((callback, key) => {
+                let slist = sentinels[key];
+                if (slist && ((slist[slist.length - 1]) === false)) {
+                    let docpac = docpack;
+                    let parmblock = { docpack: docpac, reason };
+                    callback(parmblock);
+                }
+            });
+        };
+        this.processPairListeners = (reference, reason) => {
+            let documentcacheitem = this.getItem(reference);
+            let { docpack, typepack } = this.getCacheDocpackPair(reference);
+            if (typepack) {
+                let result = typefilter.assertType(docpack.document, typepack.document);
+                if (result.changed) {
+                    docpack.document = result.document;
+                    // update source; wait for response
+                }
+                let { listeners } = documentcacheitem;
+                listeners.forEach((callback, key) => {
+                    let slist = sentinels[key];
+                    if (slist && ((slist[slist.length - 1]) === false)) {
+                        let docpac = docpack;
+                        let parmblock = { docpack: docpac, typepack, reason };
+                        callback(parmblock);
+                    }
+                });
+            }
+        };
+        //=====================[ API ]======================
         /*
             callback from gateway. This sets or updates the document value, and calls
             callbacks registered for the document. Since every document requires a type,
@@ -123,43 +160,6 @@ const docpackCache = new class {
                 typepack,
             };
             return cachedata;
-        };
-        /*
-            processes a document's callbacks, whether called as the result of a
-            document update from the gateway, or a document's type update from the gateway.
-            listeners are not updated if there is not yet a type, or a type cache item
-        */
-        this.processListeners = (reference, reason) => {
-            let documentcacheitem = this.getItem(reference);
-            let { docpack, listeners } = documentcacheitem;
-            listeners.forEach((callback, key) => {
-                let slist = sentinels[key];
-                if (slist && ((slist[slist.length - 1]) === false)) {
-                    let docpac = docpack;
-                    let parmblock = { docpack: docpac, reason };
-                    callback(parmblock);
-                }
-            });
-        };
-        this.processPairListeners = (reference, reason) => {
-            let documentcacheitem = this.getItem(reference);
-            let { docpack, typepack } = this.getCacheDocpackPair(reference);
-            if (typepack) {
-                let result = typefilter.assertType(docpack.document, typepack.document);
-                if (result.changed) {
-                    docpack.document = result.document;
-                    // update source; wait for response
-                }
-                let { listeners } = documentcacheitem;
-                listeners.forEach((callback, key) => {
-                    let slist = sentinels[key];
-                    if (slist && ((slist[slist.length - 1]) === false)) {
-                        let docpac = docpack;
-                        let parmblock = { docpack: docpac, typepack, reason };
-                        callback(parmblock);
-                    }
-                });
-            }
         };
     }
 };

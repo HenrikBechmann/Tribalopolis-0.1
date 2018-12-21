@@ -74,8 +74,6 @@ const docpackCache = new class {
         }
     }
 
-    //=====================[ API ]======================
-
     private getItem = (reference) => {
 
         let cacheitem
@@ -99,6 +97,72 @@ const docpackCache = new class {
 
         return cacheitem
     }
+
+    /*
+        processes a document's callbacks, whether called as the result of a 
+        document update from the gateway, or a document's type update from the gateway.
+        listeners are not updated if there is not yet a type, or a type cache item
+    */
+    private processListeners = (reference, reason) => {
+
+        let documentcacheitem = this.getItem(reference)
+
+        let { docpack, listeners } = documentcacheitem
+
+        listeners.forEach((callback,key) => {
+
+            let slist = sentinels[key]
+
+            if (slist && ((slist[slist.length - 1]) === false)) {
+
+                let docpac:DocPackStruc = docpack
+
+                let parmblock:ReturnDocPackMessage = {docpack:docpac, reason}
+                callback( parmblock )
+
+            }
+
+        })
+
+    }
+
+    private processPairListeners = (reference, reason) => {
+
+        let documentcacheitem = this.getItem(reference)
+
+        let {docpack,typepack}:{docpack:DocPackStruc,typepack:DocPackStruc} = this.getCacheDocpackPair(reference)
+
+        if (typepack) {
+
+            let result = typefilter.assertType(docpack.document,typepack.document)
+
+            if (result.changed) {
+
+                docpack.document = result.document
+                // update source; wait for response
+
+            }
+
+            let { listeners } = documentcacheitem
+
+            listeners.forEach((callback,key) => {
+
+                let slist = sentinels[key]
+
+                if (slist && ((slist[slist.length - 1]) === false)) {
+
+                    let docpac:DocPackStruc = docpack
+
+                    let parmblock:ReturnDocPairMessage = {docpack:docpac, typepack, reason}
+                    callback( parmblock )
+
+                }
+
+            })
+        }
+    }
+
+    //=====================[ API ]======================
 
     /*
         callback from gateway. This sets or updates the document value, and calls
@@ -199,70 +263,6 @@ const docpackCache = new class {
 
         return cachedata
 
-    }
-
-    /*
-        processes a document's callbacks, whether called as the result of a 
-        document update from the gateway, or a document's type update from the gateway.
-        listeners are not updated if there is not yet a type, or a type cache item
-    */
-    processListeners = (reference, reason) => {
-
-        let documentcacheitem = this.getItem(reference)
-
-        let { docpack, listeners } = documentcacheitem
-
-        listeners.forEach((callback,key) => {
-
-            let slist = sentinels[key]
-
-            if (slist && ((slist[slist.length - 1]) === false)) {
-
-                let docpac:DocPackStruc = docpack
-
-                let parmblock:ReturnDocPackMessage = {docpack:docpac, reason}
-                callback( parmblock )
-
-            }
-
-        })
-
-    }
-
-    processPairListeners = (reference, reason) => {
-
-        let documentcacheitem = this.getItem(reference)
-
-        let {docpack,typepack}:{docpack:DocPackStruc,typepack:DocPackStruc} = this.getCacheDocpackPair(reference)
-
-        if (typepack) {
-
-            let result = typefilter.assertType(docpack.document,typepack.document)
-
-            if (result.changed) {
-
-                docpack.document = result.document
-                // update source; wait for response
-
-            }
-
-            let { listeners } = documentcacheitem
-
-            listeners.forEach((callback,key) => {
-
-                let slist = sentinels[key]
-
-                if (slist && ((slist[slist.length - 1]) === false)) {
-
-                    let docpac:DocPackStruc = docpack
-
-                    let parmblock:ReturnDocPairMessage = {docpack:docpac, typepack, reason}
-                    callback( parmblock )
-
-                }
-
-            })
-        }
     }
 
 }

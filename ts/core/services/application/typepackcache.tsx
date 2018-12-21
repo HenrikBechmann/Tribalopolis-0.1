@@ -15,6 +15,9 @@ import {
 // ==============================[ TYPE CACHE ]===============================
 
 const typepackCache = new class {
+
+    //=====================[ PRIVATE ]======================
+
     private cache = new Map()
 
     private newItem = () => {
@@ -60,6 +63,8 @@ const typepackCache = new class {
         return cacheitem
         
     }
+
+    //=====================[ API ]======================
 
     updateItem = ( {docpack, reason}:ReturnDocPackMessage ) => {
 
