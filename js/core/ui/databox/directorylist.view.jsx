@@ -49,8 +49,8 @@ const DirectoryListBase = withStyles(styles)(class extends React.Component {
             this.pathToIndexMap = this.generatePathToIndexMap(listproxies);
             this.setState({
                 list: {
-                    document: docpack.document,
-                    type: typepack.document
+                    docpack,
+                    typepack,
                 },
                 listproxies,
             });

@@ -109,8 +109,8 @@ class extends React.Component<any,any> {
         this.pathToIndexMap = this.generatePathToIndexMap(listproxies)
         this.setState({
             list:{
-                document:docpack.document,
-                type:typepack.document
+                docpack,
+                typepack,
             },
             listproxies,
         })
