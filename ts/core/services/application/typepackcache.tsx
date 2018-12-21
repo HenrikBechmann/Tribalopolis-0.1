@@ -11,7 +11,6 @@ import {
     DocPackStruc,
     CacheItemStruc,
 } from '../interfaces'
-import docpackCache from './docpackcache'
 
 // ==============================[ TYPE CACHE ]===============================
 
