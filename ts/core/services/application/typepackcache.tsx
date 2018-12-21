@@ -5,25 +5,19 @@
 
 import domain from '../domain'
 import { 
-    // GetDocumentMessage, 
-    // SetDocumentMessage, 
-    // GetCollectionMessage,
-    // SetListenerMessage,
-    // RemoveListenerMessage,
     SetGatewayListenerMessage,
     ReturnDocPackMessage,
-    // ReturnDocPairMessage,
     DocTokenStruc, 
     DocPackStruc,
     CacheItemStruc,
 } from '../interfaces'
 import docpackCache from './docpackcache'
+
 // ==============================[ TYPE CACHE ]===============================
 
 const typepackCache = new class {
     private cache = new Map()
 
-    // same
     newItem = () => {
 
         let cacheitem:CacheItemStruc = {
@@ -35,8 +29,7 @@ const typepackCache = new class {
 
     }
 
-    // different
-    removeItem = (reference) => {
+    removeItem = reference => {
 
         // unhook from domain
         let parmblock:DocTokenStruc = {reference}
@@ -46,8 +39,7 @@ const typepackCache = new class {
 
     }
 
-    // same
-    getItem = (reference) => { // type reference
+    getItem = reference => { // type reference
         let cacheitem
 
         if (this.cache.has(reference)) {
@@ -70,7 +62,6 @@ const typepackCache = new class {
         
     }
 
-    // different
     updateItem = ( {docpack, reason}:ReturnDocPackMessage ) => {
 
         let typedoc = docpack || ({} as DocPackStruc)
@@ -95,14 +86,6 @@ const typepackCache = new class {
 
     }
 
-    // different
-    processDocumentPairListeners = ( reference, reason ) => { // document reference
-
-        docpackCache.processPairListeners(reference,reason)
-
-    }
-
-    // different
     addListener = (typereference, documentreference, callback) => {
 
         let cacheitem = this.getItem(typereference)
@@ -114,7 +97,6 @@ const typepackCache = new class {
         }
     }
 
-    // different
     removeListener = (typereference, documentreference) => {
 
         if (!this.cache.has(typereference)) return

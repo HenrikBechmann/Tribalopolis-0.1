@@ -6,11 +6,6 @@
 import domain from '../domain'
 import typefilter from '../type.filter'
 import { 
-    // GetDocumentMessage, 
-    // SetDocumentMessage, 
-    // GetCollectionMessage,
-    // SetListenerMessage,
-    // RemoveListenerMessage,
     SetGatewayListenerMessage,
     ReturnDocPackMessage,
     ReturnDocPairMessage,
@@ -165,9 +160,10 @@ const docpackCache = new class {
             (oldtyperef && (oldtyperef != typeref)) && typepackCache.removeListener(oldtyperef,docpack.reference)
 
             // will only create if doesn't already exist
-            typeref && typepackCache.addListener(typeref, docpack.reference, typepackCache.processDocumentPairListeners) 
+            // processPairListeners invoked first time
+            typeref && typepackCache.addListener(typeref, docpack.reference, this.processPairListeners) 
 
-            // will not process without type
+            // will not process without type (including first time)
             this.processPairListeners(docpack.reference,reason) 
 
         } else {

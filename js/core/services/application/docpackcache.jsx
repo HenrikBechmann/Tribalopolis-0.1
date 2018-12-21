@@ -101,8 +101,9 @@ const docpackCache = new class {
                 let typeref = docpack.document.identity.type; // all documents have a type
                 (oldtyperef && (oldtyperef != typeref)) && typepackCache.removeListener(oldtyperef, docpack.reference);
                 // will only create if doesn't already exist
-                typeref && typepackCache.addListener(typeref, docpack.reference, typepackCache.processDocumentPairListeners);
-                // will not process without type
+                // processPairListeners invoked first time
+                typeref && typepackCache.addListener(typeref, docpack.reference, this.processPairListeners);
+                // will not process without type (including first time)
                 this.processPairListeners(docpack.reference, reason);
             }
             else {
