@@ -20,7 +20,7 @@ import {
 } from '../interfaces'
 
 import typepackCache from './typepackcache'
-import { appManager, sentinels } from '../application' // appmanager is anti-pattern here
+import { sentinels } from '../application'
 
 // ==============================[ DOCUMENT CACHE ]===============================
 
@@ -105,6 +105,31 @@ const docpackCache = new class {
         return cacheitem
     }
 
+    getCacheDocpackPair = reference => {
+
+        let cacheitem = docpackCache.getItem(reference)
+        let docpack:DocPackStruc = cacheitem?cacheitem.docpack:{}
+        let typepack:DocPackStruc = null
+        let typeref = null
+
+        if (docpack.document) {
+
+            typeref = docpack.document.identity.type
+
+            let cacheItem = typepackCache.getItem(typeref)
+
+            typepack = cacheItem.docpack
+            
+        }
+
+        let cachedata = {
+            docpack,
+            typepack,
+        }
+
+        return cachedata
+
+    }
     /*
         callback from gateway. This sets or updates the document value, and calls
         callbacks registered for the document. Since every document requires a type, 
@@ -179,7 +204,7 @@ const docpackCache = new class {
 
         let documentcacheitem = docpackCache.getItem(reference)
 
-        let {docpack,typepack}:{docpack:DocPackStruc,typepack:DocPackStruc} = appManager.getCacheDocpackPair(reference)
+        let {docpack,typepack}:{docpack:DocPackStruc,typepack:DocPackStruc} = this.getCacheDocpackPair(reference)
 
         if (typepack) {
 
@@ -200,9 +225,9 @@ const docpackCache = new class {
 
                 if (slist && ((slist[slist.length - 1]) === false)) {
 
-                    // let docpac:DocPackStruc = docpack
+                    let docpac:DocPackStruc = docpack
 
-                    let parmblock:ReturnDocPairMessage = {docpack, typepack, reason}
+                    let parmblock:ReturnDocPairMessage = {docpack:docpac, typepack, reason}
                     callback( parmblock )
 
                 }

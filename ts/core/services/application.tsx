@@ -69,32 +69,6 @@ export const appManager = new class {
         return docpack
     }
 
-    getCacheDocpackPair = reference => {
-
-        let cacheitem = docpackCache.getItem(reference)
-        let docpack:DocPackStruc = cacheitem?cacheitem.docpack:{}
-        let typepack:DocPackStruc = null
-        let typeref = null
-
-        if (docpack.document) {
-
-            typeref = docpack.document.identity.type
-
-            let cacheItem = typepackCache.getItem(typeref)
-
-            typepack = cacheItem.docpack
-            
-        }
-
-        let cachedata = {
-            docpack,
-            typepack,
-        }
-
-        return cachedata
-
-    }
-
     // =================[ API ]=======================
     // called from component componentDidMount or componentWillUpdate
 
@@ -168,7 +142,7 @@ export const appManager = new class {
 
             docpackCache.addListener(reference,instanceid,success)
 
-            let cachedata = appManager.getCacheDocpackPair(reference)
+            let cachedata = docpackCache.getCacheDocpackPair(reference)
 
             if (cachedata.docpack && cachedata.typepack) { // defer if waiting for type
                 let docpack:DocPackStruc = cachedata.docpack

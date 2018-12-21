@@ -23,7 +23,6 @@
 'use strict';
 import domain from './domain';
 import docpackCache from './application/docpackcache';
-import typepackCache from './application/typepackcache';
 // ==============[ Internal ]===============
 /*
     Each document has an accompanying type. Types are shared, therefore far less numerous.
@@ -41,22 +40,6 @@ export const appManager = new class {
             let cacheitem = docpackCache.getItem(reference);
             let docpack = cacheitem ? cacheitem.docpack : {};
             return docpack;
-        };
-        this.getCacheDocpackPair = reference => {
-            let cacheitem = docpackCache.getItem(reference);
-            let docpack = cacheitem ? cacheitem.docpack : {};
-            let typepack = null;
-            let typeref = null;
-            if (docpack.document) {
-                typeref = docpack.document.identity.type;
-                let cacheItem = typepackCache.getItem(typeref);
-                typepack = cacheItem.docpack;
-            }
-            let cachedata = {
-                docpack,
-                typepack,
-            };
-            return cachedata;
         };
         // =================[ API ]=======================
         // called from component componentDidMount or componentWillUpdate
@@ -102,7 +85,7 @@ export const appManager = new class {
                 let reference = doctoken.reference; // getTokenReference(doctoken)
                 this.updateSetSentinel(instanceid);
                 docpackCache.addListener(reference, instanceid, success);
-                let cachedata = appManager.getCacheDocpackPair(reference);
+                let cachedata = docpackCache.getCacheDocpackPair(reference);
                 if (cachedata.docpack && cachedata.typepack) { // defer if waiting for type
                     let docpack = cachedata.docpack;
                     let parmblock = {
