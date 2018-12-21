@@ -35,12 +35,6 @@ export const appManager = new class {
         this.properties = {
             ismobile: /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)
         };
-        // =================[ INTERNAL TO MODULE ]=======================
-        this.getCacheDocpack = reference => {
-            let cacheitem = docpackCache.getItem(reference);
-            let docpack = cacheitem ? cacheitem.docpack : {};
-            return docpack;
-        };
         // =================[ API ]=======================
         // called from component componentDidMount or componentWillUpdate
         this.updateSetSentinel = instanceid => {
@@ -66,7 +60,7 @@ export const appManager = new class {
                 let reference = doctoken.reference; // getTokenReference(doctoken)
                 this.updateSetSentinel(instanceid);
                 docpackCache.addListener(reference, instanceid, success);
-                let docpack = appManager.getCacheDocpack(reference);
+                let docpack = docpackCache.getCacheDocpack(reference);
                 let parmblock = {
                     docpack,
                     reason: {

@@ -60,15 +60,6 @@ export const appManager = new class {
 
     }
 
-    // =================[ INTERNAL TO MODULE ]=======================
-
-    getCacheDocpack = reference => {
-
-        let cacheitem = docpackCache.getItem(reference)
-        let docpack:DocPackStruc = cacheitem?cacheitem.docpack:{}
-        return docpack
-    }
-
     // =================[ API ]=======================
     // called from component componentDidMount or componentWillUpdate
 
@@ -113,7 +104,7 @@ export const appManager = new class {
 
             docpackCache.addListener(reference,instanceid,success)
 
-            let docpack:DocPackStruc = appManager.getCacheDocpack(reference)
+            let docpack:DocPackStruc = docpackCache.getCacheDocpack(reference)
 
             let parmblock:ReturnDocPackMessage = {
                 docpack, 

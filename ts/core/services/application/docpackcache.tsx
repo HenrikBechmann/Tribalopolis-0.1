@@ -105,6 +105,13 @@ const docpackCache = new class {
         return cacheitem
     }
 
+    getCacheDocpack = reference => {
+
+        let cacheitem = docpackCache.getItem(reference)
+        let docpack:DocPackStruc = cacheitem?cacheitem.docpack:{}
+        return docpack
+    }
+
     getCacheDocpackPair = reference => {
 
         let cacheitem = docpackCache.getItem(reference)
