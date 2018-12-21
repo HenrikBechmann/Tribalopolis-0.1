@@ -35,8 +35,7 @@ export const appManager = new class {
         this.properties = {
             ismobile: /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)
         };
-        // =================[ API ]=======================
-        // called from component componentDidMount or componentWillUpdate
+        // =================[ PRIVATE ]=======================
         this.updateSetSentinel = instanceid => {
             let sentinel = sentinels[instanceid]
                 ? sentinels[instanceid][0]
@@ -55,6 +54,27 @@ export const appManager = new class {
                 sentinels[instanceid].push(false);
             }
         };
+        this.updateRemoveSentinel = instanceid => {
+            let sentinel = sentinels[instanceid]
+                ? sentinels[instanceid][0]
+                : undefined;
+            if (sentinel === undefined) { // create sentinal; set before listener
+                sentinels[instanceid] = [true];
+                return;
+            }
+            else if (sentinel === false) { // clear sentinal; continue delete listener
+                sentinels[instanceid].shift();
+                if (sentinels[instanceid].length === 0) {
+                    delete sentinels[instanceid];
+                }
+            }
+            else { // sentinal === true; was set for previous call; queue next
+                sentinels[instanceid].push(true);
+                return;
+            }
+        };
+        // =================[ API ]=======================
+        // called from component componentDidMount or componentWillUpdate
         this.setDocpackListener = ({ doctoken, instanceid, success, failure }) => {
             setTimeout(() => {
                 let reference = doctoken.reference; // getTokenReference(doctoken)
@@ -96,25 +116,6 @@ export const appManager = new class {
                     success(parmblock);
                 }
             });
-        };
-        this.updateRemoveSentinel = instanceid => {
-            let sentinel = sentinels[instanceid]
-                ? sentinels[instanceid][0]
-                : undefined;
-            if (sentinel === undefined) { // create sentinal; set before listener
-                sentinels[instanceid] = [true];
-                return;
-            }
-            else if (sentinel === false) { // clear sentinal; continue delete listener
-                sentinels[instanceid].shift();
-                if (sentinels[instanceid].length === 0) {
-                    delete sentinels[instanceid];
-                }
-            }
-            else { // sentinal === true; was set for previous call; queue next
-                sentinels[instanceid].push(true);
-                return;
-            }
         };
         this.removeDocpackListener = ({ doctoken, instanceid }) => {
             let reference = doctoken.reference;

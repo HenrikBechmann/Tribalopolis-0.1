@@ -31,12 +31,9 @@ import {
     GetCollectionMessage,
     SetListenerMessage,
     RemoveListenerMessage,
-    // SetGatewayListenerMessage,
     ReturnDocPackMessage,
     ReturnDocPairMessage,
-    // DocTokenStruc, 
     DocPackStruc,
-    // CacheItemStruc,
 } from './interfaces'
 import docpackCache from './application/docpackcache'
 import typepackCache from './application/typepackcache'
@@ -60,8 +57,7 @@ export const appManager = new class {
 
     }
 
-    // =================[ API ]=======================
-    // called from component componentDidMount or componentWillUpdate
+    // =================[ PRIVATE ]=======================
 
     private updateSetSentinel = instanceid => {
 
@@ -93,6 +89,40 @@ export const appManager = new class {
         }
 
     }
+
+    private updateRemoveSentinel = instanceid => {
+
+        let sentinel = 
+            sentinels[instanceid]
+            ?sentinels[instanceid][0]
+            :undefined
+
+        if (sentinel === undefined) { // create sentinal; set before listener
+
+            sentinels[instanceid]=[true]
+
+            return
+
+        } else if (sentinel === false) { // clear sentinal; continue delete listener
+
+            sentinels[instanceid].shift()
+
+            if (sentinels[instanceid].length === 0) {
+
+                delete sentinels[instanceid]
+            }
+
+        } else { // sentinal === true; was set for previous call; queue next
+
+            sentinels[instanceid].push(true)
+
+            return
+        }
+
+    }
+
+    // =================[ API ]=======================
+    // called from component componentDidMount or componentWillUpdate
 
     setDocpackListener = ({doctoken,instanceid,success, failure}:SetListenerMessage) => {
 
@@ -155,37 +185,6 @@ export const appManager = new class {
             }
 
         })
-
-    }
-
-    updateRemoveSentinel = instanceid => {
-
-        let sentinel = 
-            sentinels[instanceid]
-            ?sentinels[instanceid][0]
-            :undefined
-
-        if (sentinel === undefined) { // create sentinal; set before listener
-
-            sentinels[instanceid]=[true]
-
-            return
-
-        } else if (sentinel === false) { // clear sentinal; continue delete listener
-
-            sentinels[instanceid].shift()
-
-            if (sentinels[instanceid].length === 0) {
-
-                delete sentinels[instanceid]
-            }
-
-        } else { // sentinal === true; was set for previous call; queue next
-
-            sentinels[instanceid].push(true)
-
-            return
-        }
 
     }
 
