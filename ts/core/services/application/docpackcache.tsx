@@ -76,7 +76,7 @@ const docpackCache = new class {
 
     //=====================[ API ]======================
 
-    getItem = (reference) => {
+    private getItem = (reference) => {
 
         let cacheitem
 
@@ -100,38 +100,6 @@ const docpackCache = new class {
         return cacheitem
     }
 
-    getCacheDocpack = reference => {
-
-        let cacheitem = docpackCache.getItem(reference)
-        let docpack:DocPackStruc = cacheitem?cacheitem.docpack:{}
-        return docpack
-    }
-
-    getCacheDocpackPair = reference => {
-
-        let cacheitem = docpackCache.getItem(reference)
-        let docpack:DocPackStruc = cacheitem?cacheitem.docpack:{}
-        let typepack:DocPackStruc = null
-        let typeref = null
-
-        if (docpack.document) {
-
-            typeref = docpack.document.identity.type
-
-            let cacheItem = typepackCache.getItem(typeref)
-
-            typepack = cacheItem.docpack
-            
-        }
-
-        let cachedata = {
-            docpack,
-            typepack,
-        }
-
-        return cachedata
-
-    }
     /*
         callback from gateway. This sets or updates the document value, and calls
         callbacks registered for the document. Since every document requires a type, 
@@ -174,15 +142,73 @@ const docpackCache = new class {
 
     }
 
+    addListener = (reference,instanceid,callback) => {
+
+        let cacheitem = this.getItem(reference)
+
+        cacheitem.listeners.set(instanceid,callback)
+
+    }
+
+    removeListener = (reference, instanceid) => {
+
+        if (!this.cache.has(reference)) return
+
+        let cacheitem = this.cache.get(reference)
+
+        if (cacheitem.listeners) {
+
+            cacheitem.listeners.delete(instanceid)
+
+            if (cacheitem.listeners.size == 0) {
+
+                this.removeItem(reference) // filter by cache size?
+
+            }
+
+        }
+
+    }
+
+    getCacheDocpack = reference => {
+
+        let cacheitem = this.getItem(reference)
+        let docpack:DocPackStruc = cacheitem?cacheitem.docpack:{}
+        return docpack
+    }
+
+    getCacheDocpackPair = reference => {
+
+        let cacheitem = this.getItem(reference)
+        let docpack:DocPackStruc = cacheitem?cacheitem.docpack:{}
+        let typepack:DocPackStruc = null
+        let typeref = null
+
+        if (docpack.document) {
+
+            typeref = docpack.document.identity.type
+
+            typepack = typepackCache.getCacheDocpack(typeref)
+
+        }
+
+        let cachedata = {
+            docpack,
+            typepack,
+        }
+
+        return cachedata
+
+    }
+
     /*
         processes a document's callbacks, whether called as the result of a 
         document update from the gateway, or a document's type update from the gateway.
         listeners are not updated if there is not yet a type, or a type cache item
     */
-
     processListeners = (reference, reason) => {
 
-        let documentcacheitem = docpackCache.getItem(reference)
+        let documentcacheitem = this.getItem(reference)
 
         let { docpack, listeners } = documentcacheitem
 
@@ -205,7 +231,7 @@ const docpackCache = new class {
 
     processPairListeners = (reference, reason) => {
 
-        let documentcacheitem = docpackCache.getItem(reference)
+        let documentcacheitem = this.getItem(reference)
 
         let {docpack,typepack}:{docpack:DocPackStruc,typepack:DocPackStruc} = this.getCacheDocpackPair(reference)
 
@@ -239,33 +265,7 @@ const docpackCache = new class {
         }
     }
 
-    addListener = (reference,instanceid,callback) => {
-
-        let cacheitem = this.getItem(reference)
-
-        cacheitem.listeners.set(instanceid,callback)
-
-    }
-
-    removeListener = (reference, instanceid) => {
-
-        if (!this.cache.has(reference)) return
-
-        let cacheitem = this.cache.get(reference)
-
-        if (cacheitem.listeners) {
-
-            cacheitem.listeners.delete(instanceid)
-
-            if (cacheitem.listeners.size == 0) {
-
-                this.removeItem(reference) // filter by cache size?
-
-            }
-
-        }
-
-    }
 }
 
 export default docpackCache
+

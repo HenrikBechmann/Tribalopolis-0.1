@@ -17,7 +17,7 @@ import {
 const typepackCache = new class {
     private cache = new Map()
 
-    newItem = () => {
+    private newItem = () => {
 
         let cacheitem:CacheItemStruc = {
             docpack:null,
@@ -28,7 +28,7 @@ const typepackCache = new class {
 
     }
 
-    removeItem = reference => {
+    private removeItem = reference => {
 
         // unhook from domain
         let parmblock:DocTokenStruc = {reference}
@@ -38,7 +38,7 @@ const typepackCache = new class {
 
     }
 
-    getItem = reference => { // type reference
+    private getItem = reference => { // type reference
         let cacheitem
 
         if (this.cache.has(reference)) {
@@ -114,6 +114,13 @@ const typepackCache = new class {
 
         }
 
+    }
+
+    getCacheDocpack = reference => {
+
+        let cacheitem = this.getItem(reference)
+        let docpack:DocPackStruc = cacheitem?cacheitem.docpack:{}
+        return docpack
     }
 
 }

@@ -65,6 +65,11 @@ const typepackCache = new class {
                 }
             }
         };
+        this.getCacheDocpack = reference => {
+            let cacheitem = this.getItem(reference);
+            let docpack = cacheitem ? cacheitem.docpack : {};
+            return docpack;
+        };
     }
 };
 export default typepackCache;

@@ -59,27 +59,6 @@ const docpackCache = new class {
             }
             return cacheitem;
         };
-        this.getCacheDocpack = reference => {
-            let cacheitem = docpackCache.getItem(reference);
-            let docpack = cacheitem ? cacheitem.docpack : {};
-            return docpack;
-        };
-        this.getCacheDocpackPair = reference => {
-            let cacheitem = docpackCache.getItem(reference);
-            let docpack = cacheitem ? cacheitem.docpack : {};
-            let typepack = null;
-            let typeref = null;
-            if (docpack.document) {
-                typeref = docpack.document.identity.type;
-                let cacheItem = typepackCache.getItem(typeref);
-                typepack = cacheItem.docpack;
-            }
-            let cachedata = {
-                docpack,
-                typepack,
-            };
-            return cachedata;
-        };
         /*
             callback from gateway. This sets or updates the document value, and calls
             callbacks registered for the document. Since every document requires a type,
@@ -110,13 +89,48 @@ const docpackCache = new class {
                 this.processListeners(docpack.reference, reason);
             }
         };
+        this.addListener = (reference, instanceid, callback) => {
+            let cacheitem = this.getItem(reference);
+            cacheitem.listeners.set(instanceid, callback);
+        };
+        this.removeListener = (reference, instanceid) => {
+            if (!this.cache.has(reference))
+                return;
+            let cacheitem = this.cache.get(reference);
+            if (cacheitem.listeners) {
+                cacheitem.listeners.delete(instanceid);
+                if (cacheitem.listeners.size == 0) {
+                    this.removeItem(reference); // filter by cache size?
+                }
+            }
+        };
+        this.getCacheDocpack = reference => {
+            let cacheitem = this.getItem(reference);
+            let docpack = cacheitem ? cacheitem.docpack : {};
+            return docpack;
+        };
+        this.getCacheDocpackPair = reference => {
+            let cacheitem = this.getItem(reference);
+            let docpack = cacheitem ? cacheitem.docpack : {};
+            let typepack = null;
+            let typeref = null;
+            if (docpack.document) {
+                typeref = docpack.document.identity.type;
+                typepack = typepackCache.getCacheDocpack(typeref);
+            }
+            let cachedata = {
+                docpack,
+                typepack,
+            };
+            return cachedata;
+        };
         /*
             processes a document's callbacks, whether called as the result of a
             document update from the gateway, or a document's type update from the gateway.
             listeners are not updated if there is not yet a type, or a type cache item
         */
         this.processListeners = (reference, reason) => {
-            let documentcacheitem = docpackCache.getItem(reference);
+            let documentcacheitem = this.getItem(reference);
             let { docpack, listeners } = documentcacheitem;
             listeners.forEach((callback, key) => {
                 let slist = sentinels[key];
@@ -128,7 +142,7 @@ const docpackCache = new class {
             });
         };
         this.processPairListeners = (reference, reason) => {
-            let documentcacheitem = docpackCache.getItem(reference);
+            let documentcacheitem = this.getItem(reference);
             let { docpack, typepack } = this.getCacheDocpackPair(reference);
             if (typepack) {
                 let result = typefilter.assertType(docpack.document, typepack.document);
@@ -145,21 +159,6 @@ const docpackCache = new class {
                         callback(parmblock);
                     }
                 });
-            }
-        };
-        this.addListener = (reference, instanceid, callback) => {
-            let cacheitem = this.getItem(reference);
-            cacheitem.listeners.set(instanceid, callback);
-        };
-        this.removeListener = (reference, instanceid) => {
-            if (!this.cache.has(reference))
-                return;
-            let cacheitem = this.cache.get(reference);
-            if (cacheitem.listeners) {
-                cacheitem.listeners.delete(instanceid);
-                if (cacheitem.listeners.size == 0) {
-                    this.removeItem(reference); // filter by cache size?
-                }
             }
         };
     }
