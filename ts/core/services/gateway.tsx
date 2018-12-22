@@ -26,13 +26,16 @@ import {
     SetDocumentMessage, 
     GetCollectionMessage, 
     DocPackStruc,
-    ReturnDocPackMessage
+    ReturnDocPackMessage,
+    RemoveGatewayListenerMessage,
 } from './interfaces'
 
 let firestore = firebase.firestore()
 
-const setGatewayListener = ({reference, success, failure}:GetDocumentMessage) => {
+const setGatewayListener = (parmblock:GetDocumentMessage) => {
     let data
+
+    let {reference, success, failure} = parmblock
 
     if (!reference) {
 
@@ -42,6 +45,16 @@ const setGatewayListener = ({reference, success, failure}:GetDocumentMessage) =>
 
         let refsplit = reference.split('/')
         let collection = refsplit[1]
+
+        switch (collection) {
+            case 'system': {
+
+                getSnapshot(parmblock)
+                return
+
+            }
+        }
+
         let id = refsplit[2]
         if (collection == 'lists')
             data = lists[id]
@@ -64,8 +77,45 @@ const setGatewayListener = ({reference, success, failure}:GetDocumentMessage) =>
     // },1000)
 }
 
-const removeGatewayListener = ({reference}) => {
+const snapshotUnsubscribes = {}
 
+const getSnapshot = ({reference, success, failure}:GetDocumentMessage) => {
+
+    if (snapshotUnsubscribes[reference]) {
+
+        throw 'Error: ' + reference + ' is already subscribed'
+
+    }
+
+    let docref = firestore.doc(reference)
+    snapshotUnsubscribes[reference] = docref.onSnapshot(doc => {
+
+        let docpack:DocPackStruc = {
+            document:doc.data(),
+            reference,
+        }
+        let msg:ReturnDocPackMessage = {
+            docpack,
+            reason:{}
+        }
+        success(msg)
+
+    })
+}
+
+const removeGatewayListener = ({reference}:RemoveGatewayListenerMessage) => {
+
+    let refsplit = reference.split('/')
+    let collection = refsplit[1]
+
+    switch (collection) {
+        case 'system': {
+
+            snapshotUnsubscribes[reference]()
+            delete snapshotUnsubscribes[reference]
+
+        }
+    }
 }
 
 const getDocument = ({reference, success, failure}:GetDocumentMessage) => {
