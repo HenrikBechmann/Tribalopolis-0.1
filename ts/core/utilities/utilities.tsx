@@ -1,6 +1,9 @@
 // utilities.tsx
+// copyright (c) 2018 Henrik Bechmann, Toronto, Licence: GPL-3.0-or-later
 
 // declare var fetch
+
+'use strict'
 
 const getJsonFile = (spec) => {
     let promise = new Promise((resolve, error) => {

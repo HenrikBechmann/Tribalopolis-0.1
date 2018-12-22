@@ -1,6 +1,6 @@
 // scrollcontrols.view.tsx
 
-// copyright (c) 2017 Henrik Bechmann, Toronto, MIT Licence
+// copyright (c) 2017 Henrik Bechmann, Toronto, Licence: GPL-3.0-or-later
 
 // these are the left/right custom arrows that appear when there is a list overflow
 

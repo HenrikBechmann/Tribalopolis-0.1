@@ -1,3 +1,4 @@
+// copyright (c) 2018 Henrik Bechmann, Toronto, Licence: GPL-3.0-or-later
 /*
     Consider including a TOKEN (summary) with each document for lists
 */

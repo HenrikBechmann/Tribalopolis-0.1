@@ -1,4 +1,5 @@
 // datamodel.tsx
+// copyright (c) 2018 Henrik Bechmann, Toronto, MIT Licence
 /*
 
     THIS IS JUST A PROTOTYPE AND IS OUT OF USE September 2018
@@ -13,6 +14,8 @@
     TODO:
         - trigger subscriptions to containerstore with changes
 */
+
+'use strict'
 
 import domain from './gateway'
 

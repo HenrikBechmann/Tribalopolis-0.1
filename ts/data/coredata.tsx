@@ -1,4 +1,4 @@
-// copyright (c) 2016 Henrik Bechmann, Toronto, MIT Licence
+// copyright (c) 2018 Henrik Bechmann, Toronto, Licence: GPL-3.0-or-later
 
 'use strict'
 

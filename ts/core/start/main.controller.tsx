@@ -1,5 +1,5 @@
-// copyright (c) 2018 Henrik Bechmann, Toronto, MIT Licence
 // main.controller.tsx
+// copyright (c) 2018 Henrik Bechmann, Toronto, Licence: GPL-3.0-or-later
 
 /*
     bootstrap:

@@ -1,5 +1,5 @@
 // domain.tsx
-// copyright (c) 2018 Henrik Bechmann, Toronto, MIT Licence
+// copyright (c) 2018 Henrik Bechmann, Toronto, Licence: GPL-3.0-or-later
 /*
     This is a gateway to the underlaying domain data
     It is accessed by services
@@ -14,6 +14,8 @@
 
     firebase promises are fetched based on database DOCUMENT TOKENS
 */
+
+'use strict'
 
 // temporary for transiition
 import { schemes, types, items, lists, links, folders, accounts } from '../../data/repositories'
