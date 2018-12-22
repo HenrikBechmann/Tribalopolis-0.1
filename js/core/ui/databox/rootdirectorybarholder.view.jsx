@@ -37,8 +37,8 @@ class RootDirectoryBarHolder extends React.Component {
             // console.log('caching item',document)
             this.setState({
                 item: {
-                    document: docpack.document,
-                    type: typepack.document
+                    docpack,
+                    typepack,
                 }
             });
         };
@@ -64,7 +64,7 @@ class RootDirectoryBarHolder extends React.Component {
         let listProxy;
         if (this.state.item) {
             let listtoken = {
-                reference: '/lists/' + this.state.item.document.references.list,
+                reference: '/lists/' + this.state.item.docpack.document.references.list,
             };
             listProxy = new docproxy({ doctoken: listtoken });
         }
