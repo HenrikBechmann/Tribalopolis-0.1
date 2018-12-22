@@ -1,5 +1,5 @@
 // domain.tsx
-// copyright (c) 2018 Henrik Bechmann, Toronto, Licence: GPL-3.0-or-later
+// copyright (c) 2019 Henrik Bechmann, Toronto, Licence: GPL-3.0-or-later
 /*
     This is a gateway to the underlaying domain data
     It is accessed by services
