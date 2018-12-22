@@ -1,1 +1,0 @@
-{"version":3,"file":"serializer.jsx","sourceRoot":"","sources":["../../../ts/core/utilities/serializer.tsx"],"names":[],"mappings":"AAAA,iBAAiB;AAEjB,IAAI,YAAY,GAAG,CAAC,CAAA;AAEpB,IAAI,UAAU,GAAG;IACb,KAAK,EAAC,GAAG,EAAE;QACP,OAAO,YAAY,EAAE,CAAA;IACzB,CAAC;CACJ,CAAA;AAED,OAAO,EAAC,UAAU,EAAC,CAAA"}
