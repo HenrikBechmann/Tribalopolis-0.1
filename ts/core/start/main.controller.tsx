@@ -56,7 +56,9 @@ import { toast } from 'react-toastify'
 
 import { withStyles, createStyles } from '@material-ui/core/styles'
 
-import { GetDocumentMessage, ReturnDocPackMessage } from '../services/interfaces'
+import { GetDocumentMessage, SetListenerMessage, ReturnDocPackMessage } from '../services/interfaces'
+
+import docProxy from '../utilities/docproxy'
 
 let styles = createStyles({
     mainviewstyle: {
@@ -104,6 +106,8 @@ class Main extends React.Component<any,any> {
             reject:null,
         },
     }
+
+    systemDocProxy = new docProxy({doctoken:{reference:'/system/parameters'}})
 
     setSystemPromise = () => {
 
@@ -229,17 +233,20 @@ class Main extends React.Component<any,any> {
 
     getSystemDocument = () => {
 
-        let parm:GetDocumentMessage = {
-            reference:'/system/parameters',
+        let parm:SetListenerMessage = {
+            doctoken:this.systemDocProxy.doctoken,
+            instanceid:this.systemDocProxy.instanceid,
             success:this.systemDocumentSuccess,
             failure:this.systemDocumentFailure,
         }
 
-        application.getDocument(parm)
+        application.setDocpackListener(parm)
 
     }
 
     systemDocumentSuccess = ({docpack, reason}:ReturnDocPackMessage) => {
+
+        if (!docpack) return
 
         console.log('system from systemDocumentSuccess',docpack)
 
