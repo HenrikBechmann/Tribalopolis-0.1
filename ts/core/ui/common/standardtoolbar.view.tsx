@@ -10,6 +10,7 @@ import { withStyles, createStyles } from '@material-ui/core/styles'
 import Icon from '@material-ui/core/Icon'
 
 import UserDataContext from '../../services/userdata.context'
+import SystemDataContext from '../../services/systemdata.context'
 import ToolsStrip from './toolsstrip.view'
 import VerticalDivider from './verticaldivider.view'
 
@@ -37,6 +38,8 @@ const StandardToolbar = (props) => {
     let { classes } = props
     return (
         <div>
+            <SystemDataContext.Consumer>
+            { parameters => (
             <UserDataContext.Consumer>
             { userdata => (
                 <ToolsStrip
@@ -51,12 +54,14 @@ const StandardToolbar = (props) => {
                         </Icon>
                         <div 
                             className = { classes.name }>
-                            Tribalopolis is a virtual city of tribes
+                            {parameters?parameters.tagline:'loading...'}
                         </div>
                     </div>
                 </ToolsStrip>)
             }
             </UserDataContext.Consumer>
+            )}
+            </SystemDataContext.Consumer>
             <div className = {classes.spacer} ></div>
         </div>
     )
