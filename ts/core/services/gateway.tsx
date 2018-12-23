@@ -51,10 +51,10 @@ const setGatewayListener = (parmblock:GetDocumentMessage) => {
         switch (collection) {
             case 'system': {
 
-                console.log('refsplit, collection in setGatewayListener',refsplit,collection)
+                // console.log('refsplit, collection in setGatewayListener',refsplit,collection)
 
                 getSnapshot(parmblock)
-                console.log('return from callkng getSnapshot')
+                // console.log('return from callkng getSnapshot')
                 return
 
             }
@@ -94,7 +94,7 @@ const getSnapshot = (parmblock:GetDocumentMessage) => {
 
     }
 
-    console.log('getSnapshot',parmblock)
+    // console.log('getSnapshot',parmblock)
 
     let docref = firestore.doc(reference)
     snapshotUnsubscribes[reference] = docref.onSnapshot(doc => {
@@ -108,7 +108,7 @@ const getSnapshot = (parmblock:GetDocumentMessage) => {
             reason:{}
         }
 
-        console.log('return getSnapshot',msg)
+        // console.log('return getSnapshot',msg)
         success(msg)
 
     })
