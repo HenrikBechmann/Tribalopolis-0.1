@@ -66,7 +66,6 @@ let styles = createStyles({
     }
 })
 
-
 @DragDropContext(DnDBackend)
 class Main extends React.Component<any,any> {
 
@@ -254,10 +253,6 @@ class Main extends React.Component<any,any> {
     systemDocumentSuccess = ({docpack, reason}:ReturnDocPackMessage) => {
 
         console.log('systemDocumentSuccess CALLED', docpack)
-
-        if (!docpack) return
-
-        console.log('system from systemDocumentSuccess',docpack)
 
         if ((!this.state.systempack) || this.updatinguserdata) {
 

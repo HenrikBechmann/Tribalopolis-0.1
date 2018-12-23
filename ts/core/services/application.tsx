@@ -136,18 +136,22 @@ const appManager = new class {
 
             let docpack:DocPackStruc = docpackCache.getCacheDocpack(reference)
 
-            let parmblock:ReturnDocPackMessage = {
-                docpack, 
-                reason:{
-                    documents:{
-                        reason:'newcallback',
-                        document:true, 
-                        type:true,
+            if (docpack) { // defer if waiting for docpack
+
+                let parmblock:ReturnDocPackMessage = {
+                    docpack, 
+                    reason:{
+                        documents:{
+                            reason:'newcallback',
+                            document:true, 
+                            type:true,
+                        }
                     }
                 }
-            }
 
-            success(parmblock)
+                success(parmblock)
+
+            }
 
         })
 
