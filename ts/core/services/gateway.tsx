@@ -37,6 +37,8 @@ const setGatewayListener = (parmblock:GetDocumentMessage) => {
 
     let {reference, success, failure} = parmblock
 
+    // console.log('setGatewayListener', parmblock)
+
     if (!reference) {
 
         data = null
@@ -49,7 +51,10 @@ const setGatewayListener = (parmblock:GetDocumentMessage) => {
         switch (collection) {
             case 'system': {
 
+                console.log('refsplit, collection in setGatewayListener',refsplit,collection)
+
                 getSnapshot(parmblock)
+                console.log('return from callkng getSnapshot')
                 return
 
             }
@@ -79,13 +84,17 @@ const setGatewayListener = (parmblock:GetDocumentMessage) => {
 
 const snapshotUnsubscribes = {}
 
-const getSnapshot = ({reference, success, failure}:GetDocumentMessage) => {
+const getSnapshot = (parmblock:GetDocumentMessage) => {
+
+    let {reference, success, failure} = parmblock
 
     if (snapshotUnsubscribes[reference]) {
 
         throw 'Error: ' + reference + ' is already subscribed'
 
     }
+
+    console.log('getSnapshot',parmblock)
 
     let docref = firestore.doc(reference)
     snapshotUnsubscribes[reference] = docref.onSnapshot(doc => {
@@ -98,6 +107,8 @@ const getSnapshot = ({reference, success, failure}:GetDocumentMessage) => {
             docpack,
             reason:{}
         }
+
+        console.log('return getSnapshot',msg)
         success(msg)
 
     })
@@ -110,6 +121,8 @@ const removeGatewayListener = ({reference}:RemoveGatewayListenerMessage) => {
 
     switch (collection) {
         case 'system': {
+
+            console.log('removing system listener', reference)
 
             snapshotUnsubscribes[reference]()
             delete snapshotUnsubscribes[reference]

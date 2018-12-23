@@ -109,6 +109,13 @@ class Main extends React.Component<any,any> {
 
     systemDocProxy = new docProxy({doctoken:{reference:'/system/parameters'}})
 
+    componentWillUnmount() {
+        application.removeDocpackListener({
+            doctoken:this.systemDocProxy.doctoken,
+            instanceid:this.systemDocProxy.instanceid
+        })
+    }
+
     setSystemPromise = () => {
 
         this.systemPromise = new Promise((resolvesystem, rejectsystem) => {
@@ -245,6 +252,8 @@ class Main extends React.Component<any,any> {
     }
 
     systemDocumentSuccess = ({docpack, reason}:ReturnDocPackMessage) => {
+
+        console.log('systemDocumentSuccess CALLED', docpack)
 
         if (!docpack) return
 
