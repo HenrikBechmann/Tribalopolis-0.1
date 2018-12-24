@@ -23,6 +23,7 @@ import quadanimations from './quadrant/quadanimations.class'
 import quadoperations from './quadrant/quadoperations.class'
 
 import { DocTokenStruc } from '../services/interfaces'
+import UserDataContext from '../services/userdata.context'
 
 let styles = createStyles({
    quadcontent: {
@@ -389,27 +390,35 @@ class Quadrant extends React.Component<any,any>  {
                     className = {classes.viewport}
                     style = {viewportStyle}
                     ref = {this.scrollboxelement}
-                >{!isempty?
-                    haspeers
-                        ?<Lister 
-                            axis = 'x'
-                            itemRenderer = {this.getBox}
-                            length = { 
-                                datastack?datastack[this.state.stackpointer].items.length:0
-                            }
-                            type = 'uniform'
-                            ref = {this.listcomponent}
-                            useStaticSize
-                            threshold = {800}
-                         />
-                        :this.getBox(0,'singleton')
-                    :
-                    <div className = {classes.startscreen}
-                        onClick = {this.setDefault}
-                    >
-                        <div>Tap to start</div>
-                    </div>
-                }
+                >
+                <UserDataContext.Consumer>
+                { userdata => {
+                    return (userdata?
+                         (!isempty?(
+                            haspeers
+                                ?<Lister 
+                                    axis = 'x'
+                                    itemRenderer = {this.getBox}
+                                    length = { 
+                                        datastack?datastack[this.state.stackpointer].items.length:0
+                                    }
+                                    type = 'uniform'
+                                    ref = {this.listcomponent}
+                                    useStaticSize
+                                    threshold = {800}
+                                 />
+                                :this.getBox(0,'singleton')
+                            )
+                        :
+                        <div className = {classes.startscreen}
+                            onClick = {this.setDefault}
+                        >
+                            <div>Tap to start</div>
+                        </div>)
+                    :<div className = {classes.startscreen}>Sign in to use this utility</div>
+                    )
+                }}
+                </UserDataContext.Consumer>
                 </div>
             }
             </div>
