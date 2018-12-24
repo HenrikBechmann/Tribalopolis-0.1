@@ -216,7 +216,7 @@ class Main extends React.Component<any,any> {
                     systempack,
                     accountpack:null,
                 },() => {
-                    toast.info('not signed in')
+                    toast.info('signed out')
                 })
 
             }).catch(error => {

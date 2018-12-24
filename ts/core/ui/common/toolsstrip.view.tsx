@@ -174,7 +174,7 @@ class QuadToolsStrip extends React.Component<any,any> {
                     fontSize:'smaller',
                     color:'cadetblue',
                 }}>
-                {this.state.user?this.state.user.displayName:'not signed in'}
+                {this.state.user?this.state.user.displayName:'signed out'}
             </div>
             <Menu
                 id="simple-menu"
