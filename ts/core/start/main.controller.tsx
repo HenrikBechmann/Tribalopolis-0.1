@@ -72,7 +72,7 @@ class Main extends React.Component<any,any> {
     constructor(props) {
 
         super(props)
-        toast.info('resolving login status...')
+        toast.info('resolving sign-in status...')
         authapi.setUpdateCallback(this.updateLoginData) 
 
     }
@@ -157,15 +157,15 @@ class Main extends React.Component<any,any> {
 
         if (login) {
 
-            if (!this.state.login) {
+            // if (!this.state.login) {
 
-                toast.success(`signed in as ${login.displayName}`,{autoClose:2500})
+            //     toast.success(`signed in as ${login.displayName}`,{autoClose:2500})
 
-            } else {
+            // } else {
 
-                toast.success(`updated data for ${login.displayName}`,{autoClose:2500})
+            //     toast.success(`updated data for ${login.displayName}`,{autoClose:2500})
 
-            }
+            // }
 
             this.setLoginPromises() 
 
@@ -183,6 +183,8 @@ class Main extends React.Component<any,any> {
                     userpack:values[0],
                     accountpack:values[1],
                     systempack:values[2],
+                }, () => {
+                    toast.success(`signed in as ${login.displayName}`,{autoClose:2500})
                 })
 
             }).catch(error => {
@@ -213,6 +215,8 @@ class Main extends React.Component<any,any> {
                     userpack:null,
                     systempack,
                     accountpack:null,
+                },() => {
+                    toast.info('not signed in')
                 })
 
             }).catch(error => {
@@ -256,12 +260,12 @@ class Main extends React.Component<any,any> {
 
         if ((!this.state.systempack) || this.updatinguserdata) {
 
-            toast.success('setting system data')
+            // toast.success('setting system data')
             this.promises.system.resolve(docpack)
 
         } else {
 
-            toast.success('updating system data')
+            toast.success('updated system data')
             this.setState({
                 systempack:docpack,
             })
@@ -287,6 +291,7 @@ class Main extends React.Component<any,any> {
             failure:this.userDocumentFailure,
         }
         application.queryForDocument(parms)
+        // application.setDocpackPairListenerByQuery(parms)
 
     }
 
@@ -296,7 +301,7 @@ class Main extends React.Component<any,any> {
 
         if ((!this.state.userpack) || this.updatinguserdata) {
 
-            toast.success('setting user record')
+            // toast.success('setting user record')
             this.promises.user.resolve(docpack)
             this.getAccountDocument(docpack.document.identity.account)
 
@@ -304,6 +309,8 @@ class Main extends React.Component<any,any> {
 
             this.setState({
                 userpack:docpack,
+            }, () => {
+                toast.info('updated member data')
             })
         }
 
@@ -326,12 +333,13 @@ class Main extends React.Component<any,any> {
             failure:this.userAccountFailure
         }
         application.getDocument(parm)
+        // application.setDocpackPairListener(parm)
 
     }
 
     userAccountSuccess = ({docpack, reason}:ReturnDocPackMessage) => {
 
-        console.log('account from accountDocumentSuccess',docpack)
+        // console.log('account from accountDocumentSuccess',docpack)
 
         if (!docpack) {
 
@@ -342,13 +350,15 @@ class Main extends React.Component<any,any> {
 
         if ((!this.state.accountpack) || this.updatinguserdata) {
 
-            toast.success('setting account record')
+            // toast.success('setting account record')
             this.promises.account.resolve(docpack)
 
         } else {
 
             this.setState({
                 accountpack:docpack,
+            }, () => {
+                toast.info('updated account data')
             })
 
         }
