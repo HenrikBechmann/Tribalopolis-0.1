@@ -18,9 +18,12 @@ class docproxy {
         this.instanceid = serializer.getid()
         let refsplit = doctoken.reference.split('/')
         // console.log('refsplit in docproxy',refsplit)
-        if (refsplit[1] == 'items') {
+        if (data.liststack) {
             this.liststack = data.liststack || []
         }
+        // if (refsplit[1] == 'localitems') { // TODO: TEMPORARY
+        //     this.liststack = data.liststack || []
+        // }
         this.reference = doctoken.reference //`/${doctoken.collection}/${doctoken.id}`
         this.id = refsplit[refsplit.length - 1]
     }

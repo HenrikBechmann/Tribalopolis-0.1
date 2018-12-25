@@ -56,7 +56,12 @@ import { toast } from 'react-toastify'
 
 import { withStyles, createStyles } from '@material-ui/core/styles'
 
-import { GetDocumentMessage, SetListenerMessage, ReturnDocPackMessage } from '../services/interfaces'
+import { 
+    GetDocumentMessage, 
+    SetListenerMessage, 
+    ReturnDocPairMessage,
+    ReturnDocPackMessage, 
+} from '../services/interfaces'
 
 import docProxy from '../utilities/docproxy'
 
@@ -109,6 +114,11 @@ class Main extends React.Component<any,any> {
     systemDocProxy = new docProxy({doctoken:{reference:'/system/parameters'}})
 
     componentWillUnmount() {
+        this.userDocProxy && application.removeDocpackListener({
+            doctoken:this.userDocProxy.doctoken,
+            instanceid:this.userDocProxy.instanceid
+        })
+
         application.removeDocpackListener({
             doctoken:this.systemDocProxy.doctoken,
             instanceid:this.systemDocProxy.instanceid
@@ -156,16 +166,6 @@ class Main extends React.Component<any,any> {
         this.updatinguserdata = true
 
         if (login) {
-
-            // if (!this.state.login) {
-
-            //     toast.success(`signed in as ${login.displayName}`,{autoClose:2500})
-
-            // } else {
-
-            //     toast.success(`updated data for ${login.displayName}`,{autoClose:2500})
-
-            // }
 
             this.setLoginPromises() 
 
@@ -295,9 +295,35 @@ class Main extends React.Component<any,any> {
 
     }
 
+    userDocProxy = null
+
     userDocumentSuccess = ({docpack, reason}:ReturnDocPackMessage) => {
 
         console.log('user from userDocumentSuccess',docpack)
+
+        this.userDocProxy = new docProxy({doctoken:{reference:docpack.reference}})
+        console.log('userDocumentSuccess',docpack,this.userDocProxy)
+        let parmblock:SetListenerMessage = {
+            doctoken:this.userDocProxy.doctoken,
+            instanceid:this.userDocProxy.instanceid,
+            success:this.userDocumentPairSuccess,
+            failure:this.userDocumentFailure,
+        }
+
+        application.setDocpackPairListener(parmblock)
+
+    }
+
+    userDocumentFailure = error => {
+
+        toast.error('unable to get user data (' + error + ')')
+        this.promises.user.reject('unable to get user data (' + error + ')')
+
+    }
+
+    userDocumentPairSuccess = ({docpack,typepack,reason}:ReturnDocPairMessage) => {
+
+        console.log('userDocumentPairSuccess',docpack,typepack)
 
         if ((!this.state.userpack) || this.updatinguserdata) {
 
@@ -313,13 +339,6 @@ class Main extends React.Component<any,any> {
                 toast.info('updated member data')
             })
         }
-
-    }
-
-    userDocumentFailure = error => {
-
-        toast.error('unable to get user data (' + error + ')')
-        this.promises.user.reject('unable to get user data (' + error + ')')
 
     }
 

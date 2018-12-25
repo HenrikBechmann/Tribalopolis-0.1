@@ -18,7 +18,7 @@
 'use strict'
 
 // temporary for transiition
-import { schemes, types, items, lists, links, folders, accounts } from '../../data/repositories'
+import { schemes, localtypes, localitems, lists, links, folders, accounts } from '../../data/repositories'
 
 import firebase from './firebase.api'
 import { 
@@ -37,7 +37,7 @@ const setGatewayListener = (parmblock:GetDocumentMessage) => {
 
     let {reference, success, failure} = parmblock
 
-    // console.log('setGatewayListener', parmblock)
+    console.log('setGatewayListener', parmblock)
 
     if (!reference) {
 
@@ -49,9 +49,12 @@ const setGatewayListener = (parmblock:GetDocumentMessage) => {
         let collection = refsplit[1]
 
         switch (collection) {
+            case 'types':
+            case 'accounts':
+            case 'users':
             case 'system': {
 
-                // console.log('refsplit, collection in setGatewayListener',refsplit,collection)
+                console.log('refsplit, collection in setGatewayListener',refsplit,collection)
 
                 getSnapshot(parmblock)
                 // console.log('return from callkng getSnapshot')
@@ -63,10 +66,10 @@ const setGatewayListener = (parmblock:GetDocumentMessage) => {
         let id = refsplit[2]
         if (collection == 'lists')
             data = lists[id]
-        else if (collection == 'items')
-            data = items[id]
-        else if (collection == 'types')
-            data = types[id]
+        else if (collection == 'localitems')
+            data = localitems[id]
+        else if (collection == 'localtypes')
+            data = localtypes[id]
         else {
             throw 'unrecognized collection: ' + collection
             data = null
@@ -120,6 +123,9 @@ const removeGatewayListener = ({reference}:RemoveGatewayListenerMessage) => {
     let collection = refsplit[1]
 
     switch (collection) {
+        case 'types':
+        case 'accounts':
+        case 'users':
         case 'system': {
 
             console.log('removing system listener', reference)
@@ -185,7 +191,7 @@ const queryForDocument = ({reference, whereclauses, success, failure}:GetDocumen
         let docs:DocPackStruc[] = []
         querySnapshot.forEach(dbdocpack => {
             let doc:DocPackStruc = {
-                reference:reference + '/' + dbdocpack.id,
+                reference:'/' + reference + '/' + dbdocpack.id,
                 // id:document.id,
                 document:dbdocpack.data()
             }
@@ -221,7 +227,7 @@ const getCollection = ({reference, success, failure}:GetCollectionMessage) => {
             let result:DocPackStruc[] = []
             querySnapshot.forEach(document => {
                 let doc:DocPackStruc = {
-                    reference:reference + '/' + document.id,
+                    reference:'/' + reference + '/' + document.id,
                     document:document.data()
                 }
                 result.push(doc)

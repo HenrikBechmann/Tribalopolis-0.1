@@ -97,6 +97,7 @@ class DataBox extends React.Component<any,any> {
 
     constructor(props) {
         super(props)
+        console.log('databox constructor',props)
         this.boxframe = React.createRef()
         this.listcomponent = React.createRef()
         this.itemProxy = this.props.itemProxy

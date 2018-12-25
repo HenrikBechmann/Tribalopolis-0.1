@@ -174,6 +174,7 @@ const docpackCache = new class {
     */
     updateItem = ( {docpack, reason}:ReturnDocPackMessage ) => {
 
+        console.log('docpackcache updateItem',docpack)
         // set or update document
         let cacheitem = this.getItem(docpack.reference)
 
@@ -187,7 +188,7 @@ const docpackCache = new class {
 
             let oldtyperef = olddocpack? olddocpack.document.identity.type:null
 
-            let typeref = docpack.document.identity.type; // all documents have a type
+            let typeref = docpack.document.identity.type.reference; // all documents have a type
 
             (oldtyperef && (oldtyperef != typeref)) && typepackCache.removeListener(oldtyperef,docpack.reference)
 
@@ -244,13 +245,13 @@ const docpackCache = new class {
     getCacheDocpackPair = reference => {
 
         let cacheitem = this.getItem(reference)
-        let docpack:DocPackStruc = cacheitem?cacheitem.docpack:{}
+        let docpack:DocPackStruc = (cacheitem && cacheitem.docpack)?cacheitem.docpack:{}
         let typepack:DocPackStruc = null
         let typeref = null
 
         if (docpack.document) {
 
-            typeref = docpack.document.identity.type
+            typeref = docpack.document.identity.type.reference
 
             typepack = typepackCache.getCacheDocpack(typeref)
 
