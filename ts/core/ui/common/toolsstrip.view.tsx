@@ -67,6 +67,7 @@ class QuadToolsStrip extends React.Component<any,any> {
     componentDidUpdate() {
         this.setState((state,props) => {
             if (props.user != state.user) {
+                // console.log('toolsstrip state, props',state,props)
                 return {
                     user:props.user,
                 }
@@ -160,6 +161,7 @@ class QuadToolsStrip extends React.Component<any,any> {
 
     accountmenu = (classes) => {
         const { accountAnchorElement } = this.state
+        // console.log('accountmenu',this.state.user)
         return <div style = {{display:'inline-block',verticalAlign:'middle',position:'relative'}}>
             <IconButton 
                 aria-owns={accountAnchorElement ? 'simple-menu' : null}
@@ -174,7 +176,7 @@ class QuadToolsStrip extends React.Component<any,any> {
                     fontSize:'smaller',
                     color:'cadetblue',
                 }}>
-                {this.state.user?this.state.user.displayName:'signed out'}
+                {this.state.user?this.state.user.userpack.document.properties.username:'signed out'}
             </div>
             <Menu
                 id="simple-menu"

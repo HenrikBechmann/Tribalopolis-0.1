@@ -347,7 +347,7 @@ class Main extends React.Component<any,any> {
 
     userDocumentPairSuccess = ({docpack,typepack,reason}:ReturnDocPairMessage) => {
 
-        console.log('userDocumentPairSuccess',docpack,typepack)
+        console.log('userDocumentPairSuccess',docpack,typepack, this.state.userpack, this.updatinguserdata)
 
         this.userTypePack = typepack
 
@@ -368,6 +368,12 @@ class Main extends React.Component<any,any> {
                 })
             }
 
+        } else {
+            this.setState({
+                userpack:docpack,
+            }, () => {
+                toast.info('updated user data')
+            })
         }
 
     }
@@ -380,7 +386,7 @@ class Main extends React.Component<any,any> {
         let parm:SetListenerMessage = {
             doctoken:this.accountDocProxy.doctoken,
             instanceid:this.accountDocProxy.instanceid,
-            success:this.userAccountSuccess, 
+            success:this.userAccountPairSuccess, 
             failure:this.userAccountFailure
         }
         // application.getDocument(parm)
@@ -388,9 +394,9 @@ class Main extends React.Component<any,any> {
 
     }
 
-    userAccountTypePack
+    userAccountTypePack = null
 
-    userAccountSuccess = (docpack,typepack, reason) => {
+    userAccountPairSuccess = ({docpack,typepack, reason}:ReturnDocPairMessage) => {
 
         console.log('account from accountDocumentSuccess',docpack, typepack)
 
@@ -452,6 +458,8 @@ class Main extends React.Component<any,any> {
             }
 
         }
+
+        console.log('userdata in main.controller',userdata)
 
         let systemdata = this.state.systempack?this.state.systempack.document:null
 

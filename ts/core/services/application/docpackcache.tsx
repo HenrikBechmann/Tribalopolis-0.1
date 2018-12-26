@@ -280,6 +280,8 @@ const docpackCache = new class {
             typepack,
         }
 
+        // console.log('getCacheDocpackPair',reference, cachedata)
+
         return cachedata
 
     }
