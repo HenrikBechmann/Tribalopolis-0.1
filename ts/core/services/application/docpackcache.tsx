@@ -235,6 +235,23 @@ const docpackCache = new class {
 
     }
 
+    isListener = (reference,instanceid) => {
+
+        if (!this.cache.has(reference)) {
+            return false
+        }
+
+        let cacheitem = this.cache.get(reference)
+
+        if (cacheitem.listeners) {
+
+            return cacheitem.listeners.has(instanceid)
+
+        } else {
+            return false
+        }   
+    }
+
     getCacheDocpack = reference => {
 
         let cacheitem = this.getItem(reference)
@@ -251,6 +268,7 @@ const docpackCache = new class {
 
         if (docpack.document) {
 
+            // TODO this next two lines should become errors if no typeref or type found
             typeref = docpack.document.identity.type?docpack.document.identity.type.reference:null
 
             typepack = typeref?typepackCache.getCacheDocpack(typeref):{} as DocPackStruc

@@ -79,7 +79,7 @@ class Main extends React.Component<any,any> {
         super(props)
         toast.info('resolving sign-in status...')
         authapi.setUpdateCallback(this.updateLoginData) 
-
+ 
     }
 
     state = {
@@ -89,6 +89,8 @@ class Main extends React.Component<any,any> {
         userpack:null,
         accountpack:null,
     }
+
+    mounted = false
 
     systemPromise
     userPromise
@@ -113,16 +115,24 @@ class Main extends React.Component<any,any> {
 
     systemDocProxy = new docProxy({doctoken:{reference:'/system/parameters'}})
 
+    // This is notional. componentWillUnmount not run in most conditions on page refresh
     componentWillUnmount() {
-        this.userDocProxy && application.removeDocpackListener({
-            doctoken:this.userDocProxy.doctoken,
-            instanceid:this.userDocProxy.instanceid
-        })
 
         application.removeDocpackListener({
             doctoken:this.systemDocProxy.doctoken,
             instanceid:this.systemDocProxy.instanceid
         })
+
+        this.userDocProxy && application.removeDocpackListener({
+            doctoken:this.userDocProxy.doctoken,
+            instanceid:this.userDocProxy.instanceid
+        })
+
+        this.accountDocProxy && application.removeDocpackListener({
+            doctoken:this.accountDocProxy.doctoken,
+            instanceid:this.accountDocProxy.instanceid
+        })
+
     }
 
     setSystemPromise = () => {
@@ -209,6 +219,8 @@ class Main extends React.Component<any,any> {
 
                 this.updatinguserdata = false
 
+                this.userTypePack = null
+                this.userAccountTypePack = null
                 this.setState({
                     login:null,
                     userProviderData:null,
@@ -225,6 +237,8 @@ class Main extends React.Component<any,any> {
 
                 toast.error('unable to set system data ' + error)
 
+                this.userTypePack = null
+                this.userAccountTypePack = null
                 this.setState({
                     login:null,
                     userProviderData:null,
@@ -243,14 +257,19 @@ class Main extends React.Component<any,any> {
 
     getSystemDocument = () => {
 
-        let parm:SetListenerMessage = {
-            doctoken:this.systemDocProxy.doctoken,
-            instanceid:this.systemDocProxy.instanceid,
-            success:this.systemDocumentSuccess,
-            failure:this.systemDocumentFailure,
-        }
+        let reference = this.systemDocProxy.doctoken.reference
+        let instanceid = this.systemDocProxy.instanceid
 
-        application.setDocpackListener(parm)
+        if (!application.docpackIsListener(reference,instanceid)) {
+            let parm:SetListenerMessage = {
+                doctoken:this.systemDocProxy.doctoken,
+                instanceid:this.systemDocProxy.instanceid,
+                success:this.systemDocumentSuccess,
+                failure:this.systemDocumentFailure,
+            }
+
+            application.setDocpackListener(parm)
+        }
 
     }
 
@@ -296,10 +315,13 @@ class Main extends React.Component<any,any> {
     }
 
     userDocProxy = null
+    accountDocProxy = null
 
     userDocumentSuccess = ({docpack, reason}:ReturnDocPackMessage) => {
 
         console.log('user from userDocumentSuccess',docpack)
+
+        if (this.userDocProxy) return
 
         this.userDocProxy = new docProxy({doctoken:{reference:docpack.reference}})
         console.log('userDocumentSuccess',docpack,this.userDocProxy)
@@ -321,23 +343,31 @@ class Main extends React.Component<any,any> {
 
     }
 
+    userTypePack
+
     userDocumentPairSuccess = ({docpack,typepack,reason}:ReturnDocPairMessage) => {
 
         console.log('userDocumentPairSuccess',docpack,typepack)
+
+        this.userTypePack = typepack
 
         if ((!this.state.userpack) || this.updatinguserdata) {
 
             // toast.success('setting user record')
             this.promises.user.resolve(docpack)
-            this.getAccountDocument(docpack.document.identity.account)
 
-        } else {
+            if (!this.accountDocProxy) {
 
-            this.setState({
-                userpack:docpack,
-            }, () => {
-                toast.info('updated member data')
-            })
+                this.getAccountDocument(docpack.document.identity.account)
+
+            } else {
+                this.setState({
+                    userpack:docpack,
+                }, () => {
+                    toast.info('updated member data')
+                })
+            }
+
         }
 
     }
@@ -358,11 +388,13 @@ class Main extends React.Component<any,any> {
 
     }
 
-    accountDocProxy
+    userAccountTypePack
 
-    userAccountSuccess = ({docpack, typepack, reason}:ReturnDocPairMessage) => {
+    userAccountSuccess = (docpack,typepack, reason) => {
 
         console.log('account from accountDocumentSuccess',docpack, typepack)
+
+        this.userAccountTypePack = typepack
 
         if (!docpack) {
 

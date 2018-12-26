@@ -243,6 +243,12 @@ const appManager = new class {
         
     }
 
+    docpackIsListener = (reference, instanceid) => {
+
+        return docpackCache.isListener(reference,instanceid)
+
+    }
+
 }
 
 let application = {
@@ -253,6 +259,7 @@ let application = {
     removeDocpackPairListener:appManager.removeDocpackPairListener,
     setDocpackListener:appManager.setDocpackListener,
     removeDocpackListener:appManager.removeDocpackListener,
+    docpackIsListener:appManager.docpackIsListener,
 
     getDocument:appManager.getDocument,
     getNewDocument:appManager.getNewDocument,
