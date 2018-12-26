@@ -446,7 +446,9 @@ class Main extends React.Component<any,any> {
             userdata = {
                 login:this.state.userProviderData,
                 userpack:this.state.userpack,
+                usertype:this.userTypePack,
                 accountpack:this.state.accountpack,
+                accounttype:this.userAccountTypePack,
             }
 
         }
