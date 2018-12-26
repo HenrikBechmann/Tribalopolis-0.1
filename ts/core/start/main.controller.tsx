@@ -346,19 +346,23 @@ class Main extends React.Component<any,any> {
 
     getAccountDocument = reference => {
 
-        let parm:GetDocumentMessage = {
-            reference,
+        this.accountDocProxy = new docProxy({doctoken:{reference}})
+        let parm:SetListenerMessage = {
+            doctoken:this.accountDocProxy.doctoken,
+            instanceid:this.accountDocProxy.instanceid,
             success:this.userAccountSuccess, 
             failure:this.userAccountFailure
         }
-        application.getDocument(parm)
-        // application.setDocpackPairListener(parm)
+        // application.getDocument(parm)
+        application.setDocpackPairListener(parm)
 
     }
 
-    userAccountSuccess = ({docpack, reason}:ReturnDocPackMessage) => {
+    accountDocProxy
 
-        // console.log('account from accountDocumentSuccess',docpack)
+    userAccountSuccess = ({docpack, typepack, reason}:ReturnDocPairMessage) => {
+
+        console.log('account from accountDocumentSuccess',docpack, typepack)
 
         if (!docpack) {
 

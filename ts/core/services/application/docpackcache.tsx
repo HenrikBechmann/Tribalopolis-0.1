@@ -174,7 +174,7 @@ const docpackCache = new class {
     */
     updateItem = ( {docpack, reason}:ReturnDocPackMessage ) => {
 
-        console.log('docpackcache updateItem',docpack)
+        // console.log('docpackcache updateItem',docpack)
         // set or update document
         let cacheitem = this.getItem(docpack.reference)
 
@@ -253,7 +253,7 @@ const docpackCache = new class {
 
             typeref = docpack.document.identity.type?docpack.document.identity.type.reference:null
 
-            typeref && (typepack = typepackCache.getCacheDocpack(typeref))
+            typepack = typeref?typepackCache.getCacheDocpack(typeref):{} as DocPackStruc
 
         }
 

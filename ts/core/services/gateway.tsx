@@ -37,7 +37,7 @@ const setGatewayListener = (parmblock:GetDocumentMessage) => {
 
     let {reference, success, failure} = parmblock
 
-    console.log('setGatewayListener', parmblock)
+    // console.log('setGatewayListener', parmblock)
 
     if (!reference) {
 
@@ -54,7 +54,7 @@ const setGatewayListener = (parmblock:GetDocumentMessage) => {
             case 'users':
             case 'system': {
 
-                console.log('refsplit, collection in setGatewayListener',refsplit,collection)
+                // console.log('refsplit, collection in setGatewayListener',refsplit,collection)
 
                 getSnapshot(parmblock)
                 // console.log('return from callkng getSnapshot')

@@ -7,7 +7,7 @@ import { DocTokenStruc, DocProxyStruc } from '../services/interfaces'
 
 class docproxy {
     constructor(data:DocProxyStruc) {
-        console.log('docproxy constructor', data)
+
         let doctoken = this.doctoken = data.doctoken
         if (!doctoken) {
             throw Error('no doctoken for docproxy')
