@@ -1115,7 +1115,7 @@ let links = {
     }
 }
 
-let localitems = {
+let items = {
     henrik:{
         identity:{
             container:'',
@@ -1191,4 +1191,4 @@ let accounts = {
     }
 }
 
-export { schemes, localtypes, localitems, lists, links, folders, accounts } 
+export { schemes, localtypes, items, lists, links, folders, accounts } 

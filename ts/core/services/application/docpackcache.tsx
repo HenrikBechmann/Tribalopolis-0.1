@@ -188,9 +188,9 @@ const docpackCache = new class {
 
             let oldtyperef = olddocpack? olddocpack.document.identity.type:null
 
-            let typeref = docpack.document.identity.type.reference; // all documents have a type
+            let typeref = docpack.document.identity.type?docpack.document.identity.type.reference:null; // all documents have a type
 
-            (oldtyperef && (oldtyperef != typeref)) && typepackCache.removeListener(oldtyperef,docpack.reference)
+            (oldtyperef && (oldtyperef !== typeref)) && typepackCache.removeListener(oldtyperef,docpack.reference)
 
             // will only create if doesn't already exist
             // processPairListeners invoked first time
@@ -251,9 +251,9 @@ const docpackCache = new class {
 
         if (docpack.document) {
 
-            typeref = docpack.document.identity.type.reference
+            typeref = docpack.document.identity.type?docpack.document.identity.type.reference:null
 
-            typepack = typepackCache.getCacheDocpack(typeref)
+            typeref && (typepack = typepackCache.getCacheDocpack(typeref))
 
         }
 

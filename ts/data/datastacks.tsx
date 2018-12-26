@@ -10,7 +10,7 @@ let datastacks = [ // four quadrant stacks
             items:[ // items in the stack layer
                 new docproxy(
                     {doctoken:{
-                        reference:'/localitems/henrik',
+                        reference:'/items/henrik',
                         // collection:'items',
                         // id:'henrik',
                     }}),
@@ -36,7 +36,7 @@ let datastacks = [ // four quadrant stacks
             defaultitems:[
                 new docproxy(
                     {doctoken:{
-                        reference: '/localitems/henrik',
+                        reference: '/items/henrik',
                         // collection:'items',
                         // id:'henrik',
                     }}),
@@ -60,7 +60,7 @@ let datastacks = [ // four quadrant stacks
             defaultitems:[
                 new docproxy(
                     {doctoken:{
-                        reference:'/localitems/henrik',
+                        reference:'/items/henrik',
                         // collection:'items',
                         // id:'henrik',
                     }}),
@@ -84,7 +84,7 @@ let datastacks = [ // four quadrant stacks
             defaultitems:[
                 new docproxy(
                     {doctoken:{
-                        reference:'/localitems/henrik',
+                        reference:'/items/henrik',
                         // collection:'items',
                         // id:'henrik',
                     }}),

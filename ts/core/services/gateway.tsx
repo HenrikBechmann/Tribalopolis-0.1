@@ -18,7 +18,7 @@
 'use strict'
 
 // temporary for transiition
-import { schemes, localtypes, localitems, lists, links, folders, accounts } from '../../data/repositories'
+import { schemes, localtypes, items, lists, links, folders, accounts } from '../../data/repositories'
 
 import firebase from './firebase.api'
 import { 
@@ -66,8 +66,8 @@ const setGatewayListener = (parmblock:GetDocumentMessage) => {
         let id = refsplit[2]
         if (collection == 'lists')
             data = lists[id]
-        else if (collection == 'localitems')
-            data = localitems[id]
+        else if (collection == 'items')
+            data = items[id]
         else if (collection == 'localtypes')
             data = localtypes[id]
         else {
