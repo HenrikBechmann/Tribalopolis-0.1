@@ -283,13 +283,7 @@ class Quadrant extends React.Component<any,any>  {
             />
 
         return databox
-        // return haspeers?<div key = {key} data-key = {key} style = {{
-        //     width:(this.state.boxwidth + 80) + 'px',
-        //     height:'480px',
-        //     border:'1px solid green',
-        //     float:'left',
-        //     overflow:'hidden',
-        // }}>{databox}</div>:databox
+
     }
 
     setBoxWidth = (width) => {
@@ -415,7 +409,7 @@ class Quadrant extends React.Component<any,any>  {
                         >
                             <div>Tap to start</div>
                         </div>)
-                    :<div className = {classes.startscreen}>Sign in to use this utility</div>
+                    :<div className = {classes.startscreen}>Must be signed in to use this utility</div>
                     )
                 }}
                 </UserDataContext.Consumer>
