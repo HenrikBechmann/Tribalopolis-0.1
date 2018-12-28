@@ -29,7 +29,7 @@ import ScrollControlsView from '../common/scrollcontrols.view'
 import VerticalDivider from '../common/verticaldivider.view'
 import DataPane from './datapane.view'
 
-import authapi from '../../services/auth.api'
+import application from '../../services/application'
 
 const styles = createStyles({
   appBar: {
@@ -108,12 +108,12 @@ class QuadToolsStrip extends React.Component<any,any> {
 
     handleLogin = () => {
         this.handleAccountClose()
-        authapi.googlesignin()
+        application.signin()
     }
 
     handleLogout = () => {
         this.handleAccountClose()
-        authapi.googlesignout()
+        application.signout()
     }
 
     openSettings = () => {

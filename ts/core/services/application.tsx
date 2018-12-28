@@ -37,6 +37,7 @@ import {
 } from './interfaces'
 import docpackCache from './application/docpackcache'
 import typepackCache from './application/typepackcache'
+import authapi from '../services/auth.api'
 
 // ==============[ Internal ]===============
 
@@ -249,11 +250,37 @@ const appManager = new class {
 
     }
 
+    // ======================[ sign in and out ]====================
+
+    signin = () => {
+        authapi.googlesignin()
+    }
+
+    signout = () => {
+        this.signoutCallback(this.completeSignout)
+    }
+
+    completeSignout = () => {
+
+        // setTimeout(() => {
+            // console.log('completing signout')
+            authapi.googlesignout()
+        // })
+
+    }
+
+    signoutCallback
+
+    setSignoutCallback = signoutCallback => {
+        this.signoutCallback = signoutCallback
+    }
+
 }
 
 let application = {
 
     properties:appManager.properties,
+    setSignoutCallback:appManager.setSignoutCallback,
 
     setDocpackPairListener:appManager.setDocpackPairListener,
     removeDocpackPairListener:appManager.removeDocpackPairListener,
@@ -268,6 +295,9 @@ let application = {
     setDocument:appManager.setDocument,
     
     getCollection:appManager.getCollection,
+
+    signin:appManager.signin,
+    signout:appManager.signout,
 
 }
 

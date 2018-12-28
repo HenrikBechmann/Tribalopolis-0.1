@@ -47,10 +47,14 @@ const docpackCache = new class {
         this.cache.delete(reference)
 
         // deal with type cache listener
-        let document = documentcacheitem.document
+        let document = documentcacheitem.docpack.document
+        // console.log('removed item',document,)
         if (this.isPaired(document)) {
 
-            let typeref = document?document.identity.type:null
+            let typeref = (document && document.identity.type)?document.identity.type.reference:null
+
+            // console.log('removing type listener',typeref)
+
             if (typeref) {
 
                 typepackCache.removeListener(typeref,reference)

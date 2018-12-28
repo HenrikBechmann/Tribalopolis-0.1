@@ -103,9 +103,13 @@ const typepackCache = new class {
 
     removeListener = (typereference, documentreference) => {
 
+        // console.log('in remove type listener; cache', this.cache, typereference, documentreference)
+
         if (!this.cache.has(typereference)) return
 
         let cacheitem = this.cache.get(typereference)
+
+        // console.log('remove type listener',cacheitem, typereference, documentreference)
 
         if (cacheitem.listeners) {
 

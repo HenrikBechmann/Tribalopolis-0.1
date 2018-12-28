@@ -115,10 +115,31 @@ class Main extends React.Component<any,any> {
 
     systemDocProxy = new docProxy({doctoken:{reference:'/system/parameters'}})
 
-    // This is notional. componentWillUnmount not run in most conditions on page refresh
-    componentWillUnmount() {
+    componentDidMount() {
 
-        application.removeDocpackListener({
+        application.setSignoutCallback(this.signoutCallback)
+
+    }
+
+    signoutCallback = (finishSignout) => {
+
+        // console.log('resetting app state')
+        this.setState({
+            login:null,
+            userProviderData:null,
+            userpack:null,
+            accountpack:null,
+        },() => {
+            // console.log('removing listeners')
+            this.removeListeners()
+            finishSignout()
+        })
+
+    }
+
+    removeListeners = () => {
+
+        this.systemDocProxy && application.removeDocpackListener({
             doctoken:this.systemDocProxy.doctoken,
             instanceid:this.systemDocProxy.instanceid
         })
@@ -132,6 +153,13 @@ class Main extends React.Component<any,any> {
             doctoken:this.accountDocProxy.doctoken,
             instanceid:this.accountDocProxy.instanceid
         })
+
+    }
+
+    // This is notional. componentWillUnmount not run in most conditions on page refresh
+    componentWillUnmount() {
+
+        this.removeListeners()
 
     }
 
@@ -203,7 +231,7 @@ class Main extends React.Component<any,any> {
 
                 toast.error('unable to get user data - signing out (' + error + ')')
                 // logout
-                authapi.googlesignout()
+                application.signout()
 
             })
 
@@ -480,3 +508,4 @@ class Main extends React.Component<any,any> {
 }
 
 export default withStyles(styles)(Main)
+
