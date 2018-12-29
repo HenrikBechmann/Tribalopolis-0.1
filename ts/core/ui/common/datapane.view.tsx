@@ -25,11 +25,11 @@ const styles = createStyles({
 class QuadDataPane extends React.Component<any,any>  {
 
     render() {
-        const { classes, drawerDataPackage } = this.props
+        const { classes, dataPaneMessage } = this.props
         // console.log('props',this.props)
         return <Paper className = {classes.root}>
             <div className = { classes.content }>
-                Data shelf {drawerDataPackage?drawerDataPackage.opcode:null}
+                Data shelf {dataPaneMessage?dataPaneMessage.options.opcode:null}
             </div>
         </Paper>
     }

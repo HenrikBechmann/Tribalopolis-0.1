@@ -40,17 +40,20 @@ class BuildDataPane extends React.Component<any,any>  {
 
     state = {
         open:this.props.open,
-        opcode:this.props.dataPack?this.props.dataPack.opcode:undefined,
-        specs:this.props.dataPack?this.props.dataPack.specs:undefined,
+        opcode:this.props.dataPaneMessage?this.props.dataPaneMessage.options.opcode:undefined,
+        specs:this.props.dataPaneMessage?this.props.dataPaneMessage.options.specs:undefined,
     }
 
     data = null
 
     componentDidUpdate() {
 
-        let { open, dataspecs } = this.props
-        dataspecs = dataspecs || {}
-        let { opcode, specs } = dataspecs
+        // console.log('props',this.props)
+        let { open, dataPaneMessage } = this.props
+        // console.log('dataPaneMessage before',dataPaneMessage)
+        dataPaneMessage = dataPaneMessage || {docproxy:{},options:{}}
+        // console.log('dataPaneMessage after', dataPaneMessage)
+        let { opcode, specs } = dataPaneMessage.options
         if (!_.isEqual(open,this.state.open) || 
             !_.isEqual(opcode,this.state.opcode) ||
             !_.isEqual(specs, this.state.specs)) {

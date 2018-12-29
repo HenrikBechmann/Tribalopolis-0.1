@@ -24,6 +24,7 @@ import quadoperations from './quadrant/quadoperations.class'
 
 import { DocTokenStruc } from '../services/interfaces'
 import UserDataContext from '../services/userdata.context'
+import { DataPaneMessage } from '../services/interfaces'
 
 let styles = createStyles({
    quadcontent: {
@@ -146,7 +147,7 @@ class Quadrant extends React.Component<any,any>  {
     operations
     animations
 
-    drawerdatapackage
+    drawerdatapackage:DataPaneMessage
 
 /********************************************************
 ------------------[ lifecycle methods ]------------------
@@ -300,12 +301,12 @@ class Quadrant extends React.Component<any,any>  {
         })
     }
 
-    callDataDrawer = (docproxy,opcode) => {
+    callDataDrawer = ({docproxy,options}:DataPaneMessage) => {
         if (this.state.draweropen) {
             toast.info('The data shelf is in use. Close the shelf and try again.')
             return
         }
-        this.drawerdatapackage = {docproxy, opcode}
+        this.drawerdatapackage = {docproxy, options}
         this.setState({
             draweropen:true,
         })
@@ -377,7 +378,7 @@ class Quadrant extends React.Component<any,any>  {
                     containerelement = {this.quadcontentelement}
                 >
                     <DataPane
-                        drawerDataPackage = {this.drawerdatapackage}
+                        dataPaneMessage = {this.drawerdatapackage}
                     />
                 </DataDrawer>
                 <div 

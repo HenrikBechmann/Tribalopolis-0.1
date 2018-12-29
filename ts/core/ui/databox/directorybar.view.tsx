@@ -139,7 +139,7 @@ class DirectoryBar extends React.Component<any,any> {
 
     callDataDrawer = (e,opcode) => {
         this.menuClose(e)
-        this.props.callDataDrawer(this.listProxy,opcode)
+        this.props.callDataDrawer({docproxy:this.listProxy,options:opcode})
     }
 
     render() {
@@ -275,9 +275,9 @@ class DirectoryBar extends React.Component<any,any> {
                             }
                         } 
                         action = {
-                            () => {this.props.callDataDrawer(this.listProxy,'info')}
+                            () => {this.props.callDataDrawer({docproxy:this.listProxy,opcode:'info'})}
                         }
-                        component = {<Info  />}
+                        component = {<Info />}
                     />}
 
                 </div>)

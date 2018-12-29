@@ -32,7 +32,11 @@ import ActionButton from './common/actionbutton.view'
 import DataDrawer from './common/datadrawer.view'
 import BuildDataPane from './build/builddatapane.view'
 
-import { GetDocumentMessage, SetDocumentMessage, ReturnDocPackMessage } from '../services/interfaces'
+import { 
+    GetDocumentMessage, 
+    SetDocumentMessage, 
+    ReturnDocPackMessage,
+    DataPaneMessage } from '../services/interfaces'
 
 const styles = theme => (createStyles({
     button: {
@@ -296,12 +300,12 @@ class BuildController extends React.Component<any,any> {
 
     // ============[ data drawer responses ]=================
 
-    callDataDrawer = (opcode, specs) => {
+    callDataDrawer = ({docproxy, options}:DataPaneMessage) => {
         if (this.state.draweropen) {
             toast.info('The data shelf is in use. Close the shelf and try again.')
             return
         }
-        this.drawerdatapackage = {specs, opcode}
+        this.drawerdatapackage = {docproxy, options}
         this.setState({
             draweropen:true,
         })
@@ -324,7 +328,7 @@ class BuildController extends React.Component<any,any> {
             containerelement = {this.buildelement}
         >
             <BuildDataPane
-                dataspecs = {this.drawerdatapackage}
+                dataPaneMessage = {this.drawerdatapackage}
                 open = {this.state.draweropen}
                 user = {login}
             />
@@ -385,7 +389,7 @@ class BuildController extends React.Component<any,any> {
             <ActionButton 
                 icon = 'list'
                 action = {() => {
-                        this.callDataDrawer('list',{collection:this.state.values.collection})
+                        this.callDataDrawer({docproxy:null,options:{specs:{collection:this.state.values.collection}}})
                     }
                 }
             />

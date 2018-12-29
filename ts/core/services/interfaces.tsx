@@ -80,6 +80,13 @@ export interface SetDocumentMessage {
     failure:Function,
 }
 
+// ui
+
+export interface DataPaneMessage {
+    docproxy:Object,
+    options:Object,
+}
+
 /***************************************************************
 -------------------------[ PAYLOADS ]---------------------------
 ***************************************************************/

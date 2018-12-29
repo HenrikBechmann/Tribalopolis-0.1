@@ -121,7 +121,7 @@ class IdentityBar extends React.Component<any, any> {
 
     callDataDrawer = (e,opcode) => {
         this.menuClose(e)
-        this.props.callDataDrawer(this.itemProxy, opcode)
+        this.props.callDataDrawer({docproxy:this.itemProxy, opcode})
     }
 
     render() {
@@ -148,7 +148,7 @@ class IdentityBar extends React.Component<any, any> {
                     }
                 } 
                 action = {
-                    () => { this.props.callDataDrawer( this.itemProxy, 'info') }
+                    () => { this.props.callDataDrawer( {docproxy:this.itemProxy,options:{opcode:'info'}}) }
                 }
                 component = {<Info  />}
             />

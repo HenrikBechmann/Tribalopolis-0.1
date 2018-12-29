@@ -268,7 +268,7 @@ class DataBox extends React.Component<any,any> {
     }
 
     onClickAdd = (docproxy) => {
-        this.props.callbacks.callDataDrawer(docproxy, 'add')
+        this.props.callbacks.callDataDrawer({docproxy, options:{opcode:'add'}})
         // console.log('docproxy',docproxy)
     }
 
