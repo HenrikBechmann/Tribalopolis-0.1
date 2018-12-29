@@ -43,7 +43,7 @@ const StandardToolbar = (props) => {
             <UserDataContext.Consumer>
             { userdata => (
                 <ToolsStrip
-                    user = {userdata}
+                    userdata = {userdata}
                     childrenposition = 'end'
                 >
                     <div className = { classes.toolstrip }>

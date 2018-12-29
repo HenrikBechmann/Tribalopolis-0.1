@@ -50,7 +50,7 @@ class QuadToolsStrip extends React.Component<any,any> {
         menuopen:false,
         scroller:null,
         accountAnchorElement:null,
-        user:this.props.user,
+        userdata:this.props.userdata,
         settingsopen:false,
     }
 
@@ -66,10 +66,10 @@ class QuadToolsStrip extends React.Component<any,any> {
 
     componentDidUpdate() {
         this.setState((state,props) => {
-            if (props.user != state.user) {
+            if (props.userdata != state.userdata) {
                 // console.log('toolsstrip state, props',state,props)
                 return {
-                    user:props.user,
+                    userdata:props.userdata,
                 }
             }
         })
@@ -161,14 +161,14 @@ class QuadToolsStrip extends React.Component<any,any> {
 
     accountmenu = (classes) => {
         const { accountAnchorElement } = this.state
-        // console.log('accountmenu',this.state.user)
+        // console.log('accountmenu',this.state.userdata)
         return <div style = {{display:'inline-block',verticalAlign:'middle',position:'relative'}}>
             <IconButton 
                 aria-owns={accountAnchorElement ? 'simple-menu' : null}
                 aria-haspopup="true"
                 onClick={this.handleAccountClick}
               >
-                <Icon style = {{color:!this.state.user?'rgb(0,0,0,0.54)':'cadetblue'}}>account_box</Icon>
+                <Icon style = {{color:!this.state.userdata?'rgb(0,0,0,0.54)':'cadetblue'}}>account_box</Icon>
             </IconButton>
             <div style = {
                 {
@@ -176,7 +176,7 @@ class QuadToolsStrip extends React.Component<any,any> {
                     fontSize:'smaller',
                     color:'cadetblue',
                 }}>
-                {this.state.user?this.state.user.userpack.document.properties.username:'signed out'}
+                {this.state.userdata?this.state.userdata.userpack.document.properties.username:'signed out'}
             </div>
             <Menu
                 id="simple-menu"
@@ -184,17 +184,17 @@ class QuadToolsStrip extends React.Component<any,any> {
                 open={Boolean(accountAnchorElement)}
                 onClose={this.handleAccountClose}        
             >
-                {!this.state.user?<MenuItem
+                {!this.state.userdata?<MenuItem
                     onClick={this.handleLogin}
                 >
                     Sign in using Google
                 </MenuItem>:null}
-                {this.state.user?<MenuItem
+                {this.state.userdata?<MenuItem
                     onClick = {this.openSettings}
                 >
                     Account settings
                 </MenuItem>:null}
-                {this.state.user?<MenuItem
+                {this.state.userdata?<MenuItem
                     onClick={this.handleLogout}
                 >
                     Sign out
