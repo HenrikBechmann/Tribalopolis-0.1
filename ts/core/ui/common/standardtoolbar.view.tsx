@@ -39,11 +39,12 @@ const StandardToolbar = (props) => {
     return (
         <div>
             <SystemDataContext.Consumer>
-            { parameters => (
+            { systemdata => (
             <UserDataContext.Consumer>
             { userdata => (
                 <ToolsStrip
                     userdata = {userdata}
+                    systemdata = {systemdata}
                     childrenposition = 'end'
                 >
                     <div className = { classes.toolstrip }>
@@ -54,7 +55,7 @@ const StandardToolbar = (props) => {
                         </Icon>
                         <div 
                             className = { classes.name }>
-                            {parameters?parameters.tagline:'loading...'}
+                            {systemdata?systemdata.tagline:'loading...'}
                         </div>
                     </div>
                 </ToolsStrip>)

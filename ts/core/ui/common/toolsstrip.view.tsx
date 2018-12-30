@@ -30,6 +30,9 @@ import VerticalDivider from '../common/verticaldivider.view'
 import DataPane from './datapane.view'
 
 import application from '../../services/application'
+import docproxy from '../../utilities/docproxy'
+import { DataPaneMessage } from '../../services/interfaces'
+
 
 const styles = createStyles({
   appBar: {
@@ -44,13 +47,14 @@ function Transition(props) {
   return <Slide direction="left" {...props} />;
 }
 
-class QuadToolsStrip extends React.Component<any,any> {
+class ToolsStrip extends React.Component<any,any> {
 
     state = {
         menuopen:false,
         scroller:null,
         accountAnchorElement:null,
         userdata:this.props.userdata,
+        systemdata:this.props.systemdata,
         settingsopen:false,
     }
 
@@ -66,10 +70,11 @@ class QuadToolsStrip extends React.Component<any,any> {
 
     componentDidUpdate() {
         this.setState((state,props) => {
-            if (props.userdata != state.userdata) {
+            if ((props.userdata != state.userdata)||(props.systemdata != state.systemdata)) {
                 // console.log('toolsstrip state, props',state,props)
                 return {
                     userdata:props.userdata,
+                    systemdata:props.systemdata,
                 }
             }
         })
@@ -129,8 +134,19 @@ class QuadToolsStrip extends React.Component<any,any> {
         })
     }
 
-    settingsDialog = (classes) => {
+    pageProxy = null
+    datapaneblock:DataPaneMessage = null
 
+    accountSettingsDialog = (classes) => {
+
+        if (!this.pageProxy ) {
+            let settingspageref = this.state.systemdata?this.state.systemdata.accountsettingspage:null
+            if (settingspageref) {
+                let pageProxy = new docproxy({doctoken:{reference:settingspageref}})
+                this.pageProxy = pageProxy
+                this.datapaneblock = {docproxy:pageProxy,options:{}}
+            }
+        }
         return  <Dialog
           fullScreen
           open={this.state.settingsopen}
@@ -153,7 +169,7 @@ class QuadToolsStrip extends React.Component<any,any> {
               </AppBar>
               <div style = {{height:'55px'}}></div>
               <div style = {{position:'relative',flex:1}}>
-                  <DataPane />
+                  <DataPane dataPaneMessage = {this.datapaneblock}/>
               </div>
           </div>
          </Dialog>
@@ -200,7 +216,7 @@ class QuadToolsStrip extends React.Component<any,any> {
                     Sign out
                 </MenuItem>:null}
             </Menu>
-            {this.settingsDialog(classes)}
+            {this.accountSettingsDialog(classes)}
         </div>
     }
 
@@ -300,4 +316,4 @@ class QuadToolsStrip extends React.Component<any,any> {
 
 }
 
-export default withStyles(styles)(QuadToolsStrip)
+export default withStyles(styles)(ToolsStrip)

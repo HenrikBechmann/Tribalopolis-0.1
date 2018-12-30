@@ -26,7 +26,7 @@ class QuadDataPane extends React.Component<any,any>  {
 
     render() {
         const { classes, dataPaneMessage } = this.props
-        // console.log('props',this.props)
+        console.log('data pane props',this.props)
         return <Paper className = {classes.root}>
             <div className = { classes.content }>
                 Data shelf {dataPaneMessage?dataPaneMessage.options.opcode:null}

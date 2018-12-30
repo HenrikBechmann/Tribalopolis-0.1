@@ -5,7 +5,7 @@
 
 import React from 'react'
 
-import QuadToolsStrip from './common/toolsstrip.view'
+import ToolsStrip from './common/toolsstrip.view'
 import QuadNavigationMenu from './quadspace/quadnavigationmenu.view'
 import SplitNavigationMenu from './quadspace/splitnavigationmenu.view'
 import QuadSpaceFrame from './quadspace/quadspaceframe.view'
@@ -20,6 +20,7 @@ import { datastacks } from '../../data/datastacks'
 import application from '../services/application'
 
 import UserDataContext from '../services/userdata.context'
+import SystemDataContext from '../services/systemdata.context'
 
 class QuadspaceController extends React.Component<any,any> {
 
@@ -172,10 +173,13 @@ class QuadspaceController extends React.Component<any,any> {
     render() {
         return (
             <QuadSpaceFrame>
+                <SystemDataContext.Consumer>
+                { systemdata => (
                 <UserDataContext.Consumer>
                 { userdata => (
-                    <QuadToolsStrip 
+                    <ToolsStrip 
                         userdata = {userdata}
+                        systemdata = {systemdata}
                         childrenposition = 'middle'
                         style = {this.quadtoolsstyle}
                     >
@@ -189,9 +193,11 @@ class QuadspaceController extends React.Component<any,any> {
                             changeSplitFrom = {this.changeSplitFrom}
                         />
                         <VerticalDivider />
-                    </QuadToolsStrip>)
-                }
+                    </ToolsStrip>
+                )}
                 </UserDataContext.Consumer>
+                )}
+                </SystemDataContext.Consumer>
                 <QuadBasket><QuantityBadge quantity = {0} style = {this.badgestyle} /></QuadBasket>
                 <QuadViewport>
                     <Quadrants                         
