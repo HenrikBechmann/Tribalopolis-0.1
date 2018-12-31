@@ -28,9 +28,12 @@ class DataPane extends React.Component<any,any>  {
 
         const { classes, dataPaneMessage } = this.props
 
+        let msg = dataPaneMessage || {}
+        let { docpack, options } = msg
+
         return <Paper className = {classes.root}>
             <div className = { classes.content }>
-                Data shelf {dataPaneMessage?dataPaneMessage.options.opcode:null}
+                Data shelf {options?options.opcode:null}
             </div>
         </Paper>
 
