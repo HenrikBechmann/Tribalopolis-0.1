@@ -24,22 +24,16 @@ const styles = createStyles({
 
 class DataPane extends React.Component<any,any>  {
 
-    componentDidMount() {
-        console.log('data pane mounted')
-    }
-
-    componentDidUpdate() {
-        console.log('data pane updated')
-    }
-
     render() {
+
         const { classes, dataPaneMessage } = this.props
-        console.log('data pane props',this.props)
+
         return <Paper className = {classes.root}>
             <div className = { classes.content }>
                 Data shelf {dataPaneMessage?dataPaneMessage.options.opcode:null}
             </div>
         </Paper>
+
     }
 
 }

@@ -152,7 +152,6 @@ class ToolsStrip extends React.Component<any,any> {
     accountSettingsDialog = (classes) => {
         if (!this.state.settingsopen) return null
 
-        console.log('accountSettingsDialog')
         if (!this.pageProxy ) {
             let settingspageref = this.state.systemdata?this.state.systemdata.accountsettingspage:null
             console.log('no pageProxy; settingspageref',settingspageref)
@@ -250,7 +249,6 @@ class ToolsStrip extends React.Component<any,any> {
     render() {
         let wrapperstyle = {...this.defaultstyle,...this.props.style}
         let { classes } = this.props
-        console.log('rendering toolsstrip')
         return (
             <div 
                 style = {
