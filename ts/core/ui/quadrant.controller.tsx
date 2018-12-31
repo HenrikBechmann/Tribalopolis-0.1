@@ -344,6 +344,7 @@ class Quadrant extends React.Component<any,any>  {
         if (!haspeers && this.scrollboxelement.current && (this.scrollboxelement.current.scrollLeft != 0)) {
             this.scrollboxelement.current.scrollLeft = 0
         }
+        console.log('rendering quadrant.controller')
         // useStaticSize Lister attribute below is required to avoid setState 
         // recursion overload and crash
         return ( 

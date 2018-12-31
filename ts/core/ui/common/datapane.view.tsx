@@ -22,7 +22,15 @@ const styles = createStyles({
     }
 })
 
-class QuadDataPane extends React.Component<any,any>  {
+class DataPane extends React.Component<any,any>  {
+
+    componentDidMount() {
+        console.log('data pane mounted')
+    }
+
+    componentDidUpdate() {
+        console.log('data pane updated')
+    }
 
     render() {
         const { classes, dataPaneMessage } = this.props
@@ -36,4 +44,4 @@ class QuadDataPane extends React.Component<any,any>  {
 
 }
 
-export default withStyles(styles)( QuadDataPane )
+export default withStyles(styles)( DataPane )

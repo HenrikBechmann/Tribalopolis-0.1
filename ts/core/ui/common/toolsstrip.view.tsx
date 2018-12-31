@@ -41,6 +41,18 @@ const styles = createStyles({
   flex: {
     flex: 1,
   },
+  dialogliner:{
+      display:'flex',
+      flexFlow:'column nowrap', 
+      height:'100%',
+  },
+  datapaneoffset:{
+      height:'55px',
+  },
+  datapanewrapper:{
+      position:'relative',
+      flex:1,
+  },
 })
 
 function Transition(props) {
@@ -138,11 +150,15 @@ class ToolsStrip extends React.Component<any,any> {
     datapaneblock:DataPaneMessage = null
 
     accountSettingsDialog = (classes) => {
+        if (!this.state.settingsopen) return null
 
+        console.log('accountSettingsDialog')
         if (!this.pageProxy ) {
             let settingspageref = this.state.systemdata?this.state.systemdata.accountsettingspage:null
+            console.log('no pageProxy; settingspageref',settingspageref)
             if (settingspageref) {
                 let pageProxy = new docproxy({doctoken:{reference:settingspageref}})
+                console.log('settingspageref available; pageProxy',settingspageref)
                 this.pageProxy = pageProxy
                 this.datapaneblock = {docproxy:pageProxy,options:{}}
             }
@@ -153,7 +169,7 @@ class ToolsStrip extends React.Component<any,any> {
           onClose={this.closeSettings}
           TransitionComponent={Transition}
         >
-          <div style = {{display:'flex',flexFlow:'column nowrap', height:'100%'}}>
+          <div className = {classes.dialogliner}>
               <AppBar>
                 <Toolbar>
                   <IconButton color="inherit" onClick={this.closeSettings} aria-label="Close">
@@ -167,8 +183,8 @@ class ToolsStrip extends React.Component<any,any> {
                   </Button>
                 </Toolbar>
               </AppBar>
-              <div style = {{height:'55px'}}></div>
-              <div style = {{position:'relative',flex:1}}>
+              <div className = {classes.datapaneoffset}></div>
+              <div className = {classes.datapanewrapper}>
                   <DataPane dataPaneMessage = {this.datapaneblock}/>
               </div>
           </div>
@@ -234,6 +250,7 @@ class ToolsStrip extends React.Component<any,any> {
     render() {
         let wrapperstyle = {...this.defaultstyle,...this.props.style}
         let { classes } = this.props
+        console.log('rendering toolsstrip')
         return (
             <div 
                 style = {
