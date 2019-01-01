@@ -49,6 +49,7 @@ const setGatewayListener = (parmblock:GetDocumentMessage) => {
         let collection = refsplit[1]
 
         switch (collection) {
+            case 'pages':
             case 'types':
             case 'accounts':
             case 'users':
@@ -123,6 +124,7 @@ const removeGatewayListener = ({reference}:RemoveGatewayListenerMessage) => {
     let collection = refsplit[1]
 
     switch (collection) {
+        case 'pages':
         case 'types':
         case 'accounts':
         case 'users':

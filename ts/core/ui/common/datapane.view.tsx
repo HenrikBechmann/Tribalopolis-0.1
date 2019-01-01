@@ -8,6 +8,12 @@ import React from 'react'
 import { withStyles, createStyles } from '@material-ui/core/styles'
 import Paper from '@material-ui/core/Paper'
 import dataPane from './datapane/dataPane'
+import { 
+    SetListenerMessage,
+    ReturnDocPairMessage,
+ } from '../../services/interfaces'
+import application from '../../services/application'
+import docproxy from '../../utilities/docproxy'
 
 const styles = createStyles({
     root:{
@@ -24,6 +30,47 @@ const styles = createStyles({
 })
 
 class DataPane extends React.Component<any,any>  {
+
+    constructor(props) {
+        super(props)
+        this.docProxy = this.props.dataPaneMessage?this.props.dataPaneMessage.docProxy:null
+    }
+
+    state: {
+        docpack:null,
+        typepack:null,
+    }
+
+    docProxy
+
+    componentDidMount() {
+
+        this.assertListener()
+
+    }
+
+    assertListener = () => {
+
+        if (this.docProxy) {
+            let parms:SetListenerMessage = 
+                {
+                    doctoken:this.docProxy.doctoken,
+                    instanceid:this.docProxy.instanceid,
+                    success:this.cacheDocPair,
+                    failure:null,
+                }
+            application.setDocpackPairListener( parms )
+        }
+    }
+
+    cacheDocPair = ({docpack, typepack, reason}:ReturnDocPairMessage) => {
+
+        this.setState({
+            docpack,
+            typepack,
+        })
+
+    }
 
     render() {
 

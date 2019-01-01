@@ -154,10 +154,10 @@ class ToolsStrip extends React.Component<any,any> {
 
         if (!this.pageProxy ) {
             let settingspageref = this.state.systemdata?this.state.systemdata.accountsettingspage:null
-            console.log('no pageProxy; settingspageref',settingspageref)
+            // console.log('no pageProxy; settingspageref',settingspageref)
             if (settingspageref) {
                 let pageProxy = new docproxy({doctoken:{reference:settingspageref}})
-                console.log('settingspageref available; pageProxy',settingspageref)
+                // console.log('settingspageref available; pageProxy',settingspageref)
                 this.pageProxy = pageProxy
                 this.datapaneblock = {docproxy:pageProxy,options:{}}
             }

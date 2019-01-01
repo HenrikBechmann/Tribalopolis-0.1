@@ -303,7 +303,7 @@ class Main extends React.Component<any,any> {
 
     systemDocumentSuccess = ({docpack, reason}:ReturnDocPackMessage) => {
 
-        console.log('systemDocumentSuccess CALLED', docpack)
+        // console.log('systemDocumentSuccess CALLED', docpack)
 
         if ((!this.state.systempack) || this.updatinguserdata) {
 
@@ -347,12 +347,12 @@ class Main extends React.Component<any,any> {
 
     userDocumentSuccess = ({docpack, reason}:ReturnDocPackMessage) => {
 
-        console.log('user from userDocumentSuccess',docpack)
+        // console.log('user from userDocumentSuccess',docpack)
 
         if (this.userDocProxy) return
 
         this.userDocProxy = new docProxy({doctoken:{reference:docpack.reference}})
-        console.log('userDocumentSuccess',docpack,this.userDocProxy)
+        // console.log('userDocumentSuccess',docpack,this.userDocProxy)
         let parmblock:SetListenerMessage = {
             doctoken:this.userDocProxy.doctoken,
             instanceid:this.userDocProxy.instanceid,
@@ -375,7 +375,7 @@ class Main extends React.Component<any,any> {
 
     userDocumentPairSuccess = ({docpack,typepack,reason}:ReturnDocPairMessage) => {
 
-        console.log('userDocumentPairSuccess',docpack,typepack, this.state.userpack, this.updatinguserdata)
+        // console.log('userDocumentPairSuccess',docpack,typepack, this.state.userpack, this.updatinguserdata)
 
         this.userTypePack = typepack
 
@@ -426,7 +426,7 @@ class Main extends React.Component<any,any> {
 
     userAccountPairSuccess = ({docpack,typepack, reason}:ReturnDocPairMessage) => {
 
-        console.log('account from accountDocumentSuccess',docpack, typepack)
+        // console.log('account from accountDocumentSuccess',docpack, typepack)
 
         this.userAccountTypePack = typepack
 
@@ -487,7 +487,7 @@ class Main extends React.Component<any,any> {
 
         }
 
-        console.log('userdata in main.controller',userdata)
+        // console.log('userdata in main.controller',userdata)
 
         let systemdata = this.state.systempack?this.state.systempack.document:null
 
