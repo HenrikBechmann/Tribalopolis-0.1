@@ -686,7 +686,7 @@ let lists = {
         },
         properties:{
             version:0,
-            name:'Literature',
+            name:'Reference Library',
         },
         references:{
             subscriptions:[],
