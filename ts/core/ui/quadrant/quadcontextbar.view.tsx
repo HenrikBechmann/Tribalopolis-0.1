@@ -67,7 +67,7 @@ class QuadContextBar extends React.Component<any> {
 
     componentDidUpdate(prevProps) {
 
-        console.log('context componentDidUpdate',this.stackpointer)
+        // console.log('context componentDidUpdate',this.stackpointer)
 
         if (
 
@@ -93,7 +93,7 @@ class QuadContextBar extends React.Component<any> {
 
     createcontext = () => {
         let userdata = this.props.userdata
-        console.log('create context userdata',userdata)
+        // console.log('create context userdata',userdata)
         
         if ( (!this.datastack || (this.datastack.length <= 1)) || !this.stackpointer || !userdata) { // no context
             if (this.state.context) {
