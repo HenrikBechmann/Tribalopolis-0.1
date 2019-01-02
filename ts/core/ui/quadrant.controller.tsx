@@ -357,13 +357,19 @@ class Quadrant extends React.Component<any,any>  {
             <div ref = {this.originanimationblock} ></div>
             <div ref = {this.maskanimationblock} ></div>
 
-            <QuadContextBar 
-                quadidentifier={this.props.quadidentifier}
-                datastack = {this.state.datastack}
-                stackpointer = {this.state.stackpointer}
-                callbacks = {this.props.callbacks}
-                callDataDrawer = {this.callDataDrawer}
-            />
+                <UserDataContext.Consumer>
+                { userdata => {
+
+                    return <QuadContextBar
+                        userdata = {userdata} 
+                        quadidentifier={this.props.quadidentifier}
+                        datastack = {this.state.datastack}
+                        stackpointer = {this.state.stackpointer}
+                        callbacks = {this.props.callbacks}
+                        callDataDrawer = {this.callDataDrawer}
+                    />
+                }}
+                </UserDataContext.Consumer>
             <QuadOrigin 
                 haspeers = {haspeers}
                 stackpointer = {this.state.stackpointer} 
