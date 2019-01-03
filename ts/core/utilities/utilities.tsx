@@ -32,7 +32,7 @@ const getNodePosition = (branch, path) => {
 
         if (nodevalue === undefined) return undefined// no doc node available
 
-    } // yields comparandproperty and comparandindex of that property
+    } 
 
     return {
         nodeproperty,

@@ -22,6 +22,7 @@ import {
  } from '../../services/interfaces'
 import application from '../../services/application'
 import docproxy from '../../utilities/docproxy'
+import utilities from '../../utilities/utilities'
 
 const styles = createStyles({
     root:{
@@ -42,7 +43,6 @@ class DataPane extends React.Component<any,any>  {
     constructor(props) {
         super(props)
         this.docProxy = this.props.dataPaneMessage?this.props.dataPaneMessage.docProxy:null
-        this.renderContent = this.getRenderContent()
     }
 
     state = {
@@ -60,7 +60,19 @@ class DataPane extends React.Component<any,any>  {
 
     }
 
+    componentDidUpdate() {
+        // console.log('componentDidUpdate',this.props)
+        let { dataPaneMessage } = this.props
+        if (!this.docProxy && dataPaneMessage && dataPaneMessage.docproxy) {
+            this.docProxy = dataPaneMessage.docproxy
+            // console.log('componentDidUpdate setting this.docProxy',this.docProxy)
+            this.assertListener()
+        }
+    }
+
     assertListener = () => {
+
+        // console.log('assertListener', this.docProxy, this.props)
 
         if (this.docProxy) {
             let parms:SetListenerMessage = 
@@ -70,6 +82,7 @@ class DataPane extends React.Component<any,any>  {
                     success:this.cacheDocPair,
                     failure:null,
                 }
+            // console.log('setting pair listener',parms)
             application.setDocpackPairListener( parms )
         }
     }
@@ -79,6 +92,11 @@ class DataPane extends React.Component<any,any>  {
         this.setState({
             docpack,
             typepack,
+        },() => {
+            // console.log('rendering content',docpack,typepack)
+
+            this.renderContent = this.getRenderContent()
+            this.forceUpdate()
         })
 
     }
@@ -100,7 +118,7 @@ class DataPane extends React.Component<any,any>  {
         let { docpack, options } = msg
 
         return <Paper className = {classes.root}>
-            {this.renderContent}
+            {this.renderContent?this.renderContent:<div>Loading...</div>}
         </Paper>
 
     }
