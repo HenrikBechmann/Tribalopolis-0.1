@@ -53,6 +53,8 @@ class DataPane extends React.Component<any,any>  {
 
     docProxy
     renderContent
+    docPack
+    typePack
 
     componentDidMount() {
 
@@ -89,14 +91,14 @@ class DataPane extends React.Component<any,any>  {
 
     cacheDocPair = ({docpack, typepack, reason}:ReturnDocPairMessage) => {
 
+        this.docPack = docpack
+        this.typePack = typepack
+
+        this.renderContent = this.getRenderContent()
+
         this.setState({
             docpack,
             typepack,
-        },() => {
-            // console.log('rendering content',docpack,typepack)
-
-            this.renderContent = this.getRenderContent()
-            this.forceUpdate()
         })
 
     }
