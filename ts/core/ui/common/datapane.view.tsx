@@ -1,6 +1,13 @@
 // quaddatapane.view.tsx
 // copyright (c) 2019 Henrik Bechmann, Toronto, Licence: GPL-3.0-or-later
 
+/*
+    do a deep merge of account settings when the are edited to 
+    protect them against asyn updates from database.
+    do a deep-diff when new account version is updated to alert user as to changes
+
+*/
+
 'use strict'
 
 import React from 'react'
@@ -35,14 +42,17 @@ class DataPane extends React.Component<any,any>  {
     constructor(props) {
         super(props)
         this.docProxy = this.props.dataPaneMessage?this.props.dataPaneMessage.docProxy:null
+        this.renderContent = this.getRenderContent()
     }
 
-    state: {
+    state = {
         docpack:null,
         typepack:null,
+        options:this.props.dataPaneMessage?this.props.dataPaneMessage.options:null,
     }
 
     docProxy
+    renderContent
 
     componentDidMount() {
 
@@ -73,6 +83,15 @@ class DataPane extends React.Component<any,any>  {
 
     }
 
+    getRenderContent = () => {
+        let options = this.state.options
+        let { classes } = this.props
+        return <div className = { classes.content }>
+                Data shelf {options?options.opcode:null}
+            </div>
+
+    }
+
     render() {
 
         const { classes, dataPaneMessage } = this.props
@@ -81,9 +100,7 @@ class DataPane extends React.Component<any,any>  {
         let { docpack, options } = msg
 
         return <Paper className = {classes.root}>
-            <div className = { classes.content }>
-                Data shelf {options?options.opcode:null}
-            </div>
+            {this.renderContent}
         </Paper>
 
     }
