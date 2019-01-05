@@ -159,7 +159,7 @@ class ToolsStrip extends React.Component<any,any> {
                 let pageProxy = new docproxy({doctoken:{reference:settingspageref}})
                 // console.log('settingspageref available; pageProxy',settingspageref)
                 this.pageProxy = pageProxy
-                this.datapaneblock = {docproxy:pageProxy,options:{}}
+                this.datapaneblock = {docproxy:pageProxy,options:{uiselection:'datapane'}}
             }
         }
         return  <Dialog

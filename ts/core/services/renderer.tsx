@@ -7,13 +7,15 @@ import React from 'react'
 
 class Renderer {
 
-    constructor(renderdata, context) {
-        this.renderdata = renderdata
-        this.context = context
+    constructor(rendertree, path, message) {
+        this.rendertree = rendertree
+        this.message = message
+        this.path = path
     }
 
-    renderdata:Object
-    context:Object
+    rendertree:Object
+    message:Object
+    path:string[]
 
 }
 
