@@ -52,6 +52,7 @@ class DataPane extends React.Component<any,any>  {
     }
 
     docProxy
+    renderMessage
     renderContent
     docPack
     typePack
@@ -94,7 +95,8 @@ class DataPane extends React.Component<any,any>  {
         this.docPack = docpack
         this.typePack = typepack
 
-        this.renderContent = this.getRenderContent()
+        this.renderMessage = dataPane.getRenderMessage(docpack.document,typepack.document,this.state.options,this)
+        console.log('renderMessage',this.renderMessage)
 
         this.setState({
             docpack,

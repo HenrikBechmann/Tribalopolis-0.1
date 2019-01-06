@@ -7,10 +7,28 @@
 'use strict'
 
 import React from 'react'
+import merge from 'deepmerge'
 
 const dataPane = new class {
-    getRenderingMessage = (document, type, component, datacontext) => {
-        let rendermessage = {document,type,datacontext}
+    getRenderMessage = (document, type, options, container) => {
+
+        console.log('options in getRenderMessage',options,type,document)
+        let renderspecs
+        try {
+            renderspecs = type.properties.ui[options.uiselection]
+        } catch(e) {
+            return null
+        }
+
+        if (!renderspecs) return null
+
+        let data = {
+            container,
+            props:container.props,
+            document,
+        }
+
+        let rendermessage = {renderspecs,data}
 
         return rendermessage
     }
