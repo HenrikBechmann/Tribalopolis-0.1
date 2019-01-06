@@ -87,6 +87,12 @@ export interface DataPaneMessage {
     options:Object,
 }
 
+export interface RenderMessage {
+    renderspecs:Object,
+    data:Object,
+    docref:string,
+}
+
 /***************************************************************
 -------------------------[ PAYLOADS ]---------------------------
 ***************************************************************/

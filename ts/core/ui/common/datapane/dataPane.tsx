@@ -8,14 +8,15 @@
 
 import React from 'react'
 import merge from 'deepmerge'
+import { RenderMessage } from '../../../services/interfaces'
 
 const dataPane = new class {
-    getRenderMessage = (document, type, options, container) => {
+    getRenderMessage = (docpack, typepack, options, container) => {
 
-        console.log('options in getRenderMessage',options,type,document)
+        console.log('options in getRenderMessage',options,typepack,docpack)
         let renderspecs
         try {
-            renderspecs = type.properties.ui[options.uiselection]
+            renderspecs = typepack.document.properties.ui[options.uiselection]
         } catch(e) {
             return null
         }
@@ -25,10 +26,10 @@ const dataPane = new class {
         let data = {
             container,
             props:container.props,
-            document,
+            document:docpack.document,
         }
 
-        let rendermessage = {renderspecs,data}
+        let rendermessage:RenderMessage = {renderspecs,data,docref:docpack.reference}
 
         return rendermessage
     }

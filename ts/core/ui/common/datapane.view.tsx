@@ -19,6 +19,7 @@ import Renderer from '../../services/renderer' // class
 import { 
     SetListenerMessage,
     ReturnDocPairMessage,
+    RenderMessage,
  } from '../../services/interfaces'
 import application from '../../services/application'
 import docproxy from '../../utilities/docproxy'
@@ -52,7 +53,7 @@ class DataPane extends React.Component<any,any>  {
     }
 
     docProxy
-    renderMessage
+    renderMessage:RenderMessage
     renderContent
     docPack
     typePack
@@ -95,7 +96,7 @@ class DataPane extends React.Component<any,any>  {
         this.docPack = docpack
         this.typePack = typepack
 
-        this.renderMessage = dataPane.getRenderMessage(docpack.document,typepack.document,this.state.options,this)
+        this.renderMessage = dataPane.getRenderMessage(docpack,typepack,this.state.options,this)
         console.log('renderMessage',this.renderMessage)
 
         this.setState({

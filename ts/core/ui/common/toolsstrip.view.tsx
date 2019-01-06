@@ -146,20 +146,20 @@ class ToolsStrip extends React.Component<any,any> {
         })
     }
 
-    pageProxy = null
+    paneProxy = null
     datapaneblock:DataPaneMessage = null
 
     accountSettingsDialog = (classes) => {
         if (!this.state.settingsopen) return null
 
-        if (!this.pageProxy ) {
+        if (!this.paneProxy ) {
             let settingspageref = this.state.systemdata?this.state.systemdata.accountsettingspage:null
             // console.log('no pageProxy; settingspageref',settingspageref)
             if (settingspageref) {
-                let pageProxy = new docproxy({doctoken:{reference:settingspageref}})
+                let paneProxy = new docproxy({doctoken:{reference:settingspageref}})
                 // console.log('settingspageref available; pageProxy',settingspageref)
-                this.pageProxy = pageProxy
-                this.datapaneblock = {docproxy:pageProxy,options:{uiselection:'datapane'}}
+                this.paneProxy = paneProxy
+                this.datapaneblock = {docproxy:paneProxy,options:{uiselection:'datapane'}}
             }
         }
         return  <Dialog
