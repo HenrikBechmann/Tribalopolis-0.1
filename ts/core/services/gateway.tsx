@@ -50,6 +50,7 @@ const setGatewayListener = (parmblock:GetDocumentMessage) => {
 
         switch (collection) {
             case 'pages':
+            case 'datapanes':
             case 'types':
             case 'accounts':
             case 'users':
@@ -125,6 +126,7 @@ const removeGatewayListener = ({reference}:RemoveGatewayListenerMessage) => {
 
     switch (collection) {
         case 'pages':
+        case 'datapanes':
         case 'types':
         case 'accounts':
         case 'users':
