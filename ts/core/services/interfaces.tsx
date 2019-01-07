@@ -88,7 +88,9 @@ export interface DataPaneMessage {
 }
 
 export interface RenderMessage {
-    renderspecs:Object,
+    renderspecs:{
+        [name:string]:any,
+    },
     data:Object,
     docref:string,
 }

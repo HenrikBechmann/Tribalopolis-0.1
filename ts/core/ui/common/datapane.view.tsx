@@ -15,7 +15,7 @@ import React from 'react'
 import { withStyles, createStyles } from '@material-ui/core/styles'
 import Paper from '@material-ui/core/Paper'
 import dataPane from './datapane/dataPane' // object
-import Renderer from '../../services/renderer' // class
+import PreRenderer from '../../services/prerenderer' // class
 import { 
     SetListenerMessage,
     ReturnDocPairMessage,
@@ -91,6 +91,8 @@ class DataPane extends React.Component<any,any>  {
         }
     }
 
+    prerenderer = null
+
     cacheDocPair = ({docpack, typepack, reason}:ReturnDocPairMessage) => {
 
         this.docPack = docpack
@@ -99,6 +101,12 @@ class DataPane extends React.Component<any,any>  {
         this.renderMessage = dataPane.getRenderMessage(docpack,typepack,this.state.options,this)
         console.log('renderMessage',this.renderMessage)
 
+        if ( !this.prerenderer ) {
+            this.prerenderer = new PreRenderer(this.renderMessage)
+        }
+
+        this.renderContent = this.prerenderer.assemble()
+
         this.setState({
             docpack,
             typepack,
@@ -106,14 +114,14 @@ class DataPane extends React.Component<any,any>  {
 
     }
 
-    getRenderContent = () => {
-        let options = this.state.options
-        let { classes } = this.props
-        return <div className = { classes.content }>
-                Data shelf {options?options.opcode:null}
-            </div>
+    // getRenderContent = () => {
+    //     let options = this.state.options
+    //     let { classes } = this.props
+    //     return <div className = { classes.content }>
+    //             Data shelf {options?options.opcode:null}
+    //         </div>
 
-    }
+    // }
 
     render() {
 

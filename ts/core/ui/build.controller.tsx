@@ -496,7 +496,7 @@ class BuildController extends React.Component<any,any> {
 
         // --------------[ return component ]--------------
 
-        return <div 
+        const components = <div 
             className = { classes.pagewrapper }
             ref = {this.buildelement}
         >
@@ -542,6 +542,8 @@ class BuildController extends React.Component<any,any> {
             }
 
         </div>
+
+        return components
         
     }
 }

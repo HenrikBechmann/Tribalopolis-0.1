@@ -9,6 +9,7 @@
 import React from 'react'
 import merge from 'deepmerge'
 import { RenderMessage } from '../../../services/interfaces'
+import prerenderer from '../../../services/prerenderer'
 
 const dataPane = new class {
     getRenderMessage = (docpack, typepack, options, container) => {
