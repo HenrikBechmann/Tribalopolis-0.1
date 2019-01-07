@@ -4,13 +4,17 @@
 'use strict'
 
 import React from 'react'
-import layoutComponents from './prerenderer/layouts'
+
 import { RenderMessage } from './interfaces'
 
-const layouts = layoutComponents
+import layoutComponents from './prerenderer/layouts'
+import displayComponents from './prerenderer/displays'
+import formComponents from './prerenderer/forms'
 
 const components = {
-    layouts,
+    layouts:layoutComponents,
+    displays:displayComponents,
+    forms:formComponents,
 }
 
 class PreRenderer {
@@ -24,6 +28,8 @@ class PreRenderer {
     data
 
     assemble = () => {
+        if (!this.rendermessage) return null
+            
         const {renderspecs:spec,data} = this.rendermessage 
 
         this.specs = spec.component
@@ -36,8 +42,6 @@ class PreRenderer {
     }
 
     private assembleComponents = componentspec => {
-        let assembly
-        let component = null
 
         console.log('in assembleComponents',componentspec)
 
@@ -54,7 +58,6 @@ class PreRenderer {
 
         return React.createElement(type, props, children)
 
-        return component
     }
 
     private getTypeClass = typespec => {
@@ -64,8 +67,18 @@ class PreRenderer {
         return type
     }
 
-    private getProps = propertyspec => {
-        return {}
+    private getProps = propertyspecs => {
+        let props = {}
+        for (let propertyindex in propertyspecs) {
+            let propertyspec = propertyspecs[propertyindex]
+            let property = this.getProperty(propertyindex,propertyspec)
+            props[propertyindex] = property
+        }
+        return props
+    }
+
+    private getProperty = (propertyindex,propertyspec) => {
+        return ''
     }
 
     private getChildren = childrenspec => {

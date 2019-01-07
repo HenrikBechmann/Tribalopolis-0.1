@@ -54,9 +54,7 @@ class DataPane extends React.Component<any,any>  {
 
     docProxy
     renderMessage:RenderMessage
-    renderContent
-    docPack
-    typePack
+    renderContent // set when docPair arrives
 
     componentDidMount() {
 
@@ -76,8 +74,6 @@ class DataPane extends React.Component<any,any>  {
 
     assertListener = () => {
 
-        // console.log('assertListener', this.docProxy, this.props)
-
         if (this.docProxy) {
             let parms:SetListenerMessage = 
                 {
@@ -86,7 +82,7 @@ class DataPane extends React.Component<any,any>  {
                     success:this.cacheDocPair,
                     failure:null,
                 }
-            // console.log('setting pair listener',parms)
+
             application.setDocpackPairListener( parms )
         }
     }
@@ -94,9 +90,6 @@ class DataPane extends React.Component<any,any>  {
     prerenderer = null
 
     cacheDocPair = ({docpack, typepack, reason}:ReturnDocPairMessage) => {
-
-        this.docPack = docpack
-        this.typePack = typepack
 
         this.renderMessage = dataPane.getRenderMessage(docpack,typepack,this.state.options,this)
         console.log('renderMessage',this.renderMessage)
@@ -113,15 +106,6 @@ class DataPane extends React.Component<any,any>  {
         })
 
     }
-
-    // getRenderContent = () => {
-    //     let options = this.state.options
-    //     let { classes } = this.props
-    //     return <div className = { classes.content }>
-    //             Data shelf {options?options.opcode:null}
-    //         </div>
-
-    // }
 
     render() {
 
