@@ -81,10 +81,11 @@ class PreRenderer {
         return ''
     }
 
-    private getChildren = childrenspec => {
+    private getChildren = childspecs => {
         let children = []
-        for (let child of childrenspec) {
-            children.push(this.assembleComponents(child))
+        for (let childspec of childspecs) {
+            let child = this.assembleComponents(childspec)
+            children.push(child)
         }
         return children
     }
