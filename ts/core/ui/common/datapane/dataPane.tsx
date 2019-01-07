@@ -1,7 +1,7 @@
 // dataPane.tsx
 // copyright (c) 2019 Henrik Bechmann, Toronto, Licence: GPL-3.0-or-later
 
-// this is just utilities for datpanes, so we just instantiate on object
+// this is utilities for datapanes, so we  instantiate on object
 // all calls must be functionally pure (same input = same output)
 
 'use strict'
