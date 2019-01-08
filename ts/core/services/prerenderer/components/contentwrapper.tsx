@@ -8,8 +8,7 @@ import React from 'react'
 const ContentWrapper = props => {
 
     return <div style = {{border:'2px solid blue',padding:'3px'}}>
-        Content Wrapper
-        <p>{props.children}</p>
+        {props.children}
     </div>
 }
 

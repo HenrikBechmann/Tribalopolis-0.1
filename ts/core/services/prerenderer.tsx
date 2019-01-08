@@ -51,7 +51,7 @@ class PreRenderer {
         // console.log('in assembleComponents',componentspec)
 
         // if the component is text, return the text
-        if (componentspec['#istext']) {
+        if (componentspec['#variant'] && (componentspec['#variant'] == 'text')) {
             return componentspec.text
         }
 
@@ -99,7 +99,7 @@ class PreRenderer {
 
     private getProperty = (propertyindex,propertyspec) => {
 
-        return ''
+        return propertyspec[propertyindex]
 
     }
 
