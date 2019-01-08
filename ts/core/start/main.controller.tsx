@@ -71,8 +71,6 @@ let styles = createStyles({
     }
 })
 
-console.log('main.controller styles',styles)
-
 @DragDropContext(DnDBackend)
 class Main extends React.Component<any,any> {
 

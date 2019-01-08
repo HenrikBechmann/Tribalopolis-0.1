@@ -48,7 +48,7 @@ class PreRenderer {
 
     private assembleComponents = componentspec => {
 
-        console.log('in assembleComponents',componentspec)
+        // console.log('in assembleComponents',componentspec)
 
         // if the component is text, return the text
         if (componentspec['#istext']) {

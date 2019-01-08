@@ -14,7 +14,7 @@ import prerenderer from '../../../services/prerenderer'
 const dataPane = new class {
     getRenderMessage = (docpack, typepack, options, container) => {
 
-        console.log('options in getRenderMessage',options,typepack,docpack)
+        // console.log('options in getRenderMessage',options,typepack,docpack)
         let renderspecs
         try {
             renderspecs = typepack.document.properties.ui[options.uiselection]
