@@ -14,8 +14,10 @@ import AppRouter from './approuter'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 
-const MainView = ({globalmessage, className}) => (
-    <div className = {className}>
+const MainView = ({globalmessage, className}) => {
+
+    return <div className = {className}
+        >
         {globalmessage}
 
         <AppRouter />
@@ -23,6 +25,6 @@ const MainView = ({globalmessage, className}) => (
         hideProgressBar />
         
     </div>
-)
+}
 
 export default MainView

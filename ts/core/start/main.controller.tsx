@@ -67,9 +67,11 @@ import docProxy from '../utilities/docproxy'
 
 let styles = createStyles({
     mainviewstyle: {
-        fontFamily:fontFamily,
+        fontFamily,
     }
 })
+
+console.log('main.controller styles',styles)
 
 @DragDropContext(DnDBackend)
 class Main extends React.Component<any,any> {
@@ -464,6 +466,8 @@ class Main extends React.Component<any,any> {
     // ==============================[ RENDER ]=========================================
 
     render() {
+
+        application.fontFamily = fontFamily // memoize fontFamily
 
         let { globalmessage, version, classes } = this.props
 

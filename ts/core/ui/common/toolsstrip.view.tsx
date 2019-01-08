@@ -162,13 +162,16 @@ class ToolsStrip extends React.Component<any,any> {
                 this.datapaneblock = {docproxy:paneProxy,options:{uiselection:'datapane'}}
             }
         }
+        console.log('toolsstrip fontFamily',application.fontFamily)
         return  <Dialog
           fullScreen
           open={this.state.settingsopen}
           onClose={this.closeSettings}
           TransitionComponent={Transition}
         >
-          <div className = {classes.dialogliner}>
+          <div className = {classes.dialogliner}
+              style = {{fontFamily:application.fontFamily}}
+          >
               <AppBar>
                 <Toolbar>
                   <IconButton color="inherit" onClick={this.closeSettings} aria-label="Close">
