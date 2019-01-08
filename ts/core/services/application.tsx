@@ -61,6 +61,8 @@ const appManager = new class {
 
     private fontFamilyMemo = null
 
+    private userdataMemo = null
+
     // =================[ PRIVATE ]=======================
 
     private updateSetSentinel = instanceid => {
@@ -235,7 +237,6 @@ const appManager = new class {
         
     }
 
-
     get fontFamily() {
         return this.fontFamilyMemo
     }
@@ -243,6 +244,14 @@ const appManager = new class {
     set fontFamily(value) {
         this.fontFamilyMemo = value
     }
+
+    get userdata() {
+        return this.userdataMemo 
+    }
+
+    set userdata(value) {
+        this.userdataMemo = value
+    } 
 
     setDocument = (parmblock:SetDocumentMessage) => {
 
@@ -305,6 +314,7 @@ let application = {
     queryForDocument:appManager.queryForDocument,
 
     fontFamily:appManager.fontFamily,
+    userdata:appManager.userdata,
 
     setDocument:appManager.setDocument,
     

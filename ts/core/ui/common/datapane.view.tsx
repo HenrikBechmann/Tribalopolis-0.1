@@ -55,10 +55,13 @@ class DataPane extends React.Component<any,any>  {
     docProxy
     renderMessage:RenderMessage
     renderContent // set when docPair arrives
+    userdata
 
     componentDidMount() {
 
         this.assertListener()
+        this.userdata = application.userdata
+        // console.log('DataPane view did mount',this.userdata)
 
     }
 

@@ -64,7 +64,11 @@ class PreRenderer {
             // get conponent children
             let children = this.getChildren(componentspec.children)
             // pass to React
-            return React.createElement(type, props, children)
+
+            let element = React.createElement(type, props, children)
+
+            // console.log('element in assembleComponents',element)
+            return element
 
         } catch(e) {
 
@@ -89,17 +93,20 @@ class PreRenderer {
         let props = {}
         for (let propertyindex in propertyspecs) {
             let propertyspec = propertyspecs[propertyindex]
-            let property = this.getProperty(propertyindex,propertyspec)
+            let property = this.getProperty(propertyspec)
             props[propertyindex] = property
         }
+
+        // console.log('props in getprops',props)
 
         return props
 
     }
 
-    private getProperty = (propertyindex,propertyspec) => {
+    private getProperty = (propertyspec) => {
 
-        return propertyspec[propertyindex]
+        let property = propertyspec
+        return property
 
     }
 
