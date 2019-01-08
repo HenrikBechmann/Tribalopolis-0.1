@@ -30,6 +30,7 @@ const ContentSection = props => {
 
         {props.title && <DialogTitle>{props.title}</DialogTitle>}
         {props.description && <p>{props.description}</p>}
+        {props.descriptionPart2 && <p>{props.descriptionPart2}</p>}
 
         {props.savable && <Button className = {classes.button} variant = "contained" color = "secondary">
             Save !
@@ -38,7 +39,6 @@ const ContentSection = props => {
         {props.next && <Button variant = "contained" color = "primary">
             {props.next}
         </Button>}
-        {props.descriptionPart2 && <p>{props.descriptionPart2}</p>}
         {props.children}
     
     </div>
