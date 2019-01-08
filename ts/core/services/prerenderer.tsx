@@ -15,6 +15,7 @@ const components = { // lookups
     layouts:layoutComponents,
     displays:displayComponents,
     forms:formComponents,
+    // box:boxComponents
 }
 
 // instantiated by client
@@ -83,6 +84,7 @@ class PreRenderer {
         let typelist = typespec.split('.')
         let [collection, componentclass] = typelist
         let type = components[collection][componentclass]
+        if (!type) type = typespec // TODO: should be made secure!
 
         return type
 

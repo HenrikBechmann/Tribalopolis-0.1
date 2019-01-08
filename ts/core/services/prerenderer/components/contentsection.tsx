@@ -4,6 +4,8 @@
 'use strict'
 
 import React from 'react'
+import DialogTitle from '@material-ui/core/DialogTitle'
+import Button from '@material-ui/core/Button'
 
 const ContentSection = props => {
 
@@ -14,8 +16,17 @@ const ContentSection = props => {
             marginBottom:'8px',
         }
     }>
+
+        {props.title && <DialogTitle>{props.title}</DialogTitle>}
+        {props.description && <p>{props.description}</p>}
+        {props.next && <Button variant = "contained" color = "primary">
+            {props.next}
+        </Button>}
+        {props.descriptionPart2 && <p>{props.descriptionPart2}</p>}
         {props.children}
+    
     </div>
+
 }
 
 export default ContentSection
