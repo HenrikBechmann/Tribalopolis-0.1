@@ -10,11 +10,13 @@ import { RenderMessage } from './interfaces'
 import layoutComponents from './prerenderer/layouts'
 import displayComponents from './prerenderer/displays'
 import formComponents from './prerenderer/forms'
+import widgetComponents from './prerenderer/widgets'
 
 const components = { // lookups
     layouts:layoutComponents,
     displays:displayComponents,
     forms:formComponents,
+    widgets:widgetComponents,
     // box:boxComponents
 }
 
@@ -52,8 +54,20 @@ class PreRenderer {
         // console.log('in assembleComponents',componentspec)
 
         // if the component is text, return the text
-        if (componentspec['#variant'] && (componentspec['#variant'] == 'text')) {
-            return componentspec.text
+        if (componentspec['#variant']) {
+
+            let variant = componentspec['#variant']
+
+            switch (variant) {
+                case 'text': {
+                    return componentspec.text
+                }
+                default: {
+                    console.log('error: variant in assembleComponents not recognized',variant)
+                    return null // variant not recognized
+                }
+            }
+
         }
 
         try {
