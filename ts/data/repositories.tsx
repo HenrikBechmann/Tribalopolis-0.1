@@ -575,7 +575,81 @@ let lists = {
         },
         properties:{
             version:0,
-            name:'To do lists',
+            name:'Light To do lists',
+        },
+        references:{
+            subscriptions:[],
+            owner:{
+                reference:'/items/henrik',
+            },
+            parentlists:[],
+            folder:'',
+        },
+        counts:{
+            lists:0,
+            links:0,
+        },
+        system:{
+            attributes:{},
+            permissions:{},
+        },
+        data:{
+            lists:[],
+            links:[],
+        },
+    },
+    managedtasks:
+    {
+        identity:{
+            container:'',
+            id:'',
+            handle:'',
+            type:null,
+            account:{
+                id:'',
+                handle:'',
+            },
+        },
+        properties:{
+            version:0,
+            name:'Managed To do lists',
+        },
+        references:{
+            subscriptions:[],
+            owner:{
+                reference:'/items/henrik',
+            },
+            parentlists:[],
+            folder:'',
+        },
+        counts:{
+            lists:0,
+            links:0,
+        },
+        system:{
+            attributes:{},
+            permissions:{},
+        },
+        data:{
+            lists:[],
+            links:[],
+        },
+    },
+    deeptasks:
+    {
+        identity:{
+            container:'',
+            id:'',
+            handle:'',
+            type:null,
+            account:{
+                id:'',
+                handle:'',
+            },
+        },
+        properties:{
+            version:0,
+            name:'Deep To do lists',
         },
         references:{
             subscriptions:[],
@@ -1042,6 +1116,12 @@ let lists = {
                 },
                 {
                     reference:'/lists/tasks',
+                },
+                {
+                    reference:'/lists/managedtasks',
+                },
+                {
+                    reference:'/lists/deeptasks',
                 },
                 {
                     reference:'/lists/projects',

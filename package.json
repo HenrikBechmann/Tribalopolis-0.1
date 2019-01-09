@@ -13,8 +13,8 @@
   "license": "GNUv3",
   "dependencies": {
     "@babel/polyfill": "^7.2.5",
-    "@material-ui/core": "^3.7.1",
-    "@material-ui/icons": "^3.0.1",
+    "@material-ui/core": "^3.8.3",
+    "@material-ui/icons": "^3.0.2",
     "deep-diff": "^1.0.2",
     "deepmerge": "^3.0.0",
     "draft-js": "^0.10.5",
