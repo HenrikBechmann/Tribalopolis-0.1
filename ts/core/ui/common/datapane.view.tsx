@@ -61,7 +61,7 @@ class DataPane extends React.Component<any,any>  {
 
         this.assertListener()
         this.userdata = application.userdata
-        // console.log('DataPane view did mount',this.userdata)
+        // console.log('DataPane view did mount - userdata',this.userdata)
 
     }
 
@@ -94,7 +94,10 @@ class DataPane extends React.Component<any,any>  {
 
     cacheDocPair = ({docpack, typepack, reason}:ReturnDocPairMessage) => {
 
-        this.renderMessage = dataPane.getRenderMessage(docpack,typepack,this.state.options,this)
+        let containerdata = {
+            userdata:this.userdata,
+        }
+        this.renderMessage = dataPane.getRenderMessage(docpack,typepack,this.state.options,containerdata)
         // console.log('renderMessage',this.renderMessage)
 
         if ( !this.prerenderer ) {

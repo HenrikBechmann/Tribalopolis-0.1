@@ -27,14 +27,14 @@ class ContentBaseForm extends React.Component<any,any> {
 
         return (
             <form 
-                onSubmit = {(event) => {
+                onSubmit = {event => {
                     event.preventDefault()
                     if (!disabled) {
                         onSubmit && onSubmit()
                     }
                 }}
-                className = { classes.root } 
-                autoComplete="off" 
+                className = { classes && classes.root } 
+                autoComplete = "off" 
             > 
                 { this.props.children }
             </form>

@@ -11,6 +11,8 @@ import layoutComponents from './prerenderer/layouts'
 import displayComponents from './prerenderer/displays'
 import formComponents from './prerenderer/forms'
 import widgetComponents from './prerenderer/widgets'
+import nativeComponents from './prerenderer/native'
+import utilities from '../utilities/utilities'
 
 const components = { // lookups
     layouts:layoutComponents,
@@ -18,6 +20,7 @@ const components = { // lookups
     forms:formComponents,
     widgets:widgetComponents,
     // box:boxComponents
+    native:nativeComponents,
 }
 
 // instantiated by client
@@ -30,20 +33,22 @@ class PreRenderer {
     }
 
     rendermessage:RenderMessage
-    specs
+    componentspecs
     data
 
     // called by client
     assemble = () => {
 
         if (!this.rendermessage) return null
-            
-        const {renderspecs:spec,data} = this.rendermessage 
 
-        this.specs = spec.component
+        const {renderspecs:specs,data} = this.rendermessage 
+
+        this.componentspecs = specs.component
         this.data = data
 
-        let componentClass = this.assembleComponents(this.specs)
+        console.log('data in assemble', this.data)
+            
+        let componentClass = this.assembleComponents(this.componentspecs)
 
         return componentClass
 
@@ -122,8 +127,36 @@ class PreRenderer {
     private getProperty = (propertyspec) => {
 
         let property = propertyspec
+
+        let prepend = property[0]
+
+        switch (prepend) {
+
+            case '&': {
+                property = this.getPropertyByIndirection(propertyspec)
+                break
+            }
+            case '@': {
+
+                break
+            }
+        }
+
         return property
 
+    }
+
+    private getPropertyByIndirection = propertySpec => {
+
+        let path = propertySpec.slice(1)
+        let pathlist = path.split('.')
+        let data = this.data
+        let nodedata = utilities.getNodePosition(data,pathlist)
+        if (nodedata) {
+            return nodedata.nodevalue
+        } else {
+            return undefined
+        }
     }
 
     private getChildren = childspecs => {

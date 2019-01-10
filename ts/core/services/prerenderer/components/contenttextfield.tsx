@@ -7,7 +7,7 @@ import React from 'react'
 
 import { withStyles, createStyles, Theme } from '@material-ui/core/styles'
 
-import MuiTextField from '@material-ui/core/TextField'
+import TextField from '@material-ui/core/TextField'
 
 
 const styles = ( theme:Theme ) => createStyles({
@@ -20,26 +20,29 @@ const styles = ( theme:Theme ) => createStyles({
 
 // allow optional margin
 interface TextFieldInterface {
-   classes:any, 
-   name:any, 
-   label:any, 
+   classes?:any, 
+   name:string, 
+   label:string, 
    value:any, 
-   helperText:any, 
-   margin?:any, 
+   helperText?:string, 
+   margin?:"normal" | "none" | "dense", 
    multiline?:boolean
-   onChange:any, 
+   onChange?:any, 
+   readonly?:boolean,
 }
 
-const ContentTextField = ({ classes, name, label, value, helperText, margin, multiline, onChange }:TextFieldInterface) => {
+const ContentTextField = (props:TextFieldInterface) => {
 
-    let marginval = (margin)?margin:'normal'
+    let { classes, name, label, value, helperText, margin, multiline, onChange, readonly } = props
+
+    let marginval = margin?margin:'normal'
 
     // console.log('calling Textfield')
 
     // console.log('textfield props',classes, name, label, value, helperText, margin, onChange)
 
     return (
-        <MuiTextField
+        <TextField
           id = { name + '-id' }
           name = { name }
           label = { label }
