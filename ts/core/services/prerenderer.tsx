@@ -36,6 +36,11 @@ class PreRenderer {
     componentspecs
     data
 
+
+    updateRenderMessage = (rendermessage:RenderMessage) => {
+        this.rendermessage = rendermessage
+    }
+
     // called by client
     assemble = () => {
 

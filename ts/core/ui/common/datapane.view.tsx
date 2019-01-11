@@ -99,10 +99,12 @@ class DataPane extends React.Component<any,any>  {
             props:this.props,
         }
         this.renderMessage = dataPane.getRenderMessage(docpack,typepack,this.state.options,containerdata)
-        // console.log('renderMessage',this.renderMessage)
+        console.log('CacheDocPair renderMessage',this.renderMessage)
 
         if ( !this.prerenderer ) {
             this.prerenderer = new PreRenderer(this.renderMessage)
+        } else {
+            this.prerenderer.updateRenderMessage(this.renderMessage)
         }
 
         this.renderContent = this.prerenderer.assemble()
