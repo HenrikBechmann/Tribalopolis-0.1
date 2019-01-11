@@ -171,6 +171,14 @@ const MenuList = withRouter
                 </ListItemIcon>
                 <ListItemText primary = "About" />
             </ListItem>
+            <ListItem button
+                disabled
+            >
+                <ListItemIcon>
+                    <Icon className='material-icons'>contacts</Icon>
+                </ListItemIcon>
+                <ListItemText primary = "Contacts" />
+            </ListItem>
         </List>
         )
     }

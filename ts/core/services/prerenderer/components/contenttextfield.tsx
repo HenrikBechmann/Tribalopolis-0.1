@@ -46,12 +46,15 @@ const ContentTextField = (props:TextFieldInterface) => {
           id = { name + '-id' }
           name = { name }
           label = { label }
-          value = { value }
+          value = { value || '' }
           className = { classes.textField }
           helperText = { helperText }
           multiline = {multiline?multiline:false}
           margin = { marginval }
           onChange = { onChange }
+          inputProps = {{
+            readOnly:(readonly && readonly)
+          }}
         />
     )
 }

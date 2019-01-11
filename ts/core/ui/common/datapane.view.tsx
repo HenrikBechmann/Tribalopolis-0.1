@@ -96,6 +96,7 @@ class DataPane extends React.Component<any,any>  {
 
         let containerdata = {
             userdata:this.userdata,
+            props:this.props,
         }
         this.renderMessage = dataPane.getRenderMessage(docpack,typepack,this.state.options,containerdata)
         // console.log('renderMessage',this.renderMessage)
