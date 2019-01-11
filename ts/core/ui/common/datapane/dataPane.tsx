@@ -33,7 +33,7 @@ const dataPane = new class {
 
         let rendermessage:RenderMessage = {renderspecs,data,docref:docpack.reference}
 
-        console.log('getRenderMessage rendermessage',rendermessage, container)
+        // console.log('getRenderMessage rendermessage',rendermessage, container)
 
         return rendermessage
     }
