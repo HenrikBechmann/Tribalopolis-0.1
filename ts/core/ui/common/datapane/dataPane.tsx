@@ -28,6 +28,7 @@ const dataPane = new class {
             container,
             props:container.props,
             document:docpack.document,
+            type:(typepack && typepack.document)
         }
 
         let rendermessage:RenderMessage = {renderspecs,data,docref:docpack.reference}

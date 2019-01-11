@@ -51,7 +51,7 @@ class PreRenderer {
         this.componentspecs = specs.component
         this.data = data
 
-        console.log('data in assemble', this.data)
+        // console.log('data in assemble', this.data)
             
         let componentClass = this.assembleComponents(this.componentspecs)
 
@@ -123,7 +123,7 @@ class PreRenderer {
             props[propertyindex] = property
         }
 
-        console.log('props in getProps',props)
+        // console.log('props in getProps',props)
 
         return props
 
@@ -157,7 +157,7 @@ class PreRenderer {
         let pathlist = path.split('.')
         let data = this.data
         let nodedata = utilities.getNodePosition(data,pathlist)
-        console.log('getPropertyByIndirection',propertySpec,pathlist,nodedata)
+        // console.log('getPropertyByIndirection',propertySpec,pathlist,nodedata)
         if (nodedata) {
             return nodedata.nodevalue
         } else {
