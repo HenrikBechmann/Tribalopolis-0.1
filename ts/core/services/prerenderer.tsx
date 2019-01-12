@@ -26,10 +26,12 @@ const components = { // lookups
 // instantiated by client
 class PreRenderer {
 
-    rendermessage:RenderMessage
-    componentspecs
-    data
+    private rendermessage:RenderMessage
+    private componentspecs
+    private data
 
+
+    // ==================[ API ]========================
 
     updateRenderMessage = (rendermessage) => {
         this.rendermessage = rendermessage
@@ -80,6 +82,8 @@ class PreRenderer {
         return rendermessage
     }
 
+    // =======================[ internal ]============================
+
     private assembleComponents = componentspec => {
 
         // console.log('in assembleComponents',componentspec)
@@ -93,8 +97,8 @@ class PreRenderer {
                 case 'text': {
                     return componentspec.text
                 }
-                case 'reference': {
-                    return this.getReference(componentspec.reference)
+                case 'reference': { // recursion
+                    return this.getComponentByReference(componentspec.reference)
                 }
                 default: {
                     console.log('error: variant in assembleComponents not recognized',variant)
@@ -129,7 +133,10 @@ class PreRenderer {
         }
     }
 
-    getReference = (reference) => {
+    getComponentByReference = (reference) => {
+
+
+        
         return null
     }
 
