@@ -393,7 +393,13 @@ class BuildController extends React.Component<any,any> {
             <ActionButton 
                 icon = 'list'
                 action = {() => {
-                        this.callDataDrawer({docproxy:null,options:{specs:{collection:this.state.values.collection}}})
+                        this.callDataDrawer(
+                            {
+                                docproxy:null,
+                                options:{specs:{collection:this.state.values.collection}},
+                                callbacks:{},
+                            }
+                        )
                     }
                 }
             />

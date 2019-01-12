@@ -159,7 +159,13 @@ class ToolsStrip extends React.Component<any,any> {
                 let paneProxy = new docproxy({doctoken:{reference:settingspageref}})
                 // console.log('settingspageref available; pageProxy',settingspageref)
                 this.paneProxy = paneProxy
-                this.datapaneblock = {docproxy:paneProxy,options:{uiselection:'datapane'}}
+                this.datapaneblock = {
+                    docproxy:paneProxy,
+                    options:{uiselection:'datapane'},
+                    callbacks:{
+                        closeAction:this.closeSettings
+                    }
+                }
             }
         }
         // console.log('toolsstrip fontFamily',application.fontFamily)

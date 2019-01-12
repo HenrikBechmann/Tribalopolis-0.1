@@ -43,6 +43,7 @@ class DataPane extends React.Component<any,any>  {
     constructor(props) {
         super(props)
         this.docProxy = this.props.dataPaneMessage?this.props.dataPaneMessage.docProxy:null
+        this.callbacks = this.props.callbacks
     }
 
     state = {
@@ -55,6 +56,7 @@ class DataPane extends React.Component<any,any>  {
     renderMessage:RenderMessage
     renderContent // set when docPair arrives
     userdata
+    callbacks
 
     componentDidMount() {
 
@@ -96,16 +98,21 @@ class DataPane extends React.Component<any,any>  {
         let containerdata = {
             userdata:this.userdata,
             props:this.props,
+            callbacks:this.callbacks,
         }
-        this.renderMessage = this.prerenderer.getRenderMessage(docpack,typepack,this.state.options,containerdata)
-        // console.log('CacheDocPair renderMessage',this.renderMessage)
 
         if ( !this.prerenderer ) {
-            this.prerenderer = new PreRenderer(this.renderMessage)
-        } else {
-            this.prerenderer.updateRenderMessage(this.renderMessage)
+            this.prerenderer = new PreRenderer()
         }
 
+        this.renderMessage = this.prerenderer.getRenderMessage(
+            docpack,
+            typepack,
+            this.state.options,
+            containerdata
+        )
+
+        this.prerenderer.updateRenderMessage(this.renderMessage)
         this.renderContent = this.prerenderer.assemble()
 
         this.setState({

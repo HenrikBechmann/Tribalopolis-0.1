@@ -85,6 +85,7 @@ export interface SetDocumentMessage {
 export interface DataPaneMessage {
     docproxy:Object,
     options:Object,
+    callbacks:Object,
 }
 
 export interface RenderMessage {

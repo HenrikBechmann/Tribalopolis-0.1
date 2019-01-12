@@ -26,18 +26,12 @@ const components = { // lookups
 // instantiated by client
 class PreRenderer {
 
-    constructor(rendermessage) {
-
-        this.rendermessage = rendermessage
-
-    }
-
     rendermessage:RenderMessage
     componentspecs
     data
 
 
-    updateRenderMessage = (rendermessage:RenderMessage) => {
+    updateRenderMessage = (rendermessage) => {
         this.rendermessage = rendermessage
     }
 
