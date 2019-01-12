@@ -12,6 +12,8 @@ import displayComponents from './prerenderer/displays'
 import formComponents from './prerenderer/forms'
 import widgetComponents from './prerenderer/widgets'
 import nativeComponents from './prerenderer/native'
+
+import AbstractDataPane from './prerenderer/components/abstractdatapane'
 import utilities from '../utilities/utilities'
 
 const components = { // lookups

@@ -97,6 +97,7 @@ class DataPane extends React.Component<any,any>  {
 
     cacheDocPair = ({docpack, typepack, reason}:ReturnDocPairMessage) => {
 
+        // database type data namespace
         let containerdata = {
             userdata:this.userdata,
             props:this.props,
@@ -109,12 +110,14 @@ class DataPane extends React.Component<any,any>  {
             this.prerenderer = new PreRenderer()
         }
 
-        this.renderMessage = this.prerenderer.getRenderMessage(
-            docpack,
-            typepack,
-            this.state.options,
-            containerdata
-        )
+        // reformat for prerenderer
+        this.renderMessage = 
+            this.prerenderer.getRenderMessage(
+                docpack,
+                typepack,
+                this.state.options,
+                containerdata
+            )
 
         this.prerenderer.updateRenderMessage(this.renderMessage)
         this.renderContent = this.prerenderer.assemble()

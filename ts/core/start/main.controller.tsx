@@ -71,6 +71,14 @@ let styles = createStyles({
     }
 })
 
+const beforeUnloadFunc = (ev) => 
+        {  
+            ev.preventDefault();
+            alert('in before unload func')
+            console.log('in before unload func')
+            return ev.returnValue = 'Are you sure you want to close?';
+        }
+
 @DragDropContext(DnDBackend)
 class Main extends React.Component<any,any> {
 
@@ -78,8 +86,8 @@ class Main extends React.Component<any,any> {
 
         super(props)
         toast.info('resolving sign-in status...')
-        authapi.setUpdateCallback(this.updateLoginData) 
- 
+        authapi.setUpdateCallback(this.updateLoginData)
+        // window.addEventListener("beforeunload", beforeUnloadFunc)
     }
 
     state = {
@@ -158,6 +166,8 @@ class Main extends React.Component<any,any> {
 
     // This is notional. componentWillUnmount not run in most conditions on page refresh
     componentWillUnmount() {
+
+        // window.removeEventListener("beforeunload", beforeUnloadFunc)
 
         this.removeListeners()
 
