@@ -93,6 +93,9 @@ class PreRenderer {
                 case 'text': {
                     return componentspec.text
                 }
+                case 'reference': {
+                    return this.getReference(componentspec.reference)
+                }
                 default: {
                     console.log('error: variant in assembleComponents not recognized',variant)
                     return null // variant not recognized
@@ -124,6 +127,10 @@ class PreRenderer {
             return null
 
         }
+    }
+
+    getReference = (reference) => {
+        return null
     }
 
     private getTypeClass = typespec => {
