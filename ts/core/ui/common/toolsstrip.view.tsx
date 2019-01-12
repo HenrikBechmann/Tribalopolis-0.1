@@ -163,7 +163,7 @@ class ToolsStrip extends React.Component<any,any> {
                     docproxy:paneProxy,
                     options:{uiselection:'datapane'},
                     callbacks:{
-                        closeAction:this.closeSettings
+                        close:this.closeSettings
                     }
                 }
             }

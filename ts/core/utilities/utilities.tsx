@@ -46,8 +46,18 @@ const isObject = value => {
     return ((typeof value === 'object') && (value !== null))
 }
 
+// from https://stackoverflow.com/questions/5999998/how-can-i-check-if-a-javascript-variable-is-function-type
+const isFunction = (functionToCheck) => {
+    if (!functionToCheck) return false
+    let isFunction = functionToCheck && ({}.toString.call(functionToCheck) === '[object Function]')
+
+    return isFunction
+}
+
 export default {
     getJsonFile,
     getNodePosition,
     isObject,
+    isFunction,
 }
+

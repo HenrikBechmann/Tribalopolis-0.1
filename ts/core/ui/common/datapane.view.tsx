@@ -43,7 +43,9 @@ class DataPane extends React.Component<any,any>  {
     constructor(props) {
         super(props)
         this.docProxy = this.props.dataPaneMessage?this.props.dataPaneMessage.docProxy:null
-        this.callbacks = this.props.callbacks
+        this.callbacks = this.props.dataPaneMessage?this.props.dataPaneMessage.callbacks:null
+
+        // console.log('callbacks in DataPane constructur',this.callbacks,props)
     }
 
     state = {
@@ -100,6 +102,8 @@ class DataPane extends React.Component<any,any>  {
             props:this.props,
             callbacks:this.callbacks,
         }
+
+        // console.log('containerdata and this.callbacks',containerdata,this.callbacks)
 
         if ( !this.prerenderer ) {
             this.prerenderer = new PreRenderer()

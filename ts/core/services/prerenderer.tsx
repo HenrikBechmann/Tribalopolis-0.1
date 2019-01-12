@@ -111,6 +111,8 @@ class PreRenderer {
             let children = this.getChildren(componentspec.children)
             // pass to React
 
+            // console.log('component arguments',componentspec.type,componentspec.properties,props,children)
+
             let element = React.createElement(type, props, children)
 
             // console.log('element in assembleComponents',element)
@@ -177,7 +179,7 @@ class PreRenderer {
         let path = propertySpec.slice(1)
         let pathlist = path.split('.')
         let data = this.data
-        let nodedata = utilities.getNodePosition(data,pathlist)
+        let nodedata:any = utilities.getNodePosition(data,pathlist)
         // console.log('getPropertyByIndirection',propertySpec,pathlist,nodedata)
         if (nodedata) {
             return nodedata.nodevalue
