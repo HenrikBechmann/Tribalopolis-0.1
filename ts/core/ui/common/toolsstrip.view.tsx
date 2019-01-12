@@ -181,7 +181,7 @@ class ToolsStrip extends React.Component<any,any> {
                     Account Settings
                   </Typography>
                   <Button color="inherit" onClick={this.closeSettings}>
-                    save
+                    Done
                   </Button>
                 </Toolbar>
               </AppBar>
@@ -203,6 +203,7 @@ class ToolsStrip extends React.Component<any,any> {
                 onClick={this.handleAccountClick}
               >
                 <Icon style = {{color:!this.state.userdata?'rgb(0,0,0,0.54)':'cadetblue'}}>account_box</Icon>
+                <Icon style = {{color:!this.state.userdata?'rgb(0,0,0,0.54)':'cadetblue'}}>arrow_drop_down</Icon>
             </IconButton>
             <div style = {
                 {

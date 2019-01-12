@@ -38,7 +38,12 @@ const ContentSection = props => {
             {props.previous}
         </Button>}
 
-        {props.savable && <Button className = {classes.button} variant = "contained" color = "secondary">
+        {props.savable && <Button 
+            className = {classes.button} 
+            variant = "contained" 
+            color = "secondary"
+            disabled
+        >
             Save !
         </Button>}
 
