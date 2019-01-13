@@ -156,6 +156,7 @@ class QuadFrame extends React.Component<any,any>  {
                 <SwapMenu 
                     quadrantPosition = {this.state.quadrantPosition} 
                     handleSwap = {this.props.callbacks.handleSwap}
+                    selectQuadrant = {this.props.callbacks.selectQuadrant}
                 />
                 {this.props.children}
                 <QuadSelector 

@@ -10,6 +10,7 @@ import MenuItem from '@material-ui/core/MenuItem'
 import { withStyles, createStyles } from '@material-ui/core/styles'
 import ActionButton from '../common/actionbutton.view'
 import PopupMenu from '../common/popupmenu.view'
+import Divider from '@material-ui/core/Divider'
 
 const styles = createStyles({
     root:{
@@ -53,16 +54,113 @@ class SwapMenu extends React.Component<any, any> {
         this.setState({ menuopen: false });
     }
 
+    selectQuadrantFrom = (direction) => {
+        let currentPosition = this.props.quadrantPosition
+        let target
+        switch (currentPosition) {
+            case 'topleft': {
+                switch (direction) {
+                    case 'horizontal':{
+                        target = 'topright'
+                        break
+                    }
+                    case 'tilted': {
+                        target = 'bottomright'
+                        break
+                    }
+                    case 'vertical': {
+                        target = 'bottomleft'
+                        break
+                    }
+                }
+                break
+            }
+            case 'topright': {
+                switch (direction) {
+                    case 'horizontal': {
+                        target = 'topleft'
+                        break
+                    }
+                    case 'tilted': {
+                        target = 'bottomleft'
+                        break
+                    }
+                    case 'vertical': {
+                        target = 'bottomright'
+                        break
+                    }
+                }
+                break
+            }
+            case 'bottomleft': {
+                switch (direction) {
+                    case 'horizontal': {
+                        target = 'bottomright'
+                        break
+                    }
+                    case 'tilted': {
+                        target = 'topright'
+                        break
+                    }
+                    case 'vertical': {
+                        target = 'topleft'
+                        break
+                    }
+                }
+                break
+            }
+            case 'bottomright': {
+                switch (direction) {
+                    case 'horizontal': {
+                        target = 'bottomleft'
+                        break
+                    }
+                    case 'tilted': {
+                        target = 'topleft'
+                        break
+                    }
+                    case 'vertical': {
+                        target = 'topright'
+                        break
+                    }
+                }
+                break
+            }
+        }
+        this.props.selectQuadrant(target)
+    }
+
     render() {
-        let { quadrantPosition, handleSwap, classes } = this.props
+        let { quadrantPosition, handleSwap, selectQuadrant, classes } = this.props
 
         // console.log('quadrantposition',quadrantPosition)
 
         let tilt = null
+        let gotilta = null
+        let gotiltb = null
+        let gotiltc = null
         if (quadrantPosition == 'topleft' || quadrantPosition == 'bottomright') {
             tilt = '-45deg'
+            if (quadrantPosition == 'topleft') {
+                gotilta = '0deg'
+                gotiltb = '45deg'
+                gotiltc = '90deg'
+            } else { // bottom right
+                gotilta = '180deg'
+                gotiltb = '225deg'
+                gotiltc = '-90deg'
+            }
         } else {
             tilt = '45deg'
+            if (quadrantPosition == 'bottomleft') {
+                gotilta = '0deg'
+                gotiltb = '-45deg'
+                gotiltc = '-90deg'
+            } else { // top right
+                gotilta = '180deg'
+                gotiltb = '-225deg'
+                gotiltc = '90deg'
+            }
         }
 
         return <div 
@@ -95,6 +193,40 @@ class SwapMenu extends React.Component<any, any> {
                     }
                 }
             >
+                <MenuItem className = {classes.menustyle}
+                    onClick={this.menuClose}>
+
+                <div 
+                    style = {
+                        {
+                            display:'inline-block',
+                            marginRight:'6px',
+                        }
+                    }
+                >
+                    Go to
+                </div>
+
+                <ActionButton 
+                    iconStyle = {{color:'green',transform:`rotate(${gotilta})`}}
+                    icon = 'arrow_right_alt'
+                    action = {() => {
+                        this.selectQuadrantFrom('horizontal')
+                    }} />
+                <ActionButton 
+                    iconStyle = {{color:'green',transform:`rotate(${gotiltb})`}}
+                    icon = 'arrow_right_alt'
+                    action = {() => {
+                        this.selectQuadrantFrom('tilted')
+                    }} />
+                <ActionButton 
+                    iconStyle = {{color:'green',transform:`rotate(${gotiltc})`}}
+                    icon = 'arrow_right_alt'
+                    action = {() => {
+                        this.selectQuadrantFrom('vertical')
+                    }} />
+                </MenuItem>
+                <Divider />
                 <MenuItem className = {classes.menustyle}
                     onClick={this.menuClose}>
 
