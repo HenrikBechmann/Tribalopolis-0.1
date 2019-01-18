@@ -88,10 +88,10 @@ class PreRenderer {
 
     private assembleComponents = componentspec => {
 
-        // console.log('in assembleComponents',componentspec)
-
         // if the component is text, return the text
         if (componentspec['#variant']) {
+
+            // console.log('in assembleComponents for #variant: componentspec',componentspec)
 
             let variant = componentspec['#variant']
 
@@ -137,7 +137,9 @@ class PreRenderer {
 
     getComponentByReference = (reference) => {
 
+        let ref = this.getPropertyByFilter(reference)
 
+        // console.log('getComponentByReference', reference, ref)
         
         return null
     }
@@ -158,7 +160,7 @@ class PreRenderer {
         let props = {}
         for (let propertyindex in propertyspecs) {
             let propertyspec = propertyspecs[propertyindex]
-            let property = this.getProperty(propertyspec)
+            let property = this.getPropertyByFilter(propertyspec)
             props[propertyindex] = property
         }
 
@@ -168,9 +170,11 @@ class PreRenderer {
 
     }
 
-    private getProperty = (propertyspec) => {
+    private getPropertyByFilter = (propertyspec) => {
 
         let property = propertyspec
+
+        if (!property) return property
 
         let prepend = property[0]
 
@@ -196,7 +200,7 @@ class PreRenderer {
         let pathlist = path.split('.')
         let data = this.data
         let nodedata:any = utilities.getNodePosition(data,pathlist)
-        // console.log('getPropertyByIndirection',propertySpec,pathlist,nodedata)
+        // console.log('getPropertyByIndirection',propertySpec,pathlist,nodedata, data)
         if (nodedata) {
             return nodedata.nodevalue
         } else {
@@ -205,6 +209,8 @@ class PreRenderer {
     }
 
     private getChildren = childspecs => {
+
+        // console.log('getChildren childspecs',childspecs)
 
         let children = []
         for (let childspec of childspecs) {

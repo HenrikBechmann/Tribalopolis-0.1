@@ -23,8 +23,9 @@ firebase.initializeApp(config)
 
 // Disable deprecated features
 // required according to https://firebase.google.com/docs/firestore/quickstart
-firebase.firestore().settings({
-  timestampsInSnapshots: true
-})
+// no longer required as of version 5.8.0
+// firebase.firestore().settings({
+//   timestampsInSnapshots: true
+// })
 
 export default firebase
