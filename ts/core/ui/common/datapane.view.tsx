@@ -2,8 +2,8 @@
 // copyright (c) 2019 Henrik Bechmann, Toronto, Licence: GPL-3.0-or-later
 
 /*
-    do a deep merge of account settings when the are edited to 
-    protect them against asyn updates from database.
+    do a deep merge of account settings when they are edited to 
+    protect them against async updates from database.
     do a deep-diff when new account version is updated to alert user as to changes
 
 */
