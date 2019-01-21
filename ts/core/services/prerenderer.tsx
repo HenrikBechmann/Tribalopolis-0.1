@@ -100,7 +100,7 @@ class PreRenderer {
                     return componentspec.text
                 }
                 case 'reference': { // recursion
-                    return this.getComponentByReference(componentspec.reference, componentspec.options)
+                    return this.getComponentByReference(componentspec.reference, componentspec.properties)
                 }
                 default: {
                     console.log('error: variant in assembleComponents not recognized',variant)
@@ -135,14 +135,18 @@ class PreRenderer {
         }
     }
 
-    getComponentByReference = (reference, options) => {
+    getComponentByReference = (reference, properties) => {
 
         let ref = this.getPropertyByFilter(reference)
-        let opts = this.getProps(options)
+        let props:any = this.getProps(properties)
         let dataheap = this.data
-        console.log('getComponentByReference', ref, opts, dataheap)
+        let { options:opts } = props
+        console.log('getComponentByReference', reference, properties, ref, opts, dataheap)
         
-        return <AbstractDataPane reference = {ref} options = {opts} dataheap = {dataheap}  />
+        return <div key = {props.key} style = {{border:'2px solid green'}} >
+            Insert
+            <AbstractDataPane reference = {ref} options = {opts} data = {dataheap}  />
+        </div>
     }
 
     private getTypeClass = typespec => {

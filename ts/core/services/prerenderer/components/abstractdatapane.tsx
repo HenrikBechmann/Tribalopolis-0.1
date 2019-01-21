@@ -15,17 +15,17 @@ class AbstractDataPane extends React.Component<any,any> {
 
         this.prerenderer = new PreRenderer()
 
-        let { reference, options, dataheap } = this.props
+        let { reference, options, data } = this.props
         this.reference = reference
         this.options = options
-        this.dataheap = dataheap
+        this.data = data
 
     }
 
     prerenderer
     reference
     options
-    dataheap
+    data
 
     componentDidMount() {
         // subscribe to reference
