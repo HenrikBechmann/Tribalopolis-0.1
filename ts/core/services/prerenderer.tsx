@@ -143,10 +143,7 @@ class PreRenderer {
         let { options:opts } = props
         console.log('getComponentByReference', reference, properties, ref, opts, dataheap)
         
-        return <div key = {props.key} style = {{border:'2px solid green'}} >
-            Insert
-            <AbstractDataPane reference = {ref} options = {opts} data = {dataheap}  />
-        </div>
+        return <AbstractDataPane reference = {ref} options = {opts} data = {dataheap}  />
     }
 
     private getTypeClass = typespec => {

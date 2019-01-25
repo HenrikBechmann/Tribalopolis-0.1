@@ -6,6 +6,7 @@
 import React from 'react'
 
 import PreRenderer from '../../prerenderer'
+import Proxy from '../../../utilities/docproxy'
 
 class AbstractDataPane extends React.Component<any,any> {
 
@@ -19,6 +20,7 @@ class AbstractDataPane extends React.Component<any,any> {
         this.reference = reference
         this.options = options
         this.data = data
+        this.proxy = new Proxy({doctoken:{reference}})
 
     }
 
@@ -26,6 +28,7 @@ class AbstractDataPane extends React.Component<any,any> {
     reference
     options
     data
+    proxy
 
     componentDidMount() {
         // subscribe to reference
