@@ -141,9 +141,9 @@ class PreRenderer {
         let props:any = this.getProps(properties)
         let dataheap = this.data
         let { options:opts } = props
-        console.log('getComponentByReference', reference, properties, ref, opts, dataheap)
+        // console.log('getComponentByReference', reference, properties, ref, opts, dataheap)
         
-        return <AbstractDataPane reference = {ref} options = {opts} data = {dataheap}  />
+        return <AbstractDataPane key = {props.key} reference = {ref} options = {opts} data = {dataheap}  />
     }
 
     private getTypeClass = typespec => {

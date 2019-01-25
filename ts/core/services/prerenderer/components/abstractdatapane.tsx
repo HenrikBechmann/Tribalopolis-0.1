@@ -7,6 +7,8 @@ import React from 'react'
 
 import PreRenderer from '../../prerenderer'
 import Proxy from '../../../utilities/docproxy'
+import application from '../../../services/application'
+import { SetListenerMessage, ReturnDocPairMessage } from '../../../services/interfaces'
 
 class AbstractDataPane extends React.Component<any,any> {
 
@@ -17,22 +19,79 @@ class AbstractDataPane extends React.Component<any,any> {
         this.prerenderer = new PreRenderer()
 
         let { reference, options, data } = this.props
+
+        console.log('reference, options, data in abstractdatapand',reference, options, data)
         this.reference = reference
         this.options = options
         this.data = data
-        this.proxy = new Proxy({doctoken:{reference}})
+        this.userdata = data.container.userdata
+        this.callbacks = data.container.callbacks
+        this.docProxy = new Proxy({doctoken:{reference}})
 
     }
 
-    prerenderer
+    prerenderer = null
     reference
     options
     data
-    proxy
+    docProxy
+    userdata
+    callbacks
+    renderMessage
+    renderContent
 
     componentDidMount() {
         // subscribe to reference
         
+    }
+
+    assertListener = () => {
+
+        if (this.docProxy) {
+            let parms:SetListenerMessage = 
+                {
+                    doctoken:this.docProxy.doctoken,
+                    instanceid:this.docProxy.instanceid,
+                    success:this.cacheDocPair,
+                    failure:null,
+                }
+
+            application.setDocpackPairListener( parms )
+        }
+    }
+
+    cacheDocPair = ({docpack, typepack, reason}:ReturnDocPairMessage) => {
+
+        // database type data namespace
+        let containerdata = {
+            userdata:this.userdata,
+            props:this.props,
+            callbacks:this.callbacks,
+        }
+
+        // console.log('containerdata and this.callbacks',containerdata,this.callbacks)
+
+        if ( !this.prerenderer ) {
+            this.prerenderer = new PreRenderer()
+        }
+
+        // reformat for prerenderer
+        this.renderMessage = 
+            this.prerenderer.getRenderMessage(
+                docpack,
+                typepack,
+                this.state.options,
+                containerdata
+            )
+
+        this.prerenderer.updateRenderMessage(this.renderMessage)
+        this.renderContent = this.prerenderer.assemble()
+
+        this.setState({
+            docpack,
+            typepack,
+        })
+
     }
 
     render() {
