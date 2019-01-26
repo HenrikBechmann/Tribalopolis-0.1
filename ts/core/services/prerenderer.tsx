@@ -35,12 +35,12 @@ class PreRenderer {
 
     // ==================[ API ]========================
 
-    updateRenderMessage = (rendermessage) => {
+    setRenderMessage = (rendermessage) => {
         this.rendermessage = rendermessage
     }
 
     // called by client
-    assemble = () => {
+    getRenderContent = () => {
 
         if (!this.rendermessage) return null
 

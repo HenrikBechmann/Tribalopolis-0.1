@@ -8,7 +8,7 @@ import React from 'react'
 import PreRenderer from '../../prerenderer'
 import Proxy from '../../../utilities/docproxy'
 import application from '../../../services/application'
-import { SetListenerMessage, ReturnDocPairMessage } from '../../../services/interfaces'
+import { SetListenerMessage, RemoveListenerMessage, ReturnDocPairMessage } from '../../../services/interfaces'
 
 class AbstractDataPane extends React.Component<any,any> {
 
@@ -30,11 +30,17 @@ class AbstractDataPane extends React.Component<any,any> {
 
     }
 
+    state = {
+        options:null,
+        docpack:null,
+        typepack:null,
+    }
+
     prerenderer = null
     reference
     options
     data
-    docProxy
+    docProxy:Proxy
     userdata
     callbacks
     renderMessage
@@ -42,7 +48,19 @@ class AbstractDataPane extends React.Component<any,any> {
 
     componentDidMount() {
         // subscribe to reference
+        this.assertListener()
         
+    }
+
+    componentWillUnmount() {
+
+        let msg:RemoveListenerMessage = 
+        {
+            doctoken:this.docProxy.doctoken,
+            instanceid:this.docProxy.instanceid,
+        }
+        application.removeDocpackPairListener(msg)
+
     }
 
     assertListener = () => {
@@ -61,6 +79,8 @@ class AbstractDataPane extends React.Component<any,any> {
     }
 
     cacheDocPair = ({docpack, typepack, reason}:ReturnDocPairMessage) => {
+
+        console.log('abstractdatapane cacheDocPair', docpack, typepack)
 
         // database type data namespace
         let containerdata = {
@@ -84,8 +104,9 @@ class AbstractDataPane extends React.Component<any,any> {
                 containerdata
             )
 
-        this.prerenderer.updateRenderMessage(this.renderMessage)
-        this.renderContent = this.prerenderer.assemble()
+        this.prerenderer.setRenderMessage(this.renderMessage)
+        this.renderContent = this.prerenderer.getRenderContent()
+        console.log('renderContent',this.renderContent)
 
         this.setState({
             docpack,
@@ -96,12 +117,8 @@ class AbstractDataPane extends React.Component<any,any> {
 
     render() {
 
-        return <div>
+        return this.renderContent || null
         
-            {this.props.children}
-        
-        </div>
-
    }
 
 }

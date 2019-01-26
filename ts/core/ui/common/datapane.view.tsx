@@ -119,8 +119,8 @@ class DataPane extends React.Component<any,any>  {
                 containerdata
             )
 
-        this.prerenderer.updateRenderMessage(this.renderMessage)
-        this.renderContent = this.prerenderer.assemble()
+        this.prerenderer.setRenderMessage(this.renderMessage)
+        this.renderContent = this.prerenderer.getRenderContent()
 
         this.setState({
             docpack,
