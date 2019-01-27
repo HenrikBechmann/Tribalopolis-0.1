@@ -20,7 +20,7 @@ class AbstractDataPane extends React.Component<any,any> {
 
         let { reference, options, data } = this.props
 
-        console.log('reference, options, data in abstractdatapand',reference, options, data)
+        console.log('reference, options, data in abstractdatapane',reference, options, data)
         this.reference = reference
         this.options = options
         this.data = data
@@ -100,13 +100,13 @@ class AbstractDataPane extends React.Component<any,any> {
             this.prerenderer.getRenderMessage(
                 docpack,
                 typepack,
-                this.state.options,
+                this.options,
                 containerdata
             )
 
         this.prerenderer.setRenderMessage(this.renderMessage)
         this.renderContent = this.prerenderer.getRenderContent()
-        console.log('renderContent',this.renderContent)
+        console.log('renderContent;from',this.renderContent,this.renderMessage)
 
         this.setState({
             docpack,

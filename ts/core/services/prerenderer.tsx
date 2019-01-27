@@ -42,6 +42,8 @@ class PreRenderer {
     // called by client
     getRenderContent = () => {
 
+        console.log('in getRenderContent: rendermessage',this.rendermessage)
+
         if (!this.rendermessage) return null
 
         const {renderspecs:specs,data} = this.rendermessage 
@@ -59,7 +61,7 @@ class PreRenderer {
 
     getRenderMessage = (docpack, typepack, options, container) => {
 
-        // console.log('options in getRenderMessage',options,typepack,docpack)
+        console.log('options in getRenderMessage',options,typepack,docpack,container)
         
         let renderspecs
         try {
@@ -112,6 +114,8 @@ class PreRenderer {
 
         try {
 
+            console.log('componentspec in AssembleComponents',componentspec)
+
             // get component class
             let type = this.getTypeClass(componentspec.type)
             // get component properties
@@ -129,7 +133,7 @@ class PreRenderer {
 
         } catch(e) {
 
-            console.log('error in assembleComponent:',e)
+            console.log('error in assembleComponents:',e)
             return null
 
         }
@@ -141,12 +145,15 @@ class PreRenderer {
         let props:any = this.getProps(properties)
         let dataheap = this.data
         let { options:opts } = props
+        console.log('props and options derived from db in getComponentByReference',props,opts)
         // console.log('getComponentByReference', reference, properties, ref, opts, dataheap)
         
         return <AbstractDataPane key = {props.key} reference = {ref} options = {opts} data = {dataheap}  />
     }
 
     private getTypeClass = typespec => {
+
+        console.log('in getTypeClass: typespec',typespec)
 
         let typelist = typespec.split('.')
         let [collection, componentclass] = typelist
