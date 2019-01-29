@@ -91,6 +91,7 @@ class PreRenderer {
 
     private assembleComponents = componentspec => {
 
+        console.log('componentspec in assembleComponents',componentspec)
         // if the component is text, return the text
         if (componentspec['#variant']) {
 
