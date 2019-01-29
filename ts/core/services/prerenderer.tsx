@@ -66,6 +66,7 @@ class PreRenderer {
         let renderspecs
         try {
             renderspecs = typepack.document.properties.ui[options.uiselection]
+            console.log('renderspecs in getRenderMessage', renderspecs)
         } catch(e) {
             return null
         }

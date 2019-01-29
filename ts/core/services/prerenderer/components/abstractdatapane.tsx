@@ -31,7 +31,7 @@ class AbstractDataPane extends React.Component<any,any> {
     }
 
     state = {
-        options:null,
+        // options:null,
         docpack:null,
         typepack:null,
     }

@@ -391,18 +391,20 @@ class Main extends React.Component<any,any> {
 
         if ((!this.state.userpack) || this.updatinguserdata) {
 
-            // toast.success('setting user record')
+            toast.success('updating user record')
+
+            console.log('setting user record in UserDocumentPairSuccess',docpack)
             this.promises.user.resolve(docpack)
 
             if (!this.accountDocProxy) {
 
-                this.getAccountDocument(docpack.document.identity.account)
+                this.setAccountDocumentListener(docpack.document.identity.account)
 
             } else {
                 this.setState({
                     userpack:docpack,
                 }, () => {
-                    toast.info('updated member data')
+                    toast.info('updated user data')
                 })
             }
 
@@ -418,7 +420,7 @@ class Main extends React.Component<any,any> {
 
     // ==============================[ ACCOUNT DOCUMENT ]=========================================
 
-    getAccountDocument = reference => {
+    setAccountDocumentListener = reference => {
 
         this.accountDocProxy = new docProxy({doctoken:{reference}})
         let parm:SetListenerMessage = {
