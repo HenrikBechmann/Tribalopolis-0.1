@@ -222,11 +222,15 @@ class PreRenderer {
     private getChildren = childspecs => {
 
         // console.log('getChildren childspecs',childspecs)
-
-        let children = []
-        for (let childspec of childspecs) {
-            let child = this.assembleComponents(childspec)
-            children.push(child)
+        let children
+        if (Array.isArray(childspecs)) {
+            children = []
+            for (let childspec of childspecs) {
+                let child = this.assembleComponents(childspec)
+                children.push(child)
+            }
+        } else {
+            children = this.assembleComponents(childspecs)
         }
 
         return children
