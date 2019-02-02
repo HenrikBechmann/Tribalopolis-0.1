@@ -14,12 +14,6 @@ const styles = theme => (createStyles({
         padding:'3px',
         marginBottom:'8px',
     },
-  button: {
-    marginRight: theme.spacing.unit,
-  },
-  input: {
-    display: 'none',
-  },
 }))
 
 const ContentSection = props => {
@@ -28,29 +22,8 @@ const ContentSection = props => {
 
     return <div className = {classes.root}>
 
-        {props.title && <DialogTitle>{props.title}</DialogTitle>}
-        {props.description && <p>{props.description}</p>}
-        {props.descriptionPart2 && <p>{props.descriptionPart2}</p>}
-
         {props.children}
 
-        {props.previous && <Button variant = "contained" color = "primary">
-            {props.previous}
-        </Button>}
-
-        {props.savable && <Button 
-            className = {classes.button} 
-            variant = "contained" 
-            color = "secondary"
-            disabled
-        >
-            Save !
-        </Button>}
-
-        {props.next && <Button variant = "contained" color = "primary">
-            {props.next}
-        </Button>}
-    
     </div>
 
 }

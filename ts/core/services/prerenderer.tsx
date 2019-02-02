@@ -155,7 +155,7 @@ class PreRenderer {
 
     private getTypeClass = typespec => {
 
-        console.log('in getTypeClass: typespec',typespec)
+        console.log('in getTypeClass: typespec',typespec, components)
 
         let typelist = typespec.split('.')
         let [collection, componentclass] = typelist
@@ -222,6 +222,7 @@ class PreRenderer {
     private getChildren = childspecs => {
 
         // console.log('getChildren childspecs',childspecs)
+        if (!childspecs) return null
         let children
         if (Array.isArray(childspecs)) {
             children = []

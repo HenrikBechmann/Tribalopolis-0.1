@@ -7,8 +7,10 @@ import React from 'react'
 
 import Button from '@material-ui/core/Button'
 import DialogTitle from '@material-ui/core/DialogTitle'
+import CardHeader from '@material-ui/core/CardHeader'
 
 const components = {
+    CardHeader,
     DialogTitle,
     Button,
 }
