@@ -82,7 +82,7 @@ class PreRenderer {
 
         let rendermessage:RenderMessage = {renderspecs,data,docref:docpack.reference}
 
-        // console.log('getRenderMessage rendermessage',rendermessage, container)
+        console.log('getRenderMessage rendermessage',rendermessage)
 
         return rendermessage
     }

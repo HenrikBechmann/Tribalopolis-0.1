@@ -7,7 +7,12 @@ import React from 'react'
 
 const ContentWrapper = props => {
 
-    return <div style = {{border:'2px solid blue',padding:'3px'}}>
+    let importedstyles = props.style || {}
+    let localstyles = {border:'2px solid blue',padding:'3px'}
+
+    let style = {...localstyles,...importedstyles}
+
+    return <div style = {style}>
         {props.children}
     </div>
 }
