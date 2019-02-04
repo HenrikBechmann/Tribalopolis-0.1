@@ -31,8 +31,6 @@ const components = { // lookups
 class PreRenderer {
 
     private rendermessage:RenderMessage
-    private componentspecs
-    private componentattributes
     private data
 
 
@@ -45,34 +43,32 @@ class PreRenderer {
     // called by client
     getRenderContent = () => {
 
-        console.log('in getRenderContent: rendermessage',this.rendermessage)
+        // console.log('in getRenderContent: rendermessage',this.rendermessage)
 
         if (!this.rendermessage) return null
 
         const {renderspecs:specs,data} = this.rendermessage 
 
-        this.componentspecs = specs.component
-        this.componentattributes = specs.component?specs.component.attributes:null
+        // this.componentspecs = specs.component
+        // this.componentattributes = specs.component?specs.component.attributes:null
         this.data = data
 
         // console.log('data in assemble', this.data)
             
-        let component = this.assembleComponents(this.componentspecs)
+        let element = this.assembleElement(specs.component)
 
-        console.log('getRenderContent componentattributes',this.componentattributes)
-
-        return component
+        return element
 
     }
 
     getRenderMessage = (docpack, typepack, options, container) => {
 
-        console.log('options in getRenderMessage',options,typepack,docpack,container)
+        // console.log('options in getRenderMessage',options,typepack,docpack,container)
         
         let renderspecs
         try {
             renderspecs = typepack.document.properties.ui[options.uiselection]
-            console.log('renderspecs in getRenderMessage', renderspecs)
+            // console.log('renderspecs in getRenderMessage', renderspecs)
         } catch(e) {
             return null
         }
@@ -88,16 +84,16 @@ class PreRenderer {
 
         let rendermessage:RenderMessage = {renderspecs,data,docref:docpack.reference}
 
-        console.log('getRenderMessage rendermessage',rendermessage)
+        // console.log('getRenderMessage rendermessage',rendermessage)
 
         return rendermessage
     }
 
     // =======================[ internal ]============================
 
-    private assembleComponents = componentspec => {
+    private assembleElement = componentspec => {
 
-        console.log('componentspec in assembleComponents',componentspec)
+        // console.log('componentspec in assembleComponents',componentspec)
         // if the component is text, return the text
         if (componentspec['#variant']) {
 
@@ -122,7 +118,7 @@ class PreRenderer {
 
         try {
 
-            console.log('componentspec in AssembleComponents',componentspec)
+            // console.log('componentspec in AssembleComponents',componentspec)
 
             // get component class
             let type = this.getTypeClass(componentspec.type)
@@ -161,7 +157,7 @@ class PreRenderer {
         let props:any = this.getProps(properties)
         let dataheap = this.data
         let { options:opts } = props
-        console.log('props and options derived from db in getComponentByReference',props,opts)
+        // console.log('props and options derived from db in getComponentByReference',props,opts)
         // console.log('getComponentByReference', reference, properties, ref, opts, dataheap)
         
         return <AbstractDataPane key = {props.key} reference = {ref} options = {opts} data = {dataheap}  />
@@ -169,7 +165,7 @@ class PreRenderer {
 
     private getTypeClass = typespec => {
 
-        console.log('in getTypeClass: typespec',typespec, components)
+        // console.log('in getTypeClass: typespec',typespec, components)
 
         let typelist = typespec.split('.')
         let [collection, componentclass] = typelist
@@ -241,11 +237,11 @@ class PreRenderer {
         if (Array.isArray(childspecs)) {
             children = []
             for (let childspec of childspecs) {
-                let child = this.assembleComponents(childspec)
+                let child = this.assembleElement(childspec)
                 children.push(child)
             }
         } else {
-            children = this.assembleComponents(childspecs)
+            children = this.assembleElement(childspecs)
         }
 
         return children

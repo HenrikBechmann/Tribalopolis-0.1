@@ -5,6 +5,7 @@
 
 import React from 'react'
 
+// component so that it can be wrapped with WithStyles
 class ContentWrapper extends React.Component<any,any> {
 
     render() {
@@ -13,7 +14,7 @@ class ContentWrapper extends React.Component<any,any> {
         let localstyles = {border:'2px solid blue',padding:'3px'}
         let classes = props.classes || {}
 
-        console.log('ContentWrapper props',props)
+        // console.log('ContentWrapper props',props)
 
         return <div className = {classes.root} style = {localstyles}>
             {props.children}
