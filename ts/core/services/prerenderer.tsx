@@ -5,6 +5,8 @@
 
 import React from 'react'
 
+import { withStyles, createStyles } from '@material-ui/core/styles'
+
 import { RenderMessage } from './interfaces'
 
 import layoutComponents from './prerenderer/layouts'
@@ -30,6 +32,7 @@ class PreRenderer {
 
     private rendermessage:RenderMessage
     private componentspecs
+    private componentattributes
     private data
 
 
@@ -49,13 +52,16 @@ class PreRenderer {
         const {renderspecs:specs,data} = this.rendermessage 
 
         this.componentspecs = specs.component
+        this.componentattributes = specs.component?specs.component.attributes:null
         this.data = data
 
         // console.log('data in assemble', this.data)
             
-        let componentClass = this.assembleComponents(this.componentspecs)
+        let component = this.assembleComponents(this.componentspecs)
 
-        return componentClass
+        console.log('getRenderContent componentattributes',this.componentattributes)
+
+        return component
 
     }
 
@@ -120,6 +126,14 @@ class PreRenderer {
 
             // get component class
             let type = this.getTypeClass(componentspec.type)
+
+            if (componentspec.attributes && componentspec.attributes.stylesforclasses) {
+                let styles = createStyles(componentspec.attributes.stylesforclasses)
+                type = withStyles(styles)(type)
+                // console.log('class and withStyles component in getRenderContent',componentClass,component)
+                // return component
+            }
+
             // get component properties
             let props = this.getProps(componentspec.properties)
             // get conponent children

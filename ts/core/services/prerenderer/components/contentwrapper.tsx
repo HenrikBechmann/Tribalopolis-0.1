@@ -5,16 +5,21 @@
 
 import React from 'react'
 
-const ContentWrapper = props => {
+class ContentWrapper extends React.Component<any,any> {
 
-    let importedstyles = props.style || {}
-    let localstyles = {border:'2px solid blue',padding:'3px'}
+    render() {
+        let props = this.props
+        let importedstyles = props.style || {}
+        let localstyles = {border:'2px solid blue',padding:'3px'}
+        let classes = props.classes || {}
 
-    let style = {...localstyles,...importedstyles}
+        console.log('ContentWrapper props',props)
 
-    return <div style = {style}>
-        {props.children}
-    </div>
+        return <div className = {classes.root} style = {localstyles}>
+            {props.children}
+        </div>
+
+    }
 }
 
 export default ContentWrapper
