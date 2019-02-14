@@ -19,6 +19,7 @@ import {
     SetListenerMessage,
     ReturnDocPairMessage,
     RenderMessage,
+    ContainerData,
  } from '../../services/interfaces'
 import application from '../../services/application'
 import docproxy from '../../utilities/docproxy'
@@ -98,7 +99,7 @@ class DataPane extends React.Component<any,any>  {
     cacheDocPair = ({docpack, typepack, reason}:ReturnDocPairMessage) => {
 
         // database type data namespace
-        let containerdata = {
+        let containerdata:ContainerData = {
             userdata:this.userdata,
             props:this.props,
             callbacks:this.callbacks,

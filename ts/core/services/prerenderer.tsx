@@ -17,6 +17,7 @@ import nativeComponents from './prerenderer/native'
 
 import AbstractDataPane from './prerenderer/components/abstractdatapane'
 import utilities from '../utilities/utilities'
+import { DataPaneNamespace } from './interfaces'
 
 const components = { // lookups
     layouts:layoutComponents,
@@ -75,7 +76,7 @@ class PreRenderer {
 
         if (!renderspecs) return null
 
-        let data = {
+        let data:DataPaneNamespace = {
             container,
             props:container.props,
             document:docpack.document,
@@ -84,7 +85,7 @@ class PreRenderer {
 
         let rendermessage:RenderMessage = {renderspecs,data,docref:docpack.reference}
 
-        // console.log('getRenderMessage rendermessage',rendermessage)
+        console.log('getRenderMessage rendermessage',rendermessage)
 
         return rendermessage
     }

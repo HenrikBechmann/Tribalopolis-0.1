@@ -96,6 +96,29 @@ export interface RenderMessage {
     docref:string,
 }
 
+export interface ContainerData {
+    userdata:{
+        [name:string]:any,
+    },
+    props:{
+        [name:string]:any,
+    },
+    callbacks:{
+        [name:string]:Function
+    },
+}
+
+interface GenericObject {
+    [name:string]:any,
+}
+
+export interface DataPaneNamespace {
+    container:ContainerData,
+    document:GenericObject,
+    props:GenericObject,
+    type:GenericObject,
+}
+
 /***************************************************************
 -------------------------[ PAYLOADS ]---------------------------
 ***************************************************************/

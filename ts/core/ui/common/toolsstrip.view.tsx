@@ -147,7 +147,7 @@ class ToolsStrip extends React.Component<any,any> {
     }
 
     paneProxy = null
-    datapaneblock:DataPaneMessage = null
+    datapanemessage:DataPaneMessage = null
 
     accountSettingsDialog = (classes) => {
         if (!this.state.settingsopen) return null
@@ -159,7 +159,7 @@ class ToolsStrip extends React.Component<any,any> {
                 let paneProxy = new docproxy({doctoken:{reference:settingspageref}})
                 // console.log('settingspageref available; pageProxy',settingspageref)
                 this.paneProxy = paneProxy
-                this.datapaneblock = {
+                this.datapanemessage = {
                     docproxy:paneProxy,
                     options:{uiselection:'datapane'},
                     callbacks:{
@@ -193,7 +193,7 @@ class ToolsStrip extends React.Component<any,any> {
               </AppBar>
               <div className = {classes.datapaneoffset}></div>
               <div className = {classes.datapanewrapper}>
-                  <DataPane dataPaneMessage = {this.datapaneblock}/>
+                  <DataPane dataPaneMessage = {this.datapanemessage}/>
               </div>
           </div>
          </Dialog>
