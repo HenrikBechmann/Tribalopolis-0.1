@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "webpack --mode development --config config/webpack.config.js",
     "build": "webpack --mode production --config config/webpack.config.js",
-    "start": "pushstate-server ./ 9002"
+    "start": "pushstate-server -d ./ -p 9002"
   },
   "keywords": [],
   "author": "Henrik Bechmann",

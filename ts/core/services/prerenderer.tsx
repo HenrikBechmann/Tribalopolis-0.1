@@ -107,7 +107,7 @@ class PreRenderer {
                     return componentspec.text
                 }
                 case 'reference': { // recursion
-                    return this.getComponentByReference(componentspec.reference, componentspec.properties)
+                    return this.getComponentByReference(componentspec.reference, componentspec.properties, componentspec.attributes)
                 }
                 default: {
                     console.log('error: variant in assembleComponents not recognized',variant)
@@ -132,7 +132,7 @@ class PreRenderer {
             }
 
             // get component properties
-            let props = this.getProps(componentspec.properties)
+            let props = this.getProps(componentspec.properties, componentspec.attributes)
             // get conponent children
             let children = this.getChildren(componentspec.children)
             // pass to React
@@ -152,10 +152,10 @@ class PreRenderer {
         }
     }
 
-    getComponentByReference = (reference, properties) => {
+    getComponentByReference = (reference, properties, attributes) => {
 
         let ref = this.getPropertyByFilter(reference)
-        let props:any = this.getProps(properties)
+        let props:any = this.getProps(properties,attributes)
         let dataheap = this.data
         let { options:opts } = props
         // console.log('props and options derived from db in getComponentByReference',props,opts)
@@ -177,12 +177,18 @@ class PreRenderer {
 
     }
 
-    private getProps = propertyspecs => {
+    private getProps = (propertyspecs,attributes = {} as any) => {
+
+        // console.log('getProps',propertyspecs,attributes)
 
         let props = {}
+        let defaults = attributes.defaults || {}
         for (let propertyindex in propertyspecs) {
             let propertyspec = propertyspecs[propertyindex]
             let property = this.getPropertyByFilter(propertyspec)
+            if (!property && defaults[propertyindex]) {
+                property = defaults[propertyindex]
+            }
             props[propertyindex] = property
         }
 
