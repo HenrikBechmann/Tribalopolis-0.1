@@ -11,6 +11,7 @@ import Card from '@material-ui/core/Card'
 import CardHeader from '@material-ui/core/CardHeader'
 import CardContent from '@material-ui/core/CardContent'
 import Typeography from '@material-ui/core/Typography'
+import Avatar from '@material-ui/core/Avatar'
 
 const components = {
     Card,
@@ -19,6 +20,7 @@ const components = {
     Typeography,
     DialogTitle,
     Button,
+    Avatar,
 }
 
 export default components

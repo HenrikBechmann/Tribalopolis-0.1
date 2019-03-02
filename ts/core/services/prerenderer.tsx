@@ -204,6 +204,10 @@ class PreRenderer {
 
         if (!property) return property
 
+        if (utilities.isObject(property)) {
+            return this.getPropertyByObject(property)
+        }
+
         let prepend = property[0]
 
         switch (prepend) {
@@ -220,6 +224,14 @@ class PreRenderer {
 
         return property
 
+    }
+
+    private getPropertyByObject(propertyobject) {
+        let retval = propertyobject
+        if (propertyobject['#variant'] == 'component') {
+            retval = this.assembleElement(propertyobject.component)
+        }
+        return retval
     }
 
     private getPropertyByIndirection = propertySpec => {
