@@ -228,8 +228,24 @@ class PreRenderer {
 
     private getPropertyByObject(propertyobject) {
         let retval = propertyobject
-        if (propertyobject['#variant'] == 'component') {
-            retval = this.assembleElement(propertyobject.component)
+        if (propertyobject['#variant']) {
+            let variant = propertyobject['#variant']
+            switch (variant) {
+                case 'component':
+                    retval = this.assembleElement(propertyobject.component)
+                    break
+                
+                case 'condition':
+                    if (this.getPropertyByFilter(propertyobject.if)) {
+                        retval = this.getPropertyByFilter(propertyobject.then)
+                    } else {
+                        retval = this.getPropertyByFilter(propertyobject.else)
+                    }
+                    break
+                default:
+                    retval = null
+                    break
+            }
         }
         return retval
     }
