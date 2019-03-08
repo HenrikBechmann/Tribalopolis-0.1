@@ -10,6 +10,8 @@ import DialogTitle from '@material-ui/core/DialogTitle'
 import Card from '@material-ui/core/Card'
 import CardHeader from '@material-ui/core/CardHeader'
 import CardContent from '@material-ui/core/CardContent'
+import CardActionArea from '@material-ui/core/CardActionArea'
+import CardActions from '@material-ui/core/CardActions'
 import Typeography from '@material-ui/core/Typography'
 import Avatar from '@material-ui/core/Avatar'
 import Icon from '@material-ui/core/Icon'
@@ -18,6 +20,8 @@ const components = {
     Card,
     CardHeader,
     CardContent,
+    CardActionArea,
+    CardActions,
     Typeography,
     DialogTitle,
     Button,
