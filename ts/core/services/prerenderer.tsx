@@ -38,7 +38,7 @@ class PreRenderer {
     // ==================[ API ]========================
 
     // package content message from input
-    getPreRenderMessage = (getPreRenderMessage:GetPreRenderMessage) => {
+    public getPreRenderMessage = (getPreRenderMessage:GetPreRenderMessage) => {
 
         let {docpack, typepack, options, container} = getPreRenderMessage
 
@@ -73,7 +73,7 @@ class PreRenderer {
     // }
 
     // called by client
-    getRenderContent = (prerendermessage:PreRenderMessage) => {
+    public getRenderContent = (prerendermessage:PreRenderMessage) => {
 
         // console.log('in getRenderContent: prerendermessage',this.prerendermessage)
 

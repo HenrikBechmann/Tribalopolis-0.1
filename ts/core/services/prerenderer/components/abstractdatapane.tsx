@@ -8,7 +8,12 @@ import React from 'react'
 import PreRenderer from '../../prerenderer'
 import Proxy from '../../../utilities/docproxy'
 import application from '../../../services/application'
-import { SetListenerMessage, RemoveListenerMessage, ReturnDocPairMessage, PreRenderMessage } from '../../../services/interfaces'
+import { 
+    SetListenerMessage, 
+    RemoveListenerMessage, 
+    ReturnDocPairMessage, 
+    PreRenderMessage 
+} from '../../../services/interfaces'
 
 class AbstractDataPane extends React.Component<any,any> {
 
