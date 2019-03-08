@@ -31,38 +31,16 @@ const components = { // lookups
 // instantiated by client
 class PreRenderer {
 
-    private prerendermessage:PreRenderMessage
+    // private prerendermessage:PreRenderMessage
     private data
 
 
     // ==================[ API ]========================
 
-    setPreRenderMessage = (prerendermessage) => {
-        this.prerendermessage = prerendermessage
-    }
+    // package content message from input
+    getPreRenderMessage = (getPreRenderMessage:GetPreRenderMessage) => {
 
-    // called by client
-    getRenderContent = () => {
-
-        // console.log('in getRenderContent: prerendermessage',this.prerendermessage)
-
-        if (!this.prerendermessage) return null
-
-        const {renderspecs:specs,data} = this.prerendermessage 
-
-        // this.componentspecs = specs.component
-        // this.componentattributes = specs.component?specs.component.attributes:null
-        this.data = data
-
-        // console.log('data in assemble', this.data)
-            
-        let element = this.assembleElement(specs.component)
-
-        return element
-
-    }
-
-    getPreRenderMessage = ({docpack, typepack, options, container}:GetPreRenderMessage) => {
+        let {docpack, typepack, options, container} = getPreRenderMessage
 
         // console.log('options in getPreRenderMessage',options,typepack,docpack,container)
         
@@ -88,6 +66,31 @@ class PreRenderer {
         console.log('getPreRenderMessage prerendermessage',prerendermessage)
 
         return prerendermessage
+    }
+
+    // setPreRenderMessage = (prerendermessage) => {
+    //     this.prerendermessage = prerendermessage
+    // }
+
+    // called by client
+    getRenderContent = (prerendermessage:PreRenderMessage) => {
+
+        // console.log('in getRenderContent: prerendermessage',this.prerendermessage)
+
+        if (!prerendermessage) return null
+
+        const {renderspecs:specs,data} = prerendermessage 
+
+        // this.componentspecs = specs.component
+        // this.componentattributes = specs.component?specs.component.attributes:null
+        this.data = data
+
+        // console.log('data in assemble', this.data)
+            
+        let element = this.assembleElement(specs.component)
+
+        return element
+
     }
 
     // =======================[ internal ]============================

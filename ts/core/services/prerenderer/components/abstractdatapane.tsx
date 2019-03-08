@@ -8,7 +8,7 @@ import React from 'react'
 import PreRenderer from '../../prerenderer'
 import Proxy from '../../../utilities/docproxy'
 import application from '../../../services/application'
-import { SetListenerMessage, RemoveListenerMessage, ReturnDocPairMessage } from '../../../services/interfaces'
+import { SetListenerMessage, RemoveListenerMessage, ReturnDocPairMessage, PreRenderMessage } from '../../../services/interfaces'
 
 class AbstractDataPane extends React.Component<any,any> {
 
@@ -36,14 +36,14 @@ class AbstractDataPane extends React.Component<any,any> {
         typepack:null,
     }
 
-    prerenderer = null
+    prerenderer:PreRenderer = null
     reference
     options
     data
     docProxy:Proxy
     userdata
     callbacks
-    preRenderMessage
+    // preRenderMessage:PreRenderMessage
     renderContent
 
     componentDidMount() {
@@ -96,7 +96,7 @@ class AbstractDataPane extends React.Component<any,any> {
         }
 
         // reformat for prerenderer
-        this.preRenderMessage = 
+        let preRenderMessage:PreRenderMessage = 
             this.prerenderer.getPreRenderMessage({
                 docpack,
                 typepack,
@@ -104,9 +104,9 @@ class AbstractDataPane extends React.Component<any,any> {
                 container:containerdata,
             })
 
-        this.prerenderer.setPreRenderMessage(this.preRenderMessage)
-        this.renderContent = this.prerenderer.getRenderContent()
-        console.log('renderContent;from',this.renderContent,this.preRenderMessage)
+        // this.prerenderer.setPreRenderMessage(this.preRenderMessage)
+        this.renderContent = this.prerenderer.getRenderContent(preRenderMessage)
+        console.log('renderContent;from',this.renderContent,preRenderMessage)
 
         this.setState({
             docpack,
