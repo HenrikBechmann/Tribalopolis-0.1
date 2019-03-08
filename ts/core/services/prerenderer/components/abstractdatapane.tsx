@@ -43,7 +43,7 @@ class AbstractDataPane extends React.Component<any,any> {
     docProxy:Proxy
     userdata
     callbacks
-    renderMessage
+    prePreRenderMessage
     renderContent
 
     componentDidMount() {
@@ -96,17 +96,17 @@ class AbstractDataPane extends React.Component<any,any> {
         }
 
         // reformat for prerenderer
-        this.renderMessage = 
-            this.prerenderer.getRenderMessage(
+        this.prePreRenderMessage = 
+            this.prerenderer.getPreRenderMessage(
                 docpack,
                 typepack,
                 this.options,
                 containerdata
             )
 
-        this.prerenderer.setRenderMessage(this.renderMessage)
+        this.prerenderer.setPreRenderMessage(this.prePreRenderMessage)
         this.renderContent = this.prerenderer.getRenderContent()
-        console.log('renderContent;from',this.renderContent,this.renderMessage)
+        console.log('renderContent;from',this.renderContent,this.prePreRenderMessage)
 
         this.setState({
             docpack,
@@ -130,13 +130,13 @@ export default AbstractDataPane
 // }
 
 // // reformat for prerenderer
-// this.renderMessage = 
-//     this.prerenderer.getRenderMessage(
+// this.prePreRenderMessage = 
+//     this.prerenderer.getPreRenderMessage(
 //         docpack,
 //         typepack,
 //         this.state.options,
 //         containerdata
 //     )
 
-// this.prerenderer.updateRenderMessage(this.renderMessage)
+// this.prerenderer.updatePreRenderMessage(this.prePreRenderMessage)
 // this.renderContent = this.prerenderer.assemble()

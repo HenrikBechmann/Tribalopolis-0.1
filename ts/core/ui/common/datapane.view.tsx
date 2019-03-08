@@ -18,7 +18,7 @@ import PreRenderer from '../../services/prerenderer' // class
 import { 
     SetListenerMessage,
     ReturnDocPairMessage,
-    RenderMessage,
+    PreRenderMessage,
     ContainerData,
  } from '../../services/interfaces'
 import application from '../../services/application'
@@ -56,7 +56,7 @@ class DataPane extends React.Component<any,any>  {
     }
 
     docProxy
-    renderMessage:RenderMessage
+    prePreRenderMessage:PreRenderMessage
     renderContent // set when docPair arrives
     userdata
     callbacks
@@ -112,15 +112,15 @@ class DataPane extends React.Component<any,any>  {
         }
 
         // reformat for prerenderer
-        this.renderMessage = 
-            this.prerenderer.getRenderMessage(
+        this.prePreRenderMessage = 
+            this.prerenderer.getPreRenderMessage(
                 docpack,
                 typepack,
                 this.state.options,
                 containerdata
             )
 
-        this.prerenderer.setRenderMessage(this.renderMessage)
+        this.prerenderer.setPreRenderMessage(this.prePreRenderMessage)
         this.renderContent = this.prerenderer.getRenderContent()
 
         this.setState({

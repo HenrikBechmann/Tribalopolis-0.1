@@ -7,7 +7,7 @@ import React from 'react'
 
 import { withStyles, createStyles } from '@material-ui/core/styles'
 
-import { RenderMessage } from './interfaces'
+import { PreRenderMessage } from './interfaces'
 
 import layoutComponents from './prerenderer/layouts'
 import displayComponents from './prerenderer/displays'
@@ -31,24 +31,24 @@ const components = { // lookups
 // instantiated by client
 class PreRenderer {
 
-    private rendermessage:RenderMessage
+    private prerendermessage:PreRenderMessage
     private data
 
 
     // ==================[ API ]========================
 
-    setRenderMessage = (rendermessage) => {
-        this.rendermessage = rendermessage
+    setPreRenderMessage = (prerendermessage) => {
+        this.prerendermessage = prerendermessage
     }
 
     // called by client
     getRenderContent = () => {
 
-        // console.log('in getRenderContent: rendermessage',this.rendermessage)
+        // console.log('in getRenderContent: prerendermessage',this.prerendermessage)
 
-        if (!this.rendermessage) return null
+        if (!this.prerendermessage) return null
 
-        const {renderspecs:specs,data} = this.rendermessage 
+        const {renderspecs:specs,data} = this.prerendermessage 
 
         // this.componentspecs = specs.component
         // this.componentattributes = specs.component?specs.component.attributes:null
@@ -62,14 +62,14 @@ class PreRenderer {
 
     }
 
-    getRenderMessage = (docpack, typepack, options, container) => {
+    getPreRenderMessage = (docpack, typepack, options, container) => {
 
-        // console.log('options in getRenderMessage',options,typepack,docpack,container)
+        // console.log('options in getPreRenderMessage',options,typepack,docpack,container)
         
         let renderspecs
         try {
             renderspecs = typepack.document.properties.ui[options.uiselection]
-            // console.log('renderspecs in getRenderMessage', renderspecs)
+            // console.log('renderspecs in getPreRenderMessage', renderspecs)
         } catch(e) {
             return null
         }
@@ -83,11 +83,11 @@ class PreRenderer {
             type:(typepack && typepack.document)
         }
 
-        let rendermessage:RenderMessage = {renderspecs,data,docref:docpack.reference}
+        let prerendermessage:PreRenderMessage = {renderspecs,data,docref:docpack.reference}
 
-        console.log('getRenderMessage rendermessage',rendermessage)
+        console.log('getPreRenderMessage prerendermessage',prerendermessage)
 
-        return rendermessage
+        return prerendermessage
     }
 
     // =======================[ internal ]============================

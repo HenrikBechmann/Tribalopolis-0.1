@@ -88,7 +88,7 @@ export interface DataPaneMessage {
     callbacks:Object,
 }
 
-export interface RenderMessage {
+export interface PreRenderMessage {
     renderspecs:{
         [name:string]:any,
     },
