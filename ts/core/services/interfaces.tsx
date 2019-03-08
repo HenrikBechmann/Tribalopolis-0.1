@@ -54,7 +54,7 @@ export interface RemoveListenerMessage {
 export interface ReturnDocPairMessage {
     docpack:DocPackStruc,
     typepack:DocPackStruc,
-    reason:Object,
+    reason:GenericObject,
 }
 
 // subscriptions to gateway
@@ -75,7 +75,7 @@ export interface RemoveGatewayListenerMessage {
 
 export interface SetDocumentMessage {
     reference:string, 
-    document:Object, 
+    document:GenericObject, 
     success:Function, 
     failure:Function,
 }
@@ -83,29 +83,32 @@ export interface SetDocumentMessage {
 // ui
 
 export interface DataPaneMessage {
-    docproxy:Object,
-    options:Object,
-    callbacks:Object,
+    docproxy:GenericObject,
+    options:GenericObject,
+    callbacks:GenericCallbacks,
+}
+
+export interface GetPreRenderMessage {
+    docpack:DocPackStruc,
+    typepack:DocPackStruc,
+    options:GenericObject,
+    container:ContainerData,
 }
 
 export interface PreRenderMessage {
-    renderspecs:{
-        [name:string]:any,
-    },
-    data:Object,
+    renderspecs:GenericObject,
+    data:GenericObject,
     docref:string,
 }
 
 export interface ContainerData {
-    userdata:{
-        [name:string]:any,
-    },
-    props:{
-        [name:string]:any,
-    },
-    callbacks:{
-        [name:string]:Function
-    },
+    userdata:GenericObject,
+    props:GenericObject,
+    callbacks:GenericCallbacks,
+}
+
+interface GenericCallbacks {
+    [name:string]:Function,
 }
 
 interface GenericObject {
@@ -136,9 +139,7 @@ export interface DocProxyStruc {
 
 export interface DocPackStruc {
     reference:string,
-    document:{
-        [index:string]:any
-    },
+    document:GenericObject,
 }
 
 export interface CacheItemStruc {

@@ -17,7 +17,7 @@ import nativeComponents from './prerenderer/native'
 
 import AbstractDataPane from './prerenderer/components/abstractdatapane'
 import utilities from '../utilities/utilities'
-import { DataPaneNamespace } from './interfaces'
+import { DataPaneNamespace, GetPreRenderMessage } from './interfaces'
 
 const components = { // lookups
     layouts:layoutComponents,
@@ -62,7 +62,7 @@ class PreRenderer {
 
     }
 
-    getPreRenderMessage = (docpack, typepack, options, container) => {
+    getPreRenderMessage = ({docpack, typepack, options, container}:GetPreRenderMessage) => {
 
         // console.log('options in getPreRenderMessage',options,typepack,docpack,container)
         
