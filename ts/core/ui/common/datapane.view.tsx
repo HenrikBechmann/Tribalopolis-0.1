@@ -42,9 +42,9 @@ const styles = createStyles({
 
 /*
     1. Takes dataPaneContext consisting of 
-    docProxy, (target)
-    options, (options.uiselection for target)
-    callbacks
+        docProxy, (target)
+        options, (options.uiselection for target)
+        callbacks
 
     2.  uses that to obtain docpack and typepack (document and reference for each)
 
@@ -56,9 +56,18 @@ const styles = createStyles({
 
         for the prerenderer
 
-    4. The prerenderer returns content (elements) 
+    4. The prerenderer remaps to
 
-    5. content is rendered by DataPane (wrapped in Paper)
+        container
+        props
+        document
+        type
+
+    which becomes the namespace for the rendering
+
+    5. The prerenderer returns content (elements) 
+
+    6. content is rendered by DataPane (wrapped in Paper)
 */
 
 class DataPane extends React.Component<any,any>  {
