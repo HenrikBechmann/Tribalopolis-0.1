@@ -109,8 +109,16 @@ class PreRenderer {
                 case 'reference': { // recursion
                     return this.getComponentByReference(componentspec.reference, componentspec.properties, componentspec.attributes)
                 }
+                case 'condition':
+                    let result
+                    if (this.getPropertyByFilter(componentspec.if)) {
+                        result = componentspec.then
+                    } else {
+                        result = componentspec.else
+                    }
+                    return this.assembleElement(result.component)
                 default: {
-                    console.log('error: variant in assembleComponents not recognized',variant)
+                    console.error('error: variant in assembleComponents not recognized',variant)
                     return null // variant not recognized
                 }
             }
