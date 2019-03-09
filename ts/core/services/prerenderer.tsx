@@ -116,7 +116,7 @@ class PreRenderer {
                     } else {
                         result = componentspec.else
                     }
-                    return this.assembleElement(result.component)
+                    return this.assembleElement(result)
                 default: {
                     console.error('error: variant in assembleComponents not recognized',variant)
                     return null // variant not recognized
