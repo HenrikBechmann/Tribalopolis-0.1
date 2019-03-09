@@ -32,8 +32,7 @@ const components = { // lookups
 class PreRenderer {
 
     // private prerendermessage:PreRenderContext
-    private data
-
+    private namespace
 
     // ==================[ API ]========================
 
@@ -63,7 +62,7 @@ class PreRenderer {
 
         let prerendercontext:PreRenderContext = {
             renderspecs,
-            data:datanamespace,
+            namespace:datanamespace,
             docref:docpack.reference
         }
 
@@ -79,9 +78,9 @@ class PreRenderer {
 
         if (!prerendermessage) return null
 
-        const {renderspecs:specs,data} = prerendermessage 
+        const {renderspecs:specs,namespace} = prerendermessage 
 
-        this.data = data
+        this.namespace = namespace
 
         // console.log('data in assemble', this.data)
             
@@ -158,12 +157,12 @@ class PreRenderer {
 
         let ref = this.getPropertyByFilter(reference)
         let props:any = this.getProps(properties,attributes)
-        let dataheap = this.data
+        let namespace = this.namespace
         let { options:opts } = props
         // console.log('props and options derived from db in getComponentByReference',props,opts)
         // console.log('getComponentByReference', reference, properties, ref, opts, dataheap)
         
-        return <AbstractDataPane key = {props.key} reference = {ref} options = {opts} data = {dataheap}  />
+        return <AbstractDataPane key = {props.key} reference = {ref} options = {opts} namespace = {namespace}  />
     }
 
     private getTypeClass = typespec => {
@@ -256,8 +255,8 @@ class PreRenderer {
 
         let path = propertySpec.slice(1)
         let pathlist = path.split('.')
-        let data = this.data
-        let nodedata:any = utilities.getNodePosition(data,pathlist)
+        let namespace = this.namespace
+        let nodedata:any = utilities.getNodePosition(namespace,pathlist)
         // console.log('getPropertyByIndirection',propertySpec,pathlist,nodedata, data)
         if (nodedata) {
             return nodedata.nodevalue

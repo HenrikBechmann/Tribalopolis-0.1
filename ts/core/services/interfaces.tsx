@@ -97,7 +97,7 @@ export interface GetPreRenderContext {
 
 export interface PreRenderContext {
     renderspecs:GenericObject,
-    data:GenericObject,
+    namespace:GenericObject,
     docref:string,
 }
 

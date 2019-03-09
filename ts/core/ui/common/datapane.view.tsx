@@ -134,14 +134,14 @@ class DataPane extends React.Component<any,any>  {
         }
 
         // reformat for prerenderer
-        let msg:GetPreRenderContext = {
+        let sourcecontext:GetPreRenderContext = {
             docpack,
             typepack,
             options:this.state.options,
             container:containerdata
         }
         let preRenderContext:PreRenderContext = 
-            this.prerenderer.assemblePreRenderContext(msg)
+            this.prerenderer.assemblePreRenderContext(sourcecontext)
 
         // this.prerenderer.setPreRenderMessage(this.preRenderContext)
         this.renderContent = this.prerenderer.getRenderContent(preRenderContext)

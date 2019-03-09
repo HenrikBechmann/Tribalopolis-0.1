@@ -23,14 +23,14 @@ class AbstractDataPane extends React.Component<any,any> {
 
         this.prerenderer = new PreRenderer()
 
-        let { reference, options, data } = this.props
+        let { reference, options, namespace} = this.props
 
-        console.log('reference, options, data in abstractdatapane',reference, options, data)
+        console.log('reference, options, data in abstractdatapane',reference, options, namespace)
         this.reference = reference
         this.options = options
-        this.data = data
-        this.userdata = data.container.userdata
-        this.callbacks = data.container.callbacks
+        // this.namespace = namespace
+        this.userdata = namespace.container.userdata
+        this.callbacks = namespace.container.callbacks
         this.docProxy = new Proxy({doctoken:{reference}})
 
     }
@@ -44,7 +44,7 @@ class AbstractDataPane extends React.Component<any,any> {
     prerenderer:PreRenderer = null
     reference
     options
-    data
+    // namespace
     docProxy:Proxy
     userdata
     callbacks
