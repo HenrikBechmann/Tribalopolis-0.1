@@ -18,8 +18,8 @@ import PreRenderer from '../../services/prerenderer' // class
 import { 
     SetListenerMessage,
     ReturnDocPairMessage,
-    PreRenderMessage,
-    GetPreRenderMessage,
+    PreRenderContext,
+    GetPreRenderContext,
     ContainerData,
  } from '../../services/interfaces'
 import application from '../../services/application'
@@ -40,12 +40,33 @@ const styles = createStyles({
     }
 })
 
+/*
+    1. Takes dataPaneContext consisting of 
+    docProxy, (target)
+    options, (options.uiselection for target)
+    callbacks
+
+    2.  uses that to obtain docpack and typepack (document and reference for each)
+
+    3. then uses that to bundle 
+        container data (userdata, props, callbacks)
+        dockpack
+        typepack
+        options
+
+        for the prerenderer
+
+    4. The prerenderer returns content (elements) 
+
+    5. content is rendered by DataPane (wrapped in Paper)
+*/
+
 class DataPane extends React.Component<any,any>  {
 
     constructor(props) {
         super(props)
-        this.docProxy = this.props.dataPaneMessage?this.props.dataPaneMessage.docProxy:null
-        this.callbacks = this.props.dataPaneMessage?this.props.dataPaneMessage.callbacks:null
+        this.docProxy = this.props.dataPaneContext?this.props.dataPaneContext.docProxy:null
+        this.callbacks = this.props.dataPaneContext?this.props.dataPaneContext.callbacks:null
 
         // console.log('callbacks in DataPane constructur',this.callbacks,props)
     }
@@ -53,11 +74,11 @@ class DataPane extends React.Component<any,any>  {
     state = {
         docpack:null,
         typepack:null,
-        options:this.props.dataPaneMessage?this.props.dataPaneMessage.options:null,
+        options:this.props.dataPaneContext?this.props.dataPaneContext.options:null,
     }
 
     docProxy
-    // preRenderMessage:PreRenderMessage
+    // preRenderContext:PreRenderContext
     renderContent // set when docPair arrives
     userdata
     callbacks
@@ -72,9 +93,9 @@ class DataPane extends React.Component<any,any>  {
 
     componentDidUpdate() {
         // console.log('componentDidUpdate',this.props)
-        let { dataPaneMessage } = this.props
-        if (!this.docProxy && dataPaneMessage && dataPaneMessage.docproxy) {
-            this.docProxy = dataPaneMessage.docproxy
+        let { dataPaneContext } = this.props
+        if (!this.docProxy && dataPaneContext && dataPaneContext.docproxy) {
+            this.docProxy = dataPaneContext.docproxy
             // console.log('componentDidUpdate setting this.docProxy',this.docProxy)
             this.assertListener()
         }
@@ -113,17 +134,17 @@ class DataPane extends React.Component<any,any>  {
         }
 
         // reformat for prerenderer
-        let msg:GetPreRenderMessage = {
+        let msg:GetPreRenderContext = {
             docpack,
             typepack,
             options:this.state.options,
             container:containerdata
         }
-        let preRenderMessage:PreRenderMessage = 
-            this.prerenderer.getPreRenderMessage(msg)
+        let preRenderContext:PreRenderContext = 
+            this.prerenderer.assemblePreRenderContext(msg)
 
-        // this.prerenderer.setPreRenderMessage(this.preRenderMessage)
-        this.renderContent = this.prerenderer.getRenderContent(preRenderMessage)
+        // this.prerenderer.setPreRenderMessage(this.preRenderContext)
+        this.renderContent = this.prerenderer.getRenderContent(preRenderContext)
 
         this.setState({
             docpack,
@@ -134,9 +155,9 @@ class DataPane extends React.Component<any,any>  {
 
     render() {
 
-        const { classes, dataPaneMessage } = this.props
+        const { classes, dataPaneContext } = this.props
 
-        let msg = dataPaneMessage || {}
+        let msg = dataPaneContext || {}
         let { docpack, options } = msg
 
         return <Paper className = {classes.root}>

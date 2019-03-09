@@ -40,8 +40,8 @@ class BuildDataPane extends React.Component<any,any>  {
 
     state = {
         open:this.props.open,
-        opcode:this.props.dataPaneMessage?this.props.dataPaneMessage.options.opcode:undefined,
-        specs:this.props.dataPaneMessage?this.props.dataPaneMessage.options.specs:undefined,
+        opcode:this.props.dataPaneContext?this.props.dataPaneContext.options.opcode:undefined,
+        specs:this.props.dataPaneContext?this.props.dataPaneContext.options.specs:undefined,
     }
 
     data = null
@@ -49,11 +49,11 @@ class BuildDataPane extends React.Component<any,any>  {
     componentDidUpdate() {
 
         // console.log('props',this.props)
-        let { open, dataPaneMessage } = this.props
-        // console.log('dataPaneMessage before',dataPaneMessage)
-        dataPaneMessage = dataPaneMessage || {docproxy:{},options:{}}
-        // console.log('dataPaneMessage after', dataPaneMessage)
-        let { opcode, specs } = dataPaneMessage.options
+        let { open, dataPaneContext } = this.props
+        // console.log('dataPaneContext before',dataPaneContext)
+        dataPaneContext = dataPaneContext || {docproxy:{},options:{}}
+        // console.log('dataPaneContext after', dataPaneContext)
+        let { opcode, specs } = dataPaneContext.options
         if (!_.isEqual(open,this.state.open) || 
             !_.isEqual(opcode,this.state.opcode) ||
             !_.isEqual(specs, this.state.specs)) {

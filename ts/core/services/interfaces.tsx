@@ -82,20 +82,20 @@ export interface SetDocumentMessage {
 
 // ui
 
-export interface DataPaneMessage {
+export interface DataPaneContext {
     docproxy:GenericObject,
     options:GenericObject,
     callbacks:GenericCallbacks,
 }
 
-export interface GetPreRenderMessage {
+export interface GetPreRenderContext {
     docpack:DocPackStruc,
     typepack:DocPackStruc,
     options:GenericObject,
     container:ContainerData,
 }
 
-export interface PreRenderMessage {
+export interface PreRenderContext {
     renderspecs:GenericObject,
     data:GenericObject,
     docref:string,

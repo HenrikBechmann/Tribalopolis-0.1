@@ -12,7 +12,7 @@ import {
     SetListenerMessage, 
     RemoveListenerMessage, 
     ReturnDocPairMessage, 
-    PreRenderMessage 
+    PreRenderContext 
 } from '../../../services/interfaces'
 
 class AbstractDataPane extends React.Component<any,any> {
@@ -48,7 +48,7 @@ class AbstractDataPane extends React.Component<any,any> {
     docProxy:Proxy
     userdata
     callbacks
-    // preRenderMessage:PreRenderMessage
+    // preRenderContext:PreRenderContext
     renderContent
 
     componentDidMount() {
@@ -101,17 +101,17 @@ class AbstractDataPane extends React.Component<any,any> {
         }
 
         // reformat for prerenderer
-        let preRenderMessage:PreRenderMessage = 
-            this.prerenderer.getPreRenderMessage({
+        let preRenderContext:PreRenderContext = 
+            this.prerenderer.assemblePreRenderContext({
                 docpack,
                 typepack,
                 options:this.options,
                 container:containerdata,
             })
 
-        // this.prerenderer.setPreRenderMessage(this.preRenderMessage)
-        this.renderContent = this.prerenderer.getRenderContent(preRenderMessage)
-        console.log('renderContent;from',this.renderContent,preRenderMessage)
+        // this.prerenderer.setPreRenderMessage(this.preRenderContext)
+        this.renderContent = this.prerenderer.getRenderContent(preRenderContext)
+        console.log('renderContent;from',this.renderContent,preRenderContext)
 
         this.setState({
             docpack,
@@ -129,19 +129,3 @@ class AbstractDataPane extends React.Component<any,any> {
 }
 
 export default AbstractDataPane
-
-// if ( !this.prerenderer ) {
-//     this.prerenderer = new PreRenderer()
-// }
-
-// // reformat for prerenderer
-// this.prePreRenderMessage = 
-//     this.prerenderer.getPreRenderMessage(
-//         docpack,
-//         typepack,
-//         this.state.options,
-//         containerdata
-//     )
-
-// this.prerenderer.updatePreRenderMessage(this.prePreRenderMessage)
-// this.renderContent = this.prerenderer.assemble()

@@ -31,7 +31,7 @@ import DataPane from './datapane.view'
 
 import application from '../../services/application'
 import docproxy from '../../utilities/docproxy'
-import { DataPaneMessage } from '../../services/interfaces'
+import { DataPaneContext } from '../../services/interfaces'
 
 
 const styles = createStyles({
@@ -146,9 +146,10 @@ class ToolsStrip extends React.Component<any,any> {
         })
     }
 
-    paneProxy = null
-    datapanemessage:DataPaneMessage = null
+    private paneProxy = null
+    private datapanecontext:DataPaneContext = null
 
+    // pass docproxy, options, callbacks
     accountSettingsDialog = (classes) => {
         if (!this.state.settingsopen) return null
 
@@ -159,7 +160,7 @@ class ToolsStrip extends React.Component<any,any> {
                 let paneProxy = new docproxy({doctoken:{reference:settingspageref}})
                 // console.log('settingspageref available; pageProxy',settingspageref)
                 this.paneProxy = paneProxy
-                this.datapanemessage = {
+                this.datapanecontext = {
                     docproxy:paneProxy,
                     options:{uiselection:'datapane'},
                     callbacks:{
@@ -193,7 +194,7 @@ class ToolsStrip extends React.Component<any,any> {
               </AppBar>
               <div className = {classes.datapaneoffset}></div>
               <div className = {classes.datapanewrapper}>
-                  <DataPane dataPaneMessage = {this.datapanemessage}/>
+                  <DataPane dataPaneContext = {this.datapanecontext}/>
               </div>
           </div>
          </Dialog>

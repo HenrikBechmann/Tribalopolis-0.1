@@ -7,7 +7,7 @@ import React from 'react'
 
 import { withStyles, createStyles } from '@material-ui/core/styles'
 
-import { PreRenderMessage } from './interfaces'
+import { PreRenderContext } from './interfaces'
 
 import layoutComponents from './prerenderer/layouts'
 import displayComponents from './prerenderer/displays'
@@ -17,7 +17,7 @@ import nativeComponents from './prerenderer/native'
 
 import AbstractDataPane from './prerenderer/components/abstractdatapane'
 import utilities from '../utilities/utilities'
-import { DataPaneNamespace, GetPreRenderMessage } from './interfaces'
+import { DataPaneNamespace, GetPreRenderContext } from './interfaces'
 
 const components = { // lookups
     layouts:layoutComponents,
@@ -31,49 +31,49 @@ const components = { // lookups
 // instantiated by client
 class PreRenderer {
 
-    // private prerendermessage:PreRenderMessage
+    // private prerendermessage:PreRenderContext
     private data
 
 
     // ==================[ API ]========================
 
-    // package content message from input
-    public getPreRenderMessage = (getPreRenderMessage:GetPreRenderMessage) => {
+    // a utility to package renderer content message from standard input
+    public assemblePreRenderContext = (assemblePreRenderContext:GetPreRenderContext) => {
 
-        let {docpack, typepack, options, container} = getPreRenderMessage
+        let {docpack, typepack, options, container} = assemblePreRenderContext
 
-        // console.log('options in getPreRenderMessage',options,typepack,docpack,container)
+        // console.log('options in assemblePreRenderContext',options,typepack,docpack,container)
         
         let renderspecs
         try {
             renderspecs = typepack.document.properties.ui[options.uiselection]
-            // console.log('renderspecs in getPreRenderMessage', renderspecs)
+            // console.log('renderspecs in assemblePreRenderContext', renderspecs)
         } catch(e) {
             return null
         }
 
         if (!renderspecs) return null
 
-        let data:DataPaneNamespace = {
+        let datanamespace:DataPaneNamespace = {
             container,
             props:container.props,
             document:docpack.document,
             type:(typepack && typepack.document)
         }
 
-        let prerendermessage:PreRenderMessage = {renderspecs,data,docref:docpack.reference}
+        let prerendercontext:PreRenderContext = {
+            renderspecs,
+            data:datanamespace,
+            docref:docpack.reference
+        }
 
-        console.log('getPreRenderMessage prerendermessage',prerendermessage)
+        // console.log('assemblePreRenderContext prerendermessage',prerendermessage)
 
-        return prerendermessage
+        return prerendercontext
     }
 
-    // setPreRenderMessage = (prerendermessage) => {
-    //     this.prerendermessage = prerendermessage
-    // }
-
     // called by client
-    public getRenderContent = (prerendermessage:PreRenderMessage) => {
+    public getRenderContent = (prerendermessage:PreRenderContext) => {
 
         // console.log('in getRenderContent: prerendermessage',this.prerendermessage)
 
@@ -81,8 +81,6 @@ class PreRenderer {
 
         const {renderspecs:specs,data} = prerendermessage 
 
-        // this.componentspecs = specs.component
-        // this.componentattributes = specs.component?specs.component.attributes:null
         this.data = data
 
         // console.log('data in assemble', this.data)
@@ -145,6 +143,7 @@ class PreRenderer {
             let element = React.createElement(type, props, children)
 
             // console.log('element in assembleComponents',element)
+
             return element
 
         } catch(e) {

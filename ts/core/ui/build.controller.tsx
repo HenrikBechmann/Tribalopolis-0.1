@@ -36,7 +36,7 @@ import {
     GetDocumentMessage, 
     SetDocumentMessage, 
     ReturnDocPackMessage,
-    DataPaneMessage } from '../services/interfaces'
+    DataPaneContext } from '../services/interfaces'
 
 const styles = theme => (createStyles({
     button: {
@@ -300,7 +300,7 @@ class BuildController extends React.Component<any,any> {
 
     // ============[ data drawer responses ]=================
 
-    callDataDrawer = ({docproxy, options}:DataPaneMessage) => {
+    callDataDrawer = ({docproxy, options}:DataPaneContext) => {
         if (this.state.draweropen) {
             toast.info('The data shelf is in use. Close the shelf and try again.')
             return
@@ -328,7 +328,7 @@ class BuildController extends React.Component<any,any> {
             containerelement = {this.buildelement}
         >
             <BuildDataPane
-                dataPaneMessage = {this.drawerdatapackage}
+                dataPaneContext = {this.drawerdatapackage}
                 open = {this.state.draweropen}
                 user = {login}
             />
