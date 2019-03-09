@@ -78,7 +78,12 @@ class ResizeTab extends React.Component<any,any> {
 
     render() {
 
+        // console.log('ResizeTab props',this.props)
+
         const subjectelement:HTMLElement = this.props.boxframe.current
+        
+        if (!subjectelement) return null
+
         const offsetWidth = subjectelement.offsetWidth
         const offsetHeight = subjectelement.offsetHeight
 

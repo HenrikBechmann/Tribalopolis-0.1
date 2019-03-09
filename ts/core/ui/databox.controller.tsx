@@ -355,7 +355,7 @@ class DataBox extends React.Component<any,any> {
                     collapseDirectoryItem = {this.collapseDirectoryItem}
                 />
 
-                { !haspeers && <ResizeTab 
+                { !haspeers && this.boxframe.current && <ResizeTab 
                     boxwidth = {this.props.boxwidth} 
                     boxframe = {this.boxframe}
                     setBoxWidth = { this.props.callbacks.setBoxWidth }
@@ -410,16 +410,6 @@ class DataBox extends React.Component<any,any> {
         )
     }
 }
-
-
-// {false && <BoxTypebar /* suspended */
-//     docpack = { docpack } 
-//     typepack = { typepack /*future*/}
-//     listProxy = {this.state.TypelistProxy}
-//     haspeers = {haspeers}
-
-//     callbacks = {this.typecallbacks}
-// />}
 
 export default withStyles(styles)(DataBox)
 
