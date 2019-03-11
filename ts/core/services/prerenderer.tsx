@@ -15,6 +15,8 @@ import formComponents from './prerenderer/forms'
 import widgetComponents from './prerenderer/widgets'
 import nativeComponents from './prerenderer/native'
 
+import functions from './functions'
+
 import AbstractDataPane from './prerenderer/components/abstractdatapane'
 import utilities from '../utilities/utilities'
 import { DataPaneNamespace, GetPreRenderContext } from './interfaces'
@@ -250,6 +252,10 @@ class PreRenderer {
                     } else {
                         retval = this.getPropertyByFilter(propertyobject.else)
                     }
+                    break
+                case 'function':
+                    let parms = this.getProps(propertyobject.parms)
+                    retval = functions[propertyobject.function](parms)
                     break
                 default:
                     retval = null
