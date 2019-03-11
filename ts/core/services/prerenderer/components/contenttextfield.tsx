@@ -30,11 +30,12 @@ interface TextFieldInterface {
    onChange?:any, 
    readonly?:boolean,
    disabled?:boolean,
+   rows?:number,
 }
 
 const ContentTextField = (props:TextFieldInterface) => {
 
-    let { classes, name, label, value, helperText, margin, multiline, onChange, readonly, disabled } = props
+    let { classes, name, label, value, helperText, margin, multiline, rows, onChange, readonly, disabled } = props
 
     let marginval = margin?margin:'normal'
 
@@ -51,6 +52,7 @@ const ContentTextField = (props:TextFieldInterface) => {
           className = { classes.textField }
           helperText = { helperText }
           multiline = {multiline?multiline:false}
+          rows = {rows?rows:1}
           margin = { marginval }
           onChange = { onChange }
           inputProps = {{
