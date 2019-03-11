@@ -16,7 +16,7 @@ const styles = () => createStyles({
   root: {
     display: 'flex',
     flexWrap: 'wrap',
-    alignItems:'center',
+    alignItems:'baseline',
   },
 })
 
