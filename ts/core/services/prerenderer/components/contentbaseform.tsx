@@ -23,7 +23,11 @@ const styles = () => createStyles({
 class ContentBaseForm extends React.Component<any,any> {
 
     render() {
-        const { classes, onSubmit, disabled } = this.props
+        const { classes, onSubmit, disabled, children } = this.props
+
+        console.log('ContentBaseForm children',children)
+
+        // let length = Array.isArray(children)?
 
         return (
             <form 
@@ -36,7 +40,9 @@ class ContentBaseForm extends React.Component<any,any> {
                 className = { classes && classes.root } 
                 autoComplete = "off" 
             > 
-                { this.props.children }
+                {children.length?<fieldset disabled = {disabled}>
+                    { this.props.children }
+                </fieldset>:null}
             </form>
         )
     }
