@@ -6,18 +6,22 @@
 import React from 'react'
 
 import { withStyles, createStyles } from '@material-ui/core/styles'
+import Button from '@material-ui/core/Button'
 
 /*
     patterned after first demo https://material-ui.com/demos/selects/ for 3.03
     use Typsecript fixes from here: https://material-ui.com/guides/typescript/
 */
 
-const styles = () => createStyles({
+const styles = (theme) => createStyles({
   root: {
     display: 'flex',
     flexWrap: 'wrap',
     alignItems:'baseline',
   },
+  button:{
+      margin:theme.spacing.unit,
+  }
 })
 
 class ContentBaseForm extends React.Component<any,any> {
@@ -27,7 +31,21 @@ class ContentBaseForm extends React.Component<any,any> {
 
         console.log('ContentBaseForm children',children)
 
-        // let length = Array.isArray(children)?
+        let isarray = Array.isArray(children) 
+        let length = Array.isArray(children)?children.length:children?1:0
+
+        let iseditable = false
+        if (!isarray && length) {
+            let node = children as React.ReactElement
+            iseditable = !!(node.props && node.props.readonly)
+        } else {
+            for (let node of children as Array<React.ReactElement>) {
+                if (!node.props.readonly) {
+                    iseditable = true
+                    break
+                }
+            }
+        }
 
         return (
             <form 
@@ -40,9 +58,17 @@ class ContentBaseForm extends React.Component<any,any> {
                 className = { classes && classes.root } 
                 autoComplete = "off" 
             > 
-                {children.length?<fieldset disabled = {disabled}>
+                {length?<fieldset style = {{marginBottom:'8px'}} disabled = {disabled}>
                     { this.props.children }
                 </fieldset>:null}
+                {iseditable?<Button 
+                    className = {classes.button}
+                    color = "primary" 
+                    variant = "contained" 
+                    type="submit">
+                        Save
+                    </Button>
+                :null}
             </form>
         )
     }
