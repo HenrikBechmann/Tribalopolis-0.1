@@ -17,6 +17,7 @@ const styles = (theme) => createStyles({
   root: {
     display: 'flex',
     flexWrap: 'wrap',
+    flexDirection:'column',
     alignItems:'baseline',
   },
   button:{
