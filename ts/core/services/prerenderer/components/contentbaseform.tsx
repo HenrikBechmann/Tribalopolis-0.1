@@ -27,6 +27,22 @@ const styles = (theme) => createStyles({
 
 class ContentBaseForm extends React.Component<any,any> {
 
+    constructor(props) {
+        super(props)
+        let { children } = props
+        let values = {} as any
+        if (!Array.isArray(children)) {
+            values[children.props.name] = children.props.value
+        } else {
+            for (let child of children) {
+                if (!child.props.readonly) {
+                    values[child.props.name] = child.props.value
+                }
+            }
+        }
+        this.state.values = values
+    }
+
     state = {
         values:{},
     }
@@ -48,14 +64,20 @@ class ContentBaseForm extends React.Component<any,any> {
         if (!isarray && this.length) {
             let node = children as React.ReactElement
             this.iseditable = !!(node.props && node.props.readonly)
-            node = React.cloneElement(node,{onChange:this.onChangeValue})
+            if (!node.props.readonly) {
+                node = React.cloneElement(node,{onChange:this.onChangeValue})
+            }
             this.localchildren = node
         } else {
             this.localchildren = []
             for (let node of children as Array<React.ReactElement>) {
+
                 if (!node.props.readonly) {
                     !this.iseditable && (this.iseditable = true)
-                    node = React.cloneElement(node,{onChange:this.onChangeValue})
+
+                    node = React.cloneElement(node,{
+                        onChange:this.onChangeValue})
+
                 }
                 this.localchildren.push(node)
             }
@@ -73,6 +95,14 @@ class ContentBaseForm extends React.Component<any,any> {
 
     render() {
         const { classes, onSubmit, disabled } = this.props
+        let newchildren = []
+        for (let element of this.localchildren) {
+            if (!element.props.readonly) {
+                element = React.cloneElement(element,{value:this.state.values[element.props.name]})
+            }
+            newchildren.push(element)
+        }
+        this.localchildren = newchildren
 
         return (
             <form 
