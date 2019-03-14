@@ -27,8 +27,23 @@ const styles = (theme) => createStyles({
 
 class ContentBaseForm extends React.Component<any,any> {
 
+    state = {
+        values:{},
+    }
+
+    onChangeValue = event => {
+
+        let { values } = this.state
+        values[event.target.name] = event.target.value
+        console.log('values',values)
+        this.setState({ values })    
+
+    }
+
     render() {
         const { classes, onSubmit, disabled, children } = this.props
+
+        let localchildren
 
         console.log('ContentBaseForm children',children)
 
@@ -39,12 +54,16 @@ class ContentBaseForm extends React.Component<any,any> {
         if (!isarray && length) {
             let node = children as React.ReactElement
             iseditable = !!(node.props && node.props.readonly)
+            node = React.cloneElement(node,{onChange:this.onChangeValue})
+            localchildren = node
         } else {
+            localchildren = []
             for (let node of children as Array<React.ReactElement>) {
                 if (!node.props.readonly) {
-                    iseditable = true
-                    break
+                    !iseditable && (iseditable = true)
+                    node = React.cloneElement(node,{onChange:this.onChangeValue})
                 }
+                localchildren.push(node)
             }
         }
 
@@ -60,7 +79,7 @@ class ContentBaseForm extends React.Component<any,any> {
                 autoComplete = "off" 
             > 
                 {length?<fieldset style = {{marginBottom:'8px'}} disabled = {disabled}>
-                    { this.props.children }
+                    { localchildren }
                 </fieldset>:null}
                 {iseditable?<Button 
                     className = {classes.button}
