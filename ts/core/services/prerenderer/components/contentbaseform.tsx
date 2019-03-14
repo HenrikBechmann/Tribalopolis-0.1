@@ -45,6 +45,7 @@ class ContentBaseForm extends React.Component<any,any> {
 
     state = {
         values:{},
+        dirty:false
     }
 
     localchildren
@@ -88,8 +89,7 @@ class ContentBaseForm extends React.Component<any,any> {
 
         let { values } = this.state
         values[event.target.name] = event.target.value
-        console.log('values',values)
-        this.setState({ values })    
+        this.setState({ values, dirty:true })    
 
     }
 
@@ -98,7 +98,11 @@ class ContentBaseForm extends React.Component<any,any> {
         let newchildren = []
         for (let element of this.localchildren) {
             if (!element.props.readonly) {
-                element = React.cloneElement(element,{value:this.state.values[element.props.name]})
+                let statevalue = this.state.values[element.props.name]
+                let elementvalue = element.props.value
+                if (!Object.is(elementvalue,statevalue)) {
+                    element = React.cloneElement(element,{value:statevalue})
+                }
             }
             newchildren.push(element)
         }
@@ -119,6 +123,7 @@ class ContentBaseForm extends React.Component<any,any> {
                     { this.localchildren }
                 </fieldset>:null}
                 {this.iseditable?<Button 
+                    disabled = {!this.state.dirty}
                     className = {classes.button}
                     color = "primary" 
                     variant = "contained" 
