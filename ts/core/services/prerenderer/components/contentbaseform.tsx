@@ -31,6 +31,37 @@ class ContentBaseForm extends React.Component<any,any> {
         values:{},
     }
 
+    localchildren
+
+    iseditable = false
+
+    length = Array.isArray(this.props.children)?this.props.children.length:this.props.children?1:0
+
+    componentWillMount() {
+
+        let { children } = this.props
+
+        console.log('ContentBaseForm children',children)
+
+        let isarray = Array.isArray(children) 
+
+        if (!isarray && this.length) {
+            let node = children as React.ReactElement
+            this.iseditable = !!(node.props && node.props.readonly)
+            node = React.cloneElement(node,{onChange:this.onChangeValue})
+            this.localchildren = node
+        } else {
+            this.localchildren = []
+            for (let node of children as Array<React.ReactElement>) {
+                if (!node.props.readonly) {
+                    !this.iseditable && (this.iseditable = true)
+                    node = React.cloneElement(node,{onChange:this.onChangeValue})
+                }
+                this.localchildren.push(node)
+            }
+        }
+    }
+
     onChangeValue = event => {
 
         let { values } = this.state
@@ -41,31 +72,7 @@ class ContentBaseForm extends React.Component<any,any> {
     }
 
     render() {
-        const { classes, onSubmit, disabled, children } = this.props
-
-        let localchildren
-
-        console.log('ContentBaseForm children',children)
-
-        let isarray = Array.isArray(children) 
-        let length = Array.isArray(children)?children.length:children?1:0
-
-        let iseditable = false
-        if (!isarray && length) {
-            let node = children as React.ReactElement
-            iseditable = !!(node.props && node.props.readonly)
-            node = React.cloneElement(node,{onChange:this.onChangeValue})
-            localchildren = node
-        } else {
-            localchildren = []
-            for (let node of children as Array<React.ReactElement>) {
-                if (!node.props.readonly) {
-                    !iseditable && (iseditable = true)
-                    node = React.cloneElement(node,{onChange:this.onChangeValue})
-                }
-                localchildren.push(node)
-            }
-        }
+        const { classes, onSubmit, disabled } = this.props
 
         return (
             <form 
@@ -78,10 +85,10 @@ class ContentBaseForm extends React.Component<any,any> {
                 className = { classes && classes.root } 
                 autoComplete = "off" 
             > 
-                {length?<fieldset style = {{marginBottom:'8px'}} disabled = {disabled}>
-                    { localchildren }
+                {this.length?<fieldset style = {{marginBottom:'8px'}} disabled = {disabled}>
+                    { this.localchildren }
                 </fieldset>:null}
-                {iseditable?<Button 
+                {this.iseditable?<Button 
                     className = {classes.button}
                     color = "primary" 
                     variant = "contained" 
