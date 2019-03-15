@@ -29,6 +29,7 @@ class ContentBaseForm extends React.Component<any,any> {
 
     constructor(props) {
         super(props)
+        // initialize state values
         let { children } = props
         let values = {} as any
         if (!Array.isArray(children)) {
@@ -56,9 +57,9 @@ class ContentBaseForm extends React.Component<any,any> {
 
     componentWillMount() {
 
-        let { children } = this.props
+        // add onChange to editable children
 
-        console.log('ContentBaseForm children',children)
+        let { children } = this.props
 
         let isarray = Array.isArray(children) 
 
@@ -96,6 +97,7 @@ class ContentBaseForm extends React.Component<any,any> {
     render() {
         const { classes, onSubmit, disabled } = this.props
         let newchildren = []
+        // update changed element values
         for (let element of this.localchildren) {
             if (!element.props.readonly) {
                 let statevalue = this.state.values[element.props.name]
