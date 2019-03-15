@@ -76,7 +76,7 @@ class PreRenderer {
     // called by client
     public getRenderContent = (prerendermessage:PreRenderContext) => {
 
-        // console.log('in getRenderContent: prerendermessage',this.prerendermessage)
+        console.log('in getRenderContent: prerendermessage',prerendermessage)
 
         if (!prerendermessage) return null
 
@@ -143,15 +143,11 @@ class PreRenderer {
 
             // get component properties
             let props = this.getProps(componentspec.properties, componentspec.attributes)
-            // get conponent children
+            // get component children
             let children = this.getChildren(componentspec.children)
+
             // pass to React
-
-            // console.log('component arguments',componentspec.type,componentspec.properties,props,children)
-
             let element = React.createElement(type, props, children)
-
-            // console.log('element in assembleComponents',element)
 
             return element
 
