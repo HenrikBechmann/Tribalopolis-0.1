@@ -253,6 +253,9 @@ class PreRenderer {
                     let parms = this.getProps(propertyobject.parms)
                     retval = functions[propertyobject.function](parms)
                     break
+                case 'namespace':
+                    retval = this.namespace
+                    break
                 default:
                     retval = null
                     break

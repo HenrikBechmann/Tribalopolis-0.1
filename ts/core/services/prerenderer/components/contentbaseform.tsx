@@ -57,8 +57,9 @@ class ContentBaseForm extends React.Component<any,any> {
 
     componentWillMount() {
 
-        // add onChange to editable children
+        console.log('props in form',this.props)
 
+        // add onChange to editable children
         let { children } = this.props
 
         let isarray = Array.isArray(children) 
