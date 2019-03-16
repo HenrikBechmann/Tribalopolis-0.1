@@ -30,7 +30,7 @@ class ContentBaseForm extends React.Component<any,any> {
     constructor(props) {
         super(props)
         // initialize state values
-        let { children } = props
+        let { children, context } = props
         let values = {} as any
         if (!Array.isArray(children)) {
             values[children.props.name] = children.props.value
@@ -42,6 +42,7 @@ class ContentBaseForm extends React.Component<any,any> {
             }
         }
         this.state.values = values
+        this.context = context
     }
 
     state = {
@@ -50,6 +51,7 @@ class ContentBaseForm extends React.Component<any,any> {
     }
 
     localchildren
+    context
 
     iseditable = false
 
