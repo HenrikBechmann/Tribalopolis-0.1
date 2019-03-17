@@ -68,7 +68,7 @@ class PreRenderer {
             docref:docpack.reference
         }
 
-        // console.log('assemblePreRenderContext prerendermessage',prerendermessage)
+        // console.log('assemblePreRenderContext prerendermessage',prerendercontext)
 
         return prerendercontext
     }
@@ -76,7 +76,7 @@ class PreRenderer {
     // called by client
     public getRenderContent = (prerendermessage:PreRenderContext) => {
 
-        console.log('in getRenderContent: prerendermessage',prerendermessage)
+        // console.log('in getRenderContent: prerendermessage',prerendermessage)
 
         if (!prerendermessage) return null
 

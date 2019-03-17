@@ -12,7 +12,7 @@ import React from 'react'
 import { Switch, Router } from 'react-router-dom'
 import routes from "./routes"
 
-import createBrowserHistory from 'history/createBrowserHistory'
+import { createBrowserHistory } from 'history'
 
 const customHistory = createBrowserHistory()
 

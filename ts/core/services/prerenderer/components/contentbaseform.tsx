@@ -5,8 +5,14 @@
 
 import React from 'react'
 
+import merge from 'deepmerge'
+
 import { withStyles, createStyles } from '@material-ui/core/styles'
 import Button from '@material-ui/core/Button'
+
+import application from '../../application'
+
+import { toast } from 'react-toastify'
 
 /*
     patterned after first demo https://material-ui.com/demos/selects/ for 3.03
@@ -42,16 +48,17 @@ class ContentBaseForm extends React.Component<any,any> {
             }
         }
         this.state.values = values
-        this.context = context
+        if (context) {this.formcontext = context}
+
     }
 
     state = {
         values:{},
-        dirty:false
+        dirty:false,
     }
 
     localchildren
-    context
+    formcontext
 
     iseditable = false
 
@@ -59,7 +66,7 @@ class ContentBaseForm extends React.Component<any,any> {
 
     componentWillMount() {
 
-        console.log('props in form',this.props)
+        console.log('props, formcontext, state in form will mount',this.props, this.formcontext, this.state)
 
         // add onChange to editable children
         let { children } = this.props
@@ -87,6 +94,32 @@ class ContentBaseForm extends React.Component<any,any> {
                 this.localchildren.push(node)
             }
         }
+    }
+
+    onSubmit = () => {
+
+        console.log('onSubmit',this.formcontext, this.props.context)
+        let document = merge({},this.formcontext.document)
+        let message = {
+            document,
+            reference:this.formcontext.props.reference,
+            success:this.onSubmitSuccess,
+            failure:this.onSubmitFailure,
+        }
+
+        this.setState({
+            dirty:false
+        })
+        application.setDocument(message)
+
+    }
+
+    onSubmitSuccess = () => {
+        toast.success('document has been posted')
+    }
+
+    onSubmitFailure = () => {
+        toast.error('document posting has failed')
     }
 
     onChangeValue = event => {
@@ -128,6 +161,7 @@ class ContentBaseForm extends React.Component<any,any> {
                     { this.localchildren }
                 </fieldset>:null}
                 {this.iseditable?<Button 
+                    onClick = {this.onSubmit}
                     disabled = {!this.state.dirty}
                     className = {classes.button}
                     color = "primary" 
