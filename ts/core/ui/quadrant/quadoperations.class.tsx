@@ -119,7 +119,7 @@ class quadoperations {
                 datastack,
             },() => {
                 setTimeout(() =>{
-                    this.listcomponent.current.scrollTo(visiblerange[0])
+                    this.listcomponent.current.scrollToItem(visiblerange[0],'start')
                 })
             })
         },100)

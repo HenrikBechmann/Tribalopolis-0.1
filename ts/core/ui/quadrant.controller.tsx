@@ -151,6 +151,9 @@ class Quadrant extends React.Component<any,any>  {
 
     drawerdatapackage:DataPaneContext
 
+    startIndex
+    stopIndex
+
 /********************************************************
 ------------------[ lifecycle methods ]------------------
 *********************************************************/
@@ -186,7 +189,7 @@ class Quadrant extends React.Component<any,any>  {
         setTimeout( () => { // defer to currently running code
 
             if (this.listcomponent && (this.state.datastack[this.state.stackpointer].items.length > 1)) {
-                this.listcomponent.current.scrollAround(index)
+                this.listcomponent.current.scrollToItem(index)
             }
 
             setTimeout(()=>{ // time for scroll to take place
@@ -344,7 +347,7 @@ class Quadrant extends React.Component<any,any>  {
 *********************************************************/
 
     render() {
-        
+
         let { color, classes } = this.props
 
         let { datastack } = this.state
@@ -425,6 +428,7 @@ class Quadrant extends React.Component<any,any>  {
                                     height = {this.scrollboxelement.current.offsetHeight}
                                     width = {this.scrollboxelement.current.offsetWidth}
                                     itemSize = {this.state.boxwidth + 56}
+                                    ref = {this.listcomponent}
                                  >
                                     {this.Box}
                                 </List>
