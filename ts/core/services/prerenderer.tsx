@@ -168,7 +168,7 @@ class PreRenderer {
         // console.log('props and options derived from db in getComponentByReference',props,opts)
         // console.log('getComponentByReference', reference, properties, ref, opts, dataheap)
         
-        return <AbstractDataPane key = {props.key} reference = {ref} options = {opts} namespace = {namespace}  />
+        return <AbstractDataPane key = {props.key} reference = {ref} options = {opts} namespace = {namespace} attributes = {attributes} />
     }
 
     private getTypeClass = typespec => {

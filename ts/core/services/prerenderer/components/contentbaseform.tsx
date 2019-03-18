@@ -6,6 +6,7 @@
 import React from 'react'
 
 import merge from 'deepmerge'
+import utlities from '../../../utilities/utilities'
 
 import { withStyles, createStyles } from '@material-ui/core/styles'
 import Button from '@material-ui/core/Button'
@@ -36,7 +37,7 @@ class ContentBaseForm extends React.Component<any,any> {
     constructor(props) {
         super(props)
         // initialize state values
-        let { children, context } = props
+        let { children, context, documentmap } = props
         let values = {} as any
         if (!Array.isArray(children)) {
             values[children.props.name] = children.props.value
@@ -49,6 +50,7 @@ class ContentBaseForm extends React.Component<any,any> {
         }
         this.state.values = values
         if (context) {this.formcontext = context}
+        this.documentmap = documentmap
 
     }
 
@@ -59,6 +61,7 @@ class ContentBaseForm extends React.Component<any,any> {
 
     localchildren
     formcontext
+    documentmap
 
     iseditable = false
 
@@ -66,7 +69,7 @@ class ContentBaseForm extends React.Component<any,any> {
 
     componentWillMount() {
 
-        console.log('props, formcontext, state in form will mount',this.props, this.formcontext, this.state)
+        // console.log('props, formcontext, state in form will mount',this.props, this.formcontext, this.state)
 
         // add onChange to editable children
         let { children } = this.props
@@ -98,8 +101,21 @@ class ContentBaseForm extends React.Component<any,any> {
 
     onSubmit = () => {
 
-        console.log('onSubmit',this.formcontext, this.props.context)
+        // console.log('onSubmit',this.formcontext, this.props.context)
         let document = merge({},this.formcontext.document)
+
+        for (let valueindex in this.state.values) {
+            // console.log('valueindex, documentmap',valueindex,this.documentmap)
+            let path = this.documentmap[valueindex].split('.')
+            // console.log('document, path',document, path)
+            let nodespecs = utlities.getNodePosition(document,path)
+            let value = this.state.values[valueindex]
+            if (value === undefined) value = null
+            nodespecs.nodeproperty[nodespecs.nodeindex] = value
+        } 
+
+        // console.log('document after update',document)
+
         let message = {
             document,
             reference:this.formcontext.props.reference,

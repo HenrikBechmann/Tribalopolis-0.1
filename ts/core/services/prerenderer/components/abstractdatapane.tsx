@@ -23,7 +23,7 @@ class AbstractDataPane extends React.Component<any,any> {
 
         this.prerenderer = new PreRenderer()
 
-        let { reference, options, namespace} = this.props
+        let { reference, options, namespace, attributes} = this.props
 
         // console.log('reference, options, data in abstractdatapane',reference, options, namespace)
         this.reference = reference
