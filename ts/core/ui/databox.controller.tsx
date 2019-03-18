@@ -331,7 +331,7 @@ class DataBox extends React.Component<any,any> {
         if (!docpack) {
             return <div className = {classes.wrapper} style = {wrapperStyle}>
                 <div className = {classes.frame} style = {frameStyle}>
-                    <LoadingMessage />
+                    {/*<LoadingMessage />*/}
                 </div>
             </div>
         }

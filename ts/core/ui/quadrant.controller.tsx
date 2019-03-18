@@ -270,7 +270,25 @@ class Quadrant extends React.Component<any,any>  {
             setBoxWidth:this.setBoxWidth,
             callDataDrawer:this.callDataDrawer,
         }
-        let databox = <DataBox 
+        let databox = <div 
+            key = {key} 
+            style = {
+                {
+                width: haspeers
+                    ?(this.props.boxwidth + 56) + 'px'
+                    :'none',
+                minWidth: !haspeers
+                    ?(this.props.boxwidth + 56) + 'px'
+                    :'none',
+                height: haspeers
+                    ?(containerHeight -2) + 'px'
+                    :(containerHeight -2) + 'px',
+                display: haspeers
+                    ?'inline-block'
+                    :'block',
+                overflow:'hidden',
+                    }
+            }><DataBox 
                 key = { itemProxy.instanceid } 
 
                 itemProxy = { itemProxy }
@@ -281,7 +299,7 @@ class Quadrant extends React.Component<any,any>  {
                 boxwidth = { this.state.boxwidth }
 
                 callbacks = { boxcallbacks }
-            />
+            /></div>
 
         return databox
 
@@ -407,7 +425,7 @@ class Quadrant extends React.Component<any,any>  {
                                     type = 'uniform'
                                     ref = {this.listcomponent}
                                     useStaticSize
-                                    threshold = {800}
+                                    threshold = {1600}
                                  />
                                 :this.getBox(0,'singleton')
                             )
