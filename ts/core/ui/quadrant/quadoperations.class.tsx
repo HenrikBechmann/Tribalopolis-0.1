@@ -76,9 +76,16 @@ class quadoperations {
         },100)
     }
 
+    getStartItem = (listcomponent) => {
+        console.log('listcomponent',listcomponent)
+        let itemheight = listcomponent.props.itemSize
+        let offset = listcomponent.state.scrollOffset
+        return Math.floor(offset/itemheight)
+    }
+
     splayBox = (boxptr, domSource, sourcelistcomponent,listDocument) => {
 
-        let visiblerange = sourcelistcomponent.current.getVisibleRange()
+        let startItem = this.getStartItem(sourcelistcomponent.current)
 
         this.animations.animateToOrigin()
 
@@ -100,7 +107,7 @@ class quadoperations {
             itemProxy,
             doctoken:itemProxy.doctoken,
             action:'splay',
-            visiblerange,
+            startItem,
         }}
 
         // replace forward stack items
@@ -119,7 +126,7 @@ class quadoperations {
                 datastack,
             },() => {
                 setTimeout(() =>{
-                    this.listcomponent.current.scrollToItem(visiblerange[0],'start')
+                    this.listcomponent.current.scrollToItem(startItem,'start')
                 })
             })
         },100)

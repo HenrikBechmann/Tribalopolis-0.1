@@ -17,7 +17,6 @@ import DataDrawer from './common/datadrawer.view'
 import DataPane from './common/datapane.view'
 
 import DataBox from './databox.controller'
-// import Lister from 'react-list'
 import { FixedSizeList as List } from 'react-window'
 
 import quadanimations from './quadrant/quadanimations.class'
