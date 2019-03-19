@@ -243,7 +243,8 @@ class quadoperations {
         let stacklayer = datastack[stackpointer]
         let { items } = stacklayer
         stacklayer.settings.scrollOffset = 
-            (items.length > 1)?this.scrollboxelement.current.scrollLeft:0
+            (items.length > 1)?this.listcomponent.current.state.scrollOffset:0
+ //this.scrollboxelement.current.scrollLeft:0
     }
 
     _applySettings = (stackpointer, datastack) => {
@@ -254,7 +255,13 @@ class quadoperations {
             if (stacklayer.settings.scrollOffset !== null) {
                 setTimeout(() => { // give deference to formation of scroll object
 
-                    this.scrollboxelement.current.scrollLeft = stacklayer.settings.scrollOffset
+                    let itemSize = this.listcomponent.current.props.itemSize
+                    let scrollOffset = stacklayer.settings.scrollOffset
+                    let itemNumber = Math.floor(scrollOffset/itemSize)
+                    setTimeout(()=>{
+                        this.listcomponent.current.scrollToItem(itemNumber,"start")
+                    },300)
+                    // this.scrollboxelement.current.scrollLeft = stacklayer.settings.scrollOffset
 
                 })
             }

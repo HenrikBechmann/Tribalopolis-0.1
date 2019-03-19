@@ -203,7 +203,7 @@ class Quadrant extends React.Component<any,any>  {
                 })
             },300)
 
-        })
+        },300)
     }
 
     _findlinkIndex = (instanceid) => {
