@@ -5,9 +5,8 @@
 
 import React from 'react'
 
-import Lister from 'react-list'
-
-import CircularProgress from '@material-ui/core/CircularProgress'
+import AutoSizer from 'react-virtualized-auto-sizer'
+import { FixedSizeList as List } from 'react-window'
 
 import { withStyles, createStyles } from '@material-ui/core/styles'
 import DirectoryListItem from './directorylistitem.view'
@@ -159,7 +158,7 @@ class extends React.Component<any,any> {
         let index = listproxies.findIndex(this.findlinkIndex(highlightrefuid))
         // update scroll display with selected highlight item
         // this.listcomponent.current.scrollAround(index)
-        this.listcomponent.current.scrollAround(index)
+        this.listcomponent.current.scrollToItem(index)
         // console.log('index',index)
         setTimeout(() => { // let scroll update finish
             // animate highlight
@@ -189,12 +188,12 @@ class extends React.Component<any,any> {
         }
     }
 
-    itemRenderer = (index,key) => {
+    ListComponent = ({index,style}) => {
         let docproxy = this.state.listproxies[index]
-        return this.getListComponent(docproxy,key,index)
+        return <div style = {style}>{this.getListComponent(docproxy,index)}</div>
     }
 
-    getListComponent = (docproxy, key, index) => {
+    getListComponent = (docproxy, index) => {
 
         let highlight = (docproxy.id === this.state.highlightrefuid)
         let directorylistitem = 
@@ -223,17 +222,23 @@ class extends React.Component<any,any> {
             <div
                 className = {classes.scrollbox} 
             >
-                {this.state.listproxies?<Lister 
-                    axis = 'y'
-                    ref = {this.props.forwardedRef}
-                    itemRenderer = {this.itemRenderer}
-                    length = {length}
-                    type = 'uniform'
-                    useStaticSize
-                />:<div style = {{height:'31px'}}>
-                    <LoadingMessage />
-                </div>
+                <AutoSizer>{
+                    ({height, width}) => (this.state.listproxies?(
+                        <List 
+                        ref = {this.props.forwardedRef}
+                        height = {height}
+                        width = {width}
+                        itemSize = {31}
+                        itemCount = {length}
+                    >
+                        {this.ListComponent}
+                    </List>
+                    )
+                    :<div style = {{height:'31px'}}>
+                        <LoadingMessage />
+                    </div>)
                 }
+                </AutoSizer>
             </div>
         </div>
         )

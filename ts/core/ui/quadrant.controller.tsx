@@ -17,7 +17,7 @@ import DataDrawer from './common/datadrawer.view'
 import DataPane from './common/datapane.view'
 
 import DataBox from './databox.controller'
-import Lister from 'react-list'
+import { FixedSizeList as List } from 'react-window'
 
 import quadanimations from './quadrant/quadanimations.class'
 import quadoperations from './quadrant/quadoperations.class'
@@ -71,6 +71,7 @@ let styles = createStyles({
     }
 })
 
+// List item
 class Quadrant extends React.Component<any,any>  {
 
 /********************************************************
@@ -149,6 +150,9 @@ class Quadrant extends React.Component<any,any>  {
 
     drawerdatapackage:DataPaneContext
 
+    startIndex
+    stopIndex
+
 /********************************************************
 ------------------[ lifecycle methods ]------------------
 *********************************************************/
@@ -184,7 +188,7 @@ class Quadrant extends React.Component<any,any>  {
         setTimeout( () => { // defer to currently running code
 
             if (this.listcomponent && (this.state.datastack[this.state.stackpointer].items.length > 1)) {
-                this.listcomponent.current.scrollAround(index)
+                this.listcomponent.current.scrollToItem(index)
             }
 
             setTimeout(()=>{ // time for scroll to take place
@@ -225,86 +229,6 @@ class Quadrant extends React.Component<any,any>  {
 -------------------[ databox assembly ]------------------
 *********************************************************/
 
-    // Lister item renderer
-    getBox = (index, key) => {
-
-        let { datastack, stackpointer } = this.state
-
-        if (!datastack) return null
-
-        if (!this.scrollboxelement.current) return null
-
-        let itemProxy = datastack[stackpointer].items[index]
-
-        if (!itemProxy) return null
-
-        let stacklayer = datastack[stackpointer]
-        let haspeers = (stacklayer && (stacklayer.items.length > 1))
-
-        return this.getBoxComponent(itemProxy, index, haspeers, key)
-    }
-
-    getBoxComponent = (itemProxy, index, haspeers, key) => {
-
-        let containerHeight = this.scrollboxelement.current.offsetHeight
-
-        let matchForTarget = false
-        let { activeTargetProxy } = this.state
-        if (activeTargetProxy) {
-            matchForTarget = (activeTargetProxy.index == index)
-        }
-        let boxcallbacks = {
-            // data fulfillment
-            setDocpackPairListener:this.setDocpackPairListener,
-            removeDocpackPairListener:this.removeDocpackPairListener,
-
-            // animations and operations
-            highlightBox:this.animations.highlightBox,
-            splayBox:(domSource, listcomponent,listdoctoken) => {
-                this.operations.splayBox(index, domSource, listcomponent,listdoctoken)},
-            selectFromSplay:(domSource) => {
-                this.operations.selectFromSplay(index,domSource)},
-            expandDirectoryItem:(doctoken:DocTokenStruc, domSource) => {
-                this.operations.expandDirectoryItem(index,doctoken, domSource)},
-            collapseDirectoryItem:this.operations.collapseDirectoryItem,
-            setBoxWidth:this.setBoxWidth,
-            callDataDrawer:this.callDataDrawer,
-        }
-        let databox = <div 
-            key = {key} 
-            style = {
-                {
-                width: haspeers
-                    ?(this.props.boxwidth + 56) + 'px'
-                    :'none',
-                minWidth: !haspeers
-                    ?(this.props.boxwidth + 56) + 'px'
-                    :'none',
-                height: haspeers
-                    ?(containerHeight -2) + 'px'
-                    :(containerHeight -2) + 'px',
-                display: haspeers
-                    ?'inline-block'
-                    :'block',
-                overflow:'hidden',
-                    }
-            }><DataBox 
-                key = { itemProxy.instanceid } 
-
-                itemProxy = { itemProxy }
-                collapseTargetProxy = {matchForTarget?activeTargetProxy:null}
-                haspeers = { haspeers }
-                index = { index }
-                containerHeight = { containerHeight -1 }
-                boxwidth = { this.state.boxwidth }
-
-                callbacks = { boxcallbacks }
-            /></div>
-
-        return databox
-
-    }
-
     setBoxWidth = (width) => {
 
         this.setState({
@@ -338,12 +262,91 @@ class Quadrant extends React.Component<any,any>  {
         })
     }
 
+    getBox = ({index,style}) => {
+        return this.Box({index,style})
+    }
+
+    Box = ({index, style = null}) => {
+
+        let { datastack, stackpointer } = this.state
+
+        if (!datastack) return null
+
+        if (!this.scrollboxelement.current) return null
+
+        let itemProxy = datastack[stackpointer].items[index]
+
+        if (!itemProxy) return null
+
+        let stacklayer = datastack[stackpointer]
+        let haspeers = (stacklayer && (stacklayer.items.length > 1))
+
+        return this.getBoxComponent(
+        {
+            itemProxy,
+            index,
+            haspeers,
+            style
+        })
+    }
+
+    getBoxComponent = ({itemProxy, index, haspeers, style}) => {
+
+        let containerHeight = this.scrollboxelement.current.offsetHeight
+
+        let matchForTarget = false
+        let { activeTargetProxy } = this.state
+        if (activeTargetProxy) {
+            matchForTarget = (activeTargetProxy.index == index)
+        }
+        let boxcallbacks = {
+            // data fulfillment
+            setDocpackPairListener:this.setDocpackPairListener,
+            removeDocpackPairListener:this.removeDocpackPairListener,
+
+            // animations and operations
+            highlightBox:this.animations.highlightBox,
+            splayBox:(domSource, listcomponent,listdoctoken) => {
+                this.operations.splayBox(index, domSource, listcomponent,listdoctoken)},
+            selectFromSplay:(domSource) => {
+                this.operations.selectFromSplay(index,domSource)},
+            expandDirectoryItem:(doctoken:DocTokenStruc, domSource) => {
+                this.operations.expandDirectoryItem(index,doctoken, domSource)},
+            collapseDirectoryItem:this.operations.collapseDirectoryItem,
+            setBoxWidth:this.setBoxWidth,
+            callDataDrawer:this.callDataDrawer,
+        }
+        let databox = <div 
+            style = {haspeers?style:
+                {
+                width:'none',
+                minWidth:'none',
+                height: (containerHeight -2) + 'px',
+                display:'block',
+                }
+            }><DataBox 
+                key = { itemProxy.instanceid } 
+
+                itemProxy = { itemProxy }
+                collapseTargetProxy = {matchForTarget?activeTargetProxy:null}
+                haspeers = { haspeers }
+                index = { index }
+                containerHeight = { containerHeight -1 }
+                boxwidth = { this.state.boxwidth }
+
+                callbacks = { boxcallbacks }
+            /></div>
+
+        return databox
+
+    }
+
 /********************************************************
 ------------------------[ render ]-----------------------
 *********************************************************/
 
     render() {
-        
+
         let { color, classes } = this.props
 
         let { datastack } = this.state
@@ -416,18 +419,19 @@ class Quadrant extends React.Component<any,any>  {
                     return (userdata?
                          (!isempty?(
                             haspeers
-                                ?<Lister 
-                                    axis = 'x'
-                                    itemRenderer = {this.getBox}
-                                    length = { 
+                                ?<List 
+                                    itemCount = { 
                                         datastack?datastack[this.state.stackpointer].items.length:0
                                     }
-                                    type = 'uniform'
+                                    layout = "horizontal"
+                                    height = {this.scrollboxelement.current.offsetHeight}
+                                    width = {this.scrollboxelement.current.offsetWidth}
+                                    itemSize = {this.state.boxwidth + 56}
                                     ref = {this.listcomponent}
-                                    useStaticSize
-                                    threshold = {1600}
-                                 />
-                                :this.getBox(0,'singleton')
+                                 >
+                                    {this.Box}
+                                </List>
+                                :this.Box({index:0,style:null})
                             )
                         :
                         <div className = {classes.startscreen}

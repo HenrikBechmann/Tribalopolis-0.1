@@ -3,7 +3,7 @@
 
 /*
     TODO: when variable size happens, must calculate and set the height of barstyle
-        for react-list
+        for react-window
 */
 
 'use strict'
@@ -28,7 +28,7 @@ const styles = createStyles({
         cursor:'pointer',
         position:'relative',
         borderBottom:'1px solid #e2e6e9',
-        height:'31px', // has to be set for react-list
+        height:'31px', // has to be set for react-window?
     },
 
     rowstyle:{
