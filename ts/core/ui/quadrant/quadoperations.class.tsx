@@ -77,7 +77,6 @@ class quadoperations {
     }
 
     getStartItem = (listcomponent) => {
-        console.log('listcomponent',listcomponent)
         let itemheight = listcomponent.props.itemSize
         let offset = listcomponent.state.scrollOffset
         return Math.floor(offset/itemheight)
