@@ -5,7 +5,6 @@
 
 import React from 'react'
 
-import Lister from 'react-list'
 import AutoSizer from 'react-virtualized-auto-sizer'
 import { FixedSizeList as List } from 'react-window'
 
