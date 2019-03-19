@@ -220,9 +220,12 @@ class DataBox extends React.Component<any,any> {
                 collapseTargetProxy.liststack[
                     collapseTargetProxy.liststack.length -1]
 
+            // console.log('doHighlights collapseTargetProxy, doctoken',collapseTargetProxy,doctoken)
+
             if (doctoken) {
                 let splitref = doctoken.reference.split('/')
                 let id = splitref[splitref.length - 1]
+                // console.log('id in doHighlights',id)
                 setTimeout(()=>{
                     this.setState({
                         highlightrefuid:id,

@@ -126,7 +126,7 @@ class quadoperations {
             },() => {
                 setTimeout(() =>{
                     this.listcomponent.current.scrollToItem(startItem,'start')
-                })
+                },300) // avoid setstate no op in lead list items
             })
         },100)
     }
