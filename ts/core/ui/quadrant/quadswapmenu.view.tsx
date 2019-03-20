@@ -243,9 +243,9 @@ class SwapMenu extends React.Component<any, any> {
 
                 <ActionButton 
                     iconStyle = {{color:'green'}}
-                    icon = 'swap_vert'
+                    icon = 'swap_horiz'
                     action = {() => {
-                        handleSwap(quadrantPosition,'vertical')
+                        handleSwap(quadrantPosition,'horizontal')
                     }} />
                 <ActionButton 
                     iconStyle = {{color:'green',transform:`rotate(${tilt})`}}
@@ -255,9 +255,9 @@ class SwapMenu extends React.Component<any, any> {
                     }} />
                 <ActionButton 
                     iconStyle = {{color:'green'}}
-                    icon = 'swap_horiz'
+                    icon = 'swap_vert'
                     action = {() => {
-                        handleSwap(quadrantPosition,'horizontal')
+                        handleSwap(quadrantPosition,'vertical')
                     }} />
                 </MenuItem>
             </PopupMenu>
