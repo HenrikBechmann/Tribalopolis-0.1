@@ -33,11 +33,13 @@ class NavigationMenuTab extends React.Component<any,any> {
         this.splaydomsource = React.createRef()
         this.selectdomsource = React.createRef()
         this.zoomdomsource = React.createRef()
+        this.chat = React.createRef()
     }
 
     splaydomsource
     selectdomsource
     zoomdomsource
+    chat
 
     state = {
         list:null
@@ -142,6 +144,15 @@ class NavigationMenuTab extends React.Component<any,any> {
                     />
                 </div>
                 }
+                <Divider style = {{float:'right',width:'100%'}}/>
+                <div className = {classes.buttonwrapper}
+                    ref = {this.chat}
+                >
+                    <ActionButton 
+                        disabled
+                        icon = 'chat'
+                    />
+                </div>
             </div>
         )
     } 
