@@ -121,13 +121,6 @@ class NavigationMenuTab extends React.Component<any,any> {
                         action = {this.selectFromSplay()}
                     />
                 </div>
-                <div className = {classes.buttonwrapper}>
-                    <ActionButton 
-                        icon = 'arrow_back'
-                        action = {this.props.collapseDirectoryItem}
-                        disabled = {!this.props.liststack.length}
-                    />
-                </div>
                 {true && <div className = {classes.buttonwrapper}
                     ref = {this.zoomdomsource}
                 >
@@ -144,6 +137,14 @@ class NavigationMenuTab extends React.Component<any,any> {
                     />
                 </div>
                 }
+                <Divider style = {{float:'right',width:'100%'}}/>
+                <div className = {classes.buttonwrapper}>
+                    <ActionButton 
+                        icon = 'arrow_back'
+                        action = {this.props.collapseDirectoryItem}
+                        disabled = {!this.props.liststack.length}
+                    />
+                </div>
                 <Divider style = {{float:'right',width:'100%'}}/>
                 <div className = {classes.buttonwrapper}
                     ref = {this.chat}
