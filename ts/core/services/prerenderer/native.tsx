@@ -7,6 +7,7 @@ import React from 'react'
 
 const components = {
     p:'p',
+    div:'div',
 }
 
 export default components
