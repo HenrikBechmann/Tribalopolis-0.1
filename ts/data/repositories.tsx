@@ -575,7 +575,7 @@ let lists = {
         },
         properties:{
             version:0,
-            name:'Light To do lists',
+            name:'To do lists - Simple',
         },
         references:{
             subscriptions:[],
@@ -612,7 +612,7 @@ let lists = {
         },
         properties:{
             version:0,
-            name:'Managed To do lists',
+            name:'To do lists - Comples',
         },
         references:{
             subscriptions:[],
@@ -649,7 +649,7 @@ let lists = {
         },
         properties:{
             version:0,
-            name:'Deep To do lists',
+            name:'To do lists - Checklists',
         },
         references:{
             subscriptions:[],
@@ -1069,7 +1069,7 @@ let lists = {
         },
         properties:{
             version:0,
-            name:'Folders',
+            name:'Types of Records',
             linkedlist:false,
         },
         references:{
