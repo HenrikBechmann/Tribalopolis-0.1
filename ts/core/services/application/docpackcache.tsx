@@ -140,7 +140,7 @@ const docpackCache = new class {
 
             let result = typefilter.assertType(docpack.document,typepack.document)
 
-            if (result.changed) {
+            if (result && result.changed) { // '"result &&" added March 25, 2019 -- not required before that'
 
                 docpack.document = result.document
                 // update source; wait for response
