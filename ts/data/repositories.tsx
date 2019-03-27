@@ -612,7 +612,7 @@ let lists = {
         },
         properties:{
             version:0,
-            name:'To do lists - Comples',
+            name:'To do lists - Checklists',
         },
         references:{
             subscriptions:[],
@@ -649,7 +649,7 @@ let lists = {
         },
         properties:{
             version:0,
-            name:'To do lists - Checklists',
+            name:'To do lists - Complex',
         },
         references:{
             subscriptions:[],
