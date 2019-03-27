@@ -353,7 +353,7 @@ let lists = {
         },
         properties:{
             version:0,
-            name:'Action requests',
+            name:'Action items',
         },
         references:{
             subscriptions:[],
@@ -575,7 +575,7 @@ let lists = {
         },
         properties:{
             version:0,
-            name:'To do lists - Simple',
+            name:'To do Lists',
         },
         references:{
             subscriptions:[],
@@ -723,7 +723,7 @@ let lists = {
         },
         properties:{
             version:0,
-            name:'Discussion Forums',
+            name:'Forums',
         },
         references:{
             subscriptions:[],
@@ -760,7 +760,7 @@ let lists = {
         },
         properties:{
             version:0,
-            name:'Reference Library',
+            name:'Documents',
         },
         references:{
             subscriptions:[],
@@ -1117,12 +1117,12 @@ let lists = {
                 {
                     reference:'/lists/tasks',
                 },
-                {
-                    reference:'/lists/managedtasks',
-                },
-                {
-                    reference:'/lists/deeptasks',
-                },
+                // {
+                //     reference:'/lists/managedtasks',
+                // },
+                // {
+                //     reference:'/lists/deeptasks',
+                // },
                 {
                     reference:'/lists/projects',
                 },
