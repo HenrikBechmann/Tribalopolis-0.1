@@ -8,118 +8,19 @@ import { withRouter } from 'react-router-dom'
 // for toolbar menus
 import Menu from '@material-ui/core/Menu'
 import MenuItem from '@material-ui/core/MenuItem'
-import Dialog from '@material-ui/core/Dialog'
-import Slide from '@material-ui/core/Slide'
-import AppBar from '@material-ui/core/AppBar'
-import Toolbar from '@material-ui/core/Toolbar'
-import Button from '@material-ui/core/Button'
-import Typography from '@material-ui/core/Typography';
-import CloseIcon from '@material-ui/icons/Close'
-import { withStyles, createStyles } from '@material-ui/core/styles'
-
 // for drawer menus
 import Icon from '@material-ui/core/Icon'
 import IconButton from '@material-ui/core/IconButton'
-import Divider from '@material-ui/core/Divider'
 import Drawer from '@material-ui/core/Drawer'
 import ToolTip from '@material-ui/core/Tooltip'
 
 import MenuList from './menulist'
 import ScrollControlsView from '../common/scrollcontrols.view'
 import VerticalDivider from '../common/verticaldivider.view'
-import DataPane from './datapane.view'
 
 import application from '../../services/application'
-import docproxy from '../../utilities/docproxy'
-import { DataPaneContext } from '../../services/interfaces'
 
-const styles = createStyles({
-        appBar: {
-            position: 'relative',
-        },
-        flex: {
-            flex: 1,
-        },
-        dialogliner:{
-            display:'flex',
-            flexFlow:'column nowrap', 
-            height:'100%',
-        },
-        datapaneoffset:{
-            height:'55px',
-        },
-        datapanewrapper:{
-            position:'relative',
-            flex:1,
-        },
-    })
-
-class AccountDialogBase extends React.Component<any,any> {
-
-    private paneProxy = null
-
-    private datapanecontext:DataPaneContext = null
-
-    state = {
-        settingsopen:true,
-    }
-
-    render() {
-        if (!this.paneProxy ) {
-
-            let settingspageref = this.props.systemdata?this.props.systemdata.accountsettingspage:null
-
-            if (settingspageref) {
-                let paneProxy = new docproxy({doctoken:{reference:settingspageref}})
-
-                this.paneProxy = paneProxy
-                this.datapanecontext = {
-                    docproxy:paneProxy,
-                    options:{uiselection:'datapane'},
-                    callbacks:{
-                        close:this.props.closeSettings
-                    }
-                }
-            }
-        }
-
-        let { classes } = this.props
-        return  <Dialog
-          fullScreen
-          open={this.state.settingsopen}
-          onClose={this.props.closeSettings}
-          TransitionComponent={Transition}
-        >
-          <div className = {classes.dialogliner}
-              style = {{fontFamily:application.fontFamily}}
-          >
-              <AppBar>
-                <Toolbar>
-                  <IconButton color="inherit" onClick={this.props.closeSettings} aria-label="Close">
-                    <CloseIcon />
-                  </IconButton>
-                  <Typography variant="h6" color="inherit" className={classes.flex}>
-                    Account Settings
-                  </Typography>
-                  <Button color="inherit" onClick={this.props.closeSettings}>
-                    Done
-                  </Button>
-                </Toolbar>
-              </AppBar>
-              <div className = {classes.datapaneoffset}></div>
-              <div className = {classes.datapanewrapper}>
-                  <DataPane dataPaneContext = {this.datapanecontext}/>
-              </div>
-          </div>
-         </Dialog>
-    }
-}
-
-const AccountDialog = withStyles(styles) (AccountDialogBase)
-
-function Transition(props) {
-  return <Slide direction="left" {...props} />;
-}
+import AccountDialog from './accountdialog'
 
 class ToolsStrip extends React.Component<any,any> {
 
