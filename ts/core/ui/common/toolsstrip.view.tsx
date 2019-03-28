@@ -33,27 +33,89 @@ import application from '../../services/application'
 import docproxy from '../../utilities/docproxy'
 import { DataPaneContext } from '../../services/interfaces'
 
-
 const styles = createStyles({
-  appBar: {
-    position: 'relative',
-  },
-  flex: {
-    flex: 1,
-  },
-  dialogliner:{
-      display:'flex',
-      flexFlow:'column nowrap', 
-      height:'100%',
-  },
-  datapaneoffset:{
-      height:'55px',
-  },
-  datapanewrapper:{
-      position:'relative',
-      flex:1,
-  },
-})
+        appBar: {
+            position: 'relative',
+        },
+        flex: {
+            flex: 1,
+        },
+        dialogliner:{
+            display:'flex',
+            flexFlow:'column nowrap', 
+            height:'100%',
+        },
+        datapaneoffset:{
+            height:'55px',
+        },
+        datapanewrapper:{
+            position:'relative',
+            flex:1,
+        },
+    })
+
+class AccountDialogBase extends React.Component<any,any> {
+
+    private paneProxy = null
+
+    private datapanecontext:DataPaneContext = null
+
+    state = {
+        settingsopen:true,
+    }
+
+    render() {
+        if (!this.paneProxy ) {
+
+            let settingspageref = this.props.systemdata?this.props.systemdata.accountsettingspage:null
+
+            if (settingspageref) {
+                let paneProxy = new docproxy({doctoken:{reference:settingspageref}})
+
+                this.paneProxy = paneProxy
+                this.datapanecontext = {
+                    docproxy:paneProxy,
+                    options:{uiselection:'datapane'},
+                    callbacks:{
+                        close:this.props.closeSettings
+                    }
+                }
+            }
+        }
+
+        let { classes } = this.props
+        return  <Dialog
+          fullScreen
+          open={this.state.settingsopen}
+          onClose={this.props.closeSettings}
+          TransitionComponent={Transition}
+        >
+          <div className = {classes.dialogliner}
+              style = {{fontFamily:application.fontFamily}}
+          >
+              <AppBar>
+                <Toolbar>
+                  <IconButton color="inherit" onClick={this.props.closeSettings} aria-label="Close">
+                    <CloseIcon />
+                  </IconButton>
+                  <Typography variant="h6" color="inherit" className={classes.flex}>
+                    Account Settings
+                  </Typography>
+                  <Button color="inherit" onClick={this.props.closeSettings}>
+                    Done
+                  </Button>
+                </Toolbar>
+              </AppBar>
+              <div className = {classes.datapaneoffset}></div>
+              <div className = {classes.datapanewrapper}>
+                  <DataPane dataPaneContext = {this.datapanecontext}/>
+              </div>
+          </div>
+         </Dialog>
+    }
+}
+
+const AccountDialog = withStyles(styles) (AccountDialogBase)
 
 function Transition(props) {
   return <Slide direction="left" {...props} />;
@@ -65,8 +127,6 @@ class ToolsStrip extends React.Component<any,any> {
         menuopen:false,
         scroller:null,
         accountAnchorElement:null,
-        // userdata:this.props.userdata,
-        // systemdata:this.props.systemdata,
         settingsopen:false,
     }
 
@@ -83,12 +143,22 @@ class ToolsStrip extends React.Component<any,any> {
     componentDidUpdate(prevProps, prevState) {
         if ((this.props.userdata != prevProps.userdata)||(this.props.systemdata != prevProps.systemdata)) {
             this.forceUpdate()
-            // this.setState({
-            //     userdata:this.props.userdata,
-            //     systemdata:this.props.systemdata,
-            // })
         }
     }
+
+    openSettings = () => {
+        this.setState({
+            accountAnchorElement: null,
+            settingsopen:true,
+        })
+    }
+
+    closeSettings = () => {
+        this.setState({ 
+            settingsopen: false,
+        })
+    }
+
 
     toggleDrawer = (open) => () => {
         this.setState({
@@ -131,71 +201,7 @@ class ToolsStrip extends React.Component<any,any> {
         application.signout()
     }
 
-    openSettings = () => {
-        this.setState({
-            accountAnchorElement: null,
-            settingsopen:true,
-        })
-    }
-
-    closeSettings = () => {
-        this.setState({ 
-            settingsopen: false,
-        })
-    }
-
-    private paneProxy = null
-    private datapanecontext:DataPaneContext = null
-
     // pass docproxy, options, callbacks
-    accountSettingsDialog = (classes) => {
-        if (!this.paneProxy ) {
-
-            let settingspageref = this.props.systemdata?this.props.systemdata.accountsettingspage:null
-
-            if (settingspageref) {
-                let paneProxy = new docproxy({doctoken:{reference:settingspageref}})
-
-                this.paneProxy = paneProxy
-                this.datapanecontext = {
-                    docproxy:paneProxy,
-                    options:{uiselection:'datapane'},
-                    callbacks:{
-                        close:this.closeSettings
-                    }
-                }
-            }
-        }
-
-        return  <Dialog
-          fullScreen
-          open={true}
-          onClose={this.closeSettings}
-          TransitionComponent={Transition}
-        >
-          <div className = {classes.dialogliner}
-              style = {{fontFamily:application.fontFamily}}
-          >
-              <AppBar>
-                <Toolbar>
-                  <IconButton color="inherit" onClick={this.closeSettings} aria-label="Close">
-                    <CloseIcon />
-                  </IconButton>
-                  <Typography variant="h6" color="inherit" className={classes.flex}>
-                    Account Settings
-                  </Typography>
-                  <Button color="inherit" onClick={this.closeSettings}>
-                    Done
-                  </Button>
-                </Toolbar>
-              </AppBar>
-              <div className = {classes.datapaneoffset}></div>
-              <div className = {classes.datapanewrapper}>
-                  <DataPane dataPaneContext = {this.datapanecontext}/>
-              </div>
-          </div>
-         </Dialog>
-    }
 
     accountmenu = (classes) => {
         const { accountAnchorElement } = this.state
@@ -240,7 +246,13 @@ class ToolsStrip extends React.Component<any,any> {
                 </MenuItem>:null}
             </Menu>
 
-            {this.state.settingsopen && this.accountSettingsDialog(classes)}
+            {
+                this.state.settingsopen && <div style = {{position:'relative'}}><AccountDialog 
+                    closeSettings = {this.closeSettings}
+                    userdata = {this.props.userdata}
+                    systemdata = {this.props.systemdata}
+                /></div>
+            }
 
         </div>
     }
@@ -341,4 +353,4 @@ class ToolsStrip extends React.Component<any,any> {
 
 }
 
-export default withStyles(styles)(ToolsStrip)
+export default ToolsStrip
