@@ -148,11 +148,11 @@ class ToolsStrip extends React.Component<any,any> {
             </Menu>
 
             {
-                this.state.settingsopen && <div style = {{position:'relative'}}><AccountDialog 
+                this.state.settingsopen && <AccountDialog 
                     closeSettings = {this.closeSettings}
                     userdata = {this.props.userdata}
                     systemdata = {this.props.systemdata}
-                /></div>
+                />
             }
 
         </div>
