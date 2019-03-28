@@ -55,7 +55,12 @@ const MenuList = withRouter
                 <ListItemText primary = "My Workspace"/>
             </ListItem>
             <ListItem button
-                disabled
+                style = {
+                    {
+                        border:'2px solid transparent',
+                        backgroundColor:'transparent',
+                    }
+                }
             >
                 <ListItemIcon>
                     <Icon 

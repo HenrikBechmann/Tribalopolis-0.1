@@ -65,8 +65,8 @@ class ToolsStrip extends React.Component<any,any> {
         menuopen:false,
         scroller:null,
         accountAnchorElement:null,
-        userdata:this.props.userdata,
-        systemdata:this.props.systemdata,
+        // userdata:this.props.userdata,
+        // systemdata:this.props.systemdata,
         settingsopen:false,
     }
 
@@ -80,16 +80,14 @@ class ToolsStrip extends React.Component<any,any> {
         },500) // substantial timeout required to give scroll client time to right-size
     }
 
-    componentDidUpdate() {
-        this.setState((state,props) => {
-            if ((props.userdata != state.userdata)||(props.systemdata != state.systemdata)) {
-                // console.log('toolsstrip state, props',state,props)
-                return {
-                    userdata:props.userdata,
-                    systemdata:props.systemdata,
-                }
-            }
-        })
+    componentDidUpdate(prevProps, prevState) {
+        if ((this.props.userdata != prevProps.userdata)||(this.props.systemdata != prevProps.systemdata)) {
+            this.forceUpdate()
+            // this.setState({
+            //     userdata:this.props.userdata,
+            //     systemdata:this.props.systemdata,
+            // })
+        }
     }
 
     toggleDrawer = (open) => () => {
@@ -151,14 +149,13 @@ class ToolsStrip extends React.Component<any,any> {
 
     // pass docproxy, options, callbacks
     accountSettingsDialog = (classes) => {
-        if (!this.state.settingsopen) return null
-
         if (!this.paneProxy ) {
-            let settingspageref = this.state.systemdata?this.state.systemdata.accountsettingspage:null
-            // console.log('no pageProxy; settingspageref',settingspageref)
+
+            let settingspageref = this.props.systemdata?this.props.systemdata.accountsettingspage:null
+
             if (settingspageref) {
                 let paneProxy = new docproxy({doctoken:{reference:settingspageref}})
-                // console.log('settingspageref available; pageProxy',settingspageref)
+
                 this.paneProxy = paneProxy
                 this.datapanecontext = {
                     docproxy:paneProxy,
@@ -169,10 +166,10 @@ class ToolsStrip extends React.Component<any,any> {
                 }
             }
         }
-        // console.log('toolsstrip fontFamily',application.fontFamily)
+
         return  <Dialog
           fullScreen
-          open={this.state.settingsopen}
+          open={true}
           onClose={this.closeSettings}
           TransitionComponent={Transition}
         >
@@ -202,15 +199,15 @@ class ToolsStrip extends React.Component<any,any> {
 
     accountmenu = (classes) => {
         const { accountAnchorElement } = this.state
-        // console.log('accountmenu',this.state.userdata)
+
         return <div style = {{display:'inline-block',verticalAlign:'middle',position:'relative'}}>
             <IconButton 
                 aria-owns={accountAnchorElement ? 'simple-menu' : null}
                 aria-haspopup="true"
                 onClick={this.handleAccountClick}
               >
-                <Icon style = {{color:!this.state.userdata?'rgb(0,0,0,0.54)':'cadetblue'}}>account_box</Icon>
-                <Icon style = {{color:!this.state.userdata?'rgb(0,0,0,0.54)':'cadetblue'}}>arrow_drop_down</Icon>
+                <Icon style = {{color:!this.props.userdata?'rgb(0,0,0,0.54)':'cadetblue'}}>account_box</Icon>
+                <Icon style = {{color:!this.props.userdata?'rgb(0,0,0,0.54)':'cadetblue'}}>arrow_drop_down</Icon>
             </IconButton>
             <div style = {
                 {
@@ -218,7 +215,7 @@ class ToolsStrip extends React.Component<any,any> {
                     fontSize:'smaller',
                     color:'cadetblue',
                 }}>
-                {this.state.userdata?this.state.userdata.userpack.document.properties.username:'signed out'}
+                {this.props.userdata?this.props.userdata.userpack.document.properties.username:'signed out'}
             </div>
             <Menu
                 id="simple-menu"
@@ -226,23 +223,25 @@ class ToolsStrip extends React.Component<any,any> {
                 open={Boolean(accountAnchorElement)}
                 onClose={this.handleAccountClose}        
             >
-                {!this.state.userdata?<MenuItem
+                {!this.props.userdata?<MenuItem
                     onClick={this.handleLogin}
                 >
                     Sign in using Google
                 </MenuItem>:null}
-                {this.state.userdata?<MenuItem
+                {this.props.userdata?<MenuItem
                     onClick = {this.openSettings}
                 >
                     Account settings
                 </MenuItem>:null}
-                {this.state.userdata?<MenuItem
+                {this.props.userdata?<MenuItem
                     onClick={this.handleLogout}
                 >
                     Sign out
                 </MenuItem>:null}
             </Menu>
-            {this.accountSettingsDialog(classes)}
+
+            {this.state.settingsopen && this.accountSettingsDialog(classes)}
+
         </div>
     }
 
