@@ -15,189 +15,187 @@ import UserDataContext from '../../services/userdata.context'
 import SystemDataContext from '../../services/systemdata.context'
 
 let MenuListBase  =  (routerdata) => {
-        let { history, location } = routerdata
-        let { pathname } = location // to highlight current location in menu
-        return (
-            <SystemDataContext.Consumer>
-            { systemdata => (
-            <UserDataContext.Consumer>
-            { userdata => (
-                <List>
-                    <ListItem button
-                        onClick = {() => history.push('/')}
-                        style = {
-                            {
-                                border:(pathname == "/")?'2px solid lightblue':'2px solid transparent',
-                                backgroundColor:(pathname == "/")?'lightyellow':'transparent',
-                            }
+    let { history, location } = routerdata
+    let { pathname } = location // to highlight current location in menu
+    return (
+        <SystemDataContext.Consumer>
+        { systemdata => (
+        <UserDataContext.Consumer>
+        { userdata => (
+            <List>
+                <ListItem button
+                    onClick = {() => history.push('/')}
+                    style = {
+                        {
+                            border:(pathname == "/")?'2px solid lightblue':'2px solid transparent',
+                            backgroundColor:(pathname == "/")?'lightyellow':'transparent',
                         }
-                    > 
-                        <ListItemIcon> 
-                            <img
-                                src='/public/icons/fire.svg'
-                            />
-                        </ListItemIcon>
-                        <ListItemText primary = "Home" />
-                    </ListItem>
-                    <Divider />
-                    <ListItem button
-                        onClick = {() => history.push('/workspace')}
-                        style = {
-                            {
-                                border:(pathname == "/workspace")?'2px solid lightblue':'2px solid transparent',
-                                backgroundColor:(pathname == "/workspace")?'lightyellow':'transparent',
-                            }
+                    }
+                > 
+                    <ListItemIcon> 
+                        <img
+                            src='/public/icons/fire.svg'
+                        />
+                    </ListItemIcon>
+                    <ListItemText primary = "Home" />
+                </ListItem>
+                <Divider />
+                <ListItem button
+                    onClick = {() => history.push('/workspace')}
+                    style = {
+                        {
+                            border:(pathname == "/workspace")?'2px solid lightblue':'2px solid transparent',
+                            backgroundColor:(pathname == "/workspace")?'lightyellow':'transparent',
                         }
-                    >
-                        <ListItemIcon>
-                            <Icon 
-                                style = {{color:'brown'}}
-                            >
-                                work
-                            </Icon>
-                        </ListItemIcon>
-                        <ListItemText primary = "My Workspace"/>
-                    </ListItem>
-                    <ListItem button
-                        style = {
-                            {
-                                border:'2px solid transparent',
-                                backgroundColor:'transparent',
-                            }
+                    }
+                >
+                    <ListItemIcon>
+                        <Icon 
+                            style = {{color:'brown'}}
+                        >
+                            work
+                        </Icon>
+                    </ListItemIcon>
+                    <ListItemText primary = "My Workspace"/>
+                </ListItem>
+                <ListItem button
+                    style = {
+                        {
+                            border:'2px solid transparent',
+                            backgroundColor:'transparent',
                         }
-                    >
-                        <ListItemIcon>
-                            <Icon 
-                                style = {{color:'brown'}}
-                            >
-                                account_box
-                            </Icon>
-                        </ListItemIcon>
-                        <ListItemText primary = "My Account" />
-                    </ListItem>
-                    <ListItem button
-                        disabled
-                    >
-                        <ListItemIcon>
-                            <Icon 
-                                style = {{color:'brown'}}
-                            >
-                                web
-                            </Icon>
-                        </ListItemIcon>
-                        <ListItemText primary = "My Website" />
-                    </ListItem>
-                    <Divider />
-                    <ListItem button
-                        disabled
-                    >
-                        <ListItemIcon>
-                            <Icon 
-                                style = {{color:'steelblue'}}
-                            >
-                                group
-                            </Icon>
-                        </ListItemIcon>
-                        <ListItemText primary = "Members" />
-                    </ListItem>
-                    <ListItem button
-                        disabled
-                    >
-                        <ListItemIcon>
-                            <img
-                               src='/public/icons/fire.svg'
-                            />
-                        </ListItemIcon>
-                        <ListItemText primary = "Tribes" />
-                    </ListItem>
-                    <ListItem button
-                        disabled
-                    >
-                        <ListItemIcon>
-                            <Icon 
-                                style = {{color:'steelblue'}}
-                            >
-                                share
-                            </Icon>
-                        </ListItemIcon>
-                        <ListItemText primary = "Networks" />
-                    </ListItem>
-                    <ListItem button
-                        disabled
-                    >
-                        <ListItemIcon>
-                            <Icon 
-                                style = {{color:'brown'}}
-                            >
-                                group_work
-                            </Icon>
-                        </ListItemIcon>
-                        <ListItemText primary = "Commons" />
-                    </ListItem>
-                    <ListItem button
-                        disabled
-                    >
-                        <ListItemIcon>
-                            <Icon 
-                                style = {{color:'green'}}
-                            >
-                                monetization_on
-                            </Icon>
-                        </ListItemIcon>
-                        <ListItemText primary = "Markets" />
-                    </ListItem>
-                    <Divider />
-                    <ListItem button
-                        disabled
-                    >
-                        <ListItemIcon>
-                            <Icon>local_library</Icon>
-                        </ListItemIcon>
-                        <ListItemText primary = "Tutorials" />
-                    </ListItem>
-                    <ListItem button
-                        onClick = {() => history.push('/build')}
-                        style = {
-                            {
-                                border:(pathname == "/build")?'2px solid lightblue':'2px solid transparent',
-                                backgroundColor:(pathname == "/build")?'lightyellow':'transparent',
-                            }
+                    }
+                >
+                    <ListItemIcon>
+                        <Icon 
+                            style = {{color:'brown'}}
+                        >
+                            account_box
+                        </Icon>
+                    </ListItemIcon>
+                    <ListItemText primary = "My Account" />
+                </ListItem>
+                <ListItem button
+                    disabled
+                >
+                    <ListItemIcon>
+                        <Icon 
+                            style = {{color:'brown'}}
+                        >
+                            web
+                        </Icon>
+                    </ListItemIcon>
+                    <ListItemText primary = "My Website" />
+                </ListItem>
+                <Divider />
+                <ListItem button
+                    disabled
+                >
+                    <ListItemIcon>
+                        <Icon 
+                            style = {{color:'steelblue'}}
+                        >
+                            group
+                        </Icon>
+                    </ListItemIcon>
+                    <ListItemText primary = "Members" />
+                </ListItem>
+                <ListItem button
+                    disabled
+                >
+                    <ListItemIcon>
+                        <img
+                           src='/public/icons/fire.svg'
+                        />
+                    </ListItemIcon>
+                    <ListItemText primary = "Tribes" />
+                </ListItem>
+                <ListItem button
+                    disabled
+                >
+                    <ListItemIcon>
+                        <Icon 
+                            style = {{color:'steelblue'}}
+                        >
+                            share
+                        </Icon>
+                    </ListItemIcon>
+                    <ListItemText primary = "Networks" />
+                </ListItem>
+                <ListItem button
+                    disabled
+                >
+                    <ListItemIcon>
+                        <Icon 
+                            style = {{color:'brown'}}
+                        >
+                            group_work
+                        </Icon>
+                    </ListItemIcon>
+                    <ListItemText primary = "Commons" />
+                </ListItem>
+                <ListItem button
+                    disabled
+                >
+                    <ListItemIcon>
+                        <Icon 
+                            style = {{color:'green'}}
+                        >
+                            monetization_on
+                        </Icon>
+                    </ListItemIcon>
+                    <ListItemText primary = "Markets" />
+                </ListItem>
+                <Divider />
+                <ListItem button
+                    disabled
+                >
+                    <ListItemIcon>
+                        <Icon>local_library</Icon>
+                    </ListItemIcon>
+                    <ListItemText primary = "Tutorials" />
+                </ListItem>
+                <ListItem button
+                    onClick = {() => history.push('/build')}
+                    style = {
+                        {
+                            border:(pathname == "/build")?'2px solid lightblue':'2px solid transparent',
+                            backgroundColor:(pathname == "/build")?'lightyellow':'transparent',
                         }
-                    >
-                        <ListItemIcon>
-                            <Icon className='material-icons'>build</Icon>
-                        </ListItemIcon>
-                        <ListItemText primary = "Build" />
-                    </ListItem>
-                    <Divider />
-                    <ListItem button
-                        disabled
-                    >
-                        <ListItemIcon>
-                            <img
-                                src='/public/icons/fire.svg'
-                            />
-                        </ListItemIcon>
-                        <ListItemText primary = "About" />
-                    </ListItem>
-                    <ListItem button
-                        disabled
-                    >
-                        <ListItemIcon>
-                            <Icon className='material-icons'>contacts</Icon>
-                        </ListItemIcon>
-                        <ListItemText primary = "Contacts" />
-                    </ListItem>
-                </List>
-            )}
-            </UserDataContext.Consumer>
-            )}
-            </SystemDataContext.Consumer>
-        )
-    }
-const MenuList = withRouter
-(
-    MenuListBase
-)
+                    }
+                >
+                    <ListItemIcon>
+                        <Icon className='material-icons'>build</Icon>
+                    </ListItemIcon>
+                    <ListItemText primary = "Build" />
+                </ListItem>
+                <Divider />
+                <ListItem button
+                    disabled
+                >
+                    <ListItemIcon>
+                        <img
+                            src='/public/icons/fire.svg'
+                        />
+                    </ListItemIcon>
+                    <ListItemText primary = "About" />
+                </ListItem>
+                <ListItem button
+                    disabled
+                >
+                    <ListItemIcon>
+                        <Icon className='material-icons'>contacts</Icon>
+                    </ListItemIcon>
+                    <ListItemText primary = "Contacts" />
+                </ListItem>
+            </List>
+        )}
+        </UserDataContext.Consumer>
+        )}
+        </SystemDataContext.Consumer>
+    )
+}
+
+const MenuList = withRouter(MenuListBase)
 
 export default MenuList
