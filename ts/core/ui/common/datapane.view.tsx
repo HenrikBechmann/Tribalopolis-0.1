@@ -162,6 +162,14 @@ class DataPane extends React.Component<any,any>  {
 
     }
 
+    componentWillUnmount() {
+        if (!this.docProxy) return
+
+        application.removeDocpackPairListener({doctoken:this.docProxy.doctoken,
+                    instanceid:this.docProxy.instanceid,})
+    
+    }
+
     render() {
 
         const { classes, dataPaneContext } = this.props

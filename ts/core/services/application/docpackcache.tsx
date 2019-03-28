@@ -44,10 +44,19 @@ const docpackCache = new class {
 
         // anticipate need for type cache listener...
         let documentcacheitem = this.cache.get(reference)
+
+        if (!documentcacheitem) return
+
         this.cache.delete(reference)
 
+        let document = null
         // deal with type cache listener
-        let document = documentcacheitem.docpack.document
+        if (documentcacheitem && documentcacheitem.docpack && documentcacheitem.docpack.document) {
+            document = documentcacheitem.docpack.document
+         } else {
+             document = null
+             return
+         }
         // console.log('removed item',document,)
         if (this.isPaired(document)) {
 

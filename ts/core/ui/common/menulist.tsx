@@ -11,17 +11,66 @@ import ListItemIcon from '@material-ui/core/ListItemIcon'
 import ListItemText from '@material-ui/core/ListItemText'
 import Divider from '@material-ui/core/Divider'
 import Icon from '@material-ui/core/Icon'
+
 import UserDataContext from '../../services/userdata.context'
 import SystemDataContext from '../../services/systemdata.context'
+import AccountDialog from './accountdialog'
 
-let MenuListBase  =  (routerdata) => {
-    let { history, location } = routerdata
+class MenuListBase extends React.Component<any,any> {
+    state = {
+        settingsopen:false
+    }
+
+    getAccountDialog = (userdata, systemdata) => {
+        // console.log('props in menulist/getAccountDialog',this.props)
+        // console.log('state, userdata, systemdata in menulist getAccountDialog',this.state,userdata, systemdata)
+        if (this.state.settingsopen) { 
+            console.log('calling AccountDialog with OPEN',this.state, userdata, systemdata)
+            return <AccountDialog 
+                closeSettings = {this.closeSettings}
+                userdata = {userdata}
+                systemdata = {systemdata}
+            />
+        } else {
+            console.log('calling AccountDialog with CLOSED',userdata, systemdata)
+            return null
+        }
+    }
+
+    openSettings = () => {
+        console.log('in openSettings', this.state)
+        this.setState({
+            accountAnchorElement: null,
+            settingsopen:true,
+        })
+    }
+
+    closeSettings = () => {
+        console.log('in closeSettings', this.state)
+        this.setState({ 
+            settingsopen: false,
+        })
+    }
+
+    componentWillUnmount() {
+        console.log('in menulist will unmount')
+    }
+
+    render() {
+    // console.log('props of menulist',this.props)
+    let history = this.props.history
+    let location = this.props.location
+    // let match = this.props.match // TODO investigate
     let { pathname } = location // to highlight current location in menu
+
+    console.log('menulist render: state',this.state)
+
     return (
         <SystemDataContext.Consumer>
         { systemdata => (
         <UserDataContext.Consumer>
         { userdata => (
+            (!this.state.settingsopen)?
             <List>
                 <ListItem button
                     onClick = {() => history.push('/')}
@@ -59,6 +108,7 @@ let MenuListBase  =  (routerdata) => {
                     <ListItemText primary = "My Workspace"/>
                 </ListItem>
                 <ListItem button
+                    onClick = {this.openSettings}
                     style = {
                         {
                             border:'2px solid transparent',
@@ -188,12 +238,12 @@ let MenuListBase  =  (routerdata) => {
                     </ListItemIcon>
                     <ListItemText primary = "Contacts" />
                 </ListItem>
-            </List>
+            </List>:this.getAccountDialog(userdata, systemdata)
         )}
         </UserDataContext.Consumer>
         )}
         </SystemDataContext.Consumer>
-    )
+    )}
 }
 
 const MenuList = withRouter(MenuListBase)
