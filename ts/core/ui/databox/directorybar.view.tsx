@@ -263,6 +263,10 @@ class DirectoryBar extends React.Component<any,any> {
                                 iconStyle = {{width:'16px'}} 
                                 img = '/public/icons/variablecards.svg'
                             />
+                            <ActionButton 
+                                iconStyle = {{width:'16px'}} 
+                                icon = 'grid_on'
+                            />
                         </MenuItem>
                     </PopupMenu>}
                     {contextitem && <ActionButton 

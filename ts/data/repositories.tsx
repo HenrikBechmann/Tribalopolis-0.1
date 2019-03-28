@@ -1148,10 +1148,10 @@ let lists = {
                     reference:'/lists/logs',
                 },
                 {
-                    reference:'/lists/diaries',
+                    reference:'/lists/notes',
                 },
                 {
-                    reference:'/lists/notes',
+                    reference:'/lists/diaries',
                 },
                 {
                     reference:'/lists/resources',
