@@ -50,7 +50,7 @@ const DescriptiveDivider = ({style:assignedstyle= null,description=null}) => {
                     fontSize:'smaller',
                 }
             }>
-                <span style = {{color:'silver'}}>{`[ ${description} ]`}</span>
+                <span style = {{backgroundColor:'#C0E8E5',color:'slategray'}}>{`[ ${description} ]`}</span>
             </div>
         </div>
     )
