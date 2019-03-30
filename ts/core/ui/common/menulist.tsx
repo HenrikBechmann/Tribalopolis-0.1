@@ -15,6 +15,7 @@ import Icon from '@material-ui/core/Icon'
 import UserDataContext from '../../services/userdata.context'
 import SystemDataContext from '../../services/systemdata.context'
 import AccountDialog from './accountdialog'
+import DescriptiveDivider from './descriptivedivider.view'
 
 class MenuListBase extends React.Component<any,any> {
     state = {
@@ -72,6 +73,7 @@ class MenuListBase extends React.Component<any,any> {
         { userdata => (
             (!this.state.settingsopen)?
             <List>
+                <DescriptiveDivider description = 'Personal' />
                 <ListItem button
                     onClick = {() => history.push('/')}
                     style = {
@@ -137,7 +139,7 @@ class MenuListBase extends React.Component<any,any> {
                     </ListItemIcon>
                     <ListItemText primary = "My Website" />
                 </ListItem>
-                <Divider />
+                <DescriptiveDivider description = 'Social' />
                 <ListItem button
                     disabled
                 >
@@ -196,7 +198,7 @@ class MenuListBase extends React.Component<any,any> {
                     </ListItemIcon>
                     <ListItemText primary = "Markets" />
                 </ListItem>
-                <Divider />
+                <DescriptiveDivider description = 'Creative' />
                 <ListItem button
                     disabled
                 >
@@ -219,7 +221,7 @@ class MenuListBase extends React.Component<any,any> {
                     </ListItemIcon>
                     <ListItemText primary = "Build" />
                 </ListItem>
-                <Divider />
+                <DescriptiveDivider description = 'Connections' />
                 <ListItem button
                     disabled
                 >
