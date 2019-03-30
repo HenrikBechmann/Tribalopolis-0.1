@@ -35,7 +35,7 @@ const DescriptiveDivider = ({style:assignedstyle= null,description=null}) => {
                     position:'absolute',
                     width:'100%',
                     top:0,
-                    backgroundColor:'lightseagreen',
+                    backgroundColor:'white',//'lightseagreen',
                     opacity:.3,
                     height:'1em',
                 }
@@ -50,10 +50,12 @@ const DescriptiveDivider = ({style:assignedstyle= null,description=null}) => {
                     fontSize:'smaller',
                 }
             }>
-                <span style = {{backgroundColor:'#C0E8E5',color:'slategray'}}>{`[ ${description} ]`}</span>
+                <span style = {{backgroundColor:'white',color:'slategray'}}>{`[ ${description} ]`}</span>
             </div>
         </div>
     )
 }
+
+// '#C0E8E5'
 
 export default DescriptiveDivider
