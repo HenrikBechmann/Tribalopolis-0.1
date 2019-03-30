@@ -73,7 +73,6 @@ class MenuListBase extends React.Component<any,any> {
         { userdata => (
             (!this.state.settingsopen)?
             <List>
-                <DescriptiveDivider description = 'Personal' />
                 <ListItem button
                     onClick = {() => history.push('/')}
                     style = {
@@ -90,7 +89,7 @@ class MenuListBase extends React.Component<any,any> {
                     </ListItemIcon>
                     <ListItemText primary = "Home" />
                 </ListItem>
-                <Divider />
+                <DescriptiveDivider description = 'Personal' />
                 <ListItem button
                     onClick = {() => history.push('/workspace')}
                     style = {
