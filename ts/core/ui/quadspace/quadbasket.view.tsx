@@ -22,6 +22,7 @@ const styles = createStyles({
         cursor:'pointer',
     },
     transfermoniker:{
+        textAlign:'center',
         fontWeight:'bold',
         color:'gray',
         opacity:0.7,
@@ -43,7 +44,7 @@ const QuadBasket = props => {
             className = {classes.quadbasket}
         >
             <div className = {classes.transfermoniker}>
-                TRANSFER
+                TRANSFER BIN
             </div>
             <div className = {classes.contents}>
                 {props.children}

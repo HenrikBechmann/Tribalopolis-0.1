@@ -1106,13 +1106,13 @@ let lists = {
                     reference:'/lists/connections',
                 },
                 {
-                    reference:'/lists/requesting',
-                },
-                {
                     reference:'/lists/messages',
                 },
                 {
                     reference:'/lists/streams',
+                },
+                {
+                    reference:'/lists/requesting',
                 },
                 {
                     reference:'/lists/tasks',

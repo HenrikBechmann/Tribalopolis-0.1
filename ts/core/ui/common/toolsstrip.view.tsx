@@ -48,6 +48,7 @@ class ToolsStrip extends React.Component<any,any> {
     }
 
     openSettings = () => {
+        // console.log('opensettings in toolsstrip')
         this.setState({
             accountAnchorElement: null,
             settingsopen:true,
@@ -60,7 +61,6 @@ class ToolsStrip extends React.Component<any,any> {
         })
     }
 
-
     toggleDrawer = (open) => () => {
         this.setState({
             menuopen:open,
@@ -68,6 +68,8 @@ class ToolsStrip extends React.Component<any,any> {
     }
 
     menudrawer = () => {
+        // console.log('menudrawer in toolsstrip:props',this.props)
+
         return (
         <Drawer
             open={this.state.menuopen}
@@ -79,7 +81,7 @@ class ToolsStrip extends React.Component<any,any> {
                 onClick={this.toggleDrawer(false)}
                 onKeyDown={this.toggleDrawer(false)}
             >
-                <MenuList />
+                <MenuList openSettings = {this.openSettings} />
             </div>
         </Drawer>
     )}
@@ -146,14 +148,6 @@ class ToolsStrip extends React.Component<any,any> {
                     Sign out
                 </MenuItem>:null}
             </Menu>
-
-            {
-                this.state.settingsopen && <AccountDialog 
-                    closeSettings = {this.closeSettings}
-                    userdata = {this.props.userdata}
-                    systemdata = {this.props.systemdata}
-                />
-            }
 
         </div>
     }
@@ -244,6 +238,14 @@ class ToolsStrip extends React.Component<any,any> {
                             }
 
                             { this.menudrawer() }
+
+                            {
+                                this.state.settingsopen && <AccountDialog 
+                                    closeSettings = {this.closeSettings}
+                                    userdata = {this.props.userdata}
+                                    systemdata = {this.props.systemdata}
+                                />
+                            }
 
                         </div>
                     </div>

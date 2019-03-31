@@ -14,7 +14,7 @@ import Icon from '@material-ui/core/Icon'
 
 import UserDataContext from '../../services/userdata.context'
 import SystemDataContext from '../../services/systemdata.context'
-import AccountDialog from './accountdialog'
+// import AccountDialog from './accountdialog'
 import DescriptiveDivider from './descriptivedivider.view'
 
 class MenuListBase extends React.Component<any,any> {
@@ -22,40 +22,36 @@ class MenuListBase extends React.Component<any,any> {
         settingsopen:false
     }
 
-    getAccountDialog = (userdata, systemdata) => {
-        // console.log('props in menulist/getAccountDialog',this.props)
-        // console.log('state, userdata, systemdata in menulist getAccountDialog',this.state,userdata, systemdata)
-        if (this.state.settingsopen) { 
-            console.log('calling AccountDialog with OPEN',this.state, userdata, systemdata)
-            return <AccountDialog 
-                closeSettings = {this.closeSettings}
-                userdata = {userdata}
-                systemdata = {systemdata}
-            />
-        } else {
-            console.log('calling AccountDialog with CLOSED',userdata, systemdata)
-            return null
-        }
-    }
+    // getAccountDialog = (userdata, systemdata) => {
+    //     // console.log('props in menulist/getAccountDialog',this.props)
+    //     // console.log('state, userdata, systemdata in menulist getAccountDialog',this.state,userdata, systemdata)
+    //     if (this.state.settingsopen) { 
+    //         console.log('calling AccountDialog with OPEN',this.state, userdata, systemdata)
+    //         return <AccountDialog 
+    //             closeSettings = {this.closeSettings}
+    //             userdata = {userdata}
+    //             systemdata = {systemdata}
+    //         />
+    //     } else {
+    //         console.log('calling AccountDialog with CLOSED',userdata, systemdata)
+    //         return null
+    //     }
+    // }
 
-    openSettings = () => {
-        console.log('in openSettings', this.state)
-        this.setState({
-            accountAnchorElement: null,
-            settingsopen:true,
-        })
-    }
+    // openSettings = () => {
+    //     console.log('in openSettings', this.state)
+    //     this.setState({
+    //         accountAnchorElement: null,
+    //         settingsopen:true,
+    //     })
+    // }
 
-    closeSettings = () => {
-        console.log('in closeSettings', this.state)
-        this.setState({ 
-            settingsopen: false,
-        })
-    }
-
-    componentWillUnmount() {
-        console.log('in menulist will unmount')
-    }
+    // closeSettings = () => {
+    //     console.log('in closeSettings', this.state)
+    //     this.setState({ 
+    //         settingsopen: false,
+    //     })
+    // }
 
     render() {
     // console.log('props of menulist',this.props)
@@ -64,14 +60,13 @@ class MenuListBase extends React.Component<any,any> {
     // let match = this.props.match // TODO investigate
     let { pathname } = location // to highlight current location in menu
 
-    console.log('menulist render: state',this.state)
+    // console.log('menulist render: state, props',this.state, this.props)
 
     return (
         <SystemDataContext.Consumer>
         { systemdata => (
         <UserDataContext.Consumer>
         { userdata => (
-            (!this.state.settingsopen)?
             <List>
                 <ListItem button
                     onClick = {() => history.push('/')}
@@ -109,7 +104,7 @@ class MenuListBase extends React.Component<any,any> {
                     <ListItemText primary = "My Workspace"/>
                 </ListItem>
                 <ListItem button
-                    onClick = {this.openSettings}
+                    onClick = {this.props.openSettings}
                     style = {
                         {
                             border:'2px solid transparent',
@@ -239,7 +234,7 @@ class MenuListBase extends React.Component<any,any> {
                     </ListItemIcon>
                     <ListItemText primary = "Contacts" />
                 </ListItem>
-            </List>:this.getAccountDialog(userdata, systemdata)
+            </List>
         )}
         </UserDataContext.Consumer>
         )}

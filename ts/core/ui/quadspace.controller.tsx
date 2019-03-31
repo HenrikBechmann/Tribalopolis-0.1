@@ -21,6 +21,7 @@ import application from '../services/application'
 
 import UserDataContext from '../services/userdata.context'
 import SystemDataContext from '../services/systemdata.context'
+// import AccountDialog from './common/accountdialog'
 
 class QuadspaceController extends React.Component<any,any> {
 
@@ -36,6 +37,7 @@ class QuadspaceController extends React.Component<any,any> {
         currentQuadPosition:'topleft',
         split:'none',
         datastacks,
+        settingsopen:false,
     }
 
     positions = [
@@ -115,21 +117,9 @@ class QuadspaceController extends React.Component<any,any> {
         quadrantPositions[sourcequadindex] = targetpositionindex
         quadrantPositions[targetquadindex] = sourcepositionindex
 
-        // console.log('end positions',quadrantPositions)
-
         this.setState({
             quadrantPositions
-        }/*,()=>{ // fixed by adding delay to initial timeout in quadframe
-            setTimeout(()=> {
-                console.log('display workaround for Chrome')
-                let quadplatform = document.getElementById('quadplatform')
-                quadplatform.style.display = 'none'
-                quadplatform.clientHeight
-                // setTimeout(()=>{
-                    quadplatform.style.display = 'block'
-                // })
-            },1000)
-        }*/)
+        })
 
     }
 
@@ -170,6 +160,38 @@ class QuadspaceController extends React.Component<any,any> {
 
     badgestyle = {left:'-12px'}
 
+    //--------------------------[ account settings ]-------------------------
+
+    // getAccountDialog = (userdata, systemdata) => {
+    //     // console.log('props in menulist/getAccountDialog',this.props)
+    //     // console.log('state, userdata, systemdata in menulist getAccountDialog',this.state,userdata, systemdata)
+    //     if (this.state.settingsopen) { 
+    //         console.log('calling AccountDialog with OPEN',this.state, userdata, systemdata)
+    //         return <AccountDialog 
+    //             closeSettings = {this.closeSettings}
+    //             userdata = {userdata}
+    //             systemdata = {systemdata}
+    //         />
+    //     } else {
+    //         console.log('calling AccountDialog with CLOSED',userdata, systemdata)
+    //         return null
+    //     }
+    // }
+
+    // openSettings = () => {
+    //     console.log('in quadspace openSettings', this.state)
+    //     this.setState({
+    //         settingsopen:true,
+    //     })
+    // }
+
+    // closeSettings = () => {
+    //     console.log('in quadspace closeSettings', this.state)
+    //     this.setState({ 
+    //         settingsopen: false,
+    //     })
+    // }
+
     render() {
         return (
             <QuadSpaceFrame>
@@ -177,38 +199,41 @@ class QuadspaceController extends React.Component<any,any> {
                 { systemdata => (
                 <UserDataContext.Consumer>
                 { userdata => (
-                    <ToolsStrip 
-                        userdata = {userdata}
-                        systemdata = {systemdata}
-                        childrenposition = 'middle'
-                        style = {this.quadtoolsstyle}
-                    >
-                        <QuadNavigationMenu 
-                            currentQuadPosition = {this.state.currentQuadPosition} 
-                            split = {this.state.split} 
-                            selectQuad = {this.selectQuad} />
-                        <VerticalDivider />
-                        <SplitNavigationMenu 
-                            split = {this.state.split}
-                            changeSplitFrom = {this.changeSplitFrom}
-                        />
-                        <VerticalDivider />
-                    </ToolsStrip>
+                    <React.Fragment>
+                        <ToolsStrip
+                            userdata = {userdata}
+                            systemdata = {systemdata}
+                            childrenposition = 'middle'
+                            style = {this.quadtoolsstyle}
+                            // openSettings = {this.openSettings}
+                        >
+                            <QuadNavigationMenu 
+                                currentQuadPosition = {this.state.currentQuadPosition} 
+                                split = {this.state.split} 
+                                selectQuad = {this.selectQuad} />
+                            <VerticalDivider />
+                            <SplitNavigationMenu 
+                                split = {this.state.split}
+                                changeSplitFrom = {this.changeSplitFrom}
+                            />
+                            <VerticalDivider />
+                        </ToolsStrip>
+                        <QuadBasket><QuantityBadge quantity = {0} style = {this.badgestyle} /></QuadBasket>
+                        <QuadViewport>
+                            <Quadrants                         
+                                quadrantIdentifiers =  {this.quadrantIdentifiers}
+                                split = {this.state.split}
+                                datastacks = {this.state.datastacks}
+                                currentQuadPosition = {this.state.currentQuadPosition}
+
+                                callbacks = {this.quadrantcallbacks}
+                            />
+                        </QuadViewport>
+                    </React.Fragment>
                 )}
                 </UserDataContext.Consumer>
                 )}
                 </SystemDataContext.Consumer>
-                <QuadBasket><QuantityBadge quantity = {0} style = {this.badgestyle} /></QuadBasket>
-                <QuadViewport>
-                    <Quadrants                         
-                        quadrantIdentifiers =  {this.quadrantIdentifiers}
-                        split = {this.state.split}
-                        datastacks = {this.state.datastacks}
-                        currentQuadPosition = {this.state.currentQuadPosition}
-
-                        callbacks = {this.quadrantcallbacks}
-                    />
-                </QuadViewport>
             </QuadSpaceFrame>
         )
     }

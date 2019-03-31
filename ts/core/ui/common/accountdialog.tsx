@@ -66,10 +66,6 @@ class AccountDialogBase extends React.Component<DialogProps,any> {
         settingsopen:true,
     }
 
-    componentWillUnmount() {
-        console.log('unmounting account dialog: props, state',this.props,this.state)
-    }
-
     render() {
         if (!this.paneProxy ) {
 
