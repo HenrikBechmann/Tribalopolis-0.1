@@ -52,7 +52,9 @@ import authapi from '../services/auth.api'
 import UserDataContext from '../services/userdata.context'
 import SystemDataContext from '../services/systemdata.context'
 
-import { toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css' 
+import { ToastContainer, toast } from 'react-toastify'
+toast.useLazyContainer(false)
 
 import { withStyles, createStyles } from '@material-ui/core/styles'
 
@@ -511,6 +513,9 @@ class Main extends React.Component<any,any> {
 
             <SystemDataContext.Provider value = {systemdata}>
                 <UserDataContext.Provider value = {userdata}>
+
+                    <ToastContainer position = {toast.POSITION.BOTTOM_LEFT} autoClose = {3000} 
+                    hideProgressBar />
 
                     <MainView globalmessage={globalmessage}
                         className = {classes.mainviewstyle} 

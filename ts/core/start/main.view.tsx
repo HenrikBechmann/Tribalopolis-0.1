@@ -11,8 +11,6 @@
 import React from 'react'
 
 import AppRouter from './approuter'
-import { ToastContainer, toast } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css';
 
 const MainView = ({globalmessage, className}) => {
 
@@ -21,8 +19,6 @@ const MainView = ({globalmessage, className}) => {
         {globalmessage}
 
         <AppRouter />
-        <ToastContainer position = {toast.POSITION.BOTTOM_LEFT} autoClose = {3000} 
-        hideProgressBar />
         
     </div>
 }
