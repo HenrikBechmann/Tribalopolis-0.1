@@ -174,6 +174,7 @@ class ContentBaseForm extends React.Component<any,any> {
                 autoComplete = "off" 
             > 
                 {this.length?<fieldset style = {{marginBottom:'8px'}} disabled = {disabled}>
+                    {this.props.legend?<legend>{this.props.legend}</legend>:null}
                     { this.localchildren }
                 </fieldset>:null}
                 {this.iseditable?<Button 
