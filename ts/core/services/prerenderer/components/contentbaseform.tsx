@@ -37,7 +37,9 @@ class ContentBaseForm extends React.Component<any,any> {
     constructor(props) {
         super(props)
         // initialize state values
-        let { children, context, documentmap } = props
+        let { children, context, documentmap, fieldsets } = props
+
+        // initialize field values for state
         let values = {} as any
         if (!Array.isArray(children)) {
             values[children.props.name] = children.props.value
@@ -49,8 +51,11 @@ class ContentBaseForm extends React.Component<any,any> {
             }
         }
         this.state.values = values
+
+        // save props to class
         if (context) {this.formcontext = context}
         this.documentmap = documentmap
+        this.fieldsetprops = fieldsets
 
     }
 
@@ -62,6 +67,8 @@ class ContentBaseForm extends React.Component<any,any> {
     localchildren
     formcontext
     documentmap
+    fieldsetprops
+    fieldsets = {}
 
     iseditable = false
 
@@ -72,31 +79,35 @@ class ContentBaseForm extends React.Component<any,any> {
         // console.log('props, formcontext, state in form will mount',this.props, this.formcontext, this.state)
 
         // add onChange to editable children
+        // sort fields by fieldsets
         let { children } = this.props
 
         let isarray = Array.isArray(children) 
 
         if (!isarray && this.length) {
             let node = children as React.ReactElement
-            this.iseditable = !!(node.props && node.props.readonly)
-            if (!node.props.readonly) {
-                node = React.cloneElement(node,{onChange:this.onChangeValue})
-            }
+            node = this.getAdjustedNode(node)
             this.localchildren = node
         } else {
             this.localchildren = []
             for (let node of children as Array<React.ReactElement>) {
 
-                if (!node.props.readonly) {
-                    !this.iseditable && (this.iseditable = true)
-
-                    node = React.cloneElement(node,{
-                        onChange:this.onChangeValue})
-
-                }
+                node = this.getAdjustedNode(node)
                 this.localchildren.push(node)
             }
         }
+    }
+
+    getAdjustedNode = node => {
+        let localnode = node
+        if (!node.props.readonly) {
+            !this.iseditable && (this.iseditable = true)
+
+            localnode = React.cloneElement(node,{
+                onChange:this.onChangeValue})
+
+        }
+        return localnode
     }
 
     onSubmit = () => {
