@@ -116,7 +116,7 @@ class ContentBaseForm extends React.Component<any,any> {
     }
 
     assignNode = node => {
-        let fieldset = node.props.fieldset
+        let fieldset = node.props.dataFieldset
         // console.log('fieldset in assignNode', fieldset)
         if (!fieldset) {
             this.defaultset.push(node)
