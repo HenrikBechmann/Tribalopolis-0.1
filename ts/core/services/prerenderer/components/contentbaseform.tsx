@@ -96,19 +96,19 @@ class ContentBaseForm extends React.Component<any,any> {
 
                 node = this.getAdjustedNode(node)
                 this.assignNode(node)
-                this.localchildren.push(node)
+                // this.localchildren.push(node)
 
             }
         }
-        console.log('fieldsets, default, named, props',this.defaultset, this.fieldsets, this.fieldsetprops)
+        // console.log('fieldsets, default, named, props',this.defaultset, this.fieldsets, this.fieldsetprops)
     }
 
     getAdjustedNode = node => {
         let localnode = node
-        if (!node.props.readonly) {
+        if (!localnode.props.readonly) {
             !this.iseditable && (this.iseditable = true)
 
-            localnode = React.cloneElement(node,{
+            localnode = React.cloneElement(localnode,{
                 onChange:this.onChangeValue})
 
         }
@@ -117,7 +117,7 @@ class ContentBaseForm extends React.Component<any,any> {
 
     assignNode = node => {
         let fieldset = node.props.fieldset
-        console.log('fieldset in assignNode', fieldset)
+        // console.log('fieldset in assignNode', fieldset)
         if (!fieldset) {
             this.defaultset.push(node)
         } else {
@@ -126,6 +126,45 @@ class ContentBaseForm extends React.Component<any,any> {
             }
             this.fieldsets[fieldset].push(node)
         }
+    }
+
+    getFieldsetComponents = () => {
+        let fieldsetcomponents = []
+        if (this.defaultset.length) {
+            this.defaultset = this.getFieldsetValues(this.defaultset)
+            let component = <div key = '__default__'>
+                {this.defaultset}
+            </div>
+            fieldsetcomponents.push(component)
+        }
+        if (this.fieldsetprops) {
+            for (let fieldsetobj of this.fieldsetprops) {
+                this.fieldsets[fieldsetobj.name] = this.getFieldsetValues(this.fieldsets[fieldsetobj.name])
+                let component = <fieldset key = {fieldsetobj.name} style = {{marginBottom:'8px'}} disabled = {this.props.disabled}>
+                    {fieldsetobj.legend && <legend>{fieldsetobj.legend}</legend>}
+                    {this.fieldsets[fieldsetobj.name]}
+                </fieldset>
+                fieldsetcomponents.push(component)
+            }
+        }
+        return fieldsetcomponents
+    }
+
+    getFieldsetValues = fieldlist => {
+        if (!fieldlist) return null
+        let newchildren = []
+        // update changed element values
+        for (let element of fieldlist) {
+            if (!element.props.readonly) {
+                let statevalue = this.state.values[element.props.name]
+                let elementvalue = element.props.value
+                if (!Object.is(elementvalue,statevalue)) {
+                    element = React.cloneElement(element,{value:statevalue})
+                }
+            }
+            newchildren.push(element)
+        }
+        return newchildren
     }
 
     onSubmit = () => {
@@ -168,7 +207,7 @@ class ContentBaseForm extends React.Component<any,any> {
     }
 
     onChangeValue = event => {
-
+        // console.log('event onChangeValue',event.target.name,event.target.value)
         let { values } = this.state
         values[event.target.name] = event.target.value
         this.setState({ values, dirty:true })    
@@ -177,19 +216,6 @@ class ContentBaseForm extends React.Component<any,any> {
 
     render() {
         const { classes, onSubmit, disabled } = this.props
-        let newchildren = []
-        // update changed element values
-        for (let element of this.localchildren) {
-            if (!element.props.readonly) {
-                let statevalue = this.state.values[element.props.name]
-                let elementvalue = element.props.value
-                if (!Object.is(elementvalue,statevalue)) {
-                    element = React.cloneElement(element,{value:statevalue})
-                }
-            }
-            newchildren.push(element)
-        }
-        this.localchildren = newchildren
 
         return (
             <form 
@@ -202,10 +228,7 @@ class ContentBaseForm extends React.Component<any,any> {
                 className = { classes && classes.root } 
                 autoComplete = "off" 
             > 
-                {this.length?<fieldset style = {{marginBottom:'8px'}} disabled = {disabled}>
-                    {this.props.legend?<legend>{this.props.legend}</legend>:null}
-                    { this.localchildren }
-                </fieldset>:null}
+                {this.getFieldsetComponents()}
                 {this.iseditable?<Button 
                     onClick = {this.onSubmit}
                     disabled = {!this.state.dirty}
