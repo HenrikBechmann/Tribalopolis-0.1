@@ -105,7 +105,7 @@ class ContentBaseForm extends React.Component<any,any> {
 
     getAdjustedNode = node => {
         let localnode = node
-        if (!localnode.props.readonly) {
+        if (!localnode.props.readonly && !localnode.props.dataStatic) {
             !this.iseditable && (this.iseditable = true)
 
             localnode = React.cloneElement(localnode,{
@@ -116,6 +116,7 @@ class ContentBaseForm extends React.Component<any,any> {
     }
 
     assignNode = node => {
+        // console.log('node in assignNode',node)
         let fieldset = node.props.dataFieldset
         // console.log('fieldset in assignNode', fieldset)
         if (!fieldset) {
@@ -155,7 +156,7 @@ class ContentBaseForm extends React.Component<any,any> {
         let newchildren = []
         // update changed element values
         for (let element of fieldlist) {
-            if (!element.props.readonly) {
+            if (!element.props.readonly && !element.props.dataStatic) {
                 let statevalue = this.state.values[element.props.name]
                 let elementvalue = element.props.value
                 if (!Object.is(elementvalue,statevalue)) {
