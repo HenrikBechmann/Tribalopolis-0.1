@@ -69,6 +69,7 @@ class ContentBaseForm extends React.Component<any,any> {
     documentmap
     fieldsetprops
     fieldsets = {}
+    defaultset = []
 
     iseditable = false
 
@@ -87,15 +88,19 @@ class ContentBaseForm extends React.Component<any,any> {
         if (!isarray && this.length) {
             let node = children as React.ReactElement
             node = this.getAdjustedNode(node)
+            this.assignNode(node)
             this.localchildren = node
         } else {
             this.localchildren = []
             for (let node of children as Array<React.ReactElement>) {
 
                 node = this.getAdjustedNode(node)
+                this.assignNode(node)
                 this.localchildren.push(node)
+
             }
         }
+        console.log('fieldsets, default, named, props',this.defaultset, this.fieldsets, this.fieldsetprops)
     }
 
     getAdjustedNode = node => {
@@ -108,6 +113,19 @@ class ContentBaseForm extends React.Component<any,any> {
 
         }
         return localnode
+    }
+
+    assignNode = node => {
+        let fieldset = node.props.fieldset
+        console.log('fieldset in assignNode', fieldset)
+        if (!fieldset) {
+            this.defaultset.push(node)
+        } else {
+            if (!this.fieldsets[fieldset]) {
+                this.fieldsets[fieldset] = []
+            }
+            this.fieldsets[fieldset].push(node)
+        }
     }
 
     onSubmit = () => {
