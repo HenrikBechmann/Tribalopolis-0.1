@@ -141,7 +141,7 @@ class ContentBaseForm extends React.Component<any,any> {
         if (this.fieldsetprops) {
             for (let fieldsetobj of this.fieldsetprops) {
                 this.fieldsets[fieldsetobj.name] = this.getFieldsetValues(this.fieldsets[fieldsetobj.name])
-                let component = <fieldset key = {fieldsetobj.name} style = {{marginBottom:'8px'}} disabled = {this.props.disabled}>
+                let component = <fieldset key = {fieldsetobj.name} style = {{marginBottom:'8px', width:'calc(100% - 32px)'}} disabled = {this.props.disabled}>
                     {fieldsetobj.legend && <legend>{fieldsetobj.legend}</legend>}
                     {this.fieldsets[fieldsetobj.name]}
                 </fieldset>
