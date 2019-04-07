@@ -270,7 +270,7 @@ class PreRenderer {
         let pathlist = path.split('.')
         let namespace = this.namespace
         let nodedata:any = utilities.getNodePosition(namespace,pathlist)
-        // console.log('getPropertyByIndirection',propertySpec,pathlist,nodedata, data)
+        // console.log('getPropertyByIndirection',propertySpec,pathlist,nodedata,namespace)
         if (nodedata) {
             return nodedata.nodevalue
         } else {

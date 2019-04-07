@@ -4,6 +4,8 @@
 
 import React from 'react'
 
+import { toast } from 'react-toastify'
+
 import { withStyles, createStyles } from '@material-ui/core/styles'
 
 import Typography from '@material-ui/core/Typography';
@@ -75,6 +77,17 @@ class AccountDialogBase extends React.Component<DialogProps,any> {
         draweropen:true,
     }
 
+    openDrawer = ({docproxy,options}:DataPaneContext) => {
+        if (this.state.draweropen) {
+            toast.info('The data drawer is in use. Close the drawer and try again.')
+            return
+        }
+        // this.drawerdatapackage = {docproxy, options, callbacks:{}}
+        this.setState({
+            draweropen:true,
+        })
+    }
+
     closeDrawer = () => {
         // this.drawerdatapackage = null
         this.setState({
@@ -95,7 +108,8 @@ class AccountDialogBase extends React.Component<DialogProps,any> {
                     docproxy:paneProxy,
                     options:{uiselection:'datapane'},
                     callbacks:{
-                        close:this.props.closeSettings
+                        close:this.props.closeSettings,
+                        manage:this.openDrawer,
                     }
                 }
             }
