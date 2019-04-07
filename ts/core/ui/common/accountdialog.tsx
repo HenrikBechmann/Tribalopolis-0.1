@@ -74,7 +74,7 @@ class AccountDialogBase extends React.Component<DialogProps,any> {
 
     state = {
         settingsopen:true,
-        draweropen:true,
+        draweropen:false,
     }
 
     openDrawer = ({docproxy,options}:DataPaneContext) => {
