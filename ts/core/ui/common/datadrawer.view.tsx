@@ -40,7 +40,14 @@ let styles = createStyles({
    }
 })
 
-class DataDrawer extends React.Component<any,any>  {
+interface DataDrawerProps {
+    open:Boolean,
+    containerelement:any,
+    classes:any,
+    handleClose?:any,
+}
+
+class DataDrawer extends React.Component<DataDrawerProps,any>  {
 
     constructor(props) {
         super(props)
@@ -51,6 +58,7 @@ class DataDrawer extends React.Component<any,any>  {
     state = {
         width:300,
         right:-350,
+        hidden:true,
     }
 
     datadrawerelement
@@ -77,6 +85,7 @@ class DataDrawer extends React.Component<any,any>  {
 
         this.setState({
             right,
+            hidden:!!right
         })
 
     }
@@ -98,6 +107,7 @@ class DataDrawer extends React.Component<any,any>  {
             {
                  width:this.state.width + 'px',
                  right:this.state.right + 'px',
+                 display:this.state.hidden?'none':'block',
                  maxWidth:maxwidth,
             }}
             className = {classes.root}
@@ -112,7 +122,7 @@ class DataDrawer extends React.Component<any,any>  {
                 setNewWidth = {this.setNewWidth}
                 hostelement = {this.datadrawerelement}
             />*/}
-            <div className = {classes.moniker}>data shelf</div>
+            {/*<div className = {classes.moniker}>data shelf</div>*/}
             <IconButton
                  className = { classes.button }
                  onClick = { this.props.handleClose }

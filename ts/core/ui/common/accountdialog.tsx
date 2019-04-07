@@ -19,6 +19,7 @@ import { DataPaneContext } from '../../services/interfaces'
 import docproxy from '../../utilities/docproxy'
 import application from '../../services/application'
 import DataPane from './datapane.view'
+import DataDrawer from './datadrawer.view'
 
 function Transition(props) {
   return <Slide direction="left" {...props} />;
@@ -37,7 +38,7 @@ const styles = createStyles({
         height:'100%',
     },
     datapaneoffset:{
-        height:'55px',
+        height:'65px',
     },
     datapanewrapper:{
         position:'relative',
@@ -58,12 +59,27 @@ interface AnyObject {
 
 class AccountDialogBase extends React.Component<DialogProps,any> {
 
+    constructor(props) {
+      super(props)
+      this.accountsettingselement = React.createRef()
+    }
+
     private paneProxy = null
 
     private datapanecontext:DataPaneContext = null
 
+    private accountsettingselement
+
     state = {
         settingsopen:true,
+        draweropen:true,
+    }
+
+    closeDrawer = () => {
+        // this.drawerdatapackage = null
+        this.setState({
+            draweropen:false,
+        })
     }
 
     render() {
@@ -109,7 +125,17 @@ class AccountDialogBase extends React.Component<DialogProps,any> {
                 </Toolbar>
               </AppBar>
               <div className = {classes.datapaneoffset}></div>
-              <div className = {classes.datapanewrapper}>
+              <div className = {classes.datapanewrapper}
+                ref = {this.accountsettingselement}
+              >
+                  <DataDrawer open = {this.state.draweropen}
+                      handleClose = {this.closeDrawer}
+                      containerelement = {this.accountsettingselement}
+                  >
+                      {/*<DataPane
+                          dataPaneContext = {this.drawerdatapackage}
+                      />*/}
+                  </DataDrawer>
                   <DataPane dataPaneContext = {this.datapanecontext}/>
               </div>
           </div>
