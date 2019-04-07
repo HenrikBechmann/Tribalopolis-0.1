@@ -44,8 +44,9 @@ class ContentBaseForm extends React.Component<any,any> {
         if (!Array.isArray(children)) {
             values[children.props.name] = children.props.value
         } else {
+            // console.log('constructor children',children)
             for (let child of children) {
-                if (!child.props.readonly) {
+                if (!child.props.readonly && !child.props['data-static']) {
                     values[child.props.name] = child.props.value
                 }
             }
@@ -170,11 +171,11 @@ class ContentBaseForm extends React.Component<any,any> {
 
     onSubmit = () => {
 
-        // console.log('onSubmit',this.formcontext, this.props.context)
+        // console.log('onSubmit',this.state, this.formcontext, this.props.context)
         let document = merge({},this.formcontext.document)
 
         for (let valueindex in this.state.values) {
-            // console.log('valueindex, documentmap',valueindex,this.documentmap)
+            // console.log('valueindex, documentmap, state.values',valueindex,this.documentmap, this.state.values)
             let path = this.documentmap[valueindex].split('.')
             // console.log('document, path',document, path)
             let nodespecs = utlities.getNodePosition(document,path)
@@ -208,9 +209,9 @@ class ContentBaseForm extends React.Component<any,any> {
     }
 
     onChangeValue = event => {
-        // console.log('event onChangeValue',event.target.name,event.target.value)
         let { values } = this.state
         values[event.target.name] = event.target.value
+        // console.log('event onChangeValue',event.target.name,event.target.value, values)
         this.setState({ values, dirty:true })    
 
     }
