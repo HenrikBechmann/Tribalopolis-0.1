@@ -165,6 +165,8 @@ class GeneralResizeTab extends React.Component<any,any> {
             hostelement,
         } = this.props
 
+        !application.properties.ismobile && connectDragPreview(getEmptyImage())
+
         return (
             <div className = { classes.tabstyles } 
                 style = {styles}
@@ -178,7 +180,7 @@ class GeneralResizeTab extends React.Component<any,any> {
                     )
                 }
                 {
-                    {/*!application.properties.ismobile && connectDragPreview(getEmptyImage())*/}
+                    /*!application.properties.ismobile && connectDragPreview(getEmptyImage())*/
                 }
                 {isDragging && 
                     <ResizeDragLayer 

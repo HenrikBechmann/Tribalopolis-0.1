@@ -114,14 +114,14 @@ class DataDrawer extends React.Component<DataDrawerProps,any>  {
             ref = { this.datadrawerelement }
             data-name = 'data-drawer'
         >
-            {/*<ResizeTab 
+            {<ResizeTab 
                 orientation = 'left' 
                 minwidth = {200}
                 maxwidth = {600}
                 currentwidth = {maxwidthcalc?Math.min(maxwidthcalc,this.state.width):this.state.width}
                 setNewWidth = {this.setNewWidth}
                 hostelement = {this.datadrawerelement}
-            />*/}
+            />}
             {/*<div className = {classes.moniker}>data shelf</div>*/}
             <IconButton
                  className = { classes.button }
