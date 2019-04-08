@@ -9,7 +9,7 @@ import { withStyles, createStyles } from '@material-ui/core/styles'
 import IconButton from '@material-ui/core/IconButton'
 import Icon from '@material-ui/core/Icon'
 
-// import ResizeTab from '../common/generalresizetab.view'
+import ResizeTab from '../common/generalresizetab.view'
 
 let styles = createStyles({
    root: {

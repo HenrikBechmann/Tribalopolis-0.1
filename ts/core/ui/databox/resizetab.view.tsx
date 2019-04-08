@@ -90,6 +90,8 @@ class ResizeTab extends React.Component<any,any> {
         const { isDragging, connectDragSource, connectDragPreview } = this.props
         const { classes } = this.props
 
+        !application.properties.ismobile && connectDragPreview(getEmptyImage())
+
         return (
             <React.Fragment>
                 <div className = { classes.tabstyles } 
@@ -103,7 +105,7 @@ class ResizeTab extends React.Component<any,any> {
                         )
                     }
                     {
-                        !application.properties.ismobile && connectDragPreview(getEmptyImage())
+                        /*!application.properties.ismobile && connectDragPreview(getEmptyImage())*/
                     }
                 </div>
                 {

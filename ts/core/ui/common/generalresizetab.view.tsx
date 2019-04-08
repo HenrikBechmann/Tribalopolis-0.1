@@ -178,7 +178,7 @@ class GeneralResizeTab extends React.Component<any,any> {
                     )
                 }
                 {
-                    !application.properties.ismobile && connectDragPreview(getEmptyImage())
+                    {/*!application.properties.ismobile && connectDragPreview(getEmptyImage())*/}
                 }
                 {isDragging && 
                     <ResizeDragLayer 

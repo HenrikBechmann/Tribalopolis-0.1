@@ -16,7 +16,7 @@ import DirectoryBar from './databox/directorybar.view'
 import DirectoryList from './databox/directorylist.view'
 // import ScanBar from './databox/scanbar.view'
 
-// import ResizeTab from './databox/resizetab.view'
+import ResizeTab from './databox/resizetab.view'
 import NavigationMenuTab from './databox/navigationmenutab.view'
 import LoadingMessage from './common/loadingmessage.view'
 
@@ -358,11 +358,11 @@ class DataBox extends React.Component<any,any> {
                     collapseDirectoryItem = {this.collapseDirectoryItem}
                 />
 
-                { /*!haspeers && this.boxframe.current && <ResizeTab 
+                { !haspeers && this.boxframe.current && <ResizeTab 
                     boxwidth = {this.props.boxwidth} 
                     boxframe = {this.boxframe}
                     setBoxWidth = { this.props.callbacks.setBoxWidth }
-                />*/ }
+                /> }
                 {/* main content */}
                 <div data-name = 'box-contents-wrapper'
                     className = {classes.boxcontentswrapper}>
