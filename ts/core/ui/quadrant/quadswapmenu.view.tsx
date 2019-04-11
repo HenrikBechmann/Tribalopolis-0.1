@@ -214,16 +214,16 @@ class SwapMenu extends React.Component<any, any> {
                         this.selectQuadrantFrom('horizontal')
                     }} />
                 <ActionButton 
-                    iconStyle = {{color:'green',transform:`rotate(${gotiltb})`}}
-                    icon = 'arrow_right_alt'
-                    action = {() => {
-                        this.selectQuadrantFrom('tilted')
-                    }} />
-                <ActionButton 
                     iconStyle = {{color:'green',transform:`rotate(${gotiltc})`}}
                     icon = 'arrow_right_alt'
                     action = {() => {
                         this.selectQuadrantFrom('vertical')
+                    }} />
+                <ActionButton 
+                    iconStyle = {{color:'green',transform:`rotate(${gotiltb})`}}
+                    icon = 'arrow_right_alt'
+                    action = {() => {
+                        this.selectQuadrantFrom('tilted')
                     }} />
                 </MenuItem>
                 <Divider />
@@ -248,16 +248,16 @@ class SwapMenu extends React.Component<any, any> {
                         handleSwap(quadrantPosition,'horizontal')
                     }} />
                 <ActionButton 
-                    iconStyle = {{color:'green',transform:`rotate(${tilt})`}}
-                    icon = 'swap_vert'
-                    action = {() => {
-                        handleSwap(quadrantPosition,'diagonal')
-                    }} />
-                <ActionButton 
                     iconStyle = {{color:'green'}}
                     icon = 'swap_vert'
                     action = {() => {
                         handleSwap(quadrantPosition,'vertical')
+                    }} />
+                <ActionButton 
+                    iconStyle = {{color:'green',transform:`rotate(${tilt})`}}
+                    icon = 'swap_vert'
+                    action = {() => {
+                        handleSwap(quadrantPosition,'diagonal')
                     }} />
                 </MenuItem>
             </PopupMenu>
