@@ -110,6 +110,7 @@ class ToolsStrip extends React.Component<any,any> {
         const { accountAnchorElement } = this.state
 
         return <div style = {{display:'inline-block',verticalAlign:'middle',position:'relative'}}>
+            <ToolTip title = 'User Account'>
             <IconButton 
                 aria-owns={accountAnchorElement ? 'simple-menu' : null}
                 aria-haspopup="true"
@@ -118,6 +119,7 @@ class ToolsStrip extends React.Component<any,any> {
                 <Icon style = {{color:!this.props.userdata?'rgb(0,0,0,0.54)':'cadetblue'}}>account_box</Icon>
                 <Icon style = {{color:!this.props.userdata?'rgb(0,0,0,0.54)':'cadetblue'}}>arrow_drop_down</Icon>
             </IconButton>
+            </ToolTip>
             <div style = {
                 {
                     display:'inline',
@@ -210,18 +212,16 @@ class ToolsStrip extends React.Component<any,any> {
                                 <Icon>notifications</Icon>
                             </IconButton>
                             </ToolTip>
-
                             {false && <IconButton
                             >
                                 <Icon>apps</Icon>
                             </IconButton>}
-                            <ToolTip title = 'Application Settings'>
+                            {false && <ToolTip title = 'Application Settings'>
                             <IconButton
                             >
                                 <Icon>settings</Icon>
                             </IconButton>
-                            </ToolTip>
-
+                            </ToolTip>}
                             <ToolTip title = 'Help'>
                             <IconButton
                             >
@@ -229,7 +229,7 @@ class ToolsStrip extends React.Component<any,any> {
                             </IconButton>
                             </ToolTip>
 
-                            <VerticalDivider />
+                            {false && <VerticalDivider />}
 
                             { this.accountmenu(classes) }
 
