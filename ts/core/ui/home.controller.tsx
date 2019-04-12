@@ -13,6 +13,7 @@ class Home extends React.Component<any,any> {
         return (
             <div>
             <StandardToolbar />
+            <p>Tribalopolis is a virtual city of tribes. A place to get organized, collaborate, and keep records.</p>
             <p>Build the future!</p>
             <p>Please note this is just a pre-alpha prototype. In other words, it's not yet functional. But we're working on it.</p>
             </div>
