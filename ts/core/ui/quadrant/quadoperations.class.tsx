@@ -197,6 +197,8 @@ class quadoperations {
 
     collapseDirectoryItem = (itemProxy) => {
 
+        console.log('collapse item in collapseDirectoryItem of quadoperation',itemProxy)
+
         if (this.quadrant.state.stackpointer) {
             let targetStackLayer = this.quadrant.datastack[this.quadrant.state.stackpointer - 1]
             if (targetStackLayer.items.length > 1) {

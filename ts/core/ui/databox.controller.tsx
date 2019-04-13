@@ -135,22 +135,39 @@ class DataBox extends React.Component<any,any> {
             instanceid:itemProxy.instanceid,
             success:this.cacheItemData,failure:null
         }
+
         this.props.callbacks.setDocpackPairListener(parms)
-    }
 
-    componentDidUpdate() {
+        let { collapseTargetProxy } = this.props 
 
-        let { collapseTargetProxy } = this.props // only set on update
+        console.log('collapseTargetProxy in componentDidMount of databox',collapseTargetProxy)
 
-        if (!this.state.item) return // wait for item document to appear
+        // if (!this.state.item) return // wait for item document to appear
 
         if (this.collapseTargetProxy || !collapseTargetProxy) return
 
         this.collapseTargetProxy = collapseTargetProxy // sentinel against coloring target box border
 
-        setTimeout(()=>{
-            this.doHighlights(collapseTargetProxy)
-        })
+    }
+
+    didhighlight = false
+
+    componentDidUpdate() {
+
+        // let { collapseTargetProxy } = this.props // only set on update
+
+        if (!this.state.item) return // wait for item document to appear
+
+        // if (this.collapseTargetProxy || !collapseTargetProxy) return
+
+        // this.collapseTargetProxy = collapseTargetProxy // sentinel against coloring target box border
+
+        if (this.collapseTargetProxy && !this.didhighlight) {
+            setTimeout(()=>{
+                this.doHighlights(this.collapseTargetProxy)
+                this.didhighlight = true
+            })
+        }
     }
 
     componentWillUnmount() {
@@ -209,12 +226,13 @@ class DataBox extends React.Component<any,any> {
                 collapseTargetProxy.liststack[
                     collapseTargetProxy.liststack.length -1]
 
-            // console.log('doHighlights collapseTargetProxy, doctoken',collapseTargetProxy,doctoken)
-
             if (doctoken) {
                 let splitref = doctoken.reference.split('/')
                 let id = splitref[splitref.length - 1]
                 // console.log('id in doHighlights',id)
+
+                console.log('doHighlights collapseTargetProxy, doctoken, id',collapseTargetProxy,doctoken, id)
+
                 setTimeout(()=>{
                     this.setState({
                         highlightrefuid:id,
@@ -318,6 +336,8 @@ class DataBox extends React.Component<any,any> {
                 ?'0'
                 :'auto',
         }
+
+        console.log('highlightrefuid in databox',this.state.highlightrefuid)
 
         // placeholder for display if docpack hasn't been received yet
         if (!docpack) {

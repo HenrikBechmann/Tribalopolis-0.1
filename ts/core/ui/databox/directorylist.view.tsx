@@ -201,7 +201,10 @@ class extends React.Component<any,any> {
 
         // let highlight = (docproxy.id === this.state.highlightrefuid)
 
+
         let highlight = (docproxy.id === this.highlightrefuid)
+
+        // console.log('getListComponent in directoryList: highlight, highlightrefuid, docproxy, index',highlight,this.highlightrefuid,docproxy,index)
 
         if (highlight) this.highlightrefuid = null
 

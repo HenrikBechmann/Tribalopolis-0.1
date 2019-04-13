@@ -177,11 +177,12 @@ class Quadrant extends React.Component<any,any>  {
     componentDidUpdate() {
 
         // console.log('quadrant componentDidUpdate isTargetProxy()', this.operations.isTargetProxy())
-        // animation and visibilit based on return from descendant stack level
+        // animation and visibility based on return from descendant stack level
         if (!this.operations.isTargetProxy()) return
 
         // keep; value will be purged
         let activeTargetProxy = this.operations.getTargetProxy()
+        console.log('activeTargetProxy in quadrant componentDidUpdate',activeTargetProxy)
 
         this.operations.setTargetProxy(null)
         // get index for Lister
@@ -316,11 +317,11 @@ class Quadrant extends React.Component<any,any>  {
         let containerHeight = this.scrollboxelement.current.offsetHeight
 
         let matchForTarget = false
-        let activeTargetProxy = this.activeTargetProxy
+        let activeTargetProxy = this.operations.getTargetProxy() // this.activeTargetProxy
         if (activeTargetProxy) {
-            matchForTarget = (activeTargetProxy.index == index)
+            matchForTarget = (!haspeers || (activeTargetProxy.index == index))
         }
-        console.log('getBoxComponent itemProxy, activeTargetProxy',itemProxy, activeTargetProxy, matchForTarget)
+        console.log('getBoxComponent itemProxy, activeTargetProxy, matchForTarget',itemProxy, activeTargetProxy, index, matchForTarget)
 
         let boxcallbacks = {
             // data fulfillment
