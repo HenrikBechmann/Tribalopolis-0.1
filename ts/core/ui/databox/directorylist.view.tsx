@@ -42,10 +42,12 @@ class extends React.Component<any,any> {
     constructor(props) {
         super(props)
         this.listcomponent = this.props.forwardedRef
+        if (this.props.highlightrefuid) {
+            this.highlightrefuid = this.props.highlightrefuid
+        }
     }
 
     state = {
-        highlightrefuid:null,
         list:null,
         listproxies:null,
     }
@@ -69,10 +71,6 @@ class extends React.Component<any,any> {
                     failure:null,
                 }
             this.props.callbacks.setDocpackPairListener( parms )
-        }
-
-        if (this.props.highlightrefuid) {
-            this.highlightrefuid = this.props.highlightrefuid
         }
 
         if (this.state.listproxies) {

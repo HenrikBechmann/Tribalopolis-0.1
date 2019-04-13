@@ -60,6 +60,9 @@ class DirectoryListItem extends React.Component<any,any> {
     constructor(props) {
         super(props)
         this.barelementref = React.createRef()
+        if (props.highlight) {
+            this.highlight = props.highlight
+        }
     }
 
     state = {
@@ -69,6 +72,7 @@ class DirectoryListItem extends React.Component<any,any> {
     listProxy
 
     barelementref
+    highlight
 
     componentDidMount() {
 
@@ -88,8 +92,9 @@ class DirectoryListItem extends React.Component<any,any> {
 
     componentDidUpdate() {
 
-        if (this.props.highlight && this.barelementref) {
+        if (this.highlight && this.barelementref) {
             this.props.highlightItem(this.barelementref)
+            this.highlight = false
         }
     }
 

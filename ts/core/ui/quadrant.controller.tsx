@@ -321,7 +321,7 @@ class Quadrant extends React.Component<any,any>  {
         if (activeTargetProxy) {
             matchForTarget = (!haspeers || (activeTargetProxy.index == index))
         }
-        console.log('getBoxComponent itemProxy, activeTargetProxy, matchForTarget',itemProxy, activeTargetProxy, index, matchForTarget)
+        // console.log('getBoxComponent itemProxy, activeTargetProxy, matchForTarget',itemProxy, activeTargetProxy, index, matchForTarget)
 
         let boxcallbacks = {
             // data fulfillment

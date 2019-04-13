@@ -108,10 +108,29 @@ class DataBox extends React.Component<any,any> {
                 liststack:this.itemProxy.liststack.slice()
             }
         )
+        let { collapseTargetProxy } = this.props 
+
+        console.log('collapseTargetProxy in constructor of databox',collapseTargetProxy)
+
+        if (collapseTargetProxy) {
+
+            this.collapseTargetProxy = collapseTargetProxy // sentinel against coloring target box border
+            if (collapseTargetProxy.action == 'expand' || 
+                collapseTargetProxy.action == 'splay') {
+
+                let doctoken = 
+                    collapseTargetProxy.liststack[
+                        collapseTargetProxy.liststack.length -1]
+
+                if (doctoken) {
+                    let splitref = doctoken.reference.split('/')
+                    this.highlightrefuid = splitref[splitref.length - 1]
+                }
+            }
+        }
     }
 
     state = {
-        highlightrefuid:null,
         item:null,
         MainlistProxy:null,
         BarlistProxy:null,
@@ -126,6 +145,7 @@ class DataBox extends React.Component<any,any> {
     listcomponent
 
     collapseTargetProxy
+    highlightrefuid = null
 
     componentDidMount() {
         // console.log('did mount',this.itemProxy?this.itemProxy.instanceid:'no item')
@@ -137,16 +157,6 @@ class DataBox extends React.Component<any,any> {
         }
 
         this.props.callbacks.setDocpackPairListener(parms)
-
-        let { collapseTargetProxy } = this.props 
-
-        console.log('collapseTargetProxy in componentDidMount of databox',collapseTargetProxy)
-
-        // if (!this.state.item) return // wait for item document to appear
-
-        if (this.collapseTargetProxy || !collapseTargetProxy) return
-
-        this.collapseTargetProxy = collapseTargetProxy // sentinel against coloring target box border
 
     }
 
@@ -219,31 +229,31 @@ class DataBox extends React.Component<any,any> {
 
         this.props.callbacks.highlightBox({boxElement:this.boxframe.current})
 
-        if (collapseTargetProxy.action == 'expand' || 
-            collapseTargetProxy.action == 'splay') {
+        // if (collapseTargetProxy.action == 'expand' || 
+        //     collapseTargetProxy.action == 'splay') {
 
-            let doctoken = 
-                collapseTargetProxy.liststack[
-                    collapseTargetProxy.liststack.length -1]
+        //     let doctoken = 
+        //         collapseTargetProxy.liststack[
+        //             collapseTargetProxy.liststack.length -1]
 
-            if (doctoken) {
-                let splitref = doctoken.reference.split('/')
-                let id = splitref[splitref.length - 1]
-                // console.log('id in doHighlights',id)
+        //     if (doctoken) {
+        //         let splitref = doctoken.reference.split('/')
+        //         let id = splitref[splitref.length - 1]
+        //         // console.log('id in doHighlights',id)
 
-                console.log('doHighlights collapseTargetProxy, doctoken, id',collapseTargetProxy,doctoken, id)
+        //         console.log('doHighlights collapseTargetProxy, doctoken, id',collapseTargetProxy,doctoken, id)
 
-                setTimeout(()=>{
-                    this.setState({
-                        highlightrefuid:id,
-                    },() => {
-                        this.setState({
-                            highlightrefuid:null
-                        })
-                    })
-                })
-            }
-        }
+                // setTimeout(()=>{
+                //     this.setState({
+                //         highlightrefuid:id,
+                //     },() => {
+                //         this.setState({
+                //             highlightrefuid:null
+                //         })
+                //     })
+                // })
+        //     }
+        // }
     }
 
     collapseDirectoryItem = () => {
@@ -337,7 +347,7 @@ class DataBox extends React.Component<any,any> {
                 :'auto',
         }
 
-        console.log('highlightrefuid in databox',this.state.highlightrefuid)
+        // console.log('highlightrefuid in databox',this.state.highlightrefuid)
 
         // placeholder for display if docpack hasn't been received yet
         if (!docpack) {
@@ -401,7 +411,7 @@ class DataBox extends React.Component<any,any> {
                                 ref = {this.listcomponent}
 
                                 listProxy = {this.state.MainlistProxy}
-                                highlightrefuid = {this.state.highlightrefuid}
+                                highlightrefuid = {this.highlightrefuid}
 
                                 callbacks = {this.listcallbacks}
                             />
