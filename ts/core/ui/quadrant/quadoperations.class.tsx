@@ -252,7 +252,6 @@ class quadoperations {
         let { items } = stacklayer
         stacklayer.settings.scrollOffset = 
             (items.length > 1)?this.listcomponent.current.state.scrollOffset:0
- //this.scrollboxelement.current.scrollLeft:0
     }
 
     _applySettings = (stackpointer, datastack) => {

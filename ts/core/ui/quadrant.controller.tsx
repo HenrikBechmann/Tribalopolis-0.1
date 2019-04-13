@@ -176,7 +176,7 @@ class Quadrant extends React.Component<any,any>  {
 
     componentDidUpdate() {
 
-        console.log('quadrant componentDidUpdate isTargetProxy()', this.operations.isTargetProxy())
+        // console.log('quadrant componentDidUpdate isTargetProxy()', this.operations.isTargetProxy())
         // animation and visibilit based on return from descendant stack level
         if (!this.operations.isTargetProxy()) return
 
@@ -287,7 +287,7 @@ class Quadrant extends React.Component<any,any>  {
 
         let { stackpointer } = this.state
 
-        console.log('Box in quadrant, datastack, scrollboxelement',datastack, this.scrollboxelement)
+        // console.log('Box in quadrant, datastack, scrollboxelement',datastack, this.scrollboxelement)
 
         if (!datastack) return null
 
@@ -316,11 +316,11 @@ class Quadrant extends React.Component<any,any>  {
         let containerHeight = this.scrollboxelement.current.offsetHeight
 
         let matchForTarget = false
-        let { activeTargetProxy } = this
+        let activeTargetProxy = this.activeTargetProxy
         if (activeTargetProxy) {
             matchForTarget = (activeTargetProxy.index == index)
         }
-        console.log('getBoxComponent itemProxy, activeTargetProxy',itemProxy, activeTargetProxy)
+        console.log('getBoxComponent itemProxy, activeTargetProxy',itemProxy, activeTargetProxy, matchForTarget)
 
         let boxcallbacks = {
             // data fulfillment

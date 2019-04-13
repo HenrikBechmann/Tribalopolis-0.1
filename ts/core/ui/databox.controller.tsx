@@ -126,7 +126,6 @@ class DataBox extends React.Component<any,any> {
     listcomponent
 
     collapseTargetProxy
-    queueCollapseTargetProxy
 
     componentDidMount() {
         // console.log('did mount',this.itemProxy?this.itemProxy.instanceid:'no item')
@@ -140,27 +139,17 @@ class DataBox extends React.Component<any,any> {
     }
 
     componentDidUpdate() {
-        let { collapseTargetProxy } = this.props
 
-        if (collapseTargetProxy) { // if found, queue the trigger
-            this.queueCollapseTargetProxy = collapseTargetProxy
-        }
+        let { collapseTargetProxy } = this.props // only set on update
 
         if (!this.state.item) return // wait for item document to appear
 
-        if (!this.queueCollapseTargetProxy) return
+        if (this.collapseTargetProxy || !collapseTargetProxy) return
 
-        // pick up and clear the queue
-        collapseTargetProxy = this.queueCollapseTargetProxy
-        this.queueCollapseTargetProxy = null
-
-        this.collapseTargetProxy = collapseTargetProxy // trigger for coloring target box border
+        this.collapseTargetProxy = collapseTargetProxy // sentinel against coloring target box border
 
         setTimeout(()=>{
             this.doHighlights(collapseTargetProxy)
-            setTimeout(()=>{
-                this.collapseTargetProxy = null // clear queue for box border
-            },2000)
         })
     }
 
