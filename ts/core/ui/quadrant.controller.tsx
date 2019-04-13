@@ -157,19 +157,22 @@ class Quadrant extends React.Component<any,any>  {
     startIndex
     stopIndex
 
+    cycleForReferences = false
+
 /********************************************************
 ------------------[ lifecycle methods ]------------------
 *********************************************************/
 
-    // componentDidMount() {
+    componentDidMount() {
 
         // setting of datastack delayed because
         // scrollbox height must be available to set height of content items
         // this.setState({
         //     datastack: this.props.datastack,
         // })
+        if (this.cycleForReferences) this.forceUpdate()
 
-    // }
+    }
 
     componentDidUpdate() {
 
@@ -288,7 +291,9 @@ class Quadrant extends React.Component<any,any>  {
 
         if (!datastack) return null
 
-        if (!this.scrollboxelement.current) return null
+        this.cycleForReferences = !this.scrollboxelement.current
+
+        if (this.cycleForReferences) return null
 
         let itemProxy = datastack[stackpointer].items[index]
 
