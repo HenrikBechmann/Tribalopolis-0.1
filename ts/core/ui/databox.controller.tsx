@@ -140,7 +140,7 @@ class DataBox extends React.Component<any,any> {
     }
 
     componentDidUpdate() {
-        let { collapseTargetProxy } = this.props // gets set then cancelled by parent
+        let { collapseTargetProxy } = this.props
 
         if (collapseTargetProxy) { // if found, queue the trigger
             this.queueCollapseTargetProxy = collapseTargetProxy

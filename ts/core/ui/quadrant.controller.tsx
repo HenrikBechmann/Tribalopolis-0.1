@@ -115,18 +115,22 @@ class Quadrant extends React.Component<any,any>  {
             scrollboxelement:this.scrollboxelement,
         })
 
+        this.datastack = this.props.datastack,
+
         // -----------[ window listener ]-----------
         window.addEventListener('resize',this.onResize)
 
     }
 
     state = {
-        datastack:null,
+        // datastack:null,
         stackpointer:0,
-        activeTargetProxy:null,
         boxwidth:300,
         draweropen:false,
     }
+
+    datastack
+    activeTargetProxy = null
 
     // dom refs
     quadcontentelement
@@ -157,27 +161,28 @@ class Quadrant extends React.Component<any,any>  {
 ------------------[ lifecycle methods ]------------------
 *********************************************************/
 
-    componentDidMount() {
+    // componentDidMount() {
 
         // setting of datastack delayed because
         // scrollbox height must be available to set height of content items
-        this.setState({
-            datastack: this.props.datastack,
-        })
+        // this.setState({
+        //     datastack: this.props.datastack,
+        // })
 
-    }
+    // }
 
     componentDidUpdate() {
 
+        console.log('quadrant componentDidUpdate isTargetProxy()', this.operations.isTargetProxy())
         // animation and visibilit based on return from descendant stack level
         if (!this.operations.isTargetProxy()) return
 
         // keep; value will be purged
         let activeTargetProxy = this.operations.getTargetProxy()
+
         this.operations.setTargetProxy(null)
         // get index for Lister
-        let index = this.state.datastack
-            [this.state.stackpointer].items
+        let index = this.datastack[this.state.stackpointer].items
             .findIndex
                 (this._findlinkIndex
                     (activeTargetProxy.sourceinstanceid))
@@ -187,20 +192,24 @@ class Quadrant extends React.Component<any,any>  {
 
         setTimeout( () => { // defer to currently running code
 
-            if (this.listcomponent && (this.state.datastack[this.state.stackpointer].items.length > 1)) {
+            if (this.listcomponent && (this.datastack[this.state.stackpointer].items.length > 1)) {
                 this.listcomponent.current.scrollToItem(index)
             }
 
             setTimeout(()=>{ // time for scroll to take place
-                this.setState({ // trigger animation response
-                    activeTargetProxy,
-                },()=> {
-                    setTimeout(()=>{
-                        this.setState({ // cancel animation response
-                            activeTargetProxy:null
-                        })                        
-                    })
+                this.activeTargetProxy = activeTargetProxy
+                this.forceUpdate(() => {
+                    this.activeTargetProxy = null
                 })
+                // this.setState({ // trigger animation response
+                //     activeTargetProxy,
+                // },()=> {
+                //     setTimeout(()=>{
+                //         this.setState({ // cancel animation response
+                //             activeTargetProxy:null
+                //         })                        
+                //     })
+                // })
             },300)
 
         },300)
@@ -255,20 +264,27 @@ class Quadrant extends React.Component<any,any>  {
     }
 
     setDefault = () => {
-        let { datastack } = this.state
+        let datastack = this.datastack
         datastack[this.state.stackpointer].items = datastack[this.state.stackpointer].defaultitems
-        this.setState({
-            datastack, // set workspace
-        })
+        this.forceUpdate()
+        // this.setState({
+        //     datastack, // set workspace
+        // })
     }
 
     getBox = ({index,style}) => {
+
         return this.Box({index,style})
+
     }
 
     Box = ({index, style = null}) => {
 
-        let { datastack, stackpointer } = this.state
+        let datastack = this.datastack
+
+        let { stackpointer } = this.state
+
+        console.log('Box in quadrant, datastack, scrollboxelement',datastack, this.scrollboxelement)
 
         if (!datastack) return null
 
@@ -295,10 +311,12 @@ class Quadrant extends React.Component<any,any>  {
         let containerHeight = this.scrollboxelement.current.offsetHeight
 
         let matchForTarget = false
-        let { activeTargetProxy } = this.state
+        let { activeTargetProxy } = this
         if (activeTargetProxy) {
             matchForTarget = (activeTargetProxy.index == index)
         }
+        console.log('getBoxComponent itemProxy, activeTargetProxy',itemProxy, activeTargetProxy)
+
         let boxcallbacks = {
             // data fulfillment
             setDocpackPairListener:this.setDocpackPairListener,
@@ -349,10 +367,10 @@ class Quadrant extends React.Component<any,any>  {
 
         let { color, classes } = this.props
 
-        let { datastack } = this.state
+        let datastack = this.datastack
 
-        let haspeers = datastack?(this.state.datastack[this.state.stackpointer].items.length > 1):false
-        let isempty = datastack?!(this.state.datastack[this.state.stackpointer].items.length):true
+        let haspeers = datastack?(datastack[this.state.stackpointer].items.length > 1):false
+        let isempty = datastack?!(datastack[this.state.stackpointer].items.length):true
 
         let quadcontentStyle = {
             backgroundColor: color,
@@ -384,7 +402,7 @@ class Quadrant extends React.Component<any,any>  {
                     return <QuadContextBar
                         userdata = {userdata} 
                         quadidentifier={this.props.quadidentifier}
-                        datastack = {this.state.datastack}
+                        datastack = {datastack}
                         stackpointer = {this.state.stackpointer}
                         callbacks = {this.props.callbacks}
                         callDataDrawer = {this.callDataDrawer}

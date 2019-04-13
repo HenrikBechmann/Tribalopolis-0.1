@@ -46,7 +46,9 @@ class quadoperations {
 
         this.animations.animateToDataBox(domSource,this.quadrant.state.boxwidth)
 
-        let { datastack, stackpointer } = this.quadrant.state
+        let datastack = this.quadrant.datastack
+
+        let { stackpointer } = this.quadrant.state
         this._captureSettings(stackpointer,datastack)
 
         let itemProxy = datastack[stackpointer].items[boxptr]
@@ -69,9 +71,9 @@ class quadoperations {
         newstacklayer.items.push(newItemProxy)
 
         setTimeout(() => { // delay for animation
+            this.quadrant.datastack = datastack
             this.quadrant.setState({
                 stackpointer,
-                datastack,
             })
         },100)
     }
@@ -90,7 +92,9 @@ class quadoperations {
 
         this.animations.animateToDataBoxList(domSource)
 
-        let { datastack, stackpointer } = this.quadrant.state
+        let datastack = this.quadrant.datastack
+
+        let { stackpointer } = this.quadrant.state
         this._captureSettings(stackpointer,datastack)
 
         let itemProxy = datastack[stackpointer].items[boxptr]
@@ -120,9 +124,9 @@ class quadoperations {
         }
 
         setTimeout(() => { // delay for animation
+            this.quadrant.datastack = datastack
             this.quadrant.setState({
                 stackpointer,
-                datastack,
             },() => {
                 setTimeout(() =>{
                     this.listcomponent.current.scrollToItem(startItem,'start')
@@ -137,7 +141,9 @@ class quadoperations {
 
         this.animations.animateToDataBox(domSource,this.quadrant.state.boxwidth)
 
-        let {datastack, stackpointer} = this.quadrant.state
+        let datastack = this.quadrant.datastack
+
+        let {stackpointer} = this.quadrant.state
         this._captureSettings(stackpointer,datastack)
 
         let itemProxy = datastack[stackpointer].items[boxptr]
@@ -164,22 +170,23 @@ class quadoperations {
         newstacklayer.items.push(newItemProxy)
 
         setTimeout(() => { // delay for animation
+            this.quadrant.datastack = datastack
             this.quadrant.setState({
                 stackpointer,
-                datastack,
             })
         },100)
     }
 
     incrementStackSelector = () => {
-        let { stackpointer, datastack } = this.quadrant.state
+        let datastack = this.quadrant.datastack
+        let { stackpointer } = this.quadrant.state
         this._captureSettings(stackpointer,datastack)
         let depth = datastack.length
         if (stackpointer < (depth - 1)) {
             stackpointer++
+            this.quadrant.datastack = datastack
             this.quadrant.setState({
                 stackpointer,
-                datastack,
             },() => {
                 this._applySettings(stackpointer,datastack)
             })
@@ -191,7 +198,7 @@ class quadoperations {
     collapseDirectoryItem = (itemProxy) => {
 
         if (this.quadrant.state.stackpointer) {
-            let targetStackLayer = this.quadrant.state.datastack[this.quadrant.state.stackpointer - 1]
+            let targetStackLayer = this.quadrant.datastack[this.quadrant.state.stackpointer - 1]
             if (targetStackLayer.items.length > 1) {
                 this.animations.animateOriginToDataBoxList()
             } else {
@@ -208,14 +215,15 @@ class quadoperations {
     }
 
     decrementStackSelector = () => {
-        let { stackpointer, datastack } = this.quadrant.state
+        let datastack = this.quadrant.datastack
+        let { stackpointer } = this.quadrant.state
         this._captureSettings(stackpointer,datastack)
         this._updateCollapseSettings(stackpointer,datastack)
         if (stackpointer > 0) {
             stackpointer--
+            this.quadrant.datastack = datastack
             this.quadrant.setState({
                 stackpointer,
-                datastack,
             },() => {
                 this._applySettings(stackpointer,datastack)
             })
@@ -261,7 +269,6 @@ class quadoperations {
                     setTimeout(()=>{
                         this.listcomponent.current.scrollToItem(itemNumber,"start")
                     },300)
-                    // this.scrollboxelement.current.scrollLeft = stacklayer.settings.scrollOffset
 
                 })
             }
