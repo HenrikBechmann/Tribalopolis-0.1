@@ -59,6 +59,8 @@ class extends React.Component<any,any> {
 
     listcomponent
 
+    isunmounting = false
+
     componentDidUpdate() {
 
         if (!this.listProxy && this.props.listProxy) {
@@ -83,6 +85,7 @@ class extends React.Component<any,any> {
     }
 
     componentWillUnmount() {
+        this.isunmounting = true
         if (this.listProxy) {
             let parms:RemoveListenerMessage = 
                 {
@@ -104,6 +107,7 @@ class extends React.Component<any,any> {
             listproxies = this.updateListProxies(docpack.document,this.state.listproxies)
         }
         this.pathToIndexMap = this.generatePathToIndexMap(listproxies)
+        if (this.isunmounting) return
         this.setState({
             list:{
                 docpack,

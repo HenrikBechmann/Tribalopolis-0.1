@@ -40,6 +40,7 @@ class NavigationMenuTab extends React.Component<any,any> {
     selectdomsource
     zoomdomsource
     chat
+    isunmounting = false
 
     state = {
         list:null
@@ -62,6 +63,7 @@ class NavigationMenuTab extends React.Component<any,any> {
     }
 
     componentWillUnmount() {
+        this.isunmounting = true
         if (this.listProxy) {
             let parms:RemoveListenerMessage = 
                 {
@@ -74,6 +76,7 @@ class NavigationMenuTab extends React.Component<any,any> {
         }        
     }
     cacheListDocument = ({docpack, typepack, reason}:ReturnDocPairMessage) => {
+        if (this.isunmounting) return
         this.setState({
             list:{
                 document:docpack.document,

@@ -80,6 +80,7 @@ class DirectoryBar extends React.Component<any,any> {
 
     listProxy
     menuAnchor
+    isunmounting
 
     componentDidMount() {
         this.assertList()
@@ -104,6 +105,7 @@ class DirectoryBar extends React.Component<any,any> {
     }
 
     componentWillUnmount() {
+        this.isunmounting = true
         if (this.listProxy) {
             let parms:RemoveListenerMessage = 
                 {
@@ -117,6 +119,7 @@ class DirectoryBar extends React.Component<any,any> {
     }
 
     cacheListDocument = ({docpack,typepack, reason}:ReturnDocPairMessage) => {
+        if (this.isunmounting) return
         this.setState({
             list:{
                 docpack,
