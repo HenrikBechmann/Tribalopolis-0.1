@@ -147,6 +147,8 @@ class DataBox extends React.Component<any,any> {
     collapseTargetProxy
     highlightrefuid = null
 
+    unmounting = false
+
     componentDidMount() {
         // console.log('did mount',this.itemProxy?this.itemProxy.instanceid:'no item')
         let { itemProxy } = this
@@ -177,6 +179,7 @@ class DataBox extends React.Component<any,any> {
 
     componentWillUnmount() {
 
+        this.unmounting = true
         // unsubscribe data
         let { itemProxy } = this
         let parms:RemoveListenerMessage = {
@@ -209,6 +212,7 @@ class DataBox extends React.Component<any,any> {
                         reference:'/lists/' + this.state.item.docpack.document.references.list,
                     }
                 }
+                if (this.unmounting) return // avoid race condition
                 this.setState({
                     MainlistProxy: new docproxy({doctoken:listdoctoken}),
                     BarlistProxy: new docproxy({doctoken:listdoctoken}),
