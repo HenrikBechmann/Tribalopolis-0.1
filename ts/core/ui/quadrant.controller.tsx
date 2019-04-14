@@ -198,8 +198,8 @@ class Quadrant extends React.Component<any,any>  {
         setTimeout( () => { // defer to currently running code
 
             if (this.listcomponent && (this.datastack[this.state.stackpointer].items.length > 1)) {
-
-                this.listcomponent.current.scrollToItem(activeTargetProxy.index)
+                let scrollindex = activeTargetProxy.index
+                this.listcomponent.current.scrollToItem(scrollindex)
 
             }
 
@@ -209,9 +209,9 @@ class Quadrant extends React.Component<any,any>  {
                     this.activeTargetProxy = null
                 })
 
-            },300)
+            },300) // very timing sensitive
 
-        },300)
+        },1000) // very timing sensitive
     }
 
     _findlinkIndex = (instanceid) => {

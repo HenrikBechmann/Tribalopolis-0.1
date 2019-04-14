@@ -167,11 +167,12 @@ class DataBox extends React.Component<any,any> {
     componentDidUpdate() {
 
         if (!this.state.item) return // wait for item document to appear
-
-        if (this.collapseTargetProxy && !this.didhighlight) {
+        let docpack = this.state.item?this.state.item.docpack:null
+        if (this.boxframe.current && docpack && this.collapseTargetProxy && !this.didhighlight) {
             setTimeout(()=>{
-                this.doHighlights(this.collapseTargetProxy)
+                if (this.unmounting) return
                 this.didhighlight = true
+                this.doHighlights()
             })
         }
 
@@ -195,6 +196,7 @@ class DataBox extends React.Component<any,any> {
 
     cacheItemData = ( {docpack, typepack, reason}:ReturnDocPairMessage) => {
 
+        if (this.unmounting) return // avoid race condition
         this.setState({
             item:{
                 docpack,
@@ -224,7 +226,7 @@ class DataBox extends React.Component<any,any> {
 
     }
 
-    doHighlights = (collapseTargetProxy) => {
+    doHighlights = () => {
 
         this.props.callbacks.highlightBox({boxElement:this.boxframe.current})
 

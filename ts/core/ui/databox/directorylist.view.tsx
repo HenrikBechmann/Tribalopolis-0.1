@@ -79,7 +79,7 @@ class extends React.Component<any,any> {
 
             setTimeout(()=>{
                 this.dohighlight()
-            })
+            },300)
 
         }
     }
