@@ -202,18 +202,18 @@ class quadoperations {
         }
         // console.log('collapse item in collapseDirectoryItem of quadoperation',itemProxy)
 
-        // animate the collapse
-        if (this.quadrant.state.stackpointer) {
-            let targetStackLayer = this.quadrant.datastack[this.quadrant.state.stackpointer - 1]
-            if (targetStackLayer.items.length > 1) {
-                this.animations.animateOriginToDataBoxList()
-            } else {
-                this.animations.animateOriginToDatabox(this.quadrant.state.boxwidth)
-            }
-        }
-
         // decrement the stack
         setTimeout(()=>{
+            // animate the collapse
+            if (this.quadrant.state.stackpointer) {
+                let targetStackLayer = this.quadrant.datastack[this.quadrant.state.stackpointer - 1]
+                if (targetStackLayer.items.length > 1) {
+                    this.animations.animateOriginToDataBoxList()
+                } else {
+                    this.animations.animateOriginToDatabox(this.quadrant.state.boxwidth)
+                }
+            }
+
             this.collapseTargetProxy = this.quadrant.activeTargetProxy= Object.assign({},itemProxy)
             let { stackpointer } = this.quadrant.state
             this._updateCollapseSettings(stackpointer,this.quadrant.datastack)
@@ -277,7 +277,7 @@ class quadoperations {
         let { items } = stacklayer
 
         if ((items.length > 1) && (!this.collapseTargetProxy)) {
-            if (stacklayer.settings.scrollOffset !== null) {
+            // if (stacklayer.settings.scrollOffset !== null) {
                 setTimeout(() => { // give deference to formation of scroll object
 
                     let itemSize = this.listcomponent.current.props.itemSize
@@ -288,7 +288,7 @@ class quadoperations {
                     },300)
 
                 })
-            }
+            // }
         }
     }
 
