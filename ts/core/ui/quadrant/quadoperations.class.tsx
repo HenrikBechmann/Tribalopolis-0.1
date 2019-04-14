@@ -188,7 +188,9 @@ class quadoperations {
             this.quadrant.setState({
                 stackpointer,
             },() => {
-                this._applySettings(stackpointer,datastack)
+                setTimeout(() =>{
+                    this._applySettings(stackpointer,datastack)
+                },300)
             })
         }
     }
