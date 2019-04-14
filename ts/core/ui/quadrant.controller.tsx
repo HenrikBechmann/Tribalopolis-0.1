@@ -82,6 +82,7 @@ class Quadrant extends React.Component<any,any>  {
         super(props)
 
         // ----------[ refs ]----------
+        // animation elements
         this.drillanimationblock = React.createRef()
         this.originanimationblock = React.createRef()
         this.maskanimationblock = React.createRef()
@@ -90,7 +91,10 @@ class Quadrant extends React.Component<any,any>  {
         this.scrollboxelement = React.createRef()
         this.originelement = React.createRef()
 
-        // components
+        // ------------[ data ]-------------
+        this.datastack = this.props.datastack,
+
+        // ------------[ components ]-------------
         this.listcomponent = React.createRef()
         this.datadrawerelement = React.createRef()
 
@@ -98,24 +102,26 @@ class Quadrant extends React.Component<any,any>  {
         this.setDocpackPairListener = this.props.callbacks.setDocpackPairListener
         this.removeDocpackPairListener = this.props.callbacks.removeDocpackPairListener
 
-        // ------[ delegation classes ]------
+        // ------[ delegation classes: animations and operations ]------
         this.animations = new quadanimations({
+
             scrollboxelement:this.scrollboxelement,
             originelement:this.originelement,
             quadcontentelement:this.quadcontentelement,
             originanimationblock:this.originanimationblock,
             maskanimationblock:this.maskanimationblock,
             drillanimationblock:this.drillanimationblock,
+
         })
 
         this.operations = new quadoperations({
+
             quadrant:this, 
             animations: this.animations,
             listcomponent:this.listcomponent, 
             scrollboxelement:this.scrollboxelement,
-        })
 
-        this.datastack = this.props.datastack,
+        })
 
         // -----------[ window listener ]-----------
         window.addEventListener('resize',this.onResize)
@@ -123,13 +129,12 @@ class Quadrant extends React.Component<any,any>  {
     }
 
     state = {
-        // datastack:null,
         stackpointer:0,
         boxwidth:300,
         draweropen:false,
     }
 
-    datastack
+    datastack = null
     activeTargetProxy = null
 
     // dom refs
@@ -152,11 +157,13 @@ class Quadrant extends React.Component<any,any>  {
     operations
     animations
 
+    // data drawer message
     drawerdatapackage:DataPaneContext
 
-    startIndex
-    stopIndex
+    // startIndex
+    // stopIndex
 
+    // control var; controls second cyle of render to get dom ref values
     cycleForReferences = false
 
 /********************************************************
@@ -165,55 +172,43 @@ class Quadrant extends React.Component<any,any>  {
 
     componentDidMount() {
 
-        // setting of datastack delayed because
-        // scrollbox height must be available to set height of content items
-        // this.setState({
-        //     datastack: this.props.datastack,
-        // })
         if (this.cycleForReferences) this.forceUpdate()
 
     }
 
     componentDidUpdate() {
 
+        let activeTargetProxy = this.activeTargetProxy
         // console.log('quadrant componentDidUpdate isTargetProxy()', this.operations.isTargetProxy())
         // animation and visibility based on return from descendant stack level
-        if (!this.operations.isTargetProxy()) return
+        if (!activeTargetProxy) return
 
         // keep; value will be purged
-        let activeTargetProxy = this.operations.getTargetProxy()
-        console.log('activeTargetProxy in quadrant componentDidUpdate',activeTargetProxy)
+        // console.log('activeTargetProxy in quadrant componentDidUpdate',activeTargetProxy)
 
         this.operations.setTargetProxy(null)
         // get index for Lister
-        let index = this.datastack[this.state.stackpointer].items
-            .findIndex
-                (this._findlinkIndex
-                    (activeTargetProxy.sourceinstanceid))
+        // let scrollindex = this.datastack[this.state.stackpointer].items
+        //     .findIndex(this._findlinkIndex(activeTargetProxy.sourceinstanceid))
 
-        // update scroll display with selected highlight item
-        activeTargetProxy.index = index
+        // console.log('target index quadrant componentDidUpdate',scrollindex)
+        // // update scroll display with selected highlight item
+        // activeTargetProxy.index = scrollindex
 
         setTimeout( () => { // defer to currently running code
 
             if (this.listcomponent && (this.datastack[this.state.stackpointer].items.length > 1)) {
-                this.listcomponent.current.scrollToItem(index)
+
+                this.listcomponent.current.scrollToItem(activeTargetProxy.index)
+
             }
 
             setTimeout(()=>{ // time for scroll to take place
-                this.activeTargetProxy = activeTargetProxy
+
                 this.forceUpdate(() => {
                     this.activeTargetProxy = null
                 })
-                // this.setState({ // trigger animation response
-                //     activeTargetProxy,
-                // },()=> {
-                //     setTimeout(()=>{
-                //         this.setState({ // cancel animation response
-                //             activeTargetProxy:null
-                //         })                        
-                //     })
-                // })
+
             },300)
 
         },300)
@@ -222,6 +217,7 @@ class Quadrant extends React.Component<any,any>  {
     _findlinkIndex = (instanceid) => {
 
         return (itemDocumentProxy) => {
+            // console.log('_findlinkIndex', itemDocumentProxy.instanceid, instanceid)
             return itemDocumentProxy.instanceid == instanceid
         }
 
@@ -317,11 +313,14 @@ class Quadrant extends React.Component<any,any>  {
         let containerHeight = this.scrollboxelement.current.offsetHeight
 
         let matchForTarget = false
-        let activeTargetProxy = this.operations.getTargetProxy() // this.activeTargetProxy
+        let activeTargetProxy = this.activeTargetProxy // this.operations.getTargetProxy()
         if (activeTargetProxy) {
             matchForTarget = (!haspeers || (activeTargetProxy.index == index))
+            // console.log('matchfortarget',!haspeers,(activeTargetProxy.index == index), haspeers, activeTargetProxy.index ,index)
+            if (matchForTarget) this.activeTargetProxy = null
         }
-        // console.log('getBoxComponent itemProxy, activeTargetProxy, matchForTarget',itemProxy, activeTargetProxy, index, matchForTarget)
+
+        // console.log('getBoxComponent itemProxy, activeTargetProxy, index, matchForTarget',itemProxy, activeTargetProxy, index, matchForTarget)
 
         let boxcallbacks = {
             // data fulfillment

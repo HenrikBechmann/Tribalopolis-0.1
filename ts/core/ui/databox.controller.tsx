@@ -110,7 +110,7 @@ class DataBox extends React.Component<any,any> {
         )
         let { collapseTargetProxy } = this.props 
 
-        console.log('collapseTargetProxy in constructor of databox',collapseTargetProxy)
+        // console.log('collapseTargetProxy in constructor of databox',collapseTargetProxy)
 
         if (collapseTargetProxy) {
 
@@ -164,13 +164,7 @@ class DataBox extends React.Component<any,any> {
 
     componentDidUpdate() {
 
-        // let { collapseTargetProxy } = this.props // only set on update
-
         if (!this.state.item) return // wait for item document to appear
-
-        // if (this.collapseTargetProxy || !collapseTargetProxy) return
-
-        // this.collapseTargetProxy = collapseTargetProxy // sentinel against coloring target box border
 
         if (this.collapseTargetProxy && !this.didhighlight) {
             setTimeout(()=>{
@@ -178,17 +172,18 @@ class DataBox extends React.Component<any,any> {
                 this.didhighlight = true
             })
         }
+
     }
 
     componentWillUnmount() {
+
         // unsubscribe data
-        // console.log('unmounting',this.itemProxy.instanceid)
         let { itemProxy } = this
         let parms:RemoveListenerMessage = {
+
             doctoken:itemProxy.doctoken, 
             instanceid:itemProxy.instanceid,
-            // success:null,
-            // failure:null,
+
         }
 
         this.props.callbacks.removeDocpackPairListener( parms )
@@ -229,31 +224,6 @@ class DataBox extends React.Component<any,any> {
 
         this.props.callbacks.highlightBox({boxElement:this.boxframe.current})
 
-        // if (collapseTargetProxy.action == 'expand' || 
-        //     collapseTargetProxy.action == 'splay') {
-
-        //     let doctoken = 
-        //         collapseTargetProxy.liststack[
-        //             collapseTargetProxy.liststack.length -1]
-
-        //     if (doctoken) {
-        //         let splitref = doctoken.reference.split('/')
-        //         let id = splitref[splitref.length - 1]
-        //         // console.log('id in doHighlights',id)
-
-        //         console.log('doHighlights collapseTargetProxy, doctoken, id',collapseTargetProxy,doctoken, id)
-
-                // setTimeout(()=>{
-                //     this.setState({
-                //         highlightrefuid:id,
-                //     },() => {
-                //         this.setState({
-                //             highlightrefuid:null
-                //         })
-                //     })
-                // })
-        //     }
-        // }
     }
 
     collapseDirectoryItem = () => {

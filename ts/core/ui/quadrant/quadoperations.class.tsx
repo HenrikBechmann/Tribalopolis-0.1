@@ -197,8 +197,12 @@ class quadoperations {
 
     collapseDirectoryItem = (itemProxy) => {
 
+        if (!(this.quadrant.state.stackpointer > 0)) {
+            return
+        }
         // console.log('collapse item in collapseDirectoryItem of quadoperation',itemProxy)
 
+        // animate the collapse
         if (this.quadrant.state.stackpointer) {
             let targetStackLayer = this.quadrant.datastack[this.quadrant.state.stackpointer - 1]
             if (targetStackLayer.items.length > 1) {
@@ -208,8 +212,20 @@ class quadoperations {
             }
         }
 
+        // decrement the stack
         setTimeout(()=>{
-            this.collapseTargetProxy = Object.assign({},itemProxy)
+            this.collapseTargetProxy = this.quadrant.activeTargetProxy= Object.assign({},itemProxy)
+            let { stackpointer } = this.quadrant.state
+            this._updateCollapseSettings(stackpointer,this.quadrant.datastack)
+            let activeTargetProxy = this.collapseTargetProxy 
+            let sourceinstanceid = activeTargetProxy.sourceinstanceid
+            // console.log('sourceinstanceid in quadoperations',sourceinstanceid, activeTargetProxy.sourceinstanceid, activeTargetProxy)
+            let scrollindex = this.quadrant.datastack[this.quadrant.state.stackpointer-1].items
+                .findIndex(this.quadrant._findlinkIndex(sourceinstanceid))
+
+            // console.log('target index quadrant componentDidUpdate',scrollindex, this.quadrant.datastack, this.quadrant.state.stackpointer-1, activeTargetProxy)
+            // update scroll display with selected highlight item
+            activeTargetProxy.index = scrollindex
 
             this.decrementStackSelector()
         },100)
@@ -220,7 +236,7 @@ class quadoperations {
         let datastack = this.quadrant.datastack
         let { stackpointer } = this.quadrant.state
         this._captureSettings(stackpointer,datastack)
-        this._updateCollapseSettings(stackpointer,datastack)
+        // this._updateCollapseSettings(stackpointer,datastack)
         if (stackpointer > 0) {
             stackpointer--
             this.quadrant.datastack = datastack
@@ -232,7 +248,14 @@ class quadoperations {
         }
     }
 
-    _updateCollapseSettings = (stackpointer, datastack) => {
+    private _captureSettings = (stackpointer, datastack) => {
+        let stacklayer = datastack[stackpointer]
+        let { items } = stacklayer
+        stacklayer.settings.scrollOffset = 
+            (items.length > 1)?this.listcomponent.current.state.scrollOffset:0
+    }
+
+    private _updateCollapseSettings = (stackpointer, datastack) => {
 
         if (this.collapseTargetProxy) {
             let sourcelayer = datastack[this.quadrant.state.stackpointer]
@@ -249,14 +272,7 @@ class quadoperations {
         }
     }
 
-    _captureSettings = (stackpointer, datastack) => {
-        let stacklayer = datastack[stackpointer]
-        let { items } = stacklayer
-        stacklayer.settings.scrollOffset = 
-            (items.length > 1)?this.listcomponent.current.state.scrollOffset:0
-    }
-
-    _applySettings = (stackpointer, datastack) => {
+    private _applySettings = (stackpointer, datastack) => {
         let stacklayer = datastack[stackpointer]
         let { items } = stacklayer
 
