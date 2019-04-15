@@ -57,6 +57,7 @@ class ContentBaseForm extends React.Component<any,any> {
         if (context) {this.formcontext = context}
         this.documentmap = documentmap
         this.fieldsetprops = fieldsets
+        this.groupprops = groups
 
     }
 
@@ -70,6 +71,8 @@ class ContentBaseForm extends React.Component<any,any> {
     documentmap
     fieldsetprops
     fieldsets = {}
+    groupprops
+    groups = {}
     defaultset = []
 
     iseditable = false
