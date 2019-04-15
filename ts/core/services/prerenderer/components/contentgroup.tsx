@@ -22,8 +22,8 @@ const styles = theme => (createStyles({
 }))
 
 const ContentGroup = props => {
-    let [open, setOpen] = React.useState(false)
-    let { classes, title }  = props
+    let { classes, title, open } = props
+    let [isopen, setOpen] = React.useState(!!open)
 
     return <div className = {classes.root}>
 

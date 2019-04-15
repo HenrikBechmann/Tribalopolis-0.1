@@ -37,7 +37,7 @@ class ContentBaseForm extends React.Component<any,any> {
     constructor(props) {
         super(props)
         // initialize state values
-        let { children, context, documentmap, fieldsets } = props
+        let { children, context, documentmap, fieldsets, groups } = props
 
         // initialize field values for state
         let values = {} as any
