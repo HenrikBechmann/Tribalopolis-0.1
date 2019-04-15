@@ -13,8 +13,6 @@ const styles = theme => (createStyles({
         marginBottom:'8px',
     },
   title: {
-        fontSize:'larger',
-        fontWeight:'bold',
         whiteSpace: 'nowrap', 
         overflow: 'hidden',
         textOverflow: 'ellipsis'
@@ -29,12 +27,12 @@ const ContentGroup = props => {
 
         <div className = {classes.title}
             onClick = {
-                () => {setOpen(!open)}
+                () => {setOpen(!isopen)}
             }
         >
-            <Icon style = {{transform: open?'none':'rotate(90deg'}} >arrow_right</Icon> {title}
+            <Icon style = {{transform: !isopen?'none':'rotate(90deg'}} >arrow_right</Icon> {title}
         </div>
-        <div style = {{display:open?'block':'none',}}>
+        <div style = {{display:isopen?'block':'none',}}>
             {props.children}
         </div>
 

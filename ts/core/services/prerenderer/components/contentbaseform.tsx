@@ -30,6 +30,10 @@ const styles = (theme) => createStyles({
   },
   button:{
       margin:theme.spacing.unit,
+  },
+  fieldset: {
+      marginBottom:'8px', 
+      width:'calc(100% - 32px)',
   }
 })
 
@@ -57,8 +61,8 @@ class ContentBaseForm extends React.Component<any,any> {
         // save props to class
         if (context) {this.formcontext = context}
         this.documentmap = documentmap
-        this.fieldsetprops = fieldsets
-        this.groupprops = groups
+        this.fieldsetprops = fieldsets || []
+        this.groupprops = groups || []
 
     }
 
@@ -83,8 +87,6 @@ class ContentBaseForm extends React.Component<any,any> {
 
     componentWillMount() {
 
-        // console.log('props, formcontext, state in form will mount',this.props, this.formcontext, this.state)
-
         // add onChange to editable children
         // sort fields by fieldsets
         let { children } = this.props
@@ -102,13 +104,12 @@ class ContentBaseForm extends React.Component<any,any> {
 
                 node = this.getAdjustedNode(node)
                 this.assignNode(node)
-                // this.localchildren.push(node)
 
             }
         }
-        // console.log('fieldsets, default, named, props',this.defaultfieldset, this.fieldsets, this.fieldsetprops)
     }
 
+    // add onChange event handler to editable nodes
     getAdjustedNode = node => {
         let localnode = node
         if (!localnode.props.readonly && !localnode.props['data-static']) {
@@ -121,40 +122,79 @@ class ContentBaseForm extends React.Component<any,any> {
         return localnode
     }
 
+    // assign nodes to named fieldsets
     assignNode = node => {
-        // console.log('node in assignNode',node)
+
         let fieldset = node.props['data-fieldset']
-        // console.log('fieldset in assignNode', fieldset)
+
         if (!fieldset) {
+
             this.defaultfieldset.push(node)
+
         } else {
+
             if (!this.fieldsets[fieldset]) {
+
                 this.fieldsets[fieldset] = []
+
             }
             this.fieldsets[fieldset].push(node)
+
         }
+
     }
 
-    getFieldsetComponents = () => {
-        let fieldsetcomponents = []
+    // refresh fieldset component values
+    getDisplayComponents = (classes) => {
+
+        let displaycomponents = []
+        let groupcomponents = {}
+        for (let groupobj of this.groupprops) {
+            groupcomponents[groupobj.name] = []
+        }
+
         if (this.defaultfieldset.length) {
+
             this.defaultfieldset = this.getFieldsetValues(this.defaultfieldset)
+
             let component = <div key = '__default__'>
                 {this.defaultfieldset}
             </div>
-            fieldsetcomponents.push(component)
+
+            displaycomponents.push(component)
+
         }
+
         if (this.fieldsetprops) {
+
             for (let fieldsetobj of this.fieldsetprops) {
+                let { group } = fieldsetobj
                 this.fieldsets[fieldsetobj.name] = this.getFieldsetValues(this.fieldsets[fieldsetobj.name])
-                let component = <fieldset key = {fieldsetobj.name} style = {{marginBottom:'8px', width:'calc(100% - 32px)'}} disabled = {this.props.disabled}>
+
+                let component = <fieldset 
+                    key = {fieldsetobj.name} 
+                    className = {classes.fieldset}
+                    disabled = {this.props.disabled}
+                >
                     {fieldsetobj.legend && <legend>{fieldsetobj.legend}</legend>}
                     {this.fieldsets[fieldsetobj.name]}
                 </fieldset>
-                fieldsetcomponents.push(component)
+                if (group) {
+                    groupcomponents[group].push(component)
+                } else {
+                    displaycomponents.push(component)
+                }
             }
         }
-        return fieldsetcomponents
+
+        for (let groupobj of this.groupprops) {
+            let component = <ContentGroup key = {'group-' + groupobj.name} open = {groupobj.open} title = {groupobj.title}>
+                {groupcomponents[groupobj.name]}
+            </ContentGroup>
+            displaycomponents.push(component)
+        }
+
+        return displaycomponents
     }
 
     getFieldsetValues = fieldlist => {
@@ -235,7 +275,7 @@ class ContentBaseForm extends React.Component<any,any> {
                 className = { classes && classes.root } 
                 autoComplete = "off" 
             > 
-                {this.getFieldsetComponents()}
+                {this.getDisplayComponents(classes)}
                 {this.iseditable?<Button 
                     onClick = {this.onSubmit}
                     disabled = {!this.state.dirty}
