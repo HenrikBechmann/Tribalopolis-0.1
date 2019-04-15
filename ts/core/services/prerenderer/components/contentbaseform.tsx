@@ -12,6 +12,7 @@ import { withStyles, createStyles } from '@material-ui/core/styles'
 import Button from '@material-ui/core/Button'
 
 import application from '../../application'
+import ContentGroup from './contentgroup'
 
 import { toast } from 'react-toastify'
 
@@ -71,9 +72,10 @@ class ContentBaseForm extends React.Component<any,any> {
     documentmap
     fieldsetprops
     fieldsets = {}
+    defaultfieldset = []
     groupprops
     groups = {}
-    defaultset = []
+    defaultgroup = []
 
     iseditable = false
 
@@ -104,7 +106,7 @@ class ContentBaseForm extends React.Component<any,any> {
 
             }
         }
-        // console.log('fieldsets, default, named, props',this.defaultset, this.fieldsets, this.fieldsetprops)
+        // console.log('fieldsets, default, named, props',this.defaultfieldset, this.fieldsets, this.fieldsetprops)
     }
 
     getAdjustedNode = node => {
@@ -124,7 +126,7 @@ class ContentBaseForm extends React.Component<any,any> {
         let fieldset = node.props['data-fieldset']
         // console.log('fieldset in assignNode', fieldset)
         if (!fieldset) {
-            this.defaultset.push(node)
+            this.defaultfieldset.push(node)
         } else {
             if (!this.fieldsets[fieldset]) {
                 this.fieldsets[fieldset] = []
@@ -135,10 +137,10 @@ class ContentBaseForm extends React.Component<any,any> {
 
     getFieldsetComponents = () => {
         let fieldsetcomponents = []
-        if (this.defaultset.length) {
-            this.defaultset = this.getFieldsetValues(this.defaultset)
+        if (this.defaultfieldset.length) {
+            this.defaultfieldset = this.getFieldsetValues(this.defaultfieldset)
             let component = <div key = '__default__'>
-                {this.defaultset}
+                {this.defaultfieldset}
             </div>
             fieldsetcomponents.push(component)
         }
