@@ -3,7 +3,7 @@
 
 'use strict'
 
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 
 import {withStyles, createStyles} from '@material-ui/core/styles'
 import Icon from '@material-ui/core/Icon'
@@ -11,11 +11,14 @@ import Icon from '@material-ui/core/Icon'
 const styles = theme => (createStyles({
   root: {
         marginBottom:'8px',
+        width:'100%',
     },
   title: {
+        display:'flex',
+        alignItems:'center',
         whiteSpace: 'nowrap', 
         overflow: 'hidden',
-        textOverflow: 'ellipsis'
+        cursor:'pointer',
      }
 }))
 

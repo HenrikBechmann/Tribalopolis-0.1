@@ -32,7 +32,7 @@ const assertType = (document, type, forceupdate = false) => {
 
     try {
 
-        // make deep local copy of document
+        // make deep local copy of document to anticipate changes
         let localdocument:any = merge({},document)
         // unpack type data for upgrades
         let {template, defaults, deletions } = type.properties
