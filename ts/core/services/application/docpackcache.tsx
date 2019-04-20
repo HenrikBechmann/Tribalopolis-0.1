@@ -139,6 +139,8 @@ const docpackCache = new class {
 
     }
 
+    // TODO: allow for restart feature to accommodate change of
+    // fetched document per document type change
     private processPairListeners = (reference, reason) => {
 
         let documentcacheitem = this.getItem(reference)

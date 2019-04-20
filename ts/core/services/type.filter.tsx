@@ -15,20 +15,29 @@ import merge from 'deepmerge'
 import utilities from '../utilities/utilities'
 
 const typefilter = new class {
-    // TODO: test current document version of type against type version
-    // TDOD: implemeent forceupdate
 
-    // BASICALLY,:
-    // the typefilter singleton updates the document structure to conform to the document's 
-    // most recent type version.
-    // These updates are only applied to the persistent document if the document is 
-    // explicitly submitted for a save in the database. Otherwise the updates are thrown away.
+/*    
+    TODO: 
+    Test current document version of type against type version
+    Implemeent forceupdate
+    Support chained types, compared to document type
 
-    // TECHNICALLY:
-    // Returns a json document object, which may be a (cloned) modified document with an
-    // accompanying changed flag.
-    // Change instructions are derived from comparison of type elements with instance elements.
-    // assertType is the only pulic method
+    FUNCTIONALLY:
+    the typefilter singleton updates the downloaded Firebase Store document structure to 
+    conform to the document's most recent type version.
+    
+    These updates are only applied to the datastore document if the document is 
+    explicitly submitted for a save to the database. Otherwise the updates are thrown away.
+    
+    Types can be chained to systematically go through the type versions compared to the 
+    document version
+
+    TECHNICALLY:
+    Returns a json document object, which may be a (cloned) modified document with an
+    accompanying changed flag.
+    Change instructions are derived from comparison of type elements with instance elements.
+    assertType is the only pulic method
+*/
     public assertType = (document, type, forceupdate = false) => {
 
         // the document and its type are required to evaluate the document for update
@@ -40,10 +49,14 @@ const typefilter = new class {
         }
 
         // TODO:
-        // check versions to see if an update is required; return if not
+        // Check versions to see if an update is required; return if not
         // if forceupdate is true then continue in any case
+        // iterate through chain of types from document version to most recent type version. 
+        //     THIS IS DEFERREED
 
         try {
+
+            // ------------------[ SETUP ]----------------------------------
 
             // make deep local copy of document to anticipate changes
             let localdocument:any = merge({},document)
@@ -63,17 +76,20 @@ const typefilter = new class {
 
                 let deletionlist:[] = deletions.versions[doctypeversion]
                 // localdocument can be modified
-                deletionsperformed = this.assertdeletions(localdocument,deletions)
+                deletionsperformed = this.assertDeletions(localdocument,deletions)
 
             }
 
             // ------------------[ DO UPGRADE ]----------------------------------
 
             // get differences between template (from the type) and the current document
+            // (after deletions)
             let differences = this.getDiffs(
                 localdocument,
                 template,
             )
+
+            console.log('differences',differences, localdocument, template)
 
             // Upgrade the document according to differencee from template; add the properties 
             // if necessary and apply the defaults
@@ -98,7 +114,7 @@ const typefilter = new class {
 
     }
 
-    private assertdeletions(localdocument, deletionlist) {
+    private assertDeletions(localdocument, deletionlist) {
         let deletionsperformed = false
                 // check for deletions
         if (deletionlist) {
@@ -129,20 +145,23 @@ const typefilter = new class {
 
     private getDiffs = (document,template) => {
 
-        let differences = deepdiff.diff(document, template, (path, key) => {
+        // diff fiters each comparison through the third parameter function
+        let differences = deepdiff.diff(document, template, 
+            // this function is the third parameter of deepdiff.diff
+            (path, key) => {
 
             // this item is filtered -- return true means exclude (filter); return false(ish?) means include
             // test scope. if out of scope, stop comparison
             // note: this blocks out legitimate deletions, which need to be handled some other way
-            let filter = false
+            let filterthisitem = false
 
             let templatenodeposition = utilities.getNodePosition(template,path)
 
-            if (!templatenodeposition) {
-                filter = true
+            if (!templatenodeposition) { // the comparison was not found in the template; to not process
+                filterthisitem = true
             }
 
-            if (!filter) {
+            if (!filterthisitem) {
                 let {
                     nodeproperty:templateproperty,
                     nodeindex:templateindex,
@@ -152,11 +171,11 @@ const typefilter = new class {
                 templateproperty = templatevalue
                 templatevalue = templateproperty[key]
                 if (templatevalue === undefined) {
-                    filter = true
+                    filterthisitem = true
                 }
             }
 
-            return filter
+            return filterthisitem // true or false; true denotes leave the item out
 
         })
 
@@ -165,37 +184,38 @@ const typefilter = new class {
     }
 
     private getUpgrade = (original, differences, defaults) => {
-        // console.log('getUpgrade original, differences',original,differences)
+
+        if (!differences) return
+
         let changed = false
-        if (differences) {
-            for (let changerecord of differences) {
 
-                if ((changerecord.kind == 'N') || (changerecord.kind == 'E')) {
+        for (let changerecord of differences) {
 
-                    // console.log('changerecord',changerecord)
+            if ((changerecord.kind == 'N') || (changerecord.kind == 'E')) {
 
-                    if (changerecord.kind == 'E') {
-                        if (!utilities.isObject(changerecord.rhs)) {
-                            // if (isObject(changerecord.lhs)) {
-                                continue
-                            // }
-                        }
+                // console.log('changerecord',changerecord)
+
+                if (changerecord.kind == 'E') {
+                    if (!utilities.isObject(changerecord.rhs)) {
+                        // if (isObject(changerecord.lhs)) {
+                            continue
+                        // }
                     }
-                    if (!changed) changed = true
+                }
+                if (!changed) changed = true
 
-                    // console.log('applying change')
-                    deepdiff.applyChange(original,null,changerecord)
+                // console.log('applying change')
+                deepdiff.applyChange(original,null,changerecord)
 
-                    if (changerecord.kind == 'N') {
+                if (changerecord.kind == 'N') {
 
-                        // console.log('applying new change record',original, changerecord, defaults)
-                        this.applyNewBranchDefaults(original, changerecord, defaults)
-
-                    }
+                    // console.log('applying new change record',original, changerecord, defaults)
+                    this.applyNewBranchDefaults(original, changerecord, defaults)
 
                 }
 
             }
+
         }
         return {
             document:original,
@@ -274,9 +294,5 @@ const typefilter = new class {
     }
 }
 // =========================[ export ]==========================
-
-// const schemesupport = {
-//     assertType,
-// }
 
 export default typefilter
