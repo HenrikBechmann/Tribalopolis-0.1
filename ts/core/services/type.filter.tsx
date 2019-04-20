@@ -16,11 +16,23 @@ import utilities from '../utilities/utilities'
 
 const typefilter = new class {
     // TODO: test current document version of type against type version
-    // returns new json object as possibly modified document with changed flag
+    // TDOD: implemeent forceupdate
+
+    // BASICALLY,:
+    // the typefilter singleton updates the document structure to conform to the document's 
+    // most recent type version.
+    // These updates are only applied to the persistent document if the document is 
+    // explicitly submitted for a save in the database. Otherwise the updates are thrown away.
+
+    // TECHNICALLY:
+    // Returns a json document object, which may be a (cloned) modified document with an
+    // accompanying changed flag.
+    // Change instructions are derived from comparison of type elements with instance elements.
+    // assertType is the only pulic method
     public assertType = (document, type, forceupdate = false) => {
 
-        if ((!document) || (!type) || (!type.properties)) {
-            // console.log('return without change assertType')
+        // the document and its type are required to evaluate the document for update
+        if ((!document) || (!type) || (!type.properties.model)) {
             return {
                 document,
                 changed:false,
@@ -35,58 +47,47 @@ const typefilter = new class {
 
             // make deep local copy of document to anticipate changes
             let localdocument:any = merge({},document)
-            // unpack type data for upgrades
+
+            // unpack type data required for upgrades
             let {template, defaults, deletions } = type.properties.model
 
             //TODO: deletions (from previous versions)
             let { version:doctypeversion } = localdocument.identity.type
             let { version:typeversion } = type.identity
 
+            // ------------------[ DO DELTIONS ]----------------------------------
+
             // console.log('doctypeversion, typeversion',doctypeversion,typeversion)
             let deletionsperformed = false
             if ((doctypeversion === typeversion) && (typeversion !== null)) {
 
-                // check for deletions
                 let deletionlist:[] = deletions.versions[doctypeversion]
+                // localdocument can be modified
+                deletionsperformed = this.assertdeletions(localdocument,deletions)
 
-                if (deletionlist) {
-
-                    let paths = deletionlist.map((value:string) => {
-
-                        let path = value.split('.')
-                        return path
-
-                    })
-
-                    for (let path of paths) {
-
-                        let nodePosition = utilities.getNodePosition(localdocument,path)
-
-                        if (nodePosition) {
-
-                            let { nodeproperty, nodeindex } = nodePosition
-                            delete nodeproperty[nodeindex]
-                            if (!deletionsperformed) deletionsperformed = true
-
-                        }
-                    }
-                }
             }
 
-            // get differences between template and current document
+            // ------------------[ DO UPGRADE ]----------------------------------
+
+            // get differences between template (from the type) and the current document
             let differences = this.getDiffs(
                 localdocument,
                 template,
             )
 
-            // upgrade document with template
-            let {document:reviseddocument, changed:datachanged} = this.getUpgrade(localdocument, differences, defaults)
+            // Upgrade the document according to differencee from template; add the properties 
+            // if necessary and apply the defaults
+            let {document:reviseddocument, changed:datachanged} = 
+                this.getUpgrade(localdocument, differences, defaults)
 
             datachanged = (datachanged || deletionsperformed)
+
             // return updgraded document
             return {
+
                 document:reviseddocument,
                 changed:datachanged,
+
             }
 
         } catch (e) {
@@ -95,6 +96,35 @@ const typefilter = new class {
 
         }
 
+    }
+
+    private assertdeletions(localdocument, deletionlist) {
+        let deletionsperformed = false
+                // check for deletions
+        if (deletionlist) {
+
+            let paths = deletionlist.map((value:string) => {
+
+                let path = value.split('.')
+                return path
+
+            })
+
+            for (let path of paths) {
+
+                let nodePosition = utilities.getNodePosition(localdocument,path)
+
+                if (nodePosition) {
+
+                    let { nodeproperty, nodeindex } = nodePosition
+                    delete nodeproperty[nodeindex]
+                    if (!deletionsperformed) deletionsperformed = true
+
+                }
+            }
+        }
+
+        return deletionsperformed
     }
 
     private getDiffs = (document,template) => {
