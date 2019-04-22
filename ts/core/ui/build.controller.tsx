@@ -222,7 +222,7 @@ class BuildController extends React.Component<any,any> {
         toast.info('type has also been loaded (' + docpack.reference + ')')
 
         let results = typefilter.assertType(this.state.docpack.document,this.doctypepack.document)
-        if (results.changed) {
+        if (results && results.changed) {
             this.latestjson = results.document
             this.savejson = results.document
             this.setState({

@@ -18,24 +18,24 @@ const typefilter = new class {
 
 /*    
     TODO: 
-    Test current document version of type against type version
-    Implemeent forceupdate
-    Support chained types, compared to document type
+    - Test current document version of type against type version
+    - Implemeent forceupdate
+    - Support chained types, compared to document type
 
     FUNCTIONALLY:
-    the typefilter singleton updates the downloaded Firebase Store document structure to 
+    - The typefilter singleton updates the downloaded Firebase Store document structure to 
     conform to the document's most recent type version.
     
-    These updates are only applied to the datastore document if the document is 
+    - These updates are only applied to the datastore document if the document is 
     explicitly submitted for a save to the database. Otherwise the updates are thrown away.
     
-    Types can be chained to systematically go through the type versions compared to the 
+    - Types can be chained to systematically go through the type versions compared to the 
     document version
 
     TECHNICALLY:
-    Returns a json document object, which may be a (cloned) modified document with an
+    - Returns a json document object, which may be a (cloned) modified document with an
     accompanying changed flag.
-    Change instructions are derived from comparison of type elements with instance elements.
+    - Change instructions are derived from comparison of type elements with instance elements.
     assertType is the only pulic method
 */
     public assertType = (document, type, forceupdate = false) => {
@@ -48,12 +48,13 @@ const typefilter = new class {
             }
         }
 
-        // TODO:
-        // Check versions to see if an update is required; return if not
-        // if forceupdate is true then continue in any case
-        // iterate through chain of types from document version to most recent type version. 
-        //     THIS IS DEFERREED
-
+/*
+        TODO:
+        Check versions to see if an update is required; return if not
+        if forceupdate is true then continue in any case
+        iterate through chain of types from document version to most recent type version. 
+            THIS IS DEFERREED
+*/
         try {
 
             // ------------------[ SETUP ]----------------------------------
@@ -76,7 +77,7 @@ const typefilter = new class {
 
                 let deletionlist:[] = deletions.versions[doctypeversion]
                 // localdocument can be modified
-                deletionsperformed = this.assertDeletions(localdocument,deletions)
+                deletionsperformed = this.assertDeletions( localdocument, deletionlist )
 
             }
 
@@ -89,7 +90,7 @@ const typefilter = new class {
                 template,
             )
 
-            console.log('differences',differences, localdocument, template)
+            // console.log('differences',differences, localdocument, template)
 
             // Upgrade the document according to differencee from template; add the properties 
             // if necessary and apply the defaults
@@ -153,14 +154,19 @@ const typefilter = new class {
             // this item is filtered -- return true means exclude (filter); return false(ish?) means include
             // test scope. if out of scope, stop comparison
             // note: this blocks out legitimate deletions, which need to be handled some other way
-            let filterthisitem = false
+            let filterthisitem = false // meaning include this item is the default
 
+            // see if the path for this diff is in the template
             let templatenodeposition = utilities.getNodePosition(template,path)
 
+            // if not, filter the change = take no action
             if (!templatenodeposition) { // the comparison was not found in the template; to not process
                 filterthisitem = true
             }
 
+            // console.log('filter diffs: path, key, templatenodeposition',path,key,templatenodeposition)
+
+            // if the item has not yet been rejected (filtered), then apply next text
             if (!filterthisitem) {
                 let {
                     nodeproperty:templateproperty,
@@ -168,14 +174,15 @@ const typefilter = new class {
                     nodevalue:templatevalue
                 } = templatenodeposition
 
-                templateproperty = templatevalue
-                templatevalue = templateproperty[key]
-                if (templatevalue === undefined) {
+
+                // let testproperty = templatevalue
+                let testvalue = templatevalue?templatevalue[ key ]:undefined
+                if (testvalue === undefined) {
                     filterthisitem = true
                 }
             }
 
-            return filterthisitem // true or false; true denotes leave the item out
+            return filterthisitem // true or false; true denotes leave the item out (filter it out)
 
         })
 
