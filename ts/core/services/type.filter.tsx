@@ -63,7 +63,8 @@ const typefilter = new class {
             let localdocument:any = merge({},document)
 
             // unpack type data required for upgrades
-            let {template, defaults, deletions } = type.properties.model
+            let {defaults, deletions } = type.properties.model
+            let { template } = type.properties
 
             //TODO: deletions (from previous versions)
             let { version:doctypeversion } = localdocument.identity.type
