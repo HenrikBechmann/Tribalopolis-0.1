@@ -90,7 +90,7 @@ const typefilter = new class {
                 template,
             )
 
-            // console.log('differences',differences, localdocument, template)
+            console.log('differences',differences, localdocument, template)
 
             // Upgrade the document according to differencee from template; add the properties 
             // if necessary and apply the defaults
@@ -192,7 +192,10 @@ const typefilter = new class {
 
     private getUpgrade = (original, differences, defaults) => {
 
-        if (!differences) return
+        if (!differences) return {
+            document:original,
+            changed:false,
+        }
 
         let changed = false
 
