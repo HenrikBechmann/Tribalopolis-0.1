@@ -91,8 +91,6 @@ const typefilter = new class {
                 template,
             )
 
-            console.log('differences',differences, localdocument, template)
-
             // Upgrade the document according to differencee from template; add the properties 
             // if necessary and apply the defaults
             let {document:reviseddocument, changed:datachanged} = 
@@ -174,11 +172,8 @@ const typefilter = new class {
 
         let changed = true
 
-        console.log('differences in getUpgrade', differences)
-
         for (let changerecord of differences) {
 
-            console.log('applying change', changerecord)
             deepdiff.applyChange(original,null,changerecord)
 
             this.applyNewBranchDefaults(changerecord, original, defaults)
