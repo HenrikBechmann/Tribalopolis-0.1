@@ -29,7 +29,7 @@ const typefilter = new class {
     - These updates are only applied to the datastore document if the document is 
     explicitly submitted for a save to the database. Otherwise the updates are thrown away.
     
-    - Types can be chained to systematically go through the type versions compared to the 
+    - TODO: Types should be chained to systematically go through the type versions compared to the 
     document version
 
     TECHNICALLY:
@@ -38,7 +38,7 @@ const typefilter = new class {
     - Change instructions are derived from comparison of type elements with instance elements.
     assertType is the only pulic method
 */
-    public assertType = (document, type, forceupdate = false) => {
+    public assertType = (document, type) => { //, forceupdate = false) => {
 
         // the document and its type are required to evaluate the document for update
         if ((!document) || (!type) || (!type.properties.model)) {
@@ -149,16 +149,19 @@ const typefilter = new class {
 
         // diff fiters each comparison through the third parameter function
         let differences = deepdiff.diff(document, template)
-
+        if (!differences) return differences
+        let newdifferences = []
         if (differences) {
             for (let index in differences) {
-                if (differences[index].kind != 'N') {
-                    delete differences[index]
+                if (differences[index].kind == 'N') {
+                    newdifferences.push(differences[index])
                 }
             }
         }
 
-        return differences
+        if (!newdifferences.length) newdifferences = undefined
+
+        return newdifferences
 
     }
 
@@ -171,30 +174,14 @@ const typefilter = new class {
 
         let changed = true
 
+        console.log('differences in getUpgrade', differences)
+
         for (let changerecord of differences) {
 
-            // if ((changerecord.kind == 'N') || (changerecord.kind == 'E')) {
+            console.log('applying change', changerecord)
+            deepdiff.applyChange(original,null,changerecord)
 
-            //     if (changerecord.kind == 'E') {
-            //         if (!utilities.isObject(changerecord.rhs)) {
-
-            //             continue
-
-            //         }
-            //     }
-                // if (!changed) changed = true
-
-                // console.log('applying change')
-                deepdiff.applyChange(original,null,changerecord)
-
-                // if (changerecord.kind == 'N') {
-
-                    // console.log('applying new change record',original, changerecord, defaults)
-                    this.applyNewBranchDefaults(original, changerecord, defaults)
-
-                // }
-
-            // }
+            this.applyNewBranchDefaults(changerecord, original, defaults)
 
         }
 
@@ -206,18 +193,16 @@ const typefilter = new class {
 
     // this applies default value for each individual change
     // change could involve an entire branch
-    private applyNewBranchDefaults = (original, changerecord, defaults) => {
+    private applyNewBranchDefaults = (changerecord, original, defaults) => {
 
         // =========[ get the default value to apply ]==========
-
-        // console.log('applyNewBranchDefaults original, changerecord, defaults',original, changerecord, defaults)
 
         // get the path of the value to change
         let path = changerecord.path
 
         let defaultnodeposition = utilities.getNodePosition(defaults,path)
 
-        if (!defaultnodeposition) return
+        if (!defaultnodeposition) return // no default value found
 
         let {
             nodeproperty:defaultproperty,
@@ -225,48 +210,28 @@ const typefilter = new class {
             nodevalue:defaultvalue,
         } = defaultnodeposition
 
+        if (utilities.isObject(defaultvalue)) { // a branch of defaults is available
+
+            return // only base types allowed for defaults
+
+        }
+
         // =========[ get the document node to apply the default value to ]==========
 
         // get the matching original property to change to default, based on change path
-        let comparandnodeposition = utilities.getNodePosition(original,path)
+        let originalnodeposition = utilities.getNodePosition(original,path)
 
-        if (!comparandnodeposition) return
+        if (!originalnodeposition) return
 
         let {
             nodeproperty:sourceproperty,
             nodeindex:sourceindex,
             nodevalue:sourcevalue,
-        } = comparandnodeposition
+        } = originalnodeposition
 
         // =================[ apply the default value to the document node ]=============
 
-        if (utilities.isObject(defaultvalue)) { // a branch of defaults is available
-
-            let defaultproperty = defaultvalue // better name
-
-            sourceproperty = sourcevalue
-
-            if (!utilities.isObject(sourceproperty)) {
-                console.log('error: mismatch of property and defaults',
-                    original, defaults, sourceproperty, defaultproperty)
-                return
-            }
-
-            let differences = this.getDiffs(sourceproperty,defaultproperty)
-
-            if (differences) {
-                for (let changerecord of differences) {
-
-                    if (changerecord.kind == 'E') {
-
-                        deepdiff.applyChange(sourceproperty, null, changerecord)
-
-                    }
-
-                }
-            }
-
-        } else { // a default value is available
+        if (sourceproperty[sourceindex] === null) {
 
             sourceproperty[sourceindex] = defaultvalue
 
