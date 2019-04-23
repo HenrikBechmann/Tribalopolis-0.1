@@ -72,8 +72,8 @@ const typefilter = new class {
 
             // ------------------[ DO DELTIONS ]----------------------------------
 
-            // console.log('doctypeversion, typeversion',doctypeversion,typeversion)
             let deletionsperformed = false
+            // document and type versions must exist and be the same
             if ((doctypeversion === typeversion) && (typeversion !== null)) {
 
                 let deletionlist:[] = deletions.versions[doctypeversion]
@@ -84,7 +84,7 @@ const typefilter = new class {
 
             // ------------------[ DO UPGRADE ]----------------------------------
 
-            // get differences between template (from the type) and the current document
+            // get differences of the template (from the type) against the current document
             // (after deletions)
             let differences = this.getDiffs(
                 localdocument,
@@ -148,44 +148,15 @@ const typefilter = new class {
     private getDiffs = (document,template) => {
 
         // diff fiters each comparison through the third parameter function
-        let differences = deepdiff.diff(document, template, 
-            // this function is the third parameter of deepdiff.diff
-            (path, key) => {
+        let differences = deepdiff.diff(document, template)
 
-            // this item is filtered -- return true means exclude (filter); return false(ish?) means include
-            // test scope. if out of scope, stop comparison
-            // note: this blocks out legitimate deletions, which need to be handled some other way
-            let filterthisitem = false // meaning include this item is the default
-
-            // see if the path for this diff is in the template
-            let templatenodeposition = utilities.getNodePosition(template,path)
-
-            // if not, filter the change = take no action
-            if (!templatenodeposition) { // the comparison was not found in the template; to not process
-                filterthisitem = true
-            }
-
-            // console.log('filter diffs: path, key, templatenodeposition',path,key,templatenodeposition)
-
-            // if the item has not yet been rejected (filtered), then apply next text
-            if (!filterthisitem) {
-                let {
-                    nodeproperty:templateproperty,
-                    nodeindex:templateindex,
-                    nodevalue:templatevalue
-                } = templatenodeposition
-
-
-                // let testproperty = templatevalue
-                let testvalue = templatevalue?templatevalue[ key ]:undefined
-                if (testvalue === undefined) {
-                    filterthisitem = true
+        if (differences) {
+            for (let index in differences) {
+                if (differences[index].kind != 'N') {
+                    delete differences[index]
                 }
             }
-
-            return filterthisitem // true or false; true denotes leave the item out (filter it out)
-
-        })
+        }
 
         return differences
 
@@ -198,36 +169,35 @@ const typefilter = new class {
             changed:false,
         }
 
-        let changed = false
+        let changed = true
 
         for (let changerecord of differences) {
 
-            if ((changerecord.kind == 'N') || (changerecord.kind == 'E')) {
+            // if ((changerecord.kind == 'N') || (changerecord.kind == 'E')) {
 
-                // console.log('changerecord',changerecord)
+            //     if (changerecord.kind == 'E') {
+            //         if (!utilities.isObject(changerecord.rhs)) {
 
-                if (changerecord.kind == 'E') {
-                    if (!utilities.isObject(changerecord.rhs)) {
-                        // if (isObject(changerecord.lhs)) {
-                            continue
-                        // }
-                    }
-                }
-                if (!changed) changed = true
+            //             continue
+
+            //         }
+            //     }
+                // if (!changed) changed = true
 
                 // console.log('applying change')
                 deepdiff.applyChange(original,null,changerecord)
 
-                if (changerecord.kind == 'N') {
+                // if (changerecord.kind == 'N') {
 
                     // console.log('applying new change record',original, changerecord, defaults)
                     this.applyNewBranchDefaults(original, changerecord, defaults)
 
-                }
+                // }
 
-            }
+            // }
 
         }
+
         return {
             document:original,
             changed,
