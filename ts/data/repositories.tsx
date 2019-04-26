@@ -1069,7 +1069,7 @@ let lists = {
         },
         properties:{
             version:0,
-            name:'Types of Records',
+            name:'Folders',
             linkedlist:false,
         },
         references:{
