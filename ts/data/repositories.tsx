@@ -6,7 +6,7 @@
 // repositories.tsx
 let folders = {
     henrikacf:{
-        identity:{
+        control:{
             container:'',
             id:'',
             handle:'',
@@ -39,7 +39,7 @@ let folders = {
 
 let schemes = {
     somescheme:{
-        identity:{
+        control:{
         },
         properties:{},
         references:{
@@ -56,7 +56,7 @@ let schemes = {
 
 let localtypes = {
     incoming:{
-        identity:{
+        control:{
             container:'',
             id:'',
             handle:'',
@@ -102,7 +102,7 @@ let localtypes = {
         data:{},
     },
     outgoing: {
-        identity: {
+        control: {
             container:'',
             id:'',
             handle:'',
@@ -152,7 +152,7 @@ let localtypes = {
 let lists = {
     diaries:
     {
-        identity:{
+        control:{
             container:'',
             id:'',
             handle:'',
@@ -190,7 +190,7 @@ let lists = {
     },
     logs:
     {
-        identity:{
+        control:{
             container:'',
             id:'',
             handle:'',
@@ -228,7 +228,7 @@ let lists = {
     },
     notes:
     {
-        identity:{
+        control:{
             container:'',
             id:'',
             handle:'',
@@ -265,7 +265,7 @@ let lists = {
     },
     tribes:
     {
-        identity:{
+        control:{
             container:'',
             id:'',
             handle:'',
@@ -304,7 +304,7 @@ let lists = {
     },
     connections:
     {
-        identity:{
+        control:{
             container:'',
             id:'',
             handle:'',
@@ -341,7 +341,7 @@ let lists = {
     },
     requesting:
     {
-        identity:{
+        control:{
             container:'',
             id:'',
             handle:'',
@@ -378,7 +378,7 @@ let lists = {
     },
     assets:
     {
-        identity:{
+        control:{
             container:'',
             id:'assets',
             handle:'',
@@ -415,7 +415,7 @@ let lists = {
     },
     roles:
     {
-        identity:{
+        control:{
             container:'',
             id:'',
             handle:'',
@@ -452,7 +452,7 @@ let lists = {
     },
     programs:
     {
-        identity:{
+        control:{
             container:'',
             id:'',
             handle:'',
@@ -489,7 +489,7 @@ let lists = {
     },
     plans:
     {
-        identity:{
+        control:{
             container:'',
             id:'',
             handle:'',
@@ -526,7 +526,7 @@ let lists = {
     },
     projects:
     {
-        identity:{
+        control:{
             container:'',
             id:'outgoing',
             handle:'',
@@ -563,7 +563,7 @@ let lists = {
     },
     tasks:
     {
-        identity:{
+        control:{
             container:'',
             id:'',
             handle:'',
@@ -600,7 +600,7 @@ let lists = {
     },
     managedtasks:
     {
-        identity:{
+        control:{
             container:'',
             id:'',
             handle:'',
@@ -637,7 +637,7 @@ let lists = {
     },
     deeptasks:
     {
-        identity:{
+        control:{
             container:'',
             id:'',
             handle:'',
@@ -674,7 +674,7 @@ let lists = {
     },
     messages:
     {
-        identity:{
+        control:{
             container:'',
             id:'',
             handle:'',
@@ -711,7 +711,7 @@ let lists = {
     },
     streams:
     {
-        identity:{
+        control:{
             container:'',
             id:'',
             handle:'',
@@ -748,7 +748,7 @@ let lists = {
     },
     resources:
     {
-        identity:{
+        control:{
             container:'',
             id:'',
             handle:'',
@@ -785,7 +785,7 @@ let lists = {
     },
     calendars:
     {
-        identity:{
+        control:{
             container:'',
             id:'',
             handle:'',
@@ -822,7 +822,7 @@ let lists = {
     },
     timesheets:
     {
-        identity:{
+        control:{
             container:'',
             id:'',
             handle:'',
@@ -859,7 +859,7 @@ let lists = {
     },
     accounting:
     {
-        identity:{
+        control:{
             container:'',
             id:'',
             handle:'',
@@ -896,7 +896,7 @@ let lists = {
     },
     budgets:
     {
-        identity:{
+        control:{
             container:'',
             id:'',
             handle:'',
@@ -933,7 +933,7 @@ let lists = {
     },
     recipes:
     {
-        identity:{
+        control:{
             container:'',
             id:'',
             handle:'',
@@ -970,7 +970,7 @@ let lists = {
     },
 //     membership:
 //     {
-//         identity:{
+//         control:{
 //             container:'',
 //             id:'',
 //             handle:'',
@@ -1014,7 +1014,7 @@ let lists = {
 //     },
     // other:
     // {
-    //     identity:{
+    //     control:{
     //         container:'',
     //         id:'',
     //         handle:'',
@@ -1057,7 +1057,7 @@ let lists = {
     // },
     henrik:
     {
-        identity:{
+        control:{
             container:'',
             id:'',
             handle:'',
@@ -1170,7 +1170,7 @@ let lists = {
 
 let links = {
     somelink:{
-        identity:{
+        control:{
             container:'',
             id:'',
             handle:'',
@@ -1197,7 +1197,7 @@ let links = {
 
 let items = {
     henrik:{
-        identity:{
+        control:{
             container:'',
             id:'',
             handle:'henrik',
@@ -1262,7 +1262,7 @@ let items = {
 
 let accounts = {
     someaccount:{
-        identity:{},
+        control:{},
         properties:{},
         references:{},
         counts:{},

@@ -345,7 +345,7 @@ class Main extends React.Component<any,any> {
 
         let parms:GetDocumentMessage = {
             reference:'users',
-            whereclauses:[['identity.loginid.uid','==',uid]],
+            whereclauses:[['control.loginid.uid','==',uid]],
             success:this.userDocumentSuccess, 
             failure:this.userDocumentFailure,
         }
@@ -400,7 +400,7 @@ class Main extends React.Component<any,any> {
 
             if (!this.accountDocProxy) {
 
-                this.setAccountDocumentListener(docpack.document.identity.account)
+                this.setAccountDocumentListener(docpack.document.control.account)
 
             } else {
                 this.setState({

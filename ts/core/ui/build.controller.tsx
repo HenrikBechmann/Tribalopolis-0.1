@@ -121,8 +121,8 @@ class BuildController extends React.Component<any,any> {
                     refernce:this.state.values.collection + '/' + this.state.values.id
                 }
             },() => {
-                if (data.identity) {
-                    let typetoken = data.identity.type 
+                if (data.control) {
+                    let typetoken = data.control.type 
                     if (typetoken) {
                         let typeref = typetoken.reference
                         if (typeref) {
@@ -193,8 +193,8 @@ class BuildController extends React.Component<any,any> {
             values,
             docpack
         },() => {
-            if (data.identity) {
-                let typetoken = data.identity.type 
+            if (data.control) {
+                let typetoken = data.control.type 
                 if (typetoken) {
                     let typeref = typetoken.reference
                     if (typeref) {

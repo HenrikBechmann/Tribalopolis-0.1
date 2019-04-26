@@ -60,7 +60,7 @@ const docpackCache = new class {
         // console.log('removed item',document,)
         if (this.isPaired(document)) {
 
-            let typeref = (document && document.identity.type)?document.identity.type.reference:null
+            let typeref = (document && document.control.type)?document.control.type.reference:null
 
             // console.log('removing type listener',typeref)
 
@@ -77,8 +77,8 @@ const docpackCache = new class {
     private isPaired = document => {
         try {
 
-            let identity = document.identity
-            return ('type' in identity)
+            let control = document.control
+            return ('type' in control)
 
         } catch(e) {
 
@@ -201,9 +201,9 @@ const docpackCache = new class {
 
         if (this.isPaired(docpack.document)) {
 
-            let oldtyperef = olddocpack? olddocpack.document.identity.type:null
+            let oldtyperef = olddocpack? olddocpack.document.control.type:null
 
-            let typeref = docpack.document.identity.type?docpack.document.identity.type.reference:null; // all documents have a type
+            let typeref = docpack.document.control.type?docpack.document.control.type.reference:null; // all documents have a type
 
             (oldtyperef && (oldtyperef !== typeref)) && typepackCache.removeListener(oldtyperef,docpack.reference)
 
@@ -284,7 +284,7 @@ const docpackCache = new class {
         if (docpack.document) {
 
             // TODO this next two lines should become errors if no typeref or type found
-            typeref = docpack.document.identity.type?docpack.document.identity.type.reference:null
+            typeref = docpack.document.control.type?docpack.document.control.type.reference:null
 
             typepack = typeref?typepackCache.getCacheDocpack(typeref):{} as DocPackStruc
 
