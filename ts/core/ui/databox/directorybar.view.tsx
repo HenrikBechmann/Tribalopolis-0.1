@@ -39,6 +39,7 @@ const styles = createStyles({
         display:'flex',
         flexFlow:'row nowrap',
         alignItems:'center',
+        cursor:'pointer',
     },
     namestyle:{
         overflow: 'hidden',
@@ -128,7 +129,8 @@ class DirectoryBar extends React.Component<any,any> {
         })
     }
 
-    toggleMenu = () => {
+    toggleMenu = (e) => {
+        e.stopPropagation()
         this.setState(state => ({ menuopen: !state.menuopen }));
     }
 
@@ -154,7 +156,11 @@ class DirectoryBar extends React.Component<any,any> {
                 className = {classes.barstyle}
             >
                 {listDocument
-                ?(<div className = {classes.rowstyle}>
+                ?(<div className = {classes.rowstyle}
+                    onClick = {(e) =>{
+                        this.props.callDataDrawer( e, 'info' ) }
+                    }
+                  >
 
                     <Icon >folder</Icon> 
                     <div className = {classes.namestyle} >
@@ -272,7 +278,7 @@ class DirectoryBar extends React.Component<any,any> {
                             />
                         </MenuItem>
                     </PopupMenu>}
-                    {contextitem && <ActionButton 
+                    {false && contextitem && <ActionButton // not needed
                         buttonStyle = {
                             {
                                 float:'none',

@@ -29,6 +29,7 @@ const styles = createStyles({
         display:'flex',
         flexFlow:'row nowrap',
         alignItems:'center',
+        cursor:'pointer',
     },
     namestyle:{
         overflow: 'hidden',
@@ -107,7 +108,8 @@ class IdentityBar extends React.Component<any, any> {
         })
     }
 
-    toggleMenu = () => {
+    toggleMenu = (e) => {
+        e.stopPropagation()
         this.setState(state => ({ menuopen: !state.menuopen }));
     }
 
@@ -131,7 +133,12 @@ class IdentityBar extends React.Component<any, any> {
     let avatar = '/public/avatars/henrik_in_circle.png'
 
     return <div className = {classes.barstyle}>
-        <div className = {classes.rowstyle}>
+        <div 
+            className = {classes.rowstyle}
+            onClick = {(e) =>{
+                this.props.callDataDrawer( {docproxy:this.itemProxy,options:{opcode:'info'}}) }
+            }
+        >
             {false && <ActionButton 
                 icon = 'lock' 
             />}
@@ -139,19 +146,6 @@ class IdentityBar extends React.Component<any, any> {
             <div className = { classes.namestyle } >
                 {this.state.item && this.state.item.docpack.document.properties.name.fullname}
             </div>
-            <ActionButton 
-                buttonStyle = {
-                    {
-                        float:'none',
-                        width:'24px',
-                        height:'24px',
-                    }
-                } 
-                action = {
-                    () => { this.props.callDataDrawer( {docproxy:this.itemProxy,options:{opcode:'info'}}) }
-                }
-                component = {<Info  />}
-            />
             {(!contextitem) && <div 
                 ref = {this.menuAnchor}
             >
@@ -171,6 +165,12 @@ class IdentityBar extends React.Component<any, any> {
                     menuAnchor = {this.menuAnchor}
                     menuClose = {this.menuClose}
                 >
+                    <MenuItem className = {classes.menustyle}
+                        onClick = {(e) =>{
+                            this.props.callDataDrawer( {docproxy:this.itemProxy,options:{opcode:'info'}}) }
+                        }>
+                        <Info /> Info
+                    </MenuItem>
                     <MenuItem className = {classes.menustyle}
                         onClick = {(e) =>{
                             this.callDataDrawer(e,'edit')}
