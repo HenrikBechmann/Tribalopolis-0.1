@@ -156,7 +156,7 @@ class DirectoryBar extends React.Component<any,any> {
                 {listDocument
                 ?(<div className = {classes.rowstyle}>
 
-                    <Icon >folder_open</Icon> 
+                    <Icon >folder</Icon> 
                     <div className = {classes.namestyle} >
                         <span>{ listDocument.properties.name } </span>
                         <span 
