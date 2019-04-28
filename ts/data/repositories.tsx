@@ -278,6 +278,7 @@ let lists = {
         properties:{
             version:0,
             name:'Tribes',
+            icon:'/public/icons/fire.svg'
         },
         references:{
             subscriptions:[],

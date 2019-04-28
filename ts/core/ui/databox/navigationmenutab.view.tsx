@@ -153,7 +153,6 @@ class NavigationMenuTab extends React.Component<any,any> {
                     ref = {this.chat}
                 >
                     <ActionButton 
-                        disabled
                         icon = 'chat'
                     />
                 </div>

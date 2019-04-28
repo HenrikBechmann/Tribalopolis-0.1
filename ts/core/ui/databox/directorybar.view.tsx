@@ -48,6 +48,9 @@ const styles = createStyles({
         whiteSpace:'nowrap',
         flex:1,
     },
+    iconstyle: {
+        width:'16px',
+    },
     countstyle:{
         fontSize:'smaller',
         color:'silver',
@@ -121,6 +124,7 @@ class DirectoryBar extends React.Component<any,any> {
 
     cacheListDocument = ({docpack,typepack, reason}:ReturnDocPairMessage) => {
         if (this.isunmounting) return
+
         this.setState({
             list:{
                 docpack,
@@ -152,6 +156,8 @@ class DirectoryBar extends React.Component<any,any> {
         let { listStack, classes, haspeers, contextitem } = this.props
         let listDocument = this.state.list?this.state.list.docpack.document:null
 
+        console.log('directorybar', listDocument?listDocument.properties:'nothing', classes.iconstyle)
+
         return <div 
                 className = {classes.barstyle}
             >
@@ -161,8 +167,8 @@ class DirectoryBar extends React.Component<any,any> {
                         this.props.callDataDrawer( e, 'info' ) }
                     }
                   >
-
                     <Icon >folder</Icon> 
+                    {listDocument.properties.icon?<img className = {classes.iconstyle} src={listDocument.properties.icon as any} />:null}
                     <div className = {classes.namestyle} >
                         <span>{ listDocument.properties.name } </span>
                         <span 

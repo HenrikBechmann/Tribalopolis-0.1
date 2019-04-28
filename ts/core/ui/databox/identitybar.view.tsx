@@ -43,6 +43,11 @@ const styles = createStyles({
         width:'24px', 
         marginRight:'3px'
     },
+    databox:{
+        verticalAlign:'middle',
+        width:'24px', 
+        marginRight:'3px'
+    },
 
 })
 
@@ -131,6 +136,7 @@ class IdentityBar extends React.Component<any, any> {
     let { classes, contextitem } = this.props
 
     let avatar = '/public/avatars/henrik_in_circle.png'
+    let databox = "/public/icons/databox.svg"
 
     return <div className = {classes.barstyle}>
         <div 
@@ -142,6 +148,7 @@ class IdentityBar extends React.Component<any, any> {
             {false && <ActionButton 
                 icon = 'lock' 
             />}
+            <img className = {classes.databox} src = {databox} /> 
             <img className = {classes.avatar} src = {avatar} /> 
             <div className = { classes.namestyle } >
                 {this.state.item && this.state.item.docpack.document.properties.name.fullname}

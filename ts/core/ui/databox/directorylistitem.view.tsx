@@ -46,6 +46,9 @@ const styles = createStyles({
         whiteSpace:'nowrap',
         flex:1,
     },
+    iconstyle: {
+        width:'16px',
+    },
     countstyle:{
         fontSize:'smaller',
         color:'silver',
@@ -113,6 +116,8 @@ class DirectoryListItem extends React.Component<any,any> {
 
     cacheListDocument = ({docpack, typepack, reason}:ReturnDocPairMessage) => {
 
+        console.log('directorylist document',docpack)
+
         this.setState({
             list:{
                 docpack,
@@ -170,6 +175,8 @@ class DirectoryListItem extends React.Component<any,any> {
                         >
                             folder
                         </Icon> 
+
+                        {listDocument.properties.icon?<img className = {classes.iconstyle} src={listDocument.properties.icon as any} />:null}
 
                         <div className = {classes.namestyle}>
                             <span>{listDocument.properties.name}</span>  <span 
