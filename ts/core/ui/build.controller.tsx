@@ -279,11 +279,15 @@ class BuildController extends React.Component<any,any> {
     clearObject = () => {
         this.savejson = null
         this.latestjson = {}
+        let values = this.state.values
+        values.id = ''
+        values.json = ''
         this.setState({
             docpack:{
                 data:{},
                 reference:null,
-            }
+            },
+            values,
         })
         toast.info('object was cleared')
     }
