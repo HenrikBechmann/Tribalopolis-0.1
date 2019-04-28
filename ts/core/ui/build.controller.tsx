@@ -380,6 +380,10 @@ class BuildController extends React.Component<any,any> {
                         value:'links',
                         text:'Links',
                     },
+                    {
+                        value:'members',
+                        text:'Members',
+                    },
                 ]}
             />
 

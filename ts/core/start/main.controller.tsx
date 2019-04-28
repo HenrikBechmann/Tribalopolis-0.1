@@ -431,6 +431,7 @@ class Main extends React.Component<any,any> {
             success:this.userAccountPairSuccess, 
             failure:this.userAccountFailure
         }
+        // console.log('setAccountDocumentListener parm',parm, reference)
         // application.getDocument(parm)
         application.setDocpackPairListener(parm)
 

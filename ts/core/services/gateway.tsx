@@ -73,6 +73,7 @@ const setGatewayListener = (parmblock:GetDocumentMessage) => {
         else if (collection == 'localtypes')
             data = localtypes[id]
         else {
+            console.log('ERROR: unrecognized collection', collection, parmblock)
             throw 'unrecognized collection: ' + collection
             data = null
         }
