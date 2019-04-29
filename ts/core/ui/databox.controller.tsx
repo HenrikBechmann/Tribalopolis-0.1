@@ -351,6 +351,7 @@ class DataBox extends React.Component<any,any> {
 
                     callbacks = {this.typecallbacks}
                     collapseDirectoryItem = {this.collapseDirectoryItem}
+                    callDataDrawer = {this.props.callbacks.callDataDrawer}
                 />
 
                 { !haspeers && this.boxframe.current && <ResizeTab 

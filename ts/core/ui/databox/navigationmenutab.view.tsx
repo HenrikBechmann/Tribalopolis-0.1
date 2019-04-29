@@ -153,6 +153,7 @@ class NavigationMenuTab extends React.Component<any,any> {
                     ref = {this.chat}
                 >
                     <ActionButton 
+                        action = { e => {this.props.callDataDrawer({docproxy:null,options:null})}}
                         icon = 'chat'
                     />
                 </div>

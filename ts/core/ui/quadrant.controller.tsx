@@ -254,7 +254,15 @@ class Quadrant extends React.Component<any,any>  {
 
     callDataDrawer = ({docproxy,options}:DataPaneContext) => {
         if (this.state.draweropen) {
-            toast.info('The data shelf is in use. Close the shelf and try again.')
+            this.setState({
+                draweropen:false
+            },() => {
+                this.drawerdatapackage = {docproxy,options, callbacks:{}}
+                this.setState({
+                    draweropen:true
+                })
+            })
+            // toast.info('The data shelf is in use. Close the shelf and try again.')
             return
         }
         this.drawerdatapackage = {docproxy, options, callbacks:{}}
