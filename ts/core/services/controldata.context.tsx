@@ -10,11 +10,13 @@ import SystemDataContext from '../services/systemdata.context'
 
 const ControlDataContext = (props) => {
 
+    let {activemember, activeaccount} = props // TODO: switch to activememperproxy?
+
     return <SystemDataContext.Consumer>
         {systemdata => (
             <UserDataContext.Consumer>
                 {userdata => (
-                    props.children(systemdata,userdata)
+                    props.children( systemdata, userdata, activemember, activeaccount )
                 )}
             </UserDataContext.Consumer>
         )}
