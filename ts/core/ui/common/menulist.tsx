@@ -12,8 +12,9 @@ import ListItemText from '@material-ui/core/ListItemText'
 import Divider from '@material-ui/core/Divider'
 import Icon from '@material-ui/core/Icon'
 
-import UserDataContext from '../../services/userdata.context'
-import SystemDataContext from '../../services/systemdata.context'
+// import UserDataContext from '../../services/userdata.context'
+// import SystemDataContext from '../../services/systemdata.context'
+import ControlDataContext from '../../services/controldata.context'
 // import AccountDialog from './accountdialog'
 import DescriptiveDivider from './descriptivedivider.view'
 
@@ -63,10 +64,8 @@ class MenuListBase extends React.Component<any,any> {
     // console.log('menulist render: state, props',this.state, this.props)
 
     return (
-        <SystemDataContext.Consumer>
-        { systemdata => (
-        <UserDataContext.Consumer>
-        { userdata => (
+        <ControlDataContext>
+        { (systemdata,userdata) => (
             <List>
                 <ListItem button
                     onClick = {() => history.push('/')}
@@ -236,9 +235,7 @@ class MenuListBase extends React.Component<any,any> {
                 </ListItem>
             </List>
         )}
-        </UserDataContext.Consumer>
-        )}
-        </SystemDataContext.Consumer>
+        </ControlDataContext>
     )}
 }
 
