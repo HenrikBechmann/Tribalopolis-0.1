@@ -14,7 +14,7 @@ import Icon from '@material-ui/core/Icon'
 
 // import UserDataContext from '../../services/userdata.context'
 // import SystemDataContext from '../../services/systemdata.context'
-import ControlDataContext from '../../services/controldata.context'
+import ControlData from '../../services/controldata.context'
 // import AccountDialog from './accountdialog'
 import DescriptiveDivider from './descriptivedivider.view'
 
@@ -64,7 +64,7 @@ class MenuListBase extends React.Component<any,any> {
     // console.log('menulist render: state, props',this.state, this.props)
 
     return (
-        <ControlDataContext>
+        <ControlData>
         { (systemdata,userdata) => (
             <List>
                 <ListItem button
@@ -235,7 +235,7 @@ class MenuListBase extends React.Component<any,any> {
                 </ListItem>
             </List>
         )}
-        </ControlDataContext>
+        </ControlData>
     )}
 }
 

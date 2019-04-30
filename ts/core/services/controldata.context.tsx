@@ -8,7 +8,7 @@ import React from 'react'
 import UserDataContext from '../services/userdata.context'
 import SystemDataContext from '../services/systemdata.context'
 
-const ControlDataContext = (props) => {
+const ControlData = (props) => {
 
     let {activemember, activeaccount} = props // TODO: switch to activememperproxy?
 
@@ -24,4 +24,4 @@ const ControlDataContext = (props) => {
 
 }
 
-export default ControlDataContext
+export default ControlData

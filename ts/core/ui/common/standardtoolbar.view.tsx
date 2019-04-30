@@ -11,7 +11,7 @@ import Icon from '@material-ui/core/Icon'
 
 // import UserDataContext from '../../services/userdata.context'
 // import SystemDataContext from '../../services/systemdata.context'
-import ControlDataContext from '../../services/controldata.context'
+import ControlData from '../../services/controldata.context'
 import ToolsStrip from './toolsstrip.view'
 import VerticalDivider from './verticaldivider.view'
 
@@ -39,7 +39,7 @@ const StandardToolbar = (props) => {
     let { classes } = props
     return (
         <div>
-            <ControlDataContext>
+            <ControlData>
             { (systemdata, userdata) => (
                 <ToolsStrip
                     userdata = {userdata}
@@ -59,7 +59,7 @@ const StandardToolbar = (props) => {
                     </div>
                 </ToolsStrip>)
             }
-            </ControlDataContext>
+            </ControlData>
             <div className = {classes.spacer} ></div>
         </div>
     )
