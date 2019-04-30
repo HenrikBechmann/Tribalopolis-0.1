@@ -23,7 +23,8 @@ import BaseForm from './input/baseform.view'
 import SelectField from './input/selectfield.view'
 import TextField from './input/textfield.view'
 
-import UserDataContext from '../services/userdata.context'
+// import UserDataContext from '../services/userdata.context'
+import ControlData from '../services/controldata.context'
 
 import application from '../services/application'
 import typefilter from '../services/type.filter'
@@ -526,9 +527,9 @@ class BuildController extends React.Component<any,any> {
 
             {!application.properties.ismobile?
 
-            <UserDataContext.Consumer>
+            <ControlData>
 
-                { userdata => {
+                { (systemdata, userdata) => {
 
                     let login = userdata?userdata.login:null
 
@@ -557,7 +558,7 @@ class BuildController extends React.Component<any,any> {
                     </div> )
                 }}
 
-            </UserDataContext.Consumer>
+            </ControlData>
 
             :<div>The build utility is only available on desktops</div>
 

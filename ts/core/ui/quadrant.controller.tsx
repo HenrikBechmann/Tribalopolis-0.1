@@ -23,7 +23,8 @@ import quadanimations from './quadrant/quadanimations.class'
 import quadoperations from './quadrant/quadoperations.class'
 
 import { DocTokenStruc } from '../services/interfaces'
-import UserDataContext from '../services/userdata.context'
+// import UserDataContext from '../services/userdata.context'
+import ControlData from '../services/controldata.context'
 import { DataPaneContext } from '../services/interfaces'
 
 let styles = createStyles({
@@ -409,8 +410,8 @@ class Quadrant extends React.Component<any,any>  {
             <div ref = {this.originanimationblock} ></div>
             <div ref = {this.maskanimationblock} ></div>
 
-                <UserDataContext.Consumer>
-                { userdata => {
+                <ControlData>
+                { (systemdata, userdata) => {
 
                     return <QuadContextBar
                         userdata = {userdata} 
@@ -421,7 +422,7 @@ class Quadrant extends React.Component<any,any>  {
                         callDataDrawer = {this.callDataDrawer}
                     />
                 }}
-                </UserDataContext.Consumer>
+                </ControlData>
             <QuadOrigin 
                 haspeers = {haspeers}
                 stackpointer = {this.state.stackpointer} 
@@ -445,8 +446,8 @@ class Quadrant extends React.Component<any,any>  {
                     style = {viewportStyle}
                     ref = {this.scrollboxelement}
                 >
-                <UserDataContext.Consumer>
-                { userdata => {
+                <ControlData>
+                { (systemdata, userdata) => {
                     return (userdata?
                          (!isempty?(
                             haspeers
@@ -473,7 +474,7 @@ class Quadrant extends React.Component<any,any>  {
                     :<div className = {classes.startscreen}>Must be signed in to use this utility</div>
                     )
                 }}
-                </UserDataContext.Consumer>
+                </ControlData>
                 </div>
             }
             </div>

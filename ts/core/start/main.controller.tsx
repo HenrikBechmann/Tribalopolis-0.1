@@ -51,6 +51,7 @@ import MainView from './main.view'
 import authapi from '../services/auth.api'
 import UserDataContext from '../services/userdata.context'
 import SystemDataContext from '../services/systemdata.context'
+import ControlData from '../services/controldata.context'
 
 import 'react-toastify/dist/ReactToastify.min.css' 
 
@@ -512,8 +513,8 @@ class Main extends React.Component<any,any> {
 
         return (
 
-            <SystemDataContext.Provider value = {systemdata}>
-                <UserDataContext.Provider value = {userdata}>
+            <SystemDataContext.Provider value = { systemdata }>
+                <UserDataContext.Provider value = { userdata }>
 
                     <ToastContainer position = {toast.POSITION.BOTTOM_LEFT} autoClose = {3000} 
                     hideProgressBar />
