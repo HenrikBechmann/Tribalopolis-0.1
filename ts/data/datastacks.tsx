@@ -10,7 +10,7 @@ let datastacks = [ // four quadrant stacks
             items:[ // items in the stack layer
                 new docproxy(
                     {doctoken:{
-                        reference:'/items/henrik',
+                        reference:'/accounts/VyfFksGi0Ehv7unaMoI0',
                         // collection:'items',
                         // id:'henrik',
                     }}),

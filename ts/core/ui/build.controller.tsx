@@ -390,6 +390,10 @@ class BuildController extends React.Component<any,any> {
                         text:'Datapanes',
                     },
                     {
+                        value:'layouts',
+                        text:'Layouts',
+                    },
+                    {
                         value:'links',
                         text:'Links',
                     },

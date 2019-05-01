@@ -77,6 +77,8 @@ class DirectoryListItem extends React.Component<any,any> {
     barelementref
     highlight
 
+    unmounting = false
+
     componentDidMount() {
 
         if ((!this.listProxy) && this.props.listProxy) {
@@ -102,6 +104,7 @@ class DirectoryListItem extends React.Component<any,any> {
     }
 
     componentWillUnmount() {
+        this.unmounting = true
         if (this.listProxy) {
             let parms:RemoveListenerMessage = 
                 {
@@ -117,7 +120,7 @@ class DirectoryListItem extends React.Component<any,any> {
     cacheListDocument = ({docpack, typepack, reason}:ReturnDocPairMessage) => {
 
         // console.log('directorylist document',docpack)
-
+        if (this.unmounting) return
         this.setState({
             list:{
                 docpack,

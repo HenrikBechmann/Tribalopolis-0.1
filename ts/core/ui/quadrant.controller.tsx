@@ -94,7 +94,6 @@ class Quadrant extends React.Component<any,any>  {
 
         // ------------[ data ]-------------
         this.datastack = this.props.datastack
-        console.log('this.datastack in quadrant.controller',this.datastack)
 
         // ------------[ components ]-------------
         this.listcomponent = React.createRef()
@@ -372,6 +371,7 @@ class Quadrant extends React.Component<any,any>  {
         let { color, classes } = this.props
 
         let datastack = this.datastack
+        console.log('datastack in quadrant.controller render',datastack)
 
         let haspeers = datastack?(datastack[this.state.stackpointer].items.length > 1):false
         let isempty = datastack?!(datastack[this.state.stackpointer].items.length):true
