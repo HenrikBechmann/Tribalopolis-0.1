@@ -94,7 +94,7 @@ class Quadrant extends React.Component<any,any>  {
 
         // ------------[ data ]-------------
         this.datastack = this.props.datastack
-        console.log('this.datastack in quadrant.controller')
+        console.log('this.datastack in quadrant.controller',this.datastack)
 
         // ------------[ components ]-------------
         this.listcomponent = React.createRef()
@@ -387,9 +387,6 @@ class Quadrant extends React.Component<any,any>  {
         if (!haspeers && this.scrollboxelement.current && (this.scrollboxelement.current.scrollLeft != 0)) {
             this.scrollboxelement.current.scrollLeft = 0
         }
-        // console.log('rendering quadrant.controller')
-        // useStaticSize Lister attribute below is required to avoid setState 
-        // recursion overload and crash
 
         return <ControlData activemember = "" activeaccount = "">
         {(systemdata, userdata, activememberdata, activeaccountdata) => {
