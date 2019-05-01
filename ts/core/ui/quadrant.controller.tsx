@@ -400,20 +400,20 @@ class Quadrant extends React.Component<any,any>  {
         // console.log('rendering quadrant.controller')
         // useStaticSize Lister attribute below is required to avoid setState 
         // recursion overload and crash
-        return ( 
-        <div
-            className = {classes.quadcontent}
-            style = {quadcontentStyle}
-            ref = {this.quadcontentelement}
-        >
-            <div ref = {this.drillanimationblock} ></div>
-            <div ref = {this.originanimationblock} ></div>
-            <div ref = {this.maskanimationblock} ></div>
 
-                <ControlData>
-                { (systemdata, userdata) => {
+        return <ControlData activemember = "" activeaccount = "">
+        {(systemdata, userdata, activememberdata, activeaccountdata) => {
+            return (
+                <div
+                    className = {classes.quadcontent}
+                    style = {quadcontentStyle}
+                    ref = {this.quadcontentelement}
+                >
+                    <div ref = {this.drillanimationblock} ></div>
+                    <div ref = {this.originanimationblock} ></div>
+                    <div ref = {this.maskanimationblock} ></div>
 
-                    return <QuadContextBar
+                    <QuadContextBar
                         userdata = {userdata} 
                         quadidentifier={this.props.quadidentifier}
                         datastack = {datastack}
@@ -421,65 +421,64 @@ class Quadrant extends React.Component<any,any>  {
                         callbacks = {this.props.callbacks}
                         callDataDrawer = {this.callDataDrawer}
                     />
-                }}
-                </ControlData>
-            <QuadOrigin 
-                haspeers = {haspeers}
-                stackpointer = {this.state.stackpointer} 
-                stackdepth = {datastack?datastack.length:0}
-                itemdepth = {datastack?datastack[this.state.stackpointer].items.length:0}
-                incrementStackSelector = {this.operations.incrementStackSelector}
-                decrementStackSelector = {this.operations.decrementStackSelector}
-                ref = {this.originelement}
-            />
-            <div className = {classes.viewportFrame}>
-                <DataDrawer open = {this.state.draweropen}
-                    handleClose = {this.closeDrawer}
-                    containerelement = {this.quadcontentelement}
-                >
-                    <DataPane
-                        dataPaneContext = {this.drawerdatapackage}
+                    <QuadOrigin 
+                        haspeers = {haspeers}
+                        stackpointer = {this.state.stackpointer} 
+                        stackdepth = {datastack?datastack.length:0}
+                        itemdepth = {datastack?datastack[this.state.stackpointer].items.length:0}
+                        incrementStackSelector = {this.operations.incrementStackSelector}
+                        decrementStackSelector = {this.operations.decrementStackSelector}
+                        ref = {this.originelement}
                     />
-                </DataDrawer>
-                <div 
-                    className = {classes.viewport}
-                    style = {viewportStyle}
-                    ref = {this.scrollboxelement}
-                >
-                <ControlData>
-                { (systemdata, userdata) => {
-                    return (userdata?
-                         (!isempty?(
-                            haspeers
-                                ?<List 
-                                    itemCount = { 
-                                        datastack?datastack[this.state.stackpointer].items.length:0
-                                    }
-                                    layout = "horizontal"
-                                    height = {this.scrollboxelement.current.offsetHeight}
-                                    width = {this.scrollboxelement.current.offsetWidth}
-                                    itemSize = {this.state.boxwidth + 56}
-                                    ref = {this.listcomponent}
-                                 >
-                                    {this.Box}
-                                </List>
-                                :this.Box({index:0,style:null})
-                            )
-                        :
-                        <div className = {classes.startscreen}
-                            onClick = {this.setDefault}
-                        >
-                            <div>Tap to start</div>
-                        </div>)
-                    :<div className = {classes.startscreen}>Must be signed in to use this utility</div>
-                    )
-                }}
-                </ControlData>
-                </div>
-            }
-            </div>
+                    <div className = {classes.viewportFrame}>
 
-        </div>)
+                        <DataDrawer open = {this.state.draweropen}
+                            handleClose = {this.closeDrawer}
+                            containerelement = {this.quadcontentelement}
+                        >
+                            <DataPane
+                                dataPaneContext = {this.drawerdatapackage}
+                            />
+                        </DataDrawer>
+                    
+                        <div 
+                            className = {classes.viewport}
+                            style = {viewportStyle}
+                            ref = {this.scrollboxelement}
+                        >
+                            {userdata?
+                                (!isempty?(
+                                    haspeers
+                                        ?<List 
+                                            itemCount = { 
+                                                datastack?datastack[this.state.stackpointer].items.length:0
+                                            }
+                                            layout = "horizontal"
+                                            height = {this.scrollboxelement.current.offsetHeight}
+                                            width = {this.scrollboxelement.current.offsetWidth}
+                                            itemSize = {this.state.boxwidth + 56}
+                                            ref = {this.listcomponent}
+                                         >
+                                            {this.Box}
+                                        </List>
+                                        :this.Box({index:0,style:null})
+                                    )
+                                    :
+                                    <div className = {classes.startscreen}
+                                        onClick = {this.setDefault}
+                                    >
+                                        <div>Tap to start</div>
+                                    </div>)
+                                :<div className = {classes.startscreen}>Must be signed in to use this utility</div>
+                                }
+                            }}
+                        </div>
+                    }
+                    </div>
+                </div>
+            )
+        }}
+        </ControlData>
     }
 }
 
