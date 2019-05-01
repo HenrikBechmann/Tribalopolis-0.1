@@ -329,8 +329,8 @@ class Quadrant extends React.Component<any,any>  {
             highlightBox:this.animations.highlightBox,
             splayBox:(domSource, listcomponent,listdoctoken) => {
                 this.operations.splayBox(index, domSource, listcomponent,listdoctoken)},
-            selectFromSplay:(domSource) => {
-                this.operations.selectFromSplay(index,domSource)},
+            expandFromSplay:(domSource) => {
+                this.operations.expandFromSplay(index,domSource)},
             expandDirectoryItem:(doctoken:DocTokenStruc, domSource) => {
                 this.operations.expandDirectoryItem(index,doctoken, domSource)},
             collapseDirectoryItem:this.operations.collapseDirectoryItem,

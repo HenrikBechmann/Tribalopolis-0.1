@@ -85,9 +85,9 @@ class NavigationMenuTab extends React.Component<any,any> {
         })
     }
 
-    selectFromSplay = () => {
+    expandFromSplay = () => {
         return () => {
-            this.props.callbacks.selectFromSplay(this.selectdomsource.current)
+            this.props.callbacks.expandFromSplay(this.selectdomsource.current)
         }
     }
 
@@ -121,7 +121,7 @@ class NavigationMenuTab extends React.Component<any,any> {
                         iconStyle = {{transform:'rotate(90deg)'}}
                         disabled = {!this.props.haspeers}
                         img = '/public/icons/ic_splay_24px.svg' 
-                        action = {this.selectFromSplay()}
+                        action = {this.expandFromSplay()}
                     />
                 </div>
                 {true && <div className = {classes.buttonwrapper}

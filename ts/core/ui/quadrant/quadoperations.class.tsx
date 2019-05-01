@@ -53,6 +53,8 @@ class quadoperations {
 
         let itemProxy = datastack[stackpointer].items[boxptr]
 
+        console.log('expandDirectoryItem itemProxy, datastack', itemProxy, datastack)        
+
         stackpointer++
         let newstacklayer = {items:[], settings:{}, source:{
             instanceid:itemProxy.instanceid,
@@ -100,6 +102,8 @@ class quadoperations {
         let itemProxy = datastack[stackpointer].items[boxptr]
         let itemToken = itemProxy.doctoken
 
+        console.log('splayBox itemProxy, datastack', itemProxy, datastack)        
+
         let listtokens = listDocument.data.lists
 
         if (!listtokens || !listtokens.length) return
@@ -135,7 +139,7 @@ class quadoperations {
         },100)
     }
 
-    selectFromSplay = (boxptr:number,domSource) => {
+    expandFromSplay = (boxptr:number,domSource) => {
 
         this.animations.animateToOrigin()
 
@@ -177,23 +181,23 @@ class quadoperations {
         },100)
     }
 
-    incrementStackSelector = () => {
-        let datastack = this.quadrant.datastack
-        let { stackpointer } = this.quadrant.state
-        this._captureSettings(stackpointer,datastack)
-        let depth = datastack.length
-        if (stackpointer < (depth - 1)) {
-            stackpointer++
-            this.quadrant.datastack = datastack
-            this.quadrant.setState({
-                stackpointer,
-            },() => {
-                setTimeout(() =>{
-                    this._applySettings(stackpointer,datastack)
-                },300)
-            })
-        }
-    }
+    // incrementStackSelector = () => {
+    //     let datastack = this.quadrant.datastack
+    //     let { stackpointer } = this.quadrant.state
+    //     this._captureSettings(stackpointer,datastack)
+    //     let depth = datastack.length
+    //     if (stackpointer < (depth - 1)) {
+    //         stackpointer++
+    //         this.quadrant.datastack = datastack
+    //         this.quadrant.setState({
+    //             stackpointer,
+    //         },() => {
+    //             setTimeout(() =>{
+    //                 this._applySettings(stackpointer,datastack)
+    //             },300)
+    //         })
+    //     }
+    // }
 
     //-------------------------------[ backward ]----------------------------
 

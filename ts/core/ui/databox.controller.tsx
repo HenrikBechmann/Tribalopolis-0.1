@@ -280,7 +280,7 @@ class DataBox extends React.Component<any,any> {
         setDocpackPairListener:this.props.callbacks.setDocpackPairListener,
         removeDocpackPairListener:this.props.callbacks.removeDocpackPairListener,
         splayBox:this.splayBox,
-        selectFromSplay:this.props.callbacks.selectFromSplay,
+        expandFromSplay:this.props.callbacks.expandFromSplay,
     }
 
     render() {
