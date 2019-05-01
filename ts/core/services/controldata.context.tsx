@@ -11,12 +11,16 @@ import SystemDataContext from '../services/systemdata.context'
 const ControlData = (props) => {
 
     let {activemember, activeaccount} = props // TODO: switch to activememperproxy?
+    // TODO: convert references to objects = fetch from database
+
+    let activememberdata = null
+    let activeaccountdata = null
 
     return <SystemDataContext.Consumer>
         {systemdata => (
             <UserDataContext.Consumer>
                 {userdata => (
-                    props.children( systemdata, userdata, activemember, activeaccount )
+                    props.children( systemdata, userdata, activememberdata, activeaccountdata )
                 )}
             </UserDataContext.Consumer>
         )}

@@ -93,7 +93,8 @@ class Quadrant extends React.Component<any,any>  {
         this.originelement = React.createRef()
 
         // ------------[ data ]-------------
-        this.datastack = this.props.datastack,
+        this.datastack = this.props.datastack
+        console.log('this.datastack in quadrant.controller')
 
         // ------------[ components ]-------------
         this.listcomponent = React.createRef()
@@ -180,21 +181,11 @@ class Quadrant extends React.Component<any,any>  {
     componentDidUpdate() {
 
         let activeTargetProxy = this.activeTargetProxy
-        // console.log('quadrant componentDidUpdate isTargetProxy()', this.operations.isTargetProxy())
+
         // animation and visibility based on return from descendant stack level
         if (!activeTargetProxy) return
 
-        // keep; value will be purged
-        // console.log('activeTargetProxy in quadrant componentDidUpdate',activeTargetProxy)
-
         this.operations.setTargetProxy(null)
-        // get index for Lister
-        // let scrollindex = this.datastack[this.state.stackpointer].items
-        //     .findIndex(this._findlinkIndex(activeTargetProxy.sourceinstanceid))
-
-        // console.log('target index quadrant componentDidUpdate',scrollindex)
-        // // update scroll display with selected highlight item
-        // activeTargetProxy.index = scrollindex
 
         setTimeout( () => { // defer to currently running code
 
@@ -273,12 +264,11 @@ class Quadrant extends React.Component<any,any>  {
     }
 
     setDefault = () => {
+
         let datastack = this.datastack
         datastack[this.state.stackpointer].items = datastack[this.state.stackpointer].defaultitems
         this.forceUpdate()
-        // this.setState({
-        //     datastack, // set workspace
-        // })
+
     }
 
     getBox = ({index,style}) => {
