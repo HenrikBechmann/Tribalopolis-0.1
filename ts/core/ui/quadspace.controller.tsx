@@ -161,38 +161,6 @@ class QuadspaceController extends React.Component<any,any> {
 
     badgestyle = {left:'-12px'}
 
-    //--------------------------[ account settings ]-------------------------
-
-    // getAccountDialog = (userdata, systemdata) => {
-    //     // console.log('props in menulist/getAccountDialog',this.props)
-    //     // console.log('state, userdata, systemdata in menulist getAccountDialog',this.state,userdata, systemdata)
-    //     if (this.state.settingsopen) { 
-    //         console.log('calling AccountDialog with OPEN',this.state, userdata, systemdata)
-    //         return <AccountDialog 
-    //             closeSettings = {this.closeSettings}
-    //             userdata = {userdata}
-    //             systemdata = {systemdata}
-    //         />
-    //     } else {
-    //         console.log('calling AccountDialog with CLOSED',userdata, systemdata)
-    //         return null
-    //     }
-    // }
-
-    // openSettings = () => {
-    //     console.log('in quadspace openSettings', this.state)
-    //     this.setState({
-    //         settingsopen:true,
-    //     })
-    // }
-
-    // closeSettings = () => {
-    //     console.log('in quadspace closeSettings', this.state)
-    //     this.setState({ 
-    //         settingsopen: false,
-    //     })
-    // }
-
     render() {
         return (
             <QuadSpaceFrame>
@@ -219,7 +187,9 @@ class QuadspaceController extends React.Component<any,any> {
                         </ToolsStrip>
                         <QuadBasket><QuantityBadge quantity = {0} style = {this.badgestyle} /></QuadBasket>
                         <QuadViewport>
-                            <Quadrants                         
+                            <Quadrants 
+                                systemdata = {systemdata}
+                                userdata = {userdata}                        
                                 quadrantIdentifiers =  {this.quadrantIdentifiers}
                                 split = {this.state.split}
                                 datastacks = {this.state.datastacks}

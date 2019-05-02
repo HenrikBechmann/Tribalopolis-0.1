@@ -24,7 +24,7 @@ import quadoperations from './quadrant/quadoperations.class'
 
 import { DocTokenStruc } from '../services/interfaces'
 // import UserDataContext from '../services/userdata.context'
-import ControlData from '../services/controldata.context'
+// import ControlData from '../services/controldata.context'
 import { DataPaneContext } from '../services/interfaces'
 
 let styles = createStyles({
@@ -94,6 +94,8 @@ class Quadrant extends React.Component<any,any>  {
 
         // ------------[ data ]-------------
         this.datastack = this.props.datastack
+        this.systemdata = this.props.systemdata
+        this.userdata = this.props.userdata
 
         // ------------[ components ]-------------
         this.listcomponent = React.createRef()
@@ -137,6 +139,12 @@ class Quadrant extends React.Component<any,any>  {
 
     datastack = null
     activeTargetProxy = null
+
+    activeaccountreference
+    systemdata
+    userdata
+    activemember
+    activeaccount
 
     // dom refs
     quadcontentelement
@@ -189,6 +197,7 @@ class Quadrant extends React.Component<any,any>  {
         setTimeout( () => { // defer to currently running code
 
             if (this.listcomponent && (this.datastack[this.state.stackpointer].items.length > 1)) {
+
                 let scrollindex = activeTargetProxy.index
                 this.listcomponent.current.scrollToItem(scrollindex)
 
@@ -223,6 +232,28 @@ class Quadrant extends React.Component<any,any>  {
     // for reset of containerHeight
     onResize = () => {
         this.forceUpdate()
+    }
+
+/********************************************************
+----------------[ control data assembly ]----------------
+*********************************************************/
+
+    getActiveMemberData = (systemdata, userdata, activemember, activeaccount) => {
+    // TODO fetch activememberdata from cache or from db
+        if (!activemember) {
+            return null
+        } else {
+            return activemember
+        }
+    }
+
+    getActiveAccountData = (systemdata, userdata, activemember, activeaccount) => {
+    // TODO fetch activeaccountdata from cache or from db
+        if (!activeaccount) {
+            return {} //userdata.account
+        } else {
+            return {} //activeaccount // as found in database or cache
+        }
     }
 
 /********************************************************
@@ -368,7 +399,7 @@ class Quadrant extends React.Component<any,any>  {
 
     render() {
 
-        let { color, classes } = this.props
+        let { color, classes, systemdata, userdata } = this.props
 
         let datastack = this.datastack
         console.log('datastack in quadrant.controller render',datastack)
@@ -390,84 +421,80 @@ class Quadrant extends React.Component<any,any>  {
             this.scrollboxelement.current.scrollLeft = 0
         }
 
-        return <ControlData activemember = '' activeaccount = { datastack[stackpointer].account } >
-        {(systemdata, userdata, activememberdata, activeaccountdata) => {
-            return (
-                <div
-                    className = {classes.quadcontent}
-                    style = {quadcontentStyle}
-                    ref = {this.quadcontentelement}
-                >
-                    <div ref = {this.drillanimationblock} ></div>
-                    <div ref = {this.originanimationblock} ></div>
-                    <div ref = {this.maskanimationblock} ></div>
+        return (
+            <div
+                className = {classes.quadcontent}
+                style = {quadcontentStyle}
+                ref = {this.quadcontentelement}
+            >
+                <div ref = {this.drillanimationblock} ></div>
+                <div ref = {this.originanimationblock} ></div>
+                <div ref = {this.maskanimationblock} ></div>
 
-                    <QuadContextBar
-                        userdata = {userdata} 
-                        quadidentifier={this.props.quadidentifier}
-                        datastack = {datastack}
-                        stackpointer = {this.state.stackpointer}
-                        callbacks = {this.props.callbacks}
-                        callDataDrawer = {this.callDataDrawer}
-                    />
-                    <QuadOrigin 
-                        haspeers = {haspeers}
-                        stackpointer = {this.state.stackpointer} 
-                        stackdepth = {datastack?datastack.length:0}
-                        itemdepth = {datastack?datastack[this.state.stackpointer].items.length:0}
-                        incrementStackSelector = {this.operations.incrementStackSelector}
-                        decrementStackSelector = {this.operations.decrementStackSelector}
-                        ref = {this.originelement}
-                    />
-                    <div className = {classes.viewportFrame}>
+                <QuadContextBar
+                    userdata = {userdata} 
+                    quadidentifier={this.props.quadidentifier}
+                    datastack = {datastack}
+                    stackpointer = {this.state.stackpointer}
+                    callbacks = {this.props.callbacks}
+                    callDataDrawer = {this.callDataDrawer}
+                />
+                <QuadOrigin 
+                    haspeers = {haspeers}
+                    stackpointer = {this.state.stackpointer} 
+                    stackdepth = {datastack?datastack.length:0}
+                    itemdepth = {datastack?datastack[this.state.stackpointer].items.length:0}
+                    incrementStackSelector = {this.operations.incrementStackSelector}
+                    decrementStackSelector = {this.operations.decrementStackSelector}
+                    ref = {this.originelement}
+                />
+                <div className = {classes.viewportFrame}>
 
-                        <DataDrawer open = {this.state.draweropen}
-                            handleClose = {this.closeDrawer}
-                            containerelement = {this.quadcontentelement}
-                        >
-                            <DataPane
-                                dataPaneContext = {this.drawerdatapackage}
-                            />
-                        </DataDrawer>
-                    
-                        <div 
-                            className = {classes.viewport}
-                            style = {viewportStyle}
-                            ref = {this.scrollboxelement}
-                        >
-                            {userdata?
-                                (!isempty?(
-                                    haspeers
-                                        ?<List 
-                                            itemCount = { 
-                                                datastack?datastack[this.state.stackpointer].items.length:0
-                                            }
-                                            layout = "horizontal"
-                                            height = {this.scrollboxelement.current.offsetHeight}
-                                            width = {this.scrollboxelement.current.offsetWidth}
-                                            itemSize = {this.state.boxwidth + 56}
-                                            ref = {this.listcomponent}
-                                         >
-                                            {this.Box}
-                                        </List>
-                                        :this.Box({index:0,style:null})
-                                    )
-                                    :
-                                    <div className = {classes.startscreen}
-                                        onClick = {this.setDefault}
-                                    >
-                                        <div>Tap to start</div>
-                                    </div>)
-                                :<div className = {classes.startscreen}>Must be signed in to use this utility</div>
-                                }
-                            }}
-                        </div>
-                    }
+                    <DataDrawer open = {this.state.draweropen}
+                        handleClose = {this.closeDrawer}
+                        containerelement = {this.quadcontentelement}
+                    >
+                        <DataPane
+                            dataPaneContext = {this.drawerdatapackage}
+                        />
+                    </DataDrawer>
+                
+                    <div 
+                        className = {classes.viewport}
+                        style = {viewportStyle}
+                        ref = {this.scrollboxelement}
+                    >
+                        {userdata?
+                            (!isempty?(
+                                haspeers
+                                    ?<List 
+                                        itemCount = { 
+                                            datastack?datastack[this.state.stackpointer].items.length:0
+                                        }
+                                        layout = "horizontal"
+                                        height = {this.scrollboxelement.current.offsetHeight}
+                                        width = {this.scrollboxelement.current.offsetWidth}
+                                        itemSize = {this.state.boxwidth + 56}
+                                        ref = {this.listcomponent}
+                                     >
+                                        {this.Box}
+                                    </List>
+                                    :this.Box({index:0,style:null})
+                                )
+                                :
+                                <div className = {classes.startscreen}
+                                    onClick = {this.setDefault}
+                                >
+                                    <div>Tap to start</div>
+                                </div>)
+                            :<div className = {classes.startscreen}>Must be signed in to use this utility</div>
+                            }
+                        }}
                     </div>
+                }
                 </div>
-            )
-        }}
-        </ControlData>
+            </div>
+        )
     }
 }
 

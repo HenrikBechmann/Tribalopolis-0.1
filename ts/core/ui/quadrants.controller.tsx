@@ -30,7 +30,7 @@ const Quadrants = props => {
     }
 
     // get data for distribution
-    let {split, quadrantIdentifiers, datastacks, currentQuadPosition} = props
+    let {split, quadrantIdentifiers, datastacks, currentQuadPosition, systemdata, userdata} = props
 
     enum quad { one, two, three, four } // 0,1,2,3
 
@@ -49,6 +49,8 @@ const Quadrants = props => {
                     color = '#e8e8e8' 
                     datastack = {datastacks[quad.one]}
                     callbacks = {quadcallbacks}
+                    systemdata = {systemdata}
+                    userdata = {userdata}
                 />
             </QuadFrame>
             <QuadFrame
@@ -61,6 +63,8 @@ const Quadrants = props => {
                     color = '#e8e8e8' 
                     datastack = {datastacks[quad.two]}
                     callbacks = {quadcallbacks}
+                    systemdata = {systemdata}
+                    userdata = {userdata}
                 />
             </QuadFrame>
             <QuadFrame
@@ -73,6 +77,8 @@ const Quadrants = props => {
                     color = '#e8e8e8' 
                     datastack = {datastacks[quad.three]}
                     callbacks = {quadcallbacks}
+                    systemdata = {systemdata}
+                    userdata = {userdata}
                 />
             </QuadFrame>
             <QuadFrame
@@ -85,6 +91,8 @@ const Quadrants = props => {
                     color = '#e8e8e8' 
                     datastack = {datastacks[quad.four]}
                     callbacks = {quadcallbacks}
+                    systemdata = {systemdata}
+                    userdata = {userdata}
                 />
             </QuadFrame>
         </QuadPlatform>
