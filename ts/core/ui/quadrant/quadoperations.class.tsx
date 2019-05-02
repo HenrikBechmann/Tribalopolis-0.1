@@ -53,15 +53,20 @@ class quadoperations {
 
         let itemProxy = datastack[stackpointer].items[boxptr]
 
-        console.log('expandDirectoryItem itemProxy, datastack', itemProxy, datastack)        
+        let newaccount = this.getNewAccount(itemProxy,datastack[stackpointer])
 
         stackpointer++
-        let newstacklayer = {items:[], settings:{}, source:{
-            instanceid:itemProxy.instanceid,
-            itemProxy,
-            doctoken:itemProxy.doctoken,
-            action:'expand',
-        }}
+        let newstacklayer = {
+            items:[], 
+            settings:{}, 
+            source:{
+                instanceid:itemProxy.instanceid,
+                itemProxy,
+                doctoken:itemProxy.doctoken,
+                action:'expand',
+            },
+            account:newaccount,
+        }
 
         // replace forward stack items
         datastack.splice(stackpointer,datastack.length,newstacklayer)
@@ -78,6 +83,26 @@ class quadoperations {
                 stackpointer,
             })
         },100)
+    }
+
+    getNewAccount = (itemProxy, oldstacklayer) => {
+
+        let newaccount
+        let oldaccount = oldstacklayer.account
+        let newref = itemProxy.reference.split('/')
+
+        if (newref[1] == 'accounts') {
+
+            newaccount = itemProxy.reference
+
+        } else {
+
+            newaccount = oldaccount
+
+        }
+
+        return newaccount
+
     }
 
     getStartItem = (listcomponent) => {
@@ -102,20 +127,25 @@ class quadoperations {
         let itemProxy = datastack[stackpointer].items[boxptr]
         let itemToken = itemProxy.doctoken
 
-        console.log('splayBox itemProxy, datastack', itemProxy, datastack)        
+        let newaccount = this.getNewAccount(itemProxy,datastack[stackpointer])
 
         let listtokens = listDocument.data.lists
 
         if (!listtokens || !listtokens.length) return
 
         stackpointer++
-        let newstacklayer = {items:[], settings:{}, source:{
-            instanceid:itemProxy.instanceid,
-            itemProxy,
-            doctoken:itemProxy.doctoken,
-            action:'splay',
-            startItem,
-        }}
+        let newstacklayer = {
+            items:[], 
+            settings:{}, 
+            source:{
+                instanceid:itemProxy.instanceid,
+                itemProxy,
+                doctoken:itemProxy.doctoken,
+                action:'splay',
+                startItem,
+            },
+            account:newaccount,
+        }
 
         // replace forward stack items
         datastack.splice(stackpointer,datastack.length,newstacklayer)
@@ -153,13 +183,20 @@ class quadoperations {
         let itemProxy = datastack[stackpointer].items[boxptr]
         let itemToken = itemProxy.doctoken
 
+        let newaccount = this.getNewAccount(itemProxy,datastack[stackpointer])
+
         stackpointer++
-        let newstacklayer = {items:[], settings:{}, source:{
-            instanceid:itemProxy.instanceid,
-            itemProxy,
-            doctoken:itemProxy.doctoken,
-            action:'select',
-        }}
+        let newstacklayer = {
+            items:[], 
+            settings:{}, 
+            source:{
+                instanceid:itemProxy.instanceid,
+                itemProxy,
+                doctoken:itemProxy.doctoken,
+                action:'select',
+            },
+            account:newaccount,
+        }
 
         // replace forward stack items
         datastack.splice(stackpointer,datastack.length,newstacklayer)
@@ -283,18 +320,16 @@ class quadoperations {
         let { items } = stacklayer
 
         if ((items.length > 1) && (!this.collapseTargetProxy)) {
-            // if (stacklayer.settings.scrollOffset !== null) {
-                setTimeout(() => { // give deference to formation of scroll object
+            setTimeout(() => { // give deference to formation of scroll object
 
-                    let itemSize = this.listcomponent.current.props.itemSize
-                    let scrollOffset = stacklayer.settings.scrollOffset
-                    let itemNumber = Math.floor(scrollOffset/itemSize)
-                    setTimeout(()=>{
-                        this.listcomponent.current.scrollToItem(itemNumber,"start")
-                    },300)
+                let itemSize = this.listcomponent.current.props.itemSize
+                let scrollOffset = stacklayer.settings.scrollOffset
+                let itemNumber = Math.floor(scrollOffset/itemSize)
+                setTimeout(()=>{
+                    this.listcomponent.current.scrollToItem(itemNumber,"start")
+                },300)
 
-                })
-            // }
+            })
         }
     }
 
