@@ -218,24 +218,6 @@ class quadoperations {
         },100)
     }
 
-    // incrementStackSelector = () => {
-    //     let datastack = this.quadrant.datastack
-    //     let { stackpointer } = this.quadrant.state
-    //     this._captureSettings(stackpointer,datastack)
-    //     let depth = datastack.length
-    //     if (stackpointer < (depth - 1)) {
-    //         stackpointer++
-    //         this.quadrant.datastack = datastack
-    //         this.quadrant.setState({
-    //             stackpointer,
-    //         },() => {
-    //             setTimeout(() =>{
-    //                 this._applySettings(stackpointer,datastack)
-    //             },300)
-    //         })
-    //     }
-    // }
-
     //-------------------------------[ backward ]----------------------------
 
     collapseDirectoryItem = (itemProxy) => {
