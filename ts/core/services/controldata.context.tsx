@@ -22,9 +22,9 @@ const getActiveMemberData = (systemdata, userdata, activemember, activeaccount) 
 const getActiveAccountData = (systemdata, userdata, activemember, activeaccount) => {
     // TODO fetch activeaccountdata from cache or from db
     if (!activeaccount) {
-        return userdata
+        return {} //userdata.account
     } else {
-        return activeaccount // as found in database or cache
+        return {} //activeaccount // as found in database or cache
     }
 }
 // END OF PLACEHOLDERS
@@ -37,14 +37,15 @@ const ControlData = (props) => {
     return <SystemDataContext.Consumer>
         {systemdata => (
             <UserDataContext.Consumer>
-                {userdata => (
-                    props.children( 
+                {(userdata) => {
+                    // console.log('values collected by ControlData',systemdata, userdata, activemember, activeaccount)
+                    return props.children( 
                         systemdata, 
                         userdata, 
                         getActiveMemberData(systemdata, userdata, activemember, activeaccount), 
                         getActiveAccountData(systemdata, userdata, activemember, activeaccount)
                     )
-                )}
+                }}
             </UserDataContext.Consumer>
         )}
     </SystemDataContext.Consumer>

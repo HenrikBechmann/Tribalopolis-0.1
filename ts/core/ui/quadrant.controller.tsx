@@ -373,8 +373,10 @@ class Quadrant extends React.Component<any,any>  {
         let datastack = this.datastack
         console.log('datastack in quadrant.controller render',datastack)
 
-        let haspeers = datastack?(datastack[this.state.stackpointer].items.length > 1):false
-        let isempty = datastack?!(datastack[this.state.stackpointer].items.length):true
+        let { stackpointer } = this.state
+
+        let haspeers = datastack?(datastack[stackpointer].items.length > 1):false
+        let isempty = datastack?!(datastack[stackpointer].items.length):true
 
         let quadcontentStyle = {
             backgroundColor: color,
@@ -388,7 +390,7 @@ class Quadrant extends React.Component<any,any>  {
             this.scrollboxelement.current.scrollLeft = 0
         }
 
-        return <ControlData activemember = "" activeaccount = "">
+        return <ControlData activemember = '' activeaccount = { datastack[stackpointer].account } >
         {(systemdata, userdata, activememberdata, activeaccountdata) => {
             return (
                 <div
