@@ -101,6 +101,8 @@ class quadoperations {
 
         }
 
+        this.quadrant.resetActiveAccount(newaccount)
+
         return newaccount
 
     }

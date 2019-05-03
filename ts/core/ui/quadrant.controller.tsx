@@ -96,6 +96,8 @@ class Quadrant extends React.Component<any,any>  {
         this.datastack = this.props.datastack
         this.systemdata = this.props.systemdata
         this.userdata = this.props.userdata
+        this.controldata.systemdata = this.props.systemdata
+        this.controldata.userdata = this.props.userdata
 
         // ------------[ components ]-------------
         this.listcomponent = React.createRef()
@@ -145,6 +147,12 @@ class Quadrant extends React.Component<any,any>  {
     userdata
     activemember
     activeaccount
+    controldata = {
+        systemdata:null,
+        userdata:null,
+        activemember:null,
+        activeaccount:null,
+    }
 
     // dom refs
     quadcontentelement
@@ -186,6 +194,19 @@ class Quadrant extends React.Component<any,any>  {
     }
 
     componentDidUpdate() {
+
+        let controlstatus = this.controlStatus()
+
+        this.controldata.systemdata = this.props.systemdata
+        this.controldata.userdata = this.props.userdata
+
+        if (this.props.systemdata && this.props.userdata) {
+            if (!controlstatus) { // TODO: prevent infinite loop
+                this.forceUpdate()
+            }
+        }
+
+        // console.log('did update controldata', this.controldata)
 
         let activeTargetProxy = this.activeTargetProxy
 
@@ -237,6 +258,25 @@ class Quadrant extends React.Component<any,any>  {
 /********************************************************
 ----------------[ control data assembly ]----------------
 *********************************************************/
+
+    controlStatus = () => {
+        // console.log('controlStatus controldata, props', this.controldata, this.props)
+        if (this.controldata.activemember && this.controldata.activeaccount) {
+            return "full"
+        }
+        if (this.controldata.systemdata && this.controldata.userdata) {
+            return "base"
+        }
+        return false
+    }
+
+    resetActiveAccount = accountreference => {
+        if (this.activeaccountreference !== accountreference) {
+            this.activeaccountreference = null
+            this.activeaccount = null
+            this.activemember = null
+        }
+    }
 
     getActiveMemberData = (systemdata, userdata, activemember, activeaccount) => {
     // TODO fetch activememberdata from cache or from db
@@ -402,8 +442,7 @@ class Quadrant extends React.Component<any,any>  {
         let { color, classes, systemdata, userdata } = this.props
 
         let datastack = this.datastack
-        console.log('datastack in quadrant.controller render',datastack)
-
+        // console.log('datastack in quadrant.controller render',datastack)
         let { stackpointer } = this.state
 
         let haspeers = datastack?(datastack[stackpointer].items.length > 1):false
@@ -419,6 +458,18 @@ class Quadrant extends React.Component<any,any>  {
         // Safari keeps scrollleft with content changes
         if (!haspeers && this.scrollboxelement.current && (this.scrollboxelement.current.scrollLeft != 0)) {
             this.scrollboxelement.current.scrollLeft = 0
+        }
+
+        let controlstatus = this.controlStatus()
+        // console.log('controlstatus', controlstatus, this.controldata)
+
+        let quadmessage
+        if (!controlstatus) {
+            quadmessage = "Must be signed in to use this utility"
+        }
+
+        if (controlstatus == 'base') {
+            quadmessage = "Assembling permissions"
         }
 
         return (
@@ -464,7 +515,7 @@ class Quadrant extends React.Component<any,any>  {
                         style = {viewportStyle}
                         ref = {this.scrollboxelement}
                     >
-                        {userdata?
+                        {(controlstatus == 'base')?
                             (!isempty?(
                                 haspeers
                                     ?<List 
@@ -487,7 +538,7 @@ class Quadrant extends React.Component<any,any>  {
                                 >
                                     <div>Tap to start</div>
                                 </div>)
-                            :<div className = {classes.startscreen}>Must be signed in to use this utility</div>
+                            :<div className = {classes.startscreen}>{quadmessage}</div>
                             }
                         }}
                     </div>
