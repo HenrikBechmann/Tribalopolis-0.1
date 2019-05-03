@@ -316,11 +316,8 @@ class Main extends React.Component<any,any> {
 
     systemDocumentSuccess = ({docpack, reason}:ReturnDocPackMessage) => {
 
-        // console.log('systemDocumentSuccess CALLED', docpack)
-
         if ((!this.state.systempack) || this.updatinguserdata) {
 
-            // toast.success('setting system data')
             this.promises.system.resolve(docpack)
 
         } else {
@@ -351,7 +348,6 @@ class Main extends React.Component<any,any> {
             failure:this.userDocumentFailure,
         }
         application.queryForDocument(parms)
-        // application.setDocpackPairListenerByQuery(parms)
 
     }
 
@@ -359,8 +355,6 @@ class Main extends React.Component<any,any> {
     accountDocProxy = null
 
     userDocumentSuccess = ({docpack, reason}:ReturnDocPackMessage) => {
-
-        // console.log('user from userDocumentSuccess',docpack)
 
         if (this.userDocProxy) return
 
@@ -388,15 +382,13 @@ class Main extends React.Component<any,any> {
 
     userDocumentPairSuccess = ({docpack,typepack,reason}:ReturnDocPairMessage) => {
 
-        // console.log('userDocumentPairSuccess',docpack,typepack, this.state.userpack, this.updatinguserdata)
-
         this.userTypePack = typepack
 
         if ((!this.state.userpack) || this.updatinguserdata) {
 
-            toast.success('updating user record')
+            toast.success('collecting user records...')
 
-            console.log('setting user record in UserDocumentPairSuccess',docpack)
+            // console.log('setting user record in UserDocumentPairSuccess',docpack)
             this.promises.user.resolve(docpack)
 
             if (!this.accountDocProxy) {
@@ -432,8 +424,7 @@ class Main extends React.Component<any,any> {
             success:this.userAccountPairSuccess, 
             failure:this.userAccountFailure
         }
-        // console.log('setAccountDocumentListener parm',parm, reference)
-        // application.getDocument(parm)
+
         application.setDocpackPairListener(parm)
 
     }
@@ -441,8 +432,6 @@ class Main extends React.Component<any,any> {
     userAccountTypePack = null
 
     userAccountPairSuccess = ({docpack,typepack, reason}:ReturnDocPairMessage) => {
-
-        // console.log('account from accountDocumentSuccess',docpack, typepack)
 
         this.userAccountTypePack = typepack
 
@@ -455,7 +444,6 @@ class Main extends React.Component<any,any> {
 
         if ((!this.state.accountpack) || this.updatinguserdata) {
 
-            // toast.success('setting account record')
             this.promises.account.resolve(docpack)
 
         } else {
