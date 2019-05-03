@@ -94,10 +94,10 @@ class Quadrant extends React.Component<any,any>  {
 
         // ------------[ data ]-------------
         this.datastack = this.props.datastack
-        this.systemdata = this.props.systemdata
-        this.userdata = this.props.userdata
-        this.controldata.systemdata = this.props.systemdata
-        this.controldata.userdata = this.props.userdata
+        // this.systemdata = this.props.systemdata
+        // this.userdata = this.props.userdata
+        // this.controldata.systemdata = this.props.systemdata
+        // this.controldata.userdata = this.props.userdata
 
         // ------------[ components ]-------------
         this.listcomponent = React.createRef()
@@ -265,7 +265,7 @@ class Quadrant extends React.Component<any,any>  {
             return "full"
         }
         if (this.controldata.systemdata && this.controldata.userdata) {
-            return "base"
+            return "full" // "base"
         }
         return false
     }
@@ -464,12 +464,18 @@ class Quadrant extends React.Component<any,any>  {
         // console.log('controlstatus', controlstatus, this.controldata)
 
         let quadmessage
-        if (!controlstatus) {
-            quadmessage = "Must be signed in to use this utility"
-        }
-
-        if (controlstatus == 'base') {
-            quadmessage = "Assembling permissions"
+        switch (controlstatus) {
+            case false: {
+                quadmessage = "Must be signed in to use this utility"
+                break;
+            }
+            case 'base': {
+                quadmessage = "Assembling permissions"
+                break;
+            }
+            default: {
+                quadmessage = ''
+            }
         }
 
         return (
@@ -515,7 +521,7 @@ class Quadrant extends React.Component<any,any>  {
                         style = {viewportStyle}
                         ref = {this.scrollboxelement}
                     >
-                        {(controlstatus == 'base')?
+                        {(controlstatus == 'full')?
                             (!isempty?(
                                 haspeers
                                     ?<List 
@@ -539,8 +545,7 @@ class Quadrant extends React.Component<any,any>  {
                                     <div>Tap to start</div>
                                 </div>)
                             :<div className = {classes.startscreen}>{quadmessage}</div>
-                            }
-                        }}
+                        }
                     </div>
                 }
                 </div>
