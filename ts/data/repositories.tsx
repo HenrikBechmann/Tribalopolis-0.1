@@ -391,7 +391,44 @@ let lists = {
         },
         properties:{
             version:0,
-            name:'Assets',
+            name:'Resources',
+        },
+        references:{
+            subscriptions:[],
+            owner:{
+                reference:'/accounts/VyfFksGi0Ehv7unaMoI0',
+            },
+            parentlists:[],
+            folder:'',
+        },
+        counts:{
+            lists:0,
+            links:0,
+        },
+        system:{
+            attributes:{},
+            permissions:{},
+        },
+        data:{
+            lists:[],
+            links:[],
+        },
+    },
+    spaces:
+    {
+        control:{
+            container:'',
+            id:'spaces',
+            handle:'',
+            type:null,
+            account:{
+                id:'',
+                handle:'',
+            },
+        },
+        properties:{
+            version:0,
+            name:'Spaces',
         },
         references:{
             subscriptions:[],
@@ -761,7 +798,7 @@ let lists = {
         },
         properties:{
             version:0,
-            name:'Documents',
+            name:'Library',
         },
         references:{
             subscriptions:[],
@@ -1082,7 +1119,7 @@ let lists = {
             folder:'',
         },
         counts:{
-            lists:20,
+            lists:21,
             links:0,
         },
         system:{
@@ -1156,6 +1193,9 @@ let lists = {
                 },
                 {
                     reference:'/lists/resources',
+                },
+                {
+                    reference:'/lists/spaces',
                 },
                 {
                     reference:'/lists/assets',
