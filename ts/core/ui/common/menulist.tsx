@@ -143,7 +143,7 @@ class MenuListBase extends React.Component<any,any> {
                             group
                         </Icon>
                     </ListItemIcon>
-                    <ListItemText primary = "Members" />
+                    <ListItemText primary = "Tribalopolis Users" />
                 </ListItem>
                 <ListItem button
                     disabled

@@ -340,6 +340,43 @@ let lists = {
             links:[],
         },
     },
+    members:
+    {
+        control:{
+            container:'',
+            id:'',
+            handle:'',
+            type:null,
+            account:{
+                id:'',
+                handle:'',
+            },
+        },
+        properties:{
+            version:0,
+            name:'Account members',
+        },
+        references:{
+            subscriptions:[],
+            owner:{
+                reference:'/accounts/VyfFksGi0Ehv7unaMoI0',
+            },
+            parentlists:[],
+            folder:'',
+        },
+        counts:{
+            lists:0,
+            links:0,
+        },
+        system:{
+            attributes:{},
+            permissions:{},
+        },
+        data:{
+            lists:[],
+            links:[],
+        },
+    },
     requesting:
     {
         control:{
@@ -1119,7 +1156,7 @@ let lists = {
             folder:'',
         },
         counts:{
-            lists:21,
+            lists:22,
             links:0,
         },
         system:{
@@ -1142,6 +1179,9 @@ let lists = {
                 },
                 {
                     reference:'/lists/connections',
+                },
+                {
+                    reference:'/lists/members',
                 },
                 {
                     reference:'/lists/messages',
