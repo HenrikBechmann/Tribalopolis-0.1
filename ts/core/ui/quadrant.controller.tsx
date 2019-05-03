@@ -197,8 +197,7 @@ class Quadrant extends React.Component<any,any>  {
 
         let controlstatus = this.controlStatus()
 
-        this.controldata.systemdata = this.props.systemdata
-        this.controldata.userdata = this.props.userdata
+        this._updateControlData()
 
         if (this.props.systemdata && this.props.userdata) {
             if (!controlstatus) { // TODO: prevent infinite loop
@@ -233,6 +232,11 @@ class Quadrant extends React.Component<any,any>  {
             },300) // very timing sensitive
 
         },1000) // very timing sensitive
+    }
+
+    _updateControlData = () => {
+        this.controldata.systemdata = this.props.systemdata
+        this.controldata.userdata = this.props.userdata
     }
 
     _findlinkIndex = (instanceid) => {
