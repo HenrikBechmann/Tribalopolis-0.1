@@ -189,7 +189,18 @@ class Quadrant extends React.Component<any,any>  {
 
     componentDidMount() {
 
-        if (this.cycleForReferences) this.forceUpdate()
+        if (!this.controlStatus() && this.props.userdata && this.props.systemdata) {
+
+            this._updateControlData()
+            this.forceUpdate()
+
+        } else {
+
+            if (this.cycleForReferences) {
+                this.forceUpdate()
+            }
+
+        }
 
     }
 
@@ -255,7 +266,7 @@ class Quadrant extends React.Component<any,any>  {
     }
 
 /********************************************************
-----------------[ control data assembly ]----------------
+-----------------[ controldata assembly ]----------------
 *********************************************************/
 
     controlDataPromise

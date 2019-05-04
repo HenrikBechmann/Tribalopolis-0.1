@@ -310,7 +310,7 @@ class quadoperations {
                 let scrollOffset = stacklayer.settings.scrollOffset
                 let itemNumber = Math.floor(scrollOffset/itemSize)
                 setTimeout(()=>{
-                    this.listcomponent.current.scrollToItem(itemNumber,"start")
+                    this.listcomponent.current.scrollToItem(itemNumber,'start')
                 },300)
 
             })
