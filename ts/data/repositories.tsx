@@ -821,6 +821,43 @@ let lists = {
             links:[],
         },
     },
+    meetings:
+    {
+        control:{
+            container:'',
+            id:'',
+            handle:'',
+            type:null,
+            account:{
+                id:'',
+                handle:'',
+            },
+        },
+        properties:{
+            version:0,
+            name:'Meetings',
+        },
+        references:{
+            subscriptions:[],
+            owner:{
+                reference:'/accounts/VyfFksGi0Ehv7unaMoI0',
+            },
+            parentlists:[],
+            folder:'',
+        },
+        counts:{
+            lists:0,
+            links:0,
+        },
+        system:{
+            attributes:{},
+            permissions:{},
+        },
+        data:{
+            lists:[],
+            links:[],
+        },
+    },
     resources:
     {
         control:{
@@ -1188,6 +1225,9 @@ let lists = {
                 },
                 {
                     reference:'/lists/streams',
+                },
+                {
+                    reference:'/lists/meetings',
                 },
                 {
                     reference:'/lists/requesting',

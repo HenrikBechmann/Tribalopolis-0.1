@@ -191,7 +191,7 @@ class DirectoryBar extends React.Component<any,any> {
                         action = {e => (
                             e.stopPropagation()
                         )}
-                        icon = 'expand_more' />}
+                        icon = 'unfold_more' />}
                     {!contextitem && <ActionButton 
                         buttonStyle = {
                             {
@@ -203,7 +203,7 @@ class DirectoryBar extends React.Component<any,any> {
                         action = {e => (
                             e.stopPropagation()
                         )}
-                        icon = 'unfold_more' />}
+                        icon = 'expand_more' />}
                     {(!contextitem) && <div 
                         ref = {this.menuAnchor}
                     >
