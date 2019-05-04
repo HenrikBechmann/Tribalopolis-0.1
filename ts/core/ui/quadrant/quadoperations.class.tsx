@@ -79,9 +79,9 @@ class quadoperations {
 
         setTimeout(() => { // delay for animation
             this.quadrant.datastack = datastack
-            this.quadrant.setState({
+            this.quadrant.setState(() => ({
                 stackpointer,
-            })
+            }))
         },100)
     }
 
@@ -161,9 +161,9 @@ class quadoperations {
 
         setTimeout(() => { // delay for animation
             this.quadrant.datastack = datastack
-            this.quadrant.setState({
+            this.quadrant.setState(() => ({
                 stackpointer,
-            },() => {
+            }),() => {
                 setTimeout(() =>{
                     this.listcomponent.current.scrollToItem(startItem,'start')
                 },300) // avoid setstate no op in lead list items
@@ -214,9 +214,9 @@ class quadoperations {
 
         setTimeout(() => { // delay for animation
             this.quadrant.datastack = datastack
-            this.quadrant.setState({
+            this.quadrant.setState(() =>({
                 stackpointer,
-            })
+            }))
         },100)
     }
 
@@ -267,9 +267,9 @@ class quadoperations {
         if (stackpointer > 0) {
             stackpointer--
             this.quadrant.datastack = datastack
-            this.quadrant.setState({
+            this.quadrant.setState(() => ({
                 stackpointer,
-            },() => {
+            }),() => {
                 this._applySettings(stackpointer,datastack)
             })
         }

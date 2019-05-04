@@ -318,35 +318,35 @@ class Quadrant extends React.Component<any,any>  {
 
     setBoxWidth = (width) => {
 
-        this.setState({
+        this.setState(() => ({
             boxwidth:width,
-        })
+        }))
     }
 
     closeDrawer = () => {
         this.drawerdatapackage = null
-        this.setState({
+        this.setState(() => ({
             draweropen:false,
-        })
+        }))
     }
 
     callDataDrawer = ({docproxy,options}:DataPaneContext) => {
         if (this.state.draweropen) {
-            this.setState({
+            this.setState(() => ({
                 draweropen:false
-            },() => {
+            }),() => {
                 this.drawerdatapackage = {docproxy,options, callbacks:{}}
-                this.setState({
+                this.setState(() => ({
                     draweropen:true
-                })
+                }))
             })
             // toast.info('The data shelf is in use. Close the shelf and try again.')
             return
         }
         this.drawerdatapackage = {docproxy, options, callbacks:{}}
-        this.setState({
+        this.setState(() => ({
             draweropen:true,
-        })
+        }))
     }
 
     setDefault = () => {
