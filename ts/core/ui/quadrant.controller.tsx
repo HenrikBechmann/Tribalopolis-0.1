@@ -234,11 +234,6 @@ class Quadrant extends React.Component<any,any>  {
         },1000) // very timing sensitive
     }
 
-    _updateControlData = () => {
-        this.controldata.systemdata = this.props.systemdata
-        this.controldata.userdata = this.props.userdata
-    }
-
     _findlinkIndex = (instanceid) => {
 
         return (itemDocumentProxy) => {
@@ -262,6 +257,23 @@ class Quadrant extends React.Component<any,any>  {
 /********************************************************
 ----------------[ control data assembly ]----------------
 *********************************************************/
+
+    controlDataPromise
+
+    promises = { controldata:{
+            resolve:null,
+            reject: null,
+        }
+    }
+
+    _updateControlData = () => {
+        this.controlDataPromise = new Promise((resolve,reject) => {
+            this.promises.controldata.resolve = resolve
+            this.promises.controldata.reject = reject
+        })
+        this.controldata.systemdata = this.props.systemdata
+        this.controldata.userdata = this.props.userdata
+    }
 
     controlStatus = () => {
         // console.log('controlStatus controldata, props', this.controldata, this.props)

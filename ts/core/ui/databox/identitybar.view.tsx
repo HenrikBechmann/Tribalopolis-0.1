@@ -119,6 +119,7 @@ class IdentityBar extends React.Component<any, any> {
     }
 
     menuClose = event => {
+        event.stopPropagation()
         if (this.menuAnchor.current.contains(event.target)) {
           return;
         }
@@ -153,6 +154,18 @@ class IdentityBar extends React.Component<any, any> {
             <div className = { classes.namestyle } >
                 {this.state.item && this.state.item.docpack.document.properties.name.fullname}
             </div>
+            {!contextitem && <ActionButton 
+                buttonStyle = {
+                    {
+                        float:'none',
+                        width:'24px',
+                        height:'24px',
+                    }
+                } 
+                action = {e => (
+                    e.stopPropagation()
+                )}
+                icon = 'expand_more' />}
             {(!contextitem) && <div 
                 ref = {this.menuAnchor}
             >

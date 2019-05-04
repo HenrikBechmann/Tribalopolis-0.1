@@ -134,11 +134,12 @@ class DirectoryBar extends React.Component<any,any> {
     }
 
     toggleMenu = (e) => {
-        e.stopPropagation()
         this.setState(state => ({ menuopen: !state.menuopen }));
+        e.stopPropagation()
     }
 
     menuClose = event => {
+        event.stopPropagation()
         if (this.menuAnchor.current.contains(event.target)) {
           return;
         }
@@ -187,6 +188,21 @@ class DirectoryBar extends React.Component<any,any> {
                                 height:'24px',
                             }
                         } 
+                        action = {e => (
+                            e.stopPropagation()
+                        )}
+                        icon = 'expand_more' />}
+                    {!contextitem && <ActionButton 
+                        buttonStyle = {
+                            {
+                                float:'none',
+                                width:'24px',
+                                height:'24px',
+                            }
+                        } 
+                        action = {e => (
+                            e.stopPropagation()
+                        )}
                         icon = 'unfold_more' />}
                     {(!contextitem) && <div 
                         ref = {this.menuAnchor}
