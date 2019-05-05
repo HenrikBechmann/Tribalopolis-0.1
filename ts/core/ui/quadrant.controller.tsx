@@ -312,9 +312,9 @@ class Quadrant extends React.Component<any,any>  {
         this.controldata.systemdata = this.props.systemdata
         this.controldata.userdata = this.props.userdata
 
-        this.setState({
+        this.setState(() => ({
             accountreference,
-        })
+        }))
 
         // this.forceUpdate()
 
