@@ -137,6 +137,7 @@ class Quadrant extends React.Component<any,any>  {
         stackpointer:0,
         boxwidth:300,
         draweropen:false,
+        accountreference:null,
     }
 
     datastack = null
@@ -192,14 +193,21 @@ class Quadrant extends React.Component<any,any>  {
         if (!this.controlStatus() && this.props.userdata && this.props.systemdata) {
 
             this._updateControlData()
+            return
+
+        } 
+
+        let layer = this.datastack[this.state.stackpointer]
+
+        if ((layer.account != this.state.accountreference)  && this.props.userdata && this.props.systemdata) {
+
+            this._updateControlData()
+            return
+
+        }
+
+        if (this.cycleForReferences) {
             this.forceUpdate()
-
-        } else {
-
-            if (this.cycleForReferences) {
-                this.forceUpdate()
-            }
-
         }
 
     }
@@ -208,13 +216,28 @@ class Quadrant extends React.Component<any,any>  {
 
         let controlstatus = this.controlStatus()
 
-        this._updateControlData()
+        let layer = this.datastack[this.state.stackpointer]
 
-        if (this.props.systemdata && this.props.userdata) {
-            if (!controlstatus) { // TODO: prevent infinite loop
-                this.forceUpdate()
+        if (controlstatus !== 'full') {
+
+            this._updateControlData()
+
+        } else {
+
+            if ((layer.account != this.state.accountreference)  && this.props.userdata && this.props.systemdata) {
+
+                this._updateControlData()
+                return
+
             }
+
         }
+
+        // if (this.props.systemdata && this.props.userdata) {
+        //     if (!controlstatus) { // TODO: prevent infinite loop
+        //         this.forceUpdate()
+        //     }
+        // }
 
         // console.log('did update controldata', this.controldata)
 
@@ -278,12 +301,23 @@ class Quadrant extends React.Component<any,any>  {
     }
 
     _updateControlData = () => {
+
+        let accountreference = this.datastack[this.state.stackpointer].account
+
         this.controlDataPromise = new Promise((resolve,reject) => {
             this.promises.controldata.resolve = resolve
             this.promises.controldata.reject = reject
         })
+
         this.controldata.systemdata = this.props.systemdata
         this.controldata.userdata = this.props.userdata
+
+        this.setState({
+            accountreference,
+        })
+
+        // this.forceUpdate()
+
     }
 
     controlStatus = () => {
@@ -298,11 +332,13 @@ class Quadrant extends React.Component<any,any>  {
     }
 
     resetActiveAccount = accountreference => {
-        if (this.activeaccountreference !== accountreference) {
-            this.activeaccountreference = null
-            this.activeaccount = null
-            this.activemember = null
-        }
+
+        // if (this.activeaccountreference !== accountreference) {
+        //     this.activeaccountreference = null
+        //     this.activeaccount = null
+        //     this.activemember = null
+        // }
+
     }
 
     getActiveMemberData = (systemdata, userdata, activemember, activeaccount) => {
