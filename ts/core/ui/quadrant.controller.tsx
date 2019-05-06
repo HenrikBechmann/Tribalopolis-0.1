@@ -331,7 +331,7 @@ class Quadrant extends React.Component<any,any>  {
         return false
     }
 
-    resetActiveAccount = accountreference => {
+    // resetActiveAccount = accountreference => {
 
         // if (this.activeaccountreference !== accountreference) {
         //     this.activeaccountreference = null
@@ -339,7 +339,7 @@ class Quadrant extends React.Component<any,any>  {
         //     this.activemember = null
         // }
 
-    }
+    // }
 
     getActiveMemberData = (systemdata, userdata, activemember, activeaccount) => {
     // TODO fetch activememberdata from cache or from db
