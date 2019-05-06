@@ -5,10 +5,10 @@ var path = require('path');
 // var WebpackNotifierPlugin = require('webpack-notifier');
 
 module.exports = {
-  devtool: 'eval',
+  devtool: 'eval-source-map',
   // This will be our app's entry point (webpack will look for it in the 'src' directory due to the modulesDirectory setting below). Feel free to change as desired.
   entry: [
-    '@babel/polyfill',
+    // '@babel/polyfill',
     'index.tsx'
   ],
   // Output the bundled JS to dist/app.js
@@ -26,23 +26,24 @@ module.exports = {
     rules: [
       // .ts(x) files should first pass through the Typescript loader, and then through babel
       { test: /\.tsx?$/, 
-        use:[
-        {
-          loader:'babel-loader'
-        },
-        {
-          loader:'ts-loader'
-        }]
+        use:['babel-loader','ts-loader']
+        // {
+        //   loader:'babel-loader'
+        // },
+        // {
+        //   loader:'ts-loader'
+        // }
+        // ]
       },
       {
         test: /\.css$/,
         use: [ 'style-loader', 'css-loader' ]
       },
       { test: /\.txt$/, 
-        use: ['raw-loader'] 
+        use:'raw-loader'
       },
       { test: /\.html$/, 
-        use: ['html-loader'] 
+        use:'html-loader'
       }
     ]
   },
