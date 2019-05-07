@@ -13,7 +13,7 @@ module.exports = {
   ],
   // Output the bundled JS to dist/app.js
   output: {
-    filename: 'app.js',
+    filename: '[name].bundle.js',
     path: path.resolve('dist')
   },
   resolve: {
@@ -47,6 +47,12 @@ module.exports = {
       }
     ]
   },
+   optimization: {
+     splitChunks: {
+       chunks: 'all'
+     }
+   },
+
   plugins: [
     // Set up the notifier plugin - you can remove this (or set alwaysNotify false) if desired
     // new WebpackNotifierPlugin({ alwaysNotify: true }),
