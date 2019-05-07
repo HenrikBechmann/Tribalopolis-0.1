@@ -26,6 +26,13 @@ import { DocTokenStruc } from '../services/interfaces'
 // import UserDataContext from '../services/userdata.context'
 // import ControlData from '../services/controldata.context'
 import { DataPaneContext } from '../services/interfaces'
+import application from '../services/application'
+import { 
+    GetDocumentMessage, 
+    SetListenerMessage, 
+    ReturnDocPairMessage,
+    ReturnDocPackMessage, 
+} from '../services/interfaces'
 
 let styles = createStyles({
    quadcontent: {
@@ -304,9 +311,12 @@ class Quadrant extends React.Component<any,any>  {
 
         let accountreference = this.datastack[this.state.stackpointer].account
 
+        if (accountreference == this.state.accountreference) return
+
         this.controlDataPromise = new Promise((resolve,reject) => {
             this.promises.controldata.resolve = resolve
             this.promises.controldata.reject = reject
+            this.fetchAccountContext()
         })
 
         this.controldata.systemdata = this.props.systemdata
@@ -317,6 +327,12 @@ class Quadrant extends React.Component<any,any>  {
         }))
 
         // this.forceUpdate()
+
+    }
+
+    fetchAccountContext = () => {
+
+
 
     }
 
@@ -341,23 +357,81 @@ class Quadrant extends React.Component<any,any>  {
 
     // }
 
-    getActiveMemberData = (systemdata, userdata, activemember, activeaccount) => {
+    getActiveMemberData = (userdata,activeaccount) => {
     // TODO fetch activememberdata from cache or from db
-        if (!activemember) {
-            return null
+        if (!userdata || !activeaccount) {
+            return
         } else {
-            return activemember
+            // set async fetch:
+            // fetch member document id
+            // subscibe to document pair (doc + type)
+            // application.setDocpackPairListener = ({doctoken,instanceid,success, failure})
+            // let parms:GetDocumentMessage = {
+            //     reference:'users',
+            //     whereclauses:[['control.loginid.uid','==',uid]],
+            //     success:this.memberDocumentSuccess, 
+            //     failure:this.memberDocumentFailure,
+            // }
+            // application.queryForDocument(parms)
         }
     }
 
-    getActiveAccountData = (systemdata, userdata, activemember, activeaccount) => {
+    getActiveAccountData = (userdata) => {
     // TODO fetch activeaccountdata from cache or from db
-        if (!activeaccount) {
-            return {} //userdata.account
+        if (!userdata) {
+            return 
         } else {
-            return {} //activeaccount // as found in database or cache
+           // set async fetch 
         }
     }
+
+    memberDocumentSuccess = () => {
+
+    //     if ((!this.state.systempack) || this.updatinguserdata) {
+
+    //         this.promises.system.resolve(docpack)
+
+    //     } else {
+
+    //         toast.success('updated system data')
+    //         this.setState({
+    //             systempack:docpack,
+    //         })
+
+    //     }
+
+    }
+
+    memberDocumentFailure = () => {
+
+    //     toast.error('Unable to get system data (' + error + ')')
+    //     this.promises.system.reject('Unable to get system data (' + error + ')')
+
+    }
+
+
+    // systemDocumentSuccess = ({docpack, reason}:ReturnDocPackMessage) => {
+
+    //     if ((!this.state.systempack) || this.updatinguserdata) {
+
+    //         this.promises.system.resolve(docpack)
+
+    //     } else {
+
+    //         toast.success('updated system data')
+    //         this.setState({
+    //             systempack:docpack,
+    //         })
+
+    //     }
+    // }
+
+    // systemDocumentFailure = error => {
+
+    //     toast.error('Unable to get system data (' + error + ')')
+    //     this.promises.system.reject('Unable to get system data (' + error + ')')
+
+    // }
 
 /********************************************************
 -------------------[ databox assembly ]------------------

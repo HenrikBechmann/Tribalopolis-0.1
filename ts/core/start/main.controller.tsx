@@ -95,7 +95,7 @@ class Main extends React.Component<any,any> {
 
     state = {
         login:null,
-        userProviderData:null,
+        userData:null,
         systempack:null,
         userpack:null,
         accountpack:null,
@@ -137,7 +137,7 @@ class Main extends React.Component<any,any> {
         // console.log('resetting app state')
         this.setState({
             login:null,
-            userProviderData:null,
+            userData:null,
             userpack:null,
             accountpack:null,
         },() => {
@@ -220,9 +220,12 @@ class Main extends React.Component<any,any> {
 
             this.setLoginPromises() 
 
-            let userProviderData = login.providerData[0] // only google for now
+            let loginlocal = Object.assign({},login.providerData[0]) // google provider; shortcut for newuser data
+            loginlocal.uid = login.uid // google auth common uid
+
+            let userData = loginlocal // only google for now
             this.getSystemDocument()
-            this.getUserDocument(userProviderData.uid) // and account document
+            this.getUserDocument(userData.uid) // and account document
 
             Promise.all([this.userPromise,this.accountPromise, this.systemPromise]).then(values => {
 
@@ -230,7 +233,7 @@ class Main extends React.Component<any,any> {
 
                 this.setState({
                     login,
-                    userProviderData,
+                    userData,
                     userpack:values[0],
                     accountpack:values[1],
                     systempack:values[2],
@@ -264,7 +267,7 @@ class Main extends React.Component<any,any> {
                 this.userAccountTypePack = null
                 this.setState({
                     login:null,
-                    userProviderData:null,
+                    userData:null,
                     userpack:null,
                     systempack,
                     accountpack:null,
@@ -282,7 +285,7 @@ class Main extends React.Component<any,any> {
                 this.userAccountTypePack = null
                 this.setState({
                     login:null,
-                    userProviderData:null,
+                    userData:null,
                     userpack:null,
                     systempack:null,
                     accountpack:null,
@@ -341,9 +344,11 @@ class Main extends React.Component<any,any> {
 
     getUserDocument = uid => {
 
+        // console.log('getUserDocument:uid',uid)
+
         let parms:GetDocumentMessage = {
             reference:'users',
-            whereclauses:[['control.loginid.uid','==',uid]],
+            whereclauses:[['properties.loginid.uid','==',uid]],
             success:this.userDocumentSuccess, 
             failure:this.userDocumentFailure,
         }
@@ -355,6 +360,8 @@ class Main extends React.Component<any,any> {
     accountDocProxy = null
 
     userDocumentSuccess = ({docpack, reason}:ReturnDocPackMessage) => {
+
+        // console.log('userDocumentSuccess: docpack, userDocProxy', docpack, this.userDocProxy)
 
         if (this.userDocProxy) return
 
@@ -473,18 +480,18 @@ class Main extends React.Component<any,any> {
 
         let { globalmessage, version, classes } = this.props
 
-        let { userProviderData, userpack, accountpack } = this.state
+        let { userData, userpack, accountpack } = this.state
 
         let userdata
 
-        if (!(userProviderData && userpack && accountpack)) {
+        if (!(userData && userpack && accountpack)) {
 
             userdata = null
             
         } else {
 
             userdata = {
-                login:this.state.userProviderData,
+                login:this.state.userData,
                 userpack:this.state.userpack,
                 usertype:this.userTypePack,
                 accountpack:this.state.accountpack,

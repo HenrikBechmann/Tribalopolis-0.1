@@ -7,24 +7,21 @@ import firebase from './firebase.api'
 
 let provider = new firebase.auth.GoogleAuthProvider()
 
-function getToken() {
-  let idtoken = firebase.auth().currentUser.getIdToken()
-  return idtoken
-}
-
 let stateresolved = false
 
 firebase.auth().onAuthStateChanged((newuser) => {
   stateresolved = true
   let currentUser = firebase.auth().currentUser
   if (newuser) {
-    // console.log('onAuthStateChanged signed in',newuser)
-    login = newuser.providerData[0] // google provider
+    let loginlocal = Object.assign({},newuser.providerData[0]) // google provider; shortcut for newuser data
+    loginlocal.uid = newuser.uid // google auth common uid
+    login = loginlocal
+    // console.log('onAuthStateChanged: newuser, currentuser, login, loginlocal',newuser, currentUser, login, loginlocal)
     currentUser.getIdToken().then(token =>{
       idToken = token
     })
     getRedirectResult()
-  } else {
+  // } else {
     // console.log('onAuthStateChanged signed out', newuser)
   }
   if (updateCallback) {

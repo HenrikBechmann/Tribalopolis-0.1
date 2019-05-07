@@ -185,17 +185,31 @@ const getNewDocument = ({reference, success, failure}:GetDocumentMessage) => {
 
 const queryForDocument = ({reference, whereclauses, success, failure}:GetDocumentMessage) => {
 
+    // console.log('querying for document',reference, whereclauses, success, failure)
+
     if ((!whereclauses) || (whereclauses.length == 0)) {
         failure('no where clauses defined for query')
         return // nothing to do
     }
 
     let collection = firestore.collection(reference)
-    for (let whereclause of whereclauses) {
-        collection.where(whereclause[0],whereclause[1],whereclause[2])
-    }
-    collection.get().then((querySnapshot)=>{
-        if (querySnapshot.empty) return []
+
+    let whereclause = whereclauses[0]
+
+    let query = collection.where(whereclause[0],whereclause[1],whereclause[2])
+
+    // TODO: process nultiple query conditions
+    // let query:any = collection
+    // for (let whereclause of whereclauses) {
+    //     query = query.where(whereclause[0],whereclause[1],whereclause[2])
+    //     console.log('interim query', query)
+    // }
+
+    query.get().then((querySnapshot)=>{
+        // console.log('querySnapshot',querySnapshot)
+        if (querySnapshot.empty) {
+            return []
+        }
         let docs:DocPackStruc[] = []
         querySnapshot.forEach(dbdocpack => {
             let doc:DocPackStruc = {
