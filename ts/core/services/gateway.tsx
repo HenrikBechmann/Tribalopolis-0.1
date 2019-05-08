@@ -194,16 +194,16 @@ const queryForDocument = ({reference, whereclauses, success, failure}:GetDocumen
 
     let collection = firestore.collection(reference)
 
-    let whereclause = whereclauses[0]
+    // let whereclause = whereclauses[0]
 
-    let query = collection.where(whereclause[0],whereclause[1],whereclause[2])
+    // let query = collection.where(whereclause[0],whereclause[1],whereclause[2])
 
     // TODO: process nultiple query conditions
-    // let query:any = collection
-    // for (let whereclause of whereclauses) {
-    //     query = query.where(whereclause[0],whereclause[1],whereclause[2])
-    //     console.log('interim query', query)
-    // }
+    let query:any = collection
+    for (let whereclause of whereclauses) {
+        query = query.where(whereclause[0],whereclause[1],whereclause[2])
+        // console.log('interim query', query)
+    }
 
     query.get().then((querySnapshot)=>{
         // console.log('querySnapshot',querySnapshot)
