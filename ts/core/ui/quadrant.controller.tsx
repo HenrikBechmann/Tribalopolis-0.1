@@ -34,6 +34,8 @@ import {
     ReturnDocPackMessage, 
 } from '../services/interfaces'
 
+import docProxy from '../utilities/docproxy'
+
 let styles = createStyles({
    quadcontent: {
         boxSizing: 'border-box',
@@ -101,10 +103,6 @@ class Quadrant extends React.Component<any,any>  {
 
         // ------------[ data ]-------------
         this.datastack = this.props.datastack
-        // this.systemdata = this.props.systemdata
-        // this.userdata = this.props.userdata
-        // this.controldata.systemdata = this.props.systemdata
-        // this.controldata.userdata = this.props.userdata
 
         // ------------[ components ]-------------
         this.listcomponent = React.createRef()
@@ -152,15 +150,11 @@ class Quadrant extends React.Component<any,any>  {
     activeTargetProxy = null
 
     activeaccountreference
-    systemdata
-    userdata
-    activemember
-    activeaccount
     controldata = {
         systemdata:null,
         userdata:null,
-        activemember:null,
-        activeaccount:null,
+        activememberdata:null,
+        activeaccountdata:null,
     }
 
     // dom refs
@@ -287,6 +281,18 @@ class Quadrant extends React.Component<any,any>  {
 
     componentWillUnmount() {
 
+        if (this.contextMemberProxy) {
+            let {doctoken,instanceid} = this.contextMemberProxy
+            application.removeDocpackPairListener({doctoken, instanceid})
+            this.contextMemberProxy = null
+        }
+
+        if (this.contextAccountProxy) {
+            let {doctoken, instanceid} = this.contextAccountProxy
+            application.removeDocpackPairListener({doctoken,instanceid})
+            this.contextAccountProxy = null
+        }
+
         window.removeEventListener('resize',this.onResize)
 
     }
@@ -300,25 +306,13 @@ class Quadrant extends React.Component<any,any>  {
 -----------------[ controldata assembly ]----------------
 *********************************************************/
 
-    controlDataPromise
-
-    promises = { controldata:{
-            resolve:null,
-            reject: null,
-        }
-    }
-
     _updateControlData = () => {
 
         let accountreference = this.datastack[this.state.stackpointer].account
 
         if (accountreference == this.state.accountreference) return
 
-        this.controlDataPromise = new Promise((resolve,reject) => {
-            this.promises.controldata.resolve = resolve
-            this.promises.controldata.reject = reject
-            this.fetchAccountContext()
-        })
+        this.fetchContextAccount(accountreference)
 
         this.controldata.systemdata = this.props.systemdata
         this.controldata.userdata = this.props.userdata
@@ -329,15 +323,114 @@ class Quadrant extends React.Component<any,any>  {
 
     }
 
-    fetchAccountContext = () => {
+    contextAccountProxy = null
 
+    fetchContextAccount = (accountreference) => {
 
+        if (this.contextAccountProxy) {
+            let {doctoken, instanceid} = this.contextAccountProxy
+            application.removeDocpackPairListener({doctoken,instanceid})
+            this.contextAccountProxy = null
+        }
+
+        this.controldata.activeaccountdata = null
+        this.controldata.activememberdata = null
+
+        let proxy = this.contextAccountProxy = new docProxy({doctoken:{reference:accountreference}})
+        let parms:SetListenerMessage = {
+            doctoken:proxy.doctoken,
+            instanceid:proxy.instanceid,
+            success:this.contextAccountSuccess,
+            failure:this.contextAccountFailure,
+        }
+        application.setDocpackPairListener(parms)
+
+    }
+
+    contextAccountSuccess = (docPack,typePack,reason) => {
+
+        this.controldata.activeaccountdata = {
+            docpack:docPack,
+            typepack:typePack,
+        }
+
+        this.fetchMemberRecord()
+
+    }
+
+    contextAccountFailure = (error) => {
+
+        toast.error('could not get context account record',error)
+
+    }
+
+    fetchMemberRecord = () => {
+
+        console.log('fetchMemberRecord',this.controldata)
+        let parms:GetDocumentMessage = {
+            reference:'members',
+            whereclauses:[
+                ['properties.useraccount','==',this.controldata.userdata.userpack.reference],
+                ['properties.account','==',this.controldata.activeaccountdata.docpack.reference],
+            ],
+            success:this.fetchMemberSuccess, 
+            failure:this.fetchMemberFailure,
+        }
+        application.queryForDocument(parms)
+
+    }
+
+    contextMemberProxy
+
+    fetchMemberSuccess = (docPack, reason) => {
+
+        if (this.contextMemberProxy) {
+            let {doctoken,instanceid} = this.contextMemberProxy
+            application.removeDocpackPairListener({doctoken, instanceid})
+            this.contextMemberProxy = null
+        }
+
+        let proxy = this.contextMemberProxy = new docProxy({doctoken:{reference:docPack.reference}})
+        let parms:SetListenerMessage = {
+            doctoken:proxy.doctoken,
+            instanceid:proxy.instanceid,
+            success:this.contextMemberSuccess,
+            failure:this.contextMemberFailure,
+        }
+        application.setDocpackPairListener(parms)
+
+    }
+
+    fetchMemberFailure = (error) => {
+
+        toast.error('could not get context account member: ' + error)
+
+    }
+
+    contextMemberSuccess = (docPack,typePack,reason) => {
+
+        this.controldata.activememberdata = {
+            docpack:docPack,
+            typepack:typePack,
+        }        
+
+        this.setState((state) => {
+            return {
+                generation:++state.generation
+            }
+        })
+
+    }
+
+    contextMemberFailure = (error) => {
+
+        toast.error('could not get context account member: ' + error)
 
     }
 
     controlStatus = () => {
         // console.log('controlStatus controldata, props', this.controldata, this.props)
-        if (this.controldata.activemember && this.controldata.activeaccount) {
+        if (this.controldata.activememberdata && this.controldata.activeaccountdata) {
             return "full"
         }
         if (this.controldata.systemdata && this.controldata.userdata) {
