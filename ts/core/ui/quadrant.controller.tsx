@@ -145,6 +145,7 @@ class Quadrant extends React.Component<any,any>  {
         boxwidth:300,
         draweropen:false,
         accountreference:null,
+        generation:0,
     }
 
     datastack = null
@@ -214,7 +215,9 @@ class Quadrant extends React.Component<any,any>  {
         }
 
         if (this.cycleForReferences) {
-            this.forceUpdate()
+            this.setState((state)=>{
+                return {generation:++state.generation}
+            })
         }
 
     }
@@ -240,14 +243,6 @@ class Quadrant extends React.Component<any,any>  {
 
         }
 
-        // if (this.props.systemdata && this.props.userdata) {
-        //     if (!controlstatus) { // TODO: prevent infinite loop
-        //         this.forceUpdate()
-        //     }
-        // }
-
-        // console.log('did update controldata', this.controldata)
-
         let activeTargetProxy = this.activeTargetProxy
 
         // animation and visibility based on return from descendant stack level
@@ -266,9 +261,15 @@ class Quadrant extends React.Component<any,any>  {
 
             setTimeout(()=>{ // time for scroll to take place
 
-                this.forceUpdate(() => {
-                    this.activeTargetProxy = null
+                this.setState((state)=>{
+                    return {generation:++state.generation}
+                },() => {
+                        this.activeTargetProxy = null
                 })
+
+                // this.forceUpdate(() => {
+                //     this.activeTargetProxy = null
+                // })
 
             },300) // very timing sensitive
 
@@ -325,8 +326,6 @@ class Quadrant extends React.Component<any,any>  {
         this.setState(() => ({
             accountreference,
         }))
-
-        // this.forceUpdate()
 
     }
 
@@ -474,7 +473,12 @@ class Quadrant extends React.Component<any,any>  {
 
         let datastack = this.datastack
         datastack[this.state.stackpointer].items = datastack[this.state.stackpointer].defaultitems
-        this.forceUpdate()
+
+        this.setState((state)=>{
+            return {generation:++state.generation}
+        })
+
+        // this.forceUpdate()
 
     }
 
