@@ -321,6 +321,9 @@ class Quadrant extends React.Component<any,any>  {
         this.controldata.systemdata = this.props.systemdata
         this.controldata.userdata = this.props.userdata
 
+        this.controldata.activeaccountdata = null
+        this.controldata.activememberdata = null
+
         this.fetchContextAccount(accountreference)
 
         this.setState(() => ({
@@ -358,12 +361,18 @@ class Quadrant extends React.Component<any,any>  {
 
         // console.log('successful context account fetch',docpack, typepack)
 
+        let update = (
+            this.controldata.activeaccountdata && 
+            (this.controldata.activeaccountdata.docpack.reference == docpack.reference))
+
         this.controldata.activeaccountdata = {
             docpack,
             typepack,
         }
 
-        this.fetchMemberRecord()
+        if (!update) {
+            this.fetchMemberRecord()
+        }
 
     }
 
@@ -397,12 +406,18 @@ class Quadrant extends React.Component<any,any>  {
 
         // console.log('fetchMemberSuccess:docpack',docpack)
 
+        let update = (
+            this.controldata.activememberdata && 
+            (this.controldata.activememberdata.docpack.reference == docpack.reference))
+
         if (this.contextMemberProxy) {
             let {doctoken,instanceid} = this.contextMemberProxy
             application.removeDocpackPairListener({doctoken, instanceid})
             this.contextMemberProxy = null
         }
 
+        if (update) return
+            
         let proxy = this.contextMemberProxy = new docProxy({doctoken:{reference:docpack.reference}})
         let parms:SetListenerMessage = {
             doctoken:proxy.doctoken,
