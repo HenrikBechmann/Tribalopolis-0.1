@@ -450,7 +450,7 @@ class Quadrant extends React.Component<any,any>  {
             return "full"
         }
         if (this.controldata.systemdata && this.controldata.userdata) {
-            return "full" // "base"
+            return "base"
         }
         return false
     }
