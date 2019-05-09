@@ -54,6 +54,7 @@ const setGatewayListener = (parmblock:GetDocumentMessage) => {
             case 'layouts':
             case 'types':
             case 'accounts':
+            case 'members':
             case 'users':
             case 'system': {
 
@@ -208,7 +209,7 @@ const queryForDocument = ({reference, whereclauses, success, failure}:GetDocumen
     query.get().then((querySnapshot)=>{
         // console.log('querySnapshot',querySnapshot)
         if (querySnapshot.empty) {
-            return []
+            throw Error('query failed')
         }
         let docs:DocPackStruc[] = []
         querySnapshot.forEach(dbdocpack => {

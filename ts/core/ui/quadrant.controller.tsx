@@ -310,12 +310,18 @@ class Quadrant extends React.Component<any,any>  {
 
         let accountreference = this.datastack[this.state.stackpointer].account
 
-        if (accountreference == this.state.accountreference) return
+        // console.log('in _updateControlData:accountreference, state.accountreference, props', 
+        //     accountreference, 
+        //     this.state.accountreference, 
+        //     this.props
+        // )
 
-        this.fetchContextAccount(accountreference)
+        if (accountreference == this.state.accountreference) return
 
         this.controldata.systemdata = this.props.systemdata
         this.controldata.userdata = this.props.userdata
+
+        this.fetchContextAccount(accountreference)
 
         this.setState(() => ({
             accountreference,
@@ -343,15 +349,18 @@ class Quadrant extends React.Component<any,any>  {
             success:this.contextAccountSuccess,
             failure:this.contextAccountFailure,
         }
+        // console.log('setting contextAccountListener',parms)
         application.setDocpackPairListener(parms)
 
     }
 
-    contextAccountSuccess = (docPack,typePack,reason) => {
+    contextAccountSuccess = ({docpack,typepack,reason}) => {
+
+        // console.log('successful context account fetch',docpack, typepack)
 
         this.controldata.activeaccountdata = {
-            docpack:docPack,
-            typepack:typePack,
+            docpack,
+            typepack,
         }
 
         this.fetchMemberRecord()
@@ -366,23 +375,27 @@ class Quadrant extends React.Component<any,any>  {
 
     fetchMemberRecord = () => {
 
-        console.log('fetchMemberRecord',this.controldata)
         let parms:GetDocumentMessage = {
             reference:'members',
             whereclauses:[
-                ['properties.useraccount','==',this.controldata.userdata.userpack.reference],
+                ['properties.useraccount','==',this.controldata.userdata.accountpack.reference],
                 ['properties.account','==',this.controldata.activeaccountdata.docpack.reference],
             ],
             success:this.fetchMemberSuccess, 
             failure:this.fetchMemberFailure,
         }
+
+        // console.log('fetchMemberRecord:controldata',this.controldata, parms)
+
         application.queryForDocument(parms)
 
     }
 
     contextMemberProxy
 
-    fetchMemberSuccess = (docPack, reason) => {
+    fetchMemberSuccess = ({docpack, reason}) => {
+
+        // console.log('fetchMemberSuccess:docpack',docpack)
 
         if (this.contextMemberProxy) {
             let {doctoken,instanceid} = this.contextMemberProxy
@@ -390,7 +403,7 @@ class Quadrant extends React.Component<any,any>  {
             this.contextMemberProxy = null
         }
 
-        let proxy = this.contextMemberProxy = new docProxy({doctoken:{reference:docPack.reference}})
+        let proxy = this.contextMemberProxy = new docProxy({doctoken:{reference:docpack.reference}})
         let parms:SetListenerMessage = {
             doctoken:proxy.doctoken,
             instanceid:proxy.instanceid,
@@ -403,16 +416,19 @@ class Quadrant extends React.Component<any,any>  {
 
     fetchMemberFailure = (error) => {
 
-        toast.error('could not get context account member: ' + error)
+        toast.warn('could not get context account member: ' + error)
 
     }
 
-    contextMemberSuccess = (docPack,typePack,reason) => {
+    contextMemberSuccess = ({docpack,typepack,reason}) => {
+
 
         this.controldata.activememberdata = {
-            docpack:docPack,
-            typepack:typePack,
+            docpack,
+            typepack,
         }        
+
+        // console.log('contextMemberSuccess', this.controldata, )
 
         this.setState((state) => {
             return {

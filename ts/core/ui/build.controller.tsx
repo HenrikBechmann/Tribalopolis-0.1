@@ -537,7 +537,9 @@ class BuildController extends React.Component<any,any> {
 
                     let login = userdata?userdata.login:null
 
-                    let superuser = !!(login && (login.uid == '112979797407042560714'))
+                    console.log('build ControlData',systemdata, userdata, login)
+
+                    let superuser = !!(login && (login.uid == '0RLrSksoCeYcmnInICk0ia4D40u1'))
 
                     return (
 
