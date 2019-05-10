@@ -72,8 +72,10 @@ class QuadContextBar extends React.Component<any> {
         if (
 
                 (this.stackpointer === null) || 
-                (prevProps.stackpointer != this.props.stackpointer) ||
-                (prevProps.datastack.length != this.datastack.length) ||
+                (prevProps.datastack === null && this.datastack !== null) ||
+                (this.datastack === null && prevProps.datastack !== null) ||
+                (prevProps.stackpointer !== this.props.stackpointer) ||
+                ((prevProps.datastack && this.datastack) && (prevProps.datastack.length != this.datastack.length)) ||
                 !this.props.userdata
 
             ) {

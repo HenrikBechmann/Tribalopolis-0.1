@@ -102,7 +102,7 @@ const getSnapshot = (parmblock:GetDocumentMessage) => {
 
     }
 
-    // console.log('getSnapshot',parmblock)
+    console.log('getSnapshot',parmblock)
 
     let docref = firestore.doc(reference)
     snapshotUnsubscribes[reference] = docref.onSnapshot(doc => {

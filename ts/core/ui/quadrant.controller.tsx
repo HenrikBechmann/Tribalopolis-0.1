@@ -218,6 +218,7 @@ class Quadrant extends React.Component<any,any>  {
 
     componentDidUpdate() {
 
+        console.log('updating quadrant')
         // let controlstatus = this.controlStatus()
 
         // if (controlstatus !== 'full') {
@@ -277,6 +278,14 @@ class Quadrant extends React.Component<any,any>  {
 
     componentWillUnmount() {
 
+        this.removeDocpackPairListeners()
+
+        window.removeEventListener('resize',this.onResize)
+
+    }
+
+    removeDocpackPairListeners = () => {
+
         if (this.contextMemberProxy) {
             let {doctoken,instanceid} = this.contextMemberProxy
             application.removeDocpackPairListener({doctoken, instanceid})
@@ -288,8 +297,6 @@ class Quadrant extends React.Component<any,any>  {
             application.removeDocpackPairListener({doctoken,instanceid})
             this.contextAccountProxy = null
         }
-
-        window.removeEventListener('resize',this.onResize)
 
     }
 
@@ -304,13 +311,24 @@ class Quadrant extends React.Component<any,any>  {
 
     _updateControlData = () => {
 
+        if (this.props.userdata) {
+            if (!this.datastack && this.props.datastack) {
+                this.datastack = this.props.datastack
+            }
+        } else {
+            if (this.datastack) {
+                this.datastack = null
+            }
+            this.removeDocpackPairListeners()
+        }
+
         let accountreference = this.datastack?this.datastack[this.state.stackpointer].account:null
 
-        // console.log('in _updateControlData:accountreference, state.accountreference, props', 
-        //     accountreference, 
-        //     this.state.accountreference, 
-        //     this.props
-        // )
+        console.log('in _updateControlData:accountreference, state.accountreference, props', 
+            accountreference, 
+            this.state.accountreference, 
+            this.props
+        )
 
         this.controldata.systemdata = this.props.systemdata
         this.controldata.userdata = this.props.userdata
