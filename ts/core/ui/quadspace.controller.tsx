@@ -37,9 +37,10 @@ class QuadspaceController extends React.Component<any,any> {
         quadrantPositions:[0,1,2,3],
         currentQuadPosition:'topleft',
         split:'none',
-        datastacks,
         settingsopen:false,
     }
+
+    defaultdatastacks = datastacks
 
     positions = [
         'topleft',
@@ -165,7 +166,10 @@ class QuadspaceController extends React.Component<any,any> {
         return (
             <QuadSpaceFrame>
                 <ControlData>
-                { (systemdata, userdata ) => (
+                { (systemdata, userdata ) => { 
+                    let datastacks = userdata?this.defaultdatastacks:null
+                    console.log('datastacks in quadspace render',datastacks, userdata)
+                    return (
                     <React.Fragment>
                         <ToolsStrip
                             userdata = {userdata}
@@ -192,14 +196,14 @@ class QuadspaceController extends React.Component<any,any> {
                                 userdata = {userdata}                        
                                 quadrantIdentifiers =  {this.quadrantIdentifiers}
                                 split = {this.state.split}
-                                datastacks = {this.state.datastacks}
+                                datastacks = {datastacks}
                                 currentQuadPosition = {this.state.currentQuadPosition}
 
                                 callbacks = {this.quadrantcallbacks}
                             />
                         </QuadViewport>
                     </React.Fragment>
-                )}
+                )}}
                 </ControlData>
             </QuadSpaceFrame>
         )

@@ -47,7 +47,7 @@ const Quadrants = props => {
                 <Quadrant 
                     quadidentifier = {quadrantIdentifiers[quad.one]}
                     color = '#e8e8e8' 
-                    datastack = {datastacks[quad.one]}
+                    datastack = {datastacks?datastacks[quad.one]:null}
                     callbacks = {quadcallbacks}
                     systemdata = {systemdata}
                     userdata = {userdata}
@@ -61,7 +61,7 @@ const Quadrants = props => {
                 <Quadrant 
                     quadidentifier = {quadrantIdentifiers[quad.two]}
                     color = '#e8e8e8' 
-                    datastack = {datastacks[quad.two]}
+                    datastack = {datastacks?datastacks[quad.two]:null}
                     callbacks = {quadcallbacks}
                     systemdata = {systemdata}
                     userdata = {userdata}
@@ -75,7 +75,7 @@ const Quadrants = props => {
                 <Quadrant 
                     quadidentifier = {quadrantIdentifiers[quad.three]}
                     color = '#e8e8e8' 
-                    datastack = {datastacks[quad.three]}
+                    datastack = {datastacks?datastacks[quad.three]:null}
                     callbacks = {quadcallbacks}
                     systemdata = {systemdata}
                     userdata = {userdata}
@@ -89,7 +89,7 @@ const Quadrants = props => {
                 <Quadrant 
                     quadidentifier = {quadrantIdentifiers[quad.four]}
                     color = '#e8e8e8' 
-                    datastack = {datastacks[quad.four]}
+                    datastack = {datastacks?datastacks[quad.four]:null}
                     callbacks = {quadcallbacks}
                     systemdata = {systemdata}
                     userdata = {userdata}

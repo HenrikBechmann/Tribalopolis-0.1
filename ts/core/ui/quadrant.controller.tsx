@@ -192,50 +192,50 @@ class Quadrant extends React.Component<any,any>  {
 
     componentDidMount() {
 
-        if (!this.controlStatus() && this.props.userdata && this.props.systemdata) {
+        // if (!this.controlStatus() && this.props.userdata && this.props.systemdata) {
 
-            this._updateControlData()
-            return
+        this._updateControlData()
+        // return
 
-        } 
+        // } 
 
-        let layer = this.datastack[this.state.stackpointer]
+        // let layer = this.datastack[this.state.stackpointer]
 
-        if ((layer.account != this.state.accountreference)  && this.props.userdata && this.props.systemdata) {
+        // if ((layer.account != this.state.accountreference)  && this.props.userdata && this.props.systemdata) {
 
-            this._updateControlData()
-            return
+        //     this._updateControlData()
+        //     return
 
-        }
+        // }
 
-        if (this.cycleForReferences) {
-            this.setState((state)=>{
-                return {generation:++state.generation}
-            })
-        }
+        // if (this.cycleForReferences) {
+        //     this.setState((state)=>{
+        //         return {generation:++state.generation}
+        //     })
+        // }
 
     }
 
     componentDidUpdate() {
 
-        let controlstatus = this.controlStatus()
+        // let controlstatus = this.controlStatus()
 
-        let layer = this.datastack[this.state.stackpointer]
+        // if (controlstatus !== 'full') {
 
-        if (controlstatus !== 'full') {
+        this._updateControlData()
 
-            this._updateControlData()
+        // } else {
 
-        } else {
+        //     let layer = this.datastack[this.state.stackpointer]
 
-            if ((layer.account != this.state.accountreference)  && this.props.userdata && this.props.systemdata) {
+        //     if ((layer.account != this.state.accountreference)  && this.props.userdata && this.props.systemdata) {
 
-                this._updateControlData()
-                return
+        //         this._updateControlData()
+        //         return
 
-            }
+        //     }
 
-        }
+        // }
 
         let activeTargetProxy = this.activeTargetProxy
 
@@ -260,10 +260,6 @@ class Quadrant extends React.Component<any,any>  {
                 },() => {
                         this.activeTargetProxy = null
                 })
-
-                // this.forceUpdate(() => {
-                //     this.activeTargetProxy = null
-                // })
 
             },300) // very timing sensitive
 
@@ -308,7 +304,7 @@ class Quadrant extends React.Component<any,any>  {
 
     _updateControlData = () => {
 
-        let accountreference = this.datastack[this.state.stackpointer].account
+        let accountreference = this.datastack?this.datastack[this.state.stackpointer].account:null
 
         // console.log('in _updateControlData:accountreference, state.accountreference, props', 
         //     accountreference, 
@@ -316,15 +312,19 @@ class Quadrant extends React.Component<any,any>  {
         //     this.props
         // )
 
-        if (accountreference == this.state.accountreference) return
-
         this.controldata.systemdata = this.props.systemdata
         this.controldata.userdata = this.props.userdata
+
+        if (accountreference == this.state.accountreference) return
 
         this.controldata.activeaccountdata = null
         this.controldata.activememberdata = null
 
-        this.fetchContextAccount(accountreference)
+        if (accountreference) {
+
+            this.fetchContextAccount(accountreference)
+
+        }
 
         this.setState(() => ({
             accountreference,
@@ -460,101 +460,24 @@ class Quadrant extends React.Component<any,any>  {
     }
 
     controlStatus = () => {
+
+        let controlstatus:boolean | string = false
+
         // console.log('controlStatus controldata, props', this.controldata, this.props)
-        if (this.controldata.activememberdata && this.controldata.activeaccountdata) {
-            return "full"
-        }
         if (this.controldata.systemdata && this.controldata.userdata) {
-            return "base"
+            controlstatus = 'base'
         }
-        return false
-    }
-
-    // resetActiveAccount = accountreference => {
-
-        // if (this.activeaccountreference !== accountreference) {
-        //     this.activeaccountreference = null
-        //     this.activeaccount = null
-        //     this.activemember = null
-        // }
-
-    // }
-
-    getActiveMemberData = (userdata,activeaccount) => {
-    // TODO fetch activememberdata from cache or from db
-        if (!userdata || !activeaccount) {
-            return
-        } else {
-            // set async fetch:
-            // fetch member document id
-            // subscibe to document pair (doc + type)
-            // application.setDocpackPairListener = ({doctoken,instanceid,success, failure})
-            // let parms:GetDocumentMessage = {
-            //     reference:'users',
-            //     whereclauses:[['control.loginid.uid','==',uid]],
-            //     success:this.memberDocumentSuccess, 
-            //     failure:this.memberDocumentFailure,
-            // }
-            // application.queryForDocument(parms)
+        if ((controlstatus == 'base') && this.controldata.activememberdata && this.controldata.activeaccountdata) {
+            controlstatus = 'full'
         }
+        return controlstatus
     }
 
-    getActiveAccountData = (userdata) => {
-    // TODO fetch activeaccountdata from cache or from db
-        if (!userdata) {
-            return 
-        } else {
-           // set async fetch 
-        }
-    }
+    userChangeStatus = () => {
 
-    memberDocumentSuccess = () => {
 
-    //     if ((!this.state.systempack) || this.updatinguserdata) {
-
-    //         this.promises.system.resolve(docpack)
-
-    //     } else {
-
-    //         toast.success('updated system data')
-    //         this.setState({
-    //             systempack:docpack,
-    //         })
-
-    //     }
 
     }
-
-    memberDocumentFailure = () => {
-
-    //     toast.error('Unable to get system data (' + error + ')')
-    //     this.promises.system.reject('Unable to get system data (' + error + ')')
-
-    }
-
-
-    // systemDocumentSuccess = ({docpack, reason}:ReturnDocPackMessage) => {
-
-    //     if ((!this.state.systempack) || this.updatinguserdata) {
-
-    //         this.promises.system.resolve(docpack)
-
-    //     } else {
-
-    //         toast.success('updated system data')
-    //         this.setState({
-    //             systempack:docpack,
-    //         })
-
-    //     }
-    // }
-
-    // systemDocumentFailure = error => {
-
-    //     toast.error('Unable to get system data (' + error + ')')
-    //     this.promises.system.reject('Unable to get system data (' + error + ')')
-
-    // }
 
 /********************************************************
 -------------------[ databox assembly ]------------------
