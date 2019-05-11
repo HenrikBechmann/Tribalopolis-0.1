@@ -133,7 +133,9 @@ class Main extends React.Component<any,any> {
     }
 
     signoutCallback = (finishSignout) => {
-
+        // Note:the setState gives children a chance to unsubsribe from database.
+        //    - this is a requirement, else subsequent connnection to the database fails
+        //    - while waiting for permissions to be reset (must be clear of subscriptions)
         // console.log('resetting app state')
         this.setState({
             login:null,
