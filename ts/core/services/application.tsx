@@ -217,6 +217,8 @@ const appManager = new class {
 
         docpackCache.removeListener(reference,instanceid)
 
+        // console.log('removed DocpackPairListener', docpackCache)
+
     }
 
     getDocument = (parmblock:GetDocumentMessage) => {
@@ -283,10 +285,11 @@ const appManager = new class {
 
     completeSignout = () => {
 
-        // setTimeout(() => {
+        setTimeout(() => {
             // console.log('completing signout')
+            // remove all subscriptions
             authapi.googlesignout()
-        // })
+        })
 
     }
 

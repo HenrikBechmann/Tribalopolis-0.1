@@ -218,7 +218,7 @@ class Quadrant extends React.Component<any,any>  {
 
     componentDidUpdate() {
 
-        console.log('updating quadrant')
+        // console.log('updating quadrant')
         // let controlstatus = this.controlStatus()
 
         // if (controlstatus !== 'full') {
@@ -324,11 +324,11 @@ class Quadrant extends React.Component<any,any>  {
 
         let accountreference = this.datastack?this.datastack[this.state.stackpointer].account:null
 
-        console.log('in _updateControlData:accountreference, state.accountreference, props', 
-            accountreference, 
-            this.state.accountreference, 
-            this.props
-        )
+        // console.log('in _updateControlData:accountreference, state.accountreference, props', 
+        //     accountreference, 
+        //     this.state.accountreference, 
+        //     this.props
+        // )
 
         this.controldata.systemdata = this.props.systemdata
         this.controldata.userdata = this.props.userdata

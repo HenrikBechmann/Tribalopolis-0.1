@@ -168,7 +168,7 @@ class QuadspaceController extends React.Component<any,any> {
                 <ControlData>
                 { (systemdata, userdata ) => { 
                     let datastacks = userdata?this.defaultdatastacks:null
-                    console.log('datastacks in quadspace render',datastacks, userdata)
+                    // console.log('datastacks in quadspace render',datastacks, userdata)
                     return (
                     <React.Fragment>
                         <ToolsStrip

@@ -150,6 +150,8 @@ class Main extends React.Component<any,any> {
 
     removeListeners = () => {
 
+        // console.log('remove listeners for sign out', this.systemDocProxy)
+
         this.systemDocProxy && application.removeDocpackListener({
             doctoken:this.systemDocProxy.doctoken,
             instanceid:this.systemDocProxy.instanceid
@@ -253,47 +255,53 @@ class Main extends React.Component<any,any> {
 
         } else { // clear userdata
 
-            this.setSystemPromise()
-
-            this.getSystemDocument()
-
-            this.systemPromise.then((systempack) => {
-
-                // console.log('updating state with empty login')
-
-                this.updatinguserdata = false
-
-                this.userTypePack = null
-                this.userAccountTypePack = null
-                this.setState({
-                    login:null,
-                    userData:null,
-                    userpack:null,
-                    systempack,
-                    accountpack:null,
-                },() => {
-                    toast.info('signed out')
-                })
-
-            }).catch(error => {
-
-                this.updatinguserdata = false
-
-                toast.error('unable to set system data ' + error)
-
-                this.userTypePack = null
-                this.userAccountTypePack = null
-                this.setState({
-                    login:null,
-                    userData:null,
-                    userpack:null,
-                    systempack:null,
-                    accountpack:null,
-                })
-
-            })
+            this.getSystemData()
 
         }
+
+    }
+
+    getSystemData = () => {
+
+        this.setSystemPromise()
+
+        this.getSystemDocument()
+
+        this.systemPromise.then((systempack) => {
+
+            // console.log('updating state with empty login')
+
+            this.updatinguserdata = false
+
+            this.userTypePack = null
+            this.userAccountTypePack = null
+            this.setState({
+                login:null,
+                userData:null,
+                userpack:null,
+                systempack,
+                accountpack:null,
+            },() => {
+                toast.info('signed out')
+            })
+
+        }).catch(error => {
+
+            this.updatinguserdata = false
+
+            toast.error('unable to set system data ' + error)
+
+            this.userTypePack = null
+            this.userAccountTypePack = null
+            this.setState({
+                login:null,
+                userData:null,
+                userpack:null,
+                systempack:null,
+                accountpack:null,
+            })
+
+        })
 
     }
 

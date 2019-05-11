@@ -102,7 +102,7 @@ const getSnapshot = (parmblock:GetDocumentMessage) => {
 
     }
 
-    console.log('getSnapshot',parmblock)
+    // console.log('getSnapshot',parmblock)
 
     let docref = firestore.doc(reference)
     snapshotUnsubscribes[reference] = docref.onSnapshot(doc => {
@@ -129,21 +129,26 @@ const removeGatewayListener = ({reference}:RemoveGatewayListenerMessage) => {
 
     switch (collection) {
         case 'pages':
-        case 'datapanes':
+        case 'layouts':
         case 'types':
         case 'accounts':
+        case 'members':
         case 'users':
         case 'system': {
 
             // console.log('removing listener', reference)
 
-            snapshotUnsubscribes[reference]()
-            delete snapshotUnsubscribes[reference]
+            snapshotUnsubscribes[reference] && snapshotUnsubscribes[reference]()
+            snapshotUnsubscribes[reference] && delete snapshotUnsubscribes[reference]
 
             // console.log('remaining unsubscribes',snapshotUnsubscribes)
 
         }
     }
+}
+
+const removeAllGatewayListeners = () => {
+
 }
 
 const getDocument = ({reference, success, failure}:GetDocumentMessage) => {
@@ -273,6 +278,7 @@ let domain = {
     // get asynchronousely, including triggered updates
     setGatewayListener,
     removeGatewayListener,
+    removeAllGatewayListeners,
     // write
     setDocument,
 
