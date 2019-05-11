@@ -4,6 +4,22 @@
 
 import docproxy from '../core/utilities/docproxy'
 
+let defaultlayer = {
+        account: '/accounts/VyfFksGi0Ehv7unaMoI0',
+
+        items:[
+            new docproxy(
+                {doctoken:{
+                    reference: '/accounts/VyfFksGi0Ehv7unaMoI0',
+                    // collection:'items',
+                    // id:'henrik',
+                }}),
+        ],
+        source: {},
+        settings:{},
+    }
+
+
 let datastacks = [ // four quadrant stacks
     [ // each quadrant stack
         { // each quadrant stack layer
@@ -16,80 +32,36 @@ let datastacks = [ // four quadrant stacks
                     }}),
             ],
             source: {},
-            settings:{
-            },
+            settings:{},
             account:'/accounts/VyfFksGi0Ehv7unaMoI0',
+            defaultlayer,
         },
     ],
     [
         {
-            items:[
-                // new docproxy(
-                //     {doctoken:{
-                //         collection:'items',
-                //         id:'henrik',
-                //     }}),
-            ],
-            source:{
-            },
-            settings:{
-            },
-            defaultitems:[
-                new docproxy(
-                    {doctoken:{
-                        reference: '/accounts/VyfFksGi0Ehv7unaMoI0',
-                        // collection:'items',
-                        // id:'henrik',
-                    }}),
-            ],
+            items:[],
+            source:{},
+            settings:{},
+            account:null,
+            defaultlayer,
         },
     ],
     [
         {
-            items:[
-                // new docproxy(
-                //     {doctoken:{
-                //         collection:'items',
-                //         id:'henrik',
-                //     }}),
-            ],
-            source: {
-            },
-            settings:{
-
-            },
-            defaultitems:[
-                new docproxy(
-                    {doctoken:{
-                        reference:'/accounts/VyfFksGi0Ehv7unaMoI0',
-                        // collection:'items',
-                        // id:'henrik',
-                    }}),
-            ],
+            items:[],
+            source:{},
+            settings:{},
+            account:null,
+            defaultlayer,
         },
     ],
     [
         {
-            items:[
-                // new docproxy(
-                //     {doctoken:{
-                //         collection:'items',
-                //         id:'henrik',
-                //     }}),
-            ],
-            source: {
-            },
-            settings:{
-
-            },
-            defaultitems:[
-                new docproxy(
-                    {doctoken:{
-                        reference:'/accounts/VyfFksGi0Ehv7unaMoI0',
-                        // collection:'items',
-                        // id:'henrik',
-                    }}),
-            ],
+            items:[],
+            source:{},
+            settings:{},
+            account:null,
+            defaultlayer,
         },
     ]
 ]

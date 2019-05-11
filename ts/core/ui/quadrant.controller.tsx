@@ -537,13 +537,17 @@ class Quadrant extends React.Component<any,any>  {
     setDefault = () => {
 
         let datastack = this.datastack
-        datastack[this.state.stackpointer].items = datastack[this.state.stackpointer].defaultitems
+        if (!datastack[this.state.stackpointer].defaultlayer) {
+            toast.warn('no default is available')
+            return
+        }
+        let defaultlayer = datastack[this.state.stackpointer].defaultlayer
+        datastack[this.state.stackpointer] = Object.assign({},defaultlayer)
+        datastack[this.state.stackpointer].defaultlayer = defaultlayer
 
         this.setState((state)=>{
             return {generation:++state.generation}
         })
-
-        // this.forceUpdate()
 
     }
 
@@ -667,7 +671,7 @@ class Quadrant extends React.Component<any,any>  {
         }
 
         let controlstatus = this.controlStatus()
-        // console.log('controlstatus', controlstatus, this.controldata)
+        // console.log('controlstatus', this.props.quadidentifier, controlstatus, this.controldata)
 
         let quadmessage
         switch (controlstatus) {
@@ -676,9 +680,14 @@ class Quadrant extends React.Component<any,any>  {
                 break;
             }
             case 'base': {
-                quadmessage = "Assembling permissions"
+                if (!isempty) {
+                    quadmessage = "Assembling permissions"
+                } else {
+                    quadmessage = "Tap to start"
+                }
                 break;
             }
+            case 'full':
             default: {
                 quadmessage = ''
             }
@@ -727,8 +736,8 @@ class Quadrant extends React.Component<any,any>  {
                         style = {viewportStyle}
                         ref = {this.scrollboxelement}
                     >
-                        {(controlstatus == 'full')?
-                            (!isempty?(
+                        {(controlstatus)?
+                            ((!isempty && controlstatus == 'full')?(
                                 haspeers
                                     ?<List 
                                         itemCount = { 
@@ -748,7 +757,7 @@ class Quadrant extends React.Component<any,any>  {
                                 <div className = {classes.startscreen}
                                     onClick = {this.setDefault}
                                 >
-                                    <div>Tap to start</div>
+                                    <div>{quadmessage}</div>
                                 </div>)
                             :<div className = {classes.startscreen}>{quadmessage}</div>
                         }
