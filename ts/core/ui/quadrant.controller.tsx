@@ -36,50 +36,55 @@ import {
 
 import docProxy from '../utilities/docproxy'
 
-let styles = createStyles({
-   quadcontent: {
-        boxSizing: 'border-box',
-        border: '3px outset gray',
-        position:'relative',
-        borderRadius:'8px',
-        width:'100%',
-        height:'100%',
-        overflow:'hidden',
-    },
-    viewportFrame: {
-        position:'absolute',
-        top:'calc(32px + 2%)',
-        left:'2%',
-        bottom:'2%',
-        right:'2%',
-        borderRadius:'8px',
-        overflow:'hidden',
-    },
+let styles = createStyles(
+    {
+        quadcontent: {
+            boxSizing: 'border-box',
+            border: '3px outset gray',
+            position:'relative',
+            borderRadius:'8px',
+            width:'100%',
+            height:'100%',
+            overflow:'hidden',
+        },
+        viewportFrame: {
+            position:'absolute',
+            top:'calc(32px + 2%)',
+            left:'2%',
+            bottom:'2%',
+            right:'2%',
+            borderRadius:'8px',
+            overflow:'hidden',
+        },
 
-    viewport: {
-        width: '100%',
-        height:'100%',
-        overflow:'auto',
-        webkitOverflowSrolling:'touch',
-        border: '1px solid gray',
-        boxSizing: 'border-box',
-        borderRadius: '8px',
-        position:'relative',
-    },
-    startscreen:{
-        display:'flex',
-        position:'absolute',
-        height:'100%',
-        width:'100%',
-        alignContent:'center',
-        justifyContent:'center',
-        alignItems:'center',
-        fontSize:'larger',
-        fontStyle:'italic',
-        fontWeight:'bold',
-        opacity:.54,
+        viewport: {
+            width: '100%',
+            height:'100%',
+            overflow:'auto',
+            webkitOverflowSrolling:'touch',
+            border: '1px solid gray',
+            boxSizing: 'border-box',
+            borderRadius: '8px',
+            position:'relative',
+        },
+        startscreen:{
+            display:'flex',
+            position:'absolute',
+            height:'100%',
+            width:'100%',
+            alignContent:'center',
+            justifyContent:'center',
+            alignItems:'center',
+            fontSize:'larger',
+            fontStyle:'italic',
+            fontWeight:'bold',
+            opacity:.54,
+        },
+        quadmessage:{
+            cursor:'pointer',
+        },
     }
-})
+)
 
 // List item
 class Quadrant extends React.Component<any,any>  {
@@ -693,6 +698,8 @@ class Quadrant extends React.Component<any,any>  {
             }
         }
 
+        console.log('classes in quadrant controller',classes)
+
         return (
             <div
                 className = {classes.quadcontent}
@@ -757,9 +764,11 @@ class Quadrant extends React.Component<any,any>  {
                                 <div className = {classes.startscreen}
                                     onClick = {this.setDefault}
                                 >
-                                    <div>{quadmessage}</div>
+                                    <div className = {classes.quadmessage}>{quadmessage}</div>
                                 </div>)
-                            :<div className = {classes.startscreen}>{quadmessage}</div>
+                            :<div className = {classes.startscreen}>
+                                <div className = {classes.quadmessage}>{quadmessage}</div>
+                            </div>
                         }
                     </div>
                 }
