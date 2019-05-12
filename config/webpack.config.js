@@ -20,7 +20,7 @@ module.exports = {
     // Look for modules in .ts(x) files first, then .js(x)
     extensions: ['.ts', '.tsx', '.js', '.jsx'],
     // Add 'src' to our modulesDirectories, as all our app code will live in there, so Webpack should look in there for modules
-    modules: ['ts', 'node_modules'],
+    modules: ['src', 'node_modules'],
   },
   module: {
     rules: [
