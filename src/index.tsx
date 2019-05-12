@@ -6,7 +6,7 @@ import { render } from 'react-dom'
 
 require('isomorphic-fetch')
 
-import Main from './core/start/main.controller'
+import Main from './start/main.controller'
 
 let globalmessage = null // 'This is a global message'
 

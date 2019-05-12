@@ -3,7 +3,7 @@
 
 'use strict'
 
-import docproxy from '../../../core/utilities/docproxy'
+import docproxy from '../../utilities/docproxy'
 
 class quadoperations {
 

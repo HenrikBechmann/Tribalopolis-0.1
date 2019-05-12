@@ -16,7 +16,7 @@ import QuantityBadge from './common/quantitybadge.view'
 import Quadrants from './quadrants.controller'
 import VerticalDivider from './common/verticaldivider.view'
 
-import { datastacks } from '../../data/datastacks'
+import { datastacks } from '../data/datastacks'
 import application from '../services/application'
 
 // import UserDataContext from '../services/userdata.context'

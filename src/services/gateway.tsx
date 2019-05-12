@@ -18,7 +18,7 @@
 'use strict'
 
 // temporary for transiition
-import { schemes, localtypes, items, lists, links, folders, accounts } from '../../data/repositories'
+import { schemes, localtypes, items, lists, links, folders, accounts } from '../data/repositories'
 
 import firebase from './firebase.api'
 import { 

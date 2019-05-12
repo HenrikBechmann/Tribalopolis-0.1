@@ -2,7 +2,7 @@
 // copyright (c) 2019 Henrik Bechmann, Toronto, Licence: GPL-3.0-or-later
 'use strict'
 
-import docproxy from '../core/utilities/docproxy'
+import docproxy from '../utilities/docproxy'
 
 let defaultlayer = {
         account: '/accounts/VyfFksGi0Ehv7unaMoI0',
