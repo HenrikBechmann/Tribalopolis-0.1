@@ -236,41 +236,39 @@ class DirectoryBar extends React.Component<any,any> {
                             }>
                             <Icon style = {{opacity:.54}} >edit</Icon> Edit
                         </MenuItem>
-                        <MenuItem className = {classes.menustyle}
+                        {false && <MenuItem className = {classes.menustyle}
                             disabled
                             onClick = {(e) =>{
                                 this.callDataDrawer(e,'remove')}
                             }>
                             <Icon style = {{opacity:.54}} >close</Icon> Remove
-                        </MenuItem>
-                        <MenuItem className = {classes.menustyle}
+                        </MenuItem>}
+                        {false && <MenuItem className = {classes.menustyle}
                             disabled
                             onClick = {(e) =>{
                                 this.callDataDrawer(e,'delete')}
                             }>
                             <Icon style = {{opacity:.54}} >delete</Icon> Delete
-                        </MenuItem>
+                        </MenuItem>}
                         <Divider />
-                        <MenuItem className = {classes.menustyle}
+                        {false && <MenuItem className = {classes.menustyle}
                             onClick = {this.menuClose}>
                             <div style = {{display:'inline-block',width:'24px', height:'24px'}}></div>
                             {false && <Icon style = {{opacity:.54}} >check</Icon>} Select Mode
-                        </MenuItem>
+                        </MenuItem>}
                         <MenuItem className = {classes.menustyle}
                             onClick = {(e) =>{
                                 this.callDataDrawer(e,'add-label')}
                             }>
                             <Icon style = {{opacity:.54}} >label</Icon> New Label
                         </MenuItem>
-                        <Divider />
-                        <MenuItem className = {classes.menustyle}
+                        {false && <MenuItem className = {classes.menustyle}
                             onClick = {this.menuClose}>
                             <Icon style = {{opacity:.54}} >check</Icon> Show All Records
-                        </MenuItem>
+                        </MenuItem>}
                         <MenuItem className = {classes.menustyle}
                             onClick = {this.menuClose}>
-                            <div style = {{display:'inline-block',width:'24px', height:'24px'}}></div> 
-                            {false && <Icon style = {{opacity:.54}} >check</Icon>} Show No Labels
+                            <Icon style = {{opacity:.54}}>label_off</Icon> Show No Labels
                         </MenuItem>
                         <Divider />
                         <MenuItem className = {classes.menustyle}

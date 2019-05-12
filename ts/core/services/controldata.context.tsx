@@ -3,14 +3,17 @@
 
 'use strict'
 
-import React from 'react'
+import React, {useState} from 'react'
 
 import UserDataContext from '../services/userdata.context'
 import SystemDataContext from '../services/systemdata.context'
 
 const ControlData = (props) => {
+    let [activeaccountname,setActiveAccount] = useState(props.activeaccount)
+    let [activeaccountdata,setActiveAccountData] = useState(null) // derive this
+    let [activememberdata,setActiveMemberData] = useState(null)   // serive this
 
-    let {activemember, activeaccount} = props // TODO: switch to activememperproxy?
+    let {activeaccount:activeaccountreference} = props
 
     return <SystemDataContext.Consumer>
         {systemdata => (
@@ -20,8 +23,8 @@ const ControlData = (props) => {
                     return props.children( 
                         systemdata, 
                         userdata,
-                        activemember,
-                        activeaccount
+                        activeaccountdata,
+                        activememberdata,
                     )
                 }}
             </UserDataContext.Consumer>

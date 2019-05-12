@@ -698,7 +698,7 @@ class Quadrant extends React.Component<any,any>  {
             }
         }
 
-        console.log('classes in quadrant controller',classes)
+        // console.log('classes in quadrant controller',classes)
 
         return (
             <div
