@@ -5,8 +5,8 @@
 
 import React, {useState} from 'react'
 
-import UserDataContext from '../services/userdata.context'
-import SystemDataContext from '../services/systemdata.context'
+import UserDataContext from '../../services/userdata.context'
+import SystemDataContext from '../../services/systemdata.context'
 
 const ControlData = (props) => {
     let [activeaccountname,setActiveAccount] = useState(props.activeaccount)
