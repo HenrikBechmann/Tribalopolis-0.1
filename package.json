@@ -62,7 +62,7 @@
     "@types/react-ga": "^2.3.0",
     "@types/react-redux": "^7.0.8",
     "@types/react-router": "^5.0.0",
-    "babel-loader": "^8.0.5",
+    "babel-loader": "^8.0.6",
     "babel-plugin-syntax-trailing-function-commas": "^6.22.0",
     "css-loader": "^2.1.1",
     "source-list-map": "^2.0.1",
