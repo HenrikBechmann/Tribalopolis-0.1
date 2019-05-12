@@ -268,7 +268,7 @@ class DirectoryBar extends React.Component<any,any> {
                         </MenuItem>}
                         <MenuItem className = {classes.menustyle}
                             onClick = {this.menuClose}>
-                            <Icon style = {{opacity:.54}}>label_off</Icon> Show No Labels
+                            <Icon style = {{opacity:.54}}>label_off</Icon> Hide Labels
                         </MenuItem>
                         <Divider />
                         <MenuItem className = {classes.menustyle}
