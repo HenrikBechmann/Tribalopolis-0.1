@@ -31,7 +31,10 @@ class permissions {
 
     public updateControlData = (
         {
-            systemdata, userdata, activeaccountreference, stateaccountreference
+            systemdata, 
+            userdata, 
+            activeaccountreference, 
+            stateaccountreference
         }
     ) => {
 
@@ -87,8 +90,6 @@ class permissions {
         }
 
     }
-
-
 
     // --------------------[ get permission data ]------------------------
     /*
