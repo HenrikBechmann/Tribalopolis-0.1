@@ -248,7 +248,7 @@ class quadoperations {
             let sourceinstanceid = activeTargetProxy.sourceinstanceid
             // console.log('sourceinstanceid in quadoperations',sourceinstanceid, activeTargetProxy.sourceinstanceid, activeTargetProxy)
             let scrollindex = this.quadrant.datastack[this.quadrant.state.stackpointer-1].items
-                .findIndex(this.quadrant._findlinkIndex(sourceinstanceid))
+                .findIndex(this._findlinkIndex(sourceinstanceid))
 
             // console.log('target index quadrant componentDidUpdate',scrollindex, this.quadrant.datastack, this.quadrant.state.stackpointer-1, activeTargetProxy)
             // update scroll display with selected highlight item
@@ -256,6 +256,16 @@ class quadoperations {
 
             this.decrementStackSelector()
         },100)
+
+    }
+
+    _findlinkIndex = (instanceid) => {
+
+        return (itemDocumentProxy) => {
+
+            return itemDocumentProxy.instanceid == instanceid
+
+        }
 
     }
 

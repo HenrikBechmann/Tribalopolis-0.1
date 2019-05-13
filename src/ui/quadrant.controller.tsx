@@ -197,51 +197,13 @@ class Quadrant extends React.Component<any,any>  {
 
     componentDidMount() {
 
-        // if (!this.controlStatus() && this.props.userdata && this.props.systemdata) {
-
         this._updateControlData()
-        // return
-
-        // } 
-
-        // let layer = this.datastack[this.state.stackpointer]
-
-        // if ((layer.account != this.state.accountreference)  && this.props.userdata && this.props.systemdata) {
-
-        //     this._updateControlData()
-        //     return
-
-        // }
-
-        // if (this.cycleForReferences) {
-        //     this.setState((state)=>{
-        //         return {generation:++state.generation}
-        //     })
-        // }
 
     }
 
     componentDidUpdate() {
 
-        // console.log('updating quadrant')
-        // let controlstatus = this.controlStatus()
-
-        // if (controlstatus !== 'full') {
-
         this._updateControlData()
-
-        // } else {
-
-        //     let layer = this.datastack[this.state.stackpointer]
-
-        //     if ((layer.account != this.state.accountreference)  && this.props.userdata && this.props.systemdata) {
-
-        //         this._updateControlData()
-        //         return
-
-        //     }
-
-        // }
 
         let activeTargetProxy = this.activeTargetProxy
 
@@ -270,15 +232,6 @@ class Quadrant extends React.Component<any,any>  {
             },300) // very timing sensitive
 
         },1000) // very timing sensitive
-    }
-
-    _findlinkIndex = (instanceid) => {
-
-        return (itemDocumentProxy) => {
-            // console.log('_findlinkIndex', itemDocumentProxy.instanceid, instanceid)
-            return itemDocumentProxy.instanceid == instanceid
-        }
-
     }
 
     componentWillUnmount() {
