@@ -197,15 +197,15 @@ class Quadrant extends React.Component<any,any>  {
 
     componentDidMount() {
 
-        this._updateDatastack()
-        this._updateControlData()
+        this._refreshDatastack()
+        this._refreshControlData()
 
     }
 
     componentDidUpdate() {
 
-        this._updateDatastack()
-        this._updateControlData()
+        this._refreshDatastack()
+        this._refreshControlData()
 
         let activeTargetProxy = this.activeTargetProxy
 
@@ -236,7 +236,7 @@ class Quadrant extends React.Component<any,any>  {
         },1000) // very timing sensitive
     }
 
-    _updateDatastack = () => {
+    _refreshDatastack = () => {
 
         if (this.props.userdata) {
             if (!this.datastack && this.props.datastack) {
@@ -247,6 +247,27 @@ class Quadrant extends React.Component<any,any>  {
                 this.datastack = null
             }
         }
+
+    }
+
+    _refreshControlData = () => {
+
+        let activeaccountreference = 
+            this.datastack?this.datastack[this.state.stackpointer].account:null
+
+        let dorefresh = this._updateControlData(
+            {
+                userdata:this.props.userdata, 
+                systemdata:this.props.systemdata, 
+                activeaccountreference,
+                stateaccountreference:this.state.accountreference,
+            }
+        ) 
+
+        dorefresh && // update ui
+        this.setState(() => ({
+            accountreference:activeaccountreference,
+        }))
 
     }
 
@@ -278,7 +299,7 @@ class Quadrant extends React.Component<any,any>  {
     onResize = () => {
 
         this.forceUpdate()
-        
+
     }
 
 /********************************************************
@@ -286,40 +307,33 @@ class Quadrant extends React.Component<any,any>  {
 *********************************************************/
 
     // parms: systemdata, userdata, activeaccountreference
-    _updateControlData = () => {
+    _updateControlData = (
+        {
+            systemdata, userdata, activeaccountreference, stateaccountreference
+        }
+    ) => {
 
-        if (!this.props.userdata) {
+        if (!userdata) {
             this.removeContextListeners()
         }
 
-        let accountreference = this.datastack?this.datastack[this.state.stackpointer].account:null
-
-        // console.log('in _updateControlData:accountreference, state.accountreference, props', 
-        //     accountreference, 
-        //     this.state.accountreference, 
-        //     this.props
-        // )
-
         // keep systemdata and userdata up to date in any case
-        this.controldata.systemdata = this.props.systemdata
-        this.controldata.userdata = this.props.userdata
+        this.controldata.systemdata = systemdata
+        this.controldata.userdata = userdata
 
-        if (accountreference == this.state.accountreference) return
+        if (activeaccountreference == stateaccountreference) return false // don't refresh
 
         // if there has been a change in active accountreference
         this.controldata.activeaccountdata = null
         this.controldata.activememberdata = null
 
-        if (accountreference) { // if there is an active account reference
+        if (activeaccountreference) { // if there is an active account reference
 
-            this.fetchContextAccount(accountreference)
+            this.fetchContextAccount(activeaccountreference)
 
         }
 
-        // update ui
-        this.setState(() => ({
-            accountreference,
-        }))
+        return true // refresh
 
     }
 
