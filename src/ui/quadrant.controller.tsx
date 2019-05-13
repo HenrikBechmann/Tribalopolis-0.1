@@ -197,12 +197,14 @@ class Quadrant extends React.Component<any,any>  {
 
     componentDidMount() {
 
+        this._updateDatastack()
         this._updateControlData()
 
     }
 
     componentDidUpdate() {
 
+        this._updateDatastack()
         this._updateControlData()
 
         let activeTargetProxy = this.activeTargetProxy
@@ -234,6 +236,20 @@ class Quadrant extends React.Component<any,any>  {
         },1000) // very timing sensitive
     }
 
+    _updateDatastack = () => {
+
+        if (this.props.userdata) {
+            if (!this.datastack && this.props.datastack) {
+                this.datastack = this.props.datastack
+            }
+        } else { // not logged in
+            if (this.datastack) {
+                this.datastack = null
+            }
+        }
+
+    }
+
     componentWillUnmount() {
 
         this.removeContextListeners()
@@ -260,7 +276,9 @@ class Quadrant extends React.Component<any,any>  {
 
     // for reset of containerHeight
     onResize = () => {
+
         this.forceUpdate()
+        
     }
 
 /********************************************************
@@ -270,14 +288,7 @@ class Quadrant extends React.Component<any,any>  {
     // parms: systemdata, userdata, activeaccountreference
     _updateControlData = () => {
 
-        if (this.props.userdata) {
-            if (!this.datastack && this.props.datastack) {
-                this.datastack = this.props.datastack
-            }
-        } else { // not logged in
-            if (this.datastack) {
-                this.datastack = null
-            }
+        if (!this.props.userdata) {
             this.removeContextListeners()
         }
 
