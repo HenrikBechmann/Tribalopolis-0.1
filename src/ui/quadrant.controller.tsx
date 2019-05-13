@@ -157,7 +157,6 @@ class Quadrant extends React.Component<any,any>  {
     contextAccountProxy = null
     contextMemberProxy = null
 
-    // activeaccountreference
     controldata = {
         systemdata:null,
         userdata:null,
@@ -259,7 +258,7 @@ class Quadrant extends React.Component<any,any>  {
         let activeaccountreference = 
             this.datastack?this.datastack[this.state.stackpointer].account:null
 
-        let dorefresh = this._updateControlData(
+        let dorefresh = this.permissions.updateControlData(
             {
                 userdata:this.props.userdata, 
                 systemdata:this.props.systemdata, 
@@ -277,7 +276,7 @@ class Quadrant extends React.Component<any,any>  {
 
     componentWillUnmount() {
 
-        this.removeContextListeners()
+        this.permissions.removeContextListeners()
 
         window.removeEventListener('resize',this.onResize)
 
@@ -304,188 +303,188 @@ class Quadrant extends React.Component<any,any>  {
 -----------------[ controldata assembly ]----------------
 *********************************************************/
 
-    // parms: systemdata, userdata, activeaccountreference
-    _updateControlData = (
-        {
-            systemdata, userdata, activeaccountreference, stateaccountreference
-        }
-    ) => {
+    // // parms: systemdata, userdata, activeaccountreference
+    // _updateControlData = (
+    //     {
+    //         systemdata, userdata, activeaccountreference, stateaccountreference
+    //     }
+    // ) => {
 
-        if (!userdata) {
-            this.removeContextListeners()
-        }
+    //     if (!userdata) {
+    //         this.removeContextListeners()
+    //     }
 
-        // keep systemdata and userdata up to date in any case
-        this.controldata.systemdata = systemdata
-        this.controldata.userdata = userdata
+    //     // keep systemdata and userdata up to date in any case
+    //     this.controldata.systemdata = systemdata
+    //     this.controldata.userdata = userdata
 
-        if (activeaccountreference == stateaccountreference) return false // don't refresh
+    //     if (activeaccountreference == stateaccountreference) return false // don't refresh
 
-        // if there has been a change in active accountreference
-        this.controldata.activeaccountdata = null
-        this.controldata.activememberdata = null
+    //     // if there has been a change in active accountreference
+    //     this.controldata.activeaccountdata = null
+    //     this.controldata.activememberdata = null
 
-        if (activeaccountreference) { // if there is an active account reference
+    //     if (activeaccountreference) { // if there is an active account reference
 
-            this.fetchContextAccount(activeaccountreference)
+    //         this.fetchContextAccount(activeaccountreference)
 
-        }
+    //     }
 
-        return true // refresh
+    //     return true // refresh
 
-    }
+    // }
 
-    controlStatus = () => {
+    // controlStatus = () => {
 
-        let controlstatus:boolean | string = false
+    //     let controlstatus:boolean | string = false
 
-        if (this.controldata.systemdata && this.controldata.userdata) {
-            controlstatus = 'base'
-        }
-        if (controlstatus && this.controldata.activememberdata && this.controldata.activeaccountdata) {
-            controlstatus = 'full'
-        }
-        return controlstatus
-    }
+    //     if (this.controldata.systemdata && this.controldata.userdata) {
+    //         controlstatus = 'base'
+    //     }
+    //     if (controlstatus && this.controldata.activememberdata && this.controldata.activeaccountdata) {
+    //         controlstatus = 'full'
+    //     }
+    //     return controlstatus
+    // }
 
-    removeContextListeners = () => {
+    // removeContextListeners = () => {
 
-        if (this.contextMemberProxy) {
-            let {doctoken,instanceid} = this.contextMemberProxy
-            application.removeDocpackPairListener({doctoken, instanceid})
-            this.contextMemberProxy = null
-        }
+    //     if (this.contextMemberProxy) {
+    //         let {doctoken,instanceid} = this.contextMemberProxy
+    //         application.removeDocpackPairListener({doctoken, instanceid})
+    //         this.contextMemberProxy = null
+    //     }
 
-        if (this.contextAccountProxy) {
-            let {doctoken, instanceid} = this.contextAccountProxy
-            application.removeDocpackPairListener({doctoken,instanceid})
-            this.contextAccountProxy = null
-        }
+    //     if (this.contextAccountProxy) {
+    //         let {doctoken, instanceid} = this.contextAccountProxy
+    //         application.removeDocpackPairListener({doctoken,instanceid})
+    //         this.contextAccountProxy = null
+    //     }
 
-    }
+    // }
 
-    // --------------------[ get permission data ]------------------------
-    /*
-        subscribe to active account
-        get member record reference
-        subscribe to active member document
-    */
+    // // --------------------[ get permission data ]------------------------
+    // /*
+    //     subscribe to active account
+    //     get member record reference
+    //     subscribe to active member document
+    // */
 
-    fetchContextAccount = (accountreference) => {
+    // fetchContextAccount = (accountreference) => {
 
-        if (this.contextAccountProxy) {
-            let {doctoken, instanceid} = this.contextAccountProxy
-            application.removeDocpackPairListener({doctoken,instanceid})
-            this.contextAccountProxy = null
-        }
+    //     if (this.contextAccountProxy) {
+    //         let {doctoken, instanceid} = this.contextAccountProxy
+    //         application.removeDocpackPairListener({doctoken,instanceid})
+    //         this.contextAccountProxy = null
+    //     }
 
-        this.controldata.activeaccountdata = null
-        this.controldata.activememberdata = null
+    //     this.controldata.activeaccountdata = null
+    //     this.controldata.activememberdata = null
 
-        let proxy = this.contextAccountProxy = new docProxy({doctoken:{reference:accountreference}})
-        let parms:SetListenerMessage = {
-            doctoken:proxy.doctoken,
-            instanceid:proxy.instanceid,
-            success:this.contextAccountSuccess,
-            failure:this.contextAccountFailure,
-        }
+    //     let proxy = this.contextAccountProxy = new docProxy({doctoken:{reference:accountreference}})
+    //     let parms:SetListenerMessage = {
+    //         doctoken:proxy.doctoken,
+    //         instanceid:proxy.instanceid,
+    //         success:this.contextAccountSuccess,
+    //         failure:this.contextAccountFailure,
+    //     }
 
-        application.setDocpackPairListener(parms)
+    //     application.setDocpackPairListener(parms)
 
-    }
+    // }
 
-    contextAccountSuccess = ({docpack,typepack,reason}) => {
+    // contextAccountSuccess = ({docpack,typepack,reason}) => {
 
-        let update = (
-            this.controldata.activeaccountdata && 
-            (this.controldata.activeaccountdata.docpack.reference == docpack.reference))
+    //     let update = (
+    //         this.controldata.activeaccountdata && 
+    //         (this.controldata.activeaccountdata.docpack.reference == docpack.reference))
 
-        this.controldata.activeaccountdata = {
-            docpack,
-            typepack,
-        }
+    //     this.controldata.activeaccountdata = {
+    //         docpack,
+    //         typepack,
+    //     }
 
-        if (!update) {
-            this.fetchMemberRecord()
-        }
+    //     if (!update) {
+    //         this.fetchMemberRecord()
+    //     }
 
-    }
+    // }
 
-    contextAccountFailure = (error) => {
+    // contextAccountFailure = (error) => {
 
-        toast.error('could not get context account record',error)
+    //     toast.error('could not get context account record',error)
 
-    }
+    // }
 
-    fetchMemberRecord = () => {
+    // fetchMemberRecord = () => {
 
-        let parms:GetDocumentMessage = {
-            reference:'members',
-            whereclauses:[
-                ['properties.useraccount','==',this.controldata.userdata.accountpack.reference],
-                ['properties.account','==',this.controldata.activeaccountdata.docpack.reference],
-            ],
-            success:this.fetchMemberSuccess, 
-            failure:this.fetchMemberFailure,
-        }
+    //     let parms:GetDocumentMessage = {
+    //         reference:'members',
+    //         whereclauses:[
+    //             ['properties.useraccount','==',this.controldata.userdata.accountpack.reference],
+    //             ['properties.account','==',this.controldata.activeaccountdata.docpack.reference],
+    //         ],
+    //         success:this.fetchMemberSuccess, 
+    //         failure:this.fetchMemberFailure,
+    //     }
 
-        application.queryForDocument(parms)
+    //     application.queryForDocument(parms)
 
-    }
+    // }
 
-    // fetch member and subscribe if new
-    fetchMemberSuccess = ({docpack, reason}) => {
+    // // fetch member and subscribe if new
+    // fetchMemberSuccess = ({docpack, reason}) => {
 
-        let uptodate = (
-            this.controldata.activememberdata && 
-            (this.controldata.activememberdata.docpack.reference == docpack.reference))
+    //     let uptodate = (
+    //         this.controldata.activememberdata && 
+    //         (this.controldata.activememberdata.docpack.reference == docpack.reference))
 
-        if (uptodate) return
+    //     if (uptodate) return
             
-        if (this.contextMemberProxy) {
-            let {doctoken,instanceid} = this.contextMemberProxy
-            application.removeDocpackPairListener({doctoken, instanceid})
-            this.contextMemberProxy = null
-        }
+    //     if (this.contextMemberProxy) {
+    //         let {doctoken,instanceid} = this.contextMemberProxy
+    //         application.removeDocpackPairListener({doctoken, instanceid})
+    //         this.contextMemberProxy = null
+    //     }
 
-        let proxy = this.contextMemberProxy = new docProxy({doctoken:{reference:docpack.reference}})
-        let parms:SetListenerMessage = {
-            doctoken:proxy.doctoken,
-            instanceid:proxy.instanceid,
-            success:this.contextMemberSuccess,
-            failure:this.contextMemberFailure,
-        }
-        application.setDocpackPairListener(parms)
+    //     let proxy = this.contextMemberProxy = new docProxy({doctoken:{reference:docpack.reference}})
+    //     let parms:SetListenerMessage = {
+    //         doctoken:proxy.doctoken,
+    //         instanceid:proxy.instanceid,
+    //         success:this.contextMemberSuccess,
+    //         failure:this.contextMemberFailure,
+    //     }
+    //     application.setDocpackPairListener(parms)
 
-    }
+    // }
 
-    fetchMemberFailure = (error) => {
+    // fetchMemberFailure = (error) => {
 
-        toast.warn('could not get context account member: ' + error)
+    //     toast.warn('could not get context account member: ' + error)
 
-    }
+    // }
 
-    contextMemberSuccess = ({docpack,typepack,reason}) => {
+    // contextMemberSuccess = ({docpack,typepack,reason}) => {
 
-        this.controldata.activememberdata = {
-            docpack,
-            typepack,
-        }        
+    //     this.controldata.activememberdata = {
+    //         docpack,
+    //         typepack,
+    //     }        
 
-        // force render
-        this.setState((state) => {
-            return {
-                generation:++state.generation
-            }
-        })
+    //     // force render
+    //     this.setState((state) => {
+    //         return {
+    //             generation:++state.generation
+    //         }
+    //     })
 
-    }
+    // }
 
-    contextMemberFailure = (error) => {
+    // contextMemberFailure = (error) => {
 
-        toast.error('could not subscribe to context account member: ' + error)
+    //     toast.error('could not subscribe to context account member: ' + error)
 
-    }
+    // }
 
 /********************************************************
 -------------------[ databox assembly ]------------------
@@ -657,7 +656,7 @@ class Quadrant extends React.Component<any,any>  {
             this.scrollboxelement.current.scrollLeft = 0
         }
 
-        let controlstatus = this.controlStatus()
+        let controlstatus = this.permissions.controlStatus()
 
         let quadmessage
         switch (controlstatus) {

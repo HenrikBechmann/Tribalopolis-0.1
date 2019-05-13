@@ -29,7 +29,7 @@ class permissions {
 
     onPermissions
 
-    _updateControlData = (
+    public updateControlData = (
         {
             systemdata, userdata, activeaccountreference, stateaccountreference
         }
@@ -59,7 +59,7 @@ class permissions {
 
     }
 
-    controlStatus = () => {
+    public controlStatus = () => {
 
         let controlstatus:boolean | string = false
 
@@ -72,7 +72,7 @@ class permissions {
         return controlstatus
     }
 
-    removeContextListeners = () => {
+    public removeContextListeners = () => {
 
         if (this.contextMemberProxy) {
             let {doctoken,instanceid} = this.contextMemberProxy
@@ -97,7 +97,7 @@ class permissions {
         subscribe to active member document
     */
 
-    fetchContextAccount = (accountreference) => {
+    private fetchContextAccount = (accountreference) => {
 
         if (this.contextAccountProxy) {
             let {doctoken, instanceid} = this.contextAccountProxy
@@ -120,7 +120,7 @@ class permissions {
 
     }
 
-    contextAccountSuccess = ({docpack,typepack,reason}) => {
+    private contextAccountSuccess = ({docpack,typepack,reason}) => {
 
         let update = (
             this.controldata.activeaccountdata && 
@@ -137,13 +137,13 @@ class permissions {
 
     }
 
-    contextAccountFailure = (error) => {
+    private contextAccountFailure = (error) => {
 
         toast.error('could not get context account record',error)
 
     }
 
-    fetchMemberRecord = () => {
+    private fetchMemberRecord = () => {
 
         let parms:GetDocumentMessage = {
             reference:'members',
@@ -160,7 +160,7 @@ class permissions {
     }
 
     // fetch member and subscribe if new
-    fetchMemberSuccess = ({docpack, reason}) => {
+    private fetchMemberSuccess = ({docpack, reason}) => {
 
         let uptodate = (
             this.controldata.activememberdata && 
@@ -185,13 +185,13 @@ class permissions {
 
     }
 
-    fetchMemberFailure = (error) => {
+    private fetchMemberFailure = (error) => {
 
         toast.warn('could not get context account member: ' + error)
 
     }
 
-    contextMemberSuccess = ({docpack,typepack,reason}) => {
+    private contextMemberSuccess = ({docpack,typepack,reason}) => {
 
         this.controldata.activememberdata = {
             docpack,
@@ -202,7 +202,7 @@ class permissions {
 
     }
 
-    contextMemberFailure = (error) => {
+    private contextMemberFailure = (error) => {
 
         toast.error('could not subscribe to context account member: ' + error)
 
