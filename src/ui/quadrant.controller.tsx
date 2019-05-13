@@ -23,8 +23,6 @@ import quadanimations from './quadrant/quadanimations.class'
 import quadoperations from './quadrant/quadoperations.class'
 
 import { DocTokenStruc } from '../services/interfaces'
-// import UserDataContext from '../services/userdata.context'
-// import ControlData from '../services/controldata.context'
 import { DataPaneContext } from '../services/interfaces'
 import application from '../services/application'
 import { 
@@ -238,13 +236,13 @@ class Quadrant extends React.Component<any,any>  {
 
     componentWillUnmount() {
 
-        this.removeDocpackPairListeners()
+        this.removeContextListeners()
 
         window.removeEventListener('resize',this.onResize)
 
     }
 
-    removeDocpackPairListeners = () => {
+    removeContextListeners = () => {
 
         if (this.contextMemberProxy) {
             let {doctoken,instanceid} = this.contextMemberProxy
@@ -269,6 +267,7 @@ class Quadrant extends React.Component<any,any>  {
 -----------------[ controldata assembly ]----------------
 *********************************************************/
 
+    // parms: systemdata, userdata, datastack, stackpointer, activeaccountreference
     _updateControlData = () => {
 
         if (this.props.userdata) {
@@ -279,7 +278,7 @@ class Quadrant extends React.Component<any,any>  {
             if (this.datastack) {
                 this.datastack = null
             }
-            this.removeDocpackPairListeners()
+            this.removeContextListeners()
         }
 
         let accountreference = this.datastack?this.datastack[this.state.stackpointer].account:null
@@ -620,7 +619,6 @@ class Quadrant extends React.Component<any,any>  {
         }
 
         let controlstatus = this.controlStatus()
-        // console.log('controlstatus', this.props.quadidentifier, controlstatus, this.controldata)
 
         let quadmessage
         switch (controlstatus) {
