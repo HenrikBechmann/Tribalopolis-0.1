@@ -250,7 +250,6 @@ class quadoperations {
             let scrollindex = this.quadrant.datastack[this.quadrant.state.stackpointer-1].items
                 .findIndex(this._findlinkIndex(sourceinstanceid))
 
-            // console.log('target index quadrant componentDidUpdate',scrollindex, this.quadrant.datastack, this.quadrant.state.stackpointer-1, activeTargetProxy)
             // update scroll display with selected highlight item
             activeTargetProxy.index = scrollindex
 

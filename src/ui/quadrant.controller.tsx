@@ -153,6 +153,8 @@ class Quadrant extends React.Component<any,any>  {
 
     datastack = null
     activeTargetProxy = null
+    contextAccountProxy = null
+    contextMemberProxy = null
 
     activeaccountreference
     controldata = {
@@ -273,7 +275,7 @@ class Quadrant extends React.Component<any,any>  {
             if (!this.datastack && this.props.datastack) {
                 this.datastack = this.props.datastack
             }
-        } else {
+        } else { // not logged in
             if (this.datastack) {
                 this.datastack = null
             }
@@ -288,27 +290,48 @@ class Quadrant extends React.Component<any,any>  {
         //     this.props
         // )
 
+        // keep systemdata and userdata up to date in any case
         this.controldata.systemdata = this.props.systemdata
         this.controldata.userdata = this.props.userdata
 
         if (accountreference == this.state.accountreference) return
 
+        // if there has been a change in active accountreference
         this.controldata.activeaccountdata = null
         this.controldata.activememberdata = null
 
-        if (accountreference) {
+        if (accountreference) { // if there is an active account reference
 
             this.fetchContextAccount(accountreference)
 
         }
 
+        // update ui
         this.setState(() => ({
             accountreference,
         }))
 
     }
 
-    contextAccountProxy = null
+    controlStatus = () => {
+
+        let controlstatus:boolean | string = false
+
+        if (this.controldata.systemdata && this.controldata.userdata) {
+            controlstatus = 'base'
+        }
+        if (controlstatus && this.controldata.activememberdata && this.controldata.activeaccountdata) {
+            controlstatus = 'full'
+        }
+        return controlstatus
+    }
+
+    // --------------------[ get permission data ]------------------------
+    /*
+        subscribe to active account
+        get member record reference
+        subscribe to active member document
+    */
 
     fetchContextAccount = (accountreference) => {
 
@@ -328,14 +351,12 @@ class Quadrant extends React.Component<any,any>  {
             success:this.contextAccountSuccess,
             failure:this.contextAccountFailure,
         }
-        // console.log('setting contextAccountListener',parms)
+
         application.setDocpackPairListener(parms)
 
     }
 
     contextAccountSuccess = ({docpack,typepack,reason}) => {
-
-        // console.log('successful context account fetch',docpack, typepack)
 
         let update = (
             this.controldata.activeaccountdata && 
@@ -370,30 +391,25 @@ class Quadrant extends React.Component<any,any>  {
             failure:this.fetchMemberFailure,
         }
 
-        // console.log('fetchMemberRecord:controldata',this.controldata, parms)
-
         application.queryForDocument(parms)
 
     }
 
-    contextMemberProxy
-
+    // fetch member and subscribe if new
     fetchMemberSuccess = ({docpack, reason}) => {
 
-        // console.log('fetchMemberSuccess:docpack',docpack)
-
-        let update = (
+        let uptodate = (
             this.controldata.activememberdata && 
             (this.controldata.activememberdata.docpack.reference == docpack.reference))
 
+        if (uptodate) return
+            
         if (this.contextMemberProxy) {
             let {doctoken,instanceid} = this.contextMemberProxy
             application.removeDocpackPairListener({doctoken, instanceid})
             this.contextMemberProxy = null
         }
 
-        if (update) return
-            
         let proxy = this.contextMemberProxy = new docProxy({doctoken:{reference:docpack.reference}})
         let parms:SetListenerMessage = {
             doctoken:proxy.doctoken,
@@ -413,14 +429,12 @@ class Quadrant extends React.Component<any,any>  {
 
     contextMemberSuccess = ({docpack,typepack,reason}) => {
 
-
         this.controldata.activememberdata = {
             docpack,
             typepack,
         }        
 
-        // console.log('contextMemberSuccess', this.controldata, )
-
+        // force render
         this.setState((state) => {
             return {
                 generation:++state.generation
@@ -431,27 +445,7 @@ class Quadrant extends React.Component<any,any>  {
 
     contextMemberFailure = (error) => {
 
-        toast.error('could not get context account member: ' + error)
-
-    }
-
-    controlStatus = () => {
-
-        let controlstatus:boolean | string = false
-
-        // console.log('controlStatus controldata, props', this.controldata, this.props)
-        if (this.controldata.systemdata && this.controldata.userdata) {
-            controlstatus = 'base'
-        }
-        if ((controlstatus == 'base') && this.controldata.activememberdata && this.controldata.activeaccountdata) {
-            controlstatus = 'full'
-        }
-        return controlstatus
-    }
-
-    userChangeStatus = () => {
-
-
+        toast.error('could not subscribe to context account member: ' + error)
 
     }
 
@@ -521,8 +515,6 @@ class Quadrant extends React.Component<any,any>  {
 
         let { stackpointer } = this.state
 
-        // console.log('Box in quadrant, datastack, scrollboxelement',datastack, this.scrollboxelement)
-
         if (!datastack) return null
 
         this.cycleForReferences = !this.scrollboxelement.current
@@ -550,14 +542,13 @@ class Quadrant extends React.Component<any,any>  {
         let containerHeight = this.scrollboxelement.current.offsetHeight
 
         let matchForTarget = false
-        let activeTargetProxy = this.activeTargetProxy // this.operations.getTargetProxy()
+        let activeTargetProxy = this.activeTargetProxy 
         if (activeTargetProxy) {
             matchForTarget = (!haspeers || (activeTargetProxy.index == index))
-            // console.log('matchfortarget',!haspeers,(activeTargetProxy.index == index), haspeers, activeTargetProxy.index ,index)
-            if (matchForTarget) this.activeTargetProxy = null
-        }
 
-        // console.log('getBoxComponent itemProxy, activeTargetProxy, index, matchForTarget',itemProxy, activeTargetProxy, index, matchForTarget)
+            if (matchForTarget) this.activeTargetProxy = null
+
+        }
 
         let boxcallbacks = {
             // data fulfillment
@@ -650,8 +641,6 @@ class Quadrant extends React.Component<any,any>  {
                 quadmessage = ''
             }
         }
-
-        // console.log('classes in quadrant controller',classes)
 
         return (
             <div
