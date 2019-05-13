@@ -21,6 +21,7 @@ import { FixedSizeList as List } from 'react-window'
 
 import quadanimations from './quadrant/quadanimations.class'
 import quadoperations from './quadrant/quadoperations.class'
+import permissions from '../services/permissions'
 
 import { DocTokenStruc } from '../services/interfaces'
 import { DataPaneContext } from '../services/interfaces'
@@ -136,6 +137,8 @@ class Quadrant extends React.Component<any,any>  {
 
         })
 
+        this.permissions = new permissions(this.onPermissions)
+
         // -----------[ window listener ]-----------
         window.addEventListener('resize',this.onResize)
 
@@ -154,7 +157,7 @@ class Quadrant extends React.Component<any,any>  {
     contextAccountProxy = null
     contextMemberProxy = null
 
-    activeaccountreference
+    // activeaccountreference
     controldata = {
         systemdata:null,
         userdata:null,
@@ -181,6 +184,7 @@ class Quadrant extends React.Component<any,any>  {
     // delegation classes
     operations
     animations
+    permissions
 
     // data drawer message
     drawerdatapackage:DataPaneContext
@@ -279,26 +283,20 @@ class Quadrant extends React.Component<any,any>  {
 
     }
 
-    removeContextListeners = () => {
-
-        if (this.contextMemberProxy) {
-            let {doctoken,instanceid} = this.contextMemberProxy
-            application.removeDocpackPairListener({doctoken, instanceid})
-            this.contextMemberProxy = null
-        }
-
-        if (this.contextAccountProxy) {
-            let {doctoken, instanceid} = this.contextAccountProxy
-            application.removeDocpackPairListener({doctoken,instanceid})
-            this.contextAccountProxy = null
-        }
-
-    }
-
     // for reset of containerHeight
     onResize = () => {
 
         this.forceUpdate()
+
+    }
+
+    onPermissions = () => {
+        // force render
+        this.setState((state) => {
+            return {
+                generation:++state.generation
+            }
+        })
 
     }
 
@@ -348,6 +346,22 @@ class Quadrant extends React.Component<any,any>  {
             controlstatus = 'full'
         }
         return controlstatus
+    }
+
+    removeContextListeners = () => {
+
+        if (this.contextMemberProxy) {
+            let {doctoken,instanceid} = this.contextMemberProxy
+            application.removeDocpackPairListener({doctoken, instanceid})
+            this.contextMemberProxy = null
+        }
+
+        if (this.contextAccountProxy) {
+            let {doctoken, instanceid} = this.contextAccountProxy
+            application.removeDocpackPairListener({doctoken,instanceid})
+            this.contextAccountProxy = null
+        }
+
     }
 
     // --------------------[ get permission data ]------------------------
