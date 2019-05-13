@@ -267,7 +267,7 @@ class Quadrant extends React.Component<any,any>  {
 -----------------[ controldata assembly ]----------------
 *********************************************************/
 
-    // parms: systemdata, userdata, datastack, stackpointer, activeaccountreference
+    // parms: systemdata, userdata, activeaccountreference
     _updateControlData = () => {
 
         if (this.props.userdata) {
