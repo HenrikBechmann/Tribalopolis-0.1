@@ -533,7 +533,7 @@ class BuildController extends React.Component<any,any> {
 
             <ControlData>
 
-                { (systemdata, userdata) => {
+                { (systemdata, userdata, activeaccountdata, activememberdata) => {
 
                     let login = userdata?userdata.login:null
 

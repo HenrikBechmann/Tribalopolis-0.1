@@ -14,6 +14,7 @@ module.exports = {
   // Output the bundled JS to dist/app.js
   output: {
     filename: '[name].bundle.js',
+    chunkFilename: '[name].bundle.js',
     path: path.resolve('dist')
   },
   resolve: {
@@ -25,25 +26,21 @@ module.exports = {
   module: {
     rules: [
       // .ts(x) files should first pass through the Typescript loader, and then through babel
-      { test: /\.tsx?$/, 
-        use:['babel-loader','ts-loader']
-        // {
-        //   loader:'babel-loader'
-        // },
-        // {
-        //   loader:'ts-loader'
-        // }
-        // ]
+      { 
+          test: /\.tsx?$/, 
+          use:['babel-loader','ts-loader']
       },
       {
-        test: /\.css$/,
-        use: [ 'style-loader', 'css-loader' ]
+          test: /\.css$/,
+          use: [ 'style-loader', 'css-loader' ]
       },
-      { test: /\.txt$/, 
-        use:'raw-loader'
+      { 
+          test: /\.txt$/, 
+          use:'raw-loader'
       },
-      { test: /\.html$/, 
-        use:'html-loader'
+      { 
+          test: /\.html$/, 
+          use:'html-loader'
       }
     ]
   },

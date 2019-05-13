@@ -166,7 +166,7 @@ class QuadspaceController extends React.Component<any,any> {
         return (
             <QuadSpaceFrame>
                 <ControlData>
-                { (systemdata, userdata ) => { 
+                { (systemdata, userdata, activeaccountdata, activememberdata ) => { 
                     let datastacks = userdata?this.defaultdatastacks:null
                     // console.log('datastacks in quadspace render',datastacks, userdata)
                     return (

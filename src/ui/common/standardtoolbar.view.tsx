@@ -40,7 +40,7 @@ const StandardToolbar = (props) => {
     return (
         <div>
             <ControlData>
-            { (systemdata, userdata) => (
+            { (systemdata, userdata, activeaccountdata, activememberdata) => (
                 <ToolsStrip
                     userdata = {userdata}
                     systemdata = {systemdata}
