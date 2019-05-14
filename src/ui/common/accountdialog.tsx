@@ -98,7 +98,7 @@ class AccountDialogBase extends React.Component<DialogProps,any> {
     render() {
         if (!this.paneProxy ) {
 
-            let settingspageref = this.props.systemdata?this.props.systemdata.accountsettingspage:null
+            let settingspageref = this.props.systemdata?this.props.systemdata.parameters.accountsettingspage:null
 
             if (settingspageref) {
                 let paneProxy = new docproxy({doctoken:{reference:settingspageref}})

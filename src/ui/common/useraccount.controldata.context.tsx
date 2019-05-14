@@ -8,18 +8,15 @@ import React, {useState} from 'react'
 import UserDataContext from '../../services/userdata.context'
 import SystemDataContext from '../../services/systemdata.context'
 
-const ControlData = (props) => {
-    let [activeaccountname,setActiveAccount] = useState(props.activeaccount)
-    let [activeaccountdata,setActiveAccountData] = useState(null) // derive this
-    let [activememberdata,setActiveMemberData] = useState(null)   // serive this
+const UserAccountControlData = (props) => {
 
-    let {activeaccount:activeaccountreference} = props
+    let activeaccountdata = null, activememberdata = null
 
     return <SystemDataContext.Consumer>
         {systemdata => (
             <UserDataContext.Consumer>
                 {(userdata) => {
-                    // console.log('values collected by ControlData',systemdata, userdata, activemember, activeaccount)
+                    // console.log('values collected by UserAccountControlData',systemdata, userdata, activemember, activeaccount)
                     return props.children( 
                         systemdata, 
                         userdata,
@@ -33,4 +30,4 @@ const ControlData = (props) => {
 
 }
 
-export default ControlData
+export default UserAccountControlData

@@ -511,9 +511,9 @@ class Main extends React.Component<any,any> {
 
         application.userdata = userdata // memoize
 
-        console.log('userdata in main.controller',userdata)
+        let systemdata = this.state.systempack?{parameters:(this.state.systempack.document)}:null
 
-        let systemdata = this.state.systempack?this.state.systempack.document:null
+        console.log('systemdata and userdata in main.controller',systemdata,userdata)
 
         return (
 

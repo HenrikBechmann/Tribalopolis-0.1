@@ -27,6 +27,14 @@ class permissions {
     contextAccountProxy = null
     contextMemberProxy = null
 
+    // get contextAccountReference() {
+    //     return this.contextAccountProxy.doctoken.reference
+    // }
+
+    // get contextMemberReference() {
+    //     return this.contextMemberProxy.doctoken.reference
+    // }
+
     onPermissions
 
     public updateControlData = (
