@@ -1,4 +1,4 @@
-// controldata.context.tsx
+// useraccount.controldata.tsx
 // copyright (c) 2019 Henritk Bechmann, Toronto, Licence: GPL-3.0-or-later
 
 'use strict'
@@ -7,10 +7,9 @@ import React, {useState} from 'react'
 
 import UserDataContext from './userdata.context'
 import SystemDataContext from './systemdata.context'
+import UserAccountPermissionData from './useraccount.permissiondata'
 
 const UserAccountControlData = (props) => {
-
-    let activeaccountdata = null, activememberdata = null
 
     return <SystemDataContext.Consumer>
 
@@ -18,16 +17,20 @@ const UserAccountControlData = (props) => {
             
             <UserDataContext.Consumer>
 
-                {(userdata) => {
+                {(userdata) => (
 
-                    return props.children( 
-                        systemdata, 
-                        userdata,
-                        activeaccountdata,
-                        activememberdata,
-                    )
+                    <UserAccountPermissionData>
+                        { (activeaccountdata, activememberdata) => {
+                            return props.children( 
+                                systemdata, 
+                                userdata,
+                                activeaccountdata,
+                                activememberdata,
+                            )}
+                        }
+                    </UserAccountPermissionData>
 
-                }}
+                )}
 
             </UserDataContext.Consumer>
         )}
