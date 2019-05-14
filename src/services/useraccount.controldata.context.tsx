@@ -5,25 +5,30 @@
 
 import React, {useState} from 'react'
 
-import UserDataContext from '../../services/userdata.context'
-import SystemDataContext from '../../services/systemdata.context'
+import UserDataContext from './userdata.context'
+import SystemDataContext from './systemdata.context'
 
 const UserAccountControlData = (props) => {
 
     let activeaccountdata = null, activememberdata = null
 
     return <SystemDataContext.Consumer>
+
         {systemdata => (
+            
             <UserDataContext.Consumer>
+
                 {(userdata) => {
-                    // console.log('values collected by UserAccountControlData',systemdata, userdata, activemember, activeaccount)
+
                     return props.children( 
                         systemdata, 
                         userdata,
                         activeaccountdata,
                         activememberdata,
                     )
+
                 }}
+
             </UserDataContext.Consumer>
         )}
     </SystemDataContext.Consumer>

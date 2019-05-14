@@ -21,7 +21,7 @@ import application from '../services/application'
 
 // import UserDataContext from '../services/userdata.context'
 // import SystemDataContext from '../services/systemdata.context'
-import UserAccountControlData from '../ui/common/useraccount.controldata.context'
+import UserAccountControlData from '../services/useraccount.controldata.context'
 // import AccountDialog from './common/accountdialog'
 
 class QuadspaceController extends React.Component<any,any> {

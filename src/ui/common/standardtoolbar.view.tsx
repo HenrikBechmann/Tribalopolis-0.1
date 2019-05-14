@@ -11,7 +11,7 @@ import Icon from '@material-ui/core/Icon'
 
 // import UserDataContext from '../../services/userdata.context'
 // import SystemDataContext from '../../services/systemdata.context'
-import UserAccountControlData from '../../ui/common/useraccount.controldata.context'
+import UserAccountControlData from '../../services/useraccount.controldata.context'
 import ToolsStrip from './toolsstrip.view'
 import VerticalDivider from './verticaldivider.view'
 
