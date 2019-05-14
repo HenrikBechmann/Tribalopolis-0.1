@@ -3,7 +3,7 @@
 
 'use strict'
 
-import application from '../services/application'
+import application from './application'
 import { toast } from 'react-toastify'
 import docProxy from '../utilities/docproxy'
 import { 
