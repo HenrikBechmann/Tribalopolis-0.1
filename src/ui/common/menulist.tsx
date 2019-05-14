@@ -14,7 +14,7 @@ import Icon from '@material-ui/core/Icon'
 
 // import UserDataContext from '../../services/userdata.context'
 // import SystemDataContext from '../../services/systemdata.context'
-import UserAccountControlData from '../../services/useraccount.controldata.context'
+import UserAccountControlData from '../../services/useraccount.controldata'
 // import AccountDialog from './accountdialog'
 import DescriptiveDivider from './descriptivedivider.view'
 

@@ -24,7 +24,7 @@ import SelectField from './input/selectfield.view'
 import TextField from './input/textfield.view'
 
 // import UserDataContext from '../services/userdata.context'
-import UserAccountControlData from '../services/useraccount.controldata.context'
+import UserAccountControlData from '../services/useraccount.controldata'
 
 import application from '../services/application'
 import typefilter from '../services/type.filter'

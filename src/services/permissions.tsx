@@ -131,7 +131,7 @@ class permissions {
 
     private contextAccountSuccess = ({docpack,typepack,reason}) => {
 
-        let update = (
+        let isupdate = (
             this.controldata.activeaccountdata && 
             (this.controldata.activeaccountdata.docpack.reference == docpack.reference))
 
@@ -140,8 +140,10 @@ class permissions {
             typepack,
         }
 
-        if (!update) {
+        if (!isupdate) {
             this.fetchMemberRecord()
+        } else {
+            this.onPermissions()
         }
 
     }
