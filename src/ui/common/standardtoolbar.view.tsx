@@ -40,8 +40,9 @@ const StandardToolbar = (props) => {
     return (
         <div>
             <UserAccountControlData>
-            { (systemdata, userdata, activeaccountdata, activememberdata) => (
-                <ToolsStrip
+            { (systemdata, userdata, activeaccountdata, activememberdata) => {
+                // console.log('StandardToolbar UserAccountControlData return',systemdata,userdata,activeaccountdata, activememberdata)
+                return <ToolsStrip
                     userdata = {userdata}
                     systemdata = {systemdata}
                     childrenposition = 'end'
@@ -57,7 +58,7 @@ const StandardToolbar = (props) => {
                             {systemdata?systemdata.parameters.tagline:'loading...'}
                         </div>
                     </div>
-                </ToolsStrip>)
+                </ToolsStrip>}
             }
             </UserAccountControlData>
             <div className = {classes.spacer} ></div>

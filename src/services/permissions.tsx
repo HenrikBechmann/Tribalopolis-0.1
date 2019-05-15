@@ -27,9 +27,16 @@ class permissions {
     contextAccountProxy = null
     contextMemberProxy = null
 
-    // get contextAccountReference() {
-    //     return this.contextAccountProxy.doctoken.reference
-    // }
+    get contextAccountReference() {
+        return this.contextAccountProxy?this.contextAccountProxy.doctoken.reference:null
+    }
+
+    get contextControlData() {
+        return {
+            activememberdata:this.controldata.activememberdata,
+            activeaccountdata:this.controldata.activeaccountdata,
+        }
+    }
 
     // get contextMemberReference() {
     //     return this.contextMemberProxy.doctoken.reference
@@ -165,6 +172,8 @@ class permissions {
             success:this.fetchMemberSuccess, 
             failure:this.fetchMemberFailure,
         }
+
+        // console.log('fetchMemberRecord parms, controldata',parms, this.controldata)
 
         application.queryForDocument(parms)
 
