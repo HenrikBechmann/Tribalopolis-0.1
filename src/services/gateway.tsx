@@ -203,15 +203,17 @@ const queryForDocument = ({reference, whereclauses, success, failure}:GetDocumen
     // TODO: process nultiple query conditions
     let query:any = collection
     for (let whereclause of whereclauses) {
+
         query = query.where(whereclause[0],whereclause[1],whereclause[2])
-        // console.log('interim query', query)
+
     }
 
     query.get().then((querySnapshot)=>{
-        // console.log('querySnapshot',querySnapshot)
+
         if (querySnapshot.empty) {
             throw Error('query failed')
         }
+
         let docs:DocPackStruc[] = []
         querySnapshot.forEach(dbdocpack => {
             let doc:DocPackStruc = {
@@ -221,14 +223,22 @@ const queryForDocument = ({reference, whereclauses, success, failure}:GetDocumen
             }
             docs.push(doc)
         })
+
         let docpack:DocPackStruc = docs[0]
+
         return docpack
+
     }).then((docpackreturn) => {
+
         let docpack:DocPackStruc = docpackreturn as DocPackStruc
         let returnpack:ReturnDocPackMessage = {docpack,reason:{}}
+
         success(returnpack)
+
     }).catch(error =>{
+
         failure(error)
+        
     }) 
 }
 
