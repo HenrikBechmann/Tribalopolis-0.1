@@ -200,10 +200,6 @@ const queryForDocument = ({reference, whereclauses, success, failure}:GetDocumen
 
     let collection = firestore.collection(reference)
 
-    // let whereclause = whereclauses[0]
-
-    // let query = collection.where(whereclause[0],whereclause[1],whereclause[2])
-
     // TODO: process nultiple query conditions
     let query:any = collection
     for (let whereclause of whereclauses) {
