@@ -164,7 +164,7 @@ class permissions {
     private fetchMemberRecord = () => {
 
         let parms:GetDocumentMessage = {
-            reference:'members',
+            reference:'organization',
             whereclauses:[
                 ['properties.useraccount','==',this.controldata.userdata.accountpack.reference],
                 ['properties.account','==',this.controldata.activeaccountdata.docpack.reference],

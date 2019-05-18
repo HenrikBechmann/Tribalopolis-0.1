@@ -54,7 +54,7 @@ const setGatewayListener = (parmblock:GetDocumentMessage) => {
             case 'layouts':
             case 'types':
             case 'accounts':
-            case 'members':
+            case 'organization':
             case 'users':
             case 'system': {
 
@@ -132,7 +132,7 @@ const removeGatewayListener = ({reference}:RemoveGatewayListenerMessage) => {
         case 'layouts':
         case 'types':
         case 'accounts':
-        case 'members':
+        case 'organization':
         case 'users':
         case 'system': {
 
