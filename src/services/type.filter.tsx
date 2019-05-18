@@ -58,7 +58,6 @@ const typefilter = new class {
         try {
 
             // ------------------[ SETUP ]----------------------------------
-
             // make deep local copy of document to anticipate changes
             let localdocument:any = merge({},document)
 
