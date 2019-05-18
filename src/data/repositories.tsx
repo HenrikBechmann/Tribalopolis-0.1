@@ -354,7 +354,7 @@ let lists = {
         },
         properties:{
             version:0,
-            name:'Account members',
+            name:'Members',
         },
         references:{
             subscriptions:[],
@@ -502,7 +502,44 @@ let lists = {
         },
         properties:{
             version:0,
-            name:'Roles',
+            name:'Memberships',
+        },
+        references:{
+            subscriptions:[],
+            owner:{
+                reference:'/accounts/VyfFksGi0Ehv7unaMoI0',
+            },
+            parentlists:[],
+            folder:'',
+        },
+        counts:{
+            lists:0,
+            links:0,
+        },
+        system:{
+            attributes:{},
+            permissions:{},
+        },
+        data:{
+            lists:[],
+            links:[],
+        },
+    },
+    groups:
+    {
+        control:{
+            container:'',
+            id:'',
+            handle:'',
+            type:null,
+            account:{
+                id:'',
+                handle:'',
+            },
+        },
+        properties:{
+            version:0,
+            name:'Groups',
         },
         references:{
             subscriptions:[],
@@ -1213,6 +1250,9 @@ let lists = {
                 },
                 {
                     reference:'/lists/roles',
+                },
+                {
+                    reference:'/lists/groups',
                 },
                 {
                     reference:'/lists/connections',
