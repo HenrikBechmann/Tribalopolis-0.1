@@ -502,7 +502,7 @@ let lists = {
         },
         properties:{
             version:0,
-            name:'Memberships',
+            name:'Roles',
         },
         references:{
             subscriptions:[],
