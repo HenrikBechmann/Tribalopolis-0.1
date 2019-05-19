@@ -166,8 +166,9 @@ class permissions {
         let parms:GetDocumentMessage = {
             reference:'organization',
             whereclauses:[
-                ['properties.useraccount','==',this.controldata.userdata.accountpack.reference],
-                ['properties.account','==',this.controldata.activeaccountdata.docpack.reference],
+                ['control.useraccount','==',this.controldata.userdata.accountpack.reference],
+                ['control.account','==',this.controldata.activeaccountdata.docpack.reference],
+                ['control.type.logical','==','member']
             ],
             success:this.fetchMemberSuccess, 
             failure:this.fetchMemberFailure,
@@ -181,6 +182,8 @@ class permissions {
 
     // fetch member and subscribe if new
     private fetchMemberSuccess = ({docpack, reason}) => {
+
+        // console.log('fetchMemberSuccess, docpack',docpack)
 
         let uptodate = (
             this.controldata.activememberdata && 

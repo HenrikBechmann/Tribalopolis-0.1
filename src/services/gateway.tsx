@@ -200,7 +200,6 @@ const queryForDocument = ({reference, whereclauses, success, failure}:GetDocumen
 
     let collection = firestore.collection(reference)
 
-    // TODO: process nultiple query conditions
     let query:any = collection
     for (let whereclause of whereclauses) {
 
@@ -208,6 +207,8 @@ const queryForDocument = ({reference, whereclauses, success, failure}:GetDocumen
 
     }
 
+    // console.log('queryForDocument: reference, whereclauses, query', reference, whereclauses, query)
+    
     query.get().then((querySnapshot)=>{
 
         if (querySnapshot.empty) {
