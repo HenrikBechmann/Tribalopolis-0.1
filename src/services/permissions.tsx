@@ -174,7 +174,7 @@ class permissions {
             failure:this.fetchMemberFailure,
         }
 
-        // console.log('fetchMemberRecord parms, controldata',parms, this.controldata)
+        console.log('fetchMemberRecord parms, controldata',parms, this.controldata)
 
         application.queryForDocument(parms)
 
