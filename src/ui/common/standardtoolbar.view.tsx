@@ -55,7 +55,7 @@ const StandardToolbar = (props) => {
                         </Icon>
                         <div 
                             className = { classes.name }>
-                            {systemdata?systemdata.parameters.tagline:'loading...'}
+                            {systemdata?systemdata.parameters.properties.tagline:'loading...'}
                         </div>
                     </div>
                 </ToolsStrip>}
