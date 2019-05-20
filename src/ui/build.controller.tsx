@@ -358,20 +358,12 @@ class BuildController extends React.Component<any,any> {
                 helperText = {'select an object to build'}
                 options = {[
                     {
-                        value:'types',
-                        text:'Types',
-                    },
-                    {
-                        value:'schemes',
-                        text:'Schemes',
-                    },
-                    {
                         value:'system',
                         text:'System',
                     },
                     {
-                        value:'accounts',
-                        text:'Accounts',
+                        value:'types',
+                        text:'Types',
                     },
                     {
                         value:'users',
@@ -382,16 +374,28 @@ class BuildController extends React.Component<any,any> {
                         text:'Handles',
                     },
                     {
-                        value:'pages',
-                        text:'Pages',
+                        value:'accounts',
+                        text:'Accounts',
+                    },
+                    {
+                        value:'organization',
+                        text:'Organization',
+                    },
+                    {
+                        value:'items',
+                        text:'Items',
+                    },
+                    {
+                        value:'groupings',
+                        text:'Groupings',
                     },
                     {
                         value:'links',
                         text:'Links',
                     },
                     {
-                        value:'organization',
-                        text:'Organization',
+                        value:'websites',
+                        text:'Websites',
                     },
                 ]}
             />
