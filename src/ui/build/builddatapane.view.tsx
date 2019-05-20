@@ -69,7 +69,12 @@ class BuildDataPane extends React.Component<any,any>  {
     }
 
     updateData = () => {
-        let superuser = ((this.props.user) && (this.props.user.uid =='0RLrSksoCeYcmnInICk0ia4D40u1'))
+        let superuserid = null
+        let {systemdata} = this.props
+        if (systemdata) {
+            superuserid = systemdata.parameters.properties.superuserid
+        }
+        let superuser = ((this.props.user) && (this.props.user.uid == superuserid ))// '0RLrSksoCeYcmnInICk0ia4D40u1'))
 
         if (this.state.open) {
             if (!superuser) {
