@@ -106,10 +106,18 @@ class BuildDataPane extends React.Component<any,any>  {
 
         if (!data) return items
 
+        // console.log('items in getListItems', data)
+
         for (let item of data) {
+            let logicaltype 
+            if (item.document && item.document.control && item.document.control.type) {
+                logicaltype = item.document.control.type.logical
+            } else {
+                logicaltype = 'n/a'
+            }
             items.push(
                 <ListItem dense key = {item.reference}>
-                    <ListItemText primary = {item.reference} />
+                    <ListItemText primary = {`${item.reference} (${logicaltype})`} />
                 </ListItem>
             )
         }
