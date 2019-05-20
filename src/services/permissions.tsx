@@ -164,11 +164,10 @@ class permissions {
     private fetchMemberRecord = () => {
 
         let parms:GetDocumentMessage = {
-            reference:'organization',
+            reference:'members',
             whereclauses:[
                 ['control.useraccount','==',this.controldata.userdata.accountpack.reference],
                 ['control.account','==',this.controldata.activeaccountdata.docpack.reference],
-                ['control.type.logical','==','member']
             ],
             success:this.fetchMemberSuccess, 
             failure:this.fetchMemberFailure,
