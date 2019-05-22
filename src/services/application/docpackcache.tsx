@@ -60,7 +60,9 @@ const docpackCache = new class {
         // console.log('removed item',document,)
         if (this.isPaired(document)) {
 
-            let typeref = (document && document.control.type)?document.control.type.reference:null
+            // let typeref = (document && document.control.type)?document.control.type.reference:null
+
+            let typeref = (document && document.control_type_reference)
 
             // console.log('removing type listener',typeref)
 
@@ -77,8 +79,10 @@ const docpackCache = new class {
     private isPaired = document => {
         try {
 
-            let control = document.control
-            return ('type' in control)
+            // let control = document.control
+            // return ('type' in control)
+
+            return !!document.control_type_reference
 
         } catch(e) {
 
@@ -201,9 +205,13 @@ const docpackCache = new class {
 
         if (this.isPaired(docpack.document)) {
 
-            let oldtyperef = olddocpack? olddocpack.document.control.type:null
+            // let oldtyperef = olddocpack? olddocpack.document.control.type:null
 
-            let typeref = docpack.document.control.type?docpack.document.control.type.reference:null; // all documents have a type
+            let oldtyperef = olddocpack? olddocpack.document.control_type_reference:null
+
+            // let typeref = docpack.document.control.type?docpack.document.control.type.reference:null; // all documents have a type
+
+            let typeref = docpack.document.control_type_reference?docpack.document.control_type_reference:null; // all documents have a type
 
             (oldtyperef && (oldtyperef !== typeref)) && typepackCache.removeListener(oldtyperef,docpack.reference)
 
@@ -284,7 +292,9 @@ const docpackCache = new class {
         if (docpack.document) {
 
             // TODO this next two lines should become errors if no typeref or type found
-            typeref = docpack.document.control.type?docpack.document.control.type.reference:null
+            // typeref = docpack.document.control.type?docpack.document.control.type.reference:null
+
+            typeref = docpack.document.control_type_reference?docpack.document.control_type_reference:null
 
             typepack = typeref?typepackCache.getCacheDocpack(typeref):{} as DocPackStruc
 

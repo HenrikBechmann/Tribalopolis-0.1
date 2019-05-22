@@ -66,8 +66,11 @@ const typefilter = new class {
             let { template } = type.properties
 
             //TODO: deletions (from previous versions)
-            let { version:doctypeversion } = localdocument.control.type
-            let { version:typeversion } = type.control
+            // let { version:doctypeversion } = localdocument.control.type
+            // let { version:typeversion } = type.control
+
+            let doctypeversion = localdocument.control_type_version
+            let typeversion = type.control_version
 
             // ------------------[ DO DELTIONS ]----------------------------------
 

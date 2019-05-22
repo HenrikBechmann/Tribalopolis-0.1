@@ -123,9 +123,10 @@ class BuildController extends React.Component<any,any> {
                 }
             },() => {
                 if (data.control) {
-                    let typetoken = data.control.type 
-                    if (typetoken) {
-                        let typeref = typetoken.reference
+                    // let typetoken = data.control.type 
+                    // if (typetoken) {
+                        // let typeref = typetoken.reference
+                        let typeref = data.control_type_reference
                         if (typeref) {
                             let parmblock: GetDocumentMessage = {
                                 reference:typeref,
@@ -134,7 +135,7 @@ class BuildController extends React.Component<any,any> {
                             }
                             application.getDocument(parmblock)
                         }
-                    }
+                    // }
                 }
             })
         }
@@ -194,10 +195,11 @@ class BuildController extends React.Component<any,any> {
             values,
             docpack
         },() => {
-            if (data.control) {
-                let typetoken = data.control.type 
-                if (typetoken) {
-                    let typeref = typetoken.reference
+            // if (data.control) {
+            //     let typetoken = data.control.type 
+            //     if (typetoken) {
+                    // let typeref = typetoken.reference
+                    let typeref = data.control_type_reference
                     if (typeref) {
                         let parm:GetDocumentMessage = {
                             reference:typeref,
@@ -206,8 +208,8 @@ class BuildController extends React.Component<any,any> {
                         }
                         application.getDocument(parm)
                     }
-                }
-            }
+            //     }
+            // }
         })
 
     }

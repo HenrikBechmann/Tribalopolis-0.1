@@ -409,7 +409,8 @@ class Main extends React.Component<any,any> {
 
             if (!this.accountDocProxy) {
 
-                this.setAccountDocumentListener(docpack.document.control.account)
+                // this.setAccountDocumentListener(docpack.document.control.account)
+                this.setAccountDocumentListener(docpack.document.control_account)
 
             } else {
                 this.setState({
