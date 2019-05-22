@@ -5,7 +5,7 @@
 
 import React from 'react'
 
-import permissions from './permissions'
+import permissions_singleton from './permissions_singleton'
 
 // TODO: check for race conditions
 
@@ -19,45 +19,63 @@ class UserAccountPermissionData extends React.Component<any,any> {
     activeaccountdata = null
     activememberdata = null
 
-    permissions:permissions = null
+    // permissions = permissions_singleton.permissions
+
+    callbackindex = null
 
     constructor(props) {
         super(props)
-        this.permissions = new permissions(this.onPermissions)
+        this.callbackindex = permissions_singleton.registerCallback(this.onPermissions)
+        // this.permissions = new permissions(this.onPermissions)
     }
 
     componentDidMount() {
         let activeaccountreference = this.props.userdata?this.props.userdata.accountpack.reference:null
         // console.log('userAccountPermissionData componentDidMount, activeaccountrefreence',activeaccountreference, this.state.accountreference)
-        this.permissions.updateControlData({
+        permissions_singleton.updateControlData({
             systemdata:this.props.systemdata,
             userdata:this.props.userdata,
             activeaccountreference,
-            stateaccountreference:this.state.accountreference
+            stateaccountreference:this.state.accountreference,
+            callbackindex:this.callbackindex,
         })
     }
 
     componentDidUpdate() {
         let activeaccountreference = this.props.userdata?this.props.userdata.accountpack.reference:null
         // console.log('userAccountPermissionData componentDidUpdate, activeaccountreference',activeaccountreference, this.state.accountreference)
-        this.permissions.updateControlData({
+        permissions_singleton.updateControlData({
             systemdata:this.props.systemdata,
             userdata:this.props.userdata,
             activeaccountreference,
-            stateaccountreference:this.state.accountreference
+            stateaccountreference:this.state.accountreference,
+            callbackindex:this.callbackindex
         })
     }
 
-    onPermissions = () => {
-        let contextcontroldata = this.permissions.contextControlData
-        // console.log('onPermissions',contextcontroldata)
+    unmounting = false
 
+    componentWillUnmount() {
+        this.unmounting = true
+        permissions_singleton.deRegisterCallback(this.callbackindex)
+    }
+
+    onPermissions = () => {
+        let contextcontroldata = permissions_singleton.contextControlData
+        // console.log('onPermissions',contextcontroldata)
+        if (Object.is(this.activeaccountdata, contextcontroldata.activeaccountdata)
+            && Object.is(this.activememberdata,contextcontroldata.activememberdata)
+            && this.state.accountreference == permissions_singleton.contextAccountReference)
+        {
+            return
+        }
         // Object.assign is used to trigger update in children
-        this.activeaccountdata = Object.assign({},contextcontroldata.activeaccountdata)
-        this.activememberdata = Object.assign({}, contextcontroldata.activememberdata)
+        this.activeaccountdata = contextcontroldata.activeaccountdata // Object.assign({},contextcontroldata.activeaccountdata)
+        this.activememberdata = contextcontroldata.activememberdata // Object.assign({}, contextcontroldata.activememberdata)
+        if (this.unmounting) return
         this.setState((state) => ({
             generation:++state.generation,
-            accountreference:this.permissions.contextAccountReference,
+            accountreference:permissions_singleton.contextAccountReference,
         }))
     }
 
