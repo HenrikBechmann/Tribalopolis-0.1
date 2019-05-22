@@ -62,11 +62,14 @@ class permissions_singleton_class {
         let contextcontroldata = this.permissions.contextControlData
         // console.log('onPermissions',contextcontroldata)
 
-        // Object.assign is used to trigger update in children
-        this.activeaccountdata = contextcontroldata.activeaccountdata
-        this.activememberdata = contextcontroldata.activememberdata
+        // Object.assign is used to trigger update in registrants
+        this.activeaccountdata = Object.assign({},contextcontroldata.activeaccountdata)
+        this.activememberdata = Object.assign({},contextcontroldata.activememberdata)
         this.contextAccountReference = this.permissions.contextAccountReference
-        this.contextControlData = contextcontroldata
+        this.contextControlData = {
+            activeaccountdata:this.activeaccountdata,
+            activememberdata:this.activememberdata,
+        }
 
         this.doCallbacks()
 
