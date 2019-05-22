@@ -1,6 +1,10 @@
 // permissions.tsx
 // copyright (c) 2019 Henrik Bechmann, Toronto, Licence: GPL-3.0-or-later
 
+/*
+    TODO: check for race conditions if a client is in process of unmounting
+*/
+
 'use strict'
 
 import application from './application'
