@@ -120,6 +120,7 @@ export interface DataPaneNamespace {
     document:GenericObject,
     props:GenericObject,
     type:GenericObject,
+    functions:GenericObject,
 }
 
 /***************************************************************

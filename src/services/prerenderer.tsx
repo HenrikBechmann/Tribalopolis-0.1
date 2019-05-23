@@ -59,7 +59,8 @@ class PreRenderer {
             container,
             props:container.props,
             document:docpack.document,
-            type:(typepack && typepack.document)
+            type:(typepack && typepack.document),
+            functions,
         }
 
         let prerendercontext:PreRenderContext = {

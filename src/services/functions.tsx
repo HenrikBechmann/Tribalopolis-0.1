@@ -15,9 +15,19 @@ const handleFromEmail = parms => {
     return parts[0]
 }
 
+const incomingdatefilter = (date) => {
+    return null
+}
+
+const outgoingdatefilter = (date) => {
+    return null
+}
+
 const functions = {
     now,
     handleFromEmail,
+    incomingdatefilter,
+    outgoingdatefilter,
 }
 
 export default functions
