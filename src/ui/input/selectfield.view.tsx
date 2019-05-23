@@ -15,12 +15,12 @@ import Select from '@material-ui/core/Select';
 
 const styles = ( theme:Theme ) => createStyles({
   formControl: {
-    marginLeft: theme.spacing.unit,
-    marginRight: theme.spacing.unit,
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(1),
     minWidth: 120,
   },
   selectEmpty: {
-    marginTop: theme.spacing.unit * 2,
+    marginTop: theme.spacing.length * 2,
   },
 })
 

@@ -12,8 +12,8 @@ import MuiTextField from '@material-ui/core/TextField'
 
 const styles = ( theme:Theme ) => createStyles({
   textField: {
-    marginLeft: theme.spacing.unit,
-    marginRight: theme.spacing.unit,
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(1),
     width: 200,
   },
 })
