@@ -23,9 +23,10 @@ import application from '../../services/application'
 import DataPane from './datapane.view'
 import DataDrawer from './datadrawer.view'
 
-function Transition(props) {
-  return <Slide direction="left" {...props} />;
-}
+
+// const Transition = React.forwardRef(function Transition(props, ref) {
+//   return <Slide direction="left" ref={ref} {...props} />;
+// })
 
 const styles = createStyles({
     appBar: {
@@ -77,6 +78,8 @@ class AccountDialogBase extends React.Component<DialogProps,any> {
         draweropen:false,
     }
 
+    // drawerdatapackage
+
     openDrawer = ({docproxy,options}:DataPaneContext) => {
         if (this.state.draweropen) {
             toast.info('The data drawer is in use. Close the drawer and try again.')
@@ -116,11 +119,11 @@ class AccountDialogBase extends React.Component<DialogProps,any> {
         }
 
         let { classes } = this.props
+          // TransitionComponent={Transition} //broken with current release of material-ui v 4
         return  <Dialog
           fullScreen
           open={ true } // TESTING this.state.settingsopen}
           onClose={this.props.closeSettings}
-          TransitionComponent={Transition}
         >
           <div className = {classes.dialogliner}
               style = {{fontFamily:application.fontFamily}}
@@ -146,9 +149,6 @@ class AccountDialogBase extends React.Component<DialogProps,any> {
                       handleClose = {this.closeDrawer}
                       containerelement = {this.accountsettingselement}
                   >
-                      {/*<DataPane
-                          dataPaneContext = {this.drawerdatapackage}
-                      />*/}
                   </DataDrawer>
                   <DataPane dataPaneContext = {this.datapanecontext}/>
               </div>

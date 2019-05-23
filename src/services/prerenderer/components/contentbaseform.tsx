@@ -29,7 +29,7 @@ const styles = (theme) => createStyles({
     alignItems:'baseline',
   },
   button:{
-      margin:theme.spacing.unit,
+      margin:theme.spacing(1),
   },
   fieldset: {
       marginBottom:'8px', 

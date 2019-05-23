@@ -26,7 +26,7 @@ import { SetListenerMessage, RemoveListenerMessage, ReturnDocPairMessage } from 
 
 const buttonstyles = theme => createStyles({
   button: {
-    marginRight: theme.spacing.unit
+    marginRight: theme.spacing(1)
   },
 })
 

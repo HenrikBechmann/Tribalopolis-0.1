@@ -94,9 +94,15 @@ class DataPane extends React.Component<any,any>  {
 
     componentDidMount() {
 
-        this.assertListener()
+        // this.assertListener()
         this.userdata = application.userdata
-        // console.log('DataPane view did mount - userdata',this.userdata)
+        // console.log('DataPane view did mount - props',this.props)
+        let { dataPaneContext } = this.props
+        if (!this.docProxy && dataPaneContext && dataPaneContext.docproxy) {
+            this.docProxy = dataPaneContext.docproxy
+            // console.log('componentDidUpdate setting this.docProxy',this.docProxy)
+            this.assertListener()
+        }
 
     }
 
@@ -155,6 +161,7 @@ class DataPane extends React.Component<any,any>  {
         // this.prerenderer.setPreRenderMessage(this.preRenderContext)
         // console.log('prerendercontext',preRenderContext)
         this.renderContent = this.prerenderer.getRenderContent(preRenderContext)
+        // console.log('renderContent',this.renderContent)
 
         this.setState({
             docpack,
