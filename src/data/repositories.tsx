@@ -428,7 +428,44 @@ let lists = {
         },
         properties:{
             version:0,
-            name:'Resources',
+            name:'Documents',
+        },
+        references:{
+            subscriptions:[],
+            owner:{
+                reference:'/accounts/VyfFksGi0Ehv7unaMoI0',
+            },
+            parentlists:[],
+            folder:'',
+        },
+        counts:{
+            lists:0,
+            links:0,
+        },
+        system:{
+            attributes:{},
+            permissions:{},
+        },
+        data:{
+            lists:[],
+            links:[],
+        },
+    },
+    themes:
+    {
+        control:{
+            container:'',
+            id:'assets',
+            handle:'',
+            type:null,
+            account:{
+                id:'',
+                handle:'',
+            },
+        },
+        properties:{
+            version:0,
+            name:'Themes',
         },
         references:{
             subscriptions:[],
@@ -1319,6 +1356,9 @@ let lists = {
                 },
                 {
                     reference:'/lists/assets',
+                },
+                {
+                    reference:'/lists/themes',
                 },
                 {
                     reference:'/lists/recipes',
