@@ -40,10 +40,15 @@ const typefilter = new class {
 */
     public assertType = (document, type) => { //, forceupdate = false) => {
 
+        let localdocument:any = document
+        if (document) {
+            localdocument = merge({},document)
+        }
+
         // the document and its type are required to evaluate the document for update
         if ((!document) || (!type) || (!type.properties.model)) {
             return {
-                document,
+                document:localdocument,
                 changed:false,
             }
         }
@@ -59,7 +64,7 @@ const typefilter = new class {
 
             // ------------------[ SETUP ]----------------------------------
             // make deep local copy of document to anticipate changes
-            let localdocument:any = merge({},document)
+            // let localdocument:any = merge({},document)
 
             // unpack type data required for upgrades
             let {defaults, deletions } = type.properties.model

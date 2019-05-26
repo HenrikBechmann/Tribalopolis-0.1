@@ -217,7 +217,8 @@ class ContentBaseForm extends React.Component<any,any> {
     onSubmit = () => {
 
         // console.log('onSubmit',this.state, this.formcontext, this.props.context)
-        let document = merge({},this.formcontext.document)
+        // let document = merge({},this.formcontext.document)
+        let document = this.formcontext.document
 
         for (let valueindex in this.state.values) {
             // console.log('valueindex, documentmap, state.values',valueindex,this.documentmap, this.state.values)
