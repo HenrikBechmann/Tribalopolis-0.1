@@ -223,7 +223,7 @@ class ContentBaseForm extends React.Component<any,any> {
 
         // console.log('onSubmit',this.state, this.formcontext, this.props.context)
         // let document = merge({},this.formcontext.document)
-        let document = this.formcontext.document
+        let { document, type } = this.formcontext
 
         for (let valueindex in this.state.values) {
             // console.log('valueindex, documentmap, state.values',valueindex,this.documentmap, this.state.values)
@@ -232,6 +232,7 @@ class ContentBaseForm extends React.Component<any,any> {
             let nodespecs = utlities.getNodePosition(document,path)
             let value = this.state.values[valueindex]
             if (value === undefined) value = null
+            value = application.filterDataOutgoingValue(value, path, type)
             nodespecs.nodeproperty[nodespecs.nodeindex] = value
         } 
 
@@ -244,10 +245,10 @@ class ContentBaseForm extends React.Component<any,any> {
             failure:this.onSubmitFailure,
         }
 
+        application.setDocument(message)
         this.setState({
             dirty:false
         })
-        application.setDocument(message)
 
     }
 

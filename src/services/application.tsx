@@ -305,6 +305,7 @@ const appManager = new class {
     }
 
     filterDataOutgoingValue = ( value , path, type ) => {
+        console.log('filterDataOutgoingValue',value, path, type)
         return value
     }
 }
