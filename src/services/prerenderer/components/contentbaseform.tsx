@@ -44,20 +44,6 @@ class ContentBaseForm extends React.Component<any,any> {
         // initialize state values
         let { children, context, documentmap, fieldsets, groups } = props
 
-        // initialize field values for state
-        let values = {} as any
-        if (!Array.isArray(children)) {
-            values[children.props.name] = children.props.value
-        } else {
-            // console.log('constructor children',children)
-            for (let child of children) {
-                if (!child.props.readonly && !child.props['data-static']) {
-                    values[child.props.name] = child.props.value
-                }
-            }
-        }
-        this.state.values = values
-
         // save props to class
         if (context) {this.formcontext = context}
         this.documentmap = documentmap
@@ -85,11 +71,26 @@ class ContentBaseForm extends React.Component<any,any> {
 
     length = Array.isArray(this.props.children)?this.props.children.length:this.props.children?1:0
 
-    componentWillMount() {
+    componentDidMount() {
 
         // add onChange to editable children
         // sort fields by fieldsets
-        let { children } = this.props
+
+        let children:any = this.props.children
+
+        // initialize field values for state
+        let values = {} as any
+        if (!Array.isArray(children)) {
+            let props:any = children.props
+            values[children.props.name] = children.props.value
+        } else {
+            // console.log('constructor children',children)
+            for (let child of children) {
+                if (!child.props.readonly && !child.props['data-static']) {
+                    values[child.props.name] = child.props.value
+                }
+            }
+        }
 
         let isarray = Array.isArray(children) 
 
@@ -107,6 +108,10 @@ class ContentBaseForm extends React.Component<any,any> {
 
             }
         }
+        this.setState({
+            values,
+        })
+
     }
 
     // add onChange event handler to editable nodes

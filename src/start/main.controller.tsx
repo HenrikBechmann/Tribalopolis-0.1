@@ -81,7 +81,7 @@ const beforeUnloadFunc = (ev) =>
             return ev.returnValue = 'Are you sure you want to close?';
         }
 
-@DragDropContext(DnDBackend)
+@DragDropContext(DnDBackend as any) // any here to overcome typing inconsistency with latest react June 1 2019
 class Main extends React.Component<any,any> {
 
     constructor(props) {

@@ -299,12 +299,12 @@ const appManager = new class {
         this.signoutCallback = signoutCallback
     }
 
-    filterDataIncomingDataFields = ( fields, document, type ) => {
-        return document
+    filterDataIncomingValue = ( value, path, type ) => {
+        return value
     }
 
-    filterDataOutgoingDataFields = ( fields, document, type ) => {
-        return document
+    filterDataOutgoingValue = ( value , path, type ) => {
+        return value
     }
 }
 
@@ -333,8 +333,8 @@ let application = {
     signin:appManager.signin,
     signout:appManager.signout,
 
-    filterDataIncomingDataFields:appManager.filterDataIncomingDataFields,
-    filterDataOutgoingDataFields:appManager.filterDataOutgoingDataFields,
+    filterDataIncomingValue:appManager.filterDataIncomingValue,
+    filterDataOutgoingValue:appManager.filterDataOutgoingValue,
 
 }
 
