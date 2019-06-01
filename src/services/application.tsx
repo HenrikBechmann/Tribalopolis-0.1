@@ -300,6 +300,7 @@ const appManager = new class {
     }
 
     filterDataIncomingValue = ( value, path, type ) => {
+        console.log('filterDataIncomingValue',value, path, type)
         return value
     }
 

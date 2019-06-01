@@ -20,6 +20,7 @@ import functions from './functions'
 import AbstractDataPane from './prerenderer/components/abstractdatapane'
 import utilities from '../utilities/utilities'
 import { DataPaneNamespace, GetPreRenderContext } from './interfaces'
+import application from './application'
 
 const components = { // lookups
     layouts:layoutComponents,
@@ -273,7 +274,12 @@ class PreRenderer {
         let nodedata:any = utilities.getNodePosition(namespace,pathlist)
         // console.log('getPropertyByIndirection propertySpec, pathlist, nodedata, namespace',propertySpec,pathlist,nodedata,namespace)
         if (nodedata) {
-            return nodedata.nodevalue
+            let value = nodedata.nodevalue
+            if (pathlist[0]=='document') {
+                let docpath = pathlist.slice(1)
+                value = application.filterDataIncomingValue(value,docpath,namespace.type)
+            }
+            return value
         } else {
             return undefined
         }
