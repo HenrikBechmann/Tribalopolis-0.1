@@ -303,23 +303,37 @@ const appManager = new class {
 
     filterDataIncomingValue = ( value, path, type ) => {
         // console.log('filterDataIncomingValue',value, path, type)
+
+        if (!type) return value
+
         return value
+
     }
 
     filterDataIncomingDocument = ( document, type ) => {
 
         let newdoc = merge({},document)
+
+        if (!type) return newdoc
+
         return newdoc
 
     }
 
     filterDataOutgoingValue = ( value , path, type ) => {
         // console.log('filterDataOutgoingValue',value, path, type)
+
+        if (!type) return value
+
         return value
+    
     }
 
     filterDataOutgoingDocument = ( document, type ) => {
+
         let newdoc = merge({},document)
+
+        if (!type) return newdoc
 
         return newdoc
     }
