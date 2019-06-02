@@ -17,6 +17,8 @@ import ReactJson from 'react-json-view'
 
 import { toast } from 'react-toastify'
 
+import merge from 'deepmerge'
+
 import StandardToolbar from './common/standardtoolbar.view'
 
 import BaseForm from './input/baseform.view'
@@ -83,6 +85,7 @@ class BuildController extends React.Component<any,any> {
             reference:null,
         },
         draweropen:false,
+        generation:0,
     }
 
     savejson = null
@@ -92,6 +95,7 @@ class BuildController extends React.Component<any,any> {
     buildelement
 
     doctypepack
+    docpackoriginal
 
     onResize = () => {
         this.forceUpdate()
@@ -178,6 +182,8 @@ class BuildController extends React.Component<any,any> {
 
     fetchSuccessCallback = ({docpack, reason}:ReturnDocPackMessage) => {
 
+        this.docpackoriginal = docpack
+
         let newobject = false
         let data:any = docpack.document
         if (!data) {
@@ -195,21 +201,15 @@ class BuildController extends React.Component<any,any> {
             values,
             docpack
         },() => {
-            // if (data.control) {
-            //     let typetoken = data.control.type 
-            //     if (typetoken) {
-                    // let typeref = typetoken.reference
-                    let typeref = data.control_type_reference
-                    if (typeref) {
-                        let parm:GetDocumentMessage = {
-                            reference:typeref,
-                            success:this.fetchTypeSuccessCallback,
-                            failure:this.fetchTypeErrorCallback,
-                        }
-                        application.getDocument(parm)
-                    }
-            //     }
-            // }
+            let typeref = data.control_type_reference
+            if (typeref) {
+                let parm:GetDocumentMessage = {
+                    reference:typeref,
+                    success:this.fetchTypeSuccessCallback,
+                    failure:this.fetchTypeErrorCallback,
+                }
+                application.getDocument(parm)
+            }
         })
 
     }
@@ -225,14 +225,20 @@ class BuildController extends React.Component<any,any> {
         toast.info('type has also been loaded (' + docpack.reference + ')')
 
         let results = typefilter.assertType(this.state.docpack.document,this.doctypepack.document)
-        if (results && results.changed) {
-            this.latestjson = results.document
-            this.savejson = results.document
-            this.setState({
-                docpack:{
-                    document:results.document,
-                    reference:this.state.docpack.reference,
-                }
+
+        if (results && results.document) {
+            results.document = application.filterDataIncomingDocument(this.docpackoriginal,results.document)
+        }
+
+        if (results) {// && results.changed) {
+            // this.latestjson = results.document
+            // this.savejson = results.document
+            this.setState((state) => {
+                generation:++state.generation
+                // docpack:{
+                //     document:results.document,
+                //     reference:this.state.docpack.reference,
+                // }
             })
             results.changed && toast.info('document data has been upgraded by type (' + docpack.reference + ')' )
         }

@@ -24,6 +24,8 @@
 
 'use strict'
 
+import merge from 'deepmerge'
+
 import domain from './domain'
 import { 
     GetDocumentMessage, 
@@ -304,9 +306,22 @@ const appManager = new class {
         return value
     }
 
+    filterDataIncomingDocument = ( document, type ) => {
+
+        let newdoc = merge({},document)
+        return newdoc
+
+    }
+
     filterDataOutgoingValue = ( value , path, type ) => {
         // console.log('filterDataOutgoingValue',value, path, type)
         return value
+    }
+
+    filterDataOutgoingDocument = ( document, type ) => {
+        let newdoc = merge({},document)
+
+        return newdoc
     }
 }
 
@@ -337,6 +352,8 @@ let application = {
 
     filterDataIncomingValue:appManager.filterDataIncomingValue,
     filterDataOutgoingValue:appManager.filterDataOutgoingValue,
+    filterDataIncomingDocument:appManager.filterDataIncomingDocument,
+    filterDataOutgoingDocument:appManager.filterDataOutgoingDocument,
 
 }
 
