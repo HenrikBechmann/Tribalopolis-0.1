@@ -39,7 +39,8 @@ import {
 } from './interfaces'
 import docpackCache from './application/docpackcache'
 import typepackCache from './application/typepackcache'
-import authapi from '../services/auth.api'
+import authapi from './auth.api'
+import functions from './functions'
 
 // ==============[ Internal ]===============
 
@@ -64,6 +65,7 @@ const appManager = new class {
     private fontFamilyMemo = null
 
     private userdataMemo = null
+    private systemdataMemo = null
 
     // =================[ PRIVATE ]=======================
 
@@ -257,6 +259,14 @@ const appManager = new class {
         this.userdataMemo = value
     } 
 
+    get systemdata() {
+        return this.systemdataMemo
+    }
+
+    set systemdata(value) {
+        this.systemdataMemo = value
+    } 
+
     setDocument = (parmblock:SetDocumentMessage) => {
 
         domain.setDocument(parmblock)
@@ -356,6 +366,7 @@ let application = {
 
     fontFamily:appManager.fontFamily,
     userdata:appManager.userdata,
+    systemdata:appManager.systemdata,
 
     setDocument:appManager.setDocument,
     

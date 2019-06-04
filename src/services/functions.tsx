@@ -15,19 +15,44 @@ const handleFromEmail = parms => {
     return parts[0]
 }
 
-const incomingdatefilter = (date) => {
-    return null
+const incomingDateFilter = (date:firebase.firestore.Timestamp) => {
+
+    if (date === null) return date
+
+    try {
+
+        return date.toDate()
+
+    } catch(e) {
+
+        console.error( 'system:improper incoming date conversion', date, e )
+        return null
+
+    }
+
 }
 
-const outgoingdatefilter = (date) => {
-    return null
+const outgoingDateFilter = (date:Date) => {
+
+    if (date === null) return date
+
+    try {
+
+        return firebase.firestore.Timestamp.fromDate(date)
+    } catch (e) {
+
+        console.error( 'system:improper outgoing date conversion', date, e )
+        return null
+
+    }
+
 }
 
 const functions = {
     now,
     handleFromEmail,
-    incomingdatefilter,
-    outgoingdatefilter,
+    incomingDateFilter,
+    outgoingDateFilter,
 }
 
 export default functions
