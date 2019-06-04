@@ -265,9 +265,10 @@ class BuildController extends React.Component<any,any> {
 
     postObject = () => {
         if (confirm('Post this object?')) {
+            let newdoc = application.filterDataOutgoingDocument(this.latestjson,this.doctypepack.document)
             let parm:SetDocumentMessage = {
                 reference:`/${this.state.values.collection}/${this.state.values.id}`,
-                document:this.latestjson,
+                document:newdoc,
                 success:this.postSuccessCallback,
                 failure:this.postFailureCallback,
             }
