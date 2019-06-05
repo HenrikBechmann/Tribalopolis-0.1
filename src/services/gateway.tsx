@@ -159,7 +159,7 @@ const getDocument = ({reference, success, failure}:GetDocumentMessage) => {
     // console.log('gateway getting document',reference, docref)
     docref.get()
     .then((doc)=>{
-        // console.log('returning doc with callback',doc.data())
+        // console.log('returning doc.data() with callback',doc, doc.data())
         let data = doc.data()
         // let id = doc.id
         let returnpack:ReturnDocPackMessage = {docpack:{document:data,reference},reason:{}}

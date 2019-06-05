@@ -182,6 +182,8 @@ class BuildController extends React.Component<any,any> {
 
     fetchSuccessCallback = ({docpack, reason}:ReturnDocPackMessage) => {
 
+        console.log('build fetchSuccessCallback docpack',docpack)
+
         this.docpackoriginal = docpack
 
         let newobject = false
@@ -225,6 +227,8 @@ class BuildController extends React.Component<any,any> {
         toast.info('type has also been loaded (' + docpack.reference + ')')
 
         let results = typefilter.assertType(this.state.docpack.document,this.doctypepack.document)
+
+        console.log('build fetchTypeSuccessCallback results',results)
 
         if (results && results.document) {
             results.document = application.filterDataIncomingDocument(this.docpackoriginal,results.document)
