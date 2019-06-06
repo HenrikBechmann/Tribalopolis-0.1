@@ -10,7 +10,7 @@
 'use strict'
 
 import deepdiff from 'deep-diff'
-import merge from 'deepmerge'
+// import merge from 'deepmerge'
 
 import utilities from '../utilities/utilities'
 
@@ -42,7 +42,9 @@ const typefilter = new class {
 
         let localdocument:any = document
         if (document) {
-            localdocument = merge({},document)
+
+            // localdocument = merge({},document)
+
         }
 
         // the document and its type are required to evaluate the document for update

@@ -17,7 +17,7 @@ import ReactJson from 'react-json-view'
 
 import { toast } from 'react-toastify'
 
-import merge from 'deepmerge'
+// import merge from 'deepmerge'
 
 import StandardToolbar from './common/standardtoolbar.view'
 
