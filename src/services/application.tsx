@@ -25,6 +25,7 @@
 'use strict'
 
 import merge from 'deepmerge'
+import deepdiff from 'deep-diff'
 
 import domain from './domain'
 import { 
@@ -320,11 +321,19 @@ const appManager = new class {
 
     }
 
-    filterDataIncomingDocument = ( document, type ) => {
+    filterDataIncomingDocument = ( docpack, typepack ) => {
 
-        let newdoc = merge({},document)
+        let newdoc = merge({}, docpack.document)
 
-        if (!type) return newdoc
+        if (!typepack) return newdoc
+
+        let document = docpack.document
+
+        let datatypes = typepack.document.properties.model.datatypes
+
+        let diffs = deepdiff(document,datatypes)
+
+        console.log('diffs in filterDataIncomingDocument',document, datatypes, diffs)
 
         return newdoc
 

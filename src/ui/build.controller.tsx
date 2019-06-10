@@ -231,7 +231,13 @@ class BuildController extends React.Component<any,any> {
         console.log('build fetchTypeSuccessCallback results',results)
 
         if (results && results.document) {
-            results.document = application.filterDataIncomingDocument(this.docpackoriginal,results.document)
+            results.document = application.filterDataIncomingDocument(
+                {
+                    reference:this.docpackoriginal.reference,
+                    document:results.document,
+                },
+                typepack,
+            )
         }
 
         if (results) {// && results.changed) {
