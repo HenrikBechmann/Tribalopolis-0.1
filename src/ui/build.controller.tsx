@@ -241,14 +241,14 @@ class BuildController extends React.Component<any,any> {
         }
 
         if (results) {// && results.changed) {
-            // this.latestjson = results.document
-            // this.savejson = results.document
+            this.latestjson = results.document
+            this.savejson = results.document
             this.setState((state) => ({
-                generation:++state.generation
-                // docpack:{
-                //     document:results.document,
-                //     reference:this.state.docpack.reference,
-                // }
+                // generation:++state.generation
+                docpack:{
+                    document:results.document,
+                    reference:this.state.docpack.reference,
+                }
             }))
             results.changed && toast.info('document data has been upgraded by type (' + docpack.reference + ')' )
         }

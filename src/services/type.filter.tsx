@@ -40,12 +40,9 @@ const typefilter = new class {
 */
     public assertType = (document, type) => { //, forceupdate = false) => {
 
+        console.log('assertType document, type',document,type)
+
         let localdocument:any = document
-        if (document) {
-
-            // localdocument = merge({},document)
-
-        }
 
         // the document and its type are required to evaluate the document for update
         if ((!document) || (!type) || (!type.properties.model)) {

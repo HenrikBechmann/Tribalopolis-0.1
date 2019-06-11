@@ -42,6 +42,7 @@ import docpackCache from './application/docpackcache'
 import typepackCache from './application/typepackcache'
 import authapi from './auth.api'
 import functions from './functions'
+import utilities from '../utilities/utilities'
 
 // ==============[ Internal ]===============
 
@@ -321,21 +322,53 @@ const appManager = new class {
 
     }
 
+    processIncomingDatatypes = (diffs, datadocument, originaldocument) => {
+
+        for (let diff of diffs) {
+
+            let {kind, path, rhs:datatype, lhs:incomingvalue} = diff
+
+            if (kind != 'E') {
+                console.log('WARNING: unmatched datatype',diff)
+                continue
+            }
+
+            if (datatype == '??timestamp' && incomingvalue !== null) {
+                console.log('datadocument, originaldocument',datadocument, originaldocument)
+                let originalnode = utilities.getNodePosition(originaldocument,path)
+                if (!originalnode) {
+                    console.error('nodepositoin not found in application.processIncomingDataTypes',diff)
+                    continue
+                }
+                console.log('originalnode',originalnode)
+                let value =  originalnode.nodevalue.toDate()
+                let datanode = utilities.getNodePosition(datadocument,path)
+                datanode.nodeproperty[datanode.nodeindex] = value
+                console.log('transformed incoming timestamp value',datadocument, datanode, value)
+            }
+
+        }
+
+        return datadocument
+    }
+
     filterDataIncomingDocument = ( docpack, typepack ) => {
 
         let newdoc = merge({}, docpack.document)
 
         if (!typepack) return newdoc
 
-        let document = docpack.document
+        let datadocument = newdoc
 
         let datatypes = typepack.document.properties.model.datatypes
 
-        let diffs = deepdiff(document,datatypes)
+        let diffs = deepdiff(datadocument,datatypes)
 
-        console.log('diffs in filterDataIncomingDocument',document, datatypes, diffs)
+        datadocument = this.processIncomingDatatypes(diffs, datadocument, docpack.document)
 
-        return newdoc
+        console.log('diffs in filterDataIncomingDocument',datadocument, datatypes, diffs)
+
+        return datadocument
 
     }
 
