@@ -43,6 +43,7 @@ import typepackCache from './application/typepackcache'
 import authapi from './auth.api'
 import functions from './functions'
 import utilities from '../utilities/utilities'
+import firebase from './firebase.api'
 
 // ==============[ Internal ]===============
 
@@ -344,8 +345,12 @@ const appManager = new class {
                 let value
                 try {
                     value =  originalnode.nodevalue.toDate()
-                } catch (e) {
-                    value = originalnode.nodevalue // TODO: try to convert to date through new Timestamp
+                } catch (e) { // try to self-heal
+                    value = originalnode.nodevalue // try to convert to date through new Timestamp
+                    if (value.seconds !== undefined && value.nanoseconds !== undefined) {
+                        value = new firebase.firestore.Timestamp(value.seconds, value.nanoseconds)
+                        value = value.toDate()
+                    }
                 }
                 let datanode = utilities.getNodePosition(datadocument,path)
                 datanode.nodeproperty[datanode.nodeindex] = value
