@@ -117,7 +117,7 @@ const getSnapshot = (parmblock:GetDocumentMessage) => {
             reason:{}
         }
 
-        console.log('return getSnapshot',msg)
+        // console.log('return getSnapshot',msg)
         success(msg)
 
     })
@@ -160,7 +160,7 @@ const getDocument = ({reference, success, failure}:GetDocumentMessage) => {
     docref.get()
     .then((doc)=>{
         let data = doc.data()
-        console.log('gateway returning doc.data() with callback',doc, data)
+        // console.log('gateway returning doc.data() with callback',doc, data)
         // let id = doc.id
         let returnpack:ReturnDocPackMessage = {docpack:{document:data,reference},reason:{}}
         success(returnpack)

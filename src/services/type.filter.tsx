@@ -40,7 +40,7 @@ const typefilter = new class {
 */
     public assertType = (document, type) => { //, forceupdate = false) => {
 
-        console.log('assertType document, type',document,type)
+        // console.log('assertType document, type',document,type)
 
         let localdocument:any = document
 

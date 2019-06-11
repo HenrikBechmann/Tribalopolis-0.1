@@ -334,17 +334,22 @@ const appManager = new class {
             }
 
             if (datatype == '??timestamp' && incomingvalue !== null) {
-                console.log('datadocument, originaldocument',datadocument, originaldocument)
+                // console.log('datadocument, originaldocument',datadocument, originaldocument)
                 let originalnode = utilities.getNodePosition(originaldocument,path)
                 if (!originalnode) {
                     console.error('nodepositoin not found in application.processIncomingDataTypes',diff)
                     continue
                 }
-                console.log('originalnode',originalnode)
-                let value =  originalnode.nodevalue.toDate()
+                // console.log('originalnode',originalnode)
+                let value
+                try {
+                    value =  originalnode.nodevalue.toDate()
+                } catch (e) {
+                    value = originalnode.nodevalue // TODO: try to convert to date through new Timestamp
+                }
                 let datanode = utilities.getNodePosition(datadocument,path)
                 datanode.nodeproperty[datanode.nodeindex] = value
-                console.log('transformed incoming timestamp value',datadocument, datanode, value)
+                // console.log('transformed incoming timestamp value',datadocument, datanode, value)
             }
 
         }
@@ -366,7 +371,7 @@ const appManager = new class {
 
         datadocument = this.processIncomingDatatypes(diffs, datadocument, docpack.document)
 
-        console.log('diffs in filterDataIncomingDocument',datadocument, datatypes, diffs)
+        // console.log('diffs in filterDataIncomingDocument',datadocument, datatypes, diffs)
 
         return datadocument
 

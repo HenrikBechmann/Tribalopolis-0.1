@@ -182,7 +182,7 @@ class BuildController extends React.Component<any,any> {
 
     fetchSuccessCallback = ({docpack, reason}:ReturnDocPackMessage) => {
 
-        console.log('build fetchSuccessCallback docpack',docpack)
+        // console.log('build fetchSuccessCallback docpack',docpack)
 
         this.docpackoriginal = docpack
 
@@ -228,7 +228,7 @@ class BuildController extends React.Component<any,any> {
 
         let results = typefilter.assertType(this.state.docpack.document,this.doctypepack.document)
 
-        console.log('build fetchTypeSuccessCallback results',results)
+        // console.log('build fetchTypeSuccessCallback results',results)
 
         if (results && results.document) {
             results.document = application.filterDataIncomingDocument(
