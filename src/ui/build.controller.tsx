@@ -231,13 +231,15 @@ class BuildController extends React.Component<any,any> {
         // console.log('build fetchTypeSuccessCallback results',results)
 
         if (results && results.document) {
-            results.document = application.filterDataIncomingDocument(
+            let filtereddocpack:any = application.filterDataIncomingDocpack(
                 {
                     reference:this.docpackoriginal.reference,
                     document:results.document,
                 },
                 typepack,
             )
+
+            results.document = filtereddocpack.document
         }
 
         if (results) {// && results.changed) {
@@ -275,10 +277,11 @@ class BuildController extends React.Component<any,any> {
 
     postObject = () => {
         if (confirm('Post this object?')) {
-            let newdoc = application.filterDataOutgoingDocument(this.latestjson,this.doctypepack.document)
+            let reference = `/${this.state.values.collection}/${this.state.values.id}`
+            let newdocpack:any = application.filterDataOutgoingDocpack({reference,document:this.latestjson},this.doctypepack)
             let parm:SetDocumentMessage = {
-                reference:`/${this.state.values.collection}/${this.state.values.id}`,
-                document:newdoc,
+                reference,
+                document:newdocpack.document,
                 success:this.postSuccessCallback,
                 failure:this.postFailureCallback,
             }

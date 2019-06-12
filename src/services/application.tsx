@@ -323,11 +323,11 @@ const appManager = new class {
 
     }
 
-    processIncomingDatatypes = (diffs, datadocument, originaldocument) => {
+    private processIncomingDatatypes = (diffs, datadocument, originaldocument) => {
 
         for (let diff of diffs) {
 
-            let {kind, path, rhs:datatype, lhs:incomingvalue} = diff
+            let { kind, path, rhs:datatype, lhs:incomingvalue } = diff
 
             if (kind != 'E') {
                 console.log('WARNING: unmatched datatype',diff)
@@ -362,23 +362,67 @@ const appManager = new class {
         return datadocument
     }
 
-    filterDataIncomingDocument = ( docpack, typepack ) => {
+    private processOutgoingDatatypes = (diffs, datadocument) => {
+
+        // console.log('processOutgoingDatatypes: diff, datadocument',diffs, datadocument)
+
+        for (let diff of diffs) {
+
+            let { kind, path, rhs:datatype, lhs:outgoingvalue } = diff
+
+            if (kind != 'E') {
+                console.log('WARNING: unmatched datatype',diff)
+                continue
+            }
+
+            if (datatype == '??timestamp' && outgoingvalue !== null) {
+                // console.log('datadocument, originaldocument',datadocument, originaldocument)
+                let targetnode = utilities.getNodePosition(datadocument,path)
+                if (!targetnode) {
+                    console.error('nodepositoin not found in application.processOutgoingDataTypes',diff)
+                    continue
+                }
+                // console.log('originalnode',originalnode)
+                let value = outgoingvalue
+                try {
+                    if (value) {
+                        value =  firebase.firestore.Timestamp.fromDate(outgoingvalue)
+                    }
+                } catch (e) { // try to self-heal
+                    value = outgoingvalue // try to convert to date through new Timestamp
+                }
+                targetnode.nodeproperty[targetnode.nodeindex] = value
+                // console.log('transformed incoming timestamp value',datadocument, datanode, value)
+            }
+
+        }
+
+        return datadocument
+    }
+
+    filterDataIncomingDocpack = ( docpack, typepack ) => {
 
         let newdoc = merge({}, docpack.document)
 
-        if (!typepack) return newdoc
-
         let datadocument = newdoc
 
-        let datatypes = typepack.document.properties.model.datatypes
+        if (typepack) {
 
-        let diffs = deepdiff(datadocument,datatypes)
+            let datatypes = typepack.document.properties.model.datatypes
 
-        datadocument = this.processIncomingDatatypes(diffs, datadocument, docpack.document)
+            let diffs = deepdiff(datadocument,datatypes)
+
+            datadocument = this.processIncomingDatatypes(diffs, datadocument, docpack.document)
+
+        }
 
         // console.log('diffs in filterDataIncomingDocument',datadocument, datatypes, diffs)
 
-        return datadocument
+        return {
+
+            document:datadocument,
+            reference:docpack.reference
+        }
 
     }
 
@@ -391,13 +435,30 @@ const appManager = new class {
     
     }
 
-    filterDataOutgoingDocument = ( document, type ) => {
+    filterDataOutgoingDocpack = ( docpack, typepack ) => {
 
-        let newdoc = merge({},document)
+        let newdoc = merge({}, docpack.document)
 
-        if (!type) return newdoc
+        let datadocument = newdoc
 
-        return newdoc
+        if (typepack) {
+
+            let datatypes = typepack.document.properties.model.datatypes
+
+            let diffs = deepdiff(datadocument,datatypes)
+
+            datadocument = this.processOutgoingDatatypes(diffs, datadocument)
+
+        }
+
+        // console.log('diffs in filterDataIncomingDocument',datadocument, datatypes, diffs)
+
+        return {
+
+            document:datadocument,
+            reference:docpack.reference
+        }
+
     }
 }
 
@@ -429,8 +490,8 @@ let application = {
 
     filterDataIncomingValue:appManager.filterDataIncomingValue,
     filterDataOutgoingValue:appManager.filterDataOutgoingValue,
-    filterDataIncomingDocument:appManager.filterDataIncomingDocument,
-    filterDataOutgoingDocument:appManager.filterDataOutgoingDocument,
+    filterDataIncomingDocpack:appManager.filterDataIncomingDocpack,
+    filterDataOutgoingDocpack:appManager.filterDataOutgoingDocpack,
 
 }
 
