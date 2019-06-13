@@ -314,15 +314,6 @@ const appManager = new class {
         this.signoutCallback = signoutCallback
     }
 
-    filterDataIncomingValue = ( value, path, type ) => {
-        // console.log('filterDataIncomingValue',value, path, type)
-
-        if (!type) return value
-
-        return value
-
-    }
-
     private processIncomingDatatypes = (diffs, datadocument, originaldocument) => {
 
         for (let diff of diffs) {
@@ -330,7 +321,7 @@ const appManager = new class {
             let { kind, path, rhs:datatype, lhs:incomingvalue } = diff
 
             if (kind != 'E') {
-                console.log('WARNING: unmatched datatype',diff)
+                console.log('WARNING: unmatched incoming datatype',diff)
                 continue
             }
 
@@ -371,7 +362,7 @@ const appManager = new class {
             let { kind, path, rhs:datatype, lhs:outgoingvalue } = diff
 
             if (kind != 'E') {
-                console.log('WARNING: unmatched datatype',diff)
+                console.log('WARNING: unmatched outgoing datatype',diff)
                 continue
             }
 
@@ -426,15 +417,6 @@ const appManager = new class {
 
     }
 
-    filterDataOutgoingValue = ( value , path, type ) => {
-        // console.log('filterDataOutgoingValue',value, path, type)
-
-        if (!type) return value
-
-        return value
-    
-    }
-
     filterDataOutgoingDocpack = ( docpack, typepack ) => {
 
         let newdoc = merge({}, docpack.document)
@@ -460,6 +442,25 @@ const appManager = new class {
         }
 
     }
+
+    filterDataIncomingValue = ( value, path, type ) => {
+        console.log('filterDataIncomingValue',value, path, type)
+
+        if (!type) return value
+
+        return value
+
+    }
+
+    filterDataOutgoingValue = ( value , path, type ) => {
+        console.log('filterDataOutgoingValue',value, path, type)
+
+        if (!type) return value
+
+        return value
+    
+    }
+
 }
 
 let application = {
