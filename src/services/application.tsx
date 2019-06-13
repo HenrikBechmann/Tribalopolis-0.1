@@ -448,7 +448,36 @@ const appManager = new class {
 
         if (!type) return value
 
-        return value
+        let returnvalue = value
+
+        if (type) {
+
+            let datatypes = type.document.properties.model.datatypes
+            let typenode = utilities.getNodePosition(datatypes,path)
+            if (!typenode) {
+                console.log('warning: no type node for ',path, type, value)
+            } else {
+                let datatype = typenode.nodevalue
+                if (datatype == '$$timestamp') {
+
+                    try {
+                        returnvalue =  value.toDate()
+                    } catch (e) { // try to self-heal
+                        returnvalue = value // try to convert to date through new Timestamp
+                        if (returnvalue.seconds !== undefined && returnvalue.nanoseconds !== undefined) {
+                            returnvalue = new firebase.firestore.Timestamp(returnvalue.seconds, returnvalue.nanoseconds)
+                            returnvalue = returnvalue.toDate()
+                        }
+                    }
+
+                }
+            }
+
+        } else {
+            console.error('no type document for ',path, value)
+        }
+
+        return returnvalue
 
     }
 
