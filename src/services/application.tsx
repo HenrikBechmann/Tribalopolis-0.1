@@ -452,7 +452,7 @@ const appManager = new class {
 
         if (type) {
 
-            let datatypes = type.document.properties.model.datatypes
+            let datatypes = type.properties.model.datatypes
             let typenode = utilities.getNodePosition(datatypes,path)
             if (!typenode) {
                 console.log('warning: no type node for ',path, type, value)
