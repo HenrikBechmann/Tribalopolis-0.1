@@ -105,17 +105,18 @@ class PreRenderer {
             // console.log('in assembleComponents for #variant: componentspec',componentspec)
 
             let variant = componentspec['#variant']
+            let { properties, attributes} = componentspec
 
             switch (variant) {
                 case 'text': {
                     return componentspec.text
                 }
                 case 'reference': { // recursion
-                    return this.getComponentByReference(componentspec.reference, componentspec.properties, componentspec.attributes)
+                    return this.getComponentByReference(componentspec.reference, properties, attributes)
                 }
                 case 'condition':
                     let result
-                    if (this.getPropertyByFilter(componentspec.if)) {
+                    if (this.getPropertyByFilter(componentspec.if, attributes)) {
                         result = componentspec.then
                     } else {
                         result = componentspec.else
@@ -161,9 +162,9 @@ class PreRenderer {
         }
     }
 
-    getComponentByReference = (reference, properties, attributes) => {
+    private getComponentByReference = (reference, properties, attributes) => {
 
-        let ref = this.getPropertyByFilter(reference)
+        let ref = this.getPropertyByFilter(reference, attributes)
         let props:any = this.getProps(properties,attributes)
         let namespace = this.namespace
         let { options:opts } = props
@@ -186,15 +187,15 @@ class PreRenderer {
 
     }
 
-    private getProps = (propertyspecs,attributes = {} as any) => {
+    private getProps = (propertyspecs,attributes) => {
 
         // console.log('getProps',propertyspecs,attributes)
 
         let props = {}
-        let defaults = attributes.defaults || {}
+        let defaults = (attributes && attributes.defaults) || {}
         for (let propertyindex in propertyspecs) {
             let propertyspec = propertyspecs[propertyindex]
-            let property = this.getPropertyByFilter(propertyspec)
+            let property = this.getPropertyByFilter(propertyspec, attributes)
             if (!property && defaults[propertyindex]) {
                 property = defaults[propertyindex]
             }
@@ -207,14 +208,14 @@ class PreRenderer {
 
     }
 
-    private getPropertyByFilter = (propertyspec) => {
+    private getPropertyByFilter = (propertyspec, attributes) => {
 
         let property = propertyspec
 
         if (!property) return property
 
         if (utilities.isObject(property)) {
-            return this.getPropertyByObject(property)
+            return this.getPropertyByObject(property, attributes)
         }
 
         let prepend = property[0]
@@ -222,7 +223,7 @@ class PreRenderer {
         switch (prepend) {
 
             case '&': {
-                property = this.getPropertyByIndirection(propertyspec)
+                property = this.getPropertyByIndirection(propertyspec, attributes)
                 break
             }
             case '@': {
@@ -235,7 +236,7 @@ class PreRenderer {
 
     }
 
-    private getPropertyByObject(propertyobject) {
+    private getPropertyByObject(propertyobject, attributes) {
         let retval = propertyobject
         if (propertyobject['#variant']) {
             let variant = propertyobject['#variant']
@@ -245,14 +246,14 @@ class PreRenderer {
                     break
                 
                 case 'condition':
-                    if (this.getPropertyByFilter(propertyobject.if)) {
-                        retval = this.getPropertyByFilter(propertyobject.then)
+                    if (this.getPropertyByFilter(propertyobject.if, attributes)) {
+                        retval = this.getPropertyByFilter(propertyobject.then, attributes)
                     } else {
-                        retval = this.getPropertyByFilter(propertyobject.else)
+                        retval = this.getPropertyByFilter(propertyobject.else, attributes)
                     }
                     break
                 case 'function':
-                    let parms = this.getProps(propertyobject.parms)
+                    let parms = this.getProps(propertyobject.parms, attributes)
                     retval = functions[propertyobject.function](parms)
                     break
                 case 'context':
@@ -266,7 +267,7 @@ class PreRenderer {
         return retval
     }
 
-    private getPropertyByIndirection = propertySpec => {
+    private getPropertyByIndirection = (propertySpec, attributes) => {
 
         let path = propertySpec.slice(1)
         let pathlist = path.split('.')
