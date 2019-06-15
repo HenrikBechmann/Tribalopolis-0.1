@@ -446,9 +446,10 @@ const appManager = new class {
     filterDataIncomingValue = ( value, path, type ) => {
         console.log('filterDataIncomingValue',value, path, type)
 
-        if (!type) return value
+        if (!type) return [value,undefined]
 
         let returnvalue = value
+        let datatype
 
         if (type) {
 
@@ -457,7 +458,7 @@ const appManager = new class {
             if (!typenode) {
                 // console.log('warning: no type node for ',path, type, value)
             } else {
-                let datatype = typenode.nodevalue
+                datatype = typenode.nodevalue
                 // console.log('typenode, datatype in filterDataIncomingValue',typenode, datatype)
                 if (datatype == '??timestamp') {
 
@@ -481,7 +482,7 @@ const appManager = new class {
             console.error('no type document for ',path, value)
         }
 
-        return returnvalue
+        return [returnvalue,datatype]
 
     }
 

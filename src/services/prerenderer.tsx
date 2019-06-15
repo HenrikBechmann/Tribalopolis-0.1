@@ -275,9 +275,10 @@ class PreRenderer {
         // console.log('getPropertyByIndirection propertySpec, pathlist, nodedata, namespace',propertySpec,pathlist,nodedata,namespace)
         if (nodedata) {
             let value = nodedata.nodevalue
+            let datatype
             if (pathlist[0]=='document') {
-                let docpath = pathlist.slice(1)
-                value = application.filterDataIncomingValue(value,docpath,namespace.type)
+                let docpath = pathlist.slice(1);
+                [value,datatype] = application.filterDataIncomingValue(value,docpath,namespace.type)
             }
             return value
         } else {
