@@ -455,13 +455,16 @@ const appManager = new class {
             let datatypes = type.properties.model.datatypes
             let typenode = utilities.getNodePosition(datatypes,path)
             if (!typenode) {
-                console.log('warning: no type node for ',path, type, value)
+                // console.log('warning: no type node for ',path, type, value)
             } else {
                 let datatype = typenode.nodevalue
-                if (datatype == '$$timestamp') {
+                // console.log('typenode, datatype in filterDataIncomingValue',typenode, datatype)
+                if (datatype == '??timestamp') {
 
                     try {
+                        // console.log('trying toDate',value,returnvalue)
                         returnvalue =  value.toDate()
+                        // console.log('returnvalue',returnvalue)
                     } catch (e) { // try to self-heal
                         returnvalue = value // try to convert to date through new Timestamp
                         if (returnvalue.seconds !== undefined && returnvalue.nanoseconds !== undefined) {
@@ -471,6 +474,7 @@ const appManager = new class {
                     }
 
                 }
+                // console.log('returnvalue',returnvalue)
             }
 
         } else {
