@@ -78,6 +78,7 @@ class ContentBaseForm extends React.Component<any,any> {
 
         let children:any = this.props.children
 
+        // console.log('children in componentDidMount of contentbaseform',children)
         // initialize field values for state
         let values = {} as any
         if (!Array.isArray(children)) {

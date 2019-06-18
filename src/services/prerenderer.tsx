@@ -6,6 +6,7 @@
 import React from 'react'
 
 import { withStyles, createStyles } from '@material-ui/core/styles'
+import moment from 'moment'
 
 import { PreRenderContext } from './interfaces'
 
@@ -280,6 +281,16 @@ class PreRenderer {
             if (pathlist[0]=='document') {
                 let docpath = pathlist.slice(1);
                 [value,datatype] = application.filterDataIncomingValue(value,docpath,namespace.type)
+                if (value && (datatype == '??timestamp')) {
+                    // console.log('??timestamp property',attributes,application.systemdata)
+                    let format = attributes && attributes.formats && attributes.formats.timestamp
+                    if (!format) {
+                        format = application.systemdata.parameters.properties.dateformat
+                    }
+                    if (format) {
+                        value = moment(value).format(format)
+                    }
+                }
             }
             return value
         } else {
