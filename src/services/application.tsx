@@ -489,9 +489,37 @@ const appManager = new class {
     filterDataOutgoingValue = ( value , path, type ) => {
         console.log('filterDataOutgoingValue',value, path, type)
 
-        if (!type) return value
+        let datatype
+        if (!type) {
+            console.log('no type provided for outgoing value conversion: value, path, type',value, path, type)
+            return [value,datatype]
+        }
 
-        return value
+        let datatypes = type.properties.model.datatypes
+
+        let nodedata = utilities.getNodePosition(datatypes,path)
+
+        if (!nodedata) {
+            console.log('datatype not found for outgoing value, path, type',value, path, type)
+            return [value,datatype]
+        }
+
+        datatype = nodedata.nodevalue
+
+        // console.log('originalnode',originalnode)
+        let outgoingvalue = value
+
+        if (datatype == '??timestamp') {
+            try {
+                if (outgoingvalue) {
+                    outgoingvalue =  firebase.firestore.Timestamp.fromDate(outgoingvalue)
+                }
+            } catch (e) { // try to self-heal
+                console.log('unable to convert outgoing timestamp: value, path, type',value, path, type)
+            }
+        }
+
+        return [outgoingvalue,datatype]
     
     }
 

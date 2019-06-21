@@ -232,8 +232,9 @@ class ContentBaseForm extends React.Component<any,any> {
             // console.log('document, path',document, path)
             let nodespecs = utlities.getNodePosition(document,path)
             let value = this.state.values[valueindex]
-            if (value === undefined) value = null
-            value = application.filterDataOutgoingValue(value, path, type)
+            let datatype
+            if (value === undefined) value = null;
+            [value,datatype] = application.filterDataOutgoingValue(value, path, type)
             nodespecs.nodeproperty[nodespecs.nodeindex] = value
         } 
 
