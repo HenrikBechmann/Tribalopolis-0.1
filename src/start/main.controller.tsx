@@ -31,7 +31,7 @@ import coredata from  '../data/coredata'
 
 let fontFamily = coredata.theme.typography.fontFamily
 
-import { DragDropContext, DndProvider } from 'react-dnd'
+import { DndProvider } from 'react-dnd'
 
 // import DnDHTMLBackend from 'react-dnd-html5-backend'
 import DnDTouchBackend from 'react-dnd-touch-backend'
@@ -81,7 +81,6 @@ const beforeUnloadFunc = (ev) =>
             return ev.returnValue = 'Are you sure you want to close?';
         }
 
-@DragDropContext(DnDBackend as any) // any here to overcome typing inconsistency with latest react June 1 2019
 class Main extends React.Component<any,any> {
 
     constructor(props) {
@@ -522,12 +521,14 @@ class Main extends React.Component<any,any> {
 
             <SystemDataContext.Provider value = { systemdata }>
                 <UserDataContext.Provider value = { userdata }>
+                <DndProvider backend = {DnDBackend as any}>
                     <ToastContainer position = {toast.POSITION.BOTTOM_LEFT} autoClose = {3000} 
                     hideProgressBar />
 
                     <MainView globalmessage={globalmessage}
                         className = {classes.mainviewstyle} 
                     />
+                </DndProvider>
                 </UserDataContext.Provider>
             </SystemDataContext.Provider>
 
