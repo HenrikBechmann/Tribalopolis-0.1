@@ -31,7 +31,7 @@ import coredata from  '../data/coredata'
 
 let fontFamily = coredata.theme.typography.fontFamily
 
-import { DragDropContext } from 'react-dnd'
+import { DragDropContext, DndProvider } from 'react-dnd'
 
 // import DnDHTMLBackend from 'react-dnd-html5-backend'
 import DnDTouchBackend from 'react-dnd-touch-backend'
@@ -522,14 +522,12 @@ class Main extends React.Component<any,any> {
 
             <SystemDataContext.Provider value = { systemdata }>
                 <UserDataContext.Provider value = { userdata }>
-
                     <ToastContainer position = {toast.POSITION.BOTTOM_LEFT} autoClose = {3000} 
                     hideProgressBar />
 
                     <MainView globalmessage={globalmessage}
                         className = {classes.mainviewstyle} 
                     />
-                    
                 </UserDataContext.Provider>
             </SystemDataContext.Provider>
 
