@@ -57,6 +57,8 @@ class permissions {
         }
     ) => {
 
+        // console.log('updateControlData in permissions',systemdata,userdata,activeaccountreference,stateaccountreference)
+
         if (!userdata) {
             this.removeContextListeners()
         }
@@ -95,6 +97,8 @@ class permissions {
     }
 
     public removeContextListeners = () => {
+
+        // console.log('removing context listeners in permissions.tsx')
 
         if (this.contextMemberProxy) {
             let {doctoken,instanceid} = this.contextMemberProxy
@@ -179,7 +183,7 @@ class permissions {
             failure:this.fetchMemberFailure,
         }
 
-        console.log('fetchMemberRecord parms, controldata',parms, this.controldata)
+        // console.log('fetchMemberRecord parms, controldata',parms, this.controldata)
 
         application.queryForDocument(parms)
 

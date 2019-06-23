@@ -24,7 +24,7 @@ class permissions_singleton_class {
         callbackindex,
     }) => {
 
-        if (this.contextAccountReference && this.activeaccountdata && this.activememberdata) {
+        if ((activeaccountreference == stateaccountreference) && this.contextAccountReference && this.activeaccountdata && this.activememberdata) {
             this.callbacks.get(callbackindex)()
         } else {
             this.permissions.updateControlData(

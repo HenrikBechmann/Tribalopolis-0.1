@@ -67,6 +67,8 @@ import {
 
 import docProxy from '../utilities/docproxy'
 
+import systemdata from '../data/system_data'
+
 let styles = createStyles({
     mainviewstyle: {
         fontFamily,
@@ -123,6 +125,8 @@ class Main extends React.Component<any,any> {
     }
 
     systemDocProxy = new docProxy({doctoken:{reference:'/system/parameters'}})
+
+    loggedin = false
 
     componentDidMount() {
 
@@ -220,6 +224,8 @@ class Main extends React.Component<any,any> {
 
         if (login) {
 
+            this.loggedin = true
+
             this.setLoginPromises() 
 
             let loginlocal = Object.assign({},login.providerData[0]) // google provider; shortcut for newuser data
@@ -255,6 +261,8 @@ class Main extends React.Component<any,any> {
 
         } else { // clear userdata
 
+            this.loggedin = false
+
             this.getSystemData()
 
         }
@@ -268,6 +276,8 @@ class Main extends React.Component<any,any> {
         this.getSystemDocument()
 
         this.systemPromise.then((systempack) => {
+
+            // console.log('getSystemData systempack',systempack)
 
             // console.log('updating state with empty login')
 
@@ -515,7 +525,7 @@ class Main extends React.Component<any,any> {
 
         application.systemdata = systemdata // memoize
 
-        console.log('systemdata and userdata in main.controller',systemdata,userdata)
+        // console.log('systemdata and userdata in main.controller',systemdata,userdata)
 
         return (
 

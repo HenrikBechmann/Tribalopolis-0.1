@@ -138,7 +138,7 @@ const removeGatewayListener = ({reference}:RemoveGatewayListenerMessage) => {
         case 'users':
         case 'system': {
 
-            // console.log('removing listener', reference)
+            // console.log('removing gateway listener', reference)
 
             snapshotUnsubscribes[reference] && snapshotUnsubscribes[reference]()
             snapshotUnsubscribes[reference] && delete snapshotUnsubscribes[reference]

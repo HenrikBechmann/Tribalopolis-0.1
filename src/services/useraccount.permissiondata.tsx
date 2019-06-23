@@ -56,6 +56,7 @@ class UserAccountPermissionData extends React.Component<any,any> {
     unmounting = false
 
     componentWillUnmount() {
+        console.log('unmounting useraccount.permissiondata')
         this.unmounting = true
         permissions_singleton.deRegisterCallback(this.callbackindex)
     }

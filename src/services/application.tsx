@@ -301,7 +301,7 @@ const appManager = new class {
     completeSignout = () => {
 
         setTimeout(() => {
-            // console.log('completing signout')
+            // console.log('completing signout', docpackCache, typepackCache)
             // remove all subscriptions
             authapi.googlesignout()
         })

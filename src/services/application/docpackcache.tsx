@@ -57,19 +57,19 @@ const docpackCache = new class {
              document = null
              return
          }
-        // console.log('removed item',document,)
+        // console.log('removed item',reference, document, this.cache)
         if (this.isPaired(document)) {
 
             // let typeref = (document && document.control.type)?document.control.type.reference:null
 
             let typeref = (document && document.control_type_reference)
 
-            // console.log('removing type listener',typeref)
-
             if (typeref) {
 
                 typepackCache.removeListener(typeref,reference)
 
+                // console.log('removed type listener',typeref, typepackCache.cache)
+                
             }
 
         }
@@ -240,7 +240,12 @@ const docpackCache = new class {
 
     removeListener = (reference, instanceid) => {
 
-        if (!this.cache.has(reference)) return
+        // console.log('removing listener docppackcache', reference, instanceid)
+
+        if (!this.cache.has(reference)) {
+            console.log('reference not found in docpackcache removeListener',reference)
+            return
+        }
 
         let cacheitem = this.cache.get(reference)
 
@@ -254,6 +259,8 @@ const docpackCache = new class {
 
             }
 
+        } else {
+            console.log('cacheitem.listeners not found in docpackcache removeListener', reference)
         }
 
     }

@@ -18,7 +18,9 @@ const typepackCache = new class {
 
     //=====================[ PRIVATE ]======================
 
-    private cache = new Map()
+    // private cache = new Map()
+
+    cache = new Map()
 
     private newItem = () => {
 
