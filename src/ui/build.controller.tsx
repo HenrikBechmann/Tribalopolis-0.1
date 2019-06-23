@@ -558,6 +558,8 @@ class BuildController extends React.Component<any,any> {
 
                 { (systemdata, userdata, activeaccountdata, activememberdata) => {
 
+                    // console.log('build useraccountcontroldata',systemdata, userdata, activeaccountdata, activememberdata)
+
                     let login = userdata?userdata.login:null
 
                     let superuserid = null

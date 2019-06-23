@@ -98,7 +98,7 @@ class permissions {
 
     public removeContextListeners = () => {
 
-        // console.log('removing context listeners in permissions.tsx')
+        // console.log('removing context listeners in permissions.tsx', this.contextMemberProxy, this.contextAccountProxy)
 
         if (this.contextMemberProxy) {
             let {doctoken,instanceid} = this.contextMemberProxy
@@ -125,6 +125,9 @@ class permissions {
 
         if (this.contextAccountProxy) {
             let {doctoken, instanceid} = this.contextAccountProxy
+
+            if (doctoken.reference == accountreference) return
+                
             application.removeDocpackPairListener({doctoken,instanceid})
             this.contextAccountProxy = null
         }
@@ -133,6 +136,7 @@ class permissions {
         this.controldata.activememberdata = null
 
         let proxy = this.contextAccountProxy = new docProxy({doctoken:{reference:accountreference}})
+        // console.log('permissions setting contextAccountProxy', proxy)
         let parms:SetListenerMessage = {
             doctoken:proxy.doctoken,
             instanceid:proxy.instanceid,
@@ -207,6 +211,8 @@ class permissions {
         }
 
         let proxy = this.contextMemberProxy = new docProxy({doctoken:{reference:docpack.reference}})
+        // console.log('permissions setting contextMemberProxy', proxy)
+
         let parms:SetListenerMessage = {
             doctoken:proxy.doctoken,
             instanceid:proxy.instanceid,
