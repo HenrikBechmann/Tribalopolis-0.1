@@ -269,17 +269,7 @@ class Main extends React.Component<any,any> {
 
     }
 
-    getSystemData = () => {
-
-        this.setSystemPromise()
-
-        this.getSystemDocument()
-
-        this.systemPromise.then((systempack) => {
-
-            // console.log('getSystemData systempack',systempack)
-
-            // console.log('updating state with empty login')
+    private applySystempack = (systempack) => {
 
             this.updatinguserdata = false
 
@@ -295,23 +285,41 @@ class Main extends React.Component<any,any> {
                 toast.info('signed out')
             })
 
-        }).catch(error => {
+    }
 
-            this.updatinguserdata = false
+    getSystemData = () => {
 
-            toast.error('unable to set system data ' + error)
+        this.applySystempack(systemdata.docpack)
 
-            this.userTypePack = null
-            this.userAccountTypePack = null
-            this.setState({
-                login:null,
-                userData:null,
-                userpack:null,
-                systempack:null,
-                accountpack:null,
-            })
+        // this.setSystemPromise()
 
-        })
+        // this.getSystemDocument()
+
+        // this.systemPromise.then((systempack) => {
+
+        //     console.log('getSystemData systempack',systempack)
+
+        //     // console.log('updating state with empty login')
+
+        //     this.applySystempack(systempack)
+
+        // }).catch(error => {
+
+        //     this.updatinguserdata = false
+
+        //     toast.error('unable to set system data ' + error)
+
+        //     this.userTypePack = null
+        //     this.userAccountTypePack = null
+        //     this.setState({
+        //         login:null,
+        //         userData:null,
+        //         userpack:null,
+        //         systempack:null,
+        //         accountpack:null,
+        //     })
+
+        // })
 
     }
 

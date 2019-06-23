@@ -217,9 +217,19 @@ let systemtype = {
   "standard_name_short": null
 }
 
+let docpack = {
+  reference:'/system/parameters',
+  document:parameters,
+}
+
+let typepack = {
+  reference:'/types/system',
+  document:systemtype,
+}
+
 let systemdata = {
-  parameters,
-  systemtype,
+  docpack,
+  typepack,
 }
 
 export default systemdata
