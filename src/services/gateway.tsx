@@ -1,4 +1,4 @@
-// domain.tsx
+// gateway.tsx
 // copyright (c) 2019 Henrik Bechmann, Toronto, Licence: GPL-3.0-or-later
 /*
     This is a gateway to the underlaying domain data
@@ -278,7 +278,7 @@ const getCollection = ({reference, success, failure}:GetCollectionMessage) => {
     .catch(error => failure(error))
 }
 
-let domain = {
+let gateway = {
     // get
     getDocument,
     getNewDocument,
@@ -293,4 +293,4 @@ let domain = {
 
 }
 
-export default domain
+export default gateway
