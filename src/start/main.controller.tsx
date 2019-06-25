@@ -253,7 +253,7 @@ class Main extends React.Component<any,any> {
 
                 this.updatinguserdata = false
 
-                toast.error('unable to get user data - signing out (' + error + ')')
+                toast.error(`unable to get user data for ${login.email} - signing out (` + error + ')')
                 // logout
                 application.signout()
 
