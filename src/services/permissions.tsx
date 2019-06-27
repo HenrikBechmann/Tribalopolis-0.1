@@ -178,9 +178,7 @@ class permissions {
         let parms:GetDocumentMessage = {
             reference:'members',
             whereclauses:[
-                // ['control.useraccount','==',this.controldata.userdata.accountpack.reference],
-                // ['control.account','==',this.controldata.activeaccountdata.docpack.reference],
-                ['control_useraccount','==',this.controldata.userdata.accountpack.reference],
+                ['properties.loginid','==',this.controldata.userdata.login.uid],
                 ['control_account','==',this.controldata.activeaccountdata.docpack.reference],
             ],
             success:this.fetchMemberSuccess, 

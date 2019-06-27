@@ -533,7 +533,7 @@ class Main extends React.Component<any,any> {
 
         application.systemdata = systemdata // memoize
 
-        // console.log('systemdata and userdata in main.controller',systemdata,userdata)
+        console.log('systemdata and userdata in main.controller',systemdata,userdata)
 
         return (
 
