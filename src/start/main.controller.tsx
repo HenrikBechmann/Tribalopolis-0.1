@@ -291,36 +291,6 @@ class Main extends React.Component<any,any> {
 
         this.applySystempack(systemdata.docpack)
 
-        // this.setSystemPromise()
-
-        // this.getSystemDocument()
-
-        // this.systemPromise.then((systempack) => {
-
-        //     console.log('getSystemData systempack',systempack)
-
-        //     // console.log('updating state with empty login')
-
-        //     this.applySystempack(systempack)
-
-        // }).catch(error => {
-
-        //     this.updatinguserdata = false
-
-        //     toast.error('unable to set system data ' + error)
-
-        //     this.userTypePack = null
-        //     this.userAccountTypePack = null
-        //     this.setState({
-        //         login:null,
-        //         userData:null,
-        //         userpack:null,
-        //         systempack:null,
-        //         accountpack:null,
-        //     })
-
-        // })
-
     }
 
     // ==============================[ SYSTEM DOCUMENT ]=========================================
@@ -388,42 +358,8 @@ class Main extends React.Component<any,any> {
 
     }
 
-
-    // getUserDocument = uid => {
-
-    //     // console.log('getUserDocument:uid',uid)
-
-    //     let parms:GetDocumentMessage = {
-    //         reference:'users',
-    //         whereclauses:[['properties.loginid.uid','==',uid]],
-    //         success:this.userDocumentSuccess, 
-    //         failure:this.userDocumentFailure,
-    //     }
-    //     application.queryForDocument(parms)
-
-    // }
-
     userDocProxy = null
     accountDocProxy = null
-
-    // userDocumentSuccess = ({docpack, reason}:ReturnDocPackMessage) => {
-
-    //     // console.log('userDocumentSuccess: docpack, userDocProxy', docpack, this.userDocProxy)
-
-    //     if (this.userDocProxy) return
-
-    //     this.userDocProxy = new docProxy({doctoken:{reference:docpack.reference}})
-    //     // console.log('userDocumentSuccess',docpack,this.userDocProxy)
-    //     let parmblock:SetListenerMessage = {
-    //         doctoken:this.userDocProxy.doctoken,
-    //         instanceid:this.userDocProxy.instanceid,
-    //         success:this.userDocumentPairSuccess,
-    //         failure:this.userDocumentFailure,
-    //     }
-
-    //     application.setDocpackPairListener(parmblock)
-
-    // }
 
     userDocumentFailure = error => {
 
