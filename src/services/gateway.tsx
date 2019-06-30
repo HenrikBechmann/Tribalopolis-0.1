@@ -30,6 +30,8 @@ import {
     RemoveGatewayListenerMessage,
 } from './interfaces'
 
+import application from './application'
+
 let firestore = firebase.firestore()
 
 const setGatewayListener = (parmblock:GetDocumentMessage) => {
@@ -108,6 +110,12 @@ const getSnapshot = (parmblock:GetDocumentMessage) => {
     let docref = firestore.doc(reference)
     snapshotUnsubscribes[reference] = docref.onSnapshot(doc => {
 
+        if (application.userdata) {
+
+            getMembershipDocument(application.userdata.login.uid, doc.data().control_account)
+
+        }
+
         let docpack:DocPackStruc = {
             document:doc.data(),
             reference,
@@ -151,6 +159,28 @@ const removeGatewayListener = ({reference}:RemoveGatewayListenerMessage) => {
 
 const removeAllGatewayListeners = () => {
 
+}
+
+const getMembershipDocument = (userid, control_account) => {
+
+    let parts = control_account.split('/')
+    let account = parts[2]
+    let reference = `/users/${userid}/memberships/${account}`
+    console.log('getMembershipDocument reference',reference, parts)
+    let docref = firestore.doc(reference)
+    // console.log('gateway getting document',reference, docref)
+    docref.get()
+    .then((doc)=>{
+        let data = doc.data()
+        console.log('getMembershipDocument data',data)
+    })
+    .catch((error)=> {
+
+        console.log('getMembershipDocument error',error)
+
+    })
+
+// get(/$(database)/documents/users/$(request.auth.uid)/memberships/$(resource.data.control_account))
 }
 
 const getDocument = ({reference, success, failure}:GetDocumentMessage) => {
