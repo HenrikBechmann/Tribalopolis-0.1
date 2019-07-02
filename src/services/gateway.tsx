@@ -48,7 +48,11 @@ const setGatewayListener = (parmblock:GetDocumentMessage) => {
     } else {
 
         let refsplit = reference.split('/')
-        let collection = refsplit[1]
+        let collection 
+        if (reference[0] == '/')
+            collection = refsplit[1]
+        else
+            collection = refsplit[0]
 
         switch (collection) {
             case 'pages':
@@ -105,16 +109,16 @@ const getSnapshot = (parmblock:GetDocumentMessage) => {
 
     }
 
-    // console.log('getSnapshot',parmblock)
+    console.log('getSnapshot',parmblock)
 
     let docref = firestore.doc(reference)
     snapshotUnsubscribes[reference] = docref.onSnapshot(doc => {
 
-        if (application.userdata) {
+        // if (application.userdata) {
 
-            getMembershipDocument(application.userdata.login.uid, doc.data().control_account)
+        //     getMembershipDocument(application.userdata.login.uid, doc.data().control_account)
 
-        }
+        // }
 
         let docpack:DocPackStruc = {
             document:doc.data(),
@@ -125,7 +129,7 @@ const getSnapshot = (parmblock:GetDocumentMessage) => {
             reason:{}
         }
 
-        // console.log('return getSnapshot',msg)
+        console.log('return getSnapshot',msg)
         success(msg)
 
     })
@@ -134,7 +138,11 @@ const getSnapshot = (parmblock:GetDocumentMessage) => {
 const removeGatewayListener = ({reference}:RemoveGatewayListenerMessage) => {
 
     let refsplit = reference.split('/')
-    let collection = refsplit[1]
+        let collection 
+        if (reference[0] == '/')
+            collection = refsplit[1]
+        else
+            collection = refsplit[0]
 
     switch (collection) {
         case 'pages':
@@ -146,7 +154,7 @@ const removeGatewayListener = ({reference}:RemoveGatewayListenerMessage) => {
         case 'users':
         case 'system': {
 
-            // console.log('removing gateway listener', reference)
+            console.log('removing gateway listener', reference)
 
             snapshotUnsubscribes[reference] && snapshotUnsubscribes[reference]()
             snapshotUnsubscribes[reference] && delete snapshotUnsubscribes[reference]
@@ -161,27 +169,27 @@ const removeAllGatewayListeners = () => {
 
 }
 
-const getMembershipDocument = (userid, control_account) => {
+// const getMembershipDocument = (userid, control_account) => {
 
-    let parts = control_account.split('/')
-    let account = parts[2]
-    let reference = `/users/${userid}/memberships/${account}`
-    console.log('getMembershipDocument reference',reference, parts)
-    let docref = firestore.doc(reference)
-    // console.log('gateway getting document',reference, docref)
-    docref.get()
-    .then((doc)=>{
-        let data = doc.data()
-        console.log('getMembershipDocument data',data)
-    })
-    .catch((error)=> {
+//     let parts = control_account.split('/')
+//     let account = parts[2]
+//     let reference = `/users/${userid}/memberships/${account}`
+//     console.log('getMembershipDocument reference',reference, parts)
+//     let docref = firestore.doc(reference)
+//     // console.log('gateway getting document',reference, docref)
+//     docref.get()
+//     .then((doc)=>{
+//         let data = doc.data()
+//         console.log('getMembershipDocument data',data)
+//     })
+//     .catch((error)=> {
 
-        console.log('getMembershipDocument error',error)
+//         console.log('getMembershipDocument error',error)
 
-    })
+//     })
 
-// get(/$(database)/documents/users/$(request.auth.uid)/memberships/$(resource.data.control_account))
-}
+// // get(/$(database)/documents/users/$(request.auth.uid)/memberships/$(resource.data.control_account))
+// }
 
 const getDocument = ({reference, success, failure}:GetDocumentMessage) => {
 

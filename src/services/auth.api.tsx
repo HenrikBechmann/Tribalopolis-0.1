@@ -10,6 +10,7 @@ let provider = new firebase.auth.GoogleAuthProvider()
 let stateresolved = false
 
 firebase.auth().onAuthStateChanged((newuser) => {
+  console.log('onAuthStateChanged',newuser)
   stateresolved = true
   let currentUser = firebase.auth().currentUser
   if (newuser) {
