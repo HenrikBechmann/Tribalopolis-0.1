@@ -297,7 +297,7 @@ class Main extends React.Component<any,any> {
 
     getSystemDocument = () => {
 
-        console.log('getting system document')
+        // console.log('getting system document')
 
         let reference = this.systemDocProxy.doctoken.reference
         let instanceid = this.systemDocProxy.instanceid
@@ -317,7 +317,7 @@ class Main extends React.Component<any,any> {
 
     systemDocumentSuccess = ({docpack, reason}:ReturnDocPackMessage) => {
 
-        console.log('system document success')
+        // console.log('system document success')
 
         if ((!this.state.systempack) || this.updatinguserdata) {
 
@@ -345,7 +345,7 @@ class Main extends React.Component<any,any> {
 
     getUserDocumentPair = uid => {
 
-        console.log('getting user document',uid)
+        // console.log('getting user document',uid)
 
         if (this.userDocProxy) return
 
@@ -414,7 +414,7 @@ class Main extends React.Component<any,any> {
 
     setAccountDocumentListener = reference => {
 
-        console.log('getting account document')
+        // console.log('getting account document')
 
         this.accountDocProxy = new docProxy({doctoken:{reference}})
         let parm:SetListenerMessage = {
@@ -498,7 +498,7 @@ class Main extends React.Component<any,any> {
 
         application.systemdata = systemdata // memoize
 
-        console.log('systemdata and userdata in main.controller',systemdata,userdata)
+        // console.log('systemdata and userdata in main.controller',systemdata,userdata)
 
         return (
 

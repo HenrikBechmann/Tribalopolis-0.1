@@ -91,7 +91,13 @@ class quadoperations {
         let oldaccount = oldstacklayer.account
         let newref = itemProxy.reference.split('/')
 
-        if (newref[1] == 'accounts') {
+        let collection 
+        if (itemProxy.reference[0] == '/')
+            collection = newref[1]
+        else
+            collection = newref[0]
+
+        if (collection == 'accounts') {
 
             newaccount = itemProxy.reference
 

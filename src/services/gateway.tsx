@@ -129,7 +129,7 @@ const getSnapshot = (parmblock:GetDocumentMessage) => {
             reason:{}
         }
 
-        console.log('return getSnapshot',msg)
+        // console.log('return getSnapshot',msg)
         success(msg)
 
     })
@@ -258,7 +258,7 @@ const queryForDocument = ({reference, whereclauses, success, failure}:GetDocumen
         let docs:DocPackStruc[] = []
         querySnapshot.forEach(dbdocpack => {
             let doc:DocPackStruc = {
-                reference:'/' + reference + '/' + dbdocpack.id,
+                reference:reference + '/' + dbdocpack.id,
                 // id:document.id,
                 document:dbdocpack.data()
             }
@@ -302,7 +302,7 @@ const getCollection = ({reference, success, failure}:GetCollectionMessage) => {
             let result:DocPackStruc[] = []
             querySnapshot.forEach(document => {
                 let doc:DocPackStruc = {
-                    reference:'/' + reference + '/' + document.id,
+                    reference:reference + '/' + document.id,
                     document:document.data()
                 }
                 result.push(doc)

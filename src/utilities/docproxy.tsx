@@ -22,7 +22,12 @@ class docproxy {
         // if (data.liststack) {
         //     this.liststack = data.liststack // || []
         // }
-        if (refsplit[1] == 'items' || refsplit[1] == 'accounts') { // TODO: TEMPORARY
+        let collection 
+        if (doctoken.reference[0] == '/')
+            collection = refsplit[1]
+        else
+            collection = refsplit[0]
+        if (collection == 'items' || collection == 'accounts') { // TODO: TEMPORARY
             this.liststack = data.liststack || []
         }
         this.reference = doctoken.reference //`/${doctoken.collection}/${doctoken.id}`

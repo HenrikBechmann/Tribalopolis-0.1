@@ -5,12 +5,12 @@
 import docproxy from '../utilities/docproxy'
 
 let defaultlayer = {
-        account: '/accounts/VyfFksGi0Ehv7unaMoI0',
+        account: 'accounts/VyfFksGi0Ehv7unaMoI0',
 
         items:[
             new docproxy(
                 {doctoken:{
-                    reference: '/accounts/VyfFksGi0Ehv7unaMoI0',
+                    reference: 'accounts/VyfFksGi0Ehv7unaMoI0',
                     // collection:'items',
                     // id:'henrik',
                 }}),
@@ -26,14 +26,14 @@ let datastacks = [ // four quadrant stacks
             items:[ // items in the stack layer
                 new docproxy(
                     {doctoken:{
-                        reference:'/accounts/VyfFksGi0Ehv7unaMoI0',
+                        reference:'accounts/VyfFksGi0Ehv7unaMoI0',
                         // collection:'items',
                         // id:'henrik',
                     }}),
             ],
             source: {},
             settings:{},
-            account:'/accounts/VyfFksGi0Ehv7unaMoI0',
+            account:'accounts/VyfFksGi0Ehv7unaMoI0',
             defaultlayer,
         },
     ],

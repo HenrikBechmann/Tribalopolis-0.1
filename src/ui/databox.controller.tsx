@@ -211,7 +211,7 @@ class DataBox extends React.Component<any,any> {
                     listdoctoken = this.itemProxy.liststack[this.itemProxy.liststack.length -1]
                 } else {
                     listdoctoken = {
-                        reference:'/lists/' + this.state.item.docpack.document.references.list,
+                        reference:'lists/' + this.state.item.docpack.document.references.list,
                     }
                 }
                 if (this.unmounting) return // avoid race condition

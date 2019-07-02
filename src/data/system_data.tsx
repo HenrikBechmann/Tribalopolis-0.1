@@ -1,5 +1,5 @@
 let parameters = {
-  "control_account": "/accounts/system",
+  "control_account": "accounts/system",
   "control_groups": [],
   "control_owner": "/members/bLkOyzNbjABj2iaKbOJa",
   "control_permissions_groups": [],
@@ -26,19 +26,19 @@ let parameters = {
     }
   },
   "properties": {
-    "accountsettingspage": "/system/accountsettings",
+    "accountsettingspage": "system/accountsettings",
     "dateformat": "DD-MMM-YYYY",
     "datetimeformat": "DD-MMM-YYYY, HH:MM",
     "defaultschema": "/system/commonschema",
     "languages": {
       "codes": "ISO639-2",
       "default": "en",
-      "list": "/system/languages",
+      "list": "system/languages",
       "standard": "ISO639"
     },
-    "superuseraccount": "/accounts/VyfFksGi0Ehv7unaMoI0",
+    "superuseraccount": "accounts/VyfFksGi0Ehv7unaMoI0",
     "superuserid": "0RLrSksoCeYcmnInICk0ia4D40u1",
-    "systemschema": "/system/systemschema",
+    "systemschema": "system/systemschema",
     "tagline": "Tribalopolis is a virtual city of tribes"
   },
   "references": {},
@@ -50,18 +50,18 @@ let parameters = {
 }
 
 let systemtype = {
-  "control_account": "/accounts/system",
+  "control_account": "accounts/system",
   "control_groups": [],
-  "control_owner": "/members/bLkOyzNbjABj2iaKbOJa",
+  "control_owner": "members/bLkOyzNbjABj2iaKbOJa",
   "control_permissions_groups": [],
   "control_permissions_member": [],
   "control_permissions_owner": [],
   "control_permissions_public": [],
   "control_permissions_user": [],
   "control_type_logical": "common",
-  "control_type_reference": "/types/common",
+  "control_type_reference": "types/common",
   "control_type_version": 0,
-  "control_useraccount": "/accounts/VyfFksGi0Ehv7unaMoI0",
+  "control_useraccount": "accounts/VyfFksGi0Ehv7unaMoI0",
   "control_version": 0,
   "counts": {},
   "history": {
@@ -128,7 +128,7 @@ let systemtype = {
       "defaults": {
         "control": {
           "type": {
-            "reference": "/types/basetype",
+            "reference": "types/basetype",
             "version": 0
           }
         },
@@ -169,7 +169,7 @@ let systemtype = {
         "onupdate": []
       }
     },
-    "schema": "/system/systemschema",
+    "schema": "system/systemschema",
     "template": {
       "control_account": null,
       "control_groups": null,
@@ -218,12 +218,12 @@ let systemtype = {
 }
 
 let docpack = {
-  reference:'/system/parameters',
+  reference:'system/parameters',
   document:parameters,
 }
 
 let typepack = {
-  reference:'/types/system',
+  reference:'types/system',
   document:systemtype,
 }
 

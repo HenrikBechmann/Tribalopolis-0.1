@@ -175,11 +175,14 @@ class permissions {
 
     private fetchMemberRecord = () => {
 
+        let control_account_reference = this.controldata.activeaccountdata.docpack.reference
+        // if (control_account_reference[0] == '/') control_account_reference = control_account_reference.slice(1)
+
         let parms:GetDocumentMessage = {
             reference:'members',
             whereclauses:[
                 ['properties.loginid','==',this.controldata.userdata.login.uid],
-                ['control_account','==',this.controldata.activeaccountdata.docpack.reference],
+                ['control_account','==',control_account_reference],
             ],
             success:this.fetchMemberSuccess, 
             failure:this.fetchMemberFailure,
