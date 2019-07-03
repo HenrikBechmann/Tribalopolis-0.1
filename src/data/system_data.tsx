@@ -1,16 +1,16 @@
 let parameters = {
   "control_account": "accounts/system",
   "control_groups": [],
-  "control_owner": "/members/bLkOyzNbjABj2iaKbOJa",
+  "control_owner": "members/bLkOyzNbjABj2iaKbOJa",
   "control_permissions_groups": [],
   "control_permissions_member": [],
   "control_permissions_owner": [],
   "control_permissions_public": [],
   "control_permissions_user": [],
   "control_type_logical": "system",
-  "control_type_reference": "/types/system",
+  "control_type_reference": "types/system",
   "control_type_version": 0,
-  "control_useraccount": "/accounts/VyfFksGi0Ehv7unaMoI0",
+  "control_useraccount": "accounts/VyfFksGi0Ehv7unaMoI0",
   "control_version": 0,
   "counts": {},
   "history": {
@@ -29,7 +29,7 @@ let parameters = {
     "accountsettingspage": "system/accountsettings",
     "dateformat": "DD-MMM-YYYY",
     "datetimeformat": "DD-MMM-YYYY, HH:MM",
-    "defaultschema": "/system/commonschema",
+    "defaultschema": "system/commonschema",
     "languages": {
       "codes": "ISO639-2",
       "default": "en",

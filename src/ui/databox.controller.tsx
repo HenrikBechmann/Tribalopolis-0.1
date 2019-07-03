@@ -215,6 +215,7 @@ class DataBox extends React.Component<any,any> {
                     }
                 }
                 if (this.unmounting) return // avoid race condition
+                // console.log('databox controller listdoctoken',listdoctoken)
                 this.setState({
                     MainlistProxy: new docproxy({doctoken:listdoctoken}),
                     BarlistProxy: new docproxy({doctoken:listdoctoken}),

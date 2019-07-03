@@ -74,7 +74,11 @@ const setGatewayListener = (parmblock:GetDocumentMessage) => {
             }
         }
 
-        let id = refsplit[2]
+        let id
+        if (reference[0] == '/')
+            id = refsplit[2]
+        else 
+            id = refsplit[1]
         if (collection == 'lists')
             data = lists[id]
         else if (collection == 'items')
@@ -109,7 +113,7 @@ const getSnapshot = (parmblock:GetDocumentMessage) => {
 
     }
 
-    console.log('getSnapshot',parmblock)
+    // console.log('getSnapshot',parmblock)
 
     let docref = firestore.doc(reference)
     snapshotUnsubscribes[reference] = docref.onSnapshot(doc => {
@@ -154,7 +158,7 @@ const removeGatewayListener = ({reference}:RemoveGatewayListenerMessage) => {
         case 'users':
         case 'system': {
 
-            console.log('removing gateway listener', reference)
+            // console.log('removing gateway listener', reference)
 
             snapshotUnsubscribes[reference] && snapshotUnsubscribes[reference]()
             snapshotUnsubscribes[reference] && delete snapshotUnsubscribes[reference]

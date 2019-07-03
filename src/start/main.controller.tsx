@@ -124,7 +124,7 @@ class Main extends React.Component<any,any> {
         },
     }
 
-    systemDocProxy = new docProxy({doctoken:{reference:'/system/parameters'}})
+    systemDocProxy = new docProxy({doctoken:{reference:'system/parameters'}})
 
     loggedin = false
 
@@ -349,7 +349,7 @@ class Main extends React.Component<any,any> {
 
         if (this.userDocProxy) return
 
-        this.userDocProxy = new docProxy({doctoken:{reference:'/users/' + uid}})
+        this.userDocProxy = new docProxy({doctoken:{reference:'users/' + uid}})
 
         // console.log('getUserDocumentPair:uid',uid)
 

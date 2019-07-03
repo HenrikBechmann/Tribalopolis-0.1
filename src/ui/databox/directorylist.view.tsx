@@ -72,6 +72,7 @@ class extends React.Component<any,any> {
                     success:this.cacheListDocument,
                     failure:null,
                 }
+            // console.log('directorylist.view parms for setDockpackPairListener', parms)
             this.props.callbacks.setDocpackPairListener( parms )
         }
 
@@ -123,6 +124,7 @@ class extends React.Component<any,any> {
             return new docproxy({doctoken})
         })
         return listproxies
+        console.log('generateListProxies listproxies',listproxies)
     }
 
     updateListProxies = (listDocument, oldListProxies) => {
