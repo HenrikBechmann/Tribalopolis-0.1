@@ -39,7 +39,7 @@ const setGatewayListener = (parmblock:GetDocumentMessage) => {
 
     let {reference, success, failure} = parmblock
 
-    console.log('setGatewayListener', parmblock)
+    // console.log('setGatewayListener', parmblock)
 
     if (!reference) {
 
@@ -113,7 +113,7 @@ const getSnapshot = (parmblock:GetDocumentMessage) => {
 
     }
 
-    // console.log('getSnapshot',parmblock)
+    console.log('getSnapshot',parmblock)
 
     let docref = firestore.doc(reference)
     snapshotUnsubscribes[reference] = docref.onSnapshot(doc => {
@@ -130,7 +130,15 @@ const getSnapshot = (parmblock:GetDocumentMessage) => {
         // console.log('return getSnapshot',msg)
         success(msg)
 
+    },(error) => {
+        snapshotError(error, parmblock)
     })
+}
+
+const snapshotError = (error, parmblock) => {
+
+    console.log('onSnapshot Error',error, parmblock)
+
 }
 
 const removeGatewayListener = ({reference}:RemoveGatewayListenerMessage) => {
