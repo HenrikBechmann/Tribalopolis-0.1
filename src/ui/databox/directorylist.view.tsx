@@ -9,6 +9,8 @@ import AutoSizer from 'react-virtualized-auto-sizer'
 import { FixedSizeList as List } from 'react-window'
 
 import { withStyles, createStyles } from '@material-ui/core/styles'
+import { toast } from 'react-toastify'
+
 import DirectoryListItem from './directorylistitem.view'
 import docproxy from '../../utilities/docproxy'
 import LoadingMessage from '../common/loadingmessage.view'
@@ -70,7 +72,7 @@ class extends React.Component<any,any> {
                     doctoken:this.listProxy.doctoken,
                     instanceid:this.listProxy.instanceid,
                     success:this.cacheListDocument,
-                    failure:null,
+                    failure:this.failCacheListDocument,
                 }
             // console.log('directorylist.view parms for setDockpackPairListener', parms)
             this.props.callbacks.setDocpackPairListener( parms )
@@ -116,6 +118,11 @@ class extends React.Component<any,any> {
             },
             listproxies,
         })
+    }
+
+    failCacheListDocument = (error, reason) => {
+        toast.error( 'error in directoryList:' + error)
+        console.log('error in directoryList', error, reason)
     }
 
     generateListProxies = (listDocument) => {

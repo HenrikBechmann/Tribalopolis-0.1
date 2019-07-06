@@ -13,6 +13,7 @@ import React from 'react'
 import Icon from '@material-ui/core/Icon'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import { withStyles, createStyles } from '@material-ui/core/styles'
+import { toast } from 'react-toastify'
 
 import ActionButton from '../common/actionbutton.view'
 
@@ -88,7 +89,7 @@ class DirectoryListItem extends React.Component<any,any> {
                     doctoken:this.listProxy.doctoken,
                     instanceid:this.listProxy.instanceid,
                     success:this.cacheListDocument,
-                    failure:null,
+                    failure:this.failCacheListDocument,
                 }
             this.props.setDocpackPairListener( parms )
         }
@@ -127,6 +128,11 @@ class DirectoryListItem extends React.Component<any,any> {
                 typepack,
             }
         })
+    }
+
+    failCacheListDocument = (error, reason) => {
+        toast.error('error in directory list item:' + error)
+        console.log('error in directory list item', error, reason)
     }
 
 

@@ -6,6 +6,7 @@ import React from 'react'
 
 import { withStyles, createStyles } from '@material-ui/core/styles'
 import CircularProgress from '@material-ui/core/CircularProgress'
+import { toast } from 'react-toastify'
 
 import DirectoryBar from './directorybar.view'
 import docproxy from '../../utilities/docproxy'
@@ -48,7 +49,7 @@ class RootDirectoryBarHolder extends React.Component<any, any> {
                     doctoken:this.itemProxy.doctoken,
                     instanceid:this.itemProxy.instanceid,
                     success:this.cacheItemDocument,
-                    failure:null,
+                    failure:this.failCacheItemDocument,
                 }
             this.props.setDocpackPairListener( parms )
         }        
@@ -75,6 +76,11 @@ class RootDirectoryBarHolder extends React.Component<any, any> {
                 typepack,
             }
         })
+    }
+
+    failCacheItemDocument = (error, reason) => {
+        toast.error('error in rootdirectorybarholder: ' + error)
+        console.log('error in rootdirectorybarholder',error, reason)
     }
 
     render() {

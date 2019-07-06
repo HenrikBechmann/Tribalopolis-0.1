@@ -8,6 +8,7 @@ import Icon from '@material-ui/core/Icon'
 import Info from '@material-ui/icons/InfoOutlined'
 import { withStyles, createStyles } from '@material-ui/core/styles'
 import MenuItem from '@material-ui/core/MenuItem';
+import { toast } from 'react-toastify'
 
 import ActionButton from '../common/actionbutton.view'
 import PopupMenu from '../common/popupmenu.view'
@@ -82,7 +83,7 @@ class IdentityBar extends React.Component<any, any> {
                     doctoken:this.itemProxy.doctoken,
                     instanceid:this.itemProxy.instanceid,
                     success:this.cacheItemDocument,
-                    failure:null,
+                    failure:this.failCacheItemDocument,
                 }
             this.props.setDocpackPairListener( parms )
         }        
@@ -111,6 +112,11 @@ class IdentityBar extends React.Component<any, any> {
                 typepack,
             }
         })
+    }
+
+    failCacheItemDocument = (error, reason) => {
+        toast.error('error in identitybar:' + error)
+        console.log('error in identitybar',error, reason)
     }
 
     toggleMenu = (e) => {

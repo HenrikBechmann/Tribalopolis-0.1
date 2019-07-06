@@ -12,6 +12,8 @@ import {
     CacheItemStruc,
 } from '../interfaces'
 
+import { toast } from 'react-toastify'
+
 // ==============================[ TYPE CACHE ]===============================
 
 const typepackCache = new class {
@@ -56,7 +58,7 @@ const typepackCache = new class {
             this.cache.set(reference,cacheitem)
 
             let parmblock: SetGatewayListenerMessage = {
-                reference, success:this.updateItem,failure:null
+                reference, success:this.updateItem,failure:this.failUpdateItem
             }
             domain.setDocumentListener(parmblock)
 
@@ -90,6 +92,11 @@ const typepackCache = new class {
             })
         }
 
+    }
+
+    failUpdateItem = (error, reason) => {
+        toast.error('typepackCache error:' + error)
+        console.log('error typepackCache',error, reason)
     }
 
     addListener = (typereference, documentreference, callback) => {

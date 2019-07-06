@@ -9,6 +9,7 @@ import { withStyles, createStyles } from '@material-ui/core/styles'
 import Icon from '@material-ui/core/Icon'
 
 import Divider from '@material-ui/core/Divider'
+import { toast } from 'react-toastify'
 
 import ActionButton from '../common/actionbutton.view'
 
@@ -56,7 +57,7 @@ class NavigationMenuTab extends React.Component<any,any> {
                     doctoken:this.listProxy.doctoken,
                     instanceid:this.listProxy.instanceid,
                     success:this.cacheListDocument,
-                    failure:null,
+                    failure:this.failCacheListDocument,
                 }
             this.props.callbacks.setDocpackPairListener( parms )
         }
@@ -83,6 +84,11 @@ class NavigationMenuTab extends React.Component<any,any> {
                 type:typepack.document
             }
         })
+    }
+
+    failCacheListDocument = (error, reason) => {
+        toast.error('error in navigationMenuTab:' + error)
+        console.log('error in navigationMenuTab',error, reason)
     }
 
     expandFromSplay = () => {

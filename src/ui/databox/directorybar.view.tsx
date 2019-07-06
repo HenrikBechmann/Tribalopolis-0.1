@@ -1,3 +1,4 @@
+
 // directorybar.view.tsx
 // copyright (c) 2019 Henrik Bechmann, Toronto, Licence: GPL-3.0-or-later
 
@@ -16,6 +17,7 @@ import Divider from '@material-ui/core/Divider'
 import PopupMenu from '../common/popupmenu.view'
 import Info from '@material-ui/icons/InfoOutlined'
 import { withStyles, createStyles } from '@material-ui/core/styles'
+import { toast } from 'react-toastify'
 
 import QuantityBadge from '../common/quantitybadge.view'
 import ActionButton from '../common/actionbutton.view'
@@ -102,7 +104,7 @@ class DirectoryBar extends React.Component<any,any> {
                     doctoken:this.listProxy.doctoken,
                     instanceid:this.listProxy.instanceid,
                     success:this.cacheListDocument,
-                    failure:null,
+                    failure:this.failCacheListDocument,
                 }
             this.props.setDocpackPairListener( parms )
         }        
@@ -131,6 +133,11 @@ class DirectoryBar extends React.Component<any,any> {
                 typepack,
             }
         })
+    }
+
+    failCacheListDocument = (error, reason) => {
+        toast.error('error in DirectoryBar: ' + error)
+        console.log('error in DirectoryBar', error, reason)
     }
 
     toggleMenu = (e) => {

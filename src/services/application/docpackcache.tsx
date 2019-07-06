@@ -16,6 +16,7 @@ import {
 
 import typepackCache from './typepackcache'
 import { sentinels } from '../application'
+import { toast } from 'react-toastify'
 
 // ==============================[ DOCUMENT CACHE ]===============================
 
@@ -106,7 +107,7 @@ const docpackCache = new class {
 
             // connect to data source
             let parmblock:SetGatewayListenerMessage = {
-                reference, success:this.updateItem, failure:null
+                reference, success:this.updateItem, failure:this.failureUpdateItem
             }
             domain.setDocumentListener(parmblock)
 
@@ -228,6 +229,11 @@ const docpackCache = new class {
 
         }
 
+    }
+
+    failureUpdateItem = (error, reason) => {
+        toast.error('docpackCache error:' + error)
+        console.log('docpackCache error', error, reason)
     }
 
     addListener = (reference,instanceid,callback) => {

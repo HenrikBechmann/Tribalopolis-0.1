@@ -8,6 +8,7 @@ import { withStyles, createStyles } from '@material-ui/core/styles'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import Fab from '@material-ui/core/Fab'
 import AddIcon from '@material-ui/icons/Add'
+import { toast } from 'react-toastify'
 
 import BoxIdentityBar from './databox/identitybar.view'
 // import BoxTypebar from './databox/typebar.view'
@@ -155,7 +156,8 @@ class DataBox extends React.Component<any,any> {
         let parms:SetListenerMessage = {
             doctoken:itemProxy.doctoken, 
             instanceid:itemProxy.instanceid,
-            success:this.cacheItemData,failure:null
+            success:this.cacheItemData,
+            failure:this.failCacheItemData,
         }
 
         this.props.callbacks.setDocpackPairListener(parms)
@@ -225,6 +227,11 @@ class DataBox extends React.Component<any,any> {
             }
         })
 
+    }
+
+    failCacheItemData = (error, reason) => {
+        toast.error('databox controller error:' + error)
+        console.log('databox.controller error', error, reason)
     }
 
     doHighlights = () => {

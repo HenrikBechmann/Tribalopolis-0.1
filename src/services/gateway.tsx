@@ -131,6 +131,7 @@ const getSnapshot = (parmblock:GetDocumentMessage) => {
         success(msg)
 
     },(error) => {
+        failure && failure(error, {reference,})
         snapshotError(error, parmblock)
     })
 }
@@ -186,7 +187,7 @@ const getDocument = ({reference, success, failure}:GetDocumentMessage) => {
     })
     .catch((error)=> {
 
-        if (failure) failure(error)
+        failure && failure(error, {reference,})
 
     })
     
@@ -205,7 +206,7 @@ const getNewDocument = ({reference, success, failure}:GetDocumentMessage) => {
         success(returnpack)
     })
     .catch((error)=> {
-        failure(error)
+        failure && failure(error)
     })
 }
 
@@ -214,7 +215,7 @@ const queryForDocument = ({reference, whereclauses, success, failure}:GetDocumen
     // console.log('querying for document',reference, whereclauses, success, failure)
 
     if ((!whereclauses) || (whereclauses.length == 0)) {
-        failure('no where clauses defined for query')
+        failure && failure('no where clauses defined for query', {reference,whereclauses})
         return // nothing to do
     }
 
@@ -258,7 +259,7 @@ const queryForDocument = ({reference, whereclauses, success, failure}:GetDocumen
 
     }).catch(error =>{
 
-        failure(error)
+        failure && failure(error,{reference, whereclauses})
         
     }) 
 }
@@ -269,7 +270,9 @@ const setDocument = ({reference, document, success, failure}:SetDocumentMessage)
     .then(()=>{
         success()
     })
-    .catch( error => failure( error ) )
+    .catch( error => {
+        failure && failure( error, {reference, document} )
+    })
 }
 
 const getCollection = ({reference, success, failure}:GetCollectionMessage) => {
@@ -293,7 +296,9 @@ const getCollection = ({reference, success, failure}:GetCollectionMessage) => {
     .then(docpacklist => {
         success(docpacklist) // DocPackStruc[]
     }) 
-    .catch(error => failure(error))
+    .catch(error => {
+        failure && failure(error, {reference,})
+    })
 }
 
 let gateway = {
