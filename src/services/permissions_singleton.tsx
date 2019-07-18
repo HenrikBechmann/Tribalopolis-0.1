@@ -60,7 +60,6 @@ class permissions_singleton_class {
     private onPermissions = () => {
 
         let contextcontroldata = this.permissions.contextControlData
-        // console.log('onPermissions',contextcontroldata)
 
         // Object.assign is used to trigger update in registrants
         this.activeaccountdata = Object.assign({},contextcontroldata.activeaccountdata)

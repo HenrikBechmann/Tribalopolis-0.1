@@ -11,8 +11,6 @@ const ContentWrapper = props => {
     let localstyles = {border:'2px solid blue',padding:'3px'}
     let classes = props.classes || {}
 
-    // console.log('ContentWrapper props',props)
-
     return <div className = {classes.root} style = {localstyles}>
         {props.children}
     </div>

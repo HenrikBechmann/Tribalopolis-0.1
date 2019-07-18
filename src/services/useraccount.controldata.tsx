@@ -22,8 +22,6 @@ const UserAccountControlData = (props) => {
                     <UserAccountPermissionData systemdata = {systemdata} userdata = {userdata}>
                         { (activeaccountdata, activememberdata) => {
 
-                            // console.log('UserAccountControlData activeaccountdata, activememberdata',activeaccountdata, activememberdata)
-
                             return props.children( 
                                 systemdata, 
                                 userdata,

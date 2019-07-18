@@ -120,7 +120,6 @@ class DirectoryListItem extends React.Component<any,any> {
 
     cacheListDocument = ({docpack, typepack, reason}:ReturnDocPairMessage) => {
 
-        // console.log('directorylist document',docpack)
         if (this.unmounting) return
         this.setState({
             list:{

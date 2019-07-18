@@ -58,7 +58,7 @@ const docpackCache = new class {
              document = null
              return
          }
-        // console.log('removed item',reference, document, this.cache)
+
         if (this.isPaired(document)) {
 
             // let typeref = (document && document.control.type)?document.control.type.reference:null
@@ -69,8 +69,6 @@ const docpackCache = new class {
 
                 typepackCache.removeListener(typeref,reference)
 
-                // console.log('removed type listener',typeref, typepackCache.cache)
-                
             }
 
         }
@@ -79,9 +77,6 @@ const docpackCache = new class {
 
     private isPaired = document => {
         try {
-
-            // let control = document.control
-            // return ('type' in control)
 
             return !!document.control_type_reference
 
@@ -107,8 +102,11 @@ const docpackCache = new class {
 
             // connect to data source
             let parmblock:SetGatewayListenerMessage = {
-                reference, success:this.updateItem, failure:this.failureUpdateItem
+
+                reference, success:this.successGetItem, failure:this.failureGetItem
+
             }
+            
             domain.setDocumentListener(parmblock)
 
         }
@@ -190,18 +188,17 @@ const docpackCache = new class {
         it also sets up a listener for the document type, such that update or setup of 
         the type causes the document listeners to be udpated.
 
-        if there is no type yet recorded, callbacks will not be processed.
+        if there is no type yet recorded for paired items, callbacks will not be processed.
     */
-    updateItem = ( {docpack, reason}:ReturnDocPackMessage ) => {
+    public successGetItem = ( {docpack, reason}:ReturnDocPackMessage ) => {
 
-        // console.log('docpackcache updateItem',docpack)
         // set or update document
         let cacheitem = this.getItem(docpack.reference)
 
         if (!cacheitem) return // async
 
         let olddocpack = cacheitem.docpack
-        // console.log('docpack, cacheitem in UPDATEITEM',docpack, cacheitem)
+
         cacheitem.docpack = docpack
 
         if (this.isPaired(docpack.document)) {
@@ -231,12 +228,13 @@ const docpackCache = new class {
 
     }
 
-    failureUpdateItem = (error, reason) => {
-        toast.error('docpackCache error:' + error)
+    public failureGetItem = (error, reason) => {
+
         console.log('docpackCache error', error, reason)
+
     }
 
-    addListener = (reference,instanceid,callback) => {
+    public addListener = (reference,instanceid,callback) => {
 
         let cacheitem = this.getItem(reference)
 
@@ -244,9 +242,7 @@ const docpackCache = new class {
 
     }
 
-    removeListener = (reference, instanceid) => {
-
-        // console.log('removing listener docppackcache', reference, instanceid)
+    public removeListener = (reference, instanceid) => {
 
         if (!this.cache.has(reference)) {
             console.log('reference not found in docpackcache removeListener',reference)
@@ -271,7 +267,7 @@ const docpackCache = new class {
 
     }
 
-    isListener = (reference,instanceid) => {
+    public isListener = (reference,instanceid) => {
 
         if (!this.cache.has(reference)) {
             return false
@@ -288,14 +284,14 @@ const docpackCache = new class {
         }   
     }
 
-    getCacheDocpack = reference => {
+    public getCacheDocpack = reference => {
 
         let cacheitem = this.getItem(reference)
         let docpack:DocPackStruc = cacheitem?cacheitem.docpack:{}
         return docpack
     }
 
-    getCacheDocpackPair = reference => {
+    public getCacheDocpackPair = reference => {
 
         let cacheitem = this.getItem(reference)
         let docpack:DocPackStruc = (cacheitem && cacheitem.docpack)?cacheitem.docpack:{}
@@ -317,8 +313,6 @@ const docpackCache = new class {
             docpack,
             typepack,
         }
-
-        // console.log('getCacheDocpackPair',reference, cachedata)
 
         return cachedata
 

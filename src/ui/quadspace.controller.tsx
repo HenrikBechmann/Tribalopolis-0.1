@@ -105,8 +105,6 @@ class QuadspaceController extends React.Component<any,any> {
 
         let { quadrantPositions } = this.state
 
-        // console.log('start positions',quadrantPositions, quadrantPosition, direction)
-
         let sourcequadindex = this.positions.indexOf(quadrantPosition)
 
         let targetquadposition = this.quadmap[quadrantPosition][direction]

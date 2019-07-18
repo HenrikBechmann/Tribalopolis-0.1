@@ -25,7 +25,6 @@ class AbstractDataPane extends React.Component<any,any> {
 
         let { reference, options, namespace, attributes} = this.props
 
-        // console.log('reference, options, data in abstractdatapane',reference, options, namespace)
         this.reference = reference
         this.options = options
         // this.namespace = namespace
@@ -85,8 +84,6 @@ class AbstractDataPane extends React.Component<any,any> {
 
     cacheDocPair = ({docpack, typepack, reason}:ReturnDocPairMessage) => {
 
-        // console.log('abstractdatapane cacheDocPair', docpack, typepack)
-
         // database type data namespace
         let containerdata = {
             userdata:this.userdata,
@@ -111,7 +108,6 @@ class AbstractDataPane extends React.Component<any,any> {
 
         // this.prerenderer.setPreRenderMessage(this.preRenderContext)
         this.renderContent = this.prerenderer.getRenderContent(preRenderContext)
-        // console.log('renderContent;from',this.renderContent,preRenderContext)
 
         this.setState({
             docpack,

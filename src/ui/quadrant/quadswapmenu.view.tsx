@@ -133,8 +133,6 @@ class SwapMenu extends React.Component<any, any> {
     render() {
         let { quadrantPosition, handleSwap, selectQuadrant, classes } = this.props
 
-        // console.log('quadrantposition',quadrantPosition)
-
         let tilt = null
         let gotilta = null
         let gotiltb = null

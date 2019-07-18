@@ -31,7 +31,7 @@ class UserAccountPermissionData extends React.Component<any,any> {
 
     componentDidMount() {
         let activeaccountreference = this.props.userdata?this.props.userdata.accountpack.reference:null
-        // console.log('userAccountPermissionData componentDidMount, activeaccountrefreence',activeaccountreference, this.state.accountreference)
+
         permissions_singleton.updateControlData({
             systemdata:this.props.systemdata,
             userdata:this.props.userdata,
@@ -43,7 +43,7 @@ class UserAccountPermissionData extends React.Component<any,any> {
 
     componentDidUpdate() {
         let activeaccountreference = this.props.userdata?this.props.userdata.accountpack.reference:null
-        // console.log('userAccountPermissionData componentDidUpdate, activeaccountreference',activeaccountreference, this.state.accountreference)
+
         permissions_singleton.updateControlData({
             systemdata:this.props.systemdata,
             userdata:this.props.userdata,
@@ -56,7 +56,7 @@ class UserAccountPermissionData extends React.Component<any,any> {
     unmounting = false
 
     componentWillUnmount() {
-        // console.log('unmounting useraccount.permissiondata')
+
         this.unmounting = true
         permissions_singleton.deRegisterCallback(this.callbackindex)
     }

@@ -10,20 +10,20 @@ let provider = new firebase.auth.GoogleAuthProvider()
 let stateresolved = false
 
 firebase.auth().onAuthStateChanged((newuser) => {
-  // console.log('onAuthStateChanged',newuser)
+
   stateresolved = true
   let currentUser = firebase.auth().currentUser
   if (newuser) {
     let loginlocal = Object.assign({},newuser.providerData[0]) // google provider; shortcut for newuser data
     loginlocal.uid = newuser.uid // google auth common uid
     login = loginlocal
-    // console.log('onAuthStateChanged: newuser, currentuser, login, loginlocal',newuser, currentUser, login, loginlocal)
+
     currentUser.getIdToken().then(token =>{
       idToken = token
     })
+
     getRedirectResult()
-  // } else {
-    // console.log('onAuthStateChanged signed out', newuser)
+
   }
   if (updateCallback) {
       updateCallback(newuser)
@@ -31,8 +31,9 @@ firebase.auth().onAuthStateChanged((newuser) => {
 })
 
 const googlesignin = () => {
-    // console.log('signing in')
+
     firebase.auth().signInWithRedirect(provider)
+
 }
 
 const googlesignout = () => {

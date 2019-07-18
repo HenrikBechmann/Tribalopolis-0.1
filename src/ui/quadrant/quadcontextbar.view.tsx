@@ -67,8 +67,6 @@ class QuadContextBar extends React.Component<any> {
 
     componentDidUpdate(prevProps) {
 
-        // console.log('context componentDidUpdate',this.stackpointer)
-
         if (
 
                 (this.stackpointer === null) || 
@@ -100,7 +98,6 @@ class QuadContextBar extends React.Component<any> {
 
     createcontext = () => {
         let userdata = this.props.userdata
-        // console.log('create context userdata',userdata)
 
         if ( (!this.datastack || (this.datastack.length <= 1)) || !this.stackpointer || !userdata) { // no context
             if (this.state.context) {
@@ -193,7 +190,7 @@ class QuadContextBar extends React.Component<any> {
     render() {
 
     let { quadidentifier:alias, classes, datastack, stackpointer } = this.props
-    // console.log('datastack, stackpointer', datastack, stackpointer)
+
     return (
         <div className = { classes.root } >
             <div className = { classes.aliasbox } >

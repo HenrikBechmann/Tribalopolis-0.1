@@ -50,7 +50,7 @@ class ScrollControlsView extends React.Component<any,any> {
     calcScrollRight = () => {
 
         let { scrollLeft, scrollWidth, clientWidth } = this.scroller
-        // console.log('calcScrollRight',scrollWidth,scrollLeft,clientWidth)
+
         return ( scrollWidth - (scrollLeft + clientWidth) )
 
     }
@@ -86,8 +86,6 @@ class ScrollControlsView extends React.Component<any,any> {
 
 
         let { offsetLeft, offsetRight } = this.scrollerData
-
-        // console.log('updateControlVisibility',this.scrollerData,offsetLeft,offsetRight)
 
         if (!!offsetLeft && !leftOpacity) {
             leftcontrol['style'].opacity = 1
@@ -224,8 +222,6 @@ class ScrollControlsView extends React.Component<any,any> {
         if (this.scroller) {
             verticalpos = (this.scrollerData.height / 2) - 20
         }
-
-        // console.log('verticalpos',verticalpos)
 
         let leftStyle = {...this.leftArrowStyle,top: 'calc(50% - 20px)',}
         let rightStyle = {...this.rightArrowStyle,top: 'calc(50% - 20px)',}

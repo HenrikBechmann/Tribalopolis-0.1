@@ -74,8 +74,9 @@ class extends React.Component<any,any> {
                     success:this.cacheListDocument,
                     failure:this.failCacheListDocument,
                 }
-            // console.log('directorylist.view parms for setDockpackPairListener', parms)
+
             this.props.callbacks.setDocpackPairListener( parms )
+
         }
 
         if (this.state.listproxies) {
@@ -135,7 +136,7 @@ class extends React.Component<any,any> {
     }
 
     updateListProxies = (listDocument, oldListProxies) => {
-        // console.log('updating listproxies')
+
         let pathMap = this.pathToIndexMap
         let listtokens = listDocument.data.lists
         let listproxies = listtokens.map((doctoken) => {
@@ -147,7 +148,7 @@ class extends React.Component<any,any> {
             }
             return docproxy
         })
-        // console.log('updated list proxies',listproxies)
+
         return listproxies
     }
 
@@ -164,28 +165,16 @@ class extends React.Component<any,any> {
 
         // console.log('highlightrefuid in dohighlight of directory list',this.highlightrefuid)
         let { listproxies } = this.state
+
         // keep; value will be purged
         // let highlightrefuid = this.highlightrefuid
         // this.highlightrefuid = null
         // get index for Lister
         let index = listproxies.findIndex(this.findlinkIndex(this.highlightrefuid))
+
         // update scroll display with selected highlight item
         // this.listcomponent.current.scrollAround(index)
         this.listcomponent.current.scrollToItem(index)
-        // console.log('index',index)
-        // setTimeout(() => { // let scroll update finish
-        //     // animate highlight
-        //     console.log('setting list state to ',highlightrefuid)
-        //     this.setState({
-        //         highlightrefuid,
-        //     },() => {
-        //         console.log('setting list state to NULL')
-        //         this.setState({
-        //             highlightrefuid:null
-        //         })
-        //     })
-
-        // },500)
 
     }
 
@@ -210,12 +199,7 @@ class extends React.Component<any,any> {
 
     getListComponent = (docproxy, index) => {
 
-        // let highlight = (docproxy.id === this.state.highlightrefuid)
-
-
         let highlight = (docproxy.id === this.highlightrefuid)
-
-        // console.log('getListComponent in directoryList: highlight, highlightrefuid, docproxy, index',highlight,this.highlightrefuid,docproxy,index)
 
         if (highlight) this.highlightrefuid = null
 

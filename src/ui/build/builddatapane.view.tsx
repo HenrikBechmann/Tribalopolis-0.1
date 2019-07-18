@@ -48,16 +48,15 @@ class BuildDataPane extends React.Component<any,any>  {
 
     componentDidUpdate() {
 
-        // console.log('props',this.props)
         let { open, dataPaneContext } = this.props
-        // console.log('dataPaneContext before',dataPaneContext)
+
         dataPaneContext = dataPaneContext || {docproxy:{},options:{}}
-        // console.log('dataPaneContext after', dataPaneContext)
+
         let { opcode, specs } = dataPaneContext.options
         if (!_.isEqual(open,this.state.open) || 
             !_.isEqual(opcode,this.state.opcode) ||
             !_.isEqual(specs, this.state.specs)) {
-            // console.log('not equal; run setState',this.props, this.state)
+
             this.setState({
                 open,
                 opcode,
@@ -111,11 +110,9 @@ class BuildDataPane extends React.Component<any,any>  {
 
         if (!data) return items
 
-        // console.log('items in getListItems', data)
-
         for (let item of data) {
             let logicaltype 
-            // if (item.document && item.document.control && item.document.control.type) {
+
             if (item.document && item.document.control_type_logical) {
                 logicaltype = item.document.control_type_logical
             } else {

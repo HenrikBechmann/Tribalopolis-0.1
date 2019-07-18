@@ -138,23 +138,21 @@ class Main extends React.Component<any,any> {
         // Note:the setState gives children a chance to unsubsribe from database.
         //    - this is a requirement, else subsequent connnection to the database fails
         //    - while waiting for permissions to be reset (must be clear of subscriptions)
-        // console.log('resetting app state')
         this.setState({
             login:null,
             userData:null,
             userpack:null,
             accountpack:null,
         },() => {
-            // console.log('removing listeners')
+
             this.removeListeners()
             finishSignout()
+
         })
 
     }
 
     removeListeners = () => {
-
-        // console.log('remove listeners for sign out', this.systemDocProxy)
 
         this.systemDocProxy && application.removeDocpackListener({
             doctoken:this.systemDocProxy.doctoken,
@@ -217,8 +215,6 @@ class Main extends React.Component<any,any> {
     // including login, user, account data
 
     updateLoginData = (login) => {
-
-        // console.log('update login object',login)
 
         this.updatinguserdata = true
 
@@ -297,8 +293,6 @@ class Main extends React.Component<any,any> {
 
     getSystemDocument = () => {
 
-        // console.log('getting system document')
-
         let reference = this.systemDocProxy.doctoken.reference
         let instanceid = this.systemDocProxy.instanceid
 
@@ -316,8 +310,6 @@ class Main extends React.Component<any,any> {
     }
 
     systemDocumentSuccess = ({docpack, reason}:ReturnDocPackMessage) => {
-
-        // console.log('system document success')
 
         if ((!this.state.systempack) || this.updatinguserdata) {
 
@@ -344,8 +336,6 @@ class Main extends React.Component<any,any> {
 
 
     getUserDocumentPair = uid => {
-
-        // console.log('getting user document',uid)
 
         if (this.userDocProxy) return
 
@@ -384,7 +374,6 @@ class Main extends React.Component<any,any> {
 
             toast.success('collecting user records...')
 
-            // console.log('setting user record in UserDocumentPairSuccess',docpack)
             this.promises.user.resolve(docpack)
 
             if (!this.accountDocProxy) {
@@ -413,8 +402,6 @@ class Main extends React.Component<any,any> {
     // ==============================[ ACCOUNT DOCUMENT ]=========================================
 
     setAccountDocumentListener = reference => {
-
-        // console.log('getting account document')
 
         this.accountDocProxy = new docProxy({doctoken:{reference}})
         let parm:SetListenerMessage = {
@@ -497,8 +484,6 @@ class Main extends React.Component<any,any> {
         let systemdata = this.state.systempack?{parameters:(this.state.systempack.document)}:null
 
         application.systemdata = systemdata // memoize
-
-        // console.log('systemdata and userdata in main.controller',systemdata,userdata)
 
         return (
 

@@ -429,7 +429,7 @@ class Quadrant extends React.Component<any,any>  {
         let { color, classes, systemdata, userdata } = this.props
 
         let datastack = this.datastack
-        // console.log('datastack in quadrant.controller render',datastack)
+
         let { stackpointer } = this.state
 
         let haspeers = datastack?(datastack[stackpointer].items.length > 1):false

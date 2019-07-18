@@ -40,10 +40,6 @@ const ContentTextField = (props:TextFieldInterface) => {
 
     let marginval = margin?margin:'normal'
 
-    // console.log('calling Textfield')
-
-    // console.log('textfield props',classes, name, label, value, helperText, margin, onChange)
-
     return (
         <TextField
           id = { name + '-id' }

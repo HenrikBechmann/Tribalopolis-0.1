@@ -137,7 +137,7 @@ const appManager = new class {
     // =================[ API ]=======================
     // called from component componentDidMount or componentWillUpdate
 
-    setDocpackListener = ({doctoken,instanceid,success, failure}:SetListenerMessage) => {
+    setDocpackListener = ({doctoken, instanceid, success, failure}:SetListenerMessage) => {
 
         setTimeout(()=>{ // give animations a chance to run
 
@@ -170,7 +170,7 @@ const appManager = new class {
 
     }
 
-    setDocpackPairListener = ({doctoken,instanceid,success, failure}:SetListenerMessage) => {
+    setDocpackPairListener = ({doctoken, instanceid, success, failure}:SetListenerMessage) => {
 
         setTimeout(()=>{ // give animations a chance to run
 
@@ -223,8 +223,6 @@ const appManager = new class {
         this.updateRemoveSentinel(instanceid)
 
         docpackCache.removeListener(reference,instanceid)
-
-        // console.log('removed DocpackPairListener', docpackCache)
 
     }
 
@@ -301,7 +299,6 @@ const appManager = new class {
     completeSignout = () => {
 
         setTimeout(() => {
-            // console.log('completing signout', docpackCache, typepackCache)
             // remove all subscriptions
             authapi.googlesignout()
         })
@@ -326,13 +323,13 @@ const appManager = new class {
             }
 
             if (datatype == '??timestamp' && incomingvalue !== null) {
-                // console.log('datadocument, originaldocument',datadocument, originaldocument)
+
                 let originalnode = utilities.getNodePosition(originaldocument,path)
                 if (!originalnode) {
                     console.error('nodepositoin not found in application.processIncomingDataTypes',diff)
                     continue
                 }
-                // console.log('originalnode',originalnode)
+
                 let value
                 try {
                     value =  originalnode.nodevalue.toDate()
@@ -343,9 +340,10 @@ const appManager = new class {
                         value = value.toDate()
                     }
                 }
+
                 let datanode = utilities.getNodePosition(datadocument,path)
                 datanode.nodeproperty[datanode.nodeindex] = value
-                // console.log('transformed incoming timestamp value',datadocument, datanode, value)
+
             }
 
         }
@@ -354,8 +352,6 @@ const appManager = new class {
     }
 
     private processOutgoingDatatypes = (diffs, datadocument) => {
-
-        // console.log('processOutgoingDatatypes: diff, datadocument',diffs, datadocument)
 
         for (let diff of diffs) {
 
@@ -367,13 +363,13 @@ const appManager = new class {
             }
 
             if (datatype == '??timestamp' && outgoingvalue !== null) {
-                // console.log('datadocument, originaldocument',datadocument, originaldocument)
+
                 let targetnode = utilities.getNodePosition(datadocument,path)
                 if (!targetnode) {
                     console.error('nodepositoin not found in application.processOutgoingDataTypes',diff)
                     continue
                 }
-                // console.log('originalnode',originalnode)
+
                 let value = outgoingvalue
                 try {
                     if (value) {
@@ -383,7 +379,7 @@ const appManager = new class {
                     value = outgoingvalue // try to convert to date through new Timestamp
                 }
                 targetnode.nodeproperty[targetnode.nodeindex] = value
-                // console.log('transformed incoming timestamp value',datadocument, datanode, value)
+
             }
 
         }
@@ -406,8 +402,6 @@ const appManager = new class {
             datadocument = this.processIncomingDatatypes(diffs, datadocument, docpack.document)
 
         }
-
-        // console.log('diffs in filterDataIncomingDocument',datadocument, datatypes, diffs)
 
         return {
 
@@ -433,8 +427,6 @@ const appManager = new class {
 
         }
 
-        // console.log('diffs in filterDataIncomingDocument',datadocument, datatypes, diffs)
-
         return {
 
             document:datadocument,
@@ -444,7 +436,6 @@ const appManager = new class {
     }
 
     filterDataIncomingValue = ( value, path, type ) => {
-        // console.log('filterDataIncomingValue',value, path, type)
 
         if (!type) return [value,undefined]
 
@@ -456,16 +447,17 @@ const appManager = new class {
             let datatypes = type.properties.model.datatypes
             let typenode = utilities.getNodePosition(datatypes,path)
             if (!typenode) {
-                // console.log('warning: no type node for ',path, type, value)
+                // nothing...
             } else {
+
                 datatype = typenode.nodevalue
-                // console.log('typenode, datatype in filterDataIncomingValue',typenode, datatype)
+
                 if (datatype == '??timestamp') {
 
                     try {
-                        // console.log('trying toDate',value,returnvalue)
+
                         returnvalue =  value.toDate()
-                        // console.log('returnvalue',returnvalue)
+
                     } catch (e) { // try to self-heal
                         returnvalue = value // try to convert to date through new Timestamp
                         if (returnvalue.seconds !== undefined && returnvalue.nanoseconds !== undefined) {
@@ -475,7 +467,7 @@ const appManager = new class {
                     }
 
                 }
-                // console.log('returnvalue',returnvalue)
+
             }
 
         } else {
@@ -487,7 +479,6 @@ const appManager = new class {
     }
 
     filterDataOutgoingValue = ( value , path, type ) => {
-        console.log('filterDataOutgoingValue',value, path, type)
 
         let datatype
         if (!type) {

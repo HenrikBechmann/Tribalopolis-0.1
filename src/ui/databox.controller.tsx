@@ -99,7 +99,7 @@ class DataBox extends React.Component<any,any> {
 
     constructor(props) {
         super(props)
-        // console.log('databox constructor',props)
+
         this.boxframe = React.createRef()
         this.listcomponent = React.createRef()
         this.itemProxy = this.props.itemProxy
@@ -110,8 +110,6 @@ class DataBox extends React.Component<any,any> {
             }
         )
         let { collapseTargetProxy } = this.props 
-
-        // console.log('collapseTargetProxy in constructor of databox',collapseTargetProxy)
 
         if (collapseTargetProxy) {
 
@@ -151,7 +149,7 @@ class DataBox extends React.Component<any,any> {
     unmounting = false
 
     componentDidMount() {
-        // console.log('did mount',this.itemProxy?this.itemProxy.instanceid:'no item')
+
         let { itemProxy } = this
         let parms:SetListenerMessage = {
             doctoken:itemProxy.doctoken, 
@@ -217,7 +215,7 @@ class DataBox extends React.Component<any,any> {
                     }
                 }
                 if (this.unmounting) return // avoid race condition
-                // console.log('databox controller listdoctoken',listdoctoken)
+
                 this.setState({
                     MainlistProxy: new docproxy({doctoken:listdoctoken}),
                     BarlistProxy: new docproxy({doctoken:listdoctoken}),
@@ -273,8 +271,9 @@ class DataBox extends React.Component<any,any> {
     }
 
     onClickAdd = (docproxy) => {
+
         this.props.callbacks.callDataDrawer({docproxy, options:{opcode:'add'}})
-        // console.log('docproxy',docproxy)
+
     }
 
     listcallbacks = {
@@ -330,8 +329,6 @@ class DataBox extends React.Component<any,any> {
                 ?'0'
                 :'auto',
         }
-
-        // console.log('highlightrefuid in databox',this.state.highlightrefuid)
 
         // placeholder for display if docpack hasn't been received yet
         if (!docpack) {

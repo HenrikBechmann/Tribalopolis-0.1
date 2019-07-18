@@ -42,7 +42,7 @@ class RootDirectoryBarHolder extends React.Component<any, any> {
 
     assertListener = () => {
         if (!this.itemProxy && this.props.itemProxy) {
-            // console.log('asserting listener')
+
             this.itemProxy = this.props.itemProxy
             let parms:SetListenerMessage = 
                 {
@@ -69,7 +69,7 @@ class RootDirectoryBarHolder extends React.Component<any, any> {
     }
 
     cacheItemDocument = ({docpack, typepack, reason}:ReturnDocPairMessage) => {
-        // console.log('caching item',document)
+
         this.setState({
             item:{
                 docpack,
@@ -85,7 +85,6 @@ class RootDirectoryBarHolder extends React.Component<any, any> {
 
     render() {
 
-    // console.log('rendering',this.state)
     let { classes } = this.props
     let listProxy
     if (this.state.item) {

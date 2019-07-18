@@ -40,7 +40,6 @@ class QuadPlatform extends React.Component<any,any> {
         let nextquadposition = nextProps.currentQuadPosition
 
         this.calculateTransitionPosition(this.state.currentQuadPosition)
-        // console.log('BASE changing from quad',this.state.currentQuadPosition,this.positions)
 
         this.forceUpdate(() =>{
 
@@ -48,7 +47,6 @@ class QuadPlatform extends React.Component<any,any> {
 
                 // prepare for animation transition
                 this.calculateTransitionPosition(nextquadposition)
-                // console.log('TRANSITION changing to quad',nextquadposition,this.positions)
 
                 this.setState({
 
@@ -62,9 +60,6 @@ class QuadPlatform extends React.Component<any,any> {
 
                         this.setState({
                             currentQuadPosition:nextquadposition,
-                        },
-                        ()=>{
-                            // console.log('DONE changing quad',nextquadposition,this.positions)
                         })
 
                     },600)
@@ -225,7 +220,7 @@ class QuadPlatform extends React.Component<any,any> {
                 break
             }
         }
-        // console.log('calculate current position', quadrant, top, right, bottom, left)
+
         this.positions = {
             top,
             left,
@@ -272,8 +267,6 @@ class QuadPlatform extends React.Component<any,any> {
         let { left, right, top, bottom } = this.positions
 
         let {width, height} = this.dimensions
-
-        // console.log('render quadplatform',this.positions,this.dimensions)
 
         return (
             <div id = "quadplatform"

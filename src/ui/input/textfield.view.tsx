@@ -34,10 +34,6 @@ const TextField = ({ classes, name, label, value, helperText, margin, multiline,
 
     let marginval = (margin)?margin:'normal'
 
-    // console.log('calling Textfield')
-
-    // console.log('textfield props',classes, name, label, value, helperText, margin, onChange)
-
     return (
         <MuiTextField
           id = { name + '-id' }

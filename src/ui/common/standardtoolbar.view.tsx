@@ -41,7 +41,7 @@ const StandardToolbar = (props) => {
         <div>
             <UserAccountControlData>
             { (systemdata, userdata, activeaccountdata, activememberdata) => {
-                // console.log('StandardToolbar UserAccountControlData return',systemdata,userdata,activeaccountdata, activememberdata)
+
                 return <ToolsStrip
                     userdata = {userdata}
                     systemdata = {systemdata}

@@ -77,7 +77,6 @@ class DataPane extends React.Component<any,any>  {
         this.docProxy = this.props.dataPaneContext?this.props.dataPaneContext.docProxy:null
         this.callbacks = this.props.dataPaneContext?this.props.dataPaneContext.callbacks:null
 
-        // console.log('context in DataPane constructor',this.props.dataPaneContext)
     }
 
     state = {
@@ -96,7 +95,7 @@ class DataPane extends React.Component<any,any>  {
 
         // this.assertListener()
         this.userdata = application.userdata
-        // console.log('DataPane view did mount - props',this.props)
+
         let { dataPaneContext } = this.props
         if (!this.docProxy && dataPaneContext && dataPaneContext.docproxy) {
             this.docProxy = dataPaneContext.docproxy
@@ -107,13 +106,14 @@ class DataPane extends React.Component<any,any>  {
     }
 
     componentDidUpdate() {
-        // console.log('componentDidUpdate',this.props)
+
         let { dataPaneContext } = this.props
         if (!this.docProxy && dataPaneContext && dataPaneContext.docproxy) {
             this.docProxy = dataPaneContext.docproxy
             // console.log('componentDidUpdate setting this.docProxy',this.docProxy)
             this.assertListener()
         }
+
     }
 
     assertListener = () => {
@@ -142,8 +142,6 @@ class DataPane extends React.Component<any,any>  {
             callbacks:this.callbacks,
         }
 
-        // console.log('containerdata and this.callbacks',containerdata,this.callbacks)
-
         if ( !this.prerenderer ) {
             this.prerenderer = new PreRenderer()
         }
@@ -159,7 +157,6 @@ class DataPane extends React.Component<any,any>  {
             this.prerenderer.assemblePreRenderContext(sourcecontext)
 
         // this.prerenderer.setPreRenderMessage(this.preRenderContext)
-        // console.log('prerendercontext',preRenderContext)
         this.renderContent = this.prerenderer.getRenderContent(preRenderContext)
         // console.log('renderContent',this.renderContent)
 

@@ -233,8 +233,6 @@ class quadoperations {
         if (!(this.quadrant.state.stackpointer > 0)) {
             return
         }
-        // console.log('collapse item in collapseDirectoryItem of quadoperation',itemProxy)
-
         // decrement the stack
         setTimeout(()=>{
             // animate the collapse
@@ -252,7 +250,7 @@ class quadoperations {
             this._updateCollapseSettings(stackpointer,this.quadrant.datastack)
             let activeTargetProxy = this.collapseTargetProxy 
             let sourceinstanceid = activeTargetProxy.sourceinstanceid
-            // console.log('sourceinstanceid in quadoperations',sourceinstanceid, activeTargetProxy.sourceinstanceid, activeTargetProxy)
+
             let scrollindex = this.quadrant.datastack[this.quadrant.state.stackpointer-1].items
                 .findIndex(this._findlinkIndex(sourceinstanceid))
 

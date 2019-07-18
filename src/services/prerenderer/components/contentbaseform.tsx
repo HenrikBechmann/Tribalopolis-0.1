@@ -78,7 +78,6 @@ class ContentBaseForm extends React.Component<any,any> {
 
         let children:any = this.props.children
 
-        // console.log('children in componentDidMount of contentbaseform',children)
         // initialize field values for state
         let values = {} as any
         if (!Array.isArray(children)) {
@@ -222,7 +221,6 @@ class ContentBaseForm extends React.Component<any,any> {
 
     onSubmit = () => {
 
-        // console.log('onSubmit',this.state, this.formcontext, this.props.context)
         // let document = merge({},this.formcontext.document)
         let { document, type } = this.formcontext
 
@@ -237,8 +235,6 @@ class ContentBaseForm extends React.Component<any,any> {
             [value,datatype] = application.filterDataOutgoingValue(value, path, type)
             nodespecs.nodeproperty[nodespecs.nodeindex] = value
         } 
-
-        // console.log('document after update',document)
 
         let message = {
             document,
@@ -265,7 +261,7 @@ class ContentBaseForm extends React.Component<any,any> {
     onChangeValue = event => {
         let { values } = this.state
         values[event.target.name] = event.target.value
-        // console.log('event onChangeValue',event.target.name,event.target.value, values)
+
         this.setState({ values, dirty:true })    
 
     }

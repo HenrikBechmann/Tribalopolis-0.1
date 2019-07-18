@@ -164,8 +164,6 @@ class DirectoryBar extends React.Component<any,any> {
         let { listStack, classes, haspeers, contextitem } = this.props
         let listDocument = this.state.list?this.state.list.docpack.document:null
 
-        // console.log('directorybar', listDocument?listDocument.properties:'nothing', classes.iconstyle)
-
         return <div 
                 className = {classes.barstyle}
             >

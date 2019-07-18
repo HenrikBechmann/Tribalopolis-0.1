@@ -45,14 +45,14 @@ class PreRenderer {
 
         let {docpack, typepack, options, container} = assemblePreRenderContext
 
-        // console.log('options in assemblePreRenderContext',options,typepack,docpack,container)
-        
         let renderspecs
         try {
+
             renderspecs = typepack.document.properties.ui[options.uiselection]
-            // console.log('renderspecs in assemblePreRenderContext', renderspecs)
+
         } catch(e) {
             return null
+
         }
 
         if (!renderspecs) return null
@@ -71,15 +71,11 @@ class PreRenderer {
             docref:docpack.reference
         }
 
-        // console.log('assemblePreRenderContext prerendermessage',prerendercontext)
-
         return prerendercontext
     }
 
     // called by client
     public getRenderContent = (prerendermessage:PreRenderContext) => {
-
-        // console.log('in getRenderContent: prerendermessage',prerendermessage)
 
         if (!prerendermessage) return null
 
@@ -87,8 +83,6 @@ class PreRenderer {
 
         this.namespace = namespace
 
-        // console.log('data in assemble', this.data)
-            
         let element = this.assembleElement(specs.component)
 
         return element
@@ -99,11 +93,8 @@ class PreRenderer {
 
     private assembleElement = componentspec => {
 
-        // console.log('componentspec in assembleComponents',componentspec)
         // if the component is text, return the text
         if (componentspec['#variant']) {
-
-            // console.log('in assembleComponents for #variant: componentspec',componentspec)
 
             let variant = componentspec['#variant']
             let { properties, attributes} = componentspec
@@ -133,15 +124,12 @@ class PreRenderer {
 
         try {
 
-            // console.log('componentspec in AssembleComponents',componentspec)
-
             // get component class
             let type = this.getTypeClass(componentspec.type)
 
             if (componentspec.attributes && componentspec.attributes.stylesforclasses) {
                 let styles = createStyles(componentspec.attributes.stylesforclasses)
                 type = withStyles(styles)(type)
-                // console.log('class and withStyles component in getRenderContent',componentClass,component)
                 // return component
             }
 
@@ -177,8 +165,6 @@ class PreRenderer {
 
     private getTypeClass = typespec => {
 
-        // console.log('in getTypeClass: typespec',typespec, components)
-
         let typelist = typespec.split('.')
         let [collection, componentclass] = typelist
         let type = components[collection][componentclass]
@@ -190,8 +176,6 @@ class PreRenderer {
 
     private getProps = (propertyspecs,attributes) => {
 
-        // console.log('getProps',propertyspecs,attributes)
-
         let props = {}
         let defaults = (attributes && attributes.defaults) || {}
         for (let propertyindex in propertyspecs) {
@@ -202,8 +186,6 @@ class PreRenderer {
             }
             props[propertyindex] = property
         }
-
-        // console.log('props in getProps',props)
 
         return props
 
@@ -274,7 +256,7 @@ class PreRenderer {
         let pathlist = path.split('.')
         let namespace = this.namespace
         let nodedata:any = utilities.getNodePosition(namespace,pathlist)
-        // console.log('getPropertyByIndirection propertySpec, pathlist, nodedata, namespace',propertySpec,pathlist,nodedata,namespace)
+
         if (nodedata) {
             let value = nodedata.nodevalue
             let datatype
@@ -300,7 +282,6 @@ class PreRenderer {
 
     private getChildren = childspecs => {
 
-        // console.log('getChildren childspecs',childspecs)
         if (!childspecs) return null
         let children
         if (Array.isArray(childspecs)) {

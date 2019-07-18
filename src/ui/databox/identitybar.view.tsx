@@ -104,8 +104,6 @@ class IdentityBar extends React.Component<any, any> {
 
     cacheItemDocument = ({docpack, typepack, reason}:ReturnDocPairMessage) => {
 
-    // console.log('control bar cacheItemDocument', docpack)
-
         this.setState({
             item:{
                 docpack,

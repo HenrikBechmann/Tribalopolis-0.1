@@ -9,8 +9,6 @@ import { Editor, EditorState, RichUtils } from 'draft-js';
 
 import 'draft-js/dist/Draft.css'
 
-// console.log('RichUtils',RichUtils)
-
 class BasicEditor extends React.Component<any,any> {
 
     state = {

@@ -57,8 +57,6 @@ class permissions {
         }
     ) => {
 
-        // console.log('updateControlData in permissions',systemdata,userdata,activeaccountreference,stateaccountreference)
-
         if (!userdata) {
             this.removeContextListeners()
         }
@@ -98,8 +96,6 @@ class permissions {
 
     public removeContextListeners = () => {
 
-        // console.log('removing context listeners in permissions.tsx', this.contextMemberProxy, this.contextAccountProxy)
-
         if (this.contextMemberProxy) {
             let {doctoken,instanceid} = this.contextMemberProxy
             application.removeDocpackPairListener({doctoken, instanceid})
@@ -136,7 +132,7 @@ class permissions {
         this.controldata.activememberdata = null
 
         let proxy = this.contextAccountProxy = new docProxy({doctoken:{reference:accountreference}})
-        // console.log('permissions setting contextAccountProxy', proxy)
+
         let parms:SetListenerMessage = {
             doctoken:proxy.doctoken,
             instanceid:proxy.instanceid,
@@ -176,7 +172,6 @@ class permissions {
     private fetchMemberRecord = () => {
 
         let control_account_reference = this.controldata.activeaccountdata.docpack.reference
-        // if (control_account_reference[0] == '/') control_account_reference = control_account_reference.slice(1)
 
         let parms:GetDocumentMessage = {
             reference:'members',
@@ -188,16 +183,12 @@ class permissions {
             failure:this.fetchMemberFailure,
         }
 
-        // console.log('fetchMemberRecord parms, controldata',parms, this.controldata)
-
         application.queryForDocument(parms)
 
     }
 
     // fetch member and subscribe if new
     private fetchMemberSuccess = ({docpack, reason}) => {
-
-        // console.log('fetchMemberSuccess, docpack',docpack)
 
         let uptodate = (
             this.controldata.activememberdata && 
@@ -212,7 +203,6 @@ class permissions {
         }
 
         let proxy = this.contextMemberProxy = new docProxy({doctoken:{reference:docpack.reference}})
-        // console.log('permissions setting contextMemberProxy', proxy)
 
         let parms:SetListenerMessage = {
             doctoken:proxy.doctoken,

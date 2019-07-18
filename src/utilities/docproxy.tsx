@@ -18,10 +18,7 @@ class docproxy {
         }
         this.instanceid = serializer.getid()
         let refsplit = doctoken.reference.split('/')
-        // console.log('refsplit in docproxy',refsplit)
-        // if (data.liststack) {
-        //     this.liststack = data.liststack // || []
-        // }
+
         let collection 
         if (doctoken.reference[0] == '/')
             collection = refsplit[1]

@@ -52,8 +52,6 @@ const getNewDocument = (parmblock:GetDocumentMessage) => {
 
 const queryForDocument = (parmblock:GetDocumentMessage) => {
 
-    // console.log('queryForDocument:parmblock',parmblock)
-
     gateway.queryForDocument(parmblock)
 
 }

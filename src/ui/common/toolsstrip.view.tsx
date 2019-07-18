@@ -48,11 +48,12 @@ class ToolsStrip extends React.Component<any,any> {
     }
 
     openSettings = () => {
-        // console.log('opensettings in toolsstrip')
+
         this.setState({
             accountAnchorElement: null,
             settingsopen:true,
         })
+
     }
 
     closeSettings = () => {
@@ -68,7 +69,6 @@ class ToolsStrip extends React.Component<any,any> {
     }
 
     menudrawer = () => {
-        // console.log('menudrawer in toolsstrip:props',this.props)
 
         return (
         <Drawer

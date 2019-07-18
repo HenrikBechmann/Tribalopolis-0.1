@@ -39,8 +39,6 @@ const setGatewayListener = (parmblock:GetDocumentMessage) => {
 
     let {reference, success, failure} = parmblock
 
-    // console.log('setGatewayListener', parmblock)
-
     if (!reference) {
 
         data = null
@@ -65,10 +63,8 @@ const setGatewayListener = (parmblock:GetDocumentMessage) => {
             case 'users':
             case 'system': {
 
-                // console.log('refsplit, collection in setGatewayListener',refsplit,collection)
-
                 getSnapshot(parmblock)
-                // console.log('return from callkng getSnapshot')
+
                 return
 
             }
@@ -92,13 +88,10 @@ const setGatewayListener = (parmblock:GetDocumentMessage) => {
         }
 
     }
-    // setTimeout(()=>{
-        let parms:ReturnDocPackMessage = {docpack:{reference,document:data}, reason:{}}
-        success(parms)
-        // setTimeout(()=>{
-        //     callback(reference, data, {})
-        // },15)
-    // },1000)
+
+    let parms:ReturnDocPackMessage = {docpack:{reference,document:data}, reason:{}}
+    success(parms)
+
 }
 
 const snapshotUnsubscribes = {}
@@ -113,8 +106,6 @@ const getSnapshot = (parmblock:GetDocumentMessage) => {
 
     }
 
-    console.log('getSnapshot',parmblock)
-
     let docref = firestore.doc(reference)
     snapshotUnsubscribes[reference] = docref.onSnapshot(doc => {
 
@@ -127,7 +118,6 @@ const getSnapshot = (parmblock:GetDocumentMessage) => {
             reason:{}
         }
 
-        // console.log('return getSnapshot',msg)
         success(msg)
 
     },(error) => {
@@ -166,8 +156,6 @@ const removeGatewayListener = ({reference}:RemoveGatewayListenerMessage) => {
             snapshotUnsubscribes[reference] && snapshotUnsubscribes[reference]()
             snapshotUnsubscribes[reference] && delete snapshotUnsubscribes[reference]
 
-            // console.log('remaining unsubscribes',snapshotUnsubscribes)
-
         }
     }
 }
@@ -175,12 +163,11 @@ const removeGatewayListener = ({reference}:RemoveGatewayListenerMessage) => {
 const getDocument = ({reference, success, failure}:GetDocumentMessage) => {
 
     let docref = firestore.doc(reference)
-    // console.log('gateway getting document',reference, docref)
+
     docref.get()
     .then((doc)=>{
         let data = doc.data()
-        // console.log('gateway returning doc.data() with callback',doc, data)
-        // let id = doc.id
+
         let returnpack:ReturnDocPackMessage = {docpack:{document:data,reference},reason:{}}
         success(returnpack)
 
@@ -194,11 +181,11 @@ const getDocument = ({reference, success, failure}:GetDocumentMessage) => {
 }
 
 const getNewDocument = ({reference, success, failure}:GetDocumentMessage) => {
-    // console.log('getting document',reference)
+
     let docref = firestore.collection(reference).doc()
     docref.get()
     .then((doc)=>{
-        // console.log('returning doc with callback')
+
         let document = doc.data()
         let id = doc.id
         let docpack:DocPackStruc = {document,reference:reference + '/' + id}
@@ -211,8 +198,6 @@ const getNewDocument = ({reference, success, failure}:GetDocumentMessage) => {
 }
 
 const queryForDocument = ({reference, whereclauses, success, failure}:GetDocumentMessage) => {
-
-    // console.log('querying for document',reference, whereclauses, success, failure)
 
     if ((!whereclauses) || (whereclauses.length == 0)) {
         failure && failure('no where clauses defined for query', {reference,whereclauses})
@@ -228,8 +213,6 @@ const queryForDocument = ({reference, whereclauses, success, failure}:GetDocumen
 
     }
 
-    // console.log('queryForDocument: reference, whereclauses, query', reference, whereclauses, query)
-    
     query.get().then((querySnapshot)=>{
 
         if (querySnapshot.empty) {
