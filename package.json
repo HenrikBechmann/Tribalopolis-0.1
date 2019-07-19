@@ -23,7 +23,7 @@
     "format-number": "^3.0.0",
     "hoist-non-react-statics": "^3.3.0",
     "isomorphic-fetch": "^2.2.1",
-    "lodash": "^4.17.14",
+    "lodash": "^4.17.15",
     "moment": "^2.24.0",
     "pluralize": "^8.0.0",
     "prop-types": "^15.7.2",
@@ -43,7 +43,6 @@
     "react-window": "^1.8.5",
     "react-window-infinite-loader": "^1.0.3",
     "remark": "^10.0.1",
-    "remark-react": "^5.0.1",
     "uuid": "^3.3.2",
     "yamljs": "^0.3.0"
   },
