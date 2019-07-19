@@ -145,7 +145,7 @@ const appManager = new class {
 
             this.updateSetSentinel(instanceid)
 
-            docpackCache.addListener(reference,instanceid,success)
+            docpackCache.addListener(reference, instanceid, success, failure)
 
             let docpack:DocPackStruc = docpackCache.getCacheDocpack(reference)
 
@@ -178,7 +178,7 @@ const appManager = new class {
 
             this.updateSetSentinel(instanceid)
 
-            docpackCache.addListener(reference,instanceid,success)
+            docpackCache.addListener(reference, instanceid, success, failure)
 
             let cachedata = docpackCache.getCacheDocpackPair(reference)
 

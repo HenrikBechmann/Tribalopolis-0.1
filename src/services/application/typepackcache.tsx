@@ -111,7 +111,7 @@ const typepackCache = new class {
         console.log('error typepackCache',error, reason)
     }
 
-    addListener = (typereference, documentreference, callback) => {
+    addListener = (typereference, documentreference, callback, failure) => {
 
         let cacheitem = this.getItem(typereference)
 
@@ -145,7 +145,7 @@ const typepackCache = new class {
     getCacheDocpack = reference => {
 
         let cacheitem = this.getExistingItem(reference)
-        let docpack:DocPackStruc = cacheitem?cacheitem.docpack:null
+        let docpack:DocPackStruc = cacheitem?cacheitem.docpack:{}
         return docpack
     }
 

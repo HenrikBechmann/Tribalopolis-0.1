@@ -227,7 +227,7 @@ const docpackCache = new class {
 
             // will only create if doesn't already exist
             // processPairListeners invoked first time
-            typeref && typepackCache.addListener(typeref, docpack.reference, this.processPairListeners) 
+            typeref && typepackCache.addListener(typeref, docpack.reference, this.processPairListeners, null) 
 
             // will not process without type (including first time)
             this.processPairListeners(docpack.reference,reason) 
@@ -246,7 +246,7 @@ const docpackCache = new class {
 
     }
 
-    public addListener = (reference,instanceid,callback) => {
+    public addListener = (reference, instanceid, callback, failure) => {
 
         let cacheitem = this.getItem(reference)
 
@@ -299,13 +299,13 @@ const docpackCache = new class {
     public getCacheDocpack = reference => {
 
         let cacheitem = this.getExistingItem(reference)
-        let docpack:DocPackStruc = cacheitem?cacheitem.docpack:null
+        let docpack:DocPackStruc = cacheitem?cacheitem.docpack:{}
         return docpack
     }
 
     public getCacheDocpackPair = reference => {
 
-        let cacheitem = this.getItem(reference)
+        let cacheitem = this.getExistingItem(reference)
         let docpack:DocPackStruc = (cacheitem && cacheitem.docpack)?cacheitem.docpack:{}
         let typepack:DocPackStruc = null
         let typeref = null
