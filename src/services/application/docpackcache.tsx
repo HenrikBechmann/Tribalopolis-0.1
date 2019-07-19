@@ -245,7 +245,7 @@ const docpackCache = new class {
     public removeListener = (reference, instanceid) => {
 
         if (!this.cache.has(reference)) {
-            console.log('reference not found in docpackcache removeListener',reference)
+            console.log('warning: reference not found in docpackcache removeListener',reference)
             return
         }
 

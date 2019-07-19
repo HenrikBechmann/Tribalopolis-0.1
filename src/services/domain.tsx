@@ -14,8 +14,6 @@
 import gateway from './gateway'
 import { 
     GetDocumentMessage, 
-    // GetNewDocumentInterface, 
-    // QueryForDocumentInterface, 
     SetDocumentMessage, 
     GetCollectionMessage,
     SetGatewayListenerMessage,

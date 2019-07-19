@@ -1,7 +1,7 @@
 // gateway.tsx
 // copyright (c) 2019 Henrik Bechmann, Toronto, Licence: GPL-3.0-or-later
 /*
-    This is a gateway to the underlaying domain data
+    This is a gateway to the underlying domain data
     It is accessed by services
 
     The pattern is to return a new promise, wait for 
@@ -121,16 +121,20 @@ const getSnapshot = (parmblock:GetDocumentMessage) => {
         success(msg)
 
     },(error) => {
-        failure && failure(error, {reference,})
-        snapshotError(error, parmblock)
+        if (failure) {
+            failure(error, {reference,})
+        } else {
+            throw `gateway error: unable to fetch ${reference}; no failure callback`
+        }
+        // snapshotError(error, parmblock)
     })
 }
 
-const snapshotError = (error, parmblock) => {
+// const snapshotError = (error, parmblock) => {
 
-    console.log('onSnapshot Error',error, parmblock)
+//     console.log('onSnapshot Error',error, parmblock)
 
-}
+// }
 
 const removeGatewayListener = ({reference}:RemoveGatewayListenerMessage) => {
 
