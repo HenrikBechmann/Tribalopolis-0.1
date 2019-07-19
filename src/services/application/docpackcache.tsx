@@ -114,6 +114,18 @@ const docpackCache = new class {
         return cacheitem
     }
 
+    private getExistingItem = (reference) => {
+
+        let cacheitem = null
+
+        if (this.cache.has(reference)) { // update if exists
+
+            cacheitem = this.cache.get(reference)
+
+        }
+
+        return cacheitem
+     }
     /*
         processes a document's callbacks, whether called as the result of a 
         document update from the gateway, or a document's type update from the gateway.
@@ -286,8 +298,8 @@ const docpackCache = new class {
 
     public getCacheDocpack = reference => {
 
-        let cacheitem = this.getItem(reference)
-        let docpack:DocPackStruc = cacheitem?cacheitem.docpack:{}
+        let cacheitem = this.getExistingItem(reference)
+        let docpack:DocPackStruc = cacheitem?cacheitem.docpack:null
         return docpack
     }
 

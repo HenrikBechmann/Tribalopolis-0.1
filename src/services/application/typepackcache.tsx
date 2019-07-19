@@ -58,7 +58,7 @@ const typepackCache = new class {
             this.cache.set(reference,cacheitem)
 
             let parmblock: SetGatewayListenerMessage = {
-                reference, success:this.updateItem,failure:this.failUpdateItem
+                reference, success:this.successGetItem,failure:this.failureGetItem
             }
             domain.setDocumentListener(parmblock)
 
@@ -68,9 +68,22 @@ const typepackCache = new class {
         
     }
 
+    private getExistingItem = (reference) => {
+
+        let cacheitem = null
+
+        if (this.cache.has(reference)) { // update if exists
+
+            cacheitem = this.cache.get(reference)
+
+        }
+
+        return cacheitem
+     }
+
     //=====================[ API ]======================
 
-    updateItem = ( {docpack, reason}:ReturnDocPackMessage ) => {
+    successGetItem = ( {docpack, reason}:ReturnDocPackMessage ) => {
 
         let typedoc = docpack || ({} as DocPackStruc)
         let cacheitem = this.cache.get(typedoc.reference)
@@ -94,8 +107,7 @@ const typepackCache = new class {
 
     }
 
-    failUpdateItem = (error, reason) => {
-        toast.error('typepackCache error:' + error)
+    failureGetItem = (error, reason) => {
         console.log('error typepackCache',error, reason)
     }
 
@@ -132,8 +144,8 @@ const typepackCache = new class {
 
     getCacheDocpack = reference => {
 
-        let cacheitem = this.getItem(reference)
-        let docpack:DocPackStruc = cacheitem?cacheitem.docpack:{}
+        let cacheitem = this.getExistingItem(reference)
+        let docpack:DocPackStruc = cacheitem?cacheitem.docpack:null
         return docpack
     }
 
