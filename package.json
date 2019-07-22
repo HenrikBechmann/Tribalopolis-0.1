@@ -42,7 +42,7 @@
     "react-virtualized-auto-sizer": "^1.0.2",
     "react-window": "^1.8.5",
     "react-window-infinite-loader": "^1.0.3",
-    "remark": "^10.0.1",
+    "remark": "^11.0.0",
     "uuid": "^3.3.2",
     "yamljs": "^0.3.0"
   },
