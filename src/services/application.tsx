@@ -27,7 +27,7 @@
 import merge from 'deepmerge'
 import deepdiff from 'deep-diff'
 
-import domain from './domain'
+import gateway from './gateway'
 import { 
     GetDocumentMessage, 
     SetDocumentMessage, 
@@ -228,19 +228,19 @@ const appManager = new class {
 
     getDocument = (parmblock:GetDocumentMessage) => {
 
-        domain.getDocument(parmblock)
+        gateway.getDocument(parmblock)
 
     }
 
     getNewDocument = (parmblock:GetDocumentMessage) => {
 
-        domain.getNewDocument(parmblock)
+        gateway.getNewDocument(parmblock)
 
     }
 
     queryForDocument = (parmblock:GetDocumentMessage) => {
 
-        domain.queryForDocument(parmblock)
+        gateway.queryForDocument(parmblock)
         
     }
 
@@ -270,13 +270,13 @@ const appManager = new class {
 
     setDocument = (parmblock:SetDocumentMessage) => {
 
-        domain.setDocument(parmblock)
+        gateway.setDocument(parmblock)
 
     }
 
     getCollection = (parmblock:GetCollectionMessage) => {
 
-        domain.getCollection(parmblock)
+        gateway.getCollection(parmblock)
         
     }
 

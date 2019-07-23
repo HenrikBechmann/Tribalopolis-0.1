@@ -3,7 +3,7 @@
 
 'use strict'
 
-import domain from '../domain'
+import gateway from '../gateway'
 import { 
     SetGatewayListenerMessage,
     ReturnDocPackMessage,
@@ -39,7 +39,7 @@ const typepackCache = new class {
 
         // unhook from domain
         let parmblock:DocTokenStruc = {reference}
-        domain.removeDocumentListener(parmblock)
+        gateway.removeDocumentListener(parmblock)
 
         this.cache.delete(reference)
 
@@ -60,7 +60,7 @@ const typepackCache = new class {
             let parmblock: SetGatewayListenerMessage = {
                 reference, success:this.successGetItem,failure:this.failureGetItem,paired:false
             }
-            domain.setDocumentListener(parmblock)
+            gateway.setDocumentListener(parmblock)
 
         }
 

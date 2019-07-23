@@ -34,7 +34,7 @@ import application from './application'
 
 let firestore = firebase.firestore()
 
-const setGatewayListener = (parmblock:GetDocumentMessage) => {
+const setDocumentListener = (parmblock:GetDocumentMessage) => {
     let data
 
     let {reference, success, failure, paired} = parmblock
@@ -129,7 +129,7 @@ const getSnapshot = (parmblock:GetDocumentMessage) => {
     })
 }
 
-const removeGatewayListener = ({reference}:RemoveGatewayListenerMessage) => {
+const removeDocumentListener = ({reference}:RemoveGatewayListenerMessage) => {
 
     let refsplit = reference.split('/')
         let collection 
@@ -296,8 +296,8 @@ let gateway = {
     queryForDocument,
     getCollection,
     // get asynchronousely, including triggered updates
-    setGatewayListener,
-    removeGatewayListener,
+    setDocumentListener,
+    removeDocumentListener,
     // write
     setDocument,
 

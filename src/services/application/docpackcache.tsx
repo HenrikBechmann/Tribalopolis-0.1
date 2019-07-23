@@ -3,7 +3,7 @@
 
 'use strict'
 
-import domain from '../domain'
+import gateway from '../gateway'
 import typefilter from '../type.filter'
 import { 
     SetGatewayListenerMessage,
@@ -41,7 +41,7 @@ const docpackCache = new class {
 
         // unhook from gateway
         let parmblock:DocTokenStruc = {reference}
-        domain.removeDocumentListener(parmblock)
+        gateway.removeDocumentListener(parmblock)
 
         // anticipate need for type cache listener...
         let documentcacheitem = this.cache.get(reference)
@@ -107,7 +107,7 @@ const docpackCache = new class {
 
             }
             
-            domain.setDocumentListener(parmblock)
+            gateway.setDocumentListener(parmblock)
 
         }
 

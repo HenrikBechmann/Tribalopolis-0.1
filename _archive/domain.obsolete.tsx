@@ -26,13 +26,13 @@ const noop = () => {
 
 const setDocumentListener = (parmblock:SetGatewayListenerMessage) => {
 
-    gateway.setGatewayListener(parmblock)
+    gateway.setDocumentListener(parmblock)
 
 }
 
 const removeDocumentListener =  (parmblock:RemoveGatewayListenerMessage) => {
 
-    gateway.removeGatewayListener(parmblock)
+    gateway.removeDocumentListener(parmblock)
 
 }
 
