@@ -35,7 +35,7 @@ export interface GetCollectionMessage {
 
 export interface ReturnDocPackMessage {
     docpack:DocPackStruc,
-    reason: Object,
+    reason: GenericObject,
 }
 
 // subscriptions to application

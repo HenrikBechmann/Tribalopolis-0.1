@@ -217,7 +217,7 @@ const docpackCache = new class {
 
         cacheitem.docpack = docpack
 
-        if (this.isPaired(docpack.document)) {
+        if ( reason.sourceparms.ispaired && this.isPaired(docpack.document)) {
 
             // let oldtyperef = olddocpack? olddocpack.document.control.type:null
 
