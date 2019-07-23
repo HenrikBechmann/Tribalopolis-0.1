@@ -168,12 +168,12 @@ const getDocument = (parmblock:GetDocumentMessage) => {
         let data = doc.data()
 
         let returnpack:ReturnDocPackMessage = {docpack:{document:data,reference},reason:{sourceparms:parmblock}}
-        success(returnpack)
+        success(returnpack,{sourceparms:parmblock})
 
     })
     .catch((error)=> {
 
-        failure && failure(error, {reference,})
+        failure && failure(error, {reference,sourceparms:parmblock})
 
     })
     
@@ -194,7 +194,7 @@ const getNewDocument = (parmblock:GetDocumentMessage) => {
         success(returnpack)
     })
     .catch((error)=> {
-        failure && failure(error)
+        failure && failure(error, {sourceparms:parmblock})
     })
 }
 
