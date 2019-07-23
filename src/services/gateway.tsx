@@ -126,15 +126,8 @@ const getSnapshot = (parmblock:GetDocumentMessage) => {
         } else {
             throw `gateway error: unable to fetch ${reference}; no failure callback`
         }
-        // snapshotError(error, parmblock)
     })
 }
-
-// const snapshotError = (error, parmblock) => {
-
-//     console.log('onSnapshot Error',error, parmblock)
-
-// }
 
 const removeGatewayListener = ({reference}:RemoveGatewayListenerMessage) => {
 

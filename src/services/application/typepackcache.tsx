@@ -45,7 +45,7 @@ const typepackCache = new class {
 
     }
 
-    private getItem = reference => { // type reference
+    private getItem = (reference, failure) => { // type reference
         let cacheitem
 
         if (this.cache.has(reference)) {
@@ -113,13 +113,17 @@ const typepackCache = new class {
 
     addListener = (typereference, documentreference, callback, failure) => {
 
-        let cacheitem = this.getItem(typereference)
+        let cacheitem = this.getItem(typereference, this.failureAddListener)
 
         if (!cacheitem.listeners.has(documentreference)) {
 
             cacheitem.listeners.set(documentreference,callback)
 
         }
+    }
+
+    failureAddListener = (error, reason) => {
+        console.log('typepackcache failureAddListener', error, reason)
     }
 
     removeListener = (typereference, documentreference) => {

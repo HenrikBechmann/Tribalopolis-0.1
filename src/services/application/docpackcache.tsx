@@ -87,7 +87,7 @@ const docpackCache = new class {
         }
     }
 
-    private getItem = (reference) => {
+    private getItem = (reference, failure) => {
 
         let cacheitem
 
@@ -133,7 +133,9 @@ const docpackCache = new class {
     */
     private processListeners = (reference, reason) => {
 
-        let documentcacheitem = this.getItem(reference)
+        let documentcacheitem = this.getExistingItem(reference)
+
+        if (!documentcacheitem) return
 
         let { docpack, listeners } = documentcacheitem
 
@@ -158,7 +160,9 @@ const docpackCache = new class {
     // fetched document per document type change
     private processPairListeners = (reference, reason) => {
 
-        let documentcacheitem = this.getItem(reference)
+        let documentcacheitem = this.getExistingItem(reference)
+
+        if (!documentcacheitem) return
 
         let {docpack,typepack}:{docpack:DocPackStruc,typepack:DocPackStruc} = this.getCacheDocpackPair(reference)
 
@@ -205,7 +209,7 @@ const docpackCache = new class {
     public successGetItem = ( {docpack, reason}:ReturnDocPackMessage ) => {
 
         // set or update document
-        let cacheitem = this.getItem(docpack.reference)
+        let cacheitem = this.getExistingItem(docpack.reference)
 
         if (!cacheitem) return // async
 
@@ -248,16 +252,20 @@ const docpackCache = new class {
 
     public addListener = (reference, instanceid, callback, failure) => {
 
-        let cacheitem = this.getItem(reference)
+        let cacheitem = this.getItem(reference, this.failureAddListener)
 
         cacheitem.listeners.set(instanceid,callback)
 
     }
 
+    private failureAddListener = (error, reason) => {
+        console.log('docpackCache failureAddListener error, reason', error, reason)
+    }
+
     public removeListener = (reference, instanceid) => {
 
         if (!this.cache.has(reference)) {
-            console.log('warning: reference not found in docpackcache removeListener',reference)
+            // console.log('warning: reference not found in docpackcache removeListener',reference)
             return
         }
 
