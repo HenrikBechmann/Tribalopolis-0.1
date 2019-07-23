@@ -87,7 +87,7 @@ const docpackCache = new class {
         }
     }
 
-    private getItem = (reference, failure) => {
+    private getItem = (reference, failure, paired) => {
 
         let cacheitem
 
@@ -103,7 +103,7 @@ const docpackCache = new class {
             // connect to data source
             let parmblock:SetGatewayListenerMessage = {
 
-                reference, success:this.successGetItem, failure:this.failureGetItem
+                reference, success:this.successGetItem, failure:this.failureGetItem, paired
 
             }
             
@@ -250,9 +250,16 @@ const docpackCache = new class {
 
     }
 
+    public addPairedListener = (reference, instanceid, callback, failure) => {
+
+        let cacheitem = this.getItem(reference, this.failureAddListener, true)
+
+        cacheitem.listeners.set(instanceid,callback)
+
+    }
     public addListener = (reference, instanceid, callback, failure) => {
 
-        let cacheitem = this.getItem(reference, this.failureAddListener)
+        let cacheitem = this.getItem(reference, this.failureAddListener, false)
 
         cacheitem.listeners.set(instanceid,callback)
 

@@ -23,6 +23,7 @@ export interface GetDocumentMessage {
     whereclauses?:any[], 
     success:Function, 
     failure:Function,
+    paired?:Boolean,
 }
 
 export interface GetCollectionMessage {
@@ -65,6 +66,7 @@ export interface SetGatewayListenerMessage {
     reference:string, 
     success:Function,
     failure:Function,
+    paired:Boolean,
 }
 
 export interface RemoveGatewayListenerMessage {

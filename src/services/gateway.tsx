@@ -37,7 +37,7 @@ let firestore = firebase.firestore()
 const setGatewayListener = (parmblock:GetDocumentMessage) => {
     let data
 
-    let {reference, success, failure} = parmblock
+    let {reference, success, failure, paired} = parmblock
 
     if (!reference) {
 
@@ -89,7 +89,7 @@ const setGatewayListener = (parmblock:GetDocumentMessage) => {
 
     }
 
-    let parms:ReturnDocPackMessage = {docpack:{reference,document:data}, reason:{}}
+    let parms:ReturnDocPackMessage = {docpack:{reference,document:data}, reason:{sourceparms:parmblock}}
     success(parms)
 
 }
@@ -115,14 +115,14 @@ const getSnapshot = (parmblock:GetDocumentMessage) => {
         }
         let msg:ReturnDocPackMessage = {
             docpack,
-            reason:{}
+            reason:{sourceparms:parmblock}
         }
 
         success(msg)
 
     },(error) => {
         if (failure) {
-            failure(error, {reference,})
+            failure(error, {reference,sourceparms:parmblock})
         } else {
             throw `gateway error: unable to fetch ${reference}; no failure callback`
         }
@@ -157,7 +157,9 @@ const removeGatewayListener = ({reference}:RemoveGatewayListenerMessage) => {
     }
 }
 
-const getDocument = ({reference, success, failure}:GetDocumentMessage) => {
+const getDocument = (parmblock:GetDocumentMessage) => {
+
+    let {reference, success, failure} = parmblock
 
     let docref = firestore.doc(reference)
 
@@ -165,7 +167,7 @@ const getDocument = ({reference, success, failure}:GetDocumentMessage) => {
     .then((doc)=>{
         let data = doc.data()
 
-        let returnpack:ReturnDocPackMessage = {docpack:{document:data,reference},reason:{}}
+        let returnpack:ReturnDocPackMessage = {docpack:{document:data,reference},reason:{sourceparms:parmblock}}
         success(returnpack)
 
     })
@@ -177,7 +179,9 @@ const getDocument = ({reference, success, failure}:GetDocumentMessage) => {
     
 }
 
-const getNewDocument = ({reference, success, failure}:GetDocumentMessage) => {
+const getNewDocument = (parmblock:GetDocumentMessage) => {
+
+    let {reference, success, failure} = parmblock
 
     let docref = firestore.collection(reference).doc()
     docref.get()
@@ -186,7 +190,7 @@ const getNewDocument = ({reference, success, failure}:GetDocumentMessage) => {
         let document = doc.data()
         let id = doc.id
         let docpack:DocPackStruc = {document,reference:reference + '/' + id}
-        let returnpack:ReturnDocPackMessage = {docpack, reason:{}}
+        let returnpack:ReturnDocPackMessage = {docpack, reason:{sourceparms:parmblock}}
         success(returnpack)
     })
     .catch((error)=> {
@@ -194,10 +198,12 @@ const getNewDocument = ({reference, success, failure}:GetDocumentMessage) => {
     })
 }
 
-const queryForDocument = ({reference, whereclauses, success, failure}:GetDocumentMessage) => {
+const queryForDocument = (parmblock:GetDocumentMessage) => {
+
+    let {reference, whereclauses, success, failure} = parmblock
 
     if ((!whereclauses) || (whereclauses.length == 0)) {
-        failure && failure('no where clauses defined for query', {reference,whereclauses})
+        failure && failure('no where clauses defined for query', {reference,whereclauses, sourceparms:parmblock})
         return // nothing to do
     }
 
@@ -233,29 +239,31 @@ const queryForDocument = ({reference, whereclauses, success, failure}:GetDocumen
     }).then((docpackreturn) => {
 
         let docpack:DocPackStruc = docpackreturn as DocPackStruc
-        let returnpack:ReturnDocPackMessage = {docpack,reason:{}}
+        let returnpack:ReturnDocPackMessage = {docpack,reason:{sourceparms:parmblock}}
 
         success(returnpack)
 
     }).catch(error =>{
 
-        failure && failure(error,{reference, whereclauses})
+        failure && failure(error,{reference, whereclauses, sourceparms:parmblock})
         
     }) 
 }
 
-const setDocument = ({reference, document, success, failure}:SetDocumentMessage) => {
+const setDocument = (parmblock:SetDocumentMessage) => {
+    let {reference, document, success, failure} = parmblock
     let doc = firestore.doc(reference)
     doc.set(document)
     .then(()=>{
-        success()
+        success({sourceparms:parmblock})
     })
     .catch( error => {
-        failure && failure( error, {reference, document} )
+        failure && failure( error, {reference, document,sourceparms:parmblock} )
     })
 }
 
-const getCollection = ({reference, success, failure}:GetCollectionMessage) => {
+const getCollection = (parmblock:GetCollectionMessage) => {
+    let {reference, success, failure} = parmblock
     let query = firestore.collection(reference)
     query.get()
     .then(querySnapshot => {
@@ -274,10 +282,10 @@ const getCollection = ({reference, success, failure}:GetCollectionMessage) => {
         }
     })
     .then(docpacklist => {
-        success(docpacklist) // DocPackStruc[]
+        success(docpacklist, {sourceparms:parmblock}) // DocPackStruc[]
     }) 
     .catch(error => {
-        failure && failure(error, {reference,})
+        failure && failure(error, {reference,sourceparms:parmblock})
     })
 }
 

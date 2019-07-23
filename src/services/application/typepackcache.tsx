@@ -58,7 +58,7 @@ const typepackCache = new class {
             this.cache.set(reference,cacheitem)
 
             let parmblock: SetGatewayListenerMessage = {
-                reference, success:this.successGetItem,failure:this.failureGetItem
+                reference, success:this.successGetItem,failure:this.failureGetItem,paired:false
             }
             domain.setDocumentListener(parmblock)
 
