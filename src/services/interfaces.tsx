@@ -52,7 +52,7 @@ export interface RemoveListenerMessage {
     instanceid:number,
 }
 
-// inbound messages
+// application inbound messages
 
 export interface DocpackPayloadMessage {
     docpack:DocPackStruc,
@@ -69,6 +69,8 @@ export interface DocpackPairPayloadMessage {
     typepack:DocPackStruc,
     reason:GenericObject,
 }
+
+// application action calls
 
 export interface SetGatewayListenerMessage {
     reference:string, 
@@ -107,6 +109,9 @@ export interface ContainerData {
     props:GenericObject,
     callbacks:GenericCallbacks,
 }
+
+
+// local
 
 interface GenericCallbacks {
     [name:string]:Function,

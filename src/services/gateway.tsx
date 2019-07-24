@@ -215,7 +215,11 @@ const getDocument = (parmblock:GetDocumentMessage) => {
     })
     .catch((error)=> {
 
-        failure && failure(error, {reference,sourceparms:parmblock})
+        if (failure) {
+            failure(error, {reference,sourceparms:parmblock})
+        } else {
+            throw `gateway error: unable to getDocument ${reference}; no failure callback`
+        }
 
     })
     
@@ -236,7 +240,11 @@ const getNewDocument = (parmblock:GetDocumentMessage) => {
         success(payload)
     })
     .catch((error)=> {
-        failure && failure(error, {sourceparms:parmblock})
+        if (failure) {
+            failure(error, {sourceparms:parmblock})
+        } else {
+            throw `gateway error: unable to getNewDocument ${reference}; no failure callback`
+        }
     })
 }
 
@@ -245,7 +253,12 @@ const queryForDocument = (parmblock:GetDocumentMessage) => {
     let {reference, whereclauses, success, failure} = parmblock
 
     if ((!whereclauses) || (whereclauses.length == 0)) {
-        failure && failure('no where clauses defined for query', {reference,whereclauses, sourceparms:parmblock})
+        if (failure) {
+
+            failure('no where clauses defined for query', {reference,whereclauses, sourceparms:parmblock})
+        } else {
+            throw `gateway error: unable to queryForDocument (no whereclauses) ${reference}; no failure callback`
+        }
         return // nothing to do
     }
 
@@ -287,8 +300,12 @@ const queryForDocument = (parmblock:GetDocumentMessage) => {
 
     }).catch(error =>{
 
-        failure && failure(error,{reference, whereclauses, sourceparms:parmblock})
-        
+        if (failure) {
+            failure(error,{reference, whereclauses, sourceparms:parmblock})
+        } else {
+            throw `gateway error: unable to queryForDocument ${reference}; no failure callback`
+        }
+
     }) 
 }
 
@@ -301,7 +318,11 @@ const setDocument = (parmblock:SetDocumentMessage) => {
         success(payload)
     })
     .catch( error => {
-        failure && failure( error, {reference, document,sourceparms:parmblock} )
+        if (failure) {
+            failure( error, {reference, document,sourceparms:parmblock} )
+        } else {
+            throw `gateway error: unable to setDocument ${reference}; no failure callback`
+        }
     })
 }
 
@@ -329,7 +350,11 @@ const getCollection = (parmblock:GetCollectionMessage) => {
         success(payload)
     }) 
     .catch(error => {
-        failure && failure(error, {reference,sourceparms:parmblock})
+        if (failure) {
+            failure(error, {reference,sourceparms:parmblock})
+        } else {
+            throw `gateway error: unable to getCollection ${reference}; no failure callback`
+        }
     })
 }
 
