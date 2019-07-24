@@ -86,7 +86,7 @@ const appManager = new class {
     // =================[ PRIVATE ]=======================
 
     // set sentinel for continue unless already blocked, then remove and abandon.
-    private setCallbackSentinalForContinue = instanceid => {
+    private setCallbackSentinalToContinue = instanceid => {
 
         let sentinel = 
             callbacksentinels[instanceid]
@@ -117,7 +117,7 @@ const appManager = new class {
 
     }
 
-    private setCallbackSentinalForBlock = instanceid => {
+    private setCallbackSentinalToBlock = instanceid => {
 
         let sentinel = 
             callbacksentinels[instanceid]
@@ -157,7 +157,7 @@ const appManager = new class {
 
             let reference = doctoken.reference // getTokenReference(doctoken)
 
-            this.setCallbackSentinalForContinue(instanceid)
+            this.setCallbackSentinalToContinue(instanceid)
 
             docpackCache.addListener(reference, instanceid, success, failure)
 
@@ -192,7 +192,7 @@ const appManager = new class {
 
             let reference = doctoken.reference 
 
-            this.setCallbackSentinalForContinue(instanceid)
+            this.setCallbackSentinalToContinue(instanceid)
 
             docpackCache.addPairedListener(reference, instanceid, success, failure)
 
@@ -225,7 +225,7 @@ const appManager = new class {
 
         let reference = doctoken.reference
 
-        this.setCallbackSentinalForBlock(instanceid)
+        this.setCallbackSentinalToBlock(instanceid)
 
         docpackCache.removeListener(reference,instanceid)
 
@@ -236,7 +236,7 @@ const appManager = new class {
 
         let reference = doctoken.reference
 
-        this.setCallbackSentinalForBlock(instanceid)
+        this.setCallbackSentinalToBlock(instanceid)
 
         docpackCache.removeListener(reference,instanceid)
 

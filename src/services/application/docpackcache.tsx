@@ -321,18 +321,18 @@ const docpackCache = new class {
     public getCacheDocpack = reference => {
 
         let cacheitem = this.getExistingItem(reference)
-        let docpack:DocPackStruc = cacheitem?cacheitem.docpack:{}
+        let docpack:DocPackStruc = cacheitem?cacheitem.docpack:null
         return docpack
     }
 
     public getCacheDocpackPair = reference => {
 
         let cacheitem = this.getExistingItem(reference)
-        let docpack:DocPackStruc = (cacheitem && cacheitem.docpack)?cacheitem.docpack:{}
+        let docpack:DocPackStruc = (cacheitem && cacheitem.docpack)?cacheitem.docpack:null
         let typepack:DocPackStruc = null
         let typeref = null
 
-        if (docpack.document) {
+        if (docpack && docpack.document) {
 
             // TODO this next two lines should become errors if no typeref or type found
             // typeref = docpack.document.control.type?docpack.document.control.type.reference:null
