@@ -88,20 +88,21 @@ const appManager = new class {
     // =================[ PRIVATE ]=======================
 
     // set sentinel for continue unless already blocked, then remove and abandon.
+    // sentinels are set for only one entity in a session
     private setCallbackSentinalToContinue = instanceid => {
 
-        let sentinel = callbacksentinels[instanceid]?
+        let sentinel = callbacksentinels[instanceid]? // previously set sentinel
             callbacksentinels[instanceid][0]:
             undefined
 
-        if (sentinel === undefined) { // create sentinel for continueation
+        if (sentinel === undefined) { // if none, create sentinel for continuation
 
             callbacksentinels[instanceid]=[ALLOW] // allow continuation callbacks
             return ALLOW
 
-        } else if (sentinel === BLOCK) { // block was set; clear sentinal; abandon
+        } else if (sentinel === BLOCK) { // block was set; clear sentinal; abandon, removal is underway
 
-            callbacksentinels[instanceid].shift()
+            callbacksentinels[instanceid].shift() // no longer needed
 
             if (callbacksentinels[instanceid].length === 0) {
 
@@ -111,7 +112,7 @@ const appManager = new class {
 
             return BLOCK
 
-        } else { // sentinel = false; continue with callbacks
+        } else { // sentinel == ALLOW; continue with callbacks
 
             callbacksentinels[instanceid].push(ALLOW)
             return ALLOW
@@ -123,17 +124,17 @@ const appManager = new class {
     private setCallbackSentinalToBlock = instanceid => {
 
         let sentinel = 
-            callbacksentinels[instanceid]
-            ?callbacksentinels[instanceid][0]
-            :undefined
+            callbacksentinels[instanceid]?
+            callbacksentinels[instanceid][0]:
+            undefined
 
-        if (sentinel === undefined) { // create sentinal; set before listener
+        if (sentinel === undefined) { // create sentinal; removal set before listener set
 
             callbacksentinels[instanceid]=[BLOCK]
 
             return
 
-        } else if (sentinel === ALLOW) { // clear sentinal; continue delete listener
+        } else if (sentinel === ALLOW) { // clear sentinal
 
             callbacksentinels[instanceid].shift()
 
