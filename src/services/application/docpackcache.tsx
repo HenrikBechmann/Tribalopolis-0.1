@@ -18,7 +18,7 @@ import {
 } from '../interfaces'
 
 import typepackCache from './typepackcache'
-import { sentinels } from '../application'
+import { callbacksentinels } from '../application'
 import { toast } from 'react-toastify'
 
 // ==============================[ DOCUMENT CACHE ]===============================
@@ -145,7 +145,7 @@ const docpackCache = new class {
 
         listeners.forEach((callback,key) => {
 
-            let slist = sentinels[key]
+            let slist = callbacksentinels[key]
 
             if (slist && ((slist[slist.length - 1]) === false)) {
 
@@ -185,7 +185,7 @@ const docpackCache = new class {
 
             listeners.forEach((callback,key) => {
 
-                let slist = sentinels[key]
+                let slist = callbacksentinels[key]
 
                 if (slist && ((slist[slist.length - 1]) === false)) {
 

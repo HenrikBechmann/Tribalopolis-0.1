@@ -62,10 +62,10 @@ import firebase from './firebase.api'
     sentinel registration is stopped. If the sentinel doesn't exist or is false (false == continue), then
     the current sentinel is added as false (continue)
 
-    sentinels are used by the docpackcache to determine if the listener should be called. If the last sentinel 
+    callbacksentinels are used by the docpackcache to determine if the listener should be called. If the last sentinel 
     is stopped then the callback does not happen, as the listener is in the process of being abandoned.
 */
-export const sentinels = {}
+export const callbacksentinels = {}
 
 // =================[ API ]=======================
 
@@ -86,24 +86,24 @@ const appManager = new class {
     // =================[ PRIVATE ]=======================
 
     // set sentinel for continue unless already blocked, then remove and abandon.
-    private setSentinalForContinue = instanceid => {
+    private setCallbackSentinalForContinue = instanceid => {
 
         let sentinel = 
-            sentinels[instanceid]
-            ?sentinels[instanceid][0]
+            callbacksentinels[instanceid]
+            ?callbacksentinels[instanceid][0]
             :undefined
 
         if (sentinel === undefined) { // create listener
 
-            sentinels[instanceid]=[false] // allow continuation with set listener
+            callbacksentinels[instanceid]=[false] // allow continuation with set listener
 
         } else if (sentinel === true) { // stop was set; clear sentinal; abandon
 
-            sentinels[instanceid].shift()
+            callbacksentinels[instanceid].shift()
 
-            if (sentinels[instanceid].length === 0) {
+            if (callbacksentinels[instanceid].length === 0) {
 
-                delete sentinels[instanceid]
+                delete callbacksentinels[instanceid]
 
             }
 
@@ -111,37 +111,37 @@ const appManager = new class {
 
         } else { // sentinel = false; continue with set listener
 
-            sentinels[instanceid].push(false)   
+            callbacksentinels[instanceid].push(false)   
 
         }
 
     }
 
-    private setSentinalForBlock = instanceid => {
+    private setCallbackSentinalForBlock = instanceid => {
 
         let sentinel = 
-            sentinels[instanceid]
-            ?sentinels[instanceid][0]
+            callbacksentinels[instanceid]
+            ?callbacksentinels[instanceid][0]
             :undefined
 
         if (sentinel === undefined) { // create sentinal; set before listener
 
-            sentinels[instanceid]=[true]
+            callbacksentinels[instanceid]=[true]
 
             return
 
         } else if (sentinel === false) { // clear sentinal; continue delete listener
 
-            sentinels[instanceid].shift()
+            callbacksentinels[instanceid].shift()
 
-            if (sentinels[instanceid].length === 0) {
+            if (callbacksentinels[instanceid].length === 0) {
 
-                delete sentinels[instanceid]
+                delete callbacksentinels[instanceid]
             }
 
         } else { // sentinal === true; was set for previous call; queue next
 
-            sentinels[instanceid].push(true)
+            callbacksentinels[instanceid].push(true)
 
             return
         }
@@ -157,7 +157,7 @@ const appManager = new class {
 
             let reference = doctoken.reference // getTokenReference(doctoken)
 
-            this.setSentinalForContinue(instanceid)
+            this.setCallbackSentinalForContinue(instanceid)
 
             docpackCache.addListener(reference, instanceid, success, failure)
 
@@ -190,9 +190,9 @@ const appManager = new class {
         let {doctoken, instanceid, success, failure} = parmblock
         setTimeout(()=>{ // give animations a chance to run
 
-            let reference = doctoken.reference // getTokenReference(doctoken)
+            let reference = doctoken.reference 
 
-            this.setSentinalForContinue(instanceid)
+            this.setCallbackSentinalForContinue(instanceid)
 
             docpackCache.addPairedListener(reference, instanceid, success, failure)
 
@@ -225,7 +225,7 @@ const appManager = new class {
 
         let reference = doctoken.reference
 
-        this.setSentinalForBlock(instanceid)
+        this.setCallbackSentinalForBlock(instanceid)
 
         docpackCache.removeListener(reference,instanceid)
 
@@ -236,7 +236,7 @@ const appManager = new class {
 
         let reference = doctoken.reference
 
-        this.setSentinalForBlock(instanceid)
+        this.setCallbackSentinalForBlock(instanceid)
 
         docpackCache.removeListener(reference,instanceid)
 
