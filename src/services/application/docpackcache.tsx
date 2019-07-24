@@ -23,6 +23,8 @@ import { toast } from 'react-toastify'
 
 // ==============================[ DOCUMENT CACHE ]===============================
 
+const PAIRED_LISTENER = true, NOT_PAIRED_LISTENER = false
+
 const docpackCache = new class {
 
     //=====================[ PRIVATE ]======================
@@ -259,14 +261,14 @@ const docpackCache = new class {
 
         // console.log('addPairedListener in docpackcache',reference,instanceid,callback,failure )
 
-        let cacheitem = this.getItem(reference, this.failureAddListener, true)
+        let cacheitem = this.getItem(reference, this.failureAddListener, PAIRED_LISTENER)
 
         cacheitem.listeners.set(instanceid,callback)
 
     }
     public addListener = (reference, instanceid, callback, failure) => {
 
-        let cacheitem = this.getItem(reference, this.failureAddListener, false)
+        let cacheitem = this.getItem(reference, this.failureAddListener, NOT_PAIRED_LISTENER)
 
         cacheitem.listeners.set(instanceid,callback)
 

@@ -66,6 +66,8 @@ import firebase from './firebase.api'
     is stopped then the callback does not happen, as the listener is in the process of being abandoned.
 */
 export const callbacksentinels = {}
+const BLOCK = true
+const ALLOW = false
 
 // =================[ API ]=======================
 
@@ -88,16 +90,16 @@ const appManager = new class {
     // set sentinel for continue unless already blocked, then remove and abandon.
     private setCallbackSentinalToContinue = instanceid => {
 
-        let sentinel = 
-            callbacksentinels[instanceid]
-            ?callbacksentinels[instanceid][0]
-            :undefined
+        let sentinel = callbacksentinels[instanceid]?
+            callbacksentinels[instanceid][0]:
+            undefined
 
-        if (sentinel === undefined) { // create listener
+        if (sentinel === undefined) { // create sentinel for continueation
 
-            callbacksentinels[instanceid]=[false] // allow continuation with set listener
+            callbacksentinels[instanceid]=[ALLOW] // allow continuation callbacks
+            return ALLOW
 
-        } else if (sentinel === true) { // stop was set; clear sentinal; abandon
+        } else if (sentinel === BLOCK) { // block was set; clear sentinal; abandon
 
             callbacksentinels[instanceid].shift()
 
@@ -107,11 +109,12 @@ const appManager = new class {
 
             }
 
-            return
+            return BLOCK
 
-        } else { // sentinel = false; continue with set listener
+        } else { // sentinel = false; continue with callbacks
 
-            callbacksentinels[instanceid].push(false)   
+            callbacksentinels[instanceid].push(ALLOW)
+            return ALLOW
 
         }
 
@@ -126,11 +129,11 @@ const appManager = new class {
 
         if (sentinel === undefined) { // create sentinal; set before listener
 
-            callbacksentinels[instanceid]=[true]
+            callbacksentinels[instanceid]=[BLOCK]
 
             return
 
-        } else if (sentinel === false) { // clear sentinal; continue delete listener
+        } else if (sentinel === ALLOW) { // clear sentinal; continue delete listener
 
             callbacksentinels[instanceid].shift()
 
@@ -139,9 +142,9 @@ const appManager = new class {
                 delete callbacksentinels[instanceid]
             }
 
-        } else { // sentinal === true; was set for previous call; queue next
+        } else { // sentinal === BLOCK; was set for previous call; queue next
 
-            callbacksentinels[instanceid].push(true)
+            callbacksentinels[instanceid].push(BLOCK)
 
             return
         }
@@ -157,7 +160,7 @@ const appManager = new class {
 
             let reference = doctoken.reference // getTokenReference(doctoken)
 
-            this.setCallbackSentinalToContinue(instanceid)
+            if (this.setCallbackSentinalToContinue(instanceid) === BLOCK) return
 
             docpackCache.addListener(reference, instanceid, success, failure)
 
@@ -192,7 +195,7 @@ const appManager = new class {
 
             let reference = doctoken.reference 
 
-            this.setCallbackSentinalToContinue(instanceid)
+            if (this.setCallbackSentinalToContinue(instanceid) === BLOCK) return
 
             docpackCache.addPairedListener(reference, instanceid, success, failure)
 
