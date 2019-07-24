@@ -56,6 +56,15 @@ import firebase from './firebase.api'
     The separation of the two allows for separate caching strategies.
 */
 
+/*
+    Sentinels are kept for each session instance of an entity, in a first in last out queue
+    the earliest sentinel is checked for stop (== true), in which case the latest cache listener
+    sentinel registration is stopped. If the sentinel doesn't exist or is false (false == continue), then
+    the current sentinel is added as false (continue)
+
+    sentinels are used by the docpackcache to determine if the listener should be called. If the last sentinel 
+    is stopped then the callback does not happen, as the listener is in the process of being abandoned.
+*/
 export const sentinels = {}
 
 // =================[ API ]=======================
@@ -76,7 +85,8 @@ const appManager = new class {
 
     // =================[ PRIVATE ]=======================
 
-    private updateSetSentinel = instanceid => {
+    // set sentinel for continue unless already blocked, then remove and abandon.
+    private setSentinalForContinue = instanceid => {
 
         let sentinel = 
             sentinels[instanceid]
@@ -107,7 +117,7 @@ const appManager = new class {
 
     }
 
-    private updateRemoveSentinel = instanceid => {
+    private setSentinalForBlock = instanceid => {
 
         let sentinel = 
             sentinels[instanceid]
@@ -147,7 +157,7 @@ const appManager = new class {
 
             let reference = doctoken.reference // getTokenReference(doctoken)
 
-            this.updateSetSentinel(instanceid)
+            this.setSentinalForContinue(instanceid)
 
             docpackCache.addListener(reference, instanceid, success, failure)
 
@@ -182,7 +192,7 @@ const appManager = new class {
 
             let reference = doctoken.reference // getTokenReference(doctoken)
 
-            this.updateSetSentinel(instanceid)
+            this.setSentinalForContinue(instanceid)
 
             docpackCache.addPairedListener(reference, instanceid, success, failure)
 
@@ -215,7 +225,7 @@ const appManager = new class {
 
         let reference = doctoken.reference
 
-        this.updateRemoveSentinel(instanceid)
+        this.setSentinalForBlock(instanceid)
 
         docpackCache.removeListener(reference,instanceid)
 
@@ -226,7 +236,7 @@ const appManager = new class {
 
         let reference = doctoken.reference
 
-        this.updateRemoveSentinel(instanceid)
+        this.setSentinalForBlock(instanceid)
 
         docpackCache.removeListener(reference,instanceid)
 

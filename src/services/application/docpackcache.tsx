@@ -134,6 +134,7 @@ const docpackCache = new class {
         document update from the gateway, or a document's type update from the gateway.
         listeners are not updated if there is not yet a type, or a type cache item
     */
+    // the most recent sentinel must be available and ready to process (== false)
     private processListeners = (reference, reason) => {
 
         let documentcacheitem = this.getExistingItem(reference)
