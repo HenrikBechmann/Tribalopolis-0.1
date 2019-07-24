@@ -68,22 +68,24 @@ class AbstractDataPane extends React.Component<any,any> {
     }
 
     assertListener = () => {
-
+        // console.log('assertListener in abstractdatapane')
         if (this.docProxy) {
             let parms:SetListenerMessage = 
                 {
                     doctoken:this.docProxy.doctoken,
                     instanceid:this.docProxy.instanceid,
-                    success:this.cacheDocPair,
-                    failure:null,
+                    success:this.successAssertListener,
+                    failure:this.failureAssertListener,
                 }
 
             application.setDocpackPairListener( parms )
         }
     }
 
-    cacheDocPair = ({docpack, typepack, reason}:DocpackPairPayloadMessage) => {
+    successAssertListener = (parmblock:DocpackPairPayloadMessage) => {
 
+        let {docpack, typepack, reason} = parmblock
+        // console.log('abstractdatapane cacheDocPair', parmblock)
         // database type data namespace
         let containerdata = {
             userdata:this.userdata,
@@ -114,6 +116,10 @@ class AbstractDataPane extends React.Component<any,any> {
             typepack,
         })
 
+    }
+
+    failureAssertListener = (error,reason) => {
+        console.log('abstractdatapane failureAssertListener',error,reason)
     }
 
     render() {

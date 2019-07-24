@@ -174,8 +174,10 @@ const appManager = new class {
 
     }
 
-    setDocpackPairListener = ({doctoken, instanceid, success, failure}:SetListenerMessage) => {
+    setDocpackPairListener = (parmblock:SetListenerMessage) => {
 
+        // console.log('setDocPackPairListener in application',parmblock )
+        let {doctoken, instanceid, success, failure} = parmblock
         setTimeout(()=>{ // give animations a chance to run
 
             let reference = doctoken.reference // getTokenReference(doctoken)

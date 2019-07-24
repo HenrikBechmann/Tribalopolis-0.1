@@ -118,13 +118,14 @@ class DataPane extends React.Component<any,any>  {
 
     assertListener = () => {
 
+        // console.log('assertListener in datapane.view', this.docProxy)
         if (this.docProxy) {
             let parms:SetListenerMessage = 
                 {
                     doctoken:this.docProxy.doctoken,
                     instanceid:this.docProxy.instanceid,
-                    success:this.cacheDocPair,
-                    failure:null,
+                    success:this.successAssertListener,
+                    failure:this.failureAssertListener,
                 }
 
             application.setDocpackPairListener( parms )
@@ -133,8 +134,9 @@ class DataPane extends React.Component<any,any>  {
 
     prerenderer:PreRenderer = null
 
-    cacheDocPair = ({docpack, typepack, reason}:DocpackPairPayloadMessage) => {
+    successAssertListener = (parmblock:DocpackPairPayloadMessage) => {
 
+        let {docpack, typepack, reason} = parmblock
         // database type data namespace
         let containerdata:ContainerData = {
             userdata:this.userdata,
@@ -165,6 +167,10 @@ class DataPane extends React.Component<any,any>  {
             typepack,
         })
 
+    }
+
+    failureAssertListener = (error, reason) => {
+        console.log('failureAssertListener in datapane.view',error,reason)
     }
 
     componentWillUnmount() {

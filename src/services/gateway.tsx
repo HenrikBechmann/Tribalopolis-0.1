@@ -142,6 +142,8 @@ const snapshotUnsubscribes = {}
 
 const getSnapshot = (parmblock:GetDocumentMessage) => {
 
+    // console.log('getting snapshot in gateway',parmblock)
+
     let {reference, success, failure} = parmblock
 
     if (snapshotUnsubscribes[reference]) {
@@ -161,6 +163,8 @@ const getSnapshot = (parmblock:GetDocumentMessage) => {
             docpack,
             reason:{sourceparms:parmblock}
         }
+
+        // console.log('calling success in getSnapshot',payload)
 
         success(payload)
 

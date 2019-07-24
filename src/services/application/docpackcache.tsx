@@ -109,7 +109,7 @@ const docpackCache = new class {
                 reference, success:this.successGetItem, failure:this.failureGetItem, paired
 
             }
-            
+            // console.log('docpackcache calling gateway.setDocumentListener',parmblock)
             gateway.setDocumentListener(parmblock)
 
         }
@@ -209,24 +209,24 @@ const docpackCache = new class {
 
         if there is no type yet recorded for paired items, callbacks will not be processed.
     */
-    public successGetItem = ( {docpack, reason}:DocpackPayloadMessage ) => {
+    public successGetItem = ( parmblock:DocpackPayloadMessage ) => {
 
+        let {docpack, reason} = parmblock
         // set or update document
         let cacheitem = this.getExistingItem(docpack.reference)
 
         if (!cacheitem) return // async
 
+        // console.log('successGetItem in docpackcache:parmblock,cacheitem,docpack,sourceparms.paired,this.isPaired',
+        //     parmblock,cacheitem,docpack,reason.sourceparms.paired,this.isPaired(docpack.document))
+
         let olddocpack = cacheitem.docpack
 
         cacheitem.docpack = docpack
 
-        if ( reason.sourceparms.ispaired && this.isPaired(docpack.document)) {
-
-            // let oldtyperef = olddocpack? olddocpack.document.control.type:null
+        if ( reason.sourceparms.paired && this.isPaired(docpack.document)) {
 
             let oldtyperef = olddocpack? olddocpack.document.control_type_reference:null
-
-            // let typeref = docpack.document.control.type?docpack.document.control.type.reference:null; // all documents have a type
 
             let typeref = docpack.document.control_type_reference?docpack.document.control_type_reference:null; // all documents have a type
 
@@ -234,6 +234,7 @@ const docpackCache = new class {
 
             // will only create if doesn't already exist
             // processPairListeners invoked first time
+            // console.log('calling typepackcache.addListener in docpackcache',typeref,docpack)
             typeref && typepackCache.addListener(typeref, docpack.reference, this.processPairListeners, null) 
 
             // will not process without type (including first time)
@@ -254,6 +255,8 @@ const docpackCache = new class {
     }
 
     public addPairedListener = (reference, instanceid, callback, failure) => {
+
+        // console.log('addPairedListener in docpackcache',reference,instanceid,callback,failure )
 
         let cacheitem = this.getItem(reference, this.failureAddListener, true)
 

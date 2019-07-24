@@ -8,8 +8,6 @@ import React from 'react'
 import { withStyles, createStyles } from '@material-ui/core/styles'
 import moment from 'moment'
 
-import { PreRenderContext } from './interfaces'
-
 import layoutComponents from './prerenderer/layouts'
 import displayComponents from './prerenderer/displays'
 import formComponents from './prerenderer/forms'
@@ -20,7 +18,7 @@ import functions from './functions'
 
 import AbstractDataPane from './prerenderer/components/abstractdatapane'
 import utilities from '../utilities/utilities'
-import { DataPaneNamespace, GetPreRenderContext } from './interfaces'
+import { DataPaneNamespace, GetPreRenderContext, PreRenderContext } from './interfaces'
 import application from './application'
 
 const components = { // lookups
