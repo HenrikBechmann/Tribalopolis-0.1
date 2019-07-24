@@ -23,7 +23,7 @@ import QuantityBadge from '../common/quantitybadge.view'
 import ActionButton from '../common/actionbutton.view'
 import LoadingMessage from '../common/loadingmessage.view'
 
-import { SetListenerMessage, RemoveListenerMessage, ReturnDocPairMessage } from '../../services/interfaces'
+import { SetListenerMessage, RemoveListenerMessage, DocpackPairPayloadMessage } from '../../services/interfaces'
 
 const styles = createStyles({ 
     barstyle:{
@@ -124,7 +124,7 @@ class DirectoryBar extends React.Component<any,any> {
         }        
     }
 
-    cacheListDocument = ({docpack,typepack, reason}:ReturnDocPairMessage) => {
+    cacheListDocument = ({docpack,typepack, reason}:DocpackPairPayloadMessage) => {
         if (this.isunmounting) return
 
         this.setState({

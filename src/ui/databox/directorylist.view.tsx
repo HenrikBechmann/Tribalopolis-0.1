@@ -14,7 +14,7 @@ import { toast } from 'react-toastify'
 import DirectoryListItem from './directorylistitem.view'
 import docproxy from '../../utilities/docproxy'
 import LoadingMessage from '../common/loadingmessage.view'
-import { DocTokenStruc, SetListenerMessage, RemoveListenerMessage, ReturnDocPairMessage } from '../../services/interfaces'
+import { DocTokenStruc, SetListenerMessage, RemoveListenerMessage, DocpackPairPayloadMessage } from '../../services/interfaces'
 
 const styles = createStyles({
     scrollboxcontainer:{
@@ -102,7 +102,7 @@ class extends React.Component<any,any> {
         }        
     }
 
-    cacheListDocument = ({docpack, typepack, reason}:ReturnDocPairMessage) => {
+    cacheListDocument = ({docpack, typepack, reason}:DocpackPairPayloadMessage) => {
 
         let listproxies
         if (!this.state.listproxies) {

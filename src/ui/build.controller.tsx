@@ -38,7 +38,7 @@ import BuildDataPane from './build/builddatapane.view'
 import { 
     GetDocumentMessage, 
     SetDocumentMessage, 
-    ReturnDocPackMessage,
+    DocpackPayloadMessage,
     DataPaneContext } from '../services/interfaces'
 
 const styles = theme => (createStyles({
@@ -180,7 +180,7 @@ class BuildController extends React.Component<any,any> {
         }
     }
 
-    fetchSuccessCallback = ({docpack, reason}:ReturnDocPackMessage) => {
+    fetchSuccessCallback = ({docpack, reason}:DocpackPayloadMessage) => {
 
         this.docpackoriginal = docpack
 
@@ -219,7 +219,7 @@ class BuildController extends React.Component<any,any> {
     }
 
     // apply type template to document
-    fetchTypeSuccessCallback = ({docpack,reason}:ReturnDocPackMessage) => {
+    fetchTypeSuccessCallback = ({docpack,reason}:DocpackPayloadMessage) => {
         let typepack = docpack
         this.doctypepack = typepack
         toast.info('type has also been loaded (' + docpack.reference + ')')

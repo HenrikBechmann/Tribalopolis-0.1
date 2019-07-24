@@ -13,7 +13,7 @@ import docproxy from '../../utilities/docproxy'
 
 import LoadingMessage from '../common/loadingmessage.view'
 
-import { SetListenerMessage, RemoveListenerMessage, ReturnDocPairMessage } from '../../services/interfaces'
+import { SetListenerMessage, RemoveListenerMessage, DocpackPairPayloadMessage } from '../../services/interfaces'
 
 const styles = createStyles({
     holderstyle:{
@@ -68,7 +68,7 @@ class RootDirectoryBarHolder extends React.Component<any, any> {
         }        
     }
 
-    cacheItemDocument = ({docpack, typepack, reason}:ReturnDocPairMessage) => {
+    cacheItemDocument = ({docpack, typepack, reason}:DocpackPairPayloadMessage) => {
 
         this.setState({
             item:{

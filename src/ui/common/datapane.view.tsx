@@ -17,7 +17,7 @@ import Paper from '@material-ui/core/Paper'
 import PreRenderer from '../../services/prerenderer' // class
 import { 
     SetListenerMessage,
-    ReturnDocPairMessage,
+    DocpackPairPayloadMessage,
     PreRenderContext,
     GetPreRenderContext,
     ContainerData,
@@ -133,7 +133,7 @@ class DataPane extends React.Component<any,any>  {
 
     prerenderer:PreRenderer = null
 
-    cacheDocPair = ({docpack, typepack, reason}:ReturnDocPairMessage) => {
+    cacheDocPair = ({docpack, typepack, reason}:DocpackPairPayloadMessage) => {
 
         // database type data namespace
         let containerdata:ContainerData = {

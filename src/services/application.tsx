@@ -30,13 +30,17 @@ import deepdiff from 'deep-diff'
 import gateway from './gateway'
 import { 
     GetDocumentMessage, 
-    SetDocumentMessage, 
+    SetDocumentMessage,
+
     GetCollectionMessage,
+
     SetListenerMessage,
     RemoveListenerMessage,
-    ReturnDocPackMessage,
-    ReturnDocPairMessage,
+
+    DocpackPayloadMessage,
+    DocpackPairPayloadMessage,
     DocPackStruc,
+    
 } from './interfaces'
 import docpackCache from './application/docpackcache'
 import typepackCache from './application/typepackcache'
@@ -151,7 +155,7 @@ const appManager = new class {
 
             if (docpack) { // defer if waiting for docpack
 
-                let parmblock:ReturnDocPackMessage = {
+                let parmblock:DocpackPayloadMessage = {
                     docpack, 
                     reason:{
                         documents:{
@@ -185,7 +189,7 @@ const appManager = new class {
             if (cachedata.docpack && cachedata.typepack) { // defer if waiting for type
                 let docpack:DocPackStruc = cachedata.docpack
 
-                let parmblock:ReturnDocPairMessage = {
+                let parmblock:DocpackPairPayloadMessage = {
                     docpack, 
                     typepack:cachedata.typepack, 
                     reason:{

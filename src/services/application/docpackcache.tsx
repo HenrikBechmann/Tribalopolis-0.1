@@ -7,10 +7,13 @@ import gateway from '../gateway'
 import typefilter from '../type.filter'
 import { 
     SetGatewayListenerMessage,
-    ReturnDocPackMessage,
-    ReturnDocPairMessage,
+
+    DocpackPayloadMessage,
+    DocpackPairPayloadMessage,
+    
     DocTokenStruc, 
     DocPackStruc,
+
     CacheItemStruc,
 } from '../interfaces'
 
@@ -147,7 +150,7 @@ const docpackCache = new class {
 
                 let docpac:DocPackStruc = docpack
 
-                let parmblock:ReturnDocPackMessage = {docpack:docpac, reason}
+                let parmblock:DocpackPayloadMessage = {docpack:docpac, reason}
                 callback( parmblock )
 
             }
@@ -187,7 +190,7 @@ const docpackCache = new class {
 
                     let docpac:DocPackStruc = docpack
 
-                    let parmblock:ReturnDocPairMessage = {docpack:docpac, typepack, reason}
+                    let parmblock:DocpackPairPayloadMessage = {docpack:docpac, typepack, reason}
                     callback( parmblock )
 
                 }
@@ -206,7 +209,7 @@ const docpackCache = new class {
 
         if there is no type yet recorded for paired items, callbacks will not be processed.
     */
-    public successGetItem = ( {docpack, reason}:ReturnDocPackMessage ) => {
+    public successGetItem = ( {docpack, reason}:DocpackPayloadMessage ) => {
 
         // set or update document
         let cacheitem = this.getExistingItem(docpack.reference)

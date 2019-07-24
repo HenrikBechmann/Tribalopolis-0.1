@@ -11,7 +11,7 @@ import application from '../../../services/application'
 import { 
     SetListenerMessage, 
     RemoveListenerMessage, 
-    ReturnDocPairMessage, 
+    DocpackPairPayloadMessage, 
     PreRenderContext 
 } from '../../../services/interfaces'
 
@@ -82,7 +82,7 @@ class AbstractDataPane extends React.Component<any,any> {
         }
     }
 
-    cacheDocPair = ({docpack, typepack, reason}:ReturnDocPairMessage) => {
+    cacheDocPair = ({docpack, typepack, reason}:DocpackPairPayloadMessage) => {
 
         // database type data namespace
         let containerdata = {

@@ -14,7 +14,10 @@ import ListItemText from '@material-ui/core/ListItemText'
 import application from '../../services/application'
 import { toast } from 'react-toastify'
 
-import { GetCollectionMessage } from '../../services/interfaces'
+import { 
+    GetCollectionMessage,
+    DocpackListPayloadMessage,
+} from '../../services/interfaces'
 
 let _ = require('lodash')
 
@@ -94,12 +97,12 @@ class BuildDataPane extends React.Component<any,any>  {
         }
     }
 
-    dataSuccess = queryData => {
-        this.data = queryData
+    dataSuccess = (payload:DocpackListPayloadMessage) => {
+        this.data = payload.docpacklist
         this.forceUpdate()
     }
 
-    dataFailure = error => {
+    dataFailure = (error,reason) => {
         console.log('collection fetch error',error)
         toast.error(error)
     }

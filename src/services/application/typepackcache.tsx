@@ -6,9 +6,11 @@
 import gateway from '../gateway'
 import { 
     SetGatewayListenerMessage,
-    ReturnDocPackMessage,
+
+    DocpackPayloadMessage,
     DocTokenStruc, 
     DocPackStruc,
+    
     CacheItemStruc,
 } from '../interfaces'
 
@@ -83,7 +85,7 @@ const typepackCache = new class {
 
     //=====================[ API ]======================
 
-    successGetItem = ( {docpack, reason}:ReturnDocPackMessage ) => {
+    successGetItem = ( {docpack, reason}:DocpackPayloadMessage ) => {
 
         let typedoc = docpack || ({} as DocPackStruc)
         let cacheitem = this.cache.get(typedoc.reference)

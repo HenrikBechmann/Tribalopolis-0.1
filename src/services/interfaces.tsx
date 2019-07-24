@@ -16,7 +16,7 @@ Struc: as data structure specifying an object/document
 ------------------------[ OPERATIONS ]--------------------------
 ***************************************************************/
 
-// fetch copy of persistent documents
+// application outbound messages
 
 export interface GetDocumentMessage {
     reference:string,
@@ -26,19 +26,19 @@ export interface GetDocumentMessage {
     paired?:Boolean,
 }
 
+export interface SetDocumentMessage {
+    reference:string, 
+    document:GenericObject, 
+    success:Function, 
+    failure:Function,
+}
+
 export interface GetCollectionMessage {
     reference:string, 
     whereclauses?:any[], 
     success:Function, 
     failure:Function,
 }
-
-export interface ReturnDocPackMessage {
-    docpack:DocPackStruc,
-    reason: GenericObject,
-}
-
-// subscriptions to application
 
 export interface SetListenerMessage {
     doctoken:DocTokenStruc,
@@ -52,15 +52,23 @@ export interface RemoveListenerMessage {
     instanceid:number,
 }
 
-export interface ReturnDocPairMessage {
+// inbound messages
+
+export interface DocpackPayloadMessage {
+    docpack:DocPackStruc,
+    reason: GenericObject,
+}
+
+export interface DocpackListPayloadMessage {
+    docpacklist:DocPackStruc[],
+    reason: GenericObject,
+}
+
+export interface DocpackPairPayloadMessage {
     docpack:DocPackStruc,
     typepack:DocPackStruc,
     reason:GenericObject,
 }
-
-// subscriptions to gateway
-
-// uses ReturnDocPackMessage for return
 
 export interface SetGatewayListenerMessage {
     reference:string, 
@@ -71,15 +79,6 @@ export interface SetGatewayListenerMessage {
 
 export interface RemoveGatewayListenerMessage {
     reference:string, 
-}
-
-// change persistent data
-
-export interface SetDocumentMessage {
-    reference:string, 
-    document:GenericObject, 
-    success:Function, 
-    failure:Function,
 }
 
 // ui

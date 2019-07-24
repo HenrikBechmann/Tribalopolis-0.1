@@ -13,7 +13,7 @@ import { toast } from 'react-toastify'
 import ActionButton from '../common/actionbutton.view'
 import PopupMenu from '../common/popupmenu.view'
 
-import { SetListenerMessage, RemoveListenerMessage, ReturnDocPairMessage } from '../../services/interfaces'
+import { SetListenerMessage, RemoveListenerMessage, DocpackPairPayloadMessage } from '../../services/interfaces'
 
 const styles = createStyles({
     barstyle:{
@@ -102,7 +102,7 @@ class IdentityBar extends React.Component<any, any> {
         }        
     }
 
-    cacheItemDocument = ({docpack, typepack, reason}:ReturnDocPairMessage) => {
+    cacheItemDocument = ({docpack, typepack, reason}:DocpackPairPayloadMessage) => {
 
         this.setState({
             item:{

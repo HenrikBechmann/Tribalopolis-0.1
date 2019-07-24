@@ -23,7 +23,7 @@ import LoadingMessage from './common/loadingmessage.view'
 
 import docproxy from '../utilities/docproxy'
 
-import { SetListenerMessage, RemoveListenerMessage, ReturnDocPairMessage } from '../services/interfaces'
+import { SetListenerMessage, RemoveListenerMessage, DocpackPairPayloadMessage } from '../services/interfaces'
 
 const buttonstyles = theme => createStyles({
   button: {
@@ -194,7 +194,7 @@ class DataBox extends React.Component<any,any> {
 
     }
 
-    cacheItemData = ( {docpack, typepack, reason}:ReturnDocPairMessage) => {
+    cacheItemData = ( {docpack, typepack, reason}:DocpackPairPayloadMessage) => {
 
         if (this.unmounting) return // avoid race condition
         this.setState({

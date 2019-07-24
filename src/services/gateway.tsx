@@ -25,9 +25,12 @@ import {
     GetDocumentMessage, 
     SetDocumentMessage, 
     GetCollectionMessage, 
-    DocPackStruc,
-    ReturnDocPackMessage,
+
+    DocpackPayloadMessage,
+    DocpackListPayloadMessage,
     RemoveGatewayListenerMessage,
+
+    DocPackStruc,
 } from './interfaces'
 
 import application from './application'
@@ -70,28 +73,69 @@ const setDocumentListener = (parmblock:GetDocumentMessage) => {
             }
         }
 
+        // ** TEMPORARY LOCAL CACHE OF DEMO DATA **
+//=============================
         let id
-        if (reference[0] == '/')
+        if (reference[0] == '/') {
             id = refsplit[2]
-        else 
-            id = refsplit[1]
-        if (collection == 'lists')
-            data = lists[id]
-        else if (collection == 'items')
-            data = items[id]
-        else if (collection == 'localtypes')
-            data = localtypes[id]
+        }
         else {
-            console.log('ERROR: unrecognized collection', collection, parmblock)
-            throw 'unrecognized collection: ' + collection
-            data = null
+            id = refsplit[1]
         }
 
+        if (!id) data = id // undefined or null
+
+        switch (collection) {
+
+            case 'lists':
+                data = lists[id]
+                break
+            case 'items':
+                data = items[id]
+                break
+            case 'localtypes':
+                data = localtypes[id]
+                break
+            default: {
+                console.log('ERROR: unrecognized collection', collection, parmblock)
+                throw 'unrecognized collection: ' + collection
+                data = null
+            }
+
+        }
     }
 
-    let parms:ReturnDocPackMessage = {docpack:{reference,document:data}, reason:{sourceparms:parmblock}}
-    success(parms)
+    let payload:DocpackPayloadMessage = {
+        docpack:{
+            reference,
+            document:data
+        }, 
+        reason:{
+            sourceparms:parmblock
+        }
+    }
 
+    if (!payload.docpack.document) {
+
+        if (failure) {
+
+            failure(
+                'data not found - gateway local cache',
+                {reference,sourcparms:parmblock}
+            )
+
+        } else {
+
+            throw 'setDocumentListener failure but no failure callback'
+            console.log('setDocumentListener failure but no failure callback',parmblock)
+
+        }
+
+    } else {
+
+        success(payload)
+
+    }
 }
 
 const snapshotUnsubscribes = {}
@@ -113,12 +157,12 @@ const getSnapshot = (parmblock:GetDocumentMessage) => {
             document:doc.data(),
             reference,
         }
-        let msg:ReturnDocPackMessage = {
+        let payload:DocpackPayloadMessage = {
             docpack,
             reason:{sourceparms:parmblock}
         }
 
-        success(msg)
+        success(payload)
 
     },(error) => {
         if (failure) {
@@ -148,8 +192,6 @@ const removeDocumentListener = ({reference}:RemoveGatewayListenerMessage) => {
         case 'users':
         case 'system': {
 
-            // console.log('removing gateway listener', reference)
-
             snapshotUnsubscribes[reference] && snapshotUnsubscribes[reference]()
             snapshotUnsubscribes[reference] && delete snapshotUnsubscribes[reference]
 
@@ -167,8 +209,8 @@ const getDocument = (parmblock:GetDocumentMessage) => {
     .then((doc)=>{
         let data = doc.data()
 
-        let returnpack:ReturnDocPackMessage = {docpack:{document:data,reference},reason:{sourceparms:parmblock}}
-        success(returnpack,{sourceparms:parmblock})
+        let payload:DocpackPayloadMessage = {docpack:{document:data,reference},reason:{sourceparms:parmblock}}
+        success(payload)
 
     })
     .catch((error)=> {
@@ -190,8 +232,8 @@ const getNewDocument = (parmblock:GetDocumentMessage) => {
         let document = doc.data()
         let id = doc.id
         let docpack:DocPackStruc = {document,reference:reference + '/' + id}
-        let returnpack:ReturnDocPackMessage = {docpack, reason:{sourceparms:parmblock}}
-        success(returnpack)
+        let payload:DocpackPayloadMessage = {docpack, reason:{sourceparms:parmblock}}
+        success(payload)
     })
     .catch((error)=> {
         failure && failure(error, {sourceparms:parmblock})
@@ -239,9 +281,9 @@ const queryForDocument = (parmblock:GetDocumentMessage) => {
     }).then((docpackreturn) => {
 
         let docpack:DocPackStruc = docpackreturn as DocPackStruc
-        let returnpack:ReturnDocPackMessage = {docpack,reason:{sourceparms:parmblock}}
+        let payload:DocpackPayloadMessage = {docpack,reason:{sourceparms:parmblock}}
 
-        success(returnpack)
+        success(payload)
 
     }).catch(error =>{
 
@@ -255,7 +297,8 @@ const setDocument = (parmblock:SetDocumentMessage) => {
     let doc = firestore.doc(reference)
     doc.set(document)
     .then(()=>{
-        success({sourceparms:parmblock})
+        let payload:DocpackPayloadMessage = {docpack:null,reason:{sourceparms:parmblock}}
+        success(payload)
     })
     .catch( error => {
         failure && failure( error, {reference, document,sourceparms:parmblock} )
@@ -282,7 +325,8 @@ const getCollection = (parmblock:GetCollectionMessage) => {
         }
     })
     .then(docpacklist => {
-        success(docpacklist, {sourceparms:parmblock}) // DocPackStruc[]
+        let payload:DocpackListPayloadMessage = {docpacklist, reason:{sourceparms:parmblock}}
+        success(payload)
     }) 
     .catch(error => {
         failure && failure(error, {reference,sourceparms:parmblock})

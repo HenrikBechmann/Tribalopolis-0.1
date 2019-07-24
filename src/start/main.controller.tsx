@@ -61,8 +61,8 @@ import { withStyles, createStyles } from '@material-ui/core/styles'
 import { 
     GetDocumentMessage, 
     SetListenerMessage, 
-    ReturnDocPairMessage,
-    ReturnDocPackMessage, 
+    DocpackPairPayloadMessage,
+    DocpackPayloadMessage, 
 } from '../services/interfaces'
 
 import docProxy from '../utilities/docproxy'
@@ -309,7 +309,7 @@ class Main extends React.Component<any,any> {
 
     }
 
-    systemDocumentSuccess = ({docpack, reason}:ReturnDocPackMessage) => {
+    systemDocumentSuccess = ({docpack, reason}:DocpackPayloadMessage) => {
 
         if ((!this.state.systempack) || this.updatinguserdata) {
 
@@ -366,7 +366,7 @@ class Main extends React.Component<any,any> {
 
     userTypePack
 
-    userDocumentPairSuccess = ({docpack,typepack,reason}:ReturnDocPairMessage) => {
+    userDocumentPairSuccess = ({docpack,typepack,reason}:DocpackPairPayloadMessage) => {
 
         this.userTypePack = typepack
 
@@ -417,7 +417,7 @@ class Main extends React.Component<any,any> {
 
     userAccountTypePack = null
 
-    userAccountPairSuccess = ({docpack,typepack, reason}:ReturnDocPairMessage) => {
+    userAccountPairSuccess = ({docpack,typepack, reason}:DocpackPairPayloadMessage) => {
 
         this.userAccountTypePack = typepack
 

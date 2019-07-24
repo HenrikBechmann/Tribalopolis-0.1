@@ -13,7 +13,7 @@ import { toast } from 'react-toastify'
 
 import ActionButton from '../common/actionbutton.view'
 
-import { SetListenerMessage, RemoveListenerMessage, ReturnDocPairMessage } from '../../services/interfaces'
+import { SetListenerMessage, RemoveListenerMessage, DocpackPairPayloadMessage } from '../../services/interfaces'
 
 const styles = createStyles({
     tabstyles:{
@@ -76,7 +76,7 @@ class NavigationMenuTab extends React.Component<any,any> {
             this.props.callbacks.removeDocpackPairListener( parms )
         }        
     }
-    cacheListDocument = ({docpack, typepack, reason}:ReturnDocPairMessage) => {
+    cacheListDocument = ({docpack, typepack, reason}:DocpackPairPayloadMessage) => {
         if (this.isunmounting) return
         this.setState({
             list:{
