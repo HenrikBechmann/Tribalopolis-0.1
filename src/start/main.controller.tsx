@@ -94,8 +94,8 @@ class Main extends React.Component<any,any> {
     }
 
     state = {
-        login:null,
-        userData:null,
+        loginraw:null,
+        logindata:null,
         systempack:null,
         userpack:null,
         accountpack:null,
@@ -139,8 +139,8 @@ class Main extends React.Component<any,any> {
         //    - this is a requirement, else subsequent connnection to the database fails
         //    - while waiting for permissions to be reset (must be clear of subscriptions)
         this.setState({
-            login:null,
-            userData:null,
+            loginraw:null,
+            logindata:null,
             userpack:null,
             accountpack:null,
         },() => {
@@ -214,42 +214,42 @@ class Main extends React.Component<any,any> {
     // ==============================[ TRIGGER: LOGIN DATA ]=========================================
     // including login, user, account data
 
-    updateLoginData = (login) => {
+    updateLoginData = (loginraw) => {
 
         this.updatinguserdata = true
 
-        if (login) {
+        if (loginraw) {
 
             this.loggedin = true
 
             this.setLoginPromises() 
 
-            let loginlocal = Object.assign({},login.providerData[0]) // google provider; shortcut for newuser data
-            loginlocal.uid = login.uid // google auth common uid
+            let loginlocal = Object.assign({},loginraw.providerData[0]) // google provider; shortcut for newuser data
+            loginlocal.uid = loginraw.uid // google auth common uid
 
-            let userData = loginlocal // only google for now
+            let logindata = loginlocal // only google for now
             this.getSystemDocument()
-            this.getUserDocumentPair(userData.uid) // and account document
+            this.getUserDocumentPair(logindata.uid) // and account document
 
             Promise.all([this.userPromise,this.accountPromise, this.systemPromise]).then(values => {
 
                 this. updatinguserdata = false
 
                 this.setState({
-                    login,
-                    userData,
+                    loginraw,
+                    logindata,
                     userpack:values[0],
                     accountpack:values[1],
                     systempack:values[2],
                 }, () => {
-                    toast.success(`signed in as ${login.displayName}`,{autoClose:2500})
+                    toast.success(`signed in as ${loginraw.displayName}`,{autoClose:2500})
                 })
 
             }).catch(error => {
 
                 this.updatinguserdata = false
 
-                toast.error(`unable to get user data for ${login.email} - signing out (` + error + ')')
+                toast.error(`unable to get user data for ${loginraw.email} - signing out (` + error + ')')
                 // logout
                 application.signout()
 
@@ -272,8 +272,8 @@ class Main extends React.Component<any,any> {
             this.userTypePack = null
             this.userAccountTypePack = null
             this.setState({
-                login:null,
-                userData:null,
+                loginraw:null,
+                logindata:null,
                 userpack:null,
                 systempack,
                 accountpack:null,
@@ -325,10 +325,11 @@ class Main extends React.Component<any,any> {
         }
     }
 
-    systemDocumentFailure = error => {
+    systemDocumentFailure = (error, reason) => {
 
-        toast.error('Unable to get system data (' + error + ')')
+        toast.error('Error: Unable to get system data (' + error + ')')
         this.promises.system.reject('Unable to get system data (' + error + ')')
+        console.log('Error: Unable to get system data:', error, reason)
 
     }
 
@@ -340,8 +341,6 @@ class Main extends React.Component<any,any> {
         if (this.userDocProxy) return
 
         this.userDocProxy = new docProxy({doctoken:{reference:'users/' + uid}})
-
-        // console.log('getUserDocumentPair:uid',uid)
 
         let parmblock:SetListenerMessage = {
             doctoken:this.userDocProxy.doctoken,
@@ -359,7 +358,6 @@ class Main extends React.Component<any,any> {
 
     userDocumentFailure = error => {
 
-        // toast.error('unable to get user data (' + error + ')')
         this.promises.user.reject('unable to get user data (' + error + ')')
 
     }
@@ -459,18 +457,18 @@ class Main extends React.Component<any,any> {
 
         let { globalmessage, version, classes } = this.props
 
-        let { userData, userpack, accountpack } = this.state
+        let { logindata, userpack, accountpack } = this.state
 
         let userdata
 
-        if (!(userData && userpack && accountpack)) {
+        if (!(logindata && userpack && accountpack)) {
 
             userdata = null
             
         } else {
 
             userdata = {
-                login:this.state.userData,
+                login:this.state.logindata,
                 userpack:this.state.userpack,
                 usertype:this.userTypePack,
                 accountpack:this.state.accountpack,
@@ -496,6 +494,7 @@ class Main extends React.Component<any,any> {
                     <MainView globalmessage={globalmessage}
                         className = {classes.mainviewstyle} 
                     />
+                    
                 </DndProvider>
                 </UserDataContext.Provider>
             </SystemDataContext.Provider>
