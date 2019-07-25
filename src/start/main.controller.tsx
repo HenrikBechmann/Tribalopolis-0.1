@@ -359,7 +359,7 @@ class Main extends React.Component<any,any> {
 
     userDocumentFailure = error => {
 
-        toast.error('unable to get user data (' + error + ')')
+        // toast.error('unable to get user data (' + error + ')')
         this.promises.user.reject('unable to get user data (' + error + ')')
 
     }

@@ -66,8 +66,6 @@ const docpackCache = new class {
 
         if (this.isPaired(document)) {
 
-            // let typeref = (document && document.control.type)?document.control.type.reference:null
-
             let typeref = (document && document.control_type_reference)
 
             if (typeref) {
@@ -108,7 +106,7 @@ const docpackCache = new class {
             // connect to data source
             let parmblock:SetGatewayListenerMessage = {
 
-                reference, success:this.successGetItem, failure:this.failureGetItem, paired
+                reference, success:this.successGetItem, failure:this.failureGetItemFunc(failure), paired
 
             }
             // console.log('docpackcache calling gateway.setDocumentListener',parmblock)
@@ -220,9 +218,6 @@ const docpackCache = new class {
 
         if (!cacheitem) return // async
 
-        // console.log('successGetItem in docpackcache:parmblock,cacheitem,docpack,sourceparms.paired,this.isPaired',
-        //     parmblock,cacheitem,docpack,reason.sourceparms.paired,this.isPaired(docpack.document))
-
         let olddocpack = cacheitem.docpack
 
         cacheitem.docpack = docpack
@@ -237,8 +232,8 @@ const docpackCache = new class {
 
             // will only create if doesn't already exist
             // processPairListeners invoked first time
-            // console.log('calling typepackcache.addListener in docpackcache',typeref,docpack)
-            typeref && typepackCache.addListener(typeref, docpack.reference, this.processPairListeners, null) 
+            // typeref && // must exist!
+            typepackCache.addListener(typeref, docpack.reference, this.processPairListeners, reason.sourceparms.failure) 
 
             // will not process without type (including first time)
             this.processPairListeners(docpack.reference,reason) 
@@ -251,32 +246,38 @@ const docpackCache = new class {
 
     }
 
-    public failureGetItem = (error, reason) => {
+    private failureGetItemFunc = (failure) => {
+         return (error, reason) => {
 
-        console.log('docpackCache error', error, reason)
+            console.log('docpackCache error', error, reason)
+            this.removeItem(reason.reference)
+            failure && failure(error,reason)
 
+        }
     }
 
     public addPairedListener = (reference, instanceid, callback, failure) => {
 
         // console.log('addPairedListener in docpackcache',reference,instanceid,callback,failure )
 
-        let cacheitem = this.getItem(reference, this.failureAddListener, PAIRED_LISTENER)
+        let cacheitem = this.getItem(reference, failure, PAIRED_LISTENER)
 
         cacheitem.listeners.set(instanceid,callback)
 
     }
     public addListener = (reference, instanceid, callback, failure) => {
 
-        let cacheitem = this.getItem(reference, this.failureAddListener, NOT_PAIRED_LISTENER)
+        let cacheitem = this.getItem(reference, failure, NOT_PAIRED_LISTENER)
 
         cacheitem.listeners.set(instanceid,callback)
 
     }
 
-    private failureAddListener = (error, reason) => {
-        console.log('docpackCache failureAddListener error, reason', error, reason)
-    }
+    // private failureAddListener = (error, reason) => {
+    //     console.log('docpackCache failureAddListener error, reason', error, reason)
+    //     this.cache.delete(reason.reference)
+    //     reason && reason.sourceparms && reason.sourcparms.failure && reason.sourceparms.failure(error,reason)
+    // }
 
     public removeListener = (reference, instanceid) => {
 

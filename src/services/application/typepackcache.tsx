@@ -60,7 +60,7 @@ const typepackCache = new class {
             this.cache.set(reference,cacheitem)
 
             let parmblock: SetGatewayListenerMessage = {
-                reference, success:this.successGetItem,failure:this.failureGetItem,paired:false
+                reference, success:this.successGetItem,failure:this.failureGetItemFunc(failure),paired:false
             }
             gateway.setDocumentListener(parmblock)
 
@@ -109,13 +109,16 @@ const typepackCache = new class {
 
     }
 
-    failureGetItem = (error, reason) => {
-        console.log('error typepackCache',error, reason)
+    failureGetItemFunc = (failure) => {
+        return (error, reason) => {
+            console.log('error typepackCache unable get type',error, reason)
+            failure && failure(error, reason)
+        }
     }
 
     addListener = (typereference, documentreference, callback, failure) => {
 
-        let cacheitem = this.getItem(typereference, this.failureAddListener)
+        let cacheitem = this.getItem(typereference, failure)
 
         if (!cacheitem.listeners.has(documentreference)) {
 
@@ -124,9 +127,9 @@ const typepackCache = new class {
         }
     }
 
-    failureAddListener = (error, reason) => {
-        console.log('typepackcache failureAddListener', error, reason)
-    }
+    // failureAddListener = (error, reason) => {
+    //     console.log('typepackcache failureAddListener', error, reason)
+    // }
 
     removeListener = (typereference, documentreference) => {
 
