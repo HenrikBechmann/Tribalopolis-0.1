@@ -1,4 +1,4 @@
-// approuter.tsx
+// route.controller.tsx
 // copyright (c) 2019 Henrik Bechmann, Toronto, Licence: GPL-3.0-or-later
 /*
     TODO: 
@@ -35,7 +35,7 @@ const customHistory = createBrowserHistory()
 //     }
 
 
-let AppRouter = () => (
+let RouteController = () => (
 
     <Router history = {customHistory}>
         <Switch>
@@ -45,4 +45,4 @@ let AppRouter = () => (
 
 )
     
-export default AppRouter
+export default RouteController

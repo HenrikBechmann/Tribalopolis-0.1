@@ -7,7 +7,7 @@
     2. index.tsx
     3. main.controller
     4. main.view
-    5. approuter
+    5. route.controller
     6. routes
 */
 

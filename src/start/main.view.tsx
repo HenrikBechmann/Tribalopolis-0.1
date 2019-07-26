@@ -10,7 +10,7 @@
 
 import React from 'react'
 
-import AppRouter from './approuter'
+import RouteController from './route.controller'
 
 const MainView = ({globalmessage, className}) => {
 
@@ -18,7 +18,7 @@ const MainView = ({globalmessage, className}) => {
         >
         {globalmessage}
 
-        <AppRouter />
+        <RouteController />
         
     </div>
 }
