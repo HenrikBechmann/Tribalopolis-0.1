@@ -42,7 +42,7 @@ class ToolsStrip extends React.Component<any,any> {
     }
 
     componentDidUpdate(prevProps, prevState) {
-        if ((this.props.userdata != prevProps.userdata)||(this.props.systemdata != prevProps.systemdata)) {
+        if ((this.props.userdata.userpack != prevProps.userdata.userpack)||(this.props.systemdata != prevProps.systemdata)) {
             this.forceUpdate()
         }
     }
@@ -116,8 +116,8 @@ class ToolsStrip extends React.Component<any,any> {
                 aria-haspopup="true"
                 onClick={this.handleAccountClick}
               >
-                <Icon style = {{color:!this.props.userdata?'rgb(0,0,0,0.54)':'cadetblue'}}>account_box</Icon>
-                <Icon style = {{color:!this.props.userdata?'rgb(0,0,0,0.54)':'cadetblue'}}>arrow_drop_down</Icon>
+                <Icon style = {{color:!this.props.userdata.userpack?'rgb(0,0,0,0.54)':'cadetblue'}}>account_box</Icon>
+                <Icon style = {{color:!this.props.userdata.userpack?'rgb(0,0,0,0.54)':'cadetblue'}}>arrow_drop_down</Icon>
             </IconButton>
             </ToolTip>
             <div style = {
@@ -126,7 +126,10 @@ class ToolsStrip extends React.Component<any,any> {
                     fontSize:'smaller',
                     color:'cadetblue',
                 }}>
-                {this.props.userdata?this.props.userdata.userpack.document.properties.username:'signed out'}
+                {(this.props.userdata && this.props.userdata.userpack)? // use account name if available
+                    this.props.userdata.userpack.document.properties.username:
+                    (this.props.userdata && this.props.userdata.login)? // otherwise try to use login data
+                    ('Logged in only! ' + this.props.userdata.login.displayName):'signed out'}
             </div>
             <Menu
                 id="simple-menu"
@@ -134,17 +137,22 @@ class ToolsStrip extends React.Component<any,any> {
                 open={Boolean(accountAnchorElement)}
                 onClose={this.handleAccountClose}        
             >
-                {!this.props.userdata?<MenuItem
+                {!this.props.userdata.login?<MenuItem
                     onClick={this.handleLogin}
                 >
                     Sign in using Google
                 </MenuItem>:null}
-                {this.props.userdata?<MenuItem
+                {this.props.userdata.userpack?<MenuItem
                     onClick = {this.openSettings}
                 >
                     Account settings
                 </MenuItem>:null}
-                {this.props.userdata?<MenuItem
+                {(this.props.userdata.login && !this.props.userdata.userpack)?<MenuItem disabled
+                    onClick={null}
+                >
+                    Register
+                </MenuItem>:null}
+                {this.props.userdata.login?<MenuItem
                     onClick={this.handleLogout}
                 >
                     Sign out

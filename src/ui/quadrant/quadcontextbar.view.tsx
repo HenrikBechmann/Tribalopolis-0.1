@@ -74,11 +74,11 @@ class QuadContextBar extends React.Component<any> {
                 (this.datastack === null && prevProps.datastack !== null) ||
                 (prevProps.stackpointer !== this.props.stackpointer) ||
                 ((prevProps.datastack && this.datastack) && (prevProps.datastack.length != this.datastack.length)) ||
-                !this.props.userdata
+                !this.props.userdata.userpack
 
             ) {
 
-            if (this.props.userdata) {
+            if (this.props.userdata.userpack) {
 
                 this.stackpointer = this.props.stackpointer
                 this.datastack = this.props.datastack
@@ -99,7 +99,7 @@ class QuadContextBar extends React.Component<any> {
     createcontext = () => {
         let userdata = this.props.userdata
 
-        if ( (!this.datastack || (this.datastack.length <= 1)) || !this.stackpointer || !userdata) { // no context
+        if ( (!this.datastack || (this.datastack.length <= 1)) || !this.stackpointer || !userdata.userpack) { // no context
             if (this.state.context) {
                 this.setState({
                     context:null

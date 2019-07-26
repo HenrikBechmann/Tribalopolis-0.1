@@ -70,6 +70,7 @@ class MenuListBase extends React.Component<any,any> {
                     <ListItemText primary = "My Workspace"/>
                 </ListItem>
                 <ListItem button
+                    disabled = {!(this.props.userdata && this.props.userdata.docpack)}
                     onClick = {this.props.openSettings}
                     style = {
                         {

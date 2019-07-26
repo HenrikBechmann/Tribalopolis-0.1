@@ -57,7 +57,7 @@ class permissions {
         }
     ) => {
 
-        if (!userdata) {
+        if (!userdata.userpack) {
             this.removeContextListeners()
         }
 
@@ -85,7 +85,7 @@ class permissions {
 
         let controlstatus:boolean | string = false
 
-        if (this.controldata.systemdata && this.controldata.userdata) {
+        if (this.controldata.systemdata && this.controldata.userdata.userpack) {
             controlstatus = 'base'
         }
         if (controlstatus && this.controldata.activememberdata && this.controldata.activeaccountdata) {

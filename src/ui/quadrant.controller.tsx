@@ -219,7 +219,7 @@ class Quadrant extends React.Component<any,any>  {
 
     _refreshDatastack = () => {
 
-        if (this.props.userdata) {
+        if (this.props.userdata.userpack) {
             if (!this.datastack && this.props.datastack) {
                 this.datastack = this.props.datastack
             }
@@ -452,7 +452,7 @@ class Quadrant extends React.Component<any,any>  {
         let quadmessage
         switch (controlstatus) {
             case false: {
-                quadmessage = "Must be signed in to use this utility"
+                quadmessage = "Must be registered to use this utility"
                 break;
             }
             case 'base': {

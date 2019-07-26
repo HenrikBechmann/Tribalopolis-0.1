@@ -227,7 +227,7 @@ class Main extends React.Component<any,any> {
 
             let logindata = Object.assign({},loginraw.providerData[0]) // google provider; shortcut for newuser data
             logindata.uid = loginraw.uid // google auth common uid
-
+            console.log('logindata',logindata)
             this.getSystemDocument()
             this.getUserDocumentPair(logindata.uid) // and account document
 
@@ -251,7 +251,7 @@ class Main extends React.Component<any,any> {
 
                 toast.error(`unable to load user registration data for ${loginraw.email}`)
                 console.log('unable to load user data',error)
-                this.assertSystemPack(systemdata.docpack)
+                this.assertPartialLogin(systemdata.docpack, loginraw, logindata)
                 // logout
                 // application.signout()
 
@@ -268,8 +268,10 @@ class Main extends React.Component<any,any> {
     }
 
 
-    private assertSystemPack = (systempack) => {
+    private assertPartialLogin = (systempack, loginraw, logindata) => {
         this.setState({
+            loginraw,
+            logindata,
             systempack,
         },() => {
             toast.info('logged in but not registered')
@@ -470,23 +472,29 @@ class Main extends React.Component<any,any> {
 
         let { logindata, userpack, accountpack } = this.state
 
-        let userdata
-
-        if (!(logindata && userpack && accountpack)) {
-
-            userdata = null
-            
-        } else {
-
-            userdata = {
-                login:this.state.logindata,
-                userpack:this.state.userpack,
-                usertype:this.userTypePack,
-                accountpack:this.state.accountpack,
-                accounttype:this.userAccountTypePack,
-            }
-
+        let userdata = {
+            login:this.state.logindata,
+            userpack:this.state.userpack,
+            usertype:this.userTypePack,
+            accountpack:this.state.accountpack,
+            accounttype:this.userAccountTypePack,
         }
+
+        // if (!(logindata && userpack && accountpack)) {
+
+        //     userdata = null
+            
+        // } else {
+
+        //     userdata = {
+        //         login:this.state.logindata,
+        //         userpack:this.state.userpack,
+        //         usertype:this.userTypePack,
+        //         accountpack:this.state.accountpack,
+        //         accounttype:this.userAccountTypePack,
+        //     }
+
+        // }
 
         application.userdata = userdata // memoize
 
