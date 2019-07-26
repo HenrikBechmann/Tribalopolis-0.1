@@ -231,16 +231,16 @@ class Main extends React.Component<any,any> {
             this.getSystemDocument()
             this.getUserDocumentPair(logindata.uid) // and account document
 
-            Promise.all([this.userPromise,this.accountPromise, this.systemPromise]).then(values => {
+            Promise.all([this.systemPromise, this.userPromise,this.accountPromise ]).then(values => {
 
                 this. updatinguserdata = false
 
                 this.setState({
                     loginraw,
                     logindata,
-                    userpack:values[0],
-                    accountpack:values[1],
-                    systempack:values[2],
+                    systempack:values[0],
+                    userpack:values[1],
+                    accountpack:values[2],
                 }, () => {
                     toast.success(`signed in as ${loginraw.displayName}`,{autoClose:2500})
                 })
@@ -249,9 +249,11 @@ class Main extends React.Component<any,any> {
 
                 this.updatinguserdata = false
 
-                toast.error(`unable to get user data for ${loginraw.email} - signing out (` + error + ')')
+                toast.error(`unable to load user registration data for ${loginraw.email}`)
+                console.log('unable to load user data',error)
+                this.assertSystemPack(systemdata.docpack)
                 // logout
-                application.signout()
+                // application.signout()
 
             })
 
@@ -265,21 +267,30 @@ class Main extends React.Component<any,any> {
 
     }
 
+
+    private assertSystemPack = (systempack) => {
+        this.setState({
+            systempack,
+        },() => {
+            toast.info('logged in but not registered')
+        })
+    }
+
     private resetWithSystempack = (systempack) => {
 
-            this.updatinguserdata = false
+        this.updatinguserdata = false
 
-            this.userTypePack = null
-            this.userAccountTypePack = null
-            this.setState({
-                loginraw:null,
-                logindata:null,
-                userpack:null,
-                systempack,
-                accountpack:null,
-            },() => {
-                toast.info('signed out')
-            })
+        this.userTypePack = null
+        this.userAccountTypePack = null
+        this.setState({
+            loginraw:null,
+            logindata:null,
+            userpack:null,
+            systempack,
+            accountpack:null,
+        },() => {
+            toast.info('signed out')
+        })
 
     }
 
