@@ -491,7 +491,8 @@ class Main extends React.Component<any,any> {
                     <ToastContainer position = {toast.POSITION.BOTTOM_LEFT} autoClose = {3000} 
                     hideProgressBar />
 
-                    <MainView globalmessage={globalmessage}
+                    <MainView 
+                        globalmessage = {globalmessage}
                         className = {classes.mainviewstyle} 
                     />
                     
