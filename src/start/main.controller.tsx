@@ -214,6 +214,7 @@ class Main extends React.Component<any,any> {
     // ==============================[ TRIGGER: LOGIN DATA ]=========================================
     // including login, user, account data
 
+    // this is set as a callback from auth.api -- called whenever login status changes
     updateLoginData = (loginraw) => {
 
         this.updatinguserdata = true
@@ -224,10 +225,9 @@ class Main extends React.Component<any,any> {
 
             this.setLoginPromises() 
 
-            let loginlocal = Object.assign({},loginraw.providerData[0]) // google provider; shortcut for newuser data
-            loginlocal.uid = loginraw.uid // google auth common uid
+            let logindata = Object.assign({},loginraw.providerData[0]) // google provider; shortcut for newuser data
+            logindata.uid = loginraw.uid // google auth common uid
 
-            let logindata = loginlocal // only google for now
             this.getSystemDocument()
             this.getUserDocumentPair(logindata.uid) // and account document
 
@@ -259,13 +259,13 @@ class Main extends React.Component<any,any> {
 
             this.loggedin = false
 
-            this.getSystemData()
+            this.resetSystemData()
 
         }
 
     }
 
-    private applySystempack = (systempack) => {
+    private resetWithSystempack = (systempack) => {
 
             this.updatinguserdata = false
 
@@ -283,9 +283,9 @@ class Main extends React.Component<any,any> {
 
     }
 
-    getSystemData = () => {
+    resetSystemData = () => {
 
-        this.applySystempack(systemdata.docpack)
+        this.resetWithSystempack(systemdata.docpack)
 
     }
 
