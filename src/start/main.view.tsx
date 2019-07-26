@@ -12,13 +12,13 @@ import React from 'react'
 
 import RouteController from './route.controller'
 
-const MainView = ({globalmessage, className}) => {
+const MainView = ({globalmessage, className, status}) => {
 
     return <div className = {className}
         >
         {globalmessage}
 
-        <RouteController />
+        {(status == 'active') && <RouteController />}
         
     </div>
 }

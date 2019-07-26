@@ -493,7 +493,8 @@ class Main extends React.Component<any,any> {
 
                     <MainView 
                         globalmessage = {globalmessage}
-                        className = {classes.mainviewstyle} 
+                        className = {classes.mainviewstyle}
+                        status = 'active' 
                     />
                     
                 </DndProvider>
