@@ -88,9 +88,11 @@ class permissions {
         if (this.controldata.systemdata && this.controldata.userdata.userpack) {
             controlstatus = 'base'
         }
+        
         if (controlstatus && this.controldata.activememberdata && this.controldata.activeaccountdata) {
             controlstatus = 'full'
         }
+
         return controlstatus
     }
 

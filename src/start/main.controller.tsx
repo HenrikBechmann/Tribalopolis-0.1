@@ -52,6 +52,8 @@ import authapi from '../services/auth.api'
 import UserDataContext from '../services/userdata.context'
 import SystemDataContext from '../services/systemdata.context'
 
+import Userdata from '../utilities/userdata.class'
+
 import 'react-toastify/dist/ReactToastify.min.css' 
 
 import { ToastContainer, toast } from 'react-toastify'
@@ -472,14 +474,18 @@ class Main extends React.Component<any,any> {
 
         let { logindata, userpack, accountpack } = this.state
 
-        let userdata = {
+        let userdata = new Userdata()
+
+        Object.assign(userdata,{
             login:this.state.logindata,
             userpack:this.state.userpack,
             usertype:this.userTypePack,
             accountpack:this.state.accountpack,
             accounttype:this.userAccountTypePack,
-        }
+        })
 
+        // console.log('userdata',userdata)
+        
         // if (!(logindata && userpack && accountpack)) {
 
         //     userdata = null
