@@ -15,7 +15,11 @@ class Userdata {
 
     get status() {
         if (this.userpack) {
-            return 'registered'
+            if (this.userpack.document.control_status == 'active') {
+                return 'active'
+            } else {
+                return 'registered'
+            }
         }
         if (this.login) {
             return 'loggedin'

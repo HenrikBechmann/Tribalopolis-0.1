@@ -117,8 +117,8 @@ class ToolsStrip extends React.Component<any,any> {
                 aria-haspopup="true"
                 onClick={this.handleAccountClick}
               >
-                <Icon style = {{color:!(userdata.status == 'registered')?'rgb(0,0,0,0.54)':'cadetblue'}}>account_box</Icon>
-                <Icon style = {{color:!(userdata.status == 'registered')?'rgb(0,0,0,0.54)':'cadetblue'}}>arrow_drop_down</Icon>
+                <Icon style = {{color:!(userdata.status == 'active')?'rgb(0,0,0,0.54)':'cadetblue'}}>account_box</Icon>
+                <Icon style = {{color:!(userdata.status == 'active')?'rgb(0,0,0,0.54)':'cadetblue'}}>arrow_drop_down</Icon>
             </IconButton>
             </ToolTip>
             <div style = {
@@ -127,10 +127,10 @@ class ToolsStrip extends React.Component<any,any> {
                     fontSize:'smaller',
                     color:'cadetblue',
                 }}>
-                {(userdata.status == 'registered')? // use account name if available
+                {(userdata.status == 'active')? // use account name if available
                     userdata.userpack.document.properties.username:
                     (userdata.status == 'loggedin')? // otherwise try to use login data
-                    ('Logged in only! ' + this.props.userdata.login.displayName):'signed out'}
+                    ('Please register! ' + this.props.userdata.login.displayName):'signed out'}
             </div>
             <Menu
                 id="simple-menu"
@@ -143,15 +143,20 @@ class ToolsStrip extends React.Component<any,any> {
                 >
                     Sign in using Google
                 </MenuItem>:null}
-                {(userdata.status == 'registered')?<MenuItem
+                {(userdata.status == 'active')?<MenuItem
                     onClick = {this.openSettings}
                 >
                     Account settings
                 </MenuItem>:null}
-                {(userdata.isloggedin && !(userdata.status == 'registered'))?<MenuItem disabled
+                {(userdata.status == 'loggedin')?<MenuItem disabled
                     onClick={null}
                 >
                     Register
+                </MenuItem>:null}
+                {(userdata.status == 'registered')?<MenuItem disabled
+                    onClick={null}
+                >
+                    Check Status
                 </MenuItem>:null}
                 {userdata.isloggedin?<MenuItem
                     onClick={this.handleLogout}
