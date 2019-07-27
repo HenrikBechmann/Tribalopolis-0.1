@@ -129,7 +129,7 @@ class ToolsStrip extends React.Component<any,any> {
                 }}>
                 {(userdata.status == 'registered')? // use account name if available
                     userdata.userpack.document.properties.username:
-                    (userdata.isloggedin)? // otherwise try to use login data
+                    (userdata.status == 'loggedin')? // otherwise try to use login data
                     ('Logged in only! ' + this.props.userdata.login.displayName):'signed out'}
             </div>
             <Menu
