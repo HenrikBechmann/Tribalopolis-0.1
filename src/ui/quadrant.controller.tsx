@@ -219,7 +219,8 @@ class Quadrant extends React.Component<any,any>  {
 
     _refreshDatastack = () => {
 
-        if (this.props.userdata.userpack) {
+        let { userdata } = this.props
+        if (userdata.status == 'registered') {
             if (!this.datastack && this.props.datastack) {
                 this.datastack = this.props.datastack
             }

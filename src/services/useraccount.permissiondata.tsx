@@ -30,11 +30,12 @@ class UserAccountPermissionData extends React.Component<any,any> {
     }
 
     componentDidMount() {
-        let activeaccountreference = this.props.userdata.userpack?this.props.userdata.accountpack.reference:null
+        let { userdata } = this.props
+        let activeaccountreference = (userdata.status == 'registered')?userdata.accountpack.reference:null
 
         permissions_singleton.updateControlData({
             systemdata:this.props.systemdata,
-            userdata:this.props.userdata,
+            userdata,
             activeaccountreference,
             stateaccountreference:this.state.accountreference,
             callbackindex:this.callbackindex,
@@ -42,11 +43,12 @@ class UserAccountPermissionData extends React.Component<any,any> {
     }
 
     componentDidUpdate() {
-        let activeaccountreference = this.props.userdata.userpack?this.props.userdata.accountpack.reference:null
+        let { userdata } = this.props
+        let activeaccountreference = (userdata.status == 'registered')?this.props.userdata.accountpack.reference:null
 
         permissions_singleton.updateControlData({
             systemdata:this.props.systemdata,
-            userdata:this.props.userdata,
+            userdata,
             activeaccountreference,
             stateaccountreference:this.state.accountreference,
             callbackindex:this.callbackindex

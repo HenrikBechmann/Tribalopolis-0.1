@@ -42,6 +42,7 @@ class ToolsStrip extends React.Component<any,any> {
     }
 
     componentDidUpdate(prevProps, prevState) {
+
         if ((this.props.userdata.userpack != prevProps.userdata.userpack)||(this.props.systemdata != prevProps.systemdata)) {
             this.forceUpdate()
         }
@@ -108,7 +109,7 @@ class ToolsStrip extends React.Component<any,any> {
 
     accountmenu = (classes) => {
         const { accountAnchorElement } = this.state
-
+        let { userdata } = this.props
         return <div style = {{display:'inline-block',verticalAlign:'middle',position:'relative'}}>
             <ToolTip title = 'User Account'>
             <IconButton 
@@ -116,8 +117,8 @@ class ToolsStrip extends React.Component<any,any> {
                 aria-haspopup="true"
                 onClick={this.handleAccountClick}
               >
-                <Icon style = {{color:!this.props.userdata.userpack?'rgb(0,0,0,0.54)':'cadetblue'}}>account_box</Icon>
-                <Icon style = {{color:!this.props.userdata.userpack?'rgb(0,0,0,0.54)':'cadetblue'}}>arrow_drop_down</Icon>
+                <Icon style = {{color:!(userdata.status == 'registered')?'rgb(0,0,0,0.54)':'cadetblue'}}>account_box</Icon>
+                <Icon style = {{color:!(userdata.status == 'registered')?'rgb(0,0,0,0.54)':'cadetblue'}}>arrow_drop_down</Icon>
             </IconButton>
             </ToolTip>
             <div style = {
@@ -126,9 +127,9 @@ class ToolsStrip extends React.Component<any,any> {
                     fontSize:'smaller',
                     color:'cadetblue',
                 }}>
-                {(this.props.userdata.userpack)? // use account name if available
-                    this.props.userdata.userpack.document.properties.username:
-                    (this.props.userdata.login)? // otherwise try to use login data
+                {(userdata.status == 'registered')? // use account name if available
+                    userdata.userpack.document.properties.username:
+                    (userdata.isloggedin)? // otherwise try to use login data
                     ('Logged in only! ' + this.props.userdata.login.displayName):'signed out'}
             </div>
             <Menu
@@ -137,22 +138,22 @@ class ToolsStrip extends React.Component<any,any> {
                 open={Boolean(accountAnchorElement)}
                 onClose={this.handleAccountClose}        
             >
-                {!this.props.userdata.login?<MenuItem
+                {!userdata.isloggedin?<MenuItem
                     onClick={this.handleLogin}
                 >
                     Sign in using Google
                 </MenuItem>:null}
-                {this.props.userdata.userpack?<MenuItem
+                {(userdata.status == 'registered')?<MenuItem
                     onClick = {this.openSettings}
                 >
                     Account settings
                 </MenuItem>:null}
-                {(this.props.userdata.login && !this.props.userdata.userpack)?<MenuItem disabled
+                {(userdata.isloggedin && !(userdata.status == 'registered'))?<MenuItem disabled
                     onClick={null}
                 >
                     Register
                 </MenuItem>:null}
-                {this.props.userdata.login?<MenuItem
+                {userdata.isloggedin?<MenuItem
                     onClick={this.handleLogout}
                 >
                     Sign out

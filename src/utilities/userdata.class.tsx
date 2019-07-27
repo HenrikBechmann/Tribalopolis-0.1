@@ -9,6 +9,10 @@ class Userdata {
     accountpack = null
     accounttype = null
 
+    get isloggedin() {
+        return !!this.login
+    }
+
     get status() {
         if (this.userpack) {
             return 'registered'
