@@ -13,6 +13,7 @@ import { Route, Redirect } from 'react-router-dom'
 import Quadspace from '../ui/quadspace.controller'
 import Build from '../ui/build.controller'
 import Home from '../ui/home.controller'
+import Register from '../ui/register.controller'
 
 // import ResetPassword from '../containers/resetpassword'
 // import Register from '../containers/register'
@@ -69,10 +70,12 @@ let indexroute = <Route key = "workspace" path = "/workspace" component={ Quadsp
 //     }
 // />
 
+let registerroute = <Route key = "home" path = "/register" component = {Register} />
+
 let homeroute = <Route key = "home" path = "/" component = {Home} />
 
 let buildroute = <Route key = "build" path = "/build" component = {Build} />
 
-const routes = [indexroute,buildroute,homeroute]
+const routes = [indexroute,buildroute,registerroute, homeroute]
 
 export default routes

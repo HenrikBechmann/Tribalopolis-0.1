@@ -9,8 +9,10 @@
 'use strict'
 
 import React from 'react'
-import { Switch, Router } from 'react-router-dom'
+import { withRouter, Switch, Redirect } from 'react-router-dom'
 import routes from "./routes"
+
+import application from '../services/application'
 
 import { createBrowserHistory } from 'history'
 
@@ -35,14 +37,17 @@ const customHistory = createBrowserHistory()
 //     }
 
 
-let RouteController = () => (
+let RouteController = (props) => {
 
-    <Router history = {customHistory}>
+    console.log('props in RouteController',props)
+
+    let userdata = application.userdata
+
+    return ((userdata.status == 'loggedin') && (props.location.pathname != '/register'))?<Redirect to = '/register'/>:
         <Switch>
             { routes }
         </Switch>
-    </Router>
 
-)
+}
     
-export default RouteController
+export default withRouter(RouteController)

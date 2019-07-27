@@ -12,13 +12,19 @@ import React from 'react'
 
 import RouteController from './route.controller'
 
+import { createBrowserHistory } from 'history'
+
+import { Router } from 'react-router-dom'
+
+const customHistory = createBrowserHistory()
+
 const MainView = ({globalmessage, className, status}) => {
 
     return <div className = {className}
         >
         {globalmessage}
 
-        {(status == 'active') && <RouteController />}
+        {(status == 'active') && <Router history = {customHistory}><RouteController /></Router>}
         
     </div>
 }
