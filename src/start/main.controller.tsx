@@ -252,7 +252,7 @@ class Main extends React.Component<any,any> {
                 this.updatinguserdata = false
 
                 toast.error(`unable to load user registration data for ${loginraw.email}`)
-                console.log('unable to load user data',error)
+                console.log('unable to load user data. error: ',error)
                 this.assertPartialLogin(systemdata.docpack, loginraw, logindata)
                 // logout
                 // application.signout()
