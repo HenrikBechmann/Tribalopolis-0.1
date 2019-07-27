@@ -39,7 +39,7 @@ const customHistory = createBrowserHistory()
 
 let RouteController = (props) => {
 
-    console.log('props in RouteController',props)
+    // console.log('props in RouteController',props)
 
     let userdata = application.userdata
 
