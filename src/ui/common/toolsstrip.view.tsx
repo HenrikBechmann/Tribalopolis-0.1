@@ -181,7 +181,7 @@ class ToolsStrip extends React.Component<any,any> {
 
     render() {
         let wrapperstyle = {...this.defaultstyle,...this.props.style}
-        let { classes } = this.props
+        let { classes, userdata } = this.props
         return (
             <div 
                 style = {
@@ -210,6 +210,7 @@ class ToolsStrip extends React.Component<any,any> {
                             }
                         >
                             <IconButton
+                                disabled = {userdata.status == 'loggedin'}
                                 onClick = {this.toggleDrawer(!this.state.menuopen)}
                             >
                                 <Icon>menu</Icon>
@@ -220,12 +221,11 @@ class ToolsStrip extends React.Component<any,any> {
                             {(this.props.childrenposition == 'middle') &&
                                 this.props.children
                             }
-                            <ToolTip title = 'Notifications'>
                             <IconButton 
+                                disabled = {userdata.status == 'loggedin'}
                             >
                                 <Icon>notifications</Icon>
                             </IconButton>
-                            </ToolTip>
                             {false && <IconButton
                             >
                                 <Icon>apps</Icon>

@@ -14,7 +14,7 @@ class Register extends React.Component<any,any> {
         return (
             <div>
             <StandardToolbar />
-            <p>Register Here</p>
+            <p>Register Here [pending]</p>
             </div>
         )
     }
