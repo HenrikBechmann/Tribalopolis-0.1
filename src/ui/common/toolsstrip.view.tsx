@@ -126,9 +126,9 @@ class ToolsStrip extends React.Component<any,any> {
                     fontSize:'smaller',
                     color:'cadetblue',
                 }}>
-                {(this.props.userdata && this.props.userdata.userpack)? // use account name if available
+                {(this.props.userdata.userpack)? // use account name if available
                     this.props.userdata.userpack.document.properties.username:
-                    (this.props.userdata && this.props.userdata.login)? // otherwise try to use login data
+                    (this.props.userdata.login)? // otherwise try to use login data
                     ('Logged in only! ' + this.props.userdata.login.displayName):'signed out'}
             </div>
             <Menu
