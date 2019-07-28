@@ -244,7 +244,7 @@ class Main extends React.Component<any,any> {
                     userpack:values[1],
                     accountpack:values[2],
                 }, () => {
-                    toast.success(`signed in as ${loginraw.displayName}`,{autoClose:2500})
+                    toast.success(`signed in as ${loginraw.displayName}, ${loginraw.email}`,{autoClose:2500})
                 })
 
             }).catch(error => {
