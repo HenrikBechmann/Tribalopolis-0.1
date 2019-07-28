@@ -381,6 +381,8 @@ class Main extends React.Component<any,any> {
 
     userDocumentPairSuccess = ({docpack,typepack,reason}:DocpackPairPayloadMessage) => {
 
+        console.log('userDocumentPairSuccess',docpack,typepack,reason)
+
         this.userTypePack = typepack
 
         if ((!this.state.userpack) || this.updatinguserdata) {
