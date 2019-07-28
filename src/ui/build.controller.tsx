@@ -389,6 +389,10 @@ class BuildController extends React.Component<any,any> {
                         text:'Users',
                     },
                     {
+                        value:'userclaims',
+                        text:'Userclaims',
+                    },
+                    {
                         value:'handles',
                         text:'Handles',
                     },
