@@ -392,7 +392,7 @@ class Main extends React.Component<any,any> {
 
         if ((!this.state.userpack) || this.updatinguserdata) {
 
-            toast.success('collecting user records...')
+            // toast.success('collecting user records...')
 
             this.promises.user.resolve(docpack)
 
