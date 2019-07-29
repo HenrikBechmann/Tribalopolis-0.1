@@ -110,6 +110,7 @@ class ToolsStrip extends React.Component<any,any> {
     accountmenu = (classes) => {
         const { accountAnchorElement } = this.state
         let { userdata } = this.props
+        // console.log('accountmenu',userdata, userdata.status)
         return <div style = {{display:'inline-block',verticalAlign:'middle',position:'relative'}}>
             <ToolTip title = 'User Account'>
             <IconButton 
@@ -130,7 +131,9 @@ class ToolsStrip extends React.Component<any,any> {
                 {(userdata.status == 'active')? // use account name if available
                     userdata.userpack.document.properties.username:
                     ((userdata.status == 'loggedin')||(userdata.status == 'registered-user'))? // otherwise try to use login data
-                    ('Please register! ' + this.props.userdata.login.displayName):'signed out'}
+                    ('Please register! ' + this.props.userdata.login.displayName):
+                    (userdata.status == 'registered')?'Inactive account: ' + this.props.userdata.login.email:
+                    'signed out'}
             </div>
             <Menu
                 id="simple-menu"

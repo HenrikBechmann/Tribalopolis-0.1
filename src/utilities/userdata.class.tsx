@@ -16,7 +16,7 @@ class Userdata {
 
     get status() {
         if (this.accountpack) {
-            if (this.userclaimspack && (this.userclaimspack.status == 'active')) {
+            if (this.userclaimspack && (this.userclaimspack.document.status == 'active')) {
                 return 'active'
             }
             return 'registered'
