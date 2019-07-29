@@ -36,8 +36,6 @@ let parameters = {
       "list": "system/languages",
       "standard": "ISO639"
     },
-    "superuseraccount": "accounts/VyfFksGi0Ehv7unaMoI0",
-    "superuserid": "0RLrSksoCeYcmnInICk0ia4D40u1",
     "systemschema": "system/systemschema",
     "tagline": "Tribalopolis is a virtual city of tribes"
   },
