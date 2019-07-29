@@ -129,7 +129,7 @@ class ToolsStrip extends React.Component<any,any> {
                 }}>
                 {(userdata.status == 'active')? // use account name if available
                     userdata.userpack.document.properties.username:
-                    (userdata.status == 'loggedin')? // otherwise try to use login data
+                    ((userdata.status == 'loggedin')||(userdata.status == 'registered-user'))? // otherwise try to use login data
                     ('Please register! ' + this.props.userdata.login.displayName):'signed out'}
             </div>
             <Menu
@@ -148,7 +148,7 @@ class ToolsStrip extends React.Component<any,any> {
                 >
                     Account settings
                 </MenuItem>:null}
-                {(userdata.status == 'loggedin')?<MenuItem disabled
+                {((userdata.status == 'loggedin')||(userdata.status == 'registered-user'))?<MenuItem disabled
                     onClick={null}
                 >
                     Register
@@ -210,7 +210,7 @@ class ToolsStrip extends React.Component<any,any> {
                             }
                         >
                             <IconButton
-                                disabled = {userdata.status == 'loggedin'}
+                                disabled = {(userdata.status == 'loggedin')||(userdata.status == 'registered-user')}
                                 onClick = {this.toggleDrawer(!this.state.menuopen)}
                             >
                                 <Icon>menu</Icon>
@@ -222,7 +222,7 @@ class ToolsStrip extends React.Component<any,any> {
                                 this.props.children
                             }
                             <IconButton 
-                                disabled = {userdata.status == 'loggedin'}
+                                disabled = {(userdata.status == 'loggedin')||(userdata.status == 'registered-user')}
                             >
                                 <Icon>notifications</Icon>
                             </IconButton>

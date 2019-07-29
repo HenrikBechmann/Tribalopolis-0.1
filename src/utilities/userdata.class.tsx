@@ -5,6 +5,7 @@
 class Userdata {
     login = null
     userpack = null
+    userclaimspack = null
     usertype = null
     accountpack = null
     accounttype = null
@@ -14,12 +15,14 @@ class Userdata {
     }
 
     get status() {
-        if (this.userpack) {
-            if (this.userpack.document.control_status == 'active') {
+        if (this.accountpack) {
+            if (this.userclaimspack && (this.userclaimspack.status == 'active')) {
                 return 'active'
-            } else {
-                return 'registered'
             }
+            return 'registered'
+        }
+        if (this.userpack) {
+            return 'registered-user'
         }
         if (this.login) {
             return 'loggedin'

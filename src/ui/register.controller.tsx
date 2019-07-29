@@ -18,6 +18,7 @@ class Register extends React.Component<any,any> {
             <div>
                 <StandardToolbar />
                 {(userdata.status == 'loggedin') && <p>Thanks for logging in! Now just register here and you'll be all set. [pending]</p>}
+                {(userdata.status == 'registered-user') && <p>Thanks for logging in! Now just finish registering here and you'll be all set. [pending]</p>}
                 {(userdata.status == 'signedout') && <p>Please sign in to register.</p>}
                 {((userdata.status == 'registered') || (userdata.status == 'active')) && <p>You're already regitered. Nothing to do here.</p>}
             </div>

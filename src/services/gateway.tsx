@@ -64,6 +64,7 @@ const setDocumentListener = (parmblock:GetDocumentMessage) => {
             case 'organization':
             case 'members':
             case 'users':
+            case 'userclaims':
             case 'system': {
 
                 getSnapshot(parmblock)
@@ -194,6 +195,7 @@ const removeDocumentListener = ({reference}:RemoveGatewayListenerMessage) => {
         case 'organization':
         case 'members':
         case 'users':
+        case 'userclaims':
         case 'system': {
 
             snapshotUnsubscribes[reference] && snapshotUnsubscribes[reference]()

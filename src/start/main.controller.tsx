@@ -100,6 +100,7 @@ class Main extends React.Component<any,any> {
         logindata:null,
         systempack:null,
         userpack:null,
+        userclaimspack:null,
         accountpack:null,
     }
 
@@ -107,6 +108,7 @@ class Main extends React.Component<any,any> {
 
     systemPromise
     userPromise
+    userClaimsPromise
     accountPromise
 
     updatinguserdata // sentinel
@@ -117,6 +119,10 @@ class Main extends React.Component<any,any> {
             reject:null,
         },
         user:{
+            resolve:null,
+            reject:null,
+        },
+        userclaims:{
             resolve:null,
             reject:null,
         },
@@ -144,6 +150,7 @@ class Main extends React.Component<any,any> {
             loginraw:null,
             logindata:null,
             userpack:null,
+            userclaimspack:null,
             accountpack:null,
         },() => {
 
@@ -164,6 +171,11 @@ class Main extends React.Component<any,any> {
         this.userDocProxy && application.removeDocpackListener({
             doctoken:this.userDocProxy.doctoken,
             instanceid:this.userDocProxy.instanceid
+        })
+
+        this.userClaimsDocProxy && application.removeDocpackListener({
+            doctoken:this.userClaimsDocProxy.doctoken,
+            instanceid:this.userClaimsDocProxy.instanceid
         })
 
         this.accountDocProxy && application.removeDocpackListener({
@@ -204,6 +216,13 @@ class Main extends React.Component<any,any> {
 
         })
 
+        this.userClaimsPromise = new Promise((resolveuserclaims, rejectuserclaims) => {
+
+            this.promises.userclaims.resolve = resolveuserclaims
+            this.promises.userclaims.reject = rejectuserclaims
+
+        })
+
         this.accountPromise = new Promise((resolveaccount, rejectaccount) => {
 
             this.promises.account.resolve = resolveaccount
@@ -232,8 +251,9 @@ class Main extends React.Component<any,any> {
             console.log('logindata',logindata)
             this.getSystemDocument()
             this.getUserDocumentPair(logindata.uid) // and account document
+            this.getUserClaimsDocument(logindata.uid)
 
-            Promise.all([this.systemPromise, this.userPromise,this.accountPromise ]).then(values => {
+            Promise.all([this.systemPromise, this.userPromise,this.userClaimsPromise,this.accountPromise ]).then(values => {
 
                 this. updatinguserdata = false
 
@@ -242,7 +262,8 @@ class Main extends React.Component<any,any> {
                     logindata,
                     systempack:values[0],
                     userpack:values[1],
-                    accountpack:values[2],
+                    userclaimspack:values[2],
+                    accountpack:values[3],
                 }, () => {
                     toast.success(`signed in as ${loginraw.displayName}, ${loginraw.email}`,{autoClose:2500})
                 })
@@ -268,7 +289,6 @@ class Main extends React.Component<any,any> {
         }
 
     }
-
 
     private assertPartialLogin = (systempack, loginraw, logindata) => {
         this.setState({
@@ -419,6 +439,58 @@ class Main extends React.Component<any,any> {
 
     }
 
+    // ==============================[ USER CLAIMS DOCUMENT ]=========================================
+
+    userClaimsDocProxy = null
+
+    getUserClaimsDocument = (uid) => {
+
+        if (this.userClaimsDocProxy) return
+
+        this.userClaimsDocProxy = new docProxy({doctoken:{reference:'userclaims/' + uid}})
+
+        let reference = this.userClaimsDocProxy.doctoken.reference
+        let instanceid = this.userClaimsDocProxy.instanceid
+
+        if (!application.docpackIsListener(reference,instanceid)) {
+            let parm:SetListenerMessage = {
+                doctoken:this.userClaimsDocProxy.doctoken,
+                instanceid:this.userClaimsDocProxy.instanceid,
+                success:this.userClaimsDocumentSuccess,
+                failure:this.userClaimsDocumentFailure,
+            }
+
+            application.setDocpackListener(parm)
+        }
+
+    }
+
+    userClaimsDocumentSuccess = ({docpack, reason}:DocpackPayloadMessage) => {
+
+        // console.log('userClaimsDocumentSuccess',docpack,reason)
+        if ((!this.state.userclaimspack) || this.updatinguserdata) {
+
+            this.promises.userclaims.resolve(docpack)
+
+        } else {
+
+            toast.success('updated user status data')
+            this.setState({
+                userclaimspack:docpack,
+            })
+
+        }
+    }
+
+    userClaimsDocumentFailure = (error, reason) => {
+
+        // toast.error('Error: Unable to get system data (' + error + ')')
+        this.promises.userclaims.reject('Unable to get user claims data (' + error + ')')
+        console.log('Error: Unable to get user claims data:', error, reason)
+
+    }
+
+
     // ==============================[ ACCOUNT DOCUMENT ]=========================================
 
     setAccountDocumentListener = reference => {
@@ -487,27 +559,12 @@ class Main extends React.Component<any,any> {
             login:this.state.logindata,
             userpack:this.state.userpack,
             usertype:this.userTypePack,
+            userclaimspack:this.state.userclaimspack,
             accountpack:this.state.accountpack,
             accounttype:this.userAccountTypePack,
         })
 
-        // console.log('userdata',userdata)
-        
-        // if (!(logindata && userpack && accountpack)) {
-
-        //     userdata = null
-            
-        // } else {
-
-        //     userdata = {
-        //         login:this.state.logindata,
-        //         userpack:this.state.userpack,
-        //         usertype:this.userTypePack,
-        //         accountpack:this.state.accountpack,
-        //         accounttype:this.userAccountTypePack,
-        //     }
-
-        // }
+        // console.log('new or updated userdata',userdata)
 
         application.userdata = userdata // memoize
 

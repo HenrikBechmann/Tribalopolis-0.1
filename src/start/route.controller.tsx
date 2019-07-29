@@ -43,7 +43,7 @@ let RouteController = (props) => {
 
     let userdata = application.userdata
 
-    return ((userdata.status == 'loggedin') && (props.location.pathname != '/register'))?<Redirect to = '/register'/>:
+    return (((userdata.status == 'loggedin')||(userdata.status == 'registered-user')) && (props.location.pathname != '/register'))?<Redirect to = '/register'/>:
         <Switch>
             { routes }
         </Switch>
