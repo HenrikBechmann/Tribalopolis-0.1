@@ -342,7 +342,7 @@ class Main extends React.Component<any,any> {
 
     systemDocumentFailure = (error, reason) => {
 
-        toast.error('Error: Unable to get system data (' + error + ')')
+        // toast.error('Error: Unable to get system data (' + error + ')')
         this.promises.system.reject('Unable to get system data (' + error + ')')
         console.log('Error: Unable to get system data:', error, reason)
 
@@ -381,7 +381,12 @@ class Main extends React.Component<any,any> {
 
     userDocumentPairSuccess = ({docpack,typepack,reason}:DocpackPairPayloadMessage) => {
 
-        console.log('userDocumentPairSuccess',docpack,typepack,reason)
+        // console.log('userDocumentPairSuccess',docpack,typepack,reason)
+
+        if (docpack.document === undefined) {
+            this.userDocumentFailure('no user record')
+            return
+        }
 
         this.userTypePack = typepack
 
