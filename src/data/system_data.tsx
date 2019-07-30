@@ -36,6 +36,7 @@ let parameters = {
       "list": "system/languages",
       "standard": "ISO639"
     },
+    "registerpage":"system/register",
     "systemschema": "system/systemschema",
     "tagline": "Tribalopolis is a virtual city of tribes"
   },

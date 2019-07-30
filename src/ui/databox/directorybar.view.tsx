@@ -208,7 +208,7 @@ class DirectoryBar extends React.Component<any,any> {
                         action = {e => (
                             e.stopPropagation()
                         )}
-                        icon = 'expand_more' />}
+                        icon = 'filter_list' />}
                     {(!contextitem) && <div 
                         ref = {this.menuAnchor}
                     >

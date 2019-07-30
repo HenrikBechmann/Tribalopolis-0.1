@@ -353,7 +353,7 @@ class BuildController extends React.Component<any,any> {
 
     // --------[ sections of the renderpage follow ]--------
 
-    datadrawer = (login, systemdata) => (
+    datadrawer = (login, userdata) => (
         <DataDrawer open = {this.state.draweropen}
             handleClose = {this.closeDrawer}
             containerelement = {this.buildelement}
@@ -362,7 +362,7 @@ class BuildController extends React.Component<any,any> {
                 dataPaneContext = {this.drawerdatapackage}
                 open = {this.state.draweropen}
                 user = {login}
-                systemdata = {systemdata}
+                userdata = {userdata}
             />
         </DataDrawer>
     )
@@ -562,18 +562,15 @@ class BuildController extends React.Component<any,any> {
 
                     let login = userdata?userdata.login:null
 
-                    let superuserid = null
-                    if (systemdata && systemdata.parameters && systemdata.parameters.properties) {
-                        superuserid = systemdata.parameters.properties.superuserid
-                    }
+                    let superuser = !!(userdata && userdata.userclaimspack && (userdata.userclaimspack.document.globalrole == 'superuser')) // '0RLrSksoCeYcmnInICk0ia4D40u1'))
 
-                    let superuser = !!(login && (login.uid == superuserid)) // '0RLrSksoCeYcmnInICk0ia4D40u1'))
+                    console.log('userdata in build',userdata, superuser)
 
                     return (
 
                     <div>
 
-                        { this.datadrawer(login, systemdata) }
+                        { this.datadrawer(login, userdata) }
 
                         <div className = { classes.panewrapper } >
 
