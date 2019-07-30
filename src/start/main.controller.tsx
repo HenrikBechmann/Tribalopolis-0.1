@@ -296,7 +296,7 @@ class Main extends React.Component<any,any> {
             logindata,
             systempack,
         },() => {
-            toast.info('logged in but not registered')
+            toast.warn('You are logged in but not registered')
         })
     }
 
