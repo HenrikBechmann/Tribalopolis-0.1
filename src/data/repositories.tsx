@@ -1255,7 +1255,7 @@ let lists = {
         },
         properties:{
             version:0,
-            name:'Folders',
+            name:'Related Folders',
             linkedlist:false,
         },
         references:{
