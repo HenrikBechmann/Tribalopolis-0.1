@@ -562,7 +562,7 @@ class BuildController extends React.Component<any,any> {
 
                     let login = userdata?userdata.login:null
 
-                    let superuser = !!(userdata && userdata.userclaimspack && (userdata.userclaimspack.document.globalrole == 'superuser')) // '0RLrSksoCeYcmnInICk0ia4D40u1'))
+                    let superuser = !!(userdata && userdata.globalrole == 'superuser') // '0RLrSksoCeYcmnInICk0ia4D40u1'))
 
                     console.log('userdata in build',userdata, superuser)
 

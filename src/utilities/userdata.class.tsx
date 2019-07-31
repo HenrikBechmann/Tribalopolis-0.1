@@ -29,6 +29,13 @@ class Userdata {
         }
         return 'signedout'
     }
+    get globalrole() {
+        if (this.userclaimspack && this.userclaimspack.document.globalrole) {
+            return this.userclaimspack.document.globalrole
+        } else {
+            return undefined
+        }
+    }
 }
 
 export default Userdata

@@ -72,7 +72,7 @@ class BuildDataPane extends React.Component<any,any>  {
 
     updateData = () => {
         let { userdata } = this.props
-        let superuser = (userdata && userdata.userclaimspack && (userdata.userclaimspack.document.globalrole == 'superuser' ))// '0RLrSksoCeYcmnInICk0ia4D40u1'))
+        let superuser = (userdata && userdata.globalrole == 'superuser' )// '0RLrSksoCeYcmnInICk0ia4D40u1'))
 
         if (this.state.open) {
             if (!superuser) {
