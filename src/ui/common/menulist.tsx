@@ -70,6 +70,18 @@ class MenuListBase extends React.Component<any,any> {
                     <ListItemText primary = "My Workspace"/>
                 </ListItem>
                 <ListItem button
+                    disabled
+                >
+                    <ListItemIcon>
+                        <Icon 
+                            style = {{color:'brown'}}
+                        >
+                            web
+                        </Icon>
+                    </ListItemIcon>
+                    <ListItemText primary = "My Website" />
+                </ListItem>
+                <ListItem button
                     disabled = {!(userdata.status == 'active')}
                     onClick = {this.props.openSettings}
                     style = {
@@ -87,18 +99,6 @@ class MenuListBase extends React.Component<any,any> {
                         </Icon>
                     </ListItemIcon>
                     <ListItemText primary = "My Account" />
-                </ListItem>
-                <ListItem button
-                    disabled
-                >
-                    <ListItemIcon>
-                        <Icon 
-                            style = {{color:'brown'}}
-                        >
-                            web
-                        </Icon>
-                    </ListItemIcon>
-                    <ListItemText primary = "My Website" />
                 </ListItem>
                 <DescriptiveDivider description = 'Social' />
                 <ListItem button
@@ -182,7 +182,7 @@ class MenuListBase extends React.Component<any,any> {
                     </ListItemIcon>
                     <ListItemText primary = "Build" />
                 </ListItem>
-                <DescriptiveDivider description = 'Connections' />
+                <DescriptiveDivider description = 'Tribalopolis' />
                 <ListItem button
                     disabled
                 >
@@ -193,14 +193,14 @@ class MenuListBase extends React.Component<any,any> {
                     </ListItemIcon>
                     <ListItemText primary = "About" />
                 </ListItem>
-                <ListItem button
+                {false && <ListItem button
                     disabled
                 >
                     <ListItemIcon>
                         <Icon className='material-icons'>contacts</Icon>
                     </ListItemIcon>
                     <ListItemText primary = "Contacts" />
-                </ListItem>
+                </ListItem>}
             </List>
         )}
         </UserAccountControlData>
