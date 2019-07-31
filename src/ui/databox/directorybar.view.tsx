@@ -196,6 +196,18 @@ class DirectoryBar extends React.Component<any,any> {
                         action = {e => (
                             e.stopPropagation()
                         )}
+                        icon = 'expand_more' />}
+                    {!contextitem && <ActionButton 
+                        buttonStyle = {
+                            {
+                                float:'none',
+                                width:'24px',
+                                height:'24px',
+                            }
+                        } 
+                        action = {e => (
+                            e.stopPropagation()
+                        )}
                         icon = 'unfold_more' />}
                     {!contextitem && <ActionButton 
                         buttonStyle = {
