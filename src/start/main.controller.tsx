@@ -105,6 +105,7 @@ class Main extends React.Component<any,any> {
     }
 
     mounted = false
+    loginstatus = 'unresolved'
 
     systemPromise
     userPromise
@@ -133,8 +134,6 @@ class Main extends React.Component<any,any> {
     }
 
     systemDocProxy = new docProxy({doctoken:{reference:'system/parameters'}})
-
-    loggedin = false
 
     componentDidMount() {
 
@@ -238,11 +237,13 @@ class Main extends React.Component<any,any> {
     // this is set as a callback from auth.api -- called whenever login status changes
     updateLoginData = (loginraw) => {
 
+        // console.log('getting updateLoginData',loginraw)
+
         this.updatinguserdata = true
 
         if (loginraw) {
 
-            this.loggedin = true
+            this.loginstatus = 'loggedin'
 
             this.setLoginPromises() 
 
@@ -282,7 +283,7 @@ class Main extends React.Component<any,any> {
 
         } else { // clear userdata
 
-            this.loggedin = false
+            this.loginstatus = 'loggedout'
 
             this.resetSystemData()
 
@@ -556,6 +557,7 @@ class Main extends React.Component<any,any> {
         let userdata = new Userdata()
 
         Object.assign(userdata,{
+            loginstatus:this.loginstatus,
             login:this.state.logindata,
             userpack:this.state.userpack,
             usertype:this.userTypePack,

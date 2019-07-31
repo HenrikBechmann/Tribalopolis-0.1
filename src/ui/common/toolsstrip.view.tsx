@@ -12,6 +12,7 @@ import MenuItem from '@material-ui/core/MenuItem'
 import Icon from '@material-ui/core/Icon'
 import IconButton from '@material-ui/core/IconButton'
 import Drawer from '@material-ui/core/Drawer'
+import Button from '@material-ui/core/Button'
 import ToolTip from '@material-ui/core/Tooltip'
 
 import MenuList from './menulist'
@@ -112,7 +113,8 @@ class ToolsStrip extends React.Component<any,any> {
         let { userdata } = this.props
         // console.log('accountmenu',userdata, userdata.status)
         return <div style = {{display:'inline-block',verticalAlign:'middle',position:'relative'}}>
-            <ToolTip title = 'User Account'>
+            {userdata.loginstatus != 'loggedout' && <div>
+            {userdata.loginstatus == 'loggedin' && <ToolTip title = 'User Account'>
             <IconButton 
                 aria-owns={accountAnchorElement ? 'simple-menu' : null}
                 aria-haspopup="true"
@@ -121,20 +123,31 @@ class ToolsStrip extends React.Component<any,any> {
                 <Icon style = {{color:!(userdata.status == 'active')?'rgb(0,0,0,0.54)':'cadetblue'}}>account_box</Icon>
                 <Icon style = {{color:!(userdata.status == 'active')?'rgb(0,0,0,0.54)':'cadetblue'}}>arrow_drop_down</Icon>
             </IconButton>
-            </ToolTip>
+            </ToolTip>}
             <div style = {
                 {
                     display:'inline',
                     fontSize:'smaller',
                     color:'cadetblue',
                 }}>
-                {(userdata.status == 'active')? // use account name if available
+
+                {(userdata.loginstatus != 'unresolved') && ((userdata.status == 'active')? // use account name if available
                     userdata.userpack.document.properties.username:
                     ((userdata.status == 'loggedin')||(userdata.status == 'registered-user'))? // otherwise try to use login data
                     ('Please register! ' + this.props.userdata.login.displayName):
                     (userdata.status == 'registered')?'Inactive account: ' + this.props.userdata.login.email:
-                    'signed out'}
+                    'signed out')}
+                {(userdata.loginstatus == 'unresolved') && '(Resolving login status)'}
+
             </div>
+            </div>}
+            {(userdata.loginstatus == 'loggedout') && 
+            <Button 
+                variant = 'contained'
+                onClick = {this.handleLogin}
+            >
+               Sign in using Google
+            </Button>}
             <Menu
                 id="simple-menu"
                 anchorEl={accountAnchorElement}
