@@ -196,18 +196,6 @@ class DirectoryBar extends React.Component<any,any> {
                         action = {e => (
                             e.stopPropagation()
                         )}
-                        icon = 'expand_more' />}
-                    {!contextitem && <ActionButton 
-                        buttonStyle = {
-                            {
-                                float:'none',
-                                width:'24px',
-                                height:'24px',
-                            }
-                        } 
-                        action = {e => (
-                            e.stopPropagation()
-                        )}
                         icon = 'unfold_more' />}
                     {!contextitem && <ActionButton 
                         buttonStyle = {
@@ -220,7 +208,7 @@ class DirectoryBar extends React.Component<any,any> {
                         action = {e => (
                             e.stopPropagation()
                         )}
-                        icon = 'filter_list' />}
+                        icon = 'expand_more' />}
                     {(!contextitem) && <div 
                         ref = {this.menuAnchor}
                     >
@@ -247,6 +235,13 @@ class DirectoryBar extends React.Component<any,any> {
                             }>
                             <Info style = {{opacity:.54}} /> Info
                         </MenuItem>
+                        <MenuItem className = {classes.menustyle}
+                            onClick = {(e) =>{
+                                this.callDataDrawer(e,'filter')}
+                            }>
+                            <Icon style = {{opacity:.54}} >filter_list</Icon> Filter
+                        </MenuItem>
+                        <Divider />
                         <MenuItem className = {classes.menustyle}
                             onClick = {(e) =>{
                                 this.callDataDrawer(e,'edit')}

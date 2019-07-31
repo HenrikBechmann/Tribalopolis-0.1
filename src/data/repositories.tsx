@@ -1255,7 +1255,7 @@ let lists = {
         },
         properties:{
             version:0,
-            name:'Related Items',
+            name:'Related',
             linkedlist:false,
         },
         references:{
