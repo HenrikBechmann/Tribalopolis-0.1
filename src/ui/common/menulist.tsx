@@ -32,7 +32,9 @@ class MenuListBase extends React.Component<any,any> {
 
     return (
         <UserAccountControlData>
-        { (systemdata,userdata, activeaccountdata, activememberdata) => (
+        { (systemdata,userdata, activeaccountdata, activememberdata) => {
+            console.log('menulist useraccount control data',systemdata,userdata,activeaccountdata,activememberdata)
+            return (
             <List>
                 <ListItem button
                     onClick = {() => history.push('/')}
@@ -202,7 +204,7 @@ class MenuListBase extends React.Component<any,any> {
                     <ListItemText primary = "Contacts" />
                 </ListItem>}
             </List>
-        )}
+        )}}
         </UserAccountControlData>
     )}
 }

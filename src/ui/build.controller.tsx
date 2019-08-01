@@ -127,19 +127,15 @@ class BuildController extends React.Component<any,any> {
                 }
             },() => {
                 if (data.control) {
-                    // let typetoken = data.control.type 
-                    // if (typetoken) {
-                        // let typeref = typetoken.reference
-                        let typeref = data.control_type_reference
-                        if (typeref) {
-                            let parmblock: GetDocumentMessage = {
-                                reference:typeref,
-                                success:this.fetchTypeSuccessCallback,
-                                failure:this.fetchTypeErrorCallback,
-                            }
-                            application.getDocument(parmblock)
+                    let typeref = data.control_type_reference
+                    if (typeref) {
+                        let parmblock: GetDocumentMessage = {
+                            reference:typeref,
+                            success:this.fetchTypeSuccessCallback,
+                            failure:this.fetchTypeErrorCallback,
                         }
-                    // }
+                        application.getDocument(parmblock)
+                    }
                 }
             })
         }
@@ -560,17 +556,17 @@ class BuildController extends React.Component<any,any> {
 
                     // console.log('build useraccountcontroldata',systemdata, userdata, activeaccountdata, activememberdata)
 
-                    let login = userdata?userdata.login:null
+                    let login = userdata.login
 
-                    let superuser = !!(userdata && userdata.globalrole == 'superuser') // '0RLrSksoCeYcmnInICk0ia4D40u1'))
+                    let superuser = !!(userdata.globalrole == 'superuser') // '0RLrSksoCeYcmnInICk0ia4D40u1'))
 
-                    console.log('userdata in build',userdata, superuser)
+                    // console.log('userdata in build',userdata, superuser)
 
                     return (
 
                     <div>
 
-                        { this.datadrawer(login, userdata) }
+                        { this.datadrawer( login, userdata ) }
 
                         <div className = { classes.panewrapper } >
 

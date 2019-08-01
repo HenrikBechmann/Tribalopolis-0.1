@@ -1,11 +1,15 @@
 // permissions_singleton.tsx
 // copyright (c) 2019 Henritk Bechmann, Toronto, Licence: GPL-3.0-or-later
 
+/*
+    this is used exclusively by useraccount permission data
+*/
+
 'use strict'
 
-import permissions from './permissions'
+import fetchactivepermissions from './fetchactivepermissions'
 
-class permissions_singleton_class {
+class useraccount_permissions_cache_class {
 
     private callbackindex = 0
     private activeaccountdata 
@@ -16,18 +20,20 @@ class permissions_singleton_class {
     private callbacks = new Map()
 
 
-    public updateControlData = ({
-        systemdata,
-        userdata,
-        activeaccountreference,
-        stateaccountreference,
-        callbackindex,
-    }) => {
+    public updateControlData = (parms) => {
+
+        let {
+            systemdata,
+            userdata,
+            activeaccountreference,
+            stateaccountreference,
+            callbackindex,
+        } = parms
 
         if ((activeaccountreference == stateaccountreference) && this.contextAccountReference && this.activeaccountdata && this.activememberdata) {
-            this.callbacks.get(callbackindex)()
+            this.callbacks.get(callbackindex)() // run the callback
         } else {
-            this.permissions.updateControlData(
+            this.fetchactivepermissions.updateControlData(
                 {
                     systemdata,
                     userdata,
@@ -57,14 +63,14 @@ class permissions_singleton_class {
         this.callbacks.forEach(this.doCallback)
     }
 
-    private onPermissions = () => {
+    private onFetchPermissions = (contextcontroldata) => {
 
-        let contextcontroldata = this.permissions.contextControlData
+        // let contextcontroldata = this.fetchactivepermissions.contextControlData
 
         // Object.assign is used to trigger update in registrants
         this.activeaccountdata = Object.assign({},contextcontroldata.activeaccountdata)
         this.activememberdata = Object.assign({},contextcontroldata.activememberdata)
-        this.contextAccountReference = this.permissions.contextAccountReference
+        this.contextAccountReference = this.fetchactivepermissions.contextAccountReference
         this.contextControlData = {
             activeaccountdata:this.activeaccountdata,
             activememberdata:this.activememberdata,
@@ -74,10 +80,10 @@ class permissions_singleton_class {
 
     }
 
-    private permissions = new permissions(this.onPermissions)
+    private fetchactivepermissions = new fetchactivepermissions(this.onFetchPermissions)
 
 }
 
-const permissions_singleton = new permissions_singleton_class()
+const useraccount_permissions_cache = new useraccount_permissions_cache_class()
 
-export default permissions_singleton
+export default useraccount_permissions_cache

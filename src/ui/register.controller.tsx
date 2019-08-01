@@ -6,7 +6,7 @@
 import React from 'react'
 
 import StandardToolbar from './common/standardtoolbar.view'
-import UserAccountControlData from '../services/useraccount.controldata'
+// import UserAccountControlData from '../services/useraccount.controldata'
 
 import administration from '../services/application'
 

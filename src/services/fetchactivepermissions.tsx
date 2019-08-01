@@ -5,6 +5,12 @@
     TODO: check for race conditions if a client is in process of unmounting
 */
 
+/*
+    This module is called directly by quadrants for dynamic activeaccounts
+    and indirectly by useraccount permissions for the user static activeaccount.
+    A dedicated instance is created by each caller
+*/
+
 'use strict'
 
 import application from './application'
@@ -15,10 +21,10 @@ import {
     SetListenerMessage
 } from '../services/interfaces'
 
-class permissions {
+class fetchPermissions {
 
-    constructor(onPermissions) {
-        this.onPermissions = onPermissions
+    constructor(onFetchPermissions) {
+        this.onFetchPermissions = onFetchPermissions
     }
 
     controldata = {
@@ -42,11 +48,7 @@ class permissions {
         }
     }
 
-    // get contextMemberReference() {
-    //     return this.contextMemberProxy.doctoken.reference
-    // }
-
-    onPermissions
+    private onFetchPermissions
 
     public updateControlData = (
         {
@@ -160,7 +162,7 @@ class permissions {
         if (!isupdate) {
             this.fetchMemberRecord()
         } else {
-            this.onPermissions()
+            this.onFetchPermissions()
         }
 
     }
@@ -229,7 +231,7 @@ class permissions {
             typepack,
         }        
 
-        this.onPermissions()
+        this.onFetchPermissions(this.contextControlData)
 
     }
 
@@ -241,4 +243,4 @@ class permissions {
 
 }
 
-export default permissions
+export default fetchPermissions

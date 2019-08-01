@@ -3,6 +3,8 @@
 
 /*
     TODO: keep scrollbox pos in settings when navigating stack levels
+
+    update context control data with onFetchPermissions
 */
 'use strict'
 
@@ -21,7 +23,7 @@ import { FixedSizeList as List } from 'react-window'
 
 import quadanimations from './quadrant/quadanimations.class'
 import quadoperations from './quadrant/quadoperations.class'
-import permissions from '../services/permissions'
+import fetchactivepermissions from '../services/fetchactivepermissions'
 
 import { DocTokenStruc, DataPaneContext } from '../services/interfaces'
 
@@ -127,7 +129,7 @@ class Quadrant extends React.Component<any,any>  {
 
         })
 
-        this.permissions = new permissions(this.onPermissions)
+        this.fetchactivepermissions = new fetchactivepermissions(this.onFetchPermissions)
 
         // -----------[ window listener ]-----------
         window.addEventListener('resize',this.onResize)
@@ -164,7 +166,7 @@ class Quadrant extends React.Component<any,any>  {
     // delegation classes
     operations
     animations
-    permissions
+    fetchactivepermissions
 
     // data drawer message
     drawerdatapackage:DataPaneContext
@@ -237,7 +239,7 @@ class Quadrant extends React.Component<any,any>  {
         let activeaccountreference = 
             this.datastack?this.datastack[this.state.stackpointer].account:null
 
-        let dorefresh = this.permissions.updateControlData(
+        let dorefresh = this.fetchactivepermissions.updateControlData(
             {
                 userdata:this.props.userdata, 
                 systemdata:this.props.systemdata, 
@@ -255,7 +257,7 @@ class Quadrant extends React.Component<any,any>  {
 
     componentWillUnmount() {
 
-        this.permissions.removeContextListeners()
+        this.fetchactivepermissions.removeContextListeners()
 
         window.removeEventListener('resize',this.onResize)
 
@@ -268,7 +270,7 @@ class Quadrant extends React.Component<any,any>  {
 
     }
 
-    onPermissions = () => {
+    onFetchPermissions = (contextcontroldata) => {
         // force render
         this.setState((state) => {
             return {
@@ -448,7 +450,7 @@ class Quadrant extends React.Component<any,any>  {
             this.scrollboxelement.current.scrollLeft = 0
         }
 
-        let controlstatus = this.permissions.controlStatus()
+        let controlstatus = this.fetchactivepermissions.controlStatus()
 
         let quadmessage
         switch (controlstatus) {
