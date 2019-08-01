@@ -86,14 +86,14 @@ class ScrollControlsView extends React.Component<any,any> {
 
         let { offsetLeft, offsetRight } = this.scrollerData
 
-        console.log('updating control visiblity',leftOpacity,rightOpacity,offsetLeft,offsetRight)
+        // console.log('updating control visiblity',leftOpacity,rightOpacity,offsetLeft,offsetRight)
 
         if (!!offsetLeft && !leftOpacity) {
             leftcontrol['style'].opacity = 1
             leftcontrol['style'].display = 'block'
         } else 
         if (!offsetLeft && !!leftOpacity) {
-            console.log('setting left style')
+            // console.log('setting left style')
             leftcontrol['style'].opacity = 0
             leftcontrol['style'].display = 'none'
         }
