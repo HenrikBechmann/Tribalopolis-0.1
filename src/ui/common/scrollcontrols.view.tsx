@@ -84,21 +84,27 @@ class ScrollControlsView extends React.Component<any,any> {
         let leftOpacity = Number(leftcontrol['style'].opacity)
         let rightOpacity = Number(rightcontrol['style'].opacity)
 
-
         let { offsetLeft, offsetRight } = this.scrollerData
+
+        console.log('updating control visiblity',leftOpacity,rightOpacity,offsetLeft,offsetRight)
 
         if (!!offsetLeft && !leftOpacity) {
             leftcontrol['style'].opacity = 1
+            leftcontrol['style'].display = 'block'
         } else 
         if (!offsetLeft && !!leftOpacity) {
+            console.log('setting left style')
             leftcontrol['style'].opacity = 0
+            leftcontrol['style'].display = 'none'
         }
 
         if (!!offsetRight && !rightOpacity) {
             rightcontrol['style'].opacity = 1
+            rightcontrol['style'].display = 'block'
         } else
         if (!offsetRight && !!rightOpacity) {
             rightcontrol['style'].opacity = 0
+            rightcontrol['style'].display = 'none'
         }
 
     }
@@ -190,7 +196,7 @@ class ScrollControlsView extends React.Component<any,any> {
         color:'darkslategray',
         overflow:'hidden',
         backgroundColor:'rgba(240,248,255,.7)',
-        opacity:0,
+        opacity:1,
         transition: 'opacity .5s',
         cursor:'pointer',
 
