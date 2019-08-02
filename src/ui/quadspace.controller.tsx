@@ -21,7 +21,7 @@ import application from '../services/application'
 
 // import UserDataContext from '../services/userdata.context'
 // import SystemDataContext from '../services/systemdata.context'
-import UserAccountControlData from '../services/useraccount.controldata'
+import UserAccountActiveControls from '../services/useraccount.activecontrols'
 // import AccountDialog from './common/accountdialog'
 
 class QuadspaceController extends React.Component<any,any> {
@@ -163,7 +163,7 @@ class QuadspaceController extends React.Component<any,any> {
     render() {
         return (
             <QuadSpaceFrame>
-                <UserAccountControlData>
+                <UserAccountActiveControls>
                 { (systemdata, userdata, activeaccountdata, activememberdata ) => { 
                     let datastacks = userdata?this.defaultdatastacks:null
                     // console.log('datastacks in quadspace render',datastacks, userdata)
@@ -202,7 +202,7 @@ class QuadspaceController extends React.Component<any,any> {
                         </QuadViewport>
                     </React.Fragment>
                 )}}
-                </UserAccountControlData>
+                </UserAccountActiveControls>
             </QuadSpaceFrame>
         )
     }

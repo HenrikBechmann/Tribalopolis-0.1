@@ -7,9 +7,9 @@ import React, {useState} from 'react'
 
 import UserDataContext from './userdata.context'
 import SystemDataContext from './systemdata.context'
-import UserAccountPermissionData from './useraccount.permissiondata'
+import UserAccountPermissionData from './useraccount.activepermissions.data'
 
-const UserAccountControlData = (props) => {
+const UserAccountActiveControls = (props) => {
 
     return <SystemDataContext.Consumer>
 
@@ -40,4 +40,4 @@ const UserAccountControlData = (props) => {
 
 }
 
-export default UserAccountControlData
+export default UserAccountActiveControls

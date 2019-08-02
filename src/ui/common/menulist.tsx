@@ -14,7 +14,7 @@ import Icon from '@material-ui/core/Icon'
 
 // import UserDataContext from '../../services/userdata.context'
 // import SystemDataContext from '../../services/systemdata.context'
-import UserAccountControlData from '../../services/useraccount.controldata'
+import UserAccountActiveControls from '../../services/useraccount.activecontrols'
 // import AccountDialog from './accountdialog'
 import DescriptiveDivider from './descriptivedivider.view'
 
@@ -31,7 +31,7 @@ class MenuListBase extends React.Component<any,any> {
     let { pathname } = location // to highlight current location in menu
 
     return (
-        <UserAccountControlData>
+        <UserAccountActiveControls>
         { (systemdata,userdata, activeaccountdata, activememberdata) => {
             console.log('menulist useraccount control data',systemdata,userdata,activeaccountdata,activememberdata)
             return (
@@ -205,7 +205,7 @@ class MenuListBase extends React.Component<any,any> {
                 </ListItem>}
             </List>
         )}}
-        </UserAccountControlData>
+        </UserAccountActiveControls>
     )}
 }
 

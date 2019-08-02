@@ -5,7 +5,7 @@
 
 import React from 'react'
 
-import useraccount_permissions_cache from './useraccount_permissions_cache'
+import useraccount_permissions_cache from './useraccount.activepermissions.cache'
 
 // TODO: check for race conditions
 
@@ -23,7 +23,7 @@ class UserAccountPermissionData extends React.Component<any,any> {
 
     constructor(props) {
         super(props)
-        this.callbackindex = useraccount_permissions_cache.registerCallback(this.onPermissions)
+        this.callbackindex = useraccount_permissions_cache.registerCallback(this.onCachePermissions)
     }
 
     componentDidMount() {
@@ -67,9 +67,9 @@ class UserAccountPermissionData extends React.Component<any,any> {
         useraccount_permissions_cache.deRegisterCallback(this.callbackindex)
     }
 
-    onPermissions = () => {
+    onCachePermissions = () => {
         let contextcontroldata = useraccount_permissions_cache.contextControlData
-        console.log('onPermissions',contextcontroldata)
+        console.log('onCachePermissions',contextcontroldata)
         if (Object.is(this.activeaccountdata, contextcontroldata.activeaccountdata)
             && Object.is(this.activememberdata,contextcontroldata.activememberdata)
             && this.state.accountreference == useraccount_permissions_cache.contextAccountReference)

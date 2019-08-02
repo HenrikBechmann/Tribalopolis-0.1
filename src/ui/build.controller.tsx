@@ -26,7 +26,7 @@ import SelectField from './input/selectfield.view'
 import TextField from './input/textfield.view'
 
 // import UserDataContext from '../services/userdata.context'
-import UserAccountControlData from '../services/useraccount.controldata'
+import UserAccountActiveControls from '../services/useraccount.activecontrols'
 
 import application from '../services/application'
 import typefilter from '../services/type.filter'
@@ -550,7 +550,7 @@ class BuildController extends React.Component<any,any> {
 
             {!application.properties.ismobile?
 
-            <UserAccountControlData>
+            <UserAccountActiveControls>
 
                 { (systemdata, userdata, activeaccountdata, activememberdata) => {
 
@@ -585,7 +585,7 @@ class BuildController extends React.Component<any,any> {
                     </div> )
                 }}
 
-            </UserAccountControlData>
+            </UserAccountActiveControls>
 
             :<div>The build utility is only available on desktops</div>
 
