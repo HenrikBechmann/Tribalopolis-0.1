@@ -9,13 +9,14 @@
 
 import fetchactivepermissions from './fetchactivepermissions'
 
-class useraccount_permissions_cache_class {
+class useraccount_active_permissions_cache_class {
+
+    public activeAccountReference
+    public contextControlData
 
     private callbackindex = 0
     private activeaccountdata 
     private activememberdata
-    public contextAccountReference
-    public contextControlData
 
     private callbacks = new Map()
 
@@ -30,7 +31,8 @@ class useraccount_permissions_cache_class {
             callbackindex,
         } = parms
 
-        if ((activeaccountreference == stateaccountreference) && this.contextAccountReference && this.activeaccountdata && this.activememberdata) {
+        console.log('cache',activeaccountreference,this.activeAccountReference, this.activeaccountdata,this.activememberdata)
+        if ((activeaccountreference  == this.activeAccountReference) && this.activeaccountdata && this.activememberdata) {
             this.callbacks.get(callbackindex)() // run the callback
         } else {
             this.fetchactivepermissions.updateControlData(
@@ -63,14 +65,14 @@ class useraccount_permissions_cache_class {
         this.callbacks.forEach(this.doCallback)
     }
 
-    private onFetchPermissions = (contextcontroldata) => {
+    private onFetchPermissions = () => {
 
-        // let contextcontroldata = this.fetchactivepermissions.contextControlData
+        let contextcontroldata = this.fetchactivepermissions.contextControlData
 
         // Object.assign is used to trigger update in registrants
         this.activeaccountdata = Object.assign({},contextcontroldata.activeaccountdata)
         this.activememberdata = Object.assign({},contextcontroldata.activememberdata)
-        this.contextAccountReference = this.fetchactivepermissions.contextAccountReference
+        this.activeAccountReference = this.fetchactivepermissions.contextAccountReference
         this.contextControlData = {
             activeaccountdata:this.activeaccountdata,
             activememberdata:this.activememberdata,
@@ -84,6 +86,6 @@ class useraccount_permissions_cache_class {
 
 }
 
-const useraccount_permissions_cache = new useraccount_permissions_cache_class()
+const useraccount_active_permissions_cache = new useraccount_active_permissions_cache_class()
 
-export default useraccount_permissions_cache
+export default useraccount_active_permissions_cache

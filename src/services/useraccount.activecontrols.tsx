@@ -7,7 +7,7 @@ import React, {useState} from 'react'
 
 import UserDataContext from './userdata.context'
 import SystemDataContext from './systemdata.context'
-import UserAccountPermissionData from './useraccount.activepermissions.data'
+import UserAccountActivePermissionsData from './useraccount.activepermissions.data'
 
 const UserAccountActiveControls = (props) => {
 
@@ -19,7 +19,7 @@ const UserAccountActiveControls = (props) => {
 
                 {(userdata) => (
 
-                    <UserAccountPermissionData systemdata = {systemdata} userdata = {userdata}>
+                    <UserAccountActivePermissionsData systemdata = {systemdata} userdata = {userdata}>
                         { (activeaccountdata, activememberdata) => {
 
                             console.log('useraccount permissiondata in useraccount controldata',systemdata, userdata,activeaccountdata,activememberdata)
@@ -30,7 +30,7 @@ const UserAccountActiveControls = (props) => {
                                 activememberdata,
                             )}
                         }
-                    </UserAccountPermissionData>
+                    </UserAccountActivePermissionsData>
 
                 )}
 

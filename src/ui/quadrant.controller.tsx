@@ -270,7 +270,7 @@ class Quadrant extends React.Component<any,any>  {
 
     }
 
-    onFetchPermissions = (contextcontroldata) => {
+    onFetchPermissions = () => {
         // force render
         this.setState((state) => {
             return {

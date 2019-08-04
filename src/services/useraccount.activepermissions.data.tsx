@@ -5,11 +5,11 @@
 
 import React from 'react'
 
-import useraccount_permissions_cache from './useraccount.activepermissions.cache'
+import useraccount_active_permissions_cache from './useraccount.activepermissions.cache'
 
 // TODO: check for race conditions
 
-class UserAccountPermissionData extends React.Component<any,any> {
+class UserAccountActivePermissionsData extends React.Component<any,any> {
 
     state = {
         generation:0,
@@ -23,7 +23,7 @@ class UserAccountPermissionData extends React.Component<any,any> {
 
     constructor(props) {
         super(props)
-        this.callbackindex = useraccount_permissions_cache.registerCallback(this.onCachePermissions)
+        this.callbackindex = useraccount_active_permissions_cache.registerCallback(this.onCachePermissions)
     }
 
     componentDidMount() {
@@ -38,9 +38,9 @@ class UserAccountPermissionData extends React.Component<any,any> {
             callbackindex:this.callbackindex,
         }
 
-        console.log('useraccount permissiondata activeaccountreference didMOUNT',userdata.status,callparms)
+        console.log('active.data didMOUNT',userdata.status,callparms)
 
-        useraccount_permissions_cache.updateControlData(callparms)
+        useraccount_active_permissions_cache.updateControlData(callparms)
     }
 
     componentDidUpdate() {
@@ -54,9 +54,9 @@ class UserAccountPermissionData extends React.Component<any,any> {
             stateaccountreference:this.state.accountreference,
             callbackindex:this.callbackindex
         }
-        console.log('useraccount permissiondata activeaccountreference didUPDATE',userdata.status,callparms)
+        console.log('active.data didUPDATE',userdata.status,callparms)
 
-        useraccount_permissions_cache.updateControlData(callparms)
+        useraccount_active_permissions_cache.updateControlData(callparms)
     }
 
     unmounting = false
@@ -64,15 +64,15 @@ class UserAccountPermissionData extends React.Component<any,any> {
     componentWillUnmount() {
 
         this.unmounting = true
-        useraccount_permissions_cache.deRegisterCallback(this.callbackindex)
+        useraccount_active_permissions_cache.deRegisterCallback(this.callbackindex)
     }
 
     onCachePermissions = () => {
-        let contextcontroldata = useraccount_permissions_cache.contextControlData
+        let contextcontroldata = useraccount_active_permissions_cache.contextControlData
         console.log('onCachePermissions',contextcontroldata)
         if (Object.is(this.activeaccountdata, contextcontroldata.activeaccountdata)
             && Object.is(this.activememberdata,contextcontroldata.activememberdata)
-            && this.state.accountreference == useraccount_permissions_cache.contextAccountReference)
+            && this.state.accountreference == useraccount_active_permissions_cache.activeAccountReference)
         {
             return
         }
@@ -82,7 +82,7 @@ class UserAccountPermissionData extends React.Component<any,any> {
         if (this.unmounting) return
         this.setState((state) => ({
             generation:++state.generation,
-            accountreference:useraccount_permissions_cache.contextAccountReference,
+            accountreference:useraccount_active_permissions_cache.activeAccountReference,
         }))
 
     }
@@ -97,4 +97,4 @@ class UserAccountPermissionData extends React.Component<any,any> {
 
 }
 
-export default UserAccountPermissionData
+export default UserAccountActivePermissionsData
