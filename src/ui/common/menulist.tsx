@@ -33,7 +33,7 @@ class MenuListBase extends React.Component<any,any> {
     return (
         <UserAccountActiveControls>
         { (systemdata,userdata, activeaccountdata, activememberdata) => {
-            console.log('menulist useraccount control data',systemdata,userdata,activeaccountdata,activememberdata)
+            // console.log('menulist useraccount control data',systemdata,userdata,activeaccountdata,activememberdata)
             return (
             <List>
                 <ListItem button

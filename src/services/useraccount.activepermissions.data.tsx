@@ -38,7 +38,7 @@ class UserAccountActivePermissionsData extends React.Component<any,any> {
             callbackindex:this.callbackindex,
         }
 
-        console.log('active.data didMOUNT',userdata.status,callparms)
+        // console.log('active.data didMOUNT',userdata.status,callparms)
 
         useraccount_active_permissions_cache.updateControlData(callparms)
     }
@@ -51,10 +51,10 @@ class UserAccountActivePermissionsData extends React.Component<any,any> {
             systemdata:this.props.systemdata,
             userdata,
             activeaccountreference,
-            stateaccountreference:this.state.accountreference,
+            // stateaccountreference:this.state.accountreference,
             callbackindex:this.callbackindex
         }
-        console.log('active.data didUPDATE',userdata.status,callparms)
+        // console.log('active.data didUPDATE',userdata.status,callparms)
 
         useraccount_active_permissions_cache.updateControlData(callparms)
     }
@@ -69,7 +69,7 @@ class UserAccountActivePermissionsData extends React.Component<any,any> {
 
     onCachePermissions = () => {
         let contextcontroldata = useraccount_active_permissions_cache.contextControlData
-        console.log('onCachePermissions',contextcontroldata)
+        // console.log('onCachePermissions',contextcontroldata)
         if (Object.is(this.activeaccountdata, contextcontroldata.activeaccountdata)
             && Object.is(this.activememberdata,contextcontroldata.activememberdata)
             && this.state.accountreference == useraccount_active_permissions_cache.activeAccountReference)

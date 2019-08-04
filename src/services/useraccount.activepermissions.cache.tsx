@@ -27,11 +27,11 @@ class useraccount_active_permissions_cache_class {
             systemdata,
             userdata,
             activeaccountreference,
-            stateaccountreference,
+            // stateaccountreference,
             callbackindex,
         } = parms
 
-        console.log('cache',activeaccountreference,this.activeAccountReference, this.activeaccountdata,this.activememberdata)
+        // console.log('cache',activeaccountreference,this.activeAccountReference, this.activeaccountdata,this.activememberdata)
         if ((activeaccountreference  == this.activeAccountReference) && this.activeaccountdata && this.activememberdata) {
             this.callbacks.get(callbackindex)() // run the callback
         } else {
@@ -40,7 +40,7 @@ class useraccount_active_permissions_cache_class {
                     systemdata,
                     userdata,
                     activeaccountreference,
-                    stateaccountreference,
+                    stateaccountreference:null,
                 }
             )
         }

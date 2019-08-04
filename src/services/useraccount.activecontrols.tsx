@@ -22,7 +22,7 @@ const UserAccountActiveControls = (props) => {
                     <UserAccountActivePermissionsData systemdata = {systemdata} userdata = {userdata}>
                         { (activeaccountdata, activememberdata) => {
 
-                            console.log('useraccount permissiondata in useraccount controldata',systemdata, userdata,activeaccountdata,activememberdata)
+                            // console.log('useraccount permissiondata in useraccount controldata',systemdata, userdata,activeaccountdata,activememberdata)
                             return props.children( 
                                 systemdata, 
                                 userdata,
