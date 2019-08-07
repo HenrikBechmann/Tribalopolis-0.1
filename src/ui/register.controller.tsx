@@ -9,11 +9,36 @@ import StandardToolbar from './common/standardtoolbar.view'
 // import UserAccountActiveControls from '../services/useraccount.controldata'
 
 import administration from '../services/application'
+import docproxy from '../utilities/docproxy'
+import DataPane from './common/datapane.view'
 
 class Register extends React.Component<any,any> {
 
+    paneProxy
+
+    datapanecontext
+
     registerform = () => {
-        return <div>registration form</div>
+        if (!this.paneProxy ) {
+
+            let registerpageref = administration.systemdata?administration.systemdata.parameters.properties.registerpage:null
+
+            if (registerpageref) {
+                let paneProxy = new docproxy({doctoken:{reference:registerpageref}})
+
+                this.paneProxy = paneProxy
+                this.datapanecontext = {
+                    docproxy:paneProxy,
+                    options:{uiselection:'datapane'},
+                    callbacks:{
+                        // close:this.props.closeSettings,
+                        // manage:this.openDrawer,
+                    }
+                }
+            }
+        }
+        return <DataPane dataPaneContext = {this.datapanecontext}/>
+
     }
 
     render() {
