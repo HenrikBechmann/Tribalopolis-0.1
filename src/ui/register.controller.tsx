@@ -12,12 +12,23 @@ import administration from '../services/application'
 
 class Register extends React.Component<any,any> {
 
+    registerform = () => {
+        return <div>registration form</div>
+    }
+
     render() {
         let { userdata } = administration
         return (
             <div>
                 <StandardToolbar />
-                {(userdata.status == 'loggedin') && <p>Thanks for logging in! Now just register here and you'll be all set. [pending]</p>}
+                {
+                    (userdata.status == 'loggedin') && (
+                        <React.Fragment>
+                        <p>Thanks for logging in! Now just register here and you'll be all set. [pending]</p>
+                        {this.registerform()}
+                        </React.Fragment>
+                    )
+                }
                 {(userdata.status == 'registered-user') && <p>Thanks for logging in! Now just finish registering here and you'll be all set. [pending]</p>}
                 {(userdata.status == 'signedout') && <p>Please sign in to register.</p>}
                 {((userdata.status == 'registered') || (userdata.status == 'active')) && <p>You're already registered. Nothing to do here.</p>}
