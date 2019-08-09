@@ -58,12 +58,14 @@ class AbstractDataPane extends React.Component<any,any> {
 
     componentWillUnmount() {
 
-        let msg:RemoveListenerMessage = 
-        {
-            doctoken:this.docProxy.doctoken,
-            instanceid:this.docProxy.instanceid,
+        if (this.docProxy) {
+            let msg:RemoveListenerMessage = 
+            {
+                doctoken:this.docProxy.doctoken,
+                instanceid:this.docProxy.instanceid,
+            }
+            application.removeDocpackPairListener(msg)
         }
-        application.removeDocpackPairListener(msg)
 
     }
 
