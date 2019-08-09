@@ -25,14 +25,18 @@ const getNodePosition = (branch, path) => {
     let nodeindex
     let nodevalue = branch
 
-    for (nodeindex of path) {
+    try {
+        for (nodeindex of path) {
 
-        nodeproperty = nodevalue
-        nodevalue = nodeproperty[nodeindex]
+            nodeproperty = nodevalue
+            nodevalue = nodeproperty[nodeindex]
 
-        if (nodevalue === undefined) return undefined// no doc node available
+            if (nodevalue === undefined) return undefined// no doc node available
 
-    } 
+        } 
+    } catch (e) {
+        return undefined
+    }
 
     return {
         nodeproperty,

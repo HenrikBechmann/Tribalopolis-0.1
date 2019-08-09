@@ -30,7 +30,7 @@ class AbstractDataPane extends React.Component<any,any> {
         // this.namespace = namespace
         this.userdata = namespace.container.userdata
         this.callbacks = namespace.container.callbacks
-        this.docProxy = new Proxy({doctoken:{reference}})
+        this.reference && (this.docProxy = new Proxy({doctoken:{reference}}))
 
     }
 
