@@ -81,6 +81,9 @@ class AbstractDataPane extends React.Component<any,any> {
                 }
 
             application.setDocpackPairListener( parms )
+        } else {
+            this.renderContent = <div>unable to create content</div>
+            this.forceUpdate()
         }
     }
 
