@@ -37,15 +37,39 @@ class Register extends React.Component<any,any> {
                 }
             }
         }
-        return <DataPane dataPaneContext = {this.datapanecontext}/>
+        return <div style = {
+            {
+                flex:1,
+                position:'relative',
+            }
+        }>
+            <DataPane dataPaneContext = {this.datapanecontext}/>
+        </div>
 
     }
 
     render() {
         let { userdata } = administration
         return (
-            <div>
-                <StandardToolbar />
+            <div style = {
+                {
+                    display:'flex',
+                    flexFlow:'column nowrap',
+                    position:'fixed',
+                    top:0,
+                    right:0,
+                    bottom:0,
+                    left:0,
+                }
+            }>
+                <div><StandardToolbar /></div>
+                <div style = {
+                    {
+                        display:'flex',
+                        flexFlow:'column nowrap',
+                        flex:1
+                    }
+                }>
                 {
                     (userdata.status == 'loggedin') && (
                         <React.Fragment>
@@ -57,6 +81,7 @@ class Register extends React.Component<any,any> {
                 {(userdata.status == 'registered-user') && <p>Thanks for logging in! Now just finish registering here and you'll be all set. [pending]</p>}
                 {(userdata.status == 'signedout') && <p>Please sign in to register.</p>}
                 {((userdata.status == 'registered') || (userdata.status == 'active')) && <p>You're already registered. Nothing to do here.</p>}
+                </div>
             </div>
         )
     }
