@@ -5,12 +5,12 @@
 
 import React from 'react'
 
-import StandardToolbar from './common/standardtoolbar.view'
+import StandardToolbar from '../common/standardtoolbar.view'
 // import UserAccountActiveControls from '../services/useraccount.controldata'
 
-import administration from '../services/application'
-import docproxy from '../utilities/docproxy'
-import DataPane from './common/datapane.view'
+import administration from '../../services/application'
+import docproxy from '../../utilities/docproxy'
+import DataPane from '../common/datapane.view'
 
 class Register extends React.Component<any,any> {
 
@@ -73,7 +73,7 @@ class Register extends React.Component<any,any> {
                 {
                     (userdata.status == 'loggedin') && (
                         <React.Fragment>
-                        <p>Thanks for logging in! Now just register here and you'll be all set. [pending]</p>
+                        <p>Thanks for logging in! Now just register using the scrolling form below, and you'll be all set. [pending]</p>
                         {this.registerform()}
                         </React.Fragment>
                     )

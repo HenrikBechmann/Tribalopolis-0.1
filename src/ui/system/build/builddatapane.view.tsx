@@ -11,13 +11,13 @@ import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
 
-import application from '../../services/application'
+import application from '../../../services/application'
 import { toast } from 'react-toastify'
 
 import { 
     GetCollectionMessage,
     DocpackListPayloadMessage,
-} from '../../services/interfaces'
+} from '../../../services/interfaces'
 
 let _ = require('lodash')
 

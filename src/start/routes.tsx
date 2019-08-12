@@ -11,9 +11,9 @@ import { Route, Redirect } from 'react-router-dom'
 // import Spaces from './control/spaces'
 
 import Quadspace from '../ui/quadspace.controller'
-import Build from '../ui/build.controller'
-import Home from '../ui/home.controller'
-import Register from '../ui/register.controller'
+import Build from '../ui/system/build.controller'
+import Home from '../ui/system/home.controller'
+import Register from '../ui/system/register.controller'
 
 // import ResetPassword from '../containers/resetpassword'
 // import Register from '../containers/register'

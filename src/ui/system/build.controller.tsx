@@ -19,27 +19,27 @@ import { toast } from 'react-toastify'
 
 // import merge from 'deepmerge'
 
-import StandardToolbar from './common/standardtoolbar.view'
+import StandardToolbar from '../common/standardtoolbar.view'
 
-import BaseForm from './input/baseform.view'
-import SelectField from './input/selectfield.view'
-import TextField from './input/textfield.view'
+import BaseForm from '../input/baseform.view'
+import SelectField from '../input/selectfield.view'
+import TextField from '../input/textfield.view'
 
 // import UserDataContext from '../services/userdata.context'
-import UserAccountActiveControls from '../services/useraccount.activecontrols'
+import UserAccountActiveControls from '../../services/useraccount.activecontrols'
 
-import application from '../services/application'
-import typefilter from '../services/type.filter'
+import application from '../../services/application'
+import typefilter from '../../services/type.filter'
 
-import ActionButton from './common/actionbutton.view'
-import DataDrawer from './common/datadrawer.view'
+import ActionButton from '../common/actionbutton.view'
+import DataDrawer from '../common/datadrawer.view'
 import BuildDataPane from './build/builddatapane.view'
 
 import { 
     GetDocumentMessage, 
     SetDocumentMessage, 
     DocpackPayloadMessage,
-    DataPaneContext } from '../services/interfaces'
+    DataPaneContext } from '../../services/interfaces'
 
 const styles = theme => (createStyles({
     button: {

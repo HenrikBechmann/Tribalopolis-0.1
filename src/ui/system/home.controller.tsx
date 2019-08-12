@@ -5,7 +5,7 @@
 
 import React from 'react'
 
-import StandardToolbar from './common/standardtoolbar.view'
+import StandardToolbar from '../common/standardtoolbar.view'
 
 class Home extends React.Component<any,any> {
 
