@@ -131,13 +131,13 @@ class ToolsStrip extends React.Component<any,any> {
                     color:'cadetblue',
                 }}>
 
+                {(userdata.loginstatus == 'unresolved') && '(Resolving login status)'}
                 {(userdata.loginstatus != 'unresolved') && ((userdata.status == 'active')? // use account name if available
                     userdata.userpack.document.properties.username:
                     ((userdata.status == 'loggedin')||(userdata.status == 'registered-user'))? // otherwise try to use login data
                     ('Please register! ' + this.props.userdata.login.displayName):
                     (userdata.status == 'registered')?'Inactive account: ' + this.props.userdata.login.email:
                     'signed out')}
-                {(userdata.loginstatus == 'unresolved') && '(Resolving login status)'}
 
             </div>
             </div>}
