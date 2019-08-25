@@ -31,6 +31,7 @@ class AbstractDataPane extends React.Component<any,any> {
         this.userdata = namespace.container.userdata
         this.callbacks = namespace.container.callbacks
         this.reference && (this.docProxy = new Proxy({doctoken:{reference}}))
+        this.attributes = attributes
 
     }
 
@@ -42,6 +43,7 @@ class AbstractDataPane extends React.Component<any,any> {
 
     prerenderer:PreRenderer = null
     reference
+    attributes
     options
     // namespace
     docProxy:Proxy
@@ -72,6 +74,7 @@ class AbstractDataPane extends React.Component<any,any> {
     assertListener = () => {
         // console.log('assertListener in abstractdatapane')
         if (this.docProxy) {
+
             let parms:SetListenerMessage = 
                 {
                     doctoken:this.docProxy.doctoken,
@@ -81,9 +84,12 @@ class AbstractDataPane extends React.Component<any,any> {
                 }
 
             application.setDocpackPairListener( parms )
+
         } else {
+
             this.renderContent = <div>unable to create content</div>
             this.forceUpdate()
+
         }
     }
 
