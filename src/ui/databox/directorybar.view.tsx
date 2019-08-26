@@ -210,7 +210,7 @@ class DirectoryBar extends React.Component<any,any> {
                             e.stopPropagation()
                         )}
                         icon = 'add_circle_outline' />}
-                    {!contextitem && <ActionButton 
+                    {false && !contextitem && <ActionButton 
                         buttonStyle = {
                             {
                                 float:'none',
