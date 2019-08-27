@@ -197,7 +197,7 @@ class DirectoryBar extends React.Component<any,any> {
                         action = {e => (
                             e.stopPropagation()
                         )}
-                        icon = 'remove_circle_outline' />}
+                        icon = 'format_indent_decrease' />}
                     {!contextitem && <ActionButton 
                         buttonStyle = {
                             {
@@ -209,7 +209,7 @@ class DirectoryBar extends React.Component<any,any> {
                         action = {e => (
                             e.stopPropagation()
                         )}
-                        icon = 'add_circle_outline' />}
+                        icon = 'format_indent_increase' />}
                     {false && !contextitem && <ActionButton 
                         buttonStyle = {
                             {

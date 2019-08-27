@@ -87,6 +87,7 @@ class AbstractDataPane extends React.Component<any,any> {
 
         } else {
 
+            console.log('unable to create content props',this.props)
             this.renderContent = <div>unable to create content</div>
             this.forceUpdate()
 
