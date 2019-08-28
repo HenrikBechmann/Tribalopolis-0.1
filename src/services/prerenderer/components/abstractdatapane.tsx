@@ -72,7 +72,7 @@ class AbstractDataPane extends React.Component<any,any> {
     }
 
     assertListener = () => {
-        // console.log('assertListener in abstractdatapane')
+        // console.log('assertListener in abstractdatapane',this.props,this.docProxy)
         if (this.docProxy) {
 
             let parms:SetListenerMessage = 
@@ -86,10 +86,24 @@ class AbstractDataPane extends React.Component<any,any> {
             application.setDocpackPairListener( parms )
 
         } else {
+            let {attributes} = this
+            let { assertinstance, typereference, collection, customid } = attributes
+            if (assertinstance && typereference && collection) {
+                let parms = {
+                    typereference,
+                    collection,
+                    customid:customid || null,
+                    success:this.successAssertListener,
+                    failure:this.failureAssertListener,
+                }
+                application.setNewDocpackPairListener( parms )
+            } else {
 
-            console.log('unable to create content props',this.props)
-            this.renderContent = <div>unable to create content</div>
-            this.forceUpdate()
+                console.log('unable to create content props',this.props)
+                this.renderContent = <div>unable to create content</div>
+                this.forceUpdate()
+
+            }
 
         }
     }

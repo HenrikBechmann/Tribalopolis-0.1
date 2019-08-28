@@ -188,6 +188,10 @@ const appManager = new class {
 
     }
 
+    setNewDocpackPairListener = (parmblock) => {
+        console.log('called setNewDocpackPairListener',parmblock)
+    }
+
     setDocpackPairListener = (parmblock:SetListenerMessage) => {
 
         // console.log('setDocPackPairListener in application',parmblock )
@@ -543,6 +547,7 @@ let application = {
 
     setDocpackPairListener:appManager.setDocpackPairListener,
     removeDocpackPairListener:appManager.removeDocpackPairListener,
+    setNewDocpackPairListener:appManager.setNewDocpackPairListener,
     setDocpackListener:appManager.setDocpackListener,
     removeDocpackListener:appManager.removeDocpackListener,
     docpackIsListener:appManager.docpackIsListener,

@@ -189,6 +189,17 @@ class PreRenderer {
 
     }
 
+    private getAttributes = (attributespecs) => {
+        let attributes = {}
+        for (let attributeindex in attributespecs) {
+            let attributespec = attributespecs[attributeindex]
+            let attribute = this.getAttributeByFilter(attributespec)
+            attributes[attributeindex] = attribute
+        }
+
+        return attributes
+    }
+
     private getPropertyByFilter = (propertyspec, attributes) => {
 
         let property = propertyspec
@@ -217,6 +228,34 @@ class PreRenderer {
 
     }
 
+    private getAttributeByFilter = (attributespec) => {
+
+        let attribute = attributespec
+
+        if (!attribute) return attribute
+
+        if (utilities.isObject(attribute)) {
+            return this.getAttributeByObject(attribute)
+        }
+
+        let prepend = attribute[0]
+
+        switch (prepend) {
+
+            case '&': {
+                attribute = this.getAttributeByIndirection(attributespec)
+                break
+            }
+            case '@': {
+
+                break
+            }
+        }
+
+        return attribute
+
+    }
+
     private getPropertyByObject(propertyobject, attributes) {
         let retval = propertyobject
         if (propertyobject['#variant']) {
@@ -236,6 +275,37 @@ class PreRenderer {
                 case 'function':
                     let parms = this.getProps(propertyobject.parms, attributes)
                     retval = functions[propertyobject.function](parms)
+                    break
+                case 'context':
+                    retval = this.namespace
+                    break
+                default:
+                    retval = null
+                    break
+            }
+        }
+        return retval
+    }
+
+    private getAttributeByObject(attributeobject) {
+        let retval = attributeobject
+        if (attributeobject['#variant']) {
+            let variant = attributeobject['#variant']
+            switch (variant) {
+                case 'component':
+                    retval = this.assembleElement(attributeobject.component)
+                    break
+                
+                case 'condition':
+                    if (this.getAttributeByFilter(attributeobject.if)) {
+                        retval = this.getAttributeByFilter(attributeobject.then)
+                    } else {
+                        retval = this.getAttributeByFilter(attributeobject.else)
+                    }
+                    break
+                case 'function':
+                    let parms = this.getAttributes(attributeobject.parms)
+                    retval = functions[attributeobject.function](parms)
                     break
                 case 'context':
                     retval = this.namespace
@@ -272,6 +342,21 @@ class PreRenderer {
                     }
                 }
             }
+            return value
+        } else {
+            return undefined
+        }
+    }
+
+    private getAttributeByIndirection = (attributeSpec) => {
+
+        let path = attributeSpec.slice(1)
+        let pathlist = path.split('.')
+        let namespace = this.namespace
+        let nodedata:any = utilities.getNodePosition(namespace,pathlist)
+
+        if (nodedata) {
+            let value = nodedata.nodevalue
             return value
         } else {
             return undefined
