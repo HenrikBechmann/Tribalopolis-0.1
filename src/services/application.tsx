@@ -28,6 +28,7 @@ import merge from 'deepmerge'
 import deepdiff from 'deep-diff'
 
 import gateway from './gateway'
+import Proxy from '../utilities/docproxy'
 import { 
     GetDocumentMessage, 
     SetDocumentMessage,
@@ -190,6 +191,21 @@ const appManager = new class {
 
     setNewDocpackPairListener = (parmblock) => {
         console.log('called setNewDocpackPairListener',parmblock)
+        let { collection, customid, success, failure } = parmblock
+        // TODO change if the following is asynchronous
+        let documentid = (customid || gateway.getNewDocumentID({collection}))
+        console.log('created documentid',documentid)
+        let reference = documentid + '/' + collection
+        let docProxy = new Proxy({doctoken:{reference}})
+        let parms:SetListenerMessage = {
+            doctoken:docProxy.doctoken,
+            instanceid:docProxy.instanceid,
+            success,
+            failure,
+        }
+        console.log('setNewDocPairListener: parmblock, documentid, reference, docProxy, parms',parmblock, documentid, reference, docProxy, parms)
+        this.setDocpackPairListener(parms)
+        return docProxy
     }
 
     setDocpackPairListener = (parmblock:SetListenerMessage) => {

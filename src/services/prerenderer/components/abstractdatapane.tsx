@@ -86,7 +86,7 @@ class AbstractDataPane extends React.Component<any,any> {
             application.setDocpackPairListener( parms )
 
         } else {
-            let {attributes} = this
+            let { attributes } = this
             let { assertinstance, typereference, collection, customid } = attributes
             if (assertinstance && typereference && collection) {
                 let parms = {
@@ -96,7 +96,7 @@ class AbstractDataPane extends React.Component<any,any> {
                     success:this.successAssertListener,
                     failure:this.failureAssertListener,
                 }
-                application.setNewDocpackPairListener( parms )
+                this.docProxy = application.setNewDocpackPairListener( parms )
             } else {
 
                 console.log('unable to create content props',this.props)

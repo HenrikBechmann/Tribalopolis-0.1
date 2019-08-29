@@ -254,6 +254,11 @@ const getNewDocument = (parmblock:GetDocumentMessage) => {
     })
 }
 
+const getNewDocumentID = (parmblock) => {
+    let { collection } = parmblock
+    return firestore.collection(collection).doc()
+}
+
 const queryForDocument = (parmblock:GetDocumentMessage) => {
 
     let {reference, whereclauses, success, failure} = parmblock
@@ -368,6 +373,7 @@ let gateway = {
     // get
     getDocument,
     getNewDocument,
+    getNewDocumentID,
     queryForDocument,
     getCollection,
     // get asynchronousely, including triggered updates
