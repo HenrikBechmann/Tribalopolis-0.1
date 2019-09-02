@@ -215,16 +215,16 @@ const appManager = new class {
             success,
             failure,
         }
-        console.log('setNewDocPairListener results: parmblock, documentid, reference, docProxy, parms',parmblock, documentid, reference, docProxy, parms)
+        console.log('setNewDocpackPairListener results: parmblock, documentid, reference, docProxy, parms',parmblock, documentid, reference, docProxy, parms)
         this.setDocpackPairListener(parms)
         return docProxy
     }
 
     setDocpackPairListener = (parmblock:SetListenerMessage) => {
 
-        console.log('setDocPackPairListener in application',parmblock )
+        console.log('setDocpackPairListener in application',parmblock )
         let {doctoken, instanceid, success, failure, newdocument} = parmblock
-        setTimeout(()=>{ // give animations a chance to run
+        setTimeout(()=>{ // give animations a chance to run ??
 
             let reference = doctoken.reference 
 
@@ -233,6 +233,8 @@ const appManager = new class {
             docpackCache.addPairedListener(reference, instanceid, success, failure, newdocument)
 
             let cachedata = docpackCache.getCacheDocpackPair(reference, newdocument)
+
+            console.log('cachedata in setDocpackPairListener',cachedata)
 
             if (cachedata.docpack && cachedata.typepack) { // defer if waiting for type
                 let docpack:DocPackStruc = cachedata.docpack

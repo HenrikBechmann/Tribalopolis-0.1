@@ -71,7 +71,7 @@ class AbstractDataPane extends React.Component<any,any> {
 
     }
 
-    assertListener = () => {
+    private assertListener = () => {
         console.log('assertListener in abstractdatapane:this.props,this.docProxy',this.props,this.docProxy)
         if (this.docProxy) {
 
@@ -109,8 +109,9 @@ class AbstractDataPane extends React.Component<any,any> {
         }
     }
 
-    successAssertListener = (parmblock:DocpackPairPayloadMessage) => {
+    private successAssertListener = (parmblock:DocpackPairPayloadMessage) => {
 
+        console.log('abstractdatapane successAssertListener: parmblock',parmblock)
         let {docpack, typepack, reason} = parmblock
         // console.log('abstractdatapane cacheDocPair', parmblock)
         // database type data namespace
@@ -145,7 +146,7 @@ class AbstractDataPane extends React.Component<any,any> {
 
     }
 
-    failureAssertListener = (error,reason) => {
+    private failureAssertListener = (error,reason) => {
         console.log('abstractdatapane failureAssertListener',error,reason)
     }
 
