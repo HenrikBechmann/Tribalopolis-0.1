@@ -191,15 +191,23 @@ const appManager = new class {
 
     setNewDocpackPairListener = (parmblock) => {
         console.log('called setNewDocpackPairListener',parmblock)
-        let { collection, customid, success, failure } = parmblock
+        let { collection, customid, success, failure, typereference } = parmblock
         // TODO change if the following is asynchronous
-        let documentid = (customid || gateway.getNewDocumentID({collection}))
+        let documentid
+        if (!customid) {
+            let documentref = (customid || gateway.getNewDocumentRef({collection}))
+            console.log('created documentref',documentref)
+            documentid = documentref.id
+        } else {
+            documentid = customid
+        }
         console.log('created documentid',documentid)
-        let reference = documentid + '/' + collection
+        let reference = collection + '/' + documentid
         let docProxy = new Proxy({doctoken:{reference}})
         let parms:SetListenerMessage = {
             doctoken:docProxy.doctoken,
             instanceid:docProxy.instanceid,
+            typereference,
             success,
             failure,
         }
@@ -211,16 +219,16 @@ const appManager = new class {
     setDocpackPairListener = (parmblock:SetListenerMessage) => {
 
         // console.log('setDocPackPairListener in application',parmblock )
-        let {doctoken, instanceid, success, failure} = parmblock
+        let {doctoken, instanceid, success, failure, typereference} = parmblock
         setTimeout(()=>{ // give animations a chance to run
 
             let reference = doctoken.reference 
 
             if (this.setCallbackSentinalToContinue(instanceid) === BLOCK) return
 
-            docpackCache.addPairedListener(reference, instanceid, success, failure)
+            docpackCache.addPairedListener(reference, instanceid, success, failure, typereference)
 
-            let cachedata = docpackCache.getCacheDocpackPair(reference)
+            let cachedata = docpackCache.getCacheDocpackPair(reference, typereference)
 
             if (cachedata.docpack && cachedata.typepack) { // defer if waiting for type
                 let docpack:DocPackStruc = cachedata.docpack

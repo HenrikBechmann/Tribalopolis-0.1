@@ -40,6 +40,8 @@ let firestore = firebase.firestore()
 const setDocumentListener = (parmblock:GetDocumentMessage) => {
     let data
 
+    console.log('gatway setDocumentListener parmblock',parmblock)
+
     let {reference, success, failure, paired} = parmblock
 
     if (!reference) {
@@ -241,8 +243,16 @@ const getNewDocument = (parmblock:GetDocumentMessage) => {
 
         let document = doc.data()
         let id = doc.id
-        let docpack:DocPackStruc = {document,reference:reference + '/' + id}
-        let payload:DocpackPayloadMessage = {docpack, reason:{sourceparms:parmblock}}
+        let docpack:DocPackStruc = {
+            document,
+            reference:reference + '/' + id
+        }
+        let payload:DocpackPayloadMessage = {
+            docpack, 
+            reason:{
+                sourceparms:parmblock
+            }
+        }
         success(payload)
     })
     .catch((error)=> {
@@ -254,7 +264,7 @@ const getNewDocument = (parmblock:GetDocumentMessage) => {
     })
 }
 
-const getNewDocumentID = (parmblock) => {
+const getNewDocumentRef = (parmblock) => {
     let { collection } = parmblock
     return firestore.collection(collection).doc()
 }
@@ -373,7 +383,7 @@ let gateway = {
     // get
     getDocument,
     getNewDocument,
-    getNewDocumentID,
+    getNewDocumentRef,
     queryForDocument,
     getCollection,
     // get asynchronousely, including triggered updates

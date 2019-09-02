@@ -90,7 +90,7 @@ const docpackCache = new class {
         }
     }
 
-    private getItem = (reference, failure, paired) => {
+    private getItem = (reference, failure, paired, typereference = null) => {
 
         let cacheitem
 
@@ -106,7 +106,11 @@ const docpackCache = new class {
             // connect to data source
             let parmblock:SetGatewayListenerMessage = {
 
-                reference, success:this.successGetItem, failure:this.failureGetItemFunc(failure), paired
+                reference, 
+                success:this.successGetItem, 
+                failure:this.failureGetItemFunc(failure), 
+                paired,
+                typereference,
 
             }
             // console.log('docpackcache calling gateway.setDocumentListener',parmblock)
@@ -212,6 +216,8 @@ const docpackCache = new class {
     */
     public successGetItem = ( parmblock:DocpackPayloadMessage ) => {
 
+        console.log('docpackcache successGetItem',parmblock)
+
         let {docpack, reason} = parmblock
         // set or update document
         let cacheitem = this.getExistingItem(docpack.reference)
@@ -222,11 +228,13 @@ const docpackCache = new class {
 
         cacheitem.docpack = docpack
 
-        if ( reason.sourceparms.paired && this.isPaired(docpack.document)) {
+        let { paired, typereference } = reason.sourceparms
 
-            let oldtyperef = olddocpack? olddocpack.document.control_type_reference:null
+        if ( reason.sourceparms.paired && (typereference || this.isPaired(docpack.document))) {
 
-            let typeref = docpack.document.control_type_reference?docpack.document.control_type_reference:null; // all documents have a type
+            let oldtyperef = (olddocpack && olddocpack.document)? olddocpack.document.control_type_reference:null
+
+            let typeref = typereference || (docpack.document.control_type_reference?docpack.document.control_type_reference:null); // all documents have a type
 
             (oldtyperef && (oldtyperef !== typeref)) && typepackCache.removeListener(oldtyperef,docpack.reference)
 
@@ -256,15 +264,16 @@ const docpackCache = new class {
         }
     }
 
-    public addPairedListener = (reference, instanceid, callback, failure) => {
+    public addPairedListener = (reference, instanceid, callback, failure, typereference) => {
 
         // console.log('addPairedListener in docpackcache',reference,instanceid,callback,failure )
 
-        let cacheitem = this.getItem(reference, failure, PAIRED_LISTENER)
+        let cacheitem = this.getItem(reference, failure, PAIRED_LISTENER, typereference)
 
         cacheitem.listeners.set(instanceid,callback)
 
     }
+
     public addListener = (reference, instanceid, callback, failure) => {
 
         let cacheitem = this.getItem(reference, failure, NOT_PAIRED_LISTENER)
@@ -328,7 +337,7 @@ const docpackCache = new class {
         return docpack
     }
 
-    public getCacheDocpackPair = reference => {
+    public getCacheDocpackPair = (reference, typereference = null) => {
 
         let cacheitem = this.getExistingItem(reference)
         let docpack:DocPackStruc = (cacheitem && cacheitem.docpack)?cacheitem.docpack:null
@@ -340,7 +349,7 @@ const docpackCache = new class {
             // TODO this next two lines should become errors if no typeref or type found
             // typeref = docpack.document.control.type?docpack.document.control.type.reference:null
 
-            typeref = docpack.document.control_type_reference?docpack.document.control_type_reference:null
+            typeref = docpack.document.control_type_reference?docpack.document.control_type_reference:typereference
 
             typepack = typeref?typepackCache.getCacheDocpack(typeref):{} as DocPackStruc
 
