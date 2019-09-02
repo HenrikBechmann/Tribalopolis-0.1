@@ -72,7 +72,7 @@ class AbstractDataPane extends React.Component<any,any> {
     }
 
     assertListener = () => {
-        // console.log('assertListener in abstractdatapane',this.props,this.docProxy)
+        console.log('assertListener in abstractdatapane:this.props,this.docProxy',this.props,this.docProxy)
         if (this.docProxy) {
 
             let parms:SetListenerMessage = 
@@ -87,6 +87,7 @@ class AbstractDataPane extends React.Component<any,any> {
 
         } else {
             let { attributes } = this
+            console.log('assertListener no docProxy: ',attributes)
             let { assertinstance, typereference, collection, customid } = attributes
             if (assertinstance && typereference && collection) {
                 let parms = {

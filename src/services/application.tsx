@@ -190,19 +190,19 @@ const appManager = new class {
     }
 
     setNewDocpackPairListener = (parmblock) => {
-        console.log('called setNewDocpackPairListener',parmblock)
+        console.log('in setNewDocpackPairListener',parmblock)
         let { collection, customid, success, failure, typereference } = parmblock
         // TODO change if the following is asynchronous
         let documentid
         if (!customid) {
             let documentref = (customid || gateway.getNewDocumentRef({collection}))
-            console.log('created documentref',documentref)
+            // console.log('created documentref',documentref)
             documentid = documentref.id
         } else {
             documentid = customid
         }
-        console.log('created documentid',documentid)
         let reference = collection + '/' + documentid
+        console.log('created new document reference',reference)
         let docProxy = new Proxy({doctoken:{reference}})
         let newdocument = {
             reference,
@@ -215,14 +215,14 @@ const appManager = new class {
             success,
             failure,
         }
-        console.log('setNewDocPairListener: parmblock, documentid, reference, docProxy, parms',parmblock, documentid, reference, docProxy, parms)
+        console.log('setNewDocPairListener results: parmblock, documentid, reference, docProxy, parms',parmblock, documentid, reference, docProxy, parms)
         this.setDocpackPairListener(parms)
         return docProxy
     }
 
     setDocpackPairListener = (parmblock:SetListenerMessage) => {
 
-        // console.log('setDocPackPairListener in application',parmblock )
+        console.log('setDocPackPairListener in application',parmblock )
         let {doctoken, instanceid, success, failure, newdocument} = parmblock
         setTimeout(()=>{ // give animations a chance to run
 

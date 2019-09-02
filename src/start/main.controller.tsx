@@ -402,7 +402,7 @@ class Main extends React.Component<any,any> {
 
     userDocumentPairSuccess = ({docpack,typepack,reason}:DocpackPairPayloadMessage) => {
 
-        // console.log('userDocumentPairSuccess',docpack,typepack,reason)
+        console.log('userDocumentPairSuccess',docpack,typepack,reason)
 
         if (docpack.document === undefined) {
             this.userDocumentFailure('no user record')
@@ -468,7 +468,7 @@ class Main extends React.Component<any,any> {
 
     userClaimsDocumentSuccess = ({docpack, reason}:DocpackPayloadMessage) => {
 
-        // console.log('userClaimsDocumentSuccess',docpack,reason)
+        console.log('userClaimsDocumentSuccess',docpack,reason)
         if ((!this.state.userclaimspack) || this.updatinguserdata) {
 
             this.promises.userclaims.resolve(docpack)
@@ -566,7 +566,7 @@ class Main extends React.Component<any,any> {
             accounttype:this.userAccountTypePack,
         })
 
-        // console.log('new or updated userdata',userdata)
+        console.log('new or updated userdata',userdata)
 
         application.userdata = userdata // memoize
 

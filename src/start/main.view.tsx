@@ -9,12 +9,10 @@
 'use strict'
 
 import React from 'react'
+import { createBrowserHistory } from 'history'
+import { Router } from 'react-router-dom'
 
 import RouteController from './route.controller'
-
-import { createBrowserHistory } from 'history'
-
-import { Router } from 'react-router-dom'
 
 const customHistory = createBrowserHistory()
 
