@@ -165,7 +165,7 @@ const getSnapshot = (parmblock:GetDocumentMessage) => {
             reason:{sourceparms:parmblock}
         }
 
-        // console.log('calling success in getSnapshot',payload)
+        console.log('calling success in getSnapshot',payload)
 
         success(payload)
 
