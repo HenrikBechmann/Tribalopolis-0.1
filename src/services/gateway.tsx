@@ -40,7 +40,7 @@ let firestore = firebase.firestore()
 const setDocumentListener = (parmblock:GetDocumentMessage) => {
     let data
 
-    console.log('gatway setDocumentListener parmblock',parmblock)
+    console.log('gateway setDocumentListener parmblock',parmblock)
 
     let {reference, success, failure, paired} = parmblock
 

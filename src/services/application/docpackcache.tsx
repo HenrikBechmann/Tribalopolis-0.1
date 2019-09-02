@@ -90,7 +90,7 @@ const docpackCache = new class {
         }
     }
 
-    private getItem = (reference, failure, paired, typereference = null) => {
+    private getItem = (reference, failure, paired, newdocument = null) => {
 
         let cacheitem
 
@@ -110,7 +110,7 @@ const docpackCache = new class {
                 success:this.successGetItem, 
                 failure:this.failureGetItemFunc(failure), 
                 paired,
-                typereference,
+                newdocument,
 
             }
             // console.log('docpackcache calling gateway.setDocumentListener',parmblock)
@@ -171,6 +171,8 @@ const docpackCache = new class {
         let documentcacheitem = this.getExistingItem(reference)
 
         if (!documentcacheitem) return
+
+        console.log('docpackcache processPairListeners: reference, reason, documentcacheitem',reference, reason, documentcacheitem)
 
         let {docpack,typepack}:{docpack:DocPackStruc,typepack:DocPackStruc} = this.getCacheDocpackPair(reference)
 
@@ -264,11 +266,11 @@ const docpackCache = new class {
         }
     }
 
-    public addPairedListener = (reference, instanceid, callback, failure, typereference) => {
+    public addPairedListener = (reference, instanceid, callback, failure, newdocument) => {
 
         // console.log('addPairedListener in docpackcache',reference,instanceid,callback,failure )
 
-        let cacheitem = this.getItem(reference, failure, PAIRED_LISTENER, typereference)
+        let cacheitem = this.getItem(reference, failure, PAIRED_LISTENER, newdocument)
 
         cacheitem.listeners.set(instanceid,callback)
 
@@ -337,12 +339,14 @@ const docpackCache = new class {
         return docpack
     }
 
-    public getCacheDocpackPair = (reference, typereference = null) => {
+    public getCacheDocpackPair = (reference, newdocument = null) => {
 
         let cacheitem = this.getExistingItem(reference)
         let docpack:DocPackStruc = (cacheitem && cacheitem.docpack)?cacheitem.docpack:null
         let typepack:DocPackStruc = null
         let typeref = null
+
+        let typereference = (newdocument && newdocument.typereference) || null
 
         if (docpack && docpack.document) {
 

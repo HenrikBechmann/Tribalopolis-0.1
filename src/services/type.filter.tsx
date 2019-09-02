@@ -42,6 +42,10 @@ const typefilter = new class {
 
         let localdocument:any = document
 
+        // if ((document === undefined) && type && type.properties.model) {
+        //     localdocument = {}
+        // }
+
         // the document and its type are required to evaluate the document for update
         if ((!document) || (!type) || (!type.properties.model)) {
             return {

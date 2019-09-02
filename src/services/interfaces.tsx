@@ -45,7 +45,7 @@ export interface SetListenerMessage {
     instanceid:number,
     success:Function,
     failure:Function,
-    typereference?:string,
+    newdocument?:GenericObject,
 }
 
 export interface RemoveListenerMessage {
@@ -78,7 +78,7 @@ export interface SetGatewayListenerMessage {
     success:Function,
     failure:Function,
     paired:Boolean,
-    typereference?:string,
+    newdocument?:GenericObject,
 }
 
 export interface RemoveGatewayListenerMessage {
