@@ -74,7 +74,6 @@ class AbstractDataPane extends React.Component<any,any> {
     private assertListener = () => {
         console.log('assertListener in abstractdatapane:this.props,this.docProxy',this.props,this.docProxy)
         if (this.docProxy) {
-
             let parms:SetListenerMessage = 
                 {
                     doctoken:this.docProxy.doctoken,
@@ -82,12 +81,11 @@ class AbstractDataPane extends React.Component<any,any> {
                     success:this.successAssertListener,
                     failure:this.failureAssertListener,
                 }
-
+            console.log('assertListener with docProxy: docProxy, parms',this.docProxy,parms)
             application.setDocpackPairListener( parms )
 
         } else {
             let { attributes } = this
-            console.log('assertListener no docProxy: ',attributes)
             let { assertinstance, typereference, collection, customid } = attributes
             if (assertinstance && typereference && collection) {
                 let parms = {
@@ -97,6 +95,7 @@ class AbstractDataPane extends React.Component<any,any> {
                     success:this.successAssertListener,
                     failure:this.failureAssertListener,
                 }
+                console.log('assertListener no docProxy: attributes, parms',attributes, parms)
                 this.docProxy = application.setNewDocpackPairListener( parms )
             } else {
 

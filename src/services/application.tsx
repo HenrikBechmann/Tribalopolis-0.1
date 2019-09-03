@@ -224,9 +224,11 @@ const appManager = new class {
 
         console.log('setDocpackPairListener in application',parmblock )
         let {doctoken, instanceid, success, failure, newdocument} = parmblock
-        setTimeout(()=>{ // give animations a chance to run ??
+        // setTimeout(()=>{ // give animations a chance to run ??
 
             let reference = doctoken.reference 
+
+            console.log('SENTINEL block',(this.setCallbackSentinalToContinue(instanceid) === BLOCK))
 
             if (this.setCallbackSentinalToContinue(instanceid) === BLOCK) return
 
@@ -255,7 +257,7 @@ const appManager = new class {
 
             }
 
-        })
+        // })
 
     }
 
