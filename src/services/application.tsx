@@ -224,38 +224,39 @@ const appManager = new class {
 
         console.log('setDocpackPairListener in application',parmblock )
         let {doctoken, instanceid, success, failure, newdocument} = parmblock
+        
         // setTimeout(()=>{ // give animations a chance to run ??
 
-            let reference = doctoken.reference 
+        let reference = doctoken.reference 
 
-            console.log('SENTINEL block',(this.setCallbackSentinalToContinue(instanceid) === BLOCK))
+        console.log('SENTINEL blocking = ',(this.setCallbackSentinalToContinue(instanceid) === BLOCK))
 
-            if (this.setCallbackSentinalToContinue(instanceid) === BLOCK) return
+        if (this.setCallbackSentinalToContinue(instanceid) === BLOCK) return
 
-            docpackCache.addPairedListener(reference, instanceid, success, failure, newdocument)
+        docpackCache.addPairedListener(reference, instanceid, success, failure, newdocument)
 
-            let cachedata = docpackCache.getCacheDocpackPair(reference, newdocument)
+        let cachedata = docpackCache.getCacheDocpackPair(reference, newdocument)
 
-            console.log('cachedata in setDocpackPairListener',cachedata)
+        console.log('cachedata in setDocpackPairListener',cachedata)
 
-            if (cachedata.docpack && cachedata.typepack) { // defer if waiting for type
-                let docpack:DocPackStruc = cachedata.docpack
+        if (cachedata.docpack && cachedata.typepack) { // defer if waiting for type
+            let docpack:DocPackStruc = cachedata.docpack
 
-                let parmblock:DocpackPairPayloadMessage = {
-                    docpack, 
-                    typepack:cachedata.typepack, 
-                    reason:{
-                        documents:{
-                            reason:'newcallback',
-                            document:true, 
-                            type:true,
-                        }
+            let parmblock:DocpackPairPayloadMessage = {
+                docpack, 
+                typepack:cachedata.typepack, 
+                reason:{
+                    documents:{
+                        reason:'newcallback',
+                        document:true, 
+                        type:true,
                     }
                 }
-
-                success(parmblock)
-
             }
+
+            success(parmblock)
+
+        }
 
         // })
 

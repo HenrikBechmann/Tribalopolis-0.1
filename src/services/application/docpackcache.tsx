@@ -230,9 +230,11 @@ const docpackCache = new class {
 
         cacheitem.docpack = docpack
 
-        let { paired, typereference } = reason.sourceparms
+        let { paired, newdocument } = reason.sourceparms
 
-        if ( reason.sourceparms.paired && (typereference || this.isPaired(docpack.document))) {
+        let typereference = (newdocument?newdocument.typereference:null)
+
+        if ( paired && (typereference || this.isPaired(docpack.document))) {
 
             let oldtyperef = (olddocpack && olddocpack.document)? olddocpack.document.control_type_reference:null
 
@@ -346,18 +348,28 @@ const docpackCache = new class {
         let typepack:DocPackStruc = null
         let typeref = null
 
-        let typereference = (newdocument && newdocument.typereference) || null
+        // let typereference = (newdocument && newdocument.typereference) || null
 
-        if (docpack && docpack.document) {
+        if (newdocument) {
 
-            // TODO this next two lines should become errors if no typeref or type found
-            // typeref = docpack.document.control.type?docpack.document.control.type.reference:null
+            typeref = (newdocument && newdocument.typereference) || null
 
-            typeref = docpack.document.control_type_reference?docpack.document.control_type_reference:typereference
+        } else {
 
-            typepack = typeref?typepackCache.getCacheDocpack(typeref):{} as DocPackStruc
+            if (docpack && docpack.document) {
+
+                // TODO this next two lines should become errors if no typeref or type found
+                // typeref = docpack.document.control.type?docpack.document.control.type.reference:null
+
+                typeref = docpack.document.control_type_reference?docpack.document.control_type_reference:null
+
+            }
 
         }
+
+        console.log('docpackcache getCacheDocpackPair: reference, typeref, newdocument',reference, typeref, newdocument)
+
+        typepack = typeref?typepackCache.getCacheDocpack(typeref):{} as DocPackStruc
 
         let cachedata = {
             docpack,
