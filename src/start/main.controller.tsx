@@ -402,9 +402,10 @@ class Main extends React.Component<any,any> {
 
     userDocumentPairSuccess = ({docpack,typepack,reason}:DocpackPairPayloadMessage) => {
 
-        console.log('userDocumentPairSuccess',docpack,typepack,reason)
+        // console.log('userDocumentPairSuccess',docpack,typepack,reason)
 
         if (docpack.document === undefined) {
+            application.removeDocpackPairListener({doctoken:this.userDocProxy.doctoken, instanceid:this.userDocProxy.instanceid})
             this.userDocumentFailure('no user record')
             return
         }
@@ -468,7 +469,7 @@ class Main extends React.Component<any,any> {
 
     userClaimsDocumentSuccess = ({docpack, reason}:DocpackPayloadMessage) => {
 
-        console.log('userClaimsDocumentSuccess',docpack,reason)
+        // console.log('userClaimsDocumentSuccess',docpack,reason)
         if ((!this.state.userclaimspack) || this.updatinguserdata) {
 
             this.promises.userclaims.resolve(docpack)

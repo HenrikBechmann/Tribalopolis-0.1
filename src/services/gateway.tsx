@@ -40,7 +40,7 @@ let firestore = firebase.firestore()
 const setDocumentListener = (parmblock:GetDocumentMessage) => {
     let data
 
-    console.log('gateway setDocumentListener parmblock',parmblock)
+    // console.log('gateway setDocumentListener parmblock',parmblock)
 
     let {reference, success, failure, paired} = parmblock
 
@@ -167,7 +167,7 @@ const getSnapshot = (parmblock:GetDocumentMessage) => {
             reason:{sourceparms:parmblock}
         }
 
-        console.log('calling success in getSnapshot',payload)
+        // console.log('calling success in getSnapshot',payload)
 
         success(payload)
 

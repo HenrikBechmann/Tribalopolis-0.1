@@ -36,6 +36,7 @@ import {
     GetCollectionMessage,
 
     SetListenerMessage,
+    SetNewListenerMessage,
     RemoveListenerMessage,
 
     DocpackPayloadMessage,
@@ -189,20 +190,21 @@ const appManager = new class {
 
     }
 
-    setNewDocpackPairListener = (parmblock) => {
-        console.log('in setNewDocpackPairListener',parmblock)
+    // this maps collection, documentid and typereference to message for setDocpackPairListener
+    setNewDocpackPairListener = (parmblock:SetNewListenerMessage) => {
+        // console.log('in setNewDocpackPairListener',parmblock)
         let { collection, customid, success, failure, typereference } = parmblock
         // TODO change if the following is asynchronous
-        let documentid
+        let documentid:string
         if (!customid) {
-            let documentref = (customid || gateway.getNewDocumentRef({collection}))
+            let documentref = gateway.getNewDocumentRef({collection})
             // console.log('created documentref',documentref)
             documentid = documentref.id
         } else {
             documentid = customid
         }
         let reference = collection + '/' + documentid
-        console.log('created new document reference',reference)
+        // console.log('created new document reference',reference)
         let docProxy = new Proxy({doctoken:{reference}})
         let newdocument = {
             reference,
@@ -215,29 +217,28 @@ const appManager = new class {
             success,
             failure,
         }
-        console.log('setNewDocpackPairListener results: parmblock, documentid, reference, docProxy, parms',parmblock, documentid, reference, docProxy, parms)
+        // console.log('setNewDocpackPairListener results: parmblock, documentid, reference, docProxy, parms',parmblock, documentid, reference, docProxy, parms)
         this.setDocpackPairListener(parms)
         return docProxy
     }
 
     setDocpackPairListener = (parmblock:SetListenerMessage) => {
 
-        console.log('setDocpackPairListener in application',parmblock )
+        // console.log('setDocpackPairListener in application',parmblock )
         let {doctoken, instanceid, success, failure, newdocument} = parmblock
         
-        // setTimeout(()=>{ // give animations a chance to run ??
-
         let reference = doctoken.reference 
 
-        console.log('SENTINEL blocking = ',(this.setCallbackSentinalToContinue(instanceid) === BLOCK))
+        // console.log('SENTINEL blocking = ',(this.setCallbackSentinalToContinue(instanceid) === BLOCK))
 
         if (this.setCallbackSentinalToContinue(instanceid) === BLOCK) return
 
+        // this initiates a call for the type document
         docpackCache.addPairedListener(reference, instanceid, success, failure, newdocument)
 
         let cachedata = docpackCache.getCacheDocpackPair(reference, newdocument)
 
-        console.log('cachedata in setDocpackPairListener',cachedata)
+        // console.log('application setDocpackPairListener: cachedata, parmblock',cachedata, parmblock)
 
         if (cachedata.docpack && cachedata.typepack) { // defer if waiting for type
             let docpack:DocPackStruc = cachedata.docpack
@@ -257,8 +258,6 @@ const appManager = new class {
             success(parmblock)
 
         }
-
-        // })
 
     }
 

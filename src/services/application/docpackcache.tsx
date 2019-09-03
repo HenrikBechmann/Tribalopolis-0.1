@@ -170,11 +170,13 @@ const docpackCache = new class {
 
         let documentcacheitem = this.getExistingItem(reference)
 
+        // console.log('ENTER docpackcache processPairListeners: reference, reason, documentcacheitem',reference, reason, documentcacheitem)
         if (!documentcacheitem) return
 
-        console.log('docpackcache processPairListeners: reference, reason, documentcacheitem',reference, reason, documentcacheitem)
+        let {docpack,typepack}:{docpack:DocPackStruc,typepack:DocPackStruc} = this.getCacheDocpackPair(reference, reason.sourceparms.newdocument)
 
-        let {docpack,typepack}:{docpack:DocPackStruc,typepack:DocPackStruc} = this.getCacheDocpackPair(reference)
+        // console.log('docpackcache processPairListeners: docpack, typepack',
+            // reference, reason, documentcacheitem, docpack, typepack)
 
         if (typepack) {
 
@@ -218,11 +220,11 @@ const docpackCache = new class {
     */
     public successGetItem = ( parmblock:DocpackPayloadMessage ) => {
 
-        console.log('docpackcache successGetItem',parmblock)
-
         let {docpack, reason} = parmblock
         // set or update document
         let cacheitem = this.getExistingItem(docpack.reference)
+
+        // console.log('docpackcache successGetItem: parmblock, cacheitem',parmblock, cacheitem)
 
         if (!cacheitem) return // async
 
@@ -232,20 +234,22 @@ const docpackCache = new class {
 
         let { paired, newdocument } = reason.sourceparms
 
-        let typereference = (newdocument?newdocument.typereference:null)
-
-        if ( paired && (typereference || this.isPaired(docpack.document))) {
+        if ( paired && (newdocument || this.isPaired(docpack.document))) {
 
             let oldtyperef = (olddocpack && olddocpack.document)? olddocpack.document.control_type_reference:null
 
-            let typeref = typereference || (docpack.document.control_type_reference?docpack.document.control_type_reference:null); // all documents have a type
+            let typereference = (newdocument?newdocument.typereference:null)
+
+            let typeref = (typereference || (docpack.document.control_type_reference?docpack.document.control_type_reference:null)); // all documents have a type
 
             (oldtyperef && (oldtyperef !== typeref)) && typepackCache.removeListener(oldtyperef,docpack.reference)
+
+            // console.log('docpackcache successGetItem calling typepackCache.addListener: typeref, reference',typeref, docpack.reference)
 
             // will only create if doesn't already exist
             // processPairListeners invoked first time
             // typeref && // must exist!
-            typepackCache.addListener(typeref, docpack.reference, this.processPairListeners, reason.sourceparms.failure) 
+            typepackCache.addListener(typeref, docpack.reference, this.typepackCacheSuccessFunc(docpack.reference, reason), reason.sourceparms.failure) 
 
             // will not process without type (including first time)
             this.processPairListeners(docpack.reference,reason) 
@@ -256,6 +260,12 @@ const docpackCache = new class {
 
         }
 
+    }
+
+    private typepackCacheSuccessFunc = (localreference, localreason) => {
+        return (reference, reason) => {
+            this.processPairListeners(localreference,localreason)
+        }
     }
 
     private failureGetItemFunc = (failure) => {
@@ -367,9 +377,9 @@ const docpackCache = new class {
 
         }
 
-        console.log('docpackcache getCacheDocpackPair: reference, typeref, newdocument',reference, typeref, newdocument)
+        typepack = typeref?typepackCache.getCacheDocpack(typeref):null // {} as DocPackStruc
 
-        typepack = typeref?typepackCache.getCacheDocpack(typeref):{} as DocPackStruc
+        // console.log('docpackcache getCacheDocpackPair: reference, typeref, newdocument, docpack, typepack',reference, typeref, newdocument, docpack, typepack)
 
         let cachedata = {
             docpack,

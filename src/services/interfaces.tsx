@@ -48,6 +48,14 @@ export interface SetListenerMessage {
     newdocument?:GenericObject,
 }
 
+export interface SetNewListenerMessage {
+    typereference:string,
+    collection:string,
+    customid?:string,
+    success:Function,
+    failure:Function,
+}
+
 export interface RemoveListenerMessage {
     doctoken:DocTokenStruc,
     instanceid:number,

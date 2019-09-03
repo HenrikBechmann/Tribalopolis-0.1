@@ -87,8 +87,9 @@ const typepackCache = new class {
 
     successGetItem = ( {docpack, reason}:DocpackPayloadMessage ) => {
 
-        let typedoc = docpack || ({} as DocPackStruc)
+        let typedoc = (docpack || ({} as DocPackStruc))
         let cacheitem = this.cache.get(typedoc.reference)
+
         let listeners = null
 
         if (cacheitem) {
@@ -97,6 +98,8 @@ const typepackCache = new class {
             listeners = cacheitem.listeners
 
         }
+
+        // console.log('typepackcache successGetItem: docpack, reason, typedoc, cacheitem, listeners',docpack,reason, typedoc, cacheitem, listeners)
 
         if (listeners) {
 
