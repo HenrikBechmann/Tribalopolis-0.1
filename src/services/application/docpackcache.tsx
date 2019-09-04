@@ -377,7 +377,7 @@ const docpackCache = new class {
 
         }
 
-        typepack = typeref?typepackCache.getCacheDocpack(typeref):null // {} as DocPackStruc
+        typepack = typeref?typepackCache.getCacheDocpack(typeref):{} as DocPackStruc // TODO: {} required for local prototype data
 
         // console.log('docpackcache getCacheDocpackPair: reference, typeref, newdocument, docpack, typepack',reference, typeref, newdocument, docpack, typepack)
 
