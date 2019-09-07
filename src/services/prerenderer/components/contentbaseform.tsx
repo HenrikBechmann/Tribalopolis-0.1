@@ -19,6 +19,12 @@ import ContentGroup from './contentgroup'
 import { toast } from 'react-toastify'
 
 /*
+    TODO:
+    add setupPostDocument message to send to contentbase form, to configure 
+    responses to user.
+    reconcile with registerCalldowns
+*/
+/*
     patterned after first demo https://material-ui.com/demos/selects/ for 3.03
     use Typsecript fixes from here: https://material-ui.com/guides/typescript/
 */
@@ -44,7 +50,7 @@ class ContentBaseForm extends React.Component<any,any> {
     constructor(props) {
         super(props)
         // initialize state values
-        let { children, context, documentmap, fieldsets, groups, registerCalldowns } = props
+        let { children, context, documentmap, fieldsets, groups, registerCalldowns, setupPostDocument } = props
 
         // save props to class
         if (context) {this.documentcontext = context}
