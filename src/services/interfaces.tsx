@@ -16,6 +16,14 @@ Struc: as data structure specifying an object/document
 ------------------------[ OPERATIONS ]--------------------------
 ***************************************************************/
 
+// posting messages
+export interface PostDocument {
+    formcontext:GenericObject,
+    statecontext:GenericObject,
+    success:Function,
+    failure:Function,
+}
+
 // application outbound messages
 
 export interface GetDocumentMessage {

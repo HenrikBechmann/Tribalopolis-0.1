@@ -11,6 +11,8 @@ import utlities from '../../../utilities/utilities'
 import { withStyles, createStyles } from '@material-ui/core/styles'
 import Button from '@material-ui/core/Button'
 
+import { PostDocument } from '../../interfaces'
+
 import application from '../../application'
 import ContentGroup from './contentgroup'
 
@@ -219,6 +221,16 @@ class ContentBaseForm extends React.Component<any,any> {
         return newchildren
     }
 
+    postDocument = () => {
+        let message:PostDocument = {
+            formcontext:this.formcontext,
+            statecontext:this.state,
+            success:this.onSubmitSuccess,
+            failure:this.onSubmitFailure,
+        }
+        return message
+    }
+
     onSubmit = () => {
 
         // let document = merge({},this.formcontext.document)
@@ -252,10 +264,12 @@ class ContentBaseForm extends React.Component<any,any> {
 
     onSubmitSuccess = () => {
         toast.success('document has been posted')
+        return true
     }
 
     onSubmitFailure = () => {
         toast.error('document posting has failed')
+        return true
     }
 
     onChangeValue = event => {
