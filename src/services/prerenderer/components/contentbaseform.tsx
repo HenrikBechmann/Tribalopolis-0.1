@@ -44,13 +44,15 @@ class ContentBaseForm extends React.Component<any,any> {
     constructor(props) {
         super(props)
         // initialize state values
-        let { children, context, documentmap, fieldsets, groups } = props
+        let { children, context, documentmap, fieldsets, groups, registerCalldowns } = props
 
         // save props to class
         if (context) {this.formcontext = context}
         this.documentmap = documentmap
         this.fieldsetprops = fieldsets || []
         this.groupprops = groups || []
+
+        registerCalldowns && registerCalldowns({postDocument:this.postDocument})
 
     }
 
