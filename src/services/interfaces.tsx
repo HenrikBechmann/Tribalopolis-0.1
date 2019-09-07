@@ -19,7 +19,6 @@ Struc: as data structure specifying an object/document
 // posting messages
 export interface PostDocument {
     formcontext:GenericObject,
-    statecontext:GenericObject,
     success:Function,
     failure:Function,
 }

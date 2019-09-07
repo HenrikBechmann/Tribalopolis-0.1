@@ -47,12 +47,18 @@ class ContentBaseForm extends React.Component<any,any> {
         let { children, context, documentmap, fieldsets, groups, registerCalldowns } = props
 
         // save props to class
-        if (context) {this.formcontext = context}
+        if (context) {this.documentcontext = context}
         this.documentmap = documentmap
         this.fieldsetprops = fieldsets || []
         this.groupprops = groups || []
 
         registerCalldowns && registerCalldowns({postDocument:this.postDocument})
+
+        this.formcontext = {
+            documentmap:this.documentmap,
+            state:this.state,
+            documentcontext:this.documentcontext,
+        }
 
     }
 
@@ -62,8 +68,9 @@ class ContentBaseForm extends React.Component<any,any> {
     }
 
     localchildren
-    formcontext
+    documentcontext
     documentmap
+    formcontext
     fieldsetprops
     fieldsets = {}
     defaultfieldset = []
@@ -226,7 +233,6 @@ class ContentBaseForm extends React.Component<any,any> {
     postDocument = () => {
         let message:PostDocument = {
             formcontext:this.formcontext,
-            statecontext:this.state,
             success:this.onSubmitSuccess,
             failure:this.onSubmitFailure,
         }
@@ -235,8 +241,8 @@ class ContentBaseForm extends React.Component<any,any> {
 
     onSubmit = () => {
 
-        // let document = merge({},this.formcontext.document)
-        let { document, type } = this.formcontext
+        // let document = merge({},this.documentcontext.document)
+        let { document, type } = this.documentcontext
 
         for (let valueindex in this.state.values) {
             // console.log('valueindex, documentmap, state.values',valueindex,this.documentmap, this.state.values)
@@ -252,7 +258,7 @@ class ContentBaseForm extends React.Component<any,any> {
 
         let message = {
             document,
-            reference:this.formcontext.props.reference,
+            reference:this.documentcontext.props.reference,
             success:this.onSubmitSuccess,
             failure:this.onSubmitFailure,
         }
