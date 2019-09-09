@@ -11,9 +11,12 @@ import application from '../../../services/application'
 import { 
     SetListenerMessage, 
     RemoveListenerMessage, 
-    DocpackPairPayloadMessage, 
-    PreRenderContext 
+    DocpackPairPayloadMessage,, 
+    PreRenderContext,
+    PostDocument
 } from '../../../services/interfaces'
+
+import utlities from '../../../utilities/utilities'
 
 class AbstractDataPane extends React.Component<any,any> {
 
@@ -148,6 +151,40 @@ class AbstractDataPane extends React.Component<any,any> {
     private failureAssertListener = (error,reason) => {
         console.log('abstractdatapane failureAssertListener',error,reason)
     }
+
+    // to be used with basic datapane forms
+    defaultOnSubmit = ( {formcontext, success, failure}:PostDocument ) => {
+
+        let { documentcontext, statecontext, documentmap } = formcontext
+        // let document = merge({},this.documentcontext.document)
+        let { document, type } = documentcontext
+
+        for (let valueindex in statecontext.values) {
+            // console.log('valueindex, documentmap, state.values',valueindex,this.documentmap, this.state.values)
+            let path = documentmap[valueindex].split('.')
+            // console.log('document, path',document, path)
+            let nodespecs = utlities.getNodePosition(document,path)
+            let value = statecontext.values[valueindex]
+            let datatype
+            if (value === undefined) value = null;
+            [value,datatype] = application.filterDataOutgoingValue(value, path, type)
+            nodespecs.nodeproperty[nodespecs.nodeindex] = value
+        } 
+
+        let message = {
+            document,
+            reference:documentcontext.props.reference,
+            success,
+            failure,
+        }
+
+        application.setDocument(message)
+        statecontext.setState({
+            dirty:false
+        })
+
+    }
+
 
     render() {
 
