@@ -17,10 +17,18 @@ Struc: as data structure specifying an object/document
 ***************************************************************/
 
 // posting messages
-export interface PostDocument {
+export interface PostFormMessage {
     formcontext:GenericObject,
     success:Function,
     failure:Function,
+}
+
+export interface SetFormMessage {
+
+}
+
+export interface RegisterFormMessage {
+
 }
 
 // application outbound messages
@@ -130,11 +138,11 @@ export interface ContainerData {
 
 // local
 
-interface GenericCallbacks {
+export interface GenericCallbacks {
     [name:string]:Function,
 }
 
-interface GenericObject {
+export interface GenericObject {
     [name:string]:any,
 }
 

@@ -11,14 +11,22 @@ import application from '../../../services/application'
 import { 
     SetListenerMessage, 
     RemoveListenerMessage, 
-    DocpackPairPayloadMessage,, 
+    DocpackPairPayloadMessage,
     PreRenderContext,
-    PostDocument
+    PostFormMessage,
+    GenericObject,
 } from '../../../services/interfaces'
 
 import utlities from '../../../utilities/utilities'
 
-class AbstractDataPane extends React.Component<any,any> {
+interface AbstractDataPaneProps {
+    reference:string,
+    options: GenericObject,
+    namespace: GenericObject,
+    attributes: GenericObject,
+}
+
+class AbstractDataPane extends React.Component<AbstractDataPaneProps,any> {
 
     constructor(props) {
 
@@ -153,7 +161,7 @@ class AbstractDataPane extends React.Component<any,any> {
     }
 
     // to be used with basic datapane forms
-    defaultOnSubmit = ( {formcontext, success, failure}:PostDocument ) => {
+    defaultOnSubmit = ( {formcontext, success, failure}:PostFormMessage ) => {
 
         let { documentcontext, statecontext, documentmap } = formcontext
         // let document = merge({},this.documentcontext.document)
