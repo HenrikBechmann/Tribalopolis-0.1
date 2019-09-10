@@ -41,7 +41,7 @@ class PreRenderer {
     // a utility to package renderer content message from standard input
     public assemblePreRenderContext = (assemblePreRenderContext:GetPreRenderContext) => {
 
-        let {docpack, typepack, options, container} = assemblePreRenderContext
+        let {docpack, typepack, options, controller} = assemblePreRenderContext
 
         let renderspecs
         try {
@@ -56,8 +56,8 @@ class PreRenderer {
         if (!renderspecs) return null
 
         let datanamespace:DataPaneNamespace = {
-            container,
-            props:container.props,
+            controller,
+            props:controller.props,
             document:docpack.document,
             type:(typepack && typepack.document),
             functions,

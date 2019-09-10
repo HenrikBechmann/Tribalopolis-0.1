@@ -120,7 +120,7 @@ export interface GetPreRenderContext {
     docpack:DocPackStruc,
     typepack:DocPackStruc,
     options:GenericObject,
-    container:ContainerData,
+    controller:ControllerData,
 }
 
 export interface PreRenderContext {
@@ -129,7 +129,7 @@ export interface PreRenderContext {
     docref:string,
 }
 
-export interface ContainerData {
+export interface ControllerData {
     userdata:GenericObject,
     props:GenericObject,
     callbacks:GenericCallbacks,
@@ -147,7 +147,7 @@ export interface GenericObject {
 }
 
 export interface DataPaneNamespace {
-    container:ContainerData,
+    controller:ControllerData,
     document:GenericObject,
     props:GenericObject,
     type:GenericObject,

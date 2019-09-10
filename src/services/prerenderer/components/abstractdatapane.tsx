@@ -39,8 +39,8 @@ class AbstractDataPane extends React.Component<AbstractDataPaneProps,any> {
         this.reference = reference
         this.options = options
         // this.namespace = namespace
-        this.userdata = namespace.container.userdata
-        this.callbacks = namespace.container.callbacks
+        this.userdata = namespace.controller.userdata
+        this.callbacks = namespace.controller.callbacks
         this.reference && (this.docProxy = new Proxy({doctoken:{reference}}))
         this.attributes = attributes
 
@@ -125,7 +125,7 @@ class AbstractDataPane extends React.Component<AbstractDataPaneProps,any> {
         let {docpack, typepack, reason} = parmblock
         // console.log('abstractdatapane cacheDocPair', parmblock)
         // database type data namespace
-        let containerdata = {
+        let controllerdata = {
             userdata:this.userdata,
             props:this.props,
             callbacks:this.callbacks,
@@ -143,7 +143,7 @@ class AbstractDataPane extends React.Component<AbstractDataPaneProps,any> {
                 docpack,
                 typepack,
                 options:this.options,
-                container:containerdata,
+                controller:controllerdata,
             })
 
         // this.prerenderer.setPreRenderMessage(this.preRenderContext)

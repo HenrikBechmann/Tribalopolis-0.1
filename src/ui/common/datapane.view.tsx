@@ -20,7 +20,7 @@ import {
     DocpackPairPayloadMessage,
     PreRenderContext,
     GetPreRenderContext,
-    ContainerData,
+    ControllerData,
  } from '../../services/interfaces'
 import application from '../../services/application'
 import docproxy from '../../utilities/docproxy'
@@ -49,7 +49,7 @@ const styles = createStyles({
     2.  uses that to obtain docpack and typepack (document and reference for each)
 
     3. then uses that to bundle 
-        container data (userdata, props, callbacks)
+        controller data (userdata, props, callbacks)
         dockpack
         typepack
         options
@@ -58,7 +58,7 @@ const styles = createStyles({
 
     4. The prerenderer remaps to
 
-        container
+        controller
         props
         document
         type
@@ -138,7 +138,7 @@ class DataPane extends React.Component<any,any>  {
 
         let {docpack, typepack, reason} = parmblock
         // database type data namespace
-        let containerdata:ContainerData = {
+        let controllerdata:ControllerData = {
             userdata:this.userdata,
             props:this.props,
             callbacks:this.callbacks,
@@ -153,7 +153,7 @@ class DataPane extends React.Component<any,any>  {
             docpack,
             typepack,
             options:this.state.options,
-            container:containerdata
+            controller:controllerdata
         }
         let preRenderContext:PreRenderContext = 
             this.prerenderer.assemblePreRenderContext(sourcecontext)
