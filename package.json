@@ -22,6 +22,7 @@
     "firebaseui": "^4.2.0",
     "format-number": "^3.0.0",
     "hoist-non-react-statics": "^3.3.0",
+    "immutable": "^4.0.0-rc.12",
     "isomorphic-fetch": "^2.2.1",
     "lodash": "^4.17.15",
     "moment": "^2.24.0",
@@ -42,6 +43,8 @@
     "react-virtualized-auto-sizer": "^1.0.2",
     "react-window": "^1.8.5",
     "react-window-infinite-loader": "^1.0.4",
+    "slate": "^0.47.8",
+    "slate-react": "^0.22.8",
     "uuid": "^3.3.3",
     "yamljs": "^0.3.0"
   },

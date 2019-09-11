@@ -31,8 +31,6 @@ class Register extends React.Component<any,any> {
                     docproxy:paneProxy,
                     options:{uiselection:'datapane'},
                     callbacks:{
-                        // close:this.props.closeSettings,
-                        // manage:this.openDrawer,
                     }
                 }
             }
