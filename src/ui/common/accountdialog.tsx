@@ -116,6 +116,7 @@ class AccountDialogBase extends React.Component<DialogProps,any> {
                         submit:application.submitDocument,
                     },
                     calldowns:{},
+                    namespace:{},
                 }
             }
         }

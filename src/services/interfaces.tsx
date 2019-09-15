@@ -115,6 +115,7 @@ export interface DataPaneMessage {
     options:GenericObject,
     callbacks:GenericCallbacks,
     calldowns:GenericCallbacks,
+    namespace:GenericObject,
 }
 
 export interface GetPreRenderContext {

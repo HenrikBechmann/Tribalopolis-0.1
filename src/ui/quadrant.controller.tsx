@@ -169,7 +169,7 @@ class Quadrant extends React.Component<any,any>  {
     fetchactivepermissions
 
     // data drawer message
-    drawerdatapackage:DataPaneMessage
+    datapanemessage:DataPaneMessage
 
     // control var; controls second cyle of render to get dom ref values
     cycleForReferences = false
@@ -292,7 +292,7 @@ class Quadrant extends React.Component<any,any>  {
     }
 
     closeDrawer = () => {
-        this.drawerdatapackage = null
+        this.datapanemessage = null
         this.setState(() => ({
             draweropen:false,
         }))
@@ -303,7 +303,7 @@ class Quadrant extends React.Component<any,any>  {
             this.setState(() => ({
                 draweropen:false
             }),() => {
-                this.drawerdatapackage = {docproxy,options, callbacks:{},calldowns:{}}
+                this.datapanemessage = {docproxy,options, callbacks:{},calldowns:{},namespace:{}}
                 this.setState(() => ({
                     draweropen:true
                 }))
@@ -311,7 +311,7 @@ class Quadrant extends React.Component<any,any>  {
             // toast.info('The data shelf is in use. Close the shelf and try again.')
             return
         }
-        this.drawerdatapackage = {docproxy, options, callbacks:{},calldowns:{}}
+        this.datapanemessage = {docproxy, options, callbacks:{},calldowns:{}, namespace:{}}
         this.setState(() => ({
             draweropen:true,
         }))
@@ -506,7 +506,7 @@ class Quadrant extends React.Component<any,any>  {
                         containerelement = {this.quadcontentelement}
                     >
                         <DataPane
-                            dataPaneMessage = {this.drawerdatapackage}
+                            dataPaneMessage = {this.datapanemessage}
                         />
                     </DataDrawer>
                 

@@ -439,6 +439,7 @@ class BuildController extends React.Component<any,any> {
                                 options:{specs:{collection:this.state.values.collection}},
                                 callbacks:{},
                                 calldowns:{},
+                                namespace:{},
                             }
                         )
                     }
