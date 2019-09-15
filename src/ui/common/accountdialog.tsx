@@ -113,8 +113,9 @@ class AccountDialogBase extends React.Component<DialogProps,any> {
                     callbacks:{
                         close:this.props.closeSettings,
                         manage:this.openDrawer,
-                        submit:application.submitDocument
-                    }
+                        submit:application.submitDocument,
+                    },
+                    calldowns:{},
                 }
             }
         }

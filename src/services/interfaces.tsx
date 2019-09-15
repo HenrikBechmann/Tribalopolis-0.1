@@ -114,6 +114,7 @@ export interface DataPaneMessage {
     docproxy:GenericObject,
     options:GenericObject,
     callbacks:GenericCallbacks,
+    calldowns:GenericCallbacks,
 }
 
 export interface GetPreRenderContext {
