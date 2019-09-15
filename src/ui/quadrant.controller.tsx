@@ -25,7 +25,7 @@ import quadanimations from './quadrant/quadanimations.class'
 import quadoperations from './quadrant/quadoperations.class'
 import fetchactivepermissions from '../services/fetchactivepermissions'
 
-import { DocTokenStruc, DataPaneContext } from '../services/interfaces'
+import { DocTokenStruc, DataPaneMessage } from '../services/interfaces'
 
 let styles = createStyles(
     {
@@ -169,7 +169,7 @@ class Quadrant extends React.Component<any,any>  {
     fetchactivepermissions
 
     // data drawer message
-    drawerdatapackage:DataPaneContext
+    drawerdatapackage:DataPaneMessage
 
     // control var; controls second cyle of render to get dom ref values
     cycleForReferences = false
@@ -298,7 +298,7 @@ class Quadrant extends React.Component<any,any>  {
         }))
     }
 
-    callDataDrawer = ({docproxy,options}:DataPaneContext) => {
+    callDataDrawer = ({docproxy,options}:DataPaneMessage) => {
         if (this.state.draweropen) {
             this.setState(() => ({
                 draweropen:false
@@ -506,7 +506,7 @@ class Quadrant extends React.Component<any,any>  {
                         containerelement = {this.quadcontentelement}
                     >
                         <DataPane
-                            dataPaneContext = {this.drawerdatapackage}
+                            dataPaneMessage = {this.drawerdatapackage}
                         />
                     </DataDrawer>
                 

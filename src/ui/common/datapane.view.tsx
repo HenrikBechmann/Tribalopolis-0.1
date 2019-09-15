@@ -41,7 +41,7 @@ const styles = createStyles({
 })
 
 /*
-    1. Takes dataPaneContext consisting of 
+    1. Takes dataPaneMessage consisting of 
         docProxy, (target)
         options, (options.uiselection for target)
         callbacks
@@ -74,15 +74,15 @@ class DataPane extends React.Component<any,any>  {
 
     constructor(props) {
         super(props)
-        this.docProxy = this.props.dataPaneContext?this.props.dataPaneContext.docProxy:null
-        this.callbacks = this.props.dataPaneContext?this.props.dataPaneContext.callbacks:null
+        this.docProxy = this.props.dataPaneMessage?this.props.dataPaneMessage.docProxy:null
+        this.callbacks = this.props.dataPaneMessage?this.props.dataPaneMessage.callbacks:null
 
     }
 
     state = {
         docpack:null,
         typepack:null,
-        options:this.props.dataPaneContext?this.props.dataPaneContext.options:null,
+        options:this.props.dataPaneMessage?this.props.dataPaneMessage.options:null,
     }
 
     docProxy
@@ -96,9 +96,9 @@ class DataPane extends React.Component<any,any>  {
         // this.assertListener()
         this.userdata = application.userdata
 
-        let { dataPaneContext } = this.props
-        if (!this.docProxy && dataPaneContext && dataPaneContext.docproxy) {
-            this.docProxy = dataPaneContext.docproxy
+        let { dataPaneMessage } = this.props
+        if (!this.docProxy && dataPaneMessage && dataPaneMessage.docproxy) {
+            this.docProxy = dataPaneMessage.docproxy
             // console.log('componentDidUpdate setting this.docProxy',this.docProxy)
             this.assertListener()
         }
@@ -107,9 +107,9 @@ class DataPane extends React.Component<any,any>  {
 
     componentDidUpdate() {
 
-        let { dataPaneContext } = this.props
-        if (!this.docProxy && dataPaneContext && dataPaneContext.docproxy) {
-            this.docProxy = dataPaneContext.docproxy
+        let { dataPaneMessage } = this.props
+        if (!this.docProxy && dataPaneMessage && dataPaneMessage.docproxy) {
+            this.docProxy = dataPaneMessage.docproxy
             // console.log('componentDidUpdate setting this.docProxy',this.docProxy)
             this.assertListener()
         }
@@ -183,9 +183,9 @@ class DataPane extends React.Component<any,any>  {
 
     render() {
 
-        const { classes, dataPaneContext } = this.props
+        const { classes, dataPaneMessage } = this.props
 
-        let msg = dataPaneContext || {}
+        let msg = dataPaneMessage || {}
         let { docpack, options } = msg
 
         return <Paper className = {classes.root}>

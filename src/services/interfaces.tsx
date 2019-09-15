@@ -110,7 +110,7 @@ export interface RemoveGatewayListenerMessage {
 
 // ui
 
-export interface DataPaneContext {
+export interface DataPaneMessage {
     docproxy:GenericObject,
     options:GenericObject,
     callbacks:GenericCallbacks,

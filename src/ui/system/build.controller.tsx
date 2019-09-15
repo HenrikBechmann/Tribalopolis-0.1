@@ -39,7 +39,7 @@ import {
     GetDocumentMessage, 
     SetDocumentMessage, 
     DocpackPayloadMessage,
-    DataPaneContext } from '../../services/interfaces'
+    DataPaneMessage } from '../../services/interfaces'
 
 const styles = theme => (createStyles({
     button: {
@@ -319,7 +319,7 @@ class BuildController extends React.Component<any,any> {
 
     // ============[ data drawer responses ]=================
 
-    callDataDrawer = ({docproxy, options}:DataPaneContext) => {
+    callDataDrawer = ({docproxy, options}:DataPaneMessage) => {
         if (this.state.draweropen) {
             this.setState({
                 draweropen:false
@@ -355,7 +355,7 @@ class BuildController extends React.Component<any,any> {
             containerelement = {this.buildelement}
         >
             <BuildDataPane
-                dataPaneContext = {this.drawerdatapackage}
+                dataPaneMessage = {this.drawerdatapackage}
                 open = {this.state.draweropen}
                 user = {login}
                 userdata = {userdata}

@@ -17,7 +17,7 @@ import Button from '@material-ui/core/Button'
 import IconButton from '@material-ui/core/IconButton'
 import CloseIcon from '@material-ui/icons/Close'
 
-import { DataPaneContext } from '../../services/interfaces'
+import { DataPaneMessage } from '../../services/interfaces'
 import docproxy from '../../utilities/docproxy'
 import application from '../../services/application'
 import DataPane from './datapane.view'
@@ -69,7 +69,7 @@ class AccountDialogBase extends React.Component<DialogProps,any> {
 
     private paneProxy = null
 
-    private datapanecontext:DataPaneContext = null
+    private datapanemessage:DataPaneMessage = null
 
     private accountsettingselement
 
@@ -80,7 +80,7 @@ class AccountDialogBase extends React.Component<DialogProps,any> {
 
     // drawerdatapackage
 
-    openDrawer = ({docproxy,options}:DataPaneContext) => {
+    openDrawer = ({docproxy,options}:DataPaneMessage) => {
         if (this.state.draweropen) {
             toast.info('The data drawer is in use. Close the drawer and try again.')
             return
@@ -107,7 +107,7 @@ class AccountDialogBase extends React.Component<DialogProps,any> {
                 let paneProxy = new docproxy({doctoken:{reference:settingspageref}})
 
                 this.paneProxy = paneProxy
-                this.datapanecontext = {
+                this.datapanemessage = {
                     docproxy:paneProxy,
                     options:{uiselection:'datapane'},
                     callbacks:{
@@ -151,7 +151,7 @@ class AccountDialogBase extends React.Component<DialogProps,any> {
                       containerelement = {this.accountsettingselement}
                   >
                   </DataDrawer>
-                  <DataPane dataPaneContext = {this.datapanecontext}/>
+                  <DataPane dataPaneMessage = {this.datapanemessage}/>
               </div>
           </div>
          </Dialog>

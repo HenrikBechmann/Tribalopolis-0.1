@@ -16,7 +16,7 @@ class Register extends React.Component<any,any> {
 
     paneProxy
 
-    datapanecontext
+    datapanemessage
 
     registerform = () => {
         if (!this.paneProxy ) {
@@ -27,7 +27,7 @@ class Register extends React.Component<any,any> {
                 let paneProxy = new docproxy({doctoken:{reference:registerpageref}})
 
                 this.paneProxy = paneProxy
-                this.datapanecontext = {
+                this.datapanemessage = {
                     docproxy:paneProxy,
                     options:{uiselection:'datapane'},
                     callbacks:{
@@ -41,7 +41,7 @@ class Register extends React.Component<any,any> {
                 position:'relative',
             }
         }>
-            <DataPane dataPaneContext = {this.datapanecontext}/>
+            <DataPane dataPaneMessage = {this.datapanemessage}/>
         </div>
 
     }
