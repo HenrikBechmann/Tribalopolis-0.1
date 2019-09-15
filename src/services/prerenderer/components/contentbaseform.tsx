@@ -50,7 +50,7 @@ class ContentBaseForm extends React.Component<any,any> {
     constructor(props) {
         super(props)
         // initialize state values
-        let { children, context, documentmap, fieldsets, groups, registerCalldowns, setupPostDocument } = props
+        let { children, context, documentmap, fieldsets, groups, registerCallbacks, setupPostDocument } = props
 
         // save props to class
         if (context) {this.documentcontext = context}
@@ -58,12 +58,13 @@ class ContentBaseForm extends React.Component<any,any> {
         this.fieldsetprops = fieldsets || []
         this.groupprops = groups || []
 
-        registerCalldowns && registerCalldowns({postDocument:this.postDocument})
+        registerCallbacks && registerCallbacks({postDocument:this.postDocument})
 
         this.formcontext = {
             documentmap:this.documentmap,
             state:this.state,
             documentcontext:this.documentcontext,
+            form:this,
         }
 
     }
@@ -237,6 +238,7 @@ class ContentBaseForm extends React.Component<any,any> {
     }
 
     postDocument = () => {
+        this.formcontext.state = this.state
         let message:PostFormMessage = {
             formcontext:this.formcontext,
             success:this.onSubmitSuccess,
@@ -295,21 +297,23 @@ class ContentBaseForm extends React.Component<any,any> {
     }
 
     render() {
-        const { classes, onSubmit, disabled } = this.props
+        const { classes, context, disabled } = this.props
 
         return (
             <form 
                 onSubmit = {event => {
+                    console.log('submitting form', this.props)
                     event.preventDefault()
                     if (!disabled) {
-                        onSubmit && onSubmit()
+                        context && context.props.namespace.controller.callbacks.submit 
+                        && context.props.namespace.controller.callbacks.submit(this.postDocument())
                     }
                 }}
                 className = { classes && classes.root } 
                 autoComplete = "off" 
             > 
                 {this.getDisplayComponents(classes)}
-                {this.iseditable?<Button 
+                {false && this.iseditable?<Button 
                     onClick = {this.onSubmit}
                     disabled = {!this.state.dirty}
                     className = {classes.button}

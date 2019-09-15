@@ -573,9 +573,13 @@ const appManager = new class {
     }
 
     // to be used with basic datapane forms
-    submitDocument = ( {formcontext, success, failure}:PostFormMessage ) => {
+    submitDocument = ( parms:PostFormMessage ) => {
 
-        let { documentcontext, statecontext, documentmap } = formcontext
+        console.log('submitDocument in application', parms)
+
+        let {formcontext, success, failure} = parms
+
+        let { documentcontext, state:statecontext, documentmap } = formcontext
         // let document = merge({},this.documentcontext.document)
         let { document, type } = documentcontext
 
@@ -599,7 +603,7 @@ const appManager = new class {
         }
 
         application.setDocument(message)
-        statecontext.setState({
+        formcontext.form.setState({
             dirty:false
         })
 
