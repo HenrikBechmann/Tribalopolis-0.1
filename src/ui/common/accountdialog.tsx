@@ -73,6 +73,12 @@ class AccountDialogBase extends React.Component<DialogProps,any> {
 
     private accountsettingselement
 
+    private calldowns
+
+    private registerCalldowns = (calldowns) => {
+      this.calldowns = calldowns
+    }
+
     state = {
         settingsopen:true,
         draweropen:false,
@@ -115,7 +121,7 @@ class AccountDialogBase extends React.Component<DialogProps,any> {
                         manage:this.openDrawer,
                         submit:application.submitDocument,
                     },
-                    calldowns:{},
+                    registercalldowns:this.registerCalldowns,
                     namespace:{},
                 }
             }

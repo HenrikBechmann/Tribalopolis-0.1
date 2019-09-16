@@ -363,6 +363,12 @@ class BuildController extends React.Component<any,any> {
         </DataDrawer>
     )
 
+    registerCalldowns = calldowns => {
+        this.calldowns = calldowns
+    }
+
+    calldowns
+
     inputcontrols = (superuser,classes) => (
         <BaseForm onSubmit = {this.fetchObject} disabled = {!superuser}>
             <SelectField
@@ -438,7 +444,7 @@ class BuildController extends React.Component<any,any> {
                                 docproxy:null,
                                 options:{specs:{collection:this.state.values.collection}},
                                 callbacks:{},
-                                calldowns:{},
+                                registercalldowns:this.registerCalldowns,
                                 namespace:{},
                             }
                         )
