@@ -25,6 +25,7 @@ import {
 import application from '../../services/application'
 import docproxy from '../../utilities/docproxy'
 import utilities from '../../utilities/utilities'
+import { DataPaneMessage, GenericObject } from '../../services/interfaces'
 
 const styles = createStyles({
     root:{
@@ -72,7 +73,12 @@ const styles = createStyles({
     6. content is rendered by DataPane (wrapped in Paper)
 */
 
-class DataPane extends React.Component<any,any>  {
+interface DataPaneProps {
+    dataPaneMessage:DataPaneMessage,
+    classes?:GenericObject,
+}
+
+class DataPane extends React.Component<DataPaneProps,any>  {
 
     // constructor(props) {
     //     super(props)
@@ -195,10 +201,7 @@ class DataPane extends React.Component<any,any>  {
 
     render() {
 
-        const { classes, dataPaneMessage } = this.props
-
-        let msg = dataPaneMessage || {}
-        let { docpack, options } = msg
+        const { classes } = this.props
 
         return <Paper className = {classes.root}>
             {this.renderContent?this.renderContent:<div>Loading...</div>}
