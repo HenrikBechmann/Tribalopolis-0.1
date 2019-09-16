@@ -44,7 +44,9 @@ const styles = createStyles({
     1. Takes dataPaneMessage consisting of 
         docProxy, (target)
         options, (options.uiselection for target)
-        callbacks
+        callbacks,
+        calldowns,
+        namespace,
 
     2.  uses that to obtain docpack and typepack (document and reference for each)
 
@@ -72,12 +74,17 @@ const styles = createStyles({
 
 class DataPane extends React.Component<any,any>  {
 
-    constructor(props) {
-        super(props)
-        this.docProxy = this.props.dataPaneMessage?this.props.dataPaneMessage.docProxy:null
-        this.callbacks = this.props.dataPaneMessage?this.props.dataPaneMessage.callbacks:null
-
-    }
+    // constructor(props) {
+    //     super(props)
+        // let { dataPaneMessage } = this.props
+        // if (!dataPaneMessage) dataPaneMessage = {}
+        // let { docproxy:docProxy, options, callbacks, calldowns, namespace } = dataPaneMessage
+        // this.docProxy = docProxy
+        // this.options = options
+        // this.callbacks = callbacks
+        // this.calldowns = calldowns
+        // this.namespace = namespace
+    // }
 
     state = {
         docpack:null,
@@ -85,27 +92,32 @@ class DataPane extends React.Component<any,any>  {
         options:this.props.dataPaneMessage?this.props.dataPaneMessage.options:null,
     }
 
+    // dataPaneMessage properties
     docProxy
+    callbacks = this.props.dataPaneMessage?this.props.dataPaneMessage.callbacks:null
+    // options
+    // calldowns
+    // namespace
     // preRenderContext:PreRenderContext
     renderContent // set when docPair arrives
     userdata
-    callbacks
 
     componentDidMount() {
 
         // this.assertListener()
         this.userdata = application.userdata
 
-        let { dataPaneMessage } = this.props
-        if (!this.docProxy && dataPaneMessage && dataPaneMessage.docproxy) {
-            this.docProxy = dataPaneMessage.docproxy
-            // console.log('componentDidUpdate setting this.docProxy',this.docProxy)
-            this.assertListener()
-        }
+        this.assertTargetListener()
 
     }
 
     componentDidUpdate() {
+
+        this.assertTargetListener()
+
+    }
+
+    assertTargetListener = () => {
 
         let { dataPaneMessage } = this.props
         if (!this.docProxy && dataPaneMessage && dataPaneMessage.docproxy) {
