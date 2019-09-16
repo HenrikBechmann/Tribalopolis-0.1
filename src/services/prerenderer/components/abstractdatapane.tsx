@@ -12,7 +12,7 @@ import {
     SetListenerMessage, 
     RemoveListenerMessage, 
     DocpackPairPayloadMessage,
-    PreRenderContext,
+    PreRenderMessage,
     PostFormMessage,
     GenericObject,
 } from '../../../services/interfaces'
@@ -58,7 +58,7 @@ class AbstractDataPane extends React.Component<AbstractDataPaneProps,any> {
     docProxy:Proxy
     userdata
     callbacks
-    // preRenderContext:PreRenderContext
+    // preRenderMessage:PreRenderMessage
     renderContent
 
     componentDidMount() {
@@ -136,16 +136,16 @@ class AbstractDataPane extends React.Component<AbstractDataPaneProps,any> {
         }
 
         // reformat for prerenderer
-        let preRenderContext:PreRenderContext = 
-            this.prerenderer.assemblePreRenderContext({
+        let preRenderMessage:PreRenderMessage = 
+            this.prerenderer.assemblePreRenderMessage({
                 docpack,
                 typepack,
                 options:this.options,
                 controller:controllerdata,
             })
 
-        // this.prerenderer.setPreRenderMessage(this.preRenderContext)
-        this.renderContent = this.prerenderer.getRenderContent(preRenderContext)
+        // this.prerenderer.setPreRenderMessage(this.preRenderMessage)
+        this.renderContent = this.prerenderer.getRenderContent(preRenderMessage)
 
         this.setState({
             docpack,

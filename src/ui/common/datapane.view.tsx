@@ -18,8 +18,8 @@ import PreRenderer from '../../services/prerenderer' // class
 import { 
     SetListenerMessage,
     DocpackPairPayloadMessage,
-    PreRenderContext,
-    GetPreRenderContext,
+    PreRenderMessage,
+    GetPreRenderMessage,
     ControllerData,
  } from '../../services/interfaces'
 import application from '../../services/application'
@@ -75,36 +75,23 @@ const styles = createStyles({
 
 interface DataPaneProps {
     dataPaneMessage:DataPaneMessage,
-    classes?:GenericObject,
+    classes:GenericObject,
 }
 
 class DataPane extends React.Component<DataPaneProps,any>  {
 
-    // constructor(props) {
-    //     super(props)
-        // let { dataPaneMessage } = this.props
-        // if (!dataPaneMessage) dataPaneMessage = {}
-        // let { docproxy:docProxy, options, callbacks, calldowns, namespace } = dataPaneMessage
-        // this.docProxy = docProxy
-        // this.options = options
-        // this.callbacks = callbacks
-        // this.calldowns = calldowns
-        // this.namespace = namespace
-    // }
-
     state = {
         docpack:null,
         typepack:null,
-        options:this.props.dataPaneMessage?this.props.dataPaneMessage.options:null,
+        options:this.props.dataPaneMessage.options,
     }
 
     // dataPaneMessage properties
     docProxy
-    callbacks = this.props.dataPaneMessage?this.props.dataPaneMessage.callbacks:null
     // options
     // calldowns
     // namespace
-    // preRenderContext:PreRenderContext
+    // preRenderMessage:PreRenderMessage
     renderContent // set when docPair arrives
     userdata
 
@@ -126,7 +113,7 @@ class DataPane extends React.Component<DataPaneProps,any>  {
     assertTargetListener = () => {
 
         let { dataPaneMessage } = this.props
-        if (!this.docProxy && dataPaneMessage && dataPaneMessage.docproxy) {
+        if (!this.docProxy && dataPaneMessage.docproxy) {
             this.docProxy = dataPaneMessage.docproxy
             // console.log('componentDidUpdate setting this.docProxy',this.docProxy)
             this.assertListener()
@@ -154,12 +141,12 @@ class DataPane extends React.Component<DataPaneProps,any>  {
 
     successAssertListener = (parmblock:DocpackPairPayloadMessage) => {
 
-        let {docpack, typepack, reason} = parmblock
+        let { docpack, typepack, reason } = parmblock
         // database type data namespace
         let controllerdata:ControllerData = {
             userdata:this.userdata,
-            props:this.props,
-            callbacks:this.callbacks,
+            // props:this.props,
+            callbacks:this.props.dataPaneMessage.callbacks,
         }
 
         if ( !this.prerenderer ) {
@@ -167,17 +154,17 @@ class DataPane extends React.Component<DataPaneProps,any>  {
         }
 
         // reformat for prerenderer
-        let sourcecontext:GetPreRenderContext = {
+        let sourcemessage:GetPreRenderMessage = {
             docpack,
             typepack,
             options:this.state.options,
             controller:controllerdata
         }
-        let preRenderContext:PreRenderContext = 
-            this.prerenderer.assemblePreRenderContext(sourcecontext)
+        let preRenderMessage:PreRenderMessage = 
+            this.prerenderer.assemblePreRenderMessage(sourcemessage)
 
-        // this.prerenderer.setPreRenderMessage(this.preRenderContext)
-        this.renderContent = this.prerenderer.getRenderContent(preRenderContext)
+        // this.prerenderer.setPreRenderMessage(this.preRenderMessage)
+        this.renderContent = this.prerenderer.getRenderContent(preRenderMessage)
         // console.log('renderContent',this.renderContent)
 
         this.setState({

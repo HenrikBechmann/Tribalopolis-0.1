@@ -118,14 +118,14 @@ export interface DataPaneMessage {
     namespace:GenericObject,
 }
 
-export interface GetPreRenderContext {
+export interface GetPreRenderMessage {
     docpack:DocPackStruc,
     typepack:DocPackStruc,
     options:GenericObject,
     controller:ControllerData,
 }
 
-export interface PreRenderContext {
+export interface PreRenderMessage {
     renderspecs:GenericObject,
     namespace:GenericObject,
     docref:string,
@@ -133,7 +133,7 @@ export interface PreRenderContext {
 
 export interface ControllerData {
     userdata:GenericObject,
-    props:GenericObject,
+    // props:GenericObject,
     callbacks:GenericCallbacks,
 }
 
@@ -151,7 +151,7 @@ export interface GenericObject {
 export interface DataPaneNamespace {
     controller:ControllerData,
     document:GenericObject,
-    props:GenericObject,
+    // props:GenericObject,
     type:GenericObject,
     functions:GenericObject,
 }

@@ -18,7 +18,7 @@ import functions from './functions'
 
 import AbstractDataPane from './prerenderer/components/abstractdatapane'
 import utilities from '../utilities/utilities'
-import { DataPaneNamespace, GetPreRenderContext, PreRenderContext } from './interfaces'
+import { DataPaneNamespace, GetPreRenderMessage, PreRenderMessage } from './interfaces'
 import application from './application'
 
 const components = { // lookups
@@ -33,15 +33,15 @@ const components = { // lookups
 // instantiated by client
 class PreRenderer {
 
-    // private prerendermessage:PreRenderContext
+    // private prerendermessage:PreRenderMessage
     private namespace
 
     // ==================[ API ]========================
 
     // a utility to package renderer content message from standard input
-    public assemblePreRenderContext = (assemblePreRenderContext:GetPreRenderContext) => {
+    public assemblePreRenderMessage = (getPreRenderMessage:GetPreRenderMessage) => {
 
-        let {docpack, typepack, options, controller} = assemblePreRenderContext
+        let {docpack, typepack, options, controller} = getPreRenderMessage
 
         let renderspecs
         try {
@@ -57,23 +57,23 @@ class PreRenderer {
 
         let datanamespace:DataPaneNamespace = {
             controller,
-            props:controller.props,
+            // props:controller.props,
             document:docpack.document,
             type:(typepack && typepack.document),
             functions,
         }
 
-        let prerendercontext:PreRenderContext = {
+        let prerendermessage:PreRenderMessage = {
             renderspecs,
             namespace:datanamespace,
             docref:docpack.reference
         }
 
-        return prerendercontext
+        return prerendermessage
     }
 
     // called by client
-    public getRenderContent = (prerendermessage:PreRenderContext) => {
+    public getRenderContent = (prerendermessage:PreRenderMessage) => {
 
         if (!prerendermessage) return null
 
