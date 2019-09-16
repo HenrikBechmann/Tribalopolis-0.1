@@ -49,15 +49,15 @@ const styles = createStyles({
     },
 })
 
+interface AnyObject {
+    [name:string]:any,
+}
+
 interface DialogProps {
     closeSettings:any,
     userdata:AnyObject,
     systemdata:AnyObject,
     classes:AnyObject,
-}
-
-interface AnyObject {
-    [name:string]:any,
 }
 
 class AccountDialogBase extends React.Component<DialogProps,any> {
@@ -160,4 +160,4 @@ class AccountDialogBase extends React.Component<DialogProps,any> {
     }
 }
 
-export default withStyles(styles) (AccountDialogBase)
+export default withStyles(styles)(AccountDialogBase)
