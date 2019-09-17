@@ -80,19 +80,12 @@ interface DataPaneProps {
 
 class DataPane extends React.Component<DataPaneProps,any>  {
 
-    // state = {
-    //     docpack:null,
-    //     typepack:null,
-    //     // options:null,
-    // }
+    state = {
+        factorycomponent:null,
+    }
 
     // dataPaneMessage properties
     docProxy
-    // options
-    // calldowns
-    // namespace
-    // preRenderMessage:PreRenderMessage
-    factorycomponent // set when docPair arrives
     userdata
 
     componentDidMount() {
@@ -165,16 +158,11 @@ class DataPane extends React.Component<DataPaneProps,any>  {
         let factorymessage:FactoryMessage = 
             this.componentfactory.assembleFactoryMessage(sourcemessage)
 
-        // this.componentfactory.setPreRenderMessage(this.preRenderMessage)
-        this.factorycomponent = this.componentfactory.getComponent(factorymessage)
-        // console.log('factorycomponent',this.factorycomponent)
+        let factorycomponent = this.componentfactory.getComponent(factorymessage)
 
-        this.forceUpdate() // TODO:??
-
-        // this.setState({
-        //     docpack,
-        //     typepack,
-        // })
+        this.setState({
+            factorycomponent,
+        })
 
     }
 
@@ -195,7 +183,7 @@ class DataPane extends React.Component<DataPaneProps,any>  {
         const { classes } = this.props
 
         return <Paper className = {classes.root}>
-            {this.factorycomponent?this.factorycomponent:<div>Loading...</div>}
+            {this.state.factorycomponent?this.state.factorycomponent:<div>Loading...</div>}
         </Paper>
 
     }
