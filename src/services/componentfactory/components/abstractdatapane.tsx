@@ -90,7 +90,7 @@ class AbstractDataPane extends React.Component<AbstractDataPaneProps,any> {
                     success:this.successAssertListener,
                     failure:this.failureAssertListener,
                 }
-            console.log('assertListener with docProxy: docProxy, parms',this.docProxy,parms)
+            // console.log('assertListener with docProxy: docProxy, parms',this.docProxy,parms)
             application.setDocpackPairListener( parms )
 
         } else {

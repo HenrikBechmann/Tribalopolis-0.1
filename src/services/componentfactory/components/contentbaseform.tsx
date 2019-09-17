@@ -307,8 +307,9 @@ class ContentBaseForm extends React.Component<any,any> {
 
                     if (!disabled) {
 
-                        context && context.controller.callbacks.submit 
-                        && context.controller.callbacks.submit(this.getPostMessage())
+                        context && 
+                        context.controller.callbacks.submit && 
+                        context.controller.callbacks.submit(this.getPostMessage())
 
                     }
 

@@ -363,9 +363,9 @@ class BuildController extends React.Component<any,any> {
         </DataDrawer>
     )
 
-    registerCalldowns = calldowns => {
-        this.calldowns = calldowns
-    }
+    // registerCalldowns = calldowns => {
+    //     this.calldowns = calldowns
+    // }
 
     calldowns
 
@@ -444,8 +444,7 @@ class BuildController extends React.Component<any,any> {
                                 docproxy:null,
                                 options:{specs:{collection:this.state.values.collection}},
                                 callbacks:{},
-                                registercalldowns:this.registerCalldowns,
-                                namespace:{},
+                                registercalldowns:null, // this.registerCalldowns, // not needed
                             }
                         )
                     }

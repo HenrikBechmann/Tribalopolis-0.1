@@ -10,7 +10,6 @@ import { withStyles, createStyles } from '@material-ui/core/styles'
 
 import Typography from '@material-ui/core/Typography';
 import Dialog from '@material-ui/core/Dialog'
-import Slide from '@material-ui/core/Slide'
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 import Button from '@material-ui/core/Button'
@@ -22,11 +21,6 @@ import docproxy from '../../utilities/docproxy'
 import application from '../../services/application'
 import DataPane from './datapane.view'
 import DataDrawer from './datadrawer.view'
-
-
-// const Transition = React.forwardRef(function Transition(props, ref) {
-//   return <Slide direction="left" ref={ref} {...props} />;
-// })
 
 const styles = createStyles({
     appBar: {
@@ -68,22 +62,19 @@ class AccountDialogBase extends React.Component<DialogProps,any> {
       this.setDatapaneMessage()
     }
 
-    private paneProxy = null
-
-    private datapanemessage:DataPaneMessage = null
-
-    private accountsettingselement
-
-    private calldowns
-
-    private registerCalldowns = (calldowns) => {
-      this.calldowns = calldowns
-    }
-
     state = {
         settingsopen:true,
         draweropen:false,
     }
+
+    private paneProxy = null
+    private datapanemessage:DataPaneMessage = null
+    private accountsettingselement
+    private calldowns
+
+    // private registerCalldowns = (calldowns) => {
+    //   this.calldowns = calldowns
+    // }
 
     openDrawer = ({docproxy,options}:DataPaneMessage) => {
 
@@ -95,7 +86,7 @@ class AccountDialogBase extends React.Component<DialogProps,any> {
         this.setState({
             draweropen:true,
         })
-        
+
     }
 
     closeDrawer = () => {
@@ -106,12 +97,13 @@ class AccountDialogBase extends React.Component<DialogProps,any> {
 
     }
 
+    // the configuration data required for ui presentation (DataPane)
     setDatapaneMessage = () => {
 
-        let settingspageref = this.props.systemdata.parameters.properties.accountsettingspage
+        let accountsettingspageref = this.props.systemdata.parameters.properties.accountsettingspage
 
-        if (settingspageref) {
-            let paneProxy = new docproxy({doctoken:{reference:settingspageref}})
+        if (accountsettingspageref) {
+            let paneProxy = new docproxy({doctoken:{reference:accountsettingspageref}})
 
             this.paneProxy = paneProxy
             this.datapanemessage = {
@@ -122,8 +114,8 @@ class AccountDialogBase extends React.Component<DialogProps,any> {
                     manage:this.openDrawer,
                     submit:application.submitDocument,
                 },
-                registercalldowns:this.registerCalldowns,
-                namespace:{},
+                registercalldowns:null, // this.registerCalldowns, // not needed here
+                // namespace:{},
             }
         }
 
