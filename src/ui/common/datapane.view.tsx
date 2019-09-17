@@ -83,7 +83,7 @@ class DataPane extends React.Component<DataPaneProps,any>  {
     state = {
         docpack:null,
         typepack:null,
-        options:this.props.dataPaneMessage.options,
+        // options:null,
     }
 
     // dataPaneMessage properties
@@ -105,6 +105,8 @@ class DataPane extends React.Component<DataPaneProps,any>  {
     }
 
     componentDidUpdate() {
+
+        // this.props.dataPaneMessage.options
 
         this.assertTargetListener()
 
@@ -157,7 +159,7 @@ class DataPane extends React.Component<DataPaneProps,any>  {
         let sourcemessage:GetPreRenderMessage = {
             docpack,
             typepack,
-            options:this.state.options,
+            options:this.props.dataPaneMessage.options,
             controller:controllerdata
         }
         let preRenderMessage:PreRenderMessage = 

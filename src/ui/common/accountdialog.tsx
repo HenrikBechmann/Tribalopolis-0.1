@@ -65,6 +65,7 @@ class AccountDialogBase extends React.Component<DialogProps,any> {
     constructor(props) {
       super(props)
       this.accountsettingselement = React.createRef()
+      this.setDatapaneMessage()
     }
 
     private paneProxy = null
@@ -104,29 +105,30 @@ class AccountDialogBase extends React.Component<DialogProps,any> {
         })
     }
 
-    render() {
-        if (!this.paneProxy ) {
+    setDatapaneMessage = () => {
 
-            let settingspageref = this.props.systemdata?this.props.systemdata.parameters.properties.accountsettingspage:null
+        let settingspageref = this.props.systemdata.parameters.properties.accountsettingspage
 
-            if (settingspageref) {
-                let paneProxy = new docproxy({doctoken:{reference:settingspageref}})
+        if (settingspageref) {
+            let paneProxy = new docproxy({doctoken:{reference:settingspageref}})
 
-                this.paneProxy = paneProxy
-                this.datapanemessage = {
-                    docproxy:paneProxy,
-                    options:{uiselection:'datapane'},
-                    callbacks:{
-                        close:this.props.closeSettings,
-                        manage:this.openDrawer,
-                        submit:application.submitDocument,
-                    },
-                    registercalldowns:this.registerCalldowns,
-                    namespace:{},
-                }
+            this.paneProxy = paneProxy
+            this.datapanemessage = {
+                docproxy:paneProxy,
+                options:{uiselection:'datapane'},
+                callbacks:{
+                    close:this.props.closeSettings,
+                    manage:this.openDrawer,
+                    submit:application.submitDocument,
+                },
+                registercalldowns:this.registerCalldowns,
+                namespace:{},
             }
         }
 
+    }
+
+    render() {
         let { classes } = this.props
           // TransitionComponent={Transition} //broken with current release of material-ui v 4
         return  <Dialog
