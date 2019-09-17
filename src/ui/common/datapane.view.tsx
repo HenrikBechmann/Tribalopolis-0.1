@@ -24,7 +24,7 @@ import {
  } from '../../services/interfaces'
 import application from '../../services/application'
 import docproxy from '../../utilities/docproxy'
-import utilities from '../../utilities/utilities'
+// import utilities from '../../utilities/utilities'
 import { DataPaneMessage, GenericObject } from '../../services/interfaces'
 
 const styles = createStyles({

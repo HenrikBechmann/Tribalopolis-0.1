@@ -58,7 +58,7 @@ class ContentBaseForm extends React.Component<any,any> {
         this.fieldsetprops = fieldsets || []
         this.groupprops = groups || []
 
-        registerCallbacks && registerCallbacks({postDocument:this.postDocument})
+        registerCallbacks && registerCallbacks({getPostMessage:this.getPostMessage})
 
         this.formcontext = {
             documentmap:this.documentmap,
@@ -237,7 +237,7 @@ class ContentBaseForm extends React.Component<any,any> {
         return newchildren
     }
 
-    postDocument = () => {
+    getPostMessage = () => {
         this.formcontext.state = this.state
         let message:PostFormMessage = {
             formcontext:this.formcontext,
@@ -302,31 +302,36 @@ class ContentBaseForm extends React.Component<any,any> {
         return (
             <form 
                 onSubmit = {event => {
-                    console.log('submitting form', this.props)
+
                     event.preventDefault()
+
                     if (!disabled) {
-                        context && context.props.namespace.controller.callbacks.submit 
-                        && context.props.namespace.controller.callbacks.submit(this.postDocument())
+
+                        context && context.controller.callbacks.submit 
+                        && context.controller.callbacks.submit(this.getPostMessage())
+
                     }
+
                 }}
                 className = { classes && classes.root } 
                 autoComplete = "off" 
             > 
                 {this.getDisplayComponents(classes)}
-                {false && this.iseditable?<Button 
-                    onClick = {this.onSubmit}
-                    disabled = {!this.state.dirty}
-                    className = {classes.button}
-                    color = "primary" 
-                    variant = "contained" 
-                    type="submit">
-                        Save
-                    </Button>
-                :null}
             </form>
         )
     }
 
 }
+
+// {false && this.iseditable?<Button 
+//     onClick = {this.onSubmit}
+//     disabled = {!this.state.dirty}
+//     className = {classes.button}
+//     color = "primary" 
+//     variant = "contained" 
+//     type="submit">
+//         Save
+//     </Button>
+// :null}
 
 export default withStyles( styles )( ContentBaseForm )

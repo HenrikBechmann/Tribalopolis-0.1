@@ -85,24 +85,25 @@ class AccountDialogBase extends React.Component<DialogProps,any> {
         draweropen:false,
     }
 
-    // drawerdatapackage
-
     openDrawer = ({docproxy,options}:DataPaneMessage) => {
+
         if (this.state.draweropen) {
             toast.info('The data drawer is in use. Close the drawer and try again.')
             return
         }
-        // this.drawerdatapackage = {docproxy, options, callbacks:{}}
+
         this.setState({
             draweropen:true,
         })
+        
     }
 
     closeDrawer = () => {
-        // this.drawerdatapackage = null
+
         this.setState({
             draweropen:false,
         })
+
     }
 
     setDatapaneMessage = () => {

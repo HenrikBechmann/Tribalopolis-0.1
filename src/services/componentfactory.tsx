@@ -49,6 +49,7 @@ class ComponentFactory {
             renderspecs = typepack.document.properties.ui[options.uiselection]
 
         } catch(e) {
+
             return null
 
         }
@@ -159,7 +160,13 @@ class ComponentFactory {
         // console.log('props and options derived from db in getComponentByReference',props,opts)
         // console.log('getComponentByReference', reference, properties, ref, opts, dataheap)
         
-        return <AbstractDataPane key = {props.key} reference = {ref} options = {opts} namespace = {namespace} attributes = {attributes} />
+        return <AbstractDataPane 
+            key = {props.key} 
+            reference = {ref} 
+            options = {opts} 
+            namespace = {namespace} 
+            attributes = {attributes} 
+        />
     }
 
     private getTypeClass = typespec => {
