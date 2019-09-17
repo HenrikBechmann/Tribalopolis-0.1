@@ -298,18 +298,18 @@ class Quadrant extends React.Component<any,any>  {
         }))
     }
 
-    registerCalldowns = calldowns => {
-        this.calldowns = calldowns
-    }
+    // registerCalldowns = calldowns => {
+    //     this.calldowns = calldowns
+    // }
 
-    calldowns
+    // calldowns
 
     callDataDrawer = ({docproxy,options}:DataPaneMessage) => {
         if (this.state.draweropen) {
             this.setState(() => ({
                 draweropen:false
             }),() => {
-                this.datapanemessage = {docproxy,options, callbacks:{},registercalldowns:this.registerCalldowns}
+                this.datapanemessage = {docproxy,options, callbacks:{}}
                 this.setState(() => ({
                     draweropen:true
                 }))
@@ -317,7 +317,7 @@ class Quadrant extends React.Component<any,any>  {
             // toast.info('The data shelf is in use. Close the shelf and try again.')
             return
         }
-        this.datapanemessage = {docproxy, options, callbacks:{},registercalldowns:this.registerCalldowns}
+        this.datapanemessage = {docproxy, options, callbacks:{}}
         this.setState(() => ({
             draweropen:true,
         }))

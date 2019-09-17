@@ -115,7 +115,6 @@ export interface DataPaneMessage {
     options:GenericObject,
     callbacks:GenericCallbacks,
     registercalldowns?:Function,
-    // namespace:GenericObject,
 }
 
 export interface GetFactoryMessage {

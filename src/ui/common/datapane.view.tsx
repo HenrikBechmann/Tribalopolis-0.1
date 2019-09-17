@@ -24,7 +24,6 @@ import {
  } from '../../services/interfaces'
 import application from '../../services/application'
 import docproxy from '../../utilities/docproxy'
-// import utilities from '../../utilities/utilities'
 import { DataPaneMessage, GenericObject } from '../../services/interfaces'
 
 const styles = createStyles({
@@ -75,7 +74,7 @@ const styles = createStyles({
 
 interface DataPaneProps {
     dataPaneMessage:DataPaneMessage,
-    classes:GenericObject,
+    classes:GenericObject, // provided by withStyles in export statement
 }
 
 class DataPane extends React.Component<DataPaneProps,any>  {
@@ -84,16 +83,12 @@ class DataPane extends React.Component<DataPaneProps,any>  {
         factorycomponent:null,
     }
 
-    componentfactory:ComponentFactory = null
+    componentfactory:ComponentFactory = new ComponentFactory()
 
     // dataPaneMessage properties
     docProxy
-    userdata
 
     componentDidMount() {
-
-        // this.assertListener()
-        this.userdata = application.userdata
 
         this.assertTargetListener()
 
@@ -143,20 +138,15 @@ class DataPane extends React.Component<DataPaneProps,any>  {
         }
     }
 
+    // obtain a ComponentFactory component
     successAssertListener = (parmblock:DocpackPairPayloadMessage) => {
 
         let { docpack, typepack, reason } = parmblock
         // database type data namespace
         let controllerdata:ControllerData = {
 
-            userdata:this.userdata,
+            userdata:application.userdata,
             callbacks:this.props.dataPaneMessage.callbacks,
-
-        }
-
-        if ( !this.componentfactory ) {
-
-            this.componentfactory = new ComponentFactory()
 
         }
 
@@ -196,7 +186,7 @@ class DataPane extends React.Component<DataPaneProps,any>  {
         return <Paper className = {classes.root}>
 
             {this.state.factorycomponent?this.state.factorycomponent:<div>Loading...</div>}
-            
+
         </Paper>
 
     }
