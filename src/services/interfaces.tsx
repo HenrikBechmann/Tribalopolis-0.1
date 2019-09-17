@@ -114,7 +114,7 @@ export interface DataPaneMessage {
     docproxy:GenericObject,
     options:GenericObject,
     callbacks:GenericCallbacks,
-    registercalldowns:Function,
+    registercalldowns?:Function,
     // namespace:GenericObject,
 }
 

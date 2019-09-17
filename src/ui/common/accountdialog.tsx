@@ -16,7 +16,7 @@ import Button from '@material-ui/core/Button'
 import IconButton from '@material-ui/core/IconButton'
 import CloseIcon from '@material-ui/icons/Close'
 
-import { DataPaneMessage } from '../../services/interfaces'
+import { DataPaneMessage, GenericObject } from '../../services/interfaces'
 import docproxy from '../../utilities/docproxy'
 import application from '../../services/application'
 import DataPane from './datapane.view'
@@ -43,22 +43,18 @@ const styles = createStyles({
     },
 })
 
-interface AnyObject {
-    [name:string]:any,
-}
-
 interface DialogProps {
-    closeSettings:any,
-    userdata:AnyObject,
-    systemdata:AnyObject,
-    classes:AnyObject,
+    closeSettings:any, // avoid complex type definiion. It's a function.
+    userdata:GenericObject,
+    systemdata:GenericObject,
+    classes:GenericObject,
 }
 
-class AccountDialogBase extends React.Component<DialogProps,any> {
+class AccountDialog extends React.Component<DialogProps,any> {
 
     constructor(props) {
       super(props)
-      this.accountsettingselement = React.createRef()
+      this.accountsettingselement = React.createRef() // must be set in constructor to avoid complex type defs
       this.setDatapaneMessage()
     }
 
@@ -67,10 +63,11 @@ class AccountDialogBase extends React.Component<DialogProps,any> {
         draweropen:false,
     }
 
-    private paneProxy = null
+    private paneProxy:docproxy = null
     private datapanemessage:DataPaneMessage = null
     private accountsettingselement
-    private calldowns
+    // private accountsettingselement:React.RefObject<HTMLDivElement> = React.createRef()
+    // private calldowns
 
     // private registerCalldowns = (calldowns) => {
     //   this.calldowns = calldowns
@@ -114,8 +111,7 @@ class AccountDialogBase extends React.Component<DialogProps,any> {
                     manage:this.openDrawer,
                     submit:application.submitDocument,
                 },
-                registercalldowns:null, // this.registerCalldowns, // not needed here
-                // namespace:{},
+                // registercalldowns:null, // this.registerCalldowns, // not needed here
             }
         }
 
@@ -126,7 +122,7 @@ class AccountDialogBase extends React.Component<DialogProps,any> {
           // TransitionComponent={Transition} //broken with current release of material-ui v 4
         return  <Dialog
           fullScreen
-          open={ true } // TESTING this.state.settingsopen}
+          open
           onClose={this.props.closeSettings}
         >
           <div className = {classes.dialogliner}
@@ -161,4 +157,4 @@ class AccountDialogBase extends React.Component<DialogProps,any> {
     }
 }
 
-export default withStyles(styles)(AccountDialogBase)
+export default withStyles(styles)(AccountDialog)
