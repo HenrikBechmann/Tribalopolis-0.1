@@ -84,6 +84,8 @@ class DataPane extends React.Component<DataPaneProps,any>  {
         factorycomponent:null,
     }
 
+    componentfactory:ComponentFactory = null
+
     // dataPaneMessage properties
     docProxy
     userdata
@@ -99,75 +101,8 @@ class DataPane extends React.Component<DataPaneProps,any>  {
 
     componentDidUpdate() {
 
-        // this.props.dataPaneMessage.options
-
         this.assertTargetListener()
 
-    }
-
-    assertTargetListener = () => {
-
-        let { dataPaneMessage } = this.props
-        if (!this.docProxy && dataPaneMessage.docproxy) {
-            this.docProxy = dataPaneMessage.docproxy
-            // console.log('componentDidUpdate setting this.docProxy',this.docProxy)
-            this.assertListener()
-        }
-
-    }
-
-    assertListener = () => {
-
-        // console.log('assertListener in datapane.view', this.docProxy)
-        if (this.docProxy) {
-            let parms:SetListenerMessage = 
-                {
-                    doctoken:this.docProxy.doctoken,
-                    instanceid:this.docProxy.instanceid,
-                    success:this.successAssertListener,
-                    failure:this.failureAssertListener,
-                }
-
-            application.setDocpackPairListener( parms )
-        }
-    }
-
-    componentfactory:ComponentFactory = null
-
-    successAssertListener = (parmblock:DocpackPairPayloadMessage) => {
-
-        let { docpack, typepack, reason } = parmblock
-        // database type data namespace
-        let controllerdata:ControllerData = {
-            userdata:this.userdata,
-            // props:this.props,
-            callbacks:this.props.dataPaneMessage.callbacks,
-        }
-
-        if ( !this.componentfactory ) {
-            this.componentfactory = new ComponentFactory()
-        }
-
-        // reformat for componentfactory
-        let sourcemessage:GetFactoryMessage = {
-            docpack,
-            typepack,
-            options:this.props.dataPaneMessage.options,
-            controller:controllerdata
-        }
-        let factorymessage:FactoryMessage = 
-            this.componentfactory.assembleFactoryMessage(sourcemessage)
-
-        let factorycomponent = this.componentfactory.getComponent(factorymessage)
-
-        this.setState({
-            factorycomponent,
-        })
-
-    }
-
-    failureAssertListener = (error, reason) => {
-        console.log('failureAssertListener in datapane.view',error,reason)
     }
 
     componentWillUnmount() {
@@ -178,12 +113,90 @@ class DataPane extends React.Component<DataPaneProps,any>  {
     
     }
 
+    assertTargetListener = () => {
+
+        let { dataPaneMessage } = this.props
+        if (!this.docProxy && dataPaneMessage.docproxy) {
+
+            this.docProxy = dataPaneMessage.docproxy
+
+            this.assertListener()
+
+        }
+
+    }
+
+    assertListener = () => {
+
+        if (this.docProxy) {
+
+            let parms:SetListenerMessage = 
+                {
+                    doctoken:this.docProxy.doctoken,
+                    instanceid:this.docProxy.instanceid,
+                    success:this.successAssertListener,
+                    failure:this.failureAssertListener,
+                }
+
+            application.setDocpackPairListener( parms )
+
+        }
+    }
+
+    successAssertListener = (parmblock:DocpackPairPayloadMessage) => {
+
+        let { docpack, typepack, reason } = parmblock
+        // database type data namespace
+        let controllerdata:ControllerData = {
+
+            userdata:this.userdata,
+            callbacks:this.props.dataPaneMessage.callbacks,
+
+        }
+
+        if ( !this.componentfactory ) {
+
+            this.componentfactory = new ComponentFactory()
+
+        }
+
+        // reformat for componentfactory
+        let sourcemessage:GetFactoryMessage = {
+
+            docpack,
+            typepack,
+            options:this.props.dataPaneMessage.options,
+            controller:controllerdata
+
+        }
+
+        let factorymessage:FactoryMessage = 
+            this.componentfactory.assembleFactoryMessage(sourcemessage)
+
+        let factorycomponent = this.componentfactory.getComponent(factorymessage)
+
+        this.setState({
+
+            factorycomponent,
+
+        })
+
+    }
+
+    failureAssertListener = (error, reason) => {
+
+        console.log('failureAssertListener in datapane.view',error,reason)
+
+    }
+
     render() {
 
         const { classes } = this.props
 
         return <Paper className = {classes.root}>
+
             {this.state.factorycomponent?this.state.factorycomponent:<div>Loading...</div>}
+            
         </Paper>
 
     }
