@@ -8,17 +8,17 @@ import React from 'react'
 import { withStyles, createStyles } from '@material-ui/core/styles'
 import moment from 'moment'
 
-import layoutComponents from './prerenderer/layouts'
-import displayComponents from './prerenderer/displays'
-import formComponents from './prerenderer/forms'
-import widgetComponents from './prerenderer/widgets'
-import nativeComponents from './prerenderer/native'
+import layoutComponents from './componentfactory/layouts'
+import displayComponents from './componentfactory/displays'
+import formComponents from './componentfactory/forms'
+import widgetComponents from './componentfactory/widgets'
+import nativeComponents from './componentfactory/native'
 
 import functions from './functions'
 
-import AbstractDataPane from './prerenderer/components/abstractdatapane'
+import AbstractDataPane from './componentfactory/components/abstractdatapane'
 import utilities from '../utilities/utilities'
-import { DataPaneNamespace, GetPreRenderMessage, PreRenderMessage } from './interfaces'
+import { DataPaneNamespace, GetFactoryMessage, FactoryMessage } from './interfaces'
 import application from './application'
 
 const components = { // lookups
@@ -31,7 +31,7 @@ const components = { // lookups
 }
 
 // instantiated by client
-class PreRenderer {
+class ComponentFactory {
 
     // private prerendermessage:PreRenderMessage
     private namespace
@@ -39,9 +39,9 @@ class PreRenderer {
     // ==================[ API ]========================
 
     // a utility to package renderer content message from standard input
-    public assemblePreRenderMessage = (getPreRenderMessage:GetPreRenderMessage) => {
+    public assembleFactoryMessage = (getFactoryMessage:GetFactoryMessage) => {
 
-        let {docpack, typepack, options, controller} = getPreRenderMessage
+        let {docpack, typepack, options, controller} = getFactoryMessage
 
         let renderspecs
         try {
@@ -63,21 +63,21 @@ class PreRenderer {
             functions,
         }
 
-        let prerendermessage:PreRenderMessage = {
+        let factorymessage:FactoryMessage = {
             renderspecs,
             namespace:datanamespace,
             docref:docpack.reference
         }
 
-        return prerendermessage
+        return factorymessage
     }
 
     // called by client
-    public getRenderContent = (prerendermessage:PreRenderMessage) => {
+    public getComponent = (factorymessage:FactoryMessage) => {
 
-        if (!prerendermessage) return null
+        if (!factorymessage) return null
 
-        const {renderspecs:specs,namespace} = prerendermessage 
+        const {renderspecs:specs,namespace} = factorymessage 
 
         this.namespace = namespace
 
@@ -390,4 +390,4 @@ class PreRenderer {
 
 }
 
-export default PreRenderer
+export default ComponentFactory

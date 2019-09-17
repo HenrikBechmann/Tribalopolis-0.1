@@ -118,14 +118,14 @@ export interface DataPaneMessage {
     namespace:GenericObject,
 }
 
-export interface GetPreRenderMessage {
+export interface GetFactoryMessage {
     docpack:DocPackStruc,
     typepack:DocPackStruc,
     options:GenericObject,
     controller:ControllerData,
 }
 
-export interface PreRenderMessage {
+export interface FactoryMessage {
     renderspecs:GenericObject,
     namespace:GenericObject,
     docref:string,

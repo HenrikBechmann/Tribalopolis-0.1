@@ -14,12 +14,12 @@ import React from 'react'
 
 import { withStyles, createStyles } from '@material-ui/core/styles'
 import Paper from '@material-ui/core/Paper'
-import PreRenderer from '../../services/prerenderer' // class
+import ComponentFactory from '../../services/componentfactory' // class
 import { 
     SetListenerMessage,
     DocpackPairPayloadMessage,
-    PreRenderMessage,
-    GetPreRenderMessage,
+    FactoryMessage,
+    GetFactoryMessage,
     ControllerData,
  } from '../../services/interfaces'
 import application from '../../services/application'
@@ -57,9 +57,9 @@ const styles = createStyles({
         typepack
         options
 
-        for the prerenderer
+        for the componentfactory
 
-    4. The prerenderer remaps to
+    4. The componentfactory remaps to
 
         controller
         props
@@ -68,7 +68,7 @@ const styles = createStyles({
 
     which becomes the namespace for the rendering
 
-    5. The prerenderer returns content (elements) 
+    5. The componentfactory returns content (elements) 
 
     6. content is rendered by DataPane (wrapped in Paper)
 */
@@ -80,11 +80,11 @@ interface DataPaneProps {
 
 class DataPane extends React.Component<DataPaneProps,any>  {
 
-    state = {
-        docpack:null,
-        typepack:null,
-        // options:null,
-    }
+    // state = {
+    //     docpack:null,
+    //     typepack:null,
+    //     // options:null,
+    // }
 
     // dataPaneMessage properties
     docProxy
@@ -92,7 +92,7 @@ class DataPane extends React.Component<DataPaneProps,any>  {
     // calldowns
     // namespace
     // preRenderMessage:PreRenderMessage
-    renderContent // set when docPair arrives
+    factorycomponent // set when docPair arrives
     userdata
 
     componentDidMount() {
@@ -139,7 +139,7 @@ class DataPane extends React.Component<DataPaneProps,any>  {
         }
     }
 
-    prerenderer:PreRenderer = null
+    componentfactory:ComponentFactory = null
 
     successAssertListener = (parmblock:DocpackPairPayloadMessage) => {
 
@@ -151,28 +151,30 @@ class DataPane extends React.Component<DataPaneProps,any>  {
             callbacks:this.props.dataPaneMessage.callbacks,
         }
 
-        if ( !this.prerenderer ) {
-            this.prerenderer = new PreRenderer()
+        if ( !this.componentfactory ) {
+            this.componentfactory = new ComponentFactory()
         }
 
-        // reformat for prerenderer
-        let sourcemessage:GetPreRenderMessage = {
+        // reformat for componentfactory
+        let sourcemessage:GetFactoryMessage = {
             docpack,
             typepack,
             options:this.props.dataPaneMessage.options,
             controller:controllerdata
         }
-        let preRenderMessage:PreRenderMessage = 
-            this.prerenderer.assemblePreRenderMessage(sourcemessage)
+        let factorymessage:FactoryMessage = 
+            this.componentfactory.assembleFactoryMessage(sourcemessage)
 
-        // this.prerenderer.setPreRenderMessage(this.preRenderMessage)
-        this.renderContent = this.prerenderer.getRenderContent(preRenderMessage)
-        // console.log('renderContent',this.renderContent)
+        // this.componentfactory.setPreRenderMessage(this.preRenderMessage)
+        this.factorycomponent = this.componentfactory.getComponent(factorymessage)
+        // console.log('factorycomponent',this.factorycomponent)
 
-        this.setState({
-            docpack,
-            typepack,
-        })
+        this.forceUpdate() // TODO:??
+
+        // this.setState({
+        //     docpack,
+        //     typepack,
+        // })
 
     }
 
@@ -193,7 +195,7 @@ class DataPane extends React.Component<DataPaneProps,any>  {
         const { classes } = this.props
 
         return <Paper className = {classes.root}>
-            {this.renderContent?this.renderContent:<div>Loading...</div>}
+            {this.factorycomponent?this.factorycomponent:<div>Loading...</div>}
         </Paper>
 
     }

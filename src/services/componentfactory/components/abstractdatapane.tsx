@@ -5,14 +5,14 @@
 
 import React from 'react'
 
-import PreRenderer from '../../prerenderer'
+import ComponentFactory from '../../componentfactory'
 import Proxy from '../../../utilities/docproxy'
 import application from '../../../services/application'
 import { 
     SetListenerMessage, 
     RemoveListenerMessage, 
     DocpackPairPayloadMessage,
-    PreRenderMessage,
+    FactoryMessage,
     PostFormMessage,
     GenericObject,
 } from '../../../services/interfaces'
@@ -30,7 +30,7 @@ class AbstractDataPane extends React.Component<AbstractDataPaneProps,any> {
 
         super(props)
 
-        this.prerenderer = new PreRenderer()
+        this.componentfactory = new ComponentFactory()
 
         let { reference, options, namespace, attributes} = this.props
 
@@ -50,7 +50,7 @@ class AbstractDataPane extends React.Component<AbstractDataPaneProps,any> {
         typepack:null,
     }
 
-    prerenderer:PreRenderer = null
+    componentfactory:ComponentFactory = null
     reference
     attributes
     options
@@ -59,7 +59,7 @@ class AbstractDataPane extends React.Component<AbstractDataPaneProps,any> {
     userdata
     callbacks
     // preRenderMessage:PreRenderMessage
-    renderContent
+    factorycomponent
 
     componentDidMount() {
         // subscribe to reference
@@ -109,7 +109,7 @@ class AbstractDataPane extends React.Component<AbstractDataPaneProps,any> {
             } else {
 
                 console.log('unable to create content props',this.props)
-                this.renderContent = <div>unable to create content</div>
+                this.factorycomponent = <div>unable to create content</div>
                 this.forceUpdate()
 
             }
@@ -131,21 +131,21 @@ class AbstractDataPane extends React.Component<AbstractDataPaneProps,any> {
 
         // console.log('containerdata and this.callbacks',containerdata,this.callbacks)
 
-        if ( !this.prerenderer ) {
-            this.prerenderer = new PreRenderer()
+        if ( !this.componentfactory ) {
+            this.componentfactory = new ComponentFactory()
         }
 
-        // reformat for prerenderer
-        let preRenderMessage:PreRenderMessage = 
-            this.prerenderer.assemblePreRenderMessage({
+        // reformat for componentfactory
+        let preRenderMessage:FactoryMessage = 
+            this.componentfactory.assembleFactoryMessage({
                 docpack,
                 typepack,
                 options:this.options,
                 controller:controllerdata,
             })
 
-        // this.prerenderer.setPreRenderMessage(this.preRenderMessage)
-        this.renderContent = this.prerenderer.getRenderContent(preRenderMessage)
+        // this.componentfactory.setPreRenderMessage(this.preRenderMessage)
+        this.factorycomponent = this.componentfactory.getComponent(preRenderMessage)
 
         this.setState({
             docpack,
@@ -160,7 +160,7 @@ class AbstractDataPane extends React.Component<AbstractDataPaneProps,any> {
 
     render() {
 
-        return this.renderContent || null
+        return this.factorycomponent || null
         
    }
 
