@@ -120,7 +120,7 @@ export interface DataPaneMessage {
 export interface GetFactoryMessage {
     docpack:DocPackStruc,
     typepack:DocPackStruc,
-    options:GenericObject,
+    // options:GenericObject,
     controller:ControllerData,
 }
 
@@ -132,8 +132,10 @@ export interface FactoryMessage {
 
 export interface ControllerData {
     userdata:GenericObject,
-    // props:GenericObject,
     callbacks:GenericCallbacks,
+    docproxy:GenericObject,
+    registercalldowns?:Function,
+    options:GenericObject,
 }
 
 

@@ -125,8 +125,10 @@ class AbstractDataPane extends React.Component<AbstractDataPaneProps,any> {
         // database type data namespace
         let controllerdata = {
             userdata:this.userdata,
-            props:this.props,
+            // props:this.props,
             callbacks:this.callbacks,
+            docproxy:this.docProxy,
+            options:this.options,
         }
 
         // console.log('containerdata and this.callbacks',containerdata,this.callbacks)
@@ -140,7 +142,7 @@ class AbstractDataPane extends React.Component<AbstractDataPaneProps,any> {
             this.componentfactory.assembleFactoryMessage({
                 docpack,
                 typepack,
-                options:this.options,
+                // options:this.options,
                 controller:controllerdata,
             })
 

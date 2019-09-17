@@ -41,12 +41,12 @@ class ComponentFactory {
     // a utility to package renderer content message from standard input
     public assembleFactoryMessage = (getFactoryMessage:GetFactoryMessage) => {
 
-        let {docpack, typepack, options, controller} = getFactoryMessage
+        let {docpack, typepack, controller} = getFactoryMessage
 
         let renderspecs
         try {
 
-            renderspecs = typepack.document.properties.ui[options.uiselection]
+            renderspecs = typepack.document.properties.ui[controller.options.uiselection]
 
         } catch(e) {
 

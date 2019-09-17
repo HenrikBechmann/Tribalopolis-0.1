@@ -597,7 +597,8 @@ const appManager = new class {
 
         let message = {
             document,
-            reference:documentcontext.controller.props.reference,
+            // reference:documentcontext.controller.props.reference,
+            reference:documentcontext.controller.docproxy.doctoken.reference,
             success,
             failure,
         }
