@@ -40,7 +40,7 @@ class ComponentFactory {
 
     // a utility to package renderer content message from standard input
     // it packs the getFactoryMessage with generic functions under namespace
-    // and packs namespace with renderdata
+    // and packs namespace together with renderdata from the document type
     public assembleFactoryMessage = (getFactoryMessage:GetFactoryMessage) => {
 
         let {docpack, typepack, controller} = getFactoryMessage

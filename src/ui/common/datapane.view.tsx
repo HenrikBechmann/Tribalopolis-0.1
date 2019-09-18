@@ -40,38 +40,6 @@ const styles = createStyles({
     }
 })
 
-/*
-    1. Takes dataPaneMessage consisting of 
-        docProxy, (target)
-        options, (options.uiselection for target)
-        callbacks,
-        calldowns,
-        namespace,
-
-    2.  uses that to obtain docpack and typepack (document and reference for each)
-
-    3. then uses that to bundle 
-        controller data (userdata, props, callbacks)
-        dockpack
-        typepack
-        options
-
-        for the componentfactory
-
-    4. The componentfactory remaps to
-
-        controller
-        props
-        document
-        type
-
-    which becomes the namespace for the rendering
-
-    5. The componentfactory returns content (elements) 
-
-    6. content is rendered by DataPane (wrapped in Paper)
-*/
-
 interface DataPaneProps {
     dataPaneMessage:DataPaneMessage,
     classes:GenericObject, // provided by withStyles in export statement
@@ -85,8 +53,7 @@ class DataPane extends React.Component<DataPaneProps,any>  {
 
     componentfactory:ComponentFactory = new ComponentFactory()
 
-    // dataPaneMessage properties
-    docProxy
+    docProxy // used to control document fetches
 
     componentDidMount() {
 
@@ -101,6 +68,7 @@ class DataPane extends React.Component<DataPaneProps,any>  {
     }
 
     componentWillUnmount() {
+
         if (!this.docProxy) return
 
         application.removeDocpackPairListener({doctoken:this.docProxy.doctoken,
@@ -147,7 +115,6 @@ class DataPane extends React.Component<DataPaneProps,any>  {
         let controllerdata:ControllerData = {
 
             userdata:application.userdata,
-            // controller:this.props.dataPaneMessage,
             callbacks,
             docproxy,
             registercalldowns,
@@ -163,10 +130,9 @@ class DataPane extends React.Component<DataPaneProps,any>  {
 
         }
 
+        // returns {renderdata, namespace}, where namespace = {controller, dockpack, typepack, functions}
         let factorymessage:FactoryMessage = 
             this.componentfactory.assembleFactoryMessage(sourcemessage)
-
-        // console.log('successAssertListener: parmblock, props, controllerdata, sourcemessage, factorymessage',parmblock, this.props, controllerdata, sourcemessage, factorymessage)
 
         let factorycomponent = this.componentfactory.getComponent(factorymessage)
 

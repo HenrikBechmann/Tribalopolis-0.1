@@ -597,7 +597,6 @@ const appManager = new class {
 
         let message = {
             document:docpack.document,
-            // reference:documentcontext.controller.props.reference,
             reference:docpack.reference,
             success,
             failure,
@@ -609,7 +608,6 @@ const appManager = new class {
         })
 
     }
-
 
 }
 

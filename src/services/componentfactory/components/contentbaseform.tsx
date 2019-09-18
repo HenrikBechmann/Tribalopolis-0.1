@@ -328,15 +328,4 @@ class ContentBaseForm extends React.Component<any,any> {
 
 }
 
-// {false && this.iseditable?<Button 
-//     onClick = {this.onSubmit}
-//     disabled = {!this.state.dirty}
-//     className = {classes.button}
-//     color = "primary" 
-//     variant = "contained" 
-//     type="submit">
-//         Save
-//     </Button>
-// :null}
-
 export default withStyles( styles )( ContentBaseForm )

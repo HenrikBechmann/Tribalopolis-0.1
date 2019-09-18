@@ -34,13 +34,16 @@ class AbstractDataPane extends React.Component<AbstractDataPaneProps,any> {
 
         let { reference, options, namespace, attributes} = this.props
 
+        // new
         this.reference = reference
+        this.reference && (this.docProxy = new Proxy({doctoken:{reference}}))
         this.options = options
-        // this.namespace = namespace
+        this.attributes = attributes // used for local control
+
+        // inherited
         this.userdata = namespace.controller.userdata
         this.callbacks = namespace.controller.callbacks
-        this.reference && (this.docProxy = new Proxy({doctoken:{reference}}))
-        this.attributes = attributes
+        this.registercalldowns = namespace.controller.registercalldowns
 
     }
 
@@ -54,11 +57,10 @@ class AbstractDataPane extends React.Component<AbstractDataPaneProps,any> {
     reference
     attributes
     options
-    // namespace
     docProxy:Proxy
     userdata
     callbacks
-    // preRenderMessage:PreRenderMessage
+    registercalldowns
     factorycomponent
 
     componentDidMount() {
@@ -96,6 +98,7 @@ class AbstractDataPane extends React.Component<AbstractDataPaneProps,any> {
         } else {
             let { attributes } = this
             let { assertinstance, typereference, collection, customid } = attributes
+
             if (assertinstance && typereference && collection) {
                 let parms = {
                     typereference,
@@ -104,8 +107,9 @@ class AbstractDataPane extends React.Component<AbstractDataPaneProps,any> {
                     success:this.successAssertListener,
                     failure:this.failureAssertListener,
                 }
-                // console.log('assertListener no docProxy: attributes, parms',attributes, parms)
+
                 this.docProxy = application.setNewDocpackPairListener( parms )
+
             } else {
 
                 console.log('unable to create content props',this.props)
@@ -119,19 +123,18 @@ class AbstractDataPane extends React.Component<AbstractDataPaneProps,any> {
 
     private successAssertListener = (parmblock:DocpackPairPayloadMessage) => {
 
-        // console.log('abstractdatapane successAssertListener: parmblock',parmblock)
         let {docpack, typepack, reason} = parmblock
         // console.log('abstractdatapane cacheDocPair', parmblock)
         // database type data namespace
         let controllerdata = {
-            userdata:this.userdata,
-            // props:this.props,
-            callbacks:this.callbacks,
+            // new
             docproxy:this.docProxy,
             options:this.options,
+            // inherited
+            userdata:this.userdata,
+            callbacks:this.callbacks,
+            registercalldowns:this.registercalldowns,
         }
-
-        // console.log('containerdata and this.callbacks',containerdata,this.callbacks)
 
         if ( !this.componentfactory ) {
             this.componentfactory = new ComponentFactory()
@@ -142,7 +145,6 @@ class AbstractDataPane extends React.Component<AbstractDataPaneProps,any> {
             this.componentfactory.assembleFactoryMessage({
                 docpack,
                 typepack,
-                // options:this.options,
                 controller:controllerdata,
             })
 

@@ -66,12 +66,6 @@ class AccountDialog extends React.Component<DialogProps,any> {
     private paneProxy:docproxy = null
     private datapanemessage:DataPaneMessage = null
     private accountsettingselement
-    // private accountsettingselement:React.RefObject<HTMLDivElement> = React.createRef()
-    // private calldowns
-
-    // private registerCalldowns = (calldowns) => {
-    //   this.calldowns = calldowns
-    // }
 
     openDrawer = ({docproxy,options}:DataPaneMessage) => {
 
