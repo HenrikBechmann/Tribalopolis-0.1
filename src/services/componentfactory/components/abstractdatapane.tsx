@@ -40,10 +40,11 @@ class AbstractDataPane extends React.Component<AbstractDataPaneProps,any> {
         this.options = options
         this.controldata = controldata // used for local control
 
+        this.controllerdata = namespace.controller
         // inherited
-        this.userdata = namespace.controller.userdata
-        this.callbacks = namespace.controller.callbacks
-        this.registercalldowns = namespace.controller.registercalldowns
+        // this.userdata = namespace.controller.userdata
+        // this.callbacks = namespace.controller.callbacks
+        // this.registercalldowns = namespace.controller.registercalldowns
 
     }
 
@@ -58,9 +59,10 @@ class AbstractDataPane extends React.Component<AbstractDataPaneProps,any> {
     controldata
     options
     docProxy:Proxy
-    userdata
-    callbacks
-    registercalldowns
+    controllerdata
+    // userdata
+    // callbacks
+    // registercalldowns
     factorycomponent
 
     componentDidMount() {
@@ -126,12 +128,13 @@ class AbstractDataPane extends React.Component<AbstractDataPaneProps,any> {
         let {docpack, typepack, reason} = parmblock
         // console.log('abstractdatapane cacheDocPair', parmblock)
         // database type data namespace
-        let controllerdata = {
-            // inherited
-            userdata:this.userdata,
-            callbacks:this.callbacks,
-            registercalldowns:this.registercalldowns,
-        }
+        // let controllerdata = this.controllerdata
+        // {
+        //     // inherited
+        //     userdata:this.userdata,
+        //     callbacks:this.callbacks,
+        //     registercalldowns:this.registercalldowns,
+        // }
 
         if ( !this.componentfactory ) {
             this.componentfactory = new ComponentFactory()
@@ -145,7 +148,7 @@ class AbstractDataPane extends React.Component<AbstractDataPaneProps,any> {
                 options:this.options,
                 docpack,
                 typepack,
-                controller:controllerdata,
+                controller:this.controllerdata,
             })
 
         // this.componentfactory.setPreRenderMessage(this.preRenderMessage)

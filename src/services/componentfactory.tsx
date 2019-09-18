@@ -325,7 +325,7 @@ class ComponentFactory {
                     let parms = this.getProps(propertyobject.parms, attributes)
                     retval = functions[propertyobject.function](parms)
                     break
-                case 'context':
+                case 'namespace':
                     retval = this.namespace
                     break
                 default:
