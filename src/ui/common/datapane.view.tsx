@@ -71,8 +71,12 @@ class DataPane extends React.Component<DataPaneProps,any>  {
 
         if (!this.docProxy) return
 
-        application.removeDocpackPairListener({doctoken:this.docProxy.doctoken,
-                    instanceid:this.docProxy.instanceid,})
+        application.removeDocpackPairListener(
+            {
+                doctoken:this.docProxy.doctoken,
+                instanceid:this.docProxy.instanceid,
+            }
+        )
     
     }
 
@@ -116,23 +120,28 @@ class DataPane extends React.Component<DataPaneProps,any>  {
 
             userdata:application.userdata,
             callbacks,
-            docproxy,
             registercalldowns,
-            options,
+            // docproxy,
+            // options,
         }
 
         // reformat for componentfactory
-        let sourcemessage:GetFactoryMessage = {
+        let namespace:GetFactoryMessage = {
 
+            docproxy,
+            options,
             docpack,
             typepack,
             controller:controllerdata
 
         }
 
-        // returns {renderdata, namespace}, where namespace = {controller, dockpack, typepack, functions}
+        /* 
+            returns { renderdata, namespace }
+            where namespace = as above
+        */
         let factorymessage:FactoryMessage = 
-            this.componentfactory.assembleFactoryMessage(sourcemessage)
+            this.componentfactory.assembleFactoryMessage(namespace)
 
         let factorycomponent = this.componentfactory.getComponent(factorymessage)
 

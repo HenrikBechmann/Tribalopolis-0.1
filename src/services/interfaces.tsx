@@ -117,10 +117,12 @@ export interface DataPaneMessage {
     registercalldowns?:Function,
 }
 
+// same as DataPaneNamespace
 export interface GetFactoryMessage {
     docpack:DocPackStruc,
     typepack:DocPackStruc,
-    // options:GenericObject,
+    options:GenericObject,
+    docproxy:GenericObject,
     controller:ControllerData,
 }
 
@@ -133,9 +135,9 @@ export interface FactoryMessage {
 export interface ControllerData {
     userdata:GenericObject,
     callbacks:GenericCallbacks,
-    docproxy:GenericObject,
+    // docproxy:GenericObject,
     registercalldowns?:Function,
-    options:GenericObject,
+    // options:GenericObject,
 }
 
 
@@ -149,12 +151,13 @@ export interface GenericObject {
     [name:string]:any,
 }
 
+// same as GetFactoryMessage
 export interface DataPaneNamespace {
     controller:ControllerData,
     docpack:GenericObject,
     // props:GenericObject,
     typepack:GenericObject,
-    functions:GenericObject,
+    // functions:GenericObject,
 }
 
 /***************************************************************

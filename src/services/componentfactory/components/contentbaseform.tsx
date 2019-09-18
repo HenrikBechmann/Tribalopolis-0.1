@@ -52,10 +52,10 @@ class ContentBaseForm extends React.Component<any,any> {
 
         // console.log('ContentBaseForm constructor',props)
         // initialize state values
-        let { children, context, documentmap, fieldsets, groups, registerCallbacks, setupPostDocument } = props
+        let { children, namespace, documentmap, fieldsets, groups, registerCallbacks, setupPostDocument } = props
 
         // save props to class
-        if (context) {this.documentcontext = context}
+        if (namespace) {this.documentcontext = namespace}
         this.documentmap = documentmap
         this.fieldsetprops = fieldsets || []
         this.groupprops = groups || []
@@ -299,7 +299,7 @@ class ContentBaseForm extends React.Component<any,any> {
     }
 
     render() {
-        const { classes, context, disabled } = this.props
+        const { classes, namespace, disabled } = this.props
 
         // console.log('contentbaseform postMessage',this.getPostMessage())
 
@@ -311,9 +311,9 @@ class ContentBaseForm extends React.Component<any,any> {
 
                     if (!disabled) {
 
-                        context && 
-                        context.controller.callbacks.submit && 
-                        context.controller.callbacks.submit(this.getPostMessage())
+                        namespace && 
+                        namespace.controller.callbacks.submit && 
+                        namespace.controller.callbacks.submit(this.getPostMessage())
 
                     }
 

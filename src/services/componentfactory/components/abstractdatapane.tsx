@@ -21,7 +21,7 @@ interface AbstractDataPaneProps {
     reference:string,
     options: GenericObject,
     namespace: GenericObject,
-    attributes: GenericObject,
+    controldata: GenericObject,
 }
 
 class AbstractDataPane extends React.Component<AbstractDataPaneProps,any> {
@@ -32,13 +32,13 @@ class AbstractDataPane extends React.Component<AbstractDataPaneProps,any> {
 
         this.componentfactory = new ComponentFactory()
 
-        let { reference, options, namespace, attributes} = this.props
+        let { reference, options, namespace, controldata} = this.props
 
         // new
         this.reference = reference
         this.reference && (this.docProxy = new Proxy({doctoken:{reference}}))
         this.options = options
-        this.attributes = attributes // used for local control
+        this.controldata = controldata // used for local control
 
         // inherited
         this.userdata = namespace.controller.userdata
@@ -55,7 +55,7 @@ class AbstractDataPane extends React.Component<AbstractDataPaneProps,any> {
 
     componentfactory:ComponentFactory = null
     reference
-    attributes
+    controldata
     options
     docProxy:Proxy
     userdata
@@ -96,8 +96,8 @@ class AbstractDataPane extends React.Component<AbstractDataPaneProps,any> {
             application.setDocpackPairListener( parms )
 
         } else {
-            let { attributes } = this
-            let { assertinstance, typereference, collection, customid } = attributes
+            let { controldata } = this
+            let { assertinstance, typereference, collection, customid } = controldata
 
             if (assertinstance && typereference && collection) {
                 let parms = {
@@ -127,9 +127,6 @@ class AbstractDataPane extends React.Component<AbstractDataPaneProps,any> {
         // console.log('abstractdatapane cacheDocPair', parmblock)
         // database type data namespace
         let controllerdata = {
-            // new
-            docproxy:this.docProxy,
-            options:this.options,
             // inherited
             userdata:this.userdata,
             callbacks:this.callbacks,
@@ -143,6 +140,9 @@ class AbstractDataPane extends React.Component<AbstractDataPaneProps,any> {
         // reformat for componentfactory
         let preRenderMessage:FactoryMessage = 
             this.componentfactory.assembleFactoryMessage({
+                // new
+                docproxy:this.docProxy,
+                options:this.options,
                 docpack,
                 typepack,
                 controller:controllerdata,

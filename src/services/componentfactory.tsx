@@ -39,16 +39,15 @@ class ComponentFactory {
     // ==================[ API ]========================
 
     // a utility to package renderer content message from standard input
-    // it packs the getFactoryMessage with generic functions under namespace
-    // and packs namespace together with renderdata from the document type
-    public assembleFactoryMessage = (getFactoryMessage:GetFactoryMessage) => {
+    // it namespace together with renderdata from the document type
+    public assembleFactoryMessage = (namespace:GetFactoryMessage) => {
 
-        let {docpack, typepack, controller} = getFactoryMessage
+        let { typepack, options} = namespace
 
         let renderdata
         try {
 
-            renderdata = typepack.document.properties.ui[controller.options.uiselection]
+            renderdata = typepack.document.properties.ui[options.uiselection]
 
         } catch(e) {
 
@@ -57,13 +56,6 @@ class ComponentFactory {
         }
 
         if (!renderdata) return null
-
-        let namespace:DataPaneNamespace = {
-            controller,
-            docpack,
-            typepack,
-            functions,
-        }
 
         let factorymessage:FactoryMessage = {
             renderdata,
@@ -158,14 +150,13 @@ class ComponentFactory {
         let props:any = this.getProps(properties,attributes)
         let namespace = this.namespace
         let { options:opts } = props
-        // console.log('getComponentByReference', reference, properties, attributes, ref, props, namespace)
         
         return <AbstractDataPane 
             key = {props.key} 
             reference = {ref} 
             options = {opts} 
             namespace = {namespace} 
-            attributes = {attributes} 
+            controldata = {attributes} 
         />
     }
 
@@ -241,7 +232,7 @@ class ComponentFactory {
                     let parms = this.getAttributes(attributeobject.parms)
                     retval = functions[attributeobject.function](parms)
                     break
-                case 'context':
+                case 'namespace':
                     retval = this.namespace
                     break
                 default:
