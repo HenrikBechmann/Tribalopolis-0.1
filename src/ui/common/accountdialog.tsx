@@ -111,7 +111,6 @@ class AccountDialog extends React.Component<DialogProps,any> {
                     manage:this.openDrawer,
                     submit:application.submitDocument,
                 },
-                // registercalldowns:null, // this.registerCalldowns, // not needed here
             }
         }
 

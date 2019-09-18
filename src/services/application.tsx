@@ -581,24 +581,24 @@ const appManager = new class {
 
         let { documentcontext, state:statecontext, documentmap } = formcontext
         // let document = merge({},this.documentcontext.document)
-        let { document, type } = documentcontext
+        let { docpack, typepack } = documentcontext
 
         for (let valueindex in statecontext.values) {
             // console.log('valueindex, documentmap, state.values',valueindex,this.documentmap, this.state.values)
             let path = documentmap[valueindex].split('.')
             // console.log('document, path',document, path)
-            let nodespecs = utilities.getNodePosition(document,path)
+            let nodespecs = utilities.getNodePosition(docpack.document,path)
             let value = statecontext.values[valueindex]
             let datatype
             if (value === undefined) value = null;
-            [value,datatype] = application.filterDataOutgoingValue(value, path, type)
+            [value,datatype] = application.filterDataOutgoingValue(value, path, typepack.document)
             nodespecs.nodeproperty[nodespecs.nodeindex] = value
         } 
 
         let message = {
-            document,
+            document:docpack.document,
             // reference:documentcontext.controller.props.reference,
-            reference:documentcontext.controller.docproxy.doctoken.reference,
+            reference:docpack.reference,
             success,
             failure,
         }

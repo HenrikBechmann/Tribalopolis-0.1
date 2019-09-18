@@ -141,7 +141,6 @@ class DataPane extends React.Component<DataPaneProps,any>  {
     // obtain a ComponentFactory component
     successAssertListener = (parmblock:DocpackPairPayloadMessage) => {
 
-        console.log('successAssertListener',parmblock, this.props)
         let { docpack, typepack, reason } = parmblock
         // database type data namespace
         let { callbacks, docproxy, registercalldowns, options } = this.props.dataPaneMessage
@@ -160,13 +159,14 @@ class DataPane extends React.Component<DataPaneProps,any>  {
 
             docpack,
             typepack,
-            // options:this.props.dataPaneMessage.options,
             controller:controllerdata
 
         }
 
         let factorymessage:FactoryMessage = 
             this.componentfactory.assembleFactoryMessage(sourcemessage)
+
+        // console.log('successAssertListener: parmblock, props, controllerdata, sourcemessage, factorymessage',parmblock, this.props, controllerdata, sourcemessage, factorymessage)
 
         let factorycomponent = this.componentfactory.getComponent(factorymessage)
 

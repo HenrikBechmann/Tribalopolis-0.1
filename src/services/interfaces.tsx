@@ -125,9 +125,9 @@ export interface GetFactoryMessage {
 }
 
 export interface FactoryMessage {
-    renderspecs:GenericObject,
+    renderdata:GenericObject,
     namespace:GenericObject,
-    docref:string,
+    // docref:string,
 }
 
 export interface ControllerData {
@@ -151,9 +151,9 @@ export interface GenericObject {
 
 export interface DataPaneNamespace {
     controller:ControllerData,
-    document:GenericObject,
+    docpack:GenericObject,
     // props:GenericObject,
-    type:GenericObject,
+    typepack:GenericObject,
     functions:GenericObject,
 }
 

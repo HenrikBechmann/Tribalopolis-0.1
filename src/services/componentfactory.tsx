@@ -39,14 +39,16 @@ class ComponentFactory {
     // ==================[ API ]========================
 
     // a utility to package renderer content message from standard input
+    // it packs the getFactoryMessage with generic functions under namespace
+    // and packs namespace with renderdata
     public assembleFactoryMessage = (getFactoryMessage:GetFactoryMessage) => {
 
         let {docpack, typepack, controller} = getFactoryMessage
 
-        let renderspecs
+        let renderdata
         try {
 
-            renderspecs = typepack.document.properties.ui[controller.options.uiselection]
+            renderdata = typepack.document.properties.ui[controller.options.uiselection]
 
         } catch(e) {
 
@@ -54,35 +56,34 @@ class ComponentFactory {
 
         }
 
-        if (!renderspecs) return null
+        if (!renderdata) return null
 
-        let datanamespace:DataPaneNamespace = {
+        let namespace:DataPaneNamespace = {
             controller,
-            // props:controller.props,
-            document:docpack.document,
-            type:(typepack && typepack.document),
+            docpack,
+            typepack,
             functions,
         }
 
         let factorymessage:FactoryMessage = {
-            renderspecs,
-            namespace:datanamespace,
-            docref:docpack.reference
+            renderdata,
+            namespace,
         }
 
         return factorymessage
     }
 
-    // called by client
+    // called by client. 
+    // factorymessage has renderdata and namespace
     public getComponent = (factorymessage:FactoryMessage) => {
 
         if (!factorymessage) return null
 
-        const {renderspecs:specs,namespace} = factorymessage 
+        const {renderdata,namespace} = factorymessage 
 
         this.namespace = namespace
 
-        let element = this.assembleElement(specs.component)
+        let element = this.assembleComponent(renderdata.component)
 
         return element
 
@@ -90,7 +91,7 @@ class ComponentFactory {
 
     // =======================[ internal ]============================
 
-    private assembleElement = componentspec => {
+    private assembleComponent = componentspec => {
 
         // if the component is text, return the text
         let { properties, attributes} = componentspec
@@ -113,7 +114,7 @@ class ComponentFactory {
                     } else {
                         result = componentspec.else
                     }
-                    return this.assembleElement(result)
+                    return this.assembleComponent(result)
                 default: {
                     console.error('error: variant in assembleComponents not recognized',variant)
                     return null // variant not recognized
@@ -157,8 +158,7 @@ class ComponentFactory {
         let props:any = this.getProps(properties,attributes)
         let namespace = this.namespace
         let { options:opts } = props
-        // console.log('props and options derived from db in getComponentByReference',props,opts)
-        // console.log('getComponentByReference', reference, properties, ref, opts, dataheap)
+        // console.log('getComponentByReference', reference, properties, attributes, ref, props, namespace)
         
         return <AbstractDataPane 
             key = {props.key} 
@@ -227,7 +227,7 @@ class ComponentFactory {
             let variant = attributeobject['#variant']
             switch (variant) {
                 case 'component':
-                    retval = this.assembleElement(attributeobject.component)
+                    retval = this.assembleComponent(attributeobject.component)
                     break
                 
                 case 'condition':
@@ -320,7 +320,7 @@ class ComponentFactory {
             let variant = propertyobject['#variant']
             switch (variant) {
                 case 'component':
-                    retval = this.assembleElement(propertyobject.component)
+                    retval = this.assembleComponent(propertyobject.component)
                     break
                 
                 case 'condition':
@@ -351,13 +351,15 @@ class ComponentFactory {
         let pathlist = path.split('.')
         let namespace = this.namespace
         let nodedata:any = utilities.getNodePosition(namespace,pathlist)
-
+        // console.log('pathlist, namespace, propertyspec, attributes, nodedata',pathlist, propertySpec, attributes, nodedata)
         if (nodedata) {
             let value = nodedata.nodevalue
             let datatype
-            if (pathlist[0]=='document') {
-                let docpath = pathlist.slice(1);
-                [value,datatype] = application.filterDataIncomingValue(value,docpath,namespace.type)
+            if (pathlist[0]=='docpack') { // doctype.document
+                // console.log("PATHLIST[0]=='docpack'")
+                let docpath = pathlist.slice(2);
+                [value,datatype] = application.filterDataIncomingValue(value,docpath,namespace.typepack.document)
+                // console.log('docpath, value, datatype',docpath, value, datatype)
                 if (value && (datatype == '??timestamp')) {
                     // console.log('??timestamp property',attributes,application.systemdata)
                     let format = attributes && attributes.formats && attributes.formats.timestamp
@@ -384,11 +386,11 @@ class ComponentFactory {
         if (Array.isArray(childspecs)) {
             children = []
             for (let childspec of childspecs) {
-                let child = this.assembleElement(childspec)
+                let child = this.assembleComponent(childspec)
                 children.push(child)
             }
         } else {
-            children = this.assembleElement(childspecs)
+            children = this.assembleComponent(childspecs)
         }
 
         return children
