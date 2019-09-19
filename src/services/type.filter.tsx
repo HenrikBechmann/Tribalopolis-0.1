@@ -13,6 +13,7 @@ import deepdiff from 'deep-diff'
 // import merge from 'deepmerge'
 
 import utilities from '../utilities/utilities'
+import functions from '../services/functions'
 
 const typefilter = new class {
 
@@ -40,19 +41,24 @@ const typefilter = new class {
 */
     public assertType = (document, type) => { //, forceupdate = false) => {
 
-        let localdocument:any = document
+        let localdocument:any = document // || {}
 
-        // if ((document === undefined) && type && type.properties.model) {
-        //     localdocument = {}
-        // }
+        // console.log('inside assertType BEFORE FILTER',document, type, type.properties.model)
+
+        if ((document === undefined) && type && type.properties.model) {
+            localdocument = {}
+        }
 
         // the document and its type are required to evaluate the document for update
-        if ((!document) || (!type) || (!type.properties.model)) {
+        if ((!localdocument) || (!type) || (!type.properties.model)) {
+            // console.log('assertType returning from FILTER')
             return {
                 document:localdocument,
                 changed:false,
             }
         }
+
+        // console.log('inside assertType',document, type)
 
 /*
         TODO:
@@ -107,12 +113,14 @@ const typefilter = new class {
             datachanged = (datachanged || deletionsperformed)
 
             // return updgraded document
-            return {
+            let retval = {
 
                 document:reviseddocument,
                 changed:datachanged,
 
             }
+            // console.log('retval returned from assertType',retval)
+            return retval
 
         } catch (e) {
 
@@ -173,6 +181,8 @@ const typefilter = new class {
 
     private getUpgrade = (original, differences, defaults) => {
 
+        // console.log('inside getUpgrade',original, differences, defaults)
+
         if (!differences) return {
             document:original,
             changed:false,
@@ -182,11 +192,17 @@ const typefilter = new class {
 
         for (let changerecord of differences) {
 
+            // console.log('processing ',changerecord)
+
             deepdiff.applyChange(original,null,changerecord)
 
-            this.applyNewBranchDefaults(changerecord, original, defaults)
+            // console.log('revised ',original)
+
+            // this.applyNewBranchDefaults(changerecord, original, defaults)
 
         }
+
+        this.applyDefaults(original, defaults)
 
         return {
             document:original,
@@ -196,12 +212,25 @@ const typefilter = new class {
 
     // this applies default value for each individual change
     // change could involve an entire branch
-    private applyNewBranchDefaults = (changerecord, original, defaults) => {
+    private applyDefaults = (original, defaults) => {
+
+        let pathlist = this.getPathList(original, [])
+
+        // console.log('pathlist in applyDefaults',pathlist)
+
+        for (let path of pathlist) {
+            this.applyEachDefault(original, path, defaults)
+        }
+
+    }
+
+    private applyEachDefault = (original,path,defaults) => {
+
+        // console.log('inside applyEachDefault: original, path, defaults',original, path, defaults)
 
         // =========[ get the default value to apply ]==========
 
         // get the path of the value to change
-        let path = changerecord.path
 
         let defaultnodeposition = utilities.getNodePosition(defaults,path)
 
@@ -214,8 +243,22 @@ const typefilter = new class {
         } = defaultnodeposition
 
         if (utilities.isObject(defaultvalue)) { // a branch of defaults is available
-
-            return // only base types allowed for defaults
+            let variant = defaultvalue['#variant']
+            // console.log('applyEachDefaults -object-:defaultvalue, variant, variant == true',defaultvalue, variant, variant == true)
+            if (variant) {
+                // console.log('in if statement', variant)
+                switch (variant) {
+                    case 'function':{
+                        defaultvalue = functions[defaultvalue.function]()
+                        // console.log('function result',defaultvalue)
+                        break
+                    }
+                    default:
+                        return
+                }
+            } else {
+                return // only base types allowed for defaults
+            }
 
         }
 
@@ -238,8 +281,27 @@ const typefilter = new class {
 
             sourceproperty[sourceindex] = defaultvalue
 
+            // console.log('applied sourceproperty[sourceindex] = defaultvalue',sourceproperty[sourceindex],original)
+
         }
 
+    }
+
+    private getPathList = (obj, path) => {
+
+        let sublist = []
+        let keylist = Object.keys(obj)
+        let pathlist = []
+        for (let index of keylist) {
+            let value = obj[index];
+            (!value) && pathlist.push(path.concat(index))
+            if (utilities.isObject(value)) {
+
+                let newlist = this.getPathList(value, path.concat(index))
+                pathlist = pathlist.concat(newlist)
+            }
+        }
+        return pathlist
     }
 }
 // =========================[ export ]==========================
