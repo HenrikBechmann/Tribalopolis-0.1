@@ -185,6 +185,7 @@ const docpackCache = new class {
             if (result && result.changed) { // '"result &&" added March 25, 2019 -- not required before that'
 
                 docpack.document = result.document
+                // console.log('changed document in docpackcache',result, docpack, this.cache)
                 // update source; wait for response
 
             }

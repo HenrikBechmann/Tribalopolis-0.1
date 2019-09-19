@@ -342,7 +342,7 @@ class ComponentFactory {
         let pathlist = path.split('.')
         let namespace = this.namespace
         let nodedata:any = utilities.getNodePosition(namespace,pathlist)
-        // console.log('pathlist, namespace, propertyspec, attributes, nodedata',pathlist, propertySpec, attributes, nodedata)
+        // console.log('pathlist, namespace, propertyspec, attributes, nodedata',pathlist, namespace, propertySpec, attributes, nodedata)
         if (nodedata) {
             let value = nodedata.nodevalue
             let datatype
@@ -350,7 +350,7 @@ class ComponentFactory {
                 // console.log("PATHLIST[0]=='docpack'")
                 let docpath = pathlist.slice(2);
                 [value,datatype] = application.filterDataIncomingValue(value,docpath,namespace.typepack.document)
-                // console.log('docpath, value, datatype',docpath, value, datatype)
+                // console.log('getPropertyByIndirection docpath, value, datatype',docpath, value, datatype)
                 if (value && (datatype == '??timestamp')) {
                     // console.log('??timestamp property',attributes,application.systemdata)
                     let format = attributes && attributes.formats && attributes.formats.timestamp
