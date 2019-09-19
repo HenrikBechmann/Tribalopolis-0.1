@@ -294,7 +294,7 @@ const typefilter = new class {
         let pathlist = []
         for (let index of keylist) {
             let value = obj[index];
-            (!value) && pathlist.push(path.concat(index))
+            (!value) && pathlist.push(path.concat(index)) // if it has a value it can't use the default
             if (utilities.isObject(value)) {
 
                 let newlist = this.getPathList(value, path.concat(index))
