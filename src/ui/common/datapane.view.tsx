@@ -83,7 +83,7 @@ class DataPane extends React.Component<DataPaneProps,any>  {
     assertTargetListener = () => {
 
         let { dataPaneMessage } = this.props
-        if (!this.docProxy && dataPaneMessage.docproxy) {
+        if (!this.docProxy && dataPaneMessage && dataPaneMessage.docproxy) {
 
             this.docProxy = dataPaneMessage.docproxy
 
