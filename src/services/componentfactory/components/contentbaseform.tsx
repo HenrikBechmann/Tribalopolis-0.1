@@ -50,7 +50,6 @@ class ContentBaseForm extends React.Component<any,any> {
     constructor(props) {
         super(props)
 
-        // console.log('ContentBaseForm constructor', props)
         // initialize state values
         let { children, namespace, documentmap, fieldsets, groups, registerCallbacks, setupPostDocument } = props
 

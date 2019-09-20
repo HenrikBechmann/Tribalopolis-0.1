@@ -10,6 +10,7 @@ import Paper from '@material-ui/core/Paper'
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
+import Button from '@material-ui/core/Button'
 
 import application from '../../../services/application'
 import { toast } from 'react-toastify'
@@ -72,7 +73,7 @@ class BuildDataPane extends React.Component<any,any>  {
 
     updateData = () => {
         let { userdata } = this.props
-        let superuser = (userdata && userdata.globalrole == 'superuser' )// '0RLrSksoCeYcmnInICk0ia4D40u1'))
+        let superuser = (userdata && userdata.globalrole == 'superuser' )
 
         if (this.state.open) {
             if (!superuser) {
@@ -109,6 +110,8 @@ class BuildDataPane extends React.Component<any,any>  {
 
         if (!data) return items
 
+        console.log('getListItems',data)
+
         for (let item of data) {
             let logicaltype 
 
@@ -126,8 +129,15 @@ class BuildDataPane extends React.Component<any,any>  {
         return items
     }
 
+    download = () => {
+        if (confirm('download this data?')) {
+            // nothing yet
+        }
+    }
+
     render() {
-        const { classes, dataspecs } = this.props
+        const { classes, dataspecs, userdata } = this.props
+        let superuser = !!(userdata.globalrole == 'superuser')
 
         return <Paper className = {classes.root}>
             <div className = { classes.content }>
@@ -135,6 +145,15 @@ class BuildDataPane extends React.Component<any,any>  {
                     <List dense disablePadding >
                         {this.getListItems()}
                     </List>
+                    <Button 
+                        variant = 'contained'
+                        onClick = {this.download}
+                        className = {classes.button}
+                        disabled = {((!superuser) || (!this.data))}
+                    >
+                        Download
+                    </Button>
+
                 </div>
             </div>
         </Paper>

@@ -39,7 +39,8 @@ import {
     GetDocumentMessage, 
     SetDocumentMessage, 
     DocpackPayloadMessage,
-    DataPaneMessage } from '../../services/interfaces'
+    DataPaneMessage 
+} from '../../services/interfaces'
 
 const styles = theme => (createStyles({
     button: {
