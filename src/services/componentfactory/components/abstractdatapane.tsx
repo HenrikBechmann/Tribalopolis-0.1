@@ -41,10 +41,6 @@ class AbstractDataPane extends React.Component<AbstractDataPaneProps,any> {
         this.controldata = controldata // used for local control
 
         this.controllerdata = namespace.controller
-        // inherited
-        // this.userdata = namespace.controller.userdata
-        // this.callbacks = namespace.controller.callbacks
-        // this.registercalldowns = namespace.controller.registercalldowns
 
     }
 
@@ -60,9 +56,6 @@ class AbstractDataPane extends React.Component<AbstractDataPaneProps,any> {
     options
     docProxy:Proxy
     controllerdata
-    // userdata
-    // callbacks
-    // registercalldowns
     factorycomponent
 
     componentDidMount() {
@@ -85,7 +78,7 @@ class AbstractDataPane extends React.Component<AbstractDataPaneProps,any> {
     }
 
     private assertListener = () => {
-        // console.log('assertListener in abstractdatapane:this.props,this.docProxy',this.props,this.docProxy)
+
         if (this.docProxy) {
             let parms:SetListenerMessage = 
                 {
@@ -94,7 +87,7 @@ class AbstractDataPane extends React.Component<AbstractDataPaneProps,any> {
                     success:this.successAssertListener,
                     failure:this.failureAssertListener,
                 }
-            // console.log('assertListener with docProxy: docProxy, parms',this.docProxy,parms)
+
             application.setDocpackPairListener( parms )
 
         } else {
@@ -126,22 +119,13 @@ class AbstractDataPane extends React.Component<AbstractDataPaneProps,any> {
     private successAssertListener = (parmblock:DocpackPairPayloadMessage) => {
 
         let {docpack, typepack, reason} = parmblock
-        // console.log('abstractdatapane cacheDocPair', parmblock)
-        // database type data namespace
-        // let controllerdata = this.controllerdata
-        // {
-        //     // inherited
-        //     userdata:this.userdata,
-        //     callbacks:this.callbacks,
-        //     registercalldowns:this.registercalldowns,
-        // }
 
         if ( !this.componentfactory ) {
             this.componentfactory = new ComponentFactory()
         }
 
         // reformat for componentfactory
-        let preRenderMessage:FactoryMessage = 
+        let factoryMessage:FactoryMessage = 
             this.componentfactory.assembleFactoryMessage({
                 // new
                 docproxy:this.docProxy,
@@ -151,8 +135,7 @@ class AbstractDataPane extends React.Component<AbstractDataPaneProps,any> {
                 controller:this.controllerdata,
             })
 
-        // this.componentfactory.setPreRenderMessage(this.preRenderMessage)
-        this.factorycomponent = this.componentfactory.getComponent(preRenderMessage)
+        this.factorycomponent = this.componentfactory.getComponent(factoryMessage)
 
         this.setState({
             docpack,

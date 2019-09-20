@@ -51,6 +51,7 @@ class ComponentFactory {
 
         } catch(e) {
 
+            console.log('failure top assemble factory message',e)
             return null
 
         }
@@ -150,7 +151,7 @@ class ComponentFactory {
         let props:any = this.getProps(properties,attributes)
         let namespace = this.namespace
         let { options:opts } = props
-        
+
         return <AbstractDataPane 
             key = {props.key} 
             reference = {ref} 
@@ -347,12 +348,12 @@ class ComponentFactory {
             let value = nodedata.nodevalue
             let datatype
             if (pathlist[0]=='docpack') { // doctype.document
-                // console.log("PATHLIST[0]=='docpack'")
+
                 let docpath = pathlist.slice(2);
                 [value,datatype] = application.filterDataIncomingValue(value,docpath,namespace.typepack.document)
-                // console.log('getPropertyByIndirection docpath, value, datatype',docpath, value, datatype)
+
                 if (value && (datatype == '??timestamp')) {
-                    // console.log('??timestamp property',attributes,application.systemdata)
+
                     let format = attributes && attributes.formats && attributes.formats.timestamp
                     if (!format) {
                         format = application.systemdata.parameters.properties.dateformat
