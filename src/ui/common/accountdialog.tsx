@@ -21,6 +21,7 @@ import docproxy from '../../utilities/docproxy'
 import application from '../../services/application'
 import DataPane from './datapane.view'
 import DataDrawer from './datadrawer.view'
+import LookupDrawer from './lookupdrawer.view'
 
 const styles = createStyles({
     appBar: {
@@ -61,13 +62,14 @@ class AccountDialog extends React.Component<DialogProps,any> {
     state = {
         settingsopen:true,
         draweropen:false,
+        lookupopen:false,
     }
 
     private paneProxy:docproxy = null
     private datapanemessage:DataPaneMessage = null
     private accountsettingselement
     private drawerdata:DataPaneMessage
-
+    private lookupdata:DataPaneMessage
 
     openDrawer = ({docproxy,options}:DataPaneMessage) => {
 
@@ -96,6 +98,37 @@ class AccountDialog extends React.Component<DialogProps,any> {
 
         this.setState({
             draweropen:false,
+        })
+
+    }
+
+    openLookup = ({docproxy,options}:DataPaneMessage) => {
+
+        if (this.state.lookupopen) {
+            toast.info('The lookup drawer is in use. Close the drawer and try again.')
+            return
+        }
+
+        this.lookupdata = {
+          docproxy,
+          options,
+          callbacks:{
+              // close:this.props.closeSettings,
+              // manage:this.openDrawer,
+              // submit:application.submitDocument,
+          },
+        }
+
+        this.setState({
+            lookupopen:true,
+        })
+
+    }
+
+    closeLookup = () => {
+
+        this.setState({
+            lookupopen:false,
         })
 
     }
@@ -150,6 +183,12 @@ class AccountDialog extends React.Component<DialogProps,any> {
               <div className = {classes.datapanewrapper}
                 ref = {this.accountsettingselement}
               >
+                  <LookupDrawer open = {this.state.draweropen}
+                      handleClose = {this.closeDrawer}
+                      containerelement = {this.accountsettingselement}
+                  >
+                    <DataPane dataPaneMessage = {this.lookupdata}/>
+                  </LookupDrawer>
                   <DataDrawer open = {this.state.draweropen}
                       handleClose = {this.closeDrawer}
                       containerelement = {this.accountsettingselement}
