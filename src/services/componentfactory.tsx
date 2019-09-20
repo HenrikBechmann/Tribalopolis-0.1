@@ -15,6 +15,7 @@ import widgetComponents from './componentfactory/widgets'
 import nativeComponents from './componentfactory/native'
 
 import functions from './functions'
+import Proxy from '../utilities/docproxy'
 
 import AbstractDataPane from './componentfactory/components/abstractdatapane'
 import utilities from '../utilities/utilities'
@@ -154,7 +155,7 @@ class ComponentFactory {
 
         return <AbstractDataPane 
             key = {props.key} 
-            reference = {ref} 
+            docproxy = {ref && new Proxy({doctoken:{reference:ref}})}
             options = {opts} 
             namespace = {namespace} 
             controldata = {attributes} 

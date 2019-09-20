@@ -6,7 +6,6 @@
 import React from 'react'
 
 import ComponentFactory from '../../componentfactory'
-import Proxy from '../../../utilities/docproxy'
 import application from '../../../services/application'
 import { 
     SetListenerMessage, 
@@ -18,7 +17,7 @@ import {
 } from '../../../services/interfaces'
 
 interface AbstractDataPaneProps {
-    reference:string,
+    docproxy:GenericObject,
     options: GenericObject,
     namespace: GenericObject,
     controldata: GenericObject,
@@ -32,11 +31,10 @@ class AbstractDataPane extends React.Component<AbstractDataPaneProps,any> {
 
         this.componentfactory = new ComponentFactory()
 
-        let { reference, options, namespace, controldata} = this.props
+        let { docproxy, options, namespace, controldata} = this.props
 
         // new
-        this.reference = reference
-        this.reference && (this.docProxy = new Proxy({doctoken:{reference}}))
+        this.docProxy = docproxy
         this.options = options
         this.controldata = controldata // used for local control
 
@@ -54,7 +52,7 @@ class AbstractDataPane extends React.Component<AbstractDataPaneProps,any> {
     reference
     controldata
     options
-    docProxy:Proxy
+    docProxy
     controllerdata
     factorycomponent
 
