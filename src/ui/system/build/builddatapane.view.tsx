@@ -20,6 +20,8 @@ import {
     DocpackListPayloadMessage,
 } from '../../../services/interfaces'
 
+import fileDownload from 'js-file-download'
+
 let _ = require('lodash')
 
 const styles = createStyles({
@@ -110,8 +112,6 @@ class BuildDataPane extends React.Component<any,any>  {
 
         if (!data) return items
 
-        console.log('getListItems',data)
-
         for (let item of data) {
             let logicaltype 
 
@@ -131,7 +131,7 @@ class BuildDataPane extends React.Component<any,any>  {
 
     download = () => {
         if (confirm('download this data?')) {
-            // nothing yet
+            fileDownload(JSON.stringify(this.data,null,2),this.state.specs.collection + '.json')
         }
     }
 

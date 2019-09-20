@@ -24,6 +24,7 @@
     "hoist-non-react-statics": "^3.3.0",
     "immutable": "^4.0.0-rc.12",
     "isomorphic-fetch": "^2.2.1",
+    "js-file-download": "^0.4.8",
     "lodash": "^4.17.15",
     "moment": "^2.24.0",
     "pluralize": "^8.0.0",
