@@ -66,6 +66,8 @@ class AccountDialog extends React.Component<DialogProps,any> {
     private paneProxy:docproxy = null
     private datapanemessage:DataPaneMessage = null
     private accountsettingselement
+    private drawerdata:DataPaneMessage
+
 
     openDrawer = ({docproxy,options}:DataPaneMessage) => {
 
@@ -77,6 +79,11 @@ class AccountDialog extends React.Component<DialogProps,any> {
         this.drawerdata = {
           docproxy,
           options,
+          callbacks:{
+              // close:this.props.closeSettings,
+              // manage:this.openDrawer,
+              submit:application.submitDocument,
+          },
         }
 
         this.setState({
@@ -84,8 +91,6 @@ class AccountDialog extends React.Component<DialogProps,any> {
         })
 
     }
-
-    drawerdata
 
     closeDrawer = () => {
 
@@ -149,7 +154,7 @@ class AccountDialog extends React.Component<DialogProps,any> {
                       handleClose = {this.closeDrawer}
                       containerelement = {this.accountsettingselement}
                   >
-                    <DataPane dataPaneMessage = {null}/>
+                    <DataPane dataPaneMessage = {this.drawerdata}/>
                   </DataDrawer>
                   <DataPane dataPaneMessage = {this.datapanemessage}/>
               </div>
