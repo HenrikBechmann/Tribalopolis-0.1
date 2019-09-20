@@ -45,6 +45,8 @@ interface DataDrawerProps {
     containerelement:any,
     classes:any,
     handleClose?:any,
+    // options:any,
+    // docproxy:any,
 }
 
 class DataDrawer extends React.Component<DataDrawerProps,any>  {
