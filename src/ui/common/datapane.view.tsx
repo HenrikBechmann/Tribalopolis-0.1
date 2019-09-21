@@ -119,6 +119,7 @@ class DataPane extends React.Component<DataPaneProps,any>  {
         let controllerdata:ControllerData = {
 
             userdata:application.userdata,
+            systemdata:application.systemdata,
             callbacks,
             registercalldowns,
             // docproxy,

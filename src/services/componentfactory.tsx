@@ -148,19 +148,19 @@ class ComponentFactory {
 
     private getComponentByReference = (reference, properties, attributes) => {
 
+        // console.log('getComponentByReference:reference, properties, attributes',reference, properties, attributes)
+
         let ref = this.getPropertyByFilter(reference, attributes)
         let props:any = this.getProps(properties,attributes)
-        let namespace = this.namespace
-        let { options } = props
+        let controller = this.namespace.controller
         let docproxy = ref && new Proxy({doctoken:{reference:ref}})
 
         // TODO: this should include props from data source!!
         return <AbstractDataPane 
             key = {props.key} 
             docproxy = {docproxy}
-            options = {options} 
-            controller = {namespace.controller} 
-            controldata = {attributes} 
+            controller = {controller} 
+            attributes = {attributes} 
         />
     }
 

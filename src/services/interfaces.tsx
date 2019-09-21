@@ -134,6 +134,7 @@ export interface FactoryMessage {
 
 export interface ControllerData {
     userdata:GenericObject,
+    systemdata:GenericObject,
     callbacks:GenericCallbacks,
     registercalldowns?:Function,
 }

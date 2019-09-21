@@ -19,9 +19,8 @@ import {
 
 interface AbstractDataPaneProps {
     docproxy:GenericObject,
-    options: GenericObject,
     controller: GenericObject,
-    controldata: GenericObject,
+    attributes: GenericObject,
 }
 
 class AbstractDataPane extends React.Component<AbstractDataPaneProps,any> {
@@ -32,26 +31,25 @@ class AbstractDataPane extends React.Component<AbstractDataPaneProps,any> {
 
         this.componentfactory = new ComponentFactory()
 
-        let { docproxy, options, controller, controldata} = this.props
+        let { docproxy, controller, attributes} = this.props
 
         // new
         this.docProxy = docproxy
-        this.options = options
-        this.controldata = controldata // used for local control
+        this.options = attributes && attributes.options
+        this.attributes = attributes // used for local control
 
         this.controllerdata = controller
 
     }
 
     state = {
-        // options:null,
         docpack:null,
         typepack:null,
     }
 
     componentfactory:ComponentFactory = null
     reference
-    controldata
+    attributes
     options
     docProxy
     controllerdata
@@ -90,8 +88,8 @@ class AbstractDataPane extends React.Component<AbstractDataPaneProps,any> {
             application.setDocpackPairListener( parms )
 
         } else {
-            let { controldata } = this
-            let { assertinstance, typereference, collection, customid } = controldata
+            let { attributes } = this
+            let { assertinstance, typereference, collection, customid } = attributes
 
             if (assertinstance && typereference && collection) {
                 let parms = {
