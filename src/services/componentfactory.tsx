@@ -1,6 +1,10 @@
 // renderer.tsx
 // copyright (c) 2019 Henrik Bechmann, Toronto, Licence: GPL-3.0-or-later
 
+/*
+    TODO: attributions gets left behind! Find a way to express attributions
+
+*/
 'use strict'
 
 import React from 'react'
@@ -69,24 +73,30 @@ class ComponentFactory {
 
     // called by client. 
     // factorymessage has renderdata and namespace
-    public getComponent = (factorymessage:FactoryMessage) => {
+    // renderdata includes attributions, and componentspecs ('component')
+    public getUISelection = (factorymessage:FactoryMessage) => {
 
+        // console.log('getComponent',factorymessage)
         if (!factorymessage) return null
 
         const {renderdata,namespace} = factorymessage 
 
         this.namespace = namespace
 
-        let element = this.assembleComponent(renderdata.component)
+        let component = this.assembleComponent(renderdata.component)
 
-        return element
+        return component
 
     }
 
     // =======================[ internal ]============================
 
+    // TODO: attributions gets left behind!
     private assembleComponent = componentspec => {
 
+        // console.log('assembleComponent',renderdata)
+
+        // let {component:componentspec, attribution} = renderdata // attribution for disclosure
         // if the component is text, return the text
         let { properties, attributes} = componentspec
         attributes = this.getAttributes(attributes)
