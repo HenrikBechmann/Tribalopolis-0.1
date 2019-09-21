@@ -118,7 +118,7 @@ export interface DataPaneMessage {
 }
 
 // same as DataPaneNamespace
-export interface GetFactoryMessage {
+export interface FactoryNamespace {
     docpack:DocPackStruc,
     typepack:DocPackStruc,
     options:GenericObject,
@@ -135,9 +135,7 @@ export interface FactoryMessage {
 export interface ControllerData {
     userdata:GenericObject,
     callbacks:GenericCallbacks,
-    // docproxy:GenericObject,
     registercalldowns?:Function,
-    // options:GenericObject,
 }
 
 

@@ -14,12 +14,13 @@ import {
     FactoryMessage,
     PostFormMessage,
     GenericObject,
+    ControllerData,
 } from '../../../services/interfaces'
 
 interface AbstractDataPaneProps {
     docproxy:GenericObject,
     options: GenericObject,
-    namespace: GenericObject,
+    controller: GenericObject,
     controldata: GenericObject,
 }
 
@@ -31,14 +32,14 @@ class AbstractDataPane extends React.Component<AbstractDataPaneProps,any> {
 
         this.componentfactory = new ComponentFactory()
 
-        let { docproxy, options, namespace, controldata} = this.props
+        let { docproxy, options, controller, controldata} = this.props
 
         // new
         this.docProxy = docproxy
         this.options = options
         this.controldata = controldata // used for local control
 
-        this.controllerdata = namespace.controller
+        this.controllerdata = controller
 
     }
 

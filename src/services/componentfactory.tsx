@@ -19,7 +19,7 @@ import Proxy from '../utilities/docproxy'
 
 import AbstractDataPane from './componentfactory/components/abstractdatapane'
 import utilities from '../utilities/utilities'
-import { DataPaneNamespace, GetFactoryMessage, FactoryMessage } from './interfaces'
+import { DataPaneNamespace, FactoryNamespace, FactoryMessage } from './interfaces'
 import application from './application'
 
 const components = { // lookups
@@ -41,7 +41,7 @@ class ComponentFactory {
 
     // a utility to package renderer content message from standard input
     // it namespace together with renderdata from the document type
-    public assembleFactoryMessage = (namespace:GetFactoryMessage) => {
+    public assembleFactoryMessage = (namespace:FactoryNamespace) => {
 
         let { typepack, options} = namespace
 
@@ -151,13 +151,15 @@ class ComponentFactory {
         let ref = this.getPropertyByFilter(reference, attributes)
         let props:any = this.getProps(properties,attributes)
         let namespace = this.namespace
-        let { options:opts } = props
+        let { options } = props
+        let docproxy = ref && new Proxy({doctoken:{reference:ref}})
 
+        // TODO: this should include props from data source!!
         return <AbstractDataPane 
             key = {props.key} 
-            docproxy = {ref && new Proxy({doctoken:{reference:ref}})}
-            options = {opts} 
-            namespace = {namespace} 
+            docproxy = {docproxy}
+            options = {options} 
+            controller = {namespace.controller} 
             controldata = {attributes} 
         />
     }

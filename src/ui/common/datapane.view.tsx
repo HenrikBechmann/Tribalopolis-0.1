@@ -19,7 +19,7 @@ import {
     SetListenerMessage,
     DocpackPairPayloadMessage,
     FactoryMessage,
-    GetFactoryMessage,
+    FactoryNamespace,
     ControllerData,
  } from '../../services/interfaces'
 import application from '../../services/application'
@@ -126,7 +126,7 @@ class DataPane extends React.Component<DataPaneProps,any>  {
         }
 
         // reformat for componentfactory
-        let namespace:GetFactoryMessage = {
+        let namespace:FactoryNamespace = {
 
             docproxy,
             options,
