@@ -74,7 +74,7 @@ class ComponentFactory {
     // called by client. 
     // factorymessage has renderdata and namespace
     // renderdata includes attributions, and componentspecs ('component')
-    public getUISelection = (factorymessage:FactoryMessage) => {
+    public createUISelection = (factorymessage:FactoryMessage) => {
 
         // console.log('getComponent',factorymessage)
         if (!factorymessage) return null

@@ -144,7 +144,7 @@ class DataPane extends React.Component<DataPaneProps,any>  {
         let factorymessage:FactoryMessage = 
             this.componentfactory.assembleFactoryMessage(namespace)
 
-        let factorycomponent = this.componentfactory.getUISelection(factorymessage)
+        let factorycomponent = this.componentfactory.createUISelection(factorymessage)
 
         this.setState({
 
