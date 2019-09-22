@@ -129,7 +129,6 @@ export interface FactoryNamespace {
 export interface FactoryMessage {
     renderdata:GenericObject,
     namespace:GenericObject,
-    // docref:string,
 }
 
 export interface ControllerData {
@@ -138,7 +137,6 @@ export interface ControllerData {
     callbacks:GenericCallbacks,
     registercalldowns?:Function,
 }
-
 
 // local
 
@@ -154,9 +152,7 @@ export interface GenericObject {
 export interface DataPaneNamespace {
     controller:ControllerData,
     docpack:GenericObject,
-    // props:GenericObject,
     typepack:GenericObject,
-    // functions:GenericObject,
 }
 
 /***************************************************************

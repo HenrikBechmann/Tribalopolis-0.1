@@ -575,24 +575,27 @@ const appManager = new class {
     // to be used with basic datapane forms
     submitDocument = ( parms:PostFormMessage ) => {
 
-        // console.log('submitDocument in application', parms)
-
         let {formcontext, success, failure} = parms
 
-        let { documentcontext, state:statecontext, documentmap } = formcontext
-        // let document = merge({},this.documentcontext.document)
+        let { documentcontext, state:statecontext, documentmap, form } = formcontext
+
         let { docpack, typepack } = documentcontext
 
         for (let valueindex in statecontext.values) {
-            // console.log('valueindex, documentmap, state.values',valueindex,this.documentmap, this.state.values)
+
             let path = documentmap[valueindex].split('.')
-            // console.log('document, path',document, path)
+
             let nodespecs = utilities.getNodePosition(docpack.document,path)
             let value = statecontext.values[valueindex]
             let datatype
+
             if (value === undefined) value = null;
-            [value,datatype] = application.filterDataOutgoingValue(value, path, typepack.document)
+
+            // [value, datatype] is available
+            [value] = application.filterDataOutgoingValue(value, path, typepack.document)
+
             nodespecs.nodeproperty[nodespecs.nodeindex] = value
+
         } 
 
         let message = {
@@ -603,7 +606,8 @@ const appManager = new class {
         }
 
         application.setDocument(message)
-        formcontext.form.setState({
+        
+        form.setState({
             dirty:false
         })
 
