@@ -157,7 +157,7 @@ class AccountDialog extends React.Component<DialogProps,any> {
 
     render() {
         let { classes } = this.props
-          // TransitionComponent={Transition} //broken with current release of material-ui v 4
+
         return  <Dialog
           fullScreen
           open

@@ -11,7 +11,11 @@ import utlities from '../../../utilities/utilities'
 import { withStyles, createStyles } from '@material-ui/core/styles'
 import Button from '@material-ui/core/Button'
 
-import { PostFormMessage } from '../../interfaces'
+import { 
+    PostFormMessage,
+    GenericObject,
+    FactoryNamespace,
+} from '../../interfaces'
 
 import application from '../../application'
 import ContentGroup from './contentgroup'
@@ -45,13 +49,24 @@ const styles = (theme) => createStyles({
   }
 })
 
-class ContentBaseForm extends React.Component<any,any> {
+interface ContentBaseForm {
+    children:any, 
+    namespace:FactoryNamespace, 
+    documentmap:GenericObject, 
+    groups:GenericObject, 
+    fieldsets:GenericObject, 
+    classes?:any,
+    disabled?:boolean,
+}
+
+class ContentBaseForm extends React.Component<ContentBaseForm,any> {
 
     constructor(props) {
         super(props)
 
         // initialize state values
-        let { children, namespace, documentmap, fieldsets, groups, registerCallbacks, setupPostDocument } = props
+        let { children, namespace, documentmap, fieldsets, groups } = props
+        let { registerCallbacks } = namespace
 
         // save props to class
         if (namespace) {this.documentcontext = namespace}
@@ -59,7 +74,7 @@ class ContentBaseForm extends React.Component<any,any> {
         this.fieldsetprops = fieldsets || []
         this.groupprops = groups || []
 
-        registerCallbacks && registerCallbacks({getPostMessage:this.getPostMessage})
+        registerCallbacks && registerCallbacks({getPostMessage:this.getPostMessage, id:namespace.docproxy.instanceid})
 
         this.formcontext = {
             documentmap:this.documentmap,
@@ -77,13 +92,13 @@ class ContentBaseForm extends React.Component<any,any> {
 
     localchildren
     documentcontext
-    documentmap
+    documentmap:GenericObject
     formcontext
     fieldsetprops
-    fieldsets = {}
+    fieldsets:GenericObject = {}
     defaultfieldset = []
     groupprops
-    groups = {}
+    groups:GenericObject = {}
     defaultgroup = []
 
     iseditable = false
@@ -248,37 +263,6 @@ class ContentBaseForm extends React.Component<any,any> {
         return message
     }
 
-    // onSubmit = () => {
-
-    //     // let document = merge({},this.documentcontext.document)
-    //     let { document, type } = this.documentcontext
-
-    //     for (let valueindex in this.state.values) {
-    //         // console.log('valueindex, documentmap, state.values',valueindex,this.documentmap, this.state.values)
-    //         let path = this.documentmap[valueindex].split('.')
-    //         // console.log('document, path',document, path)
-    //         let nodespecs = utlities.getNodePosition(document,path)
-    //         let value = this.state.values[valueindex]
-    //         let datatype
-    //         if (value === undefined) value = null;
-    //         [value,datatype] = application.filterDataOutgoingValue(value, path, type)
-    //         nodespecs.nodeproperty[nodespecs.nodeindex] = value
-    //     } 
-
-    //     let message = {
-    //         document,
-    //         reference:this.documentcontext.props.reference,
-    //         success:this.onSubmitSuccess,
-    //         failure:this.onSubmitFailure,
-    //     }
-
-    //     application.setDocument(message)
-    //     this.setState({
-    //         dirty:false
-    //     })
-
-    // }
-
     onSubmitSuccess = () => {
         toast.success('document has been posted')
         return true
@@ -299,8 +283,6 @@ class ContentBaseForm extends React.Component<any,any> {
 
     render() {
         const { classes, namespace, disabled } = this.props
-
-        // console.log('contentbaseform postMessage',this.getPostMessage())
 
         return (
             <form 
