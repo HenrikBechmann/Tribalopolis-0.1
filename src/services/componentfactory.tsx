@@ -74,6 +74,7 @@ class ComponentFactory {
     // called by client. 
     // factorymessage has renderdata and namespace (see above)
     // renderdata includes attributions, and componentspecs ('component')
+
     // TODO: integrate attributions into returned component
     public createUISelection = (factorymessage:FactoryMessage) => {
 
@@ -100,7 +101,7 @@ class ComponentFactory {
         // let {component:componentspec, attribution} = renderdata // attribution for disclosure
         // if the component is text, return the text
         let { properties, attributes} = componentspec
-        attributes = this.getAttributes(attributes)
+        attributes = this.getProps(attributes)
         if (componentspec['#variant']) {
 
             let variant = componentspec['#variant']
@@ -136,7 +137,6 @@ class ComponentFactory {
             if (componentspec.attributes && componentspec.attributes.stylesforclasses) {
                 let styles = createStyles(componentspec.attributes.stylesforclasses)
                 type = withStyles(styles)(type)
-                // return component
             }
 
             // get component properties
@@ -159,14 +159,12 @@ class ComponentFactory {
 
     private getComponentByReference = (reference, properties, attributes) => {
 
-        // console.log('getComponentByReference:reference, properties, attributes',reference, properties, attributes)
-
         let ref = this.getPropertyByFilter(reference, attributes)
         let props:any = this.getProps(properties,attributes)
         let controller = this.namespace.controller
         let docproxy = ref && new Proxy({doctoken:{reference:ref}})
 
-        // TODO: this should include props from data source!!
+        // TODO: this should include props from data source?
         return <AbstractDataPane 
             key = {props.key} 
             docproxy = {docproxy}
@@ -186,96 +184,9 @@ class ComponentFactory {
 
     }
 
-/*--------------------[ unpack attributes------------------*/
-
-    private getAttributes = (attributespecs) => {
-        let attributes = {}
-        for (let attributeindex in attributespecs) {
-            let attributespec = attributespecs[attributeindex]
-            let attribute = this.getAttributeByFilter(attributespec)
-            attributes[attributeindex] = attribute
-        }
-
-        return attributes
-    }
-
-    private getAttributeByFilter = (attributespec) => {
-
-        let attribute = attributespec
-
-        if (!attribute) return attribute
-
-        if (utilities.isObject(attribute)) {
-            return this.getAttributeByObject(attribute)
-        }
-
-        let prepend = attribute[0]
-
-        switch (prepend) {
-
-            case '&': {
-                attribute = this.getAttributeByIndirection(attributespec)
-                break
-            }
-            case '@': {
-
-                break
-            }
-        }
-
-        return attribute
-
-    }
-
-    private getAttributeByObject(attributeobject) {
-        let retval = attributeobject
-        if (attributeobject['#variant']) {
-            let variant = attributeobject['#variant']
-            switch (variant) {
-                case 'component':
-                    retval = this.assembleComponent(attributeobject.component)
-                    break
-                
-                case 'condition':
-                    if (this.getAttributeByFilter(attributeobject.if)) {
-                        retval = this.getAttributeByFilter(attributeobject.then)
-                    } else {
-                        retval = this.getAttributeByFilter(attributeobject.else)
-                    }
-                    break
-                case 'function':
-                    let parms = this.getAttributes(attributeobject.parms)
-                    retval = functions[attributeobject.function](parms)
-                    break
-                case 'namespace':
-                    retval = this.namespace
-                    break
-                default:
-                    retval = null
-                    break
-            }
-        }
-        return retval
-    }
-
-    private getAttributeByIndirection = (attributeSpec) => {
-
-        let path = attributeSpec.slice(1)
-        let pathlist = path.split('.')
-        let namespace = this.namespace
-        let nodedata:any = utilities.getNodePosition(namespace,pathlist)
-
-        if (nodedata) {
-            let value = nodedata.nodevalue
-            return value
-        } else {
-            return undefined
-        }
-    }
-
 /*--------------------[ unpack properties]-------------------*/
 
-    private getProps = (propertyspecs,attributes) => {
+    private getProps = (propertyspecs,attributes = null) => {
 
         let props = {}
         let defaults = (attributes && attributes.defaults) || {}
@@ -292,7 +203,7 @@ class ComponentFactory {
 
     }
 
-    private getPropertyByFilter = (propertyspec, attributes) => {
+    private getPropertyByFilter = (propertyspec, attributes = null) => {
 
         let property = propertyspec
 
@@ -320,7 +231,7 @@ class ComponentFactory {
 
     }
 
-    private getPropertyByObject(propertyobject, attributes) {
+    private getPropertyByObject(propertyobject, attributes = null) {
         let retval = propertyobject
         if (propertyobject['#variant']) {
             let variant = propertyobject['#variant']
@@ -351,7 +262,7 @@ class ComponentFactory {
         return retval
     }
 
-    private getPropertyByIndirection = (propertySpec, attributes) => {
+    private getPropertyByIndirection = (propertySpec, attributes = null) => {
 
         let path = propertySpec.slice(1)
         let pathlist = path.split('.')

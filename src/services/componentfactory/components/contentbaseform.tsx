@@ -63,9 +63,10 @@ class ContentBaseForm extends React.Component<ContentBaseFormProps,any> {
     constructor(props) {
         super(props)
 
+        // console.log('ContentBaseForm:props',props)
         // initialize state values
         let { children, namespace, documentmap, fieldsets, groups } = props
-        let { registerCallbacks } = namespace
+        let registerCallbacks = namespace && namespace.registerCallbacks
 
         // save props to class
         if (namespace) {this.documentcontext = namespace}
