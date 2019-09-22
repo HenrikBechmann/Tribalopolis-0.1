@@ -64,22 +64,22 @@ class ContentBaseForm extends React.Component<ContentBaseFormProps,any> {
         super(props)
 
         // console.log('ContentBaseForm:props',props)
-        // initialize state values
+        // initialize instance values
         let { children, namespace, documentmap, fieldsets, groups } = props
         let registerCallbacks = namespace && namespace.registerCallbacks
 
         // save props to class
         this.children = children
-        this.documentcontext = namespace
+        this.namespace = namespace
         this.documentmap = documentmap
         this.fieldsets = fieldsets || []
         this.groups = groups || []
 
-        registerCallbacks && registerCallbacks({getPostMessage:this.getPostMessage, id:namespace.docproxy.instanceid})
+        registerCallbacks && registerCallbacks({getPostMessage:this.getPostMessage, instanceid:namespace.docproxy.instanceid})
 
         this.formcontext = {
             documentmap:this.documentmap,
-            documentcontext:this.documentcontext,
+            namespace:this.namespace,
             form:this,
         }
 
@@ -91,7 +91,7 @@ class ContentBaseForm extends React.Component<ContentBaseFormProps,any> {
     }
 
     children
-    documentcontext
+    namespace
     documentmap:GenericObject
     fieldsets
     groups
@@ -267,7 +267,7 @@ class ContentBaseForm extends React.Component<ContentBaseFormProps,any> {
 
     onSubmitFailure = () => {
         toast.error('document posting has failed')
-        return true
+        return false
     }
 
     onChangeValue = event => {

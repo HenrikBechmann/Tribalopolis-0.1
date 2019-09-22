@@ -579,9 +579,9 @@ const appManager = new class {
 
         let { formcontext, success, failure } = parms
 
-        let { documentcontext, documentmap, form } = formcontext
+        let { namespace, documentmap, form } = formcontext
         
-        let { docpack, typepack } = documentcontext
+        let { docpack, typepack } = namespace
 
         let formstate = form.state
 
