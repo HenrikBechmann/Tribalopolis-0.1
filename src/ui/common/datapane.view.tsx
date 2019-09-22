@@ -12,6 +12,8 @@
 
 import React from 'react'
 
+import { toast } from 'react-toastify'
+
 import { withStyles, createStyles } from '@material-ui/core/styles'
 import Paper from '@material-ui/core/Paper'
 import ComponentFactory from '../../services/componentfactory' // class
@@ -155,6 +157,7 @@ class DataPane extends React.Component<DataPaneProps,any>  {
 
     failureAssertListener = (error, reason) => {
 
+        toast.error('Unable to retrieve account data')
         console.log('failureAssertListener in datapane.view',error,reason)
 
     }
