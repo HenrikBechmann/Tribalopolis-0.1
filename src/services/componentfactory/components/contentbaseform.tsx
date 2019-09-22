@@ -69,16 +69,16 @@ class ContentBaseForm extends React.Component<ContentBaseFormProps,any> {
         let registerCallbacks = namespace && namespace.registerCallbacks
 
         // save props to class
-        if (namespace) {this.documentcontext = namespace}
+        this.children = children
+        this.documentcontext = namespace
         this.documentmap = documentmap
-        this.fieldsetprops = fieldsets || []
-        this.groupprops = groups || []
+        this.fieldsets = fieldsets || []
+        this.groups = groups || []
 
         registerCallbacks && registerCallbacks({getPostMessage:this.getPostMessage, id:namespace.docproxy.instanceid})
 
         this.formcontext = {
             documentmap:this.documentmap,
-            state:this.state,
             documentcontext:this.documentcontext,
             form:this,
         }
@@ -90,18 +90,16 @@ class ContentBaseForm extends React.Component<ContentBaseFormProps,any> {
         dirty:false,
     }
 
-    localchildren
+    children
     documentcontext
     documentmap:GenericObject
+    fieldsets
+    groups
     formcontext
-    fieldsetprops
-    fieldsets:GenericObject = {}
-    defaultfieldset = []
-    groupprops
-    groups:GenericObject = {}
-    defaultgroup = []
 
-    iseditable = false
+    localchildren
+    defaultfieldset = []
+    defaultgroup = []
 
     length = Array.isArray(this.props.children)?this.props.children.length:this.props.children?1:0
 
@@ -152,7 +150,6 @@ class ContentBaseForm extends React.Component<ContentBaseFormProps,any> {
     getAdjustedNode = node => {
         let localnode = node
         if (!localnode.props.readonly && !localnode.props['data-static']) {
-            !this.iseditable && (this.iseditable = true)
 
             localnode = React.cloneElement(localnode,{
                 onChange:this.onChangeValue})
@@ -188,8 +185,8 @@ class ContentBaseForm extends React.Component<ContentBaseFormProps,any> {
 
         let displaycomponents = []
         let groupcomponents = {}
-        for (let groupobj of this.groupprops) {
-            groupcomponents[groupobj.name] = []
+        for (let group of this.groups) {
+            groupcomponents[group.name] = []
         }
 
         if (this.defaultfieldset.length) {
@@ -204,19 +201,19 @@ class ContentBaseForm extends React.Component<ContentBaseFormProps,any> {
 
         }
 
-        if (this.fieldsetprops) {
+        if (this.fieldsets) {
 
-            for (let fieldsetobj of this.fieldsetprops) {
-                let { group } = fieldsetobj
-                this.fieldsets[fieldsetobj.name] = this.getFieldsetValues(this.fieldsets[fieldsetobj.name])
+            for (let fieldset of this.fieldsets) {
+                let { group } = fieldset
+                this.fieldsets[fieldset.name] = this.getFieldsetValues(this.fieldsets[fieldset.name])
 
                 let component = <fieldset 
-                    key = {fieldsetobj.name} 
+                    key = {fieldset.name} 
                     className = {classes.fieldset}
                     disabled = {this.props.disabled}
                 >
-                    {fieldsetobj.legend && <legend>{fieldsetobj.legend}</legend>}
-                    {this.fieldsets[fieldsetobj.name]}
+                    {fieldset.legend && <legend>{fieldset.legend}</legend>}
+                    {this.fieldsets[fieldset.name]}
                 </fieldset>
                 if (group) {
                     groupcomponents[group].push(component)
@@ -226,9 +223,9 @@ class ContentBaseForm extends React.Component<ContentBaseFormProps,any> {
             }
         }
 
-        for (let groupobj of this.groupprops) {
-            let component = <ContentGroup key = {'group-' + groupobj.name} open = {groupobj.open} title = {groupobj.title}>
-                {groupcomponents[groupobj.name]}
+        for (let group of this.groups) {
+            let component = <ContentGroup key = {'group-' + group.name} open = {group.open} title = {group.title}>
+                {groupcomponents[group.name]}
             </ContentGroup>
             displaycomponents.push(component)
         }
