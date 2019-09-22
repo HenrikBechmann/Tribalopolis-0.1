@@ -29,10 +29,9 @@ import { toast } from 'react-toastify'
     reconcile with registerCalldowns
 */
 /*
-    patterned after first demo https://material-ui.com/demos/selects/ for 3.03
-    use Typsecript fixes from here: https://material-ui.com/guides/typescript/
+    This is created in componentFactory based on data in type ui json
+    See import of forms in componentFactory module
 */
-
 const styles = (theme) => createStyles({
   root: {
     display: 'flex',
@@ -49,7 +48,7 @@ const styles = (theme) => createStyles({
   }
 })
 
-interface ContentBaseForm {
+interface ContentBaseFormProps {
     children:any, 
     namespace:FactoryNamespace, 
     documentmap:GenericObject, 
@@ -59,7 +58,7 @@ interface ContentBaseForm {
     disabled?:boolean,
 }
 
-class ContentBaseForm extends React.Component<ContentBaseForm,any> {
+class ContentBaseForm extends React.Component<ContentBaseFormProps,any> {
 
     constructor(props) {
         super(props)
