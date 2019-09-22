@@ -248,36 +248,36 @@ class ContentBaseForm extends React.Component<any,any> {
         return message
     }
 
-    onSubmit = () => {
+    // onSubmit = () => {
 
-        // let document = merge({},this.documentcontext.document)
-        let { document, type } = this.documentcontext
+    //     // let document = merge({},this.documentcontext.document)
+    //     let { document, type } = this.documentcontext
 
-        for (let valueindex in this.state.values) {
-            // console.log('valueindex, documentmap, state.values',valueindex,this.documentmap, this.state.values)
-            let path = this.documentmap[valueindex].split('.')
-            // console.log('document, path',document, path)
-            let nodespecs = utlities.getNodePosition(document,path)
-            let value = this.state.values[valueindex]
-            let datatype
-            if (value === undefined) value = null;
-            [value,datatype] = application.filterDataOutgoingValue(value, path, type)
-            nodespecs.nodeproperty[nodespecs.nodeindex] = value
-        } 
+    //     for (let valueindex in this.state.values) {
+    //         // console.log('valueindex, documentmap, state.values',valueindex,this.documentmap, this.state.values)
+    //         let path = this.documentmap[valueindex].split('.')
+    //         // console.log('document, path',document, path)
+    //         let nodespecs = utlities.getNodePosition(document,path)
+    //         let value = this.state.values[valueindex]
+    //         let datatype
+    //         if (value === undefined) value = null;
+    //         [value,datatype] = application.filterDataOutgoingValue(value, path, type)
+    //         nodespecs.nodeproperty[nodespecs.nodeindex] = value
+    //     } 
 
-        let message = {
-            document,
-            reference:this.documentcontext.props.reference,
-            success:this.onSubmitSuccess,
-            failure:this.onSubmitFailure,
-        }
+    //     let message = {
+    //         document,
+    //         reference:this.documentcontext.props.reference,
+    //         success:this.onSubmitSuccess,
+    //         failure:this.onSubmitFailure,
+    //     }
 
-        application.setDocument(message)
-        this.setState({
-            dirty:false
-        })
+    //     application.setDocument(message)
+    //     this.setState({
+    //         dirty:false
+    //     })
 
-    }
+    // }
 
     onSubmitSuccess = () => {
         toast.success('document has been posted')

@@ -575,18 +575,20 @@ const appManager = new class {
     // to be used with basic datapane forms
     submitDocument = ( parms:PostFormMessage ) => {
 
-        let {formcontext, success, failure} = parms
+        let { formcontext, success, failure } = parms
 
-        let { documentcontext, state:statecontext, documentmap, form } = formcontext
+        let { documents, documentmap, form } = formcontext
+        
+        let { docpack, typepack } = documents
 
-        let { docpack, typepack } = documentcontext
+        let formstate = form.state
 
-        for (let valueindex in statecontext.values) {
+        for (let valueindex in formstate.values) {
 
             let path = documentmap[valueindex].split('.')
 
             let nodespecs = utilities.getNodePosition(docpack.document,path)
-            let value = statecontext.values[valueindex]
+            let value = formstate.values[valueindex]
             let datatype
 
             if (value === undefined) value = null;
@@ -606,7 +608,7 @@ const appManager = new class {
         }
 
         application.setDocument(message)
-        
+
         form.setState({
             dirty:false
         })
