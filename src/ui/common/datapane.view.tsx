@@ -157,7 +157,7 @@ class DataPane extends React.Component<DataPaneProps,any>  {
 
     failureAssertListener = (error, reason) => {
 
-        toast.error('Unable to retrieve account data')
+        toast.error('Unable to retrieve data')
         console.log('failureAssertListener in datapane.view',error,reason)
 
     }
