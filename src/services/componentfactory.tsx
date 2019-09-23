@@ -85,7 +85,7 @@ class ComponentFactory {
 
         this.namespace = namespace
 
-        let component = this.assembleComponent(renderdata.component)
+        let component = this.assembleComponent(renderdata.component, renderdata.attributions)
 
         return component
 
@@ -93,12 +93,10 @@ class ComponentFactory {
 
     // =======================[ internal ]============================
 
-    // TODO: attributions gets left behind!
-    private assembleComponent = componentspec => {
+    private assembleComponent = (componentspec,attributions = null) => {
 
         // console.log('assembleComponent',renderdata)
 
-        // let {component:componentspec, attribution} = renderdata // attribution for disclosure
         // if the component is text, return the text
         let { properties, attributes} = componentspec
         attributes = this.getProps(attributes)
