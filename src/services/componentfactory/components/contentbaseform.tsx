@@ -120,7 +120,10 @@ class ContentBaseForm extends React.Component<ContentBaseFormProps,any> {
         } else {
             // console.log('constructor children',children)
             for (let child of children) {
-                if (!child.props.readonly && !child.props['data-static']) {
+                // if (!child.props.readonly && !child.props['data-static']) {
+                //     values[child.props.name] = child.props.value
+                // }
+                if (child.props['data-attributes'] && child.props['data-attributes'].trackvalue) {
                     values[child.props.name] = child.props.value
                 }
             }
@@ -151,7 +154,8 @@ class ContentBaseForm extends React.Component<ContentBaseFormProps,any> {
     // add onChange event handler to editable nodes
     getAdjustedNode = node => {
         let localnode = node
-        if (!localnode.props.readonly && !localnode.props['data-static']) {
+        // if (!localnode.props.readonly && !localnode.props['data-static']) {
+        if (localnode.props['data-attributes'] && localnode.props['data-attributes'].trackvalue) {
 
             localnode = React.cloneElement(localnode,{
                 onChange:this.onChangeValue})
@@ -163,7 +167,7 @@ class ContentBaseForm extends React.Component<ContentBaseFormProps,any> {
     // assign nodes to named fieldsets
     assignNode = node => {
 
-        let fieldset = node.props['data-fieldset']
+        let fieldset = node.props['data-attributes'] && node.props['data-attributes'].fieldset
 
         if (!fieldset) {
 
@@ -240,7 +244,8 @@ class ContentBaseForm extends React.Component<ContentBaseFormProps,any> {
         let newchildren = []
         // update changed element values
         for (let element of fieldlist) {
-            if (!element.props.readonly && !element.props['data-static']) {
+            if (element.props['data-attributes'] && element.props['data-attributes'].trackvalue) {
+            // if (!element.props.readonly && !element.props['data-static']) {
                 let statevalue = this.state.values[element.props.name]
                 let elementvalue = element.props.value
                 if (!Object.is(elementvalue,statevalue)) {
