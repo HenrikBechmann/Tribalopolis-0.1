@@ -72,8 +72,8 @@ class ContentBaseForm extends React.Component<ContentBaseFormProps,any> {
         this.children = children
         this.namespace = namespace
         this.documentmap = documentmap
-        this.fieldsets = fieldsets || []
-        this.groups = groups || []
+        this.fieldsetspecs = fieldsets || []
+        this.groupspecs = groups || []
 
         registerCallbacks && registerCallbacks({getPostMessage:this.getPostMessage, instanceid:namespace.docproxy.instanceid})
 
@@ -93,11 +93,13 @@ class ContentBaseForm extends React.Component<ContentBaseFormProps,any> {
     children
     namespace
     documentmap:GenericObject
-    fieldsets
-    groups
+    fieldsetspecs
+    groupspecs
     formcontext
 
     localchildren
+    fieldsets = {}
+    groups = {}
     defaultfieldset = []
     defaultgroup = []
 
@@ -185,7 +187,7 @@ class ContentBaseForm extends React.Component<ContentBaseFormProps,any> {
 
         let displaycomponents = []
         let groupcomponents = {}
-        for (let group of this.groups) {
+        for (let group of this.groupspecs) {
             groupcomponents[group.name] = []
         }
 
@@ -201,9 +203,9 @@ class ContentBaseForm extends React.Component<ContentBaseFormProps,any> {
 
         }
 
-        if (this.fieldsets) {
+        if (this.fieldsetspecs) {
 
-            for (let fieldset of this.fieldsets) {
+            for (let fieldset of this.fieldsetspecs) {
                 let { group } = fieldset
                 this.fieldsets[fieldset.name] = this.getFieldsetValues(this.fieldsets[fieldset.name])
 
@@ -223,7 +225,7 @@ class ContentBaseForm extends React.Component<ContentBaseFormProps,any> {
             }
         }
 
-        for (let group of this.groups) {
+        for (let group of this.groupspecs) {
             let component = <ContentGroup key = {'group-' + group.name} open = {group.open} title = {group.title}>
                 {groupcomponents[group.name]}
             </ContentGroup>
