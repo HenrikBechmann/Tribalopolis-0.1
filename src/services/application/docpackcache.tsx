@@ -372,7 +372,9 @@ const docpackCache = new class {
                 // TODO this next two lines should become errors if no typeref or type found
                 // typeref = docpack.document.control.type?docpack.document.control.type.reference:null
 
-                typeref = docpack.document.control.type.reference?docpack.document.control.type.reference:null
+                // console.log('getCacheDocpackPair',docpack)
+                // the condition is a workaround for prototype data which has a different structure from database documents
+                typeref = (docpack.document.control.type && docpack.document.control.type.reference)?docpack.document.control.type.reference:null
 
             }
 

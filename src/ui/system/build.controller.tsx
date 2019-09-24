@@ -198,7 +198,7 @@ class BuildController extends React.Component<any,any> {
             values,
             docpack
         },() => {
-            let typeref = data.control.type.reference
+            let typeref = (data && data.control && data.control.type)?data.control.type.reference:null
             if (typeref) {
                 let parm:GetDocumentMessage = {
                     reference:typeref,
