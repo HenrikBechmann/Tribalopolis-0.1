@@ -254,6 +254,12 @@ class DirectoryBar extends React.Component<any,any> {
                             }>
                             <Icon style = {{opacity:.54}} >filter_list</Icon> Filter
                         </MenuItem>
+                        <MenuItem className = {classes.menustyle}
+                            onClick = {(e) =>{
+                                this.callDataDrawer(e,'sort')}
+                            }>
+                            <Icon style = {{opacity:.54}} >sort</Icon> Sort
+                        </MenuItem>
                         <Divider />
                         <MenuItem className = {classes.menustyle}
                             onClick = {(e) =>{
@@ -281,20 +287,20 @@ class DirectoryBar extends React.Component<any,any> {
                             <div style = {{display:'inline-block',width:'24px', height:'24px'}}></div>
                             {false && <Icon style = {{opacity:.54}} >check</Icon>} Select Mode
                         </MenuItem>}
-                        <MenuItem className = {classes.menustyle}
+                        {false && <MenuItem className = {classes.menustyle}
                             onClick = {(e) =>{
                                 this.callDataDrawer(e,'add-label')}
                             }>
                             <Icon style = {{opacity:.54}} >label</Icon> New Label
-                        </MenuItem>
+                        </MenuItem>}
                         {false && <MenuItem className = {classes.menustyle}
                             onClick = {this.menuClose}>
                             <Icon style = {{opacity:.54}} >check</Icon> Show All Records
                         </MenuItem>}
-                        <MenuItem className = {classes.menustyle}
+                        {false && <MenuItem className = {classes.menustyle}
                             onClick = {this.menuClose}>
                             <Icon style = {{opacity:.54}}>label_off</Icon> Hide Labels
-                        </MenuItem>
+                        </MenuItem>}
                         <Divider />
                         <MenuItem className = {classes.menustyle}
                             onClick={this.menuClose}>
