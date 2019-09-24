@@ -81,7 +81,7 @@ const typefilter = new class {
             // let { version:doctypeversion } = localdocument.control.type
             // let { version:typeversion } = type.control
 
-            let doctypeversion = localdocument.control.type.version
+            let doctypeversion = localdocument.control && localdocument.control.type.version
             let typeversion = type.control.version
 
             // ------------------[ DO DELTIONS ]----------------------------------
@@ -124,7 +124,7 @@ const typefilter = new class {
 
         } catch (e) {
 
-            console.log('error in assertType',e)
+            console.log('error in assertType',e, document, type)
 
         }
 
