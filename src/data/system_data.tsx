@@ -22,23 +22,6 @@ let parameters = {
     },
     "version": 0
   },
-  "control_account": "accounts/system",
-  "control_group": null,
-  "control_owner": "members/bLkOyzNbjABj2iaKbOJa",
-  "control_permissions_admin": [],
-  "control_permissions_group": [],
-  "control_permissions_group_admin": [],
-  "control_permissions_member": [],
-  "control_permissions_owner": [],
-  "control_permissions_public": [],
-  "control_permissions_user": [
-    "get"
-  ],
-  "control_status": null,
-  "control_type_logical": "system",
-  "control_type_reference": "types/system",
-  "control_type_version": 0,
-  "control_version": 0,
   "counts": {},
   "history": {
     "created": null,
@@ -72,12 +55,7 @@ let parameters = {
       "medium": null,
       "short": null
     }
-  },
-  "standard_dates_end": null,
-  "standard_dates_start": null,
-  "standard_name_long": null,
-  "standard_name_medium": null,
-  "standard_name_short": null
+  }
 }
 
 let systemtype = {
@@ -104,23 +82,6 @@ let systemtype = {
     },
     "version": 0
   },
-  "control_account": "accounts/system",
-  "control_group": null,
-  "control_owner": "members/bLkOyzNbjABj2iaKbOJa",
-  "control_permissions_admin": [],
-  "control_permissions_group": [],
-  "control_permissions_group_admin": [],
-  "control_permissions_member": [],
-  "control_permissions_owner": [],
-  "control_permissions_public": [],
-  "control_permissions_user": [
-    "get"
-  ],
-  "control_status": null,
-  "control_type_logical": "common",
-  "control_type_reference": "types/common",
-  "control_type_version": 0,
-  "control_version": 0,
   "counts": {},
   "history": {
     "created": "2018-11-16T05:00:00.000Z",
@@ -164,21 +125,6 @@ let systemtype = {
           },
           "version": "??integer"
         },
-        "control_account": "??string",
-        "control_group": "??string",
-        "control_owner": "??string",
-        "control_permissions_admin": "??array",
-        "control_permissions_group": "??array",
-        "control_permissions_group_admin": "??array",
-        "control_permissions_member": "??array",
-        "control_permissions_owner": "??array",
-        "control_permissions_public": "??array",
-        "control_permissions_user": "??array",
-        "control_status": "??string",
-        "control_type_logical": "??string",
-        "control_type_reference": "??string",
-        "control_type_version": "??integer",
-        "control_version": "??integer",
         "counts": "??map",
         "history": {
           "created": "??timestamp",
@@ -198,12 +144,7 @@ let systemtype = {
             "medium": "??string",
             "short": "??string"
           }
-        },
-        "standard_dates_end": "??timestamp",
-        "standard_dates_start": "??timestamp",
-        "standard_name_long": "??string",
-        "standard_name_medium": "??string",
-        "standard_name_short": "??string"
+        }
       },
       "defaults": {
         "control": {
@@ -272,21 +213,6 @@ let systemtype = {
         },
         "version": null
       },
-      "control_account": null,
-      "control_group": null,
-      "control_owner": null,
-      "control_permissions_admin": [],
-      "control_permissions_group": [],
-      "control_permissions_group_admin": [],
-      "control_permissions_member": [],
-      "control_permissions_owner": [],
-      "control_permissions_public": [],
-      "control_permissions_user": [],
-      "control_status": null,
-      "control_type_logical": null,
-      "control_type_reference": null,
-      "control_type_version": null,
-      "control_version": null,
       "counts": {},
       "history": {
         "created": null,
@@ -306,12 +232,7 @@ let systemtype = {
           "medium": null,
           "short": null
         }
-      },
-      "standard_dates_end": null,
-      "standard_dates_start": null,
-      "standard_name_long": null,
-      "standard_name_medium": null,
-      "standard_name_short": null
+      }
     },
     "ui": {
       "#default": null
@@ -328,12 +249,7 @@ let systemtype = {
       "medium": null,
       "short": null
     }
-  },
-  "standard_dates_end": null,
-  "standard_dates_start": null,
-  "standard_name_long": null,
-  "standard_name_medium": null,
-  "standard_name_short": null
+  }
 }
 
 let docpack = {
