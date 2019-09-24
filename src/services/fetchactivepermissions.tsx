@@ -181,7 +181,7 @@ class fetchPermissions {
             reference:'members',
             whereclauses:[
                 ['properties.loginid','==',this.controldata.userdata.login.uid],
-                ['control_account','==',control_account_reference],
+                ['control.account','==',control_account_reference],
             ],
             success:this.fetchMemberSuccess, 
             failure:this.fetchMemberFailure,

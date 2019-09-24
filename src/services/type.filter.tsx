@@ -81,8 +81,8 @@ const typefilter = new class {
             // let { version:doctypeversion } = localdocument.control.type
             // let { version:typeversion } = type.control
 
-            let doctypeversion = localdocument.control_type_version
-            let typeversion = type.control_version
+            let doctypeversion = localdocument.control.type.version
+            let typeversion = type.control.version
 
             // ------------------[ DO DELTIONS ]----------------------------------
 

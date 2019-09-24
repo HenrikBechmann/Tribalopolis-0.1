@@ -66,7 +66,7 @@ const docpackCache = new class {
 
         if (this.isPaired(document)) {
 
-            let typeref = (document && document.control_type_reference)
+            let typeref = (document && document.control.type.reference)
 
             if (typeref) {
 
@@ -81,7 +81,7 @@ const docpackCache = new class {
     private isPaired = document => {
         try {
 
-            return !!document.control_type_reference
+            return !!document.control.type.reference
 
         } catch(e) {
 
@@ -237,11 +237,11 @@ const docpackCache = new class {
 
         if ( paired && (newdocument || this.isPaired(docpack.document))) {
 
-            let oldtyperef = (olddocpack && olddocpack.document)? olddocpack.document.control_type_reference:null
+            let oldtyperef = (olddocpack && olddocpack.document)? olddocpack.document.control.type.reference:null
 
             let typereference = (newdocument?newdocument.typereference:null)
 
-            let typeref = (typereference || (docpack.document.control_type_reference?docpack.document.control_type_reference:null)); // all documents have a type
+            let typeref = (typereference || (docpack.document.control.type.reference?docpack.document.control.type.reference:null)); // all documents have a type
 
             (oldtyperef && (oldtyperef !== typeref)) && typepackCache.removeListener(oldtyperef,docpack.reference)
 
@@ -372,7 +372,7 @@ const docpackCache = new class {
                 // TODO this next two lines should become errors if no typeref or type found
                 // typeref = docpack.document.control.type?docpack.document.control.type.reference:null
 
-                typeref = docpack.document.control_type_reference?docpack.document.control_type_reference:null
+                typeref = docpack.document.control.type.reference?docpack.document.control.type.reference:null
 
             }
 
