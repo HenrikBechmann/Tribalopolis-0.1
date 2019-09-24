@@ -65,21 +65,21 @@ class ContentBaseForm extends React.Component<ContentBaseFormProps,any> {
 
         // console.log('ContentBaseForm:props',props)
         // initialize instance values
-        let { children, namespace, documentmap, fieldsets, groups } = props
+        let { namespace, documentmap, fieldsets, groups } = props
         let registerCallbacks = namespace && namespace.registerCallbacks
 
         // save props to class
-        this.children = children
-        this.namespace = namespace
-        this.documentmap = documentmap
+        // this.children = children
+        // this.namespace = namespace
+        // this.documentmap = documentmap
         this.fieldsetspecs = fieldsets || []
         this.groupspecs = groups || []
 
         registerCallbacks && registerCallbacks({getPostMessage:this.getPostMessage, instanceid:namespace.docproxy.instanceid})
 
         this.formcontext = {
-            documentmap:this.documentmap,
-            namespace:this.namespace,
+            documentmap:documentmap,
+            namespace:namespace,
             form:this,
         }
 
@@ -90,82 +90,78 @@ class ContentBaseForm extends React.Component<ContentBaseFormProps,any> {
         dirty:false,
     }
 
-    children
-    namespace
-    documentmap:GenericObject
+    // children
+    // namespace
+    // documentmap:GenericObject
     fieldsetspecs
     groupspecs
     formcontext
 
-    localchildren
+    // localchildren
     fieldsets = {}
     groups = {}
     defaultfieldset = []
     defaultgroup = []
 
-    length = Array.isArray(this.props.children)?this.props.children.length:this.props.children?1:0
+    // length = Array.isArray(this.props.children)?this.props.children.length:this.props.children?1:0
 
     componentDidMount() {
 
+        // TODO: preprocess fieldsets and groups
         // add onChange to editable children
         // sort fields by fieldsets
+        let values = this.processChildren(this.props.children)
 
-        let children:any = this.props.children
-
-        // initialize field values for state
-        let values = {} as any
-        if (!Array.isArray(children)) {
-            let props:any = children.props
-            values[children.props.name] = children.props.value
-        } else {
-            // console.log('constructor children',children)
-            for (let child of children) {
-                // if (!child.props.readonly && !child.props['data-static']) {
-                //     values[child.props.name] = child.props.value
-                // }
-                if (child.props['data-attributes'] && child.props['data-attributes'].trackvalue) {
-                    values[child.props.name] = child.props.value
-                }
-            }
-        }
-
-        let isarray = Array.isArray(children) 
-
-        if (!isarray && this.length) {
-            let node = children as React.ReactElement
-            node = this.getAdjustedNode(node)
-            this.assignNode(node)
-            this.localchildren = node
-        } else {
-            this.localchildren = []
-            for (let node of children as Array<React.ReactElement>) {
-
-                node = this.getAdjustedNode(node)
-                this.assignNode(node)
-
-            }
-        }
         this.setState({
             values,
         })
 
     }
 
+    processChildren = children => {
+
+        // initialize field values for state
+        let values = {} as any
+        if (!Array.isArray(children)) {
+            children = [children ]
+        }
+
+        for (let child of children) {
+
+            if (child.props['data-attributes'] && child.props['data-attributes'].trackvalue) {
+                values[child.props.name] = child.props.value
+            }
+
+        }
+
+        // this.localchildren = []
+        for (let node of children as Array<React.ReactElement>) {
+
+            node = this.assignOnChangeToNode(node)
+            this.assignNodeToFieldsets(node)
+
+        }
+
+        return values
+    }
+
     // add onChange event handler to editable nodes
-    getAdjustedNode = node => {
+    assignOnChangeToNode = node => {
         let localnode = node
-        // if (!localnode.props.readonly && !localnode.props['data-static']) {
+
         if (localnode.props['data-attributes'] && localnode.props['data-attributes'].trackvalue) {
 
             localnode = React.cloneElement(localnode,{
                 onChange:this.onChangeValue})
 
         }
+
         return localnode
+
     }
 
     // assign nodes to named fieldsets
-    assignNode = node => {
+    assignNodeToFieldsets = node => {
 
         let fieldset = node.props['data-attributes'] && node.props['data-attributes'].fieldset
 
