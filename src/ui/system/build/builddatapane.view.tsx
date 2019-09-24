@@ -115,8 +115,8 @@ class BuildDataPane extends React.Component<any,any>  {
         for (let item of data) {
             let logicaltype 
 
-            if (item.document && item.document.control_type_logical) {
-                logicaltype = item.document.control_type_logical
+            if (item.document && item.document.control.type.logical) {
+                logicaltype = item.document.control.type.logical
             } else {
                 logicaltype = 'n/a'
             }

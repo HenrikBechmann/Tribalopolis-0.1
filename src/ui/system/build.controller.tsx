@@ -128,7 +128,7 @@ class BuildController extends React.Component<any,any> {
                 }
             },() => {
                 if (data.control) {
-                    let typeref = data.control_type_reference
+                    let typeref = data.control.type.reference
                     if (typeref) {
                         let parmblock: GetDocumentMessage = {
                             reference:typeref,
@@ -198,7 +198,7 @@ class BuildController extends React.Component<any,any> {
             values,
             docpack
         },() => {
-            let typeref = data.control_type_reference
+            let typeref = data.control.type.reference
             if (typeref) {
                 let parm:GetDocumentMessage = {
                     reference:typeref,
