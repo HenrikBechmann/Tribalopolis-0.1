@@ -68,15 +68,13 @@ class ContentBaseForm extends React.Component<ContentBaseFormProps,any> {
         let { namespace, documentmap, fieldsets, groups } = props
         let registerCallbacks = namespace && namespace.registerCallbacks
 
-        // save props to class
-        // this.children = children
-        // this.namespace = namespace
-        // this.documentmap = documentmap
+        // reserve for later
         this.fieldsetspecs = fieldsets || []
         this.groupspecs = groups || []
 
         registerCallbacks && registerCallbacks({getPostMessage:this.getPostMessage, instanceid:namespace.docproxy.instanceid})
 
+        // anticipate posting as an option for caller
         this.formcontext = {
             documentmap:documentmap,
             namespace:namespace,
@@ -90,24 +88,20 @@ class ContentBaseForm extends React.Component<ContentBaseFormProps,any> {
         dirty:false,
     }
 
-    // children
-    // namespace
-    // documentmap:GenericObject
+    // instantiation class properties
     fieldsetspecs
     groupspecs
     formcontext
 
-    // localchildren
+    // processing class properties
     fieldsets = {}
-    groups = {}
     defaultfieldset = []
-    defaultgroup = []
-
-    // length = Array.isArray(this.props.children)?this.props.children.length:this.props.children?1:0
+    groups = {}
 
     componentDidMount() {
 
-        // TODO: preprocess fieldsets and groups
+        // preprocess fieldsets and groups
+        this.organizefieldsets()
         // add onChange to editable children
         // sort fields by fieldsets
         let values = this.processChildren(this.props.children)
@@ -118,12 +112,16 @@ class ContentBaseForm extends React.Component<ContentBaseFormProps,any> {
 
     }
 
+    organizefieldsets = () => {
+
+    }
+
     processChildren = children => {
 
         // initialize field values for state
         let values = {} as any
         if (!Array.isArray(children)) {
-            children = [children ]
+            children = [ children ]
         }
 
         for (let child of children) {
@@ -134,7 +132,6 @@ class ContentBaseForm extends React.Component<ContentBaseFormProps,any> {
 
         }
 
-        // this.localchildren = []
         for (let node of children as Array<React.ReactElement>) {
 
             node = this.assignOnChangeToNode(node)
