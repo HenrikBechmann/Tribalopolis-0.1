@@ -297,6 +297,8 @@ class ContentBaseForm extends React.Component<ContentBaseFormProps,any> {
                     if (!disabled) {
 
                         namespace && 
+                        namespace.controller && 
+                        namespace.controller.callbacks && 
                         namespace.controller.callbacks.submit && 
                         namespace.controller.callbacks.submit(this.getPostMessage())
 
