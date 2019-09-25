@@ -91,15 +91,13 @@ class ContentForm extends React.Component<ContentFormProps,any> {
 
     // instantiation properties
     fieldsetspecs // defailts to []
-    // fieldsetnames = []
     groupspecs // defaults to []
-    // groupnames = []
     formcontext // init in constructor
 
     // processing properties
     fieldsetchildren = {}
     defaultfieldsetchildren = []
-    groups = {}
+    // groupcomponents = {}
 
     // ---------------------------------[ preparation ]--------------------------
 
@@ -121,7 +119,12 @@ class ContentForm extends React.Component<ContentFormProps,any> {
     }
 
     organizefieldsets = () => {
-
+        for (let fieldset of this.fieldsetspecs) {
+            this.fieldsetchildren[fieldset.name] = []
+        }
+        // for (let group of this.groupspecs) {
+        //     this.groupcomponents[group.name] = []
+        // }
     }
 
     // add onChange to editable children
@@ -206,7 +209,6 @@ class ContentForm extends React.Component<ContentFormProps,any> {
         for (let group of this.groupspecs) {
             groupcomponents[group.name] = []
         }
-
         if (this.defaultfieldsetchildren.length) {
 
             this.defaultfieldsetchildren = this.getFieldsetValues(this.defaultfieldsetchildren)
