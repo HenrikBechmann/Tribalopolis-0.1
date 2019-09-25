@@ -50,11 +50,11 @@ const styles = (theme) => createStyles({
 
 interface ContentBaseFormProps {
     children:any, 
-    namespace:FactoryNamespace, 
-    documentmap:GenericObject, 
-    groups:GenericObject, 
-    fieldsets:GenericObject, 
-    classes?:any,
+    namespace:FactoryNamespace, // document details and controller resources
+    documentmap:GenericObject, // maps form values to document properties
+    groups:GenericObject, // high level of fieldset grouping (optional)
+    fieldsets:GenericObject, // immediate fieldset groupings of fields (optional)
+    classes?:any, // contributed by HOC withStyles (see bottom of file)
     disabled?:boolean,
 }
 
@@ -72,42 +72,50 @@ class ContentBaseForm extends React.Component<ContentBaseFormProps,any> {
         this.fieldsetspecs = fieldsets || []
         this.groupspecs = groups || []
 
+        // to participate in multiple concurrent postings (transaction wrapped)
         registerCallbacks && registerCallbacks({getPostMessage:this.getPostMessage, instanceid:namespace.docproxy.instanceid})
 
         // anticipate posting as an option for caller
         this.formcontext = {
-            documentmap:documentmap,
-            namespace:namespace,
+            documentmap,
+            namespace,
             form:this,
         }
 
     }
 
     state = {
-        values:{},
+        values:{}, // see onChange -- maintains state of editable fields
         dirty:false,
     }
 
-    // instantiation class properties
-    fieldsetspecs
-    groupspecs
-    formcontext
+    // instantiation properties
+    fieldsetspecs // defailts to []
+    // fieldsetnames = []
+    groupspecs // defaults to []
+    // groupnames = []
+    formcontext // init in constructor
 
-    // processing class properties
-    fieldsets = {}
-    defaultfieldset = []
+    // processing properties
+    fieldsetchildren = {}
+    defaultfieldsetchildren = []
     groups = {}
+
+    // ---------------------------------[ preparation ]--------------------------
 
     componentDidMount() {
 
         // preprocess fieldsets and groups
         this.organizefieldsets()
+
         // add onChange to editable children
         // sort fields by fieldsets
-        let values = this.processChildren(this.props.children)
+        // obtain list of editable values
+        let editablevalues = this.processChildren(this.props.children)
 
+        // initialize state
         this.setState({
-            values,
+            values:editablevalues,
         })
 
     }
@@ -116,30 +124,40 @@ class ContentBaseForm extends React.Component<ContentBaseFormProps,any> {
 
     }
 
+    // add onChange to editable children
+    // sort fields by fieldsets
+    // return list of editable values
     processChildren = children => {
 
         // initialize field values for state
-        let values = {} as any
+        let editablevalues = {} as any
+
+        // normalize to array
         if (!Array.isArray(children)) {
             children = [ children ]
         }
 
+        // get list of editable values, by name of field (therefore names must be unique)
         for (let child of children) {
 
             if (child.props['data-attributes'] && child.props['data-attributes'].trackvalue) {
-                values[child.props.name] = child.props.value
+                editablevalues[child.props.name] = child.props.value
             }
 
         }
 
-        for (let node of children as Array<React.ReactElement>) {
+        // for each chile
+        // assign onChange function to editable fields
+        // assign node to fieldsets
+        for (let child of children as Array<React.ReactElement>) {
 
-            node = this.assignOnChangeToNode(node)
-            this.assignNodeToFieldsets(node)
+            child = this.assignOnChangeToNode(child)
+            this.assignNodeToFieldset(child)
 
         }
 
-        return values
+        // return set of fields for assignment to this.state
+        return editablevalues
     }
 
     // add onChange event handler to editable nodes
@@ -158,27 +176,28 @@ class ContentBaseForm extends React.Component<ContentBaseFormProps,any> {
     }
 
     // assign nodes to named fieldsets
-    assignNodeToFieldsets = node => {
+    assignNodeToFieldset = node => {
 
         let fieldset = node.props['data-attributes'] && node.props['data-attributes'].fieldset
 
         if (!fieldset) {
 
-            this.defaultfieldset.push(node)
+            this.defaultfieldsetchildren.push(node)
 
         } else {
 
-            if (!this.fieldsets[fieldset]) {
+            if (!this.fieldsetchildren[fieldset]) {
 
-                this.fieldsets[fieldset] = []
+                this.fieldsetchildren[fieldset] = []
 
             }
-            this.fieldsets[fieldset].push(node)
+            this.fieldsetchildren[fieldset].push(node)
 
         }
 
     }
 
+    // ----------------------------[ render resources ]----------------------------------
     // refresh fieldset component values
     getDisplayComponents = (classes) => {
 
@@ -188,12 +207,12 @@ class ContentBaseForm extends React.Component<ContentBaseFormProps,any> {
             groupcomponents[group.name] = []
         }
 
-        if (this.defaultfieldset.length) {
+        if (this.defaultfieldsetchildren.length) {
 
-            this.defaultfieldset = this.getFieldsetValues(this.defaultfieldset)
+            this.defaultfieldsetchildren = this.getFieldsetValues(this.defaultfieldsetchildren)
 
             let component = <div key = '__default__'>
-                {this.defaultfieldset}
+                {this.defaultfieldsetchildren}
             </div>
 
             displaycomponents.push(component)
@@ -204,7 +223,7 @@ class ContentBaseForm extends React.Component<ContentBaseFormProps,any> {
 
             for (let fieldset of this.fieldsetspecs) {
                 let { group } = fieldset
-                this.fieldsets[fieldset.name] = this.getFieldsetValues(this.fieldsets[fieldset.name])
+                this.fieldsetchildren[fieldset.name] = this.getFieldsetValues(this.fieldsetchildren[fieldset.name])
 
                 let component = <fieldset 
                     key = {fieldset.name} 
@@ -212,7 +231,7 @@ class ContentBaseForm extends React.Component<ContentBaseFormProps,any> {
                     disabled = {this.props.disabled}
                 >
                     {fieldset.legend && <legend>{fieldset.legend}</legend>}
-                    {this.fieldsets[fieldset.name]}
+                    {this.fieldsetchildren[fieldset.name]}
                 </fieldset>
                 if (group) {
                     groupcomponents[group].push(component)
@@ -233,21 +252,29 @@ class ContentBaseForm extends React.Component<ContentBaseFormProps,any> {
     }
 
     getFieldsetValues = fieldlist => {
+
         if (!fieldlist) return null
+
         let newchildren = []
+
         // update changed element values
         for (let element of fieldlist) {
             if (element.props['data-attributes'] && element.props['data-attributes'].trackvalue) {
-            // if (!element.props.readonly && !element.props['data-static']) {
+
                 let statevalue = this.state.values[element.props.name]
                 let elementvalue = element.props.value
                 if (!Object.is(elementvalue,statevalue)) {
                     element = React.cloneElement(element,{value:statevalue})
                 }
+
             }
+
             newchildren.push(element)
+
         }
+
         return newchildren
+
     }
 
     getPostMessage = () => {
@@ -288,12 +315,12 @@ class ContentBaseForm extends React.Component<ContentBaseFormProps,any> {
                     event.preventDefault()
 
                     if (!disabled) {
-
-                        namespace && 
-                        namespace.controller && 
-                        namespace.controller.callbacks && 
-                        namespace.controller.callbacks.submit && 
-                        namespace.controller.callbacks.submit(this.getPostMessage())
+                        try {
+                            namespace.controller.callbacks.submit && 
+                            namespace.controller.callbacks.submit(this.getPostMessage())
+                        } catch(e) {
+                            // no action - simplifies progressing checks above
+                        }
 
                     }
 
