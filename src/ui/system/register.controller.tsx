@@ -68,21 +68,37 @@ class Register extends React.Component<any,any> {
                         flex:1
                     }
                 }>
-                {
-                    (userdata.status == 'loggedin') && (
-                        <React.Fragment>
+                {{
+                    'loggedin':<React.Fragment>
                         <p>Thanks for logging in! Now just register using the scrolling form below, and you'll be all set. [pending]</p>
                         {this.registerform()}
-                        </React.Fragment>
-                    )
-                }
-                {(userdata.status == 'registered-user') && <p>Thanks for logging in! Now just finish registering here and you'll be all set. [pending]</p>}
-                {(userdata.status == 'signedout') && <p>Please sign in to register.</p>}
-                {((userdata.status == 'registered') || (userdata.status == 'active')) && <p>You're already registered. Nothing to do here.</p>}
+                        </React.Fragment>,
+
+                    'registered-user': <p>Thanks for logging in! Now just finish registering here and you'll be all set. [pending]</p>,
+
+                    'signedout':<p>Please sign in to register.</p>,
+
+                    'registered':<p>You're already registered. Nothing to do here.</p>,
+
+                    'active':<p>You're already registered. Nothing to do here.</p>,
+
+                }[userdata.status]}
                 </div>
             </div>
         )
     }
 }
+
+            //     (userdata.status == 'loggedin') && (
+            //         <React.Fragment>
+            //         <p>Thanks for logging in! Now just register using the scrolling form below, and you'll be all set. [pending]</p>
+            //         {this.registerform()}
+            //         </React.Fragment>
+            //     )
+                // {(userdata.status == 'registered-user') && <p>Thanks for logging in! Now just finish registering here and you'll be all set. [pending]</p>}
+                // {(userdata.status == 'signedout') && <p>Please sign in to register.</p>}
+                // {((userdata.status == 'registered') || (userdata.status == 'active')) && <p>You're already registered. Nothing to do here.</p>}
+            // }
+
 
 export default Register
