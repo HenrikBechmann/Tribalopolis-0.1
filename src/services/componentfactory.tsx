@@ -56,7 +56,7 @@ class ComponentFactory {
 
         } catch(e) {
 
-            console.log('failure top assemble factory message',e)
+            console.log('failure to select interface from type',e, namespace)
             return null
 
         }

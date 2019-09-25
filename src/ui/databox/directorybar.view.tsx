@@ -186,7 +186,6 @@ class DirectoryBar extends React.Component<any,any> {
                         </span>
                     </div>
                     {!contextitem && <ActionButton 
-                        disabled
                         buttonStyle = {
                             {
                                 float:'none',
@@ -197,7 +196,7 @@ class DirectoryBar extends React.Component<any,any> {
                         action = {e => (
                             e.stopPropagation()
                         )}
-                        icon = 'format_indent_decrease' />}
+                        icon = 'unfold_more' />}
                     {!contextitem && <ActionButton 
                         buttonStyle = {
                             {
@@ -209,7 +208,7 @@ class DirectoryBar extends React.Component<any,any> {
                         action = {e => (
                             e.stopPropagation()
                         )}
-                        icon = 'format_indent_increase' />}
+                        icon = 'unfold_less' />}
                     {false && !contextitem && <ActionButton 
                         buttonStyle = {
                             {
