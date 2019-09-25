@@ -202,16 +202,18 @@ class ContentForm extends React.Component<ContentFormProps,any> {
 
     // ----------------------------[ render resources ]----------------------------------
     // refresh fieldset component values
-    getDisplayComponents = (classes) => {
+    assembleDisplayComponents = (classes) => {
 
         let displaycomponents = []
         let groupcomponents = {}
         for (let group of this.groupspecs) {
             groupcomponents[group.name] = []
         }
+
+        // update default area field values
         if (this.defaultfieldsetchildren.length) {
 
-            this.defaultfieldsetchildren = this.getFieldsetValues(this.defaultfieldsetchildren)
+            this.defaultfieldsetchildren = this.updateFieldsetValues(this.defaultfieldsetchildren)
 
             let component = <div key = '__default__'>
                 {this.defaultfieldsetchildren}
@@ -221,11 +223,11 @@ class ContentForm extends React.Component<ContentFormProps,any> {
 
         }
 
+        // update fieldset field values
         if (this.fieldsetspecs) {
 
             for (let fieldset of this.fieldsetspecs) {
-                let { group } = fieldset
-                this.fieldsetchildren[fieldset.name] = this.getFieldsetValues(this.fieldsetchildren[fieldset.name])
+                this.fieldsetchildren[fieldset.name] = this.updateFieldsetValues(this.fieldsetchildren[fieldset.name])
 
                 let component = <fieldset 
                     key = {fieldset.name} 
@@ -235,6 +237,8 @@ class ContentForm extends React.Component<ContentFormProps,any> {
                     {fieldset.legend && <legend>{fieldset.legend}</legend>}
                     {this.fieldsetchildren[fieldset.name]}
                 </fieldset>
+
+                let { group } = fieldset
                 if (group) {
                     groupcomponents[group].push(component)
                 } else {
@@ -243,6 +247,7 @@ class ContentForm extends React.Component<ContentFormProps,any> {
             }
         }
 
+        // add group components
         for (let group of this.groupspecs) {
             let component = <ContentGroup key = {'group-' + group.name} open = {group.open} title = {group.title}>
                 {groupcomponents[group.name]}
@@ -253,7 +258,7 @@ class ContentForm extends React.Component<ContentFormProps,any> {
         return displaycomponents
     }
 
-    getFieldsetValues = fieldlist => {
+    updateFieldsetValues = fieldlist => {
 
         if (!fieldlist) return null
 
@@ -330,7 +335,7 @@ class ContentForm extends React.Component<ContentFormProps,any> {
                 className = { classes && classes.root } 
                 autoComplete = "off" 
             > 
-                {this.getDisplayComponents(classes)}
+                {this.assembleDisplayComponents(classes)}
             </form>
         )
     }
