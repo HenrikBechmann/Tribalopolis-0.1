@@ -428,7 +428,7 @@ let lists = {
         },
         properties:{
             version:0,
-            name:'Documents',
+            name:'Library',
         },
         references:{
             subscriptions:[],
