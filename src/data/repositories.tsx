@@ -983,7 +983,7 @@ let lists = {
         },
         properties:{
             version:0,
-            name:'Library',
+            name:'Documents',
         },
         references:{
             subscriptions:[],

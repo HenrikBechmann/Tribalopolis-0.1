@@ -5,11 +5,11 @@
 
 import React from 'react'
 import ContentTextField from './components/contenttextfield'
-import ContentBaseForm from './components/contentbaseform'
+import ContentForm from './components/contentform'
 // import ContentBox from './components/contentbox'
 
 const components = {
-    ContentBaseForm,
+    ContentForm,
     ContentTextField,
 }
 
