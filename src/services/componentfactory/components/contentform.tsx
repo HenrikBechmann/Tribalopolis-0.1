@@ -63,10 +63,13 @@ class ContentForm extends React.Component<ContentFormProps,any> {
     constructor(props) {
         super(props)
 
-        // console.log('ContentBaseForm:props',props)
+        // console.log('ContentBaseForm:children',props.children)
         // initialize instance values
         let { namespace, documentmap, fieldsets, groups } = props
         let registerCallbacks = namespace && namespace.registerCallbacks
+        // namespace && (namespace.local = {
+        //     classes:this.props.classes
+        // })
 
         // reserve for later
         this.fieldsetspecs = fieldsets || []
@@ -90,21 +93,24 @@ class ContentForm extends React.Component<ContentFormProps,any> {
     }
 
     // instantiation properties
+
     fieldsetspecs // defailts to []
     groupspecs // defaults to []
-    formcontext // init in constructor
 
     // processing properties
     fieldsetchildren = {}
     defaultfieldsetchildren = []
-    // groupcomponents = {}
+    groupchildren = {}
+    localchildren
+
+    formcontext // as initialized in the constructor
 
     // ---------------------------------[ preparation ]--------------------------
 
     componentDidMount() {
 
         // preprocess fieldsets and groups
-        this.organizefieldsets()
+        this.organizelookups()
 
         // add onChange to editable children
         // sort fields by fieldsets
@@ -118,7 +124,7 @@ class ContentForm extends React.Component<ContentFormProps,any> {
 
     }
 
-    organizefieldsets = () => {
+    organizelookups = () => {
         for (let fieldset of this.fieldsetspecs) {
             this.fieldsetchildren[fieldset.name] = []
         }
@@ -146,20 +152,13 @@ class ContentForm extends React.Component<ContentFormProps,any> {
             if (child.props['data-attributes'] && child.props['data-attributes'].trackvalue) {
                 editablevalues[child.props.name] = child.props.value
             }
-
-        }
-
-        // for each chile
-        // assign onChange function to editable fields
-        // assign node to fieldsets
-        for (let child of children as Array<React.ReactElement>) {
-
             child = this.assignOnChangeToNode(child)
+
             this.assignNodeToFieldset(child)
 
         }
 
-        // return set of fields for assignment to this.state
+        // editablevalues = return set of fields for assignment to this.state
         return editablevalues
     }
 
@@ -201,7 +200,9 @@ class ContentForm extends React.Component<ContentFormProps,any> {
     }
 
     // ----------------------------[ render resources ]----------------------------------
-    // refresh fieldset component values
+
+    // refresh fieldset component values by
+    // stepping through components by fieldset
     assembleDisplayComponents = (classes) => {
 
         let displaycomponents = []
@@ -213,7 +214,7 @@ class ContentForm extends React.Component<ContentFormProps,any> {
         // update default area field values
         if (this.defaultfieldsetchildren.length) {
 
-            this.defaultfieldsetchildren = this.updateFieldsetValues(this.defaultfieldsetchildren)
+            this.defaultfieldsetchildren = this.updateFieldsetElementValues(this.defaultfieldsetchildren)
 
             let component = <div key = '__default__'>
                 {this.defaultfieldsetchildren}
@@ -226,19 +227,19 @@ class ContentForm extends React.Component<ContentFormProps,any> {
         // update fieldset field values
         if (this.fieldsetspecs) {
 
-            for (let fieldset of this.fieldsetspecs) {
-                this.fieldsetchildren[fieldset.name] = this.updateFieldsetValues(this.fieldsetchildren[fieldset.name])
+            for (let fieldsetspec of this.fieldsetspecs) {
+                this.fieldsetchildren[fieldsetspec.name] = this.updateFieldsetElementValues(this.fieldsetchildren[fieldsetspec.name])
 
                 let component = <fieldset 
-                    key = {fieldset.name} 
+                    key = {fieldsetspec.name} 
                     className = {classes.fieldset}
                     disabled = {this.props.disabled}
                 >
-                    {fieldset.legend && <legend>{fieldset.legend}</legend>}
-                    {this.fieldsetchildren[fieldset.name]}
+                    {fieldsetspec.legend && <legend>{fieldsetspec.legend}</legend>}
+                    {this.fieldsetchildren[fieldsetspec.name]}
                 </fieldset>
 
-                let { group } = fieldset
+                let { group } = fieldsetspec
                 if (group) {
                     groupcomponents[group].push(component)
                 } else {
@@ -247,7 +248,7 @@ class ContentForm extends React.Component<ContentFormProps,any> {
             }
         }
 
-        // add group components
+        // add group components (assigned above)
         for (let group of this.groupspecs) {
             let component = <ContentGroup key = {'group-' + group.name} open = {group.open} title = {group.title}>
                 {groupcomponents[group.name]}
@@ -258,7 +259,7 @@ class ContentForm extends React.Component<ContentFormProps,any> {
         return displaycomponents
     }
 
-    updateFieldsetValues = fieldlist => {
+    updateFieldsetElementValues = fieldlist => {
 
         if (!fieldlist) return null
 
@@ -327,6 +328,7 @@ class ContentForm extends React.Component<ContentFormProps,any> {
                             namespace.controller.callbacks.submit(this.getPostMessage())
                         } catch(e) {
                             // no action - simplifies checks above
+                            console.log('onSubmit namespace parsing for ccallbackl failed', this)
                         }
 
                     }

@@ -124,6 +124,7 @@ export interface FactoryNamespace {
     options:GenericObject,
     docproxy:GenericObject,
     controller:ControllerData,
+    // local?:GenericObject,
 }
 
 export interface FactoryMessage {
