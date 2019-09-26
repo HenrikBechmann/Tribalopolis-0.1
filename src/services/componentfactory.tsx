@@ -15,6 +15,7 @@ import moment from 'moment'
 import layoutComponents from './componentfactory/layouts'
 import displayComponents from './componentfactory/displays'
 import formComponents from './componentfactory/forms'
+import { formstylesmethods } from './componentfactory/forms'
 import widgetComponents from './componentfactory/widgets'
 import nativeComponents from './componentfactory/native'
 
@@ -26,6 +27,8 @@ import utilities from '../utilities/utilities'
 import { DataPaneNamespace, FactoryNamespace, FactoryMessage } from './interfaces'
 import application from './application'
 
+import coredata from  '../data/coredata'
+
 const components = { // lookups
     layouts:layoutComponents,
     displays:displayComponents,
@@ -33,6 +36,10 @@ const components = { // lookups
     widgets:widgetComponents,
     // box:boxComponents
     native:nativeComponents,
+}
+
+const stylemethods = {
+    forms:formstylesmethods,
 }
 
 // instantiated by client
@@ -137,6 +144,17 @@ class ComponentFactory {
                 type = withStyles(styles)(type)
             }
 
+            let [collection,componentclass] = this.getTypeSplit(componentspec.type)
+            // contentformstylesmethod
+            // console.log('collection, componentclass',collection,componentclass,stylemethods, components)
+            if (stylemethods[collection] && stylemethods[collection][componentclass]) {
+                let styles = stylemethods[collection][componentclass]
+                type = withStyles(styles)(type)
+                let styleobject = styles(coredata.theme)
+                // console.log('styleobject in componentfactory', styleobject)
+                this.namespace.styles = styleobject
+            }
+
             // get component properties
             let props = this.getProps(componentspec.properties, componentspec.attributes)
             // get component children
@@ -173,13 +191,18 @@ class ComponentFactory {
 
     private getTypeClass = typespec => {
 
-        let typelist = typespec.split('.')
-        let [collection, componentclass] = typelist
+        let [collection, componentclass] = this.getTypeSplit(typespec)
         let type = components[collection][componentclass]
         if (!type) type = typespec // TODO: should be made secure!
 
         return type
 
+    }
+
+    private getTypeSplit = typespec => {
+        let typelist = typespec.split('.')
+        let [collection, componentclass] = typelist
+        return [collection, componentclass]
     }
 
 /*--------------------[ unpack properties]-------------------*/

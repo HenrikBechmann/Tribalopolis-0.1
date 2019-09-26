@@ -32,7 +32,8 @@ import { toast } from 'react-toastify'
     This is created in componentFactory based on data in type ui json
     See import of forms in componentFactory module
 */
-const styles = (theme) => createStyles({
+
+const styles = (theme) => createStyles({ // export ??
   root: {
     display: 'flex',
     flexWrap: 'wrap',
@@ -63,7 +64,7 @@ class ContentForm extends React.Component<ContentFormProps,any> {
     constructor(props) {
         super(props)
 
-        // console.log('ContentBaseForm:children',props.children)
+        // console.log('ContentForm:props',props)
         // initialize instance values
         let { namespace, documentmap, fieldsets, groups } = props
         let registerCallbacks = namespace && namespace.registerCallbacks
@@ -229,11 +230,15 @@ class ContentForm extends React.Component<ContentFormProps,any> {
 
             for (let fieldsetspec of this.fieldsetspecs) {
                 this.fieldsetchildren[fieldsetspec.name] = this.updateFieldsetElementValues(this.fieldsetchildren[fieldsetspec.name])
-
+                let style = fieldsetspec.style
+                let namespace = this.props.namespace
+                if (style) style = namespace && namespace.styles && namespace.styles[style]
+                style = style || null
                 let component = <fieldset 
                     key = {fieldsetspec.name} 
-                    className = {classes.fieldset}
+                    className = {classes && classes.fieldset}
                     disabled = {this.props.disabled}
+                    style = {style}
                 >
                     {fieldsetspec.legend && <legend>{fieldsetspec.legend}</legend>}
                     {this.fieldsetchildren[fieldsetspec.name]}
@@ -344,4 +349,6 @@ class ContentForm extends React.Component<ContentFormProps,any> {
 
 }
 
+export { styles }
 export default withStyles( styles )( ContentForm )
+// export default ContentForm
