@@ -49,6 +49,12 @@ const styles = (theme) => createStyles({ // export ??
   }
 })
 
+const styleselections = {
+    controlbar:{
+        border:'none',
+    }
+}
+
 interface ContentFormProps {
     children:any, 
     namespace:FactoryNamespace, // document details and controller resources
@@ -68,9 +74,6 @@ class ContentForm extends React.Component<ContentFormProps,any> {
         // initialize instance values
         let { namespace, documentmap, fieldsets, groups } = props
         let registerCallbacks = namespace && namespace.registerCallbacks
-        // namespace && (namespace.local = {
-        //     classes:this.props.classes
-        // })
 
         // reserve for later
         this.fieldsetspecs = fieldsets || []
@@ -153,7 +156,7 @@ class ContentForm extends React.Component<ContentFormProps,any> {
             if (child.props['data-attributes'] && child.props['data-attributes'].trackvalue) {
                 editablevalues[child.props.name] = child.props.value
             }
-            child = this.assignOnChangeToNode(child)
+            child = this.assignmentsToNode(child)
 
             this.assignNodeToFieldset(child)
 
@@ -163,14 +166,22 @@ class ContentForm extends React.Component<ContentFormProps,any> {
         return editablevalues
     }
 
+    getDirtyState = () => {
+        return this.state.dirty
+    }
+
     // add onChange event handler to editable nodes
-    assignOnChangeToNode = node => {
+    assignmentsToNode = node => {
         let localnode = node
 
-        if (localnode.props['data-attributes'] && localnode.props['data-attributes'].trackvalue) {
+        if (localnode.props['data-attributes']) {
+            
+            if (localnode.props['data-attributes'].trackvalue) {
 
-            localnode = React.cloneElement(localnode,{
-                onChange:this.onChangeValue})
+                localnode = React.cloneElement(localnode,{
+                    onChange:this.onChangeValue})
+
+            }
 
         }
 
@@ -191,10 +202,14 @@ class ContentForm extends React.Component<ContentFormProps,any> {
 
             if (!this.fieldsetchildren[fieldset]) {
 
-                this.fieldsetchildren[fieldset] = []
+                console.log('assignNodeToFieldset: fieldset not found',fieldset, this.fieldsetchildren)
+                this.defaultfieldsetchildren.push(node)
+
+            } else {
+
+                this.fieldsetchildren[fieldset].push(node)
 
             }
-            this.fieldsetchildren[fieldset].push(node)
 
         }
 
@@ -230,15 +245,12 @@ class ContentForm extends React.Component<ContentFormProps,any> {
 
             for (let fieldsetspec of this.fieldsetspecs) {
                 this.fieldsetchildren[fieldsetspec.name] = this.updateFieldsetElementValues(this.fieldsetchildren[fieldsetspec.name])
-                let style = fieldsetspec.style
-                let namespace = this.props.namespace
-                if (style) style = namespace && namespace.styles && namespace.styles[style]
-                style = style || null
+                let styleselection = fieldsetspec.styleselection
                 let component = <fieldset 
                     key = {fieldsetspec.name} 
                     className = {classes && classes.fieldset}
                     disabled = {this.props.disabled}
-                    style = {style}
+                    style = {styleselections[styleselection] || null}
                 >
                     {fieldsetspec.legend && <legend>{fieldsetspec.legend}</legend>}
                     {this.fieldsetchildren[fieldsetspec.name]}
@@ -278,6 +290,16 @@ class ContentForm extends React.Component<ContentFormProps,any> {
                 let elementvalue = element.props.value
                 if (!Object.is(elementvalue,statevalue)) {
                     element = React.cloneElement(element,{value:statevalue})
+                }
+
+            }
+
+            if (element.props['data-attributes'] && 
+                element.props['data-attributes'].assignments &&
+                element.props['data-attributes'].assignments.disabled) {
+                let instruction = element.props['data-attributes'].assignments.disabled
+                if (instruction == 'notdirtyflag') {
+                    element = React.cloneElement(element,{disabled:!this.state.dirty})
                 }
 
             }
@@ -349,6 +371,5 @@ class ContentForm extends React.Component<ContentFormProps,any> {
 
 }
 
-export { styles }
 export default withStyles( styles )( ContentForm )
 // export default ContentForm

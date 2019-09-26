@@ -15,7 +15,6 @@ import moment from 'moment'
 import layoutComponents from './componentfactory/layouts'
 import displayComponents from './componentfactory/displays'
 import formComponents from './componentfactory/forms'
-import { formstylesmethods } from './componentfactory/forms'
 import widgetComponents from './componentfactory/widgets'
 import nativeComponents from './componentfactory/native'
 
@@ -36,10 +35,6 @@ const components = { // lookups
     widgets:widgetComponents,
     // box:boxComponents
     native:nativeComponents,
-}
-
-const stylemethods = {
-    forms:formstylesmethods,
 }
 
 // instantiated by client
@@ -146,14 +141,6 @@ class ComponentFactory {
 
             let [collection,componentclass] = this.getTypeSplit(componentspec.type)
             // contentformstylesmethod
-            // console.log('collection, componentclass',collection,componentclass,stylemethods, components)
-            if (stylemethods[collection] && stylemethods[collection][componentclass]) {
-                let styles = stylemethods[collection][componentclass]
-                type = withStyles(styles)(type)
-                let styleobject = styles(coredata.theme)
-                // console.log('styleobject in componentfactory', styleobject)
-                this.namespace.styles = styleobject
-            }
 
             // get component properties
             let props = this.getProps(componentspec.properties, componentspec.attributes)
