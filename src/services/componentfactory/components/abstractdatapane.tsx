@@ -48,7 +48,6 @@ class AbstractDataPane extends React.Component<AbstractDataPaneProps,any> {
     }
 
     componentfactory:ComponentFactory = null
-    reference
     attributes
     options
     docProxy

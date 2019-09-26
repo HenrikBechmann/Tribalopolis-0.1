@@ -5,7 +5,6 @@
 
 import React from 'react'
 
-// import merge from 'deepmerge'
 import utlities from '../../../utilities/utilities'
 
 import { withStyles, createStyles } from '@material-ui/core/styles'
@@ -22,12 +21,6 @@ import ContentGroup from './contentgroup'
 
 import { toast } from 'react-toastify'
 
-/*
-    TODO:
-    add setupPostDocument message to send to contentbase form, to configure 
-    responses to user.
-    reconcile with registerCalldowns
-*/
 /*
     This is created in componentFactory based on data in type ui json
     See import of forms in componentFactory module
@@ -70,7 +63,6 @@ class ContentForm extends React.Component<ContentFormProps,any> {
     constructor(props) {
         super(props)
 
-        // console.log('ContentForm:props',props)
         // initialize instance values
         let { namespace, documentmap, fieldsets, groups } = props
         let registerCallbacks = namespace && namespace.registerCallbacks
@@ -105,7 +97,6 @@ class ContentForm extends React.Component<ContentFormProps,any> {
     fieldsetchildren = {}
     defaultfieldsetchildren = []
     groupchildren = {}
-    localchildren
 
     formcontext // as initialized in the constructor
 
@@ -113,12 +104,11 @@ class ContentForm extends React.Component<ContentFormProps,any> {
 
     componentDidMount() {
 
-        // preprocess fieldsets and groups
-        this.organizelookups()
+        // preprocess fieldsets
+        for (let fieldset of this.fieldsetspecs) {
+            this.fieldsetchildren[fieldset.name] = []
+        }
 
-        // add onChange to editable children
-        // sort fields by fieldsets
-        // obtain list of editable values
         let editablevalues = this.processChildren(this.props.children)
 
         // initialize state
@@ -126,15 +116,6 @@ class ContentForm extends React.Component<ContentFormProps,any> {
             values:editablevalues,
         })
 
-    }
-
-    organizelookups = () => {
-        for (let fieldset of this.fieldsetspecs) {
-            this.fieldsetchildren[fieldset.name] = []
-        }
-        // for (let group of this.groupspecs) {
-        //     this.groupcomponents[group.name] = []
-        // }
     }
 
     // add onChange to editable children
@@ -156,7 +137,7 @@ class ContentForm extends React.Component<ContentFormProps,any> {
             if (child.props['data-attributes'] && child.props['data-attributes'].trackvalue) {
                 editablevalues[child.props.name] = child.props.value
             }
-            child = this.assignmentsToNode(child)
+            child = this.integrateNode(child)
 
             this.assignNodeToFieldset(child)
 
@@ -171,7 +152,7 @@ class ContentForm extends React.Component<ContentFormProps,any> {
     }
 
     // add onChange event handler to editable nodes
-    assignmentsToNode = node => {
+    integrateNode = node => {
         let localnode = node
 
         if (localnode.props['data-attributes']) {
@@ -202,7 +183,7 @@ class ContentForm extends React.Component<ContentFormProps,any> {
 
             if (!this.fieldsetchildren[fieldset]) {
 
-                console.log('assignNodeToFieldset: fieldset not found',fieldset, this.fieldsetchildren)
+                console.log('assignNodeToFieldset: fieldset not found; assigning to default',fieldset, this.fieldsetchildren)
                 this.defaultfieldsetchildren.push(node)
 
             } else {
@@ -340,31 +321,35 @@ class ContentForm extends React.Component<ContentFormProps,any> {
 
     }
 
+    doSubmit = event => {
+
+        const { namespace, disabled } = this.props
+        event.preventDefault()
+
+        if (!disabled) {
+            try { // ... lazy :-(
+                namespace.controller.callbacks.submit && 
+                namespace.controller.callbacks.submit(this.getPostMessage())
+            } catch(e) {
+                // no action - simplifies checks above
+                console.log('onSubmit namespace parsing for ccallbackl failed', this)
+            }
+
+        }
+    }
+
     render() {
-        const { classes, namespace, disabled } = this.props
+        const { classes } = this.props
 
         return (
             <form 
-                onSubmit = {event => {
-
-                    event.preventDefault()
-
-                    if (!disabled) {
-                        try { // ... lazy :-(
-                            namespace.controller.callbacks.submit && 
-                            namespace.controller.callbacks.submit(this.getPostMessage())
-                        } catch(e) {
-                            // no action - simplifies checks above
-                            console.log('onSubmit namespace parsing for ccallbackl failed', this)
-                        }
-
-                    }
-
-                }}
-                className = { classes && classes.root } 
+                onSubmit = {this.doSubmit}
+                className = { classes.root } 
                 autoComplete = "off" 
             > 
+
                 {this.assembleDisplayComponents(classes)}
+
             </form>
         )
     }
