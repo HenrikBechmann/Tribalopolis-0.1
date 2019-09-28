@@ -66,6 +66,7 @@ class ContentForm extends React.Component<ContentFormProps,any> {
         // initialize instance values
         let { namespace, documentmap, fieldsets, groups } = props
         let registerCallbacks = namespace && namespace.registerCallbacks
+        let registerGetEditingState = namespace && namespace.registerGetEditingState
 
         // reserve for later
         this.fieldsetspecs = fieldsets || []
@@ -73,7 +74,7 @@ class ContentForm extends React.Component<ContentFormProps,any> {
 
         // to participate in multiple concurrent postings (transaction wrapped)
         registerCallbacks && registerCallbacks({getPostMessage:this.getPostMessage, instanceid:namespace.docproxy.instanceid})
-
+        registerGetEditingState && registerGetEditingState({getEditingState:this.getEditingState, instanceid:namespace.docproxy.instanceid})
         // anticipate posting as an option for caller
         this.formcontext = {
             documentmap,
@@ -301,6 +302,10 @@ class ContentForm extends React.Component<ContentFormProps,any> {
             failure:this.onSubmitFailure,
         }
         return message
+    }
+
+    getEditingState = () => {
+        return this.state.dirty
     }
 
     onSubmitSuccess = () => {
