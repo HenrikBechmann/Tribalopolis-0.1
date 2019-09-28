@@ -47,14 +47,10 @@ interface DataPaneProps {
     classes:GenericObject, // provided by withStyles in export statement
     dataName:string,
     ref?:any,
+    active:boolean,
 }
 
 class DataPane extends React.Component<DataPaneProps,any>  {
-
-
-    constructor(props) {
-        super(props)
-    }
 
     state = {
         factorycomponent:null,
@@ -72,6 +68,9 @@ class DataPane extends React.Component<DataPaneProps,any>  {
 
     componentDidUpdate() {
 
+        if (!this.props.active) {
+            this.reset()
+        }
         this.assertTargetListener()
 
     }
@@ -87,6 +86,10 @@ class DataPane extends React.Component<DataPaneProps,any>  {
             }
         )
     
+    }
+
+    reset = () => {
+        
     }
 
     assertTargetListener = () => {

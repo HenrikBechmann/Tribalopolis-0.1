@@ -524,6 +524,7 @@ class Quadrant extends React.Component<any,any>  {
                         containerelement = {this.quadcontentelement}
                     >
                         <DataPane
+                            active = {true}
                             ref = {this.datapaneref}
                             dataName = 'data-pane'
                             dataPaneMessage = {this.datapanemessage}

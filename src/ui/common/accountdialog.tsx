@@ -187,15 +187,15 @@ class AccountDialog extends React.Component<DialogProps,any> {
                       handleClose = {this.closeDrawer}
                       containerelement = {this.accountsettingselement}
                   >
-                    <DataPane dataName = 'data-pane' dataPaneMessage = {this.lookupdata}/>
+                    <DataPane active = {true} dataName = 'data-pane' dataPaneMessage = {this.lookupdata}/>
                   </LookupDrawer>
                   <DataDrawer dataName = 'data-drawer' open = {this.state.draweropen}
                       handleClose = {this.closeDrawer}
                       containerelement = {this.accountsettingselement}
                   >
-                    <DataPane dataName = 'data-pane' dataPaneMessage = {this.drawerdata}/>
+                    <DataPane active = {true} dataName = 'data-pane' dataPaneMessage = {this.drawerdata}/>
                   </DataDrawer>
-                  <DataPane dataName = 'data-pane' dataPaneMessage = {this.datapanemessage}/>
+                  <DataPane active = {true} dataName = 'data-pane' dataPaneMessage = {this.datapanemessage}/>
               </div>
           </div>
          </Dialog>
