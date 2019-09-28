@@ -50,11 +50,19 @@ interface DataPaneProps {
 
 class DataPane extends React.Component<DataPaneProps,any>  {
 
+
+    constructor(props) {
+        super(props)
+        this.factorycomponentref = React.createRef()
+    }
+
     state = {
         factorycomponent:null,
     }
 
     componentfactory:ComponentFactory = new ComponentFactory()
+
+    factorycomponentref
 
     docProxy // used to control document fetches
 
@@ -146,7 +154,8 @@ class DataPane extends React.Component<DataPaneProps,any>  {
         let factorymessage:FactoryMessage = 
             this.componentfactory.assembleFactoryMessage(namespace)
 
-        let factorycomponent = this.componentfactory.createUISelection(factorymessage)
+        let factorycomponent = this.componentfactory.createUISelection(factorymessage,this.factorycomponentref)
+        console.log('factorycomponent', factorycomponent)
 
         this.setState({
 
@@ -161,6 +170,13 @@ class DataPane extends React.Component<DataPaneProps,any>  {
         toast.error('Unable to retrieve data')
         console.log('failureAssertListener in datapane.view',error,reason)
 
+    }
+
+    getEditingState = () => {
+        let editingstate = (this.factorycomponentref.current && this.factorycomponentref.current.getEditingState)
+            ? this.factorycomponentref.current.getEditingState()
+            : false
+        return editingstate
     }
 
     render() {

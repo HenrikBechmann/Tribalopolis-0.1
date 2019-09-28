@@ -304,8 +304,14 @@ class Quadrant extends React.Component<any,any>  {
 
     // calldowns
 
+    datapaneref
+
     callDataDrawer = ({docproxy,options}:DataPaneMessage) => {
         if (this.state.draweropen) {
+            if (this.datapaneref.current.getEditingState()) {
+                toast.info('The data shelf is in editing something. Finish, or close the shelf and try again.')
+                return
+            }
             this.setState(() => ({
                 draweropen:false
             }),() => {
@@ -316,7 +322,6 @@ class Quadrant extends React.Component<any,any>  {
                     }))
                 },250)
             })
-            // toast.info('The data shelf is in use. Close the shelf and try again.')
             return
         }
         this.datapanemessage = {docproxy, options, callbacks:{}}

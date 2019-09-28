@@ -23,7 +23,7 @@ import Proxy from '../utilities/docproxy'
 
 import AbstractDataPane from './componentfactory/components/abstractdatapane'
 import utilities from '../utilities/utilities'
-import { DataPaneNamespace, FactoryNamespace, FactoryMessage } from './interfaces'
+import { DataPaneNamespace, FactoryNamespace, FactoryMessage, GenericObject } from './interfaces'
 import application from './application'
 
 import coredata from  '../data/coredata'
@@ -78,7 +78,7 @@ class ComponentFactory {
     // renderdata includes attributions, and componentspecs ('component')
 
     // TODO: integrate attributions into returned component
-    public createUISelection = (factorymessage:FactoryMessage) => {
+    public createUISelection = (factorymessage:FactoryMessage, ref=null) => {
 
         // console.log('getComponent',factorymessage)
         if (!factorymessage) return null
@@ -87,7 +87,7 @@ class ComponentFactory {
 
         this.namespace = namespace
 
-        let component = this.assembleComponent(renderdata.component, renderdata.attributions)
+        let component = this.assembleComponent(renderdata.component, renderdata.attributions, ref)
 
         return component
 
@@ -95,7 +95,7 @@ class ComponentFactory {
 
     // =======================[ internal ]============================
 
-    private assembleComponent = (componentspec,attributions = null) => {
+    private assembleComponent = (componentspec,attributions = null, ref=null) => {
 
         // console.log('assembleComponent',renderdata)
 
@@ -143,7 +143,7 @@ class ComponentFactory {
             // contentformstylesmethod
 
             // get component properties
-            let props = this.getProps(componentspec.properties, componentspec.attributes)
+            let props:GenericObject = this.getProps(componentspec.properties, componentspec.attributes)
             // get component children
             let children = this.getChildren(componentspec.children)
 
