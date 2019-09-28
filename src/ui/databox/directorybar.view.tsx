@@ -49,6 +49,7 @@ const styles = createStyles({
         paddingLeft:'3px',
         whiteSpace:'nowrap',
         flex:1,
+        fontSize:'12px'
     },
     iconstyle: {
         width:'16px',
