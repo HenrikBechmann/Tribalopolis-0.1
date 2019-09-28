@@ -138,6 +138,7 @@ export interface ControllerData {
     systemdata:GenericObject,
     callbacks:GenericCallbacks,
     registercalldowns?:Function,
+    registerGetEditingState?:Function,
 }
 
 // local

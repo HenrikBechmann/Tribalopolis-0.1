@@ -60,6 +60,8 @@ class DataPane extends React.Component<DataPaneProps,any>  {
 
     docProxy // used to control document fetches
 
+    childformseditingstatus = {}
+
     componentDidMount() {
 
         this.assertTargetListener()
@@ -184,7 +186,7 @@ class DataPane extends React.Component<DataPaneProps,any>  {
 
         return <Paper className = {classes.root}>
 
-            {this.state.factorycomponent?this.state.factorycomponent:<div>Loading...</div>}
+            {this.state.factorycomponent?this.state.factorycomponent:<div>Waiting...</div>}
 
         </Paper>
 
