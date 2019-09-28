@@ -45,6 +45,7 @@ interface LookupDrawerProps {
     containerelement:any,
     classes:any,
     handleClose?:any,
+    dataName?:string,
     // options:any,
     // docproxy:any,
 }

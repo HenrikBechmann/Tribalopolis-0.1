@@ -259,6 +259,12 @@ class DirectoryBar extends React.Component<any,any> {
                             }>
                             <Icon style = {{opacity:.54}} >sort</Icon> Sort
                         </MenuItem>
+                        <MenuItem className = {classes.menustyle}
+                            onClick = {(e) =>{
+                                this.callDataDrawer(e,'sort')}
+                            }>
+                            <Icon style = {{opacity:.54}} >search</Icon> Search
+                        </MenuItem>
                         <Divider />
                         <MenuItem className = {classes.menustyle}
                             onClick = {(e) =>{

@@ -45,6 +45,7 @@ const styles = createStyles({
 interface DataPaneProps {
     dataPaneMessage:DataPaneMessage,
     classes:GenericObject, // provided by withStyles in export statement
+    dataName:string,
 }
 
 class DataPane extends React.Component<DataPaneProps,any>  {

@@ -507,13 +507,16 @@ class Quadrant extends React.Component<any,any>  {
                 />
                 <div className = {classes.viewportFrame}>
 
-                    <DataDrawer open = {this.state.draweropen}
+                    <DataDrawer 
+                        dataName = 'data-drawer'
+                        open = {this.state.draweropen}
                         handleClose = {this.closeDrawer}
                         containerelement = {this.quadcontentelement}
                     >
-                        <DataPane
+                        {this.state.draweropen?<DataPane
+                            dataName = 'data-pane'
                             dataPaneMessage = {this.datapanemessage}
-                        />
+                        />:null}
                     </DataDrawer>
                 
                     <div 

@@ -41,7 +41,7 @@ class Register extends React.Component<any,any> {
                 position:'relative',
             }
         }>
-            <DataPane dataPaneMessage = {this.datapanemessage}/>
+            <DataPane dataName = 'data-pane' dataPaneMessage = {this.datapanemessage}/>
         </div>
 
     }

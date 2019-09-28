@@ -351,7 +351,7 @@ class BuildController extends React.Component<any,any> {
     // --------[ sections of the renderpage follow ]--------
 
     datadrawer = (login, userdata) => (
-        <DataDrawer open = {this.state.draweropen}
+        <DataDrawer dataName = 'data-drawer' open = {this.state.draweropen}
             handleClose = {this.closeDrawer}
             containerelement = {this.buildelement}
         >

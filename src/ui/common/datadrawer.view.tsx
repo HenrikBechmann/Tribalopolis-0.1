@@ -41,6 +41,7 @@ let styles = createStyles({
 })
 
 interface DataDrawerProps {
+    dataName:string,
     open:Boolean,
     containerelement:any,
     classes:any,
@@ -109,7 +110,7 @@ class DataDrawer extends React.Component<DataDrawerProps,any>  {
             {
                  width:this.state.width + 'px',
                  right:this.state.right + 'px',
-                 display:this.state.hidden?'none':'block',
+                 // display:this.state.hidden?'none':'block',
                  maxWidth:maxwidth,
             }}
             className = {classes.root}
