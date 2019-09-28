@@ -129,6 +129,8 @@ class Quadrant extends React.Component<any,any>  {
 
         })
 
+        this.datapaneref = React.createRef()
+
         this.fetchactivepermissions = new fetchactivepermissions(this.onFetchPermissions)
 
         // -----------[ window listener ]-----------
@@ -308,6 +310,7 @@ class Quadrant extends React.Component<any,any>  {
 
     callDataDrawer = ({docproxy,options}:DataPaneMessage) => {
         if (this.state.draweropen) {
+            // console.log('callDataDrawer:datapaneref',this.datapaneref)
             if (this.datapaneref.current.getEditingState()) {
                 toast.info('The data shelf is in editing something. Finish, or close the shelf and try again.')
                 return
@@ -520,10 +523,11 @@ class Quadrant extends React.Component<any,any>  {
                         handleClose = {this.closeDrawer}
                         containerelement = {this.quadcontentelement}
                     >
-                        {this.state.draweropen?<DataPane
+                        <DataPane
+                            ref = {this.datapaneref}
                             dataName = 'data-pane'
                             dataPaneMessage = {this.datapanemessage}
-                        />:null}
+                        />
                     </DataDrawer>
                 
                     <div 

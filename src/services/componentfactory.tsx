@@ -87,7 +87,7 @@ class ComponentFactory {
 
         this.namespace = namespace
 
-        let component = this.assembleComponent(renderdata.component, renderdata.attributions, ref)
+        let component = this.assembleComponent(renderdata.component, renderdata.attributions)
 
         return component
 
@@ -95,7 +95,7 @@ class ComponentFactory {
 
     // =======================[ internal ]============================
 
-    private assembleComponent = (componentspec,attributions = null, ref=null) => {
+    private assembleComponent = (componentspec,attributions = null) => {
 
         // console.log('assembleComponent',renderdata)
 

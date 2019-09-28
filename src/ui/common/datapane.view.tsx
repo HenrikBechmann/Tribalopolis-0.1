@@ -46,6 +46,7 @@ interface DataPaneProps {
     dataPaneMessage:DataPaneMessage,
     classes:GenericObject, // provided by withStyles in export statement
     dataName:string,
+    ref?:any,
 }
 
 class DataPane extends React.Component<DataPaneProps,any>  {
@@ -53,7 +54,6 @@ class DataPane extends React.Component<DataPaneProps,any>  {
 
     constructor(props) {
         super(props)
-        this.factorycomponentref = React.createRef()
     }
 
     state = {
@@ -61,8 +61,6 @@ class DataPane extends React.Component<DataPaneProps,any>  {
     }
 
     componentfactory:ComponentFactory = new ComponentFactory()
-
-    factorycomponentref
 
     docProxy // used to control document fetches
 
@@ -154,7 +152,7 @@ class DataPane extends React.Component<DataPaneProps,any>  {
         let factorymessage:FactoryMessage = 
             this.componentfactory.assembleFactoryMessage(namespace)
 
-        let factorycomponent = this.componentfactory.createUISelection(factorymessage,this.factorycomponentref)
+        let factorycomponent = this.componentfactory.createUISelection(factorymessage)
         console.log('factorycomponent', factorycomponent)
 
         this.setState({
@@ -173,9 +171,7 @@ class DataPane extends React.Component<DataPaneProps,any>  {
     }
 
     getEditingState = () => {
-        let editingstate = (this.factorycomponentref.current && this.factorycomponentref.current.getEditingState)
-            ? this.factorycomponentref.current.getEditingState()
-            : false
+        let editingstate = false
         return editingstate
     }
 
