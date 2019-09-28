@@ -532,7 +532,7 @@ class Quadrant extends React.Component<any,any>  {
                         ref = {this.scrollboxelement}
                     >
                         {(controlstatus)?
-                            ((!isempty && controlstatus == 'full')?(
+                            ((!isempty && (controlstatus == 'full'))?(
                                 haspeers
                                     ?<List 
                                         itemCount = { 
