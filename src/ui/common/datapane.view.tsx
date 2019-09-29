@@ -52,6 +52,11 @@ interface DataPaneProps {
 
 class DataPane extends React.Component<DataPaneProps,any>  {
 
+    constructor(props) {
+        super(props)
+
+    }
+
     state = {
         factorycomponent:null,
     }
@@ -60,7 +65,7 @@ class DataPane extends React.Component<DataPaneProps,any>  {
 
     docProxy // used to control document fetches
 
-    childformseditingstatus = {}
+    childformsEditingstatus = {}
 
     componentDidMount() {
 
@@ -93,6 +98,12 @@ class DataPane extends React.Component<DataPaneProps,any>  {
     reset = () => {
         
     }
+
+
+   registerGetEditingState = ({getEditingState, instanceid}) => {
+       console.log('registerGetEditingState',instanceid)
+       this.childformsEditingstatus[instanceid] = getEditingState
+   }
 
     assertTargetListener = () => {
 
@@ -137,6 +148,7 @@ class DataPane extends React.Component<DataPaneProps,any>  {
             systemdata:application.systemdata,
             callbacks,
             registercalldowns,
+            registerGetEditingState:this.registerGetEditingState
         }
 
         // reformat for componentfactory
@@ -176,7 +188,13 @@ class DataPane extends React.Component<DataPaneProps,any>  {
     }
 
     getEditingState = () => {
+        console.log('datapane:getEditingState')
         let editingstate = false
+        let { childformsEditingstatus } = this
+        for (let index in childformsEditingstatus) {
+            editingstate = !!childformsEditingstatus[index]()
+            if ( editingstate ) break
+        }
         return editingstate
     }
 
