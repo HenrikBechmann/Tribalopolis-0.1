@@ -178,13 +178,14 @@ class DirectoryBar extends React.Component<any,any> {
                     {listDocument.properties.icon?<img className = {classes.iconstyle} src={listDocument.properties.icon as any} />:null}
                     <div className = {classes.namestyle} >
                         <span>{ listDocument.properties.name } </span>
-                        <span 
+                        {false && <span 
                             className = {
                                 classes.countstyle
                             }
                         >
                             {listDocument.counts.lists + listDocument.counts.links}
-                        </span>
+                        </span>}
+                        <Icon>chevron_right</Icon>
                     </div>
                     {!contextitem && <ActionButton 
                         buttonStyle = {
