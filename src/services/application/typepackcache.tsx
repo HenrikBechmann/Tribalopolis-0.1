@@ -31,7 +31,7 @@ const typepackCache = new class {
         let cacheitem:CacheItemStruc = {
             docpack:null,
             listeners:new Map(),
-            touchtimestamp: Date.now(),
+            lastused: Date.now(),
         }
 
         return cacheitem
@@ -54,7 +54,7 @@ const typepackCache = new class {
         if (this.cache.has(reference)) {
 
             cacheitem = this.cache.get(reference)
-            cacheitem.touchtimestamp = Date.now()
+            cacheitem.lastused = Date.now()
 
         } else {
 
