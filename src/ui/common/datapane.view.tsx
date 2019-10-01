@@ -69,7 +69,7 @@ class DataPane extends React.Component<DataPaneProps,any>  {
     }
 
     componentDidUpdate(prevProps) {
-
+        // console.log('datapane componentDidUpdate', prevProps.active, this.props.active)
         if (prevProps.active && !this.props.active) {
             this.reset()
         }
@@ -78,7 +78,7 @@ class DataPane extends React.Component<DataPaneProps,any>  {
     }
 
     componentWillUnmount() {
-
+        // console.log('datapane componentWillUnmount')
         this.removeListeners()
     
     }
@@ -96,6 +96,7 @@ class DataPane extends React.Component<DataPaneProps,any>  {
     }
 
     reset = () => {
+        // console.log('resetting datapane')
         this.removeListeners()
         this.docProxy = undefined
         this.childformsEditingstatus = {}
@@ -175,7 +176,7 @@ class DataPane extends React.Component<DataPaneProps,any>  {
             this.componentfactory.assembleFactoryMessage(namespace)
 
         let factorycomponent = this.componentfactory.createUISelection(factorymessage)
-        console.log('factorycomponent', factorycomponent)
+        // console.log('factorycomponent', factorycomponent)
 
         this.setState({
 
@@ -193,7 +194,7 @@ class DataPane extends React.Component<DataPaneProps,any>  {
     }
 
     getEditingState = () => {
-        console.log('datapane:getEditingState')
+        // console.log('datapane:getEditingState')
         let editingstate = false
         let { childformsEditingstatus } = this
         for (let index in childformsEditingstatus) {
