@@ -36,6 +36,7 @@ const docpackCache = new class {
         let cacheitem:CacheItemStruc = {
             docpack:null,
             listeners: new Map(),
+            touchtimestamp: Date.now() // to implement Least Recently Used
         }
 
         return cacheitem
@@ -92,11 +93,12 @@ const docpackCache = new class {
 
     private getItem = (reference, failure, paired, newdocument = null) => {
 
-        let cacheitem
+        let cacheitem:CacheItemStruc
 
         if (this.cache.has(reference)) { // update if exists
 
             cacheitem = this.cache.get(reference)
+            cacheitem.touchtimestamp = Date.now()
 
         } else { // create if doesn't exist
 

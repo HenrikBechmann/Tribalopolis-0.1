@@ -181,4 +181,5 @@ export interface DocPackStruc {
 export interface CacheItemStruc {
     docpack:DocPackStruc,
     listeners:Map<string,any>
+    touchtimestamp:number,
 }
