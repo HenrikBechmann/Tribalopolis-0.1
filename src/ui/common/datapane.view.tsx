@@ -52,11 +52,6 @@ interface DataPaneProps {
 
 class DataPane extends React.Component<DataPaneProps,any>  {
 
-    constructor(props) {
-        super(props)
-
-    }
-
     state = {
         factorycomponent:null,
     }
@@ -73,9 +68,9 @@ class DataPane extends React.Component<DataPaneProps,any>  {
 
     }
 
-    componentDidUpdate() {
+    componentDidUpdate(prevProps) {
 
-        if (!this.props.active) {
+        if (prevProps.active && !this.props.active) {
             this.reset()
         }
         this.assertTargetListener()
@@ -83,6 +78,12 @@ class DataPane extends React.Component<DataPaneProps,any>  {
     }
 
     componentWillUnmount() {
+
+        this.removeListeners()
+    
+    }
+
+    removeListeners = () => {
 
         if (!this.docProxy) return
 
@@ -92,11 +93,15 @@ class DataPane extends React.Component<DataPaneProps,any>  {
                 instanceid:this.docProxy.instanceid,
             }
         )
-    
     }
 
     reset = () => {
-        
+        this.removeListeners()
+        this.docProxy = undefined
+        this.childformsEditingstatus = {}
+        this.setState({
+            factorycomponent:null,
+        })
     }
 
 
