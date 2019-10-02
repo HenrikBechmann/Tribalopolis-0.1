@@ -11,6 +11,7 @@ import StandardToolbar from '../common/standardtoolbar.view'
 import administration from '../../services/application'
 import docproxy from '../../utilities/docproxy'
 import DataPane from '../common/datapane.view'
+import Button from '@material-ui/core/Button'
 
 class Register extends React.Component<any,any> {
 
@@ -65,12 +66,17 @@ class Register extends React.Component<any,any> {
                     {
                         display:'flex',
                         flexFlow:'column nowrap',
-                        flex:1
+                        flex:1,
+                        padding:'8px'
                     }
                 }>
                 {{
                     'loggedin':<React.Fragment>
-                        <p>Thanks for logging in! Now just register using the scrolling form below, and you'll be all set. [pending]</p>
+                        <p>Thanks for logging in! Now just register using the scrolling form below, and you'll be all set. A credit card is required. [pending]</p>
+                        <div>When done, tap the Register button: <Button variant="contained" color="primary">
+                            Register
+                        </Button>
+                        </div>
                         {this.registerform()}
                         </React.Fragment>,
 
