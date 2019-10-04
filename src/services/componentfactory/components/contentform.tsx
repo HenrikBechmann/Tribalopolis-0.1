@@ -105,8 +105,6 @@ class ContentForm extends React.Component<ContentFormProps,any> {
 
     componentDidMount() {
 
-        // console.log('contentform componentDidMount:this.formcontext', this.formcontext)
-
         // preprocess fieldsets
         for (let fieldset of this.fieldsetspecs) {
             this.fieldsetchildren[fieldset.name] = []
@@ -118,6 +116,10 @@ class ContentForm extends React.Component<ContentFormProps,any> {
         this.setState({
             values:editablevalues,
         })
+
+        // setTimeout(()=> {
+        //     console.log('contentform componentDidMount:this.formcontext', this.formcontext)
+        // })
 
     }
 
