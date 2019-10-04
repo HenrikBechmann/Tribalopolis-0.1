@@ -575,7 +575,7 @@ const appManager = new class {
     // to be used with basic datapane forms
     submitDocument = ( parms:PostFormMessage ) => {
 
-        // console.log('submitDocument',parms)
+        console.log('submitDocument',parms)
 
         let { formcontext, success, failure } = parms
 

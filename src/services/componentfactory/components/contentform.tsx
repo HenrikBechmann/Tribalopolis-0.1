@@ -105,6 +105,8 @@ class ContentForm extends React.Component<ContentFormProps,any> {
 
     componentDidMount() {
 
+        // console.log('contentform componentDidMount:this.formcontext', this.formcontext)
+
         // preprocess fieldsets
         for (let fieldset of this.fieldsetspecs) {
             this.fieldsetchildren[fieldset.name] = []
@@ -135,7 +137,7 @@ class ContentForm extends React.Component<ContentFormProps,any> {
         // get list of editable values, by name of field (therefore names must be unique)
         for (let child of children) {
 
-            if (child.props['data-attributes'] && child.props['data-attributes'].trackvalue) {
+            if (child.props['data-attributes'] && child.props['data-attributes'].setvalue) {
                 editablevalues[child.props.name] = child.props.value
             }
             child = this.integrateNode(child)
