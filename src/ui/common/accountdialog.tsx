@@ -22,6 +22,7 @@ import application from '../../services/application'
 import DataPane from './datapane.view'
 import DataDrawer from './datadrawer.view'
 import LookupDrawer from './lookupdrawer.view'
+import HelpDrawer from './helpdrawer.view'
 
 const styles = createStyles({
     appBar: {
@@ -183,7 +184,13 @@ class AccountDialog extends React.Component<DialogProps,any> {
               <div className = {classes.datapanewrapper}
                 ref = {this.accountsettingselement}
               >
-                  <LookupDrawer dataName = 'lookup-drawer' open = {this.state.draweropen}
+                  <HelpDrawer dataName = 'lookup-drawer' open = {this.state.draweropen}
+                      handleClose = {this.closeDrawer}
+                      containerelement = {this.accountsettingselement}
+                  >
+                    <DataPane active = {true} dataName = 'data-pane' dataPaneMessage = {this.lookupdata}/>
+                  </HelpDrawer>
+                   <LookupDrawer dataName = 'lookup-drawer' open = {this.state.draweropen}
                       handleClose = {this.closeDrawer}
                       containerelement = {this.accountsettingselement}
                   >
