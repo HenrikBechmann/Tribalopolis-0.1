@@ -185,7 +185,7 @@ class DirectoryBar extends React.Component<any,any> {
                         >
                             {listDocument.counts.lists + listDocument.counts.links}
                         </span>}
-                        <Icon>chevron_right</Icon>
+                        {false && <Icon>chevron_right</Icon>}
                     </div>
                     {!contextitem && <ActionButton 
                         buttonStyle = {
@@ -199,7 +199,7 @@ class DirectoryBar extends React.Component<any,any> {
                             e.stopPropagation()
                         )}
                         icon = 'unfold_more' />}
-                    {!contextitem && <ActionButton 
+                    {false && !contextitem && <ActionButton 
                         buttonStyle = {
                             {
                                 float:'none',
@@ -223,7 +223,7 @@ class DirectoryBar extends React.Component<any,any> {
                             e.stopPropagation()
                         )}
                         icon = 'expand_more' />}
-                    {(!contextitem) && <div 
+                    {(false && !contextitem) && <div 
                         ref = {this.menuAnchor}
                     >
                         <ActionButton 

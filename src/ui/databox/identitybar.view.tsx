@@ -156,9 +156,9 @@ class IdentityBar extends React.Component<any, any> {
             <img className = {classes.databox} src = {databox} /> 
             <img className = {classes.avatar} src = {avatar} /> 
             <div className = { classes.namestyle } >
-                {this.state.item && this.state.item.docpack.document.properties.name.fullname}
+                {this.state.item && this.state.item.docpack.document.properties.name}
             </div>
-            {!contextitem && <ActionButton 
+            {false && !contextitem && <ActionButton 
                 buttonStyle = {
                     {
                         float:'none',
@@ -170,7 +170,7 @@ class IdentityBar extends React.Component<any, any> {
                     e.stopPropagation()
                 )}
                 icon = 'expand_more' />}
-            {(!contextitem) && <div 
+            {(false && !contextitem) && <div 
                 ref = {this.menuAnchor}
             >
                 <ActionButton 
