@@ -198,7 +198,7 @@ class Quadrant extends React.Component<any,any>  {
         if (!activeTargetProxy) return
 
         this.operations.setTargetProxy(null)
-
+        toast.info('restoring carousel...')
         setTimeout( () => { // defer to currently running code
 
             if (this.listcomponent && (this.datastack[this.state.stackpointer].items.length > 1)) {
@@ -505,8 +505,9 @@ class Quadrant extends React.Component<any,any>  {
                     stackpointer = {this.state.stackpointer}
                     callbacks = {this.props.callbacks}
                     callDataDrawer = {this.callDataDrawer}
+                    ref = {this.originelement}
                 />
-                <QuadOrigin 
+                {false && <QuadOrigin 
                     haspeers = {haspeers}
                     stackpointer = {this.state.stackpointer} 
                     stackdepth = {datastack?datastack.length:0}
@@ -514,7 +515,7 @@ class Quadrant extends React.Component<any,any>  {
                     incrementStackSelector = {this.operations.incrementStackSelector}
                     decrementStackSelector = {this.operations.decrementStackSelector}
                     ref = {this.originelement}
-                />
+                />}
                 <div className = {classes.viewportFrame}>
 
                     <DataDrawer 

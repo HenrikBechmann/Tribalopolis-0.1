@@ -42,9 +42,9 @@ class quadoperations {
     //-------------------------------[ forward ]---------------------------
     expandDirectoryItem = (boxptr, listtoken, domSource) => {
 
-        this.animations.animateToOrigin()
+        // this.animations.animateToOrigin()
 
-        this.animations.animateToDataBox(domSource,this.quadrant.state.boxwidth)
+        // this.animations.animateToDataBox(domSource,this.quadrant.state.boxwidth)
 
         let datastack = this.quadrant.datastack
 
@@ -123,9 +123,9 @@ class quadoperations {
 
         let startItem = this.getStartItem(sourcelistcomponent.current)
 
-        this.animations.animateToOrigin()
+        // this.animations.animateToOrigin()
 
-        this.animations.animateToDataBoxList(domSource)
+        // this.animations.animateToDataBoxList(domSource)
 
         let datastack = this.quadrant.datastack
 
@@ -179,9 +179,9 @@ class quadoperations {
 
     expandFromSplay = (boxptr:number,domSource) => {
 
-        this.animations.animateToOrigin()
+        // this.animations.animateToOrigin()
 
-        this.animations.animateToDataBox(domSource,this.quadrant.state.boxwidth)
+        // this.animations.animateToDataBox(domSource,this.quadrant.state.boxwidth)
 
         let datastack = this.quadrant.datastack
 
@@ -239,9 +239,9 @@ class quadoperations {
             if (this.quadrant.state.stackpointer) {
                 let targetStackLayer = this.quadrant.datastack[this.quadrant.state.stackpointer - 1]
                 if (targetStackLayer.items.length > 1) {
-                    this.animations.animateOriginToDataBoxList()
+                    // this.animations.animateOriginToDataBoxList()
                 } else {
-                    this.animations.animateOriginToDatabox(this.quadrant.state.boxwidth)
+                    // this.animations.animateOriginToDatabox(this.quadrant.state.boxwidth)
                 }
             }
 
@@ -324,7 +324,7 @@ class quadoperations {
                 let itemNumber = Math.floor(scrollOffset/itemSize)
                 setTimeout(()=>{
                     this.listcomponent.current.scrollToItem(itemNumber,'start')
-                },300)
+                })//,300)
 
             })
         }
