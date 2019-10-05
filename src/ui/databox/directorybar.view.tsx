@@ -195,6 +195,19 @@ class DirectoryBar extends React.Component<any,any> {
                                 height:'24px',
                             }
                         } 
+                        img = '/public/icons/ic_splay_24px.svg'
+                        action = {e => (
+                            e.stopPropagation()
+                        )}
+                    />}
+                    {!contextitem && <ActionButton 
+                        buttonStyle = {
+                            {
+                                float:'none',
+                                width:'24px',
+                                height:'24px',
+                            }
+                        } 
                         action = {e => (
                             e.stopPropagation()
                         )}

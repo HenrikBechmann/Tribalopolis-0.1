@@ -124,7 +124,7 @@ class NavigationMenuTab extends React.Component<any,any> {
                     ref = {this.selectdomsource}
                 >
                     <ActionButton 
-                        iconStyle = {{transform:'rotate(90deg)'}}
+                        icon = 'crop_portrait'
                         disabled = {!this.props.haspeers}
                         img = '/public/icons/ic_splay_24px.svg' 
                         action = {this.expandFromSplay()}

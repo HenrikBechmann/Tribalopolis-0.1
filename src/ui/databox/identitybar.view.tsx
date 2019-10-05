@@ -169,6 +169,18 @@ class IdentityBar extends React.Component<any, any> {
                 action = {e => (
                     e.stopPropagation()
                 )}
+                icon = 'crop_portrait' />}
+            {!contextitem && <ActionButton 
+                buttonStyle = {
+                    {
+                        float:'none',
+                        width:'24px',
+                        height:'24px',
+                    }
+                } 
+                action = {e => (
+                    e.stopPropagation()
+                )}
                 icon = 'expand_more' />}
             {(false && !contextitem) && <div 
                 ref = {this.menuAnchor}
