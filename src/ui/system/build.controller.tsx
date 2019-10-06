@@ -419,10 +419,10 @@ class BuildController extends React.Component<any,any> {
                     //     value:'groupings',
                     //     text:'Groupings',
                     // },
-                    {
-                        value:'links',
-                        text:'Links',
-                    },
+                    // {
+                    //     value:'links',
+                    //     text:'Links',
+                    // },
                     {
                         value:'websites',
                         text:'Websites',
