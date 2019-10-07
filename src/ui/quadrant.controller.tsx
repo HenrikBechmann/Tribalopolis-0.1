@@ -533,6 +533,7 @@ class Quadrant extends React.Component<any,any>  {
                     </DataDrawer>
                 
                     <div 
+                        data-name = 'list container'
                         className = {classes.viewport}
                         style = {viewportStyle}
                         ref = {this.scrollboxelement}
@@ -545,8 +546,8 @@ class Quadrant extends React.Component<any,any>  {
                                             datastack?datastack[this.state.stackpointer].items.length:0
                                         }
                                         layout = "horizontal"
-                                        height = {this.scrollboxelement.current.offsetHeight}
-                                        width = {this.scrollboxelement.current.offsetWidth}
+                                        height = {this.scrollboxelement.current.offsetHeight -2}
+                                        width = {this.scrollboxelement.current.offsetWidth -2}
                                         itemSize = {this.state.boxwidth + 56}
                                         ref = {this.listcomponent}
                                      >

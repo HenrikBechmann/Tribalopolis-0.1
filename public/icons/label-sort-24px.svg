@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="19px" height="14px" viewBox="0 0 19 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 58 (84663) - https://sketch.com -->
+    <title>label-sort-24px</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="label-sort-24px" transform="translate(-3.000000, -5.000000)">
+            <polygon id="Path" points="0 0 24 0 24 24 0 24"></polygon>
+            <path d="M17.63,5.84 C17.27,5.33 16.67,5 16,5 L5,5.01 C3.9,5.01 3,5.9 3,7 L3,17 C3,18.1 3.9,18.99 5,18.99 L16,19 C16.67,19 17.27,18.67 17.63,18.16 L22,12 L17.63,5.84 Z" id="Path" fill="#000000" fill-rule="nonzero"></path>
+            <path d="M6,8 L11,8" id="Line" stroke="#D5D5D5" stroke-width="2" fill="#FFFBFB" stroke-linecap="square"></path>
+            <path d="M6,12 L13,12" id="Line-Copy" stroke="#D5D5D5" stroke-width="2" fill="#FFFBFB" stroke-linecap="square"></path>
+            <path d="M6,16 L15,16" id="Line-Copy-2" stroke="#D5D5D5" stroke-width="2" fill="#FFFBFB" stroke-linecap="square"></path>
+        </g>
+    </g>
+</svg>
