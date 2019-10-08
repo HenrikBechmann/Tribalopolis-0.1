@@ -75,7 +75,7 @@ class Register extends React.Component<any,any> {
                         <p>Thanks for logging in! Now just register using the scrolling form below, and you'll be all set. A credit card is required.</p>
                         <div>When done, tap the Register button: <Button variant="contained" color="primary">
                             Register
-                        </Button><Button style = {{marginLeft:'16px'}} variant="contained" color="secondary">
+                        </Button><Button style = {{marginLeft:'16px'}} variant="outlined">
                             Cancel
                         </Button>
                         </div>
