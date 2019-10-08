@@ -9,6 +9,8 @@ import { withStyles, createStyles, Theme } from '@material-ui/core/styles'
 
 import TextField from '@material-ui/core/TextField'
 
+import { GenericObject } from '../../interfaces'
+
 
 const styles = ( theme:Theme ) => createStyles({
   textField: {
@@ -25,13 +27,11 @@ interface TextFieldInterface {
    label:string, 
    value:any, 
    helperText?:string, 
-   type?:string,
    margin?:"normal" | "none" | "dense", 
    multiline?:boolean
    onChange?:any, 
-   readonly?:boolean,
-   disabled?:boolean,
    rows?:number,
+   inputProps:GenericObject,
 }
 
 const ContentTextField = (props:TextFieldInterface) => {
@@ -45,10 +45,8 @@ const ContentTextField = (props:TextFieldInterface) => {
       margin, 
       multiline, 
       rows, 
-      onChange, 
-      readonly, 
-      disabled, 
-      type 
+      onChange,
+      inputProps,
     } = props
 
     let marginval = margin?margin:'normal'
@@ -65,11 +63,7 @@ const ContentTextField = (props:TextFieldInterface) => {
           rows = {rows?rows:1}
           margin = { marginval }
           onChange = { onChange }
-          inputProps = {{
-            readOnly:(readonly),
-            disabled:(disabled),
-            type:(type),
-          }}
+          inputProps = {inputProps}
         />
     )
 }
