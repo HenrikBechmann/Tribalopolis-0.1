@@ -13,6 +13,7 @@ import React from 'react'
 import Icon from '@material-ui/core/Icon'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import { withStyles, createStyles } from '@material-ui/core/styles'
+import Checkbox from '@material-ui/core/Checkbox';
 import { toast } from 'react-toastify'
 
 import ActionButton from '../common/actionbutton.view'
@@ -71,6 +72,7 @@ class DirectoryListItem extends React.Component<any,any> {
 
     state = {
         list:null,
+        checked:false,
     }
 
     listProxy
@@ -155,25 +157,21 @@ class DirectoryListItem extends React.Component<any,any> {
                 ?<div 
                         className = {classes.rowstyle}
                     > 
-                        {quantity?<ActionButton 
-                            buttonStyle = {
-                                {
-                                    float:'none',
-                                    width:'24px',
-                                    height:'24px',
+                      <Checkbox
+                        checked = {this.state.checked}
+                        color="default"
+                        value="checkedG"
+                        disableRipple
+                        style = {{padding:'2px',color:'silver'}}
+                        onClick = {(e) => {
+                            e.stopPropagation()
+                            this.setState((state) => {
+                                return {
+                                    checked:!state.checked
                                 }
-                            } 
-                            icon = 'arrow_right' 
-                            action = {(e)=>{
-                                e.stopPropagation()
-                            }}
-                        />:<div style = {
-                            {
-                                display:'inline-block',
-                                width:'24px',
-                                height:'24px',
-                            }
-                        }></div>}
+                            })
+                        }}
+                      />
                         <Icon 
                             style = {
                                 {
@@ -201,5 +199,26 @@ class DirectoryListItem extends React.Component<any,any> {
         </div>
     }
 }
+
+// {quantity?<ActionButton 
+//     buttonStyle = {
+//         {
+//             float:'none',
+//             width:'24px',
+//             height:'24px',
+//         }
+//     } 
+//     icon = 'arrow_right' 
+//     action = {(e)=>{
+//         e.stopPropagation()
+//     }}
+// />:<div style = {
+//     {
+//         display:'inline-block',
+//         width:'24px',
+//         height:'24px',
+//     }
+// }></div>}
+
 
 export default withStyles(styles)(DirectoryListItem)
