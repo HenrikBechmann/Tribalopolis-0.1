@@ -272,7 +272,7 @@ class ComponentFactory {
 
     private getPropertyByIndirection = (propertySpec, attributes = null) => {
 
-        let path = propertySpec.slice(1)
+        let path = propertySpec.slice(1) // removing '&' trigger
         let pathlist = path.split('.')
         let namespace = this.namespace
         let nodedata:any = utilities.getNodePosition(namespace,pathlist)

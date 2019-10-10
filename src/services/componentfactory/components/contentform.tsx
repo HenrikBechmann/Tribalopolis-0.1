@@ -65,6 +65,7 @@ class ContentForm extends React.Component<ContentFormProps,any> {
 
         // initialize instance values
         let { namespace, documentmap, fieldsets, groups }:{namespace:FactoryNamespace,documentmap:any,fieldsets:any,groups:any} = props
+        // namespace.local = this
         let registerCallbacks = namespace && namespace.controller.registercalldowns
         let registerGetEditingState = namespace && namespace.controller.registerGetEditingState
 
