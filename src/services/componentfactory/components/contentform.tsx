@@ -336,12 +336,12 @@ class ContentForm extends React.Component<ContentFormProps,any> {
         event.preventDefault()
 
         if (!disabled) {
-            try { // ... lazy :-(
+            try { // ... try = lazy :-(
                 namespace.controller.callbacks.submit && 
                 namespace.controller.callbacks.submit(this.getPostMessage())
             } catch(e) {
                 // no action - simplifies checks above
-                console.log('onSubmit namespace parsing for ccallbackl failed', this)
+                console.log('onSubmit namespace parsing for callback failed', this)
             }
 
         }

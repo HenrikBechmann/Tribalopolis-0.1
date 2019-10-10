@@ -26,6 +26,7 @@
     "isomorphic-fetch": "^2.2.1",
     "js-file-download": "^0.4.8",
     "lodash": "^4.17.15",
+    "markdown-to-jsx": "^6.10.3",
     "moment": "^2.24.0",
     "pluralize": "^8.0.0",
     "prop-types": "^15.7.2",
@@ -44,9 +45,6 @@
     "react-virtualized-auto-sizer": "^1.0.2",
     "react-window": "^1.8.5",
     "react-window-infinite-loader": "^1.0.5",
-    "remark": "^11.0.1",
-    "slate": "^0.47.8",
-    "slate-react": "^0.22.9",
     "uuid": "^3.3.3",
     "yamljs": "^0.3.0"
   },
