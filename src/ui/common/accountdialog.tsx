@@ -75,7 +75,7 @@ class AccountDialog extends React.Component<DialogProps,any> {
 
     openDrawer = ({docproxy,options}:DataPaneMessage) => {
 
-      console.log('openDrawer in accountdialog:docproxy, options',docproxy, options)
+      // console.log('openDrawer in accountdialog:docproxy, options',docproxy, options)
 
         if (this.state.draweropen) {
             toast.info('The data drawer is in use. Close the drawer and try again.')
