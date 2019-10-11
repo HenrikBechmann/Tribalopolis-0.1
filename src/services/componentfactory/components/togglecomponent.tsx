@@ -32,6 +32,7 @@ class ToggleComponent extends React.Component<ToggleComponentProps,any> {
     formcontext
 
     render() {
+        // console.log('togglecomponenbt:condition, firstcomponent, secondcomponent',this.props.condition,this.firstcomponent, this.secondcomponent)
         return (
             this.props.condition
                 // ?<span>first</span>

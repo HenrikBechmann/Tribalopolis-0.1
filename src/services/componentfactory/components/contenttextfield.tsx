@@ -50,7 +50,7 @@ const ContentTextField = (props:TextFieldInterface) => {
     } = props
 
     let marginval = margin?margin:'normal'
-
+    // console.log('contentTextField:props',props)
     return (
         <TextField
           id = { name + '-id' }
