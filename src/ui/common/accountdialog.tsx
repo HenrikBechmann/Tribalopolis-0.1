@@ -64,6 +64,7 @@ class AccountDialog extends React.Component<DialogProps,any> {
         settingsopen:true,
         draweropen:false,
         lookupopen:false,
+        helpopen:false,
     }
 
     private paneProxy:docproxy = null
@@ -186,13 +187,13 @@ class AccountDialog extends React.Component<DialogProps,any> {
               <div className = {classes.datapanewrapper}
                 ref = {this.accountsettingselement}
               >
-                  <HelpDrawer dataName = 'lookup-drawer' open = {this.state.draweropen}
+                  <HelpDrawer dataName = 'lookup-drawer' open = {this.state.helpopen}
                       handleClose = {this.closeDrawer}
                       containerelement = {this.accountsettingselement}
                   >
                     <DataPane active = {true} dataName = 'data-pane' dataPaneMessage = {this.lookupdata}/>
                   </HelpDrawer>
-                   <LookupDrawer dataName = 'lookup-drawer' open = {this.state.draweropen}
+                   <LookupDrawer dataName = 'lookup-drawer' open = {this.state.lookupopen}
                       handleClose = {this.closeDrawer}
                       containerelement = {this.accountsettingselement}
                   >
