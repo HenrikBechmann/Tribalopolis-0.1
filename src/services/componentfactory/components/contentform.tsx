@@ -276,7 +276,9 @@ class ContentForm extends React.Component<ContentFormProps,any> {
 
         // update changed element values
         for (let element of fieldlist) {
-            if (element.props['data-attributes'] && element.props['data-attributes'].trackvalue) {
+            let dataAttributes = element.props['data-attributes']
+
+            if (dataAttributes && dataAttributes.trackvalue) {
 
                 let statevalue = this.state.values[element.props.name]
                 let elementvalue = element.props.value
@@ -286,9 +288,8 @@ class ContentForm extends React.Component<ContentFormProps,any> {
 
             }
 
-            if (element.props['data-attributes'] && 
-                element.props['data-attributes'].assignments) {
-                let assignments = element.props['data-attributes'].assignments
+            if (dataAttributes && dataAttributes.assignments) {
+                let assignments = dataAttributes.assignments
                 let properties = {}
                 for (let property in assignments) {
                     let instruction = assignments[property]
@@ -306,13 +307,6 @@ class ContentForm extends React.Component<ContentFormProps,any> {
                     }
                 }
                 element = React.cloneElement(element,properties)
-                // if (element.props['data-attributes'].assignments.disabled) {
-                //     let instruction = element.props['data-attributes'].assignments.disabled
-                //     if (instruction == 'notdirtyflag') {
-                //         element = React.cloneElement(element,{disabled:!this.state.dirty})
-                //     }
-                // }
-                // }
             }
 
             newchildren.push(element)
