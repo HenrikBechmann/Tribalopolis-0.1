@@ -74,7 +74,12 @@ class ContentForm extends React.Component<ContentFormProps,any> {
         this.groupspecs = groups || []
 
         // to participate in multiple concurrent postings (transaction wrapped)
-        registerCallbacks && registerCallbacks({getPostMessage:this.getPostMessage, instanceid:namespace.docproxy.instanceid})
+        registerCallbacks && registerCallbacks(
+            {
+                getPostMessage:this.getPostMessage, 
+                instanceid:namespace.docproxy.instanceid,
+            }
+        )
         registerGetEditingState && registerGetEditingState({getEditingState:this.getEditingState, instanceid:namespace.docproxy.instanceid})
         // anticipate posting as an option for caller
         this.formcontext = {
@@ -116,7 +121,7 @@ class ContentForm extends React.Component<ContentFormProps,any> {
             this.fieldsetchildren[fieldset.name] = []
         }
 
-        let editablevalues = this.processChildren(this.props.children)
+        let editablevalues = this.integrateChildren(this.props.children)
 
         // initialize state
         this.setState({
@@ -132,7 +137,7 @@ class ContentForm extends React.Component<ContentFormProps,any> {
     // add onChange to editable children
     // sort fields by fieldsets
     // return list of editable values
-    processChildren = children => {
+    integrateChildren = children => {
 
         // initialize field values for state
         let editablevalues = {} as any
@@ -144,13 +149,20 @@ class ContentForm extends React.Component<ContentFormProps,any> {
 
         // get list of editable values, by name of field (therefore names must be unique)
         for (let child of children) {
-
-            if (child.props['data-attributes'] && child.props['data-attributes'].setvalue) {
-                editablevalues[child.props.name] = child.props.value
+            let attributes = child.props['data-attributes']
+            if (attributes && attributes.setup) {
+                let setup = attributes.setup
+                let instructions = setup.instructions
+                if (instructions) {
+                    let setvalue = (instructions.indexOf('setvalue') > -1)
+                    if (setvalue) {
+                        editablevalues[child.props.name] = child.props.value
+                    }
+                }
+                child = this.integrateNode(child, setup)
             }
-            child = this.integrateNode(child)
 
-            this.assignNodeToFieldset(child)
+            this.assignNodeToFieldset(child, attributes)
 
         }
 
@@ -163,18 +175,17 @@ class ContentForm extends React.Component<ContentFormProps,any> {
     }
 
     // add onChange event handler to editable nodes
-    integrateNode = node => {
+    integrateNode = (node,setup) => {
         let localnode = node
-
-        if (localnode.props['data-attributes']) {
-            
-            if (localnode.props['data-attributes'].trackvalue) {
-
-                localnode = React.cloneElement(localnode,{
-                    onChange:this.onChangeValue})
-
+        let instructions = setup.instructions
+        if (instructions) {
+            let trackvalue = (instructions.indexOf('trackvalue') > -1)
+            if (trackvalue) {
+                localnode = React.cloneElement(
+                    localnode,
+                    {onChange:this.onChangeValue}
+                )
             }
-
         }
 
         return localnode
@@ -182,9 +193,9 @@ class ContentForm extends React.Component<ContentFormProps,any> {
     }
 
     // assign nodes to named fieldsets
-    assignNodeToFieldset = node => {
+    assignNodeToFieldset = (node, attributes) => {
 
-        let fieldset = node.props['data-attributes'] && node.props['data-attributes'].fieldset
+        let fieldset = attributes && attributes.fieldset
 
         if (!fieldset) {
 
@@ -278,36 +289,43 @@ class ContentForm extends React.Component<ContentFormProps,any> {
         for (let element of fieldlist) {
             let dataAttributes = element.props['data-attributes']
 
-            if (dataAttributes && dataAttributes.trackvalue) {
+            if (dataAttributes && dataAttributes.update) {
 
-                let statevalue = this.state.values[element.props.name]
-                let elementvalue = element.props.value
-                if (!Object.is(elementvalue,statevalue)) {
-                    element = React.cloneElement(element,{value:statevalue})
-                }
-
-            }
-
-            if (dataAttributes && dataAttributes.assignments) {
-                let assignments = dataAttributes.assignments
-                let properties = {}
-                for (let property in assignments) {
-                    let instruction = assignments[property]
-                    let value
-                    switch (instruction) {
-                        case 'notdirtyflag':{
-                            value = !this.state.dirty
-                            break
+                let update = dataAttributes.update
+                let instructions = update.instructions
+                if (instructions) {
+                    let trackvalue = (instructions.indexOf('trackvalue') > -1)
+                    if (trackvalue) {
+                        let statevalue = this.state.values[element.props.name]
+                        let elementvalue = element.props.value
+                        if (!Object.is(elementvalue,statevalue)) {
+                            element = React.cloneElement(element,{value:statevalue})
                         }
-                        case 'isediting': {
-                            value = this.state.isediting
-                            break
-                        }
-                        properties[property] = value
                     }
                 }
-                element = React.cloneElement(element,properties)
+
+                if (update.assignments) {
+                    let assignments = update.assignments
+                    let properties = {}
+                    for (let property in assignments) {
+                        let instruction = assignments[property]
+                        let value
+                        switch (instruction) {
+                            case 'notdirtyflag':{
+                                value = !this.state.dirty
+                                break
+                            }
+                            case 'isediting': {
+                                value = this.state.isediting
+                                break
+                            }
+                            properties[property] = value
+                        }
+                    }
+                    element = React.cloneElement(element,properties)
+                }
             }
+
 
             newchildren.push(element)
 
