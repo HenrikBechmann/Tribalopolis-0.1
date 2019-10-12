@@ -7,6 +7,21 @@
 
 const unpackProperty = (propertySpec, namespace) => {
 
+    if (isObject(propertySpec)) {
+        if (propertySpec["#variant"]) {
+            let variant = propertySpec["#variant"]
+            switch (variant) {
+                case 'namespace': {
+                    return namespace
+                }
+            }
+        }
+    }
+
+    if (!(propertySpec[0] == '&')) {
+        return propertySpec
+    }
+
     let path = propertySpec.slice(1) // removing '&' trigger
     let pathlist = path.split('.')
     let nodedata:any = getNodePosition(namespace,pathlist)
@@ -77,5 +92,6 @@ export default {
     getNodePosition,
     isObject,
     isFunction,
+    unpackProperty,
 }
 

@@ -18,6 +18,7 @@ import {
 
 import application from '../../application'
 import ContentGroup from './contentgroup'
+import utilities from '../../../utilities/utilities'
 
 import { toast } from 'react-toastify'
 
@@ -65,6 +66,8 @@ class ContentForm extends React.Component<ContentFormProps,any> {
 
         // initialize instance values
         let { namespace, documentmap, fieldsets, groups }:{namespace:FactoryNamespace,documentmap:any,fieldsets:any,groups:any} = props
+        this.localnamespace = Object.assign({},namespace)
+        this.localnamespace.caller = {toggleEditMode:this.toggleEditMode}
         // namespace.local = this
         let registerCallbacks = namespace && namespace.controller.registercalldowns
         let registerGetEditingState = namespace && namespace.controller.registerGetEditingState
@@ -97,6 +100,8 @@ class ContentForm extends React.Component<ContentFormProps,any> {
     }
 
     // instantiation properties
+
+    localnamespace
 
     fieldsetspecs // defailts to []
     groupspecs // defaults to []
@@ -134,6 +139,13 @@ class ContentForm extends React.Component<ContentFormProps,any> {
 
     }
 
+    toggleEditMode = () => {
+        this.setState((state) => {
+            return {
+                isediting:!state.isediting
+            }
+        })
+    }
     // add onChange to editable children
     // sort fields by fieldsets
     // return list of editable values
@@ -319,8 +331,11 @@ class ContentForm extends React.Component<ContentFormProps,any> {
                                 value = this.state.isediting
                                 break
                             }
-                            properties[property] = value
+                            default: {
+                                value = utilities.unpackProperty(instruction, this.localnamespace)
+                            }
                         }
+                        properties[property] = value
                     }
                     element = React.cloneElement(element,properties)
                 }
