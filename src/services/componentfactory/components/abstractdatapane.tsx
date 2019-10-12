@@ -129,6 +129,8 @@ class AbstractDataPane extends React.Component<AbstractDataPaneProps,any> {
                 docpack,
                 typepack,
                 controller:this.controllerdata,
+                caller:null,
+                local:null,
             })
 
         this.factorycomponent = this.componentfactory.createUISelection(factoryMessage)

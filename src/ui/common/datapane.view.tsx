@@ -164,7 +164,9 @@ class DataPane extends React.Component<DataPaneProps,any>  {
             options,
             docpack,
             typepack,
-            controller:controllerdata
+            controller:controllerdata,
+            caller:null,
+            local:null,
 
         }
 

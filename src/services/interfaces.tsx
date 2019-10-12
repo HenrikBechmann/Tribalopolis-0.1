@@ -119,13 +119,16 @@ export interface DataPaneMessage {
 
 // same as DataPaneNamespace
 export interface FactoryNamespace {
+    
     docpack:DocPackStruc,
     typepack:DocPackStruc,
     options:GenericObject,
     docproxy:GenericObject,
     controller:ControllerData,
+    caller:GenericObject,
+    local:GenericObject,
     styles?:GenericObject,
-    local?:GenericObject,
+
 }
 
 export interface FactoryMessage {
