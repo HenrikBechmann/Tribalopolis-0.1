@@ -88,6 +88,7 @@ class ContentForm extends React.Component<ContentFormProps,any> {
     state = {
         values:{}, // see onChange -- maintains state of editable fields
         dirty:false,
+        isediting:false,
     }
 
     // instantiation properties
@@ -282,13 +283,32 @@ class ContentForm extends React.Component<ContentFormProps,any> {
             }
 
             if (element.props['data-attributes'] && 
-                element.props['data-attributes'].assignments &&
-                element.props['data-attributes'].assignments.disabled) {
-                let instruction = element.props['data-attributes'].assignments.disabled
-                if (instruction == 'notdirtyflag') {
-                    element = React.cloneElement(element,{disabled:!this.state.dirty})
+                element.props['data-attributes'].assignments) {
+                let assignments = element.props['data-attributes'].assignments
+                let properties = {}
+                for (let property in assignments) {
+                    let instruction = assignments[property]
+                    let value
+                    switch (instruction) {
+                        case 'notdirtyflag':{
+                            value = !this.state.dirty
+                            break
+                        }
+                        case 'isediting': {
+                            value = this.state.isediting
+                            break
+                        }
+                        properties[property] = value
+                    }
                 }
-
+                element = React.cloneElement(element,properties)
+                // if (element.props['data-attributes'].assignments.disabled) {
+                //     let instruction = element.props['data-attributes'].assignments.disabled
+                //     if (instruction == 'notdirtyflag') {
+                //         element = React.cloneElement(element,{disabled:!this.state.dirty})
+                //     }
+                // }
+                // }
             }
 
             newchildren.push(element)
