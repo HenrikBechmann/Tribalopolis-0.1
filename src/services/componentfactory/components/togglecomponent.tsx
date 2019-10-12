@@ -12,15 +12,18 @@ interface ToggleComponentProps {
     secondcomponent:any,
     condition:boolean,
     formcontext:GenericObject,
+    namespace:GenericObject,
 }
 
 class ToggleComponent extends React.Component<ToggleComponentProps,any> {
     constructor(props) {
         super(props)
-        let { firstcomponent, secondcomponent, formcontext } = this.props
+        console.log('toggleComponent: props',props)
+        let { firstcomponent, secondcomponent, formcontext, namespace } = this.props
         this.firstcomponent = firstcomponent
         this.secondcomponent = secondcomponent
         this.formcontext = formcontext
+        this.namespace = namespace
     }
 
     state = {
@@ -30,13 +33,12 @@ class ToggleComponent extends React.Component<ToggleComponentProps,any> {
     firstcomponent
     secondcomponent
     formcontext
+    namespace
 
     render() {
         // console.log('togglecomponenbt:condition, firstcomponent, secondcomponent',this.props.condition,this.firstcomponent, this.secondcomponent)
         return (
             this.props.condition
-                // ?<span>first</span>
-                // :<span>second</span>
                 ?this.firstcomponent
                 :this.secondcomponent
         )

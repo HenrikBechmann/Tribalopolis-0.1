@@ -245,6 +245,8 @@ class ContentForm extends React.Component<ContentFormProps,any> {
         // update default area field values
         if (this.defaultfieldsetchildren.length) {
 
+            console.log('defaultfieldsetchildren',this.defaultfieldsetchildren)
+
             this.defaultfieldsetchildren = this.updateFieldsetElementValues(this.defaultfieldsetchildren)
 
             let component = <div key = '__default__'>
@@ -301,6 +303,8 @@ class ContentForm extends React.Component<ContentFormProps,any> {
         for (let element of fieldlist) {
             let dataAttributes = element.props['data-attributes']
 
+            console.log('updateFieldsetElementValues',dataAttributes)
+
             if (dataAttributes && dataAttributes.update) {
 
                 let update = dataAttributes.update
@@ -333,6 +337,7 @@ class ContentForm extends React.Component<ContentFormProps,any> {
                             }
                             default: {
                                 value = utilities.unpackProperty(instruction, this.localnamespace)
+                                console.log('contentform default',instruction, value, this.localnamespace)
                             }
                         }
                         properties[property] = value
