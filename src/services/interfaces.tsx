@@ -123,10 +123,13 @@ export interface FactoryNamespace {
     docpack:DocPackStruc,
     typepack:DocPackStruc,
     options:GenericObject,
+
     docproxy:GenericObject,
+
     controller:ControllerData,
     caller:GenericObject,
     local:GenericObject,
+    
     styles?:GenericObject,
 
 }

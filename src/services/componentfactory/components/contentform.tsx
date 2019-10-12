@@ -103,6 +103,10 @@ class ContentForm extends React.Component<ContentFormProps,any> {
 
     formcontext // as initialized in the constructor
 
+    methods = {
+        
+    }
+
     // ---------------------------------[ preparation ]--------------------------
 
     componentDidMount() {

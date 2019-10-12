@@ -5,6 +5,20 @@
 
 'use strict'
 
+const unpackProperty = (propertySpec, namespace) => {
+
+    let path = propertySpec.slice(1) // removing '&' trigger
+    let pathlist = path.split('.')
+    let nodedata:any = getNodePosition(namespace,pathlist)
+    // console.log('pathlist, namespace, propertyspec, attributes, nodedata',pathlist, namespace, propertySpec, attributes, nodedata)
+    if (nodedata) {
+        let value = nodedata.nodevalue
+        return value
+    } else {
+        return undefined
+    }
+}
+
 const getJsonFile = (spec) => {
     let promise = new Promise((resolve, error) => {
 
