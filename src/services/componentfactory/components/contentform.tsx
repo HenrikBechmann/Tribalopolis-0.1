@@ -99,7 +99,7 @@ class ContentForm extends React.Component<ContentFormProps,any> {
     state = {
         values:{}, // see onChange -- maintains state of editable fields
         dirty:false,
-        isediting:false,
+        isediting:true,
     }
 
     // instantiation properties
@@ -306,7 +306,7 @@ class ContentForm extends React.Component<ContentFormProps,any> {
         for (let element of fieldlist) {
             let dataAttributes = element.props && element.props['data-attributes']
 
-            console.log('updateFieldsetElementValues',dataAttributes)
+            // console.log('updateFieldsetElementValues',dataAttributes)
 
             if (dataAttributes && dataAttributes.update) {
 
