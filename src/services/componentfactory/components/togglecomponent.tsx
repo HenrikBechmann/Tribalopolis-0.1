@@ -24,6 +24,9 @@ class ToggleComponent extends React.Component<ToggleComponentProps,any> {
         this.secondcomponent = secondcomponent
         this.formcontext = formcontext
         this.namespace = namespace
+        this.localchildren = Array.isArray(firstcomponent) // for processing local configuration (data-attributes on children)
+            ?firstcomponent.concat(secondcomponent)
+            :[firstcomponent].concat(secondcomponent)
     }
 
     state = {
@@ -34,6 +37,7 @@ class ToggleComponent extends React.Component<ToggleComponentProps,any> {
     secondcomponent
     formcontext
     namespace
+    localchildren
 
     render() {
         // console.log('togglecomponenbt:condition, firstcomponent, secondcomponent',this.props.condition,this.firstcomponent, this.secondcomponent)
