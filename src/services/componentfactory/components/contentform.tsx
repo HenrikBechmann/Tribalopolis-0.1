@@ -71,7 +71,7 @@ class ContentForm extends React.Component<ContentFormProps,any> {
         let { namespace, documentmap, fieldsets, groups }:{namespace:FactoryNamespace,documentmap:any,fieldsets:any,groups:any} = props
         this.localnamespace = Object.assign({},namespace)
         this.localnamespace.caller = {toggleComponent:this.toggleEditMode}
-        // namespace.local = this
+        this.localnamespace.local = this
         let registerCallbacks = namespace && namespace.controller.registercalldowns
         let registerGetEditingState = namespace && namespace.controller.registerGetEditingState
 
@@ -348,7 +348,6 @@ class ContentForm extends React.Component<ContentFormProps,any> {
                     element = React.cloneElement(element,properties)
                 }
             }
-
 
             newchildren.push(element)
 
