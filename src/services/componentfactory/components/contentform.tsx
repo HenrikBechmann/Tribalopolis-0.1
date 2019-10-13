@@ -161,7 +161,7 @@ class ContentForm extends React.Component<ContentFormProps,any> {
 
         // get list of editable values, by name of field (therefore names must be unique)
         for (let child of children) {
-            let attributes = child.props['data-attributes']
+            let attributes = child.props && child.props['data-attributes']
             if (attributes && attributes.setup) {
                 let setup = attributes.setup
                 let instructions = setup.instructions
@@ -301,7 +301,7 @@ class ContentForm extends React.Component<ContentFormProps,any> {
 
         // update changed element values
         for (let element of fieldlist) {
-            let dataAttributes = element.props['data-attributes']
+            let dataAttributes = element.props && element.props['data-attributes']
 
             console.log('updateFieldsetElementValues',dataAttributes)
 
