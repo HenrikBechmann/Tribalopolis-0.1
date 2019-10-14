@@ -5,15 +5,33 @@
 
 import React from 'react'
 
-const ContentSpan = props => {
+class ContentSpan extends React.Component<any,any> {
 
-    let importedstyles = props.style || {}
-    let localstyles = {border:'2px solid blue',padding:'3px'}
-    let classes = props.classes || {}
+    constructor(props) {
+        super(props)
 
-    return <span>
-        {props.children}
-    </span>
+        let { style, classes, children } = this.props
+        this.importedstyles = style || {}
+        this.localstyles = {border:'2px solid blue',padding:'3px'}
+        this.classes = props.classes || {}
+        this.localchildren = children
+
+    }
+
+    importedstyles
+    localstyles
+    classes
+    localchildren
+
+    render() { 
+
+        return <span>
+
+            {this.props.children}
+            
+        </span>
+
+    }
 
 }
 
