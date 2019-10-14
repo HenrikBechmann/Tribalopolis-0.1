@@ -86,7 +86,14 @@ class ContentForm extends React.Component<ContentFormProps,any> {
                 instanceid:namespace.docproxy.instanceid,
             }
         )
-        registerGetEditingState && registerGetEditingState({getEditingState:this.getEditingState, instanceid:namespace.docproxy.instanceid})
+        
+        registerGetEditingState && registerGetEditingState(
+            {
+                getEditingState:this.getEditingState, 
+                instanceid:namespace.docproxy.instanceid,
+            }
+        )
+        
         // anticipate posting as an option for caller
         this.formcontext = {
             documentmap,
@@ -136,10 +143,6 @@ class ContentForm extends React.Component<ContentFormProps,any> {
             values:editablevalues,
         })
 
-        // setTimeout(()=> {
-        //     console.log('contentform componentDidMount:this.formcontext', this.formcontext)
-        // })
-
     }
 
     toggleEditMode = () => {
@@ -149,6 +152,7 @@ class ContentForm extends React.Component<ContentFormProps,any> {
             }
         })
     }
+
     // add onChange to editable children
     // sort fields by fieldsets
     // return list of editable values
@@ -300,58 +304,59 @@ class ContentForm extends React.Component<ContentFormProps,any> {
 
         if (!fieldlist) return null
 
-        let newchildren = []
+        // let newchildren = []
 
+        let newchildren = utilities.updateComponents(fieldlist,this.localnamespace)
         // update changed element values
-        for (let element of fieldlist) {
-            let dataAttributes = element.props && element.props['data-attributes']
+        // for (let element of fieldlist) {
+        //     let dataAttributes = element.props && element.props['data-attributes']
 
-            // console.log('updateFieldsetElementValues',dataAttributes)
+        //     // console.log('updateFieldsetElementValues',dataAttributes)
 
-            if (dataAttributes && dataAttributes.update) {
+        //     if (dataAttributes && dataAttributes.update) {
 
-                let update = dataAttributes.update
-                let instructions = update.instructions
-                if (instructions) {
-                    let trackvalue = (instructions.indexOf('trackvalue') > -1)
-                    if (trackvalue) {
-                        let statevalue = this.state.values[element.props.name]
-                        let elementvalue = element.props.value
-                        if (!Object.is(elementvalue,statevalue)) {
-                            element = React.cloneElement(element,{value:statevalue})
-                        }
-                    }
-                }
+        //         let update = dataAttributes.update
+        //         let instructions = update.instructions
+        //         if (instructions) {
+        //             let trackvalue = (instructions.indexOf('trackvalue') > -1)
+        //             if (trackvalue) {
+        //                 let statevalue = this.state.values[element.props.name]
+        //                 let elementvalue = element.props.value
+        //                 if (!Object.is(elementvalue,statevalue)) {
+        //                     element = React.cloneElement(element,{value:statevalue})
+        //                 }
+        //             }
+        //         }
 
-                if (update.assignments) {
-                    let assignments = update.assignments
-                    let properties = {}
-                    for (let property in assignments) {
-                        let instruction = assignments[property]
-                        let value
-                        switch (instruction) {
-                            case 'notdirtyflag':{
-                                value = !this.state.dirty
-                                break
-                            }
-                            case 'isediting': {
-                                value = this.state.isediting
-                                break
-                            }
-                            default: {
-                                value = utilities.unpackProperty(instruction, this.localnamespace)
-                                console.log('contentform default',instruction, value, this.localnamespace)
-                            }
-                        }
-                        properties[property] = value
-                    }
-                    element = React.cloneElement(element,properties)
-                }
-            }
+        //         if (update.assignments) {
+        //             let assignments = update.assignments
+        //             let properties = {}
+        //             for (let property in assignments) {
+        //                 let instruction = assignments[property]
+        //                 let value
+        //                 switch (instruction) {
+        //                     case 'notdirtyflag':{
+        //                         value = !this.state.dirty
+        //                         break
+        //                     }
+        //                     case 'isediting': {
+        //                         value = this.state.isediting
+        //                         break
+        //                     }
+        //                     default: {
+        //                         value = utilities.unpackProperty(instruction, this.localnamespace)
+        //                         console.log('contentform default',instruction, value, this.localnamespace)
+        //                     }
+        //                 }
+        //                 properties[property] = value
+        //             }
+        //             element = React.cloneElement(element,properties)
+        //         }
+        //     }
 
-            newchildren.push(element)
+        //     newchildren.push(element)
 
-        }
+        // }
 
         return newchildren
 
