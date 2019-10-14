@@ -5,6 +5,14 @@
 
 'use strict'
 
+const integrateComponents = (list, namespace) => {
+
+}
+
+const updateComponents = (list, namespace) => {
+    
+}
+
 const unpackProperty = (propertySpec, namespace) => {
 
     if (isObject(propertySpec)) {
@@ -35,6 +43,7 @@ const unpackProperty = (propertySpec, namespace) => {
 }
 
 const getJsonFile = (spec) => {
+
     let promise = new Promise((resolve, error) => {
 
         fetch(spec).then((jsondata) => {
@@ -44,8 +53,11 @@ const getJsonFile = (spec) => {
         }).catch((reason)=>{
             error(reason)
         })
+
     })
+
     return promise
+
 }
 
 const getNodePosition = (branch, path) => {
@@ -55,6 +67,7 @@ const getNodePosition = (branch, path) => {
     let nodevalue = branch
 
     try {
+
         for (nodeindex of path) {
 
             nodeproperty = nodevalue
@@ -62,29 +75,39 @@ const getNodePosition = (branch, path) => {
 
             if (nodevalue === undefined) return undefined// no doc node available
 
-        } 
+        }
+
     } catch (e) {
+
         return undefined
+
     }
 
     return {
+
         nodeproperty,
         nodeindex,
         nodevalue,
+
     }
 
 }
 
 const isObject = value => {
+
     return ((typeof value === 'object') && (value !== null))
+
 }
 
 // from https://stackoverflow.com/questions/5999998/how-can-i-check-if-a-javascript-variable-is-function-type
 const isFunction = (functionToCheck) => {
+
     if (!functionToCheck) return false
+
     let isFunction = functionToCheck && ({}.toString.call(functionToCheck) === '[object Function]')
 
     return isFunction
+    
 }
 
 export default {
