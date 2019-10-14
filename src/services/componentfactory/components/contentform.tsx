@@ -70,7 +70,7 @@ class ContentForm extends React.Component<ContentFormProps,any> {
         // initialize instance values
         let { namespace, documentmap, fieldsets, groups }:{namespace:FactoryNamespace,documentmap:any,fieldsets:any,groups:any} = props
         this.localnamespace = Object.assign({},namespace)
-        this.localnamespace.caller = {toggleComponent:this.toggleEditMode}
+        this.localnamespace.caller = {toggleEditMode:this.toggleEditMode}
         this.localnamespace.local = this
         let registerCallbacks = namespace && namespace.controller.registercalldowns
         let registerGetEditingState = namespace && namespace.controller.registerGetEditingState
