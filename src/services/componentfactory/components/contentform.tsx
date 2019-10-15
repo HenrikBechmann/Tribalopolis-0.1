@@ -367,7 +367,7 @@ class ContentForm extends React.Component<ContentFormProps,any> {
 
         } else {
             this.toggleEditMode()
-            toast.info('nothing has changed; nothing to submit')
+            toast.info('nothing has changed')
         }
     }
 
