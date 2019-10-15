@@ -5,6 +5,7 @@
 
 import React from 'react'
 
+import utilities from '../../../utilities/utilities'
 import { GenericObject } from '../../interfaces'
 
 interface ToggleComponentProps {
@@ -18,29 +19,46 @@ interface ToggleComponentProps {
 class ToggleComponent extends React.Component<ToggleComponentProps,any> {
     constructor(props) {
         super(props)
-        console.log('toggleComponent: props',props)
+        // console.log('toggleComponent: props',props)
         let { firstcomponent, secondcomponent, formcontext, namespace } = this.props
+        let localnamespace = Object.assign({},namespace)
+        localnamespace.local = this
+        this.localnamespace = localnamespace
         this.firstcomponent = firstcomponent
         this.secondcomponent = secondcomponent
         this.formcontext = formcontext
         this.namespace = namespace
-        this.localchildren = Array.isArray(firstcomponent) // for processing local configuration (data-attributes on children)
-            ?firstcomponent.concat(secondcomponent)
-            :[firstcomponent].concat(secondcomponent)
+        // this.localchildren = Array.isArray(firstcomponent) // for processing local configuration (data-attributes on children)
+        //     ?firstcomponent.concat(secondcomponent)
+        //     :[firstcomponent].concat(secondcomponent)
     }
 
     state = {
-        condition:this.props.condition
+        generation:0
     }
+
+    // state = {
+    //     condition:this.props.condition
+    // }
 
     firstcomponent
     secondcomponent
     formcontext
     namespace
-    localchildren
+    localnamespace
+    // localchildren
+
+    componentDidMount() {
+        // console.log('componentDidMount togglecomponent', this.props)
+        this.firstcomponent = utilities.integrateComponents(this.firstcomponent,this.localnamespace)
+        this.secondcomponent = utilities.integrateComponents(this.secondcomponent,this.localnamespace)
+        this.setState((state)=> {
+            return {generation:++state.generation}
+        })
+    }
 
     render() {
-        // console.log('togglecomponenbt:condition, firstcomponent, secondcomponent',this.props.condition,this.firstcomponent, this.secondcomponent)
+        // console.log('togglecomponent:condition, firstcomponent, secondcomponent',this.props.condition,this.firstcomponent, this.secondcomponent)
         return (
             this.props.condition
                 ?this.firstcomponent

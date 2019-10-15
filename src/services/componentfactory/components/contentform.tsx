@@ -69,11 +69,14 @@ class ContentForm extends React.Component<ContentFormProps,any> {
 
         // initialize instance values
         let { namespace, documentmap, fieldsets, groups }:{namespace:FactoryNamespace,documentmap:any,fieldsets:any,groups:any} = props
-        this.localnamespace = Object.assign({},namespace)
-        this.localnamespace.caller = {toggleEditMode:this.toggleEditMode}
-        this.localnamespace.local = this
-        let registerCallbacks = namespace && namespace.controller.registercalldowns
-        let registerGetEditingState = namespace && namespace.controller.registerGetEditingState
+        let localnamespace = namespace && Object.assign({},namespace)
+        if (localnamespace) {
+            localnamespace.caller = {toggleEditMode:this.toggleEditMode}
+            localnamespace.local = this
+        }
+        this.localnamespace = localnamespace
+        let registerCallbacks = localnamespace && localnamespace.controller.registercalldowns
+        let registerGetEditingState = localnamespace && localnamespace.controller.registerGetEditingState
 
         // reserve for later
         this.fieldsetspecs = fieldsets || []
@@ -83,21 +86,21 @@ class ContentForm extends React.Component<ContentFormProps,any> {
         registerCallbacks && registerCallbacks(
             {
                 getPostMessage:this.getPostMessage, 
-                instanceid:namespace.docproxy.instanceid,
+                instanceid:localnamespace.docproxy.instanceid,
             }
         )
         
         registerGetEditingState && registerGetEditingState(
             {
                 getEditingState:this.getEditingState, 
-                instanceid:namespace.docproxy.instanceid,
+                instanceid:localnamespace.docproxy.instanceid,
             }
         )
         
         // anticipate posting as an option for caller
         this.formcontext = {
             documentmap,
-            namespace,
+            namespace:localnamespace,
             form:this,
         }
 
@@ -106,7 +109,7 @@ class ContentForm extends React.Component<ContentFormProps,any> {
     state = {
         values:{}, // see onChange -- maintains state of editable fields
         dirty:false,
-        isediting:true,
+        isediting:false,
     }
 
     // instantiation properties
@@ -146,6 +149,7 @@ class ContentForm extends React.Component<ContentFormProps,any> {
     }
 
     toggleEditMode = () => {
+        console.log('toggling edit mode')
         this.setState((state) => {
             return {
                 isediting:!state.isediting
@@ -165,6 +169,8 @@ class ContentForm extends React.Component<ContentFormProps,any> {
         if (!Array.isArray(children)) {
             children = [ children ]
         }
+
+        children = utilities.integrateComponents(children,this.localnamespace)
 
         // get list of editable values, by name of field (therefore names must be unique)
         for (let child of children) {
@@ -224,7 +230,7 @@ class ContentForm extends React.Component<ContentFormProps,any> {
 
             if (!this.fieldsetchildren[fieldset]) {
 
-                console.log('assignNodeToFieldset: fieldset not found; assigning to default',fieldset, this.fieldsetchildren)
+                // console.log('assignNodeToFieldset: fieldset not found; assigning to default',fieldset, this.fieldsetchildren)
                 this.defaultfieldsetchildren.push(node)
 
             } else {
@@ -252,7 +258,7 @@ class ContentForm extends React.Component<ContentFormProps,any> {
         // update default area field values
         if (this.defaultfieldsetchildren.length) {
 
-            console.log('defaultfieldsetchildren',this.defaultfieldsetchildren)
+            // console.log('defaultfieldsetchildren',this.defaultfieldsetchildren)
 
             this.defaultfieldsetchildren = this.updateFieldsetElementValues(this.defaultfieldsetchildren)
 
@@ -307,56 +313,6 @@ class ContentForm extends React.Component<ContentFormProps,any> {
         // let newchildren = []
 
         let newchildren = utilities.updateComponents(fieldlist,this.localnamespace)
-        // update changed element values
-        // for (let element of fieldlist) {
-        //     let dataAttributes = element.props && element.props['data-attributes']
-
-        //     // console.log('updateFieldsetElementValues',dataAttributes)
-
-        //     if (dataAttributes && dataAttributes.update) {
-
-        //         let update = dataAttributes.update
-        //         let instructions = update.instructions
-        //         if (instructions) {
-        //             let trackvalue = (instructions.indexOf('trackvalue') > -1)
-        //             if (trackvalue) {
-        //                 let statevalue = this.state.values[element.props.name]
-        //                 let elementvalue = element.props.value
-        //                 if (!Object.is(elementvalue,statevalue)) {
-        //                     element = React.cloneElement(element,{value:statevalue})
-        //                 }
-        //             }
-        //         }
-
-        //         if (update.assignments) {
-        //             let assignments = update.assignments
-        //             let properties = {}
-        //             for (let property in assignments) {
-        //                 let instruction = assignments[property]
-        //                 let value
-        //                 switch (instruction) {
-        //                     case 'notdirtyflag':{
-        //                         value = !this.state.dirty
-        //                         break
-        //                     }
-        //                     case 'isediting': {
-        //                         value = this.state.isediting
-        //                         break
-        //                     }
-        //                     default: {
-        //                         value = utilities.unpackProperty(instruction, this.localnamespace)
-        //                         console.log('contentform default',instruction, value, this.localnamespace)
-        //                     }
-        //                 }
-        //                 properties[property] = value
-        //             }
-        //             element = React.cloneElement(element,properties)
-        //         }
-        //     }
-
-        //     newchildren.push(element)
-
-        // }
 
         return newchildren
 
@@ -396,10 +352,11 @@ class ContentForm extends React.Component<ContentFormProps,any> {
 
     doSubmit = event => {
 
-        const { namespace, disabled } = this.props
         event.preventDefault()
 
-        if (!disabled) {
+        let namespace = this.localnamespace
+
+        if (!this.props.disabled) {
             try { // ... try = lazy :-(
                 namespace.controller.callbacks.submit && 
                 namespace.controller.callbacks.submit(this.getPostMessage())

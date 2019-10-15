@@ -5,29 +5,50 @@
 
 import React from 'react'
 
+import utilities from '../../../utilities/utilities'
+
 class ContentSpan extends React.Component<any,any> {
 
     constructor(props) {
         super(props)
 
-        let { style, classes, children } = this.props
+        let { style, classes, children, namespace } = this.props
+        let localnamespace = Object.assign({},namespace)
+        localnamespace.local = this
+        this.localnamespace = localnamespace
         this.importedstyles = style || {}
         this.localstyles = {border:'2px solid blue',padding:'3px'}
         this.classes = props.classes || {}
         this.localchildren = children
 
+        // console.log('contentspan:props',this.props)
+
+    }
+
+    state = {
+        generation:0
     }
 
     importedstyles
     localstyles
     classes
     localchildren
+    localnamespace
+
+    componentDidMount() {
+        this.localchildren = utilities.integrateComponents(this.localchildren,this.localnamespace)
+        this.setState((state)=>{
+            return {
+                generation:++state.generation
+            }
+        })
+    }
 
     render() { 
 
         return <span>
 
-            {this.props.children}
+            {this.localchildren}
             
         </span>
 

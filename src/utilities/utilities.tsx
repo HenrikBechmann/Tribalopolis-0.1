@@ -9,11 +9,53 @@ import React from 'react'
 
 const integrateComponents = (list, namespace) => {
 
+    // console.log('integrateComponents:list, namespace',list, namespace)
+
+    let newchildren = []
+
+    if ( !list || !namespace ) return newchildren
+
+    if (!Array.isArray(list)) list = [list]
+    
+    for (let element of list) {
+        let dataAttributes = element.props && element.props['data-attributes']
+
+        // console.log('integrateComponents: dataAttributes',dataAttributes)
+
+        if (dataAttributes && dataAttributes.setup) {
+
+            let setup = dataAttributes.setup
+            // console.log('integrateComponents: setup',setup)
+            if (setup.assignments) {
+                let assignments = setup.assignments
+                // console.log('integrateComponents: assignments',setup)
+                let properties = {}
+                for (let property in assignments) {
+                    let instruction = assignments[property]
+                    let value = unpackProperty(instruction, namespace)
+                    properties[property] = value
+                    // console.log('integrateComponents: assigned value to property',value, property)
+                }
+                element = React.cloneElement(element,properties)
+                // console.log('new element',element)
+            }
+        }
+
+        newchildren.push(element)
+
+    }
+
+    return newchildren
+
 }
 
 const updateComponents = (list, namespace) => {
 
     let newchildren = []
+
+    if ( !list || !namespace ) return newchildren
+
+    if (!Array.isArray(list)) list = [list]
     
     for (let element of list) {
         let dataAttributes = element.props && element.props['data-attributes']
@@ -40,21 +82,20 @@ const updateComponents = (list, namespace) => {
                 let properties = {}
                 for (let property in assignments) {
                     let instruction = assignments[property]
-                    let value
-                    switch (instruction) {
-                        case 'notdirtyflag':{
-                            value = !namespace.local.state.dirty
-                            break
-                        }
+                    // let value
+                    // switch (instruction) {
+                        // case 'notdirtyflag':{
+                        //     value = !namespace.local.state.dirty
+                        //     break
+                        // }
                         // case 'isediting': {
                         //     value = namespace.local.state.isediting
                         //     break
                         // }
-                        default: {
-                            value = unpackProperty(instruction, namespace)
-                            console.log('contentform default',instruction, value, namespace)
-                        }
-                    }
+                        // default: {
+                    let value = unpackProperty(instruction, namespace)
+                    //     }
+                    // }
                     properties[property] = value
                 }
                 element = React.cloneElement(element,properties)
