@@ -103,6 +103,8 @@ class ContentForm extends React.Component<ContentFormProps,any> {
             form:this,
         }
 
+        this.formref = React.createRef()
+
     }
 
     state = {
@@ -124,6 +126,7 @@ class ContentForm extends React.Component<ContentFormProps,any> {
     groupchildren = {}
 
     formcontext // as initialized in the constructor
+    formref
 
     methods = {
         
@@ -132,7 +135,6 @@ class ContentForm extends React.Component<ContentFormProps,any> {
     // ---------------------------------[ preparation ]--------------------------
 
     componentDidMount() {
-
         // preprocess fieldsets
         for (let fieldset of this.fieldsetspecs) {
             this.fieldsetchildren[fieldset.name] = []
@@ -148,9 +150,6 @@ class ContentForm extends React.Component<ContentFormProps,any> {
     }
 
     toggleEditMode = () => {
-        if (this.state.isediting && this.state.dirty) {
-            this.doSubmit(null)
-        }
         this.setState((state) => {
             return {
                 isediting:!state.isediting
@@ -334,6 +333,7 @@ class ContentForm extends React.Component<ContentFormProps,any> {
     }
 
     onSubmitSuccess = () => {
+        this.toggleEditMode()
         toast.success('document has been posted')
         return true
     }
@@ -353,7 +353,7 @@ class ContentForm extends React.Component<ContentFormProps,any> {
 
     doSubmit = event => {
 
-        event && event.preventDefault()
+        event.preventDefault()
         console.log('doSubmit in contentform', this.props)
         let namespace = this.localnamespace
 
@@ -367,7 +367,8 @@ class ContentForm extends React.Component<ContentFormProps,any> {
             }
 
         } else {
-            toast.info('nothing has chnaged; nothing to submit')
+            this.toggleEditMode()
+            toast.info('nothing has changed; nothing to submit')
         }
     }
 
@@ -379,6 +380,7 @@ class ContentForm extends React.Component<ContentFormProps,any> {
                 onSubmit = {this.doSubmit}
                 className = { classes.root } 
                 autoComplete = "off" 
+                ref = {this.formref}
             > 
 
                 {this.assembleDisplayComponents(classes)}
