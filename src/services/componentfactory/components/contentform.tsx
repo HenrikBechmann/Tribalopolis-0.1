@@ -354,7 +354,6 @@ class ContentForm extends React.Component<ContentFormProps,any> {
     doSubmit = event => {
 
         event.preventDefault()
-        console.log('doSubmit in contentform', this.props)
         let namespace = this.localnamespace
 
         if (this.state.dirty) {
