@@ -80,24 +80,16 @@ const updateComponents = (list, namespace) => {
             if (update.assignments) {
                 let assignments = update.assignments
                 let properties = {}
+
                 for (let property in assignments) {
+
                     let instruction = assignments[property]
-                    // let value
-                    // switch (instruction) {
-                        // case 'notdirtyflag':{
-                        //     value = !namespace.local.state.dirty
-                        //     break
-                        // }
-                        // case 'isediting': {
-                        //     value = namespace.local.state.isediting
-                        //     break
-                        // }
-                        // default: {
                     let value = unpackProperty(instruction, namespace)
-                    //     }
-                    // }
+
                     properties[property] = value
+
                 }
+
                 element = React.cloneElement(element,properties)
             }
         }
