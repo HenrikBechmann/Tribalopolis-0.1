@@ -59,7 +59,6 @@ interface ContentFormProps {
     groups:GenericObject, // high level of fieldset grouping (optional)
     fieldsets:GenericObject, // immediate fieldset groupings of fields (optional)
     classes?:any, // contributed by HOC withStyles (see bottom of file)
-    disabled?:boolean,
 }
 
 class ContentForm extends React.Component<ContentFormProps,any> {
@@ -149,7 +148,9 @@ class ContentForm extends React.Component<ContentFormProps,any> {
     }
 
     toggleEditMode = () => {
-        console.log('toggling edit mode')
+        if (this.state.isediting && this.state.dirty) {
+            this.doSubmit(null)
+        }
         this.setState((state) => {
             return {
                 isediting:!state.isediting
@@ -279,7 +280,7 @@ class ContentForm extends React.Component<ContentFormProps,any> {
                 let component = <fieldset 
                     key = {fieldsetspec.name} 
                     className = {classes && classes.fieldset}
-                    disabled = {this.props.disabled}
+                    disabled = {fieldsetspec.candisable && !this.state.isediting}
                     style = {styleselections[styleselection] || null}
                 >
                     {fieldsetspec.legend && <legend>{fieldsetspec.legend}</legend>}
@@ -352,11 +353,11 @@ class ContentForm extends React.Component<ContentFormProps,any> {
 
     doSubmit = event => {
 
-        event.preventDefault()
-
+        event && event.preventDefault()
+        console.log('doSubmit in contentform', this.props)
         let namespace = this.localnamespace
 
-        if (!this.props.disabled) {
+        if (this.state.dirty) {
             try { // ... try = lazy :-(
                 namespace.controller.callbacks.submit && 
                 namespace.controller.callbacks.submit(this.getPostMessage())
@@ -365,6 +366,8 @@ class ContentForm extends React.Component<ContentFormProps,any> {
                 console.log('onSubmit namespace parsing for callback failed', this)
             }
 
+        } else {
+            toast.info('nothing has chnaged; nothing to submit')
         }
     }
 
