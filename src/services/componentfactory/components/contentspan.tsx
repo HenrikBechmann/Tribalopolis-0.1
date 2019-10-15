@@ -13,9 +13,11 @@ class ContentSpan extends React.Component<any,any> {
         super(props)
 
         let { style, classes, children, namespace } = this.props
-        let localnamespace = Object.assign({},namespace)
-        localnamespace.local = this
-        this.localnamespace = localnamespace
+        if (namespace) {
+            let localnamespace = Object.assign({},namespace)
+            localnamespace.local = this
+            this.localnamespace = localnamespace
+        }
         // this.importedstyles = style || {}
         // this.classes = props.classes || {}
         this.localchildren = children
