@@ -70,7 +70,10 @@ class ContentForm extends React.Component<ContentFormProps,any> {
         let { namespace, documentmap, fieldsets, groups }:{namespace:FactoryNamespace,documentmap:any,fieldsets:any,groups:any} = props
         let localnamespace = namespace && Object.assign({},namespace)
         if (localnamespace) {
-            localnamespace.caller = {toggleEditMode:this.toggleEditMode}
+            localnamespace.caller = {
+                toggleEditMode:this.toggleEditMode,
+                resetValues:this.resetValues,
+            }
             localnamespace.local = this
         }
         this.localnamespace = localnamespace
@@ -128,9 +131,7 @@ class ContentForm extends React.Component<ContentFormProps,any> {
     formcontext // as initialized in the constructor
     formref
 
-    methods = {
-        
-    }
+    originaleditablevalues
 
     // ---------------------------------[ preparation ]--------------------------
 
@@ -142,6 +143,7 @@ class ContentForm extends React.Component<ContentFormProps,any> {
 
         let editablevalues = this.integrateChildren(this.props.children)
 
+        this.originaleditablevalues = Object.assign({},editablevalues)
         // initialize state
         this.setState({
             values:editablevalues,
@@ -155,6 +157,28 @@ class ContentForm extends React.Component<ContentFormProps,any> {
                 isediting:!state.isediting
             }
         })
+    }
+
+    resetValues = () => {
+        if (!this.state.dirty) {
+            this.setState({
+                isediting:false
+            })
+            toast.info('no values had changed, so none were reset')
+            return
+        }
+        this.setState((state) => {
+            let isediting = state.isediting
+            if (isediting) isediting = false
+
+            return {
+                values:this.originaleditablevalues,
+                isediting,
+                dirty:false,
+            }
+
+        })
+        toast.info('changed values have been reset')
     }
 
     // add onChange to editable children
@@ -334,6 +358,7 @@ class ContentForm extends React.Component<ContentFormProps,any> {
 
     onSubmitSuccess = () => {
         this.toggleEditMode()
+        this.originaleditablevalues = Object.assign({},this.state.values)
         toast.success('document has been posted')
         return true
     }
