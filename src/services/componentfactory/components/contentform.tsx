@@ -111,7 +111,7 @@ class ContentForm extends React.Component<ContentFormProps,any> {
             form:this,
         }
 
-        this.formref = React.createRef()
+        // this.formref = React.createRef()
 
     }
 
@@ -134,7 +134,7 @@ class ContentForm extends React.Component<ContentFormProps,any> {
     groupchildren = {}
 
     formcontext // as initialized in the constructor
-    formref
+    // formref
 
     originaleditablevalues
 
@@ -417,7 +417,6 @@ class ContentForm extends React.Component<ContentFormProps,any> {
                 onSubmit = {this.doSubmit}
                 className = { classes.root } 
                 autoComplete = "off" 
-                ref = {this.formref}
             > 
 
                 {this.assembleDisplayComponents(classes)}
