@@ -73,6 +73,7 @@ class ContentForm extends React.Component<ContentFormProps,any> {
 
         // initialize instance values
         let { namespace, documentmap, fieldsets, groups }:{namespace:FactoryNamespace,documentmap:any,fieldsets:any,groups:any} = props
+
         let localnamespace = namespace && Object.assign({},namespace)
         if (localnamespace) {
             localnamespace.caller = {
@@ -82,12 +83,13 @@ class ContentForm extends React.Component<ContentFormProps,any> {
             localnamespace.local = this
         }
         this.localnamespace = localnamespace
-        let registerCallbacks = localnamespace && localnamespace.controller.registercalldowns
-        let registerGetEditingState = localnamespace && localnamespace.controller.registerGetEditingState
 
         // reserve for later
         this.fieldsetspecs = fieldsets || []
         this.groupspecs = groups || []
+
+        let registerCallbacks = localnamespace && localnamespace.controller.registercalldowns
+        let registerGetEditingState = localnamespace && localnamespace.controller.registerGetEditingState
 
         // to participate in multiple concurrent postings (transaction wrapped)
         registerCallbacks && registerCallbacks(
@@ -130,7 +132,7 @@ class ContentForm extends React.Component<ContentFormProps,any> {
 
     // processing properties
     fieldsetchildren = {}
-    defaultfieldsetchildren = []
+    // defaultfieldsetchildren = []
     groupchildren = {}
 
     formcontext // as initialized in the constructor
@@ -256,15 +258,17 @@ class ContentForm extends React.Component<ContentFormProps,any> {
 
         if (!fieldsetname) {
 
-            // console.log('!fieldsetname',fieldsetname)
-            this.defaultfieldsetchildren.push(node)
+            console.log('error: no fieldsetname',node, attributes)
+            return
+            // this.defaultfieldsetchildren.push(node)
 
         } else {
 
             if (!this.fieldsetchildren[fieldsetname]) {
 
-                // console.log('assignNodeToFieldset: fieldset not found; assigning to default',fieldsetname, this.fieldsetchildren)
-                this.defaultfieldsetchildren.push(node)
+                console.log('assignNodeToFieldset: fieldset not found; ',fieldsetname, this.fieldsetchildren)
+                return
+                // this.defaultfieldsetchildren.push(node)
 
             } else {
 
@@ -290,19 +294,19 @@ class ContentForm extends React.Component<ContentFormProps,any> {
         }
 
         // update default area field values
-        if (this.defaultfieldsetchildren.length) {
+        // if (this.defaultfieldsetchildren.length) {
 
-            // console.log('defaultfieldsetchildren',this.defaultfieldsetchildren)
+        //     // console.log('defaultfieldsetchildren',this.defaultfieldsetchildren)
 
-            this.defaultfieldsetchildren = this.updateFieldsetElementValues(this.defaultfieldsetchildren)
+        //     this.defaultfieldsetchildren = this.updateFieldsetElementValues(this.defaultfieldsetchildren)
 
-            let component = <div key = '__default__'>
-                {this.defaultfieldsetchildren}
-            </div>
+        //     let component = <div key = '__default__'>
+        //         {this.defaultfieldsetchildren}
+        //     </div>
 
-            displaycomponents.push(component)
+        //     displaycomponents.push(component)
 
-        }
+        // }
 
         // update fieldset field values
         if (this.fieldsetspecs) {
