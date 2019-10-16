@@ -13,7 +13,7 @@ const integrateComponents = (list, namespace) => {
 
     let newchildren = []
 
-    if ( !list || !namespace ) return newchildren
+    if ( !list || !namespace ) return list?list:newchildren
 
     if (!Array.isArray(list)) list = [list]
     
@@ -53,7 +53,7 @@ const updateComponents = (list, namespace) => {
 
     let newchildren = []
 
-    if ( !list || !namespace ) return newchildren
+    if ( !list || !namespace ) return list?list:newchildren
 
     if (!Array.isArray(list)) list = [list]
     

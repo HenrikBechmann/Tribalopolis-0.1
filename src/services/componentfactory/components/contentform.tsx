@@ -49,6 +49,9 @@ const styleselections = {
     },
     titlebar: {
         border:'none',
+    },
+    standardbar: {
+        border:'none',
     }
 }
 
@@ -65,6 +68,8 @@ class ContentForm extends React.Component<ContentFormProps,any> {
 
     constructor(props) {
         super(props)
+
+        // console.log('ContentForm:props',this.props)
 
         // initialize instance values
         let { namespace, documentmap, fieldsets, groups }:{namespace:FactoryNamespace,documentmap:any,fieldsets:any,groups:any} = props
@@ -140,6 +145,7 @@ class ContentForm extends React.Component<ContentFormProps,any> {
         for (let fieldset of this.fieldsetspecs) {
             this.fieldsetchildren[fieldset.name] = []
         }
+        // console.log('fieldsetchildren',this.fieldsetchildren)
 
         let editablevalues = this.integrateChildren(this.props.children)
 
@@ -244,22 +250,26 @@ class ContentForm extends React.Component<ContentFormProps,any> {
     // assign nodes to named fieldsets
     assignNodeToFieldset = (node, attributes) => {
 
-        let fieldset = attributes && attributes.fieldset
+        let fieldsetname = attributes && attributes.fieldset
 
-        if (!fieldset) {
+        // console.log('assignNodeToFieldset:node, attributes',node,attributes,fieldsetname)
 
+        if (!fieldsetname) {
+
+            // console.log('!fieldsetname',fieldsetname)
             this.defaultfieldsetchildren.push(node)
 
         } else {
 
-            if (!this.fieldsetchildren[fieldset]) {
+            if (!this.fieldsetchildren[fieldsetname]) {
 
-                // console.log('assignNodeToFieldset: fieldset not found; assigning to default',fieldset, this.fieldsetchildren)
+                // console.log('assignNodeToFieldset: fieldset not found; assigning to default',fieldsetname, this.fieldsetchildren)
                 this.defaultfieldsetchildren.push(node)
 
             } else {
 
-                this.fieldsetchildren[fieldset].push(node)
+                this.fieldsetchildren[fieldsetname].push(node)
+                // console.log('fieldsetname matched',fieldsetname, this.fieldsetchildren)
 
             }
 
@@ -298,6 +308,7 @@ class ContentForm extends React.Component<ContentFormProps,any> {
         if (this.fieldsetspecs) {
 
             for (let fieldsetspec of this.fieldsetspecs) {
+                // console.log('assembleDisplayComponents: fieldsetspec,this.fieldsetchildren',fieldsetspec, this.fieldsetchildren)
                 this.fieldsetchildren[fieldsetspec.name] = this.updateFieldsetElementValues(this.fieldsetchildren[fieldsetspec.name])
                 let styleselection = fieldsetspec.styleselection
                 let component = <fieldset 
@@ -326,6 +337,8 @@ class ContentForm extends React.Component<ContentFormProps,any> {
             </ContentGroup>
             displaycomponents.push(component)
         }
+
+        // console.log('assembleDisplayComponents: displaycomponents',displaycomponents)
 
         return displaycomponents
     }
