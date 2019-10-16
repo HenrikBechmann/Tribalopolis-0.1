@@ -145,6 +145,11 @@ class ContentForm extends React.Component<ContentFormProps,any> {
 
     componentDidMount() {
         // preprocess fieldsets
+        this.initialize()
+    }
+
+    initialize = () => {
+
         for (let fieldset of this.fieldsetspecs) {
             this.fieldsetchildren[fieldset.name] = []
         }
@@ -173,7 +178,7 @@ class ContentForm extends React.Component<ContentFormProps,any> {
             this.setState({
                 isediting:false
             })
-            toast.info('no values had changed, so none were reset')
+            toast.info('no values were changed, so none were reset')
             return
         }
         this.setState((state) => {
