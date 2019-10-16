@@ -121,6 +121,7 @@ class ContentForm extends React.Component<ContentFormProps,any> {
         values:{}, // see onChange -- maintains state of editable fields
         dirty:false,
         isediting:false,
+        isprocessing:false,
     }
 
     // instantiation properties
@@ -374,6 +375,9 @@ class ContentForm extends React.Component<ContentFormProps,any> {
     }
 
     onSubmitSuccess = () => {
+        this.setState({
+            isprocessing:false,
+        })
         this.toggleEditMode()
         this.originaleditablevalues = Object.assign({},this.state.values)
         toast.success('document has been posted')
@@ -382,6 +386,9 @@ class ContentForm extends React.Component<ContentFormProps,any> {
 
     onSubmitFailure = () => {
         toast.error('document posting has failed')
+        this.setState({
+            isprocessing:false,
+        })
         return false
     }
 
@@ -399,9 +406,14 @@ class ContentForm extends React.Component<ContentFormProps,any> {
         let namespace = this.localnamespace
 
         if (this.state.dirty) {
+            this.setState({
+                isprocessing:true,
+            })
             try { // ... try = lazy :-(
-                namespace.controller.callbacks.submit && 
-                namespace.controller.callbacks.submit(this.getPostMessage())
+                // setTimeout(() => { // for testing!
+                    namespace.controller.callbacks.submit && 
+                    namespace.controller.callbacks.submit(this.getPostMessage())
+                // },2000)
             } catch(e) {
                 // no action - simplifies checks above
                 console.log('onSubmit namespace parsing for callback failed', this)

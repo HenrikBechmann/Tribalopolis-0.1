@@ -79,16 +79,20 @@ const updateComponents = (list, namespace) => {
 
             if (update.assignments) {
                 let assignments = update.assignments
+                // console.log('update assignments: assignments, element, namespace',assignments, element, namespace)
                 let properties = {}
 
                 for (let property in assignments) {
 
                     let instruction = assignments[property]
                     let value = unpackProperty(instruction, namespace)
+                    // console.log('property, value, instruction', property, value, instruction)
 
                     properties[property] = value
 
                 }
+
+                // console.log('properties',properties)
 
                 element = React.cloneElement(element,properties)
             }

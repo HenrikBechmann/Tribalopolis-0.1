@@ -46,6 +46,9 @@ class ContentSpan extends React.Component<any,any> {
 
     render() { 
 
+        // console.log('contentspan:props',this.props)
+
+        this.localchildren = utilities.updateComponents(this.localchildren,this.localnamespace)
         return <span>
 
             {this.localchildren}

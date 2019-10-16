@@ -12,6 +12,7 @@ interface ToggleComponentProps {
     firstcomponent:any,
     secondcomponent:any,
     condition:boolean,
+    istransitioning?:boolean,
     formcontext:GenericObject,
     namespace:GenericObject,
 }
@@ -28,18 +29,11 @@ class ToggleComponent extends React.Component<ToggleComponentProps,any> {
         this.secondcomponent = secondcomponent
         this.formcontext = formcontext
         this.namespace = namespace
-        // this.localchildren = Array.isArray(firstcomponent) // for processing local configuration (data-attributes on children)
-        //     ?firstcomponent.concat(secondcomponent)
-        //     :[firstcomponent].concat(secondcomponent)
     }
 
     state = {
         generation:0
     }
-
-    // state = {
-    //     condition:this.props.condition
-    // }
 
     firstcomponent
     secondcomponent
@@ -58,7 +52,10 @@ class ToggleComponent extends React.Component<ToggleComponentProps,any> {
     }
 
     render() {
-        // console.log('togglecomponent:condition, firstcomponent, secondcomponent',this.props.condition,this.firstcomponent, this.secondcomponent)
+        // console.log('togglecomponent:condition, istransitioning, firstcomponent, secondcomponent',this.props.condition,this.props.istransitioning, this.firstcomponent, this.secondcomponent)
+        this.props.condition
+            ?this.firstcomponent = utilities.updateComponents(this.firstcomponent,this.localnamespace)
+            :this.secondcomponent = utilities.updateComponents(this.secondcomponent,this.localnamespace)
         return (
             this.props.condition
                 ?this.firstcomponent
