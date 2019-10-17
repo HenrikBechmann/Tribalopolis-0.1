@@ -105,7 +105,6 @@ class DataPane extends React.Component<DataPaneProps,any>  {
         })
     }
 
-
    registerGetEditingState = ({getEditingState, instanceid}) => {
        console.log('registerGetEditingState',instanceid)
        this.childformsEditingstatus[instanceid] = getEditingState

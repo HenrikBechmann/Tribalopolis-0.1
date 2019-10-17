@@ -165,36 +165,6 @@ class ContentForm extends React.Component<ContentFormProps,any> {
 
     }
 
-    toggleEditMode = () => {
-        this.setState((state) => {
-            return {
-                isediting:!state.isediting
-            }
-        })
-    }
-
-    resetValues = () => {
-        if (!this.state.dirty) {
-            this.setState({
-                isediting:false
-            })
-            toast.info('no values were changed, so none were reset')
-            return
-        }
-        this.setState((state) => {
-            let isediting = state.isediting
-            if (isediting) isediting = false
-
-            return {
-                values:this.originaleditablevalues,
-                isediting,
-                dirty:false,
-            }
-
-        })
-        toast.info('changed values have been reset')
-    }
-
     // add onChange to editable children
     // sort fields by fieldsets
     // return list of editable values
@@ -232,11 +202,6 @@ class ContentForm extends React.Component<ContentFormProps,any> {
         // editablevalues = return set of fields for assignment to this.state
         return editablevalues
     }
-
-    getDirtyState = () => {
-        return this.state.dirty
-    }
-
     // add onChange event handler to editable nodes
     integrateNode = (node,setup) => {
         let localnode = node
@@ -287,6 +252,54 @@ class ContentForm extends React.Component<ContentFormProps,any> {
 
     }
 
+    resetValues = () => {
+        if (!this.state.dirty) {
+            this.setState({
+                isediting:false
+            })
+            toast.info('no values were changed, so none were reset')
+            return
+        }
+        this.setState((state) => {
+            let isediting = state.isediting
+            if (isediting) this.toggleEditMode()
+
+            return {
+                values:this.originaleditablevalues,
+                isediting,
+                dirty:false,
+            }
+
+        })
+        toast.info('changed values have been reset')
+    }
+
+    toggleEditMode = () => {
+        this.setState((state) => {
+            return {
+                isediting:!state.isediting
+            }
+        })
+    }
+
+    // getDirtyState = () => {
+    //     return this.state.dirty
+    // }
+
+    getPostMessage = () => {
+        this.formcontext.state = this.state
+        let message:PostFormMessage = {
+            formcontext:this.formcontext,
+            success:this.onSubmitSuccess,
+            failure:this.onSubmitFailure,
+        }
+        return message
+    }
+
+    getEditingState = () => {
+        return this.state.dirty
+    }
+
     // ----------------------------[ render resources ]----------------------------------
 
     // refresh fieldset component values by
@@ -298,21 +311,6 @@ class ContentForm extends React.Component<ContentFormProps,any> {
         for (let group of this.groupspecs) {
             groupcomponents[group.name] = []
         }
-
-        // update default area field values
-        // if (this.defaultfieldsetchildren.length) {
-
-        //     // console.log('defaultfieldsetchildren',this.defaultfieldsetchildren)
-
-        //     this.defaultfieldsetchildren = this.updateFieldsetElementValues(this.defaultfieldsetchildren)
-
-        //     let component = <div key = '__default__'>
-        //         {this.defaultfieldsetchildren}
-        //     </div>
-
-        //     displaycomponents.push(component)
-
-        // }
 
         // update fieldset field values
         if (this.fieldsetspecs) {
@@ -363,20 +361,6 @@ class ContentForm extends React.Component<ContentFormProps,any> {
 
         return newchildren
 
-    }
-
-    getPostMessage = () => {
-        this.formcontext.state = this.state
-        let message:PostFormMessage = {
-            formcontext:this.formcontext,
-            success:this.onSubmitSuccess,
-            failure:this.onSubmitFailure,
-        }
-        return message
-    }
-
-    getEditingState = () => {
-        return this.state.dirty
     }
 
     onSubmitSuccess = () => {
