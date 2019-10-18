@@ -445,7 +445,7 @@ class BuildController extends React.Component<any,any> {
                                 docproxy:null,
                                 options:{specs:{collection:this.state.values.collection}},
                                 callbacks:{},
-                                registercalldowns:null, // this.registerCalldowns, // not needed
+                                registerCalldowns:null, // this.registerCalldowns, // not needed
                             }
                         )
                     }

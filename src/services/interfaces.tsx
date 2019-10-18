@@ -114,7 +114,7 @@ export interface DataPaneMessage {
     docproxy:GenericObject,
     options:GenericObject,
     callbacks:GenericCallbacks,
-    registercalldowns?:Function,
+    registerCalldowns?:Function,
 }
 
 // same as DataPaneNamespace
@@ -143,8 +143,7 @@ export interface ControllerData {
     userdata:GenericObject,
     systemdata:GenericObject,
     callbacks:GenericCallbacks,
-    registercalldowns?:Function,
-    registerGetEditingState?:Function,
+    registerCalldowns?:Function,
 }
 
 // local

@@ -105,10 +105,10 @@ class DataPane extends React.Component<DataPaneProps,any>  {
         })
     }
 
-   registerGetEditingState = ({getEditingState, instanceid}) => {
-       console.log('registerGetEditingState',instanceid)
-       this.childformsEditingstatus[instanceid] = getEditingState
-   }
+   // registerGetEditingState = ({getEditingState, instanceid}) => {
+   //     console.log('registerGetEditingState',instanceid)
+   //     this.childformsEditingstatus[instanceid] = getEditingState
+   // }
 
     assertTargetListener = () => {
 
@@ -145,15 +145,14 @@ class DataPane extends React.Component<DataPaneProps,any>  {
 
         let { docpack, typepack, reason } = parmblock
 
-        let { callbacks, docproxy, registercalldowns, options } = this.props.dataPaneMessage
+        let { callbacks, docproxy, registerCalldowns, options } = this.props.dataPaneMessage
 
         let controllerdata:ControllerData = {
 
             userdata:application.userdata,
             systemdata:application.systemdata,
             callbacks,
-            registercalldowns,
-            registerGetEditingState:this.registerGetEditingState
+            registerCalldowns,
         }
 
         // reformat for componentfactory

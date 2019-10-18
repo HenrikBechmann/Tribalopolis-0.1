@@ -148,6 +148,7 @@ class Quadrant extends React.Component<any,any>  {
 
     datastack = null
     activeTargetProxy = null
+    calldowns
 
     // dom refs
     quadcontentelement
@@ -300,9 +301,9 @@ class Quadrant extends React.Component<any,any>  {
         }))
     }
 
-    // registerCalldowns = calldowns => {
-    //     this.calldowns = calldowns
-    // }
+    registerCalldowns = calldowns => {
+        this.calldowns = calldowns
+    }
 
     // calldowns
 
@@ -312,7 +313,7 @@ class Quadrant extends React.Component<any,any>  {
         if (this.state.draweropen) {
             // console.log('callDataDrawer:datapaneref',this.datapaneref)
             if (this.datapaneref.current.getEditingState()) {
-                toast.info('The data shelf is in editing something. Finish, or close the shelf and try again.')
+                toast.info('The data shelf is editing something. Finish, or close the shelf and try again.')
                 return
             }
             this.setState(() => ({
