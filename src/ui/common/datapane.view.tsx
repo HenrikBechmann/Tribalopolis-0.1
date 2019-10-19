@@ -179,6 +179,7 @@ class DataPane extends React.Component<DataPaneProps,any>  {
             docpack,
             typepack,
             controller:controllerdata,
+            agent:agentdata,
 
         }
 

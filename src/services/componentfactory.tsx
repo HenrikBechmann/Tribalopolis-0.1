@@ -165,6 +165,7 @@ class ComponentFactory {
         let ref = this.getPropertyByFilter(reference, attributes)
         let props:any = this.getProps(properties,attributes)
         let controller = this.namespace.controller
+        let agent = this.namespace.agent
         let docproxy = ref && new Proxy({doctoken:{reference:ref}})
 
         // TODO: this should include props from data source?
@@ -172,6 +173,7 @@ class ComponentFactory {
             key = {props.key} 
             docproxy = {docproxy}
             controller = {controller} 
+            agent = {agent}
             attributes = {attributes} 
         />
     }

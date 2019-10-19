@@ -127,6 +127,7 @@ export interface FactoryNamespace {
     docproxy:GenericObject,
 
     controller:ControllerData,
+    agent:AgentData,
     caller?:GenericObject,
     local?:GenericObject,
     

@@ -21,6 +21,7 @@ interface AbstractDataPaneProps {
     docproxy:GenericObject,
     controller: GenericObject,
     attributes: GenericObject,
+    agent:GenericObject,
 }
 
 class AbstractDataPane extends React.Component<AbstractDataPaneProps,any> {
@@ -31,7 +32,7 @@ class AbstractDataPane extends React.Component<AbstractDataPaneProps,any> {
 
         this.componentfactory = new ComponentFactory()
 
-        let { docproxy, controller, attributes} = this.props
+        let { docproxy, controller, agent, attributes} = this.props
 
         // new
         this.docProxy = docproxy
@@ -39,6 +40,7 @@ class AbstractDataPane extends React.Component<AbstractDataPaneProps,any> {
         this.attributes = attributes // used for local control
 
         this.controllerdata = controller
+        this.agentdata = agent
 
     }
 
@@ -52,6 +54,7 @@ class AbstractDataPane extends React.Component<AbstractDataPaneProps,any> {
     options
     docProxy
     controllerdata
+    agentdata
     factorycomponent
 
     componentDidMount() {
@@ -129,6 +132,7 @@ class AbstractDataPane extends React.Component<AbstractDataPaneProps,any> {
                 docpack,
                 typepack,
                 controller:this.controllerdata,
+                agent:this.agentdata,
             })
 
         this.factorycomponent = this.componentfactory.createUISelection(factoryMessage)
