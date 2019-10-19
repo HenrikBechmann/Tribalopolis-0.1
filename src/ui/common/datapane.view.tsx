@@ -152,7 +152,7 @@ class DataPane extends React.Component<DataPaneProps,any>  {
             userdata:application.userdata,
             systemdata:application.systemdata,
             callbacks,
-            registerCalldowns,
+            // registerCalldowns,
         }
 
         // reformat for componentfactory
@@ -163,8 +163,6 @@ class DataPane extends React.Component<DataPaneProps,any>  {
             docpack,
             typepack,
             controller:controllerdata,
-            caller:null,
-            local:null,
 
         }
 

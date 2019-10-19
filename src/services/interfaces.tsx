@@ -127,8 +127,8 @@ export interface FactoryNamespace {
     docproxy:GenericObject,
 
     controller:ControllerData,
-    caller:GenericObject,
-    local:GenericObject,
+    caller?:GenericObject,
+    local?:GenericObject,
     
     styles?:GenericObject,
 
@@ -143,7 +143,7 @@ export interface ControllerData {
     userdata:GenericObject,
     systemdata:GenericObject,
     callbacks:GenericCallbacks,
-    registerCalldowns?:Function,
+    // registerCalldowns?:Function,
 }
 
 // local

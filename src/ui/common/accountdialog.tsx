@@ -68,10 +68,12 @@ class AccountDialog extends React.Component<DialogProps,any> {
     }
 
     private paneProxy:docproxy = null
-    private datapanemessage:DataPaneMessage = null
     private accountsettingselement
+
+    private maindatapanemessage:DataPaneMessage = null
     private drawerdata:DataPaneMessage
     private lookupdata:DataPaneMessage
+    private helpdata:DataPaneMessage
 
     openDrawer = ({docproxy,options}:DataPaneMessage) => {
 
@@ -146,7 +148,7 @@ class AccountDialog extends React.Component<DialogProps,any> {
             let paneProxy = new docproxy({doctoken:{reference:accountsettingspageref}})
 
             this.paneProxy = paneProxy
-            this.datapanemessage = {
+            this.maindatapanemessage = {
                 docproxy:paneProxy,
                 options:{uiselection:'datapane'},
                 callbacks:{
@@ -191,7 +193,7 @@ class AccountDialog extends React.Component<DialogProps,any> {
                       handleClose = {this.closeDrawer}
                       containerelement = {this.accountsettingselement}
                   >
-                    <DataPane active = {true} dataName = 'data-pane' dataPaneMessage = {this.lookupdata}/>
+                    <DataPane active = {true} dataName = 'data-pane' dataPaneMessage = {this.helpdata}/>
                   </HelpDrawer>
                    <LookupDrawer dataName = 'lookup-drawer' open = {this.state.lookupopen}
                       handleClose = {this.closeDrawer}
@@ -205,7 +207,7 @@ class AccountDialog extends React.Component<DialogProps,any> {
                   >
                     <DataPane active = {true} dataName = 'data-pane' dataPaneMessage = {this.drawerdata}/>
                   </DataDrawer>
-                  <DataPane active = {true} dataName = 'data-pane' dataPaneMessage = {this.datapanemessage}/>
+                  <DataPane active = {true} dataName = 'data-pane' dataPaneMessage = {this.maindatapanemessage}/>
               </div>
           </div>
          </Dialog>

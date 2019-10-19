@@ -364,11 +364,11 @@ class BuildController extends React.Component<any,any> {
         </DataDrawer>
     )
 
-    // registerCalldowns = calldowns => {
-    //     this.calldowns = calldowns
-    // }
+    registerCalldowns = calldowns => {
+        this.calldowns = calldowns
+    }
 
-    // calldowns
+    calldowns
 
     inputcontrols = (superuser,classes) => (
         <BaseForm onSubmit = {this.fetchObject} disabled = {!superuser}>

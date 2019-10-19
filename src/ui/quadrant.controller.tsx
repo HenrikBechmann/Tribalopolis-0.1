@@ -148,7 +148,7 @@ class Quadrant extends React.Component<any,any>  {
 
     datastack = null
     activeTargetProxy = null
-    calldowns
+    // calldowns
 
     // dom refs
     quadcontentelement
@@ -301,9 +301,9 @@ class Quadrant extends React.Component<any,any>  {
         }))
     }
 
-    registerCalldowns = calldowns => {
-        this.calldowns = calldowns
-    }
+    // registerCalldowns = calldowns => {
+    //     this.calldowns = calldowns
+    // }
 
     // calldowns
 

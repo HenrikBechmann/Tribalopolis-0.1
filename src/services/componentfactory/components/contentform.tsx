@@ -88,17 +88,17 @@ class ContentForm extends React.Component<ContentFormProps,any> {
         this.fieldsetspecs = fieldsets || []
         this.groupspecs = groups || []
 
-        let registerCalldowns = localnamespace && localnamespace.controller.registerCalldowns
+        // let registerCalldowns = localnamespace && localnamespace.controller.registerCalldowns
         // let registerGetEditingState = localnamespace && localnamespace.controller.registerGetEditingState
 
         // to participate in multiple concurrent postings (transaction wrapped)
-        registerCalldowns && registerCalldowns(
-            {
-                getEditingState:this.getEditingState, 
-                getPostMessage:this.getPostMessage, 
-                instanceid:localnamespace.docproxy.instanceid,
-            }
-        )
+        // registerCalldowns && registerCalldowns(
+        //     {
+        //         getEditingState:this.getEditingState, 
+        //         getPostMessage:this.getPostMessage, 
+        //         instanceid:localnamespace.docproxy.instanceid,
+        //     }
+        // )
         
         // anticipate posting as an option for caller
         this.formcontext = {
