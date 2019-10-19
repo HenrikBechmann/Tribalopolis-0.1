@@ -23,6 +23,7 @@ import {
     FactoryMessage,
     FactoryNamespace,
     ControllerData,
+    AgentData,
  } from '../../services/interfaces'
 import application from '../../services/application'
 import docproxy from '../../utilities/docproxy'
@@ -140,6 +141,12 @@ class DataPane extends React.Component<DataPaneProps,any>  {
         }
     }
 
+    registerCalldowns = calldowns => {
+        this.calldowns = calldowns
+    }
+
+    calldowns
+
     // obtain a ComponentFactory component
     successAssertListener = (parmblock:DocpackPairPayloadMessage) => {
 
@@ -153,6 +160,15 @@ class DataPane extends React.Component<DataPaneProps,any>  {
             systemdata:application.systemdata,
             callbacks,
             // registerCalldowns,
+        }
+
+        let agentcallbacks = {
+
+        }
+
+        let agentdata:AgentData = {
+            callbacks:agentcallbacks,
+            registerCallDowns:this.registerCalldowns,
         }
 
         // reformat for componentfactory

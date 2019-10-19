@@ -146,6 +146,11 @@ export interface ControllerData {
     // registerCalldowns?:Function,
 }
 
+export interface AgentData {
+    callbacks:GenericCallbacks,
+    registerCallDowns:Function,
+}
+
 // local
 
 export interface GenericCallbacks {
