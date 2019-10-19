@@ -65,6 +65,7 @@ class AccountDialog extends React.Component<DialogProps,any> {
         draweropen:false,
         lookupopen:false,
         helpopen:false,
+        locked:false,
     }
 
     private paneProxy:docproxy = null
@@ -205,9 +206,19 @@ class AccountDialog extends React.Component<DialogProps,any> {
                       handleClose = {this.closeDrawer}
                       containerelement = {this.accountsettingselement}
                   >
-                    <DataPane active = {true} dataName = 'data-pane' dataPaneMessage = {this.drawerdata}/>
+                    <DataPane 
+                      active = {true} 
+                      dataName = 'data-pane' 
+                      dataPaneMessage = {this.drawerdata}
+                      locked = {this.state.locked}
+                    />
                   </DataDrawer>
-                  <DataPane active = {true} dataName = 'data-pane' dataPaneMessage = {this.maindatapanemessage}/>
+                  <DataPane 
+                    active = {true} 
+                    dataName = 'data-pane' 
+                    dataPaneMessage = {this.maindatapanemessage}
+                    locked = {this.state.locked}
+                  />
               </div>
           </div>
          </Dialog>

@@ -48,6 +48,7 @@ interface DataPaneProps {
     classes:GenericObject, // provided by withStyles in export statement
     dataName:string,
     ref?:any,
+    locked?:boolean,
     active:boolean,
 }
 
