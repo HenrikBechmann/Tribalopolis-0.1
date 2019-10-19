@@ -8,6 +8,7 @@ import { withStyles, createStyles } from '@material-ui/core/styles'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import Fab from '@material-ui/core/Fab'
 import AddIcon from '@material-ui/icons/Add'
+import EditIcon from '@material-ui/icons/Edit'
 import { toast } from 'react-toastify'
 
 import BoxIdentityBar from './databox/identitybar.view'
@@ -41,6 +42,19 @@ const FloatingAddButton = withStyles(buttonstyles)((props:any) => {
         onClick = {onClick}
     >
       <AddIcon />
+    </Fab>
+})
+
+const FloatingEditButton = withStyles(buttonstyles)((props:any) => {
+    let { classes, onClick } = props
+    return <Fab 
+        size = 'small'
+        color = 'primary' 
+        aria-label = 'Edit' 
+        className = {classes.button} 
+        onClick = {onClick}
+    >
+      <EditIcon />
     </Fab>
 })
 
@@ -402,6 +416,7 @@ class DataBox extends React.Component<any,any> {
                     </div>
                     { this.indexmarker(classes) }
                     <div className = {classes.buttonwrapper}>
+                        <FloatingEditButton />
                         <FloatingAddButton 
                             onClick = {() => {
                                 this.onClickAdd(this.state.MainlistProxy)
