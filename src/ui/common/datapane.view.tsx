@@ -170,6 +170,7 @@ class DataPane extends React.Component<DataPaneProps,any>  {
         let agentdata:AgentData = {
             callbacks:agentcallbacks,
             registerCallDowns:this.registerCalldowns,
+            locked:this.props.locked,
         }
 
         // reformat for componentfactory
