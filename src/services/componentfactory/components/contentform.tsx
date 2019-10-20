@@ -339,6 +339,7 @@ class ContentForm extends React.Component<ContentFormProps,any> {
                     displaycomponents.push(component)
                 }
             }
+            console.log('fieldsetchildren in contentform',this.fieldsetchildren)
         }
 
         // add group components (assigned above)
