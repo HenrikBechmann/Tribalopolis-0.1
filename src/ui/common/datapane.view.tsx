@@ -8,6 +8,12 @@
 
 */
 
+/*
+    for locked:
+    add local property to namespace
+    use utilities updateComponents in render
+*/
+
 'use strict'
 
 import React from 'react'
@@ -56,8 +62,11 @@ interface DataPaneProps {
 class DataPane extends React.Component<DataPaneProps,any>  {
 
     state = {
-        factorycomponent:null,
+        // factorycomponent:null,
+        locked:false,
     }
+
+    factorycomponent
 
     componentfactory:ComponentFactory = new ComponentFactory()
 
@@ -103,9 +112,11 @@ class DataPane extends React.Component<DataPaneProps,any>  {
         this.removeListeners()
         this.docProxy = undefined
         this.childformsEditingstatus = {}
-        this.setState({
-            factorycomponent:null,
-        })
+        // this.setState({
+        //     factorycomponent:null,
+        // })
+        this.factorycomponent = null
+        this.forceUpdate()
     }
 
    // registerGetEditingState = ({getEditingState, instanceid}) => {
@@ -152,7 +163,11 @@ class DataPane extends React.Component<DataPaneProps,any>  {
 
     monitorEditState = (instanceid, isediting) => {
         this.editstates[instanceid] = isediting
-        console.log('monitorEditState editstates',this.editstates)
+        this.setState((state) => {
+            return {locked:isediting}
+        }, () => {
+            console.log('monitorEditState editstates, state',this.editstates, this.state)
+        })
     }
 
     editstates:GenericObject = {}
@@ -179,7 +194,7 @@ class DataPane extends React.Component<DataPaneProps,any>  {
         let agentdata:AgentData = {
             callbacks:agentcallbacks,
             registerCalldowns:this.registerCalldowns,
-            locked:this.props.locked,
+            locked:this.state.locked,
         }
 
         // reformat for componentfactory
@@ -201,14 +216,15 @@ class DataPane extends React.Component<DataPaneProps,any>  {
         let factorymessage:FactoryMessage = 
             this.componentfactory.assembleFactoryMessage(namespace)
 
-        let factorycomponent = this.componentfactory.createUISelection(factorymessage)
+        this.factorycomponent = this.componentfactory.createUISelection(factorymessage)
         // console.log('factorycomponent', factorycomponent)
 
-        this.setState({
+        // this.setState({
 
-            factorycomponent,
+        //     factorycomponent,
 
-        })
+        // })
+        this.forceUpdate()
 
     }
 
@@ -236,7 +252,7 @@ class DataPane extends React.Component<DataPaneProps,any>  {
 
         return <Paper className = {classes.root}>
 
-            {this.state.factorycomponent?this.state.factorycomponent:<div>Waiting...</div>}
+            {this.factorycomponent?this.factorycomponent:<div>Waiting...</div>}
 
         </Paper>
 
