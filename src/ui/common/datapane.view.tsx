@@ -8,12 +8,6 @@
 
 */
 
-/*
-    for locked:
-    add local property to namespace
-    use utilities updateComponents in render
-*/
-
 'use strict'
 
 import React from 'react'
@@ -165,15 +159,14 @@ class DataPane extends React.Component<DataPaneProps,any>  {
 
     monitorEditState = (instanceid, isediting) => {
         this.editstates[instanceid] = isediting
-        this.setState((state) => {
-            return {locked:isediting}
-        }, () => {
-            this.namespace && (this.namespace.agent.locked = isediting)
+        // this.setState((state) => {
+        //     return {locked:isediting}
+        // }, () => {
             for (let index in this.calldowns) {
-                this.calldowns[index].refresh()
+                this.calldowns[index].setLocked(isediting)
             }
             console.log('monitorEditState editstates, state',this.editstates, this.state)
-        })
+        // })
     }
 
     editstates:GenericObject = {}
@@ -200,7 +193,7 @@ class DataPane extends React.Component<DataPaneProps,any>  {
         let agentdata:AgentData = {
             callbacks:agentcallbacks,
             registerCalldowns:this.registerCalldowns,
-            locked:this.state.locked,
+            // locked:this.state.locked,
         }
 
         // reformat for componentfactory

@@ -15,6 +15,7 @@ interface ToggleComponentProps {
     istransitioning?:boolean,
     formcontext:GenericObject,
     namespace:GenericObject,
+    locked?:boolean,
 }
 
 class ToggleComponent extends React.Component<ToggleComponentProps,any> {

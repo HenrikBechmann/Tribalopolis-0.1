@@ -95,7 +95,7 @@ class ContentForm extends React.Component<ContentFormProps,any> {
             {
                 getEditingState:this.getEditingState, 
                 getPostMessage:this.getPostMessage,
-                refresh:this.refresh,
+                setLocked:this.setLocked,
                 instanceid:localnamespace.docproxy.instanceid,
             }
         )
@@ -121,6 +121,7 @@ class ContentForm extends React.Component<ContentFormProps,any> {
         dirty:false,
         isediting:false,
         isprocessing:false,
+        locked:false,
     }
 
     // instantiation properties
@@ -149,9 +150,11 @@ class ContentForm extends React.Component<ContentFormProps,any> {
         this.initialize()
     }
 
-    refresh = () => {
+    setLocked = (locked) => {
         console.log('refreshing form',this.localnamespace)
-        this.forceUpdate()
+        this.setState({
+            locked,
+        })
     }
 
     initialize = () => {
@@ -284,10 +287,6 @@ class ContentForm extends React.Component<ContentFormProps,any> {
             this.monitorEditState(this.instanceid,this.state.isediting)
         })
     }
-
-    // getDirtyState = () => {
-    //     return this.state.dirty
-    // }
 
     getPostMessage = () => {
         this.formcontext.state = this.state
