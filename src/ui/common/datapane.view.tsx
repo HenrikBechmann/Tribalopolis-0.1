@@ -35,6 +35,7 @@ import {
  } from '../../services/interfaces'
 import application from '../../services/application'
 import docproxy from '../../utilities/docproxy'
+import utilities from '../../utilities/utilities'
 
 const styles = createStyles({
     root:{
@@ -67,6 +68,7 @@ class DataPane extends React.Component<DataPaneProps,any>  {
     }
 
     factorycomponent
+    namespace:FactoryNamespace = null
 
     componentfactory:ComponentFactory = new ComponentFactory()
 
@@ -166,6 +168,7 @@ class DataPane extends React.Component<DataPaneProps,any>  {
         this.setState((state) => {
             return {locked:isediting}
         }, () => {
+            this.namespace && (this.namespace.agent.locked = isediting)
             console.log('monitorEditState editstates, state',this.editstates, this.state)
         })
     }
@@ -206,8 +209,11 @@ class DataPane extends React.Component<DataPaneProps,any>  {
             typepack,
             controller:controllerdata,
             agent:agentdata,
+            local:this,
 
         }
+
+        this.namespace = namespace
 
         /* 
             returns { renderdata, namespace }
@@ -249,6 +255,10 @@ class DataPane extends React.Component<DataPaneProps,any>  {
     render() {
 
         const { classes } = this.props
+
+        this.factorycomponent = utilities.updateComponents([this.factorycomponent],this.namespace)[0]
+
+        console.log('datapane factorycomponent',this.factorycomponent, this.namespace)
 
         return <Paper className = {classes.root}>
 
