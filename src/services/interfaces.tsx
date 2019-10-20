@@ -149,7 +149,7 @@ export interface ControllerData {
 
 export interface AgentData {
     callbacks:GenericCallbacks,
-    registerCallDowns:Function,
+    registerCalldowns:Function,
     locked:boolean,
 }
 

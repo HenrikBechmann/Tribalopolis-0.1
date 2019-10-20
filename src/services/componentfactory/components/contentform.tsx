@@ -69,7 +69,7 @@ class ContentForm extends React.Component<ContentFormProps,any> {
     constructor(props) {
         super(props)
 
-        // console.log('ContentForm:props',this.props)
+        console.log('ContentForm:props',this.props)
 
         // initialize instance values
         let { namespace, documentmap, fieldsets, groups }:{namespace:FactoryNamespace,documentmap:any,fieldsets:any,groups:any} = props
@@ -88,17 +88,19 @@ class ContentForm extends React.Component<ContentFormProps,any> {
         this.fieldsetspecs = fieldsets || []
         this.groupspecs = groups || []
 
-        // let registerCalldowns = localnamespace && localnamespace.controller.registerCalldowns
-        // let registerGetEditingState = localnamespace && localnamespace.controller.registerGetEditingState
-
+        let registerCalldowns = localnamespace && localnamespace.agent.registerCalldowns
+        let monitorEditState = localnamespace && localnamespace.agent.callbacks.monitorEditState
         // to participate in multiple concurrent postings (transaction wrapped)
-        // registerCalldowns && registerCalldowns(
-        //     {
-        //         getEditingState:this.getEditingState, 
-        //         getPostMessage:this.getPostMessage, 
-        //         instanceid:localnamespace.docproxy.instanceid,
-        //     }
-        // )
+        registerCalldowns && registerCalldowns(
+            {
+                getEditingState:this.getEditingState, 
+                getPostMessage:this.getPostMessage, 
+                instanceid:localnamespace.docproxy.instanceid,
+            }
+        )
+
+        let instanceid = this.instanceid = localnamespace && localnamespace.docproxy.instanceid
+        monitorEditState && monitorEditState(instanceid,this.state.isediting)
         
         // anticipate posting as an option for caller
         this.formcontext = {
@@ -106,6 +108,8 @@ class ContentForm extends React.Component<ContentFormProps,any> {
             namespace:localnamespace,
             form:this,
         }
+
+        this.monitorEditState = monitorEditState
 
         // this.formref = React.createRef()
 
@@ -121,6 +125,8 @@ class ContentForm extends React.Component<ContentFormProps,any> {
     // instantiation properties
 
     localnamespace
+    monitorEditState
+    instanceid
 
     fieldsetspecs // defailts to []
     groupspecs // defaults to []
@@ -248,24 +254,19 @@ class ContentForm extends React.Component<ContentFormProps,any> {
 
     resetValues = () => {
         if (!this.state.dirty) {
-            this.setState({
-                isediting:false
-            })
             toast.info('no values were changed, so none were reset')
-            return
+        } else {
+            this.setState((state) => {
+
+                return {
+                    values:this.originaleditablevalues,
+                    dirty:false,
+                }
+
+            })
+            toast.info('changed values have been reset')
         }
-        this.setState((state) => {
-            let isediting = state.isediting
-            if (isediting) this.toggleEditMode()
-
-            return {
-                values:this.originaleditablevalues,
-                isediting,
-                dirty:false,
-            }
-
-        })
-        toast.info('changed values have been reset')
+        this.toggleEditMode()
     }
 
     toggleEditMode = () => {
@@ -273,6 +274,8 @@ class ContentForm extends React.Component<ContentFormProps,any> {
             return {
                 isediting:!state.isediting
             }
+        }, () => {
+            this.monitorEditState(this.instanceid,this.state.isediting)
         })
     }
 

@@ -24,10 +24,11 @@ import {
     FactoryNamespace,
     ControllerData,
     AgentData,
+    GenericObject,
+    DataPaneMessage,
  } from '../../services/interfaces'
 import application from '../../services/application'
 import docproxy from '../../utilities/docproxy'
-import { DataPaneMessage, GenericObject } from '../../services/interfaces'
 
 const styles = createStyles({
     root:{
@@ -142,11 +143,19 @@ class DataPane extends React.Component<DataPaneProps,any>  {
         }
     }
 
-    registerCalldowns = calldowns => {
-        this.calldowns = calldowns
+    registerCalldowns = (calldowns) => {
+        this.calldowns[calldowns.instanceid] = calldowns
+        console.log('calldowns in datapane',calldowns, this.calldowns)
     }
 
-    calldowns
+    calldowns:GenericObject = {}
+
+    monitorEditState = (instanceid, isediting) => {
+        this.editstates[instanceid] = isediting
+        console.log('monitorEditState editstates',this.editstates)
+    }
+
+    editstates:GenericObject = {}
 
     // obtain a ComponentFactory component
     successAssertListener = (parmblock:DocpackPairPayloadMessage) => {
@@ -164,12 +173,12 @@ class DataPane extends React.Component<DataPaneProps,any>  {
         }
 
         let agentcallbacks = {
-
+            monitorEditState:this.monitorEditState
         }
 
         let agentdata:AgentData = {
             callbacks:agentcallbacks,
-            registerCallDowns:this.registerCalldowns,
+            registerCalldowns:this.registerCalldowns,
             locked:this.props.locked,
         }
 
