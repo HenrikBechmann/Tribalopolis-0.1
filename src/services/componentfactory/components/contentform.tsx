@@ -94,7 +94,8 @@ class ContentForm extends React.Component<ContentFormProps,any> {
         registerCalldowns && registerCalldowns(
             {
                 getEditingState:this.getEditingState, 
-                getPostMessage:this.getPostMessage, 
+                getPostMessage:this.getPostMessage,
+                refresh:this.refresh,
                 instanceid:localnamespace.docproxy.instanceid,
             }
         )
@@ -146,6 +147,11 @@ class ContentForm extends React.Component<ContentFormProps,any> {
     componentDidMount() {
         // preprocess fieldsets
         this.initialize()
+    }
+
+    refresh = () => {
+        console.log('refreshing form',this.localnamespace)
+        this.forceUpdate()
     }
 
     initialize = () => {
@@ -413,6 +419,8 @@ class ContentForm extends React.Component<ContentFormProps,any> {
 
     render() {
         const { classes } = this.props
+
+        console.log('contentform namespace',this.localnamespace)
 
         return (
             <form 

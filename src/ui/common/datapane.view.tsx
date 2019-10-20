@@ -169,6 +169,9 @@ class DataPane extends React.Component<DataPaneProps,any>  {
             return {locked:isediting}
         }, () => {
             this.namespace && (this.namespace.agent.locked = isediting)
+            for (let index in this.calldowns) {
+                this.calldowns[index].refresh()
+            }
             console.log('monitorEditState editstates, state',this.editstates, this.state)
         })
     }
