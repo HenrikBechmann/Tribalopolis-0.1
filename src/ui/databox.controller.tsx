@@ -8,7 +8,7 @@ import { withStyles, createStyles } from '@material-ui/core/styles'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import Fab from '@material-ui/core/Fab'
 import AddIcon from '@material-ui/icons/Add'
-import EditIcon from '@material-ui/icons/Edit'
+import Icon from '@material-ui/core/Icon'
 import { toast } from 'react-toastify'
 
 import BoxIdentityBar from './databox/identitybar.view'
@@ -54,7 +54,7 @@ const FloatingEditButton = withStyles(buttonstyles)((props:any) => {
         className = {classes.button} 
         onClick = {onClick}
     >
-      <EditIcon />
+      <img style = {{width:'24px'}} src = '/public/icons/cog.svg' />
     </Fab>
 })
 
