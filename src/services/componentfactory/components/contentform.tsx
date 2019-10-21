@@ -69,7 +69,7 @@ class ContentForm extends React.Component<ContentFormProps,any> {
     constructor(props) {
         super(props)
 
-        console.log('ContentForm:props',this.props)
+        // console.log('ContentForm:props',this.props)
 
         // initialize instance values
         let { namespace, documentmap, fieldsets, groups }:{namespace:FactoryNamespace,documentmap:any,fieldsets:any,groups:any} = props
@@ -143,16 +143,19 @@ class ContentForm extends React.Component<ContentFormProps,any> {
 
     originaleditablevalues
 
+    ismounted
+
     // ---------------------------------[ preparation ]--------------------------
 
     componentDidMount() {
         // preprocess fieldsets
+        this.ismounted = true
         this.initialize()
     }
 
     setLocked = (locked) => {
-        console.log('refreshing form',this.localnamespace)
-        this.setState({
+        // console.log('setting locked in form',this.localnamespace)
+        this.ismounted && this.setState({
             locked,
         })
     }
@@ -338,7 +341,7 @@ class ContentForm extends React.Component<ContentFormProps,any> {
                     displaycomponents.push(component)
                 }
             }
-            console.log('fieldsetchildren in contentform',this.fieldsetchildren)
+            // console.log('fieldsetchildren in contentform',this.fieldsetchildren)
         }
 
         // add group components (assigned above)
@@ -420,7 +423,7 @@ class ContentForm extends React.Component<ContentFormProps,any> {
     render() {
         const { classes } = this.props
 
-        console.log('contentform namespace',this.localnamespace)
+        // console.log('contentform namespace',this.localnamespace)
 
         return (
             <form 

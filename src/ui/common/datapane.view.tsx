@@ -58,7 +58,7 @@ class DataPane extends React.Component<DataPaneProps,any>  {
 
     state = {
         // factorycomponent:null,
-        locked:false,
+        // locked:false,
     }
 
     factorycomponent
@@ -152,7 +152,7 @@ class DataPane extends React.Component<DataPaneProps,any>  {
 
     registerCalldowns = (calldowns) => {
         this.calldowns[calldowns.instanceid] = calldowns
-        console.log('calldowns in datapane',calldowns, this.calldowns)
+        // console.log('calldowns in datapane',calldowns, this.calldowns)
     }
 
     calldowns:GenericObject = {}
@@ -165,7 +165,7 @@ class DataPane extends React.Component<DataPaneProps,any>  {
             for (let index in this.calldowns) {
                 this.calldowns[index].setLocked(isediting)
             }
-            console.log('monitorEditState editstates, state',this.editstates, this.state)
+            // console.log('monitorEditState editstates, state',this.editstates, this.state)
         // })
     }
 
@@ -254,7 +254,7 @@ class DataPane extends React.Component<DataPaneProps,any>  {
 
         this.factorycomponent = utilities.updateComponents([this.factorycomponent],this.namespace)[0]
 
-        console.log('datapane factorycomponent',this.factorycomponent, this.namespace)
+        // console.log('datapane factorycomponent',this.factorycomponent, this.namespace)
 
         return <Paper className = {classes.root}>
 
