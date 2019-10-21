@@ -252,7 +252,7 @@ class DataPane extends React.Component<DataPaneProps,any>  {
 
         const { classes } = this.props
 
-        this.factorycomponent = utilities.updateComponents([this.factorycomponent],this.namespace)[0]
+        this.factorycomponent = (this.factorycomponent && utilities.updateComponents([this.factorycomponent],this.namespace)[0])
 
         // console.log('datapane factorycomponent',this.factorycomponent, this.namespace)
 

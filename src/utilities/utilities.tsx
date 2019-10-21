@@ -58,6 +58,7 @@ const updateComponents = (list, namespace) => {
     if (!Array.isArray(list)) list = [list]
     
     for (let element of list) {
+        // console.log('element in updateComponents',element, list)
         let dataAttributes = element.props && element.props['data-attributes']
 
         // console.log('updateFieldsetElementValues',dataAttributes)
