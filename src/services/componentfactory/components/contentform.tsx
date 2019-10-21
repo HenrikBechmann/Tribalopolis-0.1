@@ -155,9 +155,13 @@ class ContentForm extends React.Component<ContentFormProps,any> {
 
     setLocked = (locked) => {
         // console.log('setting locked in form',this.localnamespace)
-        this.ismounted && this.setState({
-            locked,
-        })
+        if (this.ismounted) {
+            this.setState({
+                locked,
+            }) 
+        } else {
+            this.state.locked = locked
+        }
     }
 
     initialize = () => {
