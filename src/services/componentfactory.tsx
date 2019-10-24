@@ -285,7 +285,7 @@ class ComponentFactory {
             if (pathlist[0]=='docpack') { // doctype.document
 
                 let docpath = pathlist.slice(2);
-                [value,datatype] = application.filterDataIncomingValue(value,docpath,namespace.typepack.document)
+                [value,datatype] = application.filterDatatypeIncomingValue(value,docpath,namespace.typepack.document)
 
                 if (value && (datatype == '??timestamp')) {
 

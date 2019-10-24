@@ -1,4 +1,4 @@
-// services.tsx
+// application.tsx
 // copyright (c) 2019 Henrik Bechmann, Toronto, Licence: GPL-3.0-or-later
 /*
     This is the high level application controller
@@ -52,6 +52,7 @@ import authapi from './auth.api'
 import functions from './functions'
 import utilities from '../utilities/utilities'
 import firebase from './firebase.api'
+import verrification from './verification.filter'
 
 // ==============[ Internal ]===============
 
@@ -75,9 +76,9 @@ const ALLOW = false
 
 // =================[ API ]=======================
 
-const appManager = new class {
+const application = new class {
 
-    properties = {
+    public properties = {
 
         ismobile: /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)
 
@@ -159,7 +160,7 @@ const appManager = new class {
     // =================[ API ]=======================
     // called from component componentDidMount or componentWillUpdate
 
-    setDocpackListener = ({doctoken, instanceid, success, failure}:SetListenerMessage) => {
+    public setDocpackListener = ({doctoken, instanceid, success, failure}:SetListenerMessage) => {
 
         setTimeout(()=>{ // give animations a chance to run
 
@@ -193,7 +194,7 @@ const appManager = new class {
     }
 
     // this maps collection, documentid and typereference to message for setDocpackPairListener
-    setNewDocpackPairListener = (parmblock:SetNewListenerMessage) => {
+    public setNewDocpackPairListener = (parmblock:SetNewListenerMessage) => {
         // console.log('in setNewDocpackPairListener',parmblock)
         let { collection, customid, success, failure, typereference } = parmblock
         // TODO change if the following is asynchronous
@@ -263,7 +264,7 @@ const appManager = new class {
 
     }
 
-    removeDocpackListener = ({doctoken, instanceid}:RemoveListenerMessage) => {
+    public removeDocpackListener = ({doctoken, instanceid}:RemoveListenerMessage) => {
 
         let reference = doctoken.reference
 
@@ -274,7 +275,7 @@ const appManager = new class {
     }
 
     // called from component componentWillUnmount
-    removeDocpackPairListener = ({doctoken, instanceid}:RemoveListenerMessage) => {
+    public removeDocpackPairListener = ({doctoken, instanceid}:RemoveListenerMessage) => {
 
         let reference = doctoken.reference
 
@@ -284,61 +285,61 @@ const appManager = new class {
 
     }
 
-    getDocument = (parmblock:GetDocumentMessage) => {
+    public getDocument = (parmblock:GetDocumentMessage) => {
 
         gateway.getDocument(parmblock)
 
     }
 
-    getNewDocument = (parmblock:GetDocumentMessage) => {
+    public getNewDocument = (parmblock:GetDocumentMessage) => {
 
         gateway.getNewDocument(parmblock)
 
     }
 
-    queryForDocument = (parmblock:GetDocumentMessage) => {
+    public queryForDocument = (parmblock:GetDocumentMessage) => {
 
         gateway.queryForDocument(parmblock)
         
     }
 
-    get fontFamily() {
+    public get fontFamily() {
         return this.fontFamilyMemo
     }
 
-    set fontFamily(value) {
+    public set fontFamily(value) {
         this.fontFamilyMemo = value
     }
 
-    get userdata() {
+    public get userdata() {
         return this.userdataMemo 
     }
 
-    set userdata(value) {
+    public set userdata(value) {
         this.userdataMemo = value
     } 
 
-    get systemdata() {
+    public get systemdata() {
         return this.systemdataMemo
     }
 
-    set systemdata(value) {
+    public set systemdata(value) {
         this.systemdataMemo = value
     } 
 
-    setDocument = (parmblock:SetDocumentMessage) => {
+    public setDocument = (parmblock:SetDocumentMessage) => {
 
         gateway.setDocument(parmblock)
 
     }
 
-    getCollection = (parmblock:GetCollectionMessage) => {
+    public getCollection = (parmblock:GetCollectionMessage) => {
 
         gateway.getCollection(parmblock)
         
     }
 
-    docpackIsListener = (reference, instanceid) => {
+    public docpackIsListener = (reference, instanceid) => {
 
         return docpackCache.isListener(reference,instanceid)
 
@@ -346,15 +347,15 @@ const appManager = new class {
 
     // ======================[ sign in and out ]====================
 
-    signin = () => {
+    public signin = () => {
         authapi.googlesignin()
     }
 
-    signout = () => {
+    public signout = () => {
         this.signoutCallback(this.completeSignout)
     }
 
-    completeSignout = () => {
+    public completeSignout = () => {
 
         setTimeout(() => {
             // remove all subscriptions
@@ -363,9 +364,9 @@ const appManager = new class {
 
     }
 
-    signoutCallback
+    private signoutCallback
 
-    setSignoutCallback = signoutCallback => {
+    public setSignoutCallback = signoutCallback => {
         this.signoutCallback = signoutCallback
     }
 
@@ -445,7 +446,7 @@ const appManager = new class {
         return datadocument
     }
 
-    filterDataIncomingDocpack = ( docpack, typepack ) => {
+    public filterDataIncomingDocpack = ( docpack, typepack ) => {
 
         let newdoc = merge({}, docpack.document)
 
@@ -469,7 +470,7 @@ const appManager = new class {
 
     }
 
-    filterDataOutgoingDocpack = ( docpack, typepack ) => {
+    public filterDataOutgoingDocpack = ( docpack, typepack ) => {
 
         let newdoc = merge({}, docpack.document)
 
@@ -493,12 +494,14 @@ const appManager = new class {
 
     }
 
-    filterDataIncomingValue = ( value, path, type ) => {
+    public filterDatatypeIncomingValue = ( value, path, type ) => {
 
-        if (!type) return [value,undefined]
+        if (!type) return [value,undefined,undefined,undefined]
 
         let returnvalue = value
         let datatype
+        let errorcode = 0
+        let errormessage = null
 
         if (type) {
 
@@ -532,13 +535,15 @@ const appManager = new class {
             console.error('no type document for ',path, value)
         }
 
-        return [returnvalue,datatype]
+        return [returnvalue,datatype,errorcode,errormessage]
 
     }
 
-    filterDataOutgoingValue = ( value , path, type ) => {
+    public filterDatatypeOutgoingValue = ( value , path, type ) => {
 
         let datatype
+        let errorcode = 0
+        let errormessage = null
         if (!type) {
             console.log('no type provided for outgoing value conversion: value, path, type',value, path, type)
             return [value,datatype]
@@ -568,12 +573,12 @@ const appManager = new class {
             }
         }
 
-        return [outgoingvalue,datatype]
+        return [outgoingvalue,datatype,errorcode,errormessage]
     
     }
 
     // to be used with basic datapane forms
-    submitDocument = ( parms:PostFormMessage ) => {
+    public submitDocument = ( parms:PostFormMessage ) => {
 
         console.log('submitDocument',parms)
 
@@ -596,7 +601,7 @@ const appManager = new class {
             if (value === undefined) value = null;
 
             // [value, datatype] is available
-            [value] = application.filterDataOutgoingValue(value, path, typepack.document)
+            [value] = application.filterDatatypeOutgoingValue(value, path, typepack.document)
 
             nodespecs.nodeproperty[nodespecs.nodeindex] = value
 
@@ -616,42 +621,6 @@ const appManager = new class {
         })
 
     }
-
-}
-
-let application = {
-
-    properties:appManager.properties,
-    setSignoutCallback:appManager.setSignoutCallback,
-
-    setDocpackPairListener:appManager.setDocpackPairListener,
-    removeDocpackPairListener:appManager.removeDocpackPairListener,
-    setNewDocpackPairListener:appManager.setNewDocpackPairListener,
-    setDocpackListener:appManager.setDocpackListener,
-    removeDocpackListener:appManager.removeDocpackListener,
-    docpackIsListener:appManager.docpackIsListener,
-
-    getDocument:appManager.getDocument,
-    getNewDocument:appManager.getNewDocument,
-    queryForDocument:appManager.queryForDocument,
-
-    fontFamily:appManager.fontFamily,
-    userdata:appManager.userdata,
-    systemdata:appManager.systemdata,
-
-    setDocument:appManager.setDocument,
-    
-    getCollection:appManager.getCollection,
-
-    signin:appManager.signin,
-    signout:appManager.signout,
-
-    filterDataIncomingValue:appManager.filterDataIncomingValue,
-    filterDataOutgoingValue:appManager.filterDataOutgoingValue,
-    filterDataIncomingDocpack:appManager.filterDataIncomingDocpack,
-    filterDataOutgoingDocpack:appManager.filterDataOutgoingDocpack,
-
-    submitDocument:appManager.submitDocument,
 
 }
 
