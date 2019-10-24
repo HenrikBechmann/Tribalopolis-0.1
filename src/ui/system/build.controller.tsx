@@ -29,6 +29,7 @@ import TextField from '../input/textfield.view'
 import UserAccountActiveControls from '../../services/useraccount.activecontrols'
 
 import application from '../../services/application'
+import verification from '../../services/verification.filter'
 import typefilter from '../../services/type.filter'
 
 import ActionButton from '../common/actionbutton.view'
@@ -224,7 +225,7 @@ class BuildController extends React.Component<any,any> {
         let results = typefilter.assertType(this.state.docpack.document,this.doctypepack.document)
 
         if (results && results.document) {
-            let filtereddocpack:any = application.filterDataIncomingDocpack(
+            let filtereddocpack:any = verification.filterDataIncomingDocpack(
                 {
                     reference:this.docpackoriginal.reference,
                     document:results.document,
@@ -271,7 +272,7 @@ class BuildController extends React.Component<any,any> {
     postObject = () => {
         if (confirm('Post this object?')) {
             let reference = `/${this.state.values.collection}/${this.state.values.id}`
-            let newdocpack:any = application.filterDataOutgoingDocpack({reference,document:this.latestjson},this.doctypepack)
+            let newdocpack:any = verification.filterDataOutgoingDocpack({reference,document:this.latestjson},this.doctypepack)
             let parm:SetDocumentMessage = {
                 reference,
                 document:newdocpack.document,

@@ -25,6 +25,7 @@ import AbstractDataPane from './componentfactory/components/abstractdatapane'
 import utilities from '../utilities/utilities'
 import { DataPaneNamespace, FactoryNamespace, FactoryMessage, GenericObject } from './interfaces'
 import application from './application'
+import verification from './verification.filter'
 
 import coredata from  '../data/coredata'
 
@@ -285,7 +286,7 @@ class ComponentFactory {
             if (pathlist[0]=='docpack') { // doctype.document
 
                 let docpath = pathlist.slice(2);
-                [value,datatype] = application.filterDatatypeIncomingValue(value,docpath,namespace.typepack.document)
+                [value,datatype] = verification.filterDatatypeIncomingValue(value,docpath,namespace.typepack.document)
 
                 if (value && (datatype == '??timestamp')) {
 
