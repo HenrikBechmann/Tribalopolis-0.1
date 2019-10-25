@@ -168,7 +168,7 @@ class QuadspaceController extends React.Component<any,any> {
                     let datastacks = userdata?this.defaultdatastacks:null
                     // console.log('datastacks in quadspace render',datastacks, userdata)
                     return (
-                    <React.Fragment>
+                    <>
                         <ToolsStrip
                             userdata = {userdata}
                             systemdata = {systemdata}
@@ -200,7 +200,7 @@ class QuadspaceController extends React.Component<any,any> {
                                 callbacks = {this.quadrantcallbacks}
                             />
                         </QuadViewport>
-                    </React.Fragment>
+                    </>
                 )}}
                 </UserAccountActiveControls>
             </QuadSpaceFrame>

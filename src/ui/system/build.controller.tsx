@@ -457,7 +457,7 @@ class BuildController extends React.Component<any,any> {
     ) //--end
 
     datacontrols = (superuser,classes) => (
-        <React.Fragment>
+        <>
         <div>
             <p>For a new object, fetch without an id</p>
             <Button 
@@ -499,7 +499,7 @@ class BuildController extends React.Component<any,any> {
                 Clear
             </Button>
         </div>
-        </React.Fragment>
+        </>
     )
 
     jsoneditor = () => {

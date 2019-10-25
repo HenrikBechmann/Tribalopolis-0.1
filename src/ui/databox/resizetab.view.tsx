@@ -91,7 +91,7 @@ class ResizeTab extends React.Component<any,any> {
         !application.properties.ismobile && connectDragPreview(getEmptyImage())
 
         return (
-            <React.Fragment>
+            <>
                 <div className = { classes.tabstyles } 
                     style = {{visibility:!isDragging?'visible':'hidden'}}
                 >
@@ -113,7 +113,7 @@ class ResizeTab extends React.Component<any,any> {
                         resizeTabStyles = {classes}
                     />
                 }
-            </React.Fragment>
+            </>
         )
     } 
 }

@@ -71,7 +71,7 @@ class Register extends React.Component<any,any> {
                     }
                 }>
                 {{
-                    'loggedin':<React.Fragment>
+                    'loggedin':<>
                         <p>Thanks for logging in! Now just register using the scrolling form below, and you'll be all set. A credit card is required.</p>
                         <div>When done, tap the Register button: <Button variant="contained" color="primary">
                             Register
@@ -80,7 +80,7 @@ class Register extends React.Component<any,any> {
                         </Button>
                         </div>
                         {this.registerform()}
-                        </React.Fragment>,
+                        </>,
 
                     'registered-user': <p>Thanks for logging in! Now just finish registering here and you'll be all set. [pending]</p>,
 
