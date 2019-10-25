@@ -225,7 +225,8 @@ class BuildController extends React.Component<any,any> {
         let results = typefilter.assertType(this.state.docpack.document,this.doctypepack.document)
 
         if (results && results.document) {
-            let filtereddocpack:any = verification.filterDataIncomingDocpack(
+            
+            let filtereddocpack:any = verification.filterIncomingDocpackDatatypes(
                 {
                     reference:this.docpackoriginal.reference,
                     document:results.document,
@@ -272,7 +273,7 @@ class BuildController extends React.Component<any,any> {
     postObject = () => {
         if (confirm('Post this object?')) {
             let reference = `/${this.state.values.collection}/${this.state.values.id}`
-            let newdocpack:any = verification.filterDataOutgoingDocpack({reference,document:this.latestjson},this.doctypepack)
+            let newdocpack:any = verification.filterOutgoingDocpackDatatypes({reference,document:this.latestjson},this.doctypepack)
             let parm:SetDocumentMessage = {
                 reference,
                 document:newdocpack.document,

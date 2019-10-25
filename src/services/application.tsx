@@ -388,16 +388,16 @@ const application = new class {
 
             let path = documentmap[valueindex].split('.')
 
-            let nodespecs = utilities.getNodePosition(docpack.document,path)
             let value = formstate.values[valueindex]
-            let datatype
+            // let datatype
 
             if (value === undefined) value = null;
 
             // [value, datatype] is available
-            [value] = verification.filterDatatypeOutgoingValue(value, path, typepack.document)
+            [value] = verification.filterOutgoingValueDatatype(value, path, typepack.document)
 
-            nodespecs.nodeproperty[nodespecs.nodeindex] = value
+            let nodespecs = utilities.getNodePosition(docpack.document,path)
+            nodespecs && (nodespecs.nodeproperty[nodespecs.nodeindex] = value)
 
         } 
 

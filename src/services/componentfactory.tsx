@@ -283,10 +283,10 @@ class ComponentFactory {
         if (nodedata) {
             let value = nodedata.nodevalue
             let datatype
-            if (pathlist[0]=='docpack') { // doctype.document
+            if (pathlist[0]=='docpack') { // docpack.document
 
                 let docpath = pathlist.slice(2);
-                [value,datatype] = verification.filterDatatypeIncomingValue(value,docpath,namespace.typepack.document)
+                [value,datatype] = verification.filterIncomingValueDatatype(value,docpath,namespace.typepack.document)
 
                 if (value && (datatype == '??timestamp')) {
 
