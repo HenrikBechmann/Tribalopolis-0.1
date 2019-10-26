@@ -10,7 +10,92 @@ import deepdiff from 'deep-diff'
 
 const verification = new class {
 
-    // ----------------------------[ API ]-----------------------------
+    public filterIncomingValue = ( value, path, typedoc ) => {
+
+        if (!typedoc) return [value,undefined,undefined,undefined,undefined]
+
+        let returnvalue = value
+        let datatype
+        let code = 0
+        let severity = 0
+        let message = null
+
+        if (typedoc) {
+
+            let datatypes = typedoc.properties.model.datatypes
+            let typenode = utilities.getNodePosition(datatypes,path)
+            if (!typenode) {
+                // nothing...
+            } else {
+
+                datatype = typenode.nodevalue
+
+                if (datatype == '??timestamp') {
+
+                    try {
+
+                        returnvalue =  value.toDate()
+
+                    } catch (e) { // try to self-heal
+                        returnvalue = value // try to convert to date through new Timestamp
+                        if (returnvalue.seconds !== undefined && returnvalue.nanoseconds !== undefined) {
+                            returnvalue = new firebase.firestore.Timestamp(returnvalue.seconds, returnvalue.nanoseconds)
+                            returnvalue = returnvalue.toDate()
+                        }
+                    }
+
+                }
+
+            }
+
+        } else {
+            console.error('no type document for ',path, value)
+        }
+
+        return [returnvalue,datatype, severity, code, message]
+
+    }
+
+    public verifyOutgoingValue = ( value , path, typedoc ) => {
+
+        let datatype
+        let code = 0
+        let severity = 0
+        let message = null
+        if (!typedoc) {
+            console.log('no type provided for outgoing value conversion: value, path, type',value, path, typedoc)
+            return [value,datatype,undefined, undefined, undefined]
+        }
+
+        let datatypes = typedoc.properties.model.datatypes
+
+        let typenodedata = utilities.getNodePosition(datatypes,path)
+
+        if (!typenodedata) {
+            console.log('datatype not found for outgoing value, path, type',value, path, typedoc)
+            return [value,datatype,undefined, undefined, undefined]
+        }
+
+        datatype = typenodedata.nodevalue
+
+        // console.log('originalnode',originalnode)
+        let outgoingvalue = value
+
+        if (datatype == '??timestamp') {
+            try {
+                if (outgoingvalue) {
+                    outgoingvalue =  firebase.firestore.Timestamp.fromDate(outgoingvalue)
+                }
+            } catch (e) { // try to self-heal
+                console.log('unable to convert outgoing timestamp: value, path, type',value, path, typedoc)
+            }
+        }
+
+        return [outgoingvalue,datatype,severity,code,message]
+    
+    }
+
+    // ----------------------------[ BUILD API ]-----------------------------
 
     public filterIncomingDocpackDatatypes = ( docpack, typepack ) => {
 
@@ -60,92 +145,7 @@ const verification = new class {
 
     }
 
-    public filterIncomingValue = ( value, path, type ) => {
-
-        if (!type) return [value,undefined,undefined,undefined]
-
-        let returnvalue = value
-        let datatype
-        let code = 0
-        let severity = 0
-        let message = null
-
-        if (type) {
-
-            let datatypes = type.properties.model.datatypes
-            let typenode = utilities.getNodePosition(datatypes,path)
-            if (!typenode) {
-                // nothing...
-            } else {
-
-                datatype = typenode.nodevalue
-
-                if (datatype == '??timestamp') {
-
-                    try {
-
-                        returnvalue =  value.toDate()
-
-                    } catch (e) { // try to self-heal
-                        returnvalue = value // try to convert to date through new Timestamp
-                        if (returnvalue.seconds !== undefined && returnvalue.nanoseconds !== undefined) {
-                            returnvalue = new firebase.firestore.Timestamp(returnvalue.seconds, returnvalue.nanoseconds)
-                            returnvalue = returnvalue.toDate()
-                        }
-                    }
-
-                }
-
-            }
-
-        } else {
-            console.error('no type document for ',path, value)
-        }
-
-        return [returnvalue,datatype, severity, code, message]
-
-    }
-
-    public verifyOutgoingValue = ( value , path, type ) => {
-
-        let datatype
-        let code = 0
-        let severity = 0
-        let message = null
-        if (!type) {
-            console.log('no type provided for outgoing value conversion: value, path, type',value, path, type)
-            return [value,datatype]
-        }
-
-        let datatypes = type.properties.model.datatypes
-
-        let nodedata = utilities.getNodePosition(datatypes,path)
-
-        if (!nodedata) {
-            console.log('datatype not found for outgoing value, path, type',value, path, type)
-            return [value,datatype]
-        }
-
-        datatype = nodedata.nodevalue
-
-        // console.log('originalnode',originalnode)
-        let outgoingvalue = value
-
-        if (datatype == '??timestamp') {
-            try {
-                if (outgoingvalue) {
-                    outgoingvalue =  firebase.firestore.Timestamp.fromDate(outgoingvalue)
-                }
-            } catch (e) { // try to self-heal
-                console.log('unable to convert outgoing timestamp: value, path, type',value, path, type)
-            }
-        }
-
-        return [outgoingvalue,datatype,severity,code,message]
-    
-    }
-
-    // ----------------------[ internal ]-----------------------------
+    // ----------------------[ build utilities ]-----------------------------
 
     private processIncomingDatatypes = (diffs, datadocument, originaldocument) => {
 
