@@ -394,7 +394,7 @@ const application = new class {
             if (value === undefined) value = null;
 
             // [value, datatype] is available
-            [value] = verification.filterOutgoingValueDatatype(value, path, typepack.document)
+            [value] = verification.verifyOutgoingValue(value, path, typepack.document)
 
             let nodespecs = utilities.getNodePosition(docpack.document,path)
             nodespecs && (nodespecs.nodeproperty[nodespecs.nodeindex] = value)

@@ -60,14 +60,15 @@ const verification = new class {
 
     }
 
-    public filterIncomingValueDatatype = ( value, path, type ) => {
+    public filterIncomingValue = ( value, path, type ) => {
 
         if (!type) return [value,undefined,undefined,undefined]
 
         let returnvalue = value
         let datatype
-        let errorcode = 0
-        let errormessage = null
+        let code = 0
+        let severity = 0
+        let message = null
 
         if (type) {
 
@@ -101,15 +102,16 @@ const verification = new class {
             console.error('no type document for ',path, value)
         }
 
-        return [returnvalue,datatype,errorcode,errormessage]
+        return [returnvalue,datatype, severity, code, message]
 
     }
 
-    public filterOutgoingValueDatatype = ( value , path, type ) => {
+    public verifyOutgoingValue = ( value , path, type ) => {
 
         let datatype
-        let errorcode = 0
-        let errormessage = null
+        let code = 0
+        let severity = 0
+        let message = null
         if (!type) {
             console.log('no type provided for outgoing value conversion: value, path, type',value, path, type)
             return [value,datatype]
@@ -139,7 +141,7 @@ const verification = new class {
             }
         }
 
-        return [outgoingvalue,datatype,errorcode,errormessage]
+        return [outgoingvalue,datatype,severity,code,message]
     
     }
 

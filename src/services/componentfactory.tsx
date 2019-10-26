@@ -286,21 +286,20 @@ class ComponentFactory {
 
             if (pathlist[0]=='docpack') { // docpack.document; this is an incoming database value; needs filtering
 
-                let docpath = pathlist.slice(2);
-                [value,datatype] = verification.filterIncomingValueDatatype( value, docpath, namespace.typepack.document )
+                let docpath = pathlist.slice(2); // get relative path
+                [value,datatype] = verification.filterIncomingValue( value, docpath, namespace.typepack.document )
 
                 if (value && (datatype == '??timestamp')) {
 
                     let format = attributes && attributes.formats && attributes.formats.timestamp
-                    if (format) {
-
-                        value = moment(value).format(format)
-
-                    } else {
+                    if (!format) {
 
                         format = application.systemdata.parameters.properties.dateformat
 
                     }
+
+                    format && (value = moment(value).format(format))
+
                 }
             }
 
