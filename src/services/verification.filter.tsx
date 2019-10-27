@@ -14,7 +14,7 @@ const verification = new class {
 
         if (!typedoc) return [value,undefined,undefined,undefined,undefined]
 
-        let returnvalue = value
+        let returnvalue
         let datatype
         let code = 0
         let severity = 0
@@ -24,35 +24,50 @@ const verification = new class {
 
             let datatypes = typedoc.properties.model.datatypes
             let typenode = utilities.getNodePosition(datatypes,path)
-            if (!typenode) {
-                // nothing...
-            } else {
+            if (typenode) {
 
                 datatype = typenode.nodevalue
-
-                if (datatype == '??timestamp') {
-
-                    try {
-
-                        returnvalue =  value.toDate()
-
-                    } catch (e) { // try to self-heal
-                        returnvalue = value // try to convert to date through new Timestamp
-                        if (returnvalue.seconds !== undefined && returnvalue.nanoseconds !== undefined) {
-                            returnvalue = new firebase.firestore.Timestamp(returnvalue.seconds, returnvalue.nanoseconds)
-                            returnvalue = returnvalue.toDate()
-                        }
-                    }
-
-                }
 
             }
 
         } else {
+
             console.error('no type document for ',path, value)
         }
 
+        returnvalue = this.filterValue(value, datatype)
+
+
         return [returnvalue,datatype, severity, code, message]
+
+    }
+
+    private filterValue = (value, datatype) => {
+        if (!datatype) return value
+
+        let returnvalue
+
+        if (datatype == '??timestamp') {
+
+            try {
+
+                returnvalue =  value.toDate()
+
+            } catch (e) { // try to self-heal
+                returnvalue = value // try to convert to date through new Timestamp
+                if (returnvalue.seconds !== undefined && returnvalue.nanoseconds !== undefined) {
+                    returnvalue = new firebase.firestore.Timestamp(returnvalue.seconds, returnvalue.nanoseconds)
+                    returnvalue = returnvalue.toDate()
+                }
+            }
+
+        } else {
+
+            returnvalue = value
+            
+        }
+
+        return returnvalue
 
     }
 
