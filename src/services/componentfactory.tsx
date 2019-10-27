@@ -282,12 +282,15 @@ class ComponentFactory {
 
         if (nodedata) {
             let value = nodedata.nodevalue
-            let datatype
+            let datatype, severity, code, message
 
             if (pathlist[0]=='docpack') { // docpack.document; this is an incoming database value; needs filtering
 
                 let docpath = pathlist.slice(2); // get relative path
-                [value,datatype] = verification.filterIncomingValue( value, docpath, namespace.typepack.document )
+                [value,datatype,severity, code, message] = verification.filterIncomingValue( value, docpath, namespace.typepack.document )
+                if (severity) {
+                    console.error('System error: severity, code, message',severity, code, message)
+                }
 
                 // format returned value
                 if (value && (datatype == '??timestamp')) {
