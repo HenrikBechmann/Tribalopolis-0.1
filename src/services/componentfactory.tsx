@@ -289,6 +289,7 @@ class ComponentFactory {
                 let docpath = pathlist.slice(2); // get relative path
                 [value,datatype] = verification.filterIncomingValue( value, docpath, namespace.typepack.document )
 
+                // format returned value
                 if (value && (datatype == '??timestamp')) {
 
                     let format = attributes && attributes.formats && attributes.formats.timestamp

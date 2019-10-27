@@ -20,32 +20,52 @@ const verification = new class {
         let severity = 0
         let message = null
 
-        if (typedoc) {
+        try {
 
-            let datatypes = typedoc.properties.model.datatypes
-            let typenode = utilities.getNodePosition(datatypes,path)
-            if (typenode) {
+            datatype = this.getDatatype(path, typedoc);
 
-                datatype = typenode.nodevalue
+            [returnvalue, datatype, severity, code, message] = this.filterValueDatatype(value, datatype)
 
-            }
+        } catch(e) {
 
-        } else {
+            severity = 2
+            code = e.name
+            message = e.message
 
-            console.error('no type document for ',path, value)
         }
 
-        returnvalue = this.filterValueDatatype(value, datatype)
+        return [ returnvalue, datatype, severity, code, message ]
 
+    }
 
-        return [returnvalue,datatype, severity, code, message]
+    private getDatatype = (path, typedoc) => {
+        let datatype
+
+        if (!typedoc || !path) {
+
+            console.error('no path or typedoc for ',path, typedoc)
+
+            return datatype
+
+        }
+
+        let datatypes = typedoc.properties.model.datatypes
+        let typenode = utilities.getNodePosition(datatypes,path)
+        if (typenode) {
+
+            datatype = typenode.nodevalue
+
+        }
+
+        return datatype
 
     }
 
     private filterValueDatatype = (value, datatype) => {
-        if (!datatype) return value
+        if (!datatype) return [value, datatype, undefined, undefined, undefined]
 
         let returnvalue
+        let severity = 0, code = 0, message = null
 
         if (datatype == '??timestamp') {
 
@@ -58,6 +78,10 @@ const verification = new class {
                 if (returnvalue.seconds !== undefined && returnvalue.nanoseconds !== undefined) {
                     returnvalue = new firebase.firestore.Timestamp(returnvalue.seconds, returnvalue.nanoseconds)
                     returnvalue = returnvalue.toDate()
+                } else {
+                    severity = 2
+                    code = e.name
+                    message = e.message
                 }
             }
 
@@ -67,7 +91,7 @@ const verification = new class {
             
         }
 
-        return returnvalue
+        return [returnvalue, datatype, severity, code, message]
 
     }
 
