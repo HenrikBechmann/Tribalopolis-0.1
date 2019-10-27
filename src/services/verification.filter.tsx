@@ -35,14 +35,14 @@ const verification = new class {
             console.error('no type document for ',path, value)
         }
 
-        returnvalue = this.filterValue(value, datatype)
+        returnvalue = this.filterValueDatatype(value, datatype)
 
 
         return [returnvalue,datatype, severity, code, message]
 
     }
 
-    private filterValue = (value, datatype) => {
+    private filterValueDatatype = (value, datatype) => {
         if (!datatype) return value
 
         let returnvalue
