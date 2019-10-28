@@ -60,7 +60,7 @@ const verification = new class {
     }
 
     private filterValueDatatype = (value, properties) => {
-        let {datatype} = properties
+        let { datatype } = properties
         if (!datatype) return [value, properties, undefined, undefined, undefined]
 
         let returnvalue
