@@ -5,7 +5,7 @@
     if conditional is true the first component shows; otherwise the second
 */
 
-import ToggleComponent from './components/togglecomponent'
+import ToggleComponent from '../../ui/factorycomponents/togglecomponent'
 
 'use strict'
 

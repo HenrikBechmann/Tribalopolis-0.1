@@ -5,8 +5,8 @@
 
 import React from 'react'
 
-import utilities from '../../../utilities/utilities'
-import { GenericObject } from '../../interfaces'
+import utilities from '../../utilities/utilities'
+import { GenericObject } from '../../services/interfaces'
 
 interface ToggleComponentProps {
     firstcomponent:any,

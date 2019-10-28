@@ -5,9 +5,9 @@
 
 import React from 'react'
 
-import ContentWrapper from './components/contentwrapper'
-import ContentSection from './components/contentsection'
-import ContentSpan from './components/contentspan'
+import ContentWrapper from '../../ui/factorycomponents/contentwrapper'
+import ContentSection from '../../ui/factorycomponents/contentsection'
+import ContentSpan from '../../ui/factorycomponents/contentspan'
 
 const components = {
     ContentWrapper,

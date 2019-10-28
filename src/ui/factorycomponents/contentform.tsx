@@ -5,7 +5,7 @@
 
 import React from 'react'
 
-import utlities from '../../../utilities/utilities'
+import utlities from '../../utilities/utilities'
 
 import { withStyles, createStyles } from '@material-ui/core/styles'
 import Button from '@material-ui/core/Button'
@@ -14,11 +14,11 @@ import {
     PostFormMessage,
     GenericObject,
     FactoryNamespace,
-} from '../../interfaces'
+} from '../../services/interfaces'
 
-import application from '../../application'
+import application from '../../services/application'
 import ContentGroup from './contentgroup'
-import utilities from '../../../utilities/utilities'
+import utilities from '../../utilities/utilities'
 
 import { toast } from 'react-toastify'
 

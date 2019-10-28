@@ -5,7 +5,7 @@
 
 import React from 'react'
 
-import utilities from '../../../utilities/utilities'
+import utilities from '../../utilities/utilities'
 
 class ContentSpan extends React.Component<any,any> {
 

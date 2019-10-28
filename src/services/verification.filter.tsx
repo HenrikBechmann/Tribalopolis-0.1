@@ -22,7 +22,7 @@ const verification = new class {
 
             properties.datatype = this.getDatatype(path, typedoc);
 
-            [returnvalue, properties, severity, code, message] = this.filterValueDatatype(value, properties.datatype)
+            [returnvalue, properties, severity, code, message] = this.filterValueDatatype(value, properties)
 
         } catch(e) {
 
@@ -59,8 +59,8 @@ const verification = new class {
 
     }
 
-    private filterValueDatatype = (value, datatype) => {
-        let properties:any = {datatype}
+    private filterValueDatatype = (value, properties) => {
+        let {datatype} = properties
         if (!datatype) return [value, properties, undefined, undefined, undefined]
 
         let returnvalue
@@ -133,11 +133,11 @@ const verification = new class {
     
     }
 
-    private verifyValueDatatype = (value, datatype) => {
+    private verifyValueDatatype = (value, properties) => {
 
     }
 
-    private verifyValueConstraints = (value, constraints) => {
+    private verifyValueConstraints = (value, properties) => {
 
     }
     // ----------------------------[ BUILD API ]-----------------------------

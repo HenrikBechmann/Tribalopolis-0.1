@@ -9,7 +9,7 @@ import { withStyles, createStyles, Theme } from '@material-ui/core/styles'
 
 import TextField from '@material-ui/core/TextField'
 
-import { GenericObject } from '../../interfaces'
+import { GenericObject } from '../../services/interfaces'
 
 
 const styles = ( theme:Theme ) => createStyles({

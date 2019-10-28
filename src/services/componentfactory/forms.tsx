@@ -4,8 +4,8 @@
 'use strict'
 
 import React from 'react'
-import ContentTextField from './components/contenttextfield'
-import ContentForm from './components/contentform'
+import ContentTextField from '../../ui/factorycomponents/contenttextfield'
+import ContentForm from '../../ui/factorycomponents/contentform'
 // import ContentBox from './components/contentbox'
 
 const components = {

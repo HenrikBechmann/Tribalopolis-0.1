@@ -5,8 +5,8 @@
 
 import React from 'react'
 
-import ComponentFactory from '../../componentfactory'
-import application from '../../../services/application'
+import ComponentFactory from '../../services/componentfactory'
+import application from '../../services/application'
 import { 
     SetListenerMessage, 
     RemoveListenerMessage, 
@@ -15,7 +15,7 @@ import {
     PostFormMessage,
     GenericObject,
     ControllerData,
-} from '../../../services/interfaces'
+} from '../../services/interfaces'
 
 interface AbstractDataPaneProps {
     docproxy:GenericObject,

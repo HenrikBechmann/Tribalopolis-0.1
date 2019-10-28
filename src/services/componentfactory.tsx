@@ -21,7 +21,7 @@ import nativeComponents from './componentfactory/native'
 import functions from './functions'
 import Proxy from '../utilities/docproxy'
 
-import AbstractDataPane from './componentfactory/components/abstractdatapane'
+import AbstractDataPane from '../ui/factorycomponents/abstractdatapane'
 import utilities from '../utilities/utilities'
 import { DataPaneNamespace, FactoryNamespace, FactoryMessage, GenericObject } from './interfaces'
 import application from './application'
