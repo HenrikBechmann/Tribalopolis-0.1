@@ -235,7 +235,7 @@ class extends React.Component<any,any> {
                         ref = {this.props.forwardedRef}
                         height = {height}
                         width = {width}
-                        itemSize = {31}
+                        itemSize = {39}
                         itemCount = {length}
                     >
                         {this.ListComponent}
