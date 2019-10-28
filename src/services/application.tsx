@@ -413,9 +413,9 @@ const application = new class {
         application.setDocument(message)
 
         // TODO: should only be set by success
-        form.setState({
-            dirty:false
-        })
+        // form.setState({
+        //     dirty:false
+        // })
 
     }
 

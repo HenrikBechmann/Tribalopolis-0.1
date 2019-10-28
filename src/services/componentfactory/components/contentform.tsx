@@ -376,6 +376,7 @@ class ContentForm extends React.Component<ContentFormProps,any> {
     onSubmitSuccess = () => {
         this.setState({
             isprocessing:false,
+            isdirty:false,
         })
         this.toggleEditMode()
         this.originaleditablevalues = Object.assign({},this.state.values)
