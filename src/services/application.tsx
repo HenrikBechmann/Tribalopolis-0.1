@@ -27,6 +27,7 @@
 // import merge from 'deepmerge'
 // import deepdiff from 'deep-diff'
 
+import merge from 'deepmerge'
 import gateway from './gateway'
 import Proxy from '../utilities/docproxy'
 import { 
@@ -381,6 +382,7 @@ const application = new class {
         let { namespace, documentmap, form } = formcontext
         
         let { docpack, typepack } = namespace
+        let newdocpack:any = merge({},docpack)
 
         let formstate = form.state
 
@@ -396,13 +398,13 @@ const application = new class {
             
             [value, properties, severity, code, message] = verification.verifyOutgoingValue(value, path, typedoc)
 
-            let nodespecs = utilities.getNodePosition(docpack.document,path)
+            let nodespecs = utilities.getNodePosition(newdocpack.document,path)
             nodespecs && (nodespecs.nodeproperty[nodespecs.nodeindex] = value)
 
         } 
 
         let message = {
-            document:docpack.document,
+            document:newdocpack.document,
             reference:docpack.reference,
             success,
             failure,
