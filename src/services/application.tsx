@@ -398,9 +398,10 @@ const application = new class {
             
             [value, properties, severity, code, message] = verification.verifyOutgoingValue(value, path, typedoc)
 
-            let nodespecs = utilities.getNodePosition(newdocpack.document,path)
-            nodespecs && (nodespecs.nodeproperty[nodespecs.nodeindex] = value)
-
+            // if (!severity) {
+                let nodespecs = utilities.getNodePosition(newdocpack.document,path)
+                nodespecs && (nodespecs.nodeproperty[nodespecs.nodeindex] = value)
+            // } else ... call failure
         } 
 
         let message = {
