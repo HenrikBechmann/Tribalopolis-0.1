@@ -401,7 +401,8 @@ const application = new class {
             // if (!severity) {
                 let nodespecs = utilities.getNodePosition(newdocpack.document,path)
                 nodespecs && (nodespecs.nodeproperty[nodespecs.nodeindex] = value)
-            // } else ... call failure
+                // TODO: does lack of nodespecs constitute failure? YES
+            // } else ... call failure and quit
         } 
 
         let message = {

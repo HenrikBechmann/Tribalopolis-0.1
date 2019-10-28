@@ -282,18 +282,18 @@ class ComponentFactory {
 
         if (nodedata) {
             let value = nodedata.nodevalue
-            let datatype, severity, code, message
+            let properties, severity, code, message
 
             if (pathlist[0]=='docpack') { // docpack.document; this is an incoming database value; needs filtering
 
                 let docpath = pathlist.slice(2); // get relative path
-                [value,datatype,severity, code, message] = verification.filterIncomingValue( value, docpath, namespace.typepack.document )
+                [value,properties,severity, code, message] = verification.filterIncomingValue( value, docpath, namespace.typepack.document )
                 if (severity) {
                     console.error('System error in getPropertyByIndirection: severity, code, message',severity, code, message)
                 }
 
                 // format returned value
-                if (value && (datatype == '??timestamp')) {
+                if (value && (properties.datatype == '??timestamp')) {
 
                     let format = attributes && attributes.formats && attributes.formats.timestamp
                     if (!format) {

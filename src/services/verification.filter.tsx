@@ -15,14 +15,14 @@ const verification = new class {
         if (!typedoc) return [value,undefined,undefined,undefined,undefined]
 
         let returnvalue
-        let datatype
+        let properties:any = {datatype:undefined}
         let code = 0, severity = 0, message = null
 
         try {
 
-            datatype = this.getDatatype(path, typedoc);
+            properties.datatype = this.getDatatype(path, typedoc);
 
-            [returnvalue, datatype, severity, code, message] = this.filterValueDatatype(value, datatype)
+            [returnvalue, properties, severity, code, message] = this.filterValueDatatype(value, properties.datatype)
 
         } catch(e) {
 
@@ -32,7 +32,7 @@ const verification = new class {
 
         }
 
-        return [ returnvalue, datatype, severity, code, message ]
+        return [ returnvalue, properties, severity, code, message ]
 
     }
 
@@ -60,7 +60,8 @@ const verification = new class {
     }
 
     private filterValueDatatype = (value, datatype) => {
-        if (!datatype) return [value, datatype, undefined, undefined, undefined]
+        let properties:any = {datatype}
+        if (!datatype) return [value, properties, undefined, undefined, undefined]
 
         let returnvalue
         let severity = 0, code = 0, message = null
@@ -89,7 +90,7 @@ const verification = new class {
             
         }
 
-        return [returnvalue, datatype, severity, code, message]
+        return [returnvalue, properties, severity, code, message]
 
     }
 
