@@ -389,12 +389,12 @@ const application = new class {
             let path = documentmap[valueindex].split('.')
 
             let value = formstate.values[valueindex]
-            // let datatype
+            let typedoc = typepack.document
 
             if (value === undefined) value = null;
-
-            // [value, datatype] is available
-            [value] = verification.verifyOutgoingValue(value, path, typepack.document)
+            let properties = null, severity = 0, code = 0, message = null;
+            
+            [value, properties, severity, code, message] = verification.verifyOutgoingValue(value, path, typedoc)
 
             let nodespecs = utilities.getNodePosition(docpack.document,path)
             nodespecs && (nodespecs.nodeproperty[nodespecs.nodeindex] = value)
@@ -410,6 +410,7 @@ const application = new class {
 
         application.setDocument(message)
 
+        // TODO: should only be set by success
         form.setState({
             dirty:false
         })

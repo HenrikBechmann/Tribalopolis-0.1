@@ -16,9 +16,7 @@ const verification = new class {
 
         let returnvalue
         let datatype
-        let code = 0
-        let severity = 0
-        let message = null
+        let code = 0, severity = 0, message = null
 
         try {
 
@@ -134,6 +132,13 @@ const verification = new class {
     
     }
 
+    private verifyValueDatatype = (value, datatype) => {
+
+    }
+
+    private verifyValueConstraints = (value, constraints) => {
+
+    }
     // ----------------------------[ BUILD API ]-----------------------------
 
     public filterIncomingDocpackDatatypes = ( docpack, typepack ) => {
