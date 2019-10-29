@@ -17,7 +17,7 @@ let styles = createStyles({
 
 const LoadingMessage = props => {
     return <div className = {props.classes.root}>
-        <span>Loading...</span> 
+        <span>Waiting...</span> 
     </div>
 }
 

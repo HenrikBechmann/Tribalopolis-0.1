@@ -289,7 +289,10 @@ class ComponentFactory {
                 let docpath = pathlist.slice(2); // get relative path
                 [value,properties,severity, code, message] = verification.filterIncomingValue( value, docpath, namespace.typepack.document )
                 if (severity) {
-                    console.error('System error in getPropertyByIndirection: severity, code, message',severity, code, message)
+                    console.error(
+                        'System error in getPropertyByIndirection: value, properties, severity, code, message',
+                        value, properties, severity, code, message
+                    )
                 }
 
                 // format returned value

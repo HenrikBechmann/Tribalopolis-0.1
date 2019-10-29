@@ -22,7 +22,8 @@ const verification = new class {
 
             properties.datatype = this.getDatatype(path, typedoc);
 
-            [returnvalue, properties, severity, code, message] = this.filterValueDatatype(value, properties)
+            [returnvalue, properties, severity, code, message] = 
+                this.filterValueDatatype(value, properties)
 
         } catch(e) {
 

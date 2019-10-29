@@ -12,7 +12,7 @@ import 'firebase/auth'
 // Initialize Firebase
 let config = {
     apiKey: "AIzaSyAac-N-SN0l2wGc4Peys_jB2qgzoQfQSqw",
-    authDomain: "tribalopolis.firebaseapp.com",
+    authDomain: "tribalopolis.com",//"tribalopolis.firebaseapp.com",
     databaseURL: "https://tribalopolis.firebaseio.com",
     projectId: "tribalopolis",
     storageBucket: "tribalopolis.appspot.com",
