@@ -3,10 +3,11 @@
 
 'use strict'
 
-import utilities from '../utilities/utilities'
-import firebase from './firebase.api'
+import firebase from './firebase.api' // only for time handling
 import merge from 'deepmerge'
 import deepdiff from 'deep-diff'
+
+import utilities from '../utilities/utilities'
 
 const verification = new class {
 
