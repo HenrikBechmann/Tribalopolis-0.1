@@ -21,7 +21,7 @@ const styles = createStyles({
         position:'relative',
         borderBottom:'1px solid #e2e6e9',
 
-        borderRadius:'8px',
+        borderRadius:'8p 8px 0 0 ',
         backgroundColor:'#c7ddc7',
     },
     rowstyle:{
@@ -31,6 +31,7 @@ const styles = createStyles({
         flexFlow:'row nowrap',
         alignItems:'center',
         cursor:'pointer',
+        height:'32px',
     },
     namestyle:{
         overflow: 'hidden',
