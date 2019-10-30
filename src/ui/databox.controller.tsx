@@ -30,6 +30,10 @@ const buttonstyles = theme => createStyles({
   button: {
     marginRight: theme.spacing(1)
   },
+  secondary: {
+      marginRight: theme.spacing(1),
+      backgroundColor:'#aaa'
+  }
 })
 
 const FloatingAddButton = withStyles(buttonstyles)((props:any) => {
@@ -51,7 +55,7 @@ const FloatingEditButton = withStyles(buttonstyles)((props:any) => {
         size = 'small'
         color = 'primary' 
         aria-label = 'Edit' 
-        className = {classes.button} 
+        className = {classes.secondary} 
         onClick = {onClick}
     >
       <img style = {{width:'24px'}} src = '/public/icons/cog.svg' />
