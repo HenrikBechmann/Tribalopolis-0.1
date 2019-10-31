@@ -43,7 +43,7 @@ const verification = new class {
 
         if (!typedoc || !path) {
 
-            console.error('no path or typedoc for ',path, typedoc)
+            console.error('no datatype path or typedoc for ',path, typedoc)
 
             return datatype
 
@@ -58,6 +58,31 @@ const verification = new class {
         }
 
         return datatype
+
+    }
+
+    private getConstraint = (path, typedoc) => {
+        let constraint
+
+        if (!typedoc || !path) {
+
+            console.error('no constraint path or typedoc for ',path, typedoc)
+
+            return constraint
+
+        }
+
+        let constraints = typedoc.properties.model.constraints
+        let typenode = utilities.getNodePosition(constraints,path)
+        if (typenode) {
+
+            constraint = typenode.nodevalue
+
+            console.log('constraint found', constraint)
+
+        }
+
+        return constraint
 
     }
 
@@ -99,6 +124,7 @@ const verification = new class {
     public verifyOutgoingValue = ( value , path, typedoc ) => {
 
         let datatype
+        let constraint
         let code = 0
         let severity = 0
         let message = null
@@ -117,6 +143,8 @@ const verification = new class {
         }
 
         datatype = typenodedata.nodevalue
+
+        constraint = this.getConstraint(path, typedoc)
 
         // console.log('originalnode',originalnode)
         let outgoingvalue = value
