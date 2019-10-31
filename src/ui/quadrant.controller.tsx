@@ -309,6 +309,7 @@ class Quadrant extends React.Component<any,any>  {
 
     datapaneref
 
+    // this is duplicate code in accountdialog.tsx and quadrant.controller.tsx
     callDataDrawer = ({docproxy,options}:DataPaneMessage) => {
         if (this.state.draweropen) {
             // console.log('callDataDrawer:datapaneref',this.datapaneref)

@@ -57,6 +57,7 @@ class AccountDialog extends React.Component<DialogProps,any> {
     constructor(props) {
       super(props)
       this.accountsettingselement = React.createRef() // must be set in constructor to avoid complex type defs
+      this.datapaneref = React.createRef()
       this.setDatapaneMessage()
     }
 
@@ -76,14 +77,36 @@ class AccountDialog extends React.Component<DialogProps,any> {
     private lookupdata:DataPaneMessage
     private helpdata:DataPaneMessage
 
+    private datapaneref
+
+    // this is duplicate code in accountdialog.tsx and quadrant.controller.tsx
     openDrawer = ({docproxy,options}:DataPaneMessage) => {
 
       // console.log('openDrawer in accountdialog:docproxy, options',docproxy, options)
 
         if (this.state.draweropen) {
-            toast.info('The data drawer is in use. Close the drawer and try again.')
+
+            if (this.datapaneref.current.getEditingState()) {
+                toast.info('The data shelf is editing something. Finish, or close the shelf and try again.')
+                return
+            }
+
+            this.setState(() => ({
+                draweropen:false
+            }),() => {
+                setTimeout(() => {
+                    // this.datapanemessage = {docproxy,options, callbacks:{}}
+                    this.setState(() => ({
+                        draweropen:true
+                    }))
+                },250)
+            })
             return
         }
+        // if (this.state.draweropen) {
+        //     toast.info('The data drawer is in use. Close the drawer and try again.')
+        //     return
+        // }
 
         this.drawerdata = {
           docproxy,
@@ -99,7 +122,7 @@ class AccountDialog extends React.Component<DialogProps,any> {
             draweropen:true,
         })
 
-    }
+     }
 
     closeDrawer = () => {
 
@@ -208,6 +231,7 @@ class AccountDialog extends React.Component<DialogProps,any> {
                   >
                     <DataPane 
                       active = {true} 
+                      ref = {this.datapaneref}
                       dataName = 'data-pane' 
                       dataPaneMessage = {this.drawerdata}
                       locked = {this.state.locked}
