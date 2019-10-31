@@ -159,7 +159,7 @@ class IdentityBar extends React.Component<any, any> {
             <div className = { classes.namestyle } >
                 {this.state.item && this.state.item.docpack.document.properties.name}
             </div>
-            {!contextitem && <ActionButton 
+            {(false && !contextitem) && <ActionButton 
                 buttonStyle = {
                     {
                         float:'none',
