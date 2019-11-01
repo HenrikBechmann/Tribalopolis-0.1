@@ -171,7 +171,7 @@ class IdentityBar extends React.Component<any, any> {
                     e.stopPropagation()
                 )}
                 icon = 'crop_portrait' />}
-            {!contextitem && <ActionButton 
+            {(false && !contextitem) && <ActionButton 
                 buttonStyle = {
                     {
                         float:'none',

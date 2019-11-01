@@ -147,14 +147,6 @@ class NavigationMenuTab extends React.Component<any,any> {
                 </div>
                 }
                 <Divider style = {{float:'right',width:'100%'}}/>
-                <div className = {classes.buttonwrapper}>
-                    <ActionButton 
-                        icon = 'arrow_back'
-                        action = {this.props.collapseDirectoryItem}
-                        disabled = {!this.props.liststack.length}
-                    />
-                </div>
-                <Divider style = {{float:'right',width:'100%'}}/>
                 <div className = {classes.buttonwrapper}
                     ref = {this.chat}
                 >
@@ -163,6 +155,16 @@ class NavigationMenuTab extends React.Component<any,any> {
                         icon = 'chat'
                     />
                 </div>
+                {!!this.props.liststack.length && <>
+                <Divider style = {{float:'right',width:'100%'}}/>
+                <div className = {classes.buttonwrapper}>
+                    <ActionButton 
+                        icon = 'arrow_back'
+                        action = {this.props.collapseDirectoryItem}
+                        disabled = {!this.props.liststack.length}
+                    />
+                </div>
+                </>}
             </div>
         )
     } 
