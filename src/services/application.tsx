@@ -28,6 +28,7 @@
 // import deepdiff from 'deep-diff'
 
 import merge from 'deepmerge'
+import { toast } from 'react-toastify'
 import gateway from './gateway'
 import Proxy from '../utilities/docproxy'
 import { 
@@ -45,6 +46,7 @@ import {
     DocPackStruc,
 
     PostFormMessage,
+    GenericObject,
     
 } from './interfaces'
 import docpackCache from './application/docpackcache'
@@ -375,17 +377,18 @@ const application = new class {
     // to be used with basic datapane forms
     public submitDocument = ( parms:PostFormMessage ) => {
 
-        console.log('submitDocument',parms)
+        // console.log('submitDocument',parms)
 
         let { formcontext, success, failure } = parms
 
         let { namespace, documentmap, form } = formcontext
         
         let { docpack, typepack } = namespace
-        let newdocpack:any = merge({},docpack)
+        let newdocpack:GenericObject = merge({},docpack)
 
         let formstate = form.state
 
+        let properties = null, severity = 0, code = null, message = null;
         for (let valueindex in formstate.values) {
 
             let path = documentmap[valueindex].split('.')
@@ -394,30 +397,45 @@ const application = new class {
             let typedoc = typepack.document
 
             if (value === undefined) value = null;
-            let properties = null, severity = 0, code = 0, message = null;
             
             [value, properties, severity, code, message] = verification.verifyOutgoingValue(value, path, typedoc)
 
-            // if (!severity) {
-                let nodespecs = utilities.getNodePosition(newdocpack.document,path)
-                nodespecs && (nodespecs.nodeproperty[nodespecs.nodeindex] = value)
-                // TODO: does lack of nodespecs constitute failure? YES
-            // } else ... call failure and quit
+            if (severity == 2) break;
+
+            if (severity == 1) {
+                toast.warn(message)
+            }
+
+            let nodespecs = utilities.getNodePosition(newdocpack.document,path)
+            nodespecs && (nodespecs.nodeproperty[nodespecs.nodeindex] = value)
+
         } 
 
-        let message = {
-            document:newdocpack.document,
-            reference:docpack.reference,
-            success,
-            failure,
+        if (!severity || (severity == 1)) {
+            let message = {
+                document:newdocpack.document,
+                reference:docpack.reference,
+                success,
+                failure,
+            }
+
+            application.setDocument(message)
+        } else {
+            if (failure) {
+
+                failure(
+                    message,
+                    {reference:docpack.reference,sourcparms:parms}
+                )
+
+            } else {
+
+                throw 'submitDocument failure but no failure callback'
+                console.log('submitDocument failure but no failure callback: parms',parms)
+
+            }
+            // TODO: does lack of nodespecs constitute failure? YES
         }
-
-        application.setDocument(message)
-
-        // TODO: should only be set by success
-        // form.setState({
-        //     dirty:false
-        // })
 
     }
 

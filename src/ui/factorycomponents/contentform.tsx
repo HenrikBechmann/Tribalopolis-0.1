@@ -130,7 +130,7 @@ class ContentForm extends React.Component<ContentFormProps,any> {
     monitorEditState
     instanceid
 
-    fieldsetspecs // defailts to []
+    fieldsetspecs // defaults to []
     groupspecs // defaults to []
 
     // processing properties
@@ -384,8 +384,8 @@ class ContentForm extends React.Component<ContentFormProps,any> {
         return true
     }
 
-    onSubmitFailure = () => {
-        toast.error('document posting has failed')
+    onSubmitFailure = (message, reasom) => {
+        toast.error('document posting has failed: ' + message)
         this.setState({
             isprocessing:false,
         })
