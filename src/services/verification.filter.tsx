@@ -6,6 +6,7 @@
 import firebase from './firebase.api' // only for time handling
 import merge from 'deepmerge'
 import deepdiff from 'deep-diff'
+import { GenericObject } from './interfaces'
 
 import utilities from '../utilities/utilities'
 
@@ -61,28 +62,28 @@ const verification = new class {
 
     }
 
-    private getConstraint = (path, typedoc) => {
-        let constraint
+    private getConstraints = (path, typedoc) => {
+        let constraints
 
         if (!typedoc || !path) {
 
             console.error('no constraint path or typedoc for ',path, typedoc)
 
-            return constraint
+            return constraints
 
         }
 
-        let constraints = typedoc.properties.model.constraints
+        constraints = typedoc.properties.model.constraints
         let typenode = utilities.getNodePosition(constraints,path)
         if (typenode) {
 
-            constraint = typenode.nodevalue
+            constraints = typenode.nodevalue
 
-            console.log('constraint found', constraint)
+            // console.log('constraints found', constraints)
 
         }
 
-        return constraint
+        return constraints
 
     }
 
@@ -123,52 +124,78 @@ const verification = new class {
 
     public verifyOutgoingValue = ( value , path, typedoc ) => {
 
-        let datatype
-        let constraint
-        let code = 0
+        let outgoingvalue
+        let properties:GenericObject = {datatype:null,constraints:null}
+        let code = null
         let severity = 0
         let message = null
         if (!typedoc) {
             console.log('no type provided for outgoing value conversion: value, path, type',value, path, typedoc)
-            return [value,datatype,undefined, undefined, undefined]
+            return [value,properties,undefined, undefined, undefined]
         }
 
-        let datatypes = typedoc.properties.model.datatypes
+        properties.datatype = this.getDatatype(path, typedoc)
 
-        let typenodedata = utilities.getNodePosition(datatypes,path)
+        properties.constraints = this.getConstraints(path, typedoc);
 
-        if (!typenodedata) {
-            console.log('datatype not found for outgoing value, path, type',value, path, typedoc)
-            return [value,datatype,undefined, undefined, undefined]
+        [outgoingvalue, properties, severity, code, message] = this.verifyValueDatatype(value,properties) 
+
+        if (!(severity === 2)) {
+            [outgoingvalue, properties, severity, code, message] = this.verifyValueConstraints(outgoingvalue, properties)
         }
 
-        datatype = typenodedata.nodevalue
+        let retval = [outgoingvalue,properties,severity,code,message]
 
-        constraint = this.getConstraint(path, typedoc)
+        // console.log('result of verifyoutgoingvalue', retval)
 
-        // console.log('originalnode',originalnode)
-        let outgoingvalue = value
-
-        if (datatype == '??timestamp') {
-            try {
-                if (outgoingvalue) {
-                    outgoingvalue =  firebase.firestore.Timestamp.fromDate(outgoingvalue)
-                }
-            } catch (e) { // try to self-heal
-                console.log('unable to convert outgoing timestamp: value, path, type',value, path, typedoc)
-            }
-        }
-
-        return [outgoingvalue,datatype,severity,code,message]
+        return retval
     
     }
 
     private verifyValueDatatype = (value, properties) => {
 
+        let outgoingvalue = value
+        let severity = 0, code = null, message = null
+
+        if (properties.datatype == '??timestamp') {
+            try {
+                if (outgoingvalue) {
+                    outgoingvalue =  firebase.firestore.Timestamp.fromDate(outgoingvalue)
+                }
+            } catch (e) { // try to self-heal
+                severity = 2
+                code = 'e.name'
+                message = 'unable to convert outgoing timestamp'
+                console.log('unable to convert outgoing timestamp: value, properties',value, properties)
+            }
+        }
+
+        return [outgoingvalue, properties, severity, code, message]
+
     }
 
+    // add handlers for all constraints
     private verifyValueConstraints = (value, properties) => {
+        // console.log('in verifyValueConstraints',value, properties)
+        let outgoingvalue = value
+        let severity = 0, code = null, message = null
+        let {constraints} = properties
 
+        if (constraints) {
+            for (let constraint in constraints) {
+                switch (constraint) {
+                    case 'required': {
+                        if (value === null || value === undefined || value === '') {
+                            severity = 2
+                            code = 'required'
+                            message = 'a value is required'
+                        }
+                    }
+                }
+            }
+        }
+
+        return [outgoingvalue,properties,severity,code,message]
     }
     // ----------------------------[ BUILD API ]-----------------------------
 
@@ -221,6 +248,8 @@ const verification = new class {
     }
 
     // ----------------------[ build utilities ]-----------------------------
+
+    // TODO: run checks through standard routines
 
     private processIncomingDatatypes = (diffs, datadocument, originaldocument) => {
 
