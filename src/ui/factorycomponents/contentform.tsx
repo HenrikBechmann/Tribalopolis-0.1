@@ -122,6 +122,7 @@ class ContentForm extends React.Component<ContentFormProps,any> {
         isediting:false,
         isprocessing:false,
         locked:false,
+        errorstates:{},
     }
 
     // instantiation properties
@@ -172,11 +173,16 @@ class ContentForm extends React.Component<ContentFormProps,any> {
         // console.log('fieldsetchildren',this.fieldsetchildren)
 
         let editablevalues = this.integrateChildren(this.props.children)
+        let errorstates = this.state.errorstates
+        for (let name in editablevalues) {
+            errorstates[name] = false
+        }
 
         this.originaleditablevalues = Object.assign({},editablevalues)
         // initialize state
         this.setState({
             values:editablevalues,
+            errorstates,
         })
 
     }
@@ -384,10 +390,19 @@ class ContentForm extends React.Component<ContentFormProps,any> {
         return true
     }
 
-    onSubmitFailure = (message, reasom) => {
+    onSubmitFailure = (message, reason) => {
+        let {results} = reason
+        let index
+        let errorstates = this.state.errorstates
+        if (results) {
+            index = results.index
+        }
+        index && (errorstates[index] = true)
+        // console.log('postingfailure: message, reason, errorstates', message, reason, errorstates)
         toast.error('document posting has failed: ' + message)
         this.setState({
             isprocessing:false,
+            errorstates,
         })
         return false
     }
@@ -406,7 +421,12 @@ class ContentForm extends React.Component<ContentFormProps,any> {
         let namespace = this.localnamespace
 
         if (this.state.dirty) {
+            let errorstates = this.state.errorstates
+            for (let index in errorstates) {
+                errorstates[index] = false
+            }
             this.setState({
+                errorstates,
                 isprocessing:true,
             })
             try { // ... try = lazy :-(

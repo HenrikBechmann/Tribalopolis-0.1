@@ -388,12 +388,13 @@ const application = new class {
 
         let formstate = form.state
 
-        let properties = null, severity = 0, code = null, message = null;
-        for (let valueindex in formstate.values) {
+        let properties = null, severity = 0, code = null, message = null, index = null, value;
+        for ( index in formstate.values) {
 
-            let path = documentmap[valueindex].split('.')
+            value = formstate.values[index]
 
-            let value = formstate.values[valueindex]
+            let path = documentmap[index].split('.')
+
             let typedoc = typepack.document
 
             if (value === undefined) value = null;
@@ -425,7 +426,13 @@ const application = new class {
 
                 failure(
                     message,
-                    {reference:docpack.reference,sourcparms:parms}
+                    {
+                        reference:docpack.reference,
+                        sourcparms:parms,
+                        results:{
+                            value,properties,severity,code,message,index
+                        }
+                    }
                 )
 
             } else {

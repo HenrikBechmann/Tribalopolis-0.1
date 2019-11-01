@@ -12,13 +12,15 @@ import utilities from '../utilities/utilities'
 
 const verification = new class {
 
+    // --------------------------[ incoming ]---------------------------
+
     public filterIncomingValue = ( value, path, typedoc ) => {
 
         if (!typedoc) return [value,undefined,undefined,undefined,undefined]
 
         let returnvalue
-        let properties:any = {datatype:undefined}
-        let code = 0, severity = 0, message = null
+        let properties:any = {datatype:undefined, path,}
+        let code = null, severity = 0, message = null
 
         try {
 
@@ -38,6 +40,122 @@ const verification = new class {
         return [ returnvalue, properties, severity, code, message ]
 
     }
+
+    private filterValueDatatype = (value, properties) => {
+        let { datatype } = properties
+
+        if (!datatype) return [value, properties, undefined, undefined, undefined]
+
+        let returnvalue
+        let severity = 0, code = null, message = null
+
+        if (datatype == '??timestamp') {
+
+            try {
+
+                returnvalue =  value.toDate()
+
+            } catch (e) { // try to self-heal
+                returnvalue = value // try to convert to date through new Timestamp
+                if (returnvalue.seconds !== undefined && returnvalue.nanoseconds !== undefined) {
+                    returnvalue = new firebase.firestore.Timestamp(returnvalue.seconds, returnvalue.nanoseconds)
+                    returnvalue = returnvalue.toDate()
+                } else {
+                    severity = 2
+                    code = e.name
+                    message = e.message
+                }
+            }
+
+        } else {
+
+            returnvalue = value
+            
+        }
+
+        return [returnvalue, properties, severity, code, message]
+
+    }
+
+    // ----------------------[ outgoing ]-------------------
+
+    public verifyOutgoingValue = ( value , path, typedoc ) => {
+
+        let outgoingvalue
+        let properties:GenericObject = {datatype:null,constraints:null,path,}
+        let code = null
+        let severity = 0
+        let message = null
+
+        if (!typedoc) {
+            console.log('no type provided for outgoing value conversion: value, path, type',value, path, typedoc)
+            return [value,properties,undefined, undefined, undefined]
+        }
+
+        properties.datatype = this.getDatatype(path, typedoc)
+
+        properties.constraints = this.getConstraints(path, typedoc);
+
+        [outgoingvalue, properties, severity, code, message] = this.verifyValueDatatype(value,properties) 
+
+        if (!(severity === 2)) {
+            [outgoingvalue, properties, severity, code, message] = this.verifyValueConstraints(outgoingvalue, properties)
+        }
+
+        let retval = [outgoingvalue,properties,severity,code,message]
+
+        return retval
+    
+    }
+
+    private verifyValueDatatype = (value, properties) => {
+
+        let outgoingvalue = value
+        let severity = 0, code = null, message = null
+
+        if (properties.datatype == '??timestamp') {
+            try {
+                if (outgoingvalue) {
+                    outgoingvalue =  firebase.firestore.Timestamp.fromDate(outgoingvalue)
+                }
+            } catch (e) { // try to self-heal
+                severity = 2
+                code = 'e.name'
+                message = 'unable to convert outgoing timestamp'
+                console.log('unable to convert outgoing timestamp: value, properties',value, properties)
+            }
+        }
+
+        return [outgoingvalue, properties, severity, code, message]
+
+    }
+
+    // TODO: add handlers for all constraints
+    private verifyValueConstraints = (value, properties) => {
+
+        let outgoingvalue = value
+        let severity = 0, code = null, message = null
+        let {constraints} = properties
+
+        if (constraints) {
+            for (let constraint in constraints) {
+                switch (constraint) {
+                    case 'required': {
+                        if (value === null || value === undefined || value.trim() === '') {
+                            severity = 2
+                            code = 'required'
+                            message = 'a value is required'
+                        }
+                    }
+                }
+            }
+        }
+
+        return [outgoingvalue,properties,severity,code,message]
+
+    }
+
+    // -----------------------------[ utilities ]----------------------------
 
     private getDatatype = (path, typedoc) => {
         let datatype
@@ -79,124 +197,12 @@ const verification = new class {
 
             constraints = typenode.nodevalue
 
-            // console.log('constraints found', constraints)
-
         }
 
         return constraints
 
     }
 
-    private filterValueDatatype = (value, properties) => {
-        let { datatype } = properties
-        if (!datatype) return [value, properties, undefined, undefined, undefined]
-
-        let returnvalue
-        let severity = 0, code = 0, message = null
-
-        if (datatype == '??timestamp') {
-
-            try {
-
-                returnvalue =  value.toDate()
-
-            } catch (e) { // try to self-heal
-                returnvalue = value // try to convert to date through new Timestamp
-                if (returnvalue.seconds !== undefined && returnvalue.nanoseconds !== undefined) {
-                    returnvalue = new firebase.firestore.Timestamp(returnvalue.seconds, returnvalue.nanoseconds)
-                    returnvalue = returnvalue.toDate()
-                } else {
-                    severity = 2
-                    code = e.name
-                    message = e.message
-                }
-            }
-
-        } else {
-
-            returnvalue = value
-            
-        }
-
-        return [returnvalue, properties, severity, code, message]
-
-    }
-
-    public verifyOutgoingValue = ( value , path, typedoc ) => {
-
-        let outgoingvalue
-        let properties:GenericObject = {datatype:null,constraints:null}
-        let code = null
-        let severity = 0
-        let message = null
-        if (!typedoc) {
-            console.log('no type provided for outgoing value conversion: value, path, type',value, path, typedoc)
-            return [value,properties,undefined, undefined, undefined]
-        }
-
-        properties.datatype = this.getDatatype(path, typedoc)
-
-        properties.constraints = this.getConstraints(path, typedoc);
-
-        [outgoingvalue, properties, severity, code, message] = this.verifyValueDatatype(value,properties) 
-
-        if (!(severity === 2)) {
-            [outgoingvalue, properties, severity, code, message] = this.verifyValueConstraints(outgoingvalue, properties)
-        }
-
-        let retval = [outgoingvalue,properties,severity,code,message]
-
-        // console.log('result of verifyoutgoingvalue', retval)
-
-        return retval
-    
-    }
-
-    private verifyValueDatatype = (value, properties) => {
-
-        let outgoingvalue = value
-        let severity = 0, code = null, message = null
-
-        if (properties.datatype == '??timestamp') {
-            try {
-                if (outgoingvalue) {
-                    outgoingvalue =  firebase.firestore.Timestamp.fromDate(outgoingvalue)
-                }
-            } catch (e) { // try to self-heal
-                severity = 2
-                code = 'e.name'
-                message = 'unable to convert outgoing timestamp'
-                console.log('unable to convert outgoing timestamp: value, properties',value, properties)
-            }
-        }
-
-        return [outgoingvalue, properties, severity, code, message]
-
-    }
-
-    // add handlers for all constraints
-    private verifyValueConstraints = (value, properties) => {
-        // console.log('in verifyValueConstraints',value, properties)
-        let outgoingvalue = value
-        let severity = 0, code = null, message = null
-        let {constraints} = properties
-
-        if (constraints) {
-            for (let constraint in constraints) {
-                switch (constraint) {
-                    case 'required': {
-                        if (value === null || value === undefined || value === '') {
-                            severity = 2
-                            code = 'required'
-                            message = 'a value is required'
-                        }
-                    }
-                }
-            }
-        }
-
-        return [outgoingvalue,properties,severity,code,message]
-    }
     // ----------------------------[ BUILD API ]-----------------------------
 
     public filterIncomingDocpackDatatypes = ( docpack, typepack ) => {

@@ -32,6 +32,7 @@ interface TextFieldInterface {
    onChange?:any, 
    rows?:number,
    inputProps:GenericObject,
+   error?:boolean,
 }
 
 const ContentTextField = (props:TextFieldInterface) => {
@@ -47,12 +48,14 @@ const ContentTextField = (props:TextFieldInterface) => {
       rows, 
       onChange,
       inputProps,
+      error,
     } = props
 
     let marginval = margin?margin:'normal'
     // console.log('contentTextField:props',props)
     return (
         <TextField
+          error = {error}
           id = { name + '-id' }
           name = { name }
           label = { label }
