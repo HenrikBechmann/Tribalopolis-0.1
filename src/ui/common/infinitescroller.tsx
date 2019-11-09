@@ -11,15 +11,24 @@ viewport
 scrollblock
 cradle (for data)
 
+allow a position bar at bottom -- scrolling stops (and cradle fades) while 
+position bar value is being changed. Position bar gives feedback on location (configureable)
+
 change key for updates
+
+rubber finish at either end for visual clue
 
 attributes
     direction = horizontal|vertical
-    type = identical|variable|grid
-    getdefaultsize
+    type = identical|variable|grid|masonry
+    // defaultsize
     getnewelement
     length (length of dataset)
     generation (to trigger updates)
+    placeholder (over-rides defaultsize)
+    runwaylength
+    runwayelements
+    guttersize
 */
 
 const Viewport = (props) => {
