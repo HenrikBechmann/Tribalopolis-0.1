@@ -10,6 +10,16 @@ use flex
 viewport
 scrollblock
 cradle (for data)
+
+change key for updates
+
+attributes
+    direction = horizontal|vertical
+    type = identical|variable|grid
+    getdefaultsize
+    getnewelement
+    length (length of dataset)
+    generation (to trigger updates)
 */
 
 const Viewport = (props) => {
