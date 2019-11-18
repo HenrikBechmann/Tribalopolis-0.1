@@ -5,10 +5,10 @@
 
 import React from 'react'
 
-import utlities from '../../utilities/utilities'
-
 import { withStyles, createStyles } from '@material-ui/core/styles'
 import Button from '@material-ui/core/Button'
+import moment from 'moment'
+import { toast } from 'react-toastify'
 
 import { 
     PostFormMessage,
@@ -20,7 +20,6 @@ import application from '../../services/application'
 import ContentGroup from './contentgroup'
 import utilities from '../../utilities/utilities'
 
-import { toast } from 'react-toastify'
 
 /*
     This is created in componentFactory based on data in type ui json
@@ -205,6 +204,7 @@ class ContentForm extends React.Component<ContentFormProps,any> {
         // get list of editable values, by name of field (therefore names must be unique)
         for (let child of children) {
             let attributes = child.props && child.props['data-attributes']
+            // console.log('integrateChildren', attributes)
             if (attributes && attributes.setup) {
                 let setup = attributes.setup
                 let instructions = setup.instructions
@@ -216,7 +216,10 @@ class ContentForm extends React.Component<ContentFormProps,any> {
                 }
                 child = this.integrateNode(child, setup)
             }
-
+            if (attributes && attributes.formats) {
+                let formats = attributes.formats
+                child = this.formatNode(child, formats)
+            }
             this.assignNodeToFieldset(child, attributes)
 
         }
@@ -224,6 +227,36 @@ class ContentForm extends React.Component<ContentFormProps,any> {
         // editablevalues = return set of fields for assignment to this.state
         return editablevalues
     }
+
+
+    formatNode = (node, formats) => {
+        // console.log('entering formatNode',node, formats)
+        let localnode = node
+        let { props } = node
+        for (let property in formats) {
+            let value = props[property]
+            if ((value === null) || (value === undefined)) {
+                continue
+            }
+            let formatdata = formats[property]
+            let formatfunction = formatdata.splice(0,1)[0]
+            let updated = false
+            switch (formatfunction) {
+                case 'date': {
+                    value = moment(value).format(formatdata[0])
+                    updated = true
+                }
+            }
+
+            if (updated) {
+                let newprops = {[property]:value}
+                localnode = React.cloneElement(localnode,newprops)
+            }
+        }
+
+        return localnode
+    }
+
     // add onChange event handler to editable nodes
     integrateNode = (node,setup) => {
         let localnode = node

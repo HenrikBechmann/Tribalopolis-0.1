@@ -294,20 +294,7 @@ class ComponentFactory {
                         value, properties, severity, code, message
                     )
                 }
-
-                // format returned value
-                if (value && (properties.datatype == '??timestamp')) {
-
-                    let format = attributes && attributes.formats && attributes.formats.timestamp
-                    if (!format) {
-
-                        format = application.systemdata.parameters.properties.dateformat
-
-                    }
-
-                    format && (value = moment(value).format(format))
-
-                }
+                
             }
 
             return value
