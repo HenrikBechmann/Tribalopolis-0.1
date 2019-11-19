@@ -84,8 +84,6 @@ class AccountDialog extends React.Component<DialogProps,any> {
     // this is duplicate code in accountdialog.tsx and quadrant.controller.tsx
     openDrawer = ({docproxy,options}:DataPaneMessage) => {
 
-      // console.log('openDrawer in accountdialog:docproxy, options',docproxy, options)
-
         if (this.state.draweropen) {
 
             if (this.datapaneref.current.getEditingState()) {
@@ -105,17 +103,11 @@ class AccountDialog extends React.Component<DialogProps,any> {
             })
             return
         }
-        // if (this.state.draweropen) {
-        //     toast.info('The data drawer is in use. Close the drawer and try again.')
-        //     return
-        // }
 
         this.drawerdata = {
           docproxy,
           options,
           callbacks:{
-              // close:this.props.closeSettings,
-              // manage:this.openDrawer,
               submit:application.submitDocument,
           },
         }
@@ -145,9 +137,6 @@ class AccountDialog extends React.Component<DialogProps,any> {
           docproxy,
           options,
           callbacks:{
-              // close:this.props.closeSettings,
-              // manage:this.openDrawer,
-              // submit:application.submitDocument,
           },
         }
 

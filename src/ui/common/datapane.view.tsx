@@ -70,6 +70,10 @@ class DataPane extends React.Component<DataPaneProps,any>  {
 
     childformsEditingstatus = {}
 
+    calldowns:GenericObject = {}
+
+    editstates:GenericObject = {}
+
     componentDidMount() {
 
         this.assertTargetListener()
@@ -108,17 +112,9 @@ class DataPane extends React.Component<DataPaneProps,any>  {
         this.removeListeners()
         this.docProxy = undefined
         this.childformsEditingstatus = {}
-        // this.setState({
-        //     factorycomponent:null,
-        // })
         this.factorycomponent = null
         this.forceUpdate()
     }
-
-   // registerGetEditingState = ({getEditingState, instanceid}) => {
-   //     console.log('registerGetEditingState',instanceid)
-   //     this.childformsEditingstatus[instanceid] = getEditingState
-   // }
 
     assertTargetListener = () => {
 
@@ -155,21 +151,14 @@ class DataPane extends React.Component<DataPaneProps,any>  {
         // console.log('calldowns in datapane',calldowns, this.calldowns)
     }
 
-    calldowns:GenericObject = {}
-
     monitorEditState = (instanceid, isediting) => {
         this.editstates[instanceid] = isediting
-        // this.setState((state) => {
-        //     return {locked:isediting}
-        // }, () => {
-            for (let index in this.calldowns) {
-                this.calldowns[index].setLocked(isediting)
-            }
-            // console.log('monitorEditState editstates, state',this.editstates, this.state)
-        // })
-    }
 
-    editstates:GenericObject = {}
+        for (let index in this.calldowns) {
+            this.calldowns[index].setLockStatus(isediting)
+        }
+
+    }
 
     // obtain a ComponentFactory component
     successAssertListener = (parmblock:DocpackPairPayloadMessage) => {
@@ -219,13 +208,7 @@ class DataPane extends React.Component<DataPaneProps,any>  {
             this.componentfactory.assembleFactoryMessage(namespace)
 
         this.factorycomponent = this.componentfactory.createUISelection(factorymessage)
-        // console.log('factorycomponent', factorycomponent)
 
-        // this.setState({
-
-        //     factorycomponent,
-
-        // })
         this.forceUpdate()
 
     }

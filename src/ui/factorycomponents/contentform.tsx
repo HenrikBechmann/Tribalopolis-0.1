@@ -94,7 +94,7 @@ class ContentForm extends React.Component<ContentFormProps,any> {
             {
                 getEditingState:this.getEditingState, 
                 getPostMessage:this.getPostMessage,
-                setLocked:this.setLocked,
+                setLockStatus:this.setLockStatus,
                 instanceid:localnamespace.docproxy.instanceid,
             }
         )
@@ -153,7 +153,7 @@ class ContentForm extends React.Component<ContentFormProps,any> {
         this.initialize()
     }
 
-    setLocked = (locked) => {
+    setLockStatus = (locked) => {
         // console.log('setting locked in form',this.localnamespace)
         if (this.ismounted) {
             this.setState({
