@@ -35,6 +35,7 @@ const styles = createStyles({
         display:'flex',
         flexFlow:'column nowrap', 
         height:'100%',
+        width:'100%',
     },
     datapaneoffset:{
         height:'65px',
@@ -42,6 +43,7 @@ const styles = createStyles({
     datapanewrapper:{
         position:'relative',
         flex:1,
+        overflow:'hidden',
     },
 })
 
@@ -194,6 +196,7 @@ class AccountDialog extends React.Component<DialogProps,any> {
           onClose={this.props.closeSettings}
         >
           <div className = {classes.dialogliner}
+              data-name = "dialogliner"
               style = {{fontFamily:application.fontFamily}}
           >
               <AppBar>
@@ -211,6 +214,7 @@ class AccountDialog extends React.Component<DialogProps,any> {
               </AppBar>
               <div className = {classes.datapaneoffset}></div>
               <div className = {classes.datapanewrapper}
+                data-name = "datapanewrapper"
                 ref = {this.accountsettingselement}
               >
                   <HelpDrawer dataName = 'lookup-drawer' open = {this.state.helpopen}
