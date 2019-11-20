@@ -68,7 +68,7 @@ class AccountDialog extends React.Component<DialogProps,any> {
         draweropen:false,
         lookupopen:false,
         helpopen:false,
-        locked:false,
+        suspended:false,
     }
 
     private paneProxy:docproxy = null
@@ -227,14 +227,14 @@ class AccountDialog extends React.Component<DialogProps,any> {
                       ref = {this.datapaneref}
                       dataName = 'data-pane' 
                       dataPaneMessage = {this.drawerdata}
-                      locked = {this.state.locked}
+                      suspended = {this.state.suspended}
                     />
                   </DataDrawer>
                   <DataPane 
                     active = {true} 
                     dataName = 'data-pane' 
                     dataPaneMessage = {this.maindatapanemessage}
-                    locked = {this.state.locked}
+                    suspended = {this.state.suspended}
                   />
               </div>
           </div>

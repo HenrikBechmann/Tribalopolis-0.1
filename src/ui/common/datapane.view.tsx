@@ -50,7 +50,7 @@ interface DataPaneProps {
     classes:GenericObject, // provided by withStyles in export statement
     dataName:string,
     ref?:any,
-    locked?:boolean,
+    suspended?:boolean,
     active:boolean,
 }
 
@@ -58,7 +58,7 @@ class DataPane extends React.Component<DataPaneProps,any>  {
 
     state = {
         // factorycomponent:null,
-        // locked:false,
+        // suspended:false,
     }
 
     factorycomponent
@@ -155,7 +155,7 @@ class DataPane extends React.Component<DataPaneProps,any>  {
         this.editstates[instanceid] = isediting
 
         for (let index in this.calldowns) {
-            this.calldowns[index].setLockStatus(isediting)
+            this.calldowns[index].setSuspenseStatus(isediting)
         }
 
     }
@@ -182,7 +182,7 @@ class DataPane extends React.Component<DataPaneProps,any>  {
         let agentdata:AgentData = {
             callbacks:agentcallbacks,
             registerCalldowns:this.registerCalldowns,
-            // locked:this.state.locked,
+            // suspended:this.state.suspended,
         }
 
         // reformat for componentfactory

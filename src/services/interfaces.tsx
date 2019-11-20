@@ -150,7 +150,7 @@ export interface ControllerData {
 export interface AgentData {
     callbacks:GenericCallbacks,
     registerCalldowns:Function,
-    // locked:boolean,
+    // suspended:boolean,
 }
 
 // local
