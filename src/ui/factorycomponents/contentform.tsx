@@ -111,8 +111,6 @@ class ContentForm extends React.Component<ContentFormProps,any> {
 
         this.monitorEditState = monitorEditState
 
-        // this.formref = React.createRef()
-
     }
 
     state = {
