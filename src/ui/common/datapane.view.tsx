@@ -58,7 +58,7 @@ class DataPane extends React.Component<DataPaneProps,any>  {
 
     state = {
         // factorycomponent:null,
-        // suspended:false,
+        suspended:false,
     }
 
     factorycomponent

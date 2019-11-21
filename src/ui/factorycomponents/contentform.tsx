@@ -69,9 +69,14 @@ class ContentForm extends React.Component<ContentFormProps,any> {
         super(props)
 
         // console.log('ContentForm:props',this.props)
+        this.initializeComponent()
+
+    }
+
+    initializeComponent = () => {
 
         // initialize instance values
-        let { namespace, documentmap, fieldsets, groups }:{namespace:FactoryNamespace,documentmap:any,fieldsets:any,groups:any} = props
+        let { namespace, documentmap, fieldsets, groups }:{namespace:FactoryNamespace,documentmap:any,fieldsets:any,groups:any} = this.props
 
         let localnamespace = namespace && Object.assign({},namespace)
         if (localnamespace) {
