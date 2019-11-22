@@ -151,6 +151,7 @@ class DataPane extends React.Component<DataPaneProps,any>  {
         // console.log('calldowns in datapane',calldowns, this.calldowns)
     }
 
+    // TODO: use setState suspended instead
     monitorEditState = (instanceid, isediting) => {
         this.editstates[instanceid] = isediting
 

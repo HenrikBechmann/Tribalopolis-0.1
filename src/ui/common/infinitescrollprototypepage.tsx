@@ -20,16 +20,16 @@ change key for updates
 rubber finish at either end for visual clue
 
 attributes
-    direction = horizontal|vertical
-    type = identical|variable|grid|masonry
+    pattern = fixed|variable|grid|masonry
+    direction = horizontal|vertical|any
     // defaultsize
     getnewelement
-    length (length of dataset)
-    generation (to trigger updates)
+    size (size of dataset)
+    offset 
+    generation?? (to trigger updates)
     placeholder (over-rides defaultsize)
     runwaylength
     runwayelements
-    guttersize
 */
 
 const Viewport = (props) => {
@@ -44,7 +44,7 @@ const Viewport = (props) => {
 }
 
 const Scrollblock = (props) => {
-    let {length, offset, dimensions, type } = props
+    let {size, offset, dimensions, pattern, direction } = props
     /*
         calculate styles
     */
@@ -52,7 +52,7 @@ const Scrollblock = (props) => {
 }
 
 const Cradle = (props) => {
-    let { runway, length, offset, dimensions, type, getItem, childlist, placeholders } = props
+    let { runway, size, offset, dimensions, pattern, direction, getItem, placeholders } = props
     /*
         calculate behaviour
     */
@@ -61,38 +61,37 @@ const Cradle = (props) => {
 
 /*
 
-    dimensions has length, width, and gutter
+    dimensions has height, width, and gutter
     gutter on the left
 
 */
 
 const Scroller = (props) => {
-    let { childlist, runway, length, offset, dimensions, type, getItem, placeholders } = props
+    let { runway, size, offset, dimensions, pattern, direction, getItem, placeholders } = props
 
     return <Viewport>
 
         <Scrollblock
 
-            length = { length }
+            size = { size }
             offset = { offset }
             dimensions = { dimensions }
-            type = { type }
+            pattern = { pattern }
+            direction = { direction }
 
         >
 
             <Cradle 
 
-                runway = { runway } 
-
-                length = { length }
+                size = { size }
                 offset = { offset }
                 dimensions = { dimensions }
-                type = { type }
+                pattern = { pattern }
+                direction = { direction }
 
-                getItem = { getItem }
-                childlist = { childlist }
-
+                runway = { runway } 
                 placeholders = { placeholders }
+                getItem = { getItem }
 
             />
 
