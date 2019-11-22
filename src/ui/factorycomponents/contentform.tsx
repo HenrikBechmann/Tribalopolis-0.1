@@ -99,7 +99,6 @@ class ContentForm extends React.Component<ContentFormProps,any> {
             {
                 getEditingState:this.getEditingState, 
                 getPostMessage:this.getPostMessage,
-                setSuspenseStatus:this.setSuspenseStatus,
                 instanceid:localnamespace.docproxy.instanceid,
             }
         )
@@ -154,17 +153,6 @@ class ContentForm extends React.Component<ContentFormProps,any> {
         // preprocess fieldsets
         this.ismounted = true
         this.initialize()
-    }
-
-    setSuspenseStatus = (suspended) => {
-        // console.log('setting suspended in form',this.localnamespace)
-        if (this.ismounted) {
-            this.setState({
-                suspended,
-            }) 
-        } else {
-            this.state.suspended = suspended
-        }
     }
 
     initialize = () => {
