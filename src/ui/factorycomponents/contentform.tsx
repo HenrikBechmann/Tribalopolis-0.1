@@ -19,7 +19,7 @@ import {
 import application from '../../services/application'
 import ContentGroup from './contentgroup'
 import utilities from '../../utilities/utilities'
-
+import FormControlContext from '../../services/formcontrol.context'
 
 /*
     This is created in componentFactory based on data in type ui json
@@ -500,6 +500,8 @@ class ContentForm extends React.Component<ContentFormProps,any> {
     }
 
 }
+
+ContentForm.contextType = FormControlContext
 
 export default withStyles( styles )( ContentForm )
 // export default ContentForm

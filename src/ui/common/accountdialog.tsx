@@ -23,6 +23,7 @@ import DataPane from './datapane.view'
 import DataDrawer from './datadrawer.view'
 import LookupDrawer from './lookupdrawer.view'
 import HelpDrawer from './helpdrawer.view'
+import FormControlContext from '../../services/formcontrol.context'
 
 const styles = createStyles({
     appBar: {
@@ -68,7 +69,7 @@ class AccountDialog extends React.Component<DialogProps,any> {
         draweropen:false,
         lookupopen:false,
         helpopen:false,
-        suspended:false,
+        suspended:true,
     }
 
     private paneProxy:docproxy = null
@@ -206,6 +207,7 @@ class AccountDialog extends React.Component<DialogProps,any> {
                 data-name = "datapanewrapper"
                 ref = {this.accountsettingselement}
               >
+                  <FormControlContext.Provider value = {{suspended:this.state.suspended}}>
                   <HelpDrawer dataName = 'lookup-drawer' open = {this.state.helpopen}
                       handleClose = {this.closeDrawer}
                       containerelement = {this.accountsettingselement}
@@ -227,15 +229,14 @@ class AccountDialog extends React.Component<DialogProps,any> {
                       ref = {this.datapaneref}
                       dataName = 'data-pane' 
                       dataPaneMessage = {this.drawerdata}
-                      suspended = {this.state.suspended}
                     />
                   </DataDrawer>
                   <DataPane 
                     active = {true} 
                     dataName = 'data-pane' 
                     dataPaneMessage = {this.maindatapanemessage}
-                    suspended = {this.state.suspended}
                   />
+                  </FormControlContext.Provider>
               </div>
           </div>
          </Dialog>

@@ -50,7 +50,7 @@ interface DataPaneProps {
     classes:GenericObject, // provided by withStyles in export statement
     dataName:string,
     ref?:any,
-    suspended?:boolean,
+    // suspended?:boolean,
     active:boolean,
 }
 
@@ -58,7 +58,7 @@ class DataPane extends React.Component<DataPaneProps,any>  {
 
     state = {
         // factorycomponent:null,
-        suspended:false,
+        // suspended:false,
     }
 
     factorycomponent
