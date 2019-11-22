@@ -93,7 +93,7 @@ class ContentForm extends React.Component<ContentFormProps,any> {
         this.groupspecs = groups || []
 
         let registerCalldowns = localnamespace && localnamespace.agent.registerCalldowns
-        let monitorEditState = localnamespace && localnamespace.agent.callbacks.monitorEditState
+        let monitorEditState = localnamespace && localnamespace.controller.callbacks.monitorEditState
         // to participate in multiple concurrent postings (transaction wrapped)
         registerCalldowns && registerCalldowns(
             {
@@ -105,7 +105,7 @@ class ContentForm extends React.Component<ContentFormProps,any> {
         )
 
         let instanceid = this.instanceid = localnamespace && localnamespace.docproxy.instanceid
-        monitorEditState && monitorEditState(instanceid,this.state.isediting)
+        monitorEditState && monitorEditState(this.state.isediting)
         
         // anticipate posting as an option for caller
         this.formcontext = {
@@ -333,7 +333,7 @@ class ContentForm extends React.Component<ContentFormProps,any> {
                 isediting:!state.isediting
             }
         }, () => {
-            this.monitorEditState(this.instanceid,this.state.isediting)
+            this.monitorEditState(this.state.isediting)
         })
     }
 

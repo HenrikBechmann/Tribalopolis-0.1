@@ -50,7 +50,6 @@ interface DataPaneProps {
     classes:GenericObject, // provided by withStyles in export statement
     dataName:string,
     ref?:any,
-    // suspended?:boolean,
     active:boolean,
 }
 
@@ -58,7 +57,6 @@ class DataPane extends React.Component<DataPaneProps,any>  {
 
     state = {
         // factorycomponent:null,
-        // suspended:false,
     }
 
     factorycomponent
@@ -151,16 +149,6 @@ class DataPane extends React.Component<DataPaneProps,any>  {
         // console.log('calldowns in datapane',calldowns, this.calldowns)
     }
 
-    // TODO: use setState suspended instead
-    monitorEditState = (instanceid, isediting) => {
-        this.editstates[instanceid] = isediting
-
-        for (let index in this.calldowns) {
-            this.calldowns[index].setSuspenseStatus(isediting)
-        }
-
-    }
-
     // obtain a ComponentFactory component
     successAssertListener = (parmblock:DocpackPairPayloadMessage) => {
 
@@ -177,13 +165,12 @@ class DataPane extends React.Component<DataPaneProps,any>  {
         }
 
         let agentcallbacks = {
-            monitorEditState:this.monitorEditState
+            // monitorEditState:this.monitorEditState
         }
 
         let agentdata:AgentData = {
             callbacks:agentcallbacks,
             registerCalldowns:this.registerCalldowns,
-            // suspended:this.state.suspended,
         }
 
         // reformat for componentfactory

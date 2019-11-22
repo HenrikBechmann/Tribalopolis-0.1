@@ -69,7 +69,7 @@ class AccountDialog extends React.Component<DialogProps,any> {
         draweropen:false,
         lookupopen:false,
         helpopen:false,
-        suspended:true,
+        formcontrol:{suspended:false},
     }
 
     private paneProxy:docproxy = null
@@ -155,6 +155,16 @@ class AccountDialog extends React.Component<DialogProps,any> {
 
     }
 
+    monitorEditState = (isediting) => {
+
+      let formcontrol = Object.assign({},this.state.formcontrol)
+      formcontrol.suspended = isediting
+      this.setState({
+        formcontrol,
+      })
+
+    }
+
     // the configuration data required for ui presentation (DataPane)
     setDatapaneMessage = () => {
 
@@ -171,6 +181,7 @@ class AccountDialog extends React.Component<DialogProps,any> {
                     close:this.props.closeSettings,
                     manage:this.openDrawer,
                     submit:application.submitDocument,
+                    monitorEditState:this.monitorEditState
                 },
             }
         }
@@ -207,7 +218,7 @@ class AccountDialog extends React.Component<DialogProps,any> {
                 data-name = "datapanewrapper"
                 ref = {this.accountsettingselement}
               >
-                  <FormControlContext.Provider value = {{suspended:this.state.suspended}}>
+                  <FormControlContext.Provider value = {this.state.formcontrol}>
                   <HelpDrawer dataName = 'lookup-drawer' open = {this.state.helpopen}
                       handleClose = {this.closeDrawer}
                       containerelement = {this.accountsettingselement}
