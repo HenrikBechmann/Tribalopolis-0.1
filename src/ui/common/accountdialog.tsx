@@ -157,6 +157,8 @@ class AccountDialog extends React.Component<DialogProps,any> {
 
     monitorEditState = (isediting) => {
 
+      if (this.state.formcontrol.suspended == isediting) return
+
       let formcontrol = Object.assign({},this.state.formcontrol)
       formcontrol.suspended = isediting
       this.setState({
