@@ -145,22 +145,19 @@ class ContentForm extends React.Component<ContentFormProps,any> {
 
     originaleditablevalues
 
-    ismounted
-
     // ---------------------------------[ preparation ]--------------------------
 
     componentDidMount() {
         // preprocess fieldsets
-        this.ismounted = true
-        this.initialize()
+        this.initializeData()
+
     }
 
-    initialize = () => {
+    initializeData = () => {
 
         for (let fieldset of this.fieldsetspecs) {
             this.fieldsetchildren[fieldset.name] = []
         }
-        // console.log('fieldsetchildren',this.fieldsetchildren)
 
         let editablevalues = this.integrateChildren(this.props.children)
         let errorstates = this.state.errorstates
@@ -169,10 +166,12 @@ class ContentForm extends React.Component<ContentFormProps,any> {
         }
 
         this.originaleditablevalues = Object.assign({},editablevalues)
-        // initialize state
+
         this.setState({
+
             values:editablevalues,
             errorstates,
+
         })
 
     }
@@ -195,7 +194,7 @@ class ContentForm extends React.Component<ContentFormProps,any> {
         // get list of editable values, by name of field (therefore names must be unique)
         for (let child of children) {
             let attributes = child.props && child.props['data-attributes']
-            // console.log('integrateChildren', attributes)
+
             if (attributes && attributes.setup) {
                 let setup = attributes.setup
                 let instructions = setup.instructions
@@ -217,11 +216,12 @@ class ContentForm extends React.Component<ContentFormProps,any> {
 
         // editablevalues = return set of fields for assignment to this.state
         return editablevalues
+
     }
 
 
     formatNode = (node, formats) => {
-        // console.log('entering formatNode',node, formats)
+
         let localnode = node
         let { props } = node
         for (let property in formats) {
@@ -246,10 +246,12 @@ class ContentForm extends React.Component<ContentFormProps,any> {
         }
 
         return localnode
+
     }
 
     // add onChange event handler to editable nodes
     integrateNode = (node,setup) => {
+
         let localnode = node
         let instructions = setup.instructions
         if (instructions) {
@@ -299,6 +301,7 @@ class ContentForm extends React.Component<ContentFormProps,any> {
     }
 
     resetValues = () => {
+
         if (!this.state.dirty) {
             toast.info('no values were changed, so none were reset')
         } else {
@@ -312,31 +315,45 @@ class ContentForm extends React.Component<ContentFormProps,any> {
             })
             toast.info('changed values have been reset')
         }
+
         this.toggleEditMode()
+
     }
 
     toggleEditMode = () => {
+
         this.setState((state) => {
+
             return {
                 isediting:!state.isediting
             }
+
         }, () => {
+
             this.monitorEditState(this.state.isediting)
+
         })
+
     }
 
     getPostMessage = () => {
+
         this.formcontext.state = this.state
+
         let message:PostFormMessage = {
             formcontext:this.formcontext,
             success:this.onSubmitSuccess,
             failure:this.onSubmitFailure,
         }
+
         return message
+
     }
 
     getEditingState = () => {
+
         return this.state.dirty
+
     }
 
     // ----------------------------[ render resources ]----------------------------------
@@ -347,8 +364,11 @@ class ContentForm extends React.Component<ContentFormProps,any> {
 
         let displaycomponents = []
         let groupcomponents = {}
+
         for (let group of this.groupspecs) {
+
             groupcomponents[group.name] = []
+
         }
 
         // update fieldset field values
@@ -369,24 +389,30 @@ class ContentForm extends React.Component<ContentFormProps,any> {
                 </fieldset>
 
                 let { group } = fieldsetspec
+
                 if (group) {
+
                     groupcomponents[group].push(component)
+
                 } else {
+
                     displaycomponents.push(component)
+
                 }
+
             }
-            // console.log('fieldsetchildren in contentform',this.fieldsetchildren)
+
         }
 
         // add group components (assigned above)
         for (let group of this.groupspecs) {
+
             let component = <ContentGroup key = {'group-' + group.name} open = {group.open} title = {group.title}>
                 {groupcomponents[group.name]}
             </ContentGroup>
             displaycomponents.push(component)
-        }
 
-        // console.log('assembleDisplayComponents: displaycomponents',displaycomponents)
+        }
 
         return displaycomponents
     }
@@ -395,8 +421,6 @@ class ContentForm extends React.Component<ContentFormProps,any> {
 
         if (!fieldlist) return null
 
-        // let newchildren = []
-
         let newchildren = utilities.updateComponents(fieldlist,this.localnamespace)
 
         return newchildren
@@ -404,34 +428,47 @@ class ContentForm extends React.Component<ContentFormProps,any> {
     }
 
     onSubmitSuccess = () => {
+
         this.setState({
             isprocessing:false,
             isdirty:false,
         })
+
         this.toggleEditMode()
+
         this.originaleditablevalues = Object.assign({},this.state.values)
+
         toast.success('document has been posted')
+
         return true
+
     }
 
     onSubmitFailure = (message, reason) => {
+
         let {results} = reason
         let index
         let errorstates = this.state.errorstates
+
         if (results) {
             index = results.index
         }
+
         index && (errorstates[index] = true)
         // console.log('postingfailure: message, reason, errorstates', message, reason, errorstates)
         toast.error('document posting has failed: ' + message)
+
         this.setState({
             isprocessing:false,
             errorstates,
         })
+
         return false
+
     }
 
     onChangeValue = event => {
+
         let { values } = this.state
         values[event.target.name] = event.target.value
 
@@ -445,36 +482,42 @@ class ContentForm extends React.Component<ContentFormProps,any> {
         let namespace = this.localnamespace
 
         if (this.state.dirty) {
+
             let errorstates = this.state.errorstates
             for (let index in errorstates) {
                 errorstates[index] = false
             }
+
             this.setState({
                 errorstates,
                 isprocessing:true,
             })
+
             try { // ... try = lazy :-(
-                // setTimeout(() => { // for testing!
-                    namespace.controller.callbacks.submit && 
-                    namespace.controller.callbacks.submit(this.getPostMessage())
-                // },2000)
+
+                namespace.controller.callbacks.submit && 
+                namespace.controller.callbacks.submit(this.getPostMessage())
+
             } catch(e) {
                 // no action - simplifies checks above
                 console.log('onSubmit namespace parsing for callback failed', this)
             }
 
         } else {
+
             this.toggleEditMode()
             toast.info('nothing has changed')
+
         }
+
     }
 
     render() {
+
         const { classes } = this.props
 
-        // console.log('contentform namespace',this.localnamespace)
-
         return (
+
             <form 
                 onSubmit = {this.doSubmit}
                 className = { classes.root } 
@@ -484,6 +527,7 @@ class ContentForm extends React.Component<ContentFormProps,any> {
                 {this.assembleDisplayComponents(classes)}
 
             </form>
+
         )
     }
 
