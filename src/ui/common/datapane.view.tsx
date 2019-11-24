@@ -192,10 +192,15 @@ class DataPane extends React.Component<DataPaneProps,any>  {
             returns { renderdata, namespace }
             where namespace = as above
         */
-        let factorymessage:FactoryMessage = 
+        let factoryMessage:FactoryMessage = 
             this.componentfactory.assembleFactoryMessage(namespace)
 
-        this.factorycomponent = this.componentfactory.createUISelection(factorymessage)
+
+        if (!this.factorycomponent) {
+            this.factorycomponent = this.componentfactory.createUISelection(factoryMessage)
+        } else {
+            this.factorycomponent = this.componentfactory.cloneUISelection(this.factorycomponent,factoryMessage)
+        }
 
         this.forceUpdate()
 

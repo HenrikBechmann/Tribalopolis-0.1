@@ -29,6 +29,8 @@ import verification from './verification.filter'
 
 import coredata from  '../data/coredata'
 
+let sessioncounter = 0
+
 const components = { // lookups
     layouts:layoutComponents,
     displays:displayComponents,
@@ -79,7 +81,7 @@ class ComponentFactory {
     // renderdata includes attributions, and componentspecs ('component')
 
     // TODO: integrate attributions into returned component
-    public createUISelection = (factorymessage:FactoryMessage, ref=null) => {
+    public createUISelection = (factorymessage:FactoryMessage, ref = null) => {
 
         // console.log('getComponent',factorymessage)
         if (!factorymessage) return null
@@ -89,6 +91,19 @@ class ComponentFactory {
         this.namespace = namespace
 
         let component = this.assembleComponent(renderdata.component, renderdata.attributions)
+
+        return component
+
+    }
+
+    public cloneUISelection = (element, factorymessage:FactoryMessage, ref = null) => {
+        if ((!element) || (!factorymessage)) return null
+        const {renderdata,namespace} = factorymessage 
+
+
+        this.namespace = namespace
+
+        let component = this.cloneComponent(element, renderdata.component, renderdata.attributions)
 
         return component
 
@@ -145,6 +160,10 @@ class ComponentFactory {
 
             // get component properties
             let props:GenericObject = this.getProps(componentspec.properties, componentspec.attributes)
+
+            props.sessioncounter = sessioncounter++
+
+            // console.log('create element sessioncounter = ',sessioncounter, componentspec.type)
             // get component children
             let children = this.getChildren(componentspec.children)
 
@@ -159,6 +178,21 @@ class ComponentFactory {
             return null
 
         }
+    }
+
+    private cloneComponent = (element, componentspec, attributions) => {
+
+        let props:GenericObject = this.getProps(componentspec.properties, componentspec.attributes)
+
+        props.sessioncounter = sessioncounter++
+
+        // console.log('CLONE element sessioncounter = ',sessioncounter, componentspec.type)
+        // get component children
+        // let children = this.getChildren(componentspec.children)
+
+        // pass to React
+        return React.cloneElement(element, props)
+
     }
 
     private getComponentByReference = (reference, properties, attributes) => {
