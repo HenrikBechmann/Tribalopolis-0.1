@@ -135,11 +135,14 @@ class AbstractDataPane extends React.Component<AbstractDataPaneProps,any> {
                 agent:this.agentdata,
             })
 
+        // TODO: clone factorycomponent if it exists
         this.factorycomponent = this.componentfactory.createUISelection(factoryMessage)
 
         this.setState({
+
             docpack,
             typepack,
+
         })
 
     }
