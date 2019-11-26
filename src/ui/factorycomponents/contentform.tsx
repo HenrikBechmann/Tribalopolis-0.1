@@ -62,6 +62,8 @@ interface ContentFormProps {
     groups:GenericObject, // high level of fieldset grouping (optional)
     fieldsets:GenericObject, // immediate fieldset groupings of fields (optional)
     classes?:any, // contributed by HOC withStyles (see bottom of file)
+    formdata:GenericObject,
+    formcontrol:GenericObject,
 }
 
 class ContentFormBase extends React.Component<ContentFormProps,any> {
@@ -146,21 +148,30 @@ class ContentFormBase extends React.Component<ContentFormProps,any> {
 
     originaleditablevalues
 
+    formdata
+    formcontrol
+
     // ---------------------------------[ preparation ]--------------------------
 
     componentDidMount() {
         // preprocess fieldsets
         this.initializeData()
 
-        // console.log('didmount contentform props',this.props)
+        console.log('didmount contentform props',this.props)
 
     }
 
     componentDidUpdate() {
-        // console.log('didupdate contentform props',this.props)
+        console.log('didupdate contentform props',this.props)
+        if (!Object.is(this.props.formdata,this.formdata)) {
+            this.updateData()
+        }
     }
 
     initializeData = () => {
+
+        this.formdata = this.props.formdata
+        this.formcontrol = this.props.formcontrol
 
         for (let fieldset of this.fieldsetspecs) {
             this.fieldsetchildren[fieldset.name] = []
@@ -181,6 +192,11 @@ class ContentFormBase extends React.Component<ContentFormProps,any> {
 
         })
 
+    }
+
+    updateData = () => {
+        this.formdata = this.props.formdata
+        console.log('updateData called', this.props)
     }
 
     // add onChange to editable children
