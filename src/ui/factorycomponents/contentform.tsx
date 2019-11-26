@@ -157,12 +157,20 @@ class ContentFormBase extends React.Component<ContentFormProps,any> {
         // preprocess fieldsets
         this.initializeData()
 
-        console.log('didmount contentform props',this.props)
+        // console.log('didmount contentform props',this.props)
 
     }
 
     componentDidUpdate() {
-        console.log('didupdate contentform props',this.props)
+        // console.log('didupdate contentform props',this.props)
+        if (!Object.is(this.props.formcontrol,this.formcontrol)) {
+            this.formcontrol = this.props.formcontrol
+            if (this.formcontrol.suspended != this.state.suspended) {
+                this.setState({
+                    suspended:this.formcontrol.suspended
+                })
+            }
+        }
         if (!Object.is(this.props.formdata,this.formdata)) {
             this.updateData()
         }
@@ -196,7 +204,7 @@ class ContentFormBase extends React.Component<ContentFormProps,any> {
 
     updateData = () => {
         this.formdata = this.props.formdata
-        console.log('updateData called', this.props)
+        // console.log('updateData called', this.props)
     }
 
     // add onChange to editable children
