@@ -17,6 +17,8 @@ import {
     ControllerData,
 } from '../../services/interfaces'
 
+import FormDataContext from '../../services/formdata.context'
+
 interface AbstractDataPaneProps {
     docproxy:GenericObject,
     controller: GenericObject,
@@ -56,6 +58,7 @@ class AbstractDataPane extends React.Component<AbstractDataPaneProps,any> {
     controllerdata
     agentdata
     factorycomponent
+    formdata
 
     componentDidMount() {
         // subscribe to reference
@@ -123,6 +126,11 @@ class AbstractDataPane extends React.Component<AbstractDataPaneProps,any> {
             this.componentfactory = new ComponentFactory()
         }
 
+        this.formdata = {
+            docpack,
+            typepack,
+        }
+
         // reformat for componentfactory
         let factoryMessage:FactoryMessage = 
             this.componentfactory.assembleFactoryMessage({
@@ -142,7 +150,7 @@ class AbstractDataPane extends React.Component<AbstractDataPaneProps,any> {
             this.factorycomponent = this.componentfactory.cloneUISelection(this.factorycomponent,factoryMessage)
         }
 
-        console.log('new factorycomponent',this.factorycomponent)
+        // console.log('new factorycomponent',this.factorycomponent)
 
         // this.factorycomponent = this.componentfactory.createUISelection(factoryMessage)
 
@@ -161,7 +169,9 @@ class AbstractDataPane extends React.Component<AbstractDataPaneProps,any> {
 
     render() {
 
-        return this.factorycomponent || null
+        return <FormDataContext.Provider value = {this.formdata}>
+            { this.factorycomponent }
+        </FormDataContext.Provider>
         
    }
 

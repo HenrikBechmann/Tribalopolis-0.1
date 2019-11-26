@@ -20,6 +20,7 @@ import application from '../../services/application'
 import ContentGroup from './contentgroup'
 import utilities from '../../utilities/utilities'
 import FormControlContext from '../../services/formcontrol.context'
+import FormDataContext from '../../services/formdata.context'
 
 /*
     This is created in componentFactory based on data in type ui json
@@ -151,6 +152,12 @@ class ContentFormBase extends React.Component<ContentFormProps,any> {
         // preprocess fieldsets
         this.initializeData()
 
+        // console.log('didmount contentform props',this.props)
+
+    }
+
+    componentDidUpdate() {
+        // console.log('didupdate contentform props',this.props)
     }
 
     initializeData = () => {
@@ -516,7 +523,7 @@ class ContentFormBase extends React.Component<ContentFormProps,any> {
 
         const { classes } = this.props
 
-        console.log('rendering  contentform', this)
+        // console.log('rendering  contentform', this)
 
         return (
 
@@ -540,7 +547,13 @@ ContentFormBase.contextType = FormControlContext
 const ContentFormStyled = withStyles( styles )( ContentFormBase )
 
 const ContentForm = (props) => {
-    return <ContentFormStyled {...props} />
+    return <FormDataContext.Consumer>{
+        (formdata) => <FormControlContext.Consumer>
+            {(formcontrol) => <ContentFormStyled 
+                formdata = {formdata}
+                formcontrol = {formcontrol} {...props} />}
+        </FormControlContext.Consumer>}
+    </FormDataContext.Consumer>
 }
 
 export default ContentForm
