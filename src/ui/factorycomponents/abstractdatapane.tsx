@@ -142,6 +142,8 @@ class AbstractDataPane extends React.Component<AbstractDataPaneProps,any> {
             this.factorycomponent = this.componentfactory.cloneUISelection(this.factorycomponent,factoryMessage)
         }
 
+        console.log('new factorycomponent',this.factorycomponent)
+
         // this.factorycomponent = this.componentfactory.createUISelection(factoryMessage)
 
         this.setState({

@@ -63,7 +63,7 @@ interface ContentFormProps {
     classes?:any, // contributed by HOC withStyles (see bottom of file)
 }
 
-class ContentForm extends React.Component<ContentFormProps,any> {
+class ContentFormBase extends React.Component<ContentFormProps,any> {
 
     constructor(props) {
         super(props)
@@ -516,6 +516,8 @@ class ContentForm extends React.Component<ContentFormProps,any> {
 
         const { classes } = this.props
 
+        console.log('rendering  contentform', this)
+
         return (
 
             <form 
@@ -533,7 +535,13 @@ class ContentForm extends React.Component<ContentFormProps,any> {
 
 }
 
-ContentForm.contextType = FormControlContext
+ContentFormBase.contextType = FormControlContext
 
-export default withStyles( styles )( ContentForm )
+const ContentFormStyled = withStyles( styles )( ContentFormBase )
+
+const ContentForm = (props) => {
+    return <ContentFormStyled {...props} />
+}
+
+export default ContentForm
 // export default ContentForm

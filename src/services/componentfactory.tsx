@@ -198,6 +198,7 @@ class ComponentFactory {
     private getComponentByReference = (reference, properties, attributes) => {
 
         let ref = this.getPropertyByFilter(reference, attributes)
+        // if (typeof ref === 'function') ref = ref()
         let props:any = this.getProps(properties,attributes)
         let controller = this.namespace.controller
         let agent = this.namespace.agent
@@ -312,8 +313,8 @@ class ComponentFactory {
         let path = propertySpec.slice(1) // removing '&' trigger
         let pathlist = path.split('.')
         let namespace = this.namespace
-        let nodedata:any = utilities.getNodePosition(namespace,pathlist)
 
+        let nodedata:any = utilities.getNodePosition(namespace,pathlist)
         if (nodedata) {
             let value = nodedata.nodevalue
             let properties, severity, code, message
