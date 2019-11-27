@@ -120,7 +120,7 @@ export interface DataPaneMessage {
 // same as DataPaneNamespace
 export interface FactoryNamespace {
     
-    docpack:DocPackStruc,
+    // docpack:DocPackStruc,
     typepack:DocPackStruc,
     options:GenericObject,
 

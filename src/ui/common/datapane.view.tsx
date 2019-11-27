@@ -178,11 +178,11 @@ class DataPane extends React.Component<DataPaneProps,any>  {
 
             docproxy,
             options,
-            docpack,
+            // docpack,
             typepack,
             controller:controllerdata,
             agent:agentdata,
-            local:this,
+            // local:this,
 
         }
 

@@ -74,6 +74,8 @@ class ContentFormBase extends React.Component<ContentFormProps,any> {
         // console.log('ContentForm:props',this.props)
         this.initializeComponent()
 
+        console.log('contentform constructor localnamespace',this.localnamespace)
+
     }
 
     initializeComponent = () => {
@@ -154,15 +156,14 @@ class ContentFormBase extends React.Component<ContentFormProps,any> {
     // ---------------------------------[ preparation ]--------------------------
 
     componentDidMount() {
+        console.log('didmount contentform props',this.props)
         // preprocess fieldsets
         this.initializeData()
-
-        // console.log('didmount contentform props',this.props)
-
+        
     }
 
     componentDidUpdate() {
-        // console.log('didupdate contentform props',this.props)
+        console.log('didupdate contentform: props, formdata',this.props, this.formdata)
         if (!Object.is(this.props.formcontrol,this.formcontrol)) {
             this.formcontrol = this.props.formcontrol
             if (this.formcontrol.suspended != this.state.suspended) {
@@ -180,6 +181,8 @@ class ContentFormBase extends React.Component<ContentFormProps,any> {
 
         this.formdata = this.props.formdata
         this.formcontrol = this.props.formcontrol
+
+        this.localnamespace && (this.localnamespace.docpack = this.formdata.docpack)
 
         for (let fieldset of this.fieldsetspecs) {
             this.fieldsetchildren[fieldset.name] = []
@@ -204,7 +207,10 @@ class ContentFormBase extends React.Component<ContentFormProps,any> {
 
     updateData = () => {
         this.formdata = this.props.formdata
-        // console.log('updateData called', this.props)
+        this.localnamespace.docpack = this.formdata.docpack
+        this.localnamespace.typepack = this.formdata.typepack
+        this.forceUpdate()
+        console.log('updateData called: formdata, localnamespace', this.formdata, this.localnamespace)
     }
 
     // add onChange to editable children
@@ -566,7 +572,7 @@ class ContentFormBase extends React.Component<ContentFormProps,any> {
 
 }
 
-ContentFormBase.contextType = FormControlContext
+// ContentFormBase.contextType = FormControlContext
 
 const ContentFormStyled = withStyles( styles )( ContentFormBase )
 
