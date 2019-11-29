@@ -49,7 +49,7 @@ interface DataPaneProps {
     dataPaneMessage:DataPaneMessage,
     classes:GenericObject, // provided by withStyles in export statement
     dataName:string,
-    ref?:any,
+    ref?:any, // for positioning
     active:boolean,
 }
 
@@ -178,8 +178,8 @@ class DataPane extends React.Component<DataPaneProps,any>  {
 
             docproxy,
             options,
-            docpack,
-            typepack,
+            // docpack,
+            // typepack,
             controller:controllerdata,
             agent:agentdata,
             // local:this,

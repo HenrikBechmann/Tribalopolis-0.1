@@ -96,8 +96,8 @@ class ContentFormBase extends React.Component<ContentFormProps,any> {
                     resetValues:this.resetValues,
                 },
                 local:this,
-                docpack:formdata.docpack,
-                typepack:formdata.typepack,
+                // docpack:formdata.docpack,
+                // typepack:formdata.typepack,
 
             })
 
@@ -176,21 +176,6 @@ class ContentFormBase extends React.Component<ContentFormProps,any> {
         
     }
 
-    componentDidUpdate() {
-        console.log('didupdate contentform: props, formdata',this.props, this.formdata)
-        if (!Object.is(this.props.formcontrol,this.formcontrol)) {
-            this.formcontrol = this.props.formcontrol
-            if (this.formcontrol.suspended != this.state.suspended) {
-                this.setState({
-                    suspended:this.formcontrol.suspended
-                })
-            }
-        }
-        if (!Object.is(this.props.formdata,this.formdata)) {
-            this.updateData()
-        }
-    }
-
     initializeData = () => {
 
         this.formdata = this.props.formdata
@@ -219,10 +204,26 @@ class ContentFormBase extends React.Component<ContentFormProps,any> {
 
     }
 
+    componentDidUpdate() {
+        console.log('didupdate contentform: props, formdata',this.props, this.formdata)
+        if (!Object.is(this.props.formcontrol,this.formcontrol)) {
+            this.formcontrol = this.props.formcontrol
+            if (this.formcontrol.suspended != this.state.suspended) {
+                this.setState({
+                    suspended:this.formcontrol.suspended
+                })
+            }
+        }
+        if (!Object.is(this.props.formdata,this.formdata)) {
+            this.updateData()
+            // console.log('contentform updated formdata',this.formdata)
+        }
+    }
+
     updateData = () => {
         this.formdata = this.props.formdata
-        this.localnamespace.docpack = this.formdata.docpack
-        this.localnamespace.typepack = this.formdata.typepack
+        // this.localnamespace.docpack = this.formdata.docpack
+        // this.localnamespace.typepack = this.formdata.typepack
         this.forceUpdate()
         console.log('updateData called: formdata, localnamespace', this.formdata, this.localnamespace)
     }

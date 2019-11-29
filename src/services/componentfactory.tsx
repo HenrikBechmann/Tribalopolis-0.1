@@ -29,7 +29,7 @@ import verification from './verification.filter'
 
 import coredata from  '../data/coredata'
 
-let sessioncounter = 0
+// let sessioncounter = 0
 
 const components = { // lookups
     layouts:layoutComponents,
@@ -98,18 +98,18 @@ class ComponentFactory {
 
     }
 
-    public cloneUISelection = (element, factorymessage:FactoryMessage, ref = null) => {
-        if ((!element) || (!factorymessage)) return null
-        const {renderdata,namespace} = factorymessage 
+    // public cloneUISelection = (element, factorymessage:FactoryMessage, ref = null) => {
+    //     if ((!element) || (!factorymessage)) return null
+    //     const {renderdata,namespace} = factorymessage 
 
 
-        this.namespace = namespace
+    //     this.namespace = namespace
 
-        let component = this.cloneComponent(element, renderdata.component, renderdata.attributions)
+    //     let component = this.cloneComponent(element, renderdata.component, renderdata.attributions)
 
-        return component
+    //     return component
 
-    }
+    // }
 
     // =======================[ internal ]============================
 
@@ -163,7 +163,7 @@ class ComponentFactory {
             // get component properties
             let props:GenericObject = this.getProps(componentspec.properties, componentspec.attributes)
 
-            props.sessioncounter = sessioncounter++
+            // props.sessioncounter = sessioncounter++
 
             // console.log('create element sessioncounter = ',sessioncounter, componentspec.type)
             // get component children
@@ -186,7 +186,7 @@ class ComponentFactory {
 
         let props:GenericObject = this.getProps(componentspec.properties, componentspec.attributes)
 
-        props.sessioncounter = sessioncounter++
+        // props.sessioncounter = sessioncounter++
 
         // console.log('CLONE element sessioncounter = ',sessioncounter, componentspec.type)
         // get component children
