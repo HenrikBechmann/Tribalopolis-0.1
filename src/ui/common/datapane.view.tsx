@@ -178,13 +178,15 @@ class DataPane extends React.Component<DataPaneProps,any>  {
 
             docproxy,
             options,
-            // docpack,
+            docpack,
             typepack,
             controller:controllerdata,
             agent:agentdata,
             // local:this,
 
         }
+
+        let datapack = {docpack, typepack}
 
         this.namespace = namespace
 
@@ -193,13 +195,13 @@ class DataPane extends React.Component<DataPaneProps,any>  {
             where namespace = as above
         */
         let factoryMessage:FactoryMessage = 
-            this.componentfactory.assembleFactoryMessage(namespace)
+            this.componentfactory.assembleFactoryMessage(namespace, datapack)
 
 
         if (!this.factorycomponent) {
             this.factorycomponent = this.componentfactory.createUISelection(factoryMessage)
-        } else {
-            this.factorycomponent = this.componentfactory.cloneUISelection(this.factorycomponent,factoryMessage)
+        // } else {
+        //     this.factorycomponent = this.componentfactory.cloneUISelection(this.factorycomponent,factoryMessage)
         }
 
         this.forceUpdate()

@@ -137,11 +137,11 @@ class AbstractDataPane extends React.Component<AbstractDataPaneProps,any> {
                 // new
                 docproxy:this.docProxy,
                 options:this.options,
-                // docpack,
+                docpack,
                 typepack,
                 controller:this.controllerdata,
                 agent:this.agentdata,
-            })
+            },this.formdata)
 
         // TODO: clone factorycomponent if it exists
         if (!this.factorycomponent) {

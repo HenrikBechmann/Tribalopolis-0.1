@@ -50,9 +50,11 @@ class ComponentFactory {
 
     // a utility to package renderer content message from standard input
     // it namespace together with renderdata from the document type
-    public assembleFactoryMessage = (namespace:FactoryNamespace) => {
+    public assembleFactoryMessage = (namespace:FactoryNamespace, datapack) => {
 
-        let { typepack, options} = namespace
+        let { typepack } = datapack
+        let { options} = namespace
+        // let { typepack, options} = namespace
 
         let renderdata
         try {

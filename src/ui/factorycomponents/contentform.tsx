@@ -81,17 +81,29 @@ class ContentFormBase extends React.Component<ContentFormProps,any> {
     initializeComponent = () => {
 
         // initialize instance values
-        let { namespace, documentmap, fieldsets, groups }:{namespace:FactoryNamespace,documentmap:any,fieldsets:any,groups:any} = this.props
+        let { namespace, documentmap, fieldsets, groups, formdata, formcontrol }:
+            {namespace:FactoryNamespace,documentmap:any,fieldsets:any,groups:any, formdata:any, formcontrol:any} = 
+            this.props
 
         let localnamespace = namespace && Object.assign({},namespace)
+        localnamespace
         if (localnamespace) {
-            localnamespace.caller = {
-                toggleEditMode:this.toggleEditMode,
-                resetValues:this.resetValues,
-            }
-            localnamespace.local = this
+            localnamespace = Object.assign(localnamespace,
+            {
+
+                caller:{
+                    toggleEditMode:this.toggleEditMode,
+                    resetValues:this.resetValues,
+                },
+                local:this,
+                docpack:formdata.docpack,
+                typepack:formdata.typepack,
+
+            })
+
         }
         this.localnamespace = localnamespace
+        this.formdata = formdata
 
         // reserve for later
         this.fieldsetspecs = fieldsets || []
@@ -119,6 +131,8 @@ class ContentFormBase extends React.Component<ContentFormProps,any> {
         }
 
         this.monitorEditState = monitorEditState
+
+        this.state.suspended = formcontrol.suspended
 
     }
 
@@ -182,7 +196,7 @@ class ContentFormBase extends React.Component<ContentFormProps,any> {
         this.formdata = this.props.formdata
         this.formcontrol = this.props.formcontrol
 
-        this.localnamespace && (this.localnamespace.docpack = this.formdata.docpack)
+        // this.localnamespace && (this.localnamespace.docpack = this.formdata.docpack)
 
         for (let fieldset of this.fieldsetspecs) {
             this.fieldsetchildren[fieldset.name] = []
