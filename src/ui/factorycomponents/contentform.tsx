@@ -188,6 +188,7 @@ class ContentFormBase extends React.Component<ContentFormProps,any> {
         }
 
         let editablevalues = this.integrateChildren(this.props.children)
+
         let errorstates = this.state.errorstates
         for (let name in editablevalues) {
             errorstates[name] = false
@@ -221,10 +222,12 @@ class ContentFormBase extends React.Component<ContentFormProps,any> {
     }
 
     updateData = () => {
-        this.formdata = this.props.formdata
-        // this.localnamespace.docpack = this.formdata.docpack
-        // this.localnamespace.typepack = this.formdata.typepack
-        this.forceUpdate()
+
+        this.initializeData()
+        // this.formdata = this.props.formdata
+        // // this.localnamespace.docpack = this.formdata.docpack
+        // // this.localnamespace.typepack = this.formdata.typepack
+        // this.forceUpdate()
         console.log('updateData called: formdata, localnamespace', this.formdata, this.localnamespace)
     }
 
