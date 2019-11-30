@@ -59,7 +59,7 @@ const updateComponents = (list, namespace) => {
     
     for (let element of list) {
         // console.log('element in updateComponents',element, list)
-        let dataAttributes = element.props && element.props['data-attributes']
+        let dataAttributes = (element.props && element.props['data-attributes'])
 
         // console.log('updateFieldsetElementValues',dataAttributes)
 
@@ -106,6 +106,49 @@ const updateComponents = (list, namespace) => {
     return newchildren
 }
 
+const updateDbState = (list, namespace) => {
+    let newchildren = []
+
+    if ( !list || !namespace ) return list?list:newchildren
+
+    if (!Array.isArray(list)) list = [list]
+    
+    for (let element of list) {
+        // console.log('element in updateComponents',element, list)
+        let dataAttributes = (element.props && element.props['data-attributes'])
+
+        // console.log('updateFieldsetElementValues',dataAttributes)
+
+        if (dataAttributes && dataAttributes.dbstate) {
+
+            let dbstate = dataAttributes.dbstate
+            if (dbstate.assignments) {
+                let assignments = dbstate.assignments
+                // console.log('update assignments: assignments, element, namespace',assignments, element, namespace)
+                let properties = {}
+
+                for (let property in assignments) {
+
+                    let instruction = assignments[property]
+                    let value = unpackProperty(instruction, namespace)
+                    // console.log('property, value, instruction', property, value, instruction)
+
+                    properties[property] = value
+
+                }
+
+                // console.log('properties',properties)
+
+                element = React.cloneElement(element,properties)
+            }
+        }
+
+        newchildren.push(element)
+
+    }
+    return newchildren
+}
+
 const unpackProperty = (propertySpec, namespace) => {
 
     if (isObject(propertySpec)) {
@@ -116,6 +159,16 @@ const unpackProperty = (propertySpec, namespace) => {
             switch (variant) {
                 case 'namespace': {
                     return namespace
+                }
+                case 'condition': {
+                    let retval
+                    if (unpackProperty(propertySpec.if,namespace)) {
+                        retval = unpackProperty(propertySpec.then,namespace)
+                    } else {
+                        retval = this.getPropertyByFilter(propertySpec.else, namespace)
+                    }
+                    return retval
+                    break
                 }
             }
 
@@ -231,6 +284,7 @@ export default {
 
     integrateComponents,
     updateComponents,
+    updateDbState,
     unpackProperty,
 
     getJsonFile,

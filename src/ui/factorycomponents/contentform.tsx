@@ -241,6 +241,7 @@ class ContentFormBase extends React.Component<ContentFormProps,any> {
             children = [ children ]
         }
 
+        children = utilities.updateDbState(children, this.localnamespace)
         children = utilities.integrateComponents(children,this.localnamespace)
 
         // get list of editable values, by name of field (therefore names must be unique)
