@@ -68,6 +68,8 @@ interface ContentFormProps {
 
 class ContentFormBase extends React.Component<ContentFormProps,any> {
 
+    // ===========================[ instance setup ]============================
+
     constructor(props) {
         super(props)
 
@@ -141,6 +143,8 @@ class ContentFormBase extends React.Component<ContentFormProps,any> {
         this.state.suspended = formcontrol.suspended
 
     }
+
+    // ======================[ property setup ]============================
 
     state = {
         values:{}, // see onChange -- maintains state of editable fields
@@ -236,6 +240,8 @@ class ContentFormBase extends React.Component<ContentFormProps,any> {
 
     }
 
+
+    // initialize on setup, and on formadata update
     // add onChange to editable children
     // sort fields by fieldsets
     // return list of editable values
@@ -360,6 +366,8 @@ class ContentFormBase extends React.Component<ContentFormProps,any> {
         }
 
     }
+
+    // call-ins
 
     resetValues = () => {
 
