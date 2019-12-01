@@ -81,7 +81,7 @@ class ComponentFactory {
     // renderdata includes attributions, and componentspecs ('component')
 
     // TODO: integrate attributions into returned component
-    public createUISelection = (factorymessage:FactoryMessage, ref = null) => {
+    public createUISelection = (factorymessage:FactoryMessage) => {
 
         // console.log('getComponent',factorymessage)
         if (!factorymessage) return null
@@ -163,15 +163,6 @@ class ComponentFactory {
 
         }
     }
-
-    // private cloneComponent = (element, componentspec, attributions) => {
-
-    //     let props:GenericObject = this.getProps(componentspec.properties, componentspec.attributes)
-
-    //     // pass to React
-    //     return React.cloneElement(element, props)
-
-    // }
 
     private getComponentByReference = (reference, properties, attributes) => {
 
