@@ -211,7 +211,7 @@ class ContentFormBase extends React.Component<ContentFormProps,any> {
 
     }
 
-    componentDidUpdate() {
+    componentDidUpdate() { // TODO: respond to change in version number of type
         // console.log('didupdate contentform: props, formdata',this.props, this.formdata)
         if (!Object.is(this.props.formcontrol,this.formcontrol)) {
             this.formcontrol = this.props.formcontrol
