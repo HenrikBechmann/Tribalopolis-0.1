@@ -148,6 +148,7 @@ class ContentFormBase extends React.Component<ContentFormProps,any> {
 
     state = {
         values:{}, // see onChange -- maintains state of editable fields
+        labels:{},
         dirty:false,
         isediting:false,
         isprocessing:false,
@@ -197,7 +198,9 @@ class ContentFormBase extends React.Component<ContentFormProps,any> {
             this.fieldsetchildren[fieldset.name] = []
         }
 
-        let editablevalues = this.integrateChildren(this.props.children)
+        let [editablevalues, editablelabels] = this.integrateChildren(this.props.children)
+
+        console.log('initializeData editablevalues, editablelabels',editablevalues, editablelabels)
 
         let errorstates = this.state.errorstates
         for (let name in editablevalues) {
@@ -209,6 +212,7 @@ class ContentFormBase extends React.Component<ContentFormProps,any> {
         this.setState({
 
             values:editablevalues,
+            labels:editablelabels,
             errorstates,
 
         })
@@ -249,6 +253,7 @@ class ContentFormBase extends React.Component<ContentFormProps,any> {
 
         // initialize field values for state
         let editablevalues = {} as any
+        let editablelabels = {} as any
 
         // normalize to array
         if (!Array.isArray(children)) {
@@ -269,6 +274,7 @@ class ContentFormBase extends React.Component<ContentFormProps,any> {
                     let setvalue = (instructions.indexOf('setvalue') > -1)
                     if (setvalue) {
                         editablevalues[child.props.name] = child.props.value
+                        editablelabels[child.props.name] = child.props.label
                     }
                 }
                 child = this.integrateNode(child, setup)
@@ -282,7 +288,7 @@ class ContentFormBase extends React.Component<ContentFormProps,any> {
         }
 
         // editablevalues = return set of fields for assignment to this.state
-        return editablevalues
+        return [editablevalues,editablelabels]
 
     }
 
