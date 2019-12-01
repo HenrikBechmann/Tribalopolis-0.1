@@ -5,6 +5,6 @@
 
 import React from 'react'
 
-let FormDataContext = React.createContext({})
+let DbDataContext = React.createContext({})
 
-export default FormDataContext
+export default DbDataContext

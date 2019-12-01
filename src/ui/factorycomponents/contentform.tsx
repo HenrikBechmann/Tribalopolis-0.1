@@ -20,7 +20,7 @@ import application from '../../services/application'
 import ContentGroup from './contentgroup'
 import utilities from '../../utilities/utilities'
 import FormControlContext from '../../services/formcontrol.context'
-import FormDataContext from '../../services/formdata.context'
+import DbDataContext from '../../services/dbdata.context'
 
 /*
     This is created in componentFactory based on data in type ui json
@@ -62,7 +62,7 @@ interface ContentFormProps {
     groups:GenericObject, // high level of fieldset grouping (optional)
     fieldsets:GenericObject, // immediate fieldset groupings of fields (optional)
     classes?:any, // contributed by HOC withStyles (see bottom of file)
-    formdata:GenericObject,
+    dbdata:GenericObject,
     formcontrol:GenericObject,
 }
 
@@ -76,15 +76,15 @@ class ContentFormBase extends React.Component<ContentFormProps,any> {
         // console.log('ContentForm:props',this.props)
         this.initializeComponent()
 
-        console.log('contentform constructor localnamespace',this.localnamespace)
+        // console.log('contentform constructor localnamespace',this.localnamespace)
 
     }
 
     initializeComponent = () => {
 
         // initialize instance values
-        let { namespace, documentmap, fieldsets, groups, formdata, formcontrol }:
-            {namespace:FactoryNamespace,documentmap:any,fieldsets:any,groups:any, formdata:any, formcontrol:any} = 
+        let { namespace, documentmap, fieldsets, groups, dbdata, formcontrol }:
+            {namespace:FactoryNamespace,documentmap:any,fieldsets:any,groups:any, dbdata:any, formcontrol:any} = 
             this.props
 
         let localnamespace = namespace && Object.assign({},namespace)
@@ -98,15 +98,15 @@ class ContentFormBase extends React.Component<ContentFormProps,any> {
                     resetValues:this.resetValues,
                 },
                 local:this,
-                // docpack:formdata.docpack,
-                // typepack:formdata.typepack,
+                // docpack:dbdata.docpack,
+                // typepack:dbdata.typepack,
 
             })
 
         }
 
         this.localnamespace = localnamespace
-        this.formdata = formdata
+        this.dbdata = dbdata
 
         this.coresetup(fieldsets, groups, localnamespace, documentmap, formcontrol)
 
@@ -175,7 +175,7 @@ class ContentFormBase extends React.Component<ContentFormProps,any> {
 
     originaleditablevalues
 
-    formdata
+    dbdata
     formcontrol
 
     // ---------------------------------[ preparation ]--------------------------
@@ -183,7 +183,7 @@ class ContentFormBase extends React.Component<ContentFormProps,any> {
     componentDidMount() {
         // console.log('didmount contentform props',this.props)
         // preprocess fieldsets
-        this.formdata = this.props.formdata
+        this.dbdata = this.props.dbdata
         this.formcontrol = this.props.formcontrol
 
         this.initializeData()
@@ -192,7 +192,7 @@ class ContentFormBase extends React.Component<ContentFormProps,any> {
 
     initializeData = () => {
 
-        // this.localnamespace && (this.localnamespace.docpack = this.formdata.docpack)
+        // this.localnamespace && (this.localnamespace.docpack = this.dbdata.docpack)
 
         for (let fieldset of this.fieldsetspecs) {
             this.fieldsetchildren[fieldset.name] = []
@@ -220,7 +220,7 @@ class ContentFormBase extends React.Component<ContentFormProps,any> {
     }
 
     componentDidUpdate() { // TODO: respond to change in version number of type
-        // console.log('didupdate contentform: props, formdata',this.props, this.formdata)
+        // console.log('didupdate contentform: props, dbdata',this.props, this.dbdata)
         if (!Object.is(this.props.formcontrol,this.formcontrol)) {
             this.formcontrol = this.props.formcontrol
             if (this.formcontrol.suspended != this.state.suspended) {
@@ -229,10 +229,10 @@ class ContentFormBase extends React.Component<ContentFormProps,any> {
                 })
             }
         }
-        if (!Object.is(this.props.formdata,this.formdata)) {
-            this.formdata = this.props.formdata
+        if (!Object.is(this.props.dbdata,this.dbdata)) {
+            this.dbdata = this.props.dbdata
             this.updateData()
-            // console.log('contentform updated formdata',this.formdata)
+            // console.log('contentform updated dbdata',this.dbdata)
         }
     }
 
@@ -415,7 +415,7 @@ class ContentFormBase extends React.Component<ContentFormProps,any> {
 
         this.formcontext.state = this.state
 
-        this.formcontext.formdata = this.formdata
+        this.formcontext.dbdata = this.dbdata
 
         let message:PostFormMessage = {
             formcontext:this.formcontext,
@@ -617,13 +617,13 @@ class ContentFormBase extends React.Component<ContentFormProps,any> {
 const ContentFormStyled = withStyles( styles )( ContentFormBase )
 
 const ContentForm = (props) => {
-    return <FormDataContext.Consumer>{
-        (formdata) => <FormControlContext.Consumer>
+    return <DbDataContext.Consumer>{
+        (dbdata) => <FormControlContext.Consumer>
             {(formcontrol) => <ContentFormStyled 
-                formdata = {formdata}
+                dbdata = {dbdata}
                 formcontrol = {formcontrol} {...props} />}
         </FormControlContext.Consumer>}
-    </FormDataContext.Consumer>
+    </DbDataContext.Consumer>
 }
 
 export default ContentForm

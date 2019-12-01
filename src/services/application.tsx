@@ -383,7 +383,7 @@ const application = new class {
 
         let { namespace, documentmap, form } = formcontext
         
-        let { docpack, typepack } = formcontext.formdata
+        let { docpack, typepack } = formcontext.dbdata
         let newdocpack:GenericObject = merge({},docpack)
 
         let formstate = form.state

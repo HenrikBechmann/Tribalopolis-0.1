@@ -203,15 +203,15 @@ const unpackProperty = (propertySpec, namespace) => {
             }
         } 
 
-        console.log('unpackProperty docpath filter: nodedata, pathlist',nodedata, pathlist);
+        // console.log('unpackProperty docpack filter: nodedata, pathlist',nodedata, pathlist);
 
         let properties, severity, code, message
 
-        if (path.substr(0,22)=='local.formdata.docpack') { // docpack.document; this is an incoming database value; needs filtering
+        if (path.substr(0,20)=='local.dbdata.docpack') { // docpack.document; this is an incoming database value; needs filtering
         // if (pathlist[0]=='docpack') { // docpack.document; this is an incoming database value; needs filtering
             let docpath = pathlist.slice(4); // get relative path
-            console.log('unpackProperty docpack filter: nodedata, value, docpath, namespace.local.formdata.typepack.document',nodedata, value, docpath, namespace.local.formdata.typepack.document);
-            [value,properties,severity, code, message] = verification.filterIncomingValue( value, docpath, namespace.local.formdata.typepack.document )
+            // console.log('unpackProperty docpack filter: nodedata, value, docpath, namespace.local.dbdata.typepack.document',nodedata, value, docpath, namespace.local.dbdata.typepack.document);
+            [value,properties,severity, code, message] = verification.filterIncomingValue( value, docpath, namespace.local.dbdata.typepack.document )
             if (severity) {
                 console.error(
                     'System error in unpackProperty: value, properties, severity, code, message',

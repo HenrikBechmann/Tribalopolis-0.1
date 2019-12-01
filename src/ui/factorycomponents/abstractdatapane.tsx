@@ -17,7 +17,7 @@ import {
     ControllerData,
 } from '../../services/interfaces'
 
-import FormDataContext from '../../services/formdata.context'
+import DbDataContext from '../../services/dbdata.context'
 
 interface AbstractDataPaneProps {
     docproxy:GenericObject,
@@ -58,7 +58,7 @@ class AbstractDataPane extends React.Component<AbstractDataPaneProps,any> {
     controllerdata
     agentdata
     factorycomponent
-    formdata
+    dbdata
 
     componentDidMount() {
         // subscribe to reference
@@ -126,7 +126,7 @@ class AbstractDataPane extends React.Component<AbstractDataPaneProps,any> {
             this.componentfactory = new ComponentFactory()
         }
 
-        this.formdata = {
+        this.dbdata = {
             docpack,
             typepack,
         }
@@ -141,7 +141,7 @@ class AbstractDataPane extends React.Component<AbstractDataPaneProps,any> {
                 // typepack,
                 controller:this.controllerdata,
                 agent:this.agentdata,
-            },this.formdata)
+            },this.dbdata)
 
         // TODO: clone factorycomponent if it exists
         if (!this.factorycomponent) {
@@ -169,9 +169,9 @@ class AbstractDataPane extends React.Component<AbstractDataPaneProps,any> {
 
     render() {
 
-        return <FormDataContext.Provider value = {this.formdata}>
+        return <DbDataContext.Provider value = {this.dbdata}>
             { this.factorycomponent }
-        </FormDataContext.Provider>
+        </DbDataContext.Provider>
         
    }
 

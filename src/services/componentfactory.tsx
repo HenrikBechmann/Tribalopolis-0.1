@@ -25,11 +25,9 @@ import AbstractDataPane from '../ui/factorycomponents/abstractdatapane'
 import utilities from '../utilities/utilities'
 import { DataPaneNamespace, FactoryNamespace, FactoryMessage, GenericObject } from './interfaces'
 import application from './application'
-import verification from './verification.filter'
+// import verification from './verification.filter'
 
 import coredata from  '../data/coredata'
-
-// let sessioncounter = 0
 
 const components = { // lookups
     layouts:layoutComponents,
@@ -98,19 +96,6 @@ class ComponentFactory {
 
     }
 
-    // public cloneUISelection = (element, factorymessage:FactoryMessage, ref = null) => {
-    //     if ((!element) || (!factorymessage)) return null
-    //     const {renderdata,namespace} = factorymessage 
-
-
-    //     this.namespace = namespace
-
-    //     let component = this.cloneComponent(element, renderdata.component, renderdata.attributions)
-
-    //     return component
-
-    // }
-
     // =======================[ internal ]============================
 
     private assembleComponent = (componentspec,attributions = null) => {
@@ -163,9 +148,6 @@ class ComponentFactory {
             // get component properties
             let props:GenericObject = this.getProps(componentspec.properties, componentspec.attributes)
 
-            // props.sessioncounter = sessioncounter++
-
-            // console.log('create element sessioncounter = ',sessioncounter, componentspec.type)
             // get component children
             let children = this.getChildren(componentspec.children)
 
@@ -185,12 +167,6 @@ class ComponentFactory {
     private cloneComponent = (element, componentspec, attributions) => {
 
         let props:GenericObject = this.getProps(componentspec.properties, componentspec.attributes)
-
-        // props.sessioncounter = sessioncounter++
-
-        // console.log('CLONE element sessioncounter = ',sessioncounter, componentspec.type)
-        // get component children
-        // let children = this.getChildren(componentspec.children)
 
         // pass to React
         return React.cloneElement(element, props)
@@ -309,40 +285,6 @@ class ComponentFactory {
         }
         return retval
     }
-
-    // TODO: use (and adapt to) unpackProperty in utilities
-    // private getPropertyByIndirection = (propertySpec, namespace) => {
-
-    //     let path = propertySpec.slice(1) // removing '&' trigger
-    //     let pathlist = path.split('.')
-    //     // let namespace = this.namespace
-
-    //     let nodedata:any = utilities.getNodePosition(namespace,pathlist)
-    //     if (nodedata) {
-    //         let value = nodedata.nodevalue
-    //         let properties, severity, code, message
-
-    //         if (pathlist[0]=='docpack') { // docpack.document; this is an incoming database value; needs filtering
-
-    //             let docpath = pathlist.slice(2); // get relative path
-    //             [value,properties,severity, code, message] = verification.filterIncomingValue( value, docpath, namespace.typepack.document )
-    //             if (severity) {
-    //                 console.error(
-    //                     'System error in getPropertyByIndirection: value, properties, severity, code, message',
-    //                     value, properties, severity, code, message
-    //                 )
-    //             }
-                
-    //         }
-
-    //         return value
-
-    //     } else {
-
-    //         return undefined
-
-    //     }
-    // }
 
     /*-------------------[ children ]-----------------*/
 
