@@ -102,9 +102,15 @@ class ContentFormBase extends React.Component<ContentFormProps,any> {
             })
 
         }
+
         this.localnamespace = localnamespace
         this.formdata = formdata
 
+        this.coresetup(fieldsets, groups, localnamespace, documentmap, formcontrol)
+
+    }
+
+    coresetup = (fieldsets, groups, localnamespace, documentmap, formcontrol) => {
         // reserve for later
         this.fieldsetspecs = fieldsets || []
         this.groupspecs = groups || []
@@ -172,14 +178,14 @@ class ContentFormBase extends React.Component<ContentFormProps,any> {
     componentDidMount() {
         console.log('didmount contentform props',this.props)
         // preprocess fieldsets
+        this.formdata = this.props.formdata
+        this.formcontrol = this.props.formcontrol
+
         this.initializeData()
         
     }
 
     initializeData = () => {
-
-        this.formdata = this.props.formdata
-        this.formcontrol = this.props.formcontrol
 
         // this.localnamespace && (this.localnamespace.docpack = this.formdata.docpack)
 
@@ -206,7 +212,7 @@ class ContentFormBase extends React.Component<ContentFormProps,any> {
     }
 
     componentDidUpdate() {
-        console.log('didupdate contentform: props, formdata',this.props, this.formdata)
+        // console.log('didupdate contentform: props, formdata',this.props, this.formdata)
         if (!Object.is(this.props.formcontrol,this.formcontrol)) {
             this.formcontrol = this.props.formcontrol
             if (this.formcontrol.suspended != this.state.suspended) {
@@ -216,6 +222,7 @@ class ContentFormBase extends React.Component<ContentFormProps,any> {
             }
         }
         if (!Object.is(this.props.formdata,this.formdata)) {
+            this.formdata = this.props.formdata
             this.updateData()
             // console.log('contentform updated formdata',this.formdata)
         }
@@ -224,11 +231,9 @@ class ContentFormBase extends React.Component<ContentFormProps,any> {
     updateData = () => {
 
         this.initializeData()
-        // this.formdata = this.props.formdata
-        // // this.localnamespace.docpack = this.formdata.docpack
-        // // this.localnamespace.typepack = this.formdata.typepack
-        // this.forceUpdate()
-        console.log('updateData called: formdata, localnamespace', this.formdata, this.localnamespace)
+
+        // console.log('updateData called: form', this)
+
     }
 
     // add onChange to editable children
@@ -396,6 +401,8 @@ class ContentFormBase extends React.Component<ContentFormProps,any> {
 
         this.formcontext.state = this.state
 
+        this.formcontext.formdata = this.formdata
+
         let message:PostFormMessage = {
             formcontext:this.formcontext,
             success:this.onSubmitSuccess,
@@ -556,7 +563,7 @@ class ContentFormBase extends React.Component<ContentFormProps,any> {
 
             } catch(e) {
                 // no action - simplifies checks above
-                console.log('onSubmit namespace parsing for callback failed', this)
+                console.log('onSubmit namespace parsing for callback failed: e, this', e, this)
             }
 
         } else {
