@@ -164,14 +164,14 @@ class ComponentFactory {
         }
     }
 
-    private cloneComponent = (element, componentspec, attributions) => {
+    // private cloneComponent = (element, componentspec, attributions) => {
 
-        let props:GenericObject = this.getProps(componentspec.properties, componentspec.attributes)
+    //     let props:GenericObject = this.getProps(componentspec.properties, componentspec.attributes)
 
-        // pass to React
-        return React.cloneElement(element, props)
+    //     // pass to React
+    //     return React.cloneElement(element, props)
 
-    }
+    // }
 
     private getComponentByReference = (reference, properties, attributes) => {
 
