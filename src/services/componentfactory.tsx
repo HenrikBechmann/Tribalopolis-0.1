@@ -266,7 +266,7 @@ class ComponentFactory {
         switch (prepend) {
 
             case '&': {
-                property = this.getPropertyByIndirection(propertyspec, attributes)
+                property = utilities.unpackProperty(propertyspec, this.namespace)
                 break
             }
             case '@': {
@@ -310,38 +310,39 @@ class ComponentFactory {
         return retval
     }
 
-    private getPropertyByIndirection = (propertySpec, attributes = null) => {
+    // TODO: use (and adapt to) unpackProperty in utilities
+    // private getPropertyByIndirection = (propertySpec, namespace) => {
 
-        let path = propertySpec.slice(1) // removing '&' trigger
-        let pathlist = path.split('.')
-        let namespace = this.namespace
+    //     let path = propertySpec.slice(1) // removing '&' trigger
+    //     let pathlist = path.split('.')
+    //     // let namespace = this.namespace
 
-        let nodedata:any = utilities.getNodePosition(namespace,pathlist)
-        if (nodedata) {
-            let value = nodedata.nodevalue
-            let properties, severity, code, message
+    //     let nodedata:any = utilities.getNodePosition(namespace,pathlist)
+    //     if (nodedata) {
+    //         let value = nodedata.nodevalue
+    //         let properties, severity, code, message
 
-            if (pathlist[0]=='docpack') { // docpack.document; this is an incoming database value; needs filtering
+    //         if (pathlist[0]=='docpack') { // docpack.document; this is an incoming database value; needs filtering
 
-                let docpath = pathlist.slice(2); // get relative path
-                [value,properties,severity, code, message] = verification.filterIncomingValue( value, docpath, namespace.typepack.document )
-                if (severity) {
-                    console.error(
-                        'System error in getPropertyByIndirection: value, properties, severity, code, message',
-                        value, properties, severity, code, message
-                    )
-                }
+    //             let docpath = pathlist.slice(2); // get relative path
+    //             [value,properties,severity, code, message] = verification.filterIncomingValue( value, docpath, namespace.typepack.document )
+    //             if (severity) {
+    //                 console.error(
+    //                     'System error in getPropertyByIndirection: value, properties, severity, code, message',
+    //                     value, properties, severity, code, message
+    //                 )
+    //             }
                 
-            }
+    //         }
 
-            return value
+    //         return value
 
-        } else {
+    //     } else {
 
-            return undefined
+    //         return undefined
 
-        }
-    }
+    //     }
+    // }
 
     /*-------------------[ children ]-----------------*/
 

@@ -6,6 +6,7 @@
 'use strict'
 
 import React from 'react'
+import verification from '../services/verification.filter'
 
 const integrateComponents = (list, namespace) => {
 
@@ -165,7 +166,7 @@ const unpackProperty = (propertySpec, namespace) => {
                     if (unpackProperty(propertySpec.if,namespace)) {
                         retval = unpackProperty(propertySpec.then,namespace)
                     } else {
-                        retval = this.getPropertyByFilter(propertySpec.else, namespace)
+                        retval = unpackProperty(propertySpec.else, namespace)
                     }
                     return retval
                     break
@@ -201,6 +202,24 @@ const unpackProperty = (propertySpec, namespace) => {
                 }
             }
         } 
+
+        console.log('unpackProperty docpath filter: nodedata, pathlist',nodedata, pathlist);
+
+        let properties, severity, code, message
+
+        if (path.substr(0,22)=='local.formdata.docpack') { // docpack.document; this is an incoming database value; needs filtering
+        // if (pathlist[0]=='docpack') { // docpack.document; this is an incoming database value; needs filtering
+            let docpath = pathlist.slice(4); // get relative path
+            console.log('unpackProperty docpack filter: nodedata, value, docpath, namespace.local.formdata.typepack.document',nodedata, value, docpath, namespace.local.formdata.typepack.document);
+            [value,properties,severity, code, message] = verification.filterIncomingValue( value, docpath, namespace.local.formdata.typepack.document )
+            if (severity) {
+                console.error(
+                    'System error in unpackProperty: value, properties, severity, code, message',
+                    value, properties, severity, code, message
+                )
+            }
+            
+        }
 
         return value
 

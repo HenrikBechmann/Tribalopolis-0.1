@@ -181,7 +181,7 @@ class ContentFormBase extends React.Component<ContentFormProps,any> {
     // ---------------------------------[ preparation ]--------------------------
 
     componentDidMount() {
-        console.log('didmount contentform props',this.props)
+        // console.log('didmount contentform props',this.props)
         // preprocess fieldsets
         this.formdata = this.props.formdata
         this.formcontrol = this.props.formcontrol
@@ -200,7 +200,7 @@ class ContentFormBase extends React.Component<ContentFormProps,any> {
 
         let [editablevalues, editablelabels] = this.integrateChildren(this.props.children)
 
-        console.log('initializeData editablevalues, editablelabels',editablevalues, editablelabels)
+        // console.log('initializeData editablevalues, editablelabels',editablevalues, editablelabels)
 
         let errorstates = this.state.errorstates
         for (let name in editablevalues) {
