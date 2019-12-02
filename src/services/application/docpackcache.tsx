@@ -58,7 +58,8 @@ const docpackCache = new class {
 
         let document = null
         // deal with type cache listener
-        if (documentcacheitem && documentcacheitem.docpack && documentcacheitem.docpack.document) {
+        // if (documentcacheitem && documentcacheitem.docpack && documentcacheitem.docpack.document) {
+        if (documentcacheitem?.docpack?.document) {
             document = documentcacheitem.docpack.document
          } else {
              document = null
@@ -67,7 +68,8 @@ const docpackCache = new class {
 
         if (this.isPaired(document)) {
 
-            let typeref = (document && document.control.type.reference)
+            // let typeref = (document && document.control.type.reference)
+            let typeref = (document?.control?.type?.reference)
 
             if (typeref) {
 
@@ -184,7 +186,8 @@ const docpackCache = new class {
 
             let result = typefilter.assertType(docpack.document,typepack.document)
 
-            if (result && result.changed) { // '"result &&" added March 25, 2019 -- not required before that'
+            // if (result && result.changed) { // '"result &&" added March 25, 2019 -- not required before that'
+            if (result?.changed) { // '"result &&" added March 25, 2019 -- not required before that'
 
                 docpack.document = result.document
                 // console.log('changed document in docpackcache',result, docpack, this.cache)
@@ -357,7 +360,8 @@ const docpackCache = new class {
     public getCacheDocpackPair = (reference, newdocument = null) => {
 
         let cacheitem = this.getExistingItem(reference)
-        let docpack:DocPackStruc = (cacheitem && cacheitem.docpack)?cacheitem.docpack:null
+        // let docpack:DocPackStruc = (cacheitem && cacheitem.docpack)?cacheitem.docpack:null
+        let docpack:DocPackStruc = (cacheitem?.docpack)?cacheitem.docpack:null
         let typepack:DocPackStruc = null
         let typeref = null
 
@@ -365,18 +369,21 @@ const docpackCache = new class {
 
         if (newdocument) {
 
-            typeref = (newdocument && newdocument.typereference) || null
+            // typeref = (newdocument && newdocument.typereference) || null
+            typeref = (newdocument?.typereference) || null
 
         } else {
 
-            if (docpack && docpack.document) {
+            // if (docpack && docpack.document) {
+            if (docpack?.document) {
 
                 // TODO this next two lines should become errors if no typeref or type found
                 // typeref = docpack.document.control.type?docpack.document.control.type.reference:null
 
                 // console.log('getCacheDocpackPair',docpack)
                 // the condition is a workaround for prototype data which has a different structure from database documents
-                typeref = (docpack.document.control.type && docpack.document.control.type.reference)?docpack.document.control.type.reference:null
+                // typeref = (docpack.document.control.type && docpack.document.control.type.reference)?docpack.document.control.type.reference:null
+                typeref = (docpack?.document?.control?.type?.reference)?docpack.document.control.type.reference:null
 
             }
 

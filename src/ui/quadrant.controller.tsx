@@ -464,6 +464,7 @@ class Quadrant extends React.Component<any,any>  {
         }
 
         // Safari keeps scrollleft with content changes
+        // if (!haspeers && this.scrollboxelement.current && (this.scrollboxelement.current.scrollLeft != 0)) {
         if (!haspeers && this.scrollboxelement.current && (this.scrollboxelement.current.scrollLeft != 0)) {
             this.scrollboxelement.current.scrollLeft = 0
         }

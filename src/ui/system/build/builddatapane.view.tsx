@@ -75,7 +75,8 @@ class BuildDataPane extends React.Component<any,any>  {
 
     updateData = () => {
         let { userdata } = this.props
-        let superuser = (userdata && userdata.globalrole == 'superuser' )
+        // let superuser = (userdata && userdata.globalrole == 'superuser' )
+        let superuser = (userdata?.globalrole == 'superuser' )
 
         if (this.state.open) {
             if (!superuser) {
@@ -115,10 +116,11 @@ class BuildDataPane extends React.Component<any,any>  {
         for (let item of data) {
             let logicaltype 
 
-            if (item.document && 
-                item.document.control && 
-                item.document.control.type && 
-                item.document.control.type.logical) {
+            // if (item.document && 
+            //     item.document.control && 
+            //     item.document.control.type && 
+            //     item.document.control.type.logical) {
+            if (item?.document?.control?.type?.logical) {
                 logicaltype = item.document.control.type.logical
             } else {
                 logicaltype = 'n/a'

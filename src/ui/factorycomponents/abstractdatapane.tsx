@@ -38,7 +38,8 @@ class AbstractDataPane extends React.Component<AbstractDataPaneProps,any> {
 
         // new
         this.docProxy = docproxy
-        this.options = attributes && attributes.options
+        // this.options = attributes && attributes.options
+        this.options = attributes?.options
         this.attributes = attributes // used for local control
 
         this.controllerdata = controller

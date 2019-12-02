@@ -199,7 +199,8 @@ class BuildController extends React.Component<any,any> {
             values,
             docpack
         },() => {
-            let typeref = (data && data.control && data.control.type)?data.control.type.reference:null
+            // let typeref = (data && data.control && data.control.type)?data.control.type.reference:null
+            let typeref = (data?.control?.type)?data.control.type.reference:null
             if (typeref) {
                 let parm:GetDocumentMessage = {
                     reference:typeref,
@@ -224,7 +225,8 @@ class BuildController extends React.Component<any,any> {
 
         let results = typefilter.assertType(this.state.docpack.document,this.doctypepack.document)
 
-        if (results && results.document) {
+        // if (results && results.document) {
+        if (results?.document) {
             
             let filtereddocpack:any = verification.filterIncomingDocpackDatatypes(
                 {

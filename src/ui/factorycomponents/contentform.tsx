@@ -117,8 +117,10 @@ class ContentFormBase extends React.Component<ContentFormProps,any> {
         this.fieldsetspecs = fieldsets || []
         this.groupspecs = groups || []
 
-        let registerCalldowns = localnamespace && localnamespace.agent.registerCalldowns
-        let monitorEditState = localnamespace && localnamespace.controller.callbacks.monitorEditState
+        // let registerCalldowns = localnamespace && localnamespace.agent.registerCalldowns
+        // let monitorEditState = localnamespace && localnamespace.controller.callbacks.monitorEditState
+        let registerCalldowns = localnamespace?.agent.registerCalldowns
+        let monitorEditState = localnamespace?.controller.callbacks.monitorEditState
         // to participate in multiple concurrent postings (transaction wrapped)
         registerCalldowns && registerCalldowns(
             {
@@ -128,7 +130,8 @@ class ContentFormBase extends React.Component<ContentFormProps,any> {
             }
         )
 
-        let instanceid = this.instanceid = localnamespace && localnamespace.docproxy.instanceid
+        // let instanceid = this.instanceid = localnamespace && localnamespace.docproxy.instanceid
+        let instanceid = this.instanceid = localnamespace?.docproxy.instanceid
         monitorEditState && monitorEditState(this.state.isediting)
         
         // anticipate posting as an option for caller
@@ -265,9 +268,11 @@ class ContentFormBase extends React.Component<ContentFormProps,any> {
 
         // get list of editable values, by name of field (therefore names must be unique)
         for (let child of children) {
-            let attributes = child.props && child.props['data-attributes']
+            // let attributes = child.props && child.props['data-attributes']
+            let attributes = child.props?.['data-attributes']
 
-            if (attributes && attributes.setup) {
+            // if (attributes && attributes.setup) {
+            if (attributes?.setup) {
                 let setup = attributes.setup
                 let instructions = setup.instructions
                 if (instructions) {
@@ -279,7 +284,8 @@ class ContentFormBase extends React.Component<ContentFormProps,any> {
                 }
                 child = this.integrateNode(child, setup)
             }
-            if (attributes && attributes.formats) {
+            // if (attributes && attributes.formats) {
+            if (attributes?.formats) {
                 let formats = attributes.formats
                 child = this.formatNode(child, formats)
             }
@@ -344,7 +350,8 @@ class ContentFormBase extends React.Component<ContentFormProps,any> {
     // assign nodes to named fieldsets
     assignNodeToFieldset = (node, attributes) => {
 
-        let fieldsetname = attributes && attributes.fieldset
+        // let fieldsetname = attributes && attributes.fieldset
+        let fieldsetname = attributes?.fieldset
 
         // console.log('assignNodeToFieldset:node, attributes',node,attributes,fieldsetname)
 
@@ -457,7 +464,7 @@ class ContentFormBase extends React.Component<ContentFormProps,any> {
                 let styleselection = fieldsetspec.styleselection
                 let component = <fieldset 
                     key = {fieldsetspec.name} 
-                    className = {classes && classes.fieldset}
+                    className = {classes?.fieldset}
                     disabled = {fieldsetspec.candisable && !this.state.isediting}
                     style = {styleselections[styleselection] || null}
                 >
@@ -572,8 +579,8 @@ class ContentFormBase extends React.Component<ContentFormProps,any> {
 
             try { // ... try = lazy :-(
 
-                namespace.controller.callbacks.submit && 
-                namespace.controller.callbacks.submit(this.getPostMessage())
+                // namespace.controller.callbacks.submit && 
+                namespace?.controller?.callbacks?.submit?.(this.getPostMessage())
 
             } catch(e) {
                 // no action - simplifies checks above

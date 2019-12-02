@@ -16,6 +16,7 @@ class Userdata {
 
     get status() {
         if (this.accountpack) {
+            // if (this.userclaimspack && (this.userclaimspack.document.status == 'active')) {
             if (this.userclaimspack && (this.userclaimspack.document.status == 'active')) {
                 return 'active'
             }
@@ -30,7 +31,8 @@ class Userdata {
         return 'signedout'
     }
     get globalrole() {
-        if (this.userclaimspack && this.userclaimspack.document.globalrole) {
+        // if (this.userclaimspack && this.userclaimspack.document.globalrole) {
+        if (this.userclaimspack?.document.globalrole) {
             return this.userclaimspack.document.globalrole
         } else {
             return undefined

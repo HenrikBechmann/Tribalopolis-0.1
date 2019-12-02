@@ -45,7 +45,8 @@ const typefilter = new class {
 
         // console.log('inside assertType BEFORE FILTER',document, type, type.properties.model)
 
-        if ((document === undefined) && type && type.properties.model) {
+        // if ((document === undefined) && type && type.properties.model) {
+        if ((document === undefined) && type?.properties?.model) {
             localdocument = {}
         }
 
@@ -81,7 +82,8 @@ const typefilter = new class {
             // let { version:doctypeversion } = localdocument.control.type
             // let { version:typeversion } = type.control
 
-            let doctypeversion = localdocument.control && localdocument.control.type.version
+            // let doctypeversion = localdocument.control && localdocument.control.type.version
+            let doctypeversion = localdocument?.control?.type.version
             let typeversion = type.control.version
 
             // ------------------[ DO DELTIONS ]----------------------------------

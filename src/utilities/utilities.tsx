@@ -19,11 +19,13 @@ const integrateComponents = (list, namespace) => {
     if (!Array.isArray(list)) list = [list]
     
     for (let element of list) {
-        let dataAttributes = element.props && element.props['data-attributes']
+        // let dataAttributes = element.props && element.props['data-attributes']
+        let dataAttributes = element.props?.['data-attributes']
 
         // console.log('integrateComponents: dataAttributes',dataAttributes)
 
-        if (dataAttributes && dataAttributes.setup) {
+        // if (dataAttributes && dataAttributes.setup) {
+        if (dataAttributes?.setup) {
 
             let setup = dataAttributes.setup
             // console.log('integrateComponents: setup',setup)
@@ -60,7 +62,8 @@ const updateComponents = (list, namespace) => {
     
     for (let element of list) {
         // console.log('element in updateComponents',element, list)
-        let dataAttributes = (element.props && element.props['data-attributes'])
+        // let dataAttributes = (element.props && element.props['data-attributes'])
+        let dataAttributes = (element.props?.['data-attributes'])
 
         // console.log('updateFieldsetElementValues',dataAttributes)
 
@@ -116,11 +119,13 @@ const updateDbState = (list, namespace) => {
     
     for (let element of list) {
         // console.log('element in updateComponents',element, list)
-        let dataAttributes = (element.props && element.props['data-attributes'])
+        // let dataAttributes = (element.props && element.props['data-attributes'])
+        let dataAttributes = (element.props?.['data-attributes'])
 
         // console.log('updateFieldsetElementValues',dataAttributes)
 
-        if (dataAttributes && dataAttributes.dbstate) {
+        // if (dataAttributes && dataAttributes.dbstate) {
+        if (dataAttributes?.dbstate) {
 
             let dbstate = dataAttributes.dbstate
             if (dbstate.assignments) {
