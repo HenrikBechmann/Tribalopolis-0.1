@@ -98,7 +98,7 @@ class ComponentFactory {
 
     // =======================[ internal ]============================
 
-    private assembleComponent = (componentspec,attributions = null) => {
+    private assembleComponent = (componentspec, attributions = null) => {
 
         // console.log('assembleComponent',renderdata)
 
@@ -118,7 +118,7 @@ class ComponentFactory {
                 }
                 case 'condition':
                     let result
-                    if (this.getPropertyByFilter(componentspec.if, attributes)) {
+                    if (this.getPropertyByFilter(componentspec.if)) {
                         result = componentspec.then
                     } else {
                         result = componentspec.else
@@ -148,7 +148,7 @@ class ComponentFactory {
             // contentformstylesmethod
 
             // get component properties
-            let props:GenericObject = this.getProps(componentspec.properties, componentspec.attributes)
+            let props:GenericObject = this.getProps(componentspec.properties)
 
             // get component children
             let children = this.getChildren(componentspec.children)
@@ -169,9 +169,9 @@ class ComponentFactory {
     private getComponentByReference = (componentspec) => {
 
         let { reference, properties, attributes } = componentspec
-        let ref = this.getPropertyByFilter(reference, attributes)
+        let ref = this.getPropertyByFilter(reference)
         // if (typeof ref === 'function') ref = ref()
-        let props:any = this.getProps(properties,attributes)
+        let props:any = this.getProps(properties)
         let controller = this.namespace.controller
         let agent = this.namespace.agent
         let docproxy = ref && new Proxy({doctoken:{reference:ref}})
@@ -204,14 +204,14 @@ class ComponentFactory {
 
 /*--------------------[ unpack properties]-------------------*/
 
-    private getProps = (propertyspecs,attributes = null) => {
+    private getProps = (propertyspecs) => {
 
         let props = {}
         // let defaults = (attributes && attributes.defaults) || {}
         let defaults = (propertyspecs?.['data-attributes']?.defaults) || {}
         for (let propertyindex in propertyspecs) {
             let propertyspec = propertyspecs[propertyindex]
-            let property = this.getPropertyByFilter(propertyspec, attributes)
+            let property = this.getPropertyByFilter(propertyspec)
             if (!property && defaults[propertyindex]) {
                 property = defaults[propertyindex]
             }
@@ -222,14 +222,14 @@ class ComponentFactory {
 
     }
 
-    private getPropertyByFilter = (propertyspec, attributes = null) => {
+    private getPropertyByFilter = (propertyspec) => {
 
         let property = propertyspec
 
         if (!property) return property
 
         if (utilities.isObject(property)) {
-            return this.getPropertyByObject(property, attributes)
+            return this.getPropertyByObject(property)
         }
 
         let prepend = property[0]
@@ -250,7 +250,7 @@ class ComponentFactory {
 
     }
 
-    private getPropertyByObject(propertyobject, attributes = null) {
+    private getPropertyByObject(propertyobject) {
         let retval = propertyobject
         if (propertyobject['#variant']) {
             let variant = propertyobject['#variant']
@@ -260,14 +260,14 @@ class ComponentFactory {
                     break
                 
                 case 'condition':
-                    if (this.getPropertyByFilter(propertyobject.if, attributes)) {
-                        retval = this.getPropertyByFilter(propertyobject.then, attributes)
+                    if (this.getPropertyByFilter(propertyobject.if)) {
+                        retval = this.getPropertyByFilter(propertyobject.then)
                     } else {
-                        retval = this.getPropertyByFilter(propertyobject.else, attributes)
+                        retval = this.getPropertyByFilter(propertyobject.else)
                     }
                     break
                 case 'function':
-                    let parms = this.getProps(propertyobject.parms, attributes)
+                    let parms = this.getProps(propertyobject.parms)
                     retval = functions[propertyobject.function](parms)
                     break
                 case 'namespace':
