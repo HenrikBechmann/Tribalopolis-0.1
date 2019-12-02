@@ -119,6 +119,7 @@ class ComponentFactory {
                 case 'condition':
                     let result
                     if (this.getPropertyByFilter(componentspec.if)) {
+                    // if (utilities.unpackProperty(componentspec.if, this.namespace)) {
                         result = componentspec.then
                     } else {
                         result = componentspec.else

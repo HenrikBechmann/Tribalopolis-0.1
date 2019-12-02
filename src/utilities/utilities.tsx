@@ -218,7 +218,7 @@ const unpackProperty = (propertySpec, namespace) => {
             // console.log('unpackProperty docpack filter: nodedata, value, docpath, namespace.local.dbdata.typepack.document',nodedata, value, docpath, namespace.local.dbdata.typepack.document);
             [value,properties,severity, code, message] = verification.filterIncomingValue( value, docpath, namespace.local.dbdata.typepack.document )
             if (severity) {
-                console.error(
+                console.warn(
                     'System error in unpackProperty: value, properties, severity, code, message',
                     value, properties, severity, code, message
                 )
