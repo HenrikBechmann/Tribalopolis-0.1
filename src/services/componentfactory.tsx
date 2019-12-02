@@ -136,9 +136,11 @@ class ComponentFactory {
 
             // get component class
             let type = this.getTypeClass(componentspec.type)
-
-            if (componentspec.attributes && componentspec.attributes.stylesforclasses) {
-                let styles = createStyles(componentspec.attributes.stylesforclasses)
+            let stylesforclasses = componentspec?.properties?.['data-attributes']?.stylesforclasses
+            if (stylesforclasses) {
+            // if (componentspec.attributes && componentspec.attributes.stylesforclasses) {
+                // let styles = createStyles(componentspec.attributes.stylesforclasses)
+                let styles = createStyles(stylesforclasses)
                 type = withStyles(styles)(type)
             }
 
@@ -205,7 +207,8 @@ class ComponentFactory {
     private getProps = (propertyspecs,attributes = null) => {
 
         let props = {}
-        let defaults = (attributes && attributes.defaults) || {}
+        // let defaults = (attributes && attributes.defaults) || {}
+        let defaults = (propertyspecs?.['data-attributes']?.defaults) || {}
         for (let propertyindex in propertyspecs) {
             let propertyspec = propertyspecs[propertyindex]
             let property = this.getPropertyByFilter(propertyspec, attributes)
