@@ -114,7 +114,7 @@ class ComponentFactory {
                     return componentspec.text
                 }
                 case 'reference': { // recursion
-                    return this.getComponentByReference(componentspec.reference, properties, attributes)
+                    return this.getComponentByReference(componentspec)
                 }
                 case 'condition':
                     let result
@@ -164,8 +164,9 @@ class ComponentFactory {
         }
     }
 
-    private getComponentByReference = (reference, properties, attributes) => {
+    private getComponentByReference = (componentspec) => {
 
+        let { reference, properties, attributes } = componentspec
         let ref = this.getPropertyByFilter(reference, attributes)
         // if (typeof ref === 'function') ref = ref()
         let props:any = this.getProps(properties,attributes)
