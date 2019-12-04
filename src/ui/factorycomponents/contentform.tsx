@@ -1,6 +1,14 @@
 // baseform.view.tsx
 // copyright (c) 2019 Henrik Bechmann, Toronto, Licence: GPL-3.0-or-later
 
+/*
+    TODO:
+    see if there's a better way to integrate type data into live components
+    - currently several types of processing (see "data-attributes" for most)
+    - possibly just one process if all data-generated components are wrapped 
+        in a standard HOC which converts data specification into jsx functionality
+*/
+
 'use strict'
 
 import React from 'react'
