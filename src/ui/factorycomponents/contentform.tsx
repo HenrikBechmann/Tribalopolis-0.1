@@ -165,6 +165,7 @@ class ContentFormBase extends React.Component<ContentFormProps,any> {
         isprocessing:false,
         suspended:false,
         errorstates:{},
+        handlingasyncupdate:false,
     }
 
     // instantiation properties

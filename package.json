@@ -22,7 +22,7 @@
     "firebaseui": "^4.3.0",
     "format-number": "^3.0.0",
     "isomorphic-fetch": "^2.2.1",
-    "js-file-download": "^0.4.8",
+    "js-file-download": "^0.4.9",
     "lodash": "^4.17.15",
     "markdown-to-jsx": "^6.10.3",
     "moment": "^2.24.0",
