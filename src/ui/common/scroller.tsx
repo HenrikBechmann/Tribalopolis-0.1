@@ -10,6 +10,8 @@ use flex
 
 use IntersectionObserver, getBoundingClientRect
 
+use transform:translate to extend the cradle when scrolling
+
 viewport
 scrollblock
 cradle (for items)
@@ -39,6 +41,8 @@ attributes
     inverted (invert scroll direction)
     headercomponent
     footercomponent
+
+TODO: get scrolldirection
 */
 
 const Viewport = (props) => {
@@ -58,7 +62,7 @@ const Scrollblock = (props) => {
     /*
         calculate styles
     */
-    return <div>{props.children}</div>
+    return <div style={{height:'100%',width:'2000px',backgroundColor:'green'}}>{props.children}</div>
 }
 
 const Cradle = (props) => {
@@ -66,7 +70,13 @@ const Cradle = (props) => {
     /*
         calculate behaviour
     */
-    return <div>{props.children}</div>
+    return <div style = {
+        {
+            height:'100%', 
+            width:'300px',
+            backgroundColor:'blue',
+            transform:'translate(250px)'
+        }}>{props.children}</div>
 }
 
 /*
