@@ -8,6 +8,8 @@ import React from 'react'
 /*
 use flex
 
+use IntersectionObserver, getBoundingClientRect
+
 viewport
 scrollblock
 cradle (for items)
@@ -16,6 +18,10 @@ allow a position bar at bottom -- scrolling stops (and cradle fades) while
 position bar value is being changed. Position bar gives feedback on location (configureable)
 
 change key for updates
+
+transform out of view items to blank space
+
+allow for dividers
 
 rubber finish at either end for visual clue
 
@@ -30,6 +36,9 @@ attributes
     placeholder (over-rides defaultsize)
     runwaylength
     runwayelements
+    inverted (invert scroll direction)
+    headercomponent
+    footercomponent
 */
 
 const Viewport = (props) => {
@@ -38,7 +47,8 @@ const Viewport = (props) => {
             position:'absolute',
             height:'100%',
             width:'100%',
-            overflow:'auto'
+            overflow:'auto',
+            backgroundColor:'red',
         }
     }>{props.children}</div>
 }
@@ -100,3 +110,5 @@ const Scroller = (props) => {
     </Viewport>
 
 }
+
+export default Scroller

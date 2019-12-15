@@ -13,6 +13,7 @@ import { Route, Redirect } from 'react-router-dom'
 import Quadspace from '../ui/quadspace.controller'
 import Build from '../ui/system/build.controller'
 import Home from '../ui/system/home.controller'
+import Test from '../ui/system/test.controller'
 import Register from '../ui/system/register.controller'
 
 // import ResetPassword from '../containers/resetpassword'
@@ -70,12 +71,16 @@ let indexroute = <Route key = "workspace" path = "/workspace" component={ Quadsp
 //     }
 // />
 
-let registerroute = <Route key = "home" path = "/register" component = {Register} />
+// TODO: add /admin and /system
+
+let registerroute = <Route key = "register" path = "/register" component = {Register} />
 
 let homeroute = <Route key = "home" path = "/" component = {Home} />
 
+let testroute = <Route key = "test" path = "/test" component = {Test} />
+
 let buildroute = <Route key = "build" path = "/build" component = {Build} />
 
-const routes = [indexroute,buildroute,registerroute, homeroute]
+const routes = [indexroute,buildroute,registerroute, testroute, homeroute]
 
 export default routes
