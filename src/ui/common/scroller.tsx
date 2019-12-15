@@ -12,6 +12,8 @@ use IntersectionObserver, getBoundingClientRect
 
 use transform:translate to extend the cradle when scrolling
 
+explore use of requestAnimationFrame
+
 viewport
 scrollblock
 cradle (for items)
