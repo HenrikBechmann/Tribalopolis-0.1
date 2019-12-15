@@ -12,7 +12,7 @@ use IntersectionObserver, getBoundingClientRect
 
 use transform:translate to extend the cradle when scrolling
 
-explore use of requestAnimationFrame
+explore use of requestAnimationFrame. use inmotion var as a sentinal
 
 viewport
 scrollblock
