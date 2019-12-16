@@ -64,20 +64,22 @@ const Scrollblock = (props) => {
     /*
         calculate styles
     */
-    return <div style={{height:'100%',width:'2000px',backgroundColor:'green'}}>{props.children}</div>
+    return <div style={{height:'100%',width:'20000px',backgroundColor:'green'}}>{props.children}</div>
 }
 
 const Cradle = (props) => {
     let { runway, size, offset, dimensions, pattern, direction, getItem, placeholders } = props
     /*
-        calculate behaviour
+        calculate behaviour. set start or end to foce expansion in the other direction
     */
     return <div style = {
         {
-            height:'100%', 
-            width:'300px',
+            position:'absolute',
+            left:'250px',
+            top:0,
+            bottom:0,
+            width:'250px',
             backgroundColor:'blue',
-            transform:'translate(250px)'
         }}>{props.children}</div>
 }
 
