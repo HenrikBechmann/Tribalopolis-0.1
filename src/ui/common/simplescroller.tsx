@@ -52,7 +52,29 @@ TODO: get scrolldirection
 */
 
 const Viewport = (props) => {
-    let {onScroll} = props
+
+    let scrollData = {}
+
+    let onAfterScrollTimeout
+
+    const onScroll = (e) => {
+
+        let target = e.target || e.currentTarget
+        if (onAfterScrollTimeout) {
+            clearTimeout(onAfterScrollTimeout)
+        }
+        
+        onAfterScrollTimeout = setTimeout(onAfterScroll,200)
+        console.log('scroll: scrollLeft, scrollTop',target.scrollLeft,target.scrollTop)
+    }
+
+    const onAfterScroll = () => {
+        if (onAfterScrollTimeout) {
+            clearTimeout(onAfterScrollTimeout)
+        }
+        console.log('scrolling ended')
+    }
+
     return <div style = {
         {
             position:'absolute',
@@ -97,19 +119,12 @@ const Cradle = (props) => {
 
 */
 
-const scrollEvent = (e) => {
-    let target = e.target || e.currentTarget
-    console.log('scroll: scrollLeft, scrollTop',target.scrollLeft,target.scrollTop)
-}
-
 const SimpleScroller = (props) => {
     let { runway, size, offset, dimensions, pattern, direction, getItem, placeholders } = props
     console.log('inside Scroller')
     // useEffect(registerScrollEvent)
 
-    return <Viewport             
-        onScroll = {scrollEvent}
-    >
+    return <Viewport>
 
         <Scrollblock
 
