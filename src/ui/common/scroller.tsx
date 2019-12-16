@@ -76,6 +76,7 @@ const Cradle = (props) => {
         {
             position:'absolute',
             left:'250px',
+            right:'auto',
             top:0,
             bottom:0,
             width:'250px',
