@@ -3,7 +3,7 @@
 
 'use strict'
 
-import React from 'react'
+import React, {useEffect} from 'react'
 
 /*
 use flex
@@ -13,6 +13,10 @@ use IntersectionObserver, getBoundingClientRect
 use transform:translate to extend the cradle when scrolling
 
 explore use of requestAnimationFrame. use inmotion var as a sentinal
+
+use context api for scroll
+
+allow list type static or dynamic. Static items can be re-ordered; dynamic items are virtual
 
 viewport
 scrollblock
@@ -48,6 +52,7 @@ TODO: get scrolldirection
 */
 
 const Viewport = (props) => {
+    let {onScroll} = props
     return <div style = {
         {
             position:'absolute',
@@ -55,8 +60,9 @@ const Viewport = (props) => {
             width:'100%',
             overflow:'auto',
             backgroundColor:'red',
-        }
-    }>{props.children}</div>
+        }}
+    onScroll = {onScroll}
+    >{props.children}</div>
 }
 
 const Scrollblock = (props) => {
@@ -91,10 +97,19 @@ const Cradle = (props) => {
 
 */
 
+const scrollEvent = (e) => {
+    let target = e.target || e.currentTarget
+    console.log('scroll: scrollLeft, scrollTop',target.scrollLeft,target.scrollTop)
+}
+
 const Scroller = (props) => {
     let { runway, size, offset, dimensions, pattern, direction, getItem, placeholders } = props
+    console.log('inside Scroller')
+    // useEffect(registerScrollEvent)
 
-    return <Viewport>
+    return <Viewport             
+        onScroll = {scrollEvent}
+    >
 
         <Scrollblock
 
