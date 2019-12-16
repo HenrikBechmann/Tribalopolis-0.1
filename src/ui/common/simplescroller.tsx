@@ -5,6 +5,8 @@
 
 import React, {useEffect} from 'react'
 
+import { GenericObject } from '../../services/interfaces'
+
 /*
 use flex
 
@@ -53,7 +55,8 @@ TODO: get scrolldirection
 
 const Viewport = (props) => {
 
-    let scrollData = {}
+    let scrollData:GenericObject = {}
+    let latestScrollData:GenericObject
 
     let onAfterScrollTimeout
 
@@ -63,16 +66,30 @@ const Viewport = (props) => {
         if (onAfterScrollTimeout) {
             clearTimeout(onAfterScrollTimeout)
         }
-        
         onAfterScrollTimeout = setTimeout(onAfterScroll,200)
-        console.log('scroll: scrollLeft, scrollTop',target.scrollLeft,target.scrollTop)
+
+        scrollData.previousScrollLeft = scrollData.scrollLeft
+        scrollData.previousScrollTop = scrollData.scrollTop
+        scrollData.scrollLeft = target.scrollLeft
+        scrollData.scrollTop = target.scrollTop
+
+        if ((scrollData.scrollingForward === undefined) && 
+            (scrollData.previousScrollLeft !== undefined)) {
+            if (scrollData.scrollLeft !== scrollData.previousScrollLeft) {
+                scrollData.scrollingForward = (scrollData.scrollLeft > scrollData.previousScrollLeft)
+            }
+        }
+
+        console.log('scroll: scrollLeft, scrollTop, scrollData',target.scrollLeft,target.scrollTop, scrollData)
     }
 
     const onAfterScroll = () => {
         if (onAfterScrollTimeout) {
             clearTimeout(onAfterScrollTimeout)
         }
-        console.log('scrolling ended')
+        latestScrollData = scrollData
+        scrollData = {}
+        console.log('scrolling ended:scrollData',latestScrollData)
     }
 
     return <div style = {
