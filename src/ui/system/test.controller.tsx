@@ -5,7 +5,7 @@
 
 import React from 'react'
 
-import Scroller from '../common/scroller'
+import Scroller from '../common/simplescroller'
     
 class Home extends React.Component<any,any> {
 

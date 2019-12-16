@@ -102,7 +102,7 @@ const scrollEvent = (e) => {
     console.log('scroll: scrollLeft, scrollTop',target.scrollLeft,target.scrollTop)
 }
 
-const Scroller = (props) => {
+const SimpleScroller = (props) => {
     let { runway, size, offset, dimensions, pattern, direction, getItem, placeholders } = props
     console.log('inside Scroller')
     // useEffect(registerScrollEvent)
@@ -141,4 +141,4 @@ const Scroller = (props) => {
 
 }
 
-export default Scroller
+export default SimpleScroller
