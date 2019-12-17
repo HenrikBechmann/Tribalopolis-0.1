@@ -104,6 +104,7 @@ const Viewport = (props) => {
 
         // console.log('continuing with absdiff',absdiff)
 
+        scrollData.scrollingForward = (target.scrollLeft > scrollData.scrollLeft)
         scrollData.previousScrollLeft = scrollData.scrollLeft
         scrollData.previousScrollTop = scrollData.scrollTop
         scrollData.scrollLeft = target.scrollLeft
