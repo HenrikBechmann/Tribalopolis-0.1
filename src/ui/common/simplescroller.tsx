@@ -3,7 +3,7 @@
 
 'use strict'
 
-import React, {useContext, useState, useRef, useEffect} from 'react'
+import React, {useContext, useState, useRef, useEffect, useMemo} from 'react'
 
 import { GenericObject } from '../../services/interfaces'
 
@@ -50,74 +50,97 @@ attributes
     headercomponent
     footercomponent
 
-TODO: get scrolldirection
+TODO: reset if direction is suddenly reversed
 */
 
+const SCROLL_DIFF_FOR_UPDATE = 20
+const SCROLL_TIMEOUT_FOR_ONAFTERSCROLL = 250
 const ScrollContext = React.createContext(null)
 
 const Viewport = (props) => {
-
-    let [childScrollData, updateScrollData] = useState(null)
+    let [scrollData, updateScrollData] = useState(null)
     let scrolldiv:any = useRef()
+    let scrollTimeout = useRef(undefined)
+
+    console.log('starting ViewPort')
 
     useEffect(() => {
+        let scrollData:GenericObject = {}
         scrollData.startingScrollLeft = scrolldiv.current.scrollLeft
         scrollData.startingScrollTop = scrolldiv.current.scrollTop
-        console.log('running useEffect:scrolldiv, scrollData',scrolldiv, scrollData)
+        updateScrollData(scrollData)
+        // console.log('running useEffect:scrolldiv, scrollData',scrolldiv, scrollData)
     },[])
 
 
-    let scrollData:GenericObject = {}
-    let latestScrollData:GenericObject
-
-    let onAfterScrollTimeout
     const onScroll = (e) => {
 
         let target = e.target || e.currentTarget
-        if (onAfterScrollTimeout) {
-            clearTimeout(onAfterScrollTimeout)
+        if (scrollTimeout.current) {
+            clearTimeout(scrollTimeout.current)
         }
-        onAfterScrollTimeout = setTimeout(onAfterScroll,200)
+        scrollTimeout.current = setTimeout(onAfterScroll,SCROLL_TIMEOUT_FOR_ONAFTERSCROLL)
 
         scrollData.scrolling = true
+
+        if (scrollData.scrollingForward === undefined) {
+            if (target.scrollLeft !== scrollData.startingScrollLeft) {
+                scrollData.scrollingForward = (target.scrollLeft > scrollData.startingScrollLeft)
+                // initialize
+                scrollData.scrollLeft = scrollData.startingScrollLeft
+                scrollData.scrollTop = scrollData.startingScrollTop
+                scrollData.previousScrollLeft = scrollData.scrollLeft
+                scrollData.previousScrollTop = scrollData.scrollTop
+                console.log('initialized scrolldata',scrollData)
+                scrollData = Object.assign({},scrollData)
+                updateScrollData(scrollData)
+            }
+        }
+        let absdiff = Math.abs(scrollData.scrollLeft - target.scrollLeft) 
+        if ( absdiff <=SCROLL_DIFF_FOR_UPDATE) {
+            // console.log('returning with absdiff',absdiff)
+            return
+        }
+
+        // console.log('continuing with absdiff',absdiff)
+
         scrollData.previousScrollLeft = scrollData.scrollLeft
         scrollData.previousScrollTop = scrollData.scrollTop
         scrollData.scrollLeft = target.scrollLeft
         scrollData.scrollTop = target.scrollTop
 
-        if ((scrollData.scrollingForward === undefined) && 
-            (scrollData.previousScrollLeft !== undefined)) {
-            if (scrollData.scrollLeft !== scrollData.previousScrollLeft) {
-                scrollData.scrollingForward = (scrollData.scrollLeft > scrollData.previousScrollLeft)
-            }
-        }
+        scrollData = Object.assign({},scrollData)
+        updateScrollData(scrollData)
 
-        console.log('scroll: scrollLeft, scrollTop, scrollData',target.scrollLeft,target.scrollTop, scrollData)
+        // console.log('scroll: scrollLeft, scrollTop, scrollData',target.scrollLeft,target.scrollTop, scrollData)
     }
 
     const onAfterScroll = () => {
-        if (onAfterScrollTimeout) {
-            clearTimeout(onAfterScrollTimeout)
+        if (scrollTimeout.current) {
+            clearTimeout(scrollTimeout.current)
+            scrollTimeout.current = undefined 
         }
         scrollData.scrolling = false
         scrollData.startingScrollLeft = scrollData.scrollLeft
         scrollData.startingScrollTop = scrollData.scrollTop
-        latestScrollData = scrollData
-        scrollData = {}
-        updateScrollData(latestScrollData)
-        console.log('scrolling ended:scrollData',latestScrollData)
+        // latestScrollData = scrollData
+        // scrollData = {}
+        scrollData = Object.assign({},scrollData)
+        updateScrollData(scrollData)
+        console.log('scrolling ended:scrollData',scrollData)
     }
 
-    return <ScrollContext.Provider value = {childScrollData}><div style = {
-        {
-            position:'absolute',
-            height:'100%',
-            width:'100%',
-            overflow:'auto',
-            backgroundColor:'red',
-        }}
-    onScroll = {onScroll}
-    ref = {scrolldiv}
+    return <ScrollContext.Provider value = {scrollData}><div 
+        style = {
+            {
+                position:'absolute',
+                height:'100%',
+                width:'100%',
+                overflow:'auto',
+                backgroundColor:'red',
+            }}
+        onScroll = {onScroll}
+        ref = {scrolldiv}
     >{props.children}</div></ScrollContext.Provider>
 }
 
