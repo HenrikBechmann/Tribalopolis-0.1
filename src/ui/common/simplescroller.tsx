@@ -121,6 +121,7 @@ const Viewport = (props) => {
             scrollTimeout.current = undefined 
         }
         scrollData.scrolling = false
+        scrollData.scrollingForward = undefined
         scrollData.startingScrollLeft = scrollData.scrollLeft
         scrollData.startingScrollTop = scrollData.scrollTop
         // latestScrollData = scrollData
