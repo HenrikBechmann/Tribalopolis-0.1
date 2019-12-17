@@ -3,7 +3,7 @@
 
 'use strict'
 
-import React, {useEffect} from 'react'
+import React, {useContext, useState, useRef, useEffect} from 'react'
 
 import { GenericObject } from '../../services/interfaces'
 
@@ -53,13 +53,24 @@ attributes
 TODO: get scrolldirection
 */
 
+const ScrollContext = React.createContext(null)
+
 const Viewport = (props) => {
+
+    let [childScrollData, updateScrollData] = useState(null)
+    let scrolldiv:any = useRef()
+
+    useEffect(() => {
+        scrollData.startingScrollLeft = scrolldiv.current.scrollLeft
+        scrollData.startingScrollTop = scrolldiv.current.scrollTop
+        console.log('running useEffect:scrolldiv, scrollData',scrolldiv, scrollData)
+    },[])
+
 
     let scrollData:GenericObject = {}
     let latestScrollData:GenericObject
 
     let onAfterScrollTimeout
-
     const onScroll = (e) => {
 
         let target = e.target || e.currentTarget
@@ -68,6 +79,7 @@ const Viewport = (props) => {
         }
         onAfterScrollTimeout = setTimeout(onAfterScroll,200)
 
+        scrollData.scrolling = true
         scrollData.previousScrollLeft = scrollData.scrollLeft
         scrollData.previousScrollTop = scrollData.scrollTop
         scrollData.scrollLeft = target.scrollLeft
@@ -87,12 +99,16 @@ const Viewport = (props) => {
         if (onAfterScrollTimeout) {
             clearTimeout(onAfterScrollTimeout)
         }
+        scrollData.scrolling = false
+        scrollData.startingScrollLeft = scrollData.scrollLeft
+        scrollData.startingScrollTop = scrollData.scrollTop
         latestScrollData = scrollData
         scrollData = {}
+        updateScrollData(latestScrollData)
         console.log('scrolling ended:scrollData',latestScrollData)
     }
 
-    return <div style = {
+    return <ScrollContext.Provider value = {childScrollData}><div style = {
         {
             position:'absolute',
             height:'100%',
@@ -101,11 +117,14 @@ const Viewport = (props) => {
             backgroundColor:'red',
         }}
     onScroll = {onScroll}
-    >{props.children}</div>
+    ref = {scrolldiv}
+    >{props.children}</div></ScrollContext.Provider>
 }
 
 const Scrollblock = (props) => {
     let {size, offset, dimensions, pattern, direction } = props
+    let scrollData = useContext(ScrollContext)
+    console.log('Scrollblock scrollData',scrollData)
     /*
         calculate styles
     */
@@ -139,10 +158,8 @@ const Cradle = (props) => {
 const SimpleScroller = (props) => {
     let { runway, size, offset, dimensions, pattern, direction, getItem, placeholders } = props
     console.log('inside Scroller')
-    // useEffect(registerScrollEvent)
 
     return <Viewport>
-
         <Scrollblock
 
             size = { size }
@@ -168,7 +185,6 @@ const SimpleScroller = (props) => {
             />
 
         </Scrollblock>
-        
     </Viewport>
 
 }
