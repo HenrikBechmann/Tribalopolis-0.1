@@ -62,7 +62,7 @@ const Viewport = (props) => {
     let scrolldiv:any = useRef()
     let scrollTimeout = useRef(undefined)
 
-    console.log('starting ViewPort')
+    // console.log('starting ViewPort')
 
     useEffect(() => {
         let scrollData:GenericObject = {}
@@ -91,7 +91,7 @@ const Viewport = (props) => {
                 scrollData.scrollTop = scrollData.startingScrollTop
                 scrollData.previousScrollLeft = scrollData.scrollLeft
                 scrollData.previousScrollTop = scrollData.scrollTop
-                console.log('initialized scrolldata',scrollData)
+                // console.log('initialized scrolldata',scrollData)
                 scrollData = Object.assign({},scrollData)
                 updateScrollData(scrollData)
             }
@@ -129,7 +129,7 @@ const Viewport = (props) => {
         // scrollData = {}
         scrollData = Object.assign({},scrollData)
         updateScrollData(scrollData)
-        console.log('scrolling ended:scrollData',scrollData)
+        // console.log('scrolling ended:scrollData',scrollData)
     }
 
     return <ScrollContext.Provider value = {scrollData}><div 
@@ -149,7 +149,7 @@ const Viewport = (props) => {
 const Scrollblock = (props) => {
     let {size, offset, dimensions, pattern, direction } = props
     let scrollData = useContext(ScrollContext)
-    console.log('Scrollblock scrollData',scrollData)
+    // console.log('Scrollblock scrollData',scrollData)
     /*
         calculate styles
     */
@@ -182,7 +182,7 @@ const Cradle = (props) => {
 
 const SimpleScroller = (props) => {
     let { runway, size, offset, dimensions, pattern, direction, getItem, placeholders } = props
-    console.log('inside Scroller')
+    // console.log('inside Scroller')
 
     return <Viewport>
         <Scrollblock
