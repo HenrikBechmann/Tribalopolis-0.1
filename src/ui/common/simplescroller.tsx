@@ -65,7 +65,7 @@ const Viewport = (props) => {
     let scrollTimeout = useRef(undefined)
     let resizeTimeout = useRef(undefined)
 
-    console.log('starting ViewPort', scrollData)
+    // console.log('starting ViewPort', scrollData)
 
     useEffect(() => {
         let localScrollData:GenericObject = {}
@@ -174,7 +174,7 @@ const Scrollblock = (props) => {
     let viewportRect = useRef(null)
     let [scrollDataState,updateScrollData] = useState(scrollData)
 
-    console.log('Scrollblock scrollData, viewportRect',scrollData, viewportRect)
+    // console.log('Scrollblock scrollData, viewportRect',scrollData, viewportRect)
 
     const updateConfiguration = (sData,vRect) => {
         if (!sData) return
@@ -185,7 +185,7 @@ const Scrollblock = (props) => {
     const updateData = (sData) => {
         if (!sData) return
 
-        console.log('INSIDE UPDATEDATA: scrollData',sData)
+        // console.log('INSIDE UPDATEDATA: scrollData',sData)
     }
 
     useEffect(() => {
