@@ -67,7 +67,7 @@ const Viewport = (props) => {
 
     // console.log('starting ViewPort', scrollData)
 
-    useEffect(() => {
+    useEffect(() => { // initialize scrollData
         let localScrollData:GenericObject = {}
         scrollData = localScrollData
         scrollData.startingScrollLeft = scrolldiv.current.scrollLeft
@@ -78,8 +78,8 @@ const Viewport = (props) => {
         console.log('running useEffect:scrolldiv, scrollData',scrolldiv, scrollData)
     },[])
 
-    const onDoResize = (e) => {
-        console.log('onResize', scrollData)
+    const onDoResize = () => {
+        // console.log('onResize', scrollData)
         scrollData.clientRect = scrolldiv.current.getBoundingClientRect()
         scrollData = Object.assign({},scrollData)
         updateScrollData(scrollData)
@@ -166,6 +166,7 @@ const Viewport = (props) => {
         onScroll = {onScroll}
         ref = {scrolldiv}
     >{props.children}</div></ScrollContext.Provider>
+    
 } // Viewport
 
 const Scrollblock = (props) => {
@@ -175,6 +176,16 @@ const Scrollblock = (props) => {
     let [scrollDataState,updateScrollData] = useState(scrollData)
 
     // console.log('Scrollblock scrollData, viewportRect',scrollData, viewportRect)
+
+    useEffect(() => {
+        viewportRect.current = scrollData?.clientRect
+        updateConfiguration(scrollData,viewportRect)
+    },[scrollData?.clientRect])
+
+    useEffect(() => {
+        updateData(scrollData)
+        updateScrollData(scrollData)
+    },[scrollData])
 
     const updateConfiguration = (sData,vRect) => {
         if (!sData) return
@@ -188,22 +199,13 @@ const Scrollblock = (props) => {
         // console.log('INSIDE UPDATEDATA: scrollData',sData)
     }
 
-    useEffect(() => {
-        viewportRect.current = scrollData?.clientRect
-        updateConfiguration(scrollData,viewportRect)
-    },[scrollData?.clientRect])
-
-    useEffect(() => {
-        updateData(scrollData)
-        updateScrollData(scrollData)
-    },[scrollData])
-
     /*
         calculate styles
     */
 
     return <div style={{height:'100%',width:'20000px',backgroundColor:'green'}}>{props.children}</div>
-}
+
+} // Scrollblock
 
 const Cradle = (props) => {
     let { runway, size, offset, dimensions, pattern, direction, getItem, placeholders } = props
@@ -220,7 +222,8 @@ const Cradle = (props) => {
             width:'250px',
             backgroundColor:'blue',
         }}>{props.children}</div>
-}
+
+} // Cradle
 
 /*
 
