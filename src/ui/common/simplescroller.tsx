@@ -55,23 +55,45 @@ TODO: reset if direction is suddenly reversed
 
 const SCROLL_DIFF_FOR_UPDATE = 20
 const SCROLL_TIMEOUT_FOR_ONAFTERSCROLL = 250
+const RESIZE_TIMEOUT_FOR_ONAFTERSRESIZE = 250
+
 const ScrollContext = React.createContext(null)
 
 const Viewport = (props) => {
     let [scrollData, updateScrollData] = useState(null)
     let scrolldiv:any = useRef()
     let scrollTimeout = useRef(undefined)
+    let resizeTimeout = useRef(undefined)
 
-    // console.log('starting ViewPort')
+    console.log('starting ViewPort', scrollData)
 
     useEffect(() => {
-        let scrollData:GenericObject = {}
+        let localScrollData:GenericObject = {}
+        scrollData = localScrollData
         scrollData.startingScrollLeft = scrolldiv.current.scrollLeft
         scrollData.startingScrollTop = scrolldiv.current.scrollTop
+        scrollData.clientRect = scrolldiv.current.getBoundingClientRect()
+        window.addEventListener('resize', onResize)
         updateScrollData(scrollData)
-        // console.log('running useEffect:scrolldiv, scrollData',scrolldiv, scrollData)
+        console.log('running useEffect:scrolldiv, scrollData',scrolldiv, scrollData)
     },[])
 
+    const onDoResize = (e) => {
+        console.log('onResize', scrollData)
+        scrollData.clientRect = scrolldiv.current.getBoundingClientRect()
+        scrollData = Object.assign({},scrollData)
+        updateScrollData(scrollData)
+    }
+
+    const onResize = (e) => {
+        if (resizeTimeout.current) {
+            clearTimeout(resizeTimeout.current)
+        }
+        resizeTimeout.current = setTimeout(
+            onDoResize,
+            RESIZE_TIMEOUT_FOR_ONAFTERSRESIZE
+        )
+    }
 
     const onScroll = (e) => {
 
@@ -144,15 +166,42 @@ const Viewport = (props) => {
         onScroll = {onScroll}
         ref = {scrolldiv}
     >{props.children}</div></ScrollContext.Provider>
-}
+} // Viewport
 
 const Scrollblock = (props) => {
     let {size, offset, dimensions, pattern, direction } = props
     let scrollData = useContext(ScrollContext)
-    // console.log('Scrollblock scrollData',scrollData)
+    let viewportRect = useRef(null)
+    let [scrollDataState,updateScrollData] = useState(scrollData)
+
+    console.log('Scrollblock scrollData, viewportRect',scrollData, viewportRect)
+
+    const updateConfiguration = (sData,vRect) => {
+        if (!sData) return
+
+        console.log('INSIDE UPDATECONFIGURATION:scrollData,viwportRect',sData,vRect)
+    }
+
+    const updateData = (sData) => {
+        if (!sData) return
+
+        console.log('INSIDE UPDATEDATA: scrollData',sData)
+    }
+
+    useEffect(() => {
+        viewportRect.current = scrollData?.clientRect
+        updateConfiguration(scrollData,viewportRect)
+    },[scrollData?.clientRect])
+
+    useEffect(() => {
+        updateData(scrollData)
+        updateScrollData(scrollData)
+    },[scrollData])
+
     /*
         calculate styles
     */
+
     return <div style={{height:'100%',width:'20000px',backgroundColor:'green'}}>{props.children}</div>
 }
 
