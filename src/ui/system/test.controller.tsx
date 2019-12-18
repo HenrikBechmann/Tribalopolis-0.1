@@ -15,8 +15,17 @@ class Home extends React.Component<any,any> {
                 <div style = {{padding:'8px'}} >
                     TEST
                 </div>
-                <div style = {{height:'150px',right:0, left:0,position:'absolute', margin:'10px', border:'1px solid black'}}>
-                <Scroller />
+                <div style = {
+                    {
+                        height:'150px',
+                        right:0, 
+                        left:0,
+                        position:'absolute', 
+                        margin:'10px', 
+                        border:'1px solid black'
+                    }
+                }>
+                    <Scroller direction = 'vertical'/>
                 </div>
             </div>
         )

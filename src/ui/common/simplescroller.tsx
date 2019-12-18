@@ -79,7 +79,7 @@ const Viewport = (props) => {
         scrollData.clientRect = scrolldiv.current.getBoundingClientRect()
         window.addEventListener('resize', onResize)
         updateScrollData(scrollData)
-        console.log('running useEffect:scrolldiv, scrollData',scrolldiv, scrollData)
+        // console.log('running useEffect:scrolldiv, scrollData',scrolldiv, scrollData)
     },[])
 
     let divlinerstyle = divlinerstyleref.current as React.CSSProperties
@@ -242,6 +242,11 @@ const Cradle = (props) => {
 const SimpleScroller = (props) => {
     let { runway, size, offset, dimensions, pattern, direction, getItem, placeholders } = props
     // console.log('inside Scroller')
+
+    if (!['horizontal','vertical'].includes(direction)) {
+        console.warn('invalid value for scroller direction; resetting to default',direction)
+        direction = 'horizontal'
+    }
 
     return <Viewport>
         <Scrollblock
