@@ -50,7 +50,6 @@ attributes
     headercomponent
     footercomponent
 
-TODO: reset if direction is suddenly reversed
 */
 
 const SCROLL_DIFF_FOR_UPDATE = 20
@@ -64,8 +63,13 @@ const Viewport = (props) => {
     let scrolldiv:any = useRef()
     let scrollTimeout = useRef(undefined)
     let resizeTimeout = useRef(undefined)
-
-    // console.log('starting ViewPort', scrollData)
+    let divlinerstyleref = useRef({
+        position:'absolute',
+        height:'100%',
+        width:'100%',
+        overflow:'auto',
+        backgroundColor:'red',
+    })
 
     useEffect(() => { // initialize scrollData
         let localScrollData:GenericObject = {}
@@ -77,6 +81,9 @@ const Viewport = (props) => {
         updateScrollData(scrollData)
         console.log('running useEffect:scrolldiv, scrollData',scrolldiv, scrollData)
     },[])
+
+    let divlinerstyle = divlinerstyleref.current as React.CSSProperties
+    // console.log('starting ViewPort', scrollData)
 
     const onDoResize = () => {
         // console.log('onResize', scrollData)
@@ -155,14 +162,7 @@ const Viewport = (props) => {
     }
 
     return <ScrollContext.Provider value = {scrollData}><div 
-        style = {
-            {
-                position:'absolute',
-                height:'100%',
-                width:'100%',
-                overflow:'auto',
-                backgroundColor:'red',
-            }}
+        style = {divlinerstyle}
         onScroll = {onScroll}
         ref = {scrolldiv}
     >{props.children}</div></ScrollContext.Provider>
@@ -171,9 +171,17 @@ const Viewport = (props) => {
 
 const Scrollblock = (props) => {
     let {size, offset, dimensions, pattern, direction } = props
+
     let scrollData = useContext(ScrollContext)
     let viewportRect = useRef(null)
+    let divlinerstyleref = useRef({
+        height:'100%',
+        width:'20000px',
+        backgroundColor:'green'
+    })
     let [scrollDataState,updateScrollData] = useState(scrollData)
+
+    let divlinerstyle = divlinerstyleref.current as React.CSSProperties
 
     // console.log('Scrollblock scrollData, viewportRect',scrollData, viewportRect)
 
@@ -199,29 +207,28 @@ const Scrollblock = (props) => {
         // console.log('INSIDE UPDATEDATA: scrollData',sData)
     }
 
-    /*
-        calculate styles
-    */
-
-    return <div style={{height:'100%',width:'20000px',backgroundColor:'green'}}>{props.children}</div>
+    return <div style={divlinerstyle}>{props.children}</div>
 
 } // Scrollblock
 
 const Cradle = (props) => {
     let { runway, size, offset, dimensions, pattern, direction, getItem, placeholders } = props
+
+    let divlinerstyleref = useRef({
+        position:'absolute',
+        left:'250px',
+        right:'auto',
+        top:0,
+        bottom:0,
+        width:'250px',
+        backgroundColor:'blue',
+    })
+
+    let divlinerstyle = divlinerstyleref.current as React.CSSProperties
     /*
         calculate behaviour. set start or end to foce expansion in the other direction
     */
-    return <div style = {
-        {
-            position:'absolute',
-            left:'250px',
-            right:'auto',
-            top:0,
-            bottom:0,
-            width:'250px',
-            backgroundColor:'blue',
-        }}>{props.children}</div>
+    return <div style = {divlinerstyle}>{props.children}</div>
 
 } // Cradle
 
