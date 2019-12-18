@@ -33,10 +33,9 @@ transform out of view items to blank space
 
 allow for dividers
 
-rubber finish at either end for visual clue
-
 attributes
-    pattern = fixed|variable|grid|masonry
+    pattern = stream|grid|masonry
+    wrapcount = <number of side by side>
     direction = horizontal|vertical|any
     // defaultsize
     getnewelement
@@ -79,7 +78,10 @@ const Viewport = (props) => {
         scrollData.clientRect = scrolldiv.current.getBoundingClientRect()
         window.addEventListener('resize', onResize)
         updateScrollData(scrollData)
-        // console.log('running useEffect:scrolldiv, scrollData',scrolldiv, scrollData)
+        return () => {
+            window.removeEventListener('resize', onResize)
+        }
+             // console.log('running useEffect:scrolldiv, scrollData',scrolldiv, scrollData)
     },[])
 
     let divlinerstyle = divlinerstyleref.current as React.CSSProperties
@@ -181,6 +183,20 @@ const Scrollblock = (props) => {
     })
     let [scrollDataState,updateScrollData] = useState(scrollData)
 
+    useEffect(() => {
+        console.log('setting scrollblock styles')
+        let styles = Object.assign({},divlinerstyleref.current)
+        if (direction == 'horizontal') {
+            styles.height = '100%'
+            styles.width = '20000px'
+        } else {
+            styles.width = '100%'
+            styles.height = '20000px'
+        }
+        divlinerstyleref.current = styles
+    },[direction])
+
+
     let divlinerstyle = divlinerstyleref.current as React.CSSProperties
 
     // console.log('Scrollblock scrollData, viewportRect',scrollData, viewportRect)
@@ -240,34 +256,47 @@ const Cradle = (props) => {
 */
 
 const SimpleScroller = (props) => {
-    let { runway, size, offset, dimensions, pattern, direction, getItem, placeholders } = props
+    let { runway, size, offset, dimensions, pattern, direction, getItem, placeholders, wrapcount } = props
     // console.log('inside Scroller')
 
     if (!['horizontal','vertical'].includes(direction)) {
         console.warn('invalid value for scroller direction; resetting to default',direction)
         direction = 'horizontal'
     }
+    if (!['stream'].includes(pattern)) { // future grid or masonry
+        if (pattern) {
+            console.warn('invalid value for scroller pattern; resetting to default',pattern)
+        }
+        pattern = 'stream'
+    }
+
+    runway !?? (runway = 5)
+    offset !?? (offset = 0)
+    size !?? (size = 0)
+    !wrapcount && (wrapcount = 1)
 
     return <Viewport>
         <Scrollblock
 
             size = { size }
+            wrapcount = { wrapcount }
             offset = { offset }
-            dimensions = { dimensions }
             pattern = { pattern }
             direction = { direction }
 
+            dimensions = { dimensions }
         >
 
             <Cradle 
 
                 size = { size }
+                wrapcount = { wrapcount }
                 offset = { offset }
-                dimensions = { dimensions }
                 pattern = { pattern }
                 direction = { direction }
-
                 runway = { runway } 
+
+                dimensions = { dimensions }
                 placeholders = { placeholders }
                 getItem = { getItem }
 

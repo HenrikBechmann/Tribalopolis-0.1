@@ -25,7 +25,7 @@ class Home extends React.Component<any,any> {
                         border:'1px solid black'
                     }
                 }>
-                    <Scroller direction = 'vertical'/>
+                    <Scroller direction = 'horizontal' />
                 </div>
             </div>
         )
