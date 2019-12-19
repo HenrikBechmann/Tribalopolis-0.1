@@ -232,6 +232,10 @@ const Cradle = (props) => {
         position:'absolute',
         backgroundColor:'blue',
         display:'flex',
+        flexWrap:'wrap',
+        alignContent:'flex-start',
+        alignItems:'flex-start',
+
     } as React.CSSProperties)
 
     useLayoutEffect(() => {
@@ -243,16 +247,19 @@ const Cradle = (props) => {
             styles.right = 'auto'
             styles.top = 0
             styles.bottom = 0
-            styles.width = '250px'
-            styles.height = 'auto'
+            // styles.width = '250px'
+            // styles.height = 'auto'
+            styles.writingMode = 'vertical-lr' // hack for container sizing
+            styles.flexDirection = 'row'
         } else {
             styles.left = 0
             styles.right = 0
             // styles.top = '250px'
             styles.top = 0
             styles.bottom = 'auto'
-            styles.width = 'auto'
-            styles.height = '250px'
+            // styles.width = 'auto'
+            // styles.height = '250px'
+            styles.flexDirection = 'row'
         }
         divlinerstyleref.current = styles
     },[direction,divlinerstyleref])
@@ -262,6 +269,19 @@ const Cradle = (props) => {
     return <div style = {divlinerstyle}>{props.children}</div>
 
 } // Cradle
+
+const ItemFrame = (props) => {
+    let {text} = props
+    return <div style = {
+        {
+            height:'125px',
+            width:'125px',
+            backgroundColor:'cyan',
+            border:'2px solid black',
+            writingMode:'horizontal-tb',
+        }
+    }>{text}</div>
+}
 
 /*
 
@@ -315,7 +335,15 @@ const SimpleScroller = (props) => {
                 placeholders = { placeholders }
                 getItem = { getItem }
 
-            />
+            >
+
+                <ItemFrame text = 'item 1'/>
+                <ItemFrame text = 'item 2'/>
+                <ItemFrame text = 'item 3'/>
+                <ItemFrame text = 'item 4'/>
+                <ItemFrame text = 'item 5'/>
+
+            </Cradle>
 
         </Scrollblock>
     </Viewport>
