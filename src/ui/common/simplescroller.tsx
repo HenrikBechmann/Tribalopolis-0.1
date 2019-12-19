@@ -75,7 +75,7 @@ const Viewport = (props) => {
         scrollData = localScrollData
         scrollData.startingScrollLeft = scrolldiv.current.scrollLeft
         scrollData.startingScrollTop = scrolldiv.current.scrollTop
-        scrollData.clientRect = scrolldiv.current.getBoundingClientRect()
+        scrollData.viewportRect = scrolldiv.current.getBoundingClientRect()
         window.addEventListener('resize', onResize)
         updateScrollData(scrollData)
         return () => {
@@ -89,7 +89,7 @@ const Viewport = (props) => {
 
     const onDoResize = () => {
         // console.log('onResize', scrollData)
-        scrollData.clientRect = scrolldiv.current.getBoundingClientRect()
+        scrollData.viewportRect = scrolldiv.current.getBoundingClientRect()
         scrollData = Object.assign({},scrollData)
         updateScrollData(scrollData)
     }
@@ -200,9 +200,9 @@ const Scrollblock = (props) => {
     // console.log('Scrollblock scrollData, viewportRect',scrollData, viewportRect)
 
     useEffect(() => {
-        viewportRect.current = scrollData?.clientRect
+        viewportRect.current = scrollData?.viewportRect
         updateConfiguration(scrollData,viewportRect)
-    },[scrollData?.clientRect,viewportRect?.current])
+    },[scrollData?.viewportRect,viewportRect?.current])
 
     useEffect(() => {
         updateData(scrollData)
