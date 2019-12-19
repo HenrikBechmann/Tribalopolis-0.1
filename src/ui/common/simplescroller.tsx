@@ -177,7 +177,7 @@ const Scrollblock = (props) => {
     let scrollData = useContext(ScrollContext)
     let viewportRect = useRef(null)
     let divlinerstyleref = useRef({
-        backgroundColor:'green'
+        backgroundColor:'green',
     } as React.CSSProperties)
     let [scrollDataState,updateScrollData] = useState(scrollData)
 
@@ -231,25 +231,28 @@ const Cradle = (props) => {
     let divlinerstyleref = useRef({
         position:'absolute',
         backgroundColor:'blue',
+        display:'flex',
     } as React.CSSProperties)
 
     useLayoutEffect(() => {
         console.log('setting cradle styles')
         let styles = Object.assign({},divlinerstyleref.current) as React.CSSProperties
         if (direction == 'horizontal') {
-            styles.left = '250px'
+            // styles.left = '250px'
+            styles.left = 0
             styles.right = 'auto'
             styles.top = 0
             styles.bottom = 0
             styles.width = '250px'
             styles.height = 'auto'
         } else {
-            styles.top = '250px'
-            styles.bottom = 'auto'
             styles.left = 0
             styles.right = 0
-            styles.height = '250px'
+            // styles.top = '250px'
+            styles.top = 0
+            styles.bottom = 'auto'
             styles.width = 'auto'
+            styles.height = '250px'
         }
         divlinerstyleref.current = styles
     },[direction,divlinerstyleref])
