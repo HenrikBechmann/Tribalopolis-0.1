@@ -10,14 +10,15 @@ import Scroller from '../common/simplescroller'
 class Home extends React.Component<any,any> {
 
     render() {
-        return (
-            <div style = {{position:'relative'}}>
-                <div style = {{padding:'8px'}} >
-                    TEST
-                </div>
+        return (<>
+            <div style = {{padding:'8px'}} >
+                TEST
+            </div>
+            <div style = {{position:'relative',height:'300px'}}>
                 <div style = {
                     {
-                        height:'300px',
+                        top:0,
+                        bottom:0,
                         right:0, 
                         left:0,
                         position:'absolute', 
@@ -28,7 +29,7 @@ class Home extends React.Component<any,any> {
                     <Scroller direction = 'horizontal' />
                 </div>
             </div>
-        )
+            </>)
     }
 }
 

@@ -18,7 +18,7 @@
     "chart.js": "^2.9.3",
     "deep-diff": "^1.0.2",
     "deepmerge": "^4.2.2",
-    "firebase": "^7.6.0",
+    "firebase": "^7.6.1",
     "firebaseui": "^4.3.0",
     "format-number": "^3.0.0",
     "isomorphic-fetch": "^2.2.1",
@@ -44,10 +44,10 @@
     "react-window-infinite-loader": "^1.0.5"
   },
   "devDependencies": {
-    "@babel/core": "^7.7.5",
-    "@babel/plugin-proposal-object-rest-spread": "^7.7.4",
+    "@babel/core": "^7.7.7",
+    "@babel/plugin-proposal-object-rest-spread": "^7.7.7",
     "@babel/plugin-syntax-dynamic-import": "^7.7.4",
-    "@babel/preset-env": "^7.7.6",
+    "@babel/preset-env": "^7.7.7",
     "@babel/preset-react": "^7.7.4",
     "@types/draft-js": "^0.10.37",
     "@types/firebase": "^3.2.1",
@@ -67,7 +67,7 @@
     "style-loader": "^1.0.2",
     "ts-loader": "^6.2.1",
     "typescript": "^3.7.3",
-    "webpack": "^4.41.3",
+    "webpack": "^4.41.4",
     "webpack-cli": "^3.3.10",
     "webpack-sources": "^1.4.3"
   }
