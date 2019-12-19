@@ -194,7 +194,7 @@ const Scrollblock = (props) => {
             styles.height = '20000px'
         }
         divlinerstyleref.current = styles
-    },[direction])
+    },[direction,divlinerstyleref])
 
 
     let divlinerstyle = divlinerstyleref.current as React.CSSProperties
@@ -204,7 +204,7 @@ const Scrollblock = (props) => {
     useEffect(() => {
         viewportRect.current = scrollData?.clientRect
         updateConfiguration(scrollData,viewportRect)
-    },[scrollData?.clientRect])
+    },[scrollData?.clientRect,viewportRect?.current])
 
     useEffect(() => {
         updateData(scrollData)
