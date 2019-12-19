@@ -17,7 +17,7 @@ class Home extends React.Component<any,any> {
                 </div>
                 <div style = {
                     {
-                        height:'150px',
+                        height:'300px',
                         right:0, 
                         left:0,
                         position:'absolute', 

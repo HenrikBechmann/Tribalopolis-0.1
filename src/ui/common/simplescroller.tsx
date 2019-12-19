@@ -3,7 +3,7 @@
 
 'use strict'
 
-import React, {useContext, useState, useRef, useEffect, useMemo} from 'react'
+import React, {useContext, useState, useRef, useEffect, useLayoutEffect} from 'react'
 
 import { GenericObject } from '../../services/interfaces'
 
@@ -177,15 +177,13 @@ const Scrollblock = (props) => {
     let scrollData = useContext(ScrollContext)
     let viewportRect = useRef(null)
     let divlinerstyleref = useRef({
-        height:'100%',
-        width:'20000px',
         backgroundColor:'green'
-    })
+    } as React.CSSProperties)
     let [scrollDataState,updateScrollData] = useState(scrollData)
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         console.log('setting scrollblock styles')
-        let styles = Object.assign({},divlinerstyleref.current)
+        let styles = Object.assign({},divlinerstyleref.current) as React.CSSProperties
         if (direction == 'horizontal') {
             styles.height = '100%'
             styles.width = '20000px'
@@ -232,18 +230,32 @@ const Cradle = (props) => {
 
     let divlinerstyleref = useRef({
         position:'absolute',
-        left:'250px',
-        right:'auto',
-        top:0,
-        bottom:0,
-        width:'250px',
         backgroundColor:'blue',
-    })
+    } as React.CSSProperties)
+
+    useLayoutEffect(() => {
+        console.log('setting cradle styles')
+        let styles = Object.assign({},divlinerstyleref.current) as React.CSSProperties
+        if (direction == 'horizontal') {
+            styles.left = '250px'
+            styles.right = 'auto'
+            styles.top = 0
+            styles.bottom = 0
+            styles.width = '250px'
+            styles.height = 'auto'
+        } else {
+            styles.top = '250px'
+            styles.bottom = 'auto'
+            styles.left = 0
+            styles.right = 0
+            styles.height = '250px'
+            styles.width = 'auto'
+        }
+        divlinerstyleref.current = styles
+    },[direction,divlinerstyleref])
 
     let divlinerstyle = divlinerstyleref.current as React.CSSProperties
-    /*
-        calculate behaviour. set start or end to foce expansion in the other direction
-    */
+
     return <div style = {divlinerstyle}>{props.children}</div>
 
 } // Cradle
