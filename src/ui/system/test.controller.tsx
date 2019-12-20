@@ -7,30 +7,28 @@ import React from 'react'
 
 import Scroller from '../common/simplescroller'
     
-class Home extends React.Component<any,any> {
+const Home = (props) => {
 
-    render() {
-        return (<>
-            <div style = {{padding:'8px'}} >
-                TEST
+    return (<>
+        <div style = {{padding:'8px'}} >
+            TEST
+        </div>
+        <div style = {{position:'relative',height:'300px'}}>
+            <div style = {
+                {
+                    top:0,
+                    bottom:0,
+                    right:0, 
+                    left:0,
+                    position:'absolute', 
+                    margin:'10px', 
+                    border:'1px solid black'
+                }
+            }>
+                <Scroller direction = 'horizontal' />
             </div>
-            <div style = {{position:'relative',height:'300px'}}>
-                <div style = {
-                    {
-                        top:0,
-                        bottom:0,
-                        right:0, 
-                        left:0,
-                        position:'absolute', 
-                        margin:'10px', 
-                        border:'1px solid black'
-                    }
-                }>
-                    <Scroller direction = 'horizontal' />
-                </div>
-            </div>
-            </>)
-    }
+        </div>
+        </>)
 }
 
 export default Home
