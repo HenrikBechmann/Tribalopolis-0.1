@@ -35,7 +35,7 @@ allow for dividers
 
 attributes
     pattern = stream|grid|masonry
-    wrapcount = <number of side by side>
+    trackcount = <number of side by side>
     direction = horizontal|vertical|any
     // defaultsize
     getnewelement
@@ -289,8 +289,10 @@ const ItemFrame = (props) => {
     let {text} = props
     return <div style = {
         {
-            height:'125px',
+            flex:'1 0 125px',
             width:'125px',
+            maxHeight:'50%',
+            boxSizing:'border-box',
             backgroundColor:'cyan',
             border:'2px solid black',
             writingMode:'horizontal-tb',
