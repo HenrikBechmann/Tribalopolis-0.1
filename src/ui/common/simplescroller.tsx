@@ -264,9 +264,22 @@ const Cradle = (props) => {
         divlinerstyleref.current = styles
     },[direction,divlinerstyleref])
 
+    let childlistref = useRef([])
+
+    useEffect(() =>{
+        childlistref.current = [
+            <ItemFrame key = '1' text = 'item 1'/>,
+            <ItemFrame key = '2' text = 'item 2'/>,
+            <ItemFrame key = '3' text = 'item 3'/>,
+            <ItemFrame key = '4' text = 'item 4'/>,
+            <ItemFrame key = '5' text = 'item 5'/>
+        ]
+
+    },[])
+
     let divlinerstyle = divlinerstyleref.current as React.CSSProperties
 
-    return <div style = {divlinerstyle}>{props.children}</div>
+    return <div style = {divlinerstyle}>{childlistref.current}</div>
 
 } // Cradle
 
@@ -335,15 +348,7 @@ const SimpleScroller = (props) => {
                 placeholders = { placeholders }
                 getItem = { getItem }
 
-            >
-
-                <ItemFrame text = 'item 1'/>
-                <ItemFrame text = 'item 2'/>
-                <ItemFrame text = 'item 3'/>
-                <ItemFrame text = 'item 4'/>
-                <ItemFrame text = 'item 5'/>
-
-            </Cradle>
+            />
 
         </Scrollblock>
     </Viewport>
