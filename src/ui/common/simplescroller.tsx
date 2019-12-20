@@ -225,6 +225,14 @@ const Scrollblock = (props) => {
 
 } // Scrollblock
 
+const getContent = (contentdata) => {
+    let contentlist = []
+    for (let index = 0; index <5; index++) {
+        contentlist.push(<ItemFrame key = {index} text =  {contentdata[index]}/>)
+    }
+    return contentlist
+}
+
 const Cradle = (props) => {
     let { runway, size, offset, dimensions, pattern, direction, getItem, placeholders } = props
 
@@ -267,13 +275,7 @@ const Cradle = (props) => {
     let childlistref = useRef([])
 
     useEffect(() =>{
-        childlistref.current = [
-            <ItemFrame key = '1' text = 'item 1'/>,
-            <ItemFrame key = '2' text = 'item 2'/>,
-            <ItemFrame key = '3' text = 'item 3'/>,
-            <ItemFrame key = '4' text = 'item 4'/>,
-            <ItemFrame key = '5' text = 'item 5'/>
-        ]
+        childlistref.current = getContent(['item 1','item 2','item 3','item 4','item 5',])
 
     },[])
 
