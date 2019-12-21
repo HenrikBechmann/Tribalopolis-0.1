@@ -311,11 +311,11 @@ const ItemFrame = (props) => {
         if (direction == 'horizontal') {
             styleset.flex = '1 0 125px'
             styleset.width = '125px'
-            styleset.maxHeight = '50%'
+            styleset.maxHeight = '50%' // calc for onlu last item
         } else {
             styleset.flex = '1 0 125px'
             styleset.height = '125px'
-            styleset.maxWidth = '50%'
+            styleset.maxWidth = '50%' // calc for onlu last item
         }
         setStyles(styleset)
     },[direction])
@@ -330,7 +330,7 @@ const ItemFrame = (props) => {
 
 */
 
-const SimpleScroller = (props) => {
+const InfiniteGrid = (props) => {
     let { runway, size, offset, dimensions, pattern, direction, getItem, placeholders, wrapcount } = props
     // console.log('inside Scroller')
 
@@ -382,4 +382,4 @@ const SimpleScroller = (props) => {
 
 }
 
-export default SimpleScroller
+export default InfiniteGrid

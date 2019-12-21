@@ -5,7 +5,7 @@
 
 import React, {useState} from 'react'
 
-import Scroller from '../common/simplescroller'
+import InfiniteGrid from '../common/infinitegrid'
     
 const Home = (props) => {
     let [direction, setDirection] = useState('horizontal')
@@ -26,7 +26,7 @@ const Home = (props) => {
                     border:'1px solid black'
                 }
             }>
-                <Scroller direction = {direction} />
+                <InfiniteGrid direction = {direction} />
             </div>
         </div>
         </>
