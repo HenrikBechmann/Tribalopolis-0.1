@@ -3,13 +3,14 @@
 
 'use strict'
 
-import React from 'react'
+import React, {useState} from 'react'
 
 import Scroller from '../common/simplescroller'
     
 const Home = (props) => {
+    let [direction, setDirection] = useState('horizontal')
 
-    return (<>
+    return <>
         <div style = {{padding:'8px'}} >
             TEST
         </div>
@@ -25,10 +26,10 @@ const Home = (props) => {
                     border:'1px solid black'
                 }
             }>
-                <Scroller direction = 'horizontal' />
+                <Scroller direction = {direction} />
             </div>
         </div>
-        </>)
+        </>
 }
 
 export default Home

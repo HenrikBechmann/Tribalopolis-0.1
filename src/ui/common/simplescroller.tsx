@@ -182,7 +182,7 @@ const Scrollblock = (props) => {
     let [scrollDataState,updateScrollData] = useState(scrollData)
 
     useLayoutEffect(() => {
-        console.log('setting scrollblock styles')
+        // console.log('setting scrollblock styles')
         let styles = Object.assign({},divlinerstyleref.current) as React.CSSProperties
         if (direction == 'horizontal') {
             styles.height = '100%'
@@ -225,10 +225,15 @@ const Scrollblock = (props) => {
 
 } // Scrollblock
 
-const getContent = (contentdata) => {
+const getContent = (props) => {
+    let { contentdata, direction } = props
     let contentlist = []
     for (let index = 0; index <5; index++) {
-        contentlist.push(<ItemFrame key = {index} text =  {contentdata[index]}/>)
+        contentlist.push(<ItemFrame 
+            key = {index} 
+            direction = {direction}
+            text =  {contentdata[index]
+        }/>)
     }
     return contentlist
 }
@@ -247,7 +252,7 @@ const Cradle = (props) => {
     } as React.CSSProperties)
 
     useLayoutEffect(() => {
-        console.log('setting cradle styles')
+        // console.log('setting cradle styles')
         let styles = Object.assign({},divlinerstyleref.current) as React.CSSProperties
         if (direction == 'horizontal') {
             // styles.left = '250px'
@@ -275,9 +280,12 @@ const Cradle = (props) => {
     let childlistref = useRef([])
 
     useEffect(() =>{
-        childlistref.current = getContent(['item 1','item 2','item 3','item 4','item 5',])
+        childlistref.current = getContent({
+            direction,
+            contentdata:['item 1','item 2','item 3','item 4','item 5',]
+        })
 
-    },[])
+    },[direction])
 
     let divlinerstyle = divlinerstyleref.current as React.CSSProperties
 
@@ -286,18 +294,29 @@ const Cradle = (props) => {
 } // Cradle
 
 const ItemFrame = (props) => {
-    let {text} = props
-    return <div style = {
-        {
-            flex:'1 0 125px',
-            width:'125px',
-            maxHeight:'50%',
-            boxSizing:'border-box',
-            backgroundColor:'cyan',
-            border:'2px solid black',
-            writingMode:'horizontal-tb',
+    let {text, direction} = props
+    let [styles,setStyles] = useState({
+        boxSizing:'border-box',
+        backgroundColor:'cyan',
+        border:'2px solid black',
+        writingMode:'horizontal-tb',
+    } as React.CSSProperties)
+
+    useEffect(()=> {
+        let styleset:React.CSSProperties = Object.assign({},styles)
+        if (direction == 'horizontal') {
+            styleset.flex = '1 0 125px'
+            styleset.width = '125px'
+            styleset.maxHeight = '50%'
+        } else {
+            styleset.flex = '1 0 125px'
+            styleset.height = '125px'
+            styleset.maxWidth = '50%'
         }
-    }>{text}</div>
+        setStyles(styleset)
+    },[direction])
+
+    return <div style = {styles}>{text}</div>
 }
 
 /*
