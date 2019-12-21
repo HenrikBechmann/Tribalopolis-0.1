@@ -285,7 +285,7 @@ const Cradle = (props) => {
             contentdata:['item 1','item 2','item 3','item 4','item 5',]
         })
 
-    },[direction])
+    },[direction,childlistref])
 
     let divlinerstyle = divlinerstyleref.current as React.CSSProperties
 
@@ -295,12 +295,16 @@ const Cradle = (props) => {
 
 const ItemFrame = (props) => {
     let {text, direction} = props
-    let [styles,setStyles] = useState({
+    let [styles,setStyles] = useState({ // use useRef() instead
         boxSizing:'border-box',
         backgroundColor:'cyan',
         border:'2px solid black',
         writingMode:'horizontal-tb',
     } as React.CSSProperties)
+
+    // TODO: use synchronous upateStyles(direction) instead
+
+    // ... then save direction to useRef variable
 
     useEffect(()=> {
         let styleset:React.CSSProperties = Object.assign({},styles)
