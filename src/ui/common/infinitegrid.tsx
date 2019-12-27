@@ -317,7 +317,7 @@ const ItemFrame = (props) => {
             styleset.width = '125px'
         } else {
             styleset.flex = '1 0 125px'
-            styleset.width = '125px'
+            styleset.height = '125px'
         }
         oldstyles.current = styleset
         setDirection(newDirection)
