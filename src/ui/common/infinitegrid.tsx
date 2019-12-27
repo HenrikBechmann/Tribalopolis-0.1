@@ -221,7 +221,7 @@ const Scrollblock = (props) => {
     const updateConfiguration = (sData,vRect) => {
         if (!sData) return
 
-        console.log('INSIDE UPDATECONFIGURATION:scrollData,viwportRect',sData,vRect)
+        // console.log('INSIDE UPDATECONFIGURATION:scrollData,viwportRect',sData,vRect)
     }
 
     const updateData = (sData) => {
