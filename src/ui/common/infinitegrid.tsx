@@ -194,16 +194,17 @@ const Scrollblock = (props) => {
     // console.log('scrollblock props',props)
 
     let scrollData = useContext(ScrollContext)
-    let directionRef = useRef(null)
+    let [oldDirection, updateDirection] = useState(null)
     let viewportRect = useRef(null)
     let divlinerstyleref = useRef({
         backgroundColor:'green',
     } as React.CSSProperties)
     let [scrollDataState,updateScrollData] = useState(scrollData)
 
-    updateScrollStyles(newDirection,divlinerstyleref)
-
-    if (directionRef.current !== newDirection) directionRef.current = newDirection
+    if (oldDirection !== newDirection) {
+        updateScrollStyles(newDirection,divlinerstyleref)
+        updateDirection(newDirection)
+    }
 
     // console.log('Scrollblock scrollData, viewportRect',scrollData, viewportRect)
 
@@ -233,19 +234,19 @@ const Scrollblock = (props) => {
 
 } // Scrollblock
 
-    const updateScrollStyles = (newDirection,oldstyles) => {
+const updateScrollStyles = (newDirection,oldstyles) => {
 
-        // console.log('setting scrollblock styles')
-        let styles = Object.assign({},oldstyles.current) as React.CSSProperties
-        if (newDirection == 'horizontal') {
-            styles.height = '100%'
-            styles.width = '20000px'
-        } else if (newDirection == 'vertical') {
-            styles.width = '100%'
-            styles.height = '20000px'
-        }
-        oldstyles.current = styles
+    // console.log('setting scrollblock styles')
+    let styles = Object.assign({},oldstyles.current) as React.CSSProperties
+    if (newDirection == 'horizontal') {
+        styles.height = '100%'
+        styles.width = '20000px'
+    } else if (newDirection == 'vertical') {
+        styles.width = '100%'
+        styles.height = '20000px'
     }
+    oldstyles.current = styles
+}
 
 
 // ================================[ CREADLE ]=======================================
