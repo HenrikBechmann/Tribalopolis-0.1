@@ -189,7 +189,7 @@ const Viewport = (props) => {
 // ==================================[ SCROLLBLOCK ]================================
 
 const Scrollblock = (props) => {
-    let {size, offset, dimensions, pattern, direction } = props
+    let {size, offset, dimensions, pattern, direction:newDirection } = props
 
     // console.log('scrollblock props',props)
 
@@ -201,26 +201,9 @@ const Scrollblock = (props) => {
     } as React.CSSProperties)
     let [scrollDataState,updateScrollData] = useState(scrollData)
 
-    const updateStyles = (olddirection, newdirection) => {
+    updateScrollStyles(newDirection,divlinerstyleref)
 
-        if (olddirection === newdirection) return
-        // console.log('setting scrollblock styles')
-        let styles = Object.assign({},divlinerstyleref.current) as React.CSSProperties
-        if (direction == 'horizontal') {
-            styles.height = '100%'
-            styles.width = '20000px'
-        } else {
-            styles.width = '100%'
-            styles.height = '20000px'
-        }
-        divlinerstyleref.current = styles
-    }
-
-    updateStyles(directionRef.current ,direction)
-
-    if (directionRef.current !== direction) directionRef.current = direction
-
-    let divlinerstyle = divlinerstyleref.current as React.CSSProperties
+    if (directionRef.current !== newDirection) directionRef.current = newDirection
 
     // console.log('Scrollblock scrollData, viewportRect',scrollData, viewportRect)
 
@@ -246,9 +229,24 @@ const Scrollblock = (props) => {
         // console.log('INSIDE UPDATEDATA: scrollData',sData)
     }
 
-    return <div style={divlinerstyle}>{props.children}</div>
+    return <div style={divlinerstyleref.current}>{props.children}</div>
 
 } // Scrollblock
+
+    const updateScrollStyles = (newDirection,oldstyles) => {
+
+        // console.log('setting scrollblock styles')
+        let styles = Object.assign({},oldstyles.current) as React.CSSProperties
+        if (newDirection == 'horizontal') {
+            styles.height = '100%'
+            styles.width = '20000px'
+        } else if (newDirection == 'vertical') {
+            styles.width = '100%'
+            styles.height = '20000px'
+        }
+        oldstyles.current = styles
+    }
+
 
 // ================================[ CREADLE ]=======================================
 
@@ -284,9 +282,9 @@ const Cradle = (props) => {
 
     },[newDirection,childlistref])
 
-    let divlinerstyle = divlinerstyleref.current as React.CSSProperties
+    let divlinerstyles = divlinerstyleref.current
 
-    return <div style = {divlinerstyle}>{childlistref.current}</div>
+    return <div style = {divlinerstyles}>{childlistref.current}</div>
 
 } // Cradle
 
