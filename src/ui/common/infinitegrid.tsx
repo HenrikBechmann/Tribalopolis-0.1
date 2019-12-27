@@ -294,33 +294,41 @@ const Cradle = (props) => {
 } // Cradle
 
 const ItemFrame = (props) => {
-    let {text, direction} = props
-    let [styles,setStyles] = useState({ // use useRef() instead
+    let {text, newDirection} = props
+    let styles = useRef({ // use useRef() instead
         boxSizing:'border-box',
         backgroundColor:'cyan',
         border:'2px solid black',
         writingMode:'horizontal-tb',
     } as React.CSSProperties)
 
-    // TODO: use synchronous upateStyles(direction) instead
+    let [oldDirection, setDirection] = useState(null)
 
-    // ... then save direction to useRef variable
+    const updateStyles = (oldDirection, newDirection, oldstyles) => {
 
-    useEffect(()=> {
-        let styleset:React.CSSProperties = Object.assign({},styles)
-        if (direction == 'horizontal') {
+        console.log('inside updateStyles: oldDirection, newDirection, oldstyles',oldDirection, newDirection, oldstyles)
+
+        if (oldDirection === newDirection) return
+
+        let styleset:React.CSSProperties = Object.assign({},oldstyles.current)
+
+        if (newDirection == 'horizontal') {
             styleset.flex = '1 0 125px'
             styleset.width = '125px'
-            styleset.maxHeight = '50%' // calc for onlu last item
         } else {
             styleset.flex = '1 0 125px'
-            styleset.height = '125px'
-            styleset.maxWidth = '50%' // calc for onlu last item
+            styleset.width = '125px'
         }
-        setStyles(styleset)
-    },[direction])
+        oldstyles.current = styleset
+        setDirection(newDirection)
+        console.log('new styleset',styleset, oldstyles)
+    }
 
-    return <div style = {styles}>{text}</div>
+    updateStyles(oldDirection, newDirection, styles)
+
+    console.log('RUNNING styles',styles)
+
+    return <div style = {styles.current}>{text}</div>
 }
 
 /*
