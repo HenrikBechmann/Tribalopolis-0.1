@@ -174,14 +174,19 @@ const Viewport = (props) => {
 const Scrollblock = (props) => {
     let {size, offset, dimensions, pattern, direction } = props
 
+    console.log('scrollblock props',props)
+
     let scrollData = useContext(ScrollContext)
+    let directionRef = useRef(null)
     let viewportRect = useRef(null)
     let divlinerstyleref = useRef({
         backgroundColor:'green',
     } as React.CSSProperties)
     let [scrollDataState,updateScrollData] = useState(scrollData)
 
-    useLayoutEffect(() => {
+    const updateStyles = (olddirection, newdirection) => {
+
+        if (olddirection === newdirection) return
         // console.log('setting scrollblock styles')
         let styles = Object.assign({},divlinerstyleref.current) as React.CSSProperties
         if (direction == 'horizontal') {
@@ -192,8 +197,11 @@ const Scrollblock = (props) => {
             styles.height = '20000px'
         }
         divlinerstyleref.current = styles
-    },[direction,divlinerstyleref])
+    }
 
+    updateStyles(directionRef.current ,direction)
+
+    if (directionRef.current !== direction) directionRef.current = direction
 
     let divlinerstyle = divlinerstyleref.current as React.CSSProperties
 
@@ -240,6 +248,8 @@ const getContent = (props) => {
 
 const Cradle = (props) => {
     let { runway, size, offset, dimensions, pattern, direction, getItem, placeholders } = props
+
+    console.log('cradle props',props)
 
     let divlinerstyleref = useRef({
         position:'absolute',
@@ -294,7 +304,7 @@ const Cradle = (props) => {
 } // Cradle
 
 const ItemFrame = (props) => {
-    let {text, newDirection} = props
+    let {text, direction:newDirection} = props
     let styles = useRef({ // use useRef() instead
         boxSizing:'border-box',
         backgroundColor:'cyan',
@@ -315,9 +325,13 @@ const ItemFrame = (props) => {
         if (newDirection == 'horizontal') {
             styleset.flex = '1 0 125px'
             styleset.width = '125px'
-        } else {
+            styleset.height = 'auto'
+        } else if (newDirection === 'vertical') {
             styleset.flex = '1 0 125px'
             styleset.height = '125px'
+            styleset.width = 'auto'
+        } else {
+            console.log('NO DIRECTION DETECTED')
         }
         oldstyles.current = styleset
         setDirection(newDirection)
