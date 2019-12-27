@@ -51,11 +51,26 @@ attributes
 
 */
 
+/*
+
+    Sections are:
+     - INITIALIZE
+     - VIEWPORT
+     - SCROLLBLOCK
+     - CRADLE
+     - ITEMFRAME
+
+*/
+
+// ===================================[ INITIALIZE ]===========================
+
 const SCROLL_DIFF_FOR_UPDATE = 20
 const SCROLL_TIMEOUT_FOR_ONAFTERSCROLL = 250
 const RESIZE_TIMEOUT_FOR_ONAFTERSRESIZE = 250
 
 const ScrollContext = React.createContext(null)
+
+// ===============================[ VIREWPORT ]===========================
 
 const Viewport = (props) => {
     let [scrollData, updateScrollData] = useState(null)
@@ -171,6 +186,8 @@ const Viewport = (props) => {
     
 } // Viewport
 
+// ==================================[ SCROLLBLOCK ]================================
+
 const Scrollblock = (props) => {
     let {size, offset, dimensions, pattern, direction } = props
 
@@ -233,21 +250,10 @@ const Scrollblock = (props) => {
 
 } // Scrollblock
 
-const getContent = (props) => {
-    let { contentdata, direction } = props
-    let contentlist = []
-    for (let index = 0; index <5; index++) {
-        contentlist.push(<ItemFrame 
-            key = {index} 
-            direction = {direction}
-            text =  {contentdata[index]
-        }/>)
-    }
-    return contentlist
-}
+// ================================[ CREADLE ]=======================================
 
 const Cradle = (props) => {
-    let { runway, size, offset, dimensions, pattern, direction, getItem, placeholders } = props
+    let { runway, size, offset, dimensions, pattern, direction:newDirection, getItem, placeholders } = props
 
     // console.log('cradle props',props)
 
@@ -261,47 +267,64 @@ const Cradle = (props) => {
 
     } as React.CSSProperties)
 
-    useLayoutEffect(() => {
-        // console.log('setting cradle styles')
-        let styles = Object.assign({},divlinerstyleref.current) as React.CSSProperties
-        if (direction == 'horizontal') {
-            // styles.left = '250px'
-            styles.left = 0
-            styles.right = 'auto'
-            styles.top = 0
-            styles.bottom = 0
-            // styles.width = '250px'
-            // styles.height = 'auto'
-            styles.writingMode = 'vertical-lr' // hack for container sizing
-            styles.flexDirection = 'row'
-        } else {
-            styles.left = 0
-            styles.right = 0
-            // styles.top = '250px'
-            styles.top = 0
-            styles.bottom = 'auto'
-            // styles.width = 'auto'
-            // styles.height = '250px'
-            styles.flexDirection = 'row'
-        }
-        divlinerstyleref.current = styles
-    },[direction,divlinerstyleref])
+    let [oldDirection, updateDirection] = useState(null)
 
     let childlistref = useRef([])
 
+    if (newDirection !== oldDirection) {
+        updateCradleStyles(newDirection, divlinerstyleref)
+        updateDirection(newDirection)
+    }
+
     useEffect(() =>{
         childlistref.current = getContent({
-            direction,
+            direction:newDirection,
             contentdata:['item 1','item 2','item 3','item 4','item 5',]
         })
 
-    },[direction,childlistref])
+    },[newDirection,childlistref])
 
     let divlinerstyle = divlinerstyleref.current as React.CSSProperties
 
     return <div style = {divlinerstyle}>{childlistref.current}</div>
 
 } // Cradle
+
+const updateCradleStyles = (newDirection, oldStyles) => {
+
+        let styles = Object.assign({},oldStyles.current) as React.CSSProperties
+        if (newDirection == 'horizontal') {
+            styles.left = 0
+            styles.right = 'auto'
+            styles.top = 0
+            styles.bottom = 0
+            styles.writingMode = 'vertical-lr' // hack for container sizing
+            styles.flexDirection = 'row'
+        } else if (newDirection == 'vertical') {
+            styles.left = 0
+            styles.right = 0
+            styles.top = 0
+            styles.bottom = 'auto'
+            styles.flexDirection = 'row'
+            styles.writingMode = 'horizontal-tb' // hack for container sizing
+        }
+        oldStyles.current = styles
+}
+
+const getContent = (props) => {
+    let { contentdata, direction } = props
+    let contentlist = []
+    for (let index = 0; index <5; index++) {
+        contentlist.push(<ItemFrame 
+            key = {index} 
+            direction = {direction}
+            text =  {contentdata[index]
+        }/>)
+    }
+    return contentlist
+}
+
+// =============================[ ITEMFRAME ]===============================
 
 const ItemFrame = (props) => {
     let {text, direction:newDirection} = props
