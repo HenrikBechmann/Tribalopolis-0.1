@@ -174,7 +174,7 @@ const Viewport = (props) => {
 const Scrollblock = (props) => {
     let {size, offset, dimensions, pattern, direction } = props
 
-    console.log('scrollblock props',props)
+    // console.log('scrollblock props',props)
 
     let scrollData = useContext(ScrollContext)
     let directionRef = useRef(null)
@@ -249,7 +249,7 @@ const getContent = (props) => {
 const Cradle = (props) => {
     let { runway, size, offset, dimensions, pattern, direction, getItem, placeholders } = props
 
-    console.log('cradle props',props)
+    // console.log('cradle props',props)
 
     let divlinerstyleref = useRef({
         position:'absolute',
@@ -316,7 +316,7 @@ const ItemFrame = (props) => {
 
     const updateStyles = (oldDirection, newDirection, oldstyles) => {
 
-        console.log('inside updateStyles: oldDirection, newDirection, oldstyles',oldDirection, newDirection, oldstyles)
+        // console.log('inside updateStyles: oldDirection, newDirection, oldstyles',oldDirection, newDirection, oldstyles)
 
         if (oldDirection === newDirection) return
 
@@ -331,26 +331,19 @@ const ItemFrame = (props) => {
             styleset.height = '125px'
             styleset.width = 'auto'
         } else {
-            console.log('NO DIRECTION DETECTED')
+            console.error('NO DIRECTION DETECTED FOR SCROLLER IN ItemFrame')
         }
         oldstyles.current = styleset
         setDirection(newDirection)
-        console.log('new styleset',styleset, oldstyles)
+        // console.log('new styleset',styleset, oldstyles)
     }
 
     updateStyles(oldDirection, newDirection, styles)
 
-    console.log('RUNNING styles',styles)
+    // console.log('RUNNING styles',styles)
 
     return <div style = {styles.current}>{text}</div>
 }
-
-/*
-
-    dimensions has height, width, and gutter
-    gutter on the left
-
-*/
 
 const InfiniteGrid = (props) => {
     let { runway, size, offset, dimensions, pattern, direction, getItem, placeholders, wrapcount } = props
