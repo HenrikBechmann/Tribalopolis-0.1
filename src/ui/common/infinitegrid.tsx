@@ -310,40 +310,47 @@ const ItemFrame = (props) => {
         backgroundColor:'cyan',
         border:'2px solid black',
         writingMode:'horizontal-tb',
+        // default vertical
+        flex:'1 0 125px',
+        height:'125px',
+        width:'auto',
     } as React.CSSProperties)
 
-    let [oldDirection, setDirection] = useState(null)
+    let [oldDirection, setDirection] = useState('vertical')
 
-    const updateStyles = (oldDirection, newDirection, oldstyles) => {
+    // sets newDorection if different, as side effect
+    if (oldDirection !== newDirection) {
+    
+        updateFrameStyles(newDirection, styles)
 
-        // console.log('inside updateStyles: oldDirection, newDirection, oldstyles',oldDirection, newDirection, oldstyles)
-
-        if (oldDirection === newDirection) return
-
-        let styleset:React.CSSProperties = Object.assign({},oldstyles.current)
-
-        if (newDirection == 'horizontal') {
-            styleset.flex = '1 0 125px'
-            styleset.width = '125px'
-            styleset.height = 'auto'
-        } else if (newDirection === 'vertical') {
-            styleset.flex = '1 0 125px'
-            styleset.height = '125px'
-            styleset.width = 'auto'
-        } else {
-            console.error('NO DIRECTION DETECTED FOR SCROLLER IN ItemFrame')
-        }
-        oldstyles.current = styleset
         setDirection(newDirection)
-        // console.log('new styleset',styleset, oldstyles)
     }
-
-    updateStyles(oldDirection, newDirection, styles)
 
     // console.log('RUNNING styles',styles)
 
     return <div style = {styles.current}>{text}</div>
 }
+
+const updateFrameStyles = (newDirection, oldstyles) => {
+
+    // console.log('inside updateStyles: oldDirection, newDirection, oldstyles',oldDirection, newDirection, oldstyles)
+
+    let styleset:React.CSSProperties = Object.assign({},oldstyles.current)
+
+    if (newDirection == 'horizontal') {
+        styleset.flex = '1 0 125px'
+        styleset.width = '125px'
+        styleset.height = 'auto'
+    } else if (newDirection === 'vertical') {
+        styleset.flex = '1 0 125px'
+        styleset.height = '125px'
+        styleset.width = 'auto'
+    }
+    oldstyles.current = styleset
+    // setDirection(newDirection)
+    // console.log('new styleset',styleset, oldstyles)
+}
+
 
 const InfiniteGrid = (props) => {
     let { runway, size, offset, dimensions, pattern, direction, getItem, placeholders, wrapcount } = props
