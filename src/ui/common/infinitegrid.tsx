@@ -262,9 +262,6 @@ const Cradle = (props) => {
         display:'grid',
         gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))',
         gridGap: '1rem',
-        // flexWrap:'wrap',
-        // alignContent:'flex-start',
-        // alignItems:'flex-start',
 
     } as React.CSSProperties)
 
@@ -299,15 +296,17 @@ const updateCradleStyles = (newDirection, oldStyles) => {
             styles.right = 'auto'
             styles.top = 0
             styles.bottom = 0
-            styles.writingMode = 'vertical-lr' // hack for container sizing
-            // styles.flexDirection = 'row'
+            styles.gridAutoFlow = 'column'
+            styles.gridTemplateRows = 'repeat(auto-fill, minmax(100px, 1fr))'
+            styles.gridTemplateColumns = 'none'
         } else if (newDirection == 'vertical') {
             styles.left = 0
             styles.right = 0
             styles.top = 0
             styles.bottom = 'auto'
-            // styles.flexDirection = 'row'
-            styles.writingMode = 'horizontal-tb' // hack for container sizing
+            styles.gridAutoFlow = 'row'
+            styles.gridTemplateColumns = 'repeat(auto-fill, minmax(200px, 1fr))'
+            styles.gridTemplateRows = 'none'
         }
         oldStyles.current = styles
 }
@@ -333,9 +332,7 @@ const ItemFrame = (props) => {
         boxSizing:'border-box',
         backgroundColor:'cyan',
         border:'2px solid black',
-        writingMode:'horizontal-tb',
         // default vertical
-        // flex:'1 0 125px',
         height:'125px',
         width:'auto',
     } as React.CSSProperties)
@@ -362,11 +359,9 @@ const updateFrameStyles = (newDirection, oldstyles) => {
     let styleset:React.CSSProperties = Object.assign({},oldstyles.current)
 
     if (newDirection == 'horizontal') {
-        // styleset.flex = '1 0 125px'
         styleset.width = '125px'
         styleset.height = 'auto'
     } else if (newDirection === 'vertical') {
-        // styleset.flex = '1 0 125px'
         styleset.height = '125px'
         styleset.width = 'auto'
     }
