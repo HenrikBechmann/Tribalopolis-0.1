@@ -305,8 +305,8 @@ const updateCradleStyles = (newDirection, oldStyles) => {
             styles.top = 0
             styles.bottom = 'auto'
             styles.gridAutoFlow = 'row'
-            styles.gridTemplateColumns = 'repeat(auto-fill, minmax(200px, 1fr))'
             styles.gridTemplateRows = 'none'
+            styles.gridTemplateColumns = 'repeat(auto-fill, minmax(200px, 1fr))'
         }
         oldStyles.current = styles
 }
