@@ -8,7 +8,7 @@ import React, {useContext, useState, useRef, useEffect, useLayoutEffect} from 'r
 import { GenericObject } from '../../services/interfaces'
 
 /*
-use flex
+use grid
 
 use IntersectionObserver, getBoundingClientRect
 
@@ -259,10 +259,12 @@ const Cradle = (props) => {
     let divlinerstyleref = useRef({
         position:'absolute',
         backgroundColor:'blue',
-        display:'flex',
-        flexWrap:'wrap',
-        alignContent:'flex-start',
-        alignItems:'flex-start',
+        display:'grid',
+        gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))',
+        gridGap: '1rem',
+        // flexWrap:'wrap',
+        // alignContent:'flex-start',
+        // alignItems:'flex-start',
 
     } as React.CSSProperties)
 
@@ -298,13 +300,13 @@ const updateCradleStyles = (newDirection, oldStyles) => {
             styles.top = 0
             styles.bottom = 0
             styles.writingMode = 'vertical-lr' // hack for container sizing
-            styles.flexDirection = 'row'
+            // styles.flexDirection = 'row'
         } else if (newDirection == 'vertical') {
             styles.left = 0
             styles.right = 0
             styles.top = 0
             styles.bottom = 'auto'
-            styles.flexDirection = 'row'
+            // styles.flexDirection = 'row'
             styles.writingMode = 'horizontal-tb' // hack for container sizing
         }
         oldStyles.current = styles
@@ -333,7 +335,7 @@ const ItemFrame = (props) => {
         border:'2px solid black',
         writingMode:'horizontal-tb',
         // default vertical
-        flex:'1 0 125px',
+        // flex:'1 0 125px',
         height:'125px',
         width:'auto',
     } as React.CSSProperties)
@@ -360,11 +362,11 @@ const updateFrameStyles = (newDirection, oldstyles) => {
     let styleset:React.CSSProperties = Object.assign({},oldstyles.current)
 
     if (newDirection == 'horizontal') {
-        styleset.flex = '1 0 125px'
+        // styleset.flex = '1 0 125px'
         styleset.width = '125px'
         styleset.height = 'auto'
     } else if (newDirection === 'vertical') {
-        styleset.flex = '1 0 125px'
+        // styleset.flex = '1 0 125px'
         styleset.height = '125px'
         styleset.width = 'auto'
     }
