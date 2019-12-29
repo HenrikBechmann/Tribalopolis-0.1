@@ -261,7 +261,8 @@ const Cradle = (props) => {
         backgroundColor:'blue',
         display:'grid',
         gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))',
-        gridGap: '1rem',
+        gridGap: '10px',
+        padding:'10px'
 
     } as React.CSSProperties)
 
@@ -371,7 +372,7 @@ const updateFrameStyles = (newDirection, oldstyles) => {
 }
 
 
-const InfiniteGrid = (props) => {
+const IScrollByGrid = (props) => {
     let { runway, size, offset, dimensions, pattern, direction, getItem, placeholders, wrapcount } = props
     // console.log('inside Scroller')
 
@@ -423,4 +424,4 @@ const InfiniteGrid = (props) => {
 
 }
 
-export default InfiniteGrid
+export default IScrollByGrid

@@ -5,10 +5,10 @@
 
 import React, {useState} from 'react'
 
-import InfiniteGrid from '../common/infinitegrid'
+import InfiniteGrid from '../common/iscrollbygrid'
     
 const Home = (props) => {
-    let [direction, setDirection] = useState('horizontal')
+    let [direction, setDirection] = useState('vertical')
 
     return <>
         <div style = {{padding:'8px'}} >
