@@ -10,9 +10,9 @@ import { GenericObject } from '../../services/interfaces'
 /*
 use grid
 
-use IntersectionObserver, getBoundingClientRect
+use IntersectionObserver, getBoundingClientRect, will-change
 
-use transform:translate to extend the cradle when scrolling
+use transform:translate to extend the cradle when scrolling?
 
 explore use of requestAnimationFrame. use inmotion var as a sentinal
 
