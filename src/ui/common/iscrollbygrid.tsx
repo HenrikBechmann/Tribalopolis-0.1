@@ -198,6 +198,7 @@ const Scrollblock = (props) => {
     let viewportRect = useRef(null)
     let divlinerstyleref = useRef({
         backgroundColor:'green',
+        position:'relative',
     } as React.CSSProperties)
     let [scrollDataState,updateScrollData] = useState(scrollData)
 
