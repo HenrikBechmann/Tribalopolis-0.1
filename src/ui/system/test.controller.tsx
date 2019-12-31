@@ -6,13 +6,18 @@
 import React, {useState} from 'react'
 
 import InfiniteGrid from '../common/iscrollbygrid'
+import OrientationOptions from './test/testorientationoptions'
     
 const Home = (props) => {
     let [direction, setDirection] = useState('vertical')
 
+    const handleCallback = (orientation) => {
+        setDirection(orientation)
+    }
+
     return <>
         <div style = {{padding:'8px'}} >
-            TEST
+            <OrientationOptions callback = { handleCallback }/>
         </div>
         <div style = {{position:'relative',height:'300px'}}>
             <div style = {
