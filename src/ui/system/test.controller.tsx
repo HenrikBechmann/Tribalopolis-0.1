@@ -5,14 +5,14 @@
 
 import React, {useState} from 'react'
 
-import InfiniteGrid from '../common/iscrollbygrid'
+import InfiniteScroll from '../common/iscrollbygrid'
 import OrientationOptions from './test/testorientationoptions'
     
 const Home = (props) => {
-    let [direction, setDirection] = useState('vertical')
+    let [orientation, setOrientation] = useState('vertical')
 
     const handleCallback = (orientation) => {
-        setDirection(orientation)
+        setOrientation(orientation)
     }
 
     return <>
@@ -31,7 +31,7 @@ const Home = (props) => {
                     border:'1px solid black'
                 }
             }>
-                <InfiniteGrid direction = {direction} />
+                <InfiniteScroll orientation = {orientation} />
             </div>
         </div>
         </>

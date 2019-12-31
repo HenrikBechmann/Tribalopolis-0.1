@@ -36,7 +36,7 @@ allow for dividers
 attributes
     pattern = stream|grid|masonry
     trackcount = <number of side by side>
-    direction = horizontal|vertical|any
+    orientation = horizontal|vertical|any
     // defaultsize
     getnewelement
     size (size of dataset)
@@ -45,7 +45,7 @@ attributes
     placeholder (over-rides defaultsize)
     runwaylength
     runwayelements
-    inverted (invert scroll direction)
+    inverted (invert scroll orientation)
     headercomponent
     footercomponent
 
@@ -189,12 +189,12 @@ const Viewport = (props) => {
 // ==================================[ SCROLLBLOCK ]================================
 
 const Scrollblock = (props) => {
-    let {size, offset, dimensions, pattern, direction:newDirection } = props
+    let {size, offset, dimensions, pattern, orientation:newOrientation } = props
 
     // console.log('scrollblock props',props)
 
     let scrollData = useContext(ScrollContext)
-    let [oldDirection, updateDirection] = useState(null)
+    let [oldOrientation, updateOrientation] = useState(null)
     let viewportRect = useRef(null)
     let divlinerstyleref = useRef({
         backgroundColor:'green',
@@ -202,9 +202,9 @@ const Scrollblock = (props) => {
     } as React.CSSProperties)
     let [scrollDataState,updateScrollData] = useState(scrollData)
 
-    if (oldDirection !== newDirection) {
-        updateScrollStyles(newDirection,divlinerstyleref)
-        updateDirection(newDirection)
+    if (oldOrientation !== newOrientation) {
+        updateScrollStyles(newOrientation,divlinerstyleref)
+        updateOrientation(newOrientation)
     }
 
     // console.log('Scrollblock scrollData, viewportRect',scrollData, viewportRect)
@@ -235,14 +235,14 @@ const Scrollblock = (props) => {
 
 } // Scrollblock
 
-const updateScrollStyles = (newDirection,oldstyles) => {
+const updateScrollStyles = (newOrientation,oldstyles) => {
 
     // console.log('setting scrollblock styles')
     let styles = Object.assign({},oldstyles.current) as React.CSSProperties
-    if (newDirection == 'horizontal') {
+    if (newOrientation == 'horizontal') {
         styles.height = '100%'
         styles.width = '20000px'
-    } else if (newDirection == 'vertical') {
+    } else if (newOrientation == 'vertical') {
         styles.width = '100%'
         styles.height = '20000px'
     }
@@ -253,7 +253,7 @@ const updateScrollStyles = (newDirection,oldstyles) => {
 // ================================[ CREADLE ]=======================================
 
 const Cradle = (props) => {
-    let { runway, size, offset, dimensions, pattern, direction:newDirection, getItem, placeholders } = props
+    let { runway, size, offset, dimensions, pattern, orientation:newOrientation, getItem, placeholders } = props
 
     // console.log('cradle props',props)
 
@@ -267,22 +267,22 @@ const Cradle = (props) => {
 
     } as React.CSSProperties)
 
-    let [oldDirection, updateDirection] = useState(null)
+    let [oldOrientation, updateOrientation] = useState(null)
 
     let childlistref = useRef([])
 
-    if (newDirection !== oldDirection) {
-        updateCradleStyles(newDirection, divlinerstyleref)
-        updateDirection(newDirection)
+    if (newOrientation !== oldOrientation) {
+        updateCradleStyles(newOrientation, divlinerstyleref)
+        updateOrientation(newOrientation)
     }
 
     useEffect(() =>{
         childlistref.current = getContent({
-            direction:newDirection,
+            orientation:newOrientation,
             contentdata:['item 1','item 2','item 3','item 4','item 5',]
         })
 
-    },[newDirection,childlistref])
+    },[newOrientation,childlistref])
 
     let divlinerstyles = divlinerstyleref.current
 
@@ -290,10 +290,10 @@ const Cradle = (props) => {
 
 } // Cradle
 
-const updateCradleStyles = (newDirection, oldStyles) => {
+const updateCradleStyles = (newOrientation, oldStyles) => {
 
         let styles = Object.assign({},oldStyles.current) as React.CSSProperties
-        if (newDirection == 'horizontal') {
+        if (newOrientation == 'horizontal') {
             styles.left = 0
             styles.right = 'auto'
             styles.top = 0
@@ -301,7 +301,7 @@ const updateCradleStyles = (newDirection, oldStyles) => {
             styles.gridAutoFlow = 'column'
             styles.gridTemplateRows = 'repeat(auto-fill, minmax(100px, 1fr))'
             styles.gridTemplateColumns = 'none'
-        } else if (newDirection == 'vertical') {
+        } else if (newOrientation == 'vertical') {
             styles.left = 0
             styles.right = 0
             styles.top = 0
@@ -314,12 +314,12 @@ const updateCradleStyles = (newDirection, oldStyles) => {
 }
 
 const getContent = (props) => {
-    let { contentdata, direction } = props
+    let { contentdata, orientation } = props
     let contentlist = []
     for (let index = 0; index <5; index++) {
         contentlist.push(<ItemFrame 
             key = {index} 
-            direction = {direction}
+            orientation = {orientation}
             text =  {contentdata[index]
         }/>)
     }
@@ -329,7 +329,7 @@ const getContent = (props) => {
 // =============================[ ITEMFRAME ]===============================
 
 const ItemFrame = (props) => {
-    let {text, direction:newDirection} = props
+    let {text, orientation:newOrientation} = props
     let styles = useRef({ // use useRef() instead
         boxSizing:'border-box',
         backgroundColor:'cyan',
@@ -339,14 +339,14 @@ const ItemFrame = (props) => {
         width:'auto',
     } as React.CSSProperties)
 
-    let [oldDirection, setDirection] = useState('vertical')
+    let [oldOrientation, setOrientation] = useState('vertical')
 
     // sets newDorection if different, as side effect
-    if (oldDirection !== newDirection) {
+    if (oldOrientation !== newOrientation) {
     
-        updateFrameStyles(newDirection, styles)
+        updateFrameStyles(newOrientation, styles)
 
-        setDirection(newDirection)
+        setOrientation(newOrientation)
     }
 
     // console.log('RUNNING styles',styles)
@@ -354,32 +354,32 @@ const ItemFrame = (props) => {
     return <div style = {styles.current}>{text}</div>
 }
 
-const updateFrameStyles = (newDirection, oldstyles) => {
+const updateFrameStyles = (newOrientation, oldstyles) => {
 
-    // console.log('inside updateStyles: oldDirection, newDirection, oldstyles',oldDirection, newDirection, oldstyles)
+    // console.log('inside updateStyles: oldOrientation, newOrientation, oldstyles',oldOrientation, newOrientation, oldstyles)
 
     let styleset:React.CSSProperties = Object.assign({},oldstyles.current)
 
-    if (newDirection == 'horizontal') {
+    if (newOrientation == 'horizontal') {
         styleset.width = '125px'
         styleset.height = 'auto'
-    } else if (newDirection === 'vertical') {
+    } else if (newOrientation === 'vertical') {
         styleset.height = '125px'
         styleset.width = 'auto'
     }
     oldstyles.current = styleset
-    // setDirection(newDirection)
+    // setOrientation(newOrientation)
     // console.log('new styleset',styleset, oldstyles)
 }
 
 
 const IScrollByGrid = (props) => {
-    let { runway, size, offset, dimensions, pattern, direction, getItem, placeholders, wrapcount } = props
+    let { runway, size, offset, dimensions, pattern, orientation, getItem, placeholders, wrapcount } = props
     // console.log('inside Scroller')
 
-    if (!['horizontal','vertical'].includes(direction)) {
-        console.warn('invalid value for scroller direction; resetting to default',direction)
-        direction = 'horizontal'
+    if (!['horizontal','vertical'].includes(orientation)) {
+        console.warn('invalid value for scroller orientation; resetting to default',orientation)
+        orientation = 'horizontal'
     }
     if (!['stream'].includes(pattern)) { // future grid or masonry
         if (pattern) {
@@ -400,7 +400,7 @@ const IScrollByGrid = (props) => {
             wrapcount = { wrapcount }
             offset = { offset }
             pattern = { pattern }
-            direction = { direction }
+            orientation = { orientation }
 
             dimensions = { dimensions }
         >
@@ -411,7 +411,7 @@ const IScrollByGrid = (props) => {
                 wrapcount = { wrapcount }
                 offset = { offset }
                 pattern = { pattern }
-                direction = { direction }
+                orientation = { orientation }
                 runway = { runway } 
 
                 dimensions = { dimensions }
