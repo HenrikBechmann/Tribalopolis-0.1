@@ -23,8 +23,8 @@ const useStyles = makeStyles((theme: Theme) =>
 export default function OrientationOptions(props) {
   let { callback } = props
   const styleprops = {}
-  const classes = useStyles(styleprops);
-  const [value, setValue] = React.useState('vertical');
+  const classes = useStyles(styleprops)
+  const [value, setValue] = React.useState('vertical')
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     let value = (event.target as HTMLInputElement).value
@@ -42,37 +42,5 @@ export default function OrientationOptions(props) {
         </RadioGroup>
       </FormControl>
     </div>
-  );
+  )
 }
-
-      // <FormControl component="fieldset" className={classes.formControl}>
-      //   <FormLabel component="legend">Gender</FormLabel>
-      //   <RadioGroup aria-label="gender" name="gender2" value={value} onChange={handleChange}>
-      //     <FormControlLabel
-      //       value="female"
-      //       control={<Radio color="primary" />}
-      //       label="Female"
-      //       labelPlacement="start"
-      //     />
-      //     <FormControlLabel
-      //       value="male"
-      //       control={<Radio color="primary" />}
-      //       label="Male"
-      //       labelPlacement="start"
-      //     />
-      //     <FormControlLabel
-      //       value="other"
-      //       control={<Radio color="primary" />}
-      //       label="Other"
-      //       labelPlacement="start"
-      //     />
-      //     <FormControlLabel
-      //       value="disabled"
-      //       disabled
-      //       control={<Radio />}
-      //       label="(Disabled option)"
-      //       labelPlacement="start"
-      //     />
-      //   </RadioGroup>
-      //   <FormHelperText>labelPlacement start</FormHelperText>
-      // </FormControl>
