@@ -34,7 +34,6 @@ transform out of view items to blank space
 allow for dividers
 
 attributes
-    pattern = stream|grid|masonry
     trackcount = <number of side by side>
     orientation = horizontal|vertical|any
     // defaultsize
@@ -189,7 +188,7 @@ const Viewport = (props) => {
 // ==================================[ SCROLLBLOCK ]================================
 
 const Scrollblock = (props) => {
-    let {size, offset, dimensions, pattern, orientation:newOrientation } = props
+    let {size, offset, orientation:newOrientation } = props
 
     // console.log('scrollblock props',props)
 
@@ -253,15 +252,15 @@ const updateScrollStyles = (newOrientation,oldstyles) => {
 // ================================[ CREADLE ]=======================================
 
 const Cradle = (props) => {
-    let { runway, size, offset, dimensions, pattern, orientation:newOrientation, getItem, placeholders } = props
+    let { gap, padding, runway, size, offset, orientation:newOrientation, getItem, placeholder } = props
 
     let divlinerstyleref = useRef({
         position:'absolute',
         backgroundColor:'blue',
         display:'grid',
         gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))',
-        gridGap: '5px',
-        padding:'5px'
+        gridGap: gap,
+        padding:padding,
 
     } as React.CSSProperties)
 
@@ -375,48 +374,37 @@ const updateFrameStyles = (newOrientation, oldstyles) => {
 
 
 const IScrollByGrid = (props) => {
-    let { runway, size, offset, dimensions, pattern, orientation, getItem, placeholders, wrapcount } = props
+    let { orientation, gap, padding, runway, size, offset, getItem, placeholder } = props
     // console.log('inside Scroller: orientation', orientation)
 
     if (!['horizontal','vertical'].includes(orientation)) {
         console.warn('invalid value for scroller orientation; resetting to default',orientation)
         orientation = 'horizontal'
     }
-    if (!['stream'].includes(pattern)) { // future grid or masonry
-        if (pattern) {
-            console.warn('invalid value for scroller pattern; resetting to default',pattern)
-        }
-        pattern = 'stream'
-    }
 
     runway !?? (runway = 5)
     offset !?? (offset = 0)
     size !?? (size = 0)
-    !wrapcount && (wrapcount = 1)
 
     return <Viewport>
         <Scrollblock
 
             size = { size }
-            wrapcount = { wrapcount }
             offset = { offset }
-            pattern = { pattern }
             orientation = { orientation }
 
-            dimensions = { dimensions }
         >
 
             <Cradle 
 
+                gap = {gap}
+                padding = {padding}
                 size = { size }
-                wrapcount = { wrapcount }
                 offset = { offset }
-                pattern = { pattern }
                 orientation = { orientation }
                 runway = { runway } 
 
-                dimensions = { dimensions }
-                placeholders = { placeholders }
+                placeholder = { placeholder }
                 getItem = { getItem }
 
             />

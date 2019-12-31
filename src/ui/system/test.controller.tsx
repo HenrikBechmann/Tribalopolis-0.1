@@ -5,7 +5,7 @@
 
 import React, {useState} from 'react'
 
-import InfiniteScroll from '../common/iscrollbygrid'
+import InfiniteScroller from '../common/iscrollbygrid'
 import OrientationOptions from './test/testorientationoptions'
 
 const styles = {
@@ -44,7 +44,11 @@ const Home = (props) => {
             <div style = {
                 styles.viewportframe as React.CSSProperties
             }>
-                <InfiniteScroll orientation = {orientation} />
+                <InfiniteScroller 
+                    orientation = { orientation } 
+                    gap = '5px'
+                    padding = '5px'
+                />
             </div>
         </div>
         </>
