@@ -255,8 +255,6 @@ const updateScrollStyles = (newOrientation,oldstyles) => {
 const Cradle = (props) => {
     let { runway, size, offset, dimensions, pattern, orientation:newOrientation, getItem, placeholders } = props
 
-    // console.log('cradle props',props)
-
     let divlinerstyleref = useRef({
         position:'absolute',
         backgroundColor:'blue',
@@ -271,18 +269,16 @@ const Cradle = (props) => {
 
     let childlistref = useRef([])
 
+    // console.log('cradle props',props, oldOrientation)
+
     if (newOrientation !== oldOrientation) {
         updateCradleStyles(newOrientation, divlinerstyleref)
-        updateOrientation(newOrientation)
-    }
-
-    useEffect(() =>{
         childlistref.current = getContent({
             orientation:newOrientation,
             contentdata:['item 1','item 2','item 3','item 4','item 5',]
         })
-
-    },[newOrientation,childlistref])
+        updateOrientation(newOrientation)
+    }
 
     let divlinerstyles = divlinerstyleref.current
 
@@ -341,6 +337,8 @@ const ItemFrame = (props) => {
 
     let [oldOrientation, setOrientation] = useState('vertical')
 
+    // console.log('ItemFrame text, old and new orientations', text, oldOrientation, newOrientation)
+
     // sets newDorection if different, as side effect
     if (oldOrientation !== newOrientation) {
     
@@ -367,6 +365,9 @@ const updateFrameStyles = (newOrientation, oldstyles) => {
         styleset.height = '125px'
         styleset.width = 'auto'
     }
+
+    // console.log('updated ItemFrame styleset',styleset)
+
     oldstyles.current = styleset
     // setOrientation(newOrientation)
     // console.log('new styleset',styleset, oldstyles)
@@ -375,7 +376,7 @@ const updateFrameStyles = (newOrientation, oldstyles) => {
 
 const IScrollByGrid = (props) => {
     let { runway, size, offset, dimensions, pattern, orientation, getItem, placeholders, wrapcount } = props
-    // console.log('inside Scroller')
+    // console.log('inside Scroller: orientation', orientation)
 
     if (!['horizontal','vertical'].includes(orientation)) {
         console.warn('invalid value for scroller orientation; resetting to default',orientation)
