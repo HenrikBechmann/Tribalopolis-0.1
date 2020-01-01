@@ -16,8 +16,8 @@ const Cradle = (props) => {
         backgroundColor:'blue',
         display:'grid',
         gridTemplateColumns: `repeat(auto-fill, minmax(${cellCrossLength}, 1fr))`,
-        gridGap: gap,
-        padding:padding,
+        gridGap: gap + 'px',
+        padding:padding + 'px',
 
     } as React.CSSProperties)
 
@@ -52,7 +52,7 @@ const updateCradleStyles = (newOrientation, oldStyles, cellCrossLength) => {
             styles.top = 0
             styles.bottom = 0
             styles.gridAutoFlow = 'column'
-            styles.gridTemplateRows = `repeat(auto-fill, minmax(${cellCrossLength}, 1fr))`
+            styles.gridTemplateRows = `repeat(auto-fill, minmax(${cellCrossLength}px, 1fr))`
             styles.gridTemplateColumns = 'none'
         } else if (newOrientation == 'vertical') {
             styles.left = 0
@@ -61,7 +61,7 @@ const updateCradleStyles = (newOrientation, oldStyles, cellCrossLength) => {
             styles.bottom = 'auto'
             styles.gridAutoFlow = 'row'
             styles.gridTemplateRows = 'none'
-            styles.gridTemplateColumns = `repeat(auto-fill, minmax(${cellCrossLength}, 1fr))`
+            styles.gridTemplateColumns = `repeat(auto-fill, minmax(${cellCrossLength}px, 1fr))`
         }
         oldStyles.current = styles
 }

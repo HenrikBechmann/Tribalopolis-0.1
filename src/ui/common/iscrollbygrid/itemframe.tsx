@@ -40,10 +40,10 @@ const updateFrameStyles = (newOrientation, cellLength, oldstyles) => {
     let styleset:React.CSSProperties = Object.assign({},oldstyles.current)
 
     if (newOrientation == 'horizontal') {
-        styleset.width = cellLength
+        styleset.width = cellLength + 'px'
         styleset.height = 'auto'
     } else if (newOrientation === 'vertical') {
-        styleset.height = cellLength
+        styleset.height = cellLength + 'px'
         styleset.width = 'auto'
     }
 

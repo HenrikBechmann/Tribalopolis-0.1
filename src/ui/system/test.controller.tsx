@@ -46,10 +46,10 @@ const Home = (props) => {
             }>
                 <InfiniteScroller 
                     orientation = { orientation } 
-                    gap = '5px'
-                    padding = '5px'
-                    cellLength = '180px'
-                    cellCrossLength = '180px'
+                    gap = {5}
+                    padding = {5}
+                    cellLength = {180}
+                    cellCrossLength = {180}
                 />
             </div>
         </div>
