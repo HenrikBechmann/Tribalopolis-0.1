@@ -3,28 +3,18 @@
 
 'use strict'
 
-import React, {useContext, useState, useRef, useEffect, useLayoutEffect} from 'react'
+import React from 'react'
 
-import { GenericObject } from '../../services/interfaces'
-
-import Viewport, { ScrollContext } from './iscrollbygrid/viewport'
+import Viewport from './iscrollbygrid/viewport'
 import Scrollblock from './iscrollbygrid/scrollblock'
 import Cradle from './iscrollbygrid/cradle'
 
 /*
-use grid
-
 use IntersectionObserver, getBoundingClientRect, will-change
 
 use transform:translate to extend the cradle when scrolling?
 
-use context api for scroll
-
 allow list type static or dynamic. Static items can be re-ordered; dynamic items are virtual
-
-viewport
-scrollblock
-cradle (for items)
 
 allow a position bar at bottom -- scrolling stops (and cradle fades) while 
 position bar value is being changed. Position bar gives feedback on location (configureable)
@@ -34,32 +24,6 @@ change key for updates
 transform out of view items to blank space
 
 allow for dividers
-
-attributes
-    trackcount = <number of side by side>
-    orientation = horizontal|vertical|any
-    // defaultsize
-    getnewelement
-    size (size of dataset)
-    offset 
-    generation?? (to trigger updates)
-    placeholder (over-rides defaultsize)
-    runwaylength
-    runwayelements
-    inverted (invert scroll orientation)
-    headercomponent
-    footercomponent
-
-*/
-
-/*
-
-    Sections are:
-     - INITIALIZE
-     - VIEWPORT
-     - SCROLLBLOCK
-     - CRADLE
-     - ITEMFRAME
 
 */
 

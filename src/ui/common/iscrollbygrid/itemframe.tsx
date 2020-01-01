@@ -3,7 +3,7 @@
 
 'use strict'
 
-import React, {useState, useRef, useEffect, useContext} from 'react'
+import React, {useState, useRef } from 'react'
 
 const ItemFrame = (props) => {
     let {text, orientation:newOrientation, cellLength} = props

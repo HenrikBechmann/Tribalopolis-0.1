@@ -3,7 +3,7 @@
 
 'use strict'
 
-import React, {useState, useRef, useEffect, useContext} from 'react'
+import React, { useState, useRef } from 'react'
 
 import ItemFrame from './itemframe'
 
