@@ -20,7 +20,7 @@ const styles = {
     },
     framewrapper: {
         position:'relative',
-        height:'300px',
+        height:'500px',
     },
     optionswrapper: {
         padding:'8px',
@@ -48,6 +48,8 @@ const Home = (props) => {
                     orientation = { orientation } 
                     gap = '5px'
                     padding = '5px'
+                    cellLength = '125px'
+                    cellCrossLength = '200px'
                 />
             </div>
         </div>

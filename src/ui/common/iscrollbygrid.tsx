@@ -252,13 +252,13 @@ const updateScrollStyles = (newOrientation,oldstyles) => {
 // ================================[ CREADLE ]=======================================
 
 const Cradle = (props) => {
-    let { gap, padding, runway, size, offset, orientation:newOrientation, getItem, placeholder } = props
+    let { gap, padding, runway, size, offset, orientation:newOrientation, cellLength, cellCrossLength, getItem, placeholder } = props
 
     let divlinerstyleref = useRef({
         position:'absolute',
         backgroundColor:'blue',
         display:'grid',
-        gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))',
+        gridTemplateColumns: `repeat(auto-fill, minmax(${cellCrossLength}, 1fr))`,
         gridGap: gap,
         padding:padding,
 
@@ -271,10 +271,11 @@ const Cradle = (props) => {
     // console.log('cradle props',props, oldOrientation)
 
     if (newOrientation !== oldOrientation) {
-        updateCradleStyles(newOrientation, divlinerstyleref)
+        updateCradleStyles(newOrientation, divlinerstyleref, cellCrossLength)
         childlistref.current = getContent({
             orientation:newOrientation,
-            contentdata:['item 1','item 2','item 3','item 4','item 5',]
+            contentdata:['item 1','item 2','item 3','item 4','item 5',],
+            cellLength,
         })
         updateOrientation(newOrientation)
     }
@@ -285,7 +286,7 @@ const Cradle = (props) => {
 
 } // Cradle
 
-const updateCradleStyles = (newOrientation, oldStyles) => {
+const updateCradleStyles = (newOrientation, oldStyles, cellCrossLength) => {
 
         let styles = Object.assign({},oldStyles.current) as React.CSSProperties
         if (newOrientation == 'horizontal') {
@@ -294,7 +295,7 @@ const updateCradleStyles = (newOrientation, oldStyles) => {
             styles.top = 0
             styles.bottom = 0
             styles.gridAutoFlow = 'column'
-            styles.gridTemplateRows = 'repeat(auto-fill, minmax(100px, 1fr))'
+            styles.gridTemplateRows = `repeat(auto-fill, minmax(${cellCrossLength}, 1fr))`
             styles.gridTemplateColumns = 'none'
         } else if (newOrientation == 'vertical') {
             styles.left = 0
@@ -303,20 +304,21 @@ const updateCradleStyles = (newOrientation, oldStyles) => {
             styles.bottom = 'auto'
             styles.gridAutoFlow = 'row'
             styles.gridTemplateRows = 'none'
-            styles.gridTemplateColumns = 'repeat(auto-fill, minmax(200px, 1fr))'
+            styles.gridTemplateColumns = `repeat(auto-fill, minmax(${cellCrossLength}, 1fr))`
         }
         oldStyles.current = styles
 }
 
 const getContent = (props) => {
-    let { contentdata, orientation } = props
+    let { contentdata, orientation, cellLength } = props
     let contentlist = []
     for (let index = 0; index <5; index++) {
         contentlist.push(<ItemFrame 
             key = {index} 
             orientation = {orientation}
-            text =  {contentdata[index]
-        }/>)
+            text = { contentdata[index] }
+            cellLength = { cellLength }
+        />)
     }
     return contentlist
 }
@@ -324,13 +326,13 @@ const getContent = (props) => {
 // =============================[ ITEMFRAME ]===============================
 
 const ItemFrame = (props) => {
-    let {text, orientation:newOrientation} = props
+    let {text, orientation:newOrientation, cellLength} = props
     let styles = useRef({ // use useRef() instead
         boxSizing:'border-box',
         backgroundColor:'cyan',
         border:'2px solid black',
         // default vertical
-        height:'125px',
+        height:cellLength,
         width:'auto',
     } as React.CSSProperties)
 
@@ -341,7 +343,7 @@ const ItemFrame = (props) => {
     // sets newDorection if different, as side effect
     if (oldOrientation !== newOrientation) {
     
-        updateFrameStyles(newOrientation, styles)
+        updateFrameStyles(newOrientation, cellLength, styles)
 
         setOrientation(newOrientation)
     }
@@ -351,17 +353,17 @@ const ItemFrame = (props) => {
     return <div style = {styles.current}>{text}</div>
 }
 
-const updateFrameStyles = (newOrientation, oldstyles) => {
+const updateFrameStyles = (newOrientation, cellLength, oldstyles) => {
 
     // console.log('inside updateStyles: oldOrientation, newOrientation, oldstyles',oldOrientation, newOrientation, oldstyles)
 
     let styleset:React.CSSProperties = Object.assign({},oldstyles.current)
 
     if (newOrientation == 'horizontal') {
-        styleset.width = '125px'
+        styleset.width = cellLength
         styleset.height = 'auto'
     } else if (newOrientation === 'vertical') {
-        styleset.height = '125px'
+        styleset.height = cellLength
         styleset.width = 'auto'
     }
 
@@ -374,7 +376,7 @@ const updateFrameStyles = (newOrientation, oldstyles) => {
 
 
 const IScrollByGrid = (props) => {
-    let { orientation, gap, padding, runway, size, offset, getItem, placeholder } = props
+    let { orientation, gap, padding, cellLength, cellCrossLength, runway, size, offset, getItem, placeholder } = props
     // console.log('inside Scroller: orientation', orientation)
 
     if (!['horizontal','vertical'].includes(orientation)) {
@@ -397,8 +399,10 @@ const IScrollByGrid = (props) => {
 
             <Cradle 
 
-                gap = {gap}
-                padding = {padding}
+                gap = { gap }
+                padding = { padding }
+                cellCrossLength = { cellCrossLength }
+                cellLength = { cellLength }
                 size = { size }
                 offset = { offset }
                 orientation = { orientation }
