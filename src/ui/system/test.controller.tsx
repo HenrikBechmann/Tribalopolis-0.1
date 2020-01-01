@@ -48,8 +48,8 @@ const Home = (props) => {
                     orientation = { orientation } 
                     gap = '5px'
                     padding = '5px'
-                    cellLength = '125px'
-                    cellCrossLength = '200px'
+                    cellLength = '180px'
+                    cellCrossLength = '180px'
                 />
             </div>
         </div>

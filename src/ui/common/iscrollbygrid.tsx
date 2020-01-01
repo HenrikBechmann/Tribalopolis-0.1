@@ -14,8 +14,6 @@ use IntersectionObserver, getBoundingClientRect, will-change
 
 use transform:translate to extend the cradle when scrolling?
 
-explore use of requestAnimationFrame. use inmotion var as a sentinal
-
 use context api for scroll
 
 allow list type static or dynamic. Static items can be re-ordered; dynamic items are virtual
@@ -63,14 +61,14 @@ attributes
 
 // ===================================[ INITIALIZE ]===========================
 
-const SCROLL_DIFF_FOR_UPDATE = 20
-const SCROLL_TIMEOUT_FOR_ONAFTERSCROLL = 250
-const RESIZE_TIMEOUT_FOR_ONAFTERSRESIZE = 250
+
+// ===============================[ VIEWPORT ]===========================
 
 const ScrollContext = React.createContext(null)
 
-// ===============================[ VIREWPORT ]===========================
-
+const SCROLL_DIFF_FOR_UPDATE = 20
+const SCROLL_TIMEOUT_FOR_ONAFTERSCROLL = 250
+const RESIZE_TIMEOUT_FOR_ONAFTERSRESIZE = 250
 const Viewport = (props) => {
     let [scrollData, updateScrollData] = useState(null)
     let scrolldiv:any = useRef()
@@ -374,9 +372,21 @@ const updateFrameStyles = (newOrientation, cellLength, oldstyles) => {
     // console.log('new styleset',styleset, oldstyles)
 }
 
+// =============================[ ISCROLLBYGRID ]===============================
 
 const IScrollByGrid = (props) => {
-    let { orientation, gap, padding, cellLength, cellCrossLength, runway, size, offset, getItem, placeholder } = props
+    let { 
+        orientation, 
+        gap, 
+        padding, 
+        cellLength, 
+        cellCrossLength, 
+        runway, 
+        size, 
+        offset, 
+        getItem, 
+        placeholder 
+    } = props
     // console.log('inside Scroller: orientation', orientation)
 
     if (!['horizontal','vertical'].includes(orientation)) {
