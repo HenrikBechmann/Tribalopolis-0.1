@@ -74,9 +74,12 @@ const IScrollByGrid = (props) => {
         cellCrossLength, 
         runway, 
         listsize, 
-        offset, 
+        offset,
+        preload,
+        dense, 
+        // sortable, // deferred; ignored if preload is false
         placeholder,
-        getItem
+        getItem,
     } = props
     // console.log('inside Scroller: orientation', orientation)
 
@@ -90,6 +93,8 @@ const IScrollByGrid = (props) => {
     runway !?? (runway = 5)
     offset !?? (offset = 0)
     listsize !?? (listsize = 0)
+    !preload && (dense = false)
+    // !preload && (sortable = false) // deferred
 
     return <Viewport>
         <Scrollblock
@@ -110,6 +115,7 @@ const IScrollByGrid = (props) => {
                 offset = { offset }
                 orientation = { orientation }
                 runway = { runway } 
+                dense = { dense }
 
                 placeholder = { placeholder }
                 getItem = { getItem }
