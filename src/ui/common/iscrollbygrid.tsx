@@ -73,7 +73,7 @@ const IScrollByGrid = (props) => {
         cellLength, 
         cellCrossLength, 
         runway, 
-        size, 
+        listsize, 
         offset, 
         placeholder,
         getItem
@@ -85,14 +85,16 @@ const IScrollByGrid = (props) => {
         orientation = 'horizontal'
     }
 
+    gap !?? (gap = 0)
+    padding !?? (padding = 0)
     runway !?? (runway = 5)
     offset !?? (offset = 0)
-    size !?? (size = 0)
+    listsize !?? (listsize = 0)
 
     return <Viewport>
         <Scrollblock
 
-            size = { size }
+            size = { listsize }
             offset = { offset }
             orientation = { orientation }
 
@@ -104,7 +106,7 @@ const IScrollByGrid = (props) => {
                 padding = { padding }
                 cellCrossLength = { cellCrossLength }
                 cellLength = { cellLength }
-                size = { size }
+                size = { listsize }
                 offset = { offset }
                 orientation = { orientation }
                 runway = { runway } 

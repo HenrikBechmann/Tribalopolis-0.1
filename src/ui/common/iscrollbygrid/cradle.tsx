@@ -9,13 +9,13 @@ import ItemFrame from './itemframe'
 
 
 const Cradle = (props) => {
-    let { gap, padding, runway, size, offset, orientation:newOrientation, cellLength, cellCrossLength, getItem, placeholder } = props
+    let { gap, padding, runway, listsize, offset, orientation:newOrientation, cellLength, cellCrossLength, getItem, placeholder } = props
 
     let divlinerstyleref = useRef({
         position:'absolute',
         backgroundColor:'blue',
         display:'grid',
-        gridTemplateColumns: `repeat(auto-fill, minmax(${cellCrossLength}, 1fr))`,
+        gridTemplateColumns: cellCrossLength?`repeat(auto-fill, minmax(${cellCrossLength}, 1fr))`:'auto',
         gridGap: gap + 'px',
         padding:padding + 'px',
 
@@ -52,7 +52,7 @@ const updateCradleStyles = (newOrientation, oldStyles, cellCrossLength) => {
             styles.top = 0
             styles.bottom = 0
             styles.gridAutoFlow = 'column'
-            styles.gridTemplateRows = `repeat(auto-fill, minmax(${cellCrossLength}px, 1fr))`
+            styles.gridTemplateRows = cellCrossLength?`repeat(auto-fill, minmax(${cellCrossLength}px, 1fr))`:'auto'
             styles.gridTemplateColumns = 'none'
         } else if (newOrientation == 'vertical') {
             styles.left = 0
@@ -61,7 +61,7 @@ const updateCradleStyles = (newOrientation, oldStyles, cellCrossLength) => {
             styles.bottom = 'auto'
             styles.gridAutoFlow = 'row'
             styles.gridTemplateRows = 'none'
-            styles.gridTemplateColumns = `repeat(auto-fill, minmax(${cellCrossLength}px, 1fr))`
+            styles.gridTemplateColumns = cellCrossLength?`repeat(auto-fill, minmax(${cellCrossLength}px, 1fr))`:'auto'
         }
         oldStyles.current = styles
 }

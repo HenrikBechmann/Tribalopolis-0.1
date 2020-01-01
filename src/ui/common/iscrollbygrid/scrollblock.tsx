@@ -8,7 +8,7 @@ import React, {useState, useRef, useEffect, useContext} from 'react'
 import { ScrollContext } from './viewport'
 
 const Scrollblock = (props) => {
-    let {size, offset, orientation:newOrientation } = props
+    let {listsize, offset, orientation:newOrientation } = props
 
     // console.log('scrollblock props',props)
 

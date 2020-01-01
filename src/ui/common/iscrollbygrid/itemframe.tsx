@@ -12,7 +12,7 @@ const ItemFrame = (props) => {
         backgroundColor:'cyan',
         border:'2px solid black',
         // default vertical
-        height:cellLength,
+        height:cellLength?(cellLength + 'px'):'auto',
         width:'auto',
     } as React.CSSProperties)
 
@@ -40,10 +40,10 @@ const updateFrameStyles = (newOrientation, cellLength, oldstyles) => {
     let styleset:React.CSSProperties = Object.assign({},oldstyles.current)
 
     if (newOrientation == 'horizontal') {
-        styleset.width = cellLength + 'px'
+        styleset.width = cellLength?(cellLength + 'px'):'auto'
         styleset.height = 'auto'
     } else if (newOrientation === 'vertical') {
-        styleset.height = cellLength + 'px'
+        styleset.height = cellLength?(cellLength + 'px'):'auto'
         styleset.width = 'auto'
     }
 
