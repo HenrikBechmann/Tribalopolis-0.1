@@ -75,8 +75,8 @@ const IScrollByGrid = (props) => {
         runway, 
         size, 
         offset, 
-        getItem, 
-        placeholder 
+        placeholder,
+        getItem
     } = props
     // console.log('inside Scroller: orientation', orientation)
 

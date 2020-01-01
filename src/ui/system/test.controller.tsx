@@ -50,6 +50,9 @@ const Home = (props) => {
                     padding = {5}
                     cellLength = {180}
                     cellCrossLength = {180}
+                    runway = {5}
+                    offset = {0}
+                    size = {0}
                 />
             </div>
         </div>
