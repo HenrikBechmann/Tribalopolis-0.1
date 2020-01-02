@@ -21,7 +21,7 @@ position bar value is being changed. Position bar gives feedback on location (co
 
 change key for updates
 
-transform out of view items to blank space
+transform out of scope items to blank space
 
 allow for dividers
 
@@ -39,11 +39,11 @@ const IScrollByGrid = (props) => {
         runway, 
         listsize, 
         offset,
-        preload,
-        dense, 
         // sortable, // deferred; ignored if preload is false
         placeholder,
         getItem,
+        preload,
+        dense, 
     } = props
     // console.log('inside Scroller: orientation', orientation)
 

@@ -6,7 +6,7 @@
 import React, {useState} from 'react'
 
 import InfiniteScroller from '../common/iscrollbygrid'
-import OrientationOptions from './test/testorientationoptions'
+import TestOptions from './test/testoptions'
 
 const styles = {
     viewportframe: {
@@ -30,13 +30,13 @@ const styles = {
 const Home = (props) => {
     let [orientation, setOrientation] = useState('vertical')
 
-    const handleCallback = (orientation) => {
+    const handleOrientationCallback = (orientation) => {
         setOrientation(orientation)
     }
 
     return <>
         <div style = {styles.optionswrapper as React.CSSProperties} >
-            <OrientationOptions callback = { handleCallback }/>
+            <TestOptions orientationCallback = { handleOrientationCallback }/>
         </div>
         <div style = {
             styles.framewrapper as React.CSSProperties

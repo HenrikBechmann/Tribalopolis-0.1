@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme: Theme) =>
 )
 
 export default function OrientationOptions(props) {
-  let { callback } = props
+  let { orientationCallback } = props
   const styleprops = {}
   const classes = useStyles(styleprops)
   const [value, setValue] = React.useState('vertical')
@@ -29,7 +29,7 @@ export default function OrientationOptions(props) {
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     let value = (event.target as HTMLInputElement).value
     setValue(value)
-    callback(value)
+    orientationCallback(value)
   };
 
   return (
