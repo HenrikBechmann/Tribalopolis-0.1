@@ -29,6 +29,15 @@ allow for dividers
 
 // ===================================[ INITIALIZE ]===========================
 
+/*
+    The only job of IScrollByGrid is to pass paramters to dependents
+    Viewport contains the scrollblock (scrolling block)
+    Scrollblock represents the entirety of the list, and scrolls
+    Cradle contains the list item, and is 'virtualiized' -- it appears as
+      though it is the scrollblock, but in fact it is only slightly larger than
+      the viewport.
+    - individual items are framed by ItemFrame, managed by Cradle
+*/
 const IScrollByGrid = (props) => {
     let { 
         orientation, 
@@ -39,7 +48,6 @@ const IScrollByGrid = (props) => {
         runway, 
         listsize, 
         offset,
-        // sortable, // deferred; ignored if preload is false
         placeholder,
         getItem,
         preload,
@@ -58,7 +66,6 @@ const IScrollByGrid = (props) => {
     offset !?? (offset = 0)
     listsize !?? (listsize = 0)
     !preload && (dense = false)
-    // !preload && (sortable = false) // deferred
 
     return <Viewport>
         <Scrollblock
@@ -75,11 +82,12 @@ const IScrollByGrid = (props) => {
                 padding = { padding }
                 cellCrossLength = { cellCrossLength }
                 cellLength = { cellLength }
-                size = { listsize }
+                listsize = { listsize }
                 offset = { offset }
                 orientation = { orientation }
                 runway = { runway } 
                 dense = { dense }
+                preload = { preload }
 
                 placeholder = { placeholder }
                 getItem = { getItem }
