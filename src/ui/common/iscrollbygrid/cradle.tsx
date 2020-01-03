@@ -18,6 +18,7 @@ const Cradle = (props) => {
         gridTemplateColumns: cellCrossLength?`repeat(auto-fill, minmax(${cellCrossLength}, 1fr))`:'auto',
         gridGap: gap + 'px',
         padding:padding + 'px',
+        justifyContent:'start',
 
     } as React.CSSProperties)
 
