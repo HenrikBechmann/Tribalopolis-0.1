@@ -33,8 +33,8 @@ allow for dividers
     The only job of IScrollByGrid is to pass paramters to dependents
     Viewport contains the scrollblock (scrolling block)
     Scrollblock represents the entirety of the list, and scrolls
-    Cradle contains the list item, and is 'virtualiized' -- it appears as
-      though it is the scrollblock, but in fact it is only slightly larger than
+    Cradle contains the list items, and is 'virtualiized' -- it appears as
+      though it is the full scrollblock, but in fact it is only slightly larger than
       the viewport.
     - individual items are framed by ItemFrame, managed by Cradle
 */

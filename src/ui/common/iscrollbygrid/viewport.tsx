@@ -9,13 +9,15 @@ import { GenericObject } from '../../../services/interfaces'
 
 export const ScrollContext = React.createContext(null)
 
+// control constants
 const SCROLL_DIFF_FOR_UPDATE = 20
 const SCROLL_TIMEOUT_FOR_ONAFTERSCROLL = 250
 const RESIZE_TIMEOUT_FOR_ONAFTERSRESIZE = 250
 
-const Viewport = (props) => {
+const Viewport = ({children}) => { // props
+
     let [scrollData, updateScrollData] = useState(null)
-    let scrolldiv:any = useRef()
+    let scrolldiv = useRef(undefined)
     let scrollTimeout = useRef(undefined)
     let resizeTimeout = useRef(undefined)
     let divlinerstyleref = useRef({
@@ -32,12 +34,15 @@ const Viewport = (props) => {
         scrollData.startingScrollLeft = scrolldiv.current.scrollLeft
         scrollData.startingScrollTop = scrolldiv.current.scrollTop
         scrollData.viewportRect = scrolldiv.current.getBoundingClientRect()
+
         window.addEventListener('resize', onResize)
+
         updateScrollData(scrollData)
+
         return () => {
             window.removeEventListener('resize', onResize)
         }
-             // console.log('running useEffect:scrolldiv, scrollData',scrolldiv, scrollData)
+
     },[])
 
     let divlinerstyle = divlinerstyleref.current as React.CSSProperties
@@ -84,7 +89,7 @@ const Viewport = (props) => {
             }
         }
         let absdiff = Math.abs(scrollData.scrollLeft - target.scrollLeft) 
-        if ( absdiff <=SCROLL_DIFF_FOR_UPDATE) {
+        if ( absdiff <= SCROLL_DIFF_FOR_UPDATE) {
             // console.log('returning with absdiff',absdiff)
             return
         }
@@ -119,11 +124,15 @@ const Viewport = (props) => {
         // console.log('scrolling ended:scrollData',scrollData)
     }
 
-    return <ScrollContext.Provider value = {scrollData}><div 
-        style = {divlinerstyle}
-        onScroll = {onScroll}
-        ref = {scrolldiv}
-    >{props.children}</div></ScrollContext.Provider>
+    return <ScrollContext.Provider value = { scrollData }>
+        <div 
+            style = {divlinerstyle}
+            onScroll = {onScroll}
+            ref = {scrolldiv}
+        >
+            { children }
+        </div>
+    </ScrollContext.Provider>
     
 } // Viewport
 
