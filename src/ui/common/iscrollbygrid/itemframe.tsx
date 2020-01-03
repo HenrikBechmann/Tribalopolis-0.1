@@ -11,6 +11,7 @@ const ItemFrame = (props) => {
         boxSizing:'border-box',
         backgroundColor:'cyan',
         border:'2px solid black',
+        // writingMode:'horizontal-tb',
         // default vertical
         height:cellLength?(cellLength + 'px'):'auto',
         width:'auto',
