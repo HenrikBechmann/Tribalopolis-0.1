@@ -1,6 +1,10 @@
 // viewport.tsx
 // copyright (c) 2020 Henrik Bechmann, Toronto, Licence: GPL-3.0-or-later
 
+/*
+    The role of viewport is to provide data to its children (cradle)
+*/
+
 'use strict'
 
 import React, {useState, useRef, useEffect} from 'react'
@@ -50,8 +54,8 @@ const Viewport = ({children}) => { // props
 
     const onDoResize = () => {
         // console.log('onResize', scrollData)
-        scrollData.viewportRect = scrolldiv.current.getBoundingClientRect()
         scrollData = Object.assign({},scrollData)
+        scrollData.viewportRect = scrolldiv.current.getBoundingClientRect()
         updateScrollData(scrollData)
     }
 

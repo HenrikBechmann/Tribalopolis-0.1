@@ -8,13 +8,15 @@ import React, {useState, useRef, useEffect, useContext} from 'react'
 import { ScrollContext } from './viewport'
 
 const Scrollblock = (props) => {
-    let {listsize, offset, orientation:newOrientation } = props
+    let {listsize, cellCrossLength, crossLengthHint, gap, padding, orientation:newOrientation } = props
 
     // console.log('scrollblock props',props)
 
     let scrollData:any = useContext(ScrollContext)
     let [oldOrientation, updateOrientation] = useState(null)
+    let [scrollBlockLength, updateScrollBlockLength] = useState(0)
     let viewportRect = useRef(null)
+    let scrollblockRect = useRef(null)
     let divlinerstyleref = useRef({
         backgroundColor:'green',
         position:'relative',
@@ -38,8 +40,8 @@ const Scrollblock = (props) => {
         updateScrollData(scrollData)
     },[scrollData])
 
-    const updateConfiguration = (sData,vRect) => {
-        if (!sData) return
+    const updateConfiguration = (scrollData,viewportRect) => {
+        if (!scrollData) return
 
         // console.log('INSIDE UPDATECONFIGURATION:scrollData,viwportRect',sData,vRect)
     }
@@ -47,7 +49,7 @@ const Scrollblock = (props) => {
     const updateData = (sData) => {
         if (!sData) return
 
-        // console.log('INSIDE UPDATEDATA: scrollData',sData)
+        console.log('INSIDE UPDATEDATA: scrollData',sData)
     }
 
     return <div style={divlinerstyleref.current}>{props.children}</div>
