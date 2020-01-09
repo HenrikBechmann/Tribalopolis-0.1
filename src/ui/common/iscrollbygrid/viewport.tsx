@@ -37,7 +37,7 @@ const Viewport = ({children, orientation}) => { // props
         return () => {
             window.removeEventListener('resize', onResize)
         }
-    })
+    },[])
 
     useEffect(() => { // initialize scrollData
         let localScrollData:GenericObject = {}
@@ -46,7 +46,7 @@ const Viewport = ({children, orientation}) => { // props
         scrollData.startingScrollTop = scrolldiv.current.scrollTop
         scrollData.viewportRect = scrolldiv.current.getBoundingClientRect()
 
-        console.log('initialize scrolldata in UseEffect',scrollData, scrolldiv)
+        // console.log('initialize scrolldata in UseEffect',scrollData, scrolldiv)
 
         updateScrollData(scrollData)
 
