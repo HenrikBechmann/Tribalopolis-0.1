@@ -94,7 +94,7 @@ const Viewport = ({children, orientation}) => { // props
             scrollData.scrollTop = scrollData.startingScrollTop
             scrollData.previousScrollLeft = scrollData.scrollLeft
             scrollData.previousScrollTop = scrollData.scrollTop
-            console.log('initialized scrolldata session',scrollData)
+            // console.log('initialized scrolldata session',scrollData)
             scrollData = Object.assign({},scrollData)
             updateScrollData(scrollData)
         }
@@ -136,10 +136,7 @@ const Viewport = ({children, orientation}) => { // props
         scrollData.scrollingForward = undefined
         scrollData.startingScrollLeft = scrollData.scrollLeft
         scrollData.startingScrollTop = scrollData.scrollTop
-        // scrollData.scrollLeft = scrolldiv.current.scrollLeft
-        // scrollData.scrollTop = scrolldiv.current.scrollTop
-        // latestScrollData = scrollData
-        // scrollData = {}
+
         scrollData = Object.assign({},scrollData)
         // console.log('scrolling ended:scrollData',scrollData)
         updateScrollData(scrollData)
