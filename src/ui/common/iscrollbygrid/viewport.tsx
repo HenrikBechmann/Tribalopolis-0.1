@@ -84,37 +84,47 @@ const Viewport = ({children, orientation}) => { // props
         scrollData.scrolling = true
 
         if (scrollData.scrollingForward === undefined) {
-            console.log('about to initialize scrolldata session',target.scrollLeft,scrollData.startingScrollLeft)
-            // if (target.scrollLeft !== scrollData.startingScrollLeft) {
+            if (orientation == 'horizontal') {
                 scrollData.scrollingForward = (target.scrollLeft > scrollData.startingScrollLeft)
-                // initialize
-                scrollData.scrollLeft = scrollData.startingScrollLeft
-                scrollData.scrollTop = scrollData.startingScrollTop
-                scrollData.previousScrollLeft = scrollData.scrollLeft
-                scrollData.previousScrollTop = scrollData.scrollTop
-                console.log('initialized scrolldata session',scrollData)
-                scrollData = Object.assign({},scrollData)
-                updateScrollData(scrollData)
-            // }
+            } else {
+                scrollData.scrollingForward = (target.scrollTop > scrollData.startingScrollTop)
+            }
+            // initialize
+            scrollData.scrollLeft = scrollData.startingScrollLeft
+            scrollData.scrollTop = scrollData.startingScrollTop
+            scrollData.previousScrollLeft = scrollData.scrollLeft
+            scrollData.previousScrollTop = scrollData.scrollTop
+            console.log('initialized scrolldata session',scrollData)
+            scrollData = Object.assign({},scrollData)
+            updateScrollData(scrollData)
         }
-        let absdiff = Math.abs(scrollData.scrollLeft - target.scrollLeft) 
+        let absdiff
+        if (orientation == 'horizontal') {
+            absdiff = Math.abs(scrollData.scrollLeft - target.scrollLeft) 
+        } else {
+            absdiff = Math.abs(scrollData.scrollTop - target.scrollTop) 
+        }
+        // console.log('absdiff',absdiff)
         if ( absdiff <= SCROLL_DIFF_FOR_UPDATE) {
-            // console.log('returning with absdiff',absdiff)
+
             return
+
         }
 
-        // console.log('continuing with absdiff',absdiff)
-
-        scrollData.scrollingForward = (target.scrollLeft > scrollData.scrollLeft)
+        if (orientation == 'horizontal') {
+            scrollData.scrollingForward = (target.scrollLeft > scrollData.startingScrollLeft)
+        } else {
+            scrollData.scrollingForward = (target.scrollTop > scrollData.startingScrollTop)
+        }
         scrollData.previousScrollLeft = scrollData.scrollLeft
         scrollData.previousScrollTop = scrollData.scrollTop
         scrollData.scrollLeft = target.scrollLeft
         scrollData.scrollTop = target.scrollTop
 
         scrollData = Object.assign({},scrollData)
+        // console.log('update scrollData',Object.assign({},scrollData))
         updateScrollData(scrollData)
 
-        // console.log('scroll: scrollLeft, scrollTop, scrollData',target.scrollLeft,target.scrollTop, scrollData)
     }
 
     const onAfterScroll = () => {
@@ -126,11 +136,13 @@ const Viewport = ({children, orientation}) => { // props
         scrollData.scrollingForward = undefined
         scrollData.startingScrollLeft = scrollData.scrollLeft
         scrollData.startingScrollTop = scrollData.scrollTop
+        // scrollData.scrollLeft = scrolldiv.current.scrollLeft
+        // scrollData.scrollTop = scrolldiv.current.scrollTop
         // latestScrollData = scrollData
         // scrollData = {}
         scrollData = Object.assign({},scrollData)
-        updateScrollData(scrollData)
         // console.log('scrolling ended:scrollData',scrollData)
+        updateScrollData(scrollData)
     }
 
     return <ScrollContext.Provider value = { scrollData }>
