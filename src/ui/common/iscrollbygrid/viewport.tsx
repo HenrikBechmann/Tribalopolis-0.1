@@ -18,7 +18,7 @@ const SCROLL_DIFF_FOR_UPDATE = 20
 const SCROLL_TIMEOUT_FOR_ONAFTERSCROLL = 250
 const RESIZE_TIMEOUT_FOR_ONAFTERSRESIZE = 250
 
-const Viewport = ({children}) => { // props
+const Viewport = ({children, orientation}) => { // props
 
     let [scrollData, updateScrollData] = useState(null)
     let scrolldiv = useRef(undefined)
@@ -32,6 +32,13 @@ const Viewport = ({children}) => { // props
         backgroundColor:'red',
     })
 
+    useEffect(() => {
+        window.addEventListener('resize', onResize)
+        return () => {
+            window.removeEventListener('resize', onResize)
+        }
+    })
+
     useEffect(() => { // initialize scrollData
         let localScrollData:GenericObject = {}
         scrollData = localScrollData
@@ -39,15 +46,12 @@ const Viewport = ({children}) => { // props
         scrollData.startingScrollTop = scrolldiv.current.scrollTop
         scrollData.viewportRect = scrolldiv.current.getBoundingClientRect()
 
-        window.addEventListener('resize', onResize)
+        console.log('initialize scrolldata in UseEffect',scrollData, scrolldiv)
 
         updateScrollData(scrollData)
 
-        return () => {
-            window.removeEventListener('resize', onResize)
-        }
 
-    },[])
+    },[orientation, scrolldiv])
 
     let divlinerstyle = divlinerstyleref.current as React.CSSProperties
     // console.log('starting ViewPort', scrollData)
@@ -80,17 +84,18 @@ const Viewport = ({children}) => { // props
         scrollData.scrolling = true
 
         if (scrollData.scrollingForward === undefined) {
-            if (target.scrollLeft !== scrollData.startingScrollLeft) {
+            console.log('about to initialize scrolldata session',target.scrollLeft,scrollData.startingScrollLeft)
+            // if (target.scrollLeft !== scrollData.startingScrollLeft) {
                 scrollData.scrollingForward = (target.scrollLeft > scrollData.startingScrollLeft)
                 // initialize
                 scrollData.scrollLeft = scrollData.startingScrollLeft
                 scrollData.scrollTop = scrollData.startingScrollTop
                 scrollData.previousScrollLeft = scrollData.scrollLeft
                 scrollData.previousScrollTop = scrollData.scrollTop
-                // console.log('initialized scrolldata',scrollData)
+                console.log('initialized scrolldata session',scrollData)
                 scrollData = Object.assign({},scrollData)
                 updateScrollData(scrollData)
-            }
+            // }
         }
         let absdiff = Math.abs(scrollData.scrollLeft - target.scrollLeft) 
         if ( absdiff <= SCROLL_DIFF_FOR_UPDATE) {

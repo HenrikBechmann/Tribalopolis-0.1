@@ -68,7 +68,7 @@ const IScrollByGrid = (props) => {
     listsize !?? (listsize = 0)
     !preload && (dense = false)
 
-    return <Viewport>
+    return <Viewport orientation = {orientation}>
         <Scrollblock
 
             listsize = { listsize }

@@ -21,7 +21,7 @@ const Scrollblock = (props) => {
     } as React.CSSProperties)
     let [scrollDataState,updateScrollData] = useState(scrollData)
 
-    console.log('scrollblock: props, scrolldata', props, scrollData)
+    // console.log('scrollblock: props, scrolldata', props, scrollData)
 
     if (oldOrientation !== newOrientation) {
         updateScrollblockStyles(newOrientation,divlinerstyleref)
@@ -49,7 +49,7 @@ const Scrollblock = (props) => {
     const updateData = (sData) => {
         if (!sData) return
 
-        console.log('INSIDE UPDATEDATA: scrollData',sData)
+        // console.log('INSIDE UPDATEDATA: scrollData',sData)
     }
 
     return <div style={divlinerstyleref.current}>{props.children}</div>
