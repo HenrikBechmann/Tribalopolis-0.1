@@ -10,8 +10,6 @@ import { ScrollContext } from './viewport'
 const Scrollblock = (props) => {
     let {listsize, cellCrossLength, crossLengthHint, gap, padding, orientation:newOrientation } = props
 
-    // console.log('scrollblock props',props)
-
     let scrollData:any = useContext(ScrollContext)
     let [oldOrientation, updateOrientation] = useState(null)
     let [scrollBlockLength, updateScrollBlockLength] = useState(0)
@@ -23,8 +21,10 @@ const Scrollblock = (props) => {
     } as React.CSSProperties)
     let [scrollDataState,updateScrollData] = useState(scrollData)
 
+    console.log('scrollblock: props, scrolldata', props, scrollData)
+
     if (oldOrientation !== newOrientation) {
-        updateScrollStyles(newOrientation,divlinerstyleref)
+        updateScrollblockStyles(newOrientation,divlinerstyleref)
         updateOrientation(newOrientation)
     }
 
@@ -56,7 +56,7 @@ const Scrollblock = (props) => {
 
 } // Scrollblock
 
-const updateScrollStyles = (newOrientation,oldstyles) => {
+const updateScrollblockStyles = (newOrientation,oldstyles) => {
 
     // console.log('setting scrollblock styles')
     let styles = Object.assign({},oldstyles.current) as React.CSSProperties
