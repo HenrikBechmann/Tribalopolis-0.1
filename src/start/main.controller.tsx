@@ -249,7 +249,7 @@ class Main extends React.Component<any,any> {
 
             let logindata = Object.assign({},loginraw.providerData[0]) // google provider; shortcut for newuser data
             logindata.uid = loginraw.uid // google auth common uid
-            console.log('logindata',logindata)
+            // console.log('logindata',logindata)
             this.getSystemDocument()
             this.getUserDocumentPair(logindata.uid) // and account document
             this.getUserClaimsDocument(logindata.uid)
@@ -566,7 +566,7 @@ class Main extends React.Component<any,any> {
             accounttype:this.userAccountTypePack,
         })
 
-        console.log('new or updated userdata',userdata)
+        // console.log('new or updated userdata',userdata)
 
         application.userdata = userdata // memoize
 
