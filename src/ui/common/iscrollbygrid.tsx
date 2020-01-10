@@ -74,6 +74,7 @@ const IScrollByGrid = (props) => {
             listsize = { listsize }
             cellCrossLength = { cellCrossLength }
             crossLengthHint = { crossLengthHint }
+            cellLength = { cellLength }
             gap = { gap}
             padding = { padding }
             orientation = { orientation }

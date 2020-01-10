@@ -12,12 +12,12 @@ const Cradle = (props) => {
     let { gap, padding, runway, listsize, offset, orientation:newOrientation, cellLength, cellCrossLength, getItem, placeholder } = props
 
     let divlinerstyleref = useRef({
-        position:'absolute',
-        backgroundColor:'blue',
-        display:'grid',
+        position: 'absolute',
+        backgroundColor: 'blue',
+        display: 'grid',
         gridTemplateColumns: cellCrossLength?`repeat(auto-fill, minmax(${cellCrossLength}, 1fr))`:'auto',
         gridGap: gap + 'px',
-        padding:padding + 'px',
+        padding: padding + 'px',
         justifyContent:'start',
 
     } as React.CSSProperties)
