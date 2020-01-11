@@ -40,7 +40,7 @@ const Scrollblock = (props) => {
     },[scrollData])
 
     const updateConfiguration = ({viewportRect,orientation,listsize,cellLength,cellCrossLength,crossLengthHint,gap,padding}) => {
-        console.log('updateCongiguration',viewportRect,orientation,listsize,cellLength,cellCrossLength,crossLengthHint,gap,padding)
+        // console.log('updateCongiguration',viewportRect,orientation,listsize,cellLength,cellCrossLength,crossLengthHint,gap,padding)
         if (!viewportRect) return
         let scrollblocklength = calcScrollblockLength({listsize,cellLength,cellCrossLength,crossLengthHint,gap,padding,orientation, viewportRect})
         // console.log('INSIDE UPDATECONFIGURATION: scrollblocklength,listsize,cellLength,cellCrossLength,crossLengthHint,gap,padding,orientation,viewportRect',scrollblocklength,listsize,cellLength,cellCrossLength,crossLengthHint,gap,padding,orientation,viewportRect)
@@ -68,16 +68,16 @@ const calcScrollblockLength = ({
     viewportRect
     }) => {
 
-    console.log('calcScrollblockLength incoming',
-    listsize, 
-    cellLength, 
-    cellCrossLength, 
-    crossLengthHint, 
-    gap, 
-    padding, 
-    orientation, 
-    viewportRect
-    )
+    // console.log('calcScrollblockLength incoming',
+    // listsize, 
+    // cellLength, 
+    // cellCrossLength, 
+    // crossLengthHint, 
+    // gap, 
+    // padding, 
+    // orientation, 
+    // viewportRect
+    // )
 
     let viewportcrosslength 
 
