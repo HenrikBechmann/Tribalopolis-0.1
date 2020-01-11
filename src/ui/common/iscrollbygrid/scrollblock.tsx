@@ -28,20 +28,22 @@ const Scrollblock = (props) => {
     // console.log('Scrollblock scrollData, viewportRect',scrollData, viewportRect)
 
     useEffect(() => {
-        updateConfiguration(scrollData?.viewportRect,newOrientation,listsize,cellLength,cellCrossLength,crossLengthHint,gap,padding)
+        // console.log('useEffect in scrollblock',scrollData?.viewportRect,newOrientation,listsize,cellLength,cellCrossLength,crossLengthHint,gap,padding)
+        updateConfiguration({viewportRect:scrollData?.viewportRect,orientation:newOrientation,listsize,cellLength,cellCrossLength,crossLengthHint,gap,padding})
         updateScrollblockStyles(newOrientation,divlinerstyleref,scrollBlockLength)
         updateOrientation(newOrientation)
-    },[scrollData?.viewportRect,newOrientation,listsize,cellLength,cellCrossLength,crossLengthHint,gap,padding])
+    },[scrollData?.viewportRect,newOrientation,listsize,cellLength,cellCrossLength,crossLengthHint,gap,padding,scrollBlockLength])
 
     useEffect(() => {
         updateData(scrollData)
         updateScrollData(scrollData)
     },[scrollData])
 
-    const updateConfiguration = (viewportRect,orientation,listsize,cellLength,cellCrossLength,crossLengthHint,gap,padding) => {
+    const updateConfiguration = ({viewportRect,orientation,listsize,cellLength,cellCrossLength,crossLengthHint,gap,padding}) => {
+        console.log('updateCongiguration',viewportRect,orientation,listsize,cellLength,cellCrossLength,crossLengthHint,gap,padding)
         if (!viewportRect) return
-        let scrollblocklength = calcScrollblockLength(listsize,cellLength,cellCrossLength,crossLengthHint,gap,padding,orientation, viewportRect)
-        console.log('INSIDE UPDATECONFIGURATION: scrollblocklength,listsize,cellLength,cellCrossLength,crossLengthHint,gap,padding,orientation,viewportRect',scrollblocklength,listsize,cellLength,cellCrossLength,crossLengthHint,gap,padding,orientation,viewportRect)
+        let scrollblocklength = calcScrollblockLength({listsize,cellLength,cellCrossLength,crossLengthHint,gap,padding,orientation, viewportRect})
+        // console.log('INSIDE UPDATECONFIGURATION: scrollblocklength,listsize,cellLength,cellCrossLength,crossLengthHint,gap,padding,orientation,viewportRect',scrollblocklength,listsize,cellLength,cellCrossLength,crossLengthHint,gap,padding,orientation,viewportRect)
         updateScrollBlockLength(scrollblocklength)
     }
 
@@ -55,7 +57,7 @@ const Scrollblock = (props) => {
 
 } // Scrollblock
 
-const calcScrollblockLength = (
+const calcScrollblockLength = ({
     listsize, 
     cellLength, 
     cellCrossLength, 
@@ -64,7 +66,7 @@ const calcScrollblockLength = (
     padding, 
     orientation, 
     viewportRect
-    ) => {
+    }) => {
 
     console.log('calcScrollblockLength incoming',
     listsize, 
@@ -108,7 +110,7 @@ const calcScrollblockLength = (
 
 const updateScrollblockStyles = (newOrientation,oldstyles,scrollblocklength) => {
 
-    console.log('setting scrollblock styles',scrollblocklength)
+    // console.log('setting scrollblock styles',scrollblocklength)
     let styles = Object.assign({},oldstyles.current) as React.CSSProperties
     if (newOrientation == 'horizontal') {
         styles.height = '100%'
