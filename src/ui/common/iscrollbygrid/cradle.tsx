@@ -15,11 +15,11 @@ const Cradle = (props) => {
         position: 'absolute',
         backgroundColor: 'blue',
         display: 'grid',
-        gridTemplateColumns: cellCrossLength?`repeat(auto-fill, minmax(${cellCrossLength}, 1fr))`:'auto',
         gridGap: gap + 'px',
         padding: padding + 'px',
-        justifyContent:'start',
-        alignContent:'start',
+        // justifyContent:'start',
+        // alignContent:'start',
+        boxSizing:'border-box',
 
     } as React.CSSProperties)
 
@@ -27,7 +27,7 @@ const Cradle = (props) => {
 
     let childlistref = useRef([])
 
-    // console.log('cradle props',props, oldOrientation)
+    console.log('cradle props, oldOrientation',props, oldOrientation)
 
     if (newOrientation !== oldOrientation) {
         updateCradleStyles(newOrientation, divlinerstyleref, cellCrossLength)
@@ -45,27 +45,28 @@ const Cradle = (props) => {
 
 } // Cradle
 
-const updateCradleStyles = (newOrientation, oldStyles, cellCrossLength) => {
+const updateCradleStyles = (newOrientation, stylesobject, cellCrossLength) => {
 
-        let styles = Object.assign({},oldStyles.current) as React.CSSProperties
+        let styles = Object.assign({},stylesobject.current) as React.CSSProperties
         if (newOrientation == 'horizontal') {
-            styles.left = 0
-            styles.right = 'auto'
-            styles.top = 0
-            styles.bottom = 0
+            styles.alignContent = 'start'
+            styles.justifyContent = 'start'
+            styles.width = '600px'
+            styles.height = '100%'
             styles.gridAutoFlow = 'column'
             styles.gridTemplateRows = cellCrossLength?`repeat(auto-fill, minmax(${cellCrossLength}px, 1fr))`:'auto'
             styles.gridTemplateColumns = 'none'
         } else if (newOrientation == 'vertical') {
-            styles.left = 0
-            styles.right = 0
-            styles.top = 0
-            styles.bottom = 'auto'
+            styles.alignContent = 'normal'
+            styles.justifyContent = 'start'
+            styles.width = '100%'
+            styles.height = 'auto'
             styles.gridAutoFlow = 'row'
             styles.gridTemplateRows = 'none'
             styles.gridTemplateColumns = cellCrossLength?`repeat(auto-fill, minmax(${cellCrossLength}px, 1fr))`:'auto'
         }
-        oldStyles.current = styles
+        console.log('updated style', styles)
+        stylesobject.current = styles
 }
 
 const getContent = (props) => {
