@@ -51,10 +51,10 @@ const updateCradleStyles = (newOrientation, stylesobject, cellCrossLength) => {
         if (newOrientation == 'horizontal') {
             styles.alignContent = 'start'
             styles.justifyContent = 'start'
-            styles.width = '600px'
+            styles.width = 'auto'
             styles.height = '100%'
             styles.gridAutoFlow = 'column'
-            styles.gridTemplateRows = cellCrossLength?`repeat(auto-fill, minmax(${cellCrossLength}px, 1fr))`:'auto'
+            styles.gridTemplateRows = cellCrossLength?`repeat(2, minmax(${cellCrossLength}px, 1fr))`:'auto'
             styles.gridTemplateColumns = 'none'
         } else if (newOrientation == 'vertical') {
             styles.alignContent = 'normal'
@@ -63,7 +63,7 @@ const updateCradleStyles = (newOrientation, stylesobject, cellCrossLength) => {
             styles.height = 'auto'
             styles.gridAutoFlow = 'row'
             styles.gridTemplateRows = 'none'
-            styles.gridTemplateColumns = cellCrossLength?`repeat(auto-fill, minmax(${cellCrossLength}px, 1fr))`:'auto'
+            styles.gridTemplateColumns = cellCrossLength?`repeat(auto-fit, minmax(${cellCrossLength}px, 1fr))`:'auto'
         }
         console.log('updated style', styles)
         stylesobject.current = styles
