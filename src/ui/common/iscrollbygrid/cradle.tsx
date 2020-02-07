@@ -23,8 +23,8 @@ const Cradle = (props) => {
         display: 'grid',
         gridGap: gap + 'px',
         padding: padding + 'px',
-        // justifyContent:'start',
-        // alignContent:'start',
+        justifyContent:'start',
+        alignContent:'start',
         boxSizing:'border-box',
 
     } as React.CSSProperties)
@@ -93,16 +93,14 @@ const updateCradleStyles = (orientation, stylesobject, cellCrossLength, crosscou
 
         let styles = Object.assign({},stylesobject.current) as React.CSSProperties
         if (orientation == 'horizontal') {
-            styles.alignContent = 'start'
-            styles.justifyContent = 'start'
             styles.width = 'auto'
             styles.height = '100%'
             styles.gridAutoFlow = 'column'
+            // explict crosscount next line as workaround for FF problem - 
+            //     sets length of horiz cradle items in one line (row), not multi-row config
             styles.gridTemplateRows = cellCrossLength?`repeat(${crosscount}, minmax(${cellCrossLength}px, 1fr))`:'auto'
             styles.gridTemplateColumns = 'none'
         } else if (orientation == 'vertical') {
-            styles.alignContent = 'normal'
-            styles.justifyContent = 'start'
             styles.width = '100%'
             styles.height = 'auto'
             styles.gridAutoFlow = 'row'
