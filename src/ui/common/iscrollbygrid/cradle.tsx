@@ -50,7 +50,14 @@ const Cradle = (props) => {
             let width = positions.right - positions.left
 
             // workaround to get FF to correctly size grid container for horizontal orientation
-            let crosscount = Math.floor(length/cellCrossLength) // TODO: refine for gap and padding
+            // crosscount is ignored for vertical orientation
+            let crosscount
+            if (newOrientation == 'horizontal') {
+
+                let lengthforcalc = length - (padding * 2) + gap
+                crosscount = Math.floor(lengthforcalc/(cellCrossLength + gap))
+
+            }
 
             updateCradleStyles(newOrientation, divlinerstyleref, cellCrossLength, crosscount)
 
@@ -66,7 +73,9 @@ const Cradle = (props) => {
         scrollData?.viewportRect.top,
         scrollData?.viewportRect.right,
         scrollData?.viewportRect.bottom,
-        scrollData?.viewportRect.left
+        scrollData?.viewportRect.left,
+        gap,
+        padding,
       ]
     )
     // }
