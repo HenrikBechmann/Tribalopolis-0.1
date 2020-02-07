@@ -78,6 +78,7 @@ const updateCradleStyles = (newOrientation, stylesobject, cellCrossLength, posit
         let styles = Object.assign({},stylesobject.current) as React.CSSProperties
         if (newOrientation == 'horizontal') {
 
+            // workaround to get FF to correctly size grid container for horizontal orientation
             let crosscount = Math.floor(length/cellCrossLength) // TODO: refine for gap and padding
 
             styles.alignContent = 'start'
