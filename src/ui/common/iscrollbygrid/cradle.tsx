@@ -15,7 +15,7 @@ const Cradle = (props) => {
 
     let scrollData = useContext(ScrollContext)
 
-    console.log('Cradle scrollData',scrollData)
+    // console.log('Cradle scrollData',scrollData)
 
     let divlinerstyleref = useRef({
         position: 'absolute',
@@ -33,7 +33,7 @@ const Cradle = (props) => {
 
     let childlistref = useRef([])
 
-    console.log('cradle props, oldOrientation',props, oldOrientation)
+    // console.log('cradle props, oldOrientation',props, oldOrientation)
 
     // if (newOrientation !== oldOrientation) {
     useEffect(() => {
@@ -69,7 +69,7 @@ const Cradle = (props) => {
 
 const updateCradleStyles = (newOrientation, stylesobject, cellCrossLength, positions) => {
 
-        console.log('Cradle updateCradleStyles',positions)
+        // console.log('Cradle updateCradleStyles',positions)
         if (!positions) return
 
         let length = positions.bottom - positions.top
@@ -96,7 +96,7 @@ const updateCradleStyles = (newOrientation, stylesobject, cellCrossLength, posit
             styles.gridTemplateRows = 'none'
             styles.gridTemplateColumns = cellCrossLength?`repeat(auto-fit, minmax(${cellCrossLength}px, 1fr))`:'auto'
         }
-        console.log('updated style', styles)
+        // console.log('updated style', styles)
         stylesobject.current = styles
 }
 
