@@ -43,7 +43,18 @@ const Cradle = (props) => {
             bottom:scrollData.viewportRect.bottom,
             left:scrollData.viewportRect.left,
         }:null
-        updateCradleStyles(newOrientation, divlinerstyleref, cellCrossLength,positions)
+
+        if (positions) {
+
+            let length = positions.bottom - positions.top
+            let width = positions.right - positions.left
+
+            // workaround to get FF to correctly size grid container for horizontal orientation
+            let crosscount = Math.floor(length/cellCrossLength) // TODO: refine for gap and padding
+
+            updateCradleStyles(newOrientation, divlinerstyleref, cellCrossLength, crosscount)
+
+        }
         childlistref.current = getContent({
             orientation:newOrientation,
             contentdata:['item 1','item 2','item 3','item 4','item 5',],
@@ -67,20 +78,12 @@ const Cradle = (props) => {
 
 } // Cradle
 
-const updateCradleStyles = (newOrientation, stylesobject, cellCrossLength, positions) => {
+const updateCradleStyles = (orientation, stylesobject, cellCrossLength, crosscount) => {
 
         // console.log('Cradle updateCradleStyles',positions)
-        if (!positions) return
-
-        let length = positions.bottom - positions.top
-        let width = positions.right - positions.left
 
         let styles = Object.assign({},stylesobject.current) as React.CSSProperties
-        if (newOrientation == 'horizontal') {
-
-            // workaround to get FF to correctly size grid container for horizontal orientation
-            let crosscount = Math.floor(length/cellCrossLength) // TODO: refine for gap and padding
-
+        if (orientation == 'horizontal') {
             styles.alignContent = 'start'
             styles.justifyContent = 'start'
             styles.width = 'auto'
@@ -88,7 +91,7 @@ const updateCradleStyles = (newOrientation, stylesobject, cellCrossLength, posit
             styles.gridAutoFlow = 'column'
             styles.gridTemplateRows = cellCrossLength?`repeat(${crosscount}, minmax(${cellCrossLength}px, 1fr))`:'auto'
             styles.gridTemplateColumns = 'none'
-        } else if (newOrientation == 'vertical') {
+        } else if (orientation == 'vertical') {
             styles.alignContent = 'normal'
             styles.justifyContent = 'start'
             styles.width = '100%'
