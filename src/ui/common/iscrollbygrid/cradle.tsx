@@ -3,13 +3,19 @@
 
 'use strict'
 
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useContext, useEffect } from 'react'
+
+import { ScrollContext } from './viewport'
 
 import ItemFrame from './itemframe'
 
 
 const Cradle = (props) => {
     let { gap, padding, runway, listsize, offset, orientation:newOrientation, cellLength, cellCrossLength, getItem, placeholder } = props
+
+    let scrollData = useContext(ScrollContext)
+
+    console.log('Cradle scrollData',scrollData)
 
     let divlinerstyleref = useRef({
         position: 'absolute',
@@ -29,32 +35,57 @@ const Cradle = (props) => {
 
     console.log('cradle props, oldOrientation',props, oldOrientation)
 
-    if (newOrientation !== oldOrientation) {
-        updateCradleStyles(newOrientation, divlinerstyleref, cellCrossLength)
+    // if (newOrientation !== oldOrientation) {
+    useEffect(() => {
+        let positions = scrollData?{
+            top:scrollData.viewportRect.top,
+            right:scrollData.viewportRect.right,
+            bottom:scrollData.viewportRect.bottom,
+            left:scrollData.viewportRect.left,
+        }:null
+        updateCradleStyles(newOrientation, divlinerstyleref, cellCrossLength,positions)
         childlistref.current = getContent({
             orientation:newOrientation,
             contentdata:['item 1','item 2','item 3','item 4','item 5',],
             cellLength,
         })
-        updateOrientation(newOrientation)
-    }
+        updateOrientation(newOrientation)        
+    },[
+        newOrientation,
+        scrollData?.viewportRect.top,
+        scrollData?.viewportRect.right,
+        scrollData?.viewportRect.bottom,
+        scrollData?.viewportRect.left
+      ]
+    )
+    // }
 
     let divlinerstyles = divlinerstyleref.current
 
-    return <div style = {divlinerstyles}>{childlistref.current}</div>
+    // no result if styles not set
+    return divlinerstyleref.current.width?<div style = {divlinerstyles}>{childlistref.current}</div>:null
 
 } // Cradle
 
-const updateCradleStyles = (newOrientation, stylesobject, cellCrossLength) => {
+const updateCradleStyles = (newOrientation, stylesobject, cellCrossLength, positions) => {
+
+        console.log('Cradle updateCradleStyles',positions)
+        if (!positions) return
+
+        let length = positions.bottom - positions.top
+        let width = positions.right - positions.left
 
         let styles = Object.assign({},stylesobject.current) as React.CSSProperties
         if (newOrientation == 'horizontal') {
+
+            let crosscount = Math.floor(length/cellCrossLength) // TODO: refine for gap and padding
+
             styles.alignContent = 'start'
             styles.justifyContent = 'start'
             styles.width = 'auto'
             styles.height = '100%'
             styles.gridAutoFlow = 'column'
-            styles.gridTemplateRows = cellCrossLength?`repeat(2, minmax(${cellCrossLength}px, 1fr))`:'auto'
+            styles.gridTemplateRows = cellCrossLength?`repeat(${crosscount}, minmax(${cellCrossLength}px, 1fr))`:'auto'
             styles.gridTemplateColumns = 'none'
         } else if (newOrientation == 'vertical') {
             styles.alignContent = 'normal'
