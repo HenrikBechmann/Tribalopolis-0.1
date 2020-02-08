@@ -63,7 +63,7 @@ const IScrollByGrid = (props) => {
 
     gap !?? (gap = 0)
     padding !?? (padding = 0)
-    runway !?? (runway = 5)
+    runway !?? (runway = 800)
     offset !?? (offset = 0)
     listsize !?? (listsize = 0)
     !preload && (dense = false)
