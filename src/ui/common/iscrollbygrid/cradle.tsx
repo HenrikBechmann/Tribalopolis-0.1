@@ -9,6 +9,10 @@ import { ScrollContext } from './viewport'
 
 import ItemFrame from './itemframe'
 
+/*
+    use element.scrollWidth, element.scrollHeight
+
+*/
 
 const Cradle = (props) => {
     let { gap, padding, runway, listsize, offset, orientation:newOrientation, cellLength, cellCrossLength, getItem, placeholder } = props
@@ -35,7 +39,6 @@ const Cradle = (props) => {
 
     // console.log('cradle props, oldOrientation',props, oldOrientation)
 
-    // if (newOrientation !== oldOrientation) {
     useEffect(() => {
         let positions = scrollData?{
             top:scrollData.viewportRect.top,
@@ -78,7 +81,16 @@ const Cradle = (props) => {
         padding,
       ]
     )
-    // }
+
+    let scrollLeft = scrollData?.scrollLeft
+    let scrollTop = scrollData?.scrollTop
+    let scrolling = scrollData?.scrolling
+
+    // console.log('cradle scrollLeft, scrollTop, scrolling',scrollLeft, scrollTop, scrolling)
+
+    useEffect(()=> { // respond to a scroll event
+        // console.log('cradle useEffect for scroll',scrollData)
+    },[scrollLeft, scrollTop, scrolling])
 
     let divlinerstyles = divlinerstyleref.current
 
