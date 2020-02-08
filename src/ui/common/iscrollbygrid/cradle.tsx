@@ -15,7 +15,7 @@ import ItemFrame from './itemframe'
 */
 
 const Cradle = (props) => {
-    let { gap, padding, runway, listsize, offset, orientation:newOrientation, cellLength, cellCrossLength, getItem, placeholder } = props
+    let { gap, padding, runway, listsize, offset, orientation, cellLength, cellCrossLength, getItem, placeholder } = props
 
     let scrollData = useContext(ScrollContext)
 
@@ -33,7 +33,7 @@ const Cradle = (props) => {
 
     } as React.CSSProperties)
 
-    let [oldOrientation, updateOrientation] = useState(null)
+    // let [oldOrientation, updateOrientation] = useState(null)
 
     let childlistref = useRef([])
 
@@ -49,30 +49,24 @@ const Cradle = (props) => {
 
         if (positions) {
 
-            let length = positions.bottom - positions.top
-            let width = positions.right - positions.left
+            let viewportlength = positions.bottom - positions.top
+            let viewportwidth = positions.right - positions.left
 
             // workaround to get FF to correctly size grid container for horizontal orientation
             // crosscount is ignored for vertical orientation
-            let crosscount
-            if (newOrientation == 'horizontal') {
+            let crosscount = getCrosscount(orientation,padding,gap,cellCrossLength,viewportlength, viewportwidth)
 
-                let lengthforcalc = length - (padding * 2) + gap
-                crosscount = Math.floor(lengthforcalc/(cellCrossLength + gap))
-
-            }
-
-            updateCradleStyles(newOrientation, divlinerstyleref, cellCrossLength, crosscount)
+            updateCradleStyles(orientation, divlinerstyleref, cellCrossLength, crosscount)
 
         }
         childlistref.current = getContent({
-            orientation:newOrientation,
+            orientation,
             contentdata:['item 1','item 2','item 3','item 4','item 5',],
             cellLength,
         })
-        updateOrientation(newOrientation)        
+        // updateOrientation(newOrientation)        
     },[
-        newOrientation,
+        orientation,
         scrollData?.viewportRect.top,
         scrollData?.viewportRect.right,
         scrollData?.viewportRect.bottom,
@@ -98,6 +92,19 @@ const Cradle = (props) => {
     return divlinerstyleref.current.width?<div style = {divlinerstyles}>{childlistref.current}</div>:null
 
 } // Cradle
+
+
+const getCrosscount = (orientation, padding, gap, cellCrossLength, viewportlength, viewportwidth) => {
+
+    let crosscount
+    let size = (orientation == 'horizontal')?viewportlength:viewportwidth
+
+    let lengthforcalc = size - (padding * 2) + gap
+    crosscount = Math.floor(lengthforcalc/(cellCrossLength + gap))
+
+    return crosscount
+
+}
 
 const updateCradleStyles = (orientation, stylesobject, cellCrossLength, crosscount) => {
 
