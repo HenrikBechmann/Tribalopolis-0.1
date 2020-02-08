@@ -19,6 +19,8 @@ const Cradle = (props) => {
 
     let scrollData = useContext(ScrollContext)
 
+    let [childlist,saveChildlist] = useState([])
+
     // console.log('Cradle scrollData',scrollData)
 
     let divlinerstyleref = useRef({
@@ -33,12 +35,11 @@ const Cradle = (props) => {
 
     } as React.CSSProperties)
 
-    // let [oldOrientation, updateOrientation] = useState(null)
+    // let childlistref = useRef([])
 
-    let childlistref = useRef([])
+    let cradleElement = useRef(null)
 
-    // console.log('cradle props, oldOrientation',props, oldOrientation)
-
+    // fired when the configuration parameters of the cradle change
     useEffect(() => {
         let positions = scrollData?{
             top:scrollData.viewportRect.top,
@@ -57,14 +58,9 @@ const Cradle = (props) => {
             let crosscount = getCrosscount(orientation,padding,gap,cellCrossLength,viewportlength, viewportwidth)
 
             updateCradleStyles(orientation, divlinerstyleref, cellCrossLength, crosscount)
+            updateChildList()
 
         }
-        childlistref.current = getContent({
-            orientation,
-            contentdata:['item 1','item 2','item 3','item 4','item 5',],
-            cellLength,
-        })
-        // updateOrientation(newOrientation)        
     },[
         orientation,
         scrollData?.viewportRect.top,
@@ -82,14 +78,26 @@ const Cradle = (props) => {
 
     // console.log('cradle scrollLeft, scrollTop, scrolling',scrollLeft, scrollTop, scrolling)
 
-    useEffect(()=> { // respond to a scroll event
-        // console.log('cradle useEffect for scroll',scrollData)
-    },[scrollLeft, scrollTop, scrolling])
+    const updateChildList = () => {
+        console.log('scroll updateChildList',scrollData)
+
+        childlist = getContentList({
+            orientation,
+            indexoffset:0,
+            indexcount:8,
+            cellLength,
+        })
+        saveChildlist(childlist)
+
+    }
+
+    // fired when the scroll position or scroll state changes
+    useEffect(updateChildList,[scrollLeft, scrollTop, scrolling])
 
     let divlinerstyles = divlinerstyleref.current
 
     // no result if styles not set
-    return divlinerstyleref.current.width?<div style = {divlinerstyles}>{childlistref.current}</div>:null
+    return divlinerstyleref.current.width?<div ref = {cradleElement} style = {divlinerstyles}>{childlist}</div>:null
 
 } // Cradle
 
@@ -130,14 +138,14 @@ const updateCradleStyles = (orientation, stylesobject, cellCrossLength, crosscou
         stylesobject.current = styles
 }
 
-const getContent = (props) => {
-    let { contentdata, orientation, cellLength } = props
+const getContentList = (props) => {
+    let { indexoffset, indexcount, orientation, cellLength } = props
     let contentlist = []
-    for (let index = 0; index <5; index++) {
+    for (let index = indexoffset + 1; index <(indexoffset + indexcount + 1); index++) {
         contentlist.push(<ItemFrame 
             key = {index} 
             orientation = {orientation}
-            text = { contentdata[index] }
+            text = { index }
             cellLength = { cellLength }
         />)
     }
