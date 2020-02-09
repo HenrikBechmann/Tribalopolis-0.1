@@ -79,15 +79,18 @@ const Cradle = (props) => {
     // console.log('cradle scrollLeft, scrollTop, scrolling',scrollLeft, scrollTop, scrolling)
 
     const updateChildList = () => {
-        console.log('scroll updateChildList',scrollData)
 
-        childlist = getContentList({
+        if (!scrollData) return
+
+        console.log('scroll updateChildList',scrollData, cradleElement)
+
+        let subchildlist = getContentList({
             orientation,
             indexoffset:0,
             indexcount:8,
             cellLength,
         })
-        saveChildlist(childlist)
+        saveChildlist(subchildlist)
 
     }
 
