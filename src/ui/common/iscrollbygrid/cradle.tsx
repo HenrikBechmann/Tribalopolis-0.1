@@ -87,7 +87,7 @@ const Cradle = (props) => {
         let subchildlist = getContentList({
             orientation,
             indexoffset:0,
-            indexcount:8,
+            indexcount:120,
             cellLength,
         })
         saveChildlist(subchildlist)
