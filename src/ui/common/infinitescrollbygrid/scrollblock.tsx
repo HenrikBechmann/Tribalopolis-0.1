@@ -8,7 +8,7 @@ import React, {useState, useRef, useEffect, useContext} from 'react'
 import { ScrollContext } from './viewport'
 
 const Scrollblock = (props) => {
-    let {listsize, cellLength, cellCrossLength, crossLengthHint, gap, padding, orientation:newOrientation } = props
+    let {listsize, cellHeight, cellWidth, crossLengthHint, gap, padding, orientation:newOrientation } = props
 
     let scrollData:any = useContext(ScrollContext)
     let [oldOrientation, updateOrientation] = useState(null)
@@ -28,22 +28,22 @@ const Scrollblock = (props) => {
     // console.log('Scrollblock scrollData, viewportRect',scrollData, viewportRect)
 
     useEffect(() => {
-        // console.log('useEffect in scrollblock',scrollData?.viewportRect,newOrientation,listsize,cellLength,cellCrossLength,crossLengthHint,gap,padding)
-        updateConfiguration({viewportRect:scrollData?.viewportRect,orientation:newOrientation,listsize,cellLength,cellCrossLength,crossLengthHint,gap,padding})
+        // console.log('useEffect in scrollblock',scrollData?.viewportRect,newOrientation,listsize,cellHeight,cellWidth,crossLengthHint,gap,padding)
+        updateConfiguration({viewportRect:scrollData?.viewportRect,orientation:newOrientation,listsize,cellHeight,cellWidth,gap,padding})
         updateScrollblockStyles(newOrientation,divlinerstyleref,scrollBlockLength)
         updateOrientation(newOrientation)
-    },[scrollData?.viewportRect,newOrientation,listsize,cellLength,cellCrossLength,crossLengthHint,gap,padding,scrollBlockLength])
+    },[scrollData?.viewportRect,newOrientation,listsize,cellHeight,cellWidth,crossLengthHint,gap,padding,scrollBlockLength])
 
     useEffect(() => {
         updateData(scrollData)
         updateScrollData(scrollData)
     },[scrollData])
 
-    const updateConfiguration = ({viewportRect,orientation,listsize,cellLength,cellCrossLength,crossLengthHint,gap,padding}) => {
-        // console.log('updateCongiguration',viewportRect,orientation,listsize,cellLength,cellCrossLength,crossLengthHint,gap,padding)
+    const updateConfiguration = ({viewportRect,orientation,listsize,cellHeight,cellWidth,gap,padding}) => {
+        // console.log('updateCongiguration',viewportRect,orientation,listsize,cellHeight,cellWidth,crossLengthHint,gap,padding)
         if (!viewportRect) return
-        let scrollblocklength = calcScrollblockLength({listsize,cellLength,cellCrossLength,crossLengthHint,gap,padding,orientation, viewportRect})
-        // console.log('INSIDE UPDATECONFIGURATION: scrollblocklength,listsize,cellLength,cellCrossLength,crossLengthHint,gap,padding,orientation,viewportRect',scrollblocklength,listsize,cellLength,cellCrossLength,crossLengthHint,gap,padding,orientation,viewportRect)
+        let scrollblocklength = calcScrollblockLength({listsize,cellHeight,cellWidth,gap,padding,orientation, viewportRect})
+        // console.log('INSIDE UPDATECONFIGURATION: scrollblocklength,listsize,cellHeight,cellWidth,crossLengthHint,gap,padding,orientation,viewportRect',scrollblocklength,listsize,cellHeight,cellWidth,crossLengthHint,gap,padding,orientation,viewportRect)
         updateScrollBlockLength(scrollblocklength)
     }
 
@@ -59,9 +59,8 @@ const Scrollblock = (props) => {
 
 const calcScrollblockLength = ({
     listsize, 
-    cellLength, 
-    cellCrossLength, 
-    crossLengthHint, 
+    cellHeight, 
+    cellWidth, 
     gap, 
     padding, 
     orientation, 
@@ -70,8 +69,8 @@ const calcScrollblockLength = ({
 
     // console.log('calcScrollblockLength incoming',
     // listsize, 
-    // cellLength, 
-    // cellCrossLength, 
+    // cellHeight, 
+    // cellWidth, 
     // crossLengthHint, 
     // gap, 
     // padding, 
@@ -81,16 +80,20 @@ const calcScrollblockLength = ({
 
     let viewportcrosslength 
 
+    let crosslength
+    let cellLength
     if (orientation == 'vertical') {
+        crosslength = cellWidth
+        cellLength = cellHeight
         viewportcrosslength = viewportRect.right - viewportRect.left 
     } else {
+        crosslength = cellHeight
+        cellLength = cellWidth
         viewportcrosslength = viewportRect.bottom - viewportRect.top
     }
 
     viewportcrosslength -= (padding * 2)
     viewportcrosslength += gap
-
-    let crosslength = cellCrossLength || crossLengthHint
 
     let crosscount = Math.floor(viewportcrosslength/(crosslength))
 

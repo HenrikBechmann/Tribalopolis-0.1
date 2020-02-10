@@ -6,14 +6,14 @@
 import React, {useState, useRef } from 'react'
 
 const ItemFrame = (props) => {
-    let {text, orientation:newOrientation, cellLength, index} = props
+    let {text, orientation:newOrientation, cellHeight, cellWidth, index} = props
     let styles = useRef({ // use useRef() instead
         boxSizing:'border-box',
         backgroundColor:'cyan',
         border:'2px solid black',
         // writingMode:'horizontal-tb',
         // default vertical
-        height:cellLength?(cellLength + 'px'):'auto',
+        height:cellHeight?(cellHeight + 'px'):'auto',
         width:'auto',
     } as React.CSSProperties)
 
@@ -24,7 +24,7 @@ const ItemFrame = (props) => {
     // sets newDorection if different, as side effect
     if (oldOrientation !== newOrientation) {
     
-        updateFrameStyles(newOrientation, cellLength, styles)
+        updateFrameStyles(newOrientation, cellHeight, cellWidth, styles)
 
         setOrientation(newOrientation)
     }
@@ -34,18 +34,18 @@ const ItemFrame = (props) => {
     return <div data-index = {index} style = {styles.current}>{text}</div>
 }
 
-const updateFrameStyles = (newOrientation, cellLength, oldstyles) => {
+const updateFrameStyles = (newOrientation, cellHeight, cellWidth, oldstyles) => {
 
     // console.log('inside updateStyles: oldOrientation, newOrientation, oldstyles',oldOrientation, newOrientation, oldstyles)
 
     let styleset:React.CSSProperties = Object.assign({},oldstyles.current)
 
     if (newOrientation == 'horizontal') {
-        styleset.width = cellLength?(cellLength + 'px'):'auto'
+        styleset.width = cellWidth?(cellWidth + 'px'):'auto'
         styleset.height = 'auto'
     } else if (newOrientation === 'vertical') {
-        styleset.height = cellLength?(cellLength + 'px'):'auto'
         styleset.width = 'auto'
+        styleset.height = cellHeight?(cellHeight + 'px'):'auto'
     }
 
     // console.log('updated ItemFrame styleset',styleset)

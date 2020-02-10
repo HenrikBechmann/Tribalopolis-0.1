@@ -15,7 +15,7 @@ import ItemFrame from './itemframe'
 */
 
 const Cradle = (props) => {
-    let { gap, padding, runway, listsize, offset, orientation, cellLength, cellCrossLength, getItem, placeholder } = props
+    let { gap, padding, runway, listsize, offset, orientation, cellHeight, cellWidth, getItem, placeholder } = props
 
     let scrollData = useContext(ScrollContext)
 
@@ -55,9 +55,9 @@ const Cradle = (props) => {
 
             // workaround to get FF to correctly size grid container for horizontal orientation
             // crosscount is ignored for vertical orientation
-            let crosscount = getCrosscount(orientation,padding,gap,cellCrossLength,viewportlength, viewportwidth)
+            let crosscount = getCrosscount(orientation,padding,gap,cellWidth,cellHeight,viewportlength, viewportwidth)
 
-            updateCradleStyles(orientation, divlinerstyleref, cellCrossLength, crosscount)
+            updateCradleStyles(orientation, divlinerstyleref, cellHeight, cellWidth, crosscount)
             updateChildList()
 
         }
@@ -92,7 +92,8 @@ const Cradle = (props) => {
             orientation,
             indexoffset,
             indexcount,
-            cellLength,
+            cellHeight,
+            cellWidth,
         })
         saveChildlist(childlistfragment)
 
@@ -115,19 +116,20 @@ const Cradle = (props) => {
 } // Cradle
 
 
-const getCrosscount = (orientation, padding, gap, cellCrossLength, viewportlength, viewportwidth) => {
+const getCrosscount = (orientation, padding, gap, cellWidth, cellHeight, viewportlength, viewportwidth) => {
 
     let crosscount
     let size = (orientation == 'horizontal')?viewportlength:viewportwidth
+    let crossLength = (orientation == 'horizontal')?cellHeight:cellWidth
 
     let lengthforcalc = size - (padding * 2) + gap
-    crosscount = Math.floor(lengthforcalc/(cellCrossLength + gap))
+    crosscount = Math.floor(lengthforcalc/(crossLength + gap))
 
     return crosscount
 
 }
 
-const updateCradleStyles = (orientation, stylesobject, cellCrossLength, crosscount) => {
+const updateCradleStyles = (orientation, stylesobject, cellHeight, cellWidth, crosscount) => {
 
         // console.log('Cradle updateCradleStyles',positions)
 
@@ -138,28 +140,29 @@ const updateCradleStyles = (orientation, stylesobject, cellCrossLength, crosscou
             styles.gridAutoFlow = 'column'
             // explict crosscount next line as workaround for FF problem - 
             //     sets length of horiz cradle items in one line (row), not multi-row config
-            styles.gridTemplateRows = cellCrossLength?`repeat(${crosscount}, minmax(${cellCrossLength}px, 1fr))`:'auto'
+            styles.gridTemplateRows = cellHeight?`repeat(${crosscount}, minmax(${cellHeight}px, 1fr))`:'auto'
             styles.gridTemplateColumns = 'none'
         } else if (orientation == 'vertical') {
             styles.width = '100%'
             styles.height = 'auto'
             styles.gridAutoFlow = 'row'
             styles.gridTemplateRows = 'none'
-            styles.gridTemplateColumns = cellCrossLength?`repeat(auto-fit, minmax(${cellCrossLength}px, 1fr))`:'auto'
+            styles.gridTemplateColumns = cellWidth?`repeat(auto-fit, minmax(${cellWidth}px, 1fr))`:'auto'
         }
         // console.log('updated style', styles)
         stylesobject.current = styles
 }
 
 const getContentList = (props) => {
-    let { indexoffset, indexcount, orientation, cellLength } = props
+    let { indexoffset, indexcount, orientation, cellHeight, cellWidth } = props
     let contentlist = []
     for (let index = indexoffset + 1; index <(indexoffset + indexcount + 1); index++) {
         contentlist.push(<ItemFrame 
             key = {index} 
             orientation = {orientation}
             text = { index }
-            cellLength = { cellLength }
+            cellHeight = { cellHeight }
+            cellWidth = { cellWidth }
             index = {index}
         />)
     }

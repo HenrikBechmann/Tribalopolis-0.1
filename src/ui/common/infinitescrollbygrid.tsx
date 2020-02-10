@@ -38,14 +38,13 @@ allow for dividers
       the viewport.
     - individual items are framed by ItemFrame, managed by Cradle
 */
-const IScrollByGrid = (props) => {
+const InfiniteScrollByGrid = (props) => {
     let { 
         orientation, 
         gap, 
         padding, 
-        cellLength, 
-        cellCrossLength, 
-        crossLengthHint,
+        cellHeight, 
+        cellWidth, 
         runway, 
         listsize, 
         offset,
@@ -72,9 +71,8 @@ const IScrollByGrid = (props) => {
         <Scrollblock
 
             listsize = { listsize }
-            cellCrossLength = { cellCrossLength }
-            crossLengthHint = { crossLengthHint }
-            cellLength = { cellLength }
+            cellWidth = { cellWidth }
+            cellHeight = { cellHeight }
             gap = { gap}
             padding = { padding }
             orientation = { orientation }
@@ -85,8 +83,8 @@ const IScrollByGrid = (props) => {
 
                 gap = { gap }
                 padding = { padding }
-                cellCrossLength = { cellCrossLength }
-                cellLength = { cellLength }
+                cellWidth = { cellWidth }
+                cellHeight = { cellHeight }
                 listsize = { listsize }
                 offset = { offset }
                 orientation = { orientation }
@@ -104,4 +102,4 @@ const IScrollByGrid = (props) => {
 
 }
 
-export default IScrollByGrid
+export default InfiniteScrollByGrid
