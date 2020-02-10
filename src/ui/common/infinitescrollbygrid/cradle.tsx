@@ -100,7 +100,7 @@ const Cradle = (props) => {
     }
 
     const evaluateChildList = (orientation, scrollData,cradleElement) => {
-        let indexoffset = 0, indexcount = 120
+        let indexoffset = 0, indexcount = 100
 
         return {indexoffset, indexcount}
     }

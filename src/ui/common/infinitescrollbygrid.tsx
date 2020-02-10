@@ -51,7 +51,8 @@ const InfiniteScrollByGrid = (props) => {
         placeholder,
         getItem,
         preload,
-        dense, 
+        dense,
+        cellSizing,
     } = props
     // console.log('inside Scroller: orientation', orientation)
 
