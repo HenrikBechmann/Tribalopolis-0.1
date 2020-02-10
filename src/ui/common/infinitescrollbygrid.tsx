@@ -5,9 +5,9 @@
 
 import React from 'react'
 
-import Viewport from './iscrollbygrid/viewport'
-import Scrollblock from './iscrollbygrid/scrollblock'
-import Cradle from './iscrollbygrid/cradle'
+import Viewport from './infinitescrollbygrid/viewport'
+import Scrollblock from './infinitescrollbygrid/scrollblock'
+import Cradle from './infinitescrollbygrid/cradle'
 
 /*
 use IntersectionObserver, getBoundingClientRect, will-change
