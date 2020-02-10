@@ -82,16 +82,26 @@ const Cradle = (props) => {
 
         if (!scrollData) return
 
-        console.log('scroll updateChildList',scrollData, cradleElement)
+        let newChildList = [...childlist]
 
-        let subchildlist = getContentList({
+        console.log('scroll updateChildList',scrollData, cradleElement) //, newChildList)
+
+        let {indexoffset, indexcount} = evaluateChildList(orientation, scrollData, cradleElement)
+
+        let childlistfragment = getContentList({
             orientation,
-            indexoffset:0,
-            indexcount:120,
+            indexoffset,
+            indexcount,
             cellLength,
         })
-        saveChildlist(subchildlist)
+        saveChildlist(childlistfragment)
 
+    }
+
+    const evaluateChildList = (orientation, scrollData,cradleElement) => {
+        let indexoffset = 0, indexcount = 120
+
+        return {indexoffset, indexcount}
     }
 
     // fired when the scroll position or scroll state changes
