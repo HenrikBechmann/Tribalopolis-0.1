@@ -48,8 +48,8 @@ const Home = (props) => {
                     orientation = { orientation } 
                     gap = {5}
                     padding = {5}
-                    cellLength = {60}
-                    cellCrossLength = {60}
+                    cellLength = {200}
+                    cellCrossLength = {100}
                     runway = {800}
                     offset = {0}
                     listsize = {100}

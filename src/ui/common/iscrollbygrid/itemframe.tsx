@@ -6,7 +6,7 @@
 import React, {useState, useRef } from 'react'
 
 const ItemFrame = (props) => {
-    let {text, orientation:newOrientation, cellLength} = props
+    let {text, orientation:newOrientation, cellLength, index} = props
     let styles = useRef({ // use useRef() instead
         boxSizing:'border-box',
         backgroundColor:'cyan',
@@ -31,7 +31,7 @@ const ItemFrame = (props) => {
 
     // console.log('RUNNING styles',styles)
 
-    return <div style = {styles.current}>{text}</div>
+    return <div data-index = {index} style = {styles.current}>{text}</div>
 }
 
 const updateFrameStyles = (newOrientation, cellLength, oldstyles) => {

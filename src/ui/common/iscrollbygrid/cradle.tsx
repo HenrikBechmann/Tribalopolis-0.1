@@ -160,6 +160,7 @@ const getContentList = (props) => {
             orientation = {orientation}
             text = { index }
             cellLength = { cellLength }
+            index = {index}
         />)
     }
     return contentlist
