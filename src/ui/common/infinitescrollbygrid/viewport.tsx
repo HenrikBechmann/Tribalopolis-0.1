@@ -51,7 +51,7 @@ const Viewport = ({children, orientation}) => { // props
         updateScrollData(scrollData)
 
 
-    },[orientation, scrolldiv])
+    },[orientation, scrolldiv.current])
 
     let divlinerstyle = divlinerstyleref.current as React.CSSProperties
     // console.log('starting ViewPort', scrollData)
