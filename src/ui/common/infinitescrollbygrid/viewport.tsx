@@ -20,17 +20,18 @@ const RESIZE_TIMEOUT_FOR_ONAFTERSRESIZE = 250
 
 const Viewport = ({children, orientation}) => { // props
 
-    let scrolldiv = useRef(undefined)
-    let scrollTimeout = useRef(undefined)
-    let resizeTimeout = useRef(undefined)
-    let divlinerstyleref = useRef({
+    const scrolldiv = useRef(undefined)
+    const scrollTimeout = useRef(undefined)
+    const resizeTimeout = useRef(undefined)
+    const divlinerstyleRef = useRef({
         position:'absolute',
         height:'100%',
         width:'100%',
         overflow:'auto',
         backgroundColor:'red',
     })
-    let viewportDataRef = useRef(null)
+    const [viewportData,setViewportData] = useState(null)
+    const observerRef = useRef(null)
 
     useEffect(() => {
 
@@ -44,22 +45,26 @@ const Viewport = ({children, orientation}) => { // props
             console.log('observing entries',entries)
         },{root:scrolldiv.current, rootMargin,} )
 
+        observerRef.current = observer
+
         let localViewportData:GenericObject = {}
         localViewportData.viewportRect = scrolldiv.current.getBoundingClientRect()
         localViewportData.observer = observer
 
-        viewportDataRef.current = localViewportData
+        setViewportData(localViewportData)
+
+        console.log('viewport useEffect localViewportData',localViewportData)
 
     },[orientation])
 
-    let divlinerstyle = divlinerstyleref.current as React.CSSProperties
+    let divlinerstyle = divlinerstyleRef.current as React.CSSProperties
 
-    return <ViewportContext.Provider value = { viewportDataRef.current }>
+    return <ViewportContext.Provider value = { viewportData }>
         <div 
             style = {divlinerstyle}
             ref = {scrolldiv}
         >
-            { children }
+            { viewportData?children:null }
         </div>}
     </ViewportContext.Provider>
     
