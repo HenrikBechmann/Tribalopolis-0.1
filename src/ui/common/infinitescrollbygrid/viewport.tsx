@@ -20,7 +20,6 @@ const RESIZE_TIMEOUT_FOR_ONAFTERSRESIZE = 250
 
 const Viewport = ({children, orientation}) => { // props
 
-    let [scrollData, updateScrollData] = useState(null)
     let scrolldiv = useRef(undefined)
     let scrollTimeout = useRef(undefined)
     let resizeTimeout = useRef(undefined)
@@ -31,7 +30,7 @@ const Viewport = ({children, orientation}) => { // props
         overflow:'auto',
         backgroundColor:'red',
     })
-    let observerRef = useRef(null)
+    let viewportDataRef = useRef(null)
 
     useEffect(() => {
         let rootMargin
@@ -40,13 +39,14 @@ const Viewport = ({children, orientation}) => { // props
         } else {
             rootMargin = '800px 0px 800px 0px'
         }
-        observerRef.current = new IntersectionObserver((entries) => {
+        let observer = new IntersectionObserver((entries) => {
             console.log('observing entries',entries)
         },{root:scrolldiv.current, rootMargin,} )
-        let localScrollData:GenericObject = {}
-        localScrollData.viewportRect = scrolldiv.current.getBoundingClientRect()
-        updateScrollData(localScrollData)
-        console.log('created IntersectionObserver',observerRef)
+        let localViewportData:GenericObject = {}
+        localViewportData.viewportRect = scrolldiv.current.getBoundingClientRect()
+        localViewportData.observer = observer
+        viewportDataRef.current = localViewportData
+        console.log('created IntersectionObserver',localViewportData)
     },[orientation])
 
     // useEffect(() => {
@@ -159,7 +159,7 @@ const Viewport = ({children, orientation}) => { // props
     //     updateScrollData(scrollData)
     // }
 
-    return <ScrollContext.Provider value = { scrollData }>
+    return <ScrollContext.Provider value = { viewportDataRef.current }>
         <div 
             style = {divlinerstyle}
             ref = {scrolldiv}
