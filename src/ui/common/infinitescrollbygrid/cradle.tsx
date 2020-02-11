@@ -3,9 +3,9 @@
 
 'use strict'
 
-import React, { useState, useRef, useContext, useEffect } from 'react'
+import React, { useState, useRef, useContext, useEffect, useLayoutEffect } from 'react'
 
-import { ScrollContext } from './viewport'
+import { ViewportContext } from './viewport'
 
 import ItemFrame from './itemframe'
 
@@ -17,11 +17,9 @@ import ItemFrame from './itemframe'
 const Cradle = (props) => {
     let { gap, padding, runway, listsize, offset, orientation, cellHeight, cellWidth, getItem, placeholder } = props
 
-    let scrollData = useContext(ScrollContext)
+    let viewportData = useContext(ViewportContext)
 
     let [childlist,saveChildlist] = useState([])
-
-    // console.log('Cradle scrollData',scrollData)
 
     let divlinerstyleref = useRef({
         position: 'absolute',
@@ -35,18 +33,19 @@ const Cradle = (props) => {
 
     } as React.CSSProperties)
 
-    // let childlistref = useRef([])
-
     let cradleElement = useRef(null)
 
     // fired when the configuration parameters of the cradle change
     useEffect(() => {
-        let positions = scrollData?{
-            top:scrollData.viewportRect.top,
-            right:scrollData.viewportRect.right,
-            bottom:scrollData.viewportRect.bottom,
-            left:scrollData.viewportRect.left,
+        let viewportRect = viewportData?.viewportRect
+        let positions = viewportRect?{
+            top:viewportRect.top,
+            right:viewportRect.right,
+            bottom:viewportRect.bottom,
+            left:viewportRect.left,
         }:null
+
+        console.log('cradle useEffect positions',positions)
 
         if (positions) {
 
@@ -63,30 +62,23 @@ const Cradle = (props) => {
         }
     },[
         orientation,
-        scrollData?.viewportRect.top,
-        scrollData?.viewportRect.right,
-        scrollData?.viewportRect.bottom,
-        scrollData?.viewportRect.left,
         gap,
         padding,
+        viewportData,
       ]
     )
-
-    let scrollLeft = scrollData?.scrollLeft
-    let scrollTop = scrollData?.scrollTop
-    let scrolling = scrollData?.scrolling
 
     // console.log('cradle scrollLeft, scrollTop, scrolling',scrollLeft, scrollTop, scrolling)
 
     const updateChildList = () => {
 
-        if (!scrollData) return
+        if (!viewportData) return
 
         let newChildList = [...childlist]
 
-        console.log('scroll updateChildList',scrollData, cradleElement) //, newChildList)
+        console.log('updateChildList',viewportData, cradleElement) //, newChildList)
 
-        let {indexoffset, indexcount} = evaluateChildList(orientation, scrollData, cradleElement)
+        let {indexoffset, indexcount} = evaluateChildList(orientation, viewportData, cradleElement)
 
         let childlistfragment = getContentList({
             orientation,
@@ -96,22 +88,19 @@ const Cradle = (props) => {
             cellWidth,
         })
         saveChildlist(childlistfragment)
-
+        console.log('childlistfragment',childlistfragment)
     }
 
-    const evaluateChildList = (orientation, scrollData,cradleElement) => {
+    const evaluateChildList = (orientation, viewportData,cradleElement) => {
         let indexoffset = 0, indexcount = 100
 
         return {indexoffset, indexcount}
     }
 
-    // fired when the scroll position or scroll state changes
-    useEffect(updateChildList,[scrollLeft, scrollTop, scrolling])
-
     let divlinerstyles = divlinerstyleref.current
 
     // no result if styles not set
-    return divlinerstyleref.current.width?<div ref = {cradleElement} style = {divlinerstyles}>{childlist}</div>:null
+    return viewportData?<div ref = {cradleElement} style = {divlinerstyles}>{childlist}</div>:null
 
 } // Cradle
 
@@ -156,6 +145,7 @@ const updateCradleStyles = (orientation, stylesobject, cellHeight, cellWidth, cr
 const getContentList = (props) => {
     let { indexoffset, indexcount, orientation, cellHeight, cellWidth } = props
     let contentlist = []
+    indexcount = 10
     for (let index = indexoffset + 1; index <(indexoffset + indexcount + 1); index++) {
         contentlist.push(<ItemFrame 
             key = {index} 

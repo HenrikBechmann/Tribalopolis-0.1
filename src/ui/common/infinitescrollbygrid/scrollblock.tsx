@@ -5,12 +5,12 @@
 
 import React, {useState, useRef, useEffect, useContext} from 'react'
 
-import { ScrollContext } from './viewport'
+import { ViewportContext } from './viewport'
 
 const Scrollblock = (props) => {
     let {listsize, cellHeight, cellWidth, crossLengthHint, gap, padding, orientation:newOrientation } = props
 
-    let scrollData:any = useContext(ScrollContext)
+    let scrollData:any = useContext(ViewportContext)
     let [oldOrientation, updateOrientation] = useState(null)
     let [scrollBlockLength, updateScrollBlockLength] = useState(0)
     let scrollblockRect = useRef(null)
