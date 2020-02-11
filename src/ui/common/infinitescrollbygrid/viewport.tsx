@@ -31,6 +31,20 @@ const Viewport = ({children, orientation}) => { // props
         overflow:'auto',
         backgroundColor:'red',
     })
+    let observerRef = useRef(null)
+
+    useEffect(() => {
+        let rootMargin
+        if (orientation == 'horizontal') {
+            rootMargin = '0px 800px 0px 800px'
+        } else {
+            rootMargin = '800px 0px 800px 0px'
+        }
+        observerRef.current = new IntersectionObserver((entries) => {
+            console.log('observing entries',entries)
+        },{root:scrolldiv.current, rootMargin,} )
+        console.log('created IntersectionObserver',observerRef)
+    },[orientation])
 
     useEffect(() => {
         window.addEventListener('resize', onResize)
