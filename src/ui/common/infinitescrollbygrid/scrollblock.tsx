@@ -19,12 +19,6 @@ const Scrollblock = (props) => {
         position:'relative',
     } as React.CSSProperties)
 
-    // console.log('Scrollblock viewportData.viewportRect, observer',
-    //     viewportData.viewportRect,
-    //     viewportData.observer,
-    //     !!viewportData.viewportRect,
-    //     !!viewportData.observer)
-
     useEffect(() => {
         console.log('useLayoutEffect in scrollblock',viewportData.viewportRect,newOrientation,listsize,cellHeight,cellWidth,gap,padding)
         updateConfiguration({viewportRect:viewportData?.viewportRect,orientation:newOrientation,listsize,cellHeight,cellWidth,gap,padding})
@@ -48,12 +42,9 @@ const Scrollblock = (props) => {
         // console.log('INSIDE UPDATEDATA: scrollData',sData)
     }
 
-    let styles = Object.assign({},divlinerstyleref.current)
-    console.log('scrollblock styles.width',styles.width)
-
     // console.log('divlinerstyleref.current to styles',styles)
 
-    return styles.width?<div style={styles}>{props.children}</div>:null
+    return divlinerstyleref.current.width?<div style={divlinerstyleref.current}>{props.children}</div>:null
 
 } // Scrollblock
 
@@ -67,8 +58,7 @@ const calcScrollblockLength = ({
     viewportRect
     }) => {
 
-    let viewportcrosslength 
-
+    let viewportcrosslength
     let crosslength
     let cellLength
     if (orientation == 'vertical') {
