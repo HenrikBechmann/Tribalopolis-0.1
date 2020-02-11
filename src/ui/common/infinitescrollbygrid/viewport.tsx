@@ -43,123 +43,125 @@ const Viewport = ({children, orientation}) => { // props
         observerRef.current = new IntersectionObserver((entries) => {
             console.log('observing entries',entries)
         },{root:scrolldiv.current, rootMargin,} )
+        let localScrollData:GenericObject = {}
+        localScrollData.viewportRect = scrolldiv.current.getBoundingClientRect()
+        updateScrollData(localScrollData)
         console.log('created IntersectionObserver',observerRef)
     },[orientation])
 
-    useEffect(() => {
-        window.addEventListener('resize', onResize)
-        return () => {
-            window.removeEventListener('resize', onResize)
-        }
-    },[])
+    // useEffect(() => {
+    //     window.addEventListener('resize', onResize)
+    //     return () => {
+    //         window.removeEventListener('resize', onResize)
+    //     }
+    // },[])
 
-    useEffect(() => { // initialize scrollData
-        let localScrollData:GenericObject = {}
-        scrollData = localScrollData
-        scrollData.startingScrollLeft = scrolldiv.current.scrollLeft
-        scrollData.startingScrollTop = scrolldiv.current.scrollTop
-        scrollData.viewportRect = scrolldiv.current.getBoundingClientRect()
+    // useEffect(() => { // initialize scrollData
+    //     let localScrollData:GenericObject = {}
+    //     scrollData = localScrollData
+    //     scrollData.startingScrollLeft = scrolldiv.current.scrollLeft
+    //     scrollData.startingScrollTop = scrolldiv.current.scrollTop
+    //     scrollData.viewportRect = scrolldiv.current.getBoundingClientRect()
 
-        // console.log('initialize scrolldata in UseEffect',scrollData, scrolldiv)
+    //     // console.log('initialize scrolldata in UseEffect',scrollData, scrolldiv)
 
-        updateScrollData(scrollData)
+    //     updateScrollData(scrollData)
 
 
-    },[orientation, scrolldiv.current])
+    // },[orientation, scrolldiv.current])
 
     let divlinerstyle = divlinerstyleref.current as React.CSSProperties
     // console.log('starting ViewPort', scrollData)
 
-    const onDoResize = () => {
-        // console.log('onResize', scrollData)
-        scrollData = Object.assign({},scrollData)
-        scrollData.viewportRect = scrolldiv.current.getBoundingClientRect()
-        updateScrollData(scrollData)
-    }
+    // const onDoResize = () => {
+    //     // console.log('onResize', scrollData)
+    //     scrollData = Object.assign({},scrollData)
+    //     scrollData.viewportRect = scrolldiv.current.getBoundingClientRect()
+    //     updateScrollData(scrollData)
+    // }
 
-    const onResize = (e) => {
-        if (resizeTimeout.current) {
-            clearTimeout(resizeTimeout.current)
-        }
-        resizeTimeout.current = setTimeout(
-            onDoResize,
-            RESIZE_TIMEOUT_FOR_ONAFTERSRESIZE
-        )
-    }
+    // const onResize = (e) => {
+    //     if (resizeTimeout.current) {
+    //         clearTimeout(resizeTimeout.current)
+    //     }
+    //     resizeTimeout.current = setTimeout(
+    //         onDoResize,
+    //         RESIZE_TIMEOUT_FOR_ONAFTERSRESIZE
+    //     )
+    // }
 
-    const onScroll = (e) => {
+    // const onScroll = (e) => {
 
-        let target = e.target || e.currentTarget
-        if (scrollTimeout.current) {
-            clearTimeout(scrollTimeout.current)
-        }
-        scrollTimeout.current = setTimeout(onAfterScroll,SCROLL_TIMEOUT_FOR_ONAFTERSCROLL)
+    //     let target = e.target || e.currentTarget
+    //     if (scrollTimeout.current) {
+    //         clearTimeout(scrollTimeout.current)
+    //     }
+    //     scrollTimeout.current = setTimeout(onAfterScroll,SCROLL_TIMEOUT_FOR_ONAFTERSCROLL)
 
-        scrollData.scrolling = true
+    //     scrollData.scrolling = true
 
-        if (scrollData.scrollingForward === undefined) {
-            if (orientation == 'horizontal') {
-                scrollData.scrollingForward = (target.scrollLeft > scrollData.startingScrollLeft)
-            } else {
-                scrollData.scrollingForward = (target.scrollTop > scrollData.startingScrollTop)
-            }
-            // initialize
-            scrollData.scrollLeft = scrollData.startingScrollLeft
-            scrollData.scrollTop = scrollData.startingScrollTop
-            scrollData.previousScrollLeft = scrollData.scrollLeft
-            scrollData.previousScrollTop = scrollData.scrollTop
-            // console.log('initialized scrolldata session',scrollData)
-            scrollData = Object.assign({},scrollData)
-            updateScrollData(scrollData)
-        }
-        let absdiff
-        if (orientation == 'horizontal') {
-            absdiff = Math.abs(scrollData.scrollLeft - target.scrollLeft) 
-        } else {
-            absdiff = Math.abs(scrollData.scrollTop - target.scrollTop) 
-        }
-        // console.log('absdiff',absdiff)
-        if ( absdiff <= SCROLL_DIFF_FOR_UPDATE) {
+    //     if (scrollData.scrollingForward === undefined) {
+    //         if (orientation == 'horizontal') {
+    //             scrollData.scrollingForward = (target.scrollLeft > scrollData.startingScrollLeft)
+    //         } else {
+    //             scrollData.scrollingForward = (target.scrollTop > scrollData.startingScrollTop)
+    //         }
+    //         // initialize
+    //         scrollData.scrollLeft = scrollData.startingScrollLeft
+    //         scrollData.scrollTop = scrollData.startingScrollTop
+    //         scrollData.previousScrollLeft = scrollData.scrollLeft
+    //         scrollData.previousScrollTop = scrollData.scrollTop
+    //         // console.log('initialized scrolldata session',scrollData)
+    //         scrollData = Object.assign({},scrollData)
+    //         updateScrollData(scrollData)
+    //     }
+    //     let absdiff
+    //     if (orientation == 'horizontal') {
+    //         absdiff = Math.abs(scrollData.scrollLeft - target.scrollLeft) 
+    //     } else {
+    //         absdiff = Math.abs(scrollData.scrollTop - target.scrollTop) 
+    //     }
+    //     // console.log('absdiff',absdiff)
+    //     if ( absdiff <= SCROLL_DIFF_FOR_UPDATE) {
 
-            return
+    //         return
 
-        }
+    //     }
 
-        if (orientation == 'horizontal') {
-            scrollData.scrollingForward = (target.scrollLeft > scrollData.startingScrollLeft)
-        } else {
-            scrollData.scrollingForward = (target.scrollTop > scrollData.startingScrollTop)
-        }
-        scrollData.previousScrollLeft = scrollData.scrollLeft
-        scrollData.previousScrollTop = scrollData.scrollTop
-        scrollData.scrollLeft = target.scrollLeft
-        scrollData.scrollTop = target.scrollTop
+    //     if (orientation == 'horizontal') {
+    //         scrollData.scrollingForward = (target.scrollLeft > scrollData.startingScrollLeft)
+    //     } else {
+    //         scrollData.scrollingForward = (target.scrollTop > scrollData.startingScrollTop)
+    //     }
+    //     scrollData.previousScrollLeft = scrollData.scrollLeft
+    //     scrollData.previousScrollTop = scrollData.scrollTop
+    //     scrollData.scrollLeft = target.scrollLeft
+    //     scrollData.scrollTop = target.scrollTop
 
-        scrollData = Object.assign({},scrollData)
-        // console.log('update scrollData',Object.assign({},scrollData))
-        updateScrollData(scrollData)
+    //     scrollData = Object.assign({},scrollData)
+    //     // console.log('update scrollData',Object.assign({},scrollData))
+    //     updateScrollData(scrollData)
 
-    }
+    // }
 
-    const onAfterScroll = () => {
-        if (scrollTimeout.current) {
-            clearTimeout(scrollTimeout.current)
-            scrollTimeout.current = undefined 
-        }
-        scrollData.scrolling = false
-        scrollData.scrollingForward = undefined
-        scrollData.startingScrollLeft = scrollData.scrollLeft
-        scrollData.startingScrollTop = scrollData.scrollTop
+    // const onAfterScroll = () => {
+    //     if (scrollTimeout.current) {
+    //         clearTimeout(scrollTimeout.current)
+    //         scrollTimeout.current = undefined 
+    //     }
+    //     scrollData.scrolling = false
+    //     scrollData.scrollingForward = undefined
+    //     scrollData.startingScrollLeft = scrollData.scrollLeft
+    //     scrollData.startingScrollTop = scrollData.scrollTop
 
-        scrollData = Object.assign({},scrollData)
-        // console.log('scrolling ended:scrollData',scrollData)
-        updateScrollData(scrollData)
-    }
+    //     scrollData = Object.assign({},scrollData)
+    //     // console.log('scrolling ended:scrollData',scrollData)
+    //     updateScrollData(scrollData)
+    // }
 
     return <ScrollContext.Provider value = { scrollData }>
         <div 
             style = {divlinerstyle}
-            onScroll = {onScroll}
             ref = {scrolldiv}
         >
             { children }
