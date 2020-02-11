@@ -21,11 +21,11 @@ const Scrollblock = (props) => {
 
     useEffect(() => {
         console.log('useLayoutEffect in scrollblock',viewportData.viewportRect,newOrientation,listsize,cellHeight,cellWidth,gap,padding)
-        updateConfiguration({viewportRect:viewportData?.viewportRect,orientation:newOrientation,listsize,cellHeight,cellWidth,gap,padding})
+        updateConfiguration({viewportRect:viewportData.viewportRect,orientation:newOrientation,listsize,cellHeight,cellWidth,gap,padding})
         updateScrollblockStyles(newOrientation,divlinerstyleref,scrollBlockLengthRef)
         updateOrientation(newOrientation)
         updateData(viewportData)
-    },[viewportData.viewportRect,newOrientation,listsize,cellHeight,cellWidth,gap,padding])
+    },[viewportData,newOrientation,listsize,cellHeight,cellWidth,gap,padding])
 
     const updateConfiguration = ({viewportRect,orientation,listsize,cellHeight,cellWidth,gap,padding}) => {
         // console.log('updateCongiguration',viewportRect,orientation,listsize,cellHeight,cellWidth,crossLengthHint,gap,padding)
