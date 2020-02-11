@@ -21,8 +21,6 @@ const RESIZE_TIMEOUT_FOR_ONAFTERSRESIZE = 250
 const Viewport = ({children, orientation}) => { // props
 
     const scrolldiv = useRef(undefined)
-    const scrollTimeout = useRef(undefined)
-    const resizeTimeout = useRef(undefined)
     const divlinerstyleRef = useRef({
         position:'absolute',
         height:'100%',
@@ -52,8 +50,6 @@ const Viewport = ({children, orientation}) => { // props
         localViewportData.observer = observer
 
         setViewportData(localViewportData)
-
-        console.log('viewport useEffect localViewportData',localViewportData)
 
     },[orientation])
 

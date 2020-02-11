@@ -13,15 +13,18 @@ const Scrollblock = (props) => {
 
     const viewportData = useContext(ViewportContext)
     const [oldOrientation, updateOrientation] = useState(null)
-    const [scrollBlockLength, updateScrollBlockLength] = useState(0)
-    const scrollblockRect = useRef(null)
+    const [scrollBlockLength, updateScrollBlockLength] = useState(null)
     const divlinerstyleref = useRef({
         backgroundColor:'green',
         position:'relative',
     } as React.CSSProperties)
     const [scrollDataState,updateScrollData] = useState(viewportData)
 
-    // console.log('Scrollblock scrollData, viewportRect',scrollData, viewportRect)
+    // console.log('Scrollblock viewportData.viewportRect, observer',
+    //     viewportData.viewportRect,
+    //     viewportData.observer,
+    //     !!viewportData.viewportRect,
+    //     !!viewportData.observer)
 
     useLayoutEffect(() => {
         console.log('useLayoutEffect in scrollblock',viewportData.viewportRect,newOrientation,listsize,cellHeight,cellWidth,gap,padding)
@@ -50,13 +53,12 @@ const Scrollblock = (props) => {
         // console.log('INSIDE UPDATEDATA: scrollData',sData)
     }
 
-    console.log('scrollblock style width',divlinerstyleref.current.width)
-
     let styles = Object.assign({},divlinerstyleref.current)
+    console.log('scrollblock styles.width',styles.width)
 
-    console.log('divlinerstyleref.current to styles',styles)
+    // console.log('divlinerstyleref.current to styles',styles)
 
-    return <div style={styles}>{props.children}</div>
+    return styles.width?<div style={styles}>{props.children}</div>:null
 
 } // Scrollblock
 

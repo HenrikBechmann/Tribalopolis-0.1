@@ -9,11 +9,6 @@ import { ViewportContext } from './viewport'
 
 import ItemFrame from './itemframe'
 
-/*
-    use element.scrollWidth, element.scrollHeight
-
-*/
-
 const Cradle = (props) => {
     let { gap, padding, runway, listsize, offset, orientation, cellHeight, cellWidth, getItem, placeholder } = props
 
@@ -45,7 +40,7 @@ const Cradle = (props) => {
             left:viewportRect.left,
         }:null
 
-        console.log('cradle useEffect positions',positions)
+        // console.log('cradle useEffect positions',positions)
 
         if (positions) {
 
@@ -76,7 +71,7 @@ const Cradle = (props) => {
 
         let newChildList = [...childlist]
 
-        console.log('updateChildList',viewportData, cradleElement) //, newChildList)
+        // console.log('updateChildList',viewportData, cradleElement) //, newChildList)
 
         let {indexoffset, indexcount} = evaluateChildList(orientation, viewportData, cradleElement)
 
@@ -88,7 +83,7 @@ const Cradle = (props) => {
             cellWidth,
         })
         saveChildlist(childlistfragment)
-        console.log('childlistfragment',childlistfragment)
+        // console.log('childlistfragment',childlistfragment)
     }
 
     const evaluateChildList = (orientation, viewportData,cradleElement) => {
