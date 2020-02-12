@@ -7,6 +7,9 @@ import React, {useState, useContext, useRef, useEffect, useCallback} from 'react
 
 import { ViewportContext } from './viewport'
 
+// Scrollblock is naturally called twice by viewport rerenders and viewportData updates
+// this succeeds in rendering changes with with the userEffect
+
 const Scrollblock = (props) => {
 
     const {listsize, cellHeight, cellWidth, gap, padding, orientation } = props
@@ -67,7 +70,7 @@ const Scrollblock = (props) => {
     //     // console.log('INSIDE UPDATEDATA: scrollData',sData)
     // }
 
-    // console.log('divlinerstyleref.current to styles',styles)
+    // console.log('scrollblock returning element')
 
     return divlinerstyleRef.current.width?<div style={divlinerstyleRef.current}>{props.children}</div>:null
 
