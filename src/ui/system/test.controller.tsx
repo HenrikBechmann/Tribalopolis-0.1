@@ -5,7 +5,7 @@
 
 import React, {useState} from 'react'
 
-import InfiniteScroller from '../common/infinitescrollbygrid'
+import InfiniteScroller from '../common/infinitescrollbygrid/infinitescrollbygrid'
 import TestOptions from './test/testoptions'
 
 const styles = {
