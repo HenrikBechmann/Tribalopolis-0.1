@@ -7,7 +7,7 @@ import React, { useState, useRef, useContext, useEffect, useLayoutEffect } from 
 
 import { ViewportContext } from './viewport'
 
-import ItemFrame from './itemframe'
+import ItemFrame from './itemshell'
 
 const Cradle = (props) => {
     let { gap, padding, runway, listsize, offset, orientation, cellHeight, cellWidth, getItem, placeholder } = props

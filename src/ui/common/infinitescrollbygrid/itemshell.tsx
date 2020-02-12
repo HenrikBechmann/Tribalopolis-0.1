@@ -5,7 +5,7 @@
 
 import React, {useState, useRef } from 'react'
 
-const ItemFrame = (props) => {
+const ItemShell = (props) => {
     let {text, orientation:newOrientation, cellHeight, cellWidth, index} = props
     let styles = useRef({ // use useRef() instead
         boxSizing:'border-box',
@@ -55,4 +55,4 @@ const updateFrameStyles = (newOrientation, cellHeight, cellWidth, oldstyles) => 
     // console.log('new styleset',styleset, oldstyles)
 }
 
-export default ItemFrame
+export default ItemShell
