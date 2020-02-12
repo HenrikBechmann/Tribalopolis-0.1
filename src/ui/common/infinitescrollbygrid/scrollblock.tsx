@@ -132,7 +132,6 @@ const updateScrollblockStyles = (orientation,oldstyles,scrollblocklengthRef) => 
         styles.width = '100%'
     }
     oldstyles.current = styles
-    // console.log('setting scrollblock styles',scrollblocklengthRef, oldstyles, styles)
 }
 
 export default Scrollblock
