@@ -44,14 +44,14 @@ const Cradle = (props) => {
 
         if (positions) {
 
-            let viewportlength = positions.bottom - positions.top
+            let viewportheight = positions.bottom - positions.top
             let viewportwidth = positions.right - positions.left
 
             // workaround to get FF to correctly size grid container for horizontal orientation
             // crosscount is ignored for vertical orientation
-            let crosscount = getCrosscount(orientation,padding,gap,cellWidth,cellHeight,viewportlength, viewportwidth)
+            let crosscount = getCrosscount(orientation,padding,gap,cellWidth,cellHeight,viewportheight, viewportwidth)
 
-            updateCradleStyles(orientation, divlinerstyleref, cellHeight, cellWidth, crosscount)
+            updateCradleStyles(orientation, divlinerstyleref, cellHeight, cellWidth, crosscount,viewportheight, viewportwidth)
             updateChildList()
 
         }
@@ -113,7 +113,7 @@ const getCrosscount = (orientation, padding, gap, cellWidth, cellHeight, viewpor
 
 }
 
-const updateCradleStyles = (orientation, stylesobject, cellHeight, cellWidth, crosscount) => {
+const updateCradleStyles = (orientation, stylesobject, cellHeight, cellWidth, crosscount,viewportheight, viewportwidth) => {
 
         // console.log('Cradle updateCradleStyles',positions)
 
@@ -126,12 +126,16 @@ const updateCradleStyles = (orientation, stylesobject, cellHeight, cellWidth, cr
             //     sets length of horiz cradle items in one line (row), not multi-row config
             styles.gridTemplateRows = cellHeight?`repeat(${crosscount}, minmax(${cellHeight}px, 1fr))`:'auto'
             styles.gridTemplateColumns = 'none'
+            styles.minWidth = viewportwidth + 'px'
+            styles.minHeight = 0
         } else if (orientation == 'vertical') {
             styles.width = '100%'
             styles.height = 'auto'
             styles.gridAutoFlow = 'row'
             styles.gridTemplateRows = 'none'
             styles.gridTemplateColumns = cellWidth?`repeat(auto-fit, minmax(${cellWidth}px, 1fr))`:'auto'
+            styles.minWidth = 0
+            styles.minHeight = viewportheight + 'px'
         }
         // console.log('updated style', styles)
         stylesobject.current = styles

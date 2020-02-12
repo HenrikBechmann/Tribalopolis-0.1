@@ -7,6 +7,8 @@ import React, {useState, useContext, useRef, useEffect, useCallback} from 'react
 
 import { ViewportContext } from './viewport'
 
+// TODO: needs to recalculate with resize
+
 // Scrollblock is naturally called twice by viewport rerenders and viewportData updates
 // this succeeds in rendering changes with with the userEffect
 
