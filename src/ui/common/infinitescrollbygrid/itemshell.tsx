@@ -24,17 +24,15 @@ const ItemShell = (props) => {
 
     setStyles()
 
-    // console.log('itemshell index',index)
-
     return <div ref = { shellRef } data-index = {index} style = {styles.current}>{text}</div>
 
 }
 
-const updateShellStyles = (orientation, cellHeight, cellWidth, oldstyles) => {
+const updateShellStyles = (orientation, cellHeight, cellWidth, styles) => {
 
     // console.log('inside updateStyles: oldOrientation, newOrientation, oldstyles',oldOrientation, newOrientation, oldstyles)
 
-    let styleset:React.CSSProperties = Object.assign({},oldstyles.current)
+    let styleset:React.CSSProperties = Object.assign({},styles.current)
 
     if (orientation == 'horizontal') {
         styleset.width = cellWidth?(cellWidth + 'px'):'auto'
@@ -46,9 +44,8 @@ const updateShellStyles = (orientation, cellHeight, cellWidth, oldstyles) => {
 
     // console.log('updated ItemFrame styleset',styleset)
 
-    oldstyles.current = styleset
-    // setOrientation(newOrientation)
-    // console.log('new styleset',styleset, oldstyles)
+    styles.current = styleset
+
 }
 
 export default ItemShell
