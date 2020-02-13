@@ -3,7 +3,7 @@
 
 'use strict'
 
-import React, { useState, useRef, useContext, useEffect, useLayoutEffect } from 'react'
+import React, { useState, useRef, useContext, useEffect, useCallback } from 'react'
 
 import { ViewportContext } from './viewport'
 
@@ -65,7 +65,7 @@ const Cradle = (props) => {
 
     // console.log('cradle scrollLeft, scrollTop, scrolling',scrollLeft, scrollTop, scrolling)
 
-    const updateChildList = () => {
+    const updateChildList = useCallback(() => {
 
         if (!viewportData) return
 
@@ -84,13 +84,18 @@ const Cradle = (props) => {
         })
         saveChildlist(childlistfragment)
         // console.log('childlistfragment',childlistfragment)
-    }
+    },[
+        orientation,
+        cellHeight,
+        cellWidth
+      ]
+    )
 
-    const evaluateChildList = (orientation, viewportData,cradleElement) => {
+    const evaluateChildList = useCallback((orientation, viewportData,cradleElement) => {
         let indexoffset = 0, indexcount = 100
 
         return {indexoffset, indexcount}
-    }
+    },[orientation])
 
     let divlinerstyles = divlinerstyleref.current
 
