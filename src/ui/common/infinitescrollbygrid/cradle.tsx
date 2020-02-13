@@ -10,13 +10,13 @@ import { ViewportContext } from './viewport'
 import ItemFrame from './itemshell'
 
 const Cradle = (props) => {
-    let { gap, padding, runway, listsize, offset, orientation, cellHeight, cellWidth, getItem, placeholder } = props
+    const { gap, padding, runway, listsize, offset, orientation, cellHeight, cellWidth, getItem, placeholder } = props
 
-    let viewportData = useContext(ViewportContext)
+    const viewportData = useContext(ViewportContext)
 
-    let [childlist,saveChildlist] = useState([])
+    const [childlist,saveChildlist] = useState([])
 
-    let divlinerstyleref = useRef({
+    const divlinerstyleref = useRef({
         position: 'absolute',
         backgroundColor: 'blue',
         display: 'grid',
@@ -28,7 +28,7 @@ const Cradle = (props) => {
 
     } as React.CSSProperties)
 
-    let cradleElement = useRef(null)
+    const cradleElement = useRef(null)
 
     // fired when the configuration parameters of the cradle change
     useEffect(() => {
@@ -56,7 +56,6 @@ const Cradle = (props) => {
         orientation,
         gap,
         padding,
-        viewportData,
       ]
     )
 
