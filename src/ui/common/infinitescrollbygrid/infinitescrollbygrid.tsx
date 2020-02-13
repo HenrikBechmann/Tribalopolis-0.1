@@ -9,24 +9,6 @@ import Viewport from './viewport'
 import Scrollblock from './scrollblock'
 import Cradle from './cradle'
 
-/*
-use IntersectionObserver, getBoundingClientRect, will-change
-
-use transform:translate to extend the cradle when scrolling?
-
-allow list type static or dynamic. Static items can be re-ordered; dynamic items are virtual
-
-allow a position bar at bottom -- scrolling stops (and cradle fades) while 
-position bar value is being changed. Position bar gives feedback on location (configureable)
-
-change key for updates
-
-transform out of scope items to blank space
-
-allow for dividers
-
-*/
-
 // ===================================[ INITIALIZE ]===========================
 
 /*

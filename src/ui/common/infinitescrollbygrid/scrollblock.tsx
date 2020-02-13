@@ -65,16 +65,6 @@ const Scrollblock = (props) => {
          ]
     )
 
-        // console.log('updateCongiguration',viewportRect,orientation,listsize,cellHeight,cellWidth,crossLengthHint,gap,padding)
-
-    // const updateData = (sData) => {
-    //     if (!sData) return
-
-    //     // console.log('INSIDE UPDATEDATA: scrollData',sData)
-    // }
-
-    // console.log('scrollblock returning element')
-
     return divlinerstyleRef.current.width?<div style={divlinerstyleRef.current}>{props.children}</div>:null
 
 } // Scrollblock
