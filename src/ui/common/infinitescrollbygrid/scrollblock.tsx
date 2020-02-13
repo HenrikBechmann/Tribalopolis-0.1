@@ -11,6 +11,7 @@ import { ViewportContext } from './viewport'
 
 // Scrollblock is naturally called twice by viewport rerenders and viewportData updates
 // this succeeds in rendering changes with with the userEffect
+// Ideally the component would behave independent of external bbehaviour
 
 const Scrollblock = (props) => {
 
