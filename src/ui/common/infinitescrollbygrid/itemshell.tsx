@@ -24,7 +24,7 @@ const ItemShell = (props) => {
     // sets newDorection if different, as side effect
     if (oldOrientation !== newOrientation) {
     
-        updateFrameStyles(newOrientation, cellHeight, cellWidth, styles)
+        updateShellStyles(newOrientation, cellHeight, cellWidth, styles)
 
         setOrientation(newOrientation)
     }
@@ -34,7 +34,7 @@ const ItemShell = (props) => {
     return <div data-index = {index} style = {styles.current}>{text}</div>
 }
 
-const updateFrameStyles = (newOrientation, cellHeight, cellWidth, oldstyles) => {
+const updateShellStyles = (newOrientation, cellHeight, cellWidth, oldstyles) => {
 
     // console.log('inside updateStyles: oldOrientation, newOrientation, oldstyles',oldOrientation, newOrientation, oldstyles)
 

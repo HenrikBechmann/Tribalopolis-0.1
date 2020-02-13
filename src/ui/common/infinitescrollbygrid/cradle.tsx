@@ -7,9 +7,11 @@ import React, { useState, useRef, useContext, useEffect, useCallback } from 'rea
 
 import { ViewportContext } from './viewport'
 
-import ItemFrame from './itemshell'
+import ItemShell from './itemshell'
 
 const Cradle = (props) => {
+
+    // console.log('running cradle',props)
     const { gap, padding, runway, listsize, offset, orientation, cellHeight, cellWidth, getItem, placeholder } = props
 
     const viewportData = useContext(ViewportContext)
@@ -32,18 +34,13 @@ const Cradle = (props) => {
 
     // fired when the configuration parameters of the cradle change
     useEffect(() => {
-        let viewportRect = viewportData.viewportRect
-        let positions = {
-            top:viewportRect.top,
-            right:viewportRect.right,
-            bottom:viewportRect.bottom,
-            left:viewportRect.left,
-        }
+        let { viewportRect } = viewportData
+        let { top, right, bottom, left } = viewportRect
 
         // console.log('cradle useEffect positions',positions)
 
-        let viewportheight = positions.bottom - positions.top
-        let viewportwidth = positions.right - positions.left
+        let viewportheight = bottom - top
+        let viewportwidth = right - left
 
         // workaround to get FF to correctly size grid container for horizontal orientation
         // crosscount is ignored for vertical orientation
@@ -54,6 +51,8 @@ const Cradle = (props) => {
 
     },[
         orientation,
+        cellHeight,
+        cellWidth,
         gap,
         padding,
       ]
@@ -93,8 +92,9 @@ const Cradle = (props) => {
 
     let divlinerstyles = divlinerstyleref.current
 
+    // console.log('cradle width',divlinerstyles.width)
     // no result if styles not set
-    return <div ref = {cradleElement} style = {divlinerstyles}>{childlist}</div>
+    return divlinerstyles.width?<div ref = {cradleElement} style = {divlinerstyles}>{childlist}</div>:null
 
 } // Cradle
 
@@ -145,7 +145,7 @@ const getContentList = (props) => {
     let contentlist = []
     indexcount = 10
     for (let index = indexoffset + 1; index <(indexoffset + indexcount + 1); index++) {
-        contentlist.push(<ItemFrame 
+        contentlist.push(<ItemShell
             key = {index} 
             orientation = {orientation}
             text = { index }
