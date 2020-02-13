@@ -32,29 +32,26 @@ const Cradle = (props) => {
 
     // fired when the configuration parameters of the cradle change
     useEffect(() => {
-        let viewportRect = viewportData?.viewportRect
-        let positions = viewportRect?{
+        let viewportRect = viewportData.viewportRect
+        let positions = {
             top:viewportRect.top,
             right:viewportRect.right,
             bottom:viewportRect.bottom,
             left:viewportRect.left,
-        }:null
+        }
 
         // console.log('cradle useEffect positions',positions)
 
-        if (positions) {
+        let viewportheight = positions.bottom - positions.top
+        let viewportwidth = positions.right - positions.left
 
-            let viewportheight = positions.bottom - positions.top
-            let viewportwidth = positions.right - positions.left
+        // workaround to get FF to correctly size grid container for horizontal orientation
+        // crosscount is ignored for vertical orientation
+        let crosscount = getCrosscount(orientation,padding,gap,cellWidth,cellHeight,viewportheight, viewportwidth)
 
-            // workaround to get FF to correctly size grid container for horizontal orientation
-            // crosscount is ignored for vertical orientation
-            let crosscount = getCrosscount(orientation,padding,gap,cellWidth,cellHeight,viewportheight, viewportwidth)
+        updateCradleStyles(orientation, divlinerstyleref, cellHeight, cellWidth, crosscount,viewportheight, viewportwidth)
+        updateChildList()
 
-            updateCradleStyles(orientation, divlinerstyleref, cellHeight, cellWidth, crosscount,viewportheight, viewportwidth)
-            updateChildList()
-
-        }
     },[
         orientation,
         gap,
@@ -66,8 +63,6 @@ const Cradle = (props) => {
     // console.log('cradle scrollLeft, scrollTop, scrolling',scrollLeft, scrollTop, scrolling)
 
     const updateChildList = useCallback(() => {
-
-        if (!viewportData) return
 
         let newChildList = [...childlist]
 
@@ -100,7 +95,7 @@ const Cradle = (props) => {
     let divlinerstyles = divlinerstyleref.current
 
     // no result if styles not set
-    return viewportData?<div ref = {cradleElement} style = {divlinerstyles}>{childlist}</div>:null
+    return <div ref = {cradleElement} style = {divlinerstyles}>{childlist}</div>
 
 } // Cradle
 
