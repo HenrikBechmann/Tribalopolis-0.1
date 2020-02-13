@@ -3,7 +3,7 @@
 
 'use strict'
 
-import React, {useState, useContext, useRef, useEffect, useCallback} from 'react'
+import React, {useContext, useRef, useCallback} from 'react'
 
 import { ViewportContext } from './viewport'
 
@@ -27,14 +27,6 @@ const Scrollblock = (props) => {
     } as React.CSSProperties)
 
     let { viewportRect, observer } = viewportData
-
-    useEffect(() => {
-
-        updateBlockLength()
-        updateScrollblockStyles(orientation,divlinerstyleRef,scrollBlockLengthRef)
-
-    },[orientation])
-
 
     const updateBlockLength = useCallback(
         () => {
@@ -65,7 +57,18 @@ const Scrollblock = (props) => {
          ]
     )
 
-    return divlinerstyleRef.current.width?<div style={divlinerstyleRef.current}>{props.children}</div>:null
+    const configure = useCallback(() => {
+
+        updateBlockLength()
+        updateScrollblockStyles(orientation,divlinerstyleRef,scrollBlockLengthRef)
+
+    },[orientation])
+
+    configure()    
+
+    // console.log('rendering scrollblock',viewportData.observer.rootMargin, divlinerstyleRef.current.width)
+
+    return <div style={divlinerstyleRef.current}>{props.children}</div>
 
 } // Scrollblock
 

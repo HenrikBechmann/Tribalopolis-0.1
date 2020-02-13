@@ -55,6 +55,8 @@ const Viewport = ({children, orientation}) => { // props
 
     let divlinerstyle = divlinerstyleRef.current as React.CSSProperties
 
+    // console.log('rendering viewport', scrolldiv.current,viewportData?.viewportRect.top)
+
     return <ViewportContext.Provider value = { viewportData }>
         <div 
             style = {divlinerstyle}
