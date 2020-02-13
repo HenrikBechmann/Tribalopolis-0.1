@@ -28,7 +28,7 @@ const Scrollblock = (props) => {
 
     // console.log('scrollBlockLengthRef.current',scrollBlockLengthRef.current)
 
-    let { viewportRect, observer } = viewportData
+    let { viewportRect, itemobserver } = viewportData
     
     useLayoutEffect(() => {
 
@@ -67,7 +67,7 @@ const Scrollblock = (props) => {
          ]
     )
 
-    // console.log('rendering scrollblock',viewportData.observer.rootMargin, divlinerstyleRef.current.width)
+    // console.log('rendering scrollblock',viewportData.itemobserver.rootMargin, divlinerstyleRef.current.width)
 
     return divlinerstyleRef.current.width?<div style={divlinerstyleRef.current}>{props.children}</div>:null
 

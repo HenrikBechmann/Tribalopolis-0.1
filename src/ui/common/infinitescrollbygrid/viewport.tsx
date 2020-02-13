@@ -39,15 +39,15 @@ const Viewport = ({children, orientation}) => { // props
         } else {
             rootMargin = '800px 0px 800px 0px'
         }
-        let observer = new IntersectionObserver((entries) => {
+        let itemobserver = new IntersectionObserver((entries) => {
             console.log('observing entries',entries)
         },{root:scrolldiv.current, rootMargin,} )
 
-        observerRef.current = observer
+        observerRef.current = itemobserver
 
         let localViewportData:GenericObject = {}
         localViewportData.viewportRect = scrolldiv.current.getBoundingClientRect()
-        localViewportData.observer = observer
+        localViewportData.itemobserver = itemobserver
 
         setViewportData(localViewportData)
 
