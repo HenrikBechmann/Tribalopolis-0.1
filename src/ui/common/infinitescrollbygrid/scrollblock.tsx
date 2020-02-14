@@ -29,6 +29,11 @@ const Scrollblock = (props) => {
     // console.log('scrollBlockLengthRef.current',scrollBlockLengthRef.current)
 
     let { viewportRect, itemobserver } = viewportData
+
+    let { top, right, bottom, left } = viewportRect
+
+    let viewportheight = bottom - top
+    let viewportwidth = right - left
     
     useLayoutEffect(() => {
 
@@ -36,7 +41,7 @@ const Scrollblock = (props) => {
         updateBlockLength()
         updateScrollblockStyles(orientation,divlinerstyleRef,scrollBlockLengthRef)
 
-    },[orientation])
+    },[orientation,viewportheight,viewportwidth])
 
     const updateBlockLength = useCallback(
         () => {
@@ -50,7 +55,8 @@ const Scrollblock = (props) => {
                         gap,
                         padding,
                         orientation, 
-                        viewportRect
+                        viewportheight,
+                        viewportwidth,
                     }
                 )
 
@@ -81,7 +87,8 @@ const calcScrollblockLength = ({
     gap, 
     padding, 
     orientation, 
-    viewportRect
+    viewportheight,
+    viewportwidth,
     }) => {
 
     // dependents of orientation
@@ -92,13 +99,13 @@ const calcScrollblockLength = ({
 
         crosslength = cellWidth
         cellLength = cellHeight
-        viewportcrosslength = viewportRect.right - viewportRect.left 
+        viewportcrosslength = viewportwidth 
 
     } else {
 
         crosslength = cellHeight
         cellLength = cellWidth
-        viewportcrosslength = viewportRect.bottom - viewportRect.top
+        viewportcrosslength = viewportheight
 
     }
     // adjustments to viewportcrosslength

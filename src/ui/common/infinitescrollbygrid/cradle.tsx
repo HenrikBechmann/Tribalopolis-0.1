@@ -14,6 +14,8 @@ const Cradle = (props) => {
     // console.log('running cradle',props)
     const { gap, padding, runway, listsize, offset, orientation, cellHeight, cellWidth, getItem, placeholder } = props
 
+    const state = useState('setup')
+
     const viewportData = useContext(ViewportContext)
 
     const [childlist,saveChildlist] = useState([])
@@ -32,15 +34,15 @@ const Cradle = (props) => {
 
     const cradleElement = useRef(null)
 
+    let { viewportRect } = viewportData
+    let { top, right, bottom, left } = viewportRect
+
+    let viewportheight = bottom - top
+    let viewportwidth = right - left
+
     // fired when the configuration parameters of the cradle change
     useEffect(() => {
         // console.log('useEffect in cradle')
-        let { viewportRect } = viewportData
-        let { top, right, bottom, left } = viewportRect
-
-        let viewportheight = bottom - top
-        let viewportwidth = right - left
-
         // workaround to get FF to correctly size grid container for horizontal orientation
         // crosscount is ignored for vertical orientation
         let crosscount = getCrosscount(orientation,padding,gap,cellWidth,cellHeight,viewportheight, viewportwidth)
@@ -54,6 +56,8 @@ const Cradle = (props) => {
         cellWidth,
         gap,
         padding,
+        viewportheight,
+        viewportwidth,
       ]
     )
 

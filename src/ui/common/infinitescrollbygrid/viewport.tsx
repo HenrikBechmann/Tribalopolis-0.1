@@ -7,7 +7,7 @@
 
 'use strict'
 
-import React, {useState, useRef, useEffect} from 'react'
+import React, {useState, useRef, useEffect, useLayoutEffect, useCallback} from 'react'
 
 import { GenericObject } from '../../../services/interfaces'
 
@@ -17,6 +17,8 @@ export const ViewportContext = React.createContext(null)
 const SCROLL_DIFF_FOR_UPDATE = 20
 const SCROLL_TIMEOUT_FOR_ONAFTERSCROLL = 250
 const RESIZE_TIMEOUT_FOR_ONAFTERSRESIZE = 250
+
+let generationcounter = 0
 
 const Viewport = ({children, orientation}) => { // props
 
@@ -29,7 +31,23 @@ const Viewport = ({children, orientation}) => { // props
         backgroundColor:'red',
     })
     const [viewportData,setViewportData] = useState(null)
-    const observerRef = useRef(null)
+
+    const [gencounter,setGencounter] = useState(0)
+
+    const handleResize = () => {
+        // console.log('handling resize',generationcounter)
+        setGencounter(generationcounter++)
+    }
+
+    useLayoutEffect(() => {
+
+        window.addEventListener('resize',handleResize)
+
+        return () => {
+            window.removeEventListener('resize',handleResize)
+        }
+
+    },[])
 
     useEffect(() => {
 
@@ -43,8 +61,6 @@ const Viewport = ({children, orientation}) => { // props
             console.log('observing entries',entries)
         },{root:scrolldiv.current, rootMargin,} )
 
-        observerRef.current = itemobserver
-
         let localViewportData:GenericObject = {}
         localViewportData.viewportRect = scrolldiv.current.getBoundingClientRect()
         localViewportData.itemobserver = itemobserver
@@ -53,9 +69,16 @@ const Viewport = ({children, orientation}) => { // props
 
     },[orientation])
 
+    useEffect(() => {
+        let localViewportData = {...viewportData}
+        let data = localViewportData.viewportRect = scrolldiv.current.getBoundingClientRect()
+        // console.log('gencounter useLayoutEffect localviewportData',localViewportData)
+        setViewportData(localViewportData)
+    },[gencounter])
+
     let divlinerstyle = divlinerstyleRef.current as React.CSSProperties
 
-    // console.log('rendering viewport', scrolldiv.current,viewportData?.viewportRect.top)
+    // console.log('rendering viewport', scrolldiv.current,viewportData?.viewportRect.right)
 
     return <ViewportContext.Provider value = { viewportData }>
         <div 
