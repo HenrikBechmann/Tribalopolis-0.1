@@ -3,34 +3,37 @@
 
 'use strict'
 
-import React, {useRef, useCallback } from 'react'
+import React, {useRef, useEffect, useState } from 'react'
 
 const ItemShell = (props) => {
     const {text, orientation, cellHeight, cellWidth, index} = props
+    const [content, saveContent] = useState({value:null})
     const shellRef = useRef(null)
     const styles = useRef({ 
         boxSizing:'border-box',
         backgroundColor:'cyan',
         border:'2px solid black',
-        height:cellHeight?(cellHeight + 'px'):'auto',
-        width:'auto',
     } as React.CSSProperties)
 
-    const setStyles = useCallback(()=>{
+    useEffect(()=>{
 
+        // console.log('item layouteffect')
         updateShellStyles(orientation, cellHeight, cellWidth, styles)
+        saveContent({value:text})
 
-    },[orientation])
+    },[orientation,text,cellHeight,cellWidth,styles])
 
-    setStyles()
+    let stylecopy = Object.assign({},styles.current)
 
-    return <div ref = { shellRef } data-index = {index} style = {styles.current}>{text}</div>
+    // console.log('using styles for itemshell',index,stylecopy)
 
-}
+    return <div ref = { shellRef } data-index = {index} style = {styles.current}>
+        {styles.current.width?content.value:null}
+    </div>
+
+} // ItemShell
 
 const updateShellStyles = (orientation, cellHeight, cellWidth, styles) => {
-
-    // console.log('inside updateStyles: oldOrientation, newOrientation, oldstyles',oldOrientation, newOrientation, oldstyles)
 
     let styleset:React.CSSProperties = Object.assign({},styles.current)
 
@@ -43,6 +46,8 @@ const updateShellStyles = (orientation, cellHeight, cellWidth, styles) => {
     }
 
     // console.log('updated ItemFrame styleset',styleset)
+    // console.log('inside item updateStyles: orientation, styles.current, styleset',
+    //     orientation, cellWidth, cellHeight, Object.assign({},styles.current, styleset))
 
     styles.current = styleset
 

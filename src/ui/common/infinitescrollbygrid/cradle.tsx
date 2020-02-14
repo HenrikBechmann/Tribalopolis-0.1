@@ -34,6 +34,7 @@ const Cradle = (props) => {
 
     // fired when the configuration parameters of the cradle change
     useEffect(() => {
+        // console.log('useEffect in cradle')
         let { viewportRect } = viewportData
         let { top, right, bottom, left } = viewportRect
 
@@ -112,7 +113,7 @@ const getCrosscount = (orientation, padding, gap, cellWidth, cellHeight, viewpor
 
 const updateCradleStyles = (orientation, stylesobject, cellHeight, cellWidth, crosscount,viewportheight, viewportwidth) => {
 
-        // console.log('Cradle updateCradleStyles',positions)
+        // console.log('Cradle updateCradleStyles',orientation)
 
         let styles = Object.assign({},stylesobject.current) as React.CSSProperties
         if (orientation == 'horizontal') {
