@@ -18,7 +18,8 @@ const SCROLL_DIFF_FOR_UPDATE = 20
 const SCROLL_TIMEOUT_FOR_ONAFTERSCROLL = 250
 const RESIZE_TIMEOUT_FOR_ONAFTERSRESIZE = 250
 
-let generationcounter = 0
+let sizegenerationcounter = 0
+let timeoutid
 
 const Viewport = ({children, orientation}) => { // props
 
@@ -32,14 +33,18 @@ const Viewport = ({children, orientation}) => { // props
     })
     const [viewportData,setViewportData] = useState(null)
 
-    const [gencounter,setGencounter] = useState(0)
+    const [sizegencounter,setGencounter] = useState(0)
 
     const handleResize = () => {
-        // console.log('handling resize',generationcounter)
-        setGencounter(generationcounter++)
+        // console.log('handling resize',sizegenerationcounter,timeoutid)
+        clearTimeout(timeoutid)
+        timeoutid = setTimeout(() => {
+            console.log('running timeout')
+            setGencounter(++sizegenerationcounter)
+        },500)
     }
 
-    useLayoutEffect(() => {
+    useEffect(() => {
 
         window.addEventListener('resize',handleResize)
 
@@ -70,15 +75,16 @@ const Viewport = ({children, orientation}) => { // props
     },[orientation])
 
     useEffect(() => {
+        // console.log('updating viewportRect', sizegenerationcounter)
         let localViewportData = {...viewportData}
-        let data = localViewportData.viewportRect = scrolldiv.current.getBoundingClientRect()
-        // console.log('gencounter useLayoutEffect localviewportData',localViewportData)
+        localViewportData.viewportRect = scrolldiv.current.getBoundingClientRect()
+        // console.log('gencounter useLayoutEffect localviewportData',localViewportData.viewportRect.right,localViewportData.viewportRect.bottom)
         setViewportData(localViewportData)
-    },[gencounter])
+    },[sizegenerationcounter])
 
     let divlinerstyle = divlinerstyleRef.current as React.CSSProperties
 
-    // console.log('rendering viewport', scrolldiv.current,viewportData?.viewportRect.right)
+    // console.log('rendering viewport', scrolldiv.current,viewportData?.viewportRect.right,viewportData?.viewportRect.bottom)
 
     return <ViewportContext.Provider value = { viewportData }>
         <div 

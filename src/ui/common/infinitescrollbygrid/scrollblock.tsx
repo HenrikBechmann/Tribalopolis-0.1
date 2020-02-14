@@ -3,15 +3,9 @@
 
 'use strict'
 
-import React, {useContext, useRef, useCallback, useLayoutEffect} from 'react'
+import React, {useContext, useRef, useCallback, useEffect} from 'react'
 
 import { ViewportContext } from './viewport'
-
-// TODO: needs to recalculate with resize
-
-// Scrollblock is naturally called twice by viewport rerenders and viewportData updates
-// this succeeds in rendering changes with with the userEffect
-// Ideally the component would behave independent of external bbehaviour
 
 const Scrollblock = (props) => {
 
@@ -26,7 +20,8 @@ const Scrollblock = (props) => {
         
     } as React.CSSProperties)
 
-    // console.log('scrollBlockLengthRef.current',scrollBlockLengthRef.current)
+    // console.log('Scrollblock viewportData.viewportRect.right, bottom; scrollblocklength',
+    //     viewportData.viewportRect.right, viewportData.viewportRect.bottom, scrollBlockLengthRef.current)
 
     let { viewportRect, itemobserver } = viewportData
 
@@ -35,17 +30,16 @@ const Scrollblock = (props) => {
     let viewportheight = bottom - top
     let viewportwidth = right - left
     
-    useLayoutEffect(() => {
+    useEffect(() => {
 
-        // console.log('running useEffect in scrollblock',orientation)
         updateBlockLength()
         updateScrollblockStyles(orientation,divlinerstyleRef,scrollBlockLengthRef)
+        // console.log('running usEffect in scrollblock',orientation)
 
     },[orientation,viewportheight,viewportwidth])
 
     const updateBlockLength = useCallback(
         () => {
-            // console.log('update configuration')
             let scrollblocklength = 
                 calcScrollblockLength(
                     {
@@ -60,6 +54,7 @@ const Scrollblock = (props) => {
                     }
                 )
 
+            // console.log('update block length', scrollblocklength)
             scrollBlockLengthRef.current = scrollblocklength
 
         },[
@@ -69,11 +64,12 @@ const Scrollblock = (props) => {
             gap,
             padding,
             orientation, 
-            viewportRect
+            viewportheight,
+            viewportwidth,
          ]
     )
 
-    // console.log('rendering scrollblock',viewportData.itemobserver.rootMargin, divlinerstyleRef.current.width)
+    // console.log('rendering scrollblock; height',divlinerstyleRef.current.height)
 
     return divlinerstyleRef.current.width?<div style={divlinerstyleRef.current}>{props.children}</div>:null
 
@@ -128,17 +124,18 @@ const calcScrollblockLength = ({
 
 }
 
-const updateScrollblockStyles = (orientation,oldstyles,scrollblocklengthRef) => {
+const updateScrollblockStyles = (orientation,styles,scrollblocklengthRef) => {
 
-    let styles = Object.assign({},oldstyles.current) as React.CSSProperties
+    let localstyles = Object.assign({},styles.current) as React.CSSProperties
     if (orientation == 'horizontal') {
-        styles.height = '100%'
-        styles.width = scrollblocklengthRef.current + 'px'
+        localstyles.height = '100%'
+        localstyles.width = scrollblocklengthRef.current + 'px'
     } else if (orientation == 'vertical') {
-        styles.height = scrollblocklengthRef.current + 'px'
-        styles.width = '100%'
+        localstyles.height = scrollblocklengthRef.current + 'px'
+        localstyles.width = '100%'
     }
-    oldstyles.current = styles
+    styles.current = localstyles
+    console.log('updated styles',localstyles)
 }
 
 export default Scrollblock
