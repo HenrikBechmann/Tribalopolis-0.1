@@ -7,9 +7,9 @@ import React, {useRef, useEffect, useState } from 'react'
 
 const ItemShell = (props) => {
     const {text, orientation, cellHeight, cellWidth, index} = props
-    const [content, saveContent] = useState({value:null})
+    const [content, saveContent] = useState(null)
     const shellRef = useRef(null)
-    const styles = useRef({ 
+    const [styles,saveStyles] = useState({ 
         boxSizing:'border-box',
         backgroundColor:'cyan',
         border:'2px solid black',
@@ -17,26 +17,26 @@ const ItemShell = (props) => {
 
     useEffect(()=>{
 
-        // console.log('item layouteffect')
-        updateShellStyles(orientation, cellHeight, cellWidth, styles)
-        saveContent({value:text})
+        saveContent(text)
 
-    },[orientation,text,cellHeight,cellWidth,styles])
+    },[text])
 
-    let stylecopy = Object.assign({},styles.current)
+    useEffect(()=>{
 
-    // console.log('using styles for itemshell',index,stylecopy)
+        let newStyles = getShellStyles(orientation, cellHeight, cellWidth, styles)
+        saveStyles(newStyles)
 
-    return <div ref = { shellRef } data-index = {index} style = {styles.current}>
-        {styles.current.width?content.value:null}
+    },[orientation,cellHeight,cellWidth])
+
+    return <div ref = { shellRef } data-index = {index} style = {styles}>
+        {styles.width?content:null}
     </div>
 
 } // ItemShell
 
-const updateShellStyles = (orientation, cellHeight, cellWidth, styles) => {
+const getShellStyles = (orientation, cellHeight, cellWidth, styles) => {
 
-    let styleset:React.CSSProperties = Object.assign({},styles.current)
-
+    let styleset = Object.assign({},styles)
     if (orientation == 'horizontal') {
         styleset.width = cellWidth?(cellWidth + 'px'):'auto'
         styleset.height = 'auto'
@@ -45,11 +45,7 @@ const updateShellStyles = (orientation, cellHeight, cellWidth, styles) => {
         styleset.height = cellHeight?(cellHeight + 'px'):'auto'
     }
 
-    // console.log('updated ItemFrame styleset',styleset)
-    // console.log('inside item updateStyles: orientation, styles.current, styleset',
-    //     orientation, cellWidth, cellHeight, Object.assign({},styles.current, styleset))
-
-    styles.current = styleset
+    return styleset
 
 }
 
