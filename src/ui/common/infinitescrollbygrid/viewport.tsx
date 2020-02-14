@@ -39,7 +39,7 @@ const Viewport = ({children, orientation}) => { // props
         // console.log('handling resize',sizegenerationcounter,timeoutid)
         clearTimeout(timeoutid)
         timeoutid = setTimeout(() => {
-            console.log('running timeout')
+            // console.log('running timeout')
             setGencounter(++sizegenerationcounter)
         },500)
     }

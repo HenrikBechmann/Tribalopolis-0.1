@@ -3,14 +3,17 @@
 
 'use strict'
 
-import React, {useContext, useRef, useCallback, useEffect} from 'react'
+import React, {useContext, useRef, useCallback, useEffect, useState} from 'react'
 
 import { ViewportContext } from './viewport'
+
+let generationcounter = 0
 
 const Scrollblock = (props) => {
 
     const {listsize, cellHeight, cellWidth, gap, padding, orientation } = props
 
+    const [genCounter,setGenCounter] = useState(null)
     const viewportData = useContext(ViewportContext)
     const scrollBlockLengthRef = useRef(null)
     const divlinerstyleRef = useRef({
@@ -34,7 +37,8 @@ const Scrollblock = (props) => {
 
         updateBlockLength()
         updateScrollblockStyles(orientation,divlinerstyleRef,scrollBlockLengthRef)
-        // console.log('running usEffect in scrollblock',orientation)
+        setGenCounter(++generationcounter)
+        // console.log('running useEffect in scrollblock',orientation)
 
     },[orientation,viewportheight,viewportwidth])
 
@@ -135,7 +139,7 @@ const updateScrollblockStyles = (orientation,styles,scrollblocklengthRef) => {
         localstyles.width = '100%'
     }
     styles.current = localstyles
-    console.log('updated styles',localstyles)
+    // console.log('updated styles',localstyles)
 }
 
 export default Scrollblock
