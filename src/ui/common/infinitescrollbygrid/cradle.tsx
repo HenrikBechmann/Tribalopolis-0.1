@@ -99,7 +99,7 @@ const Cradle = (props) => {
 
     // console.log('cradle width',divlinerstyles.width)
     // no result if styles not set
-    return divlinerstyles.width?<div ref = {cradleElement} style = {divlinerstyles}>{childlist}</div>:null
+    return divlinerstyles.width?<div ref = {cradleElement} style = {divlinerstyles}>{contentlist}</div>:null
 
 } // Cradle
 
