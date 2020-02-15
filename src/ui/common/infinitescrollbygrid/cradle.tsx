@@ -18,7 +18,7 @@ const Cradle = (props) => {
 
     const viewportData = useContext(ViewportContext)
 
-    const [childlist,saveContentlist] = useState([])
+    const [contentlist,saveContentlist] = useState([])
 
     const divlinerstyleref = useRef({
         position: 'absolute',
@@ -65,7 +65,7 @@ const Cradle = (props) => {
 
     const setCradleContent = useCallback(() => {
 
-        let newChildList = [...childlist]
+        let newContentList = [...contentlist]
 
         let {indexoffset, headindexcount, tailindexcount} = evaluateChildList()
 
@@ -76,6 +76,7 @@ const Cradle = (props) => {
             tailindexcount,
             cellHeight,
             cellWidth,
+            newContentList,
         })
         saveContentlist(childlistfragment)
         // console.log('childlistfragment',childlistfragment)
@@ -83,7 +84,7 @@ const Cradle = (props) => {
         orientation,
         cellHeight,
         cellWidth,
-        childlist,
+        contentlist,
         cradleElement,
       ]
     )
@@ -145,7 +146,7 @@ const setCradleStyles = (orientation, stylesobject, cellHeight, cellWidth, cross
 }
 
 const getContentList = (props) => {
-    let { indexoffset, headindexcount, tailindexcount, orientation, cellHeight, cellWidth } = props
+    let { indexoffset, headindexcount, tailindexcount, orientation, cellHeight, cellWidth, newContentList } = props
     let contentlist = []
     headindexcount = 10
     for (let index = indexoffset + 1; index <(indexoffset + headindexcount + 1); index++) {
