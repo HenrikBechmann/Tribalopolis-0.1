@@ -18,7 +18,7 @@ const Cradle = (props) => {
 
     const viewportData = useContext(ViewportContext)
 
-    const [childlist,saveChildlist] = useState([])
+    const [childlist,saveContentlist] = useState([])
 
     const divlinerstyleref = useRef({
         position: 'absolute',
@@ -47,8 +47,8 @@ const Cradle = (props) => {
         // crosscount is ignored for vertical orientation
         let crosscount = getCrosscount(orientation,padding,gap,cellWidth,cellHeight,viewportheight, viewportwidth)
 
-        updateCradleStyles(orientation, divlinerstyleref, cellHeight, cellWidth, crosscount, viewportheight, viewportwidth)
-        updateChildList()
+        setCradleStyles(orientation, divlinerstyleref, cellHeight, cellWidth, crosscount, viewportheight, viewportwidth)
+        setCradleContent()
 
     },[
         orientation,
@@ -63,20 +63,21 @@ const Cradle = (props) => {
 
     // console.log('cradle scrollLeft, scrollTop, scrolling',scrollLeft, scrollTop, scrolling)
 
-    const updateChildList = useCallback(() => {
+    const setCradleContent = useCallback(() => {
 
         let newChildList = [...childlist]
 
-        let {indexoffset, indexcount} = evaluateChildList()
+        let {indexoffset, headindexcount, tailindexcount} = evaluateChildList()
 
         let childlistfragment = getContentList({
             orientation,
             indexoffset,
-            indexcount,
+            headindexcount,
+            tailindexcount,
             cellHeight,
             cellWidth,
         })
-        saveChildlist(childlistfragment)
+        saveContentlist(childlistfragment)
         // console.log('childlistfragment',childlistfragment)
     },[
         orientation,
@@ -88,9 +89,9 @@ const Cradle = (props) => {
     )
 
     const evaluateChildList = useCallback(() => {
-        let indexoffset = 0, indexcount = 100
+        let indexoffset = 0, headindexcount = 100, tailindexcount = 0
 
-        return {indexoffset, indexcount}
+        return {indexoffset, headindexcount, tailindexcount}
     },[orientation, viewportData,cradleElement])
 
     let divlinerstyles = divlinerstyleref.current
@@ -115,7 +116,7 @@ const getCrosscount = (orientation, padding, gap, cellWidth, cellHeight, viewpor
 
 }
 
-const updateCradleStyles = (orientation, stylesobject, cellHeight, cellWidth, crosscount,viewportheight, viewportwidth) => {
+const setCradleStyles = (orientation, stylesobject, cellHeight, cellWidth, crosscount,viewportheight, viewportwidth) => {
 
         // console.log('Cradle updateCradleStyles',orientation)
 
@@ -144,10 +145,10 @@ const updateCradleStyles = (orientation, stylesobject, cellHeight, cellWidth, cr
 }
 
 const getContentList = (props) => {
-    let { indexoffset, indexcount, orientation, cellHeight, cellWidth } = props
+    let { indexoffset, headindexcount, tailindexcount, orientation, cellHeight, cellWidth } = props
     let contentlist = []
-    indexcount = 10
-    for (let index = indexoffset + 1; index <(indexoffset + indexcount + 1); index++) {
+    headindexcount = 10
+    for (let index = indexoffset + 1; index <(indexoffset + headindexcount + 1); index++) {
         contentlist.push(<ItemShell
             key = {index} 
             orientation = {orientation}
