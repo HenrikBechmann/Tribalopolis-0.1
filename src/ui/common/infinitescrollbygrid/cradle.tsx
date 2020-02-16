@@ -3,7 +3,7 @@
 
 'use strict'
 
-import React, { useState, useRef, useContext, useEffect, useCallback } from 'react'
+import React, { useState, useRef, useContext, useEffect, useCallback, useMemo } from 'react'
 
 import { ViewportContext } from './viewport'
 
@@ -34,18 +34,39 @@ const Cradle = (props) => {
 
     const cradleElement = useRef(null)
 
-    let { viewportRect } = viewportData
-    let { top, right, bottom, left } = viewportRect
+    //TODO: viewportData.viewportRect changes more often than needed here (with change of orientation).
+    const viewportDimensions = useMemo(()=>{
 
-    let viewportheight = bottom - top
-    let viewportwidth = right - left
+        // console.log('calculate viewport dimensions',viewportData)
+        let { viewportRect } = viewportData
+        let { top, right, bottom, left } = viewportRect
+
+        let viewportheight = bottom - top
+        let viewportwidth = right - left
+        return [viewportheight, viewportwidth]
+
+    },[viewportData.viewportRect])
+
+    let [viewportheight,viewportwidth] = viewportDimensions
+
+    const crosscount = useMemo(() => {
+
+        let crosscount
+        let size = (orientation == 'horizontal')?viewportheight:viewportwidth
+        let crossLength = (orientation == 'horizontal')?cellHeight:cellWidth
+
+        let lengthforcalc = size - (padding * 2) + gap
+        crosscount = Math.floor(lengthforcalc/(crossLength + gap))
+
+        return crosscount
+
+    },[orientation, padding, gap, cellWidth, cellHeight, viewportheight, viewportwidth])
 
     // fired when the configuration parameters of the cradle change
     useEffect(() => {
         // console.log('useEffect in cradle')
         // workaround to get FF to correctly size grid container for horizontal orientation
         // crosscount is ignored for vertical orientation
-        let crosscount = getCrosscount(orientation,padding,gap,cellWidth,cellHeight,viewportheight, viewportwidth)
 
         setCradleStyles(orientation, divlinerstyleref, cellHeight, cellWidth, crosscount, viewportheight, viewportwidth)
         setCradleContent()
@@ -58,6 +79,7 @@ const Cradle = (props) => {
         padding,
         viewportheight,
         viewportwidth,
+        crosscount,
       ]
     )
 
@@ -65,9 +87,9 @@ const Cradle = (props) => {
 
     const setCradleContent = useCallback(() => {
 
-        let newContentList = [...contentlist]
+        let localContentList = [] // [...contentlist]
 
-        let {indexoffset, headindexcount, tailindexcount} = evaluateChildList()
+        let {indexoffset, headindexcount, tailindexcount} = evaluateContentList()
 
         let childlistfragment = getContentList({
             orientation,
@@ -76,24 +98,42 @@ const Cradle = (props) => {
             tailindexcount,
             cellHeight,
             cellWidth,
-            newContentList,
+            localContentList,
         })
         saveContentlist(childlistfragment)
         // console.log('childlistfragment',childlistfragment)
     },[
         orientation,
+        viewportheight,
+        viewportwidth,
+        runway,
         cellHeight,
         cellWidth,
-        contentlist,
-        cradleElement,
+        // contentlist,
+        gap,
+        padding,
       ]
     )
 
-    const evaluateChildList = useCallback(() => {
-        let indexoffset = 0, headindexcount = 100, tailindexcount = 0
+    const evaluateContentList = useCallback(() => {
+        let indexoffset = 0, headindexcount = 0, tailindexcount = 0
+        let cradlelength, cellLength
+        if (orientation == 'vertical') {
+            cradlelength = (viewportheight + (padding * 2) - gap)
+            cellLength = cellHeight + gap
+        } else {
+            cradlelength = (viewportwidth + (padding * 2) - gap)
+            cellLength = cellWidth + gap
+        }
+        cradlelength += (runway * 2)
+        let contentCount = Math.ceil(cradlelength/cellLength) * crosscount
+        contentCount = Math.min(contentCount,listsize)
+        headindexcount = contentCount
+
+        // console.log('evalutateContentList',indexoffset,headindexcount,tailindexcount)
 
         return {indexoffset, headindexcount, tailindexcount}
-    },[orientation, viewportData,cradleElement])
+    },[orientation, viewportheight, viewportwidth, runway, cellHeight, cellWidth, padding, gap])
 
     let divlinerstyles = divlinerstyleref.current
 
@@ -103,19 +143,6 @@ const Cradle = (props) => {
 
 } // Cradle
 
-
-const getCrosscount = (orientation, padding, gap, cellWidth, cellHeight, viewportlength, viewportwidth) => {
-
-    let crosscount
-    let size = (orientation == 'horizontal')?viewportlength:viewportwidth
-    let crossLength = (orientation == 'horizontal')?cellHeight:cellWidth
-
-    let lengthforcalc = size - (padding * 2) + gap
-    crosscount = Math.floor(lengthforcalc/(crossLength + gap))
-
-    return crosscount
-
-}
 
 const setCradleStyles = (orientation, stylesobject, cellHeight, cellWidth, crosscount,viewportheight, viewportwidth) => {
 
@@ -145,21 +172,65 @@ const setCradleStyles = (orientation, stylesobject, cellHeight, cellWidth, cross
         stylesobject.current = styles
 }
 
+// adds itemshells at start of end of contentlist according to headindexcount and tailindescount,
+// or if indexcount values are <0 removes them.
 const getContentList = (props) => {
-    let { indexoffset, headindexcount, tailindexcount, orientation, cellHeight, cellWidth, newContentList } = props
-    let contentlist = []
-    headindexcount = 10
-    for (let index = indexoffset + 1; index <(indexoffset + headindexcount + 1); index++) {
-        contentlist.push(<ItemShell
-            key = {index} 
-            orientation = {orientation}
-            text = { index }
-            cellHeight = { cellHeight }
-            cellWidth = { cellWidth }
-            index = {index}
-        />)
+    let { 
+        indexoffset, 
+        headindexcount, 
+        tailindexcount, 
+        orientation, 
+        cellHeight, 
+        cellWidth, 
+        localContentList:contentlist,
+    } = props
+    let newContentlist = []
+
+    if (headindexcount >= 0) {
+
+        for (let index = indexoffset; index <(indexoffset + headindexcount); index++) {
+            newContentlist.push(<ItemShell
+                key = {index} 
+                orientation = {orientation}
+                text = { index + 1}
+                cellHeight = { cellHeight }
+                cellWidth = { cellWidth }
+                index = {index}
+            />)
+        }
+
+    } else {
+
+        contentlist = contentlist.splice(0,-headindexcount)
+
     }
-    return contentlist
+
+    let returnContentlist = newContentlist.concat(contentlist)
+
+    newContentlist = []
+
+    if (tailindexcount >= 0) {
+
+        for (let index = indexoffset; index <(indexoffset + tailindexcount); index++) {
+            newContentlist.push(<ItemShell
+                key = {index} 
+                orientation = {orientation}
+                text = { index + 1}
+                cellHeight = { cellHeight }
+                cellWidth = { cellWidth }
+                index = {index}
+            />)
+        }
+
+    } else {
+
+        contentlist = contentlist.splice(0,tailindexcount)
+
+    }
+
+    returnContentlist = returnContentlist.concat(newContentlist)
+
+    return returnContentlist
 }
 
 export default Cradle
