@@ -9,6 +9,10 @@ import { ViewportContext } from './viewport'
 
 import ItemShell from './itemshell'
 
+/*
+    TODO: check re-usability for set cradle content
+*/
+
 const Cradle = (props) => {
 
     // console.log('running cradle',props)
@@ -87,7 +91,7 @@ const Cradle = (props) => {
 
     const setCradleContent = useCallback(() => {
 
-        let localContentList = [] // [...contentlist]
+        let localContentList = [] // any existing items will be re-used by react
 
         let {indexoffset, headindexcount, tailindexcount} = evaluateContentList()
 
