@@ -58,20 +58,21 @@ const Viewport = ({children, orientation, runway}) => { // props
 
     useEffect(() => {
 
-        let rootMargin
-        if (orientation == 'horizontal') {
-            rootMargin = `0px ${runway}px 0px ${runway}px`
-        } else {
-            rootMargin = `${runway}px 0px ${runway}px 0px`
-        }
-        // console.log('rootMargin',rootMargin)
-        let itemobserver = new IntersectionObserver((entries) => {
-            // console.log('observing entries',entries)
-        },{root:scrolldiv.current, rootMargin,} )
+        // let rootMargin
+        // if (orientation == 'horizontal') {
+        //     rootMargin = `0px ${runway}px 0px ${runway}px`
+        // } else {
+        //     rootMargin = `${runway}px 0px ${runway}px 0px`
+        // }
+        // // console.log('rootMargin',rootMargin)
+        // let itemobserver = new IntersectionObserver((entries) => {
+        //     // console.log('observing entries',entries)
+        // },{root:scrolldiv.current, rootMargin,} )
 
         let localViewportData:GenericObject = {}
         localViewportData.viewportRect = scrolldiv.current.getBoundingClientRect()
-        localViewportData.itemobserver = itemobserver
+        // localViewportData.itemobserver = itemobserver
+        localViewportData.elementref = scrolldiv
 
         // console.log('localViewportData',localViewportData)
 

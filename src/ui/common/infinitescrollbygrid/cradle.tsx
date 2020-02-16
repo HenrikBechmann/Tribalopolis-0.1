@@ -22,6 +22,8 @@ const Cradle = (props) => {
 
     const viewportData = useContext(ViewportContext)
 
+    const itemobserver = useRef(null)
+
     const [contentlist,saveContentlist] = useState([])
 
     const divlinerstyleref = useRef({
@@ -52,6 +54,21 @@ const Cradle = (props) => {
     },[viewportData.viewportRect])
 
     let [viewportheight,viewportwidth] = viewportDimensions
+
+    useEffect(()=> {
+
+        let rootMargin
+        if (orientation == 'horizontal') {
+            rootMargin = `0px ${runway}px 0px ${runway}px`
+        } else {
+            rootMargin = `${runway}px 0px ${runway}px 0px`
+        }
+        // console.log('rootMargin',rootMargin)
+        itemobserver.current = new IntersectionObserver((entries) => {
+            // console.log('observing entries',entries)
+        },{root:viewportData.elementref.current, rootMargin,} )
+
+    },[orientation,runway])
 
     const crosscount = useMemo(() => {
 
@@ -104,7 +121,7 @@ const Cradle = (props) => {
             cellHeight,
             cellWidth,
             localContentList,
-            observer:viewportData.itemobserver
+            observer:itemobserver.current
         })
         saveContentlist(childlistfragment)
         // console.log('childlistfragment',childlistfragment)
@@ -145,7 +162,14 @@ const Cradle = (props) => {
 
     // console.log('cradle width',divlinerstyles.width)
     // no result if styles not set
-    return divlinerstyles.width?<div ref = {cradleElement} style = {divlinerstyles}>{contentlist}</div>:null
+    return divlinerstyles.width
+        ? <div 
+            ref = {cradleElement} 
+            style = {divlinerstyles}
+          >
+            {contentlist}
+          </div>
+        : null
 
 } // Cradle
 
