@@ -52,7 +52,7 @@ const Home = (props) => {
                     cellWidth = {100}
                     runway = {500}
                     offset = {0}
-                    listsize = {100}
+                    listsize = {1000}
                 />
             </div>
         </div>

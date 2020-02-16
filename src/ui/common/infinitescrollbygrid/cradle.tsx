@@ -18,7 +18,7 @@ const Cradle = (props) => {
     // console.log('running cradle',props)
     const { gap, padding, runway, listsize, offset, orientation, cellHeight, cellWidth, getItem, placeholder } = props
 
-    const state = useState('setup')
+    const state = useRef('setup')
 
     const viewportData = useContext(ViewportContext)
 
@@ -64,11 +64,24 @@ const Cradle = (props) => {
             rootMargin = `${runway}px 0px ${runway}px 0px`
         }
         // console.log('rootMargin',rootMargin)
-        itemobserver.current = new IntersectionObserver((entries) => {
-            // console.log('observing entries',entries)
-        },{root:viewportData.elementref.current, rootMargin,} )
+        itemobserver.current = new IntersectionObserver(
+            itemobservercallback,
+            {root:viewportData.elementref.current, rootMargin,} 
+        )
 
     },[orientation,runway])
+
+    const itemobservercallback = useCallback((entries)=>{
+        // console.log('state, entries',state,entries)
+        if (state.current == 'setup') {
+            // console.log('cradle setup itemcallback entries',state, entries)
+            state.current = 'run'
+        } else {
+            let dropentries = entries.filter(entry => (!entry.isIntersecting))
+
+            console.log('cradle change items',entries,dropentries)
+        }
+    },[])
 
     const crosscount = useMemo(() => {
 
