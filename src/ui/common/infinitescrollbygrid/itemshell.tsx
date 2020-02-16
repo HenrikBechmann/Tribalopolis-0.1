@@ -15,6 +15,10 @@ const ItemShell = (props) => {
         border:'2px solid black',
     } as React.CSSProperties)
 
+    // useEffect(()=>{
+    //     console.log('constructing',index)
+    // },[])
+
     useEffect(()=>{
 
         saveContent(text)
