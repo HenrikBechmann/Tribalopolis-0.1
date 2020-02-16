@@ -18,6 +18,8 @@ const SCROLL_DIFF_FOR_UPDATE = 20
 const SCROLL_TIMEOUT_FOR_ONAFTERSCROLL = 250
 const RESIZE_TIMEOUT_FOR_ONAFTERSRESIZE = 250
 
+// TODO: global vars should be instance vars
+
 let sizegenerationcounter = 0
 let timeoutid
 

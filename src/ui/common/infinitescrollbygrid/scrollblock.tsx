@@ -11,6 +11,8 @@ import React, {useContext, useRef, useCallback, useEffect, useState} from 'react
 
 import { ViewportContext } from './viewport'
 
+// TODO: global vars should be instance vars
+
 let generationcounter = 0
 
 const Scrollblock = (props) => {
