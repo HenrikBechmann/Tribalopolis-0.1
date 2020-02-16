@@ -3,7 +3,7 @@
 
 'use strict'
 
-import React, { useState, useRef, useContext, useEffect, useCallback, useMemo } from 'react'
+import React, { useState, useRef, useContext, useEffect, useLayoutEffect, useCallback, useMemo } from 'react'
 
 import { ViewportContext } from './viewport'
 
@@ -26,6 +26,10 @@ const Cradle = (props) => {
 
     const [contentlist,saveContentlist] = useState([])
 
+    const [dropentries, saveDropentries] = useState(null)
+
+    const [addentries, saveAddentries] = useState(null)
+
     const divlinerstyleref = useRef({
         position: 'absolute',
         backgroundColor: 'blue',
@@ -38,7 +42,7 @@ const Cradle = (props) => {
 
     } as React.CSSProperties)
 
-    const cradleElement = useRef(null)
+    const cradleElementRef = useRef(null)
 
     //TODO: viewportData.viewportRect changes more often than needed here (with change of orientation).
     const viewportDimensions = useMemo(()=>{
@@ -79,9 +83,85 @@ const Cradle = (props) => {
         } else {
             let dropentries = entries.filter(entry => (!entry.isIntersecting))
 
-            console.log('cradle change items',entries,dropentries)
+            if (dropentries.length) {
+                // console.log('dropentries',dropentries)
+                saveDropentries(dropentries)
+            }
         }
     },[])
+
+    useLayoutEffect(()=>{
+        if ((dropentries === null) || (!dropentries.length)) return
+        let cradleElement = cradleElementRef.current
+        let parentElement = cradleElement.parentElement
+        let viewportElement = viewportData.elementref.current
+        // console.log('dropentries updated:dropentries, contentlist',dropentries,contentlist)
+        let scrollamount
+        let tailpos
+        let styles
+        if (orientation == 'vertical') {
+            scrollamount = viewportElement.scrollTop
+        } else {
+            scrollamount = viewportElement.scrollLeft
+            let offsetLeft = cradleElement.offsetLeft
+            let offsetWidth = cradleElement.offsetWidth
+            let parentWidth = parentElement.offsetWidth
+            tailpos = offsetLeft + offsetWidth
+            styles = {...divlinerstyleref.current}
+            styles.left = 'auto'
+            styles.right = parentWidth - tailpos
+        }
+
+        let localContentList = getContentList({localContentList:contentlist,headindexcount:-dropentries.length})
+
+        console.log('dropentries scrollamount, tailpos, contentlist',scrollamount,tailpos,localContentList)
+
+        divlinerstyleref.current = styles
+        saveContentlist(localContentList)
+        saveDropentries(null)
+        saveAddentries(dropentries.length)
+    },[dropentries])
+
+    useLayoutEffect(()=>{
+        if (addentries === null) return
+        let cradleElement = cradleElementRef.current
+        // let parentElement = cradleElement.parentElement
+        let viewportElement = viewportData.elementref.current
+        // console.log('addentries updated:addentries, contentlist',addentries,contentlist)
+        let scrollamount
+        let headpos
+        let styles
+        if (orientation == 'vertical') {
+            scrollamount = viewportElement.scrollTop
+        } else {
+            scrollamount = viewportElement.scrollLeft
+            let offsetLeft = cradleElement.offsetLeft
+            let offsetWidth = cradleElement.offsetWidth
+            // let parentWidth = parentElement.offsetWidth
+            headpos = offsetLeft
+            styles = {...divlinerstyleref.current}
+            styles.right = 'auto'
+            styles.left = headpos
+        }
+
+        let localContentList = getContentList({
+            localContentList:contentlist,
+            headindexcount:0,
+            tailindexcount:addentries,
+            indexoffset:contentlist[0].props.index,
+            orientation,
+            cellHeight,
+            cellWidth,
+            observer:itemobserver.current,
+        })
+
+        console.log('addentries scrollamount, headpos, contentlist',scrollamount,headpos, localContentList)
+
+        divlinerstyleref.current = styles
+        saveContentlist(localContentList)
+        saveAddentries(null)
+
+    },[addentries])
 
     const crosscount = useMemo(() => {
 
@@ -170,7 +250,7 @@ const Cradle = (props) => {
     // no result if styles not set
     return divlinerstyles.width
         ? <div 
-            ref = {cradleElement} 
+            ref = {cradleElementRef} 
             style = {divlinerstyles}
           >
             {contentlist}
@@ -209,6 +289,7 @@ const setCradleStyles = (orientation, stylesobject, cellHeight, cellWidth, cross
 // adds itemshells at start of end of contentlist according to headindexcount and tailindescount,
 // or if indexcount values are <0 removes them.
 const getContentList = (props) => {
+    console.log('getContentList props',props)
     let { 
         indexoffset, 
         headindexcount, 
@@ -219,12 +300,15 @@ const getContentList = (props) => {
         localContentList:contentlist,
         observer,
     } = props
-    let newContentlist = []
 
+    let localContentlist = [...contentlist]
+    let tailindexoffset = indexoffset + contentlist.length
+    let returnContentlist
+    let headContentlist = []
     if (headindexcount >= 0) {
 
         for (let index = indexoffset; index <(indexoffset + headindexcount); index++) {
-            newContentlist.push(<ItemShell
+            headContentlist.push(<ItemShell
                 key = {index} 
                 orientation = {orientation}
                 text = { index + 1}
@@ -237,18 +321,15 @@ const getContentList = (props) => {
 
     } else {
 
-        contentlist = contentlist.splice(0,-headindexcount)
+        localContentlist.splice(0,-headindexcount)
 
     }
 
-    let returnContentlist = newContentlist.concat(contentlist)
-
-    newContentlist = []
-
+    let tailContentlist = []
     if (tailindexcount >= 0) {
 
-        for (let index = indexoffset; index <(indexoffset + tailindexcount); index++) {
-            newContentlist.push(<ItemShell
+        for (let index = tailindexoffset; index <(tailindexoffset + tailindexcount); index++) {
+            tailContentlist.push(<ItemShell
                 key = {index} 
                 orientation = {orientation}
                 text = { index + 1}
@@ -261,11 +342,11 @@ const getContentList = (props) => {
 
     } else {
 
-        contentlist = contentlist.splice(0,tailindexcount)
+        localContentlist.splice(0,tailindexcount)
 
     }
 
-    returnContentlist = returnContentlist.concat(newContentlist)
+    returnContentlist = headContentlist.concat(localContentlist,tailContentlist)
 
     return returnContentlist
 }
