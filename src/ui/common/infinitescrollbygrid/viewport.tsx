@@ -21,7 +21,7 @@ const RESIZE_TIMEOUT_FOR_ONAFTERSRESIZE = 250
 let sizegenerationcounter = 0
 let timeoutid
 
-const Viewport = ({children, orientation}) => { // props
+const Viewport = ({children, orientation, runway}) => { // props
 
     const scrolldiv = useRef(undefined)
     const divlinerstyleRef = useRef({
@@ -58,27 +58,31 @@ const Viewport = ({children, orientation}) => { // props
 
         let rootMargin
         if (orientation == 'horizontal') {
-            rootMargin = '0px 800px 0px 800px'
+            rootMargin = `0px ${runway}px 0px ${runway}px`
         } else {
-            rootMargin = '800px 0px 800px 0px'
+            rootMargin = `${runway}px 0px ${runway}px 0px`
         }
+        // console.log('rootMargin',rootMargin)
         let itemobserver = new IntersectionObserver((entries) => {
-            console.log('observing entries',entries)
+            // console.log('observing entries',entries)
         },{root:scrolldiv.current, rootMargin,} )
 
         let localViewportData:GenericObject = {}
         localViewportData.viewportRect = scrolldiv.current.getBoundingClientRect()
         localViewportData.itemobserver = itemobserver
 
+        // console.log('localViewportData',localViewportData)
+
         setViewportData(localViewportData)
 
     },[orientation])
 
     useEffect(() => {
-        // console.log('updating viewportRect', sizegenerationcounter)
+        if (!viewportData) return
+        // console.log('updating viewportRect', sizegenerationcounter, viewportData)
         let localViewportData = {...viewportData}
         localViewportData.viewportRect = scrolldiv.current.getBoundingClientRect()
-        // console.log('gencounter useLayoutEffect localviewportData',localViewportData.viewportRect.right,localViewportData.viewportRect.bottom)
+        // console.log('gencounter useEffect localviewportData',localViewportData.viewportRect.right,localViewportData.viewportRect.bottom,localViewportData)
         setViewportData(localViewportData)
     },[sizegenerationcounter])
 

@@ -6,7 +6,7 @@
 import React, {useRef, useEffect, useState } from 'react'
 
 const ItemShell = (props) => {
-    const {text, orientation, cellHeight, cellWidth, index} = props
+    const {text, orientation, cellHeight, cellWidth, index, observer} = props
     const [content, saveContent] = useState(null)
     const shellRef = useRef(null)
     const [styles,saveStyles] = useState({ 
@@ -15,9 +15,12 @@ const ItemShell = (props) => {
         border:'2px solid black',
     } as React.CSSProperties)
 
-    // useEffect(()=>{
-    //     console.log('constructing',index)
-    // },[])
+    useEffect(()=>{
+        observer.observe(shellRef.current)
+        return () => {
+            observer.unobserve(shellRef.current)
+        }
+    },[])
 
     useEffect(()=>{
 

@@ -50,7 +50,7 @@ const InfiniteScrollByGrid = (props) => {
     listsize !?? (listsize = 0)
     !preload && (dense = false)
 
-    return <Viewport orientation = {orientation}>
+    return <Viewport orientation = {orientation} runway = {runway}>
         <Scrollblock
 
             listsize = { listsize }

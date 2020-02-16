@@ -91,6 +91,7 @@ const Cradle = (props) => {
 
     const setCradleContent = useCallback(() => {
 
+        // console.log('viewportData in cradle',viewportData)
         let localContentList = [] // any existing items will be re-used by react
 
         let {indexoffset, headindexcount, tailindexcount} = evaluateContentList()
@@ -103,6 +104,7 @@ const Cradle = (props) => {
             cellHeight,
             cellWidth,
             localContentList,
+            observer:viewportData.itemobserver
         })
         saveContentlist(childlistfragment)
         // console.log('childlistfragment',childlistfragment)
@@ -187,6 +189,7 @@ const getContentList = (props) => {
         cellHeight, 
         cellWidth, 
         localContentList:contentlist,
+        observer,
     } = props
     let newContentlist = []
 
@@ -200,6 +203,7 @@ const getContentList = (props) => {
                 cellHeight = { cellHeight }
                 cellWidth = { cellWidth }
                 index = {index}
+                observer = {observer}
             />)
         }
 
@@ -223,6 +227,7 @@ const getContentList = (props) => {
                 cellHeight = { cellHeight }
                 cellWidth = { cellWidth }
                 index = {index}
+                observer = {observer}
             />)
         }
 
