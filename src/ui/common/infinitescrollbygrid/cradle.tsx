@@ -104,11 +104,8 @@ const Cradle = (props) => {
       ]
     )
 
-    // console.log('cradle scrollLeft, scrollTop, scrolling',scrollLeft, scrollTop, scrolling)
-
     const setCradleContent = useCallback(() => {
 
-        // console.log('viewportData in cradle',viewportData)
         let localContentList = [] // any existing items will be re-used by react
 
         let {indexoffset, headindexcount, tailindexcount} = evaluateContentList()
@@ -124,7 +121,7 @@ const Cradle = (props) => {
             observer:itemobserver.current
         })
         saveContentlist(childlistfragment)
-        // console.log('childlistfragment',childlistfragment)
+
     },[
         orientation,
         viewportheight,
@@ -132,7 +129,6 @@ const Cradle = (props) => {
         runway,
         cellHeight,
         cellWidth,
-        // contentlist,
         gap,
         padding,
       ]
@@ -153,14 +149,11 @@ const Cradle = (props) => {
         contentCount = Math.min(contentCount,listsize)
         headindexcount = contentCount
 
-        // console.log('evalutateContentList',indexoffset,headindexcount,tailindexcount)
-
         return {indexoffset, headindexcount, tailindexcount}
     },[orientation, viewportheight, viewportwidth, runway, cellHeight, cellWidth, padding, gap])
 
     let divlinerstyles = divlinerstyleref.current
 
-    // console.log('cradle width',divlinerstyles.width)
     // no result if styles not set
     return divlinerstyles.width
         ? <div 
@@ -175,8 +168,6 @@ const Cradle = (props) => {
 
 
 const setCradleStyles = (orientation, stylesobject, cellHeight, cellWidth, crosscount,viewportheight, viewportwidth) => {
-
-        // console.log('Cradle updateCradleStyles',orientation)
 
         let styles = Object.assign({},stylesobject.current) as React.CSSProperties
         if (orientation == 'horizontal') {
@@ -198,7 +189,7 @@ const setCradleStyles = (orientation, stylesobject, cellHeight, cellWidth, cross
             styles.minWidth = 0
             styles.minHeight = viewportheight + 'px'
         }
-        // console.log('updated style', styles)
+
         stylesobject.current = styles
 }
 

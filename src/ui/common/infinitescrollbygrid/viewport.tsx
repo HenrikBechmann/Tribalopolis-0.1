@@ -38,11 +38,12 @@ const Viewport = ({children, orientation, runway}) => { // props
     const [sizegencounter,setGencounter] = useState(0)
 
     const handleResize = () => {
-        // console.log('handling resize',sizegenerationcounter,timeoutid)
+
         clearTimeout(timeoutid)
         timeoutid = setTimeout(() => {
-            // console.log('running timeout')
+
             setGencounter(++sizegenerationcounter)
+
         },500)
     }
 
@@ -58,40 +59,26 @@ const Viewport = ({children, orientation, runway}) => { // props
 
     useEffect(() => {
 
-        // let rootMargin
-        // if (orientation == 'horizontal') {
-        //     rootMargin = `0px ${runway}px 0px ${runway}px`
-        // } else {
-        //     rootMargin = `${runway}px 0px ${runway}px 0px`
-        // }
-        // // console.log('rootMargin',rootMargin)
-        // let itemobserver = new IntersectionObserver((entries) => {
-        //     // console.log('observing entries',entries)
-        // },{root:scrolldiv.current, rootMargin,} )
-
         let localViewportData:GenericObject = {}
         localViewportData.viewportRect = scrolldiv.current.getBoundingClientRect()
-        // localViewportData.itemobserver = itemobserver
         localViewportData.elementref = scrolldiv
-
-        // console.log('localViewportData',localViewportData)
 
         setViewportData(localViewportData)
 
     },[orientation])
 
     useEffect(() => {
+
         if (!viewportData) return
-        // console.log('updating viewportRect', sizegenerationcounter, viewportData)
+
         let localViewportData = {...viewportData}
         localViewportData.viewportRect = scrolldiv.current.getBoundingClientRect()
-        // console.log('gencounter useEffect localviewportData',localViewportData.viewportRect.right,localViewportData.viewportRect.bottom,localViewportData)
+
         setViewportData(localViewportData)
+
     },[sizegenerationcounter])
 
     let divlinerstyle = divlinerstyleRef.current as React.CSSProperties
-
-    // console.log('rendering viewport', scrolldiv.current,viewportData?.viewportRect.right,viewportData?.viewportRect.bottom)
 
     return <ViewportContext.Provider value = { viewportData }>
         <div 

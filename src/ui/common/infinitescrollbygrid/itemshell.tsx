@@ -16,11 +16,13 @@ const ItemShell = (props) => {
     } as React.CSSProperties)
 
     useEffect(()=>{
-        // console.log('itemshell useEffect observer',observer)
+
         observer.observe(shellRef.current)
+        
         return () => {
             observer.unobserve(shellRef.current)
         }
+
     },[])
 
     useEffect(()=>{
