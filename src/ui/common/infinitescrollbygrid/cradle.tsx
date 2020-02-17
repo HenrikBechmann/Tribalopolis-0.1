@@ -43,6 +43,7 @@ const Cradle = (props) => {
     } as React.CSSProperties)
 
     const cradleElementRef = useRef(null)
+    console.log('cradleElementRef',cradleElementRef)
 
     //TODO: viewportData.viewportRect changes more often than needed here (with change of orientation).
     const viewportDimensions = useMemo(()=>{
@@ -58,6 +59,11 @@ const Cradle = (props) => {
     },[viewportData.viewportRect])
 
     let [viewportheight,viewportwidth] = viewportDimensions
+
+    useLayoutEffect(()=>{
+        console.log('setting state to setup')
+        state.current = 'setup'
+    },[orientation])
 
     useEffect(()=> {
 
@@ -76,7 +82,7 @@ const Cradle = (props) => {
     },[orientation,runway])
 
     const itemobservercallback = useCallback((entries)=>{
-        // console.log('state, entries',state,entries)
+        console.log('state, entries',state,entries)
         if (state.current == 'setup') {
             // console.log('cradle setup itemcallback entries',state, entries)
             state.current = 'run'
@@ -84,7 +90,7 @@ const Cradle = (props) => {
             let dropentries = entries.filter(entry => (!entry.isIntersecting))
 
             if (dropentries.length) {
-                // console.log('dropentries',dropentries)
+                // console.log('itemobservercallback',dropentries)
                 saveDropentries(dropentries)
             }
         }
@@ -102,7 +108,7 @@ const Cradle = (props) => {
         // console.log('dropentries updated:dropentries, contentlist',dropentries,contentlist)
         let tailpos
         let headpos
-        let styles
+        let styles = {...divlinerstyleref.current}
         let scrollforward
         let localContentList
         if (orientation == 'vertical') {
@@ -112,7 +118,6 @@ const Cradle = (props) => {
             let offsetLeft = cradleElement.offsetLeft
             let offsetWidth = cradleElement.offsetWidth
             let parentWidth = parentElement.offsetWidth
-            styles = {...divlinerstyleref.current}
             if (scrollforward) {
 
                 tailpos = offsetLeft + offsetWidth
@@ -128,9 +133,10 @@ const Cradle = (props) => {
             }
         }
 
-        // console.log('dropentries headpos, tailpos, dropentries, contentlist',headpos,tailpos, dropentries, localContentList)
+        // console.log('dropentries styles',styles)
 
-        divlinerstyleref.current = styles
+        divlinerstyleref.current = {...styles}
+
         saveContentlist(localContentList)
         saveDropentries(null)
         saveAddentries({count:dropentries.length,scrollforward})
@@ -139,13 +145,14 @@ const Cradle = (props) => {
     // add scroll content
     useLayoutEffect(()=>{
         if (addentries === null) return
+        console.log('cradleElementRef in add scroll content',cradleElementRef)
         let cradleElement = cradleElementRef.current
         let parentElement = cradleElement.parentElement
         let viewportElement = viewportData.elementref.current
         // console.log('addentries updated:addentries, contentlist',addentries,contentlist)
         let tailpos
         let headpos
-        let styles
+        let styles = {...divlinerstyleref.current}
         let { scrollforward } = addentries
         let localContentList
         if (orientation == 'vertical') {
@@ -153,7 +160,6 @@ const Cradle = (props) => {
             let offsetLeft = cradleElement.offsetLeft
             let offsetWidth = cradleElement.offsetWidth
             let parentWidth = parentElement.offsetWidth
-            styles = {...divlinerstyleref.current}
             if (scrollforward) {
                 headpos = offsetLeft
                 styles.right = 'auto'
@@ -190,8 +196,9 @@ const Cradle = (props) => {
         }
 
         // console.log('addentries addentries, headpos, tailpos, contentlist',addentries, headpos, tailpos, localContentList)
+        // console.log('addentries styles',styles)
 
-        divlinerstyleref.current = styles
+        divlinerstyleref.current = {...styles}
         saveContentlist(localContentList)
         saveAddentries(null)
 
@@ -280,6 +287,7 @@ const Cradle = (props) => {
     },[orientation, viewportheight, viewportwidth, runway, cellHeight, cellWidth, padding, gap])
 
     let divlinerstyles = divlinerstyleref.current
+    // console.log('divlinerstyles',divlinerstyles)
 
     // no result if styles not set
     return divlinerstyles.width
