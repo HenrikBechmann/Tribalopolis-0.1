@@ -17,7 +17,7 @@ import ItemShell from './itemshell'
 const Cradle = (props) => {
 
     // console.log('running cradle',props)
-    const { gap, padding, runway, listsize, offset, orientation, cellHeight, cellWidth, getItem, placeholder } = props
+    const { gap, padding, runway, listsize, offset, orientation, cellHeight, cellWidth, getItem } = props
 
     const state = useRef('setup')
 
