@@ -60,13 +60,22 @@ const Cradle = (props) => {
 
     let [viewportheight,viewportwidth] = viewportDimensions
 
-    useEffect(()=>{
-        // console.log('setting state to setup')
-        state.current = 'setup'
-    },[orientation])
+    const crosscount = useMemo(() => {
+
+        let crosscount
+        let size = (orientation == 'horizontal')?viewportheight:viewportwidth
+        let crossLength = (orientation == 'horizontal')?cellHeight:cellWidth
+
+        let lengthforcalc = size - (padding * 2) + gap
+        crosscount = Math.floor(lengthforcalc/(crossLength + gap))
+
+        return crosscount
+
+    },[orientation, padding, gap, cellWidth, cellHeight, viewportheight, viewportwidth])
 
     useEffect(()=> {
 
+        state.current = 'setup'
         let rootMargin
         if (orientation == 'horizontal') {
             rootMargin = `0px ${runway}px 0px ${runway}px`
@@ -78,15 +87,14 @@ const Cradle = (props) => {
             itemobservercallback,
             {root:viewportData.elementref.current, rootMargin,} 
         )
+        saveContentlist([])
 
-    },[orientation,runway])
+    },[orientation])
 
     const itemobservercallback = useCallback((entries)=>{
         // console.log('state, entries',state,entries)
-        if (state.current == 'setup') {
+        if (state.current == 'run') {
             // console.log('cradle setup itemcallback entries',state, entries)
-            state.current = 'run'
-        } else {
             let dropentries = entries.filter(entry => (!entry.isIntersecting))
 
             if (dropentries.length) {
@@ -204,26 +212,37 @@ const Cradle = (props) => {
 
     },[addentries])
 
-    const crosscount = useMemo(() => {
-
-        let crosscount
-        let size = (orientation == 'horizontal')?viewportheight:viewportwidth
-        let crossLength = (orientation == 'horizontal')?cellHeight:cellWidth
-
-        let lengthforcalc = size - (padding * 2) + gap
-        crosscount = Math.floor(lengthforcalc/(crossLength + gap))
-
-        return crosscount
-
-    },[orientation, padding, gap, cellWidth, cellHeight, viewportheight, viewportwidth])
-
     // fired when the configuration parameters of the cradle change
+
+    const cradleStyles = useMemo(()=> {
+
+        return setCradleStyles(
+            orientation, 
+            divlinerstyleref, 
+            cellHeight, 
+            cellWidth, 
+            gap,
+            crosscount, 
+            viewportheight, 
+            viewportwidth)
+
+    },[
+        orientation,
+        cellHeight,
+        cellWidth,
+        gap,
+        padding,
+        viewportheight,
+        viewportwidth,
+        crosscount,
+      ])
+
+    divlinerstyleref.current = cradleStyles    
+
     useEffect(() => {
         // console.log('useEffect in cradle')
         // workaround to get FF to correctly size grid container for horizontal orientation
         // crosscount is ignored for vertical orientation
-
-        setCradleStyles(orientation, divlinerstyleref, cellHeight, cellWidth, crosscount, viewportheight, viewportwidth)
         setCradleContent()
 
     },[
@@ -302,7 +321,7 @@ const Cradle = (props) => {
 } // Cradle
 
 
-const setCradleStyles = (orientation, stylesobject, cellHeight, cellWidth, crosscount,viewportheight, viewportwidth) => {
+const setCradleStyles = (orientation, stylesobject, cellHeight, cellWidth, gap, crosscount, viewportheight, viewportwidth) => {
 
         let styles = Object.assign({},stylesobject.current) as React.CSSProperties
         if (orientation == 'horizontal') {
@@ -325,7 +344,7 @@ const setCradleStyles = (orientation, stylesobject, cellHeight, cellWidth, cross
             styles.minHeight = viewportheight + 'px'
         }
 
-        stylesobject.current = styles
+        return styles
 }
 
 // adds itemshells at start of end of contentlist according to headindexcount and tailindescount,
