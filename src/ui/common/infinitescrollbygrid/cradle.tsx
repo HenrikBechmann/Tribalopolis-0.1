@@ -11,6 +11,7 @@ import ItemShell from './itemshell'
 
 /*
     TODO: check re-usability for set cradle content
+    memoize output to minimize render
 */
 
 const Cradle = (props) => {
