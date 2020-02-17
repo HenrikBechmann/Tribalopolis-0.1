@@ -46,7 +46,6 @@ const Cradle = (props) => {
     const cradleElementRef = useRef(null)
     // console.log('cradleElementRef',cradleElementRef)
 
-    //TODO: viewportData.viewportRect changes more often than needed here (with change of orientation).
     const viewportDimensions = useMemo(()=>{
 
         // console.log('calculate viewport dimensions',viewportData)
@@ -61,7 +60,7 @@ const Cradle = (props) => {
 
     let [viewportheight,viewportwidth] = viewportDimensions
 
-    useLayoutEffect(()=>{
+    useEffect(()=>{
         // console.log('setting state to setup')
         state.current = 'setup'
     },[orientation])
@@ -98,7 +97,7 @@ const Cradle = (props) => {
     },[])
 
     // drop scroll content
-    useLayoutEffect(()=>{
+    useEffect(()=>{
         if (dropentries === null) return
 
         let sampleEntry = dropentries[0]
@@ -144,7 +143,7 @@ const Cradle = (props) => {
     },[dropentries])
 
     // add scroll content
-    useLayoutEffect(()=>{
+    useEffect(()=>{
         if (addentries === null) return
         // console.log('cradleElementRef in add scroll content',cradleElementRef)
         let cradleElement = cradleElementRef.current
