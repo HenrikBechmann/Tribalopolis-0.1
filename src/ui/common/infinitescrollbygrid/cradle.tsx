@@ -44,7 +44,7 @@ const Cradle = (props) => {
     } as React.CSSProperties)
 
     const cradleElementRef = useRef(null)
-    console.log('cradleElementRef',cradleElementRef)
+    // console.log('cradleElementRef',cradleElementRef)
 
     //TODO: viewportData.viewportRect changes more often than needed here (with change of orientation).
     const viewportDimensions = useMemo(()=>{
@@ -62,7 +62,7 @@ const Cradle = (props) => {
     let [viewportheight,viewportwidth] = viewportDimensions
 
     useLayoutEffect(()=>{
-        console.log('setting state to setup')
+        // console.log('setting state to setup')
         state.current = 'setup'
     },[orientation])
 
@@ -83,7 +83,7 @@ const Cradle = (props) => {
     },[orientation,runway])
 
     const itemobservercallback = useCallback((entries)=>{
-        console.log('state, entries',state,entries)
+        // console.log('state, entries',state,entries)
         if (state.current == 'setup') {
             // console.log('cradle setup itemcallback entries',state, entries)
             state.current = 'run'
@@ -146,7 +146,7 @@ const Cradle = (props) => {
     // add scroll content
     useLayoutEffect(()=>{
         if (addentries === null) return
-        console.log('cradleElementRef in add scroll content',cradleElementRef)
+        // console.log('cradleElementRef in add scroll content',cradleElementRef)
         let cradleElement = cradleElementRef.current
         let parentElement = cradleElement.parentElement
         let viewportElement = viewportData.elementref.current
