@@ -16,6 +16,8 @@ import ItemShell from './itemshell'
     - review state flow and structure
     - use divlinerstylerevisionsRef for observer events to notify useMemo for divlinerstylesRef
         to avoid unnecessary calls of useMemo
+    - edge case: scrolling left from parially filled column would only generate partial replacement
+        needs to be adjusted for crosscount
 
     TODO: check re-usability for set cradle content
     memoize output to minimize render
