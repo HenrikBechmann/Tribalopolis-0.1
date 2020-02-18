@@ -14,9 +14,9 @@ import ItemShell from './itemshell'
 
     - review state flow and structure
     - correct infinite loop in horizontal view arising from resize
-    - static switch from horizontal to vertical
+    - focus on static switch from horizontal to vertical
     - dynamic switch of orientation
-    - limit rendering to 0 and above and below listsize
+    - limit rendering to 0 and above, and below listsize
     - edge case: scrolling left from parially filled column would only generate partial replacement
         needs to be adjusted for crosscount
     - vertical scrolling
