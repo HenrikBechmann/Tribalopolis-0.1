@@ -14,8 +14,6 @@ import ItemShell from './itemshell'
     - correct infinite loop in horizontal view arising from resize
     - static switch from horizontal to vertical
     - limit rendering to 0 and above and below listsize
-    - use divlinerStyleRevisionsRef for observer events to notify useMemo for divlinerStylesRef
-        to avoid unnecessary calls of useMemo
     - edge case: scrolling left from parially filled column would only generate partial replacement
         needs to be adjusted for crosscount
     - vertical scrolling
