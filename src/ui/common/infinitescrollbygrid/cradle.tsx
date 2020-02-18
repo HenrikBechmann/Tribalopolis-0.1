@@ -10,17 +10,18 @@ import { ViewportContext } from './viewport'
 import ItemShell from './itemshell'
 
 /*
-    - observer should try to add crosscount of runway records, rather than the number being deleted
-    - observer should be restrained regrding number of additions by the listsize parameter (but zero based)
+    - observer should be restrained regarding number of contentlist additions by the listsize parameter (but zero based)
 
     - review state flow and structure
     - correct infinite loop in horizontal view arising from resize
     - static switch from horizontal to vertical
+    - dynamic switch of orientation
     - limit rendering to 0 and above and below listsize
     - edge case: scrolling left from parially filled column would only generate partial replacement
         needs to be adjusted for crosscount
     - vertical scrolling
     - memoize output to minimize render
+    - integrate contentOffsetForActionRef in all contentlist creation
 */
 
 
@@ -33,7 +34,7 @@ const Cradle = (props) => {
 
     const [processingstate, saveProcessingstate] = useState('setup')
     const processingstateRef = useRef(null) // for observer call closure
-    processingstateRef.current = processingstate
+    processingstateRef.current = processingstate // most recent value
     console.log('---------------------------')
     console.log('CALLING CRADLE with state',processingstate)
 
@@ -61,7 +62,7 @@ const Cradle = (props) => {
 
     const divlinerStyleRevisionsRef = useRef(null) // for modifications by observer actions
 
-    const contentOffsetForActionRef = useRef(offset)
+    const contentOffsetForActionRef = useRef(offset || 0) // used for contentList creation; used for orientation change, and resize
 
     const cradleElementRef = useRef(null)
     // console.log('cradleElementRef',cradleElementRef)
@@ -181,6 +182,9 @@ const Cradle = (props) => {
     },[orientation])
 
     // -------------------------[ IntersectionObserver support]-------------------------
+
+    // "head" is right for scrollforward; left for not scrollforward (scroll backward)
+    // "tail" is left for scrollforward; right for not scrollforward (scroll backward)
 
     const itemobservercallback = useCallback((entries)=>{
         // iterationsRef.current++
