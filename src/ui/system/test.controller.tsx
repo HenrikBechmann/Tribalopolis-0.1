@@ -46,11 +46,11 @@ const Home = (props) => {
             }>
                 <InfiniteScroller 
                     orientation = { orientation } 
-                    gap = {5}
-                    padding = {5}
-                    cellHeight = {200}
-                    cellWidth = {150}
-                    runway = {600}
+                    gap = {2}
+                    padding = {2}
+                    cellHeight = {50}
+                    cellWidth = {50}
+                    runway = {200}
                     offset = {0}
                     listsize = {1000}
                 />
