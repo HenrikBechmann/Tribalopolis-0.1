@@ -14,6 +14,8 @@ import ItemShell from './itemshell'
     - static switch from horizontal to vertical
     - limit rendering to above 0 and below listsize +1
     - review state flow and structure
+    - use divlinerstylerevisionsRef for observer events to notify useMemo for divlinerstylesRef
+        to avoid unnecessary calls of useMemo
 
     TODO: check re-usability for set cradle content
     memoize output to minimize render
