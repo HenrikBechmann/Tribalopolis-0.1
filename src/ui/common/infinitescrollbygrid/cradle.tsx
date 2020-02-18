@@ -10,6 +10,7 @@ import { ViewportContext } from './viewport'
 import ItemShell from './itemshell'
 
 /*
+    - correct infinite loop in horizontal view arising from resize
     - static switch from horizontal to vertical
     - limit rendering to above 0 and below listsize +1
     - review state flow and structure
