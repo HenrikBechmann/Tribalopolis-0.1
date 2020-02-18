@@ -10,6 +10,10 @@ import { ViewportContext } from './viewport'
 import ItemShell from './itemshell'
 
 /*
+    - static switch from horizontal to vertical
+    - limit rendering to above 0 and below listsize +1
+    - review state flow and structure
+
     TODO: check re-usability for set cradle content
     memoize output to minimize render
     organize this module as a state machine
@@ -21,7 +25,7 @@ const Cradle = (props) => {
     // console.log('running cradle',props)
     const { gap, padding, runway, listsize, offset, orientation, cellHeight, cellWidth, getItem } = props
 
-    const iterationsRef = useRef(0)
+    // const iterationsRef = useRef(0)
 
     const [processingstate, saveProcessingstate] = useState('setup')
     const processingstateRef = useRef(null) // for observer call closure
