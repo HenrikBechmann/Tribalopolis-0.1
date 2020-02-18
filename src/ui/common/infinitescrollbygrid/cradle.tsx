@@ -10,6 +10,9 @@ import { ViewportContext } from './viewport'
 import ItemShell from './itemshell'
 
 /*
+    - observer should try to add crosscount of runway records, rather than the number being deleted
+    - observer should be restrained regrding number of additions by the listsize parameter (but zero based)
+    
     - review state flow and structure
     - correct infinite loop in horizontal view arising from resize
     - static switch from horizontal to vertical
