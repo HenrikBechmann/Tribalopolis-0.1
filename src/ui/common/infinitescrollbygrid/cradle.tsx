@@ -26,6 +26,10 @@ import ItemShell from './itemshell'
         columns to the right of where it should be, leaving some blank cradle visible at home position
         - needs to be avoided
         - needs to be self healing
+        - check if shutdown happens before current process is run
+    - install try/catch wherever dismount may be an interrupt; add defensive code, and new mode
+    THEORY: race condition devlops when next delete item occurs from observer, before the previous process
+    has had a chance to finish the add process. Enqueue?
 */
 
 
@@ -265,6 +269,7 @@ const Cradle = (props) => {
     // add scroll content
     useEffect(()=>{
         if (addentries === null) return
+    try {
         console.log('processing addentries',addentries)
         // console.log('cradleElementRef in add scroll content',cradleElementRef)
         let cradleElement = cradleElementRef.current
@@ -323,6 +328,9 @@ const Cradle = (props) => {
         divlinerStyleRevisionsRef.current = styles
         saveContentlist(localContentList)
         saveAddentries(null)
+    } catch(e) {
+        console.log('interrupting dismount error (add scroll content)',e.message)
+    }
 
     },[addentries])
 
