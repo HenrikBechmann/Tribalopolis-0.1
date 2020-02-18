@@ -12,6 +12,7 @@ import ItemShell from './itemshell'
 /*
     TODO: check re-usability for set cradle content
     memoize output to minimize render
+    organize this module as a state machine
 */
 
 const Cradle = (props) => {
@@ -19,7 +20,7 @@ const Cradle = (props) => {
     // console.log('running cradle',props)
     const { gap, padding, runway, listsize, offset, orientation, cellHeight, cellWidth, getItem } = props
 
-    const state = useRef('setup')
+    const processingstate = useRef('setup')
 
     const viewportData = useContext(ViewportContext)
 
@@ -71,11 +72,50 @@ const Cradle = (props) => {
 
         return crosscount
 
-    },[orientation, padding, gap, cellWidth, cellHeight, viewportheight, viewportwidth])
+    },[
+        orientation, 
+        cellWidth, 
+        cellHeight, 
+        gap, 
+        padding, 
+        viewportheight, 
+        viewportwidth,
+    ])
 
+    const cradleStyles = useMemo(()=> {
+
+        // console.log('setting cradle styles')
+        return setCradleStyles(
+            orientation, 
+            divlinerstyleref, 
+            cellHeight, 
+            cellWidth, 
+            gap,
+            crosscount, 
+            viewportheight, 
+            viewportwidth)
+
+    },[
+        orientation,
+        cellHeight,
+        cellWidth,
+        gap,
+        padding,
+        viewportheight,
+        viewportwidth,
+        crosscount,
+      ])
+
+    divlinerstyleref.current = cradleStyles  
+
+    // useEffect(()=> {
+        // states = setup, reset, update, scroll (was run)
+    // },[processingstate])  
+
+    // respond to change in orientation
     useEffect(()=> {
 
-        state.current = 'setup'
+        processingstate.current = 'setup'
         let rootMargin
         if (orientation == 'horizontal') {
             rootMargin = `0px ${runway}px 0px ${runway}px`
@@ -91,15 +131,19 @@ const Cradle = (props) => {
 
     },[orientation])
 
+    // -------------------------[ IntersectionObserver support]-------------------------
+
     const itemobservercallback = useCallback((entries)=>{
-        // console.log('state, entries',state,entries)
-        if (state.current == 'run') {
-            // console.log('cradle setup itemcallback entries',state, entries)
+        // console.log('itemobservercallback state, entries',state,entries)
+        // let dropentries = entries.filter(entry => (!entry.isIntersecting))
+        if (processingstate.current == 'run') { // first pass is after setBaseContent, no action required
             let dropentries = entries.filter(entry => (!entry.isIntersecting))
+            // console.log('cradle itemcallback, state, dropentries.length',processingstate, dropentries.length)
 
             if (dropentries.length) {
                 // console.log('itemobservercallback',dropentries)
                 saveDropentries(dropentries)
+
             }
         }
     },[])
@@ -212,40 +256,17 @@ const Cradle = (props) => {
 
     },[addentries])
 
-    // fired when the configuration parameters of the cradle change
-
-    const cradleStyles = useMemo(()=> {
-
-        return setCradleStyles(
-            orientation, 
-            divlinerstyleref, 
-            cellHeight, 
-            cellWidth, 
-            gap,
-            crosscount, 
-            viewportheight, 
-            viewportwidth)
-
-    },[
-        orientation,
-        cellHeight,
-        cellWidth,
-        gap,
-        padding,
-        viewportheight,
-        viewportwidth,
-        crosscount,
-      ])
-
-    divlinerstyleref.current = cradleStyles    
+    // -------------------------[ End of IntersectionObserver support]-------------------------
 
     useEffect(() => {
-        // console.log('useEffect in cradle')
+        // console.log('processingstate for setup',processingstate)
+        if (processingstate.current != 'setup') return
         // workaround to get FF to correctly size grid container for horizontal orientation
         // crosscount is ignored for vertical orientation
         setCradleContent()
 
     },[
+        // state.current
         orientation,
         cellHeight,
         cellWidth,
@@ -261,33 +282,53 @@ const Cradle = (props) => {
 
         let localContentList = [] // any existing items will be re-used by react
 
-        let {indexoffset, headindexcount, tailindexcount} = evaluateContentList()
+        let {indexoffset, headindexcount, tailindexcount} = 
+            evaluateContentList(
+                cellHeight, 
+                cellWidth, 
+                orientation, 
+                viewportheight, 
+                viewportwidth, 
+                runway, 
+                gap,
+                padding, 
+            )
 
         let childlistfragment = getContentList({
             orientation,
+            cellHeight,
+            cellWidth,
+
+            localContentList,
+            observer:itemobserver.current,
             indexoffset,
             headindexcount,
             tailindexcount,
-            cellHeight,
-            cellWidth,
-            localContentList,
-            observer:itemobserver.current
         })
         saveContentlist(childlistfragment)
 
     },[
+        cellHeight,
+        cellWidth,
         orientation,
         viewportheight,
         viewportwidth,
         runway,
-        cellHeight,
-        cellWidth,
         gap,
         padding,
       ]
     )
 
-    const evaluateContentList = useCallback(() => {
+    const evaluateContentList = useCallback((
+            cellHeight, 
+            cellWidth, 
+            orientation, 
+            viewportheight, 
+            viewportwidth, 
+            runway, 
+            gap,
+            padding, 
+        ) => {
         let indexoffset = 0, headindexcount = 0, tailindexcount = 0
         let cradlelength, cellLength
         if (orientation == 'vertical') {
@@ -303,7 +344,18 @@ const Cradle = (props) => {
         tailindexcount = contentCount
 
         return {indexoffset, headindexcount, tailindexcount}
-    },[orientation, viewportheight, viewportwidth, runway, cellHeight, cellWidth, padding, gap])
+    },[
+        orientation, 
+        viewportheight, 
+        viewportwidth, 
+        runway, 
+        cellHeight, 
+        cellWidth, 
+        padding, 
+        gap,
+    ])
+
+    // render...
 
     let divlinerstyles = divlinerstyleref.current
     // console.log('divlinerstyles',divlinerstyles)
