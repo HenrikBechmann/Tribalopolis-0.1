@@ -10,18 +10,16 @@ import { ViewportContext } from './viewport'
 import ItemShell from './itemshell'
 
 /*
+    - review state flow and structure
     - correct infinite loop in horizontal view arising from resize
     - static switch from horizontal to vertical
-    - limit rendering to above 0 and below listsize +1
-    - review state flow and structure
+    - limit rendering to 0 and above and below listsize
     - use divlinerstylerevisionsRef for observer events to notify useMemo for divlinerstylesRef
         to avoid unnecessary calls of useMemo
     - edge case: scrolling left from parially filled column would only generate partial replacement
         needs to be adjusted for crosscount
-
-    TODO: check re-usability for set cradle content
-    memoize output to minimize render
-    organize this module as a state machine
+    - vertical scrolling
+    - memoize output to minimize render
 */
 
 
