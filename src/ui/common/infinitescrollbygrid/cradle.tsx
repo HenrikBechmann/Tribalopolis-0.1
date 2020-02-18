@@ -14,7 +14,7 @@ import ItemShell from './itemshell'
     - correct infinite loop in horizontal view arising from resize
     - static switch from horizontal to vertical
     - limit rendering to 0 and above and below listsize
-    - use divlinerstylerevisionsRef for observer events to notify useMemo for divlinerstylesRef
+    - use divlinerStyleRevisionsRef for observer events to notify useMemo for divlinerStylesRef
         to avoid unnecessary calls of useMemo
     - edge case: scrolling left from parially filled column would only generate partial replacement
         needs to be adjusted for crosscount
@@ -46,7 +46,7 @@ const Cradle = (props) => {
 
     const [addentries, saveAddentries] = useState(null)
 
-    const divlinerstylesRef = useRef({
+    const divlinerStylesRef = useRef({
         position: 'absolute',
         backgroundColor: 'blue',
         display: 'grid',
@@ -57,6 +57,10 @@ const Cradle = (props) => {
         boxSizing:'border-box',
 
     } as React.CSSProperties)
+
+    const divlinerStyleRevisionsRef = useRef(null) // for modifications by observer actions
+
+    const contentOffsetForActionRef = useRef(offset)
 
     const cradleElementRef = useRef(null)
     // console.log('cradleElementRef',cradleElementRef)
@@ -96,11 +100,12 @@ const Cradle = (props) => {
         viewportwidth,
     ])
 
-    divlinerstylesRef.current = useMemo(()=> {
+    divlinerStylesRef.current = useMemo(()=> {
 
+        let divlinerStyles:React.CSSProperties = Object.assign({...divlinerStylesRef.current},divlinerStyleRevisionsRef.current)
         let styles = setCradleStyles(
             orientation, 
-            divlinerstylesRef, 
+            divlinerStyles, 
             cellHeight, 
             cellWidth, 
             gap,
@@ -120,7 +125,7 @@ const Cradle = (props) => {
         viewportheight,
         viewportwidth,
         crosscount,
-        divlinerstylesRef.current
+        divlinerStyleRevisionsRef.current
       ])
 
     // processing states = setup, reset, update, scroll (was run)
@@ -212,7 +217,7 @@ const Cradle = (props) => {
         // console.log('dropentries updated:dropentries, contentlist',dropentries,contentlist)
         let tailpos
         let headpos
-        let styles = {...divlinerstylesRef.current}
+        let styles = {} as React.CSSProperties // {...divlinerStylesRef.current}
         let scrollforward
         let localContentList
         if (orientation == 'vertical') {
@@ -239,7 +244,7 @@ const Cradle = (props) => {
 
         console.log('dropentries styles',{...styles}, localContentList, scrollforward)
 
-        divlinerstylesRef.current = styles
+        divlinerStyleRevisionsRef.current = styles
 
         saveContentlist(localContentList) // delete entries
         saveDropentries(null)
@@ -257,7 +262,8 @@ const Cradle = (props) => {
         // console.log('addentries updated:addentries, contentlist',addentries,contentlist)
         let tailpos
         let headpos
-        let styles = {...divlinerstylesRef.current}
+        let styles = {} as React.CSSProperties
+        // let styles = {...divlinerStylesRef.current}
         let { scrollforward } = addentries
         let localContentList
         if (orientation == 'vertical') {
@@ -303,7 +309,7 @@ const Cradle = (props) => {
         // console.log('addentries addentries, headpos, tailpos, contentlist',addentries, headpos, tailpos, localContentList)
         console.log('addentries headpos, styles, localContentList',headpos,{...styles}, localContentList)
 
-        divlinerstylesRef.current = styles
+        divlinerStyleRevisionsRef.current = styles
         saveContentlist(localContentList)
         saveAddentries(null)
 
@@ -410,7 +416,7 @@ const Cradle = (props) => {
 
     // render...
 
-    let divlinerstyles = divlinerstylesRef.current
+    let divlinerstyles = divlinerStylesRef.current
     console.log('divlinerstyles for render return',{...divlinerstyles})
 
     // no result if styles not set
@@ -428,7 +434,7 @@ const Cradle = (props) => {
 
 const setCradleStyles = (orientation, stylesobject, cellHeight, cellWidth, gap, crosscount, viewportheight, viewportwidth) => {
 
-        let styles = Object.assign({},stylesobject.current) as React.CSSProperties
+        let styles = Object.assign({},stylesobject) as React.CSSProperties
         if (orientation == 'horizontal') {
             styles.width = 'auto'
             styles.height = '100%'
