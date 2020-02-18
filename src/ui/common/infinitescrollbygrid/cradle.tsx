@@ -12,7 +12,7 @@ import ItemShell from './itemshell'
 /*
     - observer should try to add crosscount of runway records, rather than the number being deleted
     - observer should be restrained regrding number of additions by the listsize parameter (but zero based)
-    
+
     - review state flow and structure
     - correct infinite loop in horizontal view arising from resize
     - static switch from horizontal to vertical
@@ -100,6 +100,8 @@ const Cradle = (props) => {
         viewportheight, 
         viewportwidth,
     ])
+
+    const crosscountRef = useRef(crosscount) // for easy reference by observer
 
     divlinerStylesRef.current = useMemo(()=> {
 
@@ -249,7 +251,7 @@ const Cradle = (props) => {
 
         saveContentlist(localContentList) // delete entries
         saveDropentries(null)
-        saveAddentries({count:dropentries.length,scrollforward})
+        saveAddentries({count:crosscountRef.current,scrollforward})
     },[dropentries])
 
     // add scroll content
