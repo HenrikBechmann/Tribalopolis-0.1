@@ -15,12 +15,19 @@ import ItemShell from './itemshell'
     organize this module as a state machine
 */
 
+
 const Cradle = (props) => {
 
     // console.log('running cradle',props)
     const { gap, padding, runway, listsize, offset, orientation, cellHeight, cellWidth, getItem } = props
 
-    const processingstate = useRef('setup')
+    const iterationsRef = useRef(0)
+
+    const [processingstate, saveProcessingstate] = useState('setup')
+    const processingstateRef = useRef(null) // for observer call closure
+    processingstateRef.current = processingstate
+    console.log('---------------------------')
+    console.log('CALLING CRADLE with state',processingstate)
 
     const viewportData = useContext(ViewportContext)
 
@@ -32,7 +39,7 @@ const Cradle = (props) => {
 
     const [addentries, saveAddentries] = useState(null)
 
-    const divlinerstyleref = useRef({
+    const divlinerstylesRef = useRef({
         position: 'absolute',
         backgroundColor: 'blue',
         display: 'grid',
@@ -82,12 +89,11 @@ const Cradle = (props) => {
         viewportwidth,
     ])
 
-    const cradleStyles = useMemo(()=> {
+    divlinerstylesRef.current = useMemo(()=> {
 
-        // console.log('setting cradle styles')
-        return setCradleStyles(
+        let styles = setCradleStyles(
             orientation, 
-            divlinerstyleref, 
+            divlinerstylesRef, 
             cellHeight, 
             cellWidth, 
             gap,
@@ -95,6 +101,9 @@ const Cradle = (props) => {
             viewportheight, 
             viewportwidth)
 
+        console.log('setting cradle styles',{...styles})
+
+        return styles //setDivlinerstyles(styles)
     },[
         orientation,
         cellHeight,
@@ -104,18 +113,39 @@ const Cradle = (props) => {
         viewportheight,
         viewportwidth,
         crosscount,
+        divlinerstylesRef.current
       ])
 
-    divlinerstyleref.current = cradleStyles  
-
-    // useEffect(()=> {
-        // states = setup, reset, update, scroll (was run)
-    // },[processingstate])  
+    // processing states = setup, reset, update, scroll (was run)
+    useEffect(()=> {
+        console.log('state transformation from',processingstate)
+        switch (processingstate) {
+            case 'reset':
+                console.log('setting processingstate from reset to setup',)
+                saveProcessingstate('setup')
+                break
+            case 'setup': 
+                console.log('setting processingstate from setup to initobserver',)
+                saveProcessingstate('initobserver')
+                break
+            // case 'initobserver': 
+            //     console.log('setting processingstate from setup to initobserver',)
+            //     saveProcessingstate('scroll')
+            //     break
+            case 'update':
+                console.log('setting processingstate from update to scroll',)
+                saveProcessingstate('scroll')
+                break
+            case 'scroll':
+                // do nothing
+                break
+        }
+    },[processingstate])  
 
     // respond to change in orientation
     useEffect(()=> {
 
-        processingstate.current = 'setup'
+        console.log('initializing system with processingstate',processingstate)
         let rootMargin
         if (orientation == 'horizontal') {
             rootMargin = `0px ${runway}px 0px ${runway}px`
@@ -128,17 +158,27 @@ const Cradle = (props) => {
             {root:viewportData.elementref.current, rootMargin,} 
         )
         saveContentlist([])
+        if (processingstate != 'setup') {
+            console.log('setting processingstate from setup to reset',)            
+            saveProcessingstate('reset')
+        }
 
     },[orientation])
 
     // -------------------------[ IntersectionObserver support]-------------------------
 
     const itemobservercallback = useCallback((entries)=>{
-        // console.log('itemobservercallback state, entries',state,entries)
+        // iterationsRef.current++
+        // if (iterationsRef.current >= 10) {
+        //     console.log('------------------')
+        //     console.log('observer iterations have reached 10')
+        //     return
+        // }
+        console.log('itemobservercallback state, entries',processingstateRef.current)
         // let dropentries = entries.filter(entry => (!entry.isIntersecting))
-        if (processingstate.current == 'run') { // first pass is after setBaseContent, no action required
+        if (processingstateRef.current == 'scroll') { // first pass is after setBaseContent, no action required
             let dropentries = entries.filter(entry => (!entry.isIntersecting))
-            // console.log('cradle itemcallback, state, dropentries.length',processingstate, dropentries.length)
+            console.log('processing scroll items to drop', dropentries.length)
 
             if (dropentries.length) {
                 // console.log('itemobservercallback',dropentries)
@@ -146,12 +186,17 @@ const Cradle = (props) => {
 
             }
         }
+        if (processingstateRef.current == 'initobserver') {
+            console.log('setting processingstate from initobserver to scroll',)            
+            saveProcessingstate('scroll')
+        }
     },[])
 
     // drop scroll content
     useEffect(()=>{
         if (dropentries === null) return
 
+        console.log('processing dropentries',dropentries)
         let sampleEntry = dropentries[0]
 
         let cradleElement = cradleElementRef.current
@@ -160,7 +205,7 @@ const Cradle = (props) => {
         // console.log('dropentries updated:dropentries, contentlist',dropentries,contentlist)
         let tailpos
         let headpos
-        let styles = {...divlinerstyleref.current}
+        let styles = {...divlinerstylesRef.current}
         let scrollforward
         let localContentList
         if (orientation == 'vertical') {
@@ -185,11 +230,11 @@ const Cradle = (props) => {
             }
         }
 
-        // console.log('dropentries styles',styles)
+        console.log('dropentries styles',{...styles}, localContentList, scrollforward)
 
-        divlinerstyleref.current = {...styles}
+        divlinerstylesRef.current = styles
 
-        saveContentlist(localContentList)
+        saveContentlist(localContentList) // delete entries
         saveDropentries(null)
         saveAddentries({count:dropentries.length,scrollforward})
     },[dropentries])
@@ -197,6 +242,7 @@ const Cradle = (props) => {
     // add scroll content
     useEffect(()=>{
         if (addentries === null) return
+        console.log('processing addentries',addentries)
         // console.log('cradleElementRef in add scroll content',cradleElementRef)
         let cradleElement = cradleElementRef.current
         let parentElement = cradleElement.parentElement
@@ -204,7 +250,7 @@ const Cradle = (props) => {
         // console.log('addentries updated:addentries, contentlist',addentries,contentlist)
         let tailpos
         let headpos
-        let styles = {...divlinerstyleref.current}
+        let styles = {...divlinerstylesRef.current}
         let { scrollforward } = addentries
         let localContentList
         if (orientation == 'vertical') {
@@ -248,9 +294,9 @@ const Cradle = (props) => {
         }
 
         // console.log('addentries addentries, headpos, tailpos, contentlist',addentries, headpos, tailpos, localContentList)
-        // console.log('addentries styles',styles)
+        console.log('addentries headpos, styles, localContentList',headpos,{...styles}, localContentList)
 
-        divlinerstyleref.current = {...styles}
+        divlinerstylesRef.current = styles
         saveContentlist(localContentList)
         saveAddentries(null)
 
@@ -259,8 +305,8 @@ const Cradle = (props) => {
     // -------------------------[ End of IntersectionObserver support]-------------------------
 
     useEffect(() => {
-        // console.log('processingstate for setup',processingstate)
-        if (processingstate.current != 'setup') return
+        console.log('processingstate for setup setcradlecontent',processingstate)
+        if (processingstate != 'setup') return
         // workaround to get FF to correctly size grid container for horizontal orientation
         // crosscount is ignored for vertical orientation
         setCradleContent()
@@ -357,8 +403,8 @@ const Cradle = (props) => {
 
     // render...
 
-    let divlinerstyles = divlinerstyleref.current
-    // console.log('divlinerstyles',divlinerstyles)
+    let divlinerstyles = divlinerstylesRef.current
+    console.log('divlinerstyles for render return',{...divlinerstyles})
 
     // no result if styles not set
     return divlinerstyles.width
