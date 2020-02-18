@@ -22,6 +22,10 @@ import ItemShell from './itemshell'
     - vertical scrolling
     - memoize output to minimize render
     - integrate contentOffsetForActionRef in all contentlist creation
+    - BUG: in some circumstance (possibly rapid scrolling), the root right position of cradle is set three
+        columns to the right of where it should be, leaving some blank cradle visible at home position
+        - needs to be avoided
+        - needs to be self healing
 */
 
 
