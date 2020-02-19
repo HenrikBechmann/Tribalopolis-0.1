@@ -10,26 +10,31 @@ import { ViewportContext } from './viewport'
 import ItemShell from './itemshell'
 
 /*
-    - implement vertical logic
-    - correct infinite loop in horizontal view arising from resize
+    - name states 'pivot' (change orientation) and 'resize'
+
+    - correct infinite loop/issues arising from resize
+
     - focus on static switch from horizontal to vertical
     - dynamic switch of orientation
-    - vertical scrolling
+
     - memoize render output to minimize render
     - integrate contentOffsetForActionRef in all contentlist creation
     - fix reference to contentList[0].props by setting external reference (contentOffsetForActionRef)
     - review use of {...styles} copy styles to new objects, in terms of trigger consequences
     - don't double right runway when at start position
-    - implement getItem
+    - deal with thumbscroll
+
     - implement cellSizing scroller parameter: fixed, variable
-    - be careful to reconcile scrollblock and cradle at each end of scrollblock
+
+    - implement getItem
     - add examples 1, 2, 3 to control page: 
         - small 100x100 images, scroll and rotate
         - vertical scroll items inside horizontal scroll, with ability to flip them
         - variable height items
-    - name states 'pivot' (change orientation) and 'resize'
+
     - scrollToItem(index[,alignment]) - alignment = start, end, center, auto (default)
-    - deal with thumbscroll
+
+    - be careful to reconcile scrollblock and cradle at each end of scrollblock
 */
 
 
@@ -245,18 +250,42 @@ const Cradle = (props) => {
         }
 
         // set localContentList
+        let pendingcontentoffset
+        let newcontentcount = Math.ceil(dropentries.length/crosscountRef.current)*crosscountRef.current
         let headindexcount, tailindexcount
         if (scrollforward) {
+            pendingcontentoffset = contentlist[0].props.index + dropentries.length
+            let proposedtailoffset = pendingcontentoffset + newcontentcount + ((contentlist.length - dropentries.length ) - 1)
+
+            if ((proposedtailoffset) > (listsize -1) ) {
+                // console.log('calculated newcontentcount',newcontentcount)
+                newcontentcount -= (proposedtailoffset - (listsize -1))
+                // console.log('dropitem: dropentries.length, contentlist.length, pendingcontentoffset,newcontentcount,proposedtailoffset,listsize',dropentries.length, contentlist.length, pendingcontentoffset,newcontentcount, proposedtailoffset, listsize)
+                if (newcontentcount <=0) { // should never below 0 -- TODO: verify and create error if fails
+                    return // ugly
+                }
+            }
 
             headindexcount = -dropentries.length
             tailindexcount = 0
 
         } else {
 
+            pendingcontentoffset = contentlist[0].props.index
+            let proposedindexoffset = pendingcontentoffset - newcontentcount
+            if (proposedindexoffset < 0) {
+                proposedindexoffset = -proposedindexoffset
+                newcontentcount = newcontentcount - proposedindexoffset
+                if (newcontentcount <= 0) {
+                    return // ugly
+                }
+            }
+
             headindexcount = 0
             tailindexcount = -dropentries.length
 
         }
+
         localContentList = getContentList(
             {
 
@@ -318,7 +347,7 @@ const Cradle = (props) => {
 
         saveContentlist(localContentList) // delete entries
         saveDropentries(null)
-        saveAddentries({count:Math.ceil(dropentries.length/crosscountRef.current)*crosscountRef.current,scrollforward})
+        saveAddentries({count:newcontentcount,scrollforward,contentoffset:pendingcontentoffset})
         console.log('end of drop entries')
 
     },[dropentries])
@@ -341,37 +370,36 @@ const Cradle = (props) => {
 
         // set localContentList
 
-        let contentoffset = contentlist[0].props.index // TODO find laternate local source for this
-        let newcontentcount = addentries.count
+        let { contentoffset, count:newcontentcount } = addentries
 
         // set localContentList
         let headindexcount, tailindexcount
         if (scrollforward) {
 
-            // calculate count here
-            let proposedindexoffset = contentoffset + newcontentcount + contentlist.length
+            // // calculate count here
+            // let proposedindexoffset = contentoffset + newcontentcount + contentlist.length
 
-            if ((proposedindexoffset) >= (listsize) ) {
-                newcontentcount -= (proposedindexoffset - (listsize))
-                // console.log('additem:contentoffset,newcontentcount,proposedindexoffset,listsize',contentoffset,newcontentcount,proposedindexoffset, listsize)
-                if (newcontentcount <=0) { // should never below 0 -- TODO: verify and create error if fails
-                    return // ugly
-                }
-            }
+            // if ((proposedindexoffset) >= (listsize) ) {
+            //     newcontentcount -= (proposedindexoffset - (listsize))
+            //     // console.log('additem:contentoffset,newcontentcount,proposedindexoffset,listsize',contentoffset,newcontentcount,proposedindexoffset, listsize)
+            //     if (newcontentcount <=0) { // should never below 0 -- TODO: verify and create error if fails
+            //         return // ugly
+            //     }
+            // }
 
             headindexcount = 0,
             tailindexcount =  newcontentcount
 
         } else {
 
-            let proposedindexoffset = contentoffset - newcontentcount
-            if (proposedindexoffset < 0) {
-                proposedindexoffset = -proposedindexoffset
-                newcontentcount = newcontentcount - proposedindexoffset
-                if (newcontentcount <= 0) {
-                    return // ugly
-                }
-            }
+            // let proposedindexoffset = contentoffset - newcontentcount
+            // if (proposedindexoffset < 0) {
+            //     proposedindexoffset = -proposedindexoffset
+            //     newcontentcount = newcontentcount - proposedindexoffset
+            //     if (newcontentcount <= 0) {
+            //         return // ugly
+            //     }
+            // }
 
             headindexcount = newcontentcount
             tailindexcount = 0
