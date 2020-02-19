@@ -21,13 +21,14 @@ import ItemShell from './itemshell'
     - review use of {...styles} copy styles to new objects, in terms of trigger consequences
     - don't double right runway when at start position
     - implement getItem
-    - implement cellSizing scroller parameter
+    - implement cellSizing scroller parameter: fixed, variable
     - be careful to reconcile scrollblock and cradle at each end of scrollblock
     - add examples 1, 2, 3 to control page: 
         - small 100x100 images, scroll and rotate
         - vertical scroll items inside horizontal scroll, with ability to flip them
         - variable height items
-    name states 'pivot' (change orientation) and 'resize'
+    - name states 'pivot' (change orientation) and 'resize'
+    - scrollToItem(index[,alignment]) - alignment = start, end, center, auto (default)
 */
 
 
@@ -214,7 +215,7 @@ const Cradle = (props) => {
         }
     },[])
 
-    // *** drop scroll content
+    // drop scroll content
     useEffect(()=>{
         if (dropentries === null) return
 
@@ -262,7 +263,7 @@ const Cradle = (props) => {
         console.log('end of drop entries')
     },[dropentries])
 
-    // *** add scroll content
+    // add scroll content
     useEffect(()=>{
         if (addentries === null) return
         console.log('processing addentries',addentries)
