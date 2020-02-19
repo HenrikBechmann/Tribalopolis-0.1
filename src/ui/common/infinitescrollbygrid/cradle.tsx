@@ -176,7 +176,7 @@ const Cradle = (props) => {
         } else {
             rootMargin = `${runway}px 0px ${runway}px 0px`
         }
-        // console.log('rootMargin',rootMargin)
+        console.log('rootMargin',rootMargin)
         itemobserver.current = new IntersectionObserver(
             itemobservercallback,
             {root:viewportData.elementref.current, rootMargin,} 
@@ -232,25 +232,83 @@ const Cradle = (props) => {
         let styles = {} as React.CSSProperties // {...divlinerStylesRef.current}
         let scrollforward
         let localContentList
+
+        // set scrollforward
         if (orientation == 'vertical') {
-            // scrollamount = viewportElement.scrollTop
+
+            scrollforward = (sampleEntry.boundingClientRect.y - sampleEntry.rootBounds.y < 0) //dropped cell is to the top
+        
         } else {
-            scrollforward = (sampleEntry.boundingClientRect.x - sampleEntry.rootBounds.x < 0)//dropped cell is to the left
+        
+            scrollforward = (sampleEntry.boundingClientRect.x - sampleEntry.rootBounds.x < 0) //dropped cell is to the left
+        
+        }
+
+        // set localContentList
+        let headindexcount, tailindexcount
+        if (scrollforward) {
+
+            headindexcount = -dropentries.length
+            tailindexcount = 0
+
+        } else {
+
+            headindexcount = 0
+            tailindexcount = -dropentries.length
+
+        }
+        localContentList = getContentList(
+            {
+
+                localContentList:contentlist,
+                headindexcount,
+                tailindexcount,
+
+            })
+
+        // set styles revisions
+        if (orientation == 'vertical') {
+
+            let offsetTop = cradleElement.offsetTop
+            let offsetHeight = cradleElement.offsetHeight
+            let parentHeight = parentElement.offsetHeight
+            styles.left = 'auto'
+            styles.right = 'auto'
+
+            if (scrollforward) {
+
+                tailpos = offsetTop + offsetHeight
+                styles.top = 'auto'
+                styles.bottom = (parentHeight - tailpos) + 'px'
+
+            } else {
+
+                headpos = offsetTop
+                styles.top = headpos + 'px'
+                styles.bottom = 'auto'
+
+            }
+
+        } else {
+
             let offsetLeft = cradleElement.offsetLeft
             let offsetWidth = cradleElement.offsetWidth
             let parentWidth = parentElement.offsetWidth
+            styles.top = 'auto'
+            styles.bottom = 'auto'
+
             if (scrollforward) {
 
                 tailpos = offsetLeft + offsetWidth
                 styles.left = 'auto'
                 styles.right = (parentWidth - tailpos) + 'px'
-                localContentList = getContentList({localContentList:contentlist,headindexcount:-dropentries.length,tailindexcount:0})
 
             } else {
+
                 headpos = offsetLeft
                 styles.left = headpos + 'px'
                 styles.right = 'auto'
-                localContentList = getContentList({localContentList:contentlist,headindexcount:0,tailindexcount:-dropentries.length})
+
             }
         }
 
@@ -262,6 +320,7 @@ const Cradle = (props) => {
         saveDropentries(null)
         saveAddentries({count:Math.ceil(dropentries.length/crosscountRef.current)*crosscountRef.current,scrollforward})
         console.log('end of drop entries')
+
     },[dropentries])
 
     // add scroll content
@@ -279,74 +338,102 @@ const Cradle = (props) => {
         // let styles = {...divlinerStylesRef.current}
         let { scrollforward } = addentries
         let localContentList
-        if (orientation == 'vertical') {
+
+        // set localContentList
+
+        let contentoffset = contentlist[0].props.index // TODO find laternate local source for this
+        let newcontentcount = addentries.count
+
+        // set localContentList
+        let headindexcount, tailindexcount
+        if (scrollforward) {
+
+            // calculate count here
+            let proposedindexoffset = contentoffset + newcontentcount + contentlist.length
+
+            if ((proposedindexoffset) >= (listsize) ) {
+                newcontentcount -= (proposedindexoffset - (listsize))
+                // console.log('additem:contentoffset,newcontentcount,proposedindexoffset,listsize',contentoffset,newcontentcount,proposedindexoffset, listsize)
+                if (newcontentcount <=0) { // should never below 0 -- TODO: verify and create error if fails
+                    return // ugly
+                }
+            }
+
+            headindexcount = 0,
+            tailindexcount =  newcontentcount
 
         } else {
-            let offsetLeft = cradleElement.offsetLeft
-            let offsetWidth = cradleElement.offsetWidth
-            let parentWidth = parentElement.offsetWidth
+
+            let proposedindexoffset = contentoffset - newcontentcount
+            if (proposedindexoffset < 0) {
+                proposedindexoffset = -proposedindexoffset
+                newcontentcount = newcontentcount - proposedindexoffset
+                if (newcontentcount <= 0) {
+                    return // ugly
+                }
+            }
+
+            headindexcount = newcontentcount
+            tailindexcount = 0
+
+        }
+
+        localContentList = getContentList({
+            localContentList: contentlist,
+            headindexcount,
+            tailindexcount,
+            indexoffset: contentoffset,
+            orientation,
+            cellHeight,
+            cellWidth,
+            observer: itemobserver.current,
+        })
+
+        // set style revisions
+        if (orientation == 'vertical') {
+
+            let offsetTop = cradleElement.offsetTop
+            let offsetHeight = cradleElement.offsetHeight
+            let parentHeight = parentElement.offsetHeight
+            styles.left = 'auto'
+            styles.right = 'auto'
+
             if (scrollforward) {
 
-                // calculate count here
-                let contentoffset = contentlist[0].props.index // TODO find laternate local source for this
-                let newcontentcount = addentries.count
-                let proposedindexoffset = contentoffset + newcontentcount + contentlist.length
-                console.log('proposedindexoffset, contentofset, newcontentcount',proposedindexoffset, contentoffset, newcontentcount)
-                if ((proposedindexoffset) >= (listsize) ) {
-                    newcontentcount -= (proposedindexoffset - (listsize))
-                    // console.log('additem:contentoffset,newcontentcount,proposedindexoffset,listsize',contentoffset,newcontentcount,proposedindexoffset, listsize)
-                    if (newcontentcount <=0) { // should never below 0 -- TODO: verify and create error if fails
-                        return // ugly
-                    }
-                }
-                headpos = offsetLeft
-                styles.right = 'auto'
-                styles.left = headpos + 'px'
-
-                localContentList = getContentList({
-                    localContentList:contentlist,
-                    headindexcount:0,
-                    tailindexcount:newcontentcount,
-                    // problem with reference to external component here
-                    // TODO: this is a point of failure if the contentList has become empty
-                    // needs to be externalized
-                    // see same in 'else' section below
-                    indexoffset:contentoffset,
-                    orientation,
-                    cellHeight,
-                    cellWidth,
-                    observer:itemobserver.current,
-                })
+                headpos = offsetTop
+                styles.top = headpos + 'px'
+                styles.bottom = 'auto'
 
             } else { // scroll backward
 
-                let contentoffset = contentlist[0].props.index // TODO find laternate local source for this
-                let newcontentcount = addentries.count
-                let proposedindexoffset = contentoffset - newcontentcount
-                if (proposedindexoffset < 0) {
-                    proposedindexoffset = -proposedindexoffset
-                    newcontentcount = newcontentcount - proposedindexoffset
-                    if (newcontentcount <= 0) {
-                        return // ugly
-                    }
-                }
+                tailpos = offsetTop + offsetHeight
+                styles.top = 'auto'
+                styles.bottom = (parentHeight - tailpos) + 'px'
+
+            }
+
+        } else {
+
+            let offsetLeft = cradleElement.offsetLeft
+            let offsetWidth = cradleElement.offsetWidth
+            let parentWidth = parentElement.offsetWidth
+            styles.top = 'auto'
+            styles.bottom = 'auto'
+
+            if (scrollforward) {
+
+                headpos = offsetLeft
+                styles.left = headpos + 'px'
+                styles.right = 'auto'
+
+            } else { // scroll backward
 
                 tailpos = offsetLeft + offsetWidth
                 styles.left = 'auto'
                 styles.right = (parentWidth - tailpos) + 'px'
 
-                localContentList = getContentList({
-                    localContentList:contentlist,
-                    headindexcount:newcontentcount,
-                    tailindexcount:0,
-                    indexoffset:contentoffset,
-                    orientation,
-                    cellHeight,
-                    cellWidth,
-                    observer:itemobserver.current,
-                })
-
             }
+
         }
 
         // console.log('addentries addentries, headpos, tailpos, contentlist',addentries, headpos, tailpos, localContentList)
@@ -368,8 +455,7 @@ const Cradle = (props) => {
     useEffect(() => {
         console.log('processingstate for setup setcradlecontent',processingstate)
         if (processingstate != 'setup') return
-        // workaround to get FF to correctly size grid container for horizontal orientation
-        // crosscount is ignored for vertical orientation
+
         setCradleContent()
 
     },[
