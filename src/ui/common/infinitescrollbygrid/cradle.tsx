@@ -10,7 +10,7 @@ import { ViewportContext } from './viewport'
 import ItemShell from './itemshell'
 
 /*
-    - review state flow and structure
+    - implement vertical logic
     - correct infinite loop in horizontal view arising from resize
     - focus on static switch from horizontal to vertical
     - dynamic switch of orientation
