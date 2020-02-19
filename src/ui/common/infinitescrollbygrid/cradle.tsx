@@ -29,6 +29,7 @@ import ItemShell from './itemshell'
         - variable height items
     - name states 'pivot' (change orientation) and 'resize'
     - scrollToItem(index[,alignment]) - alignment = start, end, center, auto (default)
+    - deal with thumbscroll
 */
 
 
