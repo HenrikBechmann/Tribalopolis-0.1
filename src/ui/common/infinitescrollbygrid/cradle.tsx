@@ -22,14 +22,6 @@ import ItemShell from './itemshell'
     - vertical scrolling
     - memoize output to minimize render
     - integrate contentOffsetForActionRef in all contentlist creation
-    - BUG: in some circumstance (possibly rapid scrolling), the root right position of cradle is set three
-        columns to the right of where it should be, leaving some blank cradle visible at home position
-        - needs to be avoided
-        - needs to be self healing
-        - check if shutdown happens before current process is run
-    - install try/catch wherever dismount may be an interrupt; add defensive code, and new mode
-    THEORY: race condition devlops when next delete item occurs from observer, before the previous process
-    has had a chance to finish the add process. Enqueue?
 */
 
 
@@ -68,7 +60,7 @@ const Cradle = (props) => {
 
     } as React.CSSProperties)
 
-    const divlinerStyleRevisionsRef = useRef(null) // for modifications by observer actions
+    const divlinerStyleRevisionsRef = useRef(null) // for modifications by observer actions **NEW**
 
     const contentOffsetForActionRef = useRef(offset || 0) // used for contentList creation; used for orientation change, and resize
 
@@ -110,7 +102,7 @@ const Cradle = (props) => {
         viewportwidth,
     ])
 
-    const crosscountRef = useRef(crosscount) // for easy reference by observer
+    const crosscountRef = useRef(crosscount) // for easy reference by observer **NEW**
 
     divlinerStylesRef.current = useMemo(()=> {
 
@@ -127,7 +119,7 @@ const Cradle = (props) => {
 
         console.log('setting cradle styles',{...styles})
 
-        return styles //setDivlinerstyles(styles)
+        return {...styles} //setDivlinerstyles(styles)
     },[
         orientation,
         cellHeight,
@@ -259,17 +251,17 @@ const Cradle = (props) => {
 
         console.log('dropentries styles',{...styles}, localContentList, scrollforward)
 
-        divlinerStyleRevisionsRef.current = styles
+        divlinerStyleRevisionsRef.current = { ...styles }
 
         saveContentlist(localContentList) // delete entries
         saveDropentries(null)
-        saveAddentries({count:crosscountRef.current,scrollforward})
+        saveAddentries({count:Math.ceil(dropentries.length/crosscountRef.current)*crosscountRef.current,scrollforward})
+        console.log('end of drop entries')
     },[dropentries])
 
     // add scroll content
     useEffect(()=>{
         if (addentries === null) return
-    try {
         console.log('processing addentries',addentries)
         // console.log('cradleElementRef in add scroll content',cradleElementRef)
         let cradleElement = cradleElementRef.current
@@ -325,13 +317,10 @@ const Cradle = (props) => {
         // console.log('addentries addentries, headpos, tailpos, contentlist',addentries, headpos, tailpos, localContentList)
         console.log('addentries headpos, styles, localContentList',headpos,{...styles}, localContentList)
 
-        divlinerStyleRevisionsRef.current = styles
+        divlinerStyleRevisionsRef.current = {...styles}
         saveContentlist(localContentList)
         saveAddentries(null)
-    } catch(e) {
-        console.log('interrupting dismount error (add scroll content)',e.message)
-    }
-
+        console.log('end of processing addentries')
     },[addentries])
 
     // -------------------------[ End of IntersectionObserver support]-------------------------
