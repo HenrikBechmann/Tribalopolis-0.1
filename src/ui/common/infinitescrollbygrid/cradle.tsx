@@ -20,7 +20,6 @@ import ItemShell from './itemshell'
     - memoize render output to minimize render
     - integrate contentOffsetForActionRef in all contentlist creation
     - review use of {...styles} copy styles to new objects, in terms of trigger consequences
-    - don't double right runway when at start position
     - deal with thumbscroll
 
     - implement cellSizing scroller parameter: fixed, variable
@@ -559,7 +558,7 @@ const Cradle = (props) => {
             cradlelength = (viewportwidth + (padding * 2) - gap)
             cellLength = cellWidth + gap
         }
-        cradlelength += runway
+        cradlelength += (runway * 2)
         let contentCount = Math.ceil(cradlelength/cellLength) * crosscount
         contentCount = Math.min(contentCount,listsize)
         tailindexcount = contentCount
