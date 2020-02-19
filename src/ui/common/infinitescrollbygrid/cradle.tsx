@@ -23,6 +23,10 @@ import ItemShell from './itemshell'
     - implement getItem
     - implement cellSizing scroller parameter
     - be careful to reconcile scrollblock and cradle at each end of scrollblock
+    - add examples 1, 2, 3 to control page: 
+        - small 100x100 images, scroll and rotate
+        - vertical scroll items inside horizontal scroll, with ability to flip them
+        - variable height items
 */
 
 
