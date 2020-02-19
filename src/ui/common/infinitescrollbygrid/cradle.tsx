@@ -27,6 +27,7 @@ import ItemShell from './itemshell'
         - small 100x100 images, scroll and rotate
         - vertical scroll items inside horizontal scroll, with ability to flip them
         - variable height items
+    name states 'pivot' (change orientation) and 'resize'
 */
 
 
