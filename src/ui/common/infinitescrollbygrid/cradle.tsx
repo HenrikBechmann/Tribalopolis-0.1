@@ -10,19 +10,19 @@ import { ViewportContext } from './viewport'
 import ItemShell from './itemshell'
 
 /*
-    - observer should be restrained regarding number of contentlist additions by the listsize parameter (but zero based)
-
     - review state flow and structure
     - correct infinite loop in horizontal view arising from resize
     - focus on static switch from horizontal to vertical
     - dynamic switch of orientation
-    - limit rendering to 0 and above, and below listsize
-    - edge case: scrolling left from parially filled column would only generate partial replacement
-        needs to be adjusted for crosscount
     - vertical scrolling
-    - memoize output to minimize render
+    - memoize render output to minimize render
     - integrate contentOffsetForActionRef in all contentlist creation
     - fix reference to contentList[0].props by setting external reference (contentOffsetForActionRef)
+    - review use of {...styles} copy styles to new objects, in terms of trigger consequences
+    - don't double right runway when at start position
+    - implement getItem
+    - implement cellSizing scroller parameter
+    - be careful to reconcile scrollblock and cradle at each end of scrollblock
 */
 
 
@@ -31,11 +31,10 @@ const Cradle = (props) => {
     // console.log('running cradle',props)
     const { gap, padding, runway, listsize, offset, orientation, cellHeight, cellWidth, getItem } = props
 
-    // const iterationsRef = useRef(0)
-
     const [processingstate, saveProcessingstate] = useState('setup')
     const processingstateRef = useRef(null) // for observer call closure
     processingstateRef.current = processingstate // most recent value
+
     console.log('---------------------------')
     console.log('CALLING CRADLE with state',processingstate)
 
@@ -103,10 +102,11 @@ const Cradle = (props) => {
         viewportwidth,
     ])
 
-    const crosscountRef = useRef(crosscount) // for easy reference by observer **NEW**
+    const crosscountRef = useRef(crosscount) // for easy reference by observer
 
     divlinerStylesRef.current = useMemo(()=> {
 
+        // merge base style and revisions (by observer)
         let divlinerStyles:React.CSSProperties = Object.assign({...divlinerStylesRef.current},divlinerStyleRevisionsRef.current)
         let styles = setCradleStyles(
             orientation, 
@@ -182,19 +182,16 @@ const Cradle = (props) => {
 
     },[orientation])
 
+    // =================================================================================
     // -------------------------[ IntersectionObserver support]-------------------------
 
     // "head" is right for scrollforward; left for not scrollforward (scroll backward)
     // "tail" is left for scrollforward; right for not scrollforward (scroll backward)
 
+    // *** the async callback from IntersectionObserver
     const itemobservercallback = useCallback((entries)=>{
-        // iterationsRef.current++
-        // if (iterationsRef.current >= 10) {
-        //     console.log('------------------')
-        //     console.log('observer iterations have reached 10')
-        //     return
-        // }
-        console.log('itemobservercallback state, entries',processingstateRef.current)
+
+        // console.log('itemobservercallback state, entries',processingstateRef.current)
         // let dropentries = entries.filter(entry => (!entry.isIntersecting))
         if (processingstateRef.current == 'scroll') { // first pass is after setBaseContent, no action required
             let dropentries = entries.filter(entry => (!entry.isIntersecting))
@@ -212,7 +209,7 @@ const Cradle = (props) => {
         }
     },[])
 
-    // drop scroll content
+    // *** drop scroll content
     useEffect(()=>{
         if (dropentries === null) return
 
@@ -260,7 +257,7 @@ const Cradle = (props) => {
         console.log('end of drop entries')
     },[dropentries])
 
-    // add scroll content
+    // *** add scroll content
     useEffect(()=>{
         if (addentries === null) return
         console.log('processing addentries',addentries)
@@ -276,11 +273,25 @@ const Cradle = (props) => {
         let { scrollforward } = addentries
         let localContentList
         if (orientation == 'vertical') {
+
         } else {
             let offsetLeft = cradleElement.offsetLeft
             let offsetWidth = cradleElement.offsetWidth
             let parentWidth = parentElement.offsetWidth
             if (scrollforward) {
+
+                // calculate count here
+                let contentoffset = contentlist[0].props.index // TODO find laternate local source for this
+                let newcontentcount = addentries.count
+                let proposedindexoffset = contentoffset + newcontentcount + contentlist.length
+                console.log('proposedindexoffset, contentofset, newcontentcount',proposedindexoffset, contentoffset, newcontentcount)
+                if ((proposedindexoffset) >= (listsize) ) {
+                    newcontentcount -= (proposedindexoffset - (listsize))
+                    // console.log('additem:contentoffset,newcontentcount,proposedindexoffset,listsize',contentoffset,newcontentcount,proposedindexoffset, listsize)
+                    if (newcontentcount <=0) { // should never below 0 -- TODO: verify and create error if fails
+                        return // ugly
+                    }
+                }
                 headpos = offsetLeft
                 styles.right = 'auto'
                 styles.left = headpos + 'px'
@@ -288,27 +299,40 @@ const Cradle = (props) => {
                 localContentList = getContentList({
                     localContentList:contentlist,
                     headindexcount:0,
-                    tailindexcount:addentries.count,
+                    tailindexcount:newcontentcount,
+                    // problem with reference to external component here
                     // TODO: this is a point of failure if the contentList has become empty
                     // needs to be externalized
-                    // see same in 'else' section
-                    indexoffset:contentlist[0].props.index,
+                    // see same in 'else' section below
+                    indexoffset:contentoffset,
                     orientation,
                     cellHeight,
                     cellWidth,
                     observer:itemobserver.current,
                 })
 
-            } else {
+            } else { // scroll backward
+
+                let contentoffset = contentlist[0].props.index // TODO find laternate local source for this
+                let newcontentcount = addentries.count
+                let proposedindexoffset = contentoffset - newcontentcount
+                if (proposedindexoffset < 0) {
+                    proposedindexoffset = -proposedindexoffset
+                    newcontentcount = newcontentcount - proposedindexoffset
+                    if (newcontentcount <= 0) {
+                        return // ugly
+                    }
+                }
+
                 tailpos = offsetLeft + offsetWidth
                 styles.left = 'auto'
                 styles.right = (parentWidth - tailpos) + 'px'
 
                 localContentList = getContentList({
                     localContentList:contentlist,
-                    headindexcount:addentries.count,
+                    headindexcount:newcontentcount,
                     tailindexcount:0,
-                    indexoffset:contentlist[0].props.index,
+                    indexoffset:contentoffset,
                     orientation,
                     cellHeight,
                     cellWidth,
@@ -319,7 +343,7 @@ const Cradle = (props) => {
         }
 
         // console.log('addentries addentries, headpos, tailpos, contentlist',addentries, headpos, tailpos, localContentList)
-        console.log('addentries headpos, styles, localContentList',headpos,{...styles}, localContentList)
+        console.log('addentries headpos, styles, localContentList', headpos, {...styles}, localContentList)
 
         divlinerStyleRevisionsRef.current = {...styles}
         saveContentlist(localContentList)
@@ -328,7 +352,12 @@ const Cradle = (props) => {
     },[addentries])
 
     // -------------------------[ End of IntersectionObserver support]-------------------------
+    // ========================================================================================
 
+
+    // -------------------------[ Assembly of content, and render]-----------------------------
+    
+    // set cradle content
     useEffect(() => {
         console.log('processingstate for setup setcradlecontent',processingstate)
         if (processingstate != 'setup') return
@@ -354,7 +383,7 @@ const Cradle = (props) => {
         let localContentList = [] // any existing items will be re-used by react
 
         let {indexoffset, headindexcount, tailindexcount} = 
-            evaluateContentList(
+            evaluateContentList( // internal
                 cellHeight, 
                 cellWidth, 
                 orientation, 
@@ -376,7 +405,7 @@ const Cradle = (props) => {
             headindexcount,
             tailindexcount,
         })
-        saveContentlist(childlistfragment)
+        saveContentlist(childlistfragment) // external
 
     },[
         cellHeight,
@@ -390,6 +419,7 @@ const Cradle = (props) => {
       ]
     )
 
+    // evaluate content for requirements
     const evaluateContentList = useCallback((
             cellHeight, 
             cellWidth, 
@@ -414,7 +444,7 @@ const Cradle = (props) => {
         contentCount = Math.min(contentCount,listsize)
         tailindexcount = contentCount
 
-        return {indexoffset, headindexcount, tailindexcount}
+        return {indexoffset, headindexcount, tailindexcount} // summarize requirements message
     },[
         orientation, 
         viewportheight, 
@@ -443,7 +473,11 @@ const Cradle = (props) => {
 
 } // Cradle
 
+/******************************************************************************************
+ ------------------------------------[ SUPPORTING FUNCTIONS ]------------------------------
+*******************************************************************************************/
 
+// styles
 const setCradleStyles = (orientation, stylesobject, cellHeight, cellWidth, gap, crosscount, viewportheight, viewportwidth) => {
 
         let styles = Object.assign({},stylesobject) as React.CSSProperties
@@ -470,6 +504,7 @@ const setCradleStyles = (orientation, stylesobject, cellHeight, cellWidth, gap, 
         return styles
 }
 
+// update content
 // adds itemshells at start of end of contentlist according to headindexcount and tailindescount,
 // or if indexcount values are <0 removes them.
 const getContentList = (props) => {
