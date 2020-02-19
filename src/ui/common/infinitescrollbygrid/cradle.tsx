@@ -22,6 +22,7 @@ import ItemShell from './itemshell'
     - vertical scrolling
     - memoize output to minimize render
     - integrate contentOffsetForActionRef in all contentlist creation
+    - fix reference to contentList[0].props by setting external reference (contentOffsetForActionRef)
 */
 
 
@@ -288,6 +289,9 @@ const Cradle = (props) => {
                     localContentList:contentlist,
                     headindexcount:0,
                     tailindexcount:addentries.count,
+                    // TODO: this is a point of failure if the contentList has become empty
+                    // needs to be externalized
+                    // see same in 'else' section
                     indexoffset:contentlist[0].props.index,
                     orientation,
                     cellHeight,
