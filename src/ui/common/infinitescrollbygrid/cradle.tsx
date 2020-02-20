@@ -114,6 +114,7 @@ const Cradle = (props) => {
     ])
 
     const crosscountRef = useRef(crosscount) // for easy reference by observer
+    crosscountRef.current = crosscount
 
     divlinerStylesRef.current = useMemo(()=> {
 
@@ -235,7 +236,7 @@ const Cradle = (props) => {
     useEffect(()=>{
         if (dropentries === null) return
 
-        console.log('processing dropentries',dropentries)
+        console.log('processing dropentries; processingstate',dropentries, processingstateRef.current)
         let sampleEntry = dropentries[0]
 
         let cradleElement = cradleElementRef.current
@@ -260,17 +261,20 @@ const Cradle = (props) => {
         }
 
         // set localContentList
+        let indexoffset = contentlist[0].props.index
         let pendingcontentoffset
         let newcontentcount = Math.ceil(dropentries.length/crosscountRef.current)*crosscountRef.current
+        console.log('dropentries newcontentcount, dropentries.length, crosscountRef.current', dropentries.length, crosscountRef.current)
         let headindexcount, tailindexcount
         if (scrollforward) {
-            pendingcontentoffset = contentlist[0].props.index + dropentries.length
+            pendingcontentoffset = indexoffset + dropentries.length
             let proposedtailoffset = pendingcontentoffset + newcontentcount + ((contentlist.length - dropentries.length ) - 1)
 
             if ((proposedtailoffset) > (listsize -1) ) {
-                // console.log('calculated newcontentcount',newcontentcount)
+                console.log('calculated newcontentcount',newcontentcount)
                 newcontentcount -= (proposedtailoffset - (listsize -1))
-                // console.log('dropitem: dropentries.length, contentlist.length, pendingcontentoffset,newcontentcount,proposedtailoffset,listsize',dropentries.length, contentlist.length, pendingcontentoffset,newcontentcount, proposedtailoffset, listsize)
+                console.log('dropitem: dropentries.length, contentlist.length, pendingcontentoffset,newcontentcount,proposedtailoffset,listsize',
+                    dropentries.length, contentlist.length, pendingcontentoffset,newcontentcount, proposedtailoffset, listsize)
                 if (newcontentcount <=0) { // should never below 0 -- TODO: verify and create error if fails
                     return // ugly
                 }
@@ -281,11 +285,14 @@ const Cradle = (props) => {
 
         } else {
 
-            pendingcontentoffset = contentlist[0].props.index
+            pendingcontentoffset = indexoffset
             let proposedindexoffset = pendingcontentoffset - newcontentcount
             if (proposedindexoffset < 0) {
+                console.log('scrollbackward calculated newcontentcount, proposedindexoffset',newcontentcount, proposedindexoffset)
                 proposedindexoffset = -proposedindexoffset
                 newcontentcount = newcontentcount - proposedindexoffset
+                console.log('scrollbackward resulting newcontentcount, proposedindexoffset, pendingcontentoffset',
+                    newcontentcount, proposedindexoffset, pendingcontentoffset)
                 if (newcontentcount <= 0) {
                     return // ugly
                 }
@@ -299,6 +306,7 @@ const Cradle = (props) => {
         localContentList = getContentList(
             {
 
+                indexoffset,
                 localContentList:contentlist,
                 headindexcount,
                 tailindexcount,
@@ -427,6 +435,7 @@ const Cradle = (props) => {
                 styles.bottom = (parentHeight - tailpos) + 'px'
 
             }
+            console.log('add content scrollforward, headpos, tailpos, styles',scrollforward, headpos, tailpos, styles)
 
         } else {
 
@@ -506,10 +515,12 @@ const Cradle = (props) => {
                 gap,
                 padding,
                 processingstate, 
-                contentOffsetForActionRef
+                contentOffsetForActionRef,
+                crosscount
             )
 
         let childlistfragment = getContentList({
+
             orientation,
             cellHeight,
             cellWidth,
@@ -519,7 +530,36 @@ const Cradle = (props) => {
             indexoffset,
             headindexcount,
             tailindexcount,
+
         })
+
+        let styleoffset = padding
+        let lengthcount = indexoffset/crosscount
+        let styles:React.CSSProperties = {}
+        if (orientation == 'vertical') {
+            lengthcount *= (cellHeight + gap)
+            lengthcount -= runway
+            lengthcount += styleoffset
+            lengthcount = Math.max(0,lengthcount)
+            styles.top = lengthcount + 'px'
+            styles.bottom = 'auto'
+            styles.left = 'auto'
+            styles.right = 'auto'
+
+        } else { // orientation = 'horizontal'
+            lengthcount -= runway
+            lengthcount = Math.max(0,lengthcount)
+            lengthcount *= (cellHeight + gap)
+            lengthcount -= runway
+            lengthcount += styleoffset
+            styles.top = 'auto'
+            styles.bottom = 'auto'
+            styles.left = lengthcount + 'px'
+            styles.right = 'auto'
+        }
+        divlinerStyleRevisionsRef.current = styles
+        contentOffsetForActionRef.current = indexoffset
+        console.log('setCradleContent style revisions, indexoffset',styles, indexoffset)
 
         saveContentlist(childlistfragment) // external
 
@@ -546,9 +586,14 @@ const Cradle = (props) => {
             gap,
             padding, 
             processingstate, 
-            contentOffsetForActionRef
+            contentOffsetForActionRef,
+            crosscount
         ) => {
         let indexoffset = (contentOffsetForActionRef.current || 0), headindexcount = 0, tailindexcount = 0
+        if (indexoffset != 0) {
+            let shift = (indexoffset) % crosscount
+            indexoffset -= shift
+        }
         let cradlelength, cellLength
         if (orientation == 'vertical') {
             cradlelength = (viewportheight + (padding * 2) - gap)
@@ -559,6 +604,7 @@ const Cradle = (props) => {
         }
         cradlelength += (runway * 2)
         let contentCount = Math.ceil(cradlelength/cellLength) * crosscount
+        console.log('calculated contentCount runway, cradlelength, cellLength, crosscount',runway, cradlelength, cellLength, crosscount)
         contentCount = Math.min(contentCount,listsize)
         tailindexcount = contentCount
 
@@ -670,7 +716,7 @@ const getContentList = (props) => {
     let tailContentlist = []
     if (tailindexcount >= 0) {
 
-        console.log('adding tail items',tailindexoffset,tailindexcount)
+        console.log('adding tail items',tailindexoffset,tailindexcount, indexoffset, contentlist.length)
         for (let index = tailindexoffset; index <(tailindexoffset + tailindexcount); index++) {
             tailContentlist.push(<ItemShell
                 key = {index} 

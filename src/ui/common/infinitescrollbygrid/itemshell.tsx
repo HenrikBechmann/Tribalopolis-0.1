@@ -23,7 +23,7 @@ const ItemShell = (props) => {
             observer.unobserve(shellRef.current)
         }
 
-    },[])
+    },[observer])
 
     useEffect(()=>{
 
