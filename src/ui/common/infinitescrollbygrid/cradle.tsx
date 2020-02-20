@@ -70,7 +70,7 @@ const Cradle = (props) => {
 
     } as React.CSSProperties)
 
-    const divlinerStyleRevisionsRef = useRef(null) // for modifications by observer actions **NEW**
+    const divlinerStyleRevisionsRef = useRef(null) // for modifications by observer actions
 
     const contentOffsetForActionRef = useRef(offset || 0) // used for contentList creation; used for orientation change, and resize
 
@@ -79,7 +79,7 @@ const Cradle = (props) => {
 
     const viewportDimensions = useMemo(()=>{
 
-        // console.log('calculate viewport dimensions',viewportData)
+        console.log('calculating viewport dimensions',viewportData)
         let { viewportRect } = viewportData
         let { top, right, bottom, left } = viewportRect
 
@@ -100,6 +100,7 @@ const Cradle = (props) => {
         let lengthforcalc = size - (padding * 2) + gap
         crosscount = Math.floor(lengthforcalc/(crossLength + gap))
 
+        console.log('calculating crosscount', crosscount)
         return crosscount
 
     },[
@@ -143,27 +144,38 @@ const Cradle = (props) => {
         divlinerStyleRevisionsRef.current
       ])
 
-    // processing states = setup, reset, update, scroll (was run)
+    useEffect(()=>{
+        if (processingstate == 'ready') {
+            console.log('setting processingstate from ready to resize')
+            contentOffsetForActionRef.current = contentlist[0]?.props.index
+            saveProcessingstate('resize')
+        }
+    },[
+        cellWidth, 
+        cellHeight, 
+        gap, 
+        padding, 
+        viewportheight, 
+        viewportwidth,
+    ])
+
+    // processing states = setup, pivot, resize, scroll (was run)
     useEffect(()=> {
-        console.log('state transformation from',processingstate)
+        console.log('state transformation from', processingstate)
         switch (processingstate) {
-            case 'reset':
-                console.log('setting processingstate from reset to setup',)
+            case 'pivot':
+                console.log('setting processingstate from pivot to setup',)
                 saveProcessingstate('setup')
                 break
             case 'setup': 
                 console.log('setting processingstate from setup to initobserver',)
                 saveProcessingstate('initobserver')
                 break
-            // case 'initobserver': 
-            //     console.log('setting processingstate from setup to initobserver',)
-            //     saveProcessingstate('scroll')
-            //     break
-            case 'update':
-                console.log('setting processingstate from update to scroll',)
-                saveProcessingstate('scroll')
+            case 'resize':
+                console.log('setting processingstate from resize to ready',)
+                saveProcessingstate('ready')
                 break
-            case 'scroll':
+            case 'ready':
                 // do nothing
                 break
         }
@@ -186,8 +198,8 @@ const Cradle = (props) => {
         )
         saveContentlist([])
         if (processingstate != 'setup') {
-            console.log('setting processingstate from setup to reset',)            
-            saveProcessingstate('reset')
+            console.log(`setting processingstate from ${processingstate} to pivot`,)            
+            saveProcessingstate('pivot')
         }
 
     },[orientation])
@@ -203,7 +215,7 @@ const Cradle = (props) => {
 
         // console.log('itemobservercallback state, entries',processingstateRef.current)
         // let dropentries = entries.filter(entry => (!entry.isIntersecting))
-        if (processingstateRef.current == 'scroll') { // first pass is after setBaseContent, no action required
+        if (processingstateRef.current == 'ready') { // first pass is after setBaseContent, no action required
             let dropentries = entries.filter(entry => (!entry.isIntersecting))
             console.log('processing scroll items to drop', dropentries.length)
 
@@ -215,7 +227,7 @@ const Cradle = (props) => {
         }
         if (processingstateRef.current == 'initobserver') {
             console.log('setting processingstate from initobserver to scroll',)            
-            saveProcessingstate('scroll')
+            saveProcessingstate('ready')
         }
     },[])
 
@@ -367,37 +379,15 @@ const Cradle = (props) => {
         let localContentList
 
         // set localContentList
-
         let { contentoffset, count:newcontentcount } = addentries
 
-        // set localContentList
         let headindexcount, tailindexcount
         if (scrollforward) {
-
-            // // calculate count here
-            // let proposedindexoffset = contentoffset + newcontentcount + contentlist.length
-
-            // if ((proposedindexoffset) >= (listsize) ) {
-            //     newcontentcount -= (proposedindexoffset - (listsize))
-            //     // console.log('additem:contentoffset,newcontentcount,proposedindexoffset,listsize',contentoffset,newcontentcount,proposedindexoffset, listsize)
-            //     if (newcontentcount <=0) { // should never below 0 -- TODO: verify and create error if fails
-            //         return // ugly
-            //     }
-            // }
 
             headindexcount = 0,
             tailindexcount =  newcontentcount
 
         } else {
-
-            // let proposedindexoffset = contentoffset - newcontentcount
-            // if (proposedindexoffset < 0) {
-            //     proposedindexoffset = -proposedindexoffset
-            //     newcontentcount = newcontentcount - proposedindexoffset
-            //     if (newcontentcount <= 0) {
-            //         return // ugly
-            //     }
-            // }
 
             headindexcount = newcontentcount
             tailindexcount = 0
@@ -469,6 +459,7 @@ const Cradle = (props) => {
         saveContentlist(localContentList)
         saveAddentries(null)
         console.log('end of processing addentries')
+
     },[addentries])
 
     // -------------------------[ End of IntersectionObserver support]-------------------------
@@ -479,21 +470,24 @@ const Cradle = (props) => {
     
     // set cradle content
     useEffect(() => {
+
+        if (['setup','pivot','resize'].indexOf(processingstate) == -1) return
+
         console.log('processingstate for setup setcradlecontent',processingstate)
-        if (processingstate != 'setup') return
 
         setCradleContent()
 
     },[
+        processingstate,
         // state.current
-        orientation,
-        cellHeight,
-        cellWidth,
-        gap,
-        padding,
-        viewportheight,
-        viewportwidth,
-        crosscount,
+        // orientation,
+        // cellHeight,
+        // cellWidth,
+        // gap,
+        // padding,
+        // viewportheight,
+        // viewportwidth,
+        // crosscount,
       ]
     )
 
@@ -510,7 +504,9 @@ const Cradle = (props) => {
                 viewportwidth, 
                 runway, 
                 gap,
-                padding, 
+                padding,
+                processingstate, 
+                contentOffsetForActionRef
             )
 
         let childlistfragment = getContentList({
@@ -524,6 +520,7 @@ const Cradle = (props) => {
             headindexcount,
             tailindexcount,
         })
+
         saveContentlist(childlistfragment) // external
 
     },[
@@ -548,8 +545,10 @@ const Cradle = (props) => {
             runway, 
             gap,
             padding, 
+            processingstate, 
+            contentOffsetForActionRef
         ) => {
-        let indexoffset = 0, headindexcount = 0, tailindexcount = 0
+        let indexoffset = (contentOffsetForActionRef.current || 0), headindexcount = 0, tailindexcount = 0
         let cradlelength, cellLength
         if (orientation == 'vertical') {
             cradlelength = (viewportheight + (padding * 2) - gap)
@@ -563,6 +562,8 @@ const Cradle = (props) => {
         contentCount = Math.min(contentCount,listsize)
         tailindexcount = contentCount
 
+        console.log('evaluated content list', indexoffset, headindexcount, tailindexcount)
+
         return {indexoffset, headindexcount, tailindexcount} // summarize requirements message
     },[
         orientation, 
@@ -573,6 +574,8 @@ const Cradle = (props) => {
         cellWidth, 
         padding, 
         gap,
+        processingstate, 
+        contentOffsetForActionRef
     ])
 
     // render...
@@ -667,6 +670,7 @@ const getContentList = (props) => {
     let tailContentlist = []
     if (tailindexcount >= 0) {
 
+        console.log('adding tail items',tailindexoffset,tailindexcount)
         for (let index = tailindexoffset; index <(tailindexoffset + tailindexcount); index++) {
             tailContentlist.push(<ItemShell
                 key = {index} 
