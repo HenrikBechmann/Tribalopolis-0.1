@@ -549,19 +549,21 @@ const Cradle = (props) => {
         let styles:React.CSSProperties = {}
         let startoffset
         if (orientation == 'vertical') {
-            startoffset = (Math.ceil((indexoffset)/crosscount) * (cellHeight + gap)) + (padding * 2) - gap
+            startoffset = (Math.ceil((indexoffset )/crosscount) * (cellHeight + gap)) + (padding * 2) - gap
             startoffset -= runway
-            startoffset = Math.max(startoffset,0)
-        //     lengthcount *= (cellHeight + gap)
-        //     lengthcount -= runway
-        //     lengthcount += styleoffset
-        //     lengthcount = Math.max(0,lengthcount)
+            let diff = 0
+            if (startoffset < 0) {
+                diff = startoffset
+                startoffset = 0
+            }
+            console.log('calc startoffset,startoffset,indexoffset,crosscount,gap,padding',
+                startoffset,indexoffset,crosscount,gap,padding)
             styles.top = startoffset + 'px'
             styles.bottom = 'auto'
             styles.left = 'auto'
             styles.right = 'auto'
             console.log('viewport element',viewportData.elementref.current)
-            viewportData.elementref.current.scrollTop = startoffset
+            viewportData.elementref.current.scrollTop = (startoffset - (runway - diff))
         } else { // orientation = 'horizontal'
         //     lengthcount -= runway
         //     lengthcount = Math.max(0,lengthcount)
@@ -576,7 +578,7 @@ const Cradle = (props) => {
             styles.left = startoffset + 'px'
             styles.right = 'auto'
 
-            viewportData.elementref.current.scrollLeft = startoffset
+            viewportData.elementref.current.scrollLeft = startoffset - runway
         }
         divlinerStyleRevisionsRef.current = styles
         contentOffsetForActionRef.current = indexoffset
