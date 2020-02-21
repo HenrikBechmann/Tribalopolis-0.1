@@ -259,7 +259,6 @@ const Cradle = (props) => {
         // console.log('dropentries updated:dropentries, contentlist',dropentries,contentlist)
         let tailpos
         let headpos
-        let styles = {} as React.CSSProperties // {...divlinerStylesRef.current}
         let scrollforward
         let localContentList
 
@@ -326,6 +325,8 @@ const Cradle = (props) => {
                 tailindexcount,
 
             })
+
+        let styles = {} as React.CSSProperties // {...divlinerStylesRef.current}
 
         // set styles revisions
         if (orientation == 'vertical') {
@@ -395,7 +396,6 @@ const Cradle = (props) => {
         // console.log('addentries updated:addentries, contentlist',addentries,contentlist)
         let tailpos
         let headpos
-        let styles = {} as React.CSSProperties
         // let styles = {...divlinerStylesRef.current}
         let { scrollforward } = addentries
         let localContentList
@@ -426,6 +426,8 @@ const Cradle = (props) => {
             cellWidth,
             observer: itemobserverRef.current,
         })
+
+        let styles = {} as React.CSSProperties
 
         // set style revisions
         if (orientation == 'vertical') {
@@ -537,38 +539,33 @@ const Cradle = (props) => {
         })
 
         let styles:React.CSSProperties = {}
-        let startoffset
+        let cradleoffset
         if (orientation == 'vertical') {
-            startoffset = (Math.ceil((indexoffset )/crosscount) * (cellHeight + gap)) + (padding * 2) - gap
-            startoffset -= runway
-            let diff = 0
-            if (startoffset < 0) {
-                diff = startoffset
-                startoffset = 0
-            }
-            // console.log('calc startoffset,startoffset,indexoffset,crosscount,gap,padding',
-            //     startoffset,indexoffset,crosscount,gap,padding)
-            styles.top = startoffset + 'px'
+            cradleoffset = (Math.ceil( (indexoffset/crosscount)) * (cellHeight + gap)) + padding - gap
+            console.log('cradleoffset before adjustment', cradleoffset)
+
+            styles.top = cradleoffset + 'px'
             styles.bottom = 'auto'
             styles.left = 'auto'
             styles.right = 'auto'
-            console.log('viewport element',viewportData.elementref.current)
-            viewportData.elementref.current.scrollTop = (startoffset + (runway - diff))
+
+            let scrolloffset = cradleoffset
+
+            console.log('viewport indexoffset, crosscount, cellHeight, gap, padding, cradleoffset, runway, element', 
+                indexoffset, crosscount,  cellHeight, gap, padding, cradleoffset, runway, viewportData.elementref.current)
+            viewportData.elementref.current.scrollTop = scrolloffset // + runway - diff)
         } else { // orientation = 'horizontal'
 
-            startoffset = (Math.ceil((indexoffset)/crosscount) * (cellWidth + gap)) + (padding * 2) - gap
-            startoffset -= runway
-            let diff = 0
-            if (startoffset < 0) {
-                diff = startoffset
-                startoffset = 0
-            }
+            cradleoffset = ((Math.ceil((indexoffset)/crosscount)) * (cellWidth + gap)) + padding - gap
+
             styles.top = 'auto'
             styles.bottom = 'auto'
-            styles.left = startoffset + 'px'
+            styles.left = cradleoffset + 'px'
             styles.right = 'auto'
 
-            viewportData.elementref.current.scrollLeft = (startoffset + (runway - diff))
+            let scrolloffset = cradleoffset
+
+            viewportData.elementref.current.scrollLeft = scrolloffset
         }
         divlinerStyleRevisionsRef.current = styles
         contentOffsetForActionRef.current = indexoffset
@@ -694,7 +691,7 @@ const setCradleStyles = (orientation, stylesobject, cellHeight, cellWidth, gap, 
 // adds itemshells at start of end of contentlist according to headindexcount and tailindescount,
 // or if indexcount values are <0 removes them.
 const getContentList = (props) => {
-    // console.log('getContentList props',props)
+
     let { 
         indexoffset, 
         headindexcount, 
