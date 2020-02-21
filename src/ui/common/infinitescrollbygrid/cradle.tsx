@@ -38,27 +38,28 @@ import ItemShell from './itemshell'
 
 const Cradle = (props) => {
 
-    // console.log('running cradle',props)
     const { gap, padding, runway, listsize, offset, orientation, cellHeight, cellWidth, getItem } = props
 
-    const [processingstate, saveProcessingstate] = useState('setup')
-    const processingstateRef = useRef(null) // for observer call closure
-    processingstateRef.current = processingstate // most recent value
+    // --------------------------------------[ initialization ]-------------------------------------
+
+    const [cradlestate, saveCradleState] = useState('setup')
+    const cradlestateRef = useRef(null) // for observer call closure
+    cradlestateRef.current = cradlestate // most recent value
 
     console.log('---------------------------')
-    console.log('CALLING CRADLE with state',processingstate)
-
-    const viewportData = useContext(ViewportContext)
-
-    const itemobserver = useRef(null)
-
-    const pauseObserverForReconfiguration = useRef(false)
+    console.log('CALLING CRADLE with state',cradlestate)
 
     const [contentlist,saveContentlist] = useState([])
 
     const [dropentries, saveDropentries] = useState(null)
 
     const [addentries, saveAddentries] = useState(null)
+
+    const viewportData = useContext(ViewportContext)
+
+    const itemobserverRef = useRef(null)
+
+    const pauseObserverForReconfigurationRef = useRef(false)
 
     const divlinerStylesRef = useRef({
         position: 'absolute',
@@ -77,7 +78,6 @@ const Cradle = (props) => {
     const contentOffsetForActionRef = useRef(offset || 0) // used for contentList creation; used for orientation change, and resize
 
     const cradleElementRef = useRef(null)
-    // console.log('cradleElementRef',cradleElementRef)
 
     const viewportDimensions = useMemo(()=>{
 
@@ -134,7 +134,7 @@ const Cradle = (props) => {
 
         console.log('setting cradle styles',{...styles})
 
-        return {...styles} //setDivlinerstyles(styles)
+        return {...styles}
     },[
         orientation,
         cellHeight,
@@ -147,12 +147,37 @@ const Cradle = (props) => {
         divlinerStyleRevisionsRef.current
       ])
 
+    // ----------------------------------[ state management ]-------------------------------
+
+    // triggering next state phase: states = setup, pivot, resize, scroll (was run)
+    useEffect(()=> {
+        console.log('state transformation from', cradlestate)
+        switch (cradlestate) {
+            case 'pivot':
+                console.log('setting cradlestate from pivot to setup',)
+                saveCradleState('setup')
+                break
+            case 'setup': 
+                console.log('setting cradlestate from setup to initobserver',)
+                saveCradleState('initobserver')
+                break
+            case 'resize':
+                console.log('setting cradlestate from resize to ready',)
+                saveCradleState('ready')
+                break
+            case 'ready':
+                // do nothing
+                break
+        }
+    },[cradlestate])  
+
+    // trigger resize on change
     useEffect(()=>{
-        if (processingstate == 'ready') {
-            console.log('setting processingstate from ready to resize')
+        if (cradlestate == 'ready') {
+            console.log('setting cradlestate from ready to resize')
             contentOffsetForActionRef.current = contentlist[0]?.props.index
-            pauseObserverForReconfiguration.current = true
-            saveProcessingstate('resize')
+            pauseObserverForReconfigurationRef.current = true
+            saveCradleState('resize')
         }
     },[
         cellWidth, 
@@ -164,33 +189,10 @@ const Cradle = (props) => {
         viewportwidth,
     ])
 
-    // processing states = setup, pivot, resize, scroll (was run)
-    useEffect(()=> {
-        console.log('state transformation from', processingstate)
-        switch (processingstate) {
-            case 'pivot':
-                console.log('setting processingstate from pivot to setup',)
-                saveProcessingstate('setup')
-                break
-            case 'setup': 
-                console.log('setting processingstate from setup to initobserver',)
-                saveProcessingstate('initobserver')
-                break
-            case 'resize':
-                console.log('setting processingstate from resize to ready',)
-                // pauseObserverForReconfiguration.current = false
-                saveProcessingstate('ready')
-                break
-            case 'ready':
-                // do nothing
-                break
-        }
-    },[processingstate])  
-
     // respond to change in orientation
     useEffect(()=> {
 
-        console.log('initializing system with processingstate',processingstate)
+        console.log('initializing system with cradlestate',cradlestate)
         let rootMargin
         if (orientation == 'horizontal') {
             rootMargin = `0px ${runway}px 0px ${runway}px`
@@ -198,14 +200,14 @@ const Cradle = (props) => {
             rootMargin = `${runway}px 0px ${runway}px 0px`
         }
         console.log('rootMargin',rootMargin)
-        itemobserver.current = new IntersectionObserver(
+        itemobserverRef.current = new IntersectionObserver(
             itemobservercallback,
             {root:viewportData.elementref.current, rootMargin,} 
         )
         saveContentlist([])
-        if (processingstate != 'setup') {
-            console.log(`setting processingstate from ${processingstate} to pivot`,)            
-            saveProcessingstate('pivot')
+        if (cradlestate != 'setup') {
+            console.log(`setting cradlestate from ${cradlestate} to pivot`,)            
+            saveCradleState('pivot')
         }
 
     },[orientation])
@@ -216,32 +218,31 @@ const Cradle = (props) => {
     // "head" is right for scrollforward; left for not scrollforward (scroll backward)
     // "tail" is left for scrollforward; right for not scrollforward (scroll backward)
 
-    // *** the async callback from IntersectionObserver
+    // the async callback from IntersectionObserver. this is a closure
     const itemobservercallback = useCallback((entries)=>{
 
-        console.log('itemobservercallback state',processingstateRef.current)
-        // let dropentries = entries.filter(entry => (!entry.isIntersecting))
-        if (pauseObserverForReconfiguration.current) {
-            console.log('pausing for configuration, processingstate',processingstateRef.current)
-            if (processingstateRef.current == 'ready') {
-                pauseObserverForReconfiguration.current = false
+        if (pauseObserverForReconfigurationRef.current) {
+            console.log('pausing observer for configuration, cradlestate',cradlestateRef.current)
+            if (cradlestateRef.current == 'ready') {
+                console.log('observer pause ended')
+                pauseObserverForReconfigurationRef.current = false
             }
             return
         }
 
-        if (processingstateRef.current == 'ready') { // first pass is after setBaseContent, no action required
+        if (cradlestateRef.current == 'ready') { // first pass is after setBaseContent, no action required
             let dropentries = entries.filter(entry => (!entry.isIntersecting))
-            console.log('processing scroll items to drop', dropentries.length)
+            console.log('observer processing scroll items to drop', dropentries.length)
 
             if (dropentries.length) {
-                // console.log('itemobservercallback',dropentries)
+
                 saveDropentries(dropentries)
 
             }
         }
-        if (processingstateRef.current == 'initobserver') {
-            console.log('setting processingstate from initobserver to ready',)            
-            saveProcessingstate('ready')
+        if (cradlestateRef.current == 'initobserver') {
+            console.log('setting cradlestate from initobserver to ready',)            
+            saveCradleState('ready')
         }
     },[])
 
@@ -249,7 +250,7 @@ const Cradle = (props) => {
     useEffect(()=>{
         if (dropentries === null) return
 
-        console.log('processing dropentries; processingstate',dropentries, processingstateRef.current)
+        console.log('processing dropentries; cradlestate',dropentries, cradlestateRef.current)
         let sampleEntry = dropentries[0]
 
         let cradleElement = cradleElementRef.current
@@ -423,7 +424,7 @@ const Cradle = (props) => {
             orientation,
             cellHeight,
             cellWidth,
-            observer: itemobserver.current,
+            observer: itemobserverRef.current,
         })
 
         // set style revisions
@@ -483,33 +484,22 @@ const Cradle = (props) => {
         console.log('end of processing addentries')
 
     },[addentries])
+    // End of IntersectionObserver support
 
-    // -------------------------[ End of IntersectionObserver support]-------------------------
     // ========================================================================================
-
-
-    // -------------------------[ Assembly of content, and render]-----------------------------
+    // -------------------------------[ Assembly of content]-----------------------------------
     
-    // set cradle content
+    // set cradle content for state changes
     useEffect(() => {
 
-        if (['setup','pivot','resize'].indexOf(processingstate) == -1) return
+        if (['setup','pivot','resize'].indexOf(cradlestate) == -1) return
 
-        console.log('processingstate for setup setcradlecontent',processingstate)
+        console.log('cradlestate for setcradlecontent',cradlestate)
 
         setCradleContent()
 
     },[
-        processingstate,
-        // state.current
-        // orientation,
-        // cellHeight,
-        // cellWidth,
-        // gap,
-        // padding,
-        // viewportheight,
-        // viewportwidth,
-        // crosscount,
+        cradlestate,
       ]
     )
 
@@ -527,7 +517,7 @@ const Cradle = (props) => {
                 runway, 
                 gap,
                 padding,
-                processingstate, 
+                cradlestate, 
                 contentOffsetForActionRef,
                 crosscount
             )
@@ -539,7 +529,7 @@ const Cradle = (props) => {
             cellWidth,
 
             localContentList,
-            observer:itemobserver.current,
+            observer:itemobserverRef.current,
             indexoffset,
             headindexcount,
             tailindexcount,
@@ -565,11 +555,7 @@ const Cradle = (props) => {
             console.log('viewport element',viewportData.elementref.current)
             viewportData.elementref.current.scrollTop = (startoffset + (runway - diff))
         } else { // orientation = 'horizontal'
-        //     lengthcount -= runway
-        //     lengthcount = Math.max(0,lengthcount)
-        //     lengthcount *= (cellHeight + gap)
-        //     lengthcount -= runway
-        //     lengthcount += styleoffset
+
             startoffset = (Math.ceil((indexoffset)/crosscount) * (cellWidth + gap)) + (padding * 2) - gap
             startoffset -= runway
             let diff = 0
@@ -587,7 +573,7 @@ const Cradle = (props) => {
         divlinerStyleRevisionsRef.current = styles
         contentOffsetForActionRef.current = indexoffset
         console.log('setCradleContent style revisions, indexoffset',styles, indexoffset, childlistfragment)
-        // pauseObserverForReconfiguration.current = false
+        // pauseObserverForReconfigurationRef.current = false
         saveContentlist(childlistfragment) // external
 
     },[
@@ -612,7 +598,7 @@ const Cradle = (props) => {
             runway, 
             gap,
             padding, 
-            processingstate, 
+            cradlestate, 
             contentOffsetForActionRef,
             crosscount
         ) => {
@@ -651,11 +637,12 @@ const Cradle = (props) => {
         cellWidth, 
         padding, 
         gap,
-        processingstate, 
+        cradlestate, 
         contentOffsetForActionRef
     ])
 
-    // render...
+    // =============================================================================
+    // ------------------------------[ render... ]----------------------------------
 
     let divlinerstyles = divlinerStylesRef.current
     console.log('divlinerstyles for render return',{...divlinerstyles})
