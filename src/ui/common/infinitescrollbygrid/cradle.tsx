@@ -556,14 +556,14 @@ const Cradle = (props) => {
                 diff = startoffset
                 startoffset = 0
             }
-            console.log('calc startoffset,startoffset,indexoffset,crosscount,gap,padding',
-                startoffset,indexoffset,crosscount,gap,padding)
+            // console.log('calc startoffset,startoffset,indexoffset,crosscount,gap,padding',
+            //     startoffset,indexoffset,crosscount,gap,padding)
             styles.top = startoffset + 'px'
             styles.bottom = 'auto'
             styles.left = 'auto'
             styles.right = 'auto'
             console.log('viewport element',viewportData.elementref.current)
-            viewportData.elementref.current.scrollTop = (startoffset - (runway - diff))
+            viewportData.elementref.current.scrollTop = (startoffset + (runway - diff))
         } else { // orientation = 'horizontal'
         //     lengthcount -= runway
         //     lengthcount = Math.max(0,lengthcount)
@@ -572,13 +572,17 @@ const Cradle = (props) => {
         //     lengthcount += styleoffset
             startoffset = (Math.ceil((indexoffset)/crosscount) * (cellWidth + gap)) + (padding * 2) - gap
             startoffset -= runway
-            startoffset = Math.max(startoffset,0)
+            let diff = 0
+            if (startoffset < 0) {
+                diff = startoffset
+                startoffset = 0
+            }
             styles.top = 'auto'
             styles.bottom = 'auto'
             styles.left = startoffset + 'px'
             styles.right = 'auto'
 
-            viewportData.elementref.current.scrollLeft = startoffset - runway
+            viewportData.elementref.current.scrollLeft = (startoffset + (runway - diff))
         }
         divlinerStyleRevisionsRef.current = styles
         contentOffsetForActionRef.current = indexoffset
