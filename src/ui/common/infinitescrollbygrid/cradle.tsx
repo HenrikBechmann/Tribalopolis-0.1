@@ -52,6 +52,8 @@ const Cradle = (props) => {
 
     const itemobserver = useRef(null)
 
+    const pauseObserverForReconfiguration = useRef(false)
+
     const [contentlist,saveContentlist] = useState([])
 
     const [dropentries, saveDropentries] = useState(null)
@@ -149,13 +151,15 @@ const Cradle = (props) => {
         if (processingstate == 'ready') {
             console.log('setting processingstate from ready to resize')
             contentOffsetForActionRef.current = contentlist[0]?.props.index
+            pauseObserverForReconfiguration.current = true
             saveProcessingstate('resize')
         }
     },[
         cellWidth, 
         cellHeight, 
         gap, 
-        padding, 
+        padding,
+        runway,
         viewportheight, 
         viewportwidth,
     ])
@@ -174,6 +178,7 @@ const Cradle = (props) => {
                 break
             case 'resize':
                 console.log('setting processingstate from resize to ready',)
+                // pauseObserverForReconfiguration.current = false
                 saveProcessingstate('ready')
                 break
             case 'ready':
@@ -214,8 +219,16 @@ const Cradle = (props) => {
     // *** the async callback from IntersectionObserver
     const itemobservercallback = useCallback((entries)=>{
 
-        // console.log('itemobservercallback state, entries',processingstateRef.current)
+        console.log('itemobservercallback state',processingstateRef.current)
         // let dropentries = entries.filter(entry => (!entry.isIntersecting))
+        if (pauseObserverForReconfiguration.current) {
+            console.log('pausing for configuration, processingstate',processingstateRef.current)
+            if (processingstateRef.current == 'ready') {
+                pauseObserverForReconfiguration.current = false
+            }
+            return
+        }
+
         if (processingstateRef.current == 'ready') { // first pass is after setBaseContent, no action required
             let dropentries = entries.filter(entry => (!entry.isIntersecting))
             console.log('processing scroll items to drop', dropentries.length)
@@ -227,7 +240,7 @@ const Cradle = (props) => {
             }
         }
         if (processingstateRef.current == 'initobserver') {
-            console.log('setting processingstate from initobserver to scroll',)            
+            console.log('setting processingstate from initobserver to ready',)            
             saveProcessingstate('ready')
         }
     },[])
@@ -533,34 +546,42 @@ const Cradle = (props) => {
 
         })
 
-        let styleoffset = padding
-        let lengthcount = indexoffset/crosscount
         let styles:React.CSSProperties = {}
+        let startoffset
         if (orientation == 'vertical') {
-            lengthcount *= (cellHeight + gap)
-            lengthcount -= runway
-            lengthcount += styleoffset
-            lengthcount = Math.max(0,lengthcount)
-            styles.top = lengthcount + 'px'
+            startoffset = (Math.ceil((indexoffset)/crosscount) * (cellHeight + gap)) + (padding * 2) - gap
+            startoffset -= runway
+            startoffset = Math.max(startoffset,0)
+        //     lengthcount *= (cellHeight + gap)
+        //     lengthcount -= runway
+        //     lengthcount += styleoffset
+        //     lengthcount = Math.max(0,lengthcount)
+            styles.top = startoffset + 'px'
             styles.bottom = 'auto'
             styles.left = 'auto'
             styles.right = 'auto'
-
+            console.log('viewport element',viewportData.elementref.current)
+            viewportData.elementref.current.scrollTop = startoffset
         } else { // orientation = 'horizontal'
-            lengthcount -= runway
-            lengthcount = Math.max(0,lengthcount)
-            lengthcount *= (cellHeight + gap)
-            lengthcount -= runway
-            lengthcount += styleoffset
+        //     lengthcount -= runway
+        //     lengthcount = Math.max(0,lengthcount)
+        //     lengthcount *= (cellHeight + gap)
+        //     lengthcount -= runway
+        //     lengthcount += styleoffset
+            startoffset = (Math.ceil((indexoffset)/crosscount) * (cellWidth + gap)) + (padding * 2) - gap
+            startoffset -= runway
+            startoffset = Math.max(startoffset,0)
             styles.top = 'auto'
             styles.bottom = 'auto'
-            styles.left = lengthcount + 'px'
+            styles.left = startoffset + 'px'
             styles.right = 'auto'
+
+            viewportData.elementref.current.scrollLeft = startoffset
         }
         divlinerStyleRevisionsRef.current = styles
         contentOffsetForActionRef.current = indexoffset
-        console.log('setCradleContent style revisions, indexoffset',styles, indexoffset)
-
+        console.log('setCradleContent style revisions, indexoffset',styles, indexoffset, childlistfragment)
+        // pauseObserverForReconfiguration.current = false
         saveContentlist(childlistfragment) // external
 
     },[
@@ -592,6 +613,7 @@ const Cradle = (props) => {
         let indexoffset = (contentOffsetForActionRef.current || 0), headindexcount = 0, tailindexcount = 0
         if (indexoffset != 0) {
             let shift = (indexoffset) % crosscount
+            console.log(`shifting indexoffset from ${indexoffset} to ${indexoffset - shift} with ${shift}`)
             indexoffset -= shift
         }
         let cradlelength, cellLength
@@ -605,7 +627,10 @@ const Cradle = (props) => {
         cradlelength += (runway * 2)
         let contentCount = Math.ceil(cradlelength/cellLength) * crosscount
         console.log('calculated contentCount runway, cradlelength, cellLength, crosscount',runway, cradlelength, cellLength, crosscount)
-        contentCount = Math.min(contentCount,listsize)
+        if (contentCount > listsize) {
+            indexoffset = 0
+            contentCount = listsize
+        }
         tailindexcount = contentCount
 
         console.log('evaluated content list', indexoffset, headindexcount, tailindexcount)
