@@ -126,11 +126,9 @@ const Cradle = (props) => {
     // capture previous versions for reconfigure calulations above
     const configDataRef:any = useRef({})
     const previousConfigDataRef:any = useRef({})
-    previousConfigDataRef.current = {...configDataRef.current}
     configDataRef.current = useMemo(() => {
+        previousConfigDataRef.current = {...configDataRef.current}
         return {
-        scrollboxoffset:(orientation == 'horizontal')?viewportData.elementref.current.scrollLeft:viewportData.elementref.current.scrollTop,
-        cradleoffset:((orientation == 'horizontal')?cradleElementRef.current?.offsetLeft:cradleElementRef.current?.offsetTop) || 0,
         cellWidth,
         cellHeight,
         gap,
@@ -460,6 +458,7 @@ const Cradle = (props) => {
             cellHeight,
             cellWidth,
             observer: itemobserverRef.current,
+            crosscount,
         })
 
         let styles = {} as React.CSSProperties
@@ -570,6 +569,7 @@ const Cradle = (props) => {
             indexoffset,
             headindexcount,
             tailindexcount,
+            crosscount,
 
         })
 
@@ -577,22 +577,25 @@ const Cradle = (props) => {
         let styles:React.CSSProperties = {}
         let cradleoffset
         if (orientation == 'vertical') {
-            cradleoffset = (Math.ceil( (indexoffset/crosscount)) * (cellHeight + gap)) + padding - gap
-            console.log('cradleoffset before adjustment', cradleoffset)
+            cradleoffset = (Math.ceil( (indexoffset/crosscount)) * (cellHeight + gap)) - gap
 
             styles.top = cradleoffset + 'px'
             styles.bottom = 'auto'
             styles.left = 'auto'
             styles.right = 'auto'
 
-            let scrolloffset = cradleoffset
+            let scrolloffset = cradleoffset - runway
+            if (scrolloffset < 0) {
+                scrolloffset = 0
+            }
+            console.log('indexoffset, cradleoffset, scrolloffset', indexoffset, cradleoffset, scrolloffset)
 
             console.log('viewport indexoffset, crosscount, cellHeight, gap, padding, cradleoffset, runway, element', 
                 indexoffset, crosscount,  cellHeight, gap, padding, cradleoffset, runway, viewportData.elementref.current)
-            viewportData.elementref.current.scrollTop = scrolloffset // + runway - diff)
+            viewportData.elementref.current.scrollTop = scrolloffset
         } else { // orientation = 'horizontal'
 
-            cradleoffset = ((Math.ceil((indexoffset)/crosscount)) * (cellWidth + gap)) + padding - gap
+            cradleoffset = ((Math.ceil((indexoffset)/crosscount)) * (cellWidth + gap)) - gap
 
             styles.top = 'auto'
             styles.bottom = 'auto'
@@ -651,10 +654,16 @@ const Cradle = (props) => {
         }
         cradlelength += (runway * 2)
         let contentCount = Math.ceil(cradlelength/cellLength) * crosscount
-        console.log('calculated contentCount runway, cradlelength, cellLength, crosscount',runway, cradlelength, cellLength, crosscount)
-        if (contentCount > listsize) {
-            indexoffset = 0
-            contentCount = listsize
+        console.log('calculated contentCount, runway, cradlelength, cellLength, crosscount',contentCount, runway, cradlelength, cellLength, crosscount)
+        let diffcount = 0
+        if ((contentCount + indexoffset + 1) > listsize) {
+            diffcount = (contentCount + indexoffset) - listsize
+            indexoffset -= diffcount
+            if (indexoffset < 0) {
+                indexoffset = 0
+                // contentCount -= diffcount
+                console.log('ERROR: index calculated as lest than 0')
+            }
         }
         tailindexcount = contentCount
 
@@ -671,7 +680,8 @@ const Cradle = (props) => {
         padding, 
         gap,
         cradlestate, 
-        contentOffsetForActionRef
+        crosscount,
+        contentOffsetForActionRef,
     ])
 
     // =============================================================================
@@ -736,6 +746,7 @@ const getContentList = (props) => {
         cellWidth, 
         localContentList:contentlist,
         observer,
+        crosscount,
     } = props
 
     let localContentlist = [...contentlist]
