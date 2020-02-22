@@ -621,6 +621,7 @@ const Cradle = (props) => {
         runway,
         gap,
         padding,
+        crosscount,
       ]
     )
 
@@ -644,17 +645,18 @@ const Cradle = (props) => {
             console.log(`shifting indexoffset from ${indexoffset} to ${indexoffset - shift} with ${shift}`)
             indexoffset -= shift
         }
-        let cradlelength, cellLength
+        let cradlelength, localcelllength
         if (orientation == 'vertical') {
             cradlelength = (viewportheight + (padding * 2) - gap)
-            cellLength = cellHeight + gap
+            localcelllength = cellHeight + gap
         } else {
             cradlelength = (viewportwidth + (padding * 2) - gap)
-            cellLength = cellWidth + gap
+            localcelllength = cellWidth + gap
         }
         cradlelength += (runway * 2)
-        let contentCount = Math.ceil(cradlelength/cellLength) * crosscount
-        console.log('calculated contentCount, runway, cradlelength, cellLength, crosscount',contentCount, runway, cradlelength, cellLength, crosscount)
+        let contentCount = Math.ceil(cradlelength/localcelllength) * crosscount
+        console.log('calculated contentCount, runway, cradlelength, cellLength, crosscount',contentCount, runway, cradlelength, localcelllength, crosscount)
+        if (contentCount > listsize) contentCount = listsize
         let diffcount = 0
         if ((contentCount + indexoffset + 1) > listsize) {
             diffcount = (contentCount + indexoffset) - listsize
@@ -662,7 +664,7 @@ const Cradle = (props) => {
             if (indexoffset < 0) {
                 indexoffset = 0
                 // contentCount -= diffcount
-                console.log('ERROR: index calculated as lest than 0')
+                console.log('ERROR: index calculated as less than 0')
             }
         }
         tailindexcount = contentCount
