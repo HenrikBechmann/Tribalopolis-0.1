@@ -10,29 +10,31 @@ import { ViewportContext } from './viewport'
 import ItemShell from './itemshell'
 
 /*
-    - name states 'pivot' (change orientation) and 'resize'
+    1 name states 'pivot' (change orientation) and 'resize'
 
     - correct infinite loop/issues arising from resize
 
     - focus on static switch from horizontal to vertical
-    - dynamic switch of orientation
+    2 dynamic switch of orientation
 
+    3
     - memoize render output to minimize render
     - integrate contentOffsetForActionRef in all contentlist creation
     - review use of {...styles} copy styles to new objects, in terms of trigger consequences
-    - deal with thumbscroll
 
-    - implement cellSizing scroller parameter: fixed, variable
+    4 deal with thumbscroll
 
-    - implement getItem
-    - add examples 1, 2, 3 to control page: 
+    5 implement cellSizing scroller parameter: fixed, variable
+    - be careful to reconcile scrollblock and cradle at each end of scrollblock - second IntersectionObserver
+
+    6 implement getItem
+    7 add examples 1, 2, 3 to control page: 
         - small 100x100 images, scroll and rotate
         - vertical scroll items inside horizontal scroll, with ability to flip them
         - variable height items
 
-    - scrollToItem(index[,alignment]) - alignment = start, end, center, auto (default)
+    8 scrollToItem(index[,alignment]) - alignment = start, end, center, auto (default)
 
-    - be careful to reconcile scrollblock and cradle at each end of scrollblock
 */
 
 const Cradle = (props) => {
