@@ -35,11 +35,11 @@ import ItemShell from './itemshell'
     - be careful to reconcile scrollblock and cradle at each end of scrollblock
 */
 
-
 const Cradle = (props) => {
 
     const { gap, padding, runway, listsize, offset, orientation, cellHeight, cellWidth, getItem } = props
 
+    // =============================================================================================
     // --------------------------------------[ initialization ]-------------------------------------
 
     const [cradlestate, saveCradleState] = useState('setup')
@@ -60,6 +60,8 @@ const Cradle = (props) => {
     const itemobserverRef = useRef(null)
 
     const pauseObserverForReconfigurationRef = useRef(false)
+
+    const targetDataForReconfigRef = useRef(null)
 
     const divlinerStylesRef = useRef({
         position: 'absolute',
@@ -147,6 +149,7 @@ const Cradle = (props) => {
         divlinerStyleRevisionsRef.current
       ])
 
+    // =====================================================================================
     // ----------------------------------[ state management ]-------------------------------
 
     // triggering next state phase: states = setup, pivot, resize, scroll (was run)
@@ -177,6 +180,11 @@ const Cradle = (props) => {
             console.log('setting cradlestate from ready to resize')
             contentOffsetForActionRef.current = contentlist[0]?.props.index
             pauseObserverForReconfigurationRef.current = true
+            let cradleElement = cradleElementRef.current
+            targetDataForReconfigRef.current = {
+                scrollboxoffset:(orientation == 'horizontal')?viewportData.elementref.current.scrollLeft:viewportData.elementref.current.scrollTop,
+                cradleoffset:(orientation == 'horizontal')?cradleElement.offsetLeft:cradleElement.offsetTop,
+            }
             saveCradleState('resize')
         }
     },[
@@ -189,7 +197,7 @@ const Cradle = (props) => {
         viewportwidth,
     ])
 
-    // respond to change in orientation
+    // trigger pivot on change in orientation
     useEffect(()=> {
 
         console.log('initializing system with cradlestate',cradlestate)
@@ -538,6 +546,7 @@ const Cradle = (props) => {
 
         })
 
+        console.log('targetDataForReconfigRef',targetDataForReconfigRef)
         let styles:React.CSSProperties = {}
         let cradleoffset
         if (orientation == 'vertical') {
