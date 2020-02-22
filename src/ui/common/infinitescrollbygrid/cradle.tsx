@@ -61,7 +61,12 @@ const Cradle = (props) => {
 
     const pauseObserverForReconfigurationRef = useRef(false)
 
-    const targetDataForReconfigRef = useRef(null)
+    const targetDataForReconfigRef = useRef(
+        {
+            scrollboxoffset:0,
+            cradleoffset:0
+        }
+    )
 
     const divlinerStylesRef = useRef({
         position: 'absolute',
