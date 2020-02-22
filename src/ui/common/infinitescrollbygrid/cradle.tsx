@@ -573,6 +573,7 @@ const Cradle = (props) => {
 
         })
 
+        console.log('childlistfragment',childlistfragment)
         console.log('targetDataForReconfigRef',{...targetDataForReconfigRef.current})
         let styles:React.CSSProperties = {}
         let cradleoffset
