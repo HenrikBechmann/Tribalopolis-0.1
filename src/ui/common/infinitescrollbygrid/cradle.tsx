@@ -66,7 +66,8 @@ const Cradle = (props) => {
     const targetDataForReconfigRef = useRef(
         {
             scrollboxoffset:0,
-            cradleoffset:0
+            cradleoffset:0,
+            previouscrosscount:undefined
         }
     )
 
@@ -191,6 +192,7 @@ const Cradle = (props) => {
             targetDataForReconfigRef.current = {
                 scrollboxoffset:(orientation == 'horizontal')?viewportData.elementref.current.scrollLeft:viewportData.elementref.current.scrollTop,
                 cradleoffset:(orientation == 'horizontal')?cradleElement.offsetLeft:cradleElement.offsetTop,
+                previouscrosscount:crosscountRef.current
             }
             saveCradleState('resize')
         }
