@@ -63,13 +63,7 @@ const Cradle = (props) => {
 
     const pauseObserverForReconfigurationRef = useRef(false)
 
-    const targetDataForReconfigRef = useRef(
-        {
-            previousscrollboxoffset:0,
-            previouscradleoffset:0,
-            previouscrosscount:undefined
-        }
-    )
+    const targetDataForReconfigRef = useRef({})
 
     const divlinerStylesRef = useRef({
         position: 'absolute',
@@ -128,6 +122,33 @@ const Cradle = (props) => {
     const previousCrosscountRef = useRef()
     previousCrosscountRef.current = crosscountRef.current
     crosscountRef.current = crosscount
+
+    // capture previous versions for reconfigure calulations above
+    const configDataRef:any = useRef({})
+    const previousConfigDataRef:any = useRef({})
+    previousConfigDataRef.current = {...configDataRef.current}
+    configDataRef.current = useMemo(() => {
+        return {
+        scrollboxoffset:(orientation == 'horizontal')?viewportData.elementref.current.scrollLeft:viewportData.elementref.current.scrollTop,
+        cradleoffset:((orientation == 'horizontal')?cradleElementRef.current?.offsetLeft:cradleElementRef.current?.offsetTop) || 0,
+        cellWidth,
+        cellHeight,
+        gap,
+        padding,
+        runway,
+        viewportheight,
+        viewportwidth,
+        crosscount,
+    }},[
+        cellWidth, 
+        cellHeight, 
+        gap, 
+        padding,
+        runway,
+        viewportheight, 
+        viewportwidth,
+        crosscount,
+    ])
 
     divlinerStylesRef.current = useMemo(()=> {
 
@@ -190,11 +211,7 @@ const Cradle = (props) => {
             contentOffsetForActionRef.current = contentlist[0]?.props.index
             pauseObserverForReconfigurationRef.current = true
             let cradleElement = cradleElementRef.current
-            targetDataForReconfigRef.current = {
-                previousscrollboxoffset:previousOffsetsRef.current.previousscrollboxoffset,
-                previouscradleoffset:previousOffsetsRef.current.previouscradleoffset,
-                previouscrosscount:previousCrosscountRef.current
-            }
+            targetDataForReconfigRef.current = {...previousConfigDataRef.current}
             saveCradleState('resize')
         }
     },[
@@ -206,13 +223,6 @@ const Cradle = (props) => {
         viewportheight, 
         viewportwidth,
     ])
-
-    // capture previous versions for reconfigure calulations above
-    const previousOffsetsRef:any = useRef({})
-    previousOffsetsRef.current = {
-        previousscrollboxoffset:(orientation == 'horizontal')?viewportData.elementref.current.scrollLeft:viewportData.elementref.current.scrollTop,
-        previouscradleoffset:(orientation == 'horizontal')?cradleElementRef.current?.offsetLeft:cradleElementRef.current?.offsetTop,
-    }
 
     // trigger pivot on change in orientation
     useEffect(()=> {
@@ -563,7 +573,7 @@ const Cradle = (props) => {
 
         })
 
-        console.log('targetDataForReconfigRef',targetDataForReconfigRef)
+        console.log('targetDataForReconfigRef',{...targetDataForReconfigRef.current})
         let styles:React.CSSProperties = {}
         let cradleoffset
         if (orientation == 'vertical') {
@@ -671,14 +681,13 @@ const Cradle = (props) => {
     console.log('divlinerstyles for render return',{...divlinerstyles})
 
     // no result if styles not set
-    return divlinerstyles.width
-        ? <div 
+    return <div 
             ref = {cradleElementRef} 
             style = {divlinerstyles}
           >
-            {contentlist}
+            {divlinerstyles.width?contentlist:null}
           </div>
-        : null
+        
 
 } // Cradle
 
