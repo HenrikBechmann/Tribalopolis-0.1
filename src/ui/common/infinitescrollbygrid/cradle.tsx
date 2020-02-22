@@ -65,8 +65,8 @@ const Cradle = (props) => {
 
     const targetDataForReconfigRef = useRef(
         {
-            scrollboxoffset:0,
-            cradleoffset:0,
+            previousscrollboxoffset:0,
+            previouscradleoffset:0,
             previouscrosscount:undefined
         }
     )
@@ -111,7 +111,6 @@ const Cradle = (props) => {
 
         let lengthforcalc = size - (padding * 2) + gap
         crosscount = Math.floor(lengthforcalc/(crossLength + gap))
-
         console.log('calculating crosscount', crosscount)
         return crosscount
 
@@ -126,6 +125,8 @@ const Cradle = (props) => {
     ])
 
     const crosscountRef = useRef(crosscount) // for easy reference by observer
+    const previousCrosscountRef = useRef()
+    previousCrosscountRef.current = crosscountRef.current
     crosscountRef.current = crosscount
 
     divlinerStylesRef.current = useMemo(()=> {
@@ -190,9 +191,9 @@ const Cradle = (props) => {
             pauseObserverForReconfigurationRef.current = true
             let cradleElement = cradleElementRef.current
             targetDataForReconfigRef.current = {
-                scrollboxoffset:(orientation == 'horizontal')?viewportData.elementref.current.scrollLeft:viewportData.elementref.current.scrollTop,
-                cradleoffset:(orientation == 'horizontal')?cradleElement.offsetLeft:cradleElement.offsetTop,
-                previouscrosscount:crosscountRef.current
+                previousscrollboxoffset:previousOffsetsRef.current.previousscrollboxoffset,
+                previouscradleoffset:previousOffsetsRef.current.previouscradleoffset,
+                previouscrosscount:previousCrosscountRef.current
             }
             saveCradleState('resize')
         }
@@ -205,6 +206,13 @@ const Cradle = (props) => {
         viewportheight, 
         viewportwidth,
     ])
+
+    // capture previous versions for reconfigure calulations above
+    const previousOffsetsRef:any = useRef({})
+    previousOffsetsRef.current = {
+        previousscrollboxoffset:(orientation == 'horizontal')?viewportData.elementref.current.scrollLeft:viewportData.elementref.current.scrollTop,
+        previouscradleoffset:(orientation == 'horizontal')?cradleElementRef.current?.offsetLeft:cradleElementRef.current?.offsetTop,
+    }
 
     // trigger pivot on change in orientation
     useEffect(()=> {
