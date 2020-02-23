@@ -3,10 +3,10 @@
 
 'use strict'
 
-import React, {useRef, useEffect, useState } from 'react'
+import React, {useRef, useEffect, useState, useCallback } from 'react'
 
 const ItemShell = (props) => {
-    const {text, orientation, cellHeight, cellWidth, index, observer} = props
+    const {text, orientation, cellHeight, cellWidth, index, observer, callbacks} = props
     const [content, saveContent] = useState(null)
     const shellRef = useRef(null)
     const [styles,saveStyles] = useState({ 
@@ -14,6 +14,18 @@ const ItemShell = (props) => {
         backgroundColor:'cyan',
         border:'2px solid black',
     } as React.CSSProperties)
+
+    // initialize
+    useEffect(() => {
+
+        callbacks?.getElementData && callbacks.getElementData(getElementData(),'register')
+        return (()=>{
+
+            callbacks?.getElementData && callbacks.getElementData(getElementData(),'unregister')
+            
+        })
+
+    },[])
 
     useEffect(()=>{
 
@@ -37,6 +49,10 @@ const ItemShell = (props) => {
         saveStyles(newStyles)
 
     },[orientation,cellHeight,cellWidth])
+
+    const getElementData = useCallback(()=>{
+        return [index, shellRef]
+    },[])
 
     return <div ref = { shellRef } data-index = {index} style = {styles}>
         {styles.width?content:null}

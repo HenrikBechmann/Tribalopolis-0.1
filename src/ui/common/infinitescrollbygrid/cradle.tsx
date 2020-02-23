@@ -41,7 +41,7 @@ import ItemShell from './itemshell'
 
 */
 
-const DEBUG = true
+const DEBUG = false
 
 const Cradle = (props) => {
 
@@ -182,6 +182,8 @@ const Cradle = (props) => {
         crosscount,
         divlinerStyleRevisionsRef.current
       ])
+
+    const itemElementsRef = useRef([])
 
     // =====================================================================================
     // ----------------------------------[ state management ]-------------------------------
@@ -701,6 +703,26 @@ const Cradle = (props) => {
         crosscount,
         contentOffsetForActionRef,
     ])
+    // =============================================================================
+    // ------------------------------[ child callbacks ]----------------------------------
+
+    const getItemElementData = useCallback((itemElementData, reportType) => {
+
+        const [index, shellref] = itemElementData
+
+        console.log('updating itemElements: index, shellref, reportType', index, shellref, reportType)
+
+        if (reportType == 'register') {
+
+            itemElementsRef.current[index] = shellref
+
+        } else if (reportType == 'unregister') {
+
+            itemElementsRef.current.splice(index,1)
+
+        }
+
+    },[])
 
     // =============================================================================
     // ------------------------------[ render... ]----------------------------------
