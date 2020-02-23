@@ -185,17 +185,21 @@ const Cradle = (props) => {
         console.log('state transformation from', cradlestate)
         switch (cradlestate) {
             case 'pivot':
-                console.log('setting cradlestate from pivot to setup',)
+                console.log('setting cradlestate from pivot to setup')
                 saveCradleState('setup')
                 break
             case 'setup': 
-                console.log('setting cradlestate from setup to initobserver',)
+                console.log('setting cradlestate from setup to initobserver')
                 saveCradleState('initobserver')
                 break
             case 'resize':
-                console.log('setting cradlestate from resize to ready',)
-                saveCradleState('ready')
+                console.log('setting cradlestate from resize to reset')
+                saveCradleState('reset')
                 break
+            case 'reset':
+                console.log('setting cradlestate from rest to ready')
+                saveCradleState('ready')
+                break;
             case 'ready':
                 // do nothing
                 break
