@@ -10,6 +10,10 @@ import { ViewportContext } from './viewport'
 import ItemShell from './itemshell'
 
 /*
+    - track child id's to track element refs for scrollIntoView
+*/
+
+/*
     1 name states 'pivot' (change orientation) and 'resize'
 
     - correct infinite loop/issues arising from resize
@@ -105,7 +109,7 @@ const Cradle = (props) => {
 
         let lengthforcalc = size - (padding * 2) + gap
         crosscount = Math.floor(lengthforcalc/(crossLength + gap))
-        console.log('calculating crosscount', crosscount)
+        console.log('calculated crosscount', crosscount)
         return crosscount
 
     },[
@@ -182,7 +186,7 @@ const Cradle = (props) => {
 
     // triggering next state phase: states = setup, pivot, resize, scroll (was run)
     useEffect(()=> {
-        console.log('state transformation from', cradlestate)
+        console.log('state transformation block, from', cradlestate)
         switch (cradlestate) {
             case 'pivot':
                 console.log('setting cradlestate from pivot to setup')
@@ -197,7 +201,16 @@ const Cradle = (props) => {
                 saveCradleState('reset')
                 break
             case 'reset':
-                console.log('setting cradlestate from rest to ready')
+                console.log('setting cradlestate from reset to settle')
+                saveCradleState('settle')
+                break;
+            case 'settle':
+                console.log('setting cradlestate from settle to ready')
+                setTimeout(()=>{ // let everything settle before reviving observer
+                    console.log('observer pause ended')
+                    pauseObserverForReconfigurationRef.current = false
+                },250) // timeout a bit spooky but gives observer initialization of new items a chance to settle
+                    // observer seems to need up to 2 cycles to settle; one for each side of the cradle.
                 saveCradleState('ready')
                 break;
             case 'ready':
@@ -259,11 +272,8 @@ const Cradle = (props) => {
     const itemobservercallback = useCallback((entries)=>{
 
         if (pauseObserverForReconfigurationRef.current) {
-            console.log('pausing observer for configuration, cradlestate',cradlestateRef.current)
-            if (cradlestateRef.current == 'ready') {
-                console.log('observer pause ended')
-                pauseObserverForReconfigurationRef.current = false
-            }
+            // if (dropentries.length == 0) return
+            console.log('observer paused for configuration, cradlestate',cradlestateRef.current)
             return
         }
 
@@ -293,7 +303,7 @@ const Cradle = (props) => {
         let cradleElement = cradleElementRef.current
         let parentElement = cradleElement.parentElement
         let viewportElement = viewportData.elementref.current
-        // console.log('dropentries updated:dropentries, contentlist',dropentries,contentlist)
+
         let tailpos
         let headpos
         let scrollforward
@@ -314,14 +324,14 @@ const Cradle = (props) => {
         let indexoffset = contentlist[0].props.index
         let pendingcontentoffset
         let newcontentcount = Math.ceil(dropentries.length/crosscountRef.current)*crosscountRef.current
-        console.log('dropentries newcontentcount, dropentries.length, crosscountRef.current', dropentries.length, crosscountRef.current)
+        console.log('dropentries newcontentcount, dropentries.length, crosscountRef.current', newcontentcount, dropentries.length, crosscountRef.current)
         let headindexcount, tailindexcount
         if (scrollforward) {
             pendingcontentoffset = indexoffset + dropentries.length
             let proposedtailoffset = pendingcontentoffset + newcontentcount + ((contentlist.length - dropentries.length ) - 1)
 
             if ((proposedtailoffset) > (listsize -1) ) {
-                console.log('calculated newcontentcount',newcontentcount)
+                console.log('the calculated newcontentcount value, before revision',newcontentcount)
                 newcontentcount -= (proposedtailoffset - (listsize -1))
                 console.log('dropitem: dropentries.length, contentlist.length, pendingcontentoffset,newcontentcount,proposedtailoffset,listsize',
                     dropentries.length, contentlist.length, pendingcontentoffset,newcontentcount, proposedtailoffset, listsize)
@@ -426,14 +436,14 @@ const Cradle = (props) => {
     useEffect(()=>{
         if (addentries === null) return
         console.log('processing addentries',addentries)
-        // console.log('cradleElementRef in add scroll content',cradleElementRef)
+
         let cradleElement = cradleElementRef.current
         let parentElement = cradleElement.parentElement
         let viewportElement = viewportData.elementref.current
-        // console.log('addentries updated:addentries, contentlist',addentries,contentlist)
+
         let tailpos
         let headpos
-        // let styles = {...divlinerStylesRef.current}
+
         let { scrollforward } = addentries
         let localContentList
 
@@ -515,7 +525,6 @@ const Cradle = (props) => {
 
         }
 
-        // console.log('addentries addentries, headpos, tailpos, contentlist',addentries, headpos, tailpos, localContentList)
         console.log('addentries headpos, styles, localContentList', headpos, {...styles}, localContentList)
 
         divlinerStyleRevisionsRef.current = {...styles}
@@ -589,14 +598,14 @@ const Cradle = (props) => {
             styles.left = 'auto'
             styles.right = 'auto'
 
-            let scrolloffset = cradleoffset - runway
-            if (scrolloffset < 0) {
-                scrolloffset = 0
-            }
+            let scrolloffset = cradleoffset + runway
+            // if (scrolloffset < 0) {
+            //     scrolloffset = 0
+            // }
             console.log('indexoffset, cradleoffset, scrolloffset', indexoffset, cradleoffset, scrolloffset)
 
-            console.log('viewport indexoffset, crosscount, cellHeight, gap, padding, cradleoffset, runway, element', 
-                indexoffset, crosscount,  cellHeight, gap, padding, cradleoffset, runway, viewportData.elementref.current)
+            console.log('viewport indexoffset, crosscount, cellHeight, gap, padding, cradleoffset, scrolloffset, runway, element', 
+                indexoffset, crosscount,  cellHeight, gap, padding, cradleoffset, scrolloffset, runway, viewportData.elementref.current)
             viewportData.elementref.current.scrollTop = scrolloffset
         } else { // orientation = 'horizontal'
 
@@ -646,9 +655,9 @@ const Cradle = (props) => {
         ) => {
         let indexoffset = (contentOffsetForActionRef.current || 0), headindexcount = 0, tailindexcount = 0
         if (indexoffset != 0) {
-            let shift = (indexoffset) % crosscount
-            console.log(`shifting indexoffset from ${indexoffset} to ${indexoffset - shift} with ${shift}`)
-            indexoffset -= shift
+            let shift = (indexoffset) % crosscount;
+            (shift != 0) && console.log(`shifting indexoffset from ${indexoffset} to ${indexoffset - shift} with ${shift}`);
+            (shift != 0) && (indexoffset -= shift)
         }
         let cradlelength, localcelllength
         if (orientation == 'vertical') {
@@ -762,7 +771,7 @@ const getContentList = (props) => {
     let headContentlist = []
     if (headindexcount >= 0) {
 
-        // console.log('adding head items',indexoffset,headindexcount)
+        console.log('adding head items, indexoffset, headindexcount',indexoffset,headindexcount)
         for (let index = indexoffset - headindexcount; index < (indexoffset); index++) {
             headContentlist.push(<ItemShell
                 key = {index} 
@@ -798,9 +807,9 @@ const getContentList = (props) => {
         }
 
     } else {
-        // console.log('removing tail items',localContentlist,tailindexcount)
+
         localContentlist.splice(tailindexcount,-tailindexcount)
-        // console.log('the three parts',headContentlist,localContentlist,tailContentlist)
+
     }
 
     returnContentlist = headContentlist.concat(localContentlist,tailContentlist)
