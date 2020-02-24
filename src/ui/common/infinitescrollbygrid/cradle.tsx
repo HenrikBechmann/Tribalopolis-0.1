@@ -323,15 +323,33 @@ const Cradle = (props) => {
         // TODO: correct this! it could be a combination
         // -- isolate forward and backward lists
         // set scrollforward
-        if (orientation == 'vertical') {
+        let forwardcount = 0, backwardcount = 0
+        for (let droprecordindex = 0; droprecordindex <dropentries.length; droprecordindex++ ) {
+            if (orientation == 'vertical') {
 
-            scrollforward = (sampleEntry.boundingClientRect.y - sampleEntry.rootBounds.y < 0) //dropped cell is to the top
-        
-        } else {
-        
-            scrollforward = (sampleEntry.boundingClientRect.x - sampleEntry.rootBounds.x < 0) //dropped cell is to the left
-        
+                if (sampleEntry.boundingClientRect.y - sampleEntry.rootBounds.y < 0) {
+                    forwardcount++
+                } else {
+                    backwardcount++
+                }
+            
+            } else {
+            
+                if (sampleEntry.boundingClientRect.x - sampleEntry.rootBounds.x < 0) {
+                    forwardcount++
+                } else {
+                    backwardcount++
+                }
+            
+            }
         }
+
+        let netshift = forwardcount - backwardcount
+        if (netshift == 0) return
+
+        scrollforward = (forwardcount > backwardcount)
+
+        netshift = Math.abs(netshift)
 
         // set localContentList
         let indexoffset = contentlist[0].props.index
@@ -340,8 +358,8 @@ const Cradle = (props) => {
         DEBUG && console.log('dropentries newcontentcount, dropentries.length, crosscountRef.current', newcontentcount, dropentries.length, crosscountRef.current)
         let headindexcount, tailindexcount
         if (scrollforward) {
-            pendingcontentoffset = indexoffset + dropentries.length
-            let proposedtailoffset = pendingcontentoffset + newcontentcount + ((contentlist.length - dropentries.length ) - 1)
+            pendingcontentoffset = indexoffset + netshift
+            let proposedtailoffset = pendingcontentoffset + newcontentcount + ((contentlist.length - netshift ) - 1)
 
             if ((proposedtailoffset) > (listsize -1) ) {
                 DEBUG && console.log('the calculated newcontentcount value, before revision',newcontentcount)
@@ -353,7 +371,7 @@ const Cradle = (props) => {
                 }
             }
 
-            headindexcount = -dropentries.length
+            headindexcount = -netshift
             tailindexcount = 0
 
         } else {
@@ -372,7 +390,7 @@ const Cradle = (props) => {
             }
 
             headindexcount = 0
-            tailindexcount = -dropentries.length
+            tailindexcount = -netshift
 
         }
 
@@ -699,8 +717,7 @@ const Cradle = (props) => {
         }
         tailindexcount = contentCount
 
-        // DEBUG && console.log('evaluated content list', indexoffset, headindexcount, tailindexcount)
-        console.log('evaluated content list: contentCount, indexoffset, headindexcount, tailindexcount', contentCount, indexoffset, headindexcount, tailindexcount)
+        DEBUG && console.log('evaluated content list: contentCount, indexoffset, headindexcount, tailindexcount', contentCount, indexoffset, headindexcount, tailindexcount)
 
         return {indexoffset, headindexcount, tailindexcount} // summarize requirements message
     },[
