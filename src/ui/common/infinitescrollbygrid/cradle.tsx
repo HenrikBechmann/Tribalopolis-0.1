@@ -10,16 +10,15 @@ import { ViewportContext } from './viewport'
 import ItemShell from './itemshell'
 
 /*
-    - track child id's to track element refs for scrollIntoView
 */
 
 /*
     1 name states 'pivot' (change orientation) and 'resize'
-
-    - correct infinite loop/issues arising from resize
+    - finish resize implementation for vertical
+    - implement reisze for horizontal
 
     - focus on static switch from horizontal to vertical
-    2 dynamic switch of orientation
+    2 dynamic switch of orientation (pivot)
 
     3
     - memoize render output to minimize render
@@ -183,7 +182,7 @@ const Cradle = (props) => {
         divlinerStyleRevisionsRef.current
       ])
 
-    const itemElementsRef = useRef({})
+    const itemElementsRef = useRef(new Map())
 
     // =====================================================================================
     // ----------------------------------[ state management ]-------------------------------
@@ -547,7 +546,7 @@ const Cradle = (props) => {
     // set cradle content for state changes
     useEffect(() => {
 
-        if (['setup','pivot','resize'].indexOf(cradlestate) == -1) return
+        if (['setup','resize','pivot'].indexOf(cradlestate) == -1) return
 
         DEBUG && console.log('cradlestate for setcradlecontent',cradlestate)
 
@@ -563,7 +562,7 @@ const Cradle = (props) => {
         let localContentList = [] // any existing items will be re-used by react
 
         let {indexoffset, headindexcount, tailindexcount} = 
-            evaluateContentList( // internal
+            evaluateContentList({ // internal
                 cellHeight, 
                 cellWidth, 
                 orientation, 
@@ -574,8 +573,8 @@ const Cradle = (props) => {
                 padding,
                 cradlestate, 
                 contentOffsetForActionRef,
-                crosscount
-            )
+                crosscount,
+            })
 
         let childlistfragment = getContentList({
 
@@ -647,7 +646,7 @@ const Cradle = (props) => {
     )
 
     // evaluate content for requirements
-    const evaluateContentList = useCallback((
+    const evaluateContentList = useCallback(({
             cellHeight, 
             cellWidth, 
             orientation, 
@@ -659,7 +658,7 @@ const Cradle = (props) => {
             cradlestate, 
             contentOffsetForActionRef,
             crosscount
-        ) => {
+        }) => {
         let indexoffset = (contentOffsetForActionRef.current || 0), headindexcount = 0, tailindexcount = 0
         if (indexoffset != 0) {
             let shift = (indexoffset) % crosscount;
@@ -715,11 +714,11 @@ const Cradle = (props) => {
 
         if (reportType == 'register') {
 
-            itemElementsRef.current[index] = shellref
+            itemElementsRef.current.set(index,shellref)
 
         } else if (reportType == 'unregister') {
 
-            delete itemElementsRef.current[index]
+            itemElementsRef.current.delete(index)
 
         }
 
