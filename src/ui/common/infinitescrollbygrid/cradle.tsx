@@ -31,6 +31,7 @@ import ItemShell from './itemshell'
     - memoize render output to minimize render
     - integrate contentOffsetForActionRef in all contentlist creation
     - review use of {...styles} copy styles to new objects, in terms of trigger consequences
+    - make a cradle count memo
 
     4 deal with thumbscroll
 
