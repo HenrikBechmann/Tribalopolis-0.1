@@ -10,6 +10,13 @@ import { ViewportContext } from './viewport'
 import ItemShell from './itemshell'
 
 /*
+    BUG: integrate gap measurement correctly
+    BUG: rapid back and forth scrolling causes loss of content in relation to requirement
+        - content should be coerced to calculated length as minimum or listsize whichever is smaller
+        - find out why cradlelistsize is shrinkin - suspect disparity between row count and item count in row
+            in dropcontent
+            - possibly rapid forward and backward movements cause observer to combine deletions from both
+            - likely problem is using a sample to determine forward or backward direction of delete; it could be a mix
 */
 
 /*
@@ -312,6 +319,8 @@ const Cradle = (props) => {
         let scrollforward
         let localContentList
 
+        // TODO: correct this! it could be a combination
+        // -- isolate forward and backward lists
         // set scrollforward
         if (orientation == 'vertical') {
 
@@ -597,7 +606,7 @@ const Cradle = (props) => {
         let styles:React.CSSProperties = {}
         let cradleoffset
         if (orientation == 'vertical') {
-            cradleoffset = (Math.ceil( (indexoffset/crosscount)) * (cellHeight + gap)) - gap
+            cradleoffset = (Math.ceil( (indexoffset/crosscount)) * (cellHeight + gap))
 
             styles.top = cradleoffset + 'px'
             styles.bottom = 'auto'
@@ -689,7 +698,8 @@ const Cradle = (props) => {
         }
         tailindexcount = contentCount
 
-        DEBUG && console.log('evaluated content list', indexoffset, headindexcount, tailindexcount)
+        // DEBUG && console.log('evaluated content list', indexoffset, headindexcount, tailindexcount)
+        console.log('evaluated content list: contentCount, indexoffset, headindexcount, tailindexcount', contentCount, indexoffset, headindexcount, tailindexcount)
 
         return {indexoffset, headindexcount, tailindexcount} // summarize requirements message
     },[
@@ -776,6 +786,7 @@ const setCradleStyles = (orientation, stylesobject, cellHeight, cellWidth, gap, 
         return styles
 }
 
+// TODO: check cradlelistsize is adequate.
 // update content
 // adds itemshells at start of end of contentlist according to headindexcount and tailindescount,
 // or if indexcount values are <0 removes them.

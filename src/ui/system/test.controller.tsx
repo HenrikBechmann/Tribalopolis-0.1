@@ -46,7 +46,7 @@ const Home = (props) => {
             }>
                 <InfiniteScroller 
                     orientation = { orientation } 
-                    gap = {0}
+                    gap = {5}
                     padding = {5}
                     cellHeight = {200}
                     cellWidth = {150}
