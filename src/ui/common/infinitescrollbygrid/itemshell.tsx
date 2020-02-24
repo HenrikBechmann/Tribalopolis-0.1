@@ -6,10 +6,12 @@
 import React, {useRef, useEffect, useState, useCallback } from 'react'
 
 const ItemShell = (props) => {
+    // console.log('itemshell props',{...props})
     const {text, orientation, cellHeight, cellWidth, index, observer, callbacks} = props
+    // const callbacks = callbacksRef.current
     const [content, saveContent] = useState(null)
     const shellRef = useRef(null)
-    const [styles,saveStyles] = useState({ 
+    const [styles,saveStyles] = useState({
         boxSizing:'border-box',
         backgroundColor:'cyan',
         border:'2px solid black',
@@ -18,14 +20,17 @@ const ItemShell = (props) => {
     // initialize
     useEffect(() => {
 
-        callbacks?.getElementData && callbacks.getElementData(getElementData(),'register')
+        let localcalls = callbacks.current
+        // console.log('calling register itemshell: index, callbacks',index, localcalls)
+        localcalls.getElementData && localcalls.getElementData(getElementData(),'register')
         return (()=>{
 
-            callbacks?.getElementData && callbacks.getElementData(getElementData(),'unregister')
-            
+            // console.log('calling unregister itemshell',index, localcalls)
+            localcalls.getElementData && localcalls.getElementData(getElementData(),'unregister')
+
         })
 
-    },[])
+    },[callbacks])
 
     useEffect(()=>{
 

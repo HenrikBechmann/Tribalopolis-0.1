@@ -183,7 +183,7 @@ const Cradle = (props) => {
         divlinerStyleRevisionsRef.current
       ])
 
-    const itemElementsRef = useRef([])
+    const itemElementsRef = useRef({})
 
     // =====================================================================================
     // ----------------------------------[ state management ]-------------------------------
@@ -374,6 +374,7 @@ const Cradle = (props) => {
                 localContentList:contentlist,
                 headindexcount,
                 tailindexcount,
+                callbacksRef,
 
             })
 
@@ -432,7 +433,7 @@ const Cradle = (props) => {
         saveContentlist(localContentList) // delete entries
         saveDropentries(null)
         saveAddentries({count:newcontentcount,scrollforward,contentoffset:pendingcontentoffset})
-        console.log('end of drop entries')
+        DEBUG && console.log('end of drop entries')
 
     },[dropentries])
 
@@ -477,6 +478,7 @@ const Cradle = (props) => {
             cellWidth,
             observer: itemobserverRef.current,
             crosscount,
+            callbacksRef,
         })
 
         let styles = {} as React.CSSProperties
@@ -587,6 +589,7 @@ const Cradle = (props) => {
             headindexcount,
             tailindexcount,
             crosscount,
+            callbacksRef,
 
         })
 
@@ -710,19 +713,21 @@ const Cradle = (props) => {
 
         const [index, shellref] = itemElementData
 
-        console.log('updating itemElements: index, shellref, reportType', index, shellref, reportType)
-
         if (reportType == 'register') {
 
             itemElementsRef.current[index] = shellref
 
         } else if (reportType == 'unregister') {
 
-            itemElementsRef.current.splice(index,1)
+            delete itemElementsRef.current[index]
 
         }
 
     },[])
+
+    const callbacksRef = useRef({
+        getElementData:getItemElementData
+    })
 
     // =============================================================================
     // ------------------------------[ render... ]----------------------------------
@@ -787,6 +792,7 @@ const getContentList = (props) => {
         localContentList:contentlist,
         observer,
         crosscount,
+        callbacksRef,
     } = props
 
     let localContentlist = [...contentlist]
@@ -805,6 +811,7 @@ const getContentList = (props) => {
                 cellWidth = { cellWidth }
                 index = {index}
                 observer = {observer}
+                callbacks = {callbacksRef}
             />)
         }
 
@@ -827,6 +834,7 @@ const getContentList = (props) => {
                 cellWidth = { cellWidth }
                 index = {index}
                 observer = {observer}
+                callbacks = {callbacksRef}
             />)
         }
 
