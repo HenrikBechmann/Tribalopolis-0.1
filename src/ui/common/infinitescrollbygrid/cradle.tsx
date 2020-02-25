@@ -661,10 +661,7 @@ const Cradle = (props) => {
             styles.left = 'auto'
             styles.right = 'auto'
 
-            let scrolloffset = cradleoffset + runway
-            // if (scrolloffset < 0) {
-            //     scrolloffset = 0
-            // }
+            let scrolloffset = cradleoffset
             DEBUG && console.log('indexoffset, cradleoffset, scrolloffset', indexoffset, cradleoffset, scrolloffset)
 
             DEBUG && console.log('viewport indexoffset, crosscount, cellHeight, gap, padding, cradleoffset, scrolloffset, runway, element', 
@@ -672,7 +669,7 @@ const Cradle = (props) => {
             viewportData.elementref.current.scrollTop = scrolloffset
         } else { // orientation = 'horizontal'
 
-            cradleoffset = ((Math.ceil((indexoffset)/crosscount)) * (cellWidth + gap)) - gap
+            cradleoffset = ((Math.ceil((indexoffset)/crosscount)) * (cellWidth + gap)) - gap - padding
 
             styles.top = 'auto'
             styles.bottom = 'auto'
