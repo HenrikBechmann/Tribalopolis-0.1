@@ -32,7 +32,7 @@ import ItemShell from './itemshell'
     - integrate contentOffsetForActionRef in all contentlist creation
     - review use of {...styles} copy styles to new objects, in terms of trigger consequences
     - make a cradle count memo
-    - change runway to number of items
+    - change runway measure to number of items
 
     4 deal with thumbscroll
 
@@ -698,10 +698,12 @@ const Cradle = (props) => {
             contentOffsetForActionRef,
             crosscount
         }) => {
+        // start with indexoffset from when evaluation was triggered
         let indexoffset = (contentOffsetForActionRef.current || 0), headindexcount = 0, tailindexcount = 0
         DEBUG && console.log('original indexoffset in evaluateContentList', indexoffset)
-        let shift
+        // shift the offset to conform to crosscount multiple
         if (indexoffset != 0) {
+            let shift
             shift = indexoffset % crosscount;
             // shift = crosscount - shift;
             (shift) && DEBUG && console.log(`shifting indexoffset from ${indexoffset} to ${indexoffset - shift} with ${shift}`);
@@ -709,7 +711,7 @@ const Cradle = (props) => {
         }
         let cradlelength, localcelllength
         if (orientation == 'vertical') {
-            cradlelength = (viewportheight + (padding * 2) - gap)
+            cradlelength = (viewportheight + (padding * 2) - gap) // assumes at least one item
             localcelllength = cellHeight + gap
         } else {
             cradlelength = (viewportwidth + (padding * 2) - gap)
@@ -717,28 +719,30 @@ const Cradle = (props) => {
         }
         cradlelength += (runway * 2)
         let cradlecontentCount = Math.ceil(cradlelength/localcelllength) * crosscount
-        DEBUG && console.log('calculated indexoffset, shift, cradlecontentCount, runway, cradlelength, cellLength, crosscount',
-            indexoffset, shift, cradlecontentCount, runway, cradlelength, localcelllength, crosscount)
+
+        DEBUG && console.log('calculated indexoffset, cradlecontentCount, runway, cradlelength, cellLength, crosscount',
+            indexoffset, cradlecontentCount, runway, cradlelength, localcelllength, crosscount)
+
         if (cradlecontentCount > listsize) cradlecontentCount = listsize
 
         // debugger
-        // shift cradlecontent back to accommodate size
+        // shift cradlecontent back by lowering indexoffset to accommodate size
         let diffcountoffset
         if ((cradlecontentCount + indexoffset + 1) > listsize) {
             diffcountoffset = (cradlecontentCount + indexoffset + 1) - listsize
-            shift = (diffcountoffset) % crosscount
+            let shift = (diffcountoffset) % crosscount
             if (shift) {
                 diffcountoffset -= shift
             }
             indexoffset -= diffcountoffset                
             DEBUG && console.log('adjusted for listsize, diffcountoffset, cradlecontentCount, indexoffset, listsize, shift', diffcountoffset, cradlecontentCount, indexoffset, listsize, shift)
         }
-        if (indexoffset < 0) {
+        if (indexoffset < 0) { // shouldn't happen
             console.warn('indexoffset < 0 in evaluateContentList', indexoffset)
         }
         tailindexcount = cradlecontentCount
 
-        DEBUG && console.log('evaluated content list: diffcount, shift, cradlecontentCount, indexoffset, headindexcount, tailindexcount', diffcountoffset, shift, cradlecontentCount, indexoffset, headindexcount, tailindexcount)
+        DEBUG && console.log('evaluated content list: diffcount, cradlecontentCount, indexoffset, headindexcount, tailindexcount', diffcountoffset, cradlecontentCount, indexoffset, headindexcount, tailindexcount)
 
         return {indexoffset, headindexcount, tailindexcount} // summarize requirements message
     },[
