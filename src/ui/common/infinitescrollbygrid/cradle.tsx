@@ -721,21 +721,24 @@ const Cradle = (props) => {
             indexoffset, shift, cradlecontentCount, runway, cradlelength, localcelllength, crosscount)
         if (cradlecontentCount > listsize) cradlecontentCount = listsize
 
-        let diffcount = 0
+        // debugger
+        // shift cradlecontent back to accommodate size
+        let diffcountoffset
         if ((cradlecontentCount + indexoffset + 1) > listsize) {
-            diffcount = (cradlecontentCount + indexoffset + 1) - listsize
-            shift = diffcount % crosscount
+            diffcountoffset = (cradlecontentCount + indexoffset + 1) - listsize
+            shift = (diffcountoffset) % crosscount
             if (shift) {
-                diffcount += shift
+                diffcountoffset -= shift
             }
-            indexoffset -= diffcount                
+            indexoffset -= diffcountoffset                
+            DEBUG && console.log('adjusted for listsize, diffcountoffset, cradlecontentCount, indexoffset, listsize, shift', diffcountoffset, cradlecontentCount, indexoffset, listsize, shift)
         }
         if (indexoffset < 0) {
             console.warn('indexoffset < 0 in evaluateContentList', indexoffset)
         }
         tailindexcount = cradlecontentCount
 
-        DEBUG && console.log('evaluated content list: diffcount, shift, cradlecontentCount, indexoffset, headindexcount, tailindexcount', diffcount, shift, cradlecontentCount, indexoffset, headindexcount, tailindexcount)
+        DEBUG && console.log('evaluated content list: diffcount, shift, cradlecontentCount, indexoffset, headindexcount, tailindexcount', diffcountoffset, shift, cradlecontentCount, indexoffset, headindexcount, tailindexcount)
 
         return {indexoffset, headindexcount, tailindexcount} // summarize requirements message
     },[
