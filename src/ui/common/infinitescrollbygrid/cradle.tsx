@@ -238,7 +238,9 @@ const Cradle = (props) => {
         }
     },[cradlestate])
 
-    const isScrollingRef = useRef(false)
+    const [isScrolling,saveIsScrolling] = useState(false)
+    const isScrollingRef = useRef(isScrolling)
+    isScrollingRef.current = isScrolling // for observer
     const visibleListRef = useRef([])
 
     // maintain a list of visible items (visibleList)
@@ -665,7 +667,7 @@ const Cradle = (props) => {
             DEBUG && console.log('indexoffset, cradleoffset, scrolloffset', indexoffset, cradleoffset, scrolloffset)
 
             DEBUG && console.log('viewport indexoffset, crosscount, cellHeight, gap, padding, cradleoffset, scrolloffset, runway, element', 
-                indexoffset, crosscount,  cellHeight, gap, padding, cradleoffset, scrolloffset, runway, viewportData.elementref.current)
+                indexoffset, crosscount,  cellHeight, gap, padding, cradleoffset, scrolloffset, runway)
             viewportData.elementref.current.scrollTop = scrolloffset
         } else { // orientation = 'horizontal'
 
