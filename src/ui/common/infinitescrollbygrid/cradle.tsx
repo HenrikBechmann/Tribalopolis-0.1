@@ -141,12 +141,13 @@ const Cradle = (props) => {
     const configDataRef:any = useRef({})
     const previousConfigDataRef:any = useRef({})
     configDataRef.current = useMemo(() => {
-        let scrollOffset = (orientation == 'vertical')?viewportData.elementref.current.scrollTop:viewportData.elementref.current.scrollLeft
-        let cradleOffset = (orientation == 'vertical')?cradleElementRef.current?.offsetTop:cradleElementRef.current?.offsetLeft
+        
+        // let cradleOffset = (orientation == 'vertical')?cradleElementRef.current?.offsetTop:cradleElementRef.current?.offsetLeft
 
-        previousConfigDataRef.current = {scrollOffset, cradleOffset, ...configDataRef.current}
+        previousConfigDataRef.current = {...configDataRef.current} // {cradleOffset, ...configDataRef.current}
 
         return {
+        // scrollOffset:(orientation == 'vertical')?viewportData.elementref.current.scrollTop:viewportData.elementref.current.scrollLeft,
         cellWidth,
         cellHeight,
         gap,
@@ -164,7 +165,6 @@ const Cradle = (props) => {
         viewportheight, 
         viewportwidth,
         crosscount,
-        cradleElementRef.current,
         orientation,
     ])
 
@@ -202,6 +202,8 @@ const Cradle = (props) => {
     // =====================================================================================
     // ----------------------------------[ state management ]-------------------------------
 
+
+
     // triggering next state phase: states = setup, pivot, resize, scroll (was run)
     useEffect(()=> {
         DEBUG && console.log('state transformation block, from', cradlestate)
@@ -232,10 +234,26 @@ const Cradle = (props) => {
                 saveCradleState('ready')
                 break;
             case 'ready':
-                // do nothing
                 break
         }
-    },[cradlestate])  
+    },[cradlestate])
+
+    const isScrollingRef = useRef(false)
+    const visibleListRef = useRef([])
+
+    // maintain a list of visible items (visibleList)
+    useEffect(() => {
+
+        if (cradlestate == 'ready') {
+            // update visible list
+            let itemlist = Array.from(itemElementsRef.current)
+            console.log('preparing list of visible items with cradlestate, isScrollingRef',
+                cradlestate, isScrollingRef.current) //, itemlist)
+            visibleListRef.current = calcVisibleItems(itemlist,cradleElementRef.current.parentElement,cradleElementRef.current)
+
+        }
+
+    },[cradlestate, isScrollingRef.current])
 
     // trigger resize on change
     useEffect(()=>{
@@ -900,6 +918,13 @@ const getContentList = (props) => {
     returnContentlist = headContentlist.concat(localContentlist,tailContentlist)
 
     return returnContentlist
+}
+
+const calcVisibleItems = (itemsArray, scrollblockElement, cradleElement) => {
+    console.log('calculating visible items: itemsArray, scrollblockElement, cradleElement',itemsArray, scrollblockElement, cradleElement )
+    let list = []
+
+    return list
 }
 
 export default Cradle
