@@ -32,6 +32,7 @@ import ItemShell from './itemshell'
     - integrate contentOffsetForActionRef in all contentlist creation
     - review use of {...styles} copy styles to new objects, in terms of trigger consequences
     - make a cradle count memo
+    - change runway to number of items
 
     4 deal with thumbscroll
 
@@ -76,7 +77,7 @@ const Cradle = (props) => {
 
     const pauseObserverForReconfigurationRef = useRef(false)
 
-    const targetDataForReconfigRef = useRef({})
+    const targetConfigDataRef = useRef({})
 
     const divlinerStylesRef = useRef({
         position: 'absolute',
@@ -140,7 +141,11 @@ const Cradle = (props) => {
     const configDataRef:any = useRef({})
     const previousConfigDataRef:any = useRef({})
     configDataRef.current = useMemo(() => {
-        previousConfigDataRef.current = {...configDataRef.current}
+        let scrollOffset = (orientation == 'vertical')?viewportData.elementref.current.scrollTop:viewportData.elementref.current.scrollLeft
+        let cradleOffset = (orientation == 'vertical')?cradleElementRef.current?.offsetTop:cradleElementRef.current?.offsetLeft
+
+        previousConfigDataRef.current = {scrollOffset, cradleOffset, ...configDataRef.current}
+
         return {
         cellWidth,
         cellHeight,
@@ -159,6 +164,8 @@ const Cradle = (props) => {
         viewportheight, 
         viewportwidth,
         crosscount,
+        cradleElementRef.current,
+        orientation,
     ])
 
     divlinerStylesRef.current = useMemo(()=> {
@@ -237,7 +244,7 @@ const Cradle = (props) => {
             contentOffsetForActionRef.current = contentlist[0]?.props.index
             pauseObserverForReconfigurationRef.current = true
             let cradleElement = cradleElementRef.current
-            targetDataForReconfigRef.current = {...previousConfigDataRef.current}
+            targetConfigDataRef.current = {...previousConfigDataRef.current}
             saveCradleState('resize')
         }
     },[
@@ -349,13 +356,16 @@ const Cradle = (props) => {
 
         scrollforward = (forwardcount > backwardcount)
 
+        // console.log('drop scroll content: forwardcount, backwardcount, netshift, scrollforward',
+        //     forwardcount, backwardcount, netshift, scrollforward)
+
         netshift = Math.abs(netshift)
 
         // set localContentList
         let indexoffset = contentlist[0].props.index
         let pendingcontentoffset
-        let newcontentcount = Math.ceil(dropentries.length/crosscountRef.current)*crosscountRef.current
-        DEBUG && console.log('dropentries newcontentcount, dropentries.length, crosscountRef.current', newcontentcount, dropentries.length, crosscountRef.current)
+        let newcontentcount = Math.ceil(netshift/crosscountRef.current)*crosscountRef.current
+        DEBUG && console.log('dropentries newcontentcount, netshift, crosscountRef.current', newcontentcount, netshift, crosscountRef.current)
         let headindexcount, tailindexcount
         if (scrollforward) {
             pendingcontentoffset = indexoffset + netshift
@@ -621,7 +631,8 @@ const Cradle = (props) => {
         })
 
         DEBUG && console.log('childlistfragment',childlistfragment)
-        DEBUG && console.log('targetDataForReconfigRef',{...targetDataForReconfigRef.current})
+        // DEBUG && console.log('targetConfigDataRef',{...targetConfigDataRef.current})
+        console.log('targetConfigDataRef',{...targetConfigDataRef.current})
         let styles:React.CSSProperties = {}
         let cradleoffset
         if (orientation == 'vertical') {
@@ -688,10 +699,13 @@ const Cradle = (props) => {
             crosscount
         }) => {
         let indexoffset = (contentOffsetForActionRef.current || 0), headindexcount = 0, tailindexcount = 0
+        DEBUG && console.log('original indexoffset in evaluateContentList', indexoffset)
+        let shift
         if (indexoffset != 0) {
-            let shift = (indexoffset) % crosscount;
-            (shift != 0) && DEBUG && console.log(`shifting indexoffset from ${indexoffset} to ${indexoffset - shift} with ${shift}`);
-            (shift != 0) && DEBUG && (indexoffset -= shift)
+            shift = indexoffset % crosscount;
+            // shift = crosscount - shift;
+            (shift) && DEBUG && console.log(`shifting indexoffset from ${indexoffset} to ${indexoffset - shift} with ${shift}`);
+            (shift) && (indexoffset -= shift)
         }
         let cradlelength, localcelllength
         if (orientation == 'vertical') {
@@ -702,22 +716,26 @@ const Cradle = (props) => {
             localcelllength = cellWidth + gap
         }
         cradlelength += (runway * 2)
-        let contentCount = Math.ceil(cradlelength/localcelllength) * crosscount
-        DEBUG && console.log('calculated contentCount, runway, cradlelength, cellLength, crosscount',contentCount, runway, cradlelength, localcelllength, crosscount)
-        if (contentCount > listsize) contentCount = listsize
-        let diffcount = 0
-        if ((contentCount + indexoffset + 1) > listsize) {
-            diffcount = (contentCount + indexoffset) - listsize
-            indexoffset -= diffcount
-            if (indexoffset < 0) {
-                indexoffset = 0
-                // contentCount -= diffcount
-                DEBUG && console.log('ERROR: index calculated as less than 0')
-            }
-        }
-        tailindexcount = contentCount
+        let cradlecontentCount = Math.ceil(cradlelength/localcelllength) * crosscount
+        DEBUG && console.log('calculated indexoffset, shift, cradlecontentCount, runway, cradlelength, cellLength, crosscount',
+            indexoffset, shift, cradlecontentCount, runway, cradlelength, localcelllength, crosscount)
+        if (cradlecontentCount > listsize) cradlecontentCount = listsize
 
-        DEBUG && console.log('evaluated content list: contentCount, indexoffset, headindexcount, tailindexcount', contentCount, indexoffset, headindexcount, tailindexcount)
+        let diffcount = 0
+        if ((cradlecontentCount + indexoffset + 1) > listsize) {
+            diffcount = (cradlecontentCount + indexoffset + 1) - listsize
+            shift = diffcount % crosscount
+            if (shift) {
+                diffcount += shift
+            }
+            indexoffset -= diffcount                
+        }
+        if (indexoffset < 0) {
+            console.warn('indexoffset < 0 in evaluateContentList', indexoffset)
+        }
+        tailindexcount = cradlecontentCount
+
+        DEBUG && console.log('evaluated content list: diffcount, shift, cradlecontentCount, indexoffset, headindexcount, tailindexcount', diffcount, shift, cradlecontentCount, indexoffset, headindexcount, tailindexcount)
 
         return {indexoffset, headindexcount, tailindexcount} // summarize requirements message
     },[
