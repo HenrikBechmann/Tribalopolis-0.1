@@ -11,16 +11,9 @@ import ItemShell from './itemshell'
 
 /*
     - set trigger for observer clearing isScrolling state, and setting
-    - use visible list to identify target for resie
+    - use visible list to identify target for resize
     - code maintenance for cradle 
-    - check brief apperance of cradle when resizing to more columns
-
-    BUG: integrate gap measurement correctly
-    BUG: rapid back and forth scrolling causes loss of content in relation to requirement
-        - content should be coerced to calculated length as minimum or listsize whichever is smaller
-        - find out why cradlelistsize is shrinkin - suspect disparity between row count and item count in row
-            in dropcontent
-            - possibly rapid forward and backward movements cause observer to combine deletions from both
+    - check brief apperance of cradle when resizing to more columns = resolve at top or left
 
 */
 
