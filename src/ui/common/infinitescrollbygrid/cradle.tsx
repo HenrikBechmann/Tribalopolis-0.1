@@ -12,7 +12,8 @@ import ItemShell from './itemshell'
 /*
     - set trigger for observer clearing isScrolling state, and setting
     - use visible list to identify target for resie
-    - code maintenance for cradle module
+    - code maintenance for cradle 
+    - check brief apperance of cradle when resizing to more columns
 
     BUG: integrate gap measurement correctly
     BUG: rapid back and forth scrolling causes loss of content in relation to requirement
