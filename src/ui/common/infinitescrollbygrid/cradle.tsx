@@ -12,7 +12,8 @@ import ItemShell from './itemshell'
 /*
     - set trigger for observer clearing isScrolling state, and setting
     - use visible list to identify target for resie
-    
+    - code maintenance for cradle module
+
     BUG: integrate gap measurement correctly
     BUG: rapid back and forth scrolling causes loss of content in relation to requirement
         - content should be coerced to calculated length as minimum or listsize whichever is smaller
@@ -136,13 +137,14 @@ const Cradle = (props) => {
     ])
 
     const crosscountRef = useRef(crosscount) // for easy reference by observer
-    const previousCrosscountRef = useRef()
-    previousCrosscountRef.current = crosscountRef.current
-    crosscountRef.current = crosscount
+    const previousCrosscountRef = useRef() // available for resize logic
+    previousCrosscountRef.current = crosscountRef.current // available for resize logic
+    crosscountRef.current = crosscount // availble for observer closure
 
-    // capture previous versions for reconfigure calulations above
+    // capture previous versions for reconfigure calculations above
     const configDataRef:any = useRef({})
     const previousConfigDataRef:any = useRef({})
+
     configDataRef.current = useMemo(() => {
         
         // let cradleOffset = (orientation == 'vertical')?cradleElementRef.current?.offsetTop:cradleElementRef.current?.offsetLeft
@@ -205,8 +207,6 @@ const Cradle = (props) => {
     // =====================================================================================
     // ----------------------------------[ state management ]-------------------------------
 
-
-
     // triggering next state phase: states = setup, pivot, resize, scroll (was run)
     useEffect(()=> {
         DEBUG && console.log('state transformation block, from', cradlestate)
@@ -246,18 +246,19 @@ const Cradle = (props) => {
     isScrollingRef.current = isScrolling // for observer
     const visibleListRef = useRef([])
 
-    // maintain a list of visible items (visibleList)
+    // maintain a list of visible items (visibleList) 
+    // on shift of state to ready, or 
     useEffect(() => {
 
-        if (cradlestate == 'ready') {
+        if (cradlestate == 'ready' && !isScrollingRef.current) {
+
             // update visible list
             let itemlist = Array.from(itemElementsRef.current)
             visibleListRef.current = calcVisibleItems(
                 itemlist,viewportData.elementref.current,cradleElementRef.current
             )
-            // console.log('list of visible items with cradlestate, isScrollingRef',
-            //     cradlestate, isScrollingRef.current,visibleListRef.current) //, itemlist)
             console.log('list of visible items',visibleListRef.current)
+
         }
 
     },[cradlestate, isScrollingRef.current])
@@ -308,8 +309,8 @@ const Cradle = (props) => {
     // =================================================================================
     // -------------------------[ IntersectionObserver support]-------------------------
 
-    // "head" is right for scrollforward; left for not scrollforward (scroll backward)
-    // "tail" is left for scrollforward; right for not scrollforward (scroll backward)
+    // "head" is bottom or right for scrollforward; top or left for scroll backward (down or left)
+    // "tail" is top or left for scrollforward; bottom or right for scroll backward
 
     // the async callback from IntersectionObserver. this is a closure
     const itemobservercallback = useCallback((entries)=>{
@@ -330,7 +331,7 @@ const Cradle = (props) => {
 
             }
         }
-        if (cradlestateRef.current == 'initobserver') {
+        if (cradlestateRef.current == 'initobserver') { // cradle state when triggered by creating component
             DEBUG && console.log('setting cradlestate from initobserver to ready',)            
             saveCradleState('ready')
         }
@@ -673,7 +674,7 @@ const Cradle = (props) => {
 
             DEBUG && console.log('viewport indexoffset, crosscount, cellHeight, gap, padding, cradleoffset, scrolloffset, runway, element', 
                 indexoffset, crosscount,  cellHeight, gap, padding, cradleoffset, scrolloffset, runway)
-            viewportData.elementref.current.scrollTop = scrolloffset + 300
+            viewportData.elementref.current.scrollTop = scrolloffset // TODO: calculate for target itemShell
 
         } else { // orientation = 'horizontal'
 
@@ -925,6 +926,7 @@ const getContentList = (props) => {
     return returnContentlist
 }
 
+// triggered by transition to ready state, and by cancellation of isScrolling mode
 const calcVisibleItems = (itemsArray, viewportElement, cradleElement) => {
     let list = []
     let cradleTop = cradleElement.offsetTop, 
