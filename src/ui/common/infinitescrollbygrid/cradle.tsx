@@ -10,13 +10,16 @@ import { ViewportContext } from './viewport'
 import ItemShell from './itemshell'
 
 /*
+    - set trigger for observer clearing isScrolling state, and setting
+    - use visible list to identify target for resie
+    
     BUG: integrate gap measurement correctly
     BUG: rapid back and forth scrolling causes loss of content in relation to requirement
         - content should be coerced to calculated length as minimum or listsize whichever is smaller
         - find out why cradlelistsize is shrinkin - suspect disparity between row count and item count in row
             in dropcontent
             - possibly rapid forward and backward movements cause observer to combine deletions from both
-            - likely problem is using a sample to determine forward or backward direction of delete; it could be a mix
+
 */
 
 /*
@@ -249,10 +252,12 @@ const Cradle = (props) => {
         if (cradlestate == 'ready') {
             // update visible list
             let itemlist = Array.from(itemElementsRef.current)
-            console.log('preparing list of visible items with cradlestate, isScrollingRef',
-                cradlestate, isScrollingRef.current) //, itemlist)
-            visibleListRef.current = calcVisibleItems(itemlist,cradleElementRef.current.parentElement,cradleElementRef.current)
-
+            visibleListRef.current = calcVisibleItems(
+                itemlist,viewportData.elementref.current,cradleElementRef.current
+            )
+            // console.log('list of visible items with cradlestate, isScrollingRef',
+            //     cradlestate, isScrollingRef.current,visibleListRef.current) //, itemlist)
+            console.log('list of visible items',visibleListRef.current)
         }
 
     },[cradlestate, isScrollingRef.current])
@@ -668,7 +673,8 @@ const Cradle = (props) => {
 
             DEBUG && console.log('viewport indexoffset, crosscount, cellHeight, gap, padding, cradleoffset, scrolloffset, runway, element', 
                 indexoffset, crosscount,  cellHeight, gap, padding, cradleoffset, scrolloffset, runway)
-            viewportData.elementref.current.scrollTop = scrolloffset
+            viewportData.elementref.current.scrollTop = scrolloffset + 300
+
         } else { // orientation = 'horizontal'
 
             cradleoffset = ((Math.ceil((indexoffset)/crosscount)) * (cellWidth + gap)) - gap - padding
@@ -919,9 +925,107 @@ const getContentList = (props) => {
     return returnContentlist
 }
 
-const calcVisibleItems = (itemsArray, scrollblockElement, cradleElement) => {
-    console.log('calculating visible items: itemsArray, scrollblockElement, cradleElement',itemsArray, scrollblockElement, cradleElement )
+const calcVisibleItems = (itemsArray, viewportElement, cradleElement) => {
     let list = []
+    let cradleTop = cradleElement.offsetTop, 
+        cradleLeft = cradleElement.offsetLeft
+    let scrollblockTopOffset = -viewportElement.scrollTop, 
+        scrollblockLeftOffset = -viewportElement.scrollLeft,
+        viewportHeight = viewportElement.offsetHeight,
+        viewportWidth = viewportElement.offsetWidth,
+        viewportTopOffset = -scrollblockTopOffset,
+        viewportBottomOffset = -scrollblockTopOffset + viewportHeight
+
+    // console.log('calculating visible items: cradleTop, cradleLeft, scrollblockTopOffset, scrollblockLeftOffset, viewportHeight, viewportWidth, viewportBottomOffset, itemsArray',
+    //     cradleTop, cradleLeft, scrollblockTopOffset, scrollblockLeftOffset, viewportHeight, viewportWidth, viewportBottomOffset, itemsArray)
+
+    for (let i = 0; i < itemsArray.length; i++) {
+
+        let [index, elementRef] = itemsArray[i]
+        let element = elementRef.current
+
+        let top = element.offsetTop, 
+            left = element.offsetLeft, 
+            width = element.offsetWidth, 
+            height = element.offsetHeight,
+            right = left + width,
+            bottom = top + height
+
+        let 
+            itemTopOffset = scrollblockTopOffset + top, // offset from top of viewport
+            itemBottomOffset = scrollblockTopOffset + bottom, // offset from top of viewport
+            itemLeftOffset = scrollblockLeftOffset + left, 
+            itemRightOffset = scrollblockLeftOffset + right 
+
+
+        let isVisible = false // default
+
+        let topPortion,
+            bottomPortion,
+            leftPortion,
+            rightPortion
+
+        if (itemTopOffset < 0 && itemBottomOffset > 0) {
+            isVisible = true
+            bottomPortion = itemBottomOffset
+            topPortion = bottomPortion - height
+        } else if (itemTopOffset > 0 && itemBottomOffset < viewportHeight) {
+            isVisible = true
+            topPortion = height
+            bottomPortion = 0
+        } else if (itemTopOffset > 0 && (itemTopOffset - viewportHeight) < 0) {
+            isVisible = true
+            topPortion = viewportHeight - itemTopOffset
+            bottomPortion = topPortion - height
+        }
+
+        if (!isVisible) continue
+
+        if (itemLeftOffset < 0 && itemRightOffset > 0) {
+            rightPortion = itemRightOffset
+            leftPortion = rightPortion - width
+        } else if (itemLeftOffset > 0 && itemRightOffset < viewportWidth) {
+            leftPortion = width
+            rightPortion = 0
+        } else if (itemLeftOffset > 0 && (itemLeftOffset - viewportWidth) < 0) {
+            leftPortion = viewportWidth - itemLeftOffset
+            rightPortion = leftPortion - width
+        }
+
+        // console.log('index: itemTopOffset, itemBottomOffset, viewportBottomOffset, viewportHeight',
+        //     index, itemTopOffset, itemBottomOffset, viewportBottomOffset, viewportHeight)
+
+        let verticalRatio = (topPortion > 0)?topPortion/height:bottomPortion/height,
+            horizontalRatio = (leftPortion > 0)?leftPortion/width:rightPortion/height
+
+        let itemData = {
+            index,
+            isVisible,
+            top,
+            right,
+            bottom,
+            left,
+            width,
+            height,
+            itemTopOffset,
+            itemBottomOffset,
+            topPortion,
+            bottomPortion,
+            itemLeftOffset,
+            itemRightOffset,
+            leftPortion,
+            rightPortion,
+            verticalRatio,
+            horizontalRatio,
+        }
+
+        list.push(itemData)
+
+    }
+
+    list.sort((a,b) => {
+        return (a.index - b.index)
+    })
 
     return list
 }
