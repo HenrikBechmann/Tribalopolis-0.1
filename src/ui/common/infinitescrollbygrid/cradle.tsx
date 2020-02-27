@@ -219,7 +219,7 @@ const Cradle = (props) => {
         clearTimeout(scrollTimeridRef.current)
         scrollTimeridRef.current = setTimeout(() => {
             saveIsConfiguringData(false)
-        },500)
+        },200)
     },[])
 
     // triggering next state phase: states = setup, pivot, resize, scroll (was run)
@@ -942,6 +942,7 @@ const getContentList = (props) => {
 
 // triggered by transition to ready state, and by cancellation of isConfiguringData mode
 const calcVisibleItems = (itemsArray, viewportElement, cradleElement) => {
+    // console.log('calcVisibleItems itemsArray.length',itemsArray.length)
     let list = []
     let cradleTop = cradleElement.offsetTop, 
         cradleLeft = cradleElement.offsetLeft
@@ -968,10 +969,10 @@ const calcVisibleItems = (itemsArray, viewportElement, cradleElement) => {
             bottom = top + height
 
         let 
-            itemTopOffset = scrollblockTopOffset + top, // offset from top of viewport
-            itemBottomOffset = scrollblockTopOffset + bottom, // offset from top of viewport
-            itemLeftOffset = scrollblockLeftOffset + left, 
-            itemRightOffset = scrollblockLeftOffset + right 
+            itemTopOffset = scrollblockTopOffset + cradleTop + top, // offset from top of viewport
+            itemBottomOffset = scrollblockTopOffset + cradleTop + bottom, // offset from top of viewport
+            itemLeftOffset = scrollblockLeftOffset + cradleLeft + left, 
+            itemRightOffset = scrollblockLeftOffset + cradleLeft + right 
 
 
         let isVisible = false // default
@@ -981,21 +982,24 @@ const calcVisibleItems = (itemsArray, viewportElement, cradleElement) => {
             leftPortion,
             rightPortion
 
-        if (itemTopOffset < 0 && itemBottomOffset > 0) {
+        // console.log('preparing to evaluate for visibility for index',index,itemTopOffset, itemBottomOffset, viewportHeight)
+        // console.log('inputs scrollblockTopOffset, top, bottom, cradleTop',scrollblockTopOffset, top, bottom, cradleTop)
+        if ((itemTopOffset < 0) && (itemBottomOffset > 0)) {
             isVisible = true
             bottomPortion = itemBottomOffset
             topPortion = bottomPortion - height
-        } else if (itemTopOffset > 0 && itemBottomOffset < viewportHeight) {
+        } else if ((itemTopOffset > 0) && (itemBottomOffset < viewportHeight)) {
             isVisible = true
             topPortion = height
             bottomPortion = 0
-        } else if (itemTopOffset > 0 && (itemTopOffset - viewportHeight) < 0) {
+        } else if ((itemTopOffset > 0) && ((itemTopOffset - viewportHeight) < 0)) {
             isVisible = true
             topPortion = viewportHeight - itemTopOffset
             bottomPortion = topPortion - height
+        } else {
+            // console.log('WARNING:no visible criteria found for index', index)
+            continue
         }
-
-        if (!isVisible) continue
 
         if (itemLeftOffset < 0 && itemRightOffset > 0) {
             rightPortion = itemRightOffset
@@ -1042,6 +1046,8 @@ const calcVisibleItems = (itemsArray, viewportElement, cradleElement) => {
     list.sort((a,b) => {
         return (a.index - b.index)
     })
+
+    // console.log('returning  list',list.length)
 
     return list
 }
