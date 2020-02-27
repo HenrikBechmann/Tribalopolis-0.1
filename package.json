@@ -44,10 +44,10 @@
     "react-window-infinite-loader": "^1.0.5"
   },
   "devDependencies": {
-    "@babel/core": "^7.8.4",
+    "@babel/core": "^7.8.6",
     "@babel/plugin-proposal-object-rest-spread": "^7.8.3",
     "@babel/plugin-syntax-dynamic-import": "^7.8.3",
-    "@babel/preset-env": "^7.8.4",
+    "@babel/preset-env": "^7.8.6",
     "@babel/preset-react": "^7.8.3",
     "@types/draft-js": "^0.10.38",
     "@types/firebase": "^3.2.1",
