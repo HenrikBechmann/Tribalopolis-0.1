@@ -10,7 +10,8 @@ import { ViewportContext } from './viewport'
 import ItemShell from './itemshell'
 
 /*
-    - set trigger for observer clearing isScrolling state, and setting
+    - use onScroll on viewport element to control timing of updating visible items
+    - set trigger for observer clearing isConfiguringData state, and setting
     - use visible list to identify target for resize
     - code maintenance for cradle 
     - check brief apperance of cradle when resizing to more columns = resolve at top or left
@@ -141,12 +142,10 @@ const Cradle = (props) => {
 
     configDataRef.current = useMemo(() => {
         
-        // let cradleOffset = (orientation == 'vertical')?cradleElementRef.current?.offsetTop:cradleElementRef.current?.offsetLeft
-
         previousConfigDataRef.current = {...configDataRef.current} // {cradleOffset, ...configDataRef.current}
 
         return {
-        // scrollOffset:(orientation == 'vertical')?viewportData.elementref.current.scrollTop:viewportData.elementref.current.scrollLeft,
+
         cellWidth,
         cellHeight,
         gap,
@@ -197,9 +196,31 @@ const Cradle = (props) => {
       ])
 
     const itemElementsRef = useRef(new Map())
+    const [isConfiguringData,saveIsConfiguringData] = useState(false)
+    const isConfiguringDataRef = useRef(isConfiguringData)
+    isConfiguringDataRef.current = isConfiguringData // for observer
+    const visibleListRef = useRef([])
+    const scrollTimeridRef = useRef(null)
 
     // =====================================================================================
     // ----------------------------------[ state management ]-------------------------------
+
+    useEffect(() => {
+        viewportData.elementref.current.addEventListener('scroll',onScroll)
+        return () => {
+            viewportData.elementref.current.removeEventListener('scroll',onScroll)
+        }
+    },[])
+
+    const onScroll = useCallback(() => {
+        if (!isConfiguringDataRef.current) {
+            saveIsConfiguringData(true)
+        }
+        clearTimeout(scrollTimeridRef.current)
+        scrollTimeridRef.current = setTimeout(() => {
+            saveIsConfiguringData(false)
+        },500)
+    },[])
 
     // triggering next state phase: states = setup, pivot, resize, scroll (was run)
     useEffect(()=> {
@@ -234,28 +255,6 @@ const Cradle = (props) => {
                 break
         }
     },[cradlestate])
-
-    const [isScrolling,saveIsScrolling] = useState(false)
-    const isScrollingRef = useRef(isScrolling)
-    isScrollingRef.current = isScrolling // for observer
-    const visibleListRef = useRef([])
-
-    // maintain a list of visible items (visibleList) 
-    // on shift of state to ready, or 
-    useEffect(() => {
-
-        if (cradlestate == 'ready' && !isScrollingRef.current) {
-
-            // update visible list
-            let itemlist = Array.from(itemElementsRef.current)
-            visibleListRef.current = calcVisibleItems(
-                itemlist,viewportData.elementref.current,cradleElementRef.current
-            )
-            console.log('list of visible items',visibleListRef.current)
-
-        }
-
-    },[cradlestate, isScrollingRef.current])
 
     // trigger resize on change
     useEffect(()=>{
@@ -776,6 +775,27 @@ const Cradle = (props) => {
         crosscount,
         contentOffsetForActionRef,
     ])
+
+    // maintain a list of visible items (visibleList) 
+    // on shift of state to ready, or 
+    useEffect(() => {
+
+        if (cradlestate == 'ready' && !isConfiguringDataRef.current) {
+
+            setTimeout(()=> {
+
+                // update visible list
+                let itemlist = Array.from(itemElementsRef.current)
+                visibleListRef.current = calcVisibleItems(
+                    itemlist,viewportData.elementref.current,cradleElementRef.current
+                )
+                console.log('list of visible items',visibleListRef.current)
+
+            },300)
+
+        }
+
+    },[cradlestate, isConfiguringDataRef.current])
     // =============================================================================
     // ------------------------------[ child callbacks ]----------------------------------
 
@@ -920,7 +940,7 @@ const getContentList = (props) => {
     return returnContentlist
 }
 
-// triggered by transition to ready state, and by cancellation of isScrolling mode
+// triggered by transition to ready state, and by cancellation of isConfiguringData mode
 const calcVisibleItems = (itemsArray, viewportElement, cradleElement) => {
     let list = []
     let cradleTop = cradleElement.offsetTop, 
