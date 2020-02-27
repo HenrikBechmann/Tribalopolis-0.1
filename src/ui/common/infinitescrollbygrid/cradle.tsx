@@ -11,7 +11,7 @@ import ItemShell from './itemshell'
 
 /*
     - use onScroll on viewport element to control timing of updating visible items
-    - set trigger for observer clearing isConfiguringData state, and setting
+    - set trigger for observer clearing isScrolling state, and setting
     - use visible list to identify target for resize
     - code maintenance for cradle 
     - check brief apperance of cradle when resizing to more columns = resolve at top or left
@@ -196,9 +196,9 @@ const Cradle = (props) => {
       ])
 
     const itemElementsRef = useRef(new Map())
-    const [isConfiguringData,saveIsConfiguringData] = useState(false)
-    const isConfiguringDataRef = useRef(isConfiguringData)
-    isConfiguringDataRef.current = isConfiguringData // for observer
+    const [isScrolling,saveIsScrolling] = useState(false)
+    const isScrollingRef = useRef(isScrolling)
+    isScrollingRef.current = isScrolling // for observer
     const visibleListRef = useRef([])
     const scrollTimeridRef = useRef(null)
 
@@ -213,12 +213,12 @@ const Cradle = (props) => {
     },[])
 
     const onScroll = useCallback(() => {
-        if (!isConfiguringDataRef.current) {
-            saveIsConfiguringData(true)
+        if (!isScrollingRef.current) {
+            saveIsScrolling(true)
         }
         clearTimeout(scrollTimeridRef.current)
         scrollTimeridRef.current = setTimeout(() => {
-            saveIsConfiguringData(false)
+            saveIsScrolling(false)
         },200)
     },[])
 
@@ -780,22 +780,18 @@ const Cradle = (props) => {
     // on shift of state to ready, or 
     useEffect(() => {
 
-        if (cradlestate == 'ready' && !isConfiguringDataRef.current) {
+        if (cradlestate == 'ready' && !isScrollingRef.current) {
 
-            setTimeout(()=> {
-
-                // update visible list
-                let itemlist = Array.from(itemElementsRef.current)
-                visibleListRef.current = calcVisibleItems(
-                    itemlist,viewportData.elementref.current,cradleElementRef.current
-                )
-                console.log('list of visible items',visibleListRef.current)
-
-            },300)
+            // update visible list
+            let itemlist = Array.from(itemElementsRef.current)
+            visibleListRef.current = calcVisibleItems(
+                itemlist,viewportData.elementref.current,cradleElementRef.current
+            )
+            console.log('list of visible items',visibleListRef.current)
 
         }
 
-    },[cradlestate, isConfiguringDataRef.current])
+    },[cradlestate, isScrollingRef.current])
     // =============================================================================
     // ------------------------------[ child callbacks ]----------------------------------
 
@@ -940,7 +936,7 @@ const getContentList = (props) => {
     return returnContentlist
 }
 
-// triggered by transition to ready state, and by cancellation of isConfiguringData mode
+// triggered by transition to ready state, and by cancellation of isScrolling mode
 const calcVisibleItems = (itemsArray, viewportElement, cradleElement) => {
     // console.log('calcVisibleItems itemsArray.length',itemsArray.length)
     let list = []
