@@ -1,10 +1,6 @@
 // scrollblock.tsx
 // copyright (c) 2020 Henrik Bechmann, Toronto, Licence: GPL-3.0-or-later
 
-/*
-    TODO: scrollblock length calculation is off (one short) for vertical
-*/
-
 'use strict'
 
 import React, {useContext, useRef, useCallback, useEffect, useState} from 'react'

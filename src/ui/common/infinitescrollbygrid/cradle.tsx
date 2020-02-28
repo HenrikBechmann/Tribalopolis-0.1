@@ -22,7 +22,7 @@ import ItemShell from './itemshell'
 /*
 
     - use visible list to identify target for resize
-    - check brief apperance of cradle when resizing to more columns = resolve at top or left
+    - check brief apperance of cradle when resizing to more columns = resolve with top or left
 
 */
 
@@ -139,6 +139,9 @@ const Cradle = (props) => {
         viewportheight, 
         viewportwidth,
     ])
+
+    // ==============================================================================================
+    // ----------------------------------[ config management values ]--------------------------------
 
     const crosscountRef = useRef(crosscount) // for easy reference by observer
     const previousCrosscountRef = useRef() // available for resize logic
@@ -669,10 +672,11 @@ const Cradle = (props) => {
         }
 
     },[cradlestate, isScrollingRef.current])
+
     // =============================================================================
     // ------------------------------[ child callbacks ]----------------------------------
 
-    const getItemElementData = useCallback((itemElementData, reportType) => {
+    const getItemElementData = useCallback((itemElementData, reportType) => { // candidate to export
 
         const [index, shellref] = itemElementData
 
