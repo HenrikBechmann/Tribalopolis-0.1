@@ -253,10 +253,10 @@ const Cradle = (props) => {
         if (!isResizingRef.current) {
             isResizingRef.current = true
         }
-        clearTimeout(resizeTimeridRef.current)
-        resizeTimeridRef.current = setTimeout(() => {
-            console.log('last resize event',e)
-        },200)
+        // clearTimeout(resizeTimeridRef.current)
+        // resizeTimeridRef.current = setTimeout(() => {
+        //     console.log('last resize event',e)
+        // },200)
 
     },[])
 
