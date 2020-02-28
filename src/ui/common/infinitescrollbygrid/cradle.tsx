@@ -567,7 +567,7 @@ const Cradle = (props) => {
         targetConfigDataRef.current = configdata
 
         console.log('targetConfigDataRef',{...targetConfigDataRef.current})
-        let [visibletargetoffset, targetscrolldisplacement] = getVisibleTargetData(targetConfigDataRef)
+        let [visibletargetindex, targetscrolloffset] = getVisibleTargetData(targetConfigDataRef)
 
         let localContentList = [] // any existing items will be re-used by react
 

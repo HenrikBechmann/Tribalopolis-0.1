@@ -188,6 +188,9 @@ export const evaluateContentList = ({
 
 export const getVisibleTargetData = (targetConfigDataRef) => {
     let targetvisibleindex, targetscrolloffset
+    if (targetConfigDataRef.current.setup) {
+        return [undefined, undefined]
+    }
 
     return [targetvisibleindex, targetscrolloffset]
 
@@ -268,6 +271,7 @@ export const getContentList = (props) => {
 
 // ========================================================================================
 // ------------------------------------[ styles ]------------------------------------------
+// ========================================================================================
 
 export const setCradleStyles = ({
 
