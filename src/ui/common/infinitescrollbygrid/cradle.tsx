@@ -7,7 +7,15 @@ import React, { useState, useRef, useContext, useEffect, useLayoutEffect, useCal
 
 import { ViewportContext } from './viewport'
 
-import { setCradleStyles, getContentList, calcVisibleItems, getVisibleTargetData } from './cradlefunctions'
+import { 
+    setCradleStyles, 
+    getContentList, 
+    calcVisibleItems, 
+    getVisibleTargetData, 
+    evaluateContentList,
+    setCradleStyleRevisionsForDrop,
+    setCradleStyleRevisionsForAdd, 
+} from './cradlefunctions'
 
 import ItemShell from './itemshell'
 
@@ -77,7 +85,7 @@ const Cradle = (props) => {
 
     const pauseObserverForReconfigurationRef = useRef(false)
 
-    const targetConfigDataRef = useRef({})
+    const targetConfigDataRef = useRef({setup:true})
 
     const divlinerStylesRef = useRef({
         position: 'absolute',
@@ -171,7 +179,7 @@ const Cradle = (props) => {
 
         // merge base style and revisions (by observer)
         let divlinerStyles:React.CSSProperties = Object.assign({...divlinerStylesRef.current},divlinerStyleRevisionsRef.current)
-        let styles = setCradleStyles(
+        let styles = setCradleStyles({
             orientation, 
             divlinerStyles, 
             cellHeight, 
@@ -179,7 +187,8 @@ const Cradle = (props) => {
             gap,
             crosscount, 
             viewportheight, 
-            viewportwidth)
+            viewportwidth, 
+        })
 
         DEBUG && console.log('setting cradle styles',{...styles})
 
@@ -424,64 +433,26 @@ const Cradle = (props) => {
 
         }
 
-        localContentList = getContentList(
-            {
+        localContentList = getContentList({
 
-                indexoffset,
-                localContentList:contentlist,
-                headindexcount,
-                tailindexcount,
-                callbacksRef,
+            indexoffset,
+            localContentList:contentlist,
+            headindexcount,
+            tailindexcount,
+            callbacksRef,
 
-            })
+        })
 
-        let styles = {} as React.CSSProperties // {...divlinerStylesRef.current}
+        let styles = setCradleStyleRevisionsForDrop({ 
 
-        // set styles revisions
-        if (orientation == 'vertical') {
+            cradleElement, 
+            parentElement, 
+            scrollforward, 
+            tailpos, 
+            headpos, 
+            orientation 
 
-            let offsetTop = cradleElement.offsetTop
-            let offsetHeight = cradleElement.offsetHeight
-            let parentHeight = parentElement.offsetHeight
-            styles.left = 'auto'
-            styles.right = 'auto'
-
-            if (scrollforward) {
-
-                tailpos = offsetTop + offsetHeight
-                styles.top = 'auto'
-                styles.bottom = (parentHeight - tailpos) + 'px'
-
-            } else {
-
-                headpos = offsetTop
-                styles.top = headpos + 'px'
-                styles.bottom = 'auto'
-
-            }
-
-        } else {
-
-            let offsetLeft = cradleElement.offsetLeft
-            let offsetWidth = cradleElement.offsetWidth
-            let parentWidth = parentElement.offsetWidth
-            styles.top = 'auto'
-            styles.bottom = 'auto'
-
-            if (scrollforward) {
-
-                tailpos = offsetLeft + offsetWidth
-                styles.left = 'auto'
-                styles.right = (parentWidth - tailpos) + 'px'
-
-            } else {
-
-                headpos = offsetLeft
-                styles.left = headpos + 'px'
-                styles.right = 'auto'
-
-            }
-        }
+        })
 
         DEBUG && console.log('dropentries styles',{...styles}, localContentList, scrollforward)
 
@@ -538,55 +509,16 @@ const Cradle = (props) => {
             callbacksRef,
         })
 
-        let styles = {} as React.CSSProperties
+        let styles = setCradleStyleRevisionsForAdd({
 
-        // set style revisions
-        if (orientation == 'vertical') {
+            cradleElement,
+            parentElement,
+            scrollforward,
+            headpos,
+            tailpos,
+            orientation,
 
-            let offsetTop = cradleElement.offsetTop
-            let offsetHeight = cradleElement.offsetHeight
-            let parentHeight = parentElement.offsetHeight
-            styles.left = 'auto'
-            styles.right = 'auto'
-
-            if (scrollforward) {
-
-                headpos = offsetTop
-                styles.top = headpos + 'px'
-                styles.bottom = 'auto'
-
-            } else { // scroll backward
-
-                tailpos = offsetTop + offsetHeight
-                styles.top = 'auto'
-                styles.bottom = (parentHeight - tailpos) + 'px'
-
-            }
-            DEBUG && console.log('add content scrollforward, headpos, tailpos, styles',scrollforward, headpos, tailpos, styles)
-
-        } else {
-
-            let offsetLeft = cradleElement.offsetLeft
-            let offsetWidth = cradleElement.offsetWidth
-            let parentWidth = parentElement.offsetWidth
-            styles.top = 'auto'
-            styles.bottom = 'auto'
-
-            if (scrollforward) {
-
-                headpos = offsetLeft
-                styles.left = headpos + 'px'
-                styles.right = 'auto'
-
-            } else { // scroll backward
-
-                tailpos = offsetLeft + offsetWidth
-                styles.left = 'auto'
-                styles.right = (parentWidth - tailpos) + 'px'
-
-            }
-
-        }
+        })
 
         DEBUG && console.log('addentries headpos, styles, localContentList', headpos, {...styles}, localContentList)
 
@@ -610,10 +542,7 @@ const Cradle = (props) => {
 
         setCradleContent()
 
-    },[
-        cradlestate,
-      ]
-    )
+    },[cradlestate,])
 
     const setCradleContent = useCallback(() => {
 
@@ -633,6 +562,7 @@ const Cradle = (props) => {
             }
         }
         targetConfigDataRef.current = configdata
+
         console.log('targetConfigDataRef',{...targetConfigDataRef.current})
         let [visibletargetoffset, targetscrolldisplacement] = getVisibleTargetData(targetConfigDataRef)
 
@@ -651,6 +581,7 @@ const Cradle = (props) => {
                 cradlestate, 
                 contentOffsetForActionRef,
                 crosscount,
+                listsize,
             })
 
         let childlistfragment = getContentList({
@@ -671,6 +602,7 @@ const Cradle = (props) => {
 
         DEBUG && console.log('childlistfragment',childlistfragment)
         // DEBUG && console.log('targetConfigDataRef',{...targetConfigDataRef.current})
+
         let styles:React.CSSProperties = {}
         let cradleoffset
         if (orientation == 'vertical') {
@@ -686,6 +618,7 @@ const Cradle = (props) => {
 
             DEBUG && console.log('viewport indexoffset, crosscount, cellHeight, gap, padding, cradleoffset, scrolloffset, runway, element', 
                 indexoffset, crosscount,  cellHeight, gap, padding, cradleoffset, scrolloffset, runway)
+
             viewportData.elementref.current.scrollTop = scrolloffset // TODO: calculate for target itemShell
 
         } else { // orientation = 'horizontal'
@@ -719,81 +652,6 @@ const Cradle = (props) => {
         crosscount,
       ]
     )
-
-    // evaluate content for requirements
-    const evaluateContentList = useCallback(({
-            cellHeight, 
-            cellWidth, 
-            orientation, 
-            viewportheight, 
-            viewportwidth, 
-            runway, 
-            gap,
-            padding, 
-            cradlestate, 
-            contentOffsetForActionRef,
-            crosscount
-        }) => {
-        // start with indexoffset from when evaluation was triggered
-        let indexoffset = (contentOffsetForActionRef.current || 0), headindexcount = 0, tailindexcount = 0
-        DEBUG && console.log('original indexoffset in evaluateContentList', indexoffset)
-        // shift the offset to conform to crosscount multiple
-        if (indexoffset != 0) {
-            let shift
-            shift = indexoffset % crosscount;
-            // shift = crosscount - shift;
-            (shift) && DEBUG && console.log(`shifting indexoffset from ${indexoffset} to ${indexoffset - shift} with ${shift}`);
-            (shift) && (indexoffset -= shift)
-        }
-        let cradlelength, localcelllength
-        if (orientation == 'vertical') {
-            cradlelength = (viewportheight + (padding * 2) - gap) // assumes at least one item
-            localcelllength = cellHeight + gap
-        } else {
-            cradlelength = (viewportwidth + (padding * 2) - gap)
-            localcelllength = cellWidth + gap
-        }
-        cradlelength += (runway * 2)
-        let cradlecontentCount = Math.ceil(cradlelength/localcelllength) * crosscount
-
-        DEBUG && console.log('calculated indexoffset, cradlecontentCount, runway, cradlelength, cellLength, crosscount',
-            indexoffset, cradlecontentCount, runway, cradlelength, localcelllength, crosscount)
-
-        if (cradlecontentCount > listsize) cradlecontentCount = listsize
-
-        // debugger
-        // shift cradlecontent back by lowering indexoffset to accommodate size
-        let diffcountoffset
-        if ((cradlecontentCount + indexoffset + 1) > listsize) {
-            diffcountoffset = (cradlecontentCount + indexoffset + 1) - listsize
-            let shift = (diffcountoffset) % crosscount
-            if (shift) {
-                diffcountoffset -= shift
-            }
-            indexoffset -= diffcountoffset                
-            DEBUG && console.log('adjusted for listsize, diffcountoffset, cradlecontentCount, indexoffset, listsize, shift', diffcountoffset, cradlecontentCount, indexoffset, listsize, shift)
-        }
-        if (indexoffset < 0) { // shouldn't happen
-            console.warn('indexoffset < 0 in evaluateContentList', indexoffset)
-        }
-        tailindexcount = cradlecontentCount
-
-        DEBUG && console.log('evaluated content list: diffcount, cradlecontentCount, indexoffset, headindexcount, tailindexcount', diffcountoffset, cradlecontentCount, indexoffset, headindexcount, tailindexcount)
-
-        return {indexoffset, headindexcount, tailindexcount} // summarize requirements message
-    },[
-        orientation, 
-        viewportheight, 
-        viewportwidth, 
-        runway, 
-        cellHeight, 
-        cellWidth, 
-        padding, 
-        gap,
-        cradlestate, 
-        crosscount,
-        contentOffsetForActionRef,
-    ])
 
     // maintain a list of visible items (visibleList) 
     // on shift of state to ready, or 
@@ -842,11 +700,13 @@ const Cradle = (props) => {
 
     // no result if styles not set
     return <div 
-            ref = {cradleElementRef} 
-            style = {divlinerstyles}
-          >
-            {divlinerstyles.width?contentlist:null}
-          </div>
+        ref = {cradleElementRef} 
+        style = {divlinerstyles}
+    >
+    
+        {divlinerstyles.width?contentlist:null}
+    
+    </div>
         
 
 } // Cradle
