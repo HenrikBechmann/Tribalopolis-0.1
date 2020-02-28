@@ -7,28 +7,27 @@ import React, { useState, useRef, useContext, useEffect, useLayoutEffect, useCal
 
 import { ViewportContext } from './viewport'
 
-import { setCradleStyles, getContentList, calcVisibleItems} from './cradlefunctions'
+import { setCradleStyles, getContentList, calcVisibleItems, getVisibleTargetData } from './cradlefunctions'
 
 import ItemShell from './itemshell'
 
 /*
-    - use onScroll on viewport element to control timing of updating visible items
-    - set trigger for observer clearing isScrolling state, and setting
+
     - use visible list to identify target for resize
-    - code maintenance for cradle 
     - check brief apperance of cradle when resizing to more columns = resolve at top or left
 
 */
 
 /*
-    1 name states 'pivot' (change orientation) and 'resize'
-    - finish resize implementation for vertical
+    1 finish resize implementation for vertical
     - implement reisze for horizontal
 
     - focus on static switch from horizontal to vertical
+    - name states 'pivot' (change orientation) and 'resize'
     2 dynamic switch of orientation (pivot)
 
     3
+    - code maintenance
     - memoize render output to minimize render
     - integrate contentOffsetForActionRef in all contentlist creation
     - review use of {...styles} copy styles to new objects, in terms of trigger consequences
@@ -618,6 +617,25 @@ const Cradle = (props) => {
 
     const setCradleContent = useCallback(() => {
 
+        // TODO: adjust indexoffset againse targetoffset, using targetConfigDataRef data
+
+        let configdata = {...targetConfigDataRef.current,
+            previousvisible:[...visibleListRef.current],
+            currentconfig:{
+                cellWidth,
+                cellHeight,
+                gap,
+                padding,
+                runway,
+                viewportheight,
+                viewportwidth,
+                crosscount,
+            }
+        }
+        targetConfigDataRef.current = configdata
+        console.log('targetConfigDataRef',{...targetConfigDataRef.current})
+        let [visibletargetoffset, targetscrolldisplacement] = getVisibleTargetData(targetConfigDataRef)
+
         let localContentList = [] // any existing items will be re-used by react
 
         let {indexoffset, headindexcount, tailindexcount} = 
@@ -653,7 +671,6 @@ const Cradle = (props) => {
 
         DEBUG && console.log('childlistfragment',childlistfragment)
         // DEBUG && console.log('targetConfigDataRef',{...targetConfigDataRef.current})
-        console.log('targetConfigDataRef',{...targetConfigDataRef.current})
         let styles:React.CSSProperties = {}
         let cradleoffset
         if (orientation == 'vertical') {

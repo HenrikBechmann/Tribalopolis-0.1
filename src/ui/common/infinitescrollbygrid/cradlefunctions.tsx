@@ -36,6 +36,13 @@ export const setCradleStyles = (orientation, stylesobject, cellHeight, cellWidth
         return styles
 }
 
+export const getVisibleTargetData = (targetConfigDataRef) => {
+    let targetvisibleindex, targetscrolloffset
+
+    return [targetvisibleindex, targetscrolloffset]
+    
+}
+
 // TODO: check cradlelistsize is adequate.
 // update content
 // adds itemshells at start of end of contentlist according to headindexcount and tailindescount,
