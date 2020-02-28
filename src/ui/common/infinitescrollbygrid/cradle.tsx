@@ -70,8 +70,8 @@ const Cradle = (props) => {
     const cradlestateRef = useRef(null) // for observer call closure
     cradlestateRef.current = cradlestate // most recent value
 
-    DEBUG && console.log('---------------------------')
-    DEBUG && console.log('CALLING CRADLE with state',cradlestate)
+    console.log('---------------------------')
+    console.log('CALLING CRADLE with state',cradlestate)
 
     const [contentlist,saveContentlist] = useState([])
 
@@ -151,10 +151,11 @@ const Cradle = (props) => {
     // capture previous versions for reconfigure calculations above
     const configDataRef:any = useRef({})
     const previousConfigDataRef:any = useRef({})
+    const visibleListRef = useRef([])
 
     configDataRef.current = useMemo(() => {
         
-        previousConfigDataRef.current = {...configDataRef.current} // {cradleOffset, ...configDataRef.current}
+        previousConfigDataRef.current = {previousvisible:[...visibleListRef.current],...configDataRef.current} // {cradleOffset, ...configDataRef.current}
 
         return {
 
@@ -166,6 +167,7 @@ const Cradle = (props) => {
         viewportheight,
         viewportwidth,
         crosscount,
+        orientation,
     }},[
         cellWidth, 
         cellHeight, 
@@ -212,7 +214,6 @@ const Cradle = (props) => {
     const [isScrolling,saveIsScrolling] = useState(false)
     const isScrollingRef = useRef(isScrolling)
     isScrollingRef.current = isScrolling // for observer
-    const visibleListRef = useRef([])
     const scrollTimeridRef = useRef(null)
 
     // =====================================================================================
@@ -220,19 +221,43 @@ const Cradle = (props) => {
 
     useEffect(() => {
         viewportData.elementref.current.addEventListener('scroll',onScroll)
+        window.addEventListener('resize',onResize)
         return () => {
             viewportData.elementref.current.removeEventListener('scroll',onScroll)
+            window.removeEventListener('resize',onResize)
         }
     },[])
 
-    const onScroll = useCallback(() => {
-        if (!isScrollingRef.current) {
+    const onScroll = useCallback((e) => {
+        // setTimeout(()=> {
+
+        if (!isScrollingRef.current && !isResizingRef.current) {
             saveIsScrolling(true)
         }
-        clearTimeout(scrollTimeridRef.current)
-        scrollTimeridRef.current = setTimeout(() => {
-            saveIsScrolling(false)
+        if (isScrollingRef.current) {
+            clearTimeout(scrollTimeridRef.current)
+            scrollTimeridRef.current = setTimeout(() => {
+                console.log('last scroll event',e)
+                saveIsScrolling(false)
+            },200)
+        }
+
+        // })
+    },[])
+
+    const isResizingRef = useRef(false)
+    const resizeTimeridRef = useRef(null)
+
+    const onResize = useCallback((e) => {
+
+        if (!isResizingRef.current) {
+            isResizingRef.current = true
+        }
+        clearTimeout(resizeTimeridRef.current)
+        resizeTimeridRef.current = setTimeout(() => {
+            console.log('last resize event',e)
         },200)
+
     },[])
 
     // triggering next state phase: states = setup, pivot, resize, scroll (was run)
@@ -260,6 +285,7 @@ const Cradle = (props) => {
                 setTimeout(()=>{ // let everything settle before reviving observer
                     DEBUG && console.log('observer pause ended')
                     pauseObserverForReconfigurationRef.current = false
+                    isResizingRef.current = false
                 },250) // timeout a bit spooky but gives observer initialization of new items a chance to settle
                     // observer seems to need up to 2 cycles to settle; one for each side of the cradle.
                 saveCradleState('ready')
@@ -272,10 +298,11 @@ const Cradle = (props) => {
     // trigger resize on change
     useEffect(()=>{
         if (cradlestate == 'ready') {
-            DEBUG && console.log('setting cradlestate from ready to resize')
+            console.log('setting cradlestate from ready to resize')
             contentOffsetForActionRef.current = contentlist[0]?.props.index
             pauseObserverForReconfigurationRef.current = true
             let cradleElement = cradleElementRef.current
+            // targetConfigDataRef.current = {previousvisible:[...visibleListRef.current],...previousConfigDataRef.current}
             targetConfigDataRef.current = {...previousConfigDataRef.current}
             saveCradleState('resize')
         }
@@ -550,10 +577,8 @@ const Cradle = (props) => {
     const setCradleContent = useCallback(() => {
 
         // TODO: adjust indexoffset againse targetoffset, using targetConfigDataRef data
-
-        let configdata = {...targetConfigDataRef.current,
-            previousvisible:[...visibleListRef.current],
-            currentconfig:{
+        // let previousvisible = [...visibleListRef.current]
+        let currentconfig = {
                 cellWidth,
                 cellHeight,
                 gap,
@@ -563,11 +588,16 @@ const Cradle = (props) => {
                 viewportwidth,
                 crosscount,
             }
+        let configdata = {...targetConfigDataRef.current,
+            // previousvisible,
+            currentconfig
         }
         targetConfigDataRef.current = configdata
 
         console.log('targetConfigDataRef',{...targetConfigDataRef.current})
         let [visibletargetindex, targetscrolloffset] = getVisibleTargetData(targetConfigDataRef)
+
+        console.log('==>> visibletargetindex, targetscrolloffset',visibletargetindex, targetscrolloffset)
 
         let localContentList = [] // any existing items will be re-used by react
 
@@ -660,10 +690,12 @@ const Cradle = (props) => {
     // on shift of state to ready, or 
     useEffect(() => {
 
+        console.log('cradlestate, isScrolling',cradlestate,isScrollingRef.current)
         if (cradlestate == 'ready' && !isScrollingRef.current) {
 
             // update visible list
             let itemlist = Array.from(itemElementsRef.current)
+
             visibleListRef.current = calcVisibleItems(
                 itemlist,viewportData.elementref.current,cradleElementRef.current
             )

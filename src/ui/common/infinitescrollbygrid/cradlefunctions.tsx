@@ -187,12 +187,47 @@ export const evaluateContentList = ({
 }
 
 export const getVisibleTargetData = (targetConfigDataRef) => {
-    let targetvisibleindex, targetscrolloffset
-    if (targetConfigDataRef.current.setup) {
-        return [undefined, undefined]
+    let { current:targetConfigData } = targetConfigDataRef
+
+    if (targetConfigData.setup) return [undefined, undefined]
+
+    let { previousvisible:previousvisiblelist, orientation } = targetConfigData
+
+    let targetindex, targetoffset
+    for (let i = 0; i < previousvisiblelist.length; i++) {
+        let item = previousvisiblelist[i]
+        // console.log('--previousvisiblelist, item', [...previousvisiblelist], {...item})
+        let previousitem
+        if (orientation == 'vertical') {
+            if ( item.verticalRatio  == 1) {
+
+                targetindex = item.index
+                if (i !== 0) {
+                    let { topPortion, bottomPortion } = previousvisiblelist[i-1]
+                    targetoffset = (topPortion >=0)?topPortion:bottomPortion
+                } else {
+                    targetoffset = 0
+                }
+                break
+
+            }
+        } else {
+            if ( item.horizontalRatio  == 1) {
+
+                targetindex = item.index
+                if (i !== 0) {
+                    let { leftPortion, rightPortion } = previousvisiblelist[i-1]
+                    targetoffset = (leftPortion >=0)?leftPortion:rightPortion
+                } else {
+                    targetoffset = 0
+                }
+                break
+                
+            }
+        }
     }
 
-    return [targetvisibleindex, targetscrolloffset]
+    return [targetindex, targetoffset]
 
 }
 
