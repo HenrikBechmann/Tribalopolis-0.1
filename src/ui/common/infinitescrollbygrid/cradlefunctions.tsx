@@ -57,7 +57,7 @@ export const calcVisibleItems = (itemsArray, viewportElement, cradleElement) => 
             isVisible = true
             bottomPortion = itemBottomOffset
             topPortion = bottomPortion - height
-        } else if ((itemTopOffset > 0) && (itemBottomOffset < viewportHeight)) {
+        } else if ((itemTopOffset >= 0) && (itemBottomOffset < viewportHeight)) {
             isVisible = true
             topPortion = height
             bottomPortion = 0
@@ -73,7 +73,7 @@ export const calcVisibleItems = (itemsArray, viewportElement, cradleElement) => 
         if (itemLeftOffset < 0 && itemRightOffset > 0) {
             rightPortion = itemRightOffset
             leftPortion = rightPortion - width
-        } else if (itemLeftOffset > 0 && itemRightOffset < viewportWidth) {
+        } else if (itemLeftOffset >= 0 && itemRightOffset < viewportWidth) {
             leftPortion = width
             rightPortion = 0
         } else if (itemLeftOffset > 0 && (itemLeftOffset - viewportWidth) < 0) {
@@ -132,6 +132,7 @@ export const getContentListRequirements = ({
         gap,
         padding, 
         visibletargetoffset,
+        scrolloffset,
         crosscount,
         listsize
     }) => {
