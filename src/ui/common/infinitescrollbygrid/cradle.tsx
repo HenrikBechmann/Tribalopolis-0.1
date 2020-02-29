@@ -12,7 +12,7 @@ import {
     getContentList, 
     calcVisibleItems, 
     getVisibleTargetData, 
-    evaluateContentList,
+    getContentListRequirements,
     setCradleStyleRevisionsForDrop,
     setCradleStyleRevisionsForAdd, 
 } from './cradlefunctions'
@@ -70,8 +70,8 @@ const Cradle = (props) => {
     const cradlestateRef = useRef(null) // for observer call closure
     cradlestateRef.current = cradlestate // most recent value
 
-    console.log('---------------------------')
-    console.log('CALLING CRADLE with state',cradlestate)
+    // console.log('---------------------------')
+    // console.log('CALLING CRADLE with state',cradlestate)
 
     const [contentlist,saveContentlist] = useState([])
 
@@ -237,7 +237,7 @@ const Cradle = (props) => {
         if (isScrollingRef.current) {
             clearTimeout(scrollTimeridRef.current)
             scrollTimeridRef.current = setTimeout(() => {
-                console.log('last scroll event',e)
+                // console.log('last scroll event',e)
                 saveIsScrolling(false)
             },200)
         }
@@ -277,11 +277,11 @@ const Cradle = (props) => {
                 saveCradleState('settle')
                 break;
             case 'settle':
-                DEBUG && console.log('setting cradlestate from settle to ready')
+                // console.log('setting cradlestate from settle to ready')
+                isResizingRef.current && (isResizingRef.current = false)
                 setTimeout(()=>{ // let everything settle before reviving observer
-                    DEBUG && console.log('observer pause ended')
+                    // console.log('observer pause ended')
                     pauseObserverForReconfigurationRef.current = false
-                    isResizingRef.current && (isResizingRef.current = false)
                 },250) // timeout a bit spooky but gives observer initialization of new items a chance to settle
                     // observer seems to need up to 2 cycles to settle; one for each side of the cradle.
                 saveCradleState('ready')
@@ -574,21 +574,21 @@ const Cradle = (props) => {
 
         // TODO: adjust indexoffset againse targetoffset, using targetConfigDataRef data
         // let previousvisible = [...visibleListRef.current]
-        let currentconfig = {
-                cellWidth,
-                cellHeight,
-                gap,
-                padding,
-                runway,
-                viewportheight,
-                viewportwidth,
-                crosscount,
-            }
-        let configdata = {...targetConfigDataRef.current,
-            // previousvisible,
-            currentconfig
-        }
-        targetConfigDataRef.current = configdata
+        // let currentconfig = {
+        //         cellWidth,
+        //         cellHeight,
+        //         gap,
+        //         padding,
+        //         runway,
+        //         viewportheight,
+        //         viewportwidth,
+        //         crosscount,
+        //     }
+        // let configdata = {...targetConfigDataRef.current}
+        //     // previousvisible,
+        //     currentconfig
+        // }
+        // targetConfigDataRef.current = configdata
 
         console.log('targetConfigDataRef',{...targetConfigDataRef.current})
         let [visibletargetindex, targetscrolloffset] = getVisibleTargetData(targetConfigDataRef)
@@ -598,7 +598,7 @@ const Cradle = (props) => {
         let localContentList = [] // any existing items will be re-used by react
 
         let {indexoffset, headindexcount, tailindexcount} = 
-            evaluateContentList({ // internal
+            getContentListRequirements({ // internal
                 cellHeight, 
                 cellWidth, 
                 orientation, 
@@ -607,7 +607,6 @@ const Cradle = (props) => {
                 runway, 
                 gap,
                 padding,
-                cradlestate, 
                 contentOffsetForActionRef,
                 crosscount,
                 listsize,
@@ -686,11 +685,11 @@ const Cradle = (props) => {
     // on shift of state to ready, or 
     useEffect(() => {
 
-        console.log('cradlestate, isScrolling',cradlestate,isScrollingRef.current)
+        console.log('cradlestate, isScrolling, isResizingRef.current', cradlestate, isScrollingRef.current, isResizingRef.current)
         if (cradlestate == 'ready' && !isScrollingRef.current) {
 
-            if (!isResizingRef.current) {
-                
+            if (!isResizingRef.current) { // conflicting responses; resizing needs current version of visible before change
+
                 // update visible list
                 let itemlist = Array.from(itemElementsRef.current)
 

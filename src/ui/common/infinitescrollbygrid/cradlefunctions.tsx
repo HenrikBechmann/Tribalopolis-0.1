@@ -122,7 +122,7 @@ export const calcVisibleItems = (itemsArray, viewportElement, cradleElement) => 
 }
 
 // evaluate content for requirements
-export const evaluateContentList = ({
+export const getContentListRequirements = ({
         cellHeight, 
         cellWidth, 
         orientation, 
@@ -131,7 +131,6 @@ export const evaluateContentList = ({
         runway, 
         gap,
         padding, 
-        cradlestate, 
         contentOffsetForActionRef,
         crosscount,
         listsize
@@ -222,7 +221,7 @@ export const getVisibleTargetData = (targetConfigDataRef) => {
                     targetoffset = 0
                 }
                 break
-                
+
             }
         }
     }
