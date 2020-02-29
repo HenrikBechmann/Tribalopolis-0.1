@@ -131,12 +131,12 @@ export const getContentListRequirements = ({
         runway, 
         gap,
         padding, 
-        contentOffsetForActionRef,
+        visibletargetoffset,
         crosscount,
         listsize
     }) => {
     // start with indexoffset from when evaluation was triggered
-    let indexoffset = (contentOffsetForActionRef.current || 0), headindexcount = 0, tailindexcount = 0
+    let indexoffset = (visibletargetoffset || 0), headindexcount = 0, tailindexcount = 0
     //  console.log('original indexoffset in evaluateContentList', indexoffset)
     // shift the offset to conform to crosscount multiple
     if (indexoffset != 0) {

@@ -605,7 +605,7 @@ const Cradle = (props) => {
                 runway, 
                 gap,
                 padding,
-                contentOffsetForActionRef,
+                visibletargetoffset:contentOffsetForActionRef.current,
                 crosscount,
                 listsize,
             })
