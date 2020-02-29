@@ -20,15 +20,13 @@ import {
 import ItemShell from './itemshell'
 
 /*
-    - suppress scrolling update of visible items rather that scroll settings in presence of resize - line 690
-    - use visible list to identify target for resize
     - check brief apperance of cradle when resizing to more columns = resolve with top or left
 
 */
 
 /*
     1 finish resize implementation for vertical
-    - implement reisze for horizontal
+    - implement resize for horizontal
 
     - focus on static switch from horizontal to vertical
     - name states 'pivot' (change orientation) and 'resize'
