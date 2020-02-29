@@ -20,7 +20,7 @@ import {
 import ItemShell from './itemshell'
 
 /*
-
+    - suppress scrolling update of visible items rather that scroll settings in presence of resize - line 690
     - use visible list to identify target for resize
     - check brief apperance of cradle when resizing to more columns = resolve with top or left
 
@@ -231,7 +231,7 @@ const Cradle = (props) => {
     const onScroll = useCallback((e) => {
         // setTimeout(()=> {
 
-        if (!isScrollingRef.current && !isResizingRef.current) {
+        if (!isScrollingRef.current) {
             saveIsScrolling(true)
         }
         if (isScrollingRef.current) {
@@ -246,17 +246,13 @@ const Cradle = (props) => {
     },[])
 
     const isResizingRef = useRef(false)
-    const resizeTimeridRef = useRef(null)
+    // const resizeTimeridRef = useRef(null)
 
     const onResize = useCallback((e) => {
 
         if (!isResizingRef.current) {
             isResizingRef.current = true
         }
-        // clearTimeout(resizeTimeridRef.current)
-        // resizeTimeridRef.current = setTimeout(() => {
-        //     console.log('last resize event',e)
-        // },200)
 
     },[])
 
@@ -285,7 +281,7 @@ const Cradle = (props) => {
                 setTimeout(()=>{ // let everything settle before reviving observer
                     DEBUG && console.log('observer pause ended')
                     pauseObserverForReconfigurationRef.current = false
-                    isResizingRef.current = false
+                    isResizingRef.current && (isResizingRef.current = false)
                 },250) // timeout a bit spooky but gives observer initialization of new items a chance to settle
                     // observer seems to need up to 2 cycles to settle; one for each side of the cradle.
                 saveCradleState('ready')
@@ -693,13 +689,17 @@ const Cradle = (props) => {
         console.log('cradlestate, isScrolling',cradlestate,isScrollingRef.current)
         if (cradlestate == 'ready' && !isScrollingRef.current) {
 
-            // update visible list
-            let itemlist = Array.from(itemElementsRef.current)
+            if (!isResizingRef.current) {
+                
+                // update visible list
+                let itemlist = Array.from(itemElementsRef.current)
 
-            visibleListRef.current = calcVisibleItems(
-                itemlist,viewportData.elementref.current,cradleElementRef.current
-            )
-            console.log('list of visible items',visibleListRef.current)
+                visibleListRef.current = calcVisibleItems(
+                    itemlist,viewportData.elementref.current,cradleElementRef.current
+                )
+                console.log('list of visible items',visibleListRef.current)
+
+            }
 
         }
 
