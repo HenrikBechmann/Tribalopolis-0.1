@@ -587,7 +587,7 @@ const Cradle = (props) => {
         console.log('3. ==>> content list requirements: visibletargetindex, targetscrolloffset,indexoffset, tailindexcount',
             visibletargetindex, targetscrolloffset,indexoffset, tailindexcount )
 
-        console.log('4. ==>> scrollblockoffset, calculatedcradleoffset', scrollblockoffset, calculatedcradleposition)
+        console.log('4. ==>> scrollblockoffset, calculatedcradleposition', scrollblockoffset, calculatedcradleposition)
         let childlistfragment = getContentList({
 
             orientation,
