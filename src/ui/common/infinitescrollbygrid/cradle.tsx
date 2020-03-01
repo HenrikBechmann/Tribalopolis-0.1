@@ -570,32 +570,19 @@ const Cradle = (props) => {
 
     const setCradleContent = useCallback(() => {
 
-        // TODO: adjust indexoffset againse targetoffset, using targetConfigDataRef data
-        // let previousvisible = [...visibleListRef.current]
-        // let currentconfig = {
-        //         cellWidth,
-        //         cellHeight,
-        //         gap,
-        //         padding,
-        //         runway,
-        //         viewportheight,
-        //         viewportwidth,
-        //         crosscount,
-        //     }
-        // let configdata = {...targetConfigDataRef.current}
-        //     // previousvisible,
-        //     currentconfig
-        // }
-        // targetConfigDataRef.current = configdata
-
         console.log('targetConfigDataRef',{...targetConfigDataRef.current})
         let [visibletargetindex, targetscrolloffset] = getVisibleTargetData(targetConfigDataRef)
 
-        console.log('==>> visibletargetindex, targetscrolloffset',visibletargetindex, targetscrolloffset)
+        console.log('1. ==>> visibletargetindex, targetscrolloffset',visibletargetindex, targetscrolloffset)
 
         let localContentList = [] // any existing items will be re-used by react
 
-        let {indexoffset, headindexcount, tailindexcount} = 
+        if (visibletargetindex === undefined) {
+            visibletargetindex = contentOffsetForActionRef.current
+            targetscrolloffset = 0
+        }
+
+        let {indexoffset, headindexcount, tailindexcount, targetitemscrolloffset, calculatedcradleoffset} = 
             getContentListRequirements({ // internal
                 cellHeight, 
                 cellWidth, 
@@ -605,11 +592,14 @@ const Cradle = (props) => {
                 runway, 
                 gap,
                 padding,
-                visibletargetoffset:visibletargetindex, // contentOffsetForActionRef.current,
-                scrolloffset:targetscrolloffset,
+                visibleTargetItemOffset:visibletargetindex,
+                targetScrollOffset:targetscrolloffset,
                 crosscount,
                 listsize,
             })
+
+        console.log('2. ==>> content list requirements: visibletargetindex, targetscrolloffset,indexoffset, headindexcount, tailindexcount, targetitemscrolloffset, calculatedcradleoffset',
+            visibletargetindex, targetscrolloffset,indexoffset, headindexcount, tailindexcount, targetitemscrolloffset, calculatedcradleoffset)
 
         let childlistfragment = getContentList({
 
@@ -627,44 +617,29 @@ const Cradle = (props) => {
 
         })
 
-        DEBUG && console.log('childlistfragment',childlistfragment)
-        // DEBUG && console.log('targetConfigDataRef',{...targetConfigDataRef.current})
-
         let styles:React.CSSProperties = {}
         let cradleoffset
         if (orientation == 'vertical') {
-            cradleoffset = (Math.ceil( (indexoffset/crosscount)) * (cellHeight + gap))
 
-            styles.top = cradleoffset + 'px'
+            styles.top = calculatedcradleoffset + 'px'
             styles.bottom = 'auto'
             styles.left = 'auto'
             styles.right = 'auto'
 
-            let scrolloffset = cradleoffset
-            DEBUG && console.log('indexoffset, cradleoffset, scrolloffset', indexoffset, cradleoffset, scrolloffset)
-
-            DEBUG && console.log('viewport indexoffset, crosscount, cellHeight, gap, padding, cradleoffset, scrolloffset, runway, element', 
-                indexoffset, crosscount,  cellHeight, gap, padding, cradleoffset, scrolloffset, runway)
-
-            viewportData.elementref.current.scrollTop = scrolloffset // TODO: calculate for target itemShell
+            viewportData.elementref.current.scrollTop = targetitemscrolloffset // TODO: calculate for target itemShell
 
         } else { // orientation = 'horizontal'
 
-            cradleoffset = ((Math.ceil((indexoffset)/crosscount)) * (cellWidth + gap)) - gap - padding
-
             styles.top = 'auto'
             styles.bottom = 'auto'
-            styles.left = cradleoffset + 'px'
+            styles.left = calculatedcradleoffset + 'px'
             styles.right = 'auto'
 
-            let scrolloffset = cradleoffset
-
-            viewportData.elementref.current.scrollLeft = scrolloffset
+            viewportData.elementref.current.scrollLeft = targetitemscrolloffset
         }
         divlinerStyleRevisionsRef.current = styles
         contentOffsetForActionRef.current = indexoffset
-        DEBUG && console.log('setCradleContent style revisions, indexoffset',styles, indexoffset, childlistfragment)
-        // pauseObserverForReconfigurationRef.current = false
+
         saveContentlist(childlistfragment) // external
 
     },[
@@ -684,7 +659,7 @@ const Cradle = (props) => {
     // on shift of state to ready, or 
     useEffect(() => {
 
-        console.log('cradlestate, isScrolling, isResizingRef.current', cradlestate, isScrollingRef.current, isResizingRef.current)
+        // console.log('cradlestate, isScrolling, isResizingRef.current', cradlestate, isScrollingRef.current, isResizingRef.current)
         if (cradlestate == 'ready' && !isScrollingRef.current) {
 
             if (!isResizingRef.current) { // conflicting responses; resizing needs current version of visible before change
@@ -695,7 +670,7 @@ const Cradle = (props) => {
                 visibleListRef.current = calcVisibleItems(
                     itemlist,viewportData.elementref.current,cradleElementRef.current
                 )
-                console.log('list of visible items',visibleListRef.current)
+                // console.log('list of visible items',visibleListRef.current)
 
             }
 
