@@ -172,15 +172,15 @@ export const getContentListRequirements = ({
         (shift) && (indexoffset -= shift)
 
     }
-    let targetrow = Math.ceil((visibleTargetItemOffset - indexoffset)/crosscount)
+    let targetrowoffset = Math.floor((visibleTargetItemOffset - indexoffset)/crosscount)
 
-    let targetitemscrolloffset = targetrow * cellLength
-    targetitemscrolloffset += targetScrollOffset
+    let targetitemscrolloffset = targetrowoffset * cellLength
+    targetitemscrolloffset -= targetScrollOffset
 
     let calculatedcradleoffset = indexoffset * cellLength
 
-    console.log('calculated indexoffset, cradleContentCount, runway, cradleLength, cellLength, crosscount, rowcount, listsize, targetrow, targetitemscrolloffset, targetScrollOffset:',
-        indexoffset, cradleContentCount, runway, cradleLength, cellLength, crosscount, rowcount, listsize, targetrow, targetitemscrolloffset, targetScrollOffset)
+    console.log('calculated indexoffset, visibleTargetItemOffset, cradleContentCount, runway, cradleLength, cellLength, crosscount, rowcount, listsize, targetrowoffset, targetitemscrolloffset, targetScrollOffset:',
+        indexoffset, visibleTargetItemOffset, cradleContentCount, runway, cradleLength, cellLength, crosscount, rowcount, listsize, targetrowoffset, targetitemscrolloffset, targetScrollOffset)
 
     let headindexcount = 0, tailindexcount = 0
 

@@ -292,7 +292,7 @@ const Cradle = (props) => {
     // trigger resize on change
     useEffect(()=>{
         if (cradlestate == 'ready') {
-            console.log('setting cradlestate from ready to resize')
+            // console.log('setting cradlestate from ready to resize')
             contentOffsetForActionRef.current = contentlist[0]?.props.index
             pauseObserverForReconfigurationRef.current = true
             let cradleElement = cradleElementRef.current
@@ -418,17 +418,13 @@ const Cradle = (props) => {
         let indexoffset = contentlist[0].props.index
         let pendingcontentoffset
         let newcontentcount = Math.ceil(netshift/crosscountRef.current)*crosscountRef.current
-        DEBUG && console.log('dropentries newcontentcount, netshift, crosscountRef.current', newcontentcount, netshift, crosscountRef.current)
         let headindexcount, tailindexcount
         if (scrollforward) {
             pendingcontentoffset = indexoffset + netshift
             let proposedtailoffset = pendingcontentoffset + newcontentcount + ((contentlist.length - netshift ) - 1)
 
             if ((proposedtailoffset) > (listsize -1) ) {
-                DEBUG && console.log('the calculated newcontentcount value, before revision',newcontentcount)
                 newcontentcount -= (proposedtailoffset - (listsize -1))
-                DEBUG && console.log('dropitem: dropentries.length, contentlist.length, pendingcontentoffset,newcontentcount,proposedtailoffset,listsize',
-                    dropentries.length, contentlist.length, pendingcontentoffset,newcontentcount, proposedtailoffset, listsize)
                 if (newcontentcount <=0) { // should never below 0 -- TODO: verify and create error if fails
                     return // ugly
                 }
@@ -442,11 +438,8 @@ const Cradle = (props) => {
             pendingcontentoffset = indexoffset
             let proposedindexoffset = pendingcontentoffset - newcontentcount
             if (proposedindexoffset < 0) {
-                DEBUG && console.log('scrollbackward calculated newcontentcount, proposedindexoffset',newcontentcount, proposedindexoffset)
                 proposedindexoffset = -proposedindexoffset
                 newcontentcount = newcontentcount - proposedindexoffset
-                DEBUG && console.log('scrollbackward resulting newcontentcount, proposedindexoffset, pendingcontentoffset',
-                    newcontentcount, proposedindexoffset, pendingcontentoffset)
                 if (newcontentcount <= 0) {
                     return // ugly
                 }
@@ -478,14 +471,11 @@ const Cradle = (props) => {
 
         })
 
-        DEBUG && console.log('dropentries styles',{...styles}, localContentList, scrollforward)
-
         divlinerStyleRevisionsRef.current = { ...styles }
 
         saveContentlist(localContentList) // delete entries
         saveDropentries(null)
         saveAddentries({count:newcontentcount,scrollforward,contentoffset:pendingcontentoffset})
-        DEBUG && console.log('end of drop entries')
 
     },[dropentries])
 
@@ -544,8 +534,6 @@ const Cradle = (props) => {
 
         })
 
-        DEBUG && console.log('addentries headpos, styles, localContentList', headpos, {...styles}, localContentList)
-
         divlinerStyleRevisionsRef.current = {...styles}
         saveContentlist(localContentList)
         saveAddentries(null)
@@ -562,18 +550,16 @@ const Cradle = (props) => {
 
         if (['setup','resize','pivot'].indexOf(cradlestate) == -1) return
 
-        DEBUG && console.log('cradlestate for setcradlecontent',cradlestate)
-
         setCradleContent()
 
     },[cradlestate,])
 
     const setCradleContent = useCallback(() => {
 
-        console.log('targetConfigDataRef',{...targetConfigDataRef.current})
+        console.log('1. ==>> targetConfigDataRef',{...targetConfigDataRef.current})
         let [visibletargetindex, targetscrolloffset] = getVisibleTargetData(targetConfigDataRef)
 
-        console.log('1. ==>> visibletargetindex, targetscrolloffset',visibletargetindex, targetscrolloffset)
+        console.log('2. ==>> visibletargetindex, targetscrolloffset',visibletargetindex, targetscrolloffset)
 
         let localContentList = [] // any existing items will be re-used by react
 
@@ -598,7 +584,7 @@ const Cradle = (props) => {
                 listsize,
             })
 
-        console.log('2. ==>> content list requirements: visibletargetindex, targetscrolloffset,indexoffset, headindexcount, tailindexcount, targetitemscrolloffset, calculatedcradleoffset',
+        console.log('3. ==>> content list requirements: visibletargetindex, targetscrolloffset,indexoffset, headindexcount, tailindexcount, targetitemscrolloffset, calculatedcradleoffset',
             visibletargetindex, targetscrolloffset,indexoffset, headindexcount, tailindexcount, targetitemscrolloffset, calculatedcradleoffset)
 
         let childlistfragment = getContentList({
