@@ -174,19 +174,22 @@ export const getContentListRequirements = ({
     }
     let targetrowoffset = Math.floor((visibleTargetItemOffset - indexoffset)/crosscount)
 
-    let targetitemscrolloffset = targetrowoffset * cellLength
-    targetitemscrolloffset -= targetScrollOffset
+    let scrollblockoffset = targetrowoffset * cellLength
+    scrollblockoffset -= targetScrollOffset
 
-    let calculatedcradleoffset = indexoffset * cellLength
-
-    console.log('calculated indexoffset, visibleTargetItemOffset, cradleContentCount, runway, cradleLength, cellLength, crosscount, rowcount, listsize, targetrowoffset, targetitemscrolloffset, targetScrollOffset:',
-        indexoffset, visibleTargetItemOffset, cradleContentCount, runway, cradleLength, cellLength, crosscount, rowcount, listsize, targetrowoffset, targetitemscrolloffset, targetScrollOffset)
+    let calculatedcradleposition = targetrowoffset * cellLength
 
     let headindexcount = 0, tailindexcount = 0
 
     tailindexcount = cradleContentCount
 
-    return {indexoffset, headindexcount, tailindexcount, targetitemscrolloffset, calculatedcradleoffset} // summarize requirements message
+    console.log('REQUIREMENTS input: visibleTargetItemOffset, targetScrollOffset, runway, cradleLength, cellLength, crosscount, listsize:',
+        visibleTargetItemOffset, targetScrollOffset, runway, cradleLength, cellLength, crosscount, listsize)
+
+    console.log('REQUIREMENTS calculated: indexoffset, cradleContentCount, rowcount, tailindexcount, targetrowoffset, scrollblockoffset, calculatedcradleposition:',
+        indexoffset, cradleContentCount, rowcount, tailindexcount, targetrowoffset, scrollblockoffset, calculatedcradleposition)
+
+    return {indexoffset, headindexcount, tailindexcount, scrollblockoffset, calculatedcradleposition} // summarize requirements message
 }
 
 export const getVisibleTargetData = (targetConfigDataRef) => {

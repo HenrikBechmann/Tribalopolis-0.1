@@ -568,7 +568,7 @@ const Cradle = (props) => {
             targetscrolloffset = 0
         }
 
-        let {indexoffset, headindexcount, tailindexcount, targetitemscrolloffset, calculatedcradleoffset} = 
+        let {indexoffset, headindexcount, tailindexcount, scrollblockoffset, calculatedcradleposition} = 
             getContentListRequirements({ // internal
                 cellHeight, 
                 cellWidth, 
@@ -584,9 +584,10 @@ const Cradle = (props) => {
                 listsize,
             })
 
-        console.log('3. ==>> content list requirements: visibletargetindex, targetscrolloffset,indexoffset, headindexcount, tailindexcount, targetitemscrolloffset, calculatedcradleoffset',
-            visibletargetindex, targetscrolloffset,indexoffset, headindexcount, tailindexcount, targetitemscrolloffset, calculatedcradleoffset)
+        console.log('3. ==>> content list requirements: visibletargetindex, targetscrolloffset,indexoffset, tailindexcount',
+            visibletargetindex, targetscrolloffset,indexoffset, tailindexcount )
 
+        console.log('4. ==>> scrollblockoffset, calculatedcradleoffset', scrollblockoffset, calculatedcradleposition)
         let childlistfragment = getContentList({
 
             orientation,
@@ -607,21 +608,21 @@ const Cradle = (props) => {
         let cradleoffset
         if (orientation == 'vertical') {
 
-            styles.top = calculatedcradleoffset + 'px'
+            styles.top = calculatedcradleposition + 'px'
             styles.bottom = 'auto'
             styles.left = 'auto'
             styles.right = 'auto'
 
-            viewportData.elementref.current.scrollTop = targetitemscrolloffset // TODO: calculate for target itemShell
+            viewportData.elementref.current.scrollTop = scrollblockoffset
 
         } else { // orientation = 'horizontal'
 
             styles.top = 'auto'
             styles.bottom = 'auto'
-            styles.left = calculatedcradleoffset + 'px'
+            styles.left = calculatedcradleposition + 'px'
             styles.right = 'auto'
 
-            viewportData.elementref.current.scrollLeft = targetitemscrolloffset
+            viewportData.elementref.current.scrollLeft = scrollblockoffset
         }
         divlinerStyleRevisionsRef.current = styles
         contentOffsetForActionRef.current = indexoffset
