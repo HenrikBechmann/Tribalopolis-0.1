@@ -182,7 +182,7 @@ export const getContentListRequirements = ({
     let targetrowoffset = Math.floor(visibletargetindex/crosscount)
 
     let scrollblockoffset = targetrowoffset * cellLength
-    // scrollblockoffset += calculatedcradleposition
+    scrollblockoffset -= targetScrollOffset
 
     console.log('REQUIREMENTS input: visibletargetindex, targetScrollOffset, runway, viewportlength, cradleLength, cellLength, crosscount, listsize:',
         visibletargetindex, targetScrollOffset, runway, viewportlength, cradleLength, cellLength, crosscount, listsize)
