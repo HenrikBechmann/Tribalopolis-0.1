@@ -131,65 +131,67 @@ export const getContentListRequirements = ({
         runway, 
         gap,
         padding, 
-        visibleTargetItemOffset,
+        visibletargetindex,
         targetScrollOffset,
         crosscount,
         listsize
     }) => {
 
-    // calc cradleLenght and cellLength
-    let cradleLength, cellLength
+    // calc basics: cradleLength, cellLength, rowcount, contentCount
+    let cradleLength, cellLength, viewportlength
     if (orientation == 'vertical') {
         cradleLength = (viewportheight + (padding * 2) - gap) // assumes at least one item
         cellLength = cellHeight + gap
+        viewportlength = viewportheight
     } else {
         cradleLength = (viewportwidth + (padding * 2) - gap)
         cellLength = cellWidth + gap
+        viewportlength = viewportwidth
     }
     cradleLength += (runway * 2)
 
-    // calc rowcount and cradlecontentCount
     let rowcount = Math.ceil(cradleLength/cellLength)
-    let cradleContentCount = rowcount * crosscount
+    let contentCount = rowcount * crosscount
 
-    if (cradleContentCount > listsize) cradleContentCount = listsize
+    if (contentCount > listsize) contentCount = listsize
 
-    let indexoffset = visibleTargetItemOffset - Math.floor(cradleContentCount/2)
+    // calc indexoffset
+    let indexoffset = visibletargetindex - Math.floor(contentCount/2)
     indexoffset = Math.max(indexoffset,0)
-    let maxoffset = indexoffset + cradleContentCount
+    let maxoffset = indexoffset + contentCount
     if (maxoffset > (listsize - 1)) {
         let diff = maxoffset - (listsize - 1)
         indexoffset -= diff
     }
 
-    //  console.log('original indexoffset in evaluateContentList', indexoffset)
-
-    // shift the offset to conform to crosscount multiple
+    // shift indexoffset to conform to crosscount multiple
     if (indexoffset != 0) {
+
         let shift
         shift = indexoffset % crosscount;
 
         (shift) && (indexoffset -= shift)
 
     }
-    let targetrowoffset = Math.floor((visibleTargetItemOffset - indexoffset)/crosscount)
+
+    // let scrollblockoffset = indexoffset * cellLength
+    let indexrowoffset = Math.floor(indexoffset/crosscount)
+
+    let calculatedcradleposition = indexrowoffset * cellLength
+
+    let targetrowoffset = Math.floor(visibletargetindex/crosscount)
 
     let scrollblockoffset = targetrowoffset * cellLength
-    scrollblockoffset -= targetScrollOffset
+    // scrollblockoffset += calculatedcradleposition
 
-    let calculatedcradleposition = targetrowoffset * cellLength
+    console.log('REQUIREMENTS input: visibletargetindex, targetScrollOffset, runway, viewportlength, cradleLength, cellLength, crosscount, listsize:',
+        visibletargetindex, targetScrollOffset, runway, viewportlength, cradleLength, cellLength, crosscount, listsize)
 
-    let headindexcount = 0, tailindexcount = 0
+    console.log('REQUIREMENTS calculated: indexoffset, contentCount, rowcount, targetrowoffset, calculatedcradleposition, scrollblockoffset:',
+        indexoffset, contentCount, rowcount, targetrowoffset, calculatedcradleposition, scrollblockoffset)
 
-    tailindexcount = cradleContentCount
+    return {indexoffset, contentCount, scrollblockoffset, calculatedcradleposition} // summarize requirements message
 
-    console.log('REQUIREMENTS input: visibleTargetItemOffset, targetScrollOffset, runway, cradleLength, cellLength, crosscount, listsize:',
-        visibleTargetItemOffset, targetScrollOffset, runway, cradleLength, cellLength, crosscount, listsize)
-
-    console.log('REQUIREMENTS calculated: indexoffset, cradleContentCount, rowcount, tailindexcount, targetrowoffset, scrollblockoffset, calculatedcradleposition:',
-        indexoffset, cradleContentCount, rowcount, tailindexcount, targetrowoffset, scrollblockoffset, calculatedcradleposition)
-
-    return {indexoffset, headindexcount, tailindexcount, scrollblockoffset, calculatedcradleposition} // summarize requirements message
 }
 
 export const getVisibleTargetData = (targetConfigDataRef) => {

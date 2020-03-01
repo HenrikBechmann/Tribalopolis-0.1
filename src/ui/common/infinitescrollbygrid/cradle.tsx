@@ -568,7 +568,7 @@ const Cradle = (props) => {
             targetscrolloffset = 0
         }
 
-        let {indexoffset, headindexcount, tailindexcount, scrollblockoffset, calculatedcradleposition} = 
+        let {indexoffset, contentCount, scrollblockoffset, calculatedcradleposition} = 
             getContentListRequirements({ // internal
                 cellHeight, 
                 cellWidth, 
@@ -578,31 +578,31 @@ const Cradle = (props) => {
                 runway, 
                 gap,
                 padding,
-                visibleTargetItemOffset:visibletargetindex,
+                visibletargetindex,
                 targetScrollOffset:targetscrolloffset,
                 crosscount,
                 listsize,
             })
 
-        console.log('3. ==>> content list requirements: visibletargetindex, targetscrolloffset,indexoffset, tailindexcount',
-            visibletargetindex, targetscrolloffset,indexoffset, tailindexcount )
+        console.log('3. ==>> content list requirements: visibletargetindex, targetscrolloffset,indexoffset, contentCount',
+            visibletargetindex, targetscrolloffset,indexoffset, contentCount )
 
-        console.log('4. ==>> scrollblockoffset, calculatedcradleposition', scrollblockoffset, calculatedcradleposition)
+        console.log('4. ==>> calculatedcradleposition, scrollblockoffset', calculatedcradleposition, scrollblockoffset)
         let childlistfragment = getContentList({
-
-            orientation,
-            cellHeight,
-            cellWidth,
-
+            indexoffset, 
+            headindexcount:0, 
+            tailindexcount:contentCount, 
+            orientation, 
+            cellHeight, 
+            cellWidth, 
             localContentList,
             observer:itemobserverRef.current,
-            indexoffset,
-            headindexcount,
-            tailindexcount,
             crosscount,
             callbacksRef,
 
         })
+
+        // console.log('childlistfragment',childlistfragment)
 
         let styles:React.CSSProperties = {}
         let cradleoffset
