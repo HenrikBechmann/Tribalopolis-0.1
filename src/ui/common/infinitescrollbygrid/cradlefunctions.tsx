@@ -166,6 +166,7 @@ export const getVisibleTargetData = (targetConfigDataRef) => {
 
 }
 
+// BUG: one column, scroll to end; resize to two columns, highest row is missing
 // evaluate content for requirements
 export const getContentListRequirements = ({
         orientation, 
