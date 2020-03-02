@@ -38,7 +38,6 @@ import ItemShell from './itemshell'
     - integrate contentOffsetForActionRef in all contentlist creation
     - review use of {...styles} copy styles to new objects, in terms of trigger consequences
     - make a cradle count memo
-    - change runwaylength measure to number of items
 
     4 deal with thumbscroll
 

@@ -9,6 +9,7 @@ import Viewport from './viewport'
 import Scrollblock from './scrollblock'
 import Cradle from './cradle'
 
+// let Viewport = await import('./viewport')
 // ===================================[ INITIALIZE ]===========================
 
 /*
