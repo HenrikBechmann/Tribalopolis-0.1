@@ -200,10 +200,20 @@ export const getContentListRequirements = ({
     if (contentCount > listsize) contentCount = listsize
 
     // -----------------------[ calc indexoffset ]-----------------------
-    // ** s/b space based on runwaylength and targetScrollOffset
+
+    let leadingrows
+    let calc = (runwaylength + targetScrollOffset)/cellLength
+    if (targetScrollOffset > (cellLength/2)) {
+        leadingrows = Math.ceil(calc)
+    } else {
+        leadingrows = Math.floor(calc)
+    }
+    let leadingcount = leadingrows * crosscount
+    let targetdiff = visibletargetindex % crosscount
+    leadingcount += targetdiff
+
+    let indexoffset = Math.max(visibletargetindex - (leadingcount),0)
     
-    let indexoffset = visibletargetindex - Math.floor(contentCount/2)
-    indexoffset = Math.max(indexoffset,0)
     let maxoffset = indexoffset + contentCount
     if (maxoffset > (listsize - 1)) {
         let diff = maxoffset - (listsize - 1)
