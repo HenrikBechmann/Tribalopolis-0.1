@@ -187,15 +187,13 @@ export const getContentListRequirements = ({
     // -------------[ calc basics: cradleLength, cellLength, rowcount, contentCount ]----------
     let cradleLength, cellLength, viewportlength
     if (orientation == 'vertical') {
-        cradleLength = (viewportheight + (padding * 2) - gap) // assumes at least one item
         cellLength = cellHeight + gap
         viewportlength = viewportheight
     } else {
-        cradleLength = (viewportwidth + (padding * 2) - gap)
         cellLength = cellWidth + gap
         viewportlength = viewportwidth
     }
-    cradleLength += (runwaylength * 2)
+    cradleLength = (viewportlength + (padding * 2) - gap) + (runwaylength * 2) // assumes at least one item
 
     let rowcount = Math.ceil(cradleLength/cellLength)
     let contentCount = rowcount * crosscount
@@ -214,7 +212,11 @@ export const getContentListRequirements = ({
     let targetdiff = visibletargetindex % crosscount
     leadingcount += targetdiff
 
-    let indexoffset = Math.max(visibletargetindex - (leadingcount),0)
+
+    // let indexoffset = Math.max(visibletargetindex - (leadingcount),0)
+    let indexoffset = visibletargetindex - leadingcount
+
+    if (indexoffset < 0) console.log('WARNING: indexoffset < 0')
     
     let maxoffset = indexoffset + contentCount
     if (maxoffset > (listsize - 1)) {
