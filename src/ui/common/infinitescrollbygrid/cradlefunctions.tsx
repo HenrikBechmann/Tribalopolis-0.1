@@ -198,7 +198,6 @@ export const getContentListRequirements = ({
     let rowcount = Math.ceil(cradleLength/cellLength)
     let contentCount = rowcount * crosscount
     if (contentCount > listsize) contentCount = listsize
-    let targetdatarow = Math.floor(visibletargetindex/crosscount)
 
     // -----------------------[ calc indexoffset ]-----------------------
 
@@ -209,32 +208,27 @@ export const getContentListRequirements = ({
     } else {
         leadingrows = Math.ceil(calc)
     }
+    let targetdatarow = Math.floor(visibletargetindex/crosscount)
     leadingrows = Math.min(leadingrows, targetdatarow)
 
     let leadingcount = leadingrows * crosscount
     let targetdiff = visibletargetindex % crosscount
     leadingcount += targetdiff
 
-
     let indexoffset = visibletargetindex - leadingcount
 
     if (indexoffset < 0) console.log('ERROR: indexoffset < 0:indexoffset, visibletargetindex, targetdiff, leadingrows, targetdatarow, leadingcount',indexoffset, visibletargetindex, targetdiff, leadingrows, targetdatarow, leadingcount)
     
-    let maxoffset = indexoffset + contentCount
+    let maxoffset = indexoffset + (contentCount - 1)
     if (maxoffset > (listsize - 1)) {
         let diff = maxoffset - (listsize - 1)
         indexoffset -= diff
     }
 
     // shift indexoffset to conform to crosscount multiple
-    if (indexoffset != 0) {
+    let shift = indexoffset % crosscount;
 
-        let shift
-        shift = indexoffset % crosscount;
-
-        (shift) && (indexoffset -= shift)
-
-    }
+    (shift) && (indexoffset -= shift)
 
     // --------------------[ calc css positioning ]-----------------------
     // let scrollblockoffset = indexoffset * cellLength
