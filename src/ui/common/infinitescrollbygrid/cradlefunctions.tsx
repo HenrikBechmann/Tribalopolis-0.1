@@ -167,6 +167,7 @@ export const getVisibleTargetData = (targetConfigDataRef) => {
 }
 
 // BUG: one column, scroll to end; resize to two columns, highest row is missing
+//     make sure trailing end is properly populated
 // evaluate content for requirements
 export const getContentListRequirements = ({
         orientation, 
@@ -245,8 +246,8 @@ export const getContentListRequirements = ({
     console.log('REQUIREMENTS input: visibletargetindex, targetScrollOffset, runwaylength, viewportlength, cradleLength, cellLength, crosscount, listsize:',
         visibletargetindex, targetScrollOffset, runwaylength, viewportlength, cradleLength, cellLength, crosscount, listsize)
 
-    console.log('REQUIREMENTS calculated: indexoffset, contentCount, rowcount, targetrowoffset, calculatedcradleposition, scrollblockoffset:',
-        indexoffset, contentCount, rowcount, targetrowoffset, calculatedcradleposition, scrollblockoffset)
+    console.log('REQUIREMENTS calculated: leadingrows, leadingcount, indexoffset, contentCount, rowcount, targetrowoffset, calculatedcradleposition, scrollblockoffset:',
+        leadingrows, leadingcount, indexoffset, contentCount, rowcount, targetrowoffset, calculatedcradleposition, scrollblockoffset)
 
     return {indexoffset, contentCount, scrollblockoffset, calculatedcradleposition} // summarize requirements message
 
