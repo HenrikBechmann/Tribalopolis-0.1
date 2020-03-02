@@ -38,7 +38,7 @@ import ItemShell from './itemshell'
     - integrate contentOffsetForActionRef in all contentlist creation
     - review use of {...styles} copy styles to new objects, in terms of trigger consequences
     - make a cradle count memo
-    - change runway measure to number of items
+    - change runwaylength measure to number of items
 
     4 deal with thumbscroll
 
@@ -59,7 +59,7 @@ const DEBUG = false
 
 const Cradle = (props) => {
 
-    const { gap, padding, runway, listsize, offset, orientation, cellHeight, cellWidth, getItem } = props
+    const { gap, padding, runwaylength, listsize, offset, orientation, cellHeight, cellWidth, getItem } = props
 
     // =============================================================================================
     // --------------------------------------[ initialization ]-------------------------------------
@@ -161,7 +161,7 @@ const Cradle = (props) => {
         cellHeight,
         gap,
         padding,
-        runway,
+        runwaylength,
         viewportheight,
         viewportwidth,
         crosscount,
@@ -171,7 +171,7 @@ const Cradle = (props) => {
         cellHeight, 
         gap, 
         padding,
-        runway,
+        runwaylength,
         viewportheight, 
         viewportwidth,
         crosscount,
@@ -305,7 +305,7 @@ const Cradle = (props) => {
         cellHeight, 
         gap, 
         padding,
-        runway,
+        runwaylength,
         viewportheight, 
         viewportwidth,
     ])
@@ -316,9 +316,9 @@ const Cradle = (props) => {
         DEBUG && console.log('initializing system with cradlestate',cradlestate)
         let rootMargin
         if (orientation == 'horizontal') {
-            rootMargin = `0px ${runway}px 0px ${runway}px`
+            rootMargin = `0px ${runwaylength}px 0px ${runwaylength}px`
         } else {
-            rootMargin = `${runway}px 0px ${runway}px 0px`
+            rootMargin = `${runwaylength}px 0px ${runwaylength}px 0px`
         }
         DEBUG && console.log('rootMargin',rootMargin)
         itemobserverRef.current = new IntersectionObserver(
@@ -575,7 +575,7 @@ const Cradle = (props) => {
                 orientation, 
                 viewportheight, 
                 viewportwidth, 
-                runway, 
+                runwaylength, 
                 gap,
                 padding,
                 visibletargetindex,
@@ -635,7 +635,7 @@ const Cradle = (props) => {
         orientation,
         viewportheight,
         viewportwidth,
-        runway,
+        runwaylength,
         gap,
         padding,
         crosscount,

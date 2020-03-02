@@ -44,15 +44,16 @@ const InfiniteScrollByGrid = (props) => {
 
     gap !?? (gap = 0)
     padding !?? (padding = 0)
-    runway !?? (runway = 800)
+    runway !?? (runway = 3)
     offset !?? (offset = 0)
     listsize !?? (listsize = 0)
+    let runwaylength = (orientation == 'vertical')?(runway * cellHeight):(runway * cellWidth)
     // implementatoin deferred for the following
     // dense !?? (dense = false)
     // !preload && (dense = false) // preload will allow dragdrop
     cellSizing !?? (cellSizing = 'fixed')
 
-    return <Viewport orientation = {orientation} runway = {runway}>
+    return <Viewport orientation = {orientation} runwaylength = {runwaylength}>
         <Scrollblock
 
             listsize = { listsize }
@@ -73,7 +74,7 @@ const InfiniteScrollByGrid = (props) => {
                 listsize = { listsize }
                 offset = { offset }
                 orientation = { orientation }
-                runway = { runway } 
+                runwaylength = { runwaylength } 
                 // dense = { dense }
                 // preload = { preload }
                 getItem = { getItem }

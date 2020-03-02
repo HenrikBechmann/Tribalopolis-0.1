@@ -50,7 +50,7 @@ const Home = (props) => {
                     padding = {5}
                     cellHeight = {200}
                     cellWidth = {150}
-                    runway = {610}
+                    runway = {3}
                     offset = {0}
                     listsize = {40}
                 />

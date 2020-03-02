@@ -25,7 +25,7 @@ const RESIZE_TIMEOUT_FOR_ONAFTERSRESIZE = 250
 let sizegenerationcounter = 0
 let timeoutid
 
-const Viewport = ({children, orientation, runway}) => { // props
+const Viewport = ({children, orientation, runwaylength}) => { // props
 
     const scrolldiv = useRef(undefined)
     const divlinerstyleRef = useRef({
