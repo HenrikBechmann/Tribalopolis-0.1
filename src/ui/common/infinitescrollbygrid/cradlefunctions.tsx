@@ -182,7 +182,7 @@ export const getContentListRequirements = ({
         listsize
     }) => {
 
-    // calc basics: cradleLength, cellLength, rowcount, contentCount
+    // -------------[ calc basics: cradleLength, cellLength, rowcount, contentCount ]----------
     let cradleLength, cellLength, viewportlength
     if (orientation == 'vertical') {
         cradleLength = (viewportheight + (padding * 2) - gap) // assumes at least one item
@@ -197,10 +197,11 @@ export const getContentListRequirements = ({
 
     let rowcount = Math.ceil(cradleLength/cellLength)
     let contentCount = rowcount * crosscount
-
     if (contentCount > listsize) contentCount = listsize
 
-    // calc indexoffset
+    // -----------------------[ calc indexoffset ]-----------------------
+    // ** s/b space based on runwaylength and targetScrollOffset
+    
     let indexoffset = visibletargetindex - Math.floor(contentCount/2)
     indexoffset = Math.max(indexoffset,0)
     let maxoffset = indexoffset + contentCount
@@ -219,6 +220,7 @@ export const getContentListRequirements = ({
 
     }
 
+    // --------------------[ calc css positioning ]-----------------------
     // let scrollblockoffset = indexoffset * cellLength
     let indexrowoffset = Math.floor(indexoffset/crosscount)
 
