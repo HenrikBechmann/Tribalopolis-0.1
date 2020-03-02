@@ -48,7 +48,7 @@ const InfiniteScrollByGrid = (props) => {
     runway !?? (runway = 3)
     offset !?? (offset = 0)
     listsize !?? (listsize = 0)
-    let runwaylength = (orientation == 'vertical')?(runway * cellHeight):(runway * cellWidth)
+    let runwaylength = (orientation == 'vertical')?(runway * (cellHeight + gap)):(runway * (cellWidth + gap))
     // implementatoin deferred for the following
     // dense !?? (dense = false)
     // !preload && (dense = false) // preload will allow dragdrop

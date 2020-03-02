@@ -198,25 +198,27 @@ export const getContentListRequirements = ({
     let rowcount = Math.ceil(cradleLength/cellLength)
     let contentCount = rowcount * crosscount
     if (contentCount > listsize) contentCount = listsize
+    let targetdatarow = Math.floor(visibletargetindex/crosscount)
 
     // -----------------------[ calc indexoffset ]-----------------------
 
     let leadingrows
     let calc = (runwaylength + targetScrollOffset)/cellLength
     if (targetScrollOffset > (cellLength/2)) {
-        leadingrows = Math.ceil(calc)
-    } else {
         leadingrows = Math.floor(calc)
+    } else {
+        leadingrows = Math.ceil(calc)
     }
+    leadingrows = Math.min(leadingrows, targetdatarow)
+
     let leadingcount = leadingrows * crosscount
     let targetdiff = visibletargetindex % crosscount
     leadingcount += targetdiff
 
 
-    // let indexoffset = Math.max(visibletargetindex - (leadingcount),0)
     let indexoffset = visibletargetindex - leadingcount
 
-    if (indexoffset < 0) console.log('WARNING: indexoffset < 0')
+    if (indexoffset < 0) console.log('ERROR: indexoffset < 0:indexoffset, visibletargetindex, targetdiff, leadingrows, targetdatarow, leadingcount',indexoffset, visibletargetindex, targetdiff, leadingrows, targetdatarow, leadingcount)
     
     let maxoffset = indexoffset + contentCount
     if (maxoffset > (listsize - 1)) {
