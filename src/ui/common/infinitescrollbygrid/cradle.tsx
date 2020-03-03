@@ -3,7 +3,7 @@
 
 'use strict'
 
-import React, { useState, useRef, useContext, useEffect, useLayoutEffect, useCallback, useMemo } from 'react'
+import React, { useState, useRef, useContext, useEffect, useCallback, useMemo } from 'react'
 
 import { ViewportContext } from './viewport'
 
