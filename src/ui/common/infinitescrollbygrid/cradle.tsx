@@ -54,6 +54,9 @@ import ItemShell from './itemshell'
         - variable height items
 
     8 scrollToItem(index[,alignment]) - alignment = start, end, center, auto (default)
+    - callbacks in general
+
+    9 options (like styles)
 
 */
 
