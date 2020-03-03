@@ -19,11 +19,9 @@ import {
 import ItemShell from './itemshell'
 
 /*
-    9 implement resize for horizontal
-
+    8 dynamic switch of orientation (pivot)
     - focus on static switch from horizontal to vertical
     - name states 'pivot' (change orientation) and 'resize'
-    8 dynamic switch of orientation (pivot)
 
     7
     - code maintenance

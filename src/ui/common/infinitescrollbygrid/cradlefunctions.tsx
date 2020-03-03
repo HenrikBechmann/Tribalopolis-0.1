@@ -393,6 +393,7 @@ export const setCradleStyles = ({
             styles.width = '100%'
             styles.height = 'auto'
             styles.gridAutoFlow = 'row'
+            
             styles.gridTemplateRows = 'none'
             styles.gridTemplateColumns = cellWidth?`repeat(auto-fit, minmax(${cellWidth}px, 1fr))`:'auto'
             styles.minWidth = 0
