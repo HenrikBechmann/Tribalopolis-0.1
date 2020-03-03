@@ -239,7 +239,8 @@ export const getContentListRequirements = ({
     }
 
     // defensive
-    if (indexoffset < 0) console.log('ERROR: indexoffset < 0:indexoffset, visibletargetindex, targetdiff, leadingrows, targetdatarow, leadingcount',
+    if (indexoffset < 0) console.log(
+        'ERROR: indexoffset < 0:indexoffset, visibletargetindex, targetdiff, leadingrows, targetdatarow, leadingcount',
         indexoffset, visibletargetindex, targetdiff, leadingrows, targetdatarow, leadingcount)
     
     // --------------------[ calc css positioning ]-----------------------
@@ -260,6 +261,22 @@ export const getContentListRequirements = ({
     //     leadingrows, leadingcount, indexoffset, contentCount, rowcount, targetrowoffset, calculatedcradleposition, scrollblockoffset)
 
     return {indexoffset, contentCount, scrollblockoffset, calculatedcradleposition} // summarize requirements message
+
+}
+
+export const normalizeCradleAnchors = (cradleElement, orientation) => {
+
+    if (orientation == 'vertical') {
+        if (cradleElement.style.top == 'auto') {
+            cradleElement.style.top = cradleElement.offsetTop + 'px'
+            cradleElement.style.bottom = 'auto'
+        }
+    } else {
+        if (cradleElement.style.left == 'auto') {
+            cradleElement.style.left = cradleElement.offsetLeft + 'px'
+            cradleElement.style.right = 'auto'
+        }
+    }
 
 }
 

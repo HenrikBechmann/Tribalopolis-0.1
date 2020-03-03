@@ -12,12 +12,14 @@ import {
     getVisibleTargetData, 
     getContentListRequirements,
     setCradleStyleRevisionsForDrop,
-    setCradleStyleRevisionsForAdd, 
+    setCradleStyleRevisionsForAdd,
+    normalizeCradleAnchors, 
 } from './cradlefunctions'
 
 import ItemShell from './itemshell'
 
 /*
+    - BUG: 2 columns to 1 leaves first cell off list
     - check brief apperance of cradle when resizing to more columns = resolve with top or left
         see isScrollingRef event response ~line 650
     - BUG: recover from empty cradle (happens if cradle cross width < min container
@@ -654,7 +656,8 @@ const Cradle = (props) => {
 
             if (!isResizingRef.current) { // conflicting responses; resizing needs current version of visible before change
 
-                // TODO: set leading position from trailing here if needed
+                normalizeCradleAnchors(cradleElementRef.current, orientation)
+
                 // update visible list
                 let itemlist = Array.from(itemElementsRef.current)
 
