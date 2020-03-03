@@ -5,7 +5,7 @@
     The role of viewport is to provide data to its children (cradle)
 */
 
-import React, {useState, useRef, useEffect, useLayoutEffect, useCallback} from 'react'
+import React, {useState, useRef, useEffect, useMemo} from 'react'
 
 import { GenericObject } from '../../../services/interfaces'
 
@@ -23,7 +23,7 @@ const RESIZE_TIMEOUT_FOR_ONAFTERSRESIZE = 250
 let sizegenerationcounter = 0
 let timeoutid
 
-const Viewport = ({children, orientation, runwaylength}) => { // props
+const Viewport = ({children, orientation, cellWidth, cellHeight, gap, padding}) => { // props
 
     const scrolldiv = useRef(undefined)
     const divlinerstyleRef = useRef({
@@ -33,7 +33,23 @@ const Viewport = ({children, orientation, runwaylength}) => { // props
         overflow:'auto',
         backgroundColor:'red',
         scrollbarWidth:'none',
-    })
+    } as React.CSSProperties)
+
+    divlinerstyleRef.current = useMemo(() => {
+        let mincrosslength = calcMinViewportCrossLength(orientation, cellWidth, cellHeight, padding)
+        let styles = {...divlinerstyleRef.current} as React.CSSProperties
+        if (orientation == 'vertical') {
+            styles.minWidth = mincrosslength + 'px'
+            styles.minHeight = 'auto'
+        } else {
+            styles.minWidth = 'auto'
+            styles.minHeight = mincrosslength + 'px'
+        }
+
+        return styles
+
+    },[orientation, cellWidth, cellHeight, padding])
+
     const [viewportData,setViewportData] = useState(null)
 
     const [sizegencounter,setGencounter] = useState(0)
@@ -92,5 +108,16 @@ const Viewport = ({children, orientation, runwaylength}) => { // props
     </ViewportContext.Provider>
     
 } // Viewport
+
+const calcMinViewportCrossLength = (orientation, cellWidth, cellHeight, padding) => {
+    let crosslength, cellLength
+    if (orientation == 'vertical') {
+        cellLength = cellWidth
+    } else {
+        cellLength = cellHeight
+    }
+    crosslength = cellLength + (padding * 2)
+    return crosslength
+}
 
 export default Viewport

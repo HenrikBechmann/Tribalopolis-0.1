@@ -52,7 +52,13 @@ const InfiniteScrollByGrid = (props) => {
     // !preload && (dense = false) // preload will allow dragdrop
     cellSizing !?? (cellSizing = 'fixed')
 
-    return <Viewport orientation = {orientation} runwaylength = {runwaylength}>
+    return <Viewport 
+        orientation = { orientation } 
+        cellWidth = { cellHeight }
+        cellHeight = { cellHeight }
+        gap = { gap }
+        padding = { padding }
+    >
         <Scrollblock
 
             listsize = { listsize }

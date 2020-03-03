@@ -19,40 +19,35 @@ import {
 import ItemShell from './itemshell'
 
 /*
-    - BUG: recover from empty cradle (happens if cradle cross width < min container
-        OR set min viewport width to single element width or greater )
-*/
-
-/*
-    - implement resize for horizontal
+    9 implement resize for horizontal
 
     - focus on static switch from horizontal to vertical
     - name states 'pivot' (change orientation) and 'resize'
-    2 dynamic switch of orientation (pivot)
+    8 dynamic switch of orientation (pivot)
 
-    3
+    7
     - code maintenance
     - memoize render output to minimize render
     - integrate contentOffsetForActionRef in all contentlist creation
     - review use of {...styles} copy styles to new objects, in terms of trigger consequences
     - make a cradle count memo
 
-    4 deal with thumbscroll
+    6 deal with thumbscroll
 
     5 implement getItem
 
-    6 implement cellSizing scroller parameter: uniform, variable
+    4 implement cellSizing scroller parameter: uniform, variable
     - be careful to reconcile scrollblock and cradle at each end of scrollblock - second IntersectionObserver
 
-    7 add examples 1, 2, 3 to control page: 
+    3 add examples 1, 2, 3 to control page: 
         - small 100x100 images, scroll and rotate
         - vertical scroll items inside horizontal scroll, with ability to flip them
         - variable height items
 
-    8 scrollToItem(index[,alignment]) - alignment = start, end, center, auto (default)
+    2 scrollToItem(index[,alignment]) - alignment = start, end, center, auto (default)
     - callbacks in general
 
-    9 options (like styles)
+    1 options (like styles)
 
 */
 
