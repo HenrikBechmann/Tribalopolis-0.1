@@ -1,5 +1,5 @@
 // cradle.tsx
-// copyright (c) 2020 Henrik Bechmann, Toronto, Licence: GPL-3.0-or-later
+// copyright (c) 2020 Henrik Bechmann, Toronto, Licence: MIT
 
 'use strict'
 
@@ -24,7 +24,6 @@ import ItemShell from './itemshell'
         see isScrollingRef event response ~line 650
     - BUG: recover from empty cradle (happens if cradle cross width < min container
         OR set min viewport width to single element width or greater )
-
 */
 
 /*

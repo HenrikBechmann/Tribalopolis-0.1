@@ -1,5 +1,5 @@
 // scrollblock.tsx
-// copyright (c) 2020 Henrik Bechmann, Toronto, Licence: GPL-3.0-or-later
+// copyright (c) 2020 Henrik Bechmann, Toronto, Licence: MIT
 
 'use strict'
 

@@ -1,9 +1,11 @@
 // cradlefunctions.tsx
-// copyright (c) 2020 Henrik Bechmann, Toronto, Licence: GPL-3.0-or-later
+// copyright (c) 2020 Henrik Bechmann, Toronto, Licence: MIT
 
 /******************************************************************************************
  ------------------------------------[ SUPPORTING FUNCTIONS ]------------------------------
 *******************************************************************************************/
+
+'use strict'
 
 import React from 'react'
 
@@ -239,7 +241,8 @@ export const getContentListRequirements = ({
     }
 
     // defensive
-    if (indexoffset < 0) console.log('ERROR: indexoffset < 0:indexoffset, visibletargetindex, targetdiff, leadingrows, targetdatarow, leadingcount',indexoffset, visibletargetindex, targetdiff, leadingrows, targetdatarow, leadingcount)
+    if (indexoffset < 0) console.log('ERROR: indexoffset < 0:indexoffset, visibletargetindex, targetdiff, leadingrows, targetdatarow, leadingcount',
+        indexoffset, visibletargetindex, targetdiff, leadingrows, targetdatarow, leadingcount)
     
     // --------------------[ calc css positioning ]-----------------------
 
