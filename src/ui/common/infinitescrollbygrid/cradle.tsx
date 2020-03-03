@@ -19,9 +19,6 @@ import {
 import ItemShell from './itemshell'
 
 /*
-    - BUG: 2 columns to 1 leaves first cell off list
-    - check brief apperance of cradle when resizing to more columns = resolve with top or left
-        see isScrollingRef event response ~line 650
     - BUG: recover from empty cradle (happens if cradle cross width < min container
         OR set min viewport width to single element width or greater )
 */

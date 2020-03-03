@@ -219,7 +219,7 @@ export const getContentListRequirements = ({
     // -----------------------[ calc indexoffset ]------------------------
 
     // leading edge
-    let indexoffset = visibletargetindex - (leadingcount - 1)
+    let indexoffset = visibletargetindex - leadingcount
 
     // shift indexoffset to conform to crosscount multiple
     let shift = indexoffset % crosscount;
@@ -233,7 +233,7 @@ export const getContentListRequirements = ({
         // console.log('DIFF',diff)
         shift = diff % crosscount // contract trailing edge by remainder
         diff = Math.floor(diff/crosscount) * crosscount // expand leading edge by rows
-        // contentCount -= diff
+
         indexoffset -= diff
         contentCount -= shift
     }
