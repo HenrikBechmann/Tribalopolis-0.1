@@ -265,18 +265,26 @@ export const getContentListRequirements = ({
 }
 
 export const normalizeCradleAnchors = (cradleElement, orientation) => {
-
+    // console.log('normalization called')
+    // return
+    let stylerevisions:React.CSSProperties = {}
     if (orientation == 'vertical') {
         if (cradleElement.style.top == 'auto') {
             cradleElement.style.top = cradleElement.offsetTop + 'px'
             cradleElement.style.bottom = 'auto'
+            cradleElement.style.left = 'auto'
+            cradleElement.style.right = 'auto'
         }
     } else {
         if (cradleElement.style.left == 'auto') {
             cradleElement.style.left = cradleElement.offsetLeft + 'px'
             cradleElement.style.right = 'auto'
+            cradleElement.style.top = 'auto'
+            cradleElement.style.bottom = 'auto'
         }
     }
+
+    // console.log('divlinerStyleRevisionsRef',{...divlinerStyleRevisionsRef})
 
 }
 
@@ -398,12 +406,13 @@ export const setCradleStyleRevisionsForDrop = ({
     cradleElement, 
     parentElement, 
     scrollforward, 
-    tailpos, 
-    headpos, 
+    // tailpos, 
+    // headpos, 
     orientation 
 }) => {
 
     let styles = {} as React.CSSProperties
+    let headpos, tailpos
 
     // set styles revisions
     if (orientation == 'vertical') {
@@ -459,11 +468,12 @@ export const setCradleStyleRevisionsForAdd = ({
     cradleElement,
     parentElement,
     scrollforward,
-    headpos,
-    tailpos,
+    // headpos,
+    // tailpos,
     orientation,
 }) => {
     let styles = {} as React.CSSProperties
+    let headpos, tailpos
 
     // set style revisions
     if (orientation == 'vertical') {

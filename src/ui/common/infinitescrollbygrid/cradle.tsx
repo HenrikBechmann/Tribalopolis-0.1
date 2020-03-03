@@ -338,6 +338,7 @@ const Cradle = (props) => {
     // the async callback from IntersectionObserver. this is a closure
     const itemobservercallback = useCallback((entries)=>{
 
+        // console.log('observer called')
         if (pauseObserverForReconfigurationRef.current) {
             // if (dropentries.length == 0) return
             DEBUG && console.log('observer paused for configuration, cradlestate',cradlestateRef.current)
@@ -346,9 +347,9 @@ const Cradle = (props) => {
 
         if (cradlestateRef.current == 'ready') { // first pass is after setBaseContent, no action required
             let dropentries = entries.filter(entry => (!entry.isIntersecting))
-            DEBUG && console.log('observer processing scroll items to drop', dropentries.length)
-
             if (dropentries.length) {
+
+                // console.log('observer processing scroll items to drop', dropentries.length, dropentries)
 
                 saveDropentries(dropentries)
 
@@ -371,8 +372,8 @@ const Cradle = (props) => {
         let parentElement = cradleElement.parentElement
         let viewportElement = viewportData.elementref.current
 
-        let tailpos
-        let headpos
+        // let tailpos
+        // let headpos
         let scrollforward
         let localContentList
 
@@ -461,12 +462,20 @@ const Cradle = (props) => {
             cradleElement, 
             parentElement, 
             scrollforward, 
-            tailpos, 
-            headpos, 
+            // tailpos, 
+            // headpos, 
             orientation 
 
         })
 
+        // immediate change for modification
+        let elementstyle = cradleElementRef.current.style
+        elementstyle.top = styles.top
+        elementstyle.bottom = styles.bottom
+        elementstyle.left = styles.left
+        elementstyle.right = styles.right
+
+        // synchronization
         divlinerStyleRevisionsRef.current = { ...styles }
 
         saveContentlist(localContentList) // delete entries
@@ -484,8 +493,8 @@ const Cradle = (props) => {
         let parentElement = cradleElement.parentElement
         let viewportElement = viewportData.elementref.current
 
-        let tailpos
-        let headpos
+        // let tailpos
+        // let headpos
 
         let { scrollforward } = addentries
         let localContentList
@@ -524,13 +533,22 @@ const Cradle = (props) => {
             cradleElement,
             parentElement,
             scrollforward,
-            headpos,
-            tailpos,
+            // headpos,
+            // tailpos,
             orientation,
 
         })
 
+        // immediate change for modification
+        let elementstyle = cradleElementRef.current.style
+        elementstyle.top = styles.top
+        elementstyle.bottom = styles.bottom
+        elementstyle.left = styles.left
+        elementstyle.right = styles.right
+
+        // synchronization
         divlinerStyleRevisionsRef.current = {...styles}
+
         saveContentlist(localContentList)
         saveAddentries(null)
         DEBUG && console.log('end of processing addentries')
@@ -648,8 +666,6 @@ const Cradle = (props) => {
 
             if (!isResizingRef.current) { // conflicting responses; resizing needs current version of visible before change
 
-                normalizeCradleAnchors(cradleElementRef.current, orientation)
-
                 // update visible list
                 let itemlist = Array.from(itemElementsRef.current)
 
@@ -658,6 +674,8 @@ const Cradle = (props) => {
                 )
                 // console.log('list of visible items',visibleListRef.current)
 
+                normalizeCradleAnchors(cradleElementRef.current, orientation)
+                    
             }
 
         }
@@ -691,7 +709,7 @@ const Cradle = (props) => {
     // ------------------------------[ render... ]----------------------------------
 
     let divlinerstyles = divlinerStylesRef.current
-    DEBUG && console.log('divlinerstyles for render return',{...divlinerstyles})
+    // console.log('divlinerstyles for render return',{...divlinerstyles})
 
     // no result if styles not set
     return <div 
