@@ -25,7 +25,6 @@ import ItemShell from './itemshell'
 */
 
 /*
-    1 finish resize implementation for vertical
     - implement resize for horizontal
 
     - focus on static switch from horizontal to vertical
@@ -555,10 +554,10 @@ const Cradle = (props) => {
 
     const setCradleContent = useCallback(() => {
 
-        console.log('1. ==>> targetConfigDataRef',{...targetConfigDataRef.current})
+        // console.log('1. ==>> targetConfigDataRef',{...targetConfigDataRef.current})
         let [visibletargetindex, targetscrolloffset] = getVisibleTargetData(targetConfigDataRef)
 
-        console.log('2. ==>> visibletargetindex, targetscrolloffset',visibletargetindex, targetscrolloffset)
+        // console.log('2. ==>> visibletargetindex, targetscrolloffset',visibletargetindex, targetscrolloffset)
 
         let localContentList = [] // any existing items will be re-used by react
 
@@ -583,10 +582,11 @@ const Cradle = (props) => {
                 listsize,
             })
 
-        console.log('3. ==>> content list requirements: visibletargetindex, targetscrolloffset,indexoffset, contentCount',
-            visibletargetindex, targetscrolloffset,indexoffset, contentCount )
+        // console.log('3. ==>> content list requirements: visibletargetindex, targetscrolloffset,indexoffset, contentCount',
+        //     visibletargetindex, targetscrolloffset,indexoffset, contentCount )
 
-        console.log('4. ==>> calculatedcradleposition, scrollblockoffset', calculatedcradleposition, scrollblockoffset)
+        // console.log('4. ==>> calculatedcradleposition, scrollblockoffset', calculatedcradleposition, scrollblockoffset)
+
         let childlistfragment = getContentList({
             indexoffset, 
             headindexcount:0, 
