@@ -21,6 +21,9 @@ import ItemShell from './itemshell'
 
 /*
     - check brief apperance of cradle when resizing to more columns = resolve with top or left
+        see isScrollingRef event response ~line 650
+    - BUG: recover from empty cradle (happens if cradle cross width < min container
+        OR set min viewport width to single element width or greater )
 
 */
 
@@ -40,10 +43,11 @@ import ItemShell from './itemshell'
 
     4 deal with thumbscroll
 
-    5 implement cellSizing scroller parameter: fixed, variable
+    5 implement getItem
+
+    6 implement cellSizing scroller parameter: uniform, variable
     - be careful to reconcile scrollblock and cradle at each end of scrollblock - second IntersectionObserver
 
-    6 implement getItem
     7 add examples 1, 2, 3 to control page: 
         - small 100x100 images, scroll and rotate
         - vertical scroll items inside horizontal scroll, with ability to flip them
@@ -650,6 +654,7 @@ const Cradle = (props) => {
 
             if (!isResizingRef.current) { // conflicting responses; resizing needs current version of visible before change
 
+                // TODO: set leading position from trailing here if needed
                 // update visible list
                 let itemlist = Array.from(itemElementsRef.current)
 
