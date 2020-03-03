@@ -218,6 +218,7 @@ export const getContentListRequirements = ({
 
     // -----------------------[ calc indexoffset ]------------------------
 
+    // leading edge
     let indexoffset = visibletargetindex - (leadingcount - 1)
 
     // shift indexoffset to conform to crosscount multiple
@@ -225,21 +226,23 @@ export const getContentListRequirements = ({
 
     (shift) && (indexoffset -= shift)
 
+    // trailing edge
     let maxoffset = indexoffset + (contentCount - 1)
-    if (maxoffset > (listsize - 1)) {
+    if (maxoffset > (listsize - 1)) { // expand leading edge to accommodate overflow
         let diff = maxoffset - (listsize - 1)
         // console.log('DIFF',diff)
-        shift = diff % crosscount
-        diff = Math.floor(diff/crosscount) * crosscount
+        shift = diff % crosscount // contract trailing edge by remainder
+        diff = Math.floor(diff/crosscount) * crosscount // expand leading edge by rows
         // contentCount -= diff
         indexoffset -= diff
         contentCount -= shift
     }
 
+    // defensive
     if (indexoffset < 0) console.log('ERROR: indexoffset < 0:indexoffset, visibletargetindex, targetdiff, leadingrows, targetdatarow, leadingcount',indexoffset, visibletargetindex, targetdiff, leadingrows, targetdatarow, leadingcount)
     
     // --------------------[ calc css positioning ]-----------------------
-    // let scrollblockoffset = indexoffset * cellLength
+
     let indexrowoffset = Math.floor(indexoffset/crosscount)
 
     let calculatedcradleposition = indexrowoffset * cellLength
