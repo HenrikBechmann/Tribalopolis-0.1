@@ -1,8 +1,6 @@
 // build.controller.tsx
 // copyright (c) 2019 Henrik Bechmann, Toronto, Licence: MIT
 
-'use strict'
-
 import React, {useState} from 'react'
 
 import InfiniteScroller from '../common/infinitescrollbygrid/infinitescrollbygrid'

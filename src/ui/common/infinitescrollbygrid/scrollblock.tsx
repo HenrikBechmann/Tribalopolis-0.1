@@ -1,8 +1,6 @@
 // scrollblock.tsx
 // copyright (c) 2020 Henrik Bechmann, Toronto, Licence: MIT
 
-'use strict'
-
 import React, {useContext, useRef, useCallback, useEffect, useState} from 'react'
 
 import { ViewportContext } from './viewport'

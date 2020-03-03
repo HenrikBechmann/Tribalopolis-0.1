@@ -1,8 +1,6 @@
 // iscrollbygrid                                                                                                      .tsx
 // copyright (c) 2019 Henrik Bechmann, Toronto, Licence: MIT
 
-'use strict'
-
 import React from 'react'
 
 import Viewport from './viewport'

@@ -5,8 +5,6 @@
     The role of viewport is to provide data to its children (cradle)
 */
 
-'use strict'
-
 import React, {useState, useRef, useEffect, useLayoutEffect, useCallback} from 'react'
 
 import { GenericObject } from '../../../services/interfaces'

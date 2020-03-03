@@ -9,7 +9,8 @@
         "noImplicitAny": false,
         "sourceMap": true,
         "experimentalDecorators":true,
-        "moduleResolution": "node"
+        "moduleResolution": "node",
+        "alwaysStrict":true
     },
       "exclude": [
         "node_modules"

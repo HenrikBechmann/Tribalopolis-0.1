@@ -1,8 +1,6 @@
 // cradle.tsx
 // copyright (c) 2020 Henrik Bechmann, Toronto, Licence: MIT
 
-'use strict'
-
 import React, { useState, useRef, useContext, useEffect, useCallback, useMemo } from 'react'
 
 import { ViewportContext } from './viewport'

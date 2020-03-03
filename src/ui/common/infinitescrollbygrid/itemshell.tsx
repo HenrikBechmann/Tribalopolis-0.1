@@ -1,8 +1,6 @@
 // itemframe.tsx
 // copyright (c) 2020 Henrik Bechmann, Toronto, Licence: MIT
 
-'use strict'
-
 import React, {useRef, useEffect, useState, useCallback } from 'react'
 
 const ItemShell = (props) => {
