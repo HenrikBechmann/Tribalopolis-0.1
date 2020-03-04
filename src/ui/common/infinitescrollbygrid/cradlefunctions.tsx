@@ -9,7 +9,7 @@ import React from 'react'
 
 import ItemShell from './itemshell'
 
-// triggered by transition to ready state, and by cancellation of isScrolling mode
+// triggered by transition to ready state (from resize modtly; also setup), and by cancellation of isScrolling mode
 export const calcVisibleItems = (itemsArray, viewportElement, cradleElement, orientation) => {
     let list = []
     let cradleTop = cradleElement.offsetTop, 
@@ -114,8 +114,8 @@ export const calcVisibleItems = (itemsArray, viewportElement, cradleElement, ori
     return list
 }
 
-export const getVisibleTargetData = (targetConfigDataRef) => {
-    let { current:targetConfigData } = targetConfigDataRef
+export const getVisibleTargetData = (nextConfigDatasetRef) => {
+    let { current:targetConfigData } = nextConfigDatasetRef
 
     if (targetConfigData.setup) return [undefined, undefined]
 
@@ -277,7 +277,7 @@ export const normalizeCradleAnchors = (cradleElement, orientation) => {
 // update content
 // adds itemshells at start of end of contentlist according to headindexcount and tailindescount,
 // or if indexcount values are <0 removes them.
-export const getContentList = (props) => {
+export const getUIContentList = (props) => {
 
     let { 
         indexoffset, 
@@ -390,8 +390,6 @@ export const setCradleStyleRevisionsForDrop = ({
     cradleElement, 
     parentElement, 
     scrollforward, 
-    // tailpos, 
-    // headpos, 
     orientation 
 }) => {
 
@@ -452,8 +450,6 @@ export const setCradleStyleRevisionsForAdd = ({
     cradleElement,
     parentElement,
     scrollforward,
-    // headpos,
-    // tailpos,
     orientation,
 }) => {
     let styles = {} as React.CSSProperties

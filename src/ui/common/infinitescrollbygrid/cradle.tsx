@@ -7,7 +7,7 @@ import { ViewportContext } from './viewport'
 
 import { 
     setCradleStyles, 
-    getContentList, 
+    getUIContentList, 
     calcVisibleItems, 
     getVisibleTargetData, 
     getContentListRequirements,
@@ -17,7 +17,6 @@ import {
 } from './cradlefunctions'
 
 import ItemShell from './itemshell'
-
 
 /*
     7 deal with thumbscroll ("express")
@@ -56,9 +55,6 @@ const Cradle = (props) => {
     const cradlestateRef = useRef(null) // for observer call closure
     cradlestateRef.current = cradlestate // most recent value
 
-    // console.log('---------------------------')
-    // console.log('CALLING CRADLE with state',cradlestate)
-
     const [contentlist,saveContentlist] = useState([])
 
     const [dropentries, saveDropentries] = useState(null)
@@ -71,7 +67,7 @@ const Cradle = (props) => {
 
     const pauseObserverForReconfigurationRef = useRef(false)
 
-    const targetConfigDataRef = useRef({setup:true})
+    const nextConfigDatasetRef = useRef({setup:true})
 
     const divlinerStylesRef = useRef({
         position: 'absolute',
@@ -139,7 +135,7 @@ const Cradle = (props) => {
 
     configDataRef.current = useMemo(() => {
         
-        previousConfigDataRef.current = {previousvisible:[...visibleListRef.current],...configDataRef.current} // {cradleOffset, ...configDataRef.current}
+        previousConfigDataRef.current = {previousvisible:[...visibleListRef.current],...configDataRef.current} 
 
         return {
 
@@ -211,7 +207,6 @@ const Cradle = (props) => {
     },[])
 
     const onScroll = useCallback((e) => {
-        // setTimeout(()=> {
 
         if (!isScrollingRef.current) {
             saveIsScrolling(true)
@@ -219,12 +214,10 @@ const Cradle = (props) => {
         if (isScrollingRef.current) {
             clearTimeout(scrollTimeridRef.current)
             scrollTimeridRef.current = setTimeout(() => {
-                // console.log('last scroll event',e)
                 saveIsScrolling(false)
             },200)
         }
 
-        // })
     },[])
 
     const isResizingRef = useRef(false)
@@ -254,10 +247,8 @@ const Cradle = (props) => {
                 saveCradleState('settle')
                 break;
             case 'settle':
-                // console.log('setting cradlestate from settle to ready')
                 isResizingRef.current && (isResizingRef.current = false)
                 setTimeout(()=>{ // let everything settle before reviving observer
-                    // console.log('observer pause ended')
                     pauseObserverForReconfigurationRef.current = false
                 },250) // timeout a bit spooky but gives observer initialization of new items a chance to settle
                     // observer seems to need up to 2 cycles to settle; one for each side of the cradle.
@@ -271,12 +262,10 @@ const Cradle = (props) => {
     // trigger resize on change
     useEffect(()=>{
         if (cradlestate == 'ready') {
-            // console.log('setting cradlestate from ready to resize')
             contentOffsetForActionRef.current = contentlist[0]?.props.index
             pauseObserverForReconfigurationRef.current = true
             let cradleElement = cradleElementRef.current
-            // targetConfigDataRef.current = {previousvisible:[...visibleListRef.current],...previousConfigDataRef.current}
-            targetConfigDataRef.current = {...previousConfigDataRef.current}
+            nextConfigDatasetRef.current = {...previousConfigDataRef.current}
             saveCradleState('resize')
         }
     },[
@@ -304,7 +293,6 @@ const Cradle = (props) => {
         )
         saveContentlist([])
         if (cradlestate != 'setup') {
-            // console.log(`setting cradlestate from ${cradlestate} to pivot`,)            
             saveCradleState('pivot')
         }
 
@@ -313,23 +301,16 @@ const Cradle = (props) => {
     // =================================================================================
     // -------------------------[ IntersectionObserver support]-------------------------
 
-    // "head" is bottom or right for scrollforward; top or left for scroll backward (down or left)
-    // "tail" is top or left for scrollforward; bottom or right for scroll backward
-
     // the async callback from IntersectionObserver. this is a closure
     const itemobservercallback = useCallback((entries)=>{
 
-        // console.log('observer called')
         if (pauseObserverForReconfigurationRef.current) {
-            // if (dropentries.length == 0) return
             return
         }
 
         if (cradlestateRef.current == 'ready') { // first pass is after setBaseContent, no action required
             let dropentries = entries.filter(entry => (!entry.isIntersecting))
             if (dropentries.length) {
-
-                // console.log('observer processing scroll items to drop', dropentries.length, dropentries)
 
                 saveDropentries(dropentries)
 
@@ -350,14 +331,11 @@ const Cradle = (props) => {
         let parentElement = cradleElement.parentElement
         let viewportElement = viewportData.elementref.current
 
-        // let tailpos
-        // let headpos
         let scrollforward
         let localContentList
 
-        // TODO: correct this! it could be a combination
         // -- isolate forward and backward lists
-        // set scrollforward
+        //  then set scrollforward
         let forwardcount = 0, backwardcount = 0
         for (let droprecordindex = 0; droprecordindex <dropentries.length; droprecordindex++ ) {
             if (orientation == 'vertical') {
@@ -384,9 +362,6 @@ const Cradle = (props) => {
 
         scrollforward = (forwardcount > backwardcount)
 
-        // console.log('drop scroll content: forwardcount, backwardcount, netshift, scrollforward',
-        //     forwardcount, backwardcount, netshift, scrollforward)
-
         netshift = Math.abs(netshift)
 
         // set localContentList
@@ -394,14 +369,15 @@ const Cradle = (props) => {
         let pendingcontentoffset
         let newcontentcount = Math.ceil(netshift/crosscountRef.current)*crosscountRef.current
         let headindexcount, tailindexcount
+
         if (scrollforward) {
             pendingcontentoffset = indexoffset + netshift
             let proposedtailoffset = pendingcontentoffset + newcontentcount + ((contentlist.length - netshift ) - 1)
 
             if ((proposedtailoffset) > (listsize -1) ) {
                 newcontentcount -= (proposedtailoffset - (listsize -1))
-                if (newcontentcount <=0) { // should never below 0 -- TODO: verify and create error if fails
-                    return // ugly
+                if (newcontentcount <=0) { // defensive
+                    return
                 }
             }
 
@@ -416,7 +392,7 @@ const Cradle = (props) => {
                 proposedindexoffset = -proposedindexoffset
                 newcontentcount = newcontentcount - proposedindexoffset
                 if (newcontentcount <= 0) {
-                    return // ugly
+                    return 
                 }
             }
 
@@ -425,7 +401,7 @@ const Cradle = (props) => {
 
         }
 
-        localContentList = getContentList({
+        localContentList = getUIContentList({
 
             indexoffset,
             localContentList:contentlist,
@@ -440,8 +416,6 @@ const Cradle = (props) => {
             cradleElement, 
             parentElement, 
             scrollforward, 
-            // tailpos, 
-            // headpos, 
             orientation 
 
         })
@@ -470,9 +444,6 @@ const Cradle = (props) => {
         let parentElement = cradleElement.parentElement
         let viewportElement = viewportData.elementref.current
 
-        // let tailpos
-        // let headpos
-
         let { scrollforward } = addentries
         let localContentList
 
@@ -492,7 +463,8 @@ const Cradle = (props) => {
 
         }
 
-        localContentList = getContentList({
+        localContentList = getUIContentList({
+
             localContentList: contentlist,
             headindexcount,
             tailindexcount,
@@ -503,6 +475,7 @@ const Cradle = (props) => {
             observer: itemobserverRef.current,
             crosscount,
             callbacksRef,
+
         })
 
         let styles = setCradleStyleRevisionsForAdd({
@@ -510,8 +483,6 @@ const Cradle = (props) => {
             cradleElement,
             parentElement,
             scrollforward,
-            // headpos,
-            // tailpos,
             orientation,
 
         })
@@ -546,11 +517,10 @@ const Cradle = (props) => {
 
     const setCradleContent = useCallback(() => {
 
-        // console.log('1. ==>> targetConfigDataRef',{...targetConfigDataRef.current})
-        let [visibletargetindex, targetscrolloffset] = getVisibleTargetData(targetConfigDataRef)
+        let [visibletargetindex, targetscrolloffset] = getVisibleTargetData(nextConfigDatasetRef)
 
-        // console.log('2. ==>> visibletargetindex, targetscrolloffset, targetConfigDataRef, orientation',
-        //     visibletargetindex, targetscrolloffset, targetConfigDataRef, orientation)
+        // console.log('1. ==>> visibletargetindex, targetscrolloffset, nextConfigDatasetRef, orientation',
+        //     visibletargetindex, targetscrolloffset, nextConfigDatasetRef, orientation)
 
         let localContentList = [] // any existing items will be re-used by react
 
@@ -575,12 +545,12 @@ const Cradle = (props) => {
                 listsize,
             })
 
-        // console.log('3. ==>> content list requirements: visibletargetindex, targetscrolloffset,indexoffset, contentCount',
+        // console.log('2. ==>> content list requirements: visibletargetindex, targetscrolloffset,indexoffset, contentCount',
         //     visibletargetindex, targetscrolloffset,indexoffset, contentCount )
 
-        // console.log('4. ==>> calculatedcradleposition, scrollblockoffset', calculatedcradleposition, scrollblockoffset)
+        // console.log('3. ==>> calculatedcradleposition, scrollblockoffset', calculatedcradleposition, scrollblockoffset)
 
-        let childlistfragment = getContentList({
+        let childlistfragment = getUIContentList({
             indexoffset, 
             headindexcount:0, 
             tailindexcount:contentCount, 
@@ -594,7 +564,6 @@ const Cradle = (props) => {
 
         })
 
-        // console.log('childlistfragment',childlistfragment)
 
         let styles:React.CSSProperties = {}
         let cradleoffset
@@ -638,7 +607,6 @@ const Cradle = (props) => {
     // on shift of state to ready, or 
     useEffect(() => {
 
-        // console.log('cradlestate, isScrolling, isResizingRef.current', cradlestate, isScrollingRef.current, isResizingRef.current)
         if (cradlestate == 'ready' && !isScrollingRef.current) {
 
             if (!isResizingRef.current) { // conflicting responses; resizing needs current version of visible before change
@@ -649,7 +617,6 @@ const Cradle = (props) => {
                 visibleListRef.current = calcVisibleItems(
                     itemlist,viewportData.elementref.current,cradleElementRef.current, orientation
                 )
-                // console.log('list of visible items',visibleListRef.current)
 
                 normalizeCradleAnchors(cradleElementRef.current, orientation)
                     
@@ -686,7 +653,6 @@ const Cradle = (props) => {
     // ------------------------------[ render... ]----------------------------------
 
     let divlinerstyles = divlinerStylesRef.current
-    // console.log('divlinerstyles for render return',{...divlinerstyles})
 
     // no result if styles not set
     return <div 
