@@ -32,6 +32,9 @@ import ItemShell from './itemshell'
     - review use of {...styles} copy styles to new objects, in terms of trigger consequences
     - make a cradle count memo
     - eliminate use of global vars for scrollblock
+    - preload option
+    - keepload option
+    - above two with cache? none/preload/keepload
 
     4 implement getItem
 
