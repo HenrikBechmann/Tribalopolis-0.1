@@ -48,35 +48,51 @@ export const calcVisibleItems = (itemsArray, viewportElement, cradleElement, ori
             rightPortion
 
         if ((itemTopOffset < 0) && (itemBottomOffset > 0)) {
+
             (orientation == 'vertical') && (isVisible = true)
             bottomPortion = itemBottomOffset
             topPortion = bottomPortion - height
+
         } else if ((itemTopOffset >= 0) && (itemBottomOffset < viewportHeight)) {
+
             (orientation == 'vertical') && (isVisible = true)
             topPortion = height
             bottomPortion = 0
+
         } else if ((itemTopOffset > 0) && ((itemTopOffset - viewportHeight) < 0)) {
+
             (orientation == 'vertical') && (isVisible = true)
             topPortion = viewportHeight - itemTopOffset
             bottomPortion = topPortion - height
+
         } else {
+
             if (orientation == 'vertical') continue
+
         }
 
         if (itemLeftOffset < 0 && itemRightOffset > 0) {
+
             (orientation == 'horizontal') && (isVisible = true)
             rightPortion = itemRightOffset
             leftPortion = rightPortion - width
+
         } else if (itemLeftOffset >= 0 && itemRightOffset < viewportWidth) {
+
             (orientation == 'horizontal') && (isVisible = true)
             leftPortion = width
             rightPortion = 0
+
         } else if (itemLeftOffset > 0 && (itemLeftOffset - viewportWidth) < 0) {
+
             (orientation == 'horizontal') && (isVisible = true)
             leftPortion = viewportWidth - itemLeftOffset
             rightPortion = leftPortion - width
+
         } else {
+
             if (orientation == 'horizontal') continue
+
         }
 
         let verticalRatio = (topPortion > 0)?topPortion/height:bottomPortion/height,
@@ -232,11 +248,6 @@ export const getContentListRequirements = ({
         indexoffset -= diff
         contentCount -= shift
     }
-
-    // defensive
-    // if (indexoffset < 0) console.log(
-    //     'ERROR: indexoffset < 0:indexoffset, visibletargetindex, targetdiff, leadingrows, targetdatarow, leadingcount',
-    //     indexoffset, visibletargetindex, targetdiff, leadingrows, targetdatarow, leadingcount)
     
     // --------------------[ calc css positioning ]-----------------------
 
@@ -248,12 +259,6 @@ export const getContentListRequirements = ({
 
     let scrollblockoffset = targetrowoffset * cellLength
     scrollblockoffset -= targetScrollOffset
-
-    // console.log('REQUIREMENTS input: visibletargetindex, targetScrollOffset, runwaylength, viewportlength, cradleLength, cellLength, crosscount, listsize:',
-    //     visibletargetindex, targetScrollOffset, runwaylength, viewportlength, cradleLength, cellLength, crosscount, listsize)
-
-    // console.log('REQUIREMENTS calculated: leadingrows, leadingcount, indexoffset, contentCount, rowcount, targetrowoffset, calculatedcradleposition, scrollblockoffset:',
-    //     leadingrows, leadingcount, indexoffset, contentCount, rowcount, targetrowoffset, calculatedcradleposition, scrollblockoffset)
 
     return {indexoffset, contentCount, scrollblockoffset, calculatedcradleposition} // summarize requirements message
 
@@ -303,9 +308,11 @@ export const getUIContentList = (props) => {
     let tailindexoffset = indexoffset + contentlist.length
     let returnContentlist
     let headContentlist = []
+
     if (headindexcount >= 0) {
 
         for (let index = indexoffset - headindexcount; index < (indexoffset); index++) {
+
             headContentlist.push(<ItemShell
                 key = {index} 
                 orientation = {orientation}
@@ -316,6 +323,7 @@ export const getUIContentList = (props) => {
                 observer = {observer}
                 callbacks = {callbacksRef}
             />)
+
         }
 
     } else {
@@ -325,9 +333,11 @@ export const getUIContentList = (props) => {
     }
 
     let tailContentlist = []
+
     if (tailindexcount >= 0) {
 
         for (let index = tailindexoffset; index <(tailindexoffset + tailindexcount); index++) {
+
             tailContentlist.push(<ItemShell
                 key = {index} 
                 orientation = {orientation}
@@ -338,6 +348,7 @@ export const getUIContentList = (props) => {
                 observer = {observer}
                 callbacks = {callbacksRef}
             />)
+            
         }
 
     } else {

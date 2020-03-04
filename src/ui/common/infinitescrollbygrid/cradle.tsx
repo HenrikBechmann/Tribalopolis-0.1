@@ -23,18 +23,17 @@ import ItemShell from './itemshell'
 */
 
 /*
-    7 deal with thumbscroll ("express")
 
-    6 code maintenance
+    6 deal with thumbscroll ("express")
+
+    5 code maintenance
     - memoize render output to minimize render
     - integrate contentOffsetForActionRef in all contentlist creation
     - review use of {...styles} copy styles to new objects, in terms of trigger consequences
     - make a cradle count memo
+    - eliminate use of global vars for scrollblock
 
-    5 implement getItem
-
-    4? implement cellSizing scroller parameter: uniform, variable
-    - be careful to reconcile scrollblock and cradle at each end of scrollblock - second IntersectionObserver
+    4 implement getItem
 
     3 add examples 1, 2, 3 to control page: 
         - small 100x100 images, scroll and rotate
@@ -125,7 +124,7 @@ const Cradle = (props) => {
     ])
 
     // ==============================================================================================
-    // ----------------------------------[ config management values ]--------------------------------
+    // ----------------------------------[ config management ]--------------------------------
 
     const crosscountRef = useRef(crosscount) // for easy reference by observer
     const previousCrosscountRef = useRef() // available for resize logic
@@ -152,6 +151,7 @@ const Cradle = (props) => {
         viewportwidth,
         crosscount,
         orientation,
+
     }},[
         cellWidth, 
         cellHeight, 
@@ -169,6 +169,7 @@ const Cradle = (props) => {
         // merge base style and revisions (by observer)
         let divlinerStyles:React.CSSProperties = Object.assign({...divlinerStylesRef.current},divlinerStyleRevisionsRef.current)
         let styles = setCradleStyles({
+
             orientation, 
             divlinerStyles, 
             cellHeight, 
@@ -177,6 +178,7 @@ const Cradle = (props) => {
             crosscount, 
             viewportheight, 
             viewportwidth, 
+
         })
 
         return {...styles}
@@ -523,9 +525,6 @@ const Cradle = (props) => {
 
         let [visibletargetindex, targetscrolloffset] = getVisibleTargetData(mainConfigDatasetRef)
 
-        // console.log('1. ==>> visibletargetindex, targetscrolloffset, mainConfigDatasetRef, orientation',
-        //     visibletargetindex, targetscrolloffset, mainConfigDatasetRef, orientation)
-
         let localContentList = [] // any existing items will be re-used by react
 
         if (visibletargetindex === undefined) {
@@ -548,11 +547,6 @@ const Cradle = (props) => {
                 crosscount,
                 listsize,
             })
-
-        // console.log('2. ==>> content list requirements: visibletargetindex, targetscrolloffset,indexoffset, contentCount',
-        //     visibletargetindex, targetscrolloffset,indexoffset, contentCount )
-
-        // console.log('3. ==>> calculatedcradleposition, scrollblockoffset', calculatedcradleposition, scrollblockoffset)
 
         let childlistfragment = getUIContentList({
             indexoffset, 
