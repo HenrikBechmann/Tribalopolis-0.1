@@ -5,10 +5,6 @@ import React, {useContext, useRef, useCallback, useEffect, useState} from 'react
 
 import { ViewportContext } from './viewport'
 
-// TODO: global vars should be instance vars
-
-let generationcounter = 0
-
 const Scrollblock = (props) => {
 
     const {listsize, cellHeight, cellWidth, gap, padding, orientation } = props
@@ -23,6 +19,8 @@ const Scrollblock = (props) => {
         
     } as React.CSSProperties)
 
+    const generationcounterRef = useRef(0)
+
     let { viewportRect, itemobserver } = viewportData
 
     let { top, right, bottom, left } = viewportRect
@@ -34,7 +32,7 @@ const Scrollblock = (props) => {
 
         updateBlockLength()
         updateScrollblockStyles(orientation,divlinerstyleRef,scrollBlockLengthRef)
-        setGenCounter(++generationcounter)
+        setGenCounter(++generationcounterRef.current)
 
     },[orientation,viewportheight,viewportwidth])
 
@@ -115,11 +113,7 @@ const calcScrollblockLength = ({
         listlength += listremainder
     }
 
-    // let straightlength = (listlength * cellLength) + ((listlength -1) * gap) + (padding * 2)
     let straightlength = (listlength * cellLength) - ((listlength > 0)?gap:0) + (padding * 2)
-
-    // console.log('listsize, crosscount, viewportcrosslength, crosslength, viewportheight, viewportwidth',listsize, crosscount, viewportcrosslength, crosslength, viewportheight, viewportwidth)
-    // console.log('scrollblocklength: straightlength, listlength, cellLength, gap, padding',straightlength, listlength, cellLength, gap, padding)
 
     return straightlength
 

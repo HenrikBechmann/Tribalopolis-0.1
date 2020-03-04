@@ -18,13 +18,10 @@ const SCROLL_DIFF_FOR_UPDATE = 20
 const SCROLL_TIMEOUT_FOR_ONAFTERSCROLL = 250
 const RESIZE_TIMEOUT_FOR_ONAFTERSRESIZE = 250
 
-// TODO: global vars should be instance vars
-
-let sizegenerationcounter = 0
-let timeoutid
-
 const Viewport = ({children, orientation, cellWidth, cellHeight, gap, padding}) => { // props
 
+    const sizegenerationcounterRef = useRef(0)
+    const timeoutidRef = useRef(null)
     const scrolldiv = useRef(undefined)
     const divlinerstyleRef = useRef({
         position:'absolute',
@@ -56,10 +53,10 @@ const Viewport = ({children, orientation, cellWidth, cellHeight, gap, padding}) 
 
     const handleResize = () => {
 
-        clearTimeout(timeoutid)
-        timeoutid = setTimeout(() => {
+        clearTimeout(timeoutidRef.current)
+        timeoutidRef.current = setTimeout(() => {
 
-            setGencounter(++sizegenerationcounter)
+            setGencounter(++sizegenerationcounterRef.current)
 
         },500)
     }
@@ -93,7 +90,7 @@ const Viewport = ({children, orientation, cellWidth, cellHeight, gap, padding}) 
 
         setViewportData(localViewportData)
 
-    },[sizegenerationcounter])
+    },[sizegenerationcounterRef.current])
 
     let divlinerstyle = divlinerstyleRef.current as React.CSSProperties
 

@@ -19,10 +19,6 @@ import {
 import ItemShell from './itemshell'
 
 /*
-    Bug - cradle for vertical initialized way to big on load
-*/
-
-/*
 
     6 deal with thumbscroll ("express")
 
@@ -31,7 +27,6 @@ import ItemShell from './itemshell'
     - integrate contentOffsetForActionRef in all contentlist creation
     - review use of {...styles} copy styles to new objects, in terms of trigger consequences
     - make a cradle count memo
-    - eliminate use of global vars for scrollblock
     - preload option
     - keepload option
     - above two with cache? none/preload/keepload
