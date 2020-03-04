@@ -11,8 +11,6 @@ import { GenericObject } from '../../../services/interfaces'
 
 export const ViewportContext = React.createContext(null)
 
-import './infinitescrollbygrid.css'
-
 // control constants
 const SCROLL_DIFF_FOR_UPDATE = 20
 const SCROLL_TIMEOUT_FOR_ONAFTERSCROLL = 250
@@ -29,7 +27,6 @@ const Viewport = ({children, orientation, cellWidth, cellHeight, gap, padding}) 
         width:'100%',
         overflow:'auto',
         backgroundColor:'red',
-        scrollbarWidth:'none',
     } as React.CSSProperties)
 
     divlinerstyleRef.current = useMemo(() => {
@@ -98,7 +95,6 @@ const Viewport = ({children, orientation, cellWidth, cellHeight, gap, padding}) 
         <div 
             style = {divlinerstyle}
             ref = {scrolldiv}
-            className = 'invisiblescrollbar'
         >
             { viewportData?children:null }
         </div>}
