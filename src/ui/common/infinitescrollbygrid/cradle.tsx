@@ -19,10 +19,6 @@ import {
 import ItemShell from './itemshell'
 
 /*
-    8 dynamic switch of orientation (pivot)
-    - focus on static switch from horizontal to vertical
-    - name states 'pivot' (change orientation) and 'resize'
-
     7
     - code maintenance
     - memoize render output to minimize render
@@ -253,8 +249,8 @@ const Cradle = (props) => {
         DEBUG && console.log('state transformation block, from', cradlestate)
         switch (cradlestate) {
             case 'pivot':
-                DEBUG && console.log('setting cradlestate from pivot to setup')
-                saveCradleState('setup')
+                DEBUG && console.log('setting cradlestate from pivot to reset')
+                saveCradleState('reset')
                 break
             case 'setup': 
                 DEBUG && console.log('setting cradlestate from setup to initobserver')
@@ -321,7 +317,7 @@ const Cradle = (props) => {
         )
         saveContentlist([])
         if (cradlestate != 'setup') {
-            DEBUG && console.log(`setting cradlestate from ${cradlestate} to pivot`,)            
+            // console.log(`setting cradlestate from ${cradlestate} to pivot`,)            
             saveCradleState('pivot')
         }
 
