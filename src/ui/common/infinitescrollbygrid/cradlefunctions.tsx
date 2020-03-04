@@ -120,8 +120,8 @@ export const calcVisibleItems = (itemsArray, viewportElement, cradleElement, ori
     return list
 }
 
-export const getVisibleTargetData = (nextConfigDatasetRef) => {
-    let { current:targetConfigData } = nextConfigDatasetRef
+export const getVisibleTargetData = (mainConfigDatasetRef) => {
+    let { current:targetConfigData } = mainConfigDatasetRef
 
     if (targetConfigData.setup) return [undefined, undefined]
 

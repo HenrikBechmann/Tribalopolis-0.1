@@ -71,7 +71,7 @@ const Cradle = (props) => {
 
     const pauseObserverForReconfigurationRef = useRef(false)
 
-    const nextConfigDatasetRef = useRef({setup:true})
+    const mainConfigDatasetRef = useRef({setup:true})
 
     const divlinerStylesRef = useRef({
         position: 'absolute',
@@ -269,7 +269,7 @@ const Cradle = (props) => {
             contentOffsetForActionRef.current = contentlist[0]?.props.index
             pauseObserverForReconfigurationRef.current = true
             let cradleElement = cradleElementRef.current
-            nextConfigDatasetRef.current = {...previousConfigDataRef.current}
+            mainConfigDatasetRef.current = {...previousConfigDataRef.current}
             saveCradleState('resize')
         }
     },[
@@ -521,10 +521,10 @@ const Cradle = (props) => {
 
     const setCradleContent = useCallback(() => {
 
-        let [visibletargetindex, targetscrolloffset] = getVisibleTargetData(nextConfigDatasetRef)
+        let [visibletargetindex, targetscrolloffset] = getVisibleTargetData(mainConfigDatasetRef)
 
-        // console.log('1. ==>> visibletargetindex, targetscrolloffset, nextConfigDatasetRef, orientation',
-        //     visibletargetindex, targetscrolloffset, nextConfigDatasetRef, orientation)
+        // console.log('1. ==>> visibletargetindex, targetscrolloffset, mainConfigDatasetRef, orientation',
+        //     visibletargetindex, targetscrolloffset, mainConfigDatasetRef, orientation)
 
         let localContentList = [] // any existing items will be re-used by react
 
