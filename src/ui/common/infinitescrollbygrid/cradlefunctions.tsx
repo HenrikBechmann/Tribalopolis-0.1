@@ -11,7 +11,6 @@ import ItemShell from './itemshell'
 
 // triggered by transition to ready state, and by cancellation of isScrolling mode
 export const calcVisibleItems = (itemsArray, viewportElement, cradleElement, orientation) => {
-    // console.log('calcVisibleItems itemsArray.length, orientation',itemsArray.length, orientation)
     let list = []
     let cradleTop = cradleElement.offsetTop, 
         cradleLeft = cradleElement.offsetLeft
@@ -21,9 +20,6 @@ export const calcVisibleItems = (itemsArray, viewportElement, cradleElement, ori
         viewportWidth = viewportElement.offsetWidth,
         viewportTopOffset = -scrollblockTopOffset,
         viewportBottomOffset = -scrollblockTopOffset + viewportHeight
-
-    // console.log('calculating visible items: cradleTop, cradleLeft, scrollblockTopOffset, scrollblockLeftOffset, viewportHeight, viewportWidth, viewportBottomOffset, itemsArray',
-    //     cradleTop, cradleLeft, scrollblockTopOffset, scrollblockLeftOffset, viewportHeight, viewportWidth, viewportBottomOffset, itemsArray)
 
     for (let i = 0; i < itemsArray.length; i++) {
 
@@ -51,8 +47,6 @@ export const calcVisibleItems = (itemsArray, viewportElement, cradleElement, ori
             leftPortion,
             rightPortion
 
-        // console.log('preparing to evaluate for visibility for index',index,itemTopOffset, itemBottomOffset, viewportHeight)
-        // console.log('inputs scrollblockTopOffset, top, bottom, cradleTop',scrollblockTopOffset, top, bottom, cradleTop)
         if ((itemTopOffset < 0) && (itemBottomOffset > 0)) {
             (orientation == 'vertical') && (isVisible = true)
             bottomPortion = itemBottomOffset
@@ -66,7 +60,6 @@ export const calcVisibleItems = (itemsArray, viewportElement, cradleElement, ori
             topPortion = viewportHeight - itemTopOffset
             bottomPortion = topPortion - height
         } else {
-            // console.log('WARNING:no visible criteria found for index', index)
             if (orientation == 'vertical') continue
         }
 
@@ -85,9 +78,6 @@ export const calcVisibleItems = (itemsArray, viewportElement, cradleElement, ori
         } else {
             if (orientation == 'horizontal') continue
         }
-
-        // console.log('index: itemTopOffset, itemBottomOffset, viewportBottomOffset, viewportHeight',
-        //     index, itemTopOffset, itemBottomOffset, viewportBottomOffset, viewportHeight)
 
         let verticalRatio = (topPortion > 0)?topPortion/height:bottomPortion/height,
             horizontalRatio = (leftPortion > 0)?leftPortion/width:rightPortion/height
@@ -121,8 +111,6 @@ export const calcVisibleItems = (itemsArray, viewportElement, cradleElement, ori
         return (a.index - b.index)
     })
 
-    // console.log('returning  list',list.length)
-
     return list
 }
 
@@ -136,7 +124,6 @@ export const getVisibleTargetData = (targetConfigDataRef) => {
     let targetindex, targetoffset
     for (let i = 0; i < previousvisiblelist.length; i++) {
         let item = previousvisiblelist[i]
-        // console.log('--previousvisiblelist, item', [...previousvisiblelist], {...item})
         let previousitem
         if (orientation == 'vertical') {
             if ( item.verticalRatio  == 1) {
@@ -187,33 +174,6 @@ export const getContentListRequirements = ({
         listsize
     }) => {
 
-//     console.log(`getContentListRequirements:        
-//         orientation, 
-//         cellHeight, 
-//         cellWidth, 
-//         viewportheight, 
-//         viewportwidth, 
-//         runwaylength, 
-//         gap,
-//         padding, 
-//         visibletargetindex,
-//         targetScrollOffset,
-//         crosscount,
-//         listsize
-// `,
-//         orientation, 
-//         cellHeight, 
-//         cellWidth, 
-//         viewportheight, 
-//         viewportwidth, 
-//         runwaylength, 
-//         gap,
-//         padding, 
-//         visibletargetindex,
-//         targetScrollOffset,
-//         crosscount,
-//         listsize
-// )
     // -------------[ calc basic inputs: cradleLength, cellLength, rowcount, contentCount ]----------
 
     let cradleLength, cellLength, viewportlength
@@ -260,7 +220,6 @@ export const getContentListRequirements = ({
     let maxoffset = indexoffset + (contentCount - 1)
     if (maxoffset > (listsize - 1)) { // expand leading edge to accommodate overflow
         let diff = maxoffset - (listsize - 1)
-        // console.log('DIFF',diff)
         shift = diff % crosscount // contract trailing edge by remainder
         diff = Math.floor(diff/crosscount) * crosscount // expand leading edge by rows
 
@@ -269,9 +228,9 @@ export const getContentListRequirements = ({
     }
 
     // defensive
-    if (indexoffset < 0) console.log(
-        'ERROR: indexoffset < 0:indexoffset, visibletargetindex, targetdiff, leadingrows, targetdatarow, leadingcount',
-        indexoffset, visibletargetindex, targetdiff, leadingrows, targetdatarow, leadingcount)
+    // if (indexoffset < 0) console.log(
+    //     'ERROR: indexoffset < 0:indexoffset, visibletargetindex, targetdiff, leadingrows, targetdatarow, leadingcount',
+    //     indexoffset, visibletargetindex, targetdiff, leadingrows, targetdatarow, leadingcount)
     
     // --------------------[ calc css positioning ]-----------------------
 
@@ -295,7 +254,6 @@ export const getContentListRequirements = ({
 }
 
 export const normalizeCradleAnchors = (cradleElement, orientation) => {
-    // console.log('normalization called')
     // return
     let stylerevisions:React.CSSProperties = {}
     if (orientation == 'vertical') {
@@ -314,11 +272,8 @@ export const normalizeCradleAnchors = (cradleElement, orientation) => {
         }
     }
 
-    // console.log('divlinerStyleRevisionsRef',{...divlinerStyleRevisionsRef})
-
 }
 
-// TODO: check cradlelistsize is adequate.
 // update content
 // adds itemshells at start of end of contentlist according to headindexcount and tailindescount,
 // or if indexcount values are <0 removes them.
@@ -343,7 +298,6 @@ export const getContentList = (props) => {
     let headContentlist = []
     if (headindexcount >= 0) {
 
-        // console.log('adding head items, indexoffset, headindexcount',indexoffset,headindexcount)
         for (let index = indexoffset - headindexcount; index < (indexoffset); index++) {
             headContentlist.push(<ItemShell
                 key = {index} 
@@ -366,7 +320,6 @@ export const getContentList = (props) => {
     let tailContentlist = []
     if (tailindexcount >= 0) {
 
-        // console.log('adding tail items',tailindexoffset,tailindexcount, indexoffset, contentlist.length)
         for (let index = tailindexoffset; index <(tailindexoffset + tailindexcount); index++) {
             tailContentlist.push(<ItemShell
                 key = {index} 
@@ -528,7 +481,6 @@ export const setCradleStyleRevisionsForAdd = ({
             styles.bottom = (parentHeight - tailpos) + 'px'
 
         }
-        // console.log('add content scrollforward, headpos, tailpos, styles',scrollforward, headpos, tailpos, styles)
 
     } else {
 

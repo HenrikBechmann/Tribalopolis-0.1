@@ -20,18 +20,17 @@ import ItemShell from './itemshell'
 
 
 /*
-    7
-    - code maintenance
+    7 deal with thumbscroll ("express")
+
+    6 code maintenance
     - memoize render output to minimize render
     - integrate contentOffsetForActionRef in all contentlist creation
     - review use of {...styles} copy styles to new objects, in terms of trigger consequences
     - make a cradle count memo
 
-    6 deal with thumbscroll
-
     5 implement getItem
 
-    4 implement cellSizing scroller parameter: uniform, variable
+    4? implement cellSizing scroller parameter: uniform, variable
     - be careful to reconcile scrollblock and cradle at each end of scrollblock - second IntersectionObserver
 
     3 add examples 1, 2, 3 to control page: 
@@ -45,8 +44,6 @@ import ItemShell from './itemshell'
     1 options (like styles)
 
 */
-
-const DEBUG = false
 
 const Cradle = (props) => {
 
@@ -96,7 +93,6 @@ const Cradle = (props) => {
 
     const viewportDimensions = useMemo(()=>{
 
-        DEBUG && console.log('calculating viewport dimensions',viewportData)
         let { viewportRect } = viewportData
         let { top, right, bottom, left } = viewportRect
 
@@ -116,7 +112,6 @@ const Cradle = (props) => {
 
         let lengthforcalc = size - (padding * 2) + gap
         crosscount = Math.floor(lengthforcalc/(crossLength + gap))
-        DEBUG && console.log('calculated crosscount', crosscount)
         return crosscount
 
     },[
@@ -184,8 +179,6 @@ const Cradle = (props) => {
             viewportwidth, 
         })
 
-        DEBUG && console.log('setting cradle styles',{...styles})
-
         return {...styles}
     },[
         orientation,
@@ -247,22 +240,17 @@ const Cradle = (props) => {
 
     // triggering next state phase: states = setup, pivot, resize, scroll (was run)
     useEffect(()=> {
-        DEBUG && console.log('state transformation block, from', cradlestate)
         switch (cradlestate) {
             case 'pivot':
-                DEBUG && console.log('setting cradlestate from pivot to reset')
                 saveCradleState('reset')
                 break
             case 'setup': 
-                DEBUG && console.log('setting cradlestate from setup to initobserver')
                 saveCradleState('initobserver')
                 break
             case 'resize':
-                DEBUG && console.log('setting cradlestate from resize to reset')
                 saveCradleState('reset')
                 break
             case 'reset':
-                DEBUG && console.log('setting cradlestate from reset to settle')
                 saveCradleState('settle')
                 break;
             case 'settle':
@@ -304,14 +292,12 @@ const Cradle = (props) => {
     // trigger pivot on change in orientation
     useEffect(()=> {
 
-        DEBUG && console.log('initializing system with cradlestate',cradlestate)
         let rootMargin
         if (orientation == 'horizontal') {
             rootMargin = `0px ${runwaylength}px 0px ${runwaylength}px`
         } else {
             rootMargin = `${runwaylength}px 0px ${runwaylength}px 0px`
         }
-        DEBUG && console.log('rootMargin',rootMargin)
         itemobserverRef.current = new IntersectionObserver(
             itemobservercallback,
             {root:viewportData.elementref.current, rootMargin,} 
@@ -336,7 +322,6 @@ const Cradle = (props) => {
         // console.log('observer called')
         if (pauseObserverForReconfigurationRef.current) {
             // if (dropentries.length == 0) return
-            DEBUG && console.log('observer paused for configuration, cradlestate',cradlestateRef.current)
             return
         }
 
@@ -351,7 +336,6 @@ const Cradle = (props) => {
             }
         }
         if (cradlestateRef.current == 'initobserver') { // cradle state when triggered by creating component
-            DEBUG && console.log('setting cradlestate from initobserver to ready',)            
             saveCradleState('ready')
         }
     },[])
@@ -360,7 +344,6 @@ const Cradle = (props) => {
     useEffect(()=>{
         if (dropentries === null) return
 
-        DEBUG && console.log('processing dropentries; cradlestate',dropentries, cradlestateRef.current)
         let sampleEntry = dropentries[0]
 
         let cradleElement = cradleElementRef.current
@@ -482,7 +465,6 @@ const Cradle = (props) => {
     // add scroll content
     useEffect(()=>{
         if (addentries === null) return
-        DEBUG && console.log('processing addentries',addentries)
 
         let cradleElement = cradleElementRef.current
         let parentElement = cradleElement.parentElement
@@ -546,7 +528,6 @@ const Cradle = (props) => {
 
         saveContentlist(localContentList)
         saveAddentries(null)
-        DEBUG && console.log('end of processing addentries')
 
     },[addentries])
     // End of IntersectionObserver support
