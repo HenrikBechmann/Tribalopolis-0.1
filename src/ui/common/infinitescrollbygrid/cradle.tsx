@@ -130,7 +130,7 @@ const Cradle = (props) => {
     const crosscountRef = useRef(crosscount) // for easy reference by observer
     const previousCrosscountRef = useRef() // available for resize logic
     previousCrosscountRef.current = crosscountRef.current // available for resize logic
-    crosscountRef.current = crosscount // availble for observer closure
+    crosscountRef.current = crosscount // available for observer closure
 
     // capture previous versions for reconfigure calculations above
     const configDataRef:any = useRef({})
