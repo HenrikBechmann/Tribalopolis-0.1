@@ -19,6 +19,11 @@ import {
 import ItemShell from './itemshell'
 
 /*
+    BUG: past 25 horiz & vertical no lonter synchronize
+    BUG. when at end of list horiz to vertical gives empty scroller
+*/
+
+/*
     7
     - code maintenance
     - memoize render output to minimize render
@@ -664,9 +669,9 @@ const Cradle = (props) => {
                 let itemlist = Array.from(itemElementsRef.current)
 
                 visibleListRef.current = calcVisibleItems(
-                    itemlist,viewportData.elementref.current,cradleElementRef.current
+                    itemlist,viewportData.elementref.current,cradleElementRef.current, orientation
                 )
-                // console.log('list of visible items',visibleListRef.current)
+                console.log('list of visible items',visibleListRef.current)
 
                 normalizeCradleAnchors(cradleElementRef.current, orientation)
                     

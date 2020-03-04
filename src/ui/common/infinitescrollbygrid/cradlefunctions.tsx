@@ -10,8 +10,8 @@ import React from 'react'
 import ItemShell from './itemshell'
 
 // triggered by transition to ready state, and by cancellation of isScrolling mode
-export const calcVisibleItems = (itemsArray, viewportElement, cradleElement) => {
-    // console.log('calcVisibleItems itemsArray.length',itemsArray.length)
+export const calcVisibleItems = (itemsArray, viewportElement, cradleElement, orientation) => {
+    // console.log('calcVisibleItems itemsArray.length, orientation',itemsArray.length, orientation)
     let list = []
     let cradleTop = cradleElement.offsetTop, 
         cradleLeft = cradleElement.offsetLeft
@@ -54,31 +54,36 @@ export const calcVisibleItems = (itemsArray, viewportElement, cradleElement) => 
         // console.log('preparing to evaluate for visibility for index',index,itemTopOffset, itemBottomOffset, viewportHeight)
         // console.log('inputs scrollblockTopOffset, top, bottom, cradleTop',scrollblockTopOffset, top, bottom, cradleTop)
         if ((itemTopOffset < 0) && (itemBottomOffset > 0)) {
-            isVisible = true
+            (orientation == 'vertical') && (isVisible = true)
             bottomPortion = itemBottomOffset
             topPortion = bottomPortion - height
         } else if ((itemTopOffset >= 0) && (itemBottomOffset < viewportHeight)) {
-            isVisible = true
+            (orientation == 'vertical') && (isVisible = true)
             topPortion = height
             bottomPortion = 0
         } else if ((itemTopOffset > 0) && ((itemTopOffset - viewportHeight) < 0)) {
-            isVisible = true
+            (orientation == 'vertical') && (isVisible = true)
             topPortion = viewportHeight - itemTopOffset
             bottomPortion = topPortion - height
         } else {
             // console.log('WARNING:no visible criteria found for index', index)
-            continue
+            if (orientation == 'vertical') continue
         }
 
         if (itemLeftOffset < 0 && itemRightOffset > 0) {
+            (orientation == 'horizontal') && (isVisible = true)
             rightPortion = itemRightOffset
             leftPortion = rightPortion - width
         } else if (itemLeftOffset >= 0 && itemRightOffset < viewportWidth) {
+            (orientation == 'horizontal') && (isVisible = true)
             leftPortion = width
             rightPortion = 0
         } else if (itemLeftOffset > 0 && (itemLeftOffset - viewportWidth) < 0) {
+            (orientation == 'horizontal') && (isVisible = true)
             leftPortion = viewportWidth - itemLeftOffset
             rightPortion = leftPortion - width
+        } else {
+            if (orientation == 'horizontal') continue
         }
 
         // console.log('index: itemTopOffset, itemBottomOffset, viewportBottomOffset, viewportHeight',
