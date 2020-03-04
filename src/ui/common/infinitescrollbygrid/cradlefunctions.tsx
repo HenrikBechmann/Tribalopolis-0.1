@@ -83,24 +83,30 @@ export const calcVisibleItems = (itemsArray, viewportElement, cradleElement, ori
             horizontalRatio = (leftPortion > 0)?leftPortion/width:rightPortion/height
 
         let itemData = {
+
             index,
             isVisible,
+
             top,
             right,
             bottom,
             left,
             width,
             height,
+
             itemTopOffset,
             itemBottomOffset,
             topPortion,
             bottomPortion,
+
             itemLeftOffset,
             itemRightOffset,
             leftPortion,
             rightPortion,
+
             verticalRatio,
             horizontalRatio,
+            
         }
 
         list.push(itemData)
