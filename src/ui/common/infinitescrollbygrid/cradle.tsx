@@ -19,6 +19,10 @@ import {
 import ItemShell from './itemshell'
 
 /*
+    Bug - cradle for vertical initialized way to big on load
+*/
+
+/*
     7 deal with thumbscroll ("express")
 
     6 code maintenance
