@@ -26,7 +26,7 @@ const styles = {
 }
     
 const Home = (props) => {
-    let [orientation, setOrientation] = useState('horizontal')
+    let [orientation, setOrientation] = useState('vertical')
 
     const handleOrientationCallback = (orientation) => {
         setOrientation(orientation)
