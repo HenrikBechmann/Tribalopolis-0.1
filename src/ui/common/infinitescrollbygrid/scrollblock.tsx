@@ -90,14 +90,14 @@ const calcScrollblockLength = ({
     let viewportcrosslength
     if (orientation == 'vertical') {
 
-        crosslength = cellWidth
-        cellLength = cellHeight
+        crosslength = cellWidth + gap
+        cellLength = cellHeight + gap
         viewportcrosslength = viewportwidth 
 
     } else {
 
-        crosslength = cellHeight
-        cellLength = cellWidth
+        crosslength = cellHeight + gap
+        cellLength = cellWidth + gap
         viewportcrosslength = viewportheight
 
     }
@@ -105,17 +105,21 @@ const calcScrollblockLength = ({
     viewportcrosslength -= (padding * 2)
     viewportcrosslength += gap
 
-    let crosscount = Math.floor(viewportcrosslength/(crosslength))
+    let crosscount = Math.floor(viewportcrosslength/crosslength)
 
     let listlength = Math.floor(listsize/crosscount)
 
     let listremainder = listsize % crosscount
 
     if (listremainder) {
-        listlength ++
+        listlength += listremainder
     }
 
-    let straightlength = (listlength * cellLength) + ((listlength -1) * gap) + (padding * 2)
+    // let straightlength = (listlength * cellLength) + ((listlength -1) * gap) + (padding * 2)
+    let straightlength = (listlength * cellLength) - ((listlength > 0)?gap:0) + (padding * 2)
+
+    // console.log('listsize, crosscount, viewportcrosslength, crosslength, viewportheight, viewportwidth',listsize, crosscount, viewportcrosslength, crosslength, viewportheight, viewportwidth)
+    // console.log('scrollblocklength: straightlength, listlength, cellLength, gap, padding',straightlength, listlength, cellLength, gap, padding)
 
     return straightlength
 

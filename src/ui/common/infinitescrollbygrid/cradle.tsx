@@ -18,10 +18,6 @@ import {
 
 import ItemShell from './itemshell'
 
-/*
-    BUG: past 25 horiz & vertical no lonter synchronize
-    BUG. when at end of list horiz to vertical gives empty scroller
-*/
 
 /*
     7
@@ -572,7 +568,8 @@ const Cradle = (props) => {
         // console.log('1. ==>> targetConfigDataRef',{...targetConfigDataRef.current})
         let [visibletargetindex, targetscrolloffset] = getVisibleTargetData(targetConfigDataRef)
 
-        // console.log('2. ==>> visibletargetindex, targetscrolloffset',visibletargetindex, targetscrolloffset)
+        // console.log('2. ==>> visibletargetindex, targetscrolloffset, targetConfigDataRef, orientation',
+        //     visibletargetindex, targetscrolloffset, targetConfigDataRef, orientation)
 
         let localContentList = [] // any existing items will be re-used by react
 
@@ -671,7 +668,7 @@ const Cradle = (props) => {
                 visibleListRef.current = calcVisibleItems(
                     itemlist,viewportData.elementref.current,cradleElementRef.current, orientation
                 )
-                console.log('list of visible items',visibleListRef.current)
+                // console.log('list of visible items',visibleListRef.current)
 
                 normalizeCradleAnchors(cradleElementRef.current, orientation)
                     
