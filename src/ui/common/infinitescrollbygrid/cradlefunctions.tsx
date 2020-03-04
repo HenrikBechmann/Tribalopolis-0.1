@@ -259,6 +259,7 @@ export const getContentListRequirements = ({
 
 }
 
+// this makes ui resize less visually jarring
 export const normalizeCradleAnchors = (cradleElement, orientation) => {
     // return
     let stylerevisions:React.CSSProperties = {}
@@ -281,7 +282,7 @@ export const normalizeCradleAnchors = (cradleElement, orientation) => {
 }
 
 // update content
-// adds itemshells at start of end of contentlist according to headindexcount and tailindescount,
+// adds itemshells at end of contentlist according to headindexcount and tailindescount,
 // or if indexcount values are <0 removes them.
 export const getUIContentList = (props) => {
 
