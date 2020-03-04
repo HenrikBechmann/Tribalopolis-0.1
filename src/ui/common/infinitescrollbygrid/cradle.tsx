@@ -66,6 +66,8 @@ const Cradle = (props) => {
 
     const itemobserverRef = useRef(null)
 
+    const cradleobserverRef = useRef(null)
+
     const pauseObserverForReconfigurationRef = useRef(false)
 
     const mainConfigDatasetRef = useRef({setup:true})
@@ -238,14 +240,22 @@ const Cradle = (props) => {
     // triggering next state phase: states = setup, pivot, resize, scroll (was run)
     useEffect(()=> {
         switch (cradlestate) {
-            case 'pivot':
-                saveCradleState('reset')
-                break
             case 'setup': 
                 saveCradleState('initobserver')
                 break
             case 'resize':
                 saveCradleState('reset')
+                break
+            case 'pivot':
+                saveCradleState('reset')
+                break
+            case 'reposition':
+                setTimeout(()=>{
+
+                    console.log('setting cradlestate from reposition to reset')
+                    saveCradleState('reset')
+                
+                })
                 break
             case 'reset':
                 saveCradleState('settle')
@@ -302,8 +312,24 @@ const Cradle = (props) => {
 
     },[orientation])
 
+    useEffect(() => {
+        cradleobserverRef.current = new IntersectionObserver(
+            cradleobservercallback,
+            {root:viewportData.elementref.current}
+        )
+        cradleobserverRef.current.observe(cradleElementRef.current)
+    },[])
+
     // =================================================================================
     // -------------------------[ IntersectionObserver support]-------------------------
+
+    const cradleobservercallback = useCallback((entries) => {
+        // console.log('cradleobservercallback entries',entries)
+        if (!entries[0].isIntersecting) {
+            // console.log('setting state to repositioning')
+            saveCradleState('repositioning')
+        }
+    },[])
 
     // the async callback from IntersectionObserver. this is a closure
     const itemobservercallback = useCallback((entries)=>{
@@ -513,7 +539,7 @@ const Cradle = (props) => {
     // set cradle content for state changes
     useEffect(() => {
 
-        if (['setup','resize','pivot'].indexOf(cradlestate) == -1) return
+        if (['setup','resize','pivot','reposition'].indexOf(cradlestate) == -1) return
 
         setCradleContent()
 
@@ -521,7 +547,14 @@ const Cradle = (props) => {
 
     const setCradleContent = useCallback(() => {
 
-        let [visibletargetindex, targetscrolloffset] = getVisibleTargetData(mainConfigDatasetRef)
+        let visibletargetindex, targetscrolloffset
+        
+        if (cradlestateRef.current != 'reposition') {
+            [visibletargetindex, targetscrolloffset] = getVisibleTargetData(mainConfigDatasetRef)
+        } else {
+            visibletargetindex = contentOffsetForActionRef.current
+            targetscrolloffset = 0
+        }
 
         let localContentList = [] // any existing items will be re-used by react
 
@@ -603,6 +636,22 @@ const Cradle = (props) => {
     // on shift of state to ready, or 
     useEffect(() => {
 
+        if (cradlestate == 'repositioning' && !isScrollingRef.current) {
+            let repositionrowindex,repositionindex, scrollPos, cellLength
+
+            if (orientation == 'vertical') {
+                scrollPos = viewportData.elementref.current.scrollTop
+                cellLength = cellHeight + gap
+            } else {
+                scrollPos = viewportData.elementref.current.scrollLeft
+                cellLength = cellWidth + gap
+            }
+            repositionrowindex = Math.ceil(scrollPos/cellLength)
+            repositionindex = repositionrowindex * crosscount
+            contentOffsetForActionRef.current = repositionindex
+            console.log('setting cradlestate to reposition:repositionindex, scrollPos, cellLength',repositionindex, scrollPos, cellLength)
+            saveCradleState('reposition')
+        }
         if (cradlestate == 'ready' && !isScrollingRef.current) {
 
             if (!isResizingRef.current) { // conflicting responses; resizing needs current version of visible before change
