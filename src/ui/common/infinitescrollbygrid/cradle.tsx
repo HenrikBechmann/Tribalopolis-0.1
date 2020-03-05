@@ -22,6 +22,7 @@ import ItemShell from './itemshell'
 /*
 
     scroll position box
+    if targetindexoffset > (listsize - 1) then targetindexoffset = (listsize - 1)
 
     5 code maintenance
     - memoize render output to minimize render
