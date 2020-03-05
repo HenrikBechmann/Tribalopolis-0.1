@@ -21,13 +21,10 @@ import ItemShell from './itemshell'
 
 /*
 
-    scroll position box
-    if targetindexoffset > (listsize - 1) then targetindexoffset = (listsize - 1)
+    scroll tracker box
 
     5 code maintenance
-    - memoize render output to minimize render
     - review use of {...styles} copy styles to new objects, in terms of trigger consequences
-    - cache: none/preload/keepload
 
     4 implement getItem
 
@@ -37,7 +34,7 @@ import ItemShell from './itemshell'
     2 add examples 1, 2, 3 to control page: 
         - small 100x100 images, scroll and rotate
         - vertical scroll items inside horizontal scroll, with ability to flip them
-        - variable height items
+        - track movement on large lists
 
     1 options (like styles)
 
@@ -87,7 +84,7 @@ const Cradle = (props) => {
 
     const divlinerStyleRevisionsRef = useRef(null) // for modifications by observer actions
 
-    const contentOffsetForActionRef = useRef(offset || 0) // used for contentList creation; used for orientation change, and resize
+    const contentOffsetForActionRef = useRef(Math.min(offset,(listsize - 1)) || 0) // used for contentList creation; used for orientation change, and resize
 
     const cradleElementRef = useRef(null)
 
@@ -285,7 +282,7 @@ const Cradle = (props) => {
     // trigger resize on change
     useEffect(()=>{
         if (cradlestate == 'ready') {
-            contentOffsetForActionRef.current = contentlist[0]?.props.index
+            // contentOffsetForActionRef.current = contentlist[0]?.props.index // ?
             pauseObserverForReconfigurationRef.current = true
             let cradleElement = cradleElementRef.current
             mainConfigDatasetRef.current = {...previousConfigDataRef.current}

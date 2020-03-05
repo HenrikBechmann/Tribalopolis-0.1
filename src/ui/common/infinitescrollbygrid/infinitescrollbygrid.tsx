@@ -7,6 +7,11 @@ import Viewport from './viewport'
 import Scrollblock from './scrollblock'
 import Cradle from './cradle'
 
+/*
+    BACKLOG: 
+    - cache: none/preload/keepload
+*/
+
 // let Viewport = await import('./viewport')
 // ===================================[ INITIALIZE ]===========================
 
