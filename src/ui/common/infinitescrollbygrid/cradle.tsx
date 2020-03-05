@@ -30,13 +30,13 @@ import ItemShell from './itemshell'
 
     4 implement getItem
 
-    3 add examples 1, 2, 3 to control page: 
+    3 scrollToItem(index[,alignment]) - alignment = start, end, center, auto (default)
+    - callbacks in general
+
+    2 add examples 1, 2, 3 to control page: 
         - small 100x100 images, scroll and rotate
         - vertical scroll items inside horizontal scroll, with ability to flip them
         - variable height items
-
-    2 scrollToItem(index[,alignment]) - alignment = start, end, center, auto (default)
-    - callbacks in general
 
     1 options (like styles)
 
