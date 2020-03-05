@@ -524,6 +524,10 @@ export const setCradleStyleRevisionsForAdd = ({
 
 }
 
+/*
+    This is a hack to roughly recover from the odd error which leaves the cradle out of view.
+`   An out of view cradle breaks the system, which is driven by IntersectionObserver notifications.
+*/
 export const assertCradleIsInView = (viewportElement, cradleElement, orientation) => {
 
     let parentElement = cradleElement.parentElement
@@ -558,15 +562,3 @@ export const assertCradleIsInView = (viewportElement, cradleElement, orientation
     }
 
 }
-
-/*
-
-scrollPos = -252702
-viewportLength = 547
-cradlePos = 250790
-cradleLength = 1555
-
-cradleposition = -252702 + 250790 = -1912
-cradleposition + cradleLength = -1912 + 1555 = -357
-
-*/

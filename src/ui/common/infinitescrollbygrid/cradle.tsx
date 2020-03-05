@@ -20,7 +20,7 @@ import {
 import ItemShell from './itemshell'
 
 /*
-    BUG: scrollblock too long with 6 columns
+    BUG: scrollblock too long with 6 columns; likely a calc problem
 */
 
 /*
@@ -29,12 +29,8 @@ import ItemShell from './itemshell'
 
     5 code maintenance
     - memoize render output to minimize render
-    - integrate contentOffsetForActionRef in all contentlist creation
     - review use of {...styles} copy styles to new objects, in terms of trigger consequences
-    - make a cradle count memo
-    - preload option
-    - keepload option
-    - above two with cache? none/preload/keepload
+    - cache: none/preload/keepload
 
     4 implement getItem
 
