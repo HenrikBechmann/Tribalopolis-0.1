@@ -20,6 +20,10 @@ import {
 import ItemShell from './itemshell'
 
 /*
+    BUG: scrollblock too long with 6 columns
+*/
+
+/*
 
     scroll position box
 

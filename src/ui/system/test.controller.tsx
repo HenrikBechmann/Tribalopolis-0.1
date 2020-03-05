@@ -50,7 +50,7 @@ const Home = (props) => {
                     cellWidth = {150}
                     runway = {3}
                     offset = {0}
-                    listsize = {10000}
+                    listsize = {100}
                     options = {{showScrollingCount:true}}
                 />
             </div>
