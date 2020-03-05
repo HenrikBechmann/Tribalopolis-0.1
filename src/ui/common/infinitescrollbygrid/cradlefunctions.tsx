@@ -525,7 +525,7 @@ export const setCradleStyleRevisionsForAdd = ({
 }
 
 /*
-    This is a hack to roughly recover from the odd error which leaves the cradle out of view.
+    This is an insurance hack to roughly recover from any error which leaves the cradle out of view.
 `   An out of view cradle breaks the system, which is driven by IntersectionObserver notifications.
 */
 export const assertCradleIsInView = (viewportElement, cradleElement, orientation) => {
