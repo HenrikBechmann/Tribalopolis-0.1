@@ -30,9 +30,9 @@ const InfiniteScrollByGrid = (props) => {
         listsize, 
         offset,
         getItem,
-        // preload, // boolean
+        options,
+        // cache = "preload", "keepload", "none"
         // dense, // boolean
-        cellSizing, // 'fixed' || 'variable' default 'symmetrical'
     } = props
     // console.log('inside Scroller: orientation', orientation)
 
@@ -40,17 +40,16 @@ const InfiniteScrollByGrid = (props) => {
         console.warn('invalid value for scroller orientation; resetting to default',orientation)
         orientation = 'horizontal'
     }
-
+    options !?? (options = [])
     gap !?? (gap = 0)
     padding !?? (padding = 0)
     runway !?? (runway = 3)
     offset !?? (offset = 0)
     listsize !?? (listsize = 0)
     let runwaylength = (orientation == 'vertical')?(runway * (cellHeight + gap)):(runway * (cellWidth + gap))
-    // implementatoin deferred for the following
+    // implementation deferred for the following
     // dense !?? (dense = false)
     // !preload && (dense = false) // preload will allow dragdrop
-    cellSizing !?? (cellSizing = 'fixed')
 
     return <Viewport 
         orientation = { orientation } 
@@ -58,6 +57,7 @@ const InfiniteScrollByGrid = (props) => {
         cellHeight = { cellHeight }
         gap = { gap }
         padding = { padding }
+        options = { options }
     >
         <Scrollblock
 
@@ -67,6 +67,7 @@ const InfiniteScrollByGrid = (props) => {
             gap = { gap}
             padding = { padding }
             orientation = { orientation }
+            options = { options }
 
         >
 
@@ -83,6 +84,7 @@ const InfiniteScrollByGrid = (props) => {
                 // dense = { dense }
                 // preload = { preload }
                 getItem = { getItem }
+                options = { options }
 
             />
 

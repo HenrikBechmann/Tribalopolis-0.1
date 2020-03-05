@@ -21,7 +21,7 @@ import ItemShell from './itemshell'
 
 /*
 
-    6 deal with thumbscroll ("express")
+    scroll position box
 
     5 code maintenance
     - memoize render output to minimize render
