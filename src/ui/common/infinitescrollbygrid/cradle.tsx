@@ -21,10 +21,7 @@ import ItemShell from './itemshell'
 
 /*
 
-    scroll tracker box
-
-    5 code maintenance
-    - review use of {...styles} copy styles to new objects, in terms of trigger consequences
+    5 scroll tracker box
 
     4 implement getItem
 
@@ -179,7 +176,7 @@ const Cradle = (props) => {
 
         })
 
-        return {...styles}
+        return styles
     },[
         orientation,
         cellHeight,
@@ -464,7 +461,7 @@ const Cradle = (props) => {
         elementstyle.right = styles.right
 
         // synchronization
-        divlinerStyleRevisionsRef.current = { ...styles }
+        divlinerStyleRevisionsRef.current = styles 
 
         saveContentlist(localContentList) // delete entries
         saveDropentries(null)
@@ -531,7 +528,7 @@ const Cradle = (props) => {
         elementstyle.right = styles.right
 
         // synchronization
-        divlinerStyleRevisionsRef.current = {...styles}
+        divlinerStyleRevisionsRef.current = styles
 
         saveContentlist(localContentList)
         saveAddentries(null)
