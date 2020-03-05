@@ -105,13 +105,13 @@ const calcScrollblockLength = ({
 
     let crosscount = Math.floor(viewportcrosslength/crosslength)
 
-    let listlength = Math.floor(listsize/crosscount)
+    let listlength = Math.ceil(listsize/crosscount)
 
-    let listremainder = listsize % crosscount
+    // let listremainder = listsize % crosscount
 
-    if (listremainder) {
-        listlength += listremainder
-    }
+    // if (listremainder) {
+    //     listlength += listremainder
+    // }
 
     let straightlength = (listlength * cellLength) - ((listlength > 0)?gap:0) + (padding * 2)
 
