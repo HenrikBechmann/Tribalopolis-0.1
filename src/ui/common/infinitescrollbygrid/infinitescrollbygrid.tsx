@@ -12,17 +12,16 @@ import Cradle from './cradle'
     - cache: none/preload/keepload
 */
 
-// let Viewport = await import('./viewport')
 // ===================================[ INITIALIZE ]===========================
 
 /*
-    The only job of IScrollByGrid is to pass paramters to dependents
+    The only job of InfiniteScrollByGrid is to pass paramters to dependents
     Viewport contains the scrollblock (scrolling block)
     Scrollblock represents the entirety of the list, and scrolls
     Cradle contains the list items, and is 'virtualiized' -- it appears as
       though it is the full scrollblock, but in fact it is only slightly larger than
       the viewport.
-    - individual items are framed by ItemFrame, managed by Cradle
+    - individual items are framed by ItemShell, managed by Cradle
 */
 const InfiniteScrollByGrid = (props) => {
     let { 
@@ -39,7 +38,6 @@ const InfiniteScrollByGrid = (props) => {
         // cache = "preload", "keepload", "none"
         // dense, // boolean
     } = props
-    // console.log('inside Scroller: orientation', orientation)
 
     if (!['horizontal','vertical'].includes(orientation)) {
         console.warn('invalid value for scroller orientation; resetting to default',orientation)
@@ -52,9 +50,6 @@ const InfiniteScrollByGrid = (props) => {
     offset !?? (offset = 0)
     listsize !?? (listsize = 0)
     let runwaylength = (orientation == 'vertical')?(runway * (cellHeight + gap)):(runway * (cellWidth + gap))
-    // implementation deferred for the following
-    // dense !?? (dense = false)
-    // !preload && (dense = false) // preload will allow dragdrop
 
     return <Viewport 
         orientation = { orientation } 
@@ -86,8 +81,6 @@ const InfiniteScrollByGrid = (props) => {
                 offset = { offset }
                 orientation = { orientation }
                 runwaylength = { runwaylength } 
-                // dense = { dense }
-                // preload = { preload }
                 getItem = { getItem }
                 options = { options }
 
