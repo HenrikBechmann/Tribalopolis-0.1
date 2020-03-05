@@ -523,3 +523,50 @@ export const setCradleStyleRevisionsForAdd = ({
     return styles
 
 }
+
+export const assertCradleIsInView = (viewportElement, cradleElement, orientation) => {
+
+    let parentElement = cradleElement.parentElement
+    let scrollPos, viewportLength, cradlePos, cradleLength
+
+    if (orientation == 'vertical') {
+
+        scrollPos = -viewportElement.scrollTop // scrollblock anchor in relation to viewport edge
+        viewportLength = viewportElement.offsetHeight
+        cradlePos = cradleElement.offsetTop // cradle edge in relation to scrollblock
+        cradleLength = cradleElement.offsetHeight
+
+    } else {
+
+        scrollPos = -viewportElement.scrollLeft
+        viewportLength = viewportElement.offsetWidth
+        cradlePos = cradleElement.offsetLeft
+        cradleLength = cradleElement.offsetWidth
+
+    }
+
+    let cradleposition = scrollPos + cradlePos // in relation to viewport leading edge
+
+    let isOutOfView = (((cradleposition + cradleLength) < 0 ) || (cradleposition > viewportLength))
+    // console.log('orientation, isOutOfView, cradleposition, cradlePos, cradleLength, scrollPos, viewportLength, cradleposition + cradleLength',
+    //     orientation, isOutOfView, cradleposition, cradlePos, cradleLength, scrollPos, viewportLength, cradleposition + cradleLength)
+
+    // if cradle is before leading edge or after trailing edge of viewport, coerce cradle bacck into view
+    if ( isOutOfView ) {
+        // console.log('SCROLL INTO VIEW')
+        cradleElement.scrollIntoView()
+    }
+
+}
+
+/*
+
+scrollPos = -252702
+viewportLength = 547
+cradlePos = 250790
+cradleLength = 1555
+
+cradleposition = -252702 + 250790 = -1912
+cradleposition + cradleLength = -1912 + 1555 = -357
+
+*/

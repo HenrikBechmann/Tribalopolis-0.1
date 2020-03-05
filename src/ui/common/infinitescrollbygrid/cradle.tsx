@@ -14,6 +14,7 @@ import {
     setCradleStyleRevisionsForDrop,
     setCradleStyleRevisionsForAdd,
     normalizeCradleAnchors, 
+    assertCradleIsInView,
 } from './cradlefunctions'
 
 import ItemShell from './itemshell'
@@ -83,6 +84,9 @@ const Cradle = (props) => {
         boxSizing:'border-box',
 
     } as React.CSSProperties)
+
+    const orientationRef = useRef(orientation)
+    orientationRef.current = orientation // availability in closures
 
     const divlinerStyleRevisionsRef = useRef(null) // for modifications by observer actions
 
@@ -215,12 +219,20 @@ const Cradle = (props) => {
     const onScroll = useCallback((e) => {
 
         if (!isScrollingRef.current) {
+            // console.log('setting isScrolling to true')
             saveIsScrolling(true)
+            assertCradleIsInView(viewportData.elementref.current, cradleElementRef.current, orientationRef.current)
         }
         if (isScrollingRef.current) {
             clearTimeout(scrollTimeridRef.current)
             scrollTimeridRef.current = setTimeout(() => {
+                // console.log('setting isScrolling to false')
                 saveIsScrolling(false)
+                setTimeout(()=>{
+
+                    assertCradleIsInView(viewportData.elementref.current, cradleElementRef.current, orientationRef.current)
+
+                })
             },200)
         }
 
@@ -252,9 +264,9 @@ const Cradle = (props) => {
             case 'reposition':
                 setTimeout(()=>{
 
-                    console.log('setting cradlestate from reposition to reset')
+                    // console.log('setting cradlestate from reposition to reset')
                     saveCradleState('reset')
-                
+
                 })
                 break
             case 'reset':
@@ -324,8 +336,8 @@ const Cradle = (props) => {
     // -------------------------[ IntersectionObserver support]-------------------------
 
     const cradleobservercallback = useCallback((entries) => {
-        // console.log('cradleobservercallback entries',entries)
-        if (!entries[0].isIntersecting) {
+        // console.log('cradleobservercallback entries', entries)
+        if ( (cradlestateRef.current == 'ready') && (!entries[0].isIntersecting)) {
             // console.log('setting state to repositioning')
             saveCradleState('repositioning')
         }
@@ -614,6 +626,7 @@ const Cradle = (props) => {
 
             viewportData.elementref.current.scrollLeft = scrollblockoffset
         }
+
         divlinerStyleRevisionsRef.current = styles
         contentOffsetForActionRef.current = indexoffset
 
@@ -649,7 +662,7 @@ const Cradle = (props) => {
             repositionrowindex = Math.ceil(scrollPos/cellLength)
             repositionindex = repositionrowindex * crosscount
             contentOffsetForActionRef.current = repositionindex
-            console.log('setting cradlestate to reposition:repositionindex, scrollPos, cellLength',repositionindex, scrollPos, cellLength)
+            // console.log('setting cradlestate to reposition:repositionindex, scrollPos, cellLength',repositionindex, scrollPos, cellLength)
             saveCradleState('reposition')
         }
         if (cradlestate == 'ready' && !isScrollingRef.current) {
