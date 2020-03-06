@@ -726,12 +726,14 @@ const Cradle = (props) => {
 
     let divlinerstyles = divlinerStylesRef.current
 
+    let viewportRect = viewportData.elementref.current.getBoundingClientRect()
+
     // no result if styles not set
     return <>
         { cradlestateRef.current == 'repositioning'
             ?<ScrollTracker 
-                top = {viewportData.viewportRect.top + 3} 
-                left = {viewportData.viewportRect.left + 3} 
+                top = {viewportRect.top + 3} 
+                left = {viewportRect.left + 3} 
                 offset = {currentScrollPos} 
                 listsize = {listsize} 
             />
