@@ -5,15 +5,38 @@ import React, {useRef, useEffect, useState, useCallback } from 'react'
 
 const ItemShell = (props) => {
     // console.log('itemshell props',{...props})
-    const {text, orientation, cellHeight, cellWidth, index, observer, callbacks} = props
-    // const callbacks = callbacksRef.current
+    const {text, orientation, cellHeight, cellWidth, index, observer, callbacks, getItem} = props
+    // console.log('item props',index, props)
     const [content, saveContent] = useState(null)
     const shellRef = useRef(null)
     const [styles,saveStyles] = useState({
         boxSizing:'border-box',
         backgroundColor:'cyan',
         border:'2px solid black',
+        overflow:'hidden',
     } as React.CSSProperties)
+
+    useEffect(() => {
+        let itemrequest = {current:null}
+        if (getItem) {
+            itemrequest = window['requestIdleCallback'](()=> {
+
+                // console.log('idleCallback for index',index)
+
+                let value = getItem(index)
+                if (value.then) {
+                    value.then((value) => {
+                        saveContent(value)
+                    })
+                } else {
+                    saveContent(value)
+                }
+            })
+        }
+        return () => {
+            window['cancelIdleCallback'](itemrequest.current)
+        }
+    },[])
 
     // initialize
     useEffect(() => {

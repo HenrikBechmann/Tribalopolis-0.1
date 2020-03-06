@@ -302,7 +302,10 @@ export const getUIContentList = (props) => {
         observer,
         crosscount,
         callbacksRef,
+        getItem,
     } = props
+
+    // console.log('getUIContentList getItem',getItem)
 
     let localContentlist = [...contentlist]
     let tailindexoffset = indexoffset + contentlist.length
@@ -322,6 +325,7 @@ export const getUIContentList = (props) => {
                 index = {index}
                 observer = {observer}
                 callbacks = {callbacksRef}
+                getItem = {getItem}
             />)
 
         }
@@ -347,6 +351,7 @@ export const getUIContentList = (props) => {
                 index = {index}
                 observer = {observer}
                 callbacks = {callbacksRef}
+                getItem = {getItem}
             />)
             
         }

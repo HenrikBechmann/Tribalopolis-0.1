@@ -17,8 +17,6 @@ import {
     // isCradleInView,
 } from './cradlefunctions'
 
-import ItemShell from './itemshell'
-
 import ScrollTracker from './scrolltracker'
 
 /*
@@ -40,6 +38,8 @@ import ScrollTracker from './scrolltracker'
 const Cradle = (props) => {
 
     const { gap, padding, runwaylength, listsize, offset, orientation, cellHeight, cellWidth, getItem } = props
+
+    // console.log('Cradle getItem',getItem)
 
     // =============================================================================================
     // --------------------------------------[ initialization ]-------------------------------------
@@ -525,6 +525,7 @@ const Cradle = (props) => {
             observer: itemobserverRef.current,
             crosscount,
             callbacksRef,
+            getItem,
 
         })
 
@@ -610,6 +611,7 @@ const Cradle = (props) => {
             observer:itemobserverRef.current,
             crosscount,
             callbacksRef,
+            getItem,
 
         })
 

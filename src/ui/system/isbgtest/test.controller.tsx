@@ -6,6 +6,19 @@ import React, {useState} from 'react'
 import InfiniteScroller from '../../common/infinitescrollbygrid/infinitescrollbygrid'
 import TestOptions from './testoptions'
 
+const getItem = (index) => {
+     
+     return <ImageItem index = {index} image = {'https://loremflickr.com/200/300?random='+index}/>
+
+}
+
+const ImageItem = (props) => {
+    return <div style = {{position:'relative'}}>
+        <div style = {{position:'absolute',top:0,left:0,padding:'3px'}}>{props.index}</div>
+        <img src = {props.image} style = {{objectFit:'cover'}}/>
+    </div>
+}
+
 const styles = {
     viewportframe: {
         top:0,
@@ -51,6 +64,7 @@ const Home = (props) => {
                     runway = {3}
                     offset = {50}
                     listsize = {10000}
+                    getItem = {getItem}
                 />
             </div>
         </div>
