@@ -3,6 +3,8 @@
 
 import React, {useRef, useEffect, useState, useCallback } from 'react'
 
+import {requestIdleCallback, cancelIdleCallback} from 'requestidlecallback'
+
 const ItemShell = (props) => {
     // console.log('itemshell props',{...props})
     const {text, orientation, cellHeight, cellWidth, index, observer, callbacks, getItem} = props
@@ -18,23 +20,28 @@ const ItemShell = (props) => {
 
     useEffect(() => {
         let itemrequest = {current:null}
+        let requestidlecallback = window['requestIdleCallback']?window['requestIdleCallback']:requestIdleCallback
+        let cancelidlecallback = window['cancelIdleCallback']?window['cancelIdleCallback']:cancelIdleCallback
         if (getItem) {
-            itemrequest = window['requestIdleCallback'](()=> {
-
-                // console.log('idleCallback for index',index)
+            itemrequest = requestidlecallback(()=> {
 
                 let value = getItem(index)
                 if (value.then) {
                     value.then((value) => {
                         saveContent(value)
+                    }).catch(() => {
+                        saveContent('unavailable')
                     })
                 } else {
                     saveContent(value)
                 }
             })
+        } else {
+            saveContent('unavailable')
         }
         return () => {
-            window['cancelIdleCallback'](itemrequest.current)
+            let requesthandle = itemrequest.current
+            cancelidlecallback(requesthandle)
         }
     },[])
 

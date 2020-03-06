@@ -21,8 +21,6 @@ import ScrollTracker from './scrolltracker'
 
 /*
 
-    4 implement getItem
-
     3 scrollToItem(index[,alignment]) - alignment = start, end, center, auto (default)
     - callbacks in general
 

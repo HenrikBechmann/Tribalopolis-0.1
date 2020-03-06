@@ -41,7 +41,8 @@
     "react-toastify": "^5.5.0",
     "react-virtualized-auto-sizer": "^1.0.2",
     "react-window": "^1.8.5",
-    "react-window-infinite-loader": "^1.0.5"
+    "react-window-infinite-loader": "^1.0.5",
+    "requestidlecallback": "^0.3.0"
   },
   "devDependencies": {
     "@babel/core": "^7.8.7",
