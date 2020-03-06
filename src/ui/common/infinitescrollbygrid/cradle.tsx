@@ -235,7 +235,7 @@ const Cradle = (props) => {
         if (!isScrollingRef.current) {
             // console.log('setting isScrolling to true')
             saveIsScrolling(true)
-            assertCradleIsInView(viewportData.elementref.current, cradleElementRef.current, orientationRef.current)
+            // assertCradleIsInView(viewportData.elementref.current, cradleElementRef.current, orientationRef.current)
         }
         if (isScrollingRef.current) {
             clearTimeout(scrollTimeridRef.current)
@@ -244,7 +244,7 @@ const Cradle = (props) => {
                 saveIsScrolling(false)
                 setTimeout(()=>{
 
-                    assertCradleIsInView(viewportData.elementref.current, cradleElementRef.current, orientationRef.current)
+                    // assertCradleIsInView(viewportData.elementref.current, cradleElementRef.current, orientationRef.current)
 
                 })
             },200)
