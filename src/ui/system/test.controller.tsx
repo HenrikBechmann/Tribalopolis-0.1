@@ -51,7 +51,6 @@ const Home = (props) => {
                     runway = {3}
                     offset = {50}
                     listsize = {10000}
-                    options = {{showScrollingCount:true}}
                 />
             </div>
         </div>
