@@ -525,40 +525,39 @@ export const setCradleStyleRevisionsForAdd = ({
 }
 
 /*
-    This is an insurance hack to roughly recover from any error which leaves the cradle out of view.
 `   An out of view cradle breaks the system, which is driven by IntersectionObserver notifications.
 */
-export const assertCradleIsInView = (viewportElement, cradleElement, orientation) => {
+// export const isCradleInView = (viewportElement, cradleElement, orientation) => {
 
-    let parentElement = cradleElement.parentElement
-    let scrollPos, viewportLength, cradlePos, cradleLength
+//     let parentElement = cradleElement.parentElement
+//     let scrollPos, viewportLength, cradlePos, cradleLength
 
-    if (orientation == 'vertical') {
+//     if (orientation == 'vertical') {
 
-        scrollPos = -viewportElement.scrollTop // scrollblock anchor in relation to viewport edge
-        viewportLength = viewportElement.offsetHeight
-        cradlePos = cradleElement.offsetTop // cradle edge in relation to scrollblock
-        cradleLength = cradleElement.offsetHeight
+//         scrollPos = -viewportElement.scrollTop // scrollblock anchor in relation to viewport edge
+//         viewportLength = viewportElement.offsetHeight
+//         cradlePos = cradleElement.offsetTop // cradle edge in relation to scrollblock
+//         cradleLength = cradleElement.offsetHeight
 
-    } else {
+//     } else {
 
-        scrollPos = -viewportElement.scrollLeft
-        viewportLength = viewportElement.offsetWidth
-        cradlePos = cradleElement.offsetLeft
-        cradleLength = cradleElement.offsetWidth
+//         scrollPos = -viewportElement.scrollLeft
+//         viewportLength = viewportElement.offsetWidth
+//         cradlePos = cradleElement.offsetLeft
+//         cradleLength = cradleElement.offsetWidth
 
-    }
+//     }
 
-    let cradleposition = scrollPos + cradlePos // in relation to viewport leading edge
+//     let cradleposition = scrollPos + cradlePos // in relation to viewport leading edge
 
-    let isOutOfView = (((cradleposition + cradleLength) < 0 ) || (cradleposition > viewportLength))
-    // console.log('orientation, isOutOfView, cradleposition, cradlePos, cradleLength, scrollPos, viewportLength, cradleposition + cradleLength',
-    //     orientation, isOutOfView, cradleposition, cradlePos, cradleLength, scrollPos, viewportLength, cradleposition + cradleLength)
-
+//     let isOutOfView = (((cradleposition + cradleLength) < 0 ) || (cradleposition > viewportLength))
+//     // console.log('orientation, isOutOfView, cradleposition, cradlePos, cradleLength, scrollPos, viewportLength, cradleposition + cradleLength',
+//     //     orientation, isOutOfView, cradleposition, cradlePos, cradleLength, scrollPos, viewportLength, cradleposition + cradleLength)
+//     return isOutOfView
     // if cradle is before leading edge or after trailing edge of viewport, coerce cradle bacck into view
-    if ( isOutOfView ) {
-        // console.log('SCROLL INTO VIEW')
-        cradleElement.scrollIntoView()
-    }
+    // if ( isOutOfView ) {
+    //     // console.log('SCROLL INTO VIEW')
+    //     cradleElement.scrollIntoView()
+    // }
 
-}
+// }

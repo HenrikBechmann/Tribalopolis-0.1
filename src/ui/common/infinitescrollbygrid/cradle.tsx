@@ -14,7 +14,7 @@ import {
     setCradleStyleRevisionsForDrop,
     setCradleStyleRevisionsForAdd,
     normalizeCradleAnchors, 
-    assertCradleIsInView,
+    // isCradleInView,
 } from './cradlefunctions'
 
 import ItemShell from './itemshell'
@@ -45,6 +45,7 @@ const Cradle = (props) => {
     // --------------------------------------[ initialization ]-------------------------------------
 
     const [cradlestate, saveCradleState] = useState('setup')
+
     const cradlestateRef = useRef(null) // for observer call closure
     cradlestateRef.current = cradlestate // most recent value
 
@@ -233,27 +234,24 @@ const Cradle = (props) => {
         }
 
         if (!isScrollingRef.current) {
-            // console.log('setting isScrolling to true')
+            // check for timing anomaly
+            // if ((!(cradlestateRef.current == 'repositioning')) && !isCradleInView(viewportData.elementref.current, cradleElementRef.current, orientationRef.current)) {
+            //     saveCradleState('repositioning')
+            // }
             saveIsScrolling(true)
-            // assertCradleIsInView(viewportData.elementref.current, cradleElementRef.current, orientationRef.current)
         }
         if (isScrollingRef.current) {
             clearTimeout(scrollTimeridRef.current)
             scrollTimeridRef.current = setTimeout(() => {
-                // console.log('setting isScrolling to false')
+
                 saveIsScrolling(false)
-                setTimeout(()=>{
 
-                    // assertCradleIsInView(viewportData.elementref.current, cradleElementRef.current, orientationRef.current)
-
-                })
-            },200)
+            },250)
         }
 
     },[])
 
     const isResizingRef = useRef(false)
-    // const resizeTimeridRef = useRef(null)
 
     const onResize = useCallback((e) => {
 
@@ -270,22 +268,18 @@ const Cradle = (props) => {
                 saveCradleState('initobserver')
                 break
             case 'resize':
-                saveCradleState('reset')
+                saveCradleState('settle')
                 break
             case 'pivot':
-                saveCradleState('reset')
+                saveCradleState('settle')
                 break
             case 'reposition':
                 setTimeout(()=>{
 
-                    // console.log('setting cradlestate from reposition to reset')
-                    saveCradleState('reset')
+                    saveCradleState('ready')
 
                 })
                 break
-            case 'reset':
-                saveCradleState('settle')
-                break;
             case 'settle':
                 isResizingRef.current && (isResizingRef.current = false)
                 setTimeout(()=>{ // let everything settle before reviving observer
