@@ -21,6 +21,8 @@ import ScrollTracker from './scrolltracker'
 
 /*
 
+    block observer when repositioning
+
     3 scrollToItem(index[,alignment]) - alignment = start, end, center, auto (default)
     - callbacks in general
 
