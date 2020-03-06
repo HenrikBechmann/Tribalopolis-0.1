@@ -19,9 +19,9 @@ import {
 
 import ItemShell from './itemshell'
 
-/*
+import ScrollTracker from './scrolltracker'
 
-    5 scroll tracker box
+/*
 
     4 implement getItem
 
@@ -59,6 +59,15 @@ const Cradle = (props) => {
     const itemobserverRef = useRef(null)
 
     const cradleobserverRef = useRef(null)
+
+    const [currentScrollPos, saveCurrentScrollPos] = useState(0)
+    const cellSpecs = useMemo(() => {
+        return {
+            cellWidth,cellHeight,gap
+        }
+    },[cellWidth,cellHeight,gap])
+    const cellSpecsRef = useRef(null)
+    cellSpecsRef.current = cellSpecs
 
     const pauseObserverForReconfigurationRef = useRef(false)
 
@@ -208,6 +217,20 @@ const Cradle = (props) => {
     },[])
 
     const onScroll = useCallback((e) => {
+
+        if (cradlestateRef.current == 'repositioning') {
+            let scrollPos, cellLength
+            if (orientationRef.current == 'vertical') {
+                scrollPos = viewportData.elementref.current.scrollTop
+                cellLength = cellSpecsRef.current.cellHeight + cellSpecsRef.current.gap
+            } else {
+                scrollPos = viewportData.elementref.current.scrollLeft
+                cellLength = cellSpecsRef.current.cellWidth + cellSpecsRef.current.gap
+            }
+            let repositionrowindex = Math.ceil(scrollPos/cellLength)
+            let repositionindex = repositionrowindex * crosscountRef.current
+            saveCurrentScrollPos(repositionindex)
+        }
 
         if (!isScrollingRef.current) {
             // console.log('setting isScrolling to true')
@@ -704,15 +727,24 @@ const Cradle = (props) => {
     let divlinerstyles = divlinerStylesRef.current
 
     // no result if styles not set
-    return <div 
-        ref = {cradleElementRef} 
-        style = {divlinerstyles}
-    >
-    
-        {divlinerstyles.width?contentlist:null}
-    
-    </div>
+    return <>
+        { cradlestateRef.current == 'repositioning'
+            ?<ScrollTracker 
+                top = {viewportData.viewportRect.top + 3} 
+                left = {viewportData.viewportRect.left + 3} 
+                offset = {currentScrollPos} 
+                listsize = {listsize} 
+            />
+            :null}
+        <div 
+            ref = {cradleElementRef} 
+            style = {divlinerstyles}
+        >
         
+            {divlinerstyles.width?contentlist:null}
+        
+        </div>
+    </>
 
 } // Cradle
 
