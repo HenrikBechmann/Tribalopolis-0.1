@@ -22,17 +22,17 @@ import ScrollTracker from './scrolltracker'
 /*
 
     block observer when repositioning
-    move positioning inside scrolltracker
+    move positioning inside scrolltracker?
 
     3 scrollToItem(index[,alignment]) - alignment = start, end, center, auto (default)
     - callbacks in general
+
+    1 options (like styles)
 
     2 add examples 1, 2, 3 to control page: 
         - small 100x100 images, scroll and rotate
         - vertical scroll items inside horizontal scroll, with ability to flip them
         - track movement on large lists
-
-    1 options (like styles)
 
 */
 
