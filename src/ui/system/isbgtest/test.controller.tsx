@@ -14,7 +14,18 @@ const getItem = (index) => {
 
 const ImageItem = (props) => {
     return <div style = {{position:'relative'}}>
-        <div style = {{position:'absolute',top:0,left:0,padding:'3px',opacity:.5,borderRadius:'8px',backgroundColor:'white', margin:'3px'}}>{props.index}</div>
+        <div style = {
+            {
+                position:'absolute',
+                top:0,
+                left:0,
+                padding:'3px',
+                opacity:.5,
+                borderRadius:'8px',
+                backgroundColor:'white', 
+                margin:'3px'
+            }
+        }>{props.index + 1}</div>
         <img src = {props.image} style = {{objectFit:'cover'}}/>
     </div>
 }
