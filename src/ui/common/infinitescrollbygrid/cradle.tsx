@@ -40,8 +40,6 @@ const Cradle = (props) => {
 
     const { gap, padding, runwaylength, listsize, offset, orientation, cellHeight, cellWidth, getItem } = props
 
-    // console.log('Cradle getItem',getItem)
-
     // =============================================================================================
     // --------------------------------------[ initialization ]-------------------------------------
 
@@ -209,6 +207,7 @@ const Cradle = (props) => {
     // =====================================================================================
     // ----------------------------------[ state management ]-------------------------------
 
+    // initialize window listener
     useEffect(() => {
         viewportData.elementref.current.addEventListener('scroll',onScroll)
         window.addEventListener('resize',onResize)
@@ -218,6 +217,7 @@ const Cradle = (props) => {
         }
     },[])
 
+    // callback for scroll
     const onScroll = useCallback((e) => {
 
         if (cradlestateRef.current == 'repositioning') {
@@ -235,10 +235,7 @@ const Cradle = (props) => {
         }
 
         if (!isScrollingRef.current) {
-            // check for timing anomaly
-            // if ((!(cradlestateRef.current == 'repositioning')) && !isCradleInView(viewportData.elementref.current, cradleElementRef.current, orientationRef.current)) {
-            //     saveCradleState('repositioning')
-            // }
+
             saveIsScrolling(true)
         }
         if (isScrollingRef.current) {
@@ -252,6 +249,9 @@ const Cradle = (props) => {
 
     },[])
 
+    // set and maintain isResizing flag
+    // set below on first window resize notification
+    // unset with state change to 'settle' in state engine above
     const isResizingRef = useRef(false)
 
     const onResize = useCallback((e) => {
@@ -262,7 +262,8 @@ const Cradle = (props) => {
 
     },[])
 
-    // triggering next state phase: states = setup, pivot, resize, scroll (was run)
+    // thia ia the core state engine
+    // triggering next state phase: states = setup, pivot, resize, reposition (was run)
     useEffect(()=> {
         switch (cradlestate) {
             case 'setup': 
@@ -294,7 +295,7 @@ const Cradle = (props) => {
         }
     },[cradlestate])
 
-    // trigger resize on change
+    // trigger 'resize' cradlestate on change of any parameter
     useEffect(()=>{
         if (cradlestate == 'ready') {
             // contentOffsetForActionRef.current = contentlist[0]?.props.index // ?
@@ -333,6 +334,15 @@ const Cradle = (props) => {
 
     },[orientation])
 
+    // =================================================================================
+    // -------------------------[ IntersectionObserver support]-------------------------
+
+    // There are two observers, one for the cradle, and another for itemShells; both against
+    // the viewport.
+
+    // --------------------------[ cradle observer ]-----------------------------------
+    // this sets up an IntersectionObserver of the cradle against the viewport. When the
+    // cradle goes out of the observer scope, the "repositioning" cradle state is triggerd.
     useEffect(() => {
         cradleobserverRef.current = new IntersectionObserver(
             cradleobservercallback,
@@ -341,9 +351,6 @@ const Cradle = (props) => {
         cradleobserverRef.current.observe(cradleElementRef.current)
     },[])
 
-    // =================================================================================
-    // -------------------------[ IntersectionObserver support]-------------------------
-
     const cradleobservercallback = useCallback((entries) => {
         // console.log('cradleobservercallback entries', entries)
         if ( (cradlestateRef.current == 'ready') && (!entries[0].isIntersecting)) {
@@ -351,6 +358,27 @@ const Cradle = (props) => {
             saveCradleState('repositioning')
         }
     },[])
+
+    // --------------------------[ item shell observer ]-----------------------------
+
+    /*
+        The cradle content is driven by notifications from the IntersectionObserver.
+        - as the user scrolls the cradle, which has a runway at both the leading
+            and trailing edges, itemShells scroll into or out of the scope of the observer 
+            (defined by the width/height of the viewport + the lengths of the runways). The observer
+            notifies the app (through itemobservercallback() below) at the crossings of the itemshells 
+            of the defined observer cradle boundaries.
+
+            The no-longer-intersecting notifications trigger dropping of that number of affected items from 
+            the cradle contentlist. The dropping of items from the trailing end of the content list
+            triggers the addition of an equal number of items at the leading edge of the cradle content.
+
+            Technically, the opposite end position spec is set (top or left depending on orientation), 
+            and the matching end position spec is set to 'auto' when items are added. This causes items to be 
+            "squeezed" into the leading or trailing ends of the ui content (out of view) as appropriate.
+
+            There are exceptions for setup and edge cases.
+    */
 
     // the async callback from IntersectionObserver. this is a closure
     const itemobservercallback = useCallback((entries)=>{
@@ -578,12 +606,12 @@ const Cradle = (props) => {
             targetscrolloffset = 0
         }
 
-        let localContentList = [] // any existing items will be re-used by react
-
         if (visibletargetindex === undefined) {
             visibletargetindex = contentOffsetForActionRef.current
             targetscrolloffset = 0
         }
+
+        let localContentList = [] // any duplicated items will be re-used by react
 
         let {indexoffset, contentCount, scrollblockoffset, calculatedcradleposition} = 
             getContentListRequirements({ // internal
@@ -601,7 +629,7 @@ const Cradle = (props) => {
                 listsize,
             })
 
-        let childlistfragment = getUIContentList({
+        let childlist = getUIContentList({
             indexoffset, 
             headindexcount:0, 
             tailindexcount:contentCount, 
@@ -641,7 +669,7 @@ const Cradle = (props) => {
         divlinerStyleRevisionsRef.current = styles
         contentOffsetForActionRef.current = indexoffset
 
-        saveContentlist(childlistfragment) // external
+        saveContentlist(childlist) // external
 
     },[
         cellHeight,
@@ -657,7 +685,8 @@ const Cradle = (props) => {
     )
 
     // maintain a list of visible items (visibleList) 
-    // on shift of state to ready, or 
+    // on shift of state to ready, or trigger next state after repositioning
+    // when scroll ends.
     useEffect(() => {
 
         if (cradlestate == 'repositioning' && !isScrollingRef.current) {
@@ -673,9 +702,11 @@ const Cradle = (props) => {
             repositionrowindex = Math.ceil(scrollPos/cellLength)
             repositionindex = repositionrowindex * crosscount
             contentOffsetForActionRef.current = repositionindex
-            // console.log('setting cradlestate to reposition:repositionindex, scrollPos, cellLength',repositionindex, scrollPos, cellLength)
+
             saveCradleState('reposition')
+
         }
+
         if (cradlestate == 'ready' && !isScrollingRef.current) {
 
             if (!isResizingRef.current) { // conflicting responses; resizing needs current version of visible before change

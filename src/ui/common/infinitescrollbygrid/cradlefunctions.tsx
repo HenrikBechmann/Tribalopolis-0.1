@@ -532,7 +532,7 @@ export const setCradleStyleRevisionsForAdd = ({
 /*
 `   An out of view cradle breaks the system, which is driven by IntersectionObserver notifications.
 */
-// export const isCradleInView = (viewportElement, cradleElement, orientation) => {
+// export const isCradleVisible = (viewportElement, cradleElement, orientation) => {
 
 //     let parentElement = cradleElement.parentElement
 //     let scrollPos, viewportLength, cradlePos, cradleLength
@@ -559,10 +559,6 @@ export const setCradleStyleRevisionsForAdd = ({
 //     // console.log('orientation, isOutOfView, cradleposition, cradlePos, cradleLength, scrollPos, viewportLength, cradleposition + cradleLength',
 //     //     orientation, isOutOfView, cradleposition, cradlePos, cradleLength, scrollPos, viewportLength, cradleposition + cradleLength)
 //     return isOutOfView
-    // if cradle is before leading edge or after trailing edge of viewport, coerce cradle bacck into view
-    // if ( isOutOfView ) {
-    //     // console.log('SCROLL INTO VIEW')
-    //     cradleElement.scrollIntoView()
-    // }
+// }
 
 // }
