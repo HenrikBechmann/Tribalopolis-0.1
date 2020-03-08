@@ -12,8 +12,11 @@ const getItem = (index) => {
 
 }
 
+const Placeholder = (props) => {
+    return <div>SOMETHING</div>
+} 
 const ImageItem = (props) => {
-    return <div style = {{position:'relative'}}>
+    return <div style = {{position:'relative',height:'100%', width:'100%',backgroundColor:'white'}}>
         <div style = {
             {
                 position:'absolute',
@@ -73,10 +76,10 @@ const Home = (props) => {
                     cellHeight = {200}
                     cellWidth = {150}
                     runway = {3}
-                    offset = {50}
+                    offset = {1000}
                     listsize = {10000}
                     getItem = {getItem}
-                    placeholder
+                    placeholder = {null}
                 />
             </div>
         </div>

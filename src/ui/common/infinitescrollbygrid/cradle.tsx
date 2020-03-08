@@ -21,13 +21,9 @@ import ScrollTracker from './scrolltracker'
 
 /*
 
-    4 
-    - callbacks
+    3 component attribute (like styles)
 
-    3 scrollToItem(index[,alignment]) - alignment = start, center, end, or nearest (default)
-    - callbacks in general
-
-    2 component (like styles)
+    2 scrollToItem(index[,alignment]) - alignment = start, center, end, or nearest (default)
 
     1 add examples 1, 2, 3 to control page: 
         - small 100x100 images, scroll and rotate
@@ -556,6 +552,7 @@ const Cradle = (props) => {
             callbacksRef,
             getItem,
             listsize,
+            placeholder,
 
         })
 
@@ -643,6 +640,7 @@ const Cradle = (props) => {
             callbacksRef,
             getItem,
             listsize,
+            placeholder,
         })
 
 

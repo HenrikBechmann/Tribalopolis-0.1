@@ -304,6 +304,7 @@ export const getUIContentList = (props) => {
         callbacksRef,
         getItem,
         listsize,
+        placeholder,
     } = props
 
     // console.log('getUIContentList getItem',getItem)
@@ -317,17 +318,21 @@ export const getUIContentList = (props) => {
 
         for (let index = indexoffset - headindexcount; index < (indexoffset); index++) {
 
-            headContentlist.push(<ItemShell
-                key = {index} 
-                orientation = {orientation}
-                cellHeight = { cellHeight }
-                cellWidth = { cellWidth }
-                index = {index}
-                observer = {observer}
-                callbacks = {callbacksRef}
-                getItem = {getItem}
-                listsize = {listsize}
-            />)
+            headContentlist.push(
+                emitItem(
+                    {
+                        index, 
+                        orientation, 
+                        cellHeight, 
+                        cellWidth, 
+                        observer, 
+                        callbacksRef, 
+                        getItem, 
+                        listsize, 
+                        placeholder
+                    }
+                )
+            )
 
         }
 
@@ -343,18 +348,21 @@ export const getUIContentList = (props) => {
 
         for (let index = tailindexoffset; index <(tailindexoffset + tailindexcount); index++) {
 
-            tailContentlist.push(<ItemShell
-                key = {index} 
-                orientation = {orientation}
-                text = { index + 1}
-                cellHeight = { cellHeight }
-                cellWidth = { cellWidth }
-                index = {index}
-                observer = {observer}
-                callbacks = {callbacksRef}
-                getItem = {getItem}
-                listsize = {listsize}
-            />)
+            tailContentlist.push(
+                emitItem(
+                    {
+                        index, 
+                        orientation, 
+                        cellHeight, 
+                        cellWidth, 
+                        observer, 
+                        callbacksRef, 
+                        getItem, 
+                        listsize, 
+                        placeholder
+                    }
+                )
+            )
             
         }
 
@@ -369,6 +377,22 @@ export const getUIContentList = (props) => {
     return returnContentlist
 }
 
+const emitItem = ({index, orientation, cellHeight, cellWidth, observer, callbacksRef, getItem, listsize, placeholder}) => {
+
+    return <ItemShell
+        key = {index} 
+        orientation = {orientation}
+        cellHeight = { cellHeight }
+        cellWidth = { cellWidth }
+        index = {index}
+        observer = {observer}
+        callbacks = {callbacksRef}
+        getItem = {getItem}
+        listsize = {listsize}
+        placeholder = { placeholder }
+    />    
+
+}
 // ========================================================================================
 // ------------------------------------[ styles ]------------------------------------------
 // ========================================================================================

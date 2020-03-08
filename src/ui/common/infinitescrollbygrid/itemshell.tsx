@@ -8,9 +8,10 @@ import {requestIdleCallback, cancelIdleCallback} from 'requestidlecallback'
 import Placeholder from './placeholder'
 
 const ItemShell = (props) => {
-    // console.log('itemshell props',{...props})
-    const {orientation, cellHeight, cellWidth, index, observer, callbacks, getItem, listsize} = props
-    // console.log('item props',index, props)
+    const {orientation, cellHeight, cellWidth, index, observer, callbacks, getItem, listsize, placeholder} = props
+    
+    // console.log('item index, placeholder',index, placeholder)
+    
     const [content, saveContent] = useState(null)
     const shellRef = useRef(null)
     const [styles,saveStyles] = useState({
@@ -79,9 +80,14 @@ const ItemShell = (props) => {
         return [index, shellRef]
     },[])
 
+    const customholderRef = useRef(placeholder?React.createElement(placeholder, {index, listsize}):null)
+
     return <div ref = { shellRef } data-index = {index} style = {styles}>
-        {styles.width?(
-            content?content:<Placeholder index = {index} listsize = {listsize}/>):null}
+        {styles.width?
+            content?
+                content:customholderRef.current?
+                    customholderRef.current:<Placeholder index = {index} listsize = {listsize}/>
+        :null}
     </div>
 
 } // ItemShell
