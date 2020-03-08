@@ -68,7 +68,7 @@ const Home = (props) => {
         }
     })
 
-    console.log('componentRef',componentRef)
+    // console.log('componentRef',componentRef)
 
     const handleOrientationCallback = (orientation) => {
         setOrientation(orientation)

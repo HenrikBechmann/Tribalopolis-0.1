@@ -21,7 +21,7 @@ import ScrollTracker from './scrolltracker'
 
 /*
 
-    3 component attribute (like styles)
+    3 implement styles attribute
 
     2 scrollToItem(index[,alignment]) - alignment = start, center, end, or nearest (default)
 
@@ -220,11 +220,20 @@ const Cradle = (props) => {
             component.items.contentRef = itemElementsRef
         } 
 
+        if (component?.hasOwnProperty('scrollToItem')) {
+            component.scrollToItem = scrollToItem
+        } 
+
         return () => {
             viewportData.elementref.current.removeEventListener('scroll',onScroll)
             window.removeEventListener('resize',onResize)
         }
     },[])
+
+
+    const scrollToItem = (index, alignment = 'nearest') => {
+        console.log('requested scrollToItem',index, alignment)
+    }
 
     // callback for scroll
     const onScroll = useCallback((e) => {
