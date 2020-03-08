@@ -13,8 +13,8 @@ const ItemShell = (props) => {
     const shellRef = useRef(null)
     const [styles,saveStyles] = useState({
         boxSizing:'border-box',
-        backgroundColor:'cyan',
-        border:'2px solid black',
+        // backgroundColor:'cyan',
+        // border:'2px solid black',
         overflow:'hidden',
     } as React.CSSProperties)
 

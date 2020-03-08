@@ -35,6 +35,7 @@ const InfiniteScrollByGrid = (props) => {
         offset,
         getItem,
         options,
+        placeholder,
         // cache = "preload", "keepload", "none"
         // dense, // boolean
     } = props

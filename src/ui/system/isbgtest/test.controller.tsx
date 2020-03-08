@@ -76,6 +76,7 @@ const Home = (props) => {
                     offset = {50}
                     listsize = {10000}
                     getItem = {getItem}
+                    placeholder
                 />
             </div>
         </div>

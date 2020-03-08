@@ -23,6 +23,7 @@ import ScrollTracker from './scrolltracker'
 
     block observer when repositioning
     move positioning inside scrolltracker?
+    placeholder attribute (a light component)
 
     3 scrollToItem(index[,alignment]) - alignment = start, end, center, auto (default)
     - callbacks in general
