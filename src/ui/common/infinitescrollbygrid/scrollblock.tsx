@@ -7,7 +7,7 @@ import { ViewportContext } from './viewport'
 
 const Scrollblock = (props) => {
 
-    const {listsize, cellHeight, cellWidth, gap, padding, orientation } = props
+    const {listsize, cellHeight, cellWidth, gap, padding, orientation, component } = props
 
     const [genCounter,setGenCounter] = useState(null)
     const viewportData = useContext(ViewportContext)
@@ -19,6 +19,8 @@ const Scrollblock = (props) => {
         
     } as React.CSSProperties)
 
+    const scrollblockRef = useRef(null)
+
     const generationcounterRef = useRef(0)
 
     let { viewportRect, itemobserver } = viewportData
@@ -27,6 +29,14 @@ const Scrollblock = (props) => {
 
     let viewportheight = bottom - top
     let viewportwidth = right - left
+
+    useEffect(() => {
+
+        if (component?.elements.hasOwnProperty('scrollblockRef')) {
+            component.elements.scrollblockRef = scrollblockRef
+        }
+
+    },[])
     
     useEffect(() => {
 
@@ -66,7 +76,7 @@ const Scrollblock = (props) => {
          ]
     )
 
-    return divlinerstyleRef.current.width?<div style={divlinerstyleRef.current}>{props.children}</div>:null
+    return divlinerstyleRef.current.width?<div ref = {scrollblockRef} style={divlinerstyleRef.current}>{props.children}</div>:null
 
 } // Scrollblock
 

@@ -34,6 +34,7 @@
     "react-dom": "^16.13.0",
     "react-draggable": "^4.2.0",
     "react-ga": "^2.7.0",
+    "react-is-mounted-hook": "^1.0.3",
     "react-json-view": "^1.19.1",
     "react-loadable": "^5.5.0",
     "react-router-dom": "^5.1.2",

@@ -5,6 +5,8 @@ import React, {useRef, useEffect, useState, useCallback } from 'react'
 
 import {requestIdleCallback, cancelIdleCallback} from 'requestidlecallback'
 
+import useIsMounted from 'react-is-mounted-hook'
+
 import Placeholder from './placeholder'
 
 const ItemShell = (props) => {
@@ -13,10 +15,12 @@ const ItemShell = (props) => {
     // console.log('item index, placeholder',index, placeholder)
     
     const [content, saveContent] = useState(null)
-    const shellRef = useRef(null)
     const [styles,saveStyles] = useState({
         overflow:'hidden',
     } as React.CSSProperties)
+    const shellRef = useRef(null)
+
+    const isMounted = useIsMounted()
 
     useEffect(() => {
         let itemrequest = {current:null}
@@ -28,12 +32,12 @@ const ItemShell = (props) => {
                 let value = getItem(index)
                 if (value && value.then) {
                     value.then((value) => {
-                        saveContent(value)
+                        if (isMounted()) saveContent(value)
                     }).catch(() => {
-                        saveContent('unavailable')
+                        // saveContent('unavailable')
                     })
                 } else {
-                    saveContent(value)
+                    if (isMounted()) saveContent(value)
                 }
             })
         }

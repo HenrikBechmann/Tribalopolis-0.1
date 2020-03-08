@@ -1,7 +1,7 @@
 // build.controller.tsx
 // copyright (c) 2019 Henrik Bechmann, Toronto, Licence: MIT
 
-import React, {useState} from 'react'
+import React, {useState, useRef} from 'react'
 
 import InfiniteScroller from '../../common/infinitescrollbygrid/infinitescrollbygrid'
 import TestOptions from './testoptions'
@@ -55,6 +55,21 @@ const styles = {
 const Home = (props) => {
     let [orientation, setOrientation] = useState('vertical')
 
+    let componentRef = useRef({
+        scrollToItem:null,
+        elements:{
+            viewportRef:null,
+            scrollblockRef:null,
+            cradleRef:null,
+        },
+        items:{
+            contentRef:null,
+            visibleRef:null,
+        }
+    })
+
+    console.log('componentRef',componentRef)
+
     const handleOrientationCallback = (orientation) => {
         setOrientation(orientation)
     }
@@ -80,6 +95,12 @@ const Home = (props) => {
                     listsize = {10000}
                     getItem = {getItem}
                     placeholder = {null}
+                    styles = {{
+                        viewport:null,
+                        scrollblock:null,
+                        cradle:null,
+                    }}
+                    component = {componentRef.current}
                 />
             </div>
         </div>

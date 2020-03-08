@@ -20,7 +20,7 @@ const Viewport = ({children, orientation, cellWidth, cellHeight, gap, padding, c
 
     const sizegenerationcounterRef = useRef(0)
     const timeoutidRef = useRef(null)
-    const scrolldiv = useRef(undefined)
+    const viewportdivRef = useRef(undefined)
     const divlinerstyleRef = useRef({
         position:'absolute',
         height:'100%',
@@ -69,10 +69,16 @@ const Viewport = ({children, orientation, cellWidth, cellHeight, gap, padding, c
     },[])
 
     useEffect(() => {
+        if (component?.elements.hasOwnProperty('viewportRef')) {
+            component.elements.viewportRef = viewportdivRef
+        }
+    },[])
+
+    useEffect(() => {
 
         let localViewportData:GenericObject = {}
-        localViewportData.viewportRect = scrolldiv.current.getBoundingClientRect()
-        localViewportData.elementref = scrolldiv
+        localViewportData.viewportRect = viewportdivRef.current.getBoundingClientRect()
+        localViewportData.elementref = viewportdivRef
 
         setViewportData(localViewportData)
 
@@ -83,7 +89,7 @@ const Viewport = ({children, orientation, cellWidth, cellHeight, gap, padding, c
         if (!viewportData) return
 
         let localViewportData = {...viewportData}
-        localViewportData.viewportRect = scrolldiv.current.getBoundingClientRect()
+        localViewportData.viewportRect = viewportdivRef.current.getBoundingClientRect()
 
         setViewportData(localViewportData)
 
@@ -94,7 +100,7 @@ const Viewport = ({children, orientation, cellWidth, cellHeight, gap, padding, c
     return <ViewportContext.Provider value = { viewportData }>
         <div 
             style = {divlinerstyle}
-            ref = {scrolldiv}
+            ref = {viewportdivRef}
         >
             { viewportData?children:null }
         </div>}

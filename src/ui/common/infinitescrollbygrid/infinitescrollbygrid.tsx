@@ -51,6 +51,7 @@ const InfiniteScrollByGrid = (props) => {
     offset !?? (offset = 0)
     listsize !?? (listsize = 0)
     let runwaylength = (orientation == 'vertical')?(runway * (cellHeight + gap)):(runway * (cellWidth + gap))
+    component !?? (component = {})
 
     return <Viewport 
         orientation = { orientation } 

@@ -207,6 +207,19 @@ const Cradle = (props) => {
     useEffect(() => {
         viewportData.elementref.current.addEventListener('scroll',onScroll)
         window.addEventListener('resize',onResize)
+
+        if (component?.elements.hasOwnProperty('cradleRef')) {
+            component.elements.cradleRef = cradleElementRef
+        } 
+        
+        if (component?.items.hasOwnProperty('visibleRef')) {
+            component.items.visibleRef = visibleListRef
+        } 
+
+        if (component?.items.hasOwnProperty('contentRef')) {
+            component.items.contentRef = itemElementsRef
+        } 
+
         return () => {
             viewportData.elementref.current.removeEventListener('scroll',onScroll)
             window.removeEventListener('resize',onResize)
