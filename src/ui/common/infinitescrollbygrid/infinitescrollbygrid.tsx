@@ -34,7 +34,7 @@ const InfiniteScrollByGrid = (props) => {
         listsize, 
         offset,
         getItem,
-        options,
+        component,
         placeholder,
         // cache = "preload", "keepload", "none"
         // dense, // boolean
@@ -44,7 +44,7 @@ const InfiniteScrollByGrid = (props) => {
         console.warn('invalid value for scroller orientation; resetting to default',orientation)
         orientation = 'horizontal'
     }
-    options !?? (options = [])
+    component !?? (component = [])
     gap !?? (gap = 0)
     padding !?? (padding = 0)
     runway !?? (runway = 3)
@@ -58,7 +58,7 @@ const InfiniteScrollByGrid = (props) => {
         cellHeight = { cellHeight }
         gap = { gap }
         padding = { padding }
-        options = { options }
+        component = { component }
     >
         <Scrollblock
 
@@ -68,7 +68,7 @@ const InfiniteScrollByGrid = (props) => {
             gap = { gap}
             padding = { padding }
             orientation = { orientation }
-            options = { options }
+            component = { component }
 
         >
 
@@ -83,7 +83,8 @@ const InfiniteScrollByGrid = (props) => {
                 orientation = { orientation }
                 runwaylength = { runwaylength } 
                 getItem = { getItem }
-                options = { options }
+                component = { component }
+                placeholder = { placeholder }
 
             />
 

@@ -16,7 +16,7 @@ const SCROLL_DIFF_FOR_UPDATE = 20
 const SCROLL_TIMEOUT_FOR_ONAFTERSCROLL = 250
 const RESIZE_TIMEOUT_FOR_ONAFTERSRESIZE = 250
 
-const Viewport = ({children, orientation, cellWidth, cellHeight, gap, padding, options}) => { // props
+const Viewport = ({children, orientation, cellWidth, cellHeight, gap, padding, component}) => { // props
 
     const sizegenerationcounterRef = useRef(0)
     const timeoutidRef = useRef(null)
