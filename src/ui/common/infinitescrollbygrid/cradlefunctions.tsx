@@ -303,6 +303,7 @@ export const getUIContentList = (props) => {
         crosscount,
         callbacksRef,
         getItem,
+        listsize,
     } = props
 
     // console.log('getUIContentList getItem',getItem)
@@ -319,13 +320,13 @@ export const getUIContentList = (props) => {
             headContentlist.push(<ItemShell
                 key = {index} 
                 orientation = {orientation}
-                text = { index + 1}
                 cellHeight = { cellHeight }
                 cellWidth = { cellWidth }
                 index = {index}
                 observer = {observer}
                 callbacks = {callbacksRef}
                 getItem = {getItem}
+                listsize = {listsize}
             />)
 
         }
@@ -352,6 +353,7 @@ export const getUIContentList = (props) => {
                 observer = {observer}
                 callbacks = {callbacksRef}
                 getItem = {getItem}
+                listsize = {listsize}
             />)
             
         }

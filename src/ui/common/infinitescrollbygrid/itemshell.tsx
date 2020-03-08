@@ -5,16 +5,15 @@ import React, {useRef, useEffect, useState, useCallback } from 'react'
 
 import {requestIdleCallback, cancelIdleCallback} from 'requestidlecallback'
 
+import Placeholder from './placeholder'
+
 const ItemShell = (props) => {
     // console.log('itemshell props',{...props})
-    const {text, orientation, cellHeight, cellWidth, index, observer, callbacks, getItem} = props
+    const {orientation, cellHeight, cellWidth, index, observer, callbacks, getItem, listsize} = props
     // console.log('item props',index, props)
     const [content, saveContent] = useState(null)
     const shellRef = useRef(null)
     const [styles,saveStyles] = useState({
-        boxSizing:'border-box',
-        // backgroundColor:'cyan',
-        // border:'2px solid black',
         overflow:'hidden',
     } as React.CSSProperties)
 
@@ -26,7 +25,7 @@ const ItemShell = (props) => {
             itemrequest = requestidlecallback(()=> {
 
                 let value = getItem(index)
-                if (value.then) {
+                if (value && value.then) {
                     value.then((value) => {
                         saveContent(value)
                     }).catch(() => {
@@ -36,9 +35,8 @@ const ItemShell = (props) => {
                     saveContent(value)
                 }
             })
-        } else {
-            saveContent('unavailable')
         }
+
         return () => {
             let requesthandle = itemrequest.current
             cancelidlecallback(requesthandle)
@@ -72,12 +70,6 @@ const ItemShell = (props) => {
 
     useEffect(()=>{
 
-        saveContent(text)
-
-    },[text])
-
-    useEffect(()=>{
-
         let newStyles = getShellStyles(orientation, cellHeight, cellWidth, styles)
         saveStyles(newStyles)
 
@@ -88,7 +80,8 @@ const ItemShell = (props) => {
     },[])
 
     return <div ref = { shellRef } data-index = {index} style = {styles}>
-        {styles.width?content:null}
+        {styles.width?(
+            content?content:<Placeholder index = {index} listsize = {listsize}/>):null}
     </div>
 
 } // ItemShell

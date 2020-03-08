@@ -21,16 +21,15 @@ import ScrollTracker from './scrolltracker'
 
 /*
 
-    block observer when repositioning
-    move positioning inside scrolltracker?
-    placeholder attribute (a light component)
+    4 
+    - callbacks
 
-    3 scrollToItem(index[,alignment]) - alignment = start, end, center, auto (default)
+    3 scrollToItem(index[,alignment]) - alignment = start, center, end, or nearest (default)
     - callbacks in general
 
-    1 options (like styles)
+    2 options (like styles)
 
-    2 add examples 1, 2, 3 to control page: 
+    1 add examples 1, 2, 3 to control page: 
         - small 100x100 images, scroll and rotate
         - vertical scroll items inside horizontal scroll, with ability to flip them
         - track movement on large lists
@@ -556,6 +555,7 @@ const Cradle = (props) => {
             crosscount,
             callbacksRef,
             getItem,
+            listsize,
 
         })
 
@@ -642,7 +642,7 @@ const Cradle = (props) => {
             crosscount,
             callbacksRef,
             getItem,
-
+            listsize,
         })
 
 
