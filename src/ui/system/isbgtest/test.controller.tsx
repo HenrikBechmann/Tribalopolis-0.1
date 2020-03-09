@@ -51,6 +51,16 @@ const styles = {
         padding:'8px',
     },
 }
+
+const componentstyles = {
+    viewport:null,
+    scrollblock:{
+        backgroundColor:'brown',
+    },
+    cradle:{
+        backgroundColor:'black',
+    },
+}
     
 const Home = (props) => {
     let [orientation, setOrientation] = useState('vertical')
@@ -95,16 +105,12 @@ const Home = (props) => {
                     listsize = {10000}
                     getItem = {getItem}
                     placeholder = {null}
-                    styles = {{
-                        viewport:null,
-                        scrollblock:null,
-                        cradle:null,
-                    }}
-                    component = {componentRef.current}
+                    styles = { componentstyles }
+                    component = { componentRef.current }
                 />
             </div>
         </div>
-        </>
+    </>
 }
 
 export default Home

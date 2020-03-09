@@ -5,19 +5,27 @@ import React, {useContext, useRef, useCallback, useEffect, useState} from 'react
 
 import { ViewportContext } from './viewport'
 
-const Scrollblock = (props) => {
-
-    const {listsize, cellHeight, cellWidth, gap, padding, orientation, component } = props
+const Scrollblock = ({
+    children,
+    listsize, 
+    cellHeight, 
+    cellWidth, 
+    gap, 
+    padding, 
+    orientation, 
+    component, 
+    styles 
+}) => {
 
     const [genCounter,setGenCounter] = useState(null)
     const viewportData = useContext(ViewportContext)
     const scrollBlockLengthRef = useRef(null)
-    const divlinerstyleRef = useRef({
+    const divlinerstyleRef = useRef(Object.assign({
 
         backgroundColor:'green',
         position:'relative',
         
-    } as React.CSSProperties)
+    } as React.CSSProperties, styles?.cradle))
 
     const scrollblockRef = useRef(null)
 
@@ -76,7 +84,7 @@ const Scrollblock = (props) => {
          ]
     )
 
-    return divlinerstyleRef.current.width?<div ref = {scrollblockRef} style={divlinerstyleRef.current}>{props.children}</div>:null
+    return divlinerstyleRef.current.width?<div ref = {scrollblockRef} style={divlinerstyleRef.current}>{children}</div>:null
 
 } // Scrollblock
 

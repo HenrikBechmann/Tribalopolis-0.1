@@ -21,8 +21,6 @@ import ScrollTracker from './scrolltracker'
 
 /*
 
-    3 implement styles attribute
-
     2 scrollToItem(index[,alignment]) - alignment = start, center, end, or nearest (default)
 
     1 add examples 1, 2, 3 to control page: 
@@ -32,9 +30,20 @@ import ScrollTracker from './scrolltracker'
 
 */
 
-const Cradle = (props) => {
-
-    const { gap, padding, runwaylength, listsize, offset, orientation, cellHeight, cellWidth, getItem, placeholder, component } = props
+const Cradle = ({ 
+        gap, 
+        padding, 
+        runwaylength, 
+        listsize, 
+        offset, 
+        orientation, 
+        cellHeight, 
+        cellWidth, 
+        getItem, 
+        placeholder, 
+        component,
+        styles,
+    }) => {
 
     // =============================================================================================
     // --------------------------------------[ initialization ]-------------------------------------
@@ -69,7 +78,7 @@ const Cradle = (props) => {
 
     const mainConfigDatasetRef = useRef({setup:true})
 
-    const divlinerStylesRef = useRef({
+    const divlinerStylesRef = useRef(Object.assign({
         position: 'absolute',
         backgroundColor: 'blue',
         display: 'grid',
@@ -79,7 +88,7 @@ const Cradle = (props) => {
         alignContent:'start',
         boxSizing:'border-box',
 
-    } as React.CSSProperties)
+    } as React.CSSProperties,styles?.cradle))
 
     const orientationRef = useRef(orientation)
     orientationRef.current = orientation // availability in closures

@@ -16,18 +16,28 @@ const SCROLL_DIFF_FOR_UPDATE = 20
 const SCROLL_TIMEOUT_FOR_ONAFTERSCROLL = 250
 const RESIZE_TIMEOUT_FOR_ONAFTERSRESIZE = 250
 
-const Viewport = ({children, orientation, cellWidth, cellHeight, gap, padding, component}) => { // props
+const Viewport = ({
+    children, 
+    orientation, 
+    cellWidth, 
+    cellHeight, 
+    gap, 
+    padding, 
+    component, 
+    styles,
+}) => {
 
     const sizegenerationcounterRef = useRef(0)
     const timeoutidRef = useRef(null)
     const viewportdivRef = useRef(undefined)
-    const divlinerstyleRef = useRef({
+    const divlinerstyleRef = useRef(
+        Object.assign({
         position:'absolute',
         height:'100%',
         width:'100%',
         overflow:'auto',
         backgroundColor:'red',
-    } as React.CSSProperties)
+    } as React.CSSProperties,styles?.viewport))
 
     divlinerstyleRef.current = useMemo(() => {
         let mincrosslength = calcMinViewportCrossLength(orientation, cellWidth, cellHeight, padding)
