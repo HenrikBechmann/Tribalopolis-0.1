@@ -239,10 +239,9 @@ const Cradle = ({
         }
     },[])
 
-
-    const scrollToItem = (index, alignment = 'nearest') => {
+    const scrollToItem = useCallback((index, alignment = 'nearest') => {
         console.log('requested scrollToItem',index, alignment)
-    }
+    },[])
 
     // callback for scroll
     const onScroll = useCallback((e) => {
