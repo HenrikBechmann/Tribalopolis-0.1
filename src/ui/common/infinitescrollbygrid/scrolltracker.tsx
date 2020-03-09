@@ -1,14 +1,13 @@
 // scrolltracker.tsx
 // copyright (c) 2020 Henrik Bechmann, Toronto, Licence: MIT
 
-import React from 'react'
+import React, {useRef} from 'react'
 
-const ScrollTracker = (props) => {
-    let { top, left, offset, listsize } = props
+const ScrollTracker = ({ top, left, offset, listsize, styles }) => {
 
     let trackdata = `${offset + 1}/${listsize}`
 
-    let styles:React.CSSProperties = {
+    let styleRef = useRef(Object.assign({
         top: top + 'px',
         left: left + 'px',
         position:'fixed',
@@ -18,8 +17,9 @@ const ScrollTracker = (props) => {
         borderRadius:'10px',
         fontSize:'smaller',
         padding:'3px'
-    }
-    return <div data-name = 'scrolltracker' style = {styles} >{trackdata}</div>
+    } as React.CSSProperties,styles?.scrolltracker))
+
+    return <div data-name = 'scrolltracker' style = {styleRef.current} >{trackdata}</div>
 }
 
 export default ScrollTracker

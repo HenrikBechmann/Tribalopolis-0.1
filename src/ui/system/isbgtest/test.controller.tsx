@@ -60,6 +60,9 @@ const componentstyles = {
     cradle:{
         backgroundColor:'black',
     },
+    scrolltracker:{
+        backgroundColor:'cyan'
+    }
 }
     
 const Home = (props) => {

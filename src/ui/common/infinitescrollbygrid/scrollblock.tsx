@@ -84,8 +84,6 @@ const Scrollblock = ({
          ]
     )
 
-    // console.log('children in scrollblock',children)
-
     return divlinerstyleRef.current.width?<div ref = {scrollblockRef} style={divlinerstyleRef.current}>{children}</div>:null
 
 } // Scrollblock
@@ -126,12 +124,6 @@ const calcScrollblockLength = ({
     let crosscount = Math.floor(viewportcrosslength/crosslength)
 
     let listlength = Math.ceil(listsize/crosscount)
-
-    // let listremainder = listsize % crosscount
-
-    // if (listremainder) {
-    //     listlength += listremainder
-    // }
 
     let straightlength = (listlength * cellLength) - ((listlength > 0)?gap:0) + (padding * 2)
 

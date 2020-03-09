@@ -21,8 +21,6 @@ import ScrollTracker from './scrolltracker'
 
 /*
 
-    3. implement styles.scrolltracker styles
-
     2 scrollToItem(index[,alignment]) - alignment = start, center, end, or nearest (default)
 
     1 add examples 1, 2, 3 to control page: 
@@ -795,7 +793,8 @@ const Cradle = ({
                 top = {viewportRect.top + 3} 
                 left = {viewportRect.left + 3} 
                 offset = {currentScrollPos} 
-                listsize = {listsize} 
+                listsize = {listsize}
+                styles = { styles }
             />
             :null}
         <div 
