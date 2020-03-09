@@ -21,6 +21,8 @@ import ScrollTracker from './scrolltracker'
 
 /*
 
+    BUG: horizontal red (viewport?) is excessive; cradle moves  vertically as well as horizontally
+
     3. implement styles.scrolltracker styels
 
     2 scrollToItem(index[,alignment]) - alignment = start, center, end, or nearest (default)
