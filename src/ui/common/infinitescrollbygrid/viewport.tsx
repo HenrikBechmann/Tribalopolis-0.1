@@ -78,11 +78,11 @@ const Viewport = ({
 
     },[])
 
-    useEffect(() => {
-        if (component?.elements.hasOwnProperty('viewportRef')) {
-            component.elements.viewportRef = viewportdivRef
-        }
-    },[])
+    // useEffect(() => {
+    //     if (component?.elements.hasOwnProperty('viewportRef')) {
+    //         component.elements.viewportRef = viewportdivRef
+    //     }
+    // },[])
 
     useEffect(() => {
 

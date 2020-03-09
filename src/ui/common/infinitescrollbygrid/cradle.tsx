@@ -219,9 +219,9 @@ const Cradle = ({
         viewportData.elementref.current.addEventListener('scroll',onScroll)
         window.addEventListener('resize',onResize)
 
-        if (component?.elements.hasOwnProperty('cradleRef')) {
-            component.elements.cradleRef = cradleElementRef
-        } 
+        // if (component?.elements.hasOwnProperty('cradleRef')) {
+        //     component.elements.cradleRef = cradleElementRef
+        // } 
         
         if (component?.items.hasOwnProperty('visibleRef')) {
             component.items.visibleRef = visibleListRef

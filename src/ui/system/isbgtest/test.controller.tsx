@@ -67,11 +67,11 @@ const Home = (props) => {
 
     let componentRef = useRef({
         scrollToItem:null,
-        elements:{
-            viewportRef:null,
-            scrollblockRef:null,
-            cradleRef:null,
-        },
+        // elements:{
+        //     viewportRef:null,
+        //     scrollblockRef:null,
+        //     cradleRef:null,
+        // },
         items:{
             contentRef:null,
             visibleRef:null,

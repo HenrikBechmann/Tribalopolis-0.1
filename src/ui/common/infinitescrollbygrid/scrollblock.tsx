@@ -38,13 +38,13 @@ const Scrollblock = ({
     let viewportheight = bottom - top
     let viewportwidth = right - left
 
-    useEffect(() => {
+    // useEffect(() => {
 
-        if (component?.elements.hasOwnProperty('scrollblockRef')) {
-            component.elements.scrollblockRef = scrollblockRef
-        }
+    //     if (component?.elements.hasOwnProperty('scrollblockRef')) {
+    //         component.elements.scrollblockRef = scrollblockRef
+    //     }
 
-    },[])
+    // },[])
     
     useEffect(() => {
 
