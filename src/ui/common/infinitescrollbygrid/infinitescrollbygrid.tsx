@@ -63,16 +63,7 @@ const InfiniteScrollByGrid = (props) => {
         component = { component }
         styles = { styles }
     >
-
-        listsize, 
-    cellHeight, 
-    cellWidth, 
-    gap, 
-    padding, 
-    orientation, 
-    component, 
-    styles 
-
+    
         <Scrollblock
 
             listsize = { listsize }

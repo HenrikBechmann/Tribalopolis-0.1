@@ -84,6 +84,8 @@ const Scrollblock = ({
          ]
     )
 
+    // console.log('children in scrollblock',children)
+
     return divlinerstyleRef.current.width?<div ref = {scrollblockRef} style={divlinerstyleRef.current}>{children}</div>:null
 
 } // Scrollblock
