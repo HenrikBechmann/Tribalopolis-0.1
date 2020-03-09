@@ -21,6 +21,8 @@ import ScrollTracker from './scrolltracker'
 
 /*
 
+    3. implement styles.scrolltracker styels
+
     2 scrollToItem(index[,alignment]) - alignment = start, center, end, or nearest (default)
 
     1 add examples 1, 2, 3 to control page: 
