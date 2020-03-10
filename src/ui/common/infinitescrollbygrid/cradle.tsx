@@ -21,8 +21,6 @@ import ScrollTracker from './scrolltracker'
 
 /*
 
-    rationalize genesis of 'resize' state
-
     2 scrollToItem(index[,alignment]) - alignment = start, center, end, or nearest (default)
     create getContentList:null, getVisibleList:null, 
 

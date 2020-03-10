@@ -15,6 +15,7 @@ const ItemShell = (props) => {
     // console.log('item index, placeholder',index, placeholder)
     
     const [content, saveContent] = useState(null)
+    const [error, saveError] = useState(null)
     const [styles,saveStyles] = useState({
         overflow:'hidden',
     } as React.CSSProperties)
@@ -32,12 +33,24 @@ const ItemShell = (props) => {
                 let value = getItem(index)
                 if (value && value.then) {
                     value.then((value) => {
-                        if (isMounted()) saveContent(value)
-                    }).catch(() => {
-                        // saveContent('unavailable')
+                        if (isMounted()) { 
+                            saveContent(value)
+                            saveError(null)
+                        }
+                    }).catch((e) => {
+                        saveContent(null)
+                        saveError(e)
                     })
                 } else {
-                    if (isMounted()) saveContent(value)
+                    if (isMounted()) {
+                        if (value) {
+                            saveContent(value)
+                            saveError(null)
+                        } else {
+                            saveError(true)
+                            saveContent(null)
+                        }
+                    }
                 }
             })
         }
@@ -90,7 +103,7 @@ const ItemShell = (props) => {
         {styles.width?
             content?
                 content:customholderRef.current?
-                    customholderRef.current:<Placeholder index = {index} listsize = {listsize}/>
+                    customholderRef.current:<Placeholder index = {index} listsize = {listsize} error = {error}/>
         :null}
     </div>
 

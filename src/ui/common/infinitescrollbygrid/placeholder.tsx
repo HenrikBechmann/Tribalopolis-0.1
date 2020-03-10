@@ -3,7 +3,7 @@
 
 import React, {useRef, useEffect, useState, useCallback } from 'react'
 
-const Placeholder = (props) => {
+const Placeholder = ({index, listsize, error}) => {
 
     // console.log('running Placeholder',props)
 
@@ -29,10 +29,11 @@ const Placeholder = (props) => {
         } as React.CSSProperties
     )
 
-    let { index, listsize } = props
-
     return <div style = {stylesRef.current}>
-        <div style = {itemStylesRef.current}>{props.index + 1}/{props.listsize}</div>
+        { !error?
+            <div style = {itemStylesRef.current}>{index + 1}/{listsize}</div>:
+            <div style = {itemStylesRef.current}>item is not available at this time</div>
+        }
         
     </div>
 }
