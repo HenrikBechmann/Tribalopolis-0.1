@@ -21,7 +21,11 @@ import ScrollTracker from './scrolltracker'
 
 /*
 
+    BUG: edge case -- resize to smaller; cradle auto scrolls to first position - FF
+
     2 scrollToItem(index[,alignment]) - alignment = start, center, end, or nearest (default)
+    create getContentList:null, getVisibleList:null, 
+
 
     1 add examples 1, 2, 3 to control page: 
         - small 100x100 images, scroll and rotate
@@ -246,6 +250,8 @@ const Cradle = ({
     // callback for scroll
     const onScroll = useCallback((e) => {
 
+        if (isResizingRef.current) return
+
         if (cradlestateRef.current == 'repositioning') {
             let scrollPos, cellLength
             if (orientationRef.current == 'vertical') {
@@ -260,10 +266,6 @@ const Cradle = ({
             saveCurrentScrollPos(repositionindex)
         }
 
-        if (!isScrollingRef.current) {
-
-            saveIsScrolling(true)
-        }
         if (isScrollingRef.current) {
             clearTimeout(scrollTimeridRef.current)
             scrollTimeridRef.current = setTimeout(() => {
@@ -271,6 +273,11 @@ const Cradle = ({
                 saveIsScrolling(false)
 
             },250)
+        }
+
+        if (!isScrollingRef.current && (cradlestateRef.current == 'ready')) {
+
+            saveIsScrolling(true)
         }
 
     },[])
@@ -284,6 +291,10 @@ const Cradle = ({
 
         if (!isResizingRef.current) {
             isResizingRef.current = true
+            pauseObserverForReconfigurationRef.current = true
+            if (isScrollingRef.current) {
+                saveIsScrolling(false)
+            }
         }
 
     },[])

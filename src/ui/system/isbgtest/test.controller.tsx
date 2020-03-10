@@ -15,6 +15,7 @@ const getItem = (index) => {
 const Placeholder = (props) => {
     return <div>SOMETHING</div>
 } 
+
 const ImageItem = (props) => {
     return <div style = {{position:'relative',height:'100%', width:'100%',backgroundColor:'white'}}>
         <div style = {
@@ -33,7 +34,7 @@ const ImageItem = (props) => {
     </div>
 }
 
-const styles = {
+const uistyles = {
     viewportframe: {
         top:0,
         bottom:0,
@@ -70,6 +71,8 @@ const Home = (props) => {
 
     let componentRef = useRef({
         scrollToItem:null,
+        getContentList:null,
+        getVisibleList:null,
         // elements:{
         //     viewportRef:null,
         //     scrollblockRef:null,
@@ -88,14 +91,14 @@ const Home = (props) => {
     }
 
     return <>
-        <div style = {styles.optionswrapper as React.CSSProperties} >
+        <div style = {uistyles.optionswrapper as React.CSSProperties} >
             <TestOptions orientationCallback = { handleOrientationCallback }/>
         </div>
         <div style = {
-            styles.framewrapper as React.CSSProperties
+            uistyles.framewrapper as React.CSSProperties
         }>
             <div style = {
-                styles.viewportframe as React.CSSProperties
+                uistyles.viewportframe as React.CSSProperties
             }>
                 <InfiniteScroller 
                     orientation = { orientation } 
