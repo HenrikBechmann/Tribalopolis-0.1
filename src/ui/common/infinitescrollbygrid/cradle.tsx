@@ -21,8 +21,6 @@ import ScrollTracker from './scrolltracker'
 
 /*
 
-    BUG: edge case -- resize to smaller; cradle auto scrolls to first position - FF
-
     2 scrollToItem(index[,alignment]) - alignment = start, center, end, or nearest (default)
     create getContentList:null, getVisibleList:null, 
 
