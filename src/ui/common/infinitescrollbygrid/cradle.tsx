@@ -388,6 +388,10 @@ const Cradle = ({
 
     const cradleobservercallback = useCallback((entries) => {
         // console.log('cradleobservercallback entries', entries)
+        if (pauseObserverForReconfigurationRef.current) {
+            return
+        }
+
         if ( (cradlestateRef.current == 'ready') && (!entries[0].isIntersecting)) {
             // console.log('setting state to repositioning')
             saveCradleState('repositioning')
