@@ -250,7 +250,14 @@ const Cradle = ({
     // callback for scroll
     const onScroll = useCallback((e) => {
 
-        if (isResizingRef.current) return
+        if (isScrollingRef.current) {
+            clearTimeout(scrollTimeridRef.current)
+            scrollTimeridRef.current = setTimeout(() => {
+
+                saveIsScrolling(false)
+
+            },250)
+        }
 
         if (cradlestateRef.current == 'repositioning') {
             let scrollPos, cellLength
@@ -266,14 +273,7 @@ const Cradle = ({
             saveCurrentScrollPos(repositionindex)
         }
 
-        if (isScrollingRef.current) {
-            clearTimeout(scrollTimeridRef.current)
-            scrollTimeridRef.current = setTimeout(() => {
-
-                saveIsScrolling(false)
-
-            },250)
-        }
+        if (isResizingRef.current) return
 
         if (!isScrollingRef.current && (cradlestateRef.current == 'ready')) {
 
