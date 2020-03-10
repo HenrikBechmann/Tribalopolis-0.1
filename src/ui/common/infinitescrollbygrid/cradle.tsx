@@ -334,7 +334,7 @@ const Cradle = ({
     useEffect(()=>{
         if (cradlestate == 'ready') {
             // contentOffsetForActionRef.current = contentlist[0]?.props.index // ?
-            pauseObserverForReconfigurationRef.current = true
+            !pauseObserverForReconfigurationRef.current && (pauseObserverForReconfigurationRef.current = true)
             let cradleElement = cradleElementRef.current
             mainConfigDatasetRef.current = {...previousConfigDataRef.current}
             saveCradleState('resize')

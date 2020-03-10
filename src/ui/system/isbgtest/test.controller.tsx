@@ -69,6 +69,8 @@ const componentstyles = {
 const Home = (props) => {
     let [orientation, setOrientation] = useState('vertical')
 
+    let [demo, setDemo] = useState('images')
+
     let componentRef = useRef({
         scrollToItem:null,
         getContentList:null,
@@ -88,6 +90,10 @@ const Home = (props) => {
 
     const handleOrientationCallback = (orientation) => {
         setOrientation(orientation)
+    }
+
+    const handleDemoCallback = (demo) => {
+        setDemo(demo)
     }
 
     return <>
