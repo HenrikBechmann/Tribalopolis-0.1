@@ -14,7 +14,7 @@ import FormLabel from '@material-ui/core/FormLabel'
 import InputLabel from '@material-ui/core/InputLabel'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
-import Select from '@material-ui/core/Select'
+import NativeSelect from '@material-ui/core/NativeSelect'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -71,9 +71,8 @@ export default function OrientationOptions(props) {
       </FormControl>
       <FormControl component="fieldset" className={classes.formControl}>
         <FormLabel component="legend">Scroll To Alignment</FormLabel>
-        <Select
-          native
-          value={'nearest'}
+        <NativeSelect
+          defaultValue={'nearest'}
           // onChange={handleChange('age')}
           inputProps={{
             name: 'alignment',
@@ -84,7 +83,7 @@ export default function OrientationOptions(props) {
           <option value={'start'}>start</option>
           <option value={'center'}>center</option>
           <option value={'end'}>end</option>
-        </Select>
+        </NativeSelect>
       </FormControl>
 
     </div>
