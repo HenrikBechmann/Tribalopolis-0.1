@@ -75,6 +75,7 @@ const Home = (props) => {
         scrollToItem:null,
         getContentList:null,
         getVisibleList:null,
+        reload:null,
         // elements:{
         //     viewportRef:null,
         //     scrollblockRef:null,
