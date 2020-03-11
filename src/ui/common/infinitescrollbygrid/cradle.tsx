@@ -21,16 +21,15 @@ import ScrollTracker from './scrolltracker'
 
 /*
 
-    reload function
+    3 reload function
 
     2 scrollToItem(index[,alignment]) - alignment = start, center, end, or nearest (default)
     create getContentList:null, getVisibleList:null, 
 
 
     1 add examples 1, 2, 3 to control page: 
-        - small 100x100 images, scroll and rotate
-        - vertical scroll items inside horizontal scroll, with ability to flip them
-        - track movement on large lists
+        - images, scroll and pivot
+        - nested lists, scroll and pivot
 
 */
 
