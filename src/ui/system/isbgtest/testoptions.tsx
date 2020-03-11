@@ -14,6 +14,7 @@ import FormLabel from '@material-ui/core/FormLabel'
 import InputLabel from '@material-ui/core/InputLabel'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
+import Select from '@material-ui/core/Select'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -59,7 +60,7 @@ export default function OrientationOptions(props) {
           </RadioGroup>
       </FormControl>
       <FormControl component="fieldset" className={classes.formControl}>
-          <FormLabel component="legend">Options</FormLabel>
+          <FormLabel component="legend">Scroll To</FormLabel>
           <TextField
             id="scrolltonumber"
             label="Scroll to item number"
@@ -68,6 +69,24 @@ export default function OrientationOptions(props) {
           />
           <Button variant="contained">Go</Button>
       </FormControl>
+      <FormControl component="fieldset" className={classes.formControl}>
+        <FormLabel component="legend">Scroll To Alignment</FormLabel>
+        <Select
+          native
+          value={'nearest'}
+          // onChange={handleChange('age')}
+          inputProps={{
+            name: 'alignment',
+            id: 'alignment',
+          }}
+        >
+          <option value={'nearest'}>nearest</option>
+          <option value={'start'}>start</option>
+          <option value={'center'}>center</option>
+          <option value={'end'}>end</option>
+        </Select>
+      </FormControl>
+
     </div>
   )
 }

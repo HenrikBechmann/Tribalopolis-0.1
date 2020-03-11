@@ -21,7 +21,7 @@ import ScrollTracker from './scrolltracker'
 
 /*
 
-    reset function
+    reload function
 
     2 scrollToItem(index[,alignment]) - alignment = start, center, end, or nearest (default)
     create getContentList:null, getVisibleList:null, 
