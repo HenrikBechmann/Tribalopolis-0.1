@@ -63,7 +63,7 @@ export default function OrientationOptions(props) {
           <FormLabel component="legend">Scroll To</FormLabel>
           <TextField
             id="scrolltonumber"
-            label="Scroll to item number"
+            label="Enter item number"
             defaultValue={0}
             variant="filled"
           />
