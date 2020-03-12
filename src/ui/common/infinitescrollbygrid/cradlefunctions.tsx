@@ -190,10 +190,10 @@ export const getContentListRequirements = ({
         runwaylength, 
         gap,
         padding, 
-        visibletargetindex,
+        visibletargetindexoffset,
         targetScrollOffset,
         crosscount,
-        listsize
+        listsize,
     }) => {
 
     // -------------[ calc basic inputs: cradleLength, cellLength, rowcount, contentCount ]----------
@@ -221,17 +221,17 @@ export const getContentListRequirements = ({
     } else {
         leadingrows = Math.ceil(calc)
     }
-    let targetdatarow = Math.floor(visibletargetindex/crosscount)
+    let targetdatarow = Math.floor(visibletargetindexoffset/crosscount)
     leadingrows = Math.min(leadingrows, targetdatarow)
 
     let leadingcount = leadingrows * crosscount
-    let targetdiff = visibletargetindex % crosscount
+    let targetdiff = visibletargetindexoffset % crosscount
     leadingcount += targetdiff
 
     // -----------------------[ calc indexoffset ]------------------------
 
     // leading edge
-    let indexoffset = visibletargetindex - leadingcount
+    let indexoffset = visibletargetindexoffset - leadingcount
 
     // shift indexoffset to conform to crosscount multiple
     let shift = indexoffset % crosscount;
@@ -255,7 +255,7 @@ export const getContentListRequirements = ({
 
     let calculatedcradleposition = indexrowoffset * cellLength
 
-    let targetrowoffset = Math.floor(visibletargetindex/crosscount)
+    let targetrowoffset = Math.floor(visibletargetindexoffset/crosscount)
 
     let scrollblockoffset = targetrowoffset * cellLength
     scrollblockoffset -= targetScrollOffset

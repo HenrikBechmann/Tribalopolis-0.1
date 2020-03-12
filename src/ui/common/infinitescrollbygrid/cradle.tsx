@@ -21,6 +21,8 @@ import ScrollTracker from './scrolltracker'
 
 /*
 
+    BUG: interrupts in scroll, resize, pivot
+
     3 reload function
 
     2 scrollToItem(index[,alignment]) - alignment = start, center, end, or nearest (default)
@@ -77,7 +79,7 @@ const Cradle = ({
     const cellSpecsRef = useRef(null)
     cellSpecsRef.current = cellSpecs
 
-    const pauseObserverForReconfigurationRef = useRef(false)
+    const pauseObserversRef = useRef(false)
 
     const mainConfigDatasetRef = useRef({setup:true})
 
@@ -98,7 +100,7 @@ const Cradle = ({
 
     const divlinerStyleRevisionsRef = useRef(null) // for modifications by observer actions
 
-    const contentOffsetForActionRef = useRef(Math.min(offset,(listsize - 1)) || 0) // used for contentList creation; used for orientation change, and resize
+    const referenceIndexRef = useRef(Math.min(offset,(listsize - 1)) || 0) // used for contentList creation; used for orientation change, and resize
 
     const cradleElementRef = useRef(null)
 
@@ -290,7 +292,7 @@ const Cradle = ({
 
         if (!isResizingRef.current) {
             isResizingRef.current = true
-            pauseObserverForReconfigurationRef.current = true
+            pauseObserversRef.current = true
             if (isScrollingRef.current) {
                 saveIsScrolling(false)
             }
@@ -321,7 +323,7 @@ const Cradle = ({
             case 'settle':
                 isResizingRef.current && (isResizingRef.current = false)
                 setTimeout(()=>{ // let everything settle before reviving observer
-                    pauseObserverForReconfigurationRef.current = false
+                    pauseObserversRef.current = false
                 },250) // timeout a bit spooky but gives observer initialization of new items a chance to settle
                     // observer seems to need up to 2 cycles to settle; one for each side of the cradle.
                 saveCradleState('ready')
@@ -334,8 +336,8 @@ const Cradle = ({
     // trigger 'resize' cradlestate on change of any parameter
     useEffect(()=>{
         if (cradlestate == 'ready') {
-            // contentOffsetForActionRef.current = contentlist[0]?.props.index // ?
-            !pauseObserverForReconfigurationRef.current && (pauseObserverForReconfigurationRef.current = true)
+            // referenceIndexRef.current = contentlist[0]?.props.index // ?
+            !pauseObserversRef.current && (pauseObserversRef.current = true)
             let cradleElement = cradleElementRef.current
             mainConfigDatasetRef.current = {...previousConfigDataRef.current}
             saveCradleState('resize')
@@ -389,7 +391,7 @@ const Cradle = ({
 
     const cradleobservercallback = useCallback((entries) => {
         // console.log('cradleobservercallback entries', entries)
-        if (pauseObserverForReconfigurationRef.current) {
+        if (pauseObserversRef.current) {
             return
         }
 
@@ -423,7 +425,7 @@ const Cradle = ({
     // the async callback from IntersectionObserver. this is a closure
     const itemobservercallback = useCallback((entries)=>{
 
-        if (pauseObserverForReconfigurationRef.current) {
+        if (pauseObserversRef.current) {
             return
         }
 
@@ -631,26 +633,28 @@ const Cradle = ({
     // set cradle content for state changes
     useEffect(() => {
 
-        if (['setup','resize','pivot','reposition'].indexOf(cradlestate) == -1) return
+        if (['setup','resize','pivot','reposition'].indexOf(cradlestate) == -1) return // replace with 'reset'
 
-        setCradleContent()
+        resetCradleContent() // orientation, visibletargetindexoffset
 
     },[cradlestate,])
 
-    const setCradleContent = useCallback(() => {
 
-        let visibletargetindex, targetscrolloffset
+    // reset cradle
+    const resetCradleContent = useCallback(() => {
+
+        let visibletargetindexoffset, cradletargetindexoffset
         
         if (cradlestateRef.current != 'reposition') {
-            [visibletargetindex, targetscrolloffset] = getVisibleTargetData(mainConfigDatasetRef)
+            [visibletargetindexoffset, cradletargetindexoffset] = getVisibleTargetData(mainConfigDatasetRef)
         } else {
-            visibletargetindex = contentOffsetForActionRef.current
-            targetscrolloffset = 0
+            visibletargetindexoffset = referenceIndexRef.current
+            cradletargetindexoffset = 0
         }
 
-        if (visibletargetindex === undefined) {
-            visibletargetindex = contentOffsetForActionRef.current
-            targetscrolloffset = 0
+        if (visibletargetindexoffset === undefined) {
+            visibletargetindexoffset = referenceIndexRef.current
+            cradletargetindexoffset = 0
         }
 
         let localContentList = [] // any duplicated items will be re-used by react
@@ -665,8 +669,8 @@ const Cradle = ({
                 runwaylength, 
                 gap,
                 padding,
-                visibletargetindex,
-                targetScrollOffset:targetscrolloffset,
+                visibletargetindexoffset,
+                targetScrollOffset:cradletargetindexoffset,
                 crosscount,
                 listsize,
             })
@@ -710,7 +714,7 @@ const Cradle = ({
         }
 
         divlinerStyleRevisionsRef.current = styles
-        contentOffsetForActionRef.current = indexoffset
+        referenceIndexRef.current = indexoffset
 
         saveContentlist(childlist) // external
 
@@ -744,7 +748,7 @@ const Cradle = ({
             }
             repositionrowindex = Math.ceil(scrollPos/cellLength)
             repositionindex = repositionrowindex * crosscount
-            contentOffsetForActionRef.current = repositionindex
+            referenceIndexRef.current = repositionindex
 
             saveCradleState('reposition')
 
