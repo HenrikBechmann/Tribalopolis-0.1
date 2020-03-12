@@ -23,7 +23,7 @@ import ScrollTracker from './scrolltracker'
 
     BUG: interrupts in scroll, resize, pivot
 
-    3 reload function
+    3 reload function - use interrupt concept - sentinel for reset duration; queue?
 
     2 scrollToItem(index[,alignment]) - alignment = start, center, end, or nearest (default)
     create getContentList:null, getVisibleList:null, 
@@ -256,6 +256,7 @@ const Cradle = ({
             scrollTimeridRef.current = setTimeout(() => {
 
                 saveIsScrolling(false)
+                isScrollingRef.current = false
 
             },250)
         }
@@ -295,7 +296,9 @@ const Cradle = ({
             pauseObserversRef.current = true
             if (isScrollingRef.current) {
                 saveIsScrolling(false)
+                isScrollingRef.current = false
             }
+            saveCradleState('resize')
         }
 
     },[])
@@ -337,10 +340,10 @@ const Cradle = ({
     useEffect(()=>{
         if (cradlestate == 'ready') {
             // referenceIndexRef.current = contentlist[0]?.props.index // ?
-            !pauseObserversRef.current && (pauseObserversRef.current = true)
-            let cradleElement = cradleElementRef.current
+            // !pauseObserversRef.current && (pauseObserversRef.current = true)
+            // let cradleElement = cradleElementRef.current
             mainConfigDatasetRef.current = {...previousConfigDataRef.current}
-            saveCradleState('resize')
+            // saveCradleState('resize')
         }
     },[
         cellWidth, 
@@ -630,7 +633,7 @@ const Cradle = ({
     // ========================================================================================
     // -------------------------------[ Assembly of content]-----------------------------------
     
-    // set cradle content for state changes
+    // reset cradle content for state changes
     useEffect(() => {
 
         if (['setup','resize','pivot','reposition'].indexOf(cradlestate) == -1) return // replace with 'reset'
