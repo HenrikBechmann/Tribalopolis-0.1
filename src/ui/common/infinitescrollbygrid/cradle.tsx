@@ -21,7 +21,7 @@ import ScrollTracker from './scrolltracker'
 
 /*
 
-    BUG: interrupts in scroll, resize, pivot
+    BUG: interrupts in scroll, resize, pivot. Fix logic in settleCradleContent
 
     3 reload function - use interrupt concept - sentinel for reset duration; queue?
 
@@ -665,15 +665,19 @@ const Cradle = ({
     // reset cradle content for state changes
     useEffect(() => {
 
-        if (['setup','resize','pivot','reposition'].indexOf(cradlestate) == -1) return // replace with 'reset'
+        // if (['setup','resize','pivot','reposition'].indexOf(cradlestate) == -1) return // replace with 'reset'
 
-        resetCradleContent() // orientation, visibletargetindexoffset
+        if (cradlestate == 'settle') {
+
+            settleCradleContent() // orientation, visibletargetindexoffset
+
+        }
 
     },[cradlestate,])
 
 
     // reset cradle
-    const resetCradleContent = useCallback(() => {
+    const settleCradleContent = useCallback(() => {
 
         let visibletargetindexoffset, cradletargetindexoffset
         
