@@ -70,7 +70,7 @@ const Cradle = ({
 
     // const [isScrolling,saveIsScrolling] = useState(false)
 
-    const [isResizing, saveIsResizing] = useState(false)
+    // const [isResizing, saveIsResizing] = useState(false)
 
     const viewportData = useContext(ViewportContext)
 
@@ -321,7 +321,7 @@ const Cradle = ({
         resizeTimeridRef.current = setTimeout(() => {
 
             saveCradleState('resize')
-            saveIsResizing(false)
+            // saveIsResizing(false)
             isResizingRef.current = false
 
         },250)
