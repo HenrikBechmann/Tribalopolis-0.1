@@ -91,6 +91,7 @@ const Cradle = ({
     referenceIndexRef.current = referenceindex
 
     const isCradleInViewRef = useRef(true)
+    // const isSettingCradleContentRef = useRef(false)
 
     console.log('running Cradle with state ',cradlestate)
 
@@ -522,21 +523,21 @@ const Cradle = ({
     // reset cradle
     const setCradleContent = useCallback((cradleState) => {
 
-        console.log('running setCradleContent with cradleState',cradleState)
-
         let visibletargetindexoffset, cradletargetindexoffset
         
-        if (cradleState != 'reposition') {
-            [visibletargetindexoffset, cradletargetindexoffset] = getVisibleTargetData(mainConfigDatasetRef)
-        } else {
+        // if (cradleState != 'reposition') {
+        //     [visibletargetindexoffset, cradletargetindexoffset] = getVisibleTargetData(mainConfigDatasetRef)
+        // } else {
             visibletargetindexoffset = referenceIndexRef.current
             cradletargetindexoffset = 0
-        }
+        // }
 
         if (visibletargetindexoffset === undefined) {
             visibletargetindexoffset = referenceIndexRef.current
             cradletargetindexoffset = 0
         }
+
+        console.log('running setCradleContent with cradleState, visibletargetindexoffset',cradleState, visibletargetindexoffset)
 
         let localContentList = [] // any duplicated items will be re-used by react
 
@@ -676,7 +677,7 @@ const Cradle = ({
         // if (isScrollingRef.current) {
         clearTimeout(scrollTimeridRef.current)
         scrollTimeridRef.current = setTimeout(() => {
-            // console.log('scrolling TIMEOUT with cradleState',cradlestateRef.current)
+            console.log('scrolling TIMEOUT with cradleState',cradlestateRef.current)
             // saveIsScrolling(false)
             isScrollingRef.current = false
             let cradleState = cradlestateRef.current
@@ -694,7 +695,7 @@ const Cradle = ({
         // }
 
         let referenceindex
-        if (!isResizingRef.current) {
+        if (!isResizingRef.current) { //  && !isSettingCradleContentRef.current) {
             let scrollPos, cellLength
             if (orientationRef.current == 'vertical') {
                 scrollPos = viewportData.elementref.current.scrollTop
@@ -710,7 +711,7 @@ const Cradle = ({
         }
         console.log('scrolling with cradleState, referenceindex', cradlestateRef.current, referenceindex)
 
-        if (!isCradleInViewRef.current && !(cradlestateRef.current == 'repositioning')) {
+        if (!isCradleInViewRef.current && !(cradlestateRef.current == 'repositioning') && !(cradlestateRef.current == 'reposition')) {
             saveCradleState('repositioning')
         }
 
@@ -741,6 +742,7 @@ const Cradle = ({
 
     // thia ia the core state engine
     // triggering next state phase: states = setup, pivot, resize, reposition (was run)
+    const callingCradleState = useRef(cradlestateRef.current)
     useEffect(()=> {
         switch (cradlestate) {
             case 'setup': 
@@ -749,35 +751,42 @@ const Cradle = ({
             case 'reposition':
             // case 'reset':
                 console.log('setting cradlestate to settle from', cradlestate)
-                setTimeout(() => {
-                    setCradleContent(cradlestate)
-                })
+                callingCradleState.current = cradlestate
+                // setTimeout(() => {
+                    // isSettingCradleContentRef.current = true
+                    // setCradleContent(cradlestate)
+                    // isSettingCradleContentRef.current = false
+                // })
                 saveCradleState('settle')
                 break
 
             case 'settle':
+                // isSettingCradleContentRef.current = true
+                setCradleContent(callingCradleState.current)
+                // isSettingCradleContentRef.current = false
                 // isResizingRef.current && (isResizingRef.current = false)
-                if (!isSettlingRef.current) 
+                if (!isSettlingRef.current) {
                     isSettlingRef.current = true
                     {
                         console.log('running settle timeout')
                         setTimeout(()=>{ // let everything settle before reviving observer
-                        pauseObserversRef.current && (pauseObserversRef.current = false)
-                        isSettlingRef.current = false
-                        saveCradleState('reset')
-                    },250) // timeout a bit spooky but gives observer initialization of new items a chance to settle
+                            isSettlingRef.current = false
+                            pauseObserversRef.current && (pauseObserversRef.current = false)
+                        },250) // timeout a bit spooky but gives observer initialization of new items a chance to settle
+                    }
                 }    // observer seems to need up to 2 cycles to settle; one for each side of the cradle.
+                saveCradleState('ready')
                 break;
 
-            case 'reset':
-                if (!isCradleInViewRef.current) {
-                    setTimeout(()=> {
-                        setCradleContent(cradlestate)
-                    })
+            // case 'reset':
+            //     if (!isCradleInViewRef.current) {
+            //         // setTimeout(()=> {
+            //             setCradleContent(cradlestate)
+            //         // })
 
-                }
-                saveCradleState('ready')
-                break
+            //     }
+            //     saveCradleState('ready')
+            //     break
             case 'ready':
                 break
         }
