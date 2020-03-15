@@ -13,7 +13,7 @@ import {
     getContentListRequirements,
     setCradleStyleRevisionsForDrop,
     setCradleStyleRevisionsForAdd,
-    normalizeCradleAnchors, 
+    normalizeCradleAnchors,
     // isCradleInView,
 } from './cradlefunctions'
 
@@ -53,25 +53,59 @@ const Cradle = ({
     // =============================================================================================
     // --------------------------------------[ initialization ]-------------------------------------
 
-    const [cradlestate, saveCradleState] = useState('setup')
-    const cradlestateRef = useRef(null) // for observer call closure
-    cradlestateRef.current = cradlestate // most recent value
+    // initialize window listener
+    useEffect(() => {
+        viewportData.elementref.current.addEventListener('scroll',onScroll)
+        window.addEventListener('resize',onResize)
 
+        // if (component?.elements.hasOwnProperty('cradleRef')) {
+        //     component.elements.cradleRef = cradleElementRef
+        // } 
+        
+        if (component?.items.hasOwnProperty('visibleRef')) {
+            component.items.visibleRef = visibleListRef
+        } 
+
+        if (component?.items.hasOwnProperty('contentRef')) {
+            component.items.contentRef = itemElementsRef
+        } 
+
+        if (component?.hasOwnProperty('scrollToItem')) {
+            component.scrollToItem = scrollToItem
+        } 
+
+        return () => {
+            viewportData.elementref.current.removeEventListener('scroll',onScroll)
+            window.removeEventListener('resize',onResize)
+        }
+    },[])
+
+    // main control
+    const [cradlestate, saveCradleState] = useState('setup')
+    const cradlestateRef = useRef(null) // access by closures
+    cradlestateRef.current = cradlestate
+
+    // current location
     const [referenceindex, saveReferenceindex] = useState(Math.min(offset,(listsize - 1)) || 0)
-    const referenceIndexRef = useRef(null) // used for contentList creation; used for orientation change, and resize
+    const referenceIndexRef = useRef(null) // access by closures
     referenceIndexRef.current = referenceindex
 
-    console.log('running Cradle with state ',cradlestate)
+    const isCradleInViewRef = useRef(true)
 
-    const [contentlist,saveContentlist] = useState([])
+    console.log('running Cradle with state ',cradlestate)
 
     const [dropentries, saveDropentries] = useState(null)
 
     const [addentries, saveAddentries] = useState(null)
 
+    // const [contentlist,saveContentlist] = useState([])
+    const contentlistRef = useRef([])
+
     const isScrollingRef = useRef(false)
 
     const isResizingRef = useRef(false)
+
+    const isSettlingRef = useRef(false)
 
     const viewportData = useContext(ViewportContext)
 
@@ -217,175 +251,6 @@ const Cradle = ({
     const itemElementsRef = useRef(new Map())
     const scrollTimeridRef = useRef(null)
 
-    // =====================================================================================
-    // ----------------------------------[ state management ]-------------------------------
-
-    // initialize window listener
-    useEffect(() => {
-        viewportData.elementref.current.addEventListener('scroll',onScroll)
-        window.addEventListener('resize',onResize)
-
-        // if (component?.elements.hasOwnProperty('cradleRef')) {
-        //     component.elements.cradleRef = cradleElementRef
-        // } 
-        
-        if (component?.items.hasOwnProperty('visibleRef')) {
-            component.items.visibleRef = visibleListRef
-        } 
-
-        if (component?.items.hasOwnProperty('contentRef')) {
-            component.items.contentRef = itemElementsRef
-        } 
-
-        if (component?.hasOwnProperty('scrollToItem')) {
-            component.scrollToItem = scrollToItem
-        } 
-
-        return () => {
-            viewportData.elementref.current.removeEventListener('scroll',onScroll)
-            window.removeEventListener('resize',onResize)
-        }
-    },[])
-
-    const scrollToItem = useCallback((index, alignment = 'nearest') => {
-        console.log('requested scrollToItem',index, alignment)
-    },[])
-
-    // callback for scroll
-    const onScroll = useCallback((e) => {
-
-        if (!isScrollingRef.current)  {
-
-            isScrollingRef.current = true
-
-        }
-
-        // if (isScrollingRef.current) {
-        clearTimeout(scrollTimeridRef.current)
-        scrollTimeridRef.current = setTimeout(() => {
-            // console.log('scrolling TIMEOUT with cradleState',cradlestateRef.current)
-            // saveIsScrolling(false)
-            isScrollingRef.current = false
-            let cradleState = cradlestateRef.current
-            switch (cradleState) {
-
-                case 'repositioning': {
-
-                    saveCradleState('reposition')
-                    break
-                } 
-
-            }
-
-        },250)
-        // }
-
-        let referenceindex
-        if (!isResizingRef.current) {
-            let scrollPos, cellLength
-            if (orientationRef.current == 'vertical') {
-                scrollPos = viewportData.elementref.current.scrollTop
-                cellLength = cellSpecsRef.current.cellHeight + cellSpecsRef.current.gap
-            } else {
-                scrollPos = viewportData.elementref.current.scrollLeft
-                cellLength = cellSpecsRef.current.cellWidth + cellSpecsRef.current.gap
-            }
-            let referencerowindex = Math.ceil(scrollPos/cellLength)
-            referenceindex = referencerowindex * crosscountRef.current
-            referenceIndexRef.current = referenceindex
-            saveReferenceindex(referenceindex)
-        }
-        console.log('scrolling with cradleState, referenceindex', cradlestateRef.current, referenceindex)
-
-    },[])
-
-    // set and maintain isResizing flag
-    // set below on first window resize notification
-    // unset with state change to 'settle' in state engine above
-    const resizeTimeridRef = useRef(null)
-
-    const onResize = useCallback((e) => {
-
-        if (!isResizingRef.current) {
-            isResizingRef.current = true
-            pauseObserversRef.current = true
-            saveCradleState('resizing')
-        }
-
-        clearTimeout(resizeTimeridRef.current)
-        resizeTimeridRef.current = setTimeout(() => {
-
-            saveCradleState('resize')
-            isResizingRef.current = false
-
-        },250)
-
-    },[])
-
-    // thia ia the core state engine
-    // triggering next state phase: states = setup, pivot, resize, reposition (was run)
-    useEffect(()=> {
-        switch (cradlestate) {
-            case 'setup': 
-            case 'resize':
-            case 'pivot':
-            case 'reposition':
-            case 'reset':
-                saveCradleState('settle')
-                break
-
-            case 'settle':
-                // isResizingRef.current && (isResizingRef.current = false)
-                setTimeout(()=>{ // let everything settle before reviving observer
-                    pauseObserversRef.current && (pauseObserversRef.current = false)
-                    saveCradleState('ready')
-                },250) // timeout a bit spooky but gives observer initialization of new items a chance to settle
-                    // observer seems to need up to 2 cycles to settle; one for each side of the cradle.
-                break;
-            case 'ready':
-                break
-        }
-    },[cradlestate])
-
-    // trigger 'resize' cradlestate on change of any parameter
-    useEffect(()=>{
-        if (cradlestate == 'ready') {
-            // referenceIndexRef.current = contentlist[0]?.props.index // ?
-            // !pauseObserversRef.current && (pauseObserversRef.current = true)
-            // let cradleElement = cradleElementRef.current
-            mainConfigDatasetRef.current = {...previousConfigDataRef.current}
-            saveCradleState('resize') // may be called separately if attributes changes without page resize
-        }
-    },[
-        cellWidth, 
-        cellHeight, 
-        gap, 
-        padding,
-        runwaylength,
-        viewportheight, 
-        viewportwidth,
-    ])
-
-    // trigger pivot on change in orientation
-    useEffect(()=> {
-
-        let rootMargin
-        if (orientation == 'horizontal') {
-            rootMargin = `0px ${runwaylength}px 0px ${runwaylength}px`
-        } else {
-            rootMargin = `${runwaylength}px 0px ${runwaylength}px 0px`
-        }
-        itemobserverRef.current = new IntersectionObserver(
-            itemobservercallback,
-            {root:viewportData.elementref.current, rootMargin,} 
-        )
-        saveContentlist([])
-        if (cradlestate != 'setup') {
-            saveCradleState('pivot')
-        }
-
-    },[orientation])
-
     // =================================================================================
     // -------------------------[ IntersectionObserver support]-------------------------
 
@@ -404,15 +269,9 @@ const Cradle = ({
     },[])
 
     const cradleobservercallback = useCallback((entries) => {
-        // console.log('cradleobservercallback entries', entries)
-        if (pauseObserversRef.current) {
-            return
-        }
+        
+        isCradleInViewRef.current = entries[0].isIntersecting
 
-        if ( (cradlestateRef.current == 'ready') && isScrollingRef.current && (!entries[0].isIntersecting)) {
-            // console.log('setting state to repositioning')
-            saveCradleState('repositioning')
-        }
     },[])
 
     // --------------------------[ item shell observer ]-----------------------------
@@ -500,14 +359,14 @@ const Cradle = ({
         netshift = Math.abs(netshift)
 
         // set localContentList
-        let indexoffset = contentlist[0].props.index
+        let indexoffset = contentlistRef.current[0].props.index
         let pendingcontentoffset
         let newcontentcount = Math.ceil(netshift/crosscountRef.current)*crosscountRef.current
         let headindexcount, tailindexcount
 
         if (scrollforward) {
             pendingcontentoffset = indexoffset + netshift
-            let proposedtailoffset = pendingcontentoffset + newcontentcount + ((contentlist.length - netshift ) - 1)
+            let proposedtailoffset = pendingcontentoffset + newcontentcount + ((contentlistRef.current.length - netshift ) - 1)
 
             if ((proposedtailoffset) > (listsize -1) ) {
                 newcontentcount -= (proposedtailoffset - (listsize -1))
@@ -539,7 +398,7 @@ const Cradle = ({
         localContentList = getUIContentList({
 
             indexoffset,
-            localContentList:contentlist,
+            localContentList:contentlistRef.current,
             headindexcount,
             tailindexcount,
             callbacksRef,
@@ -565,7 +424,8 @@ const Cradle = ({
         // synchronization
         divlinerStyleRevisionsRef.current = styles 
 
-        saveContentlist(localContentList) // delete entries
+        // saveContentlist(localContentList) // delete entries
+        contentlistRef.current = localContentList
         saveDropentries(null)
         saveAddentries({count:newcontentcount,scrollforward,contentoffset:pendingcontentoffset})
 
@@ -600,7 +460,7 @@ const Cradle = ({
 
         localContentList = getUIContentList({
 
-            localContentList: contentlist,
+            localContentList: contentlistRef.current,
             headindexcount,
             tailindexcount,
             indexoffset: contentoffset,
@@ -635,7 +495,8 @@ const Cradle = ({
         // synchronization
         divlinerStyleRevisionsRef.current = styles
 
-        saveContentlist(localContentList)
+        // saveContentlist(localContentList)
+        contentlistRef.current = localContentList
         saveAddentries(null)
 
     },[addentries])
@@ -645,25 +506,27 @@ const Cradle = ({
     // -------------------------------[ Assembly of content]-----------------------------------
     
     // reset cradle content for state changes
-    useEffect(() => {
+    // useEffect(() => {
 
-        // if (['setup','resize','pivot','reposition'].indexOf(cradlestate) == -1) return // replace with 'reset'
+    //     // if (['setup','resize','pivot','reposition'].indexOf(cradlestate) == -1) return // replace with 'reset'
 
-        if (cradlestate == 'settle') {
+    //     // if (cradlestate == 'settle') {
 
-            setCradleContent() // orientation, visibletargetindexoffset
+    //     //     setCradleContent()
 
-        }
+    //     // }
 
-    },[cradlestate,])
+    // },[cradlestate,])
 
 
     // reset cradle
-    const setCradleContent = useCallback(() => {
+    const setCradleContent = useCallback((cradleState) => {
+
+        console.log('running setCradleContent with cradleState',cradleState)
 
         let visibletargetindexoffset, cradletargetindexoffset
         
-        if (cradlestateRef.current != 'reposition') {
+        if (cradleState != 'reposition') {
             [visibletargetindexoffset, cradletargetindexoffset] = getVisibleTargetData(mainConfigDatasetRef)
         } else {
             visibletargetindexoffset = referenceIndexRef.current
@@ -735,7 +598,8 @@ const Cradle = ({
         referenceIndexRef.current = indexoffset
         saveReferenceindex(indexoffset)
 
-        saveContentlist(childlist) // external
+        // saveContentlist(childlist) // external
+        contentlistRef.current = childlist
 
     },[
         cellHeight,
@@ -793,6 +657,174 @@ const Cradle = ({
 
     },[cradlestate, isScrollingRef.current])
 
+    // =====================================================================================
+    // ----------------------------------[ state management ]-------------------------------
+
+    const scrollToItem = useCallback((index, alignment = 'nearest') => {
+        console.log('requested scrollToItem',index, alignment)
+    },[])
+
+    // callback for scroll
+    const onScroll = useCallback((e) => {
+
+        if (!isScrollingRef.current)  {
+
+            isScrollingRef.current = true
+
+        }
+
+        // if (isScrollingRef.current) {
+        clearTimeout(scrollTimeridRef.current)
+        scrollTimeridRef.current = setTimeout(() => {
+            // console.log('scrolling TIMEOUT with cradleState',cradlestateRef.current)
+            // saveIsScrolling(false)
+            isScrollingRef.current = false
+            let cradleState = cradlestateRef.current
+            switch (cradleState) {
+
+                case 'repositioning': {
+
+                    saveCradleState('reposition')
+                    break
+                } 
+
+            }
+
+        },250)
+        // }
+
+        let referenceindex
+        if (!isResizingRef.current) {
+            let scrollPos, cellLength
+            if (orientationRef.current == 'vertical') {
+                scrollPos = viewportData.elementref.current.scrollTop
+                cellLength = cellSpecsRef.current.cellHeight + cellSpecsRef.current.gap
+            } else {
+                scrollPos = viewportData.elementref.current.scrollLeft
+                cellLength = cellSpecsRef.current.cellWidth + cellSpecsRef.current.gap
+            }
+            let referencerowindex = Math.ceil(scrollPos/cellLength)
+            referenceindex = referencerowindex * crosscountRef.current
+            referenceIndexRef.current = referenceindex
+            saveReferenceindex(referenceindex)
+        }
+        console.log('scrolling with cradleState, referenceindex', cradlestateRef.current, referenceindex)
+
+        if (!isCradleInViewRef.current && !(cradlestateRef.current == 'repositioning')) {
+            saveCradleState('repositioning')
+        }
+
+    },[])
+
+    // set and maintain isResizing flag
+    // set below on first window resize notification
+    // unset with state change to 'settle' in state engine above
+    const resizeTimeridRef = useRef(null)
+
+    const onResize = useCallback((e) => {
+
+        if (!isResizingRef.current) {
+            isResizingRef.current = true
+            pauseObserversRef.current = true
+            saveCradleState('resizing')
+        }
+
+        clearTimeout(resizeTimeridRef.current)
+        resizeTimeridRef.current = setTimeout(() => {
+
+            saveCradleState('resize')
+            isResizingRef.current = false
+
+        },250)
+
+    },[])
+
+    // thia ia the core state engine
+    // triggering next state phase: states = setup, pivot, resize, reposition (was run)
+    useEffect(()=> {
+        switch (cradlestate) {
+            case 'setup': 
+            case 'resize':
+            case 'pivot':
+            case 'reposition':
+            // case 'reset':
+                console.log('setting cradlestate to settle from', cradlestate)
+                setTimeout(() => {
+                    setCradleContent(cradlestate)
+                })
+                saveCradleState('settle')
+                break
+
+            case 'settle':
+                // isResizingRef.current && (isResizingRef.current = false)
+                if (!isSettlingRef.current) 
+                    isSettlingRef.current = true
+                    {
+                        console.log('running settle timeout')
+                        setTimeout(()=>{ // let everything settle before reviving observer
+                        pauseObserversRef.current && (pauseObserversRef.current = false)
+                        isSettlingRef.current = false
+                        saveCradleState('reset')
+                    },250) // timeout a bit spooky but gives observer initialization of new items a chance to settle
+                }    // observer seems to need up to 2 cycles to settle; one for each side of the cradle.
+                break;
+
+            case 'reset':
+                if (!isCradleInViewRef.current) {
+                    setTimeout(()=> {
+                        setCradleContent(cradlestate)
+                    })
+
+                }
+                saveCradleState('ready')
+                break
+            case 'ready':
+                break
+        }
+    },[cradlestate])
+
+    // trigger 'resize' cradlestate on change of any parameter
+    useEffect(()=>{
+        if (cradlestate == 'ready') {
+            // referenceIndexRef.current = contentlist[0]?.props.index // ?
+            // !pauseObserversRef.current && (pauseObserversRef.current = true)
+            // let cradleElement = cradleElementRef.current
+            mainConfigDatasetRef.current = {...previousConfigDataRef.current}
+            saveCradleState('resize') // may be called separately if attributes changes without page resize
+        }
+    },[
+        cellWidth, 
+        cellHeight, 
+        gap, 
+        padding,
+        runwaylength,
+        viewportheight, 
+        viewportwidth,
+    ])
+
+    // trigger pivot on change in orientation
+    useEffect(()=> {
+
+        let rootMargin
+        if (orientation == 'horizontal') {
+            rootMargin = `0px ${runwaylength}px 0px ${runwaylength}px`
+        } else {
+            rootMargin = `${runwaylength}px 0px ${runwaylength}px 0px`
+        }
+        itemobserverRef.current = new IntersectionObserver(
+            itemobservercallback,
+            {root:viewportData.elementref.current, rootMargin,} 
+        )
+        // saveContentlist([])
+        contentlistRef.current = []
+
+        if (cradlestate != 'setup') {
+            saveCradleState('pivot')
+        }
+
+    },[orientation])
+
+
     // =============================================================================
     // ------------------------------[ child callbacks ]----------------------------------
 
@@ -839,7 +871,7 @@ const Cradle = ({
             style = {divlinerstyles}
         >
         
-            {divlinerstyles.width?contentlist:null}
+            {divlinerstyles.width?contentlistRef.current:null}
         
         </div>
     </>

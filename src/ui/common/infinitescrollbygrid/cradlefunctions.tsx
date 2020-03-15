@@ -584,7 +584,7 @@ export const setCradleStyleRevisionsForAdd = ({
 //     let isOutOfView = (((cradleposition + cradleLength) < 0 ) || (cradleposition > viewportLength))
 //     // console.log('orientation, isOutOfView, cradleposition, cradlePos, cradleLength, scrollPos, viewportLength, cradleposition + cradleLength',
 //     //     orientation, isOutOfView, cradleposition, cradlePos, cradleLength, scrollPos, viewportLength, cradleposition + cradleLength)
-//     return isOutOfView
+//     return !isOutOfView
 // }
 
-// }
+
