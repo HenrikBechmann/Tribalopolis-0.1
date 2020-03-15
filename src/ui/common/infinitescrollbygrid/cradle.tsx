@@ -752,12 +752,9 @@ const Cradle = ({
             // case 'reset':
                 console.log('setting cradlestate to settle from', cradlestate)
                 callingCradleState.current = cradlestate
-                // setTimeout(() => {
-                    // isSettingCradleContentRef.current = true
-                    // setCradleContent(cradlestate)
-                    // isSettingCradleContentRef.current = false
-                // })
+
                 saveCradleState('settle')
+
                 break
 
             case 'settle':
@@ -776,17 +773,8 @@ const Cradle = ({
                     }
                 }    // observer seems to need up to 2 cycles to settle; one for each side of the cradle.
                 saveCradleState('ready')
-                break;
+                break
 
-            // case 'reset':
-            //     if (!isCradleInViewRef.current) {
-            //         // setTimeout(()=> {
-            //             setCradleContent(cradlestate)
-            //         // })
-
-            //     }
-            //     saveCradleState('ready')
-            //     break
             case 'ready':
                 break
         }
