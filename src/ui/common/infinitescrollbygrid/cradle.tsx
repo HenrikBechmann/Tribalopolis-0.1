@@ -93,7 +93,7 @@ const Cradle = ({
     const isCradleInViewRef = useRef(true)
     // const isSettingCradleContentRef = useRef(false)
 
-    console.log('==>> RUNNING Cradle with state ',cradlestate)
+    // console.log('==>> RUNNING Cradle with state ',cradlestate)
 
     const [dropentries, saveDropentries] = useState(null)
 
@@ -537,7 +537,7 @@ const Cradle = ({
             cradletargetindexoffset = 0
         }
 
-        console.log('running setCradleContent with cradleState, visibletargetindexoffset',cradleState, visibletargetindexoffset)
+        // console.log('running setCradleContent with cradleState, visibletargetindexoffset',cradleState, visibletargetindexoffset)
 
         let localContentList = [] // any duplicated items will be re-used by react
 
@@ -679,7 +679,7 @@ const Cradle = ({
         // if (isScrollingRef.current) {
         clearTimeout(scrollTimeridRef.current)
         scrollTimeridRef.current = setTimeout(() => {
-            console.log('scrolling TIMEOUT with cradleState',cradlestateRef.current)
+            // console.log('scrolling TIMEOUT with cradleState',cradlestateRef.current)
             // saveIsScrolling(false)
             isScrollingRef.current = false
             let cradleState = cradlestateRef.current
@@ -711,8 +711,8 @@ const Cradle = ({
             referenceIndexRef.current = referenceindex
             saveReferenceindex(referenceindex)
         }
-        console.log('scrolling with cradleState, referenceindex, referenceIndexRef.current', 
-            cradlestateRef.current, referenceindex, referenceIndexRef.current)
+        // console.log('scrolling with cradleState, referenceindex, referenceIndexRef.current', 
+        //     cradlestateRef.current, referenceindex, referenceIndexRef.current)
 
         if (!isCradleInViewRef.current && !(cradlestateRef.current == 'repositioning') && !(cradlestateRef.current == 'reposition')) {
             saveCradleState('repositioning')
@@ -753,7 +753,7 @@ const Cradle = ({
             case 'pivot':
             case 'reposition':
             // case 'reset':
-                console.log('setting cradlestate to settle from', cradlestate)
+                // console.log('setting cradlestate to settle from', cradlestate)
                 callingCradleState.current = cradlestate
 
                 saveCradleState('settle')
@@ -768,7 +768,7 @@ const Cradle = ({
                 if (!isSettlingRef.current) {
                     isSettlingRef.current = true
                     {
-                        console.log('running settle timeout')
+                        // console.log('running settle timeout')
                         setTimeout(()=>{ // let everything settle before reviving observer
                             isSettlingRef.current = false
                             pauseObserversRef.current && (pauseObserversRef.current = false)
