@@ -93,7 +93,7 @@ const Cradle = ({
     const isCradleInViewRef = useRef(true)
     // const isSettingCradleContentRef = useRef(false)
 
-    console.log('running Cradle with state ',cradlestate)
+    console.log('==>> RUNNING Cradle with state ',cradlestate)
 
     const [dropentries, saveDropentries] = useState(null)
 
@@ -596,8 +596,9 @@ const Cradle = ({
         }
 
         divlinerStyleRevisionsRef.current = styles
-        referenceIndexRef.current = indexoffset
-        saveReferenceindex(indexoffset)
+        referenceIndexRef.current = visibletargetindexoffset // indexoffset
+        // saveReferenceindex(indexoffset)
+        saveReferenceindex(visibletargetindexoffset)
 
         // saveContentlist(childlist) // external
         contentlistRef.current = childlist
@@ -622,27 +623,28 @@ const Cradle = ({
 
         if (isScrollingRef.current) return
 
-        if (cradlestate == 'reposition') {
-            let referencerowindex, referenceindex, scrollPos, cellLength
+        // if (cradlestate == 'reposition') {
+        //     let referencerowindex, referenceindex, scrollPos, cellLength
 
-            if (orientation == 'vertical') {
-                scrollPos = viewportData.elementref.current.scrollTop
-                cellLength = cellHeight + gap
-            } else {
-                scrollPos = viewportData.elementref.current.scrollLeft
-                cellLength = cellWidth + gap
-            }
-            referencerowindex = Math.ceil(scrollPos/cellLength)
-            referenceindex = referencerowindex * crosscount
-            referenceIndexRef.current = referenceindex
-            saveReferenceindex(referenceindex)
+        //     if (orientation == 'vertical') {
+        //         scrollPos = viewportData.elementref.current.scrollTop
+        //         cellLength = cellHeight + gap
+        //     } else {
+        //         scrollPos = viewportData.elementref.current.scrollLeft
+        //         cellLength = cellWidth + gap
+        //     }
+        //     referencerowindex = Math.ceil(scrollPos/cellLength)
+        //     referenceindex = referencerowindex * crosscount
+        //     referenceIndexRef.current = referenceindex
+        //     saveReferenceindex(referenceindex)
 
-        }
+        // }
 
         if (cradlestate == 'ready') {
 
             if (!isResizingRef.current) { // conflicting responses; resizing needs current version of visible before change
 
+                console.log('calculating visible item list')
                 // update visible list
                 let itemlist = Array.from(itemElementsRef.current)
 
@@ -656,7 +658,7 @@ const Cradle = ({
 
         }
 
-    },[cradlestate, isScrollingRef.current])
+    },[cradlestate] ) // , isScrollingRef.current])
 
     // =====================================================================================
     // ----------------------------------[ state management ]-------------------------------
@@ -709,7 +711,8 @@ const Cradle = ({
             referenceIndexRef.current = referenceindex
             saveReferenceindex(referenceindex)
         }
-        console.log('scrolling with cradleState, referenceindex', cradlestateRef.current, referenceindex)
+        console.log('scrolling with cradleState, referenceindex, referenceIndexRef.current', 
+            cradlestateRef.current, referenceindex, referenceIndexRef.current)
 
         if (!isCradleInViewRef.current && !(cradlestateRef.current == 'repositioning') && !(cradlestateRef.current == 'reposition')) {
             saveCradleState('repositioning')
