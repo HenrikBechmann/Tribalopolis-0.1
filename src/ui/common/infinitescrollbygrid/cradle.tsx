@@ -21,7 +21,13 @@ import ScrollTracker from './scrolltracker'
 
 /*
 
-    BUG: interrupts in scroll, resize, pivot. Fix logic in setCradleContent
+    add padding to position calculations
+
+    
+    Do these:
+        getContentList:null,
+        getVisibleList:null,
+        reload:null,
 
     2 scrollToItem(index[,alignment]) - alignment = start, center, end, or nearest (default)
     create getContentList:null, getVisibleList:null, 
