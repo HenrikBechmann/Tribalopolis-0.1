@@ -640,11 +640,9 @@ const Cradle = ({
 
         }
 
-        // if (isScrollingRef.current) {
         clearTimeout(scrollTimeridRef.current)
         scrollTimeridRef.current = setTimeout(() => {
             // console.log('scrolling TIMEOUT with cradleState',cradlestateRef.current)
-            // saveIsScrolling(false)
             isScrollingRef.current = false
             let cradleState = cradlestateRef.current
             switch (cradleState) {
@@ -658,7 +656,6 @@ const Cradle = ({
             }
 
         },250)
-        // }
 
         let referenceindex
         if (!isResizingRef.current) { //  && !isSettingCradleContentRef.current) {
@@ -678,8 +675,12 @@ const Cradle = ({
         // console.log('scrolling with cradleState, referenceindex, referenceIndexRef.current', 
         //     cradlestateRef.current, referenceindex, referenceIndexRef.current)
 
-        if (!isCradleInViewRef.current && !(cradlestateRef.current == 'repositioning') && !(cradlestateRef.current == 'reposition')) {
+        if (!isCradleInViewRef.current && 
+            !(cradlestateRef.current == 'repositioning') && 
+            !(cradlestateRef.current == 'reposition')) {
+
             saveCradleState('repositioning')
+
         }
 
     },[])
@@ -710,13 +711,14 @@ const Cradle = ({
     // thia ia the core state engine
     // triggering next state phase: states = setup, pivot, resize, reposition (was run)
     const callingCradleState = useRef(cradlestateRef.current)
+
     useEffect(()=> {
         switch (cradlestate) {
             case 'setup': 
             case 'resize':
             case 'pivot':
             case 'reposition':
-            // case 'reset':
+
                 // console.log('setting cradlestate to settle from', cradlestate)
                 callingCradleState.current = cradlestate
 
@@ -725,10 +727,9 @@ const Cradle = ({
                 break
 
             case 'settle':
-                // isSettingCradleContentRef.current = true
+
                 setCradleContent(callingCradleState.current)
-                // isSettingCradleContentRef.current = false
-                // isResizingRef.current && (isResizingRef.current = false)
+
                 if (!isSettlingRef.current) {
                     isSettlingRef.current = true
                     {
@@ -738,8 +739,10 @@ const Cradle = ({
                             pauseObserversRef.current && (pauseObserversRef.current = false)
                         },250) // timeout a bit spooky but gives observer initialization of new items a chance to settle
                     }
-                }    // observer seems to need up to 2 cycles to settle; one for each side of the cradle.
+                } // observer seems to need up to 2 cycles to settle; one for each side of the cradle.
+
                 saveCradleState('ready')
+
                 break
 
             case 'ready':
@@ -750,11 +753,10 @@ const Cradle = ({
     // trigger 'resize' cradlestate on change of any parameter
     useEffect(()=>{
         if (cradlestate == 'ready') {
-            // referenceIndexRef.current = contentlist[0]?.props.index // ?
-            // !pauseObserversRef.current && (pauseObserversRef.current = true)
-            // let cradleElement = cradleElementRef.current
+
             mainConfigDatasetRef.current = {...previousConfigDataRef.current}
             saveCradleState('resize') // may be called separately if attributes changes without page resize
+
         }
     },[
         cellWidth, 
@@ -779,7 +781,7 @@ const Cradle = ({
             itemobservercallback,
             {root:viewportData.elementref.current, rootMargin,} 
         )
-        // saveContentlist([])
+
         contentlistRef.current = []
 
         if (cradlestate != 'setup') {
@@ -820,6 +822,7 @@ const Cradle = ({
 
     // no result if styles not set
     return <>
+
         { cradlestateRef.current == 'repositioning'
             ?<ScrollTracker 
                 top = {viewportRect.top + 3} 
@@ -829,14 +832,18 @@ const Cradle = ({
                 styles = { styles }
             />
             :null}
+
         <div 
+        
             ref = {cradleElementRef} 
             style = {divlinerstyles}
+        
         >
         
             {divlinerstyles.width?contentlistRef.current:null}
         
         </div>
+        
     </>
 
 } // Cradle
