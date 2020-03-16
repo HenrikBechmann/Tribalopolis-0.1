@@ -84,9 +84,9 @@ const Cradle = ({
     cradlestateRef.current = cradlestate
 
     // current location
-    const [referenceindex, saveReferenceindex] = useState(Math.min(offset,(listsize - 1)) || 0)
-    const referenceIndexRef = useRef(null) // access by closures
-    referenceIndexRef.current = referenceindex
+    const [referenceindexdata, saveReferenceindex] = useState({index:Math.min(offset,(listsize - 1)) || 0,scrolloffset:0})
+    const referenceIndexDataRef = useRef(null) // access by closures
+    referenceIndexDataRef.current = referenceindexdata
 
     const isCradleInViewRef = useRef(true)
 
@@ -504,19 +504,8 @@ const Cradle = ({
     // reset cradle
     const setCradleContent = useCallback((cradleState) => {
 
-        let visibletargetindexoffset, cradletargetindexoffset
-        
-        // if (cradleState != 'reposition') {
-        //     [visibletargetindexoffset, cradletargetindexoffset] = getVisibleTargetData(mainConfigDatasetRef)
-        // } else {
-            visibletargetindexoffset = referenceIndexRef.current
-            cradletargetindexoffset = 0
-        // }
-
-        if (visibletargetindexoffset === undefined) {
-            visibletargetindexoffset = referenceIndexRef.current
-            cradletargetindexoffset = 0
-        }
+        let { index: visibletargetindexoffset, 
+            scrolloffset: cradletargetindexoffset } = referenceIndexDataRef.current
 
         // console.log('running setCradleContent with cradleState, visibletargetindexoffset',cradleState, visibletargetindexoffset)
 
@@ -577,11 +566,13 @@ const Cradle = ({
         }
 
         divlinerStyleRevisionsRef.current = styles
-        referenceIndexRef.current = visibletargetindexoffset // indexoffset
-        // saveReferenceindex(indexoffset)
-        saveReferenceindex(visibletargetindexoffset)
+        referenceIndexDataRef.current = {
+            index:visibletargetindexoffset,
+            scrolloffset:cradletargetindexoffset,
+        }
 
-        // saveContentlist(childlist) // external
+        saveReferenceindex(referenceIndexDataRef.current)
+
         contentlistRef.current = childlist
 
     },[
@@ -608,7 +599,7 @@ const Cradle = ({
 
             if (!isResizingRef.current) { // conflicting responses; resizing needs current version of visible before change
 
-                console.log('calculating visible item list')
+                // console.log('calculating visible item list')
                 // update visible list
                 let itemlist = Array.from(itemElementsRef.current)
 
@@ -658,7 +649,7 @@ const Cradle = ({
         },250)
 
         let referenceindex
-        if (!isResizingRef.current) { //  && !isSettingCradleContentRef.current) {
+        if (!isResizingRef.current) {
             let scrollPos, cellLength
             if (orientationRef.current == 'vertical') {
                 scrollPos = viewportData.elementref.current.scrollTop
@@ -668,12 +659,17 @@ const Cradle = ({
                 cellLength = cellSpecsRef.current.cellWidth + cellSpecsRef.current.gap
             }
             let referencerowindex = Math.ceil(scrollPos/cellLength)
+            let referencescrolloffset = -((scrollPos % cellLength) - cellLength)
             referenceindex = referencerowindex * crosscountRef.current
-            referenceIndexRef.current = referenceindex
-            saveReferenceindex(referenceindex)
+
+            // console.log('referenceindex, referencescrolloffset',referenceindex, referencescrolloffset)
+
+            referenceIndexDataRef.current = {
+                index:referenceindex,
+                scrolloffset:referencescrolloffset
+            }
+            saveReferenceindex(referenceIndexDataRef.current)
         }
-        // console.log('scrolling with cradleState, referenceindex, referenceIndexRef.current', 
-        //     cradlestateRef.current, referenceindex, referenceIndexRef.current)
 
         if (!isCradleInViewRef.current && 
             !(cradlestateRef.current == 'repositioning') && 
@@ -827,7 +823,7 @@ const Cradle = ({
             ?<ScrollTracker 
                 top = {viewportRect.top + 3} 
                 left = {viewportRect.left + 3} 
-                offset = {referenceIndexRef.current} 
+                offset = {referenceIndexDataRef.current.index} 
                 listsize = {listsize}
                 styles = { styles }
             />
