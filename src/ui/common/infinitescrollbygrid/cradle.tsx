@@ -21,9 +21,6 @@ import ScrollTracker from './scrolltracker'
 
 /*
 
-    add padding to position calculations
-
-    
     Do these:
         getContentList:null,
         getVisibleList:null,
@@ -109,8 +106,6 @@ const Cradle = ({
 
     const isResizingRef = useRef(false)
 
-    const isSettlingRef = useRef(false)
-
     const viewportData = useContext(ViewportContext)
 
     const itemobserverRef = useRef(null)
@@ -119,9 +114,9 @@ const Cradle = ({
 
     const cellSpecs = useMemo(() => {
         return {
-            cellWidth,cellHeight,gap
+            cellWidth,cellHeight,gap, padding
         }
-    },[cellWidth,cellHeight,gap])
+    },[cellWidth,cellHeight,gap, padding])
     const cellSpecsRef = useRef(null)
     cellSpecsRef.current = cellSpecs
 
@@ -665,10 +660,8 @@ const Cradle = ({
                 cellLength = cellSpecsRef.current.cellWidth + cellSpecsRef.current.gap
             }
             let referencerowindex = Math.ceil(scrollPos/cellLength)
-            let referencescrolloffset = -((scrollPos % cellLength) - cellLength)
+            let referencescrolloffset = -((scrollPos % cellLength) - cellLength) // + (referencerowindex?cellSpecsRef.current.padding:0)
             referenceindex = referencerowindex * crosscountRef.current
-
-            // console.log('referenceindex, referencescrolloffset',referenceindex, referencescrolloffset)
 
             referenceIndexDataRef.current = {
                 index:referenceindex,
@@ -732,16 +725,12 @@ const Cradle = ({
 
                 setCradleContent(callingCradleState.current)
 
-                if (!isSettlingRef.current) {
-                    isSettlingRef.current = true
-                    {
-                        // console.log('running settle timeout')
-                        setTimeout(()=>{ // let everything settle before reviving observer
-                            isSettlingRef.current = false
-                            pauseObserversRef.current && (pauseObserversRef.current = false)
-                        },250) // timeout a bit spooky but gives observer initialization of new items a chance to settle
-                    }
-                } // observer seems to need up to 2 cycles to settle; one for each side of the cradle.
+                setTimeout(()=>{ // let everything settle before reviving observer
+
+                    pauseObserversRef.current && (pauseObserversRef.current = false)
+
+                },25) // timeout a bit spooky but gives observer initialization of new items a chance to settle
+                // observer seems to need up to 2 cycles to settle; one for each side of the cradle.
 
                 saveCradleState('ready')
 
