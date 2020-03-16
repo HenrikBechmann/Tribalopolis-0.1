@@ -23,8 +23,6 @@ import ScrollTracker from './scrolltracker'
 
     BUG: interrupts in scroll, resize, pivot. Fix logic in setCradleContent
 
-    3 reload function - use interrupt concept - sentinel for reset duration; queue?
-
     2 scrollToItem(index[,alignment]) - alignment = start, center, end, or nearest (default)
     create getContentList:null, getVisibleList:null, 
 
@@ -91,7 +89,6 @@ const Cradle = ({
     referenceIndexRef.current = referenceindex
 
     const isCradleInViewRef = useRef(true)
-    // const isSettingCradleContentRef = useRef(false)
 
     // console.log('==>> RUNNING Cradle with state ',cradlestate)
 
@@ -311,9 +308,7 @@ const Cradle = ({
 
             }
         }
-        // if (cradlestateRef.current == 'initobserver') { // cradle state when triggered by creating component
-        //     saveCradleState('ready')
-        // }
+
     },[])
 
     // drop scroll content
@@ -506,20 +501,6 @@ const Cradle = ({
     // ========================================================================================
     // -------------------------------[ Assembly of content]-----------------------------------
     
-    // reset cradle content for state changes
-    // useEffect(() => {
-
-    //     // if (['setup','resize','pivot','reposition'].indexOf(cradlestate) == -1) return // replace with 'reset'
-
-    //     // if (cradlestate == 'settle') {
-
-    //     //     setCradleContent()
-
-    //     // }
-
-    // },[cradlestate,])
-
-
     // reset cradle
     const setCradleContent = useCallback((cradleState) => {
 
@@ -622,23 +603,6 @@ const Cradle = ({
     useEffect(() => {
 
         if (isScrollingRef.current) return
-
-        // if (cradlestate == 'reposition') {
-        //     let referencerowindex, referenceindex, scrollPos, cellLength
-
-        //     if (orientation == 'vertical') {
-        //         scrollPos = viewportData.elementref.current.scrollTop
-        //         cellLength = cellHeight + gap
-        //     } else {
-        //         scrollPos = viewportData.elementref.current.scrollLeft
-        //         cellLength = cellWidth + gap
-        //     }
-        //     referencerowindex = Math.ceil(scrollPos/cellLength)
-        //     referenceindex = referencerowindex * crosscount
-        //     referenceIndexRef.current = referenceindex
-        //     saveReferenceindex(referenceindex)
-
-        // }
 
         if (cradlestate == 'ready') {
 
@@ -823,7 +787,6 @@ const Cradle = ({
         }
 
     },[orientation])
-
 
     // =============================================================================
     // ------------------------------[ child callbacks ]----------------------------------

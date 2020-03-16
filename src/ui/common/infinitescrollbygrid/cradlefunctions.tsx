@@ -555,36 +555,3 @@ export const setCradleStyleRevisionsForAdd = ({
 
 }
 
-/*
-`   An out of view cradle breaks the system, which is driven by IntersectionObserver notifications.
-*/
-// export const isCradleVisible = (viewportElement, cradleElement, orientation) => {
-
-//     let parentElement = cradleElement.parentElement
-//     let scrollPos, viewportLength, cradlePos, cradleLength
-
-//     if (orientation == 'vertical') {
-
-//         scrollPos = -viewportElement.scrollTop // scrollblock anchor in relation to viewport edge
-//         viewportLength = viewportElement.offsetHeight
-//         cradlePos = cradleElement.offsetTop // cradle edge in relation to scrollblock
-//         cradleLength = cradleElement.offsetHeight
-
-//     } else {
-
-//         scrollPos = -viewportElement.scrollLeft
-//         viewportLength = viewportElement.offsetWidth
-//         cradlePos = cradleElement.offsetLeft
-//         cradleLength = cradleElement.offsetWidth
-
-//     }
-
-//     let cradleposition = scrollPos + cradlePos // in relation to viewport leading edge
-
-//     let isOutOfView = (((cradleposition + cradleLength) < 0 ) || (cradleposition > viewportLength))
-//     // console.log('orientation, isOutOfView, cradleposition, cradlePos, cradleLength, scrollPos, viewportLength, cradleposition + cradleLength',
-//     //     orientation, isOutOfView, cradleposition, cradlePos, cradleLength, scrollPos, viewportLength, cradleposition + cradleLength)
-//     return !isOutOfView
-// }
-
-
