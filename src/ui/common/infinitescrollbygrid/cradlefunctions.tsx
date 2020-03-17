@@ -136,49 +136,49 @@ export const calcVisibleItems = (itemsArray, viewportElement, cradleElement, ori
     return list
 }
 
-export const getVisibleTargetData = (mainConfigDatasetRef) => {
-    let { current:targetConfigData } = mainConfigDatasetRef
+// export const getVisibleTargetData = (mainConfigDatasetRef) => {
+//     let { current:targetConfigData } = mainConfigDatasetRef
 
-    if (targetConfigData.setup) return [undefined, undefined]
+//     if (targetConfigData.setup) return [undefined, undefined]
 
-    let { previousvisible:previousvisiblelist, orientation } = targetConfigData
+//     let { previousvisible:previousvisiblelist, orientation } = targetConfigData
 
-    let targetindex, targetoffset
-    for (let i = 0; i < previousvisiblelist.length; i++) {
-        let item = previousvisiblelist[i]
-        let previousitem
-        if (orientation == 'vertical') {
-            if ( item.verticalRatio  == 1) {
+//     let targetindex, targetoffset
+//     for (let i = 0; i < previousvisiblelist.length; i++) {
+//         let item = previousvisiblelist[i]
+//         let previousitem
+//         if (orientation == 'vertical') {
+//             if ( item.verticalRatio  == 1) {
 
-                targetindex = item.index
-                if (i !== 0) {
-                    let { topPortion, bottomPortion } = previousvisiblelist[i-1]
-                    targetoffset = (topPortion >=0)?topPortion:bottomPortion
-                } else {
-                    targetoffset = 0
-                }
-                break
+//                 targetindex = item.index
+//                 if (i !== 0) {
+//                     let { topPortion, bottomPortion } = previousvisiblelist[i-1]
+//                     targetoffset = (topPortion >=0)?topPortion:bottomPortion
+//                 } else {
+//                     targetoffset = 0
+//                 }
+//                 break
 
-            }
-        } else {
-            if ( item.horizontalRatio  == 1) {
+//             }
+//         } else {
+//             if ( item.horizontalRatio  == 1) {
 
-                targetindex = item.index
-                if (i !== 0) {
-                    let { leftPortion, rightPortion } = previousvisiblelist[i-1]
-                    targetoffset = (leftPortion >=0)?leftPortion:rightPortion
-                } else {
-                    targetoffset = 0
-                }
-                break
+//                 targetindex = item.index
+//                 if (i !== 0) {
+//                     let { leftPortion, rightPortion } = previousvisiblelist[i-1]
+//                     targetoffset = (leftPortion >=0)?leftPortion:rightPortion
+//                 } else {
+//                     targetoffset = 0
+//                 }
+//                 break
 
-            }
-        }
-    }
+//             }
+//         }
+//     }
 
-    return [targetindex, targetoffset]
+//     return [targetindex, targetoffset]
 
-}
+// }
 
 // evaluate content for requirements
 export const getContentListRequirements = ({
@@ -216,11 +216,11 @@ export const getContentListRequirements = ({
 
     let leadingrows
     let calc = (runwaylength + targetScrollOffset)/cellLength
-    if (targetScrollOffset > (cellLength/2)) {
+    // if (targetScrollOffset > (cellLength/2)) {
         leadingrows = Math.floor(calc)
-    } else {
-        leadingrows = Math.ceil(calc)
-    }
+    // } else {
+    //     leadingrows = Math.ceil(calc)
+    // }
     let targetdatarow = Math.floor(visibletargetindexoffset/crosscount)
     leadingrows = Math.min(leadingrows, targetdatarow)
 
@@ -257,8 +257,33 @@ export const getContentListRequirements = ({
 
     let targetrowoffset = Math.floor(visibletargetindexoffset/crosscount)
 
-    let scrollblockoffset = targetrowoffset * cellLength
-    scrollblockoffset -= targetScrollOffset
+    let prescrollblockoffset = targetrowoffset * cellLength
+    let scrollblockoffset = prescrollblockoffset - targetScrollOffset
+
+    console.log(`
+        getContentListRequirements: 
+        indexoffset, 
+        crosscount, 
+        indexrowoffset, 
+        calculatedcradleposition, 
+        visibletargetindexoffset,
+        targetrowoffset,
+        cellLength,
+        prescrollblockoffset,
+        targetScrollOffset,
+        scrollblockoffset`,
+        
+        indexoffset, 
+        crosscount, 
+        indexrowoffset, 
+        calculatedcradleposition, 
+        visibletargetindexoffset,
+        targetrowoffset,
+        cellLength,
+        prescrollblockoffset,
+        targetScrollOffset,
+        scrollblockoffset,
+    )
 
     return {indexoffset, contentCount, scrollblockoffset, calculatedcradleposition} // summarize requirements message
 

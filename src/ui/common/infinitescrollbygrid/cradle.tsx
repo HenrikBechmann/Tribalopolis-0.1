@@ -9,7 +9,7 @@ import {
     setCradleStyles, 
     getUIContentList, 
     calcVisibleItems, 
-    getVisibleTargetData, 
+    // getVisibleTargetData, 
     getContentListRequirements,
     setCradleStyleRevisionsForDrop,
     setCradleStyleRevisionsForAdd,
@@ -20,8 +20,6 @@ import {
 import ScrollTracker from './scrolltracker'
 
 /*
-
-    BUG: fix scroll distance drift
 
     Do these:
         getContentList:null,
@@ -508,14 +506,18 @@ const Cradle = ({
     const setCradleContent = useCallback((cradleState) => {
 
         let { index: visibletargetindexoffset, 
-            scrolloffset: cradletargetindexoffset } = referenceIndexDataRef.current
+            scrolloffset: visibletargetscrolloffset } = referenceIndexDataRef.current
 
-        // console.log('running setCradleContent with cradleState, visibletargetindexoffset',cradleState, visibletargetindexoffset)
+        console.log('setCradleContent cradleState',cradleState)
+
+        // console.log('visibletargetindexoffset, visibletargetscrolloffset',visibletargetindexoffset, visibletargetscrolloffset)
+
+        if (cradleState == 'reposition') visibletargetscrolloffset = 0
 
         let localContentList = [] // any duplicated items will be re-used by react
 
         let {indexoffset, contentCount, scrollblockoffset, calculatedcradleposition} = 
-            getContentListRequirements({ // internal
+            getContentListRequirements({
                 cellHeight, 
                 cellWidth, 
                 orientation, 
@@ -525,7 +527,7 @@ const Cradle = ({
                 gap,
                 padding,
                 visibletargetindexoffset,
-                targetScrollOffset:cradletargetindexoffset,
+                targetScrollOffset:visibletargetscrolloffset,
                 crosscount,
                 listsize,
             })
@@ -571,7 +573,7 @@ const Cradle = ({
         divlinerStyleRevisionsRef.current = styles
         referenceIndexDataRef.current = {
             index:visibletargetindexoffset,
-            scrolloffset:cradletargetindexoffset,
+            scrolloffset:visibletargetscrolloffset,
         }
 
         saveReferenceindex(referenceIndexDataRef.current)
@@ -662,7 +664,8 @@ const Cradle = ({
                 cellLength = cellSpecsRef.current.cellWidth + cellSpecsRef.current.gap
             }
             let referencerowindex = Math.ceil(scrollPos/cellLength)
-            let referencescrolloffset = -((scrollPos % cellLength) - cellLength) // + (referencerowindex?cellSpecsRef.current.padding:0)
+            let referencescrolloffset = cellLength - (scrollPos % cellLength)
+            if (referencescrolloffset == cellLength) referencescrolloffset = 0
             referenceindex = referencerowindex * crosscountRef.current
 
             referenceIndexDataRef.current = {
@@ -710,13 +713,14 @@ const Cradle = ({
     const callingCradleState = useRef(cradlestateRef.current)
 
     useEffect(()=> {
+        console.log('calling state machine with ',cradlestate)
         switch (cradlestate) {
             case 'setup': 
             case 'resize':
             case 'pivot':
             case 'reposition':
 
-                // console.log('setting cradlestate to settle from', cradlestate)
+                console.log('setting cradlestate to settle from', cradlestate)
                 callingCradleState.current = cradlestate
 
                 saveCradleState('settle')
@@ -777,6 +781,7 @@ const Cradle = ({
         contentlistRef.current = []
 
         if (cradlestate != 'setup') {
+            pauseObserversRef.current = true
             saveCradleState('pivot')
         }
 

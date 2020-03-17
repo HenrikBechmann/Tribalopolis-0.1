@@ -114,7 +114,7 @@ const Home = (props) => {
                     cellHeight = {200}
                     cellWidth = {150}
                     runway = {3}
-                    offset = {1000}
+                    offset = {0}
                     listsize = {10000}
                     getItem = {getItem}
                     placeholder = {null}
