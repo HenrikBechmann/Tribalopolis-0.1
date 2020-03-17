@@ -21,6 +21,8 @@ import ScrollTracker from './scrolltracker'
 
 /*
 
+    BUG: fix scroll distance drift
+
     Do these:
         getContentList:null,
         getVisibleList:null,
@@ -729,8 +731,7 @@ const Cradle = ({
 
                     pauseObserversRef.current && (pauseObserversRef.current = false)
 
-                },25) // timeout a bit spooky but gives observer initialization of new items a chance to settle
-                // observer seems to need up to 2 cycles to settle; one for each side of the cradle.
+                }) // observer seems to need up to time to settle; one for each side of the cradle.
 
                 saveCradleState('ready')
 
