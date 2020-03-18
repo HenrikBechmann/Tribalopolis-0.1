@@ -198,7 +198,9 @@ export const getContentListRequirements = ({
 
     // -------------[ calc basic inputs: cradleLength, cellLength, rowcount, contentCount ]----------
 
-    let cradleLength, cellLength, viewportlength
+    console.log('==> 1. visibletargetindexoffset,targetScrollOffset',visibletargetindexoffset,targetScrollOffset)
+
+    let cradleContentLength, cellLength, viewportlength
     if (orientation == 'vertical') {
         cellLength = cellHeight + gap
         viewportlength = viewportheight
@@ -206,108 +208,82 @@ export const getContentListRequirements = ({
         cellLength = cellWidth + gap
         viewportlength = viewportwidth
     }
-    cradleLength = (viewportlength + (padding * 2) - gap) + (runwaylength * 2) // assumes at least one item
+    // cradleLength = (viewportlength + (padding * 2) - gap) + (runwaylength * 2) // assumes at least one item
+    cradleContentLength = viewportlength + (runwaylength * 2)
 
-    let rowcount = Math.ceil(cradleLength/cellLength)
-    let contentCount = rowcount * crosscount
+    let cradlerowcount = Math.floor(cradleContentLength/cellLength)
+    let contentCount = cradlerowcount * crosscount
     if (contentCount > listsize) contentCount = listsize
 
-    // -----------------------[ calc leadingcount ]-----------------------
+    // -----------------------[ calc leadingitemcount ]-----------------------
 
-    let leadingrows
-    let calc = (runwaylength + targetScrollOffset)/cellLength
-    // if (targetScrollOffset > (cellLength/2)) {
-        leadingrows = Math.floor(calc)
-    // } else {
-    //     leadingrows = Math.ceil(calc)
-    // }
-    let targetdatarow = Math.floor(visibletargetindexoffset/crosscount)
-    leadingrows = Math.min(leadingrows, targetdatarow)
-
-    let leadingcount = leadingrows * crosscount
+    let cradleleadingrowcount = Math.floor(runwaylength/cellLength)
+    let leadingitemcount = cradleleadingrowcount * crosscount
     let targetdiff = visibletargetindexoffset % crosscount
-    leadingcount += targetdiff
+    leadingitemcount += targetdiff
+    leadingitemcount = Math.min(leadingitemcount, visibletargetindexoffset)
+
+    console.log('2. contentCount, cradleleadingitemcount, targetdiff, cradleleadingrowcount, crosscount', 
+        contentCount, leadingitemcount, targetdiff, cradleleadingrowcount, crosscount)
 
     // -----------------------[ calc indexoffset ]------------------------
 
     // leading edge
-    let indexoffset = visibletargetindexoffset - leadingcount
+    let indexoffset = visibletargetindexoffset - leadingitemcount
+    let diff = indexoffset % crosscount
+    indexoffset -= diff
 
-    // shift indexoffset to conform to crosscount multiple
-    let shift = indexoffset % crosscount;
-
-    (shift) && (indexoffset -= shift)
-
-    // trailing edge
-    let maxoffset = indexoffset + (contentCount - 1)
-    if (maxoffset > (listsize - 1)) { // expand leading edge to accommodate overflow
-        let diff = maxoffset - (listsize - 1)
-        shift = diff % crosscount // contract trailing edge by remainder
-        diff = Math.floor(diff/crosscount) * crosscount // expand leading edge by rows
-
-        indexoffset -= diff
-        contentCount -= shift
-    }
+    console.log('3. indexoffset, diff, visibletargetindexoffset, leadingitemcount',
+        indexoffset, diff, visibletargetindexoffset, leadingitemcount)
     
     // --------------------[ calc css positioning ]-----------------------
 
     let indexrowoffset = Math.floor(indexoffset/crosscount)
-
-    let calculatedcradleposition = indexrowoffset * cellLength
+    let cradleoffset = indexrowoffset * cellLength
 
     let targetrowoffset = Math.floor(visibletargetindexoffset/crosscount)
 
-    let prescrollblockoffset = targetrowoffset * cellLength
-    let scrollblockoffset = prescrollblockoffset - targetScrollOffset
+    let rowscrollblockoffset = targetrowoffset * cellLength
+    let scrollblockoffset = rowscrollblockoffset - targetScrollOffset
 
-    console.log(`
-        getContentListRequirements: 
-        indexoffset, 
-        crosscount, 
-        indexrowoffset, 
-        calculatedcradleposition, 
-        visibletargetindexoffset,
-        targetrowoffset,
-        cellLength,
-        prescrollblockoffset,
-        targetScrollOffset,
-        scrollblockoffset`,
-        
-        indexoffset, 
-        crosscount, 
-        indexrowoffset, 
-        calculatedcradleposition, 
-        visibletargetindexoffset,
-        targetrowoffset,
-        cellLength,
-        prescrollblockoffset,
-        targetScrollOffset,
-        scrollblockoffset,
-    )
+    console.log('4. scrollblockoffset, cradleoffset, rowscrollblockoffset, targetScrollOffset',
+        scrollblockoffset, cradleoffset, rowscrollblockoffset, targetScrollOffset)
 
-    return {indexoffset, contentCount, scrollblockoffset, calculatedcradleposition} // summarize requirements message
+    return {indexoffset, contentCount, scrollblockoffset, cradleoffset} // summarize requirements message
 
 }
 
 // this makes ui resize less visually jarring
 export const normalizeCradleAnchors = (cradleElement, orientation) => {
-    // return
+    
+    let styles:React.CSSProperties = {}
+
     let stylerevisions:React.CSSProperties = {}
     if (orientation == 'vertical') {
         if (cradleElement.style.top == 'auto') {
-            cradleElement.style.top = cradleElement.offsetTop + 'px'
-            cradleElement.style.bottom = 'auto'
-            cradleElement.style.left = 'auto'
-            cradleElement.style.right = 'auto'
+
+            styles.top = cradleElement.offsetTop + 'px'
+            styles.bottom = 'auto'
+            styles.left = 'auto'
+            styles.right = 'auto'
+
         }
     } else {
         if (cradleElement.style.left == 'auto') {
-            cradleElement.style.left = cradleElement.offsetLeft + 'px'
-            cradleElement.style.right = 'auto'
-            cradleElement.style.top = 'auto'
-            cradleElement.style.bottom = 'auto'
+
+            styles.left = cradleElement.offsetLeft + 'px'
+            styles.right = 'auto'
+            styles.top = 'auto'
+            styles.bottom = 'auto'
+
         }
     }
+
+    for (let style in styles) {
+        cradleElement.style[style] = styles[style]
+    }
+
+    console.log('assigning styles to cradleElement',styles)
 
 }
 

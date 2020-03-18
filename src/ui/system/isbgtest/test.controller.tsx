@@ -30,7 +30,7 @@ const ImageItem = (props) => {
                 margin:'3px'
             }
         }>{props.index + 1}</div>
-        <img src = {props.image} style = {{objectFit:'cover'}}/>
+        {/*<img src = {props.image} style = {{objectFit:'cover'}}/>*/}
     </div>
 }
 

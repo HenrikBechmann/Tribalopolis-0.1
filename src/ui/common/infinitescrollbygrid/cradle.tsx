@@ -508,7 +508,7 @@ const Cradle = ({
         let { index: visibletargetindexoffset, 
             scrolloffset: visibletargetscrolloffset } = referenceIndexDataRef.current
 
-        console.log('setCradleContent cradleState',cradleState)
+        // console.log('setCradleContent cradleState',cradleState)
 
         // console.log('visibletargetindexoffset, visibletargetscrolloffset',visibletargetindexoffset, visibletargetscrolloffset)
 
@@ -516,7 +516,7 @@ const Cradle = ({
 
         let localContentList = [] // any duplicated items will be re-used by react
 
-        let {indexoffset, contentCount, scrollblockoffset, calculatedcradleposition} = 
+        let {indexoffset, contentCount, scrollblockoffset, cradleoffset} = 
             getContentListRequirements({
                 cellHeight, 
                 cellWidth, 
@@ -531,6 +531,9 @@ const Cradle = ({
                 crosscount,
                 listsize,
             })
+
+        console.log('xxx===>> x1. indexoffset, contentCount, scrollblockoffset, cradleoffset',
+            indexoffset, contentCount, scrollblockoffset, cradleoffset)
 
         let childlist = getUIContentList({
             indexoffset, 
@@ -550,10 +553,10 @@ const Cradle = ({
 
 
         let styles:React.CSSProperties = {}
-        let cradleoffset
+        // let cradleoffset
         if (orientation == 'vertical') {
 
-            styles.top = calculatedcradleposition + 'px'
+            styles.top = cradleoffset + 'px'
             styles.bottom = 'auto'
             styles.left = 'auto'
             styles.right = 'auto'
@@ -564,7 +567,7 @@ const Cradle = ({
 
             styles.top = 'auto'
             styles.bottom = 'auto'
-            styles.left = calculatedcradleposition + 'px'
+            styles.left = cradleoffset + 'px'
             styles.right = 'auto'
 
             viewportData.elementref.current.scrollLeft = scrollblockoffset
@@ -576,9 +579,12 @@ const Cradle = ({
             scrolloffset:visibletargetscrolloffset,
         }
 
-        saveReferenceindex(referenceIndexDataRef.current)
+        console.log('x2. styles, referenceIndexDataRef.current, scrollTop', 
+            styles, referenceIndexDataRef.current,viewportData.elementref.current.scrollTop)
 
         contentlistRef.current = childlist
+
+        saveReferenceindex(referenceIndexDataRef.current)
 
     },[
         cellHeight,
@@ -630,6 +636,8 @@ const Cradle = ({
     // callback for scroll
     const onScroll = useCallback((e) => {
 
+        // console.log('scrolling to, isScrolling, isResizing, cradleState ',
+        //     viewportData.elementref.current.scrollTop,isScrollingRef.current,isResizingRef.current, cradlestateRef.current)
         if (!isScrollingRef.current)  {
 
             isScrollingRef.current = true
@@ -702,7 +710,7 @@ const Cradle = ({
         resizeTimeridRef.current = setTimeout(() => {
 
             saveCradleState('resize')
-            isResizingRef.current = false
+            // isResizingRef.current = false
 
         },250)
 
@@ -720,7 +728,7 @@ const Cradle = ({
             case 'pivot':
             case 'reposition':
 
-                console.log('setting cradlestate to settle from', cradlestate)
+                // console.log('setting cradlestate to settle from', cradlestate)
                 callingCradleState.current = cradlestate
 
                 saveCradleState('settle')
@@ -733,9 +741,11 @@ const Cradle = ({
 
                 setTimeout(()=>{ // let everything settle before reviving observer
 
+                    isResizingRef.current && (isResizingRef.current = false)
+
                     pauseObserversRef.current && (pauseObserversRef.current = false)
 
-                }) // observer seems to need up to time to settle; one for each side of the cradle.
+                },250) // observer seems to need up to time to settle; one for each side of the cradle.
 
                 saveCradleState('ready')
 
