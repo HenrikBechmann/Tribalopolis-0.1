@@ -198,7 +198,7 @@ export const getContentListRequirements = ({
 
     // -------------[ calc basic inputs: cradleLength, cellLength, rowcount, contentCount ]----------
 
-    console.log('==> 1. visibletargetindexoffset,targetScrollOffset',visibletargetindexoffset,targetScrollOffset)
+    // console.log('==> 1. visibletargetindexoffset,targetScrollOffset',visibletargetindexoffset,targetScrollOffset)
 
     let cradleContentLength, cellLength, viewportlength
     if (orientation == 'vertical') {
@@ -223,8 +223,8 @@ export const getContentListRequirements = ({
     leadingitemcount += targetdiff
     leadingitemcount = Math.min(leadingitemcount, visibletargetindexoffset)
 
-    console.log('2. contentCount, cradleleadingitemcount, targetdiff, cradleleadingrowcount, crosscount', 
-        contentCount, leadingitemcount, targetdiff, cradleleadingrowcount, crosscount)
+    // console.log('2. contentCount, cradleleadingitemcount, targetdiff, cradleleadingrowcount, crosscount', 
+    //     contentCount, leadingitemcount, targetdiff, cradleleadingrowcount, crosscount)
 
     // -----------------------[ calc indexoffset ]------------------------
 
@@ -233,8 +233,8 @@ export const getContentListRequirements = ({
     let diff = indexoffset % crosscount
     indexoffset -= diff
 
-    console.log('3. indexoffset, diff, visibletargetindexoffset, leadingitemcount',
-        indexoffset, diff, visibletargetindexoffset, leadingitemcount)
+    // console.log('3. indexoffset, diff, visibletargetindexoffset, leadingitemcount',
+    //     indexoffset, diff, visibletargetindexoffset, leadingitemcount)
     
     // --------------------[ calc css positioning ]-----------------------
 
@@ -246,8 +246,8 @@ export const getContentListRequirements = ({
     let rowscrollblockoffset = targetrowoffset * cellLength
     let scrollblockoffset = rowscrollblockoffset - targetScrollOffset
 
-    console.log('4. scrollblockoffset, cradleoffset, rowscrollblockoffset, targetScrollOffset',
-        scrollblockoffset, cradleoffset, rowscrollblockoffset, targetScrollOffset)
+    // console.log('4. scrollblockoffset, cradleoffset, rowscrollblockoffset, targetScrollOffset',
+    //     scrollblockoffset, cradleoffset, rowscrollblockoffset, targetScrollOffset)
 
     return {indexoffset, contentCount, scrollblockoffset, cradleoffset} // summarize requirements message
 
@@ -283,7 +283,7 @@ export const normalizeCradleAnchors = (cradleElement, orientation) => {
         cradleElement.style[style] = styles[style]
     }
 
-    console.log('assigning styles to cradleElement',styles)
+    // console.log('assigning styles to cradleElement',styles)
 
 }
 

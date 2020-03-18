@@ -298,9 +298,10 @@ const Cradle = ({
     const itemobservercallback = useCallback((entries)=>{
 
         if (pauseObserversRef.current) {
+            // console.log('observer paused')
             return
         }
-
+        // console.log('observer cradleState', cradlestateRef.current)
         if (cradlestateRef.current == 'ready') { // first pass is after setBaseContent, no action required
             let dropentries = entries.filter(entry => (!entry.isIntersecting))
             if (dropentries.length) {
@@ -508,7 +509,7 @@ const Cradle = ({
         let { index: visibletargetindexoffset, 
             scrolloffset: visibletargetscrolloffset } = referenceIndexDataRef.current
 
-        // console.log('setCradleContent cradleState',cradleState)
+        console.log('setCradleContent cradleState',cradleState)
 
         // console.log('visibletargetindexoffset, visibletargetscrolloffset',visibletargetindexoffset, visibletargetscrolloffset)
 
@@ -552,6 +553,8 @@ const Cradle = ({
         })
 
 
+        // let elementstyle = cradleElementRef.current.style
+
         let styles:React.CSSProperties = {}
         // let cradleoffset
         if (orientation == 'vertical') {
@@ -560,6 +563,10 @@ const Cradle = ({
             styles.bottom = 'auto'
             styles.left = 'auto'
             styles.right = 'auto'
+
+            // for (let style in styles) {
+            //     elementstyle[style] = styles[style]
+            // }
 
             viewportData.elementref.current.scrollTop = scrollblockoffset
 
@@ -570,21 +577,26 @@ const Cradle = ({
             styles.left = cradleoffset + 'px'
             styles.right = 'auto'
 
+            // for (let style in styles) {
+            //     elementstyle[style] = styles[style]
+            // }
+
             viewportData.elementref.current.scrollLeft = scrollblockoffset
         }
 
+        console.log('styles',styles)
         divlinerStyleRevisionsRef.current = styles
         referenceIndexDataRef.current = {
             index:visibletargetindexoffset,
             scrolloffset:visibletargetscrolloffset,
         }
 
-        console.log('x2. styles, referenceIndexDataRef.current, scrollTop', 
-            styles, referenceIndexDataRef.current,viewportData.elementref.current.scrollTop)
+        // console.log('x2. styles, referenceIndexDataRef.current, scrollTop', 
+        //     styles, referenceIndexDataRef.current,viewportData.elementref.current.scrollTop)
 
         contentlistRef.current = childlist
 
-        saveReferenceindex(referenceIndexDataRef.current)
+        // saveReferenceindex(referenceIndexDataRef.current)
 
     },[
         cellHeight,
@@ -606,6 +618,8 @@ const Cradle = ({
 
         if (isScrollingRef.current) return
 
+        // console.log('finish scrolling', cradlestate)
+
         if (cradlestate == 'ready') {
 
             if (!isResizingRef.current) { // conflicting responses; resizing needs current version of visible before change
@@ -624,7 +638,7 @@ const Cradle = ({
 
         }
 
-    },[cradlestate] ) // , isScrollingRef.current])
+    },[cradlestate, isScrollingRef.current])
 
     // =====================================================================================
     // ----------------------------------[ state management ]-------------------------------
@@ -657,6 +671,10 @@ const Cradle = ({
                     break
                 } 
 
+                default: {
+                    saveReferenceindex({...referenceIndexDataRef.current}) // trigger render
+                }
+
             }
 
         },250)
@@ -683,7 +701,8 @@ const Cradle = ({
             saveReferenceindex(referenceIndexDataRef.current)
         }
 
-        if (!isCradleInViewRef.current && 
+        if (!isResizingRef.current &&
+            !isCradleInViewRef.current && 
             !(cradlestateRef.current == 'repositioning') && 
             !(cradlestateRef.current == 'reposition')) {
 
@@ -709,8 +728,9 @@ const Cradle = ({
         clearTimeout(resizeTimeridRef.current)
         resizeTimeridRef.current = setTimeout(() => {
 
+            console.log('setting resize from onResize')
             saveCradleState('resize')
-            // isResizingRef.current = false
+            isResizingRef.current = false
 
         },250)
 
@@ -721,7 +741,7 @@ const Cradle = ({
     const callingCradleState = useRef(cradlestateRef.current)
 
     useEffect(()=> {
-        console.log('calling state machine with ',cradlestate)
+        // console.log('calling state machine with ',cradlestate)
         switch (cradlestate) {
             case 'setup': 
             case 'resize':
@@ -730,6 +750,7 @@ const Cradle = ({
 
                 // console.log('setting cradlestate to settle from', cradlestate)
                 callingCradleState.current = cradlestate
+                // setCradleContent(callingCradleState.current)
 
                 saveCradleState('settle')
 
@@ -738,16 +759,17 @@ const Cradle = ({
             case 'settle':
 
                 setCradleContent(callingCradleState.current)
-
+    
                 setTimeout(()=>{ // let everything settle before reviving observer
-
+    
                     isResizingRef.current && (isResizingRef.current = false)
 
                     pauseObserversRef.current && (pauseObserversRef.current = false)
+    
+                    saveCradleState('ready')
 
-                },250) // observer seems to need up to time to settle; one for each side of the cradle.
 
-                saveCradleState('ready')
+                }) // observer seems to need up to time to settle; one for each side of the cradle.
 
                 break
 
