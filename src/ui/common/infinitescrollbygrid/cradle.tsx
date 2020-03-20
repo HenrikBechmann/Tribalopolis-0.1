@@ -21,6 +21,10 @@ import ScrollTracker from './scrolltracker'
 
 /*
 
+    reset referenceItemData after resize; calculate new referenceItem
+    BUG: prevent repositioning from being called during resize 
+    affirm need for setTimeout for setting scrollTop or Left for resetContent
+
     Do these:
         getContentList:null,
         getVisibleList:null,
@@ -268,6 +272,13 @@ const Cradle = ({
     },[])
 
     const cradleobservercallback = useCallback((entries) => {
+
+        if (pauseObserversRef.current) {
+            // console.log('observer paused')
+            return
+        }
+
+        // console.log('cradle observer cradleState', cradlestateRef.current)
         
         isCradleInViewRef.current = entries[0].isIntersecting
 
@@ -301,7 +312,7 @@ const Cradle = ({
             // console.log('observer paused')
             return
         }
-        // console.log('observer cradleState', cradlestateRef.current)
+        console.log('item observer cradleState', cradlestateRef.current)
         if (cradlestateRef.current == 'ready') { // first pass is after setBaseContent, no action required
             let dropentries = entries.filter(entry => (!entry.isIntersecting))
             if (dropentries.length) {
@@ -504,12 +515,12 @@ const Cradle = ({
     // -------------------------------[ Assembly of content]-----------------------------------
     
     // reset cradle
-    const setCradleContent = useCallback((cradleState) => {
+    const setCradleContent = useCallback((cradleState, referenceIndexData) => {
 
         let { index: visibletargetindexoffset, 
-            scrolloffset: visibletargetscrolloffset } = referenceIndexDataRef.current
+            scrolloffset: visibletargetscrolloffset } = referenceIndexData
 
-        console.log('setCradleContent cradleState',cradleState)
+        console.log('setCradleContent cradleState',cradleState, referenceIndexData)
 
         // console.log('visibletargetindexoffset, visibletargetscrolloffset',visibletargetindexoffset, visibletargetscrolloffset)
 
@@ -564,11 +575,9 @@ const Cradle = ({
             styles.left = 'auto'
             styles.right = 'auto'
 
-            // for (let style in styles) {
-            //     elementstyle[style] = styles[style]
-            // }
-
-            viewportData.elementref.current.scrollTop = scrollblockoffset
+            setTimeout(()=>{
+                viewportData.elementref.current.scrollTop = scrollblockoffset
+            })
 
         } else { // orientation = 'horizontal'
 
@@ -577,11 +586,9 @@ const Cradle = ({
             styles.left = cradleoffset + 'px'
             styles.right = 'auto'
 
-            // for (let style in styles) {
-            //     elementstyle[style] = styles[style]
-            // }
-
-            viewportData.elementref.current.scrollLeft = scrollblockoffset
+            setTimeout(()=>{
+                viewportData.elementref.current.scrollLeft = scrollblockoffset
+            })
         }
 
         console.log('styles',styles)
@@ -667,17 +674,18 @@ const Cradle = ({
 
                 case 'repositioning': {
 
+                    callingReferenceIndexDataRef.current = {...referenceIndexDataRef.current}
                     saveCradleState('reposition')
                     break
                 } 
 
                 default: {
-                    saveReferenceindex({...referenceIndexDataRef.current}) // trigger render
+                    // saveReferenceindex({...referenceIndexDataRef.current}) // trigger render
                 }
 
             }
 
-        },250)
+        },66)
 
         let referenceindex
         if (!isResizingRef.current) {
@@ -703,6 +711,7 @@ const Cradle = ({
 
         if (!isResizingRef.current &&
             !isCradleInViewRef.current && 
+            !(cradlestateRef.current == 'resize') &&
             !(cradlestateRef.current == 'repositioning') && 
             !(cradlestateRef.current == 'reposition')) {
 
@@ -729,16 +738,17 @@ const Cradle = ({
         resizeTimeridRef.current = setTimeout(() => {
 
             console.log('setting resize from onResize')
+            callingReferenceIndexDataRef.current = {...referenceIndexDataRef.current}
             saveCradleState('resize')
-            isResizingRef.current = false
 
-        },250)
+        },67)
 
     },[])
 
     // thia ia the core state engine
     // triggering next state phase: states = setup, pivot, resize, reposition (was run)
     const callingCradleState = useRef(cradlestateRef.current)
+    const callingReferenceIndexDataRef = useRef(referenceIndexDataRef.current)
 
     useEffect(()=> {
         // console.log('calling state machine with ',cradlestate)
@@ -748,28 +758,31 @@ const Cradle = ({
             case 'pivot':
             case 'reposition':
 
-                // console.log('setting cradlestate to settle from', cradlestate)
                 callingCradleState.current = cradlestate
-                // setCradleContent(callingCradleState.current)
-
                 saveCradleState('settle')
 
                 break
 
             case 'settle':
 
-                setCradleContent(callingCradleState.current)
+                setTimeout(() => { // let browser edge case operations settle (eg change to full screen)
+
+                    setCradleContent(callingCradleState.current, callingReferenceIndexDataRef.current)
+
+                    saveCradleState('ready')
+
+                    referenceIndexDataRef.current = callingReferenceIndexDataRef.current
+
+                },1)
     
-                setTimeout(()=>{ // let everything settle before reviving observer
+                setTimeout(()=>{ // let content settle before reviving observer
     
                     isResizingRef.current && (isResizingRef.current = false)
 
                     pauseObserversRef.current && (pauseObserversRef.current = false)
     
-                    saveCradleState('ready')
 
-
-                }) // observer seems to need up to time to settle; one for each side of the cradle.
+                },250)
 
                 break
 
@@ -814,6 +827,7 @@ const Cradle = ({
 
         if (cradlestate != 'setup') {
             pauseObserversRef.current = true
+            callingReferenceIndexDataRef.current = {...referenceIndexDataRef.current}
             saveCradleState('pivot')
         }
 
