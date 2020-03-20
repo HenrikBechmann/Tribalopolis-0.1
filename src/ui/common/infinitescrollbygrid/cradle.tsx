@@ -23,7 +23,7 @@ import ScrollTracker from './scrolltracker'
 
     reset referenceItemData after resize; calculate new referenceItem
     BUG: prevent repositioning from being called during resize 
-    affirm need for setTimeout for setting scrollTop or Left for resetContent
+    affirm need for setTimeout for setting scrollTop or Left for resetContent; consider creadle states
 
     Do these:
         getContentList:null,
@@ -520,7 +520,13 @@ const Cradle = ({
         let { index: visibletargetindexoffset, 
             scrolloffset: visibletargetscrolloffset } = referenceIndexData
 
-        console.log('setCradleContent cradleState',cradleState, referenceIndexData)
+        let refindex = referenceIndexData.index
+        let diff = refindex % crosscountRef.current
+        refindex -= diff
+
+        referenceIndexData.index = refindex
+
+        console.log('setCradleContent cradleState', cradleState, referenceIndexData)
 
         // console.log('visibletargetindexoffset, visibletargetscrolloffset',visibletargetindexoffset, visibletargetscrolloffset)
 
@@ -565,30 +571,31 @@ const Cradle = ({
 
 
         // let elementstyle = cradleElementRef.current.style
+        let elementstyle = cradleElementRef.current.style
 
         let styles:React.CSSProperties = {}
         // let cradleoffset
         if (orientation == 'vertical') {
 
-            styles.top = cradleoffset + 'px'
-            styles.bottom = 'auto'
-            styles.left = 'auto'
-            styles.right = 'auto'
+            elementstyle.top = styles.top = cradleoffset + 'px'
+            elementstyle.bottom = styles.bottom = 'auto'
+            elementstyle.left = styles.left = 'auto'
+            elementstyle.right = styles.right = 'auto'
 
             setTimeout(()=>{
                 viewportData.elementref.current.scrollTop = scrollblockoffset
-            })
+            },200)
 
         } else { // orientation = 'horizontal'
 
-            styles.top = 'auto'
-            styles.bottom = 'auto'
-            styles.left = cradleoffset + 'px'
-            styles.right = 'auto'
+            elementstyle.top = styles.top = 'auto'
+            elementstyle.bottom = styles.bottom = 'auto'
+            elementstyle.left = styles.left = cradleoffset + 'px'
+            elementstyle.right = styles.right = 'auto'
 
             setTimeout(()=>{
                 viewportData.elementref.current.scrollLeft = scrollblockoffset
-            })
+            },200)
         }
 
         console.log('styles',styles)
@@ -679,13 +686,9 @@ const Cradle = ({
                     break
                 } 
 
-                default: {
-                    // saveReferenceindex({...referenceIndexDataRef.current}) // trigger render
-                }
-
             }
 
-        },66)
+        },250)
 
         let referenceindex
         if (!isResizingRef.current) {
@@ -741,7 +744,7 @@ const Cradle = ({
             callingReferenceIndexDataRef.current = {...referenceIndexDataRef.current}
             saveCradleState('resize')
 
-        },67)
+        },249)
 
     },[])
 
@@ -771,9 +774,7 @@ const Cradle = ({
 
                     saveCradleState('ready')
 
-                    referenceIndexDataRef.current = callingReferenceIndexDataRef.current
-
-                },1)
+                },100)
     
                 setTimeout(()=>{ // let content settle before reviving observer
     
@@ -782,7 +783,7 @@ const Cradle = ({
                     pauseObserversRef.current && (pauseObserversRef.current = false)
     
 
-                },250)
+                },600)
 
                 break
 
