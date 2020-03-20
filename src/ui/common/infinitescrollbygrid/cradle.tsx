@@ -526,6 +526,8 @@ const Cradle = ({
 
         referenceIndexData.index = refindex
 
+        referenceIndexDataRef.current.index = refindex
+
         console.log('setCradleContent cradleState', cradleState, referenceIndexData)
 
         // console.log('visibletargetindexoffset, visibletargetscrolloffset',visibletargetindexoffset, visibletargetscrolloffset)
@@ -577,28 +579,29 @@ const Cradle = ({
         // let cradleoffset
         if (orientation == 'vertical') {
 
+            setTimeout(()=>{
+                viewportData.elementref.current.scrollTop = scrollblockoffset
+            },200)
+
             elementstyle.top = styles.top = cradleoffset + 'px'
             elementstyle.bottom = styles.bottom = 'auto'
             elementstyle.left = styles.left = 'auto'
             elementstyle.right = styles.right = 'auto'
 
-            setTimeout(()=>{
-                viewportData.elementref.current.scrollTop = scrollblockoffset
-            },200)
-
         } else { // orientation = 'horizontal'
+
+            setTimeout(()=>{
+                viewportData.elementref.current.scrollLeft = scrollblockoffset
+            },200)
 
             elementstyle.top = styles.top = 'auto'
             elementstyle.bottom = styles.bottom = 'auto'
             elementstyle.left = styles.left = cradleoffset + 'px'
             elementstyle.right = styles.right = 'auto'
 
-            setTimeout(()=>{
-                viewportData.elementref.current.scrollLeft = scrollblockoffset
-            },200)
         }
 
-        console.log('styles',styles)
+        // console.log('styles',styles)
         divlinerStyleRevisionsRef.current = styles
         referenceIndexDataRef.current = {
             index:visibletargetindexoffset,
@@ -774,7 +777,7 @@ const Cradle = ({
 
                     saveCradleState('ready')
 
-                },100)
+                },250)
     
                 setTimeout(()=>{ // let content settle before reviving observer
     
@@ -783,7 +786,7 @@ const Cradle = ({
                     pauseObserversRef.current && (pauseObserversRef.current = false)
     
 
-                },600)
+                },1000)
 
                 break
 

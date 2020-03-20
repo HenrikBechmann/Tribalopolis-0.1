@@ -243,8 +243,8 @@ export const getContentListRequirements = ({
 
     let targetrowoffset = Math.floor(visibletargetindexoffset/crosscount)
 
-    let rowscrollblockoffset = targetrowoffset * cellLength
-    let scrollblockoffset = rowscrollblockoffset - targetScrollOffset
+    let rowscrollblockoffset = (targetrowoffset -1) * cellLength
+    let scrollblockoffset = Math.max(0,rowscrollblockoffset - targetScrollOffset)
 
     // console.log('4. scrollblockoffset, cradleoffset, rowscrollblockoffset, targetScrollOffset',
     //     scrollblockoffset, cradleoffset, rowscrollblockoffset, targetScrollOffset)
