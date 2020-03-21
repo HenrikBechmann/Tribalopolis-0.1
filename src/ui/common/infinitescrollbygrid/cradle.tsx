@@ -550,8 +550,8 @@ const Cradle = ({
 
         referenceIndexDataRef.current.index = refindex
 
-        console.log('xxx===>> x1. indexoffset, contentCount, scrollblockoffset, cradleoffset',
-            indexoffset, contentCount, scrollblockoffset, cradleoffset)
+        console.log('xxx===>> x1. indexoffset, contentCount, crosscount1, crosscount2, scrollblockoffset, cradleoffset',
+            indexoffset, contentCount, crosscount, scrollblockoffset, cradleoffset, crosscountRef.current)
 
         let childlist = getUIContentList({
             indexoffset, 
@@ -694,7 +694,7 @@ const Cradle = ({
 
         let referenceindex
         // if (!isResizingRef.current) {
-        if (cradlestateRef.current == 'ready') {
+        if (cradlestateRef.current == 'ready' || cradlestateRef.current == 'repositioning') {
             let scrollPos, cellLength
             if (orientationRef.current == 'vertical') {
                 scrollPos = viewportData.elementref.current.scrollTop
@@ -771,21 +771,17 @@ const Cradle = ({
 
             case 'settle':
 
-                setTimeout(() => { // let browser edge case operations settle (eg change to full screen)
+                setCradleContent(callingCradleState.current, callingReferenceIndexDataRef.current)
 
-                    setCradleContent(callingCradleState.current, callingReferenceIndexDataRef.current)
+                isResizingRef.current && (isResizingRef.current = false)
 
-                    saveCradleState('ready')
+                saveCradleState('ready')
 
-                    isResizingRef.current && (isResizingRef.current = false)
-
-                },250)
-    
                 setTimeout(()=>{ // let content settle before reviving observer
     
                     pauseObserversRef.current && (pauseObserversRef.current = false)
     
-                },1000)
+                },250)
 
                 break
 
@@ -799,7 +795,7 @@ const Cradle = ({
         if (cradlestate == 'ready') {
 
             mainConfigDatasetRef.current = {...previousConfigDataRef.current}
-            saveCradleState('resize') // may be called separately if attributes changes without page resize
+            // saveCradleState('resize') // may be called separately if attributes changes without page resize
 
         }
     },[
