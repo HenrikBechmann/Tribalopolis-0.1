@@ -520,14 +520,6 @@ const Cradle = ({
         let { index: visibletargetindexoffset, 
             scrolloffset: visibletargetscrolloffset } = referenceIndexData
 
-        let refindex = referenceIndexData.index
-        let diff = refindex % crosscountRef.current
-        refindex -= diff
-
-        referenceIndexData.index = refindex
-
-        referenceIndexDataRef.current.index = refindex
-
         console.log('setCradleContent cradleState', cradleState, referenceIndexData)
 
         // console.log('visibletargetindexoffset, visibletargetscrolloffset',visibletargetindexoffset, visibletargetscrolloffset)
@@ -551,6 +543,12 @@ const Cradle = ({
                 crosscount,
                 listsize,
             })
+
+        let refindex = referenceIndexData.index
+        let diff = refindex % crosscountRef.current
+        refindex -= diff
+
+        referenceIndexDataRef.current.index = refindex
 
         console.log('xxx===>> x1. indexoffset, contentCount, scrollblockoffset, cradleoffset',
             indexoffset, contentCount, scrollblockoffset, cradleoffset)
@@ -685,6 +683,7 @@ const Cradle = ({
                 case 'repositioning': {
 
                     callingReferenceIndexDataRef.current = {...referenceIndexDataRef.current}
+                    console.log('repositioning with callingReferenceIndexData',callingReferenceIndexDataRef.current)
                     saveCradleState('reposition')
                     break
                 } 
@@ -694,7 +693,8 @@ const Cradle = ({
         },250)
 
         let referenceindex
-        if (!isResizingRef.current) {
+        // if (!isResizingRef.current) {
+        if (cradlestateRef.current == 'ready') {
             let scrollPos, cellLength
             if (orientationRef.current == 'vertical') {
                 scrollPos = viewportData.elementref.current.scrollTop
@@ -743,8 +743,8 @@ const Cradle = ({
         clearTimeout(resizeTimeridRef.current)
         resizeTimeridRef.current = setTimeout(() => {
 
-            console.log('setting resize from onResize')
             callingReferenceIndexDataRef.current = {...referenceIndexDataRef.current}
+            console.log('setting resize from onResize, callingReferenceIndexData', callingReferenceIndexDataRef.current)
             saveCradleState('resize')
 
         },249)
@@ -777,15 +777,14 @@ const Cradle = ({
 
                     saveCradleState('ready')
 
+                    isResizingRef.current && (isResizingRef.current = false)
+
                 },250)
     
                 setTimeout(()=>{ // let content settle before reviving observer
     
-                    isResizingRef.current && (isResizingRef.current = false)
-
                     pauseObserversRef.current && (pauseObserversRef.current = false)
     
-
                 },1000)
 
                 break
