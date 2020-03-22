@@ -5,7 +5,7 @@
     The role of viewport is to provide data to its children (cradle)
 */
 
-import React, {useState, useRef, useEffect, useMemo} from 'react'
+import React, {useState, useRef, useEffect, useMemo, useCallback} from 'react'
 
 import { GenericObject } from '../../../services/interfaces'
 
@@ -29,7 +29,7 @@ const Viewport = ({
 
     const [portstate,setPortState] = useState('prepare')
 
-    console.log('running VIEWPORT with portstate',portstate)
+    // console.log('running VIEWPORT with portstate',portstate)
 
     const sizegenerationcounterRef = useRef(0)
     const timeoutidRef = useRef(null)
@@ -44,11 +44,43 @@ const Viewport = ({
     } as React.CSSProperties,styles?.viewport))
 
     useEffect(()=>{
+
+        window.addEventListener('resize',onResize)
+
+        return () => {
+            window.removeEventListener('resize',onResize)
+        }
+
+    },[])
+
+    const resizeTimeridRef = useRef(null)
+    const isResizingRef = useRef(false)
+
+    const onResize = useCallback((e) => {
+
+        if (!isResizingRef.current) {
+            isResizingRef.current = true
+            // pauseObserversRef.current = true
+            setPortState('resizing')
+        }
+
+        clearTimeout(resizeTimeridRef.current)
+        resizeTimeridRef.current = setTimeout(() => {
+
+            isResizingRef.current = false
+            setPortState('resize')
+
+        },250)
+
+    },[])
+
+    useEffect(()=>{
         switch (portstate) {
             case 'prepare':
                 setPortState('calculate')
                 break
-            case 'calculate': {
+            case 'calculate':
+            case 'resize': {
                 setPortState('render')
             }
         }
@@ -80,7 +112,6 @@ const Viewport = ({
     let {top, right, bottom, left} = viewportClientRect
 
     viewportDataRef.current = useMemo(() => {
-        console.log('recalculating viewport data')
         let width, height, localViewportData
         if (!(top === undefined)) { //proxy
             width = (right - left)
@@ -88,11 +119,14 @@ const Viewport = ({
             localViewportData = {
                 viewportDimensions:{top,right, bottom, left, width, height},
                 elementref:viewportdivRef,
+                isResizing:isResizingRef.current,
             }
+            // console.log('recalculating viewport data: localViewportData.viewportDimensions',
+            //     localViewportData.viewportDimensions)
         }
         return localViewportData
 
-    },[orientation, top, right, bottom, left])
+    },[orientation, top, right, bottom, left,isResizingRef.current])
 
     let divlinerstyle = divlinerstyleRef.current as React.CSSProperties
 

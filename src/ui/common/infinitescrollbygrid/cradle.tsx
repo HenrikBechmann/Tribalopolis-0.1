@@ -61,12 +61,8 @@ const Cradle = ({
     // initialize window listener
     useEffect(() => {
         viewportData.elementref.current.addEventListener('scroll',onScroll)
-        window.addEventListener('resize',onResize)
+        // window.addEventListener('resize',onResize)
 
-        // if (component?.elements.hasOwnProperty('cradleRef')) {
-        //     component.elements.cradleRef = cradleElementRef
-        // } 
-        
         if (component?.items.hasOwnProperty('visibleRef')) {
             component.items.visibleRef = visibleListRef
         } 
@@ -81,7 +77,7 @@ const Cradle = ({
 
         return () => {
             viewportData.elementref.current.removeEventListener('scroll',onScroll)
-            window.removeEventListener('resize',onResize)
+            // window.removeEventListener('resize',onResize)
         }
     },[])
 
@@ -97,7 +93,7 @@ const Cradle = ({
 
     const isCradleInViewRef = useRef(true)
 
-    console.log('==>> RUNNING Cradle with state ',cradlestate)
+    // console.log('==>> RUNNING Cradle with state ',cradlestate)
 
     const [dropentries, saveDropentries] = useState(null)
 
@@ -159,7 +155,7 @@ const Cradle = ({
 
         let lengthforcalc = size - (padding * 2) + gap
         crosscount = Math.floor(lengthforcalc/(crossLength + gap))
-        console.log('recalculating crosscount viewportwidth',viewportwidth)
+        // console.log('recalculating crosscount viewportwidth',crosscount, viewportwidth)
         return crosscount
 
     },[
@@ -171,7 +167,7 @@ const Cradle = ({
         viewportheight, 
         viewportwidth,
     ])
-    console.log('crosscount value',crosscount)
+    // console.log('crosscount value',crosscount)
     // ==============================================================================================
     // ----------------------------------[ config management ]--------------------------------
 
@@ -304,9 +300,9 @@ const Cradle = ({
             // console.log('observer paused')
             return
         }
-        console.log('item observer cradleState', cradlestateRef.current)
         if (cradlestateRef.current == 'ready') { // first pass is after setBaseContent, no action required
             let dropentries = entries.filter(entry => (!entry.isIntersecting))
+            console.log('item observer cradleState, dropentries', cradlestateRef.current,dropentries)
             if (dropentries.length) {
 
                 saveDropentries(dropentries)
@@ -512,7 +508,7 @@ const Cradle = ({
         let { index: visibletargetindexoffset, 
             scrolloffset: visibletargetscrolloffset } = referenceIndexData
 
-        console.log('setCradleContent cradleState', cradleState, referenceIndexData)
+        // console.log('setCradleContent cradleState', cradleState, referenceIndexData)
 
         // console.log('visibletargetindexoffset, visibletargetscrolloffset',visibletargetindexoffset, visibletargetscrolloffset)
 
@@ -542,8 +538,8 @@ const Cradle = ({
 
         referenceIndexDataRef.current.index = refindex
 
-        console.log('xxx===>> x1. indexoffset, contentCount, crosscount1, crosscount2, scrollblockoffset, cradleoffset',
-            indexoffset, contentCount, crosscount, crosscountRef.current, scrollblockoffset, cradleoffset)
+        // console.log('xxx===>> x1. indexoffset, contentCount, crosscount1, crosscount2, scrollblockoffset, cradleoffset',
+        //     indexoffset, contentCount, crosscount, crosscountRef.current, scrollblockoffset, cradleoffset)
 
         let childlist = getUIContentList({
             indexoffset, 
@@ -707,39 +703,16 @@ const Cradle = ({
             saveReferenceindex(referenceIndexDataRef.current)
         }
 
-        if (!isResizingRef.current &&
+        if (
+            // !isResizingRef.current &&
             !isCradleInViewRef.current && 
-            !(cradlestateRef.current == 'resize') &&
+            // !(cradlestateRef.current == 'resize') &&
             !(cradlestateRef.current == 'repositioning') && 
             !(cradlestateRef.current == 'reposition')) {
 
             saveCradleState('repositioning')
 
         }
-
-    },[])
-
-    // set and maintain isResizing flag
-    // set below on first window resize notification
-    // unset with state change to 'settle' in state engine above
-    const resizeTimeridRef = useRef(null)
-
-    const onResize = useCallback((e) => {
-
-        if (!isResizingRef.current) {
-            isResizingRef.current = true
-            pauseObserversRef.current = true
-            saveCradleState('resizing')
-        }
-
-        clearTimeout(resizeTimeridRef.current)
-        resizeTimeridRef.current = setTimeout(() => {
-
-            callingReferenceIndexDataRef.current = {...referenceIndexDataRef.current}
-            console.log('setting resize from onResize, callingReferenceIndexData', callingReferenceIndexDataRef.current)
-            saveCradleState('resize')
-
-        },249)
 
     },[])
 
@@ -752,7 +725,7 @@ const Cradle = ({
         // console.log('calling state machine with ',cradlestate)
         switch (cradlestate) {
             case 'setup': 
-            case 'resize':
+            // case 'resize':
             case 'pivot':
             case 'reposition':
 
