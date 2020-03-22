@@ -31,9 +31,9 @@ const Scrollblock = ({
 
     // const generationcounterRef = useRef(0)
 
-    let { viewportDimensions, itemobserver } = viewportData
+    let { viewportDimensions, itemobserver, isResizing } = viewportData
 
-    console.log('viewportDimensions in scrollblock', viewportDimensions)
+    console.log('viewportDimensions, isResizing in scrollblock', viewportDimensions, isResizing)
 
     let { top, right, bottom, left, width, height } = viewportDimensions
     
