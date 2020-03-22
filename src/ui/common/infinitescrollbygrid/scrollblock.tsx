@@ -1,7 +1,7 @@
 // scrollblock.tsx
 // copyright (c) 2020 Henrik Bechmann, Toronto, Licence: MIT
 
-import React, {useContext, useRef, useCallback, useEffect, useState} from 'react'
+import React, {useContext, useRef, useCallback, useEffect, useState, useLayoutEffect} from 'react'
 
 import { ViewportContext } from './viewport'
 
@@ -17,8 +17,8 @@ const Scrollblock = ({
     styles 
 }) => {
 
-    const [genCounter,setGenCounter] = useState(null)
     const viewportData = useContext(ViewportContext)
+    const [blockstate,setBlockState] = useState('prepare')
     const scrollBlockLengthRef = useRef(null)
     const divlinerstyleRef = useRef(Object.assign({
 
@@ -27,15 +27,24 @@ const Scrollblock = ({
         
     } as React.CSSProperties, styles?.cradle))
 
-    const scrollblockRef = useRef(null)
+    // console.log('running SCROLLBLOCK with state', blockstate)
 
-    // const generationcounterRef = useRef(0)
+    const scrollblockRef = useRef(null)
 
     let { viewportDimensions, itemobserver, isResizing } = viewportData
 
-    console.log('viewportDimensions, isResizing in scrollblock', viewportDimensions, isResizing)
+    // console.log('viewportDimensions, isResizing in scrollblock', viewportDimensions, isResizing)
 
     let { top, right, bottom, left, width, height } = viewportDimensions
+
+    useLayoutEffect(()=>{
+        switch (blockstate) {
+            case 'prepare': {
+                setBlockState('render')
+                break
+            }
+        }
+    })
     
     useEffect(() => {
 
@@ -75,7 +84,7 @@ const Scrollblock = ({
          ]
     )
 
-    return divlinerstyleRef.current.width?<div ref = {scrollblockRef} style={divlinerstyleRef.current}>{children}</div>:null
+    return (blockstate == 'render')?<div ref = {scrollblockRef} style={divlinerstyleRef.current}>{children}</div>:null
 
 } // Scrollblock
 

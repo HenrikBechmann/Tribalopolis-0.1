@@ -5,7 +5,7 @@
     The role of viewport is to provide data to its children (cradle)
 */
 
-import React, {useState, useRef, useEffect, useMemo, useCallback} from 'react'
+import React, {useState, useRef, useEffect, useMemo, useCallback, useLayoutEffect} from 'react'
 
 import { GenericObject } from '../../../services/interfaces'
 
@@ -74,7 +74,7 @@ const Viewport = ({
 
     },[])
 
-    useEffect(()=>{
+    useLayoutEffect(()=>{
         switch (portstate) {
             case 'prepare':
                 setPortState('calculate')
