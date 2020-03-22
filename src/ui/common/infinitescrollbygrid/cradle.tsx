@@ -261,7 +261,7 @@ const Cradle = ({
 
     const cradleobservercallback = useCallback((entries) => {
 
-        if (pauseObserversRef.current) {
+        if (pauseObserversRef.current || viewportData.isResizing) {
             // console.log('observer paused')
             return
         }
@@ -296,7 +296,7 @@ const Cradle = ({
     // the async callback from IntersectionObserver. this is a closure
     const itemobservercallback = useCallback((entries)=>{
 
-        if (pauseObserversRef.current) {
+        if (pauseObserversRef.current || viewportData.isResizing) {
             // console.log('observer paused')
             return
         }
