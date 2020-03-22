@@ -29,7 +29,7 @@ const Scrollblock = ({
 
     const scrollblockRef = useRef(null)
 
-    const generationcounterRef = useRef(0)
+    // const generationcounterRef = useRef(0)
 
     let { viewportDimensions, itemobserver } = viewportData
 
@@ -41,7 +41,7 @@ const Scrollblock = ({
 
         updateBlockLength()
         updateScrollblockStyles(orientation,divlinerstyleRef,scrollBlockLengthRef)
-        setGenCounter(++generationcounterRef.current)
+        // setGenCounter(++generationcounterRef.current)
 
     },[orientation,height,width])
 
