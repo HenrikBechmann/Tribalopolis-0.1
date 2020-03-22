@@ -97,7 +97,7 @@ const Cradle = ({
 
     const isCradleInViewRef = useRef(true)
 
-    // console.log('==>> RUNNING Cradle with state ',cradlestate)
+    console.log('==>> RUNNING Cradle with state ',cradlestate)
 
     const [dropentries, saveDropentries] = useState(null)
 
@@ -147,18 +147,9 @@ const Cradle = ({
 
     const cradleElementRef = useRef(null)
 
-    const viewportDimensions = useMemo(()=>{
+    const { viewportDimensions } = viewportData
 
-        let { viewportRect } = viewportData
-        let { top, right, bottom, left } = viewportRect
-
-        let viewportheight = bottom - top
-        let viewportwidth = right - left
-        return [viewportheight, viewportwidth]
-
-    },[viewportData.viewportRect])
-
-    let [viewportheight,viewportwidth] = viewportDimensions
+    let {height:viewportheight,width:viewportwidth} = viewportDimensions
 
     const crosscount = useMemo(() => {
 
@@ -168,6 +159,7 @@ const Cradle = ({
 
         let lengthforcalc = size - (padding * 2) + gap
         crosscount = Math.floor(lengthforcalc/(crossLength + gap))
+        console.log('recalculating crosscount viewportwidth',viewportwidth)
         return crosscount
 
     },[
@@ -179,7 +171,7 @@ const Cradle = ({
         viewportheight, 
         viewportwidth,
     ])
-
+    console.log('crosscount value',crosscount)
     // ==============================================================================================
     // ----------------------------------[ config management ]--------------------------------
 
@@ -551,7 +543,7 @@ const Cradle = ({
         referenceIndexDataRef.current.index = refindex
 
         console.log('xxx===>> x1. indexoffset, contentCount, crosscount1, crosscount2, scrollblockoffset, cradleoffset',
-            indexoffset, contentCount, crosscount, scrollblockoffset, cradleoffset, crosscountRef.current)
+            indexoffset, contentCount, crosscount, crosscountRef.current, scrollblockoffset, cradleoffset)
 
         let childlist = getUIContentList({
             indexoffset, 
@@ -860,15 +852,13 @@ const Cradle = ({
 
     let divlinerstyles = divlinerStylesRef.current
 
-    let viewportRect = viewportData.elementref.current.getBoundingClientRect()
-
     // no result if styles not set
     return <>
 
         { cradlestateRef.current == 'repositioning'
             ?<ScrollTracker 
-                top = {viewportRect.top + 3} 
-                left = {viewportRect.left + 3} 
+                top = {viewportDimensions.top + 3} 
+                left = {viewportDimensions.left + 3} 
                 offset = {referenceIndexDataRef.current.index} 
                 listsize = {listsize}
                 styles = { styles }

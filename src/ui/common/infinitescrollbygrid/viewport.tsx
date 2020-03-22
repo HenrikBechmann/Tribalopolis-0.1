@@ -27,6 +27,10 @@ const Viewport = ({
     styles,
 }) => {
 
+    const [portstate,setPortState] = useState('prepare')
+
+    console.log('running VIEWPORT with portstate',portstate)
+
     const sizegenerationcounterRef = useRef(0)
     const timeoutidRef = useRef(null)
     const viewportdivRef = useRef(undefined)
@@ -38,6 +42,17 @@ const Viewport = ({
         overflow:'auto',
         backgroundColor:'red',
     } as React.CSSProperties,styles?.viewport))
+
+    useEffect(()=>{
+        switch (portstate) {
+            case 'prepare':
+                setPortState('calculate')
+                break
+            case 'calculate': {
+                setPortState('render')
+            }
+        }
+    },[portstate])
 
     divlinerstyleRef.current = useMemo(() => {
         let mincrosslength = calcMinViewportCrossLength(orientation, cellWidth, cellHeight, padding)
@@ -56,54 +71,28 @@ const Viewport = ({
 
     const [viewportData,setViewportData] = useState(null)
 
-    const [sizegencounter,setGencounter] = useState(0)
-
-    const handleResize = () => {
-
-        clearTimeout(timeoutidRef.current)
-        timeoutidRef.current = setTimeout(() => {
-
-            setGencounter(++sizegenerationcounterRef.current)
-
-        },500)
+    let viewportClientRect
+    if (viewportdivRef.current) {
+        viewportClientRect = viewportdivRef.current.getBoundingClientRect()
+    } else {
+        viewportClientRect = {}
     }
+    let {top, right, bottom, left} = viewportClientRect
 
     useEffect(() => {
-
-        window.addEventListener('resize',handleResize)
-
-        return () => {
-            window.removeEventListener('resize',handleResize)
+        console.log('recalculating viewport data')
+        let width, height, localViewportData
+        if (!(top === undefined)) { //proxy
+            width = (right - left)
+            height = (bottom - top)
+            localViewportData = {
+                viewportDimensions:{top,right, bottom, left, width, height},
+                elementref:viewportdivRef,
+            }
         }
-
-    },[])
-
-    // useEffect(() => {
-    //     if (component?.elements.hasOwnProperty('viewportRef')) {
-    //         component.elements.viewportRef = viewportdivRef
-    //     }
-    // },[])
-
-    useEffect(() => {
-
-        let localViewportData:GenericObject = {}
-        localViewportData.viewportRect = viewportdivRef.current.getBoundingClientRect()
-        localViewportData.elementref = viewportdivRef
-
         setViewportData(localViewportData)
 
-    },[orientation])
-
-    useEffect(() => {
-
-        if (!viewportData) return
-
-        let localViewportData = {...viewportData}
-        localViewportData.viewportRect = viewportdivRef.current.getBoundingClientRect()
-
-        setViewportData(localViewportData)
-
-    },[sizegenerationcounterRef.current])
+    },[orientation, top, right, bottom, left])
 
     let divlinerstyle = divlinerstyleRef.current as React.CSSProperties
 
@@ -112,7 +101,7 @@ const Viewport = ({
             style = {divlinerstyle}
             ref = {viewportdivRef}
         >
-            { viewportData?children:null }
+            { (portstate == 'render')?children:null }
         </div>
     </ViewportContext.Provider>
     

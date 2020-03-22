@@ -31,20 +31,11 @@ const Scrollblock = ({
 
     const generationcounterRef = useRef(0)
 
-    let { viewportRect, itemobserver } = viewportData
+    let { viewportDimensions, itemobserver } = viewportData
 
-    let { top, right, bottom, left } = viewportRect
+    console.log('viewportDimensions in scrollblock', viewportDimensions)
 
-    let viewportheight = bottom - top
-    let viewportwidth = right - left
-
-    // useEffect(() => {
-
-    //     if (component?.elements.hasOwnProperty('scrollblockRef')) {
-    //         component.elements.scrollblockRef = scrollblockRef
-    //     }
-
-    // },[])
+    let { top, right, bottom, left, width, height } = viewportDimensions
     
     useEffect(() => {
 
@@ -52,7 +43,7 @@ const Scrollblock = ({
         updateScrollblockStyles(orientation,divlinerstyleRef,scrollBlockLengthRef)
         setGenCounter(++generationcounterRef.current)
 
-    },[orientation,viewportheight,viewportwidth])
+    },[orientation,height,width])
 
     const updateBlockLength = useCallback(
         () => {
@@ -65,8 +56,8 @@ const Scrollblock = ({
                         gap,
                         padding,
                         orientation, 
-                        viewportheight,
-                        viewportwidth,
+                        viewportheight:height,
+                        viewportwidth:width,
                     }
                 )
 
@@ -79,8 +70,8 @@ const Scrollblock = ({
             gap,
             padding,
             orientation, 
-            viewportheight,
-            viewportwidth,
+            height,
+            width,
          ]
     )
 
