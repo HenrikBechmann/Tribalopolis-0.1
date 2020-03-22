@@ -69,7 +69,7 @@ const Viewport = ({
 
     },[orientation, cellWidth, cellHeight, padding])
 
-    const [viewportData,setViewportData] = useState(null)
+    const viewportDataRef = useRef(null)
 
     let viewportClientRect
     if (viewportdivRef.current) {
@@ -79,7 +79,7 @@ const Viewport = ({
     }
     let {top, right, bottom, left} = viewportClientRect
 
-    useEffect(() => {
+    viewportDataRef.current = useMemo(() => {
         console.log('recalculating viewport data')
         let width, height, localViewportData
         if (!(top === undefined)) { //proxy
@@ -90,13 +90,13 @@ const Viewport = ({
                 elementref:viewportdivRef,
             }
         }
-        setViewportData(localViewportData)
+        return localViewportData
 
     },[orientation, top, right, bottom, left])
 
     let divlinerstyle = divlinerstyleRef.current as React.CSSProperties
 
-    return <ViewportContext.Provider value = { viewportData }>
+    return <ViewportContext.Provider value = { viewportDataRef.current }>
         <div 
             style = {divlinerstyle}
             ref = {viewportdivRef}
