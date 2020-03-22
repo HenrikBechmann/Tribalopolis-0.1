@@ -61,7 +61,6 @@ const Cradle = ({
     // initialize window listener
     useEffect(() => {
         viewportData.elementref.current.addEventListener('scroll',onScroll)
-        // window.addEventListener('resize',onResize)
 
         if (component?.items.hasOwnProperty('visibleRef')) {
             component.items.visibleRef = visibleListRef
@@ -77,7 +76,6 @@ const Cradle = ({
 
         return () => {
             viewportData.elementref.current.removeEventListener('scroll',onScroll)
-            // window.removeEventListener('resize',onResize)
         }
     },[])
 
@@ -93,7 +91,7 @@ const Cradle = ({
 
     const isCradleInViewRef = useRef(true)
 
-    // console.log('==>> RUNNING Cradle with state ',cradlestate)
+    console.log('==>> RUNNING Cradle with state ',cradlestate)
 
     const [dropentries, saveDropentries] = useState(null)
 
@@ -107,6 +105,8 @@ const Cradle = ({
     const isResizingRef = useRef(false)
 
     const viewportData = useContext(ViewportContext)
+
+    isResizingRef.current = viewportData.isResizing
 
     const itemobserverRef = useRef(null)
 
@@ -155,7 +155,6 @@ const Cradle = ({
 
         let lengthforcalc = size - (padding * 2) + gap
         crosscount = Math.floor(lengthforcalc/(crossLength + gap))
-        // console.log('recalculating crosscount viewportwidth',crosscount, viewportwidth)
         return crosscount
 
     },[
@@ -302,7 +301,7 @@ const Cradle = ({
         }
         if (cradlestateRef.current == 'ready') { // first pass is after setBaseContent, no action required
             let dropentries = entries.filter(entry => (!entry.isIntersecting))
-            console.log('item observer cradleState, dropentries', cradlestateRef.current,dropentries)
+            // console.log('item observer cradleState, dropentries', cradlestateRef.current,dropentries)
             if (dropentries.length) {
 
                 saveDropentries(dropentries)
@@ -538,8 +537,8 @@ const Cradle = ({
 
         referenceIndexDataRef.current.index = refindex
 
-        // console.log('xxx===>> x1. indexoffset, contentCount, crosscount1, crosscount2, scrollblockoffset, cradleoffset',
-        //     indexoffset, contentCount, crosscount, crosscountRef.current, scrollblockoffset, cradleoffset)
+        console.log('xxx===>> x1. indexoffset, contentCount, scrollblockoffset, cradleoffset',
+            indexoffset, contentCount, scrollblockoffset, cradleoffset)
 
         let childlist = getUIContentList({
             indexoffset, 
@@ -681,30 +680,31 @@ const Cradle = ({
         },250)
 
         let referenceindex
-        // if (!isResizingRef.current) {
-        if (cradlestateRef.current == 'ready' || cradlestateRef.current == 'repositioning') {
-            let scrollPos, cellLength
-            if (orientationRef.current == 'vertical') {
-                scrollPos = viewportData.elementref.current.scrollTop
-                cellLength = cellSpecsRef.current.cellHeight + cellSpecsRef.current.gap
-            } else {
-                scrollPos = viewportData.elementref.current.scrollLeft
-                cellLength = cellSpecsRef.current.cellWidth + cellSpecsRef.current.gap
-            }
-            let referencerowindex = Math.ceil(scrollPos/cellLength)
-            let referencescrolloffset = cellLength - (scrollPos % cellLength)
-            if (referencescrolloffset == cellLength) referencescrolloffset = 0
-            referenceindex = referencerowindex * crosscountRef.current
+        if (!isResizingRef.current) {
+            if (cradlestateRef.current == 'ready' || cradlestateRef.current == 'repositioning') {
+                let scrollPos, cellLength
+                if (orientationRef.current == 'vertical') {
+                    scrollPos = viewportData.elementref.current.scrollTop
+                    cellLength = cellSpecsRef.current.cellHeight + cellSpecsRef.current.gap
+                } else {
+                    scrollPos = viewportData.elementref.current.scrollLeft
+                    cellLength = cellSpecsRef.current.cellWidth + cellSpecsRef.current.gap
+                }
+                let referencerowindex = Math.ceil(scrollPos/cellLength)
+                let referencescrolloffset = cellLength - (scrollPos % cellLength)
+                if (referencescrolloffset == cellLength) referencescrolloffset = 0
+                referenceindex = referencerowindex * crosscountRef.current
 
-            referenceIndexDataRef.current = {
-                index:referenceindex,
-                scrolloffset:referencescrolloffset
+                referenceIndexDataRef.current = {
+                    index:referenceindex,
+                    scrolloffset:referencescrolloffset
+                }
+                saveReferenceindex(referenceIndexDataRef.current)
             }
-            saveReferenceindex(referenceIndexDataRef.current)
         }
 
         if (
-            // !isResizingRef.current &&
+            !isResizingRef.current &&
             !isCradleInViewRef.current && 
             // !(cradlestateRef.current == 'resize') &&
             !(cradlestateRef.current == 'repositioning') && 
@@ -738,7 +738,7 @@ const Cradle = ({
 
                 setCradleContent(callingCradleState.current, callingReferenceIndexDataRef.current)
 
-                isResizingRef.current && (isResizingRef.current = false)
+                // isResizingRef.current && (isResizingRef.current = false)
 
                 saveCradleState('ready')
 

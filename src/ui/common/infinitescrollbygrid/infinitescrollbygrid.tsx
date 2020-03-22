@@ -55,6 +55,7 @@ const InfiniteScrollByGrid = (props) => {
     component !?? (component = {})
 
     return <Viewport 
+        key = 'viewport'
         orientation = { orientation } 
         cellWidth = { cellHeight }
         cellHeight = { cellHeight }
@@ -65,7 +66,7 @@ const InfiniteScrollByGrid = (props) => {
     >
     
         <Scrollblock
-
+            key = 'scrollblock'
             listsize = { listsize }
             cellWidth = { cellWidth }
             cellHeight = { cellHeight }
@@ -78,7 +79,7 @@ const InfiniteScrollByGrid = (props) => {
         >
 
             <Cradle 
-
+                key = 'cradle'
                 gap = { gap }
                 padding = { padding }
                 cellWidth = { cellWidth }
