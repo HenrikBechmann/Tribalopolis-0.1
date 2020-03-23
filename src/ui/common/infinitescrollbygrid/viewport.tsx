@@ -29,7 +29,7 @@ const Viewport = ({
 
     const [portstate,setPortState] = useState('prepare')
 
-    // console.log('running VIEWPORT with portstate',portstate)
+    console.log('running VIEWPORT with portstate',portstate)
 
     const sizegenerationcounterRef = useRef(0)
     const timeoutidRef = useRef(null)
@@ -74,12 +74,12 @@ const Viewport = ({
 
     },[])
 
-    useLayoutEffect(()=>{
+    useEffect(()=>{
         switch (portstate) {
             case 'prepare':
-                setPortState('calculate')
+                setPortState('render')
                 break
-            case 'calculate':
+            // case 'calculate':
             case 'resize': {
                 setPortState('render')
             }
@@ -135,7 +135,7 @@ const Viewport = ({
             style = {divlinerstyle}
             ref = {viewportdivRef}
         >
-            { (portstate == 'render')?children:null }
+            { (portstate != 'prepare')?children:null }
         </div>
     </ViewportContext.Provider>
     

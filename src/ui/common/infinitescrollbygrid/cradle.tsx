@@ -17,8 +17,6 @@ import {
     // isCradleInView,
 } from './cradlefunctions'
 
-let version = 0
-
 import ScrollTracker from './scrolltracker'
 
 /*
@@ -60,10 +58,6 @@ const Cradle = ({
     // =============================================================================================
     // --------------------------------------[ initialization ]-------------------------------------
 
-    const versionid = useRef(version)
-
-    versionid.current++
-
     // initialize window listener
     useEffect(() => {
         viewportData.elementref.current.addEventListener('scroll',onScroll)
@@ -98,7 +92,6 @@ const Cradle = ({
     const isCradleInViewRef = useRef(true)
 
     console.log('==>> RUNNING Cradle with state ',cradlestate)
-    console.log('versionid',versionid.current)
 
     const [dropentries, saveDropentries] = useState(null)
 

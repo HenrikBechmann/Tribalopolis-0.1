@@ -37,14 +37,20 @@ const Scrollblock = ({
 
     let { top, right, bottom, left, width, height } = viewportDimensions
 
-    useLayoutEffect(()=>{
+    useEffect(()=>{
+        return () => {
+            console.log('unmounting scrollblock')
+        }
+    },[])
+
+    useEffect(()=>{
         switch (blockstate) {
             case 'prepare': {
                 setBlockState('render')
                 break
             }
         }
-    })
+    },[blockstate])
     
     useEffect(() => {
 
