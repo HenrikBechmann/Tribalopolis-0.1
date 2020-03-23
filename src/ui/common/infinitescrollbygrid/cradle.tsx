@@ -67,11 +67,14 @@ const Cradle = ({
 
     const isResizingRef = useRef(false)
 
+    const pauseObserversRef = useRef(false)
+
     useEffect(()=>{
 
         isResizingRef.current = viewportData.isResizing
         if (isResizingRef.current) {
             // console.log('setting cradle to resizing')
+            pauseObserversRef.current = true
             saveCradleState('resizing')
         }
         if (!isResizingRef.current && (cradlestateRef.current == 'resizing')) {
@@ -132,8 +135,6 @@ const Cradle = ({
     },[cellWidth,cellHeight,gap, padding])
     const cellSpecsRef = useRef(null)
     cellSpecsRef.current = cellSpecs
-
-    const pauseObserversRef = useRef(false)
 
     const mainConfigDatasetRef = useRef({setup:true})
 
