@@ -58,6 +58,26 @@ const Cradle = ({
     // =============================================================================================
     // --------------------------------------[ initialization ]-------------------------------------
 
+    const [cradlestate, saveCradleState] = useState('setup')
+    const cradlestateRef = useRef(null) // access by closures
+    cradlestateRef.current = cradlestate
+
+    const viewportData = useContext(ViewportContext)
+
+    const isResizingRef = useRef(false)
+
+    useEffect(()=>{
+
+        isResizingRef.current = viewportData.isResizing
+        if (isResizingRef.current) {
+            saveCradleState('resizing')
+        }
+        if (!isResizingRef.current && (cradlestateRef.current == 'resizing')) {
+            saveCradleState('resize')
+        }
+
+    },[viewportData.isResizing])
+
     // initialize window listener
     useEffect(() => {
         viewportData.elementref.current.addEventListener('scroll',onScroll)
@@ -80,10 +100,6 @@ const Cradle = ({
     },[])
 
     // main control
-    const [cradlestate, saveCradleState] = useState('setup')
-    const cradlestateRef = useRef(null) // access by closures
-    cradlestateRef.current = cradlestate
-
     // current location
     const [referenceindexdata, saveReferenceindex] = useState({index:Math.min(offset,(listsize - 1)) || 0,scrolloffset:0})
     const referenceIndexDataRef = useRef(null) // access by closures
@@ -101,12 +117,6 @@ const Cradle = ({
     const contentlistRef = useRef([])
 
     const isScrollingRef = useRef(false)
-
-    const isResizingRef = useRef(false)
-
-    const viewportData = useContext(ViewportContext)
-
-    isResizingRef.current = viewportData.isResizing
 
     const itemobserverRef = useRef(null)
 
@@ -713,7 +723,7 @@ const Cradle = ({
         if (
             !isResizingRef.current &&
             !isCradleInViewRef.current && 
-            // !(cradlestateRef.current == 'resize') &&
+            !(cradlestateRef.current == 'resize') &&
             !(cradlestateRef.current == 'repositioning') && 
             !(cradlestateRef.current == 'reposition')) {
 
@@ -732,7 +742,7 @@ const Cradle = ({
         // console.log('calling state machine with ',cradlestate)
         switch (cradlestate) {
             case 'setup': 
-            // case 'resize':
+            case 'resize':
             case 'pivot':
             case 'reposition':
 
