@@ -10,6 +10,7 @@ import {
     getUIContentList, 
     calcVisibleItems, 
     // getVisibleTargetData, 
+    getReferenceIndexData,
     getContentListRequirements,
     setCradleStyleRevisionsForDrop,
     setCradleStyleRevisionsForAdd,
@@ -72,20 +73,25 @@ const Cradle = ({
     useEffect(()=>{
 
         isResizingRef.current = viewportData.isResizing
+
         if (isResizingRef.current) {
-            // console.log('setting cradle to resizing')
+
+            callingReferenceIndexDataRef.current = {...referenceIndexDataRef.current}
             pauseObserversRef.current = true
             saveCradleState('resizing')
+
         }
         if (!isResizingRef.current && (cradlestateRef.current == 'resizing')) {
-            // console.log('setting cradle to resize')
+
             saveCradleState('resize')
+
         }
 
     },[viewportData.isResizing])
 
     // initialize window listener
     useEffect(() => {
+
         viewportData.elementref.current.addEventListener('scroll',onScroll)
 
         if (component?.items.hasOwnProperty('visibleRef')) {
@@ -101,8 +107,11 @@ const Cradle = ({
         } 
 
         return () => {
+
             viewportData.elementref.current.removeEventListener('scroll',onScroll)
+
         }
+
     },[])
 
     // main control
@@ -279,7 +288,7 @@ const Cradle = ({
 
     const cradleobservercallback = useCallback((entries) => {
 
-        if (pauseObserversRef.current || viewportData.isResizing) {
+        if (pauseObserversRef.current) {
 
             return
 
@@ -313,7 +322,7 @@ const Cradle = ({
     // the async callback from IntersectionObserver. this is a closure
     const itemobservercallback = useCallback((entries)=>{
 
-        if (pauseObserversRef.current || viewportData.isResizing) {
+        if (pauseObserversRef.current) {
 
             return
 
@@ -552,11 +561,11 @@ const Cradle = ({
                 listsize,
             })
 
-        let refindex = referenceIndexData.index
-        let diff = refindex % crosscountRef.current
-        refindex -= diff
+        // let refindex = referenceIndexData.index
+        // let diff = refindex % crosscountRef.current
+        // refindex -= diff
 
-        referenceIndexDataRef.current.index = refindex
+        // referenceIndexDataRef.current.index = refindex
 
         console.log('xxx===>> x1. indexoffset, contentCount, scrollblockoffset, cradleoffset',
             indexoffset, contentCount, scrollblockoffset, cradleoffset)
@@ -609,10 +618,10 @@ const Cradle = ({
 
         // console.log('styles',styles)
         divlinerStyleRevisionsRef.current = styles
-        referenceIndexDataRef.current = {
-            index:visibletargetindexoffset,
-            scrolloffset:visibletargetscrolloffset,
-        }
+        // referenceIndexDataRef.current = {
+        //     index:visibletargetindexoffset,
+        //     scrolloffset:visibletargetscrolloffset,
+        // }
 
         // console.log('x2. styles, referenceIndexDataRef.current, scrollTop', 
         //     styles, referenceIndexDataRef.current,viewportData.elementref.current.scrollTop)
@@ -690,6 +699,7 @@ const Cradle = ({
 
                 case 'repositioning': {
 
+                    pauseObserversRef.current = true
                     callingReferenceIndexDataRef.current = {...referenceIndexDataRef.current}
                     console.log('repositioning with callingReferenceIndexData',callingReferenceIndexDataRef.current)
                     saveCradleState('reposition')
@@ -700,34 +710,42 @@ const Cradle = ({
 
         },250)
 
-        let referenceindex
-        if (!isResizingRef.current) {
-            if (cradlestateRef.current == 'ready' || cradlestateRef.current == 'repositioning') {
-                let scrollPos, cellLength
-                if (orientationRef.current == 'vertical') {
-                    scrollPos = viewportData.elementref.current.scrollTop
-                    cellLength = cellSpecsRef.current.cellHeight + cellSpecsRef.current.gap
-                } else {
-                    scrollPos = viewportData.elementref.current.scrollLeft
-                    cellLength = cellSpecsRef.current.cellWidth + cellSpecsRef.current.gap
-                }
-                let referencerowindex = Math.ceil(scrollPos/cellLength)
-                let referencescrolloffset = cellLength - (scrollPos % cellLength)
-                if (referencescrolloffset == cellLength) referencescrolloffset = 0
-                referenceindex = referencerowindex * crosscountRef.current
+        // let referenceindex
+        // if (!isResizingRef.current) {
+        if (!pauseObserversRef.current) {
+            // if (cradlestateRef.current == 'ready' || cradlestateRef.current == 'repositioning') {
+                // let scrollPos, cellLength
+                // if (orientationRef.current == 'vertical') {
+                //     scrollPos = viewportData.elementref.current.scrollTop
+                //     cellLength = cellSpecsRef.current.cellHeight + cellSpecsRef.current.gap
+                // } else {
+                //     scrollPos = viewportData.elementref.current.scrollLeft
+                //     cellLength = cellSpecsRef.current.cellWidth + cellSpecsRef.current.gap
+                // }
+                // let referencerowindex = Math.ceil(scrollPos/cellLength)
+                // let referencescrolloffset = cellLength - (scrollPos % cellLength)
+                // if (referencescrolloffset == cellLength) referencescrolloffset = 0
+                // referenceindex = referencerowindex * crosscountRef.current
 
-                referenceIndexDataRef.current = {
-                    index:referenceindex,
-                    scrolloffset:referencescrolloffset
-                }
+                // referenceIndexDataRef.current = {
+                //     index:referenceindex,
+                //     scrolloffset:referencescrolloffset
+                // }
+                referenceIndexDataRef.current = getReferenceIndexData({
+                    orientation:orientationRef.current,
+                    viewportData,
+                    cellSpecsRef,
+                    crosscountRef,
+                })
                 saveReferenceindex(referenceIndexDataRef.current)
-            }
+            // }
         }
 
         if (
-            !isResizingRef.current &&
             !isCradleInViewRef.current && 
-            !(cradlestateRef.current == 'resize') &&
+            !pauseObserversRef.current && 
+            // !isResizingRef.current &&
+            // !(cradlestateRef.current == 'resize') &&
             !(cradlestateRef.current == 'repositioning') && 
             !(cradlestateRef.current == 'reposition')) {
 
@@ -759,9 +777,16 @@ const Cradle = ({
 
                 setCradleContent(callingCradleState.current, callingReferenceIndexDataRef.current)
 
-                // isResizingRef.current && (isResizingRef.current = false)
-
                 saveCradleState('ready')
+
+                setTimeout(()=> {
+                    referenceIndexDataRef.current = getReferenceIndexData({
+                        orientation:orientationRef.current,
+                        viewportData,
+                        cellSpecsRef,
+                        crosscountRef,
+                    })
+                })
 
                 setTimeout(()=>{ // let content settle before reviving observer
     

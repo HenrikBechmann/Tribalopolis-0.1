@@ -180,6 +180,27 @@ export const calcVisibleItems = (itemsArray, viewportElement, cradleElement, ori
 
 // }
 
+export const getReferenceIndexData = ({orientation,viewportData,cellSpecsRef,crosscountRef}) => {
+
+    let scrollPos, cellLength
+    if (orientation == 'vertical') {
+        scrollPos = viewportData.elementref.current.scrollTop
+        cellLength = cellSpecsRef.current.cellHeight + cellSpecsRef.current.gap
+    } else {
+        scrollPos = viewportData.elementref.current.scrollLeft
+        cellLength = cellSpecsRef.current.cellWidth + cellSpecsRef.current.gap
+    }
+    let referencerowindex = Math.ceil(scrollPos/cellLength)
+    let referencescrolloffset = cellLength - (scrollPos % cellLength)
+    if (referencescrolloffset == cellLength) referencescrolloffset = 0
+    let referenceindex = referencerowindex * crosscountRef.current
+
+    return {
+        index:referenceindex,
+        scrolloffset:referencescrolloffset
+    }
+}
+
 // evaluate content for requirements
 export const getContentListRequirements = ({
         orientation, 
