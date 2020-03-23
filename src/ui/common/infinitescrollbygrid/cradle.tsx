@@ -251,22 +251,26 @@ const Cradle = ({
     // this sets up an IntersectionObserver of the cradle against the viewport. When the
     // cradle goes out of the observer scope, the "repositioning" cradle state is triggerd.
     useEffect(() => {
+
         cradleobserverRef.current = new IntersectionObserver(
+
             cradleobservercallback,
             {root:viewportData.elementref.current}
+
         )
+
         cradleobserverRef.current.observe(cradleElementRef.current)
+
     },[])
 
     const cradleobservercallback = useCallback((entries) => {
 
         if (pauseObserversRef.current || viewportData.isResizing) {
-            // console.log('observer paused')
+
             return
+
         }
 
-        // console.log('cradle observer cradleState', cradlestateRef.current)
-        
         isCradleInViewRef.current = entries[0].isIntersecting
 
     },[])
@@ -296,12 +300,15 @@ const Cradle = ({
     const itemobservercallback = useCallback((entries)=>{
 
         if (pauseObserversRef.current || viewportData.isResizing) {
-            // console.log('observer paused')
+
             return
+
         }
-        if (cradlestateRef.current == 'ready') { // first pass is after setBaseContent, no action required
+
+        if (cradlestateRef.current == 'ready') {
+
             let dropentries = entries.filter(entry => (!entry.isIntersecting))
-            // console.log('item observer cradleState, dropentries', cradlestateRef.current,dropentries)
+
             if (dropentries.length) {
 
                 saveDropentries(dropentries)
@@ -825,7 +832,6 @@ const Cradle = ({
 
     let divlinerstyles = divlinerStylesRef.current
 
-    // no result if styles not set
     return <>
 
         { cradlestateRef.current == 'repositioning'
@@ -845,7 +851,7 @@ const Cradle = ({
         
         >
         
-            {divlinerstyles.width?contentlistRef.current:null}
+            {(cradlestateRef.current != 'setup')?contentlistRef.current:null}
         
         </div>
         
