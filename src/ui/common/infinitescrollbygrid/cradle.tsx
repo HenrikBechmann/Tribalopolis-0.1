@@ -21,6 +21,7 @@ import ScrollTracker from './scrolltracker'
 
 /*
 
+    BUG scroll tracker not relocating properly
     reset referenceItemData after resize; calculate new referenceItem
     BUG: prevent repositioning from being called during resize 
     affirm need for setTimeout for setting scrollTop or Left for resetContent; consider creadle states
