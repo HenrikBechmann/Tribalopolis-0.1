@@ -71,9 +71,11 @@ const Cradle = ({
 
         isResizingRef.current = viewportData.isResizing
         if (isResizingRef.current) {
+            // console.log('setting cradle to resizing')
             saveCradleState('resizing')
         }
         if (!isResizingRef.current && (cradlestateRef.current == 'resizing')) {
+            // console.log('setting cradle to resize')
             saveCradleState('resize')
         }
 
