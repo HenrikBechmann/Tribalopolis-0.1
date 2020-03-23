@@ -1,7 +1,7 @@
 // scrollblock.tsx
 // copyright (c) 2020 Henrik Bechmann, Toronto, Licence: MIT
 
-import React, {useContext, useRef, useCallback, useEffect, useState, useLayoutEffect} from 'react'
+import React, {useContext, useRef, useCallback, useEffect, useState} from 'react'
 
 import { ViewportContext } from './viewport'
 
@@ -33,15 +33,7 @@ const Scrollblock = ({
 
     let { viewportDimensions, itemobserver, isResizing } = viewportData
 
-    // console.log('viewportDimensions, isResizing in scrollblock', viewportDimensions, isResizing)
-
     let { top, right, bottom, left, width, height } = viewportDimensions
-
-    useEffect(()=>{
-        return () => {
-            console.log('unmounting scrollblock')
-        }
-    },[])
 
     useEffect(()=>{
         switch (blockstate) {
@@ -56,7 +48,6 @@ const Scrollblock = ({
 
         updateBlockLength()
         updateScrollblockStyles(orientation,divlinerstyleRef,scrollBlockLengthRef)
-        // setGenCounter(++generationcounterRef.current)
 
     },[orientation,height,width])
 

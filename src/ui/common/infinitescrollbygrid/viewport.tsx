@@ -5,7 +5,7 @@
     The role of viewport is to provide data to its children (cradle)
 */
 
-import React, {useState, useRef, useEffect, useMemo, useCallback, useLayoutEffect} from 'react'
+import React, {useState, useRef, useEffect, useMemo, useCallback} from 'react'
 
 import { GenericObject } from '../../../services/interfaces'
 
@@ -29,7 +29,7 @@ const Viewport = ({
 
     const [portstate,setPortState] = useState('prepare')
 
-    console.log('running VIEWPORT with portstate',portstate)
+    // console.log('running VIEWPORT with portstate',portstate)
 
     const sizegenerationcounterRef = useRef(0)
     const timeoutidRef = useRef(null)
@@ -77,11 +77,11 @@ const Viewport = ({
     useEffect(()=>{
         switch (portstate) {
             case 'prepare':
-                setPortState('render')
-                break
-            // case 'calculate':
+                // setPortState('render')
+                // break
             case 'resize': {
                 setPortState('render')
+                break
             }
         }
     },[portstate])
