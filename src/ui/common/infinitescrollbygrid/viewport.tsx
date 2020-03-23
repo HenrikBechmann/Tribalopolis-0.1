@@ -34,6 +34,7 @@ const Viewport = ({
     const sizegenerationcounterRef = useRef(0)
     const timeoutidRef = useRef(null)
     const viewportdivRef = useRef(undefined)
+    const resizeScrollPosRef = useRef({top:0,left:0})
     const divlinerstyleRef = useRef(
         Object.assign({
         position:'absolute',
@@ -56,10 +57,14 @@ const Viewport = ({
     const resizeTimeridRef = useRef(null)
     const isResizingRef = useRef(false)
 
-    const onResize = useCallback((e) => {
+    const onResize = useCallback(() => {
 
         if (!isResizingRef.current) {
             isResizingRef.current = true
+            resizeScrollPosRef.current = {
+                top:viewportdivRef.current.scrollTop,
+                left:viewportdivRef.current.scrollLeft
+            }
             // pauseObserversRef.current = true
             setPortState('resizing')
         }
@@ -120,6 +125,10 @@ const Viewport = ({
                 viewportDimensions:{top,right, bottom, left, width, height},
                 elementref:viewportdivRef,
                 isResizing:isResizingRef.current,
+                scrollPos:{
+                    left:resizeScrollPosRef.current.left,
+                    top:resizeScrollPosRef.current.top,
+                }
             }
             // console.log('recalculating viewport data: localViewportData.viewportDimensions',
             //     localViewportData.viewportDimensions)

@@ -27,7 +27,7 @@ const Scrollblock = ({
         
     } as React.CSSProperties, styles?.cradle))
 
-    console.log('running SCROLLBLOCK with state', blockstate)
+    // console.log('running SCROLLBLOCK with state', blockstate)
 
     const scrollblockRef = useRef(null)
 
