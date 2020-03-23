@@ -131,8 +131,8 @@ const Viewport = ({
                     top:resizeScrollPosRef.current.top,
                 }
             }
-            // console.log('recalculating viewport data: localViewportData.viewportDimensions',
-            //     localViewportData.viewportDimensions)
+            // console.log('recalculating viewport data: localViewportData',
+            //     localViewportData)
         }
         return localViewportData
 
