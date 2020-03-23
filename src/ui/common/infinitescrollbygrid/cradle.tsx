@@ -77,6 +77,13 @@ const Cradle = ({
         if (isResizingRef.current) {
 
             callingReferenceIndexDataRef.current = {...referenceIndexDataRef.current}
+                // getReferenceIndexData({
+                //     orientation:orientationRef.current,
+                //     viewportData,
+                //     cellSpecsRef,
+                //     crosscountRef,
+                // })
+            console.log('calling getReferenceIndexData from isResizing, for callingReferenceIndexDataRef', callingReferenceIndexDataRef.current)
             pauseObserversRef.current = true
             saveCradleState('resizing')
 
@@ -701,7 +708,7 @@ const Cradle = ({
 
                     pauseObserversRef.current = true
                     callingReferenceIndexDataRef.current = {...referenceIndexDataRef.current}
-                    console.log('repositioning with callingReferenceIndexData',callingReferenceIndexDataRef.current)
+                    console.log('setting callingReferenceIndexDataRef from referenceIndexDataRef for repositioning',callingReferenceIndexDataRef.current)
                     saveCradleState('reposition')
                     break
                 } 
@@ -711,7 +718,7 @@ const Cradle = ({
         },250)
 
         // let referenceindex
-        if (!isResizingRef.current) {
+        if (!isResizingRef.current && !viewportData.isResizing) {
         // if (!pauseObserversRef.current) {
             // if (cradlestateRef.current == 'ready' || cradlestateRef.current == 'repositioning') {
                 // let scrollPos, cellLength
@@ -737,6 +744,7 @@ const Cradle = ({
                     cellSpecsRef,
                     crosscountRef,
                 })
+                console.log('calling getReferenceIndexDate for referenceIndexDateRef from onScroll', referenceIndexDataRef.current)
                 saveReferenceindex(referenceIndexDataRef.current)
             // }
         }
@@ -797,6 +805,7 @@ const Cradle = ({
                             cellSpecsRef,
                             crosscountRef,
                         })
+                        console.log('calling getReferenceIndexData for referenceIndexDataRef after settle', referenceIndexDataRef.current)
                         
                         pauseObserversRef.current  && (pauseObserversRef.current = false)
         
@@ -848,6 +857,7 @@ const Cradle = ({
         if (cradlestate != 'setup') {
             pauseObserversRef.current = true
             callingReferenceIndexDataRef.current = {...referenceIndexDataRef.current}
+            console.log('setting callingReferenceIndexDataRef from referenceIndexDataRef for pivot',callingReferenceIndexDataRef.current)
             saveCradleState('pivot')
         }
 

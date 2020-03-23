@@ -61,6 +61,7 @@ const Viewport = ({
 
         if (!isResizingRef.current) {
             isResizingRef.current = true
+            viewportDataRef.current.isResizing = true
             resizeScrollPosRef.current = {
                 top:viewportdivRef.current.scrollTop,
                 left:viewportdivRef.current.scrollLeft

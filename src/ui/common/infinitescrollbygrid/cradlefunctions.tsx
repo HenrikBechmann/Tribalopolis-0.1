@@ -191,6 +191,7 @@ export const getReferenceIndexData = (
     let scrollPos, cellLength
     if (orientation == 'vertical') {
         if (viewportData.isResizing) {
+            console.log('viewportDat in getReferenceIndexData with isResizing true',viewportData)
             scrollPos = viewportData.scrollPos.top
         } else {
             scrollPos = viewportData.elementref.current.scrollTop
@@ -209,10 +210,14 @@ export const getReferenceIndexData = (
     if (referencescrolloffset == cellLength) referencescrolloffset = 0
     let referenceindex = referencerowindex * crosscountRef.current
 
-    return {
+    let referenceIndexData = {
         index:referenceindex,
         scrolloffset:referencescrolloffset
     }
+
+    // console.log('returning referenceIndexData',referenceIndexData)
+
+    return referenceIndexData
 }
 
 // evaluate content for requirements
