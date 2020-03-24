@@ -131,8 +131,6 @@ const Cradle = ({
 
     const isCradleInViewRef = useRef(true)
 
-    // console.log('==>> RUNNING Cradle with state ',cradlestate)
-
     const [dropentries, saveDropentries] = useState(null)
 
     const [addentries, saveAddentries] = useState(null)
@@ -141,6 +139,8 @@ const Cradle = ({
     const contentlistRef = useRef([])
 
     const isScrollingRef = useRef(false)
+
+    // console.log('==>> RUNNING Cradle with state, isScrolling', cradlestate, isScrollingRef.current)
 
     const itemobserverRef = useRef(null)
 
@@ -657,29 +657,25 @@ const Cradle = ({
     // when scroll ends.
     useEffect(() => {
 
-        if (isScrollingRef.current) return
+        if (isScrollingRef.current || isResizingRef.current) return
 
         // console.log('finish scrolling', cradlestate)
 
         if (cradlestate == 'ready') {
 
-            if (!isResizingRef.current) { // conflicting responses; resizing needs current version of visible before change
+            // console.log('calculating visible item list')
+            // update visible list
+            let itemlist = Array.from(itemElementsRef.current)
 
-                // console.log('calculating visible item list')
-                // update visible list
-                let itemlist = Array.from(itemElementsRef.current)
+            visibleListRef.current = calcVisibleItems(
+                itemlist,viewportData.elementref.current,cradleElementRef.current, orientation
+            )
 
-                visibleListRef.current = calcVisibleItems(
-                    itemlist,viewportData.elementref.current,cradleElementRef.current, orientation
-                )
-
-                normalizeCradleAnchors(cradleElementRef.current, orientation)
+            normalizeCradleAnchors(cradleElementRef.current, orientation)
                     
-            }
-
         }
 
-    },[cradlestate, isScrollingRef.current])
+    },[cradlestate, isScrollingRef.current, isResizingRef.current])
 
     // =====================================================================================
     // ----------------------------------[ state management ]-------------------------------
@@ -689,7 +685,7 @@ const Cradle = ({
     },[])
 
     // callback for scroll
-    const onScroll = useCallback((e) => {
+    const onScroll = useCallback(() => {
 
         // console.log('scrolling to, isScrolling, isResizing, cradleState ',
         //     viewportData.elementref.current.scrollTop,isScrollingRef.current,isResizingRef.current, cradlestateRef.current)
@@ -702,7 +698,12 @@ const Cradle = ({
         clearTimeout(scrollTimeridRef.current)
         scrollTimeridRef.current = setTimeout(() => {
             // console.log('scrolling TIMEOUT with cradleState',cradlestateRef.current)
-            isScrollingRef.current = false
+            isScrollingRef.current = false;
+            if ((!isResizingRef.current) && (!viewportDataRef.current.isResizing)) {
+
+                saveReferenceindex({...referenceIndexDataRef.current}) // trigger re-run to capture end of scroll session values
+
+            }
             let cradleState = cradlestateRef.current
             switch (cradleState) {
 
@@ -839,7 +840,7 @@ const Cradle = ({
         if (cradlestate != 'setup') {
             pauseObserversRef.current = true
             callingReferenceIndexDataRef.current = {...referenceIndexDataRef.current}
-            // console.log('setting callingReferenceIndexDataRef from referenceIndexDataRef for pivot',callingReferenceIndexDataRef.current)
+
             saveCradleState('pivot')
         }
 
