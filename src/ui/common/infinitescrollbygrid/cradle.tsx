@@ -130,7 +130,7 @@ const Cradle = ({
 
     const isCradleInViewRef = useRef(true)
 
-    // console.log('==>> RUNNING Cradle with state ',cradlestate)
+    console.log('==>> RUNNING Cradle with state ',cradlestate)
 
     const [dropentries, saveDropentries] = useState(null)
 
@@ -296,11 +296,11 @@ const Cradle = ({
 
     const cradleobservercallback = useCallback((entries) => {
 
-        if (pauseObserversRef.current) {
+        // if (pauseObserversRef.current) {
 
-            return
+        //     return
 
-        }
+        // }
 
         isCradleInViewRef.current = entries[0].isIntersecting
 
@@ -721,15 +721,26 @@ const Cradle = ({
         // let referenceindex
         // console.log('in onScroll:isResizingRef, viewportData.isResizing',isResizingRef.current,viewportData.isResizing)
         if ((!isResizingRef.current) && (!viewportDataRef.current.isResizing)) {
-            referenceIndexDataRef.current = getReferenceIndexData({
-                orientation:orientationRef.current,
-                viewportData:viewportDataRef.current,
-                cellSpecsRef,
-                crosscountRef,
-            })
-            // console.log('calling getReferenceIndexDate for referenceIndexDateRef from onScroll', referenceIndexDataRef.current)
-            saveReferenceindex(referenceIndexDataRef.current)
+
+            let cradleState = cradlestateRef.current
+            if (cradleState == 'ready' || cradleState == 'repositioning') {
+
+                referenceIndexDataRef.current = getReferenceIndexData({
+                    orientation:orientationRef.current,
+                    viewportData:viewportDataRef.current,
+                    cellSpecsRef,
+                    crosscountRef,
+                })
+
+                // console.log('calling getReferenceIndexDate for referenceIndexDateRef from onScroll', referenceIndexDataRef.current)
+                saveReferenceindex(referenceIndexDataRef.current)
+
+            }
+
         }
+
+        console.log('repositioning controls: isCradleInViewRef, pauseObserversRef, isResizingRef, cradlestateRef',
+            isCradleInViewRef.current, pauseObserversRef.current, isResizingRef.current, cradlestateRef.current)
 
         if (
             !isCradleInViewRef.current && 
@@ -778,7 +789,7 @@ const Cradle = ({
                         crosscountRef,
                     })
                     // console.log('calling getReferenceIndexData for referenceIndexDataRef after settle', referenceIndexDataRef.current)
-                    
+                    console.log('cancelling pauseObserversRef', pauseObserversRef.current)
                     pauseObserversRef.current  && (pauseObserversRef.current = false)
     
                 },250)
