@@ -22,6 +22,7 @@ import ScrollTracker from './scrolltracker'
 
 /*
 
+    move the state engine to near the end of the module
     make getVisibleList on-demand
     fix pivot function
     affirm need for setTimeout for setting scrollTop or Left for resetContent; consider creadle states
@@ -755,7 +756,7 @@ const Cradle = ({
 
     },[])
 
-    // thia ia the core state engine
+    // this is the core state engine
     // triggering next state phase: states = setup, pivot, resize, reposition (was run)
     const callingCradleState = useRef(cradlestateRef.current)
     const callingReferenceIndexDataRef = useRef(referenceIndexDataRef.current)
