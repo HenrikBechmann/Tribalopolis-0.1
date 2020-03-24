@@ -127,6 +127,7 @@ const Cradle = ({
     const [referenceindexdata, saveReferenceindex] = useState({index:Math.min(offset,(listsize - 1)) || 0,scrolloffset:0})
     const referenceIndexDataRef = useRef(null) // access by closures
     referenceIndexDataRef.current = referenceindexdata
+    const lastReferenceIndexDataRef = useRef(null)
 
     const isCradleInViewRef = useRef(true)
 
@@ -139,7 +140,7 @@ const Cradle = ({
 
     const isScrollingRef = useRef(false)
 
-    // console.log('==>> RUNNING Cradle with state, isScrolling', cradlestate, isScrollingRef.current)
+    console.log('==>> RUNNING Cradle with state, isScrolling', cradlestate)
 
     const itemobserverRef = useRef(null)
 
@@ -696,11 +697,12 @@ const Cradle = ({
 
         clearTimeout(scrollTimeridRef.current)
         scrollTimeridRef.current = setTimeout(() => {
-            // console.log('scrolling TIMEOUT with cradleState',cradlestateRef.current)
+            // console.log('scrolling TIMEOUT with cradleState', cradlestateRef.current)
             isScrollingRef.current = false;
             if ((!isResizingRef.current) && (!viewportDataRef.current.isResizing)) {
 
                 saveReferenceindex({...referenceIndexDataRef.current}) // trigger re-run to capture end of scroll session values
+                lastReferenceIndexDataRef.current = {...referenceIndexDataRef.current}
 
             }
             let cradleState = cradlestateRef.current
@@ -789,6 +791,7 @@ const Cradle = ({
                         cellSpecsRef,
                         crosscountRef,
                     })
+                    lastReferenceIndexDataRef.current = {...referenceIndexDataRef.current}
                     // console.log('calling getReferenceIndexData for referenceIndexDataRef after settle', referenceIndexDataRef.current)
                     // console.log('cancelling pauseObserversRef', pauseObserversRef.current)
                     pauseObserversRef.current  && (pauseObserversRef.current = false)
@@ -838,7 +841,7 @@ const Cradle = ({
 
         if (cradlestate != 'setup') {
             pauseObserversRef.current = true
-            callingReferenceIndexDataRef.current = {...referenceIndexDataRef.current}
+            callingReferenceIndexDataRef.current = {...lastReferenceIndexDataRef.current}
 
             saveCradleState('pivot')
         }

@@ -81,7 +81,7 @@ const Scrollblock = ({
          ]
     )
 
-    return (blockstate == 'render')?<div ref = {scrollblockRef} style={divlinerstyleRef.current}>{children}</div>:null
+    return (blockstate != 'prepare')?<div ref = {scrollblockRef} style={divlinerstyleRef.current}>{children}</div>:null
 
 } // Scrollblock
 
