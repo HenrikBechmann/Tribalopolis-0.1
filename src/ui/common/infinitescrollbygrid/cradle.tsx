@@ -27,7 +27,6 @@ import ScrollTracker from './scrolltracker'
     fix pivot function
     affirm need for setTimeout for setting scrollTop or Left for resetContent; consider creadle states
     code maintenance
-    remove mainConfigDatasetRef line 156-ish
 
     Do these:
         getContentList:null,
@@ -154,7 +153,7 @@ const Cradle = ({
     const cellSpecsRef = useRef(null)
     cellSpecsRef.current = cellSpecs
 
-    const mainConfigDatasetRef = useRef({setup:true})
+    // const mainConfigDatasetRef = useRef({setup:true})
 
     const divlinerStylesRef = useRef(Object.assign({
         position: 'absolute',
@@ -208,37 +207,37 @@ const Cradle = ({
     crosscountRef.current = crosscount // available for observer closure
 
     // capture previous versions for reconfigure calculations above
-    const configDataRef:any = useRef({})
-    const previousConfigDataRef:any = useRef({})
+    // const configDataRef:any = useRef({})
+    // const previousConfigDataRef:any = useRef({})
     const visibleListRef = useRef([])
 
-    configDataRef.current = useMemo(() => {
+    // configDataRef.current = useMemo(() => {
         
-        previousConfigDataRef.current = {previousvisible:[...visibleListRef.current],...configDataRef.current} 
+    //     previousConfigDataRef.current = {previousvisible:[...visibleListRef.current],...configDataRef.current} 
 
-        return {
+    //     return {
 
-        cellWidth,
-        cellHeight,
-        gap,
-        padding,
-        runwaylength,
-        viewportheight,
-        viewportwidth,
-        crosscount,
-        orientation,
+    //     cellWidth,
+    //     cellHeight,
+    //     gap,
+    //     padding,
+    //     runwaylength,
+    //     viewportheight,
+    //     viewportwidth,
+    //     crosscount,
+    //     orientation,
 
-    }},[
-        cellWidth, 
-        cellHeight, 
-        gap, 
-        padding,
-        runwaylength,
-        viewportheight, 
-        viewportwidth,
-        crosscount,
-        orientation,
-    ])
+    // }},[
+    //     cellWidth, 
+    //     cellHeight, 
+    //     gap, 
+    //     padding,
+    //     runwaylength,
+    //     viewportheight, 
+    //     viewportwidth,
+    //     crosscount,
+    //     orientation,
+    // ])
 
     divlinerStylesRef.current = useMemo(()=> {
 
@@ -804,22 +803,22 @@ const Cradle = ({
     },[cradlestate])
 
     // trigger 'resize' cradlestate on change of any parameter
-    useEffect(()=>{
-        if (cradlestate == 'ready') {
+    // useEffect(()=>{
+    //     if (cradlestate == 'ready') {
 
-            mainConfigDatasetRef.current = {...previousConfigDataRef.current}
-            // saveCradleState('resize') // may be called separately if attributes changes without page resize
+    //         mainConfigDatasetRef.current = {...previousConfigDataRef.current}
+    //         // saveCradleState('resize') // may be called separately if attributes changes without page resize
 
-        }
-    },[
-        cellWidth, 
-        cellHeight, 
-        gap, 
-        padding,
-        runwaylength,
-        viewportheight, 
-        viewportwidth,
-    ])
+    //     }
+    // },[
+    //     cellWidth, 
+    //     cellHeight, 
+    //     gap, 
+    //     padding,
+    //     runwaylength,
+    //     viewportheight, 
+    //     viewportwidth,
+    // ])
 
     // trigger pivot on change in orientation
     useEffect(()=> {
