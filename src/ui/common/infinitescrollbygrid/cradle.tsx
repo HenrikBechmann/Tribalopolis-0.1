@@ -23,9 +23,7 @@ import ScrollTracker from './scrolltracker'
 /*
 
     make getVisibleList on-demand
-    BUG scroll tracker not relocating properly
-    reset referenceItemData after resize; calculate new referenceItem
-    BUG: prevent repositioning from being called during resize 
+    fix pivot function
     affirm need for setTimeout for setting scrollTop or Left for resetContent; consider creadle states
 
     Do these:
@@ -130,7 +128,7 @@ const Cradle = ({
 
     const isCradleInViewRef = useRef(true)
 
-    console.log('==>> RUNNING Cradle with state ',cradlestate)
+    // console.log('==>> RUNNING Cradle with state ',cradlestate)
 
     const [dropentries, saveDropentries] = useState(null)
 
@@ -739,8 +737,8 @@ const Cradle = ({
 
         }
 
-        console.log('repositioning controls: isCradleInViewRef, pauseObserversRef, isResizingRef, cradlestateRef',
-            isCradleInViewRef.current, pauseObserversRef.current, isResizingRef.current, cradlestateRef.current)
+        // console.log('repositioning controls: isCradleInViewRef, pauseObserversRef, isResizingRef, cradlestateRef',
+        //     isCradleInViewRef.current, pauseObserversRef.current, isResizingRef.current, cradlestateRef.current)
 
         if (
             !isCradleInViewRef.current && 
@@ -789,7 +787,7 @@ const Cradle = ({
                         crosscountRef,
                     })
                     // console.log('calling getReferenceIndexData for referenceIndexDataRef after settle', referenceIndexDataRef.current)
-                    console.log('cancelling pauseObserversRef', pauseObserversRef.current)
+                    // console.log('cancelling pauseObserversRef', pauseObserversRef.current)
                     pauseObserversRef.current  && (pauseObserversRef.current = false)
     
                 },250)
