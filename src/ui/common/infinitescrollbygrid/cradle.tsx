@@ -22,6 +22,7 @@ import ScrollTracker from './scrolltracker'
 
 /*
 
+    make getVisibleList on-demand
     BUG scroll tracker not relocating properly
     reset referenceItemData after resize; calculate new referenceItem
     BUG: prevent repositioning from being called during resize 
