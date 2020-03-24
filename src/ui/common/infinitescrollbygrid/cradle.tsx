@@ -25,6 +25,7 @@ import ScrollTracker from './scrolltracker'
     make getVisibleList on-demand
     fix pivot function
     affirm need for setTimeout for setting scrollTop or Left for resetContent; consider creadle states
+    code maintenance
 
     Do these:
         getContentList:null,
