@@ -77,13 +77,13 @@ const Cradle = ({
 
         isResizingRef.current = viewportData.isResizing
 
-        console.log('changing isResizingRef to ',viewportData.isResizing)
+        // console.log('changing isResizingRef to ',viewportData.isResizing)
 
         if (isResizingRef.current) {
 
             callingReferenceIndexDataRef.current = {...referenceIndexDataRef.current}
 
-            console.log('setting callingReferenceIndexDataRef from isResizing with referenceIndexDataRef', callingReferenceIndexDataRef.current)
+            // console.log('setting callingReferenceIndexDataRef from isResizing with referenceIndexDataRef', callingReferenceIndexDataRef.current)
             pauseObserversRef.current = true
             saveCradleState('resizing')
 
@@ -129,7 +129,7 @@ const Cradle = ({
 
     const isCradleInViewRef = useRef(true)
 
-    console.log('==>> RUNNING Cradle with state ',cradlestate)
+    // console.log('==>> RUNNING Cradle with state ',cradlestate)
 
     const [dropentries, saveDropentries] = useState(null)
 
@@ -544,7 +544,7 @@ const Cradle = ({
         let { index: visibletargetindexoffset, 
             scrolloffset: visibletargetscrolloffset } = referenceIndexData
 
-        console.log('setCradleContent cradleState, referenceIndexData', cradleState, referenceIndexData)
+        // console.log('setCradleContent cradleState, referenceIndexData', cradleState, referenceIndexData)
 
         // console.log('visibletargetindexoffset, visibletargetscrolloffset',visibletargetindexoffset, visibletargetscrolloffset)
 
@@ -574,8 +574,8 @@ const Cradle = ({
 
         // referenceIndexDataRef.current.index = refindex
 
-        console.log('xxx===>> x1. indexoffset, contentCount, scrollblockoffset, cradleoffset',
-            indexoffset, contentCount, scrollblockoffset, cradleoffset)
+        // console.log('xxx===>> x1. indexoffset, contentCount, scrollblockoffset, cradleoffset',
+        //     indexoffset, contentCount, scrollblockoffset, cradleoffset)
 
         let childlist = getUIContentList({
             indexoffset, 
@@ -708,7 +708,7 @@ const Cradle = ({
 
                     pauseObserversRef.current = true
                     callingReferenceIndexDataRef.current = {...referenceIndexDataRef.current}
-                    console.log('setting callingReferenceIndexDataRef from referenceIndexDataRef for repositioning',callingReferenceIndexDataRef.current)
+                    // console.log('setting callingReferenceIndexDataRef from referenceIndexDataRef for repositioning',callingReferenceIndexDataRef.current)
                     saveCradleState('reposition')
                     break
                 } 
@@ -718,7 +718,7 @@ const Cradle = ({
         },250)
 
         // let referenceindex
-        console.log('in onScroll:isResizingRef, viewportData.isResizing',isResizingRef.current,viewportData.isResizing)
+        // console.log('in onScroll:isResizingRef, viewportData.isResizing',isResizingRef.current,viewportData.isResizing)
         if ((!isResizingRef.current) && (!viewportDataRef.current.isResizing)) {
             referenceIndexDataRef.current = getReferenceIndexData({
                 orientation:orientationRef.current,
@@ -726,7 +726,7 @@ const Cradle = ({
                 cellSpecsRef,
                 crosscountRef,
             })
-            console.log('calling getReferenceIndexDate for referenceIndexDateRef from onScroll', referenceIndexDataRef.current)
+            // console.log('calling getReferenceIndexDate for referenceIndexDateRef from onScroll', referenceIndexDataRef.current)
             saveReferenceindex(referenceIndexDataRef.current)
         }
 
@@ -776,7 +776,7 @@ const Cradle = ({
                         cellSpecsRef,
                         crosscountRef,
                     })
-                    console.log('calling getReferenceIndexData for referenceIndexDataRef after settle', referenceIndexDataRef.current)
+                    // console.log('calling getReferenceIndexData for referenceIndexDataRef after settle', referenceIndexDataRef.current)
                     
                     pauseObserversRef.current  && (pauseObserversRef.current = false)
     
@@ -826,7 +826,7 @@ const Cradle = ({
         if (cradlestate != 'setup') {
             pauseObserversRef.current = true
             callingReferenceIndexDataRef.current = {...referenceIndexDataRef.current}
-            console.log('setting callingReferenceIndexDataRef from referenceIndexDataRef for pivot',callingReferenceIndexDataRef.current)
+            // console.log('setting callingReferenceIndexDataRef from referenceIndexDataRef for pivot',callingReferenceIndexDataRef.current)
             saveCradleState('pivot')
         }
 

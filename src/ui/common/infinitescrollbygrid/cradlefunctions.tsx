@@ -190,19 +190,19 @@ export const getReferenceIndexData = (
 
     let scrollPos, cellLength
     if (orientation == 'vertical') {
-        if (viewportData.isResizing) {
-            console.log('viewportDat in getReferenceIndexData with isResizing true',viewportData)
-            scrollPos = viewportData.scrollPos.top
-        } else {
+        // if (viewportData.isResizing) {
+            // console.log('viewportDat in getReferenceIndexData with isResizing true',viewportData)
+            // scrollPos = viewportData.scrollPos.top
+        // } else {
             scrollPos = viewportData.elementref.current.scrollTop
-        }
+        // }
         cellLength = cellSpecsRef.current.cellHeight + cellSpecsRef.current.gap
     } else {
-        if (viewportData.isResizing) {
-            scrollPos = viewportData.scrollPos.left
-        } else {
+        // if (viewportData.isResizing) {
+            // scrollPos = viewportData.scrollPos.left
+        // } else {
             scrollPos = viewportData.elementref.current.scrollLeft
-        }
+        // }
         cellLength = cellSpecsRef.current.cellWidth + cellSpecsRef.current.gap
     }
     let referencerowindex = Math.ceil(scrollPos/cellLength)
