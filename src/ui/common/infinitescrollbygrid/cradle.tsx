@@ -27,6 +27,7 @@ import ScrollTracker from './scrolltracker'
     fix pivot function
     affirm need for setTimeout for setting scrollTop or Left for resetContent; consider creadle states
     code maintenance
+    remove mainConfigDatasetRef line 156-ish
 
     Do these:
         getContentList:null,
