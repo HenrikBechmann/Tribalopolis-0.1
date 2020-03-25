@@ -22,6 +22,8 @@ import ScrollTracker from './scrolltracker'
 
 /*
 
+    update viewportDimentions before showing scrollTracker
+    get rid of resize flicker
     move the state engine to near the end of the module
     make getVisibleList on-demand
     fix pivot function
@@ -141,8 +143,6 @@ const Cradle = ({
     const isScrollingRef = useRef(false)
 
     // console.log('==>> RUNNING Cradle with state', cradlestate)
-
-    // const isSettlingRef = useRef(false)
 
     const itemobserverRef = useRef(null)
 
@@ -765,10 +765,6 @@ const Cradle = ({
 
             case 'settle':
 
-                // if (isSettlingRef.current) break
-
-                // isSettlingRef.current = true
-
                 // console.log('callingReferenceIndexDataRef.current',{...callingReferenceIndexDataRef.current})
                 setCradleContent(callingCradleState.current, callingReferenceIndexDataRef.current)
 
@@ -792,8 +788,6 @@ const Cradle = ({
                     // console.log('cancelling pauseObserversRef', pauseObserversRef.current)
                     pauseObserversRef.current  && (pauseObserversRef.current = false)
 
-                    // isSettlingRef.current = false
-    
                 },350)
 
                 break
