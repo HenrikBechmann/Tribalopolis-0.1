@@ -611,11 +611,6 @@ const Cradle = ({
 
         // console.log('styles',styles)
         divlinerStyleRevisionsRef.current = styles
-        // referenceIndexDataRef.current = {
-        //     index:visibletargetindexoffset,
-        //     scrolloffset:visibletargetscrolloffset,
-        // }
-
         // console.log('x2. styles, referenceIndexDataRef.current, scrollTop', 
         //     styles, referenceIndexDataRef.current,viewportData.elementref.current.scrollTop)
 
