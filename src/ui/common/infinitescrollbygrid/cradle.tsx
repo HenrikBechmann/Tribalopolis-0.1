@@ -140,9 +140,9 @@ const Cradle = ({
 
     const isScrollingRef = useRef(false)
 
-    console.log('==>> RUNNING Cradle with state', cradlestate)
+    // console.log('==>> RUNNING Cradle with state', cradlestate)
 
-    const isSettlingRef = useRef(false)
+    // const isSettlingRef = useRef(false)
 
     const itemobserverRef = useRef(null)
 
@@ -683,7 +683,7 @@ const Cradle = ({
             isScrollingRef.current = false;
             if ((!isResizingRef.current) && (!viewportDataRef.current.isResizing)) {
 
-                console.log('normalizing anchors from scroll')
+                // console.log('normalizing anchors from scroll')
     
                 normalizeCradleAnchors(cradleElementRef.current, orientationRef.current)
 
@@ -765,19 +765,19 @@ const Cradle = ({
 
             case 'settle':
 
-                if (isSettlingRef.current) break
+                // if (isSettlingRef.current) break
 
-                isSettlingRef.current = true
+                // isSettlingRef.current = true
 
-                console.log('callingReferenceIndexDataRef.current',{...callingReferenceIndexDataRef.current})
+                // console.log('callingReferenceIndexDataRef.current',{...callingReferenceIndexDataRef.current})
                 setCradleContent(callingCradleState.current, callingReferenceIndexDataRef.current)
 
-                console.log('setting ready from ', cradlestate)
+                // console.log('setting ready from ', cradlestate)
                 saveCradleState('ready')
 
                 setTimeout(()=>{ // let content settle before reviving observer
     
-                    console.log('normalizing anchors from settle')
+                    // console.log('normalizing anchors from settle')
     
                     normalizeCradleAnchors(cradleElementRef.current, orientationRef.current)
 
@@ -788,11 +788,11 @@ const Cradle = ({
                         crosscountRef,
                     })
                     lastReferenceIndexDataRef.current = {...referenceIndexDataRef.current}
-                    console.log('calling getReferenceIndexData for referenceIndexDataRef after settle', {...referenceIndexDataRef.current})
+                    // console.log('calling getReferenceIndexData for referenceIndexDataRef after settle', {...referenceIndexDataRef.current})
                     // console.log('cancelling pauseObserversRef', pauseObserversRef.current)
                     pauseObserversRef.current  && (pauseObserversRef.current = false)
 
-                    isSettlingRef.current = false
+                    // isSettlingRef.current = false
     
                 },350)
 
