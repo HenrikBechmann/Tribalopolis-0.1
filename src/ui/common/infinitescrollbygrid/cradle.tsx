@@ -23,11 +23,9 @@ import ScrollTracker from './scrolltracker'
 /*
 
     update viewportDimentions before showing scrollTracker
-    get rid of resize flicker
     move the state engine to near the end of the module
+    constrain top end of list
     make getVisibleList on-demand
-    fix pivot function
-    affirm need for setTimeout for setting scrollTop or Left for resetContent; consider creadle states
     code maintenance
 
     Do these:
@@ -579,11 +577,6 @@ const Cradle = ({
         // let cradleoffset
         if (orientation == 'vertical') {
 
-            // elementstyle.top = styles.top = cradleoffset + 'px'
-            // elementstyle.bottom = styles.bottom = 'auto'
-            // elementstyle.left = styles.left = 'auto'
-            // elementstyle.right = styles.right = 'auto'
-
             styles.top = cradleoffset + 'px'
             styles.bottom = 'auto'
             styles.left = 'auto'
@@ -591,16 +584,7 @@ const Cradle = ({
 
             positionDataRef.current = {property:'scrollTop',value:scrollblockoffset}
 
-            // setTimeout(()=>{
-            //     viewportData.elementref.current.scrollTop = scrollblockoffset
-            // },300)
-
         } else { // orientation = 'horizontal'
-
-            // elementstyle.top = styles.top = 'auto'
-            // elementstyle.bottom = styles.bottom = 'auto'
-            // elementstyle.left = styles.left = cradleoffset + 'px'
-            // elementstyle.right = styles.right = 'auto'
 
             styles.top = 'auto'
             styles.bottom = styles.bottom = 'auto'
@@ -609,14 +593,10 @@ const Cradle = ({
 
             positionDataRef.current = {property:'scrollLeft',value:scrollblockoffset}
 
-            // setTimeout(()=>{
-            //     viewportData.elementref.current.scrollLeft = scrollblockoffset
-            // },300)
         }
 
         // console.log('styles',styles)
         layoutDataRef.current = styles
-        // divlinerStyleRevisionsRef.current = styles
         // console.log('x2. styles, referenceIndexDataRef.current, scrollTop', 
         //     styles, referenceIndexDataRef.current,viewportData.elementref.current.scrollTop)
 
@@ -654,8 +634,6 @@ const Cradle = ({
                 itemlist,viewportData.elementref.current,cradleElementRef.current, orientation
             )
 
-            // normalizeCradleAnchors(cradleElementRef.current, orientation)
-                    
         }
 
     },[cradlestate, isScrollingRef.current, isResizingRef.current])
@@ -682,17 +660,17 @@ const Cradle = ({
         scrollTimeridRef.current = setTimeout(() => {
             // console.log('scrolling TIMEOUT with cradleState', cradlestateRef.current)
             isScrollingRef.current = false;
+            let cradleState = cradlestateRef.current
             if ((!isResizingRef.current) && (!viewportDataRef.current.isResizing)) {
 
                 // console.log('normalizing anchors from scroll')
     
-                normalizeCradleAnchors(cradleElementRef.current, orientationRef.current)
+                (cradleState != 'repositioning') && normalizeCradleAnchors(cradleElementRef.current, orientationRef.current)
 
                 saveReferenceindex({...referenceIndexDataRef.current}) // trigger re-run to capture end of scroll session values
                 lastReferenceIndexDataRef.current = {...referenceIndexDataRef.current}
 
             }
-            let cradleState = cradlestateRef.current
             switch (cradleState) {
 
                 case 'repositioning': {
