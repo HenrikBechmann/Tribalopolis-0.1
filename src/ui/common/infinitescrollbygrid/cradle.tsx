@@ -23,9 +23,9 @@ import ScrollTracker from './scrolltracker'
 /*
 
     update viewportDimentions before showing scrollTracker
-    move the state engine to near the end of the module
     constrain top end of list
     make getVisibleList on-demand
+    double check setting of restart referenceIndex eg 2527 @3 => 2521 @8
     code maintenance
 
     Do these:
@@ -709,6 +709,31 @@ const Cradle = ({
 
     },[])
 
+    // trigger pivot on change in orientation
+    useEffect(()=> {
+
+        let rootMargin
+        if (orientation == 'horizontal') {
+            rootMargin = `0px ${runwaylength}px 0px ${runwaylength}px`
+        } else {
+            rootMargin = `${runwaylength}px 0px ${runwaylength}px 0px`
+        }
+        itemobserverRef.current = new IntersectionObserver(
+            itemobservercallback,
+            {root:viewportData.elementref.current, rootMargin,} 
+        )
+
+        contentlistRef.current = []
+
+        if (cradlestate != 'setup') {
+            pauseObserversRef.current = true
+            callingReferenceIndexDataRef.current = {...lastReferenceIndexDataRef.current}
+
+            saveCradleState('pivot')
+        }
+
+    },[orientation])
+
     // this is the core state engine
     // triggering next state phase: states = setup, pivot, resize, reposition (was run)
     const callingCradleState = useRef(cradlestateRef.current)
@@ -793,31 +818,6 @@ const Cradle = ({
                 break
         }
     },[cradlestate])
-
-    // trigger pivot on change in orientation
-    useEffect(()=> {
-
-        let rootMargin
-        if (orientation == 'horizontal') {
-            rootMargin = `0px ${runwaylength}px 0px ${runwaylength}px`
-        } else {
-            rootMargin = `${runwaylength}px 0px ${runwaylength}px 0px`
-        }
-        itemobserverRef.current = new IntersectionObserver(
-            itemobservercallback,
-            {root:viewportData.elementref.current, rootMargin,} 
-        )
-
-        contentlistRef.current = []
-
-        if (cradlestate != 'setup') {
-            pauseObserversRef.current = true
-            callingReferenceIndexDataRef.current = {...lastReferenceIndexDataRef.current}
-
-            saveCradleState('pivot')
-        }
-
-    },[orientation])
 
     // =============================================================================
     // ------------------------------[ child callbacks ]----------------------------------
