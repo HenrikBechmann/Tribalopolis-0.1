@@ -22,13 +22,14 @@ import ScrollTracker from './scrolltracker'
 
 /*
 
+    4: tasks
     update viewportDimentions before showing scrollTracker
     constrain top end of list
     make getVisibleList on-demand
     double check setting of restart referenceIndex eg 2527 @3 => 2521 @8
     code maintenance
 
-    Do these:
+    3 Do these:
         getContentList:null,
         getVisibleList:null,
         reload:null,
