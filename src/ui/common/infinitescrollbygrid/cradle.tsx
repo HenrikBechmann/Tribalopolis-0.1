@@ -269,12 +269,6 @@ const Cradle = ({
 
     const cradleobservercallback = useCallback((entries) => {
 
-        // if (pauseObserversRef.current) {
-
-        //     return
-
-        // }
-
         isCradleInViewRef.current = entries[0].isIntersecting
 
     },[])
@@ -542,12 +536,6 @@ const Cradle = ({
                 listsize,
             })
 
-        // let refindex = referenceIndexData.index
-        // let diff = refindex % crosscountRef.current
-        // refindex -= diff
-
-        // referenceIndexDataRef.current.index = refindex
-
         // console.log('xxx===>> x1. indexoffset, contentCount, scrollblockoffset, cradleoffset',
         //     indexoffset, contentCount, scrollblockoffset, cradleoffset)
 
@@ -599,8 +587,6 @@ const Cradle = ({
         layoutDataRef.current = styles
         // console.log('x2. styles, referenceIndexDataRef.current, scrollTop', 
         //     styles, referenceIndexDataRef.current,viewportData.elementref.current.scrollTop)
-
-        // saveReferenceindex(referenceIndexDataRef.current)
 
     },[
         cellHeight,
@@ -686,7 +672,6 @@ const Cradle = ({
 
         },250)
 
-        // let referenceindex
         // console.log('in onScroll:isResizingRef, viewportData.isResizing',isResizingRef.current,viewportData.isResizing)
         if ((!isResizingRef.current) && (!viewportDataRef.current.isResizing)) {
 
