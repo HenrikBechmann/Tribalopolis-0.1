@@ -1,7 +1,7 @@
 // scrollblock.tsx
 // copyright (c) 2020 Henrik Bechmann, Toronto, Licence: MIT
 
-import React, {useContext, useRef, useCallback, useEffect, useState} from 'react'
+import React, {useContext, useRef, useCallback, useEffect, useLayoutEffect, useState} from 'react'
 
 import { ViewportContext } from './viewport'
 
@@ -26,6 +26,7 @@ const Scrollblock = ({
         position:'relative',
         
     } as React.CSSProperties, styles?.cradle))
+    const [divlinerstyle,saveDivlinerstyle] = useState(divlinerstyleRef.current)
 
     // console.log('running SCROLLBLOCK with state', blockstate)
 
@@ -44,10 +45,11 @@ const Scrollblock = ({
         }
     },[blockstate])
     
-    useEffect(() => {
+    useLayoutEffect(() => {
 
         updateBlockLength()
-        updateScrollblockStyles(orientation,divlinerstyleRef,scrollBlockLengthRef)
+        divlinerstyleRef.current = updateScrollblockStyles(orientation,divlinerstyleRef,scrollBlockLengthRef)
+        saveDivlinerstyle(divlinerstyleRef.current)
 
     },[orientation,height,width])
 
@@ -128,9 +130,9 @@ const calcScrollblockLength = ({
 
 }
 
-const updateScrollblockStyles = (orientation,styles,scrollblocklengthRef) => {
+const updateScrollblockStyles = (orientation,stylesRef,scrollblocklengthRef) => {
 
-    let localstyles = Object.assign({},styles.current) as React.CSSProperties
+    let localstyles = Object.assign({},stylesRef.current) as React.CSSProperties
     if (orientation == 'horizontal') {
         localstyles.height = '100%'
         localstyles.width = scrollblocklengthRef.current + 'px'
@@ -138,8 +140,7 @@ const updateScrollblockStyles = (orientation,styles,scrollblocklengthRef) => {
         localstyles.height = scrollblocklengthRef.current + 'px'
         localstyles.width = '100%'
     }
-    styles.current = localstyles
-
+    return localstyles
 }
 
 export default Scrollblock

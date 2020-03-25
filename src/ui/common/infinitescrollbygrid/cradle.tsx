@@ -142,7 +142,7 @@ const Cradle = ({
 
     const isScrollingRef = useRef(false)
 
-    console.log('==>> RUNNING Cradle with state', cradlestate)
+    // console.log('==>> RUNNING Cradle with state', cradlestate)
 
     const itemobserverRef = useRef(null)
 
