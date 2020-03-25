@@ -140,7 +140,9 @@ const Cradle = ({
 
     const isScrollingRef = useRef(false)
 
-    console.log('==>> RUNNING Cradle with state, isScrolling', cradlestate)
+    console.log('==>> RUNNING Cradle with state', cradlestate)
+
+    const isSettlingRef = useRef(false)
 
     const itemobserverRef = useRef(null)
 
@@ -177,7 +179,7 @@ const Cradle = ({
 
     const { viewportDimensions } = viewportData
 
-    let {height:viewportheight,width:viewportwidth} = viewportDimensions
+    let { height:viewportheight,width:viewportwidth } = viewportDimensions
 
     const crosscount = useMemo(() => {
 
@@ -211,34 +213,6 @@ const Cradle = ({
     // const configDataRef:any = useRef({})
     // const previousConfigDataRef:any = useRef({})
     const visibleListRef = useRef([])
-
-    // configDataRef.current = useMemo(() => {
-        
-    //     previousConfigDataRef.current = {previousvisible:[...visibleListRef.current],...configDataRef.current} 
-
-    //     return {
-
-    //     cellWidth,
-    //     cellHeight,
-    //     gap,
-    //     padding,
-    //     runwaylength,
-    //     viewportheight,
-    //     viewportwidth,
-    //     crosscount,
-    //     orientation,
-
-    // }},[
-    //     cellWidth, 
-    //     cellHeight, 
-    //     gap, 
-    //     padding,
-    //     runwaylength,
-    //     viewportheight, 
-    //     viewportwidth,
-    //     crosscount,
-    //     orientation,
-    // ])
 
     divlinerStylesRef.current = useMemo(()=> {
 
@@ -595,6 +569,7 @@ const Cradle = ({
             placeholder,
         })
 
+        contentlistRef.current = childlist
 
         // let elementstyle = cradleElementRef.current.style
         let elementstyle = cradleElementRef.current.style
@@ -603,26 +578,35 @@ const Cradle = ({
         // let cradleoffset
         if (orientation == 'vertical') {
 
-            setTimeout(()=>{
-                viewportData.elementref.current.scrollTop = scrollblockoffset
-            },200)
-
             elementstyle.top = styles.top = cradleoffset + 'px'
             elementstyle.bottom = styles.bottom = 'auto'
             elementstyle.left = styles.left = 'auto'
             elementstyle.right = styles.right = 'auto'
 
-        } else { // orientation = 'horizontal'
+            // styles.top = cradleoffset + 'px'
+            // styles.bottom = 'auto'
+            // styles.left = 'auto'
+            // styles.right = 'auto'
 
             setTimeout(()=>{
-                viewportData.elementref.current.scrollLeft = scrollblockoffset
-            },200)
+                viewportData.elementref.current.scrollTop = scrollblockoffset
+            },300)
+
+        } else { // orientation = 'horizontal'
 
             elementstyle.top = styles.top = 'auto'
             elementstyle.bottom = styles.bottom = 'auto'
             elementstyle.left = styles.left = cradleoffset + 'px'
             elementstyle.right = styles.right = 'auto'
 
+            // styles.top = 'auto'
+            // styles.bottom = styles.bottom = 'auto'
+            // styles.left = cradleoffset + 'px'
+            // styles.right = 'auto'
+
+            setTimeout(()=>{
+                viewportData.elementref.current.scrollLeft = scrollblockoffset
+            },300)
         }
 
         // console.log('styles',styles)
@@ -634,8 +618,6 @@ const Cradle = ({
 
         // console.log('x2. styles, referenceIndexDataRef.current, scrollTop', 
         //     styles, referenceIndexDataRef.current,viewportData.elementref.current.scrollTop)
-
-        contentlistRef.current = childlist
 
         // saveReferenceindex(referenceIndexDataRef.current)
 
@@ -671,7 +653,7 @@ const Cradle = ({
                 itemlist,viewportData.elementref.current,cradleElementRef.current, orientation
             )
 
-            normalizeCradleAnchors(cradleElementRef.current, orientation)
+            // normalizeCradleAnchors(cradleElementRef.current, orientation)
                     
         }
 
@@ -700,6 +682,10 @@ const Cradle = ({
             // console.log('scrolling TIMEOUT with cradleState', cradlestateRef.current)
             isScrollingRef.current = false;
             if ((!isResizingRef.current) && (!viewportDataRef.current.isResizing)) {
+
+                console.log('normalizing anchors from scroll')
+    
+                normalizeCradleAnchors(cradleElementRef.current, orientationRef.current)
 
                 saveReferenceindex({...referenceIndexDataRef.current}) // trigger re-run to capture end of scroll session values
                 lastReferenceIndexDataRef.current = {...referenceIndexDataRef.current}
@@ -779,12 +765,22 @@ const Cradle = ({
 
             case 'settle':
 
+                if (isSettlingRef.current) break
+
+                isSettlingRef.current = true
+
+                console.log('callingReferenceIndexDataRef.current',{...callingReferenceIndexDataRef.current})
                 setCradleContent(callingCradleState.current, callingReferenceIndexDataRef.current)
 
+                console.log('setting ready from ', cradlestate)
                 saveCradleState('ready')
 
                 setTimeout(()=>{ // let content settle before reviving observer
     
+                    console.log('normalizing anchors from settle')
+    
+                    normalizeCradleAnchors(cradleElementRef.current, orientationRef.current)
+
                     referenceIndexDataRef.current = getReferenceIndexData({
                         orientation:orientationRef.current,
                         viewportData:viewportDataRef.current,
@@ -792,11 +788,13 @@ const Cradle = ({
                         crosscountRef,
                     })
                     lastReferenceIndexDataRef.current = {...referenceIndexDataRef.current}
-                    // console.log('calling getReferenceIndexData for referenceIndexDataRef after settle', referenceIndexDataRef.current)
+                    console.log('calling getReferenceIndexData for referenceIndexDataRef after settle', {...referenceIndexDataRef.current})
                     // console.log('cancelling pauseObserversRef', pauseObserversRef.current)
                     pauseObserversRef.current  && (pauseObserversRef.current = false)
+
+                    isSettlingRef.current = false
     
-                },250)
+                },350)
 
                 break
 
@@ -804,24 +802,6 @@ const Cradle = ({
                 break
         }
     },[cradlestate])
-
-    // trigger 'resize' cradlestate on change of any parameter
-    // useEffect(()=>{
-    //     if (cradlestate == 'ready') {
-
-    //         mainConfigDatasetRef.current = {...previousConfigDataRef.current}
-    //         // saveCradleState('resize') // may be called separately if attributes changes without page resize
-
-    //     }
-    // },[
-    //     cellWidth, 
-    //     cellHeight, 
-    //     gap, 
-    //     padding,
-    //     runwaylength,
-    //     viewportheight, 
-    //     viewportwidth,
-    // ])
 
     // trigger pivot on change in orientation
     useEffect(()=> {

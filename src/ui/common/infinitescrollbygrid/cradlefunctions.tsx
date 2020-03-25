@@ -295,7 +295,7 @@ export const getContentListRequirements = ({
 
 // this makes ui resize less visually jarring
 export const normalizeCradleAnchors = (cradleElement, orientation) => {
-    
+
     let styles:React.CSSProperties = {}
 
     let stylerevisions:React.CSSProperties = {}
