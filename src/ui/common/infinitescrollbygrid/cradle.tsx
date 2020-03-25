@@ -760,6 +760,15 @@ const Cradle = ({
     useLayoutEffect(()=>{
 
         switch (cradlestate) {
+            case 'position': {
+
+                viewportData.elementref.current[positionDataRef.current.property] =
+                    positionDataRef.current.value
+
+                saveCradleState('layout')
+
+                break
+            }
             case 'layout': {
 
                 divlinerStyleRevisionsRef.current = layoutDataRef.current
@@ -768,16 +777,9 @@ const Cradle = ({
 
                 break
             }
-            case 'position': {
-
-                setTimeout(()=>{
-
-                    viewportData.elementref.current[positionDataRef.current.property] =
-                        positionDataRef.current.value
-
-                },50)
+            case 'content': {
+                contentlistRef.current = contentDataRef.current
                 saveCradleState('normalize')
-
                 break
             }
         }
@@ -802,14 +804,9 @@ const Cradle = ({
                 setCradleContent(callingCradleState.current, callingReferenceIndexDataRef.current)
 
                 // console.log('setting ready from ', cradlestate)
-                saveCradleState('layout')
+                saveCradleState('position')
                 // console.log('callingReferenceIndexDataRef.current',{...callingReferenceIndexDataRef.current})
                 break
-            case 'content': {
-                contentlistRef.current = contentDataRef.current
-                saveCradleState('position')
-                break
-            }
             case 'normalize': {
                 setTimeout(()=> {
                     normalizeCradleAnchors(cradleElementRef.current, orientationRef.current)
