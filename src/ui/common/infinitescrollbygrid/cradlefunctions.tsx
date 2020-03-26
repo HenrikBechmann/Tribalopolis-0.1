@@ -278,7 +278,8 @@ export const getContentListRequirements = ({
     //     indexoffset, diff, visibletargetindexoffset, leadingitemcount)
 
     // ------------[ adjust indexoffset and contentCount for listsize ]------------
-
+    // incoude referenceoffset in return message
+    let referenceoffset
     
     
     // --------------------[ calc css positioning ]-----------------------
@@ -294,7 +295,7 @@ export const getContentListRequirements = ({
     // console.log('4. scrollblockoffset, cradleoffset, rowscrollblockoffset, targetScrollOffset',
     //     scrollblockoffset, cradleoffset, rowscrollblockoffset, targetScrollOffset)
 
-    return {indexoffset, contentCount, scrollblockoffset, cradleoffset} // summarize requirements message
+    return {indexoffset, referenceoffset, contentCount, scrollblockoffset, cradleoffset} // summarize requirements message
 
 }
 

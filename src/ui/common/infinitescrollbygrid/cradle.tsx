@@ -527,7 +527,7 @@ const Cradle = ({
 
         let localContentList = [] // any duplicated items will be re-used by react
 
-        let {indexoffset, contentCount, scrollblockoffset, cradleoffset} = 
+        let {indexoffset, referenceoffset, contentCount, scrollblockoffset, cradleoffset} = 
             getContentListRequirements({
                 cellHeight, 
                 cellWidth, 
