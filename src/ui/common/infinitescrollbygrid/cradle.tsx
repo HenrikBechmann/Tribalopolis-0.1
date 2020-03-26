@@ -544,8 +544,14 @@ const Cradle = ({
                 listsize,
             })
 
-        console.log('xxx===>> x1. indexoffset, contentCount, scrollblockoffset, cradleoffset',
-            indexoffset, contentCount, scrollblockoffset, cradleoffset)
+        referenceIndexDataRef.current = {
+            index:referenceoffset,
+            scrolloffset:visibletargetscrolloffset,
+        }
+        saveReferenceindex(referenceIndexDataRef.current)
+
+        // console.log('xxx===>> x1. indexoffset, referenceoffset, contentCount, scrollblockoffset, cradleoffset, referenceIndexDataRef',
+        //     indexoffset, referenceoffset, contentCount, scrollblockoffset, cradleoffset, {...referenceIndexDataRef.current})
 
         let childlist = getUIContentList({
             indexoffset, 
@@ -809,15 +815,8 @@ const Cradle = ({
                 setTimeout(()=> {
                     normalizeCradleAnchors(cradleElementRef.current, orientationRef.current)
 
-                    referenceIndexDataRef.current = getReferenceIndexData({
-                        orientation:orientationRef.current,
-                        viewportData:viewportDataRef.current,
-                        cellSpecsRef,
-                        crosscountRef,
-                        listsize:listsizeRef.current,
-                    })
                     lastReferenceIndexDataRef.current = {...referenceIndexDataRef.current}
-                    // console.log('calling getReferenceIndexData for referenceIndexDataRef after settle', {...referenceIndexDataRef.current})
+                    // console.log('referenceIndexData after settle', {...referenceIndexDataRef.current})
                     // console.log('cancelling pauseObserversRef', pauseObserversRef.current)
                     pauseObserversRef.current  && (pauseObserversRef.current = false)
                 },300)

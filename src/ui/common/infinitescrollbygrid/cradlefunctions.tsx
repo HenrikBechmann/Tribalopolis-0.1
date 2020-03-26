@@ -251,7 +251,6 @@ export const getContentListRequirements = ({
     }
     // cradleLength = (viewportlength + (padding * 2) - gap) + (runwaylength * 2) // assumes at least one item
     cradleContentLength = viewportlength + (runwaylength * 2)
-
     let cradlerowcount = Math.floor(cradleContentLength/cellLength)
     let contentCount = cradlerowcount * crosscount
     if (contentCount > listsize) contentCount = listsize
@@ -261,6 +260,8 @@ export const getContentListRequirements = ({
     let cradleleadingrowcount = Math.floor(runwaylength/cellLength)
     let leadingitemcount = cradleleadingrowcount * crosscount
     let targetdiff = visibletargetindexoffset % crosscount
+    let referenceoffset = visibletargetindexoffset - targetdiff
+
     leadingitemcount += targetdiff
     leadingitemcount = Math.min(leadingitemcount, visibletargetindexoffset) // for list head
 
@@ -291,7 +292,6 @@ export const getContentListRequirements = ({
         contentCount -= shift
     }
     
-    let referenceoffset
     // --------------------[ calc css positioning ]-----------------------
 
     let indexrowoffset = Math.floor(indexoffset/crosscount)
