@@ -681,7 +681,7 @@ const Cradle = ({
 
             }
 
-        },250)
+        },200)
 
         // console.log('in onScroll:isResizingRef, viewportData.isResizing',isResizingRef.current,viewportData.isResizing)
         if ((!isResizingRef.current) && (!viewportDataRef.current.isResizing)) {
@@ -815,13 +815,18 @@ const Cradle = ({
             }
             case 'normalize': {
                 setTimeout(()=> {
+
+                    // redundant scroll position to avoid accidental positioning at tail end of reposition
+                    viewportData.elementref.current[positionDataRef.current.property] =
+                        positionDataRef.current.value
+
                     normalizeCradleAnchors(cradleElementRef.current, orientationRef.current)
 
                     lastReferenceIndexDataRef.current = {...referenceIndexDataRef.current}
                     // console.log('referenceIndexData after settle', {...referenceIndexDataRef.current})
                     // console.log('cancelling pauseObserversRef', pauseObserversRef.current)
                     pauseObserversRef.current  && (pauseObserversRef.current = false)
-                },300)
+                },250)
                 saveCradleState('ready')
                 break 
             }          
