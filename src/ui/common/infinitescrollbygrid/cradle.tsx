@@ -22,23 +22,14 @@ import ScrollTracker from './scrolltracker'
 
 /*
 
-    5: tasks
-    make getVisibleList on-demand
+    2: tasks
     code maintenance
-
-    4 Do these:
-        getContentList:null,
-        getVisibleList:null,
-        reload:null,
-
-    3 scrollToItem(index[,alignment]) - alignment = start, center, end, or nearest (default)
-    create getContentList:null, getVisibleList:null,
-
-    2 grouping support for scrolltracker - allow for callback to return realtime referenceIndex 
 
     1 add examples 1, 2, 3 to control page: 
         - images, scroll and pivot
         - nested lists, scroll and pivot
+
+    0 qa
 
 */
 
@@ -99,22 +90,28 @@ const Cradle = ({
 
     },[viewportData.isResizing])
 
+    const reportReferenceIndexRef = useRef(component?.reportReferenceIndex)
+
     // initialize window listener
     useEffect(() => {
 
         viewportData.elementref.current.addEventListener('scroll',onScroll)
 
-        if (component?.items.hasOwnProperty('visibleRef')) {
-            component.items.visibleRef = visibleListRef
+        if (component?.items.hasOwnProperty('getVisibleList')) {
+            component.items.getVisibleList = getVisibleList
         } 
 
-        if (component?.items.hasOwnProperty('contentRef')) {
-            component.items.contentRef = itemElementsRef
+        if (component?.items.hasOwnProperty('getContentList')) {
+            component.items.getContentList = getContentList
         } 
 
         if (component?.hasOwnProperty('scrollToItem')) {
             component.scrollToItem = scrollToItem
         } 
+
+        if (component?.hasOwnProperty('reload')) {
+            component.reload = reload
+        }
 
         return () => {
 
@@ -215,7 +212,7 @@ const Cradle = ({
     // capture previous versions for reconfigure calculations above
     // const configDataRef:any = useRef({})
     // const previousConfigDataRef:any = useRef({})
-    const visibleListRef = useRef([])
+    // const visibleListRef = useRef([])
 
     divlinerStylesRef.current = useMemo(()=> {
 
@@ -545,6 +542,9 @@ const Cradle = ({
             index:referenceoffset,
             scrolloffset:visibletargetscrolloffset,
         }
+
+        reportReferenceIndexRef.current && reportReferenceIndexRef.current(referenceIndexDataRef.current.index)
+
         saveReferenceindex(referenceIndexDataRef.current)
 
         // console.log('xxx===>> x1. indexoffset, referenceoffset, contentCount, scrollblockoffset, cradleoffset, referenceIndexDataRef',
@@ -615,32 +615,28 @@ const Cradle = ({
     // maintain a list of visible items (visibleList) 
     // on shift of state to ready, or trigger next state after repositioning
     // when scroll ends.
-    useEffect(() => {
+    // useEffect(() => {
 
-        if (isScrollingRef.current || isResizingRef.current) return
+    //     if (isScrollingRef.current || isResizingRef.current) return
 
-        // console.log('finish scrolling', cradlestate)
+    //     // console.log('finish scrolling', cradlestate)
 
-        if (cradlestate == 'ready') {
+    //     if (cradlestate == 'ready') {
 
-            // console.log('calculating visible item list')
-            // update visible list
-            let itemlist = Array.from(itemElementsRef.current)
+    //         // console.log('calculating visible item list')
+    //         // update visible list
+    //         // let itemlist = Array.from(itemElementsRef.current)
 
-            visibleListRef.current = calcVisibleItems(
-                itemlist,viewportData.elementref.current,cradleElementRef.current, orientation
-            )
+    //         // visibleListRef.current = calcVisibleItems(
+    //         //     itemlist,viewportData.elementref.current,cradleElementRef.current, orientation
+    //         // )
 
-        }
+    //     }
 
-    },[cradlestate, isScrollingRef.current, isResizingRef.current])
+    // },[cradlestate, isScrollingRef.current, isResizingRef.current])
 
     // =====================================================================================
     // ----------------------------------[ state management ]-------------------------------
-
-    const scrollToItem = useCallback((index, alignment = 'nearest') => {
-        console.log('requested scrollToItem',index, alignment)
-    },[])
 
     // callback for scroll
     const onScroll = useCallback(() => {
@@ -696,6 +692,7 @@ const Cradle = ({
                     crosscountRef,
                     listsize:listsizeRef.current,
                 })
+                reportReferenceIndexRef.current && reportReferenceIndexRef.current(referenceIndexDataRef.current.index)
 
                 // console.log('calling getReferenceIndexDate for referenceIndexDateRef from onScroll', referenceIndexDataRef.current)
                 saveReferenceindex(referenceIndexDataRef.current)
@@ -765,6 +762,10 @@ const Cradle = ({
     useLayoutEffect(()=>{
 
         switch (cradlestate) {
+            case 'reload':
+                contentlistRef.current = []
+                saveCradleState('reposition')
+                break;
             case 'position': {
 
                 viewportData.elementref.current[positionDataRef.current.property] =
@@ -837,7 +838,31 @@ const Cradle = ({
     },[cradlestate])
 
     // =============================================================================
-    // ------------------------------[ child callbacks ]----------------------------------
+    // ------------------------------[ callbacks ]----------------------------------
+
+    const getVisibleList = useCallback(() => {
+
+        let itemlist = Array.from(itemElementsRef.current)
+
+        return calcVisibleItems(
+            itemlist,viewportData.elementref.current,cradleElementRef.current, orientationRef.current
+        )
+
+    },[])
+
+    const getContentList = useCallback(() => {
+        return Array.from(itemElementsRef.current)
+    },[])
+
+    const reload = useCallback(() => {
+        saveCradleState('reload')
+    },[])
+
+    const scrollToItem = useCallback((index, alignment = 'nearest') => {
+        console.log('requested scrollToItem',index, alignment)
+        callingReferenceIndexDataRef.current = {index:0, scrolloffset:0}
+        saveCradleState('reposition')
+    },[])
 
     const getItemElementData = useCallback((itemElementData, reportType) => { // candidate to export
 

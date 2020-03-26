@@ -76,15 +76,7 @@ const Home = (props) => {
         getContentList:null,
         getVisibleList:null,
         reload:null,
-        // elements:{
-        //     viewportRef:null,
-        //     scrollblockRef:null,
-        //     cradleRef:null,
-        // },
-        items:{
-            contentRef:null,
-            visibleRef:null,
-        }
+        reportReferenceIndex:null,
     })
 
     // console.log('componentRef',componentRef)
