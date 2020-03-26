@@ -185,7 +185,8 @@ export const getReferenceIndexData = (
         orientation,
         viewportData,
         cellSpecsRef,
-        crosscountRef
+        crosscountRef,
+        listsize,
     }) => {
 
     let scrollPos, cellLength
@@ -211,7 +212,7 @@ export const getReferenceIndexData = (
     let referenceindex = referencerowindex * crosscountRef.current
 
     let referenceIndexData = {
-        index:referenceindex,
+        index:Math.min(referenceindex,listsize - 1),
         scrolloffset:referencescrolloffset
     }
 
@@ -275,6 +276,10 @@ export const getContentListRequirements = ({
 
     // console.log('3. indexoffset, diff, visibletargetindexoffset, leadingitemcount',
     //     indexoffset, diff, visibletargetindexoffset, leadingitemcount)
+
+    // ------------[ adjust indexoffset and contentCount for listsize ]------------
+
+    
     
     // --------------------[ calc css positioning ]-----------------------
 

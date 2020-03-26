@@ -23,10 +23,10 @@ import ScrollTracker from './scrolltracker'
 /*
 
     4: tasks
+    BUG: constrain top end of list
+    BUG: check setting of restart referenceIndex eg start with 81 x 4 -> 79 x 6
     update viewportDimentions before showing scrollTracker
-    constrain top end of list
     make getVisibleList on-demand
-    double check setting of restart referenceIndex eg 2527 @3 => 2521 @8
     code maintenance
 
     3 Do these:
@@ -61,6 +61,9 @@ const Cradle = ({
 
     // =============================================================================================
     // --------------------------------------[ initialization ]-------------------------------------
+
+    const listsizeRef = useRef(null)
+    listsizeRef.current = listsize
 
     const [cradlestate, saveCradleState] = useState('setup')
     const cradlestateRef = useRef(null) // access by closures
@@ -125,7 +128,10 @@ const Cradle = ({
 
     // main control
     // current location
-    const [referenceindexdata, saveReferenceindex] = useState({index:Math.min(offset,(listsize - 1)) || 0,scrolloffset:0})
+    const [referenceindexdata, saveReferenceindex] = useState({
+        index:Math.min(offset,(listsize - 1)) || 0,
+        scrolloffset:0
+    })
     const referenceIndexDataRef = useRef(null) // access by closures
     referenceIndexDataRef.current = referenceindexdata
     const lastReferenceIndexDataRef = useRef(null)
@@ -537,8 +543,8 @@ const Cradle = ({
                 listsize,
             })
 
-        // console.log('xxx===>> x1. indexoffset, contentCount, scrollblockoffset, cradleoffset',
-        //     indexoffset, contentCount, scrollblockoffset, cradleoffset)
+        console.log('xxx===>> x1. indexoffset, contentCount, scrollblockoffset, cradleoffset',
+            indexoffset, contentCount, scrollblockoffset, cradleoffset)
 
         let childlist = getUIContentList({
             indexoffset, 
@@ -684,6 +690,7 @@ const Cradle = ({
                     viewportData:viewportDataRef.current,
                     cellSpecsRef,
                     crosscountRef,
+                    listsize:listsizeRef.current,
                 })
 
                 // console.log('calling getReferenceIndexDate for referenceIndexDateRef from onScroll', referenceIndexDataRef.current)
@@ -788,7 +795,7 @@ const Cradle = ({
 
                 break
 
-            case 'settle':
+            case 'settle': {
 
                 setCradleContent(callingCradleState.current, callingReferenceIndexDataRef.current)
 
@@ -796,6 +803,7 @@ const Cradle = ({
                 saveCradleState('position')
                 // console.log('callingReferenceIndexDataRef.current',{...callingReferenceIndexDataRef.current})
                 break
+            }
             case 'normalize': {
                 setTimeout(()=> {
                     normalizeCradleAnchors(cradleElementRef.current, orientationRef.current)
@@ -805,6 +813,7 @@ const Cradle = ({
                         viewportData:viewportDataRef.current,
                         cellSpecsRef,
                         crosscountRef,
+                        listsize:listsizeRef.current,
                     })
                     lastReferenceIndexDataRef.current = {...referenceIndexDataRef.current}
                     // console.log('calling getReferenceIndexData for referenceIndexDataRef after settle', {...referenceIndexDataRef.current})
