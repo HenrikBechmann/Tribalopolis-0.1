@@ -23,9 +23,6 @@ import ScrollTracker from './scrolltracker'
 /*
 
     5: tasks
-    BUG: constrain top end of list
-    BUG: check setting of restart referenceIndex eg start with 81 x 4 -> 79 x 6
-    update viewportDimentions before showing scrollTracker
     make getVisibleList on-demand
     code maintenance
 
@@ -717,6 +714,11 @@ const Cradle = ({
             !(cradlestateRef.current == 'resize') &&
             !(cradlestateRef.current == 'repositioning') && 
             !(cradlestateRef.current == 'reposition')) {
+
+            let rect = viewportDataRef.current.elementref.current.getBoundingClientRect()
+            let {top, right, bottom, left} = rect
+            let width = right - left, height = bottom - top
+            viewportDataRef.current.viewportDimensions = {top, right, bottom, left, width, height} // update for scrolltracker
 
             saveCradleState('repositioning')
 
