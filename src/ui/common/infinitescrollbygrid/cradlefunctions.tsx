@@ -262,7 +262,7 @@ export const getContentListRequirements = ({
     let leadingitemcount = cradleleadingrowcount * crosscount
     let targetdiff = visibletargetindexoffset % crosscount
     leadingitemcount += targetdiff
-    leadingitemcount = Math.min(leadingitemcount, visibletargetindexoffset)
+    leadingitemcount = Math.min(leadingitemcount, visibletargetindexoffset) // for list head
 
     // console.log('2. contentCount, cradleleadingitemcount, targetdiff, cradleleadingrowcount, crosscount', 
     //     contentCount, leadingitemcount, targetdiff, cradleleadingrowcount, crosscount)
@@ -278,10 +278,20 @@ export const getContentListRequirements = ({
     //     indexoffset, diff, visibletargetindexoffset, leadingitemcount)
 
     // ------------[ adjust indexoffset and contentCount for listsize ]------------
-    // incoude referenceoffset in return message
+    // include referenceoffset in return message
+    diff = 0
+    let shift = 0
+    if ((indexoffset + contentCount) > listsize) {
+        diff = (indexoffset + contentCount) - listsize
+        shift = diff % crosscount
+    }
+
+    if (diff) {
+        indexoffset -= (diff - shift)
+        contentCount -= shift
+    }
+    
     let referenceoffset
-    
-    
     // --------------------[ calc css positioning ]-----------------------
 
     let indexrowoffset = Math.floor(indexoffset/crosscount)

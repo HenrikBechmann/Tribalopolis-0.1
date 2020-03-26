@@ -22,21 +22,22 @@ import ScrollTracker from './scrolltracker'
 
 /*
 
-    4: tasks
+    5: tasks
     BUG: constrain top end of list
     BUG: check setting of restart referenceIndex eg start with 81 x 4 -> 79 x 6
     update viewportDimentions before showing scrollTracker
     make getVisibleList on-demand
     code maintenance
 
-    3 Do these:
+    4 Do these:
         getContentList:null,
         getVisibleList:null,
         reload:null,
 
-    2 scrollToItem(index[,alignment]) - alignment = start, center, end, or nearest (default)
-    create getContentList:null, getVisibleList:null, 
+    3 scrollToItem(index[,alignment]) - alignment = start, center, end, or nearest (default)
+    create getContentList:null, getVisibleList:null,
 
+    2 grouping support for scrolltracker - allow for callback to return realtime referenceIndex 
 
     1 add examples 1, 2, 3 to control page: 
         - images, scroll and pivot
