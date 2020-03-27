@@ -17,7 +17,7 @@ import Cradle from './cradle'
 /*
     The only job of InfiniteScrollByGrid is to pass paramters to dependents
     Viewport contains the scrollblock (scrolling block)
-    Scrollblock represents the entirety of the list, and scrolls
+    Scrollblock virtually represents the entirety of the list, and scrolls
     Cradle contains the list items, and is 'virtualiized' -- it appears as
       though it is the full scrollblock, but in fact it is only slightly larger than
       the viewport.
@@ -52,7 +52,6 @@ const InfiniteScrollByGrid = (props) => {
     offset !?? (offset = 0)
     listsize !?? (listsize = 0)
     let runwaylength = (orientation == 'vertical')?(runway * (cellHeight + gap)):(runway * (cellWidth + gap))
-    component !?? (component = {})
 
     return <Viewport 
 
