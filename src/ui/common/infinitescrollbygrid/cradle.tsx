@@ -97,12 +97,12 @@ const Cradle = ({
 
         viewportData.elementref.current.addEventListener('scroll',onScroll)
 
-        if (component?.items.hasOwnProperty('getVisibleList')) {
-            component.items.getVisibleList = getVisibleList
+        if (component?.hasOwnProperty('getVisibleList')) {
+            component.getVisibleList = getVisibleList
         } 
 
-        if (component?.items.hasOwnProperty('getContentList')) {
-            component.items.getContentList = getContentList
+        if (component?.hasOwnProperty('getContentList')) {
+            component.getContentList = getContentList
         } 
 
         if (component?.hasOwnProperty('scrollToItem')) {
