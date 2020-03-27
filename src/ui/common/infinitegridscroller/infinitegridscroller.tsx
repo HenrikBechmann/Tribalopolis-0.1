@@ -15,7 +15,7 @@ import Cradle from './cradle'
 // ===================================[ INITIALIZE ]===========================
 
 /*
-    The only job of InfiniteScrollByGrid is to pass paramters to dependents
+    The job of InfiniteScrollByGrid is to pass paramters to dependents
     Viewport contains the scrollblock (scrolling block)
     Scrollblock virtually represents the entirety of the list, and scrolls
     Cradle contains the list items, and is 'virtualiized' -- it appears as
