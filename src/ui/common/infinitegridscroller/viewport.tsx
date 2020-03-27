@@ -7,8 +7,6 @@
 
 import React, {useState, useRef, useEffect, useMemo, useCallback} from 'react'
 
-import { GenericObject } from '../../../services/interfaces'
-
 export const ViewportContext = React.createContext(null)
 
 // control constants
@@ -29,7 +27,6 @@ const Viewport = ({
 
     const [portstate,setPortState] = useState('prepare')
 
-    const sizegenerationcounterRef = useRef(0)
     const timeoutidRef = useRef(null)
     const viewportdivRef = useRef(undefined)
     const resizeScrollPosRef = useRef({top:0,left:0})
