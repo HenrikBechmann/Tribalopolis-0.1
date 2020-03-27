@@ -70,13 +70,10 @@ const Cradle = ({
 
         isResizingRef.current = viewportData.isResizing
 
-        // console.log('changing isResizingRef to ',viewportData.isResizing)
-
         if (isResizingRef.current) {
 
             callingReferenceIndexDataRef.current = {...referenceIndexDataRef.current}
 
-            // console.log('setting callingReferenceIndexDataRef from isResizing with referenceIndexDataRef', callingReferenceIndexDataRef.current)
             pauseObserversRef.current = true
             saveCradleState('resizing')
 
@@ -136,12 +133,9 @@ const Cradle = ({
 
     const [addentries, saveAddentries] = useState(null)
 
-    // const [contentlist,saveContentlist] = useState([])
     const contentlistRef = useRef([])
 
     const isScrollingRef = useRef(false)
-
-    // console.log('==>> RUNNING Cradle with state', cradlestate)
 
     const itemobserverRef = useRef(null)
 
@@ -154,8 +148,6 @@ const Cradle = ({
     },[cellWidth,cellHeight,gap, padding])
     const cellSpecsRef = useRef(null)
     cellSpecsRef.current = cellSpecs
-
-    // const mainConfigDatasetRef = useRef({setup:true})
 
     const divlinerStylesRef = useRef(Object.assign({
         position: 'absolute',
@@ -199,7 +191,7 @@ const Cradle = ({
         viewportheight, 
         viewportwidth,
     ])
-    // console.log('crosscount value',crosscount)
+
     // ==============================================================================================
     // ----------------------------------[ config management ]--------------------------------
 
@@ -290,7 +282,7 @@ const Cradle = ({
             There are exceptions for setup and edge cases.
     */
 
-    // the async callback from IntersectionObserver. this is a closure
+    // the async callback from IntersectionObserver.
     const itemobservercallback = useCallback((entries)=>{
 
         if (pauseObserversRef.current) {
@@ -421,7 +413,6 @@ const Cradle = ({
         // synchronization
         divlinerStyleRevisionsRef.current = styles 
 
-        // saveContentlist(localContentList) // delete entries
         contentlistRef.current = localContentList
         saveDropentries(null)
         saveAddentries({count:newcontentcount,scrollforward,contentoffset:pendingcontentoffset})
@@ -492,7 +483,6 @@ const Cradle = ({
         // synchronization
         divlinerStyleRevisionsRef.current = styles
 
-        // saveContentlist(localContentList)
         contentlistRef.current = localContentList
         saveAddentries(null)
 
@@ -553,7 +543,6 @@ const Cradle = ({
             placeholder,
         })
 
-        // contentlistRef.current = []
         contentDataRef.current = childlist
 
         let elementstyle = cradleElementRef.current.style
@@ -700,7 +689,6 @@ const Cradle = ({
     },[orientation])
 
     // this is the core state engine
-    // triggering next state phase: states = setup, pivot, resize, reposition (was run)
     const callingCradleState = useRef(cradlestateRef.current)
     const callingReferenceIndexDataRef = useRef(referenceIndexDataRef.current)
 
