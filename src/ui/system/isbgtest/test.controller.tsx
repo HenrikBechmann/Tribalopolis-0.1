@@ -4,7 +4,7 @@
 import React, {useState, useRef} from 'react'
 
 // import InfiniteScroller from 'react-infinite-scroll-by-grid'// '../../common/infinitescrollbygrid/infinitescrollbygrid'
-import InfiniteScroller from '../../common/infinitescrollbygrid/infinitescrollbygrid'
+import InfiniteScroller from '../../common/infinitegridscroll/infinitegridscroll'
 import TestOptions from './testoptions'
 
 const getItem = (index) => {
