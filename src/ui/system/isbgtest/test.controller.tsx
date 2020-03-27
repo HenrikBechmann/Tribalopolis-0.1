@@ -7,6 +7,16 @@ import React, {useState, useRef} from 'react'
 import InfiniteScroller from '../../common/infinitegridscroller/infinitegridscroller'
 import TestOptions from './testoptions'
 
+/*
+
+    1 add examples 1, 2, 3 to control page: 
+        - images, scroll and pivot
+        - nested lists, scroll and pivot
+
+    0 qa
+
+*/
+
 const getItem = (index) => {
      
      return <ImageItem index = {index} image = {'https://loremflickr.com/200/300?random='+index}/>

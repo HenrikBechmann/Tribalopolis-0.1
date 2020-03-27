@@ -19,19 +19,6 @@ import {
 
 import ScrollTracker from './scrolltracker'
 
-/*
-
-    2: tasks
-    code maintenance
-
-    1 add examples 1, 2, 3 to control page: 
-        - images, scroll and pivot
-        - nested lists, scroll and pivot
-
-    0 qa
-
-*/
-
 const Cradle = ({ 
         gap, 
         padding, 
