@@ -24,8 +24,11 @@ const Viewport = ({
     styles,
 }) => {
 
-    const [portstate,setPortState] = useState('prepare')
+    // -----------------------[ initialize ]------------------
 
+    // processing state
+    const [portstate,setPortState] = useState('prepare')
+    // data heap
     const timeoutidRef = useRef(null)
     const viewportdivRef = useRef(undefined)
     const resizeScrollPosRef = useRef({top:0,left:0})
@@ -37,7 +40,11 @@ const Viewport = ({
         overflow:'auto',
         backgroundColor:'red',
     } as React.CSSProperties,styles?.viewport))
+    const resizeTimeridRef = useRef(null)
+    const isResizingRef = useRef(false)
+    const viewportDataRef = useRef(null)
 
+    // initialize
     useEffect(()=>{
 
         window.addEventListener('resize',onResize)
@@ -48,9 +55,7 @@ const Viewport = ({
 
     },[])
 
-    const resizeTimeridRef = useRef(null)
-    const isResizingRef = useRef(false)
-
+    // event listener callback
     const onResize = useCallback(() => {
 
         if (!isResizingRef.current) {
@@ -76,16 +81,9 @@ const Viewport = ({
 
     },[])
 
-    useEffect(()=>{
-        switch (portstate) {
-            case 'prepare':
-            case 'resize': {
-                setPortState('render')
-                break
-            }
-        }
-    },[portstate])
+    // ----------------------------------[ calculate ]--------------------------------
 
+    // calculated values
     divlinerstyleRef.current = useMemo(() => {
         let mincrosslength = calcMinViewportCrossLength(orientation, cellWidth, cellHeight, padding)
         let styles = {...divlinerstyleRef.current} as React.CSSProperties
@@ -100,8 +98,6 @@ const Viewport = ({
         return styles
 
     },[orientation, cellWidth, cellHeight, padding])
-
-    const viewportDataRef = useRef(null)
 
     let viewportClientRect
     if (viewportdivRef.current) {
@@ -127,11 +123,21 @@ const Viewport = ({
 
     },[orientation, top, right, bottom, left,isResizingRef.current])
 
-    let divlinerstyle = divlinerstyleRef.current as React.CSSProperties
+    // --------------------[ state processing ]---------------------------
+    useEffect(()=>{
+        switch (portstate) {
+            case 'prepare':
+            case 'resize': {
+                setPortState('render')
+                break
+            }
+        }
+    },[portstate])
 
+    // ----------------------[ render ]--------------------------------
     return <ViewportContext.Provider value = { viewportDataRef.current }>
         <div 
-            style = {divlinerstyle}
+            style = {divlinerstyleRef.current}
             ref = {viewportdivRef}
         >
             { (portstate != 'prepare')?children:null }
