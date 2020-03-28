@@ -54,7 +54,10 @@ const Viewport = ({
     const onResize = useCallback(() => {
 
         if (!isResizingRef.current) {
-            isResizingRef.current = true
+            isResizingRef.current = true 
+                // below is a realtime message to cradle.onScroll
+                // to stop updating the referenceIndexData, and to the item observer to stop
+                // triggering responses (anticipating reset of cradle content based on resize)
             viewportDataRef.current.isResizing = true
             resizeScrollPosRef.current = {
                 top:viewportdivRef.current.scrollTop,
