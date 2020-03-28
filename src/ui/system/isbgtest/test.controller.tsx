@@ -9,11 +9,15 @@ import TestOptions from './testoptions'
 
 /*
 
-    1 add examples 1, 2, 3 to control page: 
+    4 add examples 1, 2, 3 to control page: 
         - images, scroll and pivot
         - nested lists, scroll and pivot
 
-    0 qa
+    3 Annotate the code
+
+    2 qa
+
+    1 npm module
 
 */
 
