@@ -16,6 +16,8 @@ import Home from '../ui/system/home.controller'
 import Test from '../ui/system/isbgtest/test.controller'
 import Register from '../ui/system/register.controller'
 
+// console.log('TEST',Test)
+
 // import ResetPassword from '../containers/resetpassword'
 // import Register from '../containers/register'
 // import RegisterPending from '../containers/registerpending'
