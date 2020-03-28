@@ -26,10 +26,10 @@ import Cradle from './cradle'
       the viewport.
     - individual items are framed by ItemShell, managed by Cradle
 
-    Overall the infinite grid scroller manages the often asynchronous interactions of the 
+    Overall the infinitegridscroller manages the often asynchronous interactions of the 
     components of the mechanism
 */
-const InfiniteScrollByGrid = (props) => {
+const InfiniteGridScroller = (props) => {
     let { 
         orientation, // vertical or horizontal
         gap, // space between grid cells, not including the leading and trailing edges

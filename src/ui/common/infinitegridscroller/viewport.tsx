@@ -2,16 +2,15 @@
 // copyright (c) 2020 Henrik Bechmann, Toronto, Licence: MIT
 
 /*
-    The role of viewport is to provide data to its children (cradle)
+    The role of viewport is to provide data to its children (cradle), and
+    act as the visible portal of the list being shown
 */
 
 import React, {useState, useRef, useEffect, useMemo, useCallback} from 'react'
 
 export const ViewportContext = React.createContext(null)
 
-// control constants
-const SCROLL_DIFF_FOR_UPDATE = 20
-const SCROLL_TIMEOUT_FOR_ONAFTERSCROLL = 250
+// control constant
 const RESIZE_TIMEOUT_FOR_ONAFTERSRESIZE = 250
 
 const Viewport = ({
@@ -70,7 +69,7 @@ const Viewport = ({
             isResizingRef.current = false
             setPortState('resize')
 
-        },250)
+        },RESIZE_TIMEOUT_FOR_ONAFTERSRESIZE)
 
     },[])
 
@@ -109,6 +108,7 @@ const Viewport = ({
     }
     let {top, right, bottom, left} = viewportClientRect
 
+    // set context data for children
     viewportDataRef.current = useMemo(() => {
         let width, height, localViewportData
         if (!(top === undefined)) { //proxy
@@ -118,10 +118,6 @@ const Viewport = ({
                 viewportDimensions:{top,right, bottom, left, width, height},
                 elementref:viewportdivRef,
                 isResizing:isResizingRef.current,
-                scrollPos:{
-                    left:resizeScrollPosRef.current.left,
-                    top:resizeScrollPosRef.current.top,
-                }
             }
         }
         return localViewportData
@@ -141,6 +137,7 @@ const Viewport = ({
     
 } // Viewport
 
+// establish minimum width/height for the viewport -- approximately one item
 const calcMinViewportCrossLength = (orientation, cellWidth, cellHeight, padding) => {
     let crosslength, cellLength
     if (orientation == 'vertical') {

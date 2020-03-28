@@ -19,6 +19,8 @@ import {
 
 import ScrollTracker from './scrolltracker'
 
+const SCROLL_TIMEOUT_FOR_ONAFTERSCROLL = 200
+
 const Cradle = ({ 
         gap, 
         padding, 
@@ -609,7 +611,7 @@ const Cradle = ({
 
             }
 
-        },200)
+        },SCROLL_TIMEOUT_FOR_ONAFTERSCROLL)
 
         if ((!isResizingRef.current) && (!viewportDataRef.current.isResizing)) {
 
