@@ -9,11 +9,9 @@ import TestOptions from './testoptions'
 
 /*
 
-    4 add examples 1, 2, 3 to control page: 
+    3 add examples 1, 2, 3 to control page: 
         - images, scroll and pivot
         - nested lists, scroll and pivot
-
-    3 Annotate the code
 
     2 qa
 
@@ -93,8 +91,6 @@ const Home = (props) => {
         reload:null,
         reportReferenceIndex:null,
     })
-
-    // console.log('componentRef',componentRef)
 
     const handleOrientationCallback = (orientation) => {
         setOrientation(orientation)
