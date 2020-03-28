@@ -2,8 +2,8 @@
 // copyright (c) 2020 Henrik Bechmann, Toronto, Licence: MIT
 
 /*
-    The role of viewport is to provide data to its children (cradle), and
-    act as the visible portal of the list being shown
+    The role of viewport is to provide data to its children (scrollblock and cradle), 
+    and act as the visible portal of the list being shown
 */
 
 import React, {useState, useRef, useEffect, useMemo, useCallback} from 'react'

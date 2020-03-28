@@ -33,7 +33,7 @@ const InfiniteGridScroller = (props) => {
     let { 
         orientation, // vertical or horizontal
         gap, // space between grid cells, not including the leading and trailing edges
-        padding, // the space between the items and the viewport
+        padding, // the space between the items and the viewport, applied to the cradle
         cellHeight, // the outer pixel height - literal for vertical; approximate for horizontal
         cellWidth, // the outer pixel width - literal for horizontal; approximate for vertical
         runway, // the number of items outside the view of each side of the viewport 
