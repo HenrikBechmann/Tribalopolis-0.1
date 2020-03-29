@@ -29,7 +29,7 @@ export default function OrientationOptions(props) {
   const styleprops = {}
   const classes = useStyles(styleprops)
   const [value, setValue] = React.useState('vertical')
-  const [demovalue, setDemovalue] = React.useState('images')
+  const [demovalue, setDemovalue] = React.useState('generic')
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     let value = (event.target as HTMLInputElement).value
@@ -55,7 +55,7 @@ export default function OrientationOptions(props) {
       <FormControl component="fieldset" className={classes.formControl}>
           <FormLabel component="legend">Demos</FormLabel>
           <RadioGroup aria-label="demo" name="demo" value={demovalue} onChange={handleDemoChange}>
-            <FormControlLabel value="images" control={<Radio />} label="Images" />
+            <FormControlLabel value="generic" control={<Radio />} label="Generic" />
             <FormControlLabel value="lists" control={<Radio />} label="Nested lists" />
           </RadioGroup>
       </FormControl>
