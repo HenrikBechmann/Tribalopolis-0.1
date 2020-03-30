@@ -3,8 +3,8 @@
 
 import React, {useState, useRef} from 'react'
 
-// import InfiniteScroller from 'react-infinite-grid-scroller'
-import InfiniteScroller from '../../common/infinitegridscroller/infinitegridscroller'
+import InfiniteScroller from 'react-infinite-grid-scroller'
+// import InfiniteScroller from '../../common/infinitegridscroller/infinitegridscroller'
 import TestOptions from './testoptions'
 
 /*
@@ -79,7 +79,7 @@ const componentstyles = {
     }
 }
     
-const Home = (props) => {
+const Test = (props) => {
     let [orientation, setOrientation] = useState('vertical')
 
     let [demo, setDemo] = useState('images')
@@ -129,5 +129,5 @@ const Home = (props) => {
     </>
 }
 
-export default Home
+export default Test
 
