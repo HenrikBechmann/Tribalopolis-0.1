@@ -3,31 +3,31 @@
 
 import React, {useState, useRef} from 'react'
 
-import InfiniteScroller from 'react-infinite-grid-scroller'
-// import InfiniteScroller from '../../common/infinitegridscroller/infinitegridscroller'
+import Scroller from 'react-infinite-grid-scroller'
+
 import TestOptions from './testoptions'
 
 /*
 
-    2 add examples 1, 2, 3 to control page: 
-        - images, scroll and pivot
-        - nested lists, scroll and pivot
+    2 add examples 1, 2 to control page: 
+        - generic, scroll, resize and pivot
+        - nested lists, rapid reposition
 
     1 qa
 
 */
 
-const getItem = (index) => {
-     
-     return <ImageItem index = {index} image = {'https://loremflickr.com/200/300?random='+index}/>
-
-}
-
 const Placeholder = (props) => {
     return <div>SOMETHING</div>
 } 
 
-const ImageItem = (props) => {
+const getGenericItem = (index) => {
+     
+     return <GenericItem index = {index} image = {'https://loremflickr.com/200/300?random='+index}/>
+
+}
+
+const GenericItem = (props) => {
     return <div style = {{position:'relative',height:'100%', width:'100%',backgroundColor:'white'}}>
         <div style = {
             {
@@ -41,7 +41,6 @@ const ImageItem = (props) => {
                 margin:'3px'
             }
         }>{props.index + 1}</div>
-        {/*<img src = {props.image} style = {{objectFit:'cover'}}/>*/}
     </div>
 }
 
@@ -64,7 +63,7 @@ const uistyles = {
     },
 }
 
-const componentstyles = {
+const genericcomponentstyles = {
     viewport:null,
     scrollblock:{
         backgroundColor:'brown',
@@ -76,19 +75,40 @@ const componentstyles = {
         backgroundColor:'cyan'
     }
 }
-    
+ 
+const demos = {
+    generic: {
+        gap:5,
+        padding:5,
+        cellHeight:200,
+        cellWidth:150,
+        runway:3,
+        offset:0,
+        listsize:10000,
+        getItem:getGenericItem,
+        placeholder:null,
+        styles: genericcomponentstyles,
+        component: {
+            scrollToItem:null,
+            getContentList:null,
+            getVisibleList:null,
+            reload:null,
+            reportReferenceIndex:null,
+        }
+    },
+    nested: {
+
+    }
+}
+
 const Test = (props) => {
     let [orientation, setOrientation] = useState('vertical')
 
-    let [demo, setDemo] = useState('images')
+    let [demo, setDemo] = useState('generic')
 
-    let componentRef = useRef({
-        scrollToItem:null,
-        getContentList:null,
-        getVisibleList:null,
-        reload:null,
-        reportReferenceIndex:null,
-    })
+    let demoselection = demos[demo]
+
+    // console.log('demo selection',demoselection)
 
     const handleOrientationCallback = (orientation) => {
         setOrientation(orientation)
@@ -97,6 +117,20 @@ const Test = (props) => {
     const handleDemoCallback = (demo) => {
         setDemo(demo)
     }
+    
+    let {
+        gap,
+        padding,
+        cellHeight,
+        cellWidth,
+        runway,
+        offset,
+        listsize,
+        getItem,
+        placeholder,
+        styles,
+        component,
+    } = demoselection
 
     return <>
         <div style = {uistyles.optionswrapper as React.CSSProperties} >
@@ -108,19 +142,19 @@ const Test = (props) => {
             <div style = {
                 uistyles.viewportframe as React.CSSProperties
             }>
-                <InfiniteScroller 
+                <Scroller 
                     orientation = { orientation } 
-                    gap = {5}
-                    padding = {5}
-                    cellHeight = {200}
-                    cellWidth = {150}
-                    runway = {3}
-                    offset = {0}
-                    listsize = {10000}
-                    getItem = {getItem}
-                    placeholder = {null}
-                    styles = { componentstyles }
-                    component = { componentRef.current }
+                    gap = {gap}
+                    padding = {padding}
+                    cellHeight = {cellHeight}
+                    cellWidth = {cellWidth}
+                    runway = {runway}
+                    offset = {offset}
+                    listsize = {listsize}
+                    getItem = {getGenericItem}
+                    placeholder = {placeholder}
+                    styles = { styles }
+                    component = { component }
                 />
             </div>
         </div>
