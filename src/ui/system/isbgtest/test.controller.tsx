@@ -97,7 +97,23 @@ const demos = {
         }
     },
     nested: {
-
+        gap:5,
+        padding:5,
+        cellHeight:400,
+        cellWidth:250,
+        runway:3,
+        offset:0,
+        listsize:6000,
+        getItem:getGenericItem,
+        placeholder:null,
+        styles: genericcomponentstyles,
+        component: {
+            scrollToItem:null,
+            getContentList:null,
+            getVisibleList:null,
+            reload:null,
+            reportReferenceIndex:null,
+        }
     }
 }
 
@@ -110,14 +126,33 @@ const Test = (props) => {
 
     // console.log('demo selection',demoselection)
 
-    const handleOrientationCallback = (orientation) => {
+    const handleOrientation = (orientation) => {
         setOrientation(orientation)
     }
 
-    const handleDemoCallback = (demo) => {
+    const handleDemo = (demo) => {
         setDemo(demo)
     }
     
+    const handleScrollToPos = (pos) => {
+
+    }
+
+    const handleScrollGo = () => {
+
+    }
+
+    const handleAlignment = () => {
+
+    }
+    let democallbacks = {
+        orientationcallback:handleOrientation,
+        democallback:handleDemo,
+        scrolltoposcallback:handleScrollToPos,
+        scrolltogocallback:handleScrollGo,
+        alignmentcallback:handleAlignment,
+    }
+
     let {
         gap,
         padding,
@@ -134,7 +169,7 @@ const Test = (props) => {
 
     return <>
         <div style = {uistyles.optionswrapper as React.CSSProperties} >
-            <TestOptions orientationCallback = { handleOrientationCallback }/>
+            <TestOptions callbacks = { democallbacks }/>
         </div>
         <div style = {
             uistyles.framewrapper as React.CSSProperties

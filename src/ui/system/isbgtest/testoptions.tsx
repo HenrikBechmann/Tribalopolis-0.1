@@ -24,30 +24,30 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 )
 
-export default function OrientationOptions(props) {
-  let { orientationCallback, demoCallback } = props
+export default function OrientationOptions({callbacks}) {
+  let { orientationcallback, democallback, scrolltoposcallback, scrolltogocallback,alignmentcallback } = callbacks
   const styleprops = {}
   const classes = useStyles(styleprops)
-  const [value, setValue] = React.useState('vertical')
+  const [orientationvalue, setOrientationValue] = React.useState('vertical')
   const [demovalue, setDemovalue] = React.useState('generic')
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    let value = (event.target as HTMLInputElement).value
-    setValue(value)
-    orientationCallback(value)
+  const handleOrientationChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    let orientationvalue = (event.target as HTMLInputElement).value
+    setOrientationValue(orientationvalue)
+    orientationcallback(orientationvalue)
   }
 
   const handleDemoChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     let demovalue = (event.target as HTMLInputElement).value
     setDemovalue(demovalue)
-    demoCallback(demovalue)    
+    democallback(demovalue)    
   }
 
   return (
     <div>
       <FormControl component="fieldset" className={classes.formControl}>
           <FormLabel component="legend">Orientation</FormLabel>
-          <RadioGroup aria-label="orientation" name="orientation" value={value} onChange={handleChange}>
+          <RadioGroup aria-label="orientation" name="orientation" value={orientationvalue} onChange={handleOrientationChange}>
             <FormControlLabel value="vertical" control={<Radio />} label="Vertical" />
             <FormControlLabel value="horizontal" control={<Radio />} label="Horizontal" />
           </RadioGroup>
@@ -56,7 +56,7 @@ export default function OrientationOptions(props) {
           <FormLabel component="legend">Demos</FormLabel>
           <RadioGroup aria-label="demo" name="demo" value={demovalue} onChange={handleDemoChange}>
             <FormControlLabel value="generic" control={<Radio />} label="Generic" />
-            <FormControlLabel value="lists" control={<Radio />} label="Nested lists" />
+            <FormControlLabel value="nested" control={<Radio />} label="Nested lists" />
           </RadioGroup>
       </FormControl>
       <FormControl component="fieldset" className={classes.formControl}>
