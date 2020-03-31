@@ -100,7 +100,7 @@ const demos = {
         gap:5,
         padding:5,
         cellHeight:400,
-        cellWidth:250,
+        cellWidth:300,
         runway:3,
         offset:0,
         listsize:6000,
