@@ -1,4 +1,4 @@
-// build.controller.tsx
+// test .controller.tsx
 // copyright (c) 2019 Henrik Bechmann, Toronto, Licence: MIT
 
 import React, {useState, useRef} from 'react'
@@ -6,6 +6,8 @@ import React, {useState, useRef} from 'react'
 import Scroller from 'react-infinite-grid-scroller'
 
 import TestOptions from './testoptions'
+
+import NestedBox from './testlistbox'
 
 /*
 
@@ -24,6 +26,12 @@ const Placeholder = (props) => {
 const getGenericItem = (index) => {
      
      return <GenericItem index = {index} image = {'https://loremflickr.com/200/300?random='+index}/>
+
+}
+
+const getNestedItem = (index) => {
+
+    return <NestedBox index = {index} setlistsize = {demos.nested.listsize}/>
 
 }
 
@@ -104,7 +112,7 @@ const demos = {
         runway:3,
         offset:0,
         listsize:6000,
-        getItem:getGenericItem,
+        getItem:getNestedItem,
         placeholder:null,
         styles: genericcomponentstyles,
         component: {
@@ -179,15 +187,15 @@ const Test = (props) => {
             }>
                 <Scroller 
                     orientation = { orientation } 
-                    gap = {gap}
-                    padding = {padding}
-                    cellHeight = {cellHeight}
-                    cellWidth = {cellWidth}
-                    runway = {runway}
-                    offset = {offset}
-                    listsize = {listsize}
-                    getItem = {getGenericItem}
-                    placeholder = {placeholder}
+                    gap = { gap }
+                    padding = { padding }
+                    cellHeight = { cellHeight }
+                    cellWidth = { cellWidth }
+                    runway = { runway }
+                    offset = { offset }
+                    listsize = { listsize }
+                    getItem = { getItem }
+                    placeholder = { placeholder }
                     styles = { styles }
                     component = { component }
                 />
