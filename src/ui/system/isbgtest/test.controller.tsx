@@ -11,6 +11,9 @@ import NestedBox from './testlistbox'
 
 /*
 
+    review resize (nested)
+    off by a pixel in vertical lists interferes with horizontal scrolling
+    check nested element structure; one block has a height of 0
     2 add examples 1, 2 to control page: 
         - generic, scroll, resize and pivot
         - nested lists, rapid reposition
