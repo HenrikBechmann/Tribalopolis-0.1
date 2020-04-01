@@ -12,6 +12,7 @@ import NestedBox from './testlistbox'
 /*
 
     review resize (nested)
+    test promises for items
     off by a pixel in vertical lists interferes with horizontal scrolling
     check nested element structure; one block has a height of 0
     2 add examples 1, 2 to control page: 
