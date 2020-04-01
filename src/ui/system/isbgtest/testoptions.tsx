@@ -55,8 +55,8 @@ export default function OrientationOptions({callbacks}) {
       <FormControl component="fieldset" className={classes.formControl}>
           <FormLabel component="legend">Demos</FormLabel>
           <RadioGroup aria-label="demo" name="demo" value={demovalue} onChange={handleDemoChange}>
-            <FormControlLabel value="generic" control={<Radio />} label="Generic" />
-            <FormControlLabel value="nested" control={<Radio />} label="Nested lists" />
+            <FormControlLabel value="generic" control={<Radio />} label="Generic (simple)" />
+            <FormControlLabel value="nested" control={<Radio />} label="Nested lists (complex)" />
           </RadioGroup>
       </FormControl>
       <FormControl component="fieldset" className={classes.formControl}>
