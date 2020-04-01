@@ -17,10 +17,14 @@ import NestedBox from './testlistbox'
         - that bug results in cradle top position setting that is
             out of sync with cradle position. That leaves dead space
             at top or botton, or orphans one of the lead item
+        - it all seems related to timing (onScroll?) as it relates to inaccurate setting
+            of cradle offset. Solution is explexit calc of cradle position?
     - rapid scroll of nested list (small item size)
     - review resize (nested)
     - test promises for items
     - check nested element structure; one block has a height of 0
+
+    - create list of bcklog candidates
 
     2 add examples 1, 2 to control page: 
         - generic, scroll, resize and pivot
