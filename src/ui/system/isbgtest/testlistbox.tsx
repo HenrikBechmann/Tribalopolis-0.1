@@ -10,10 +10,13 @@ const styles = {
         display:'flex',
         flexDirection:'column',
         justifyContent:'flex-start',
-        backgroundColor:'red',
+        backgroundColor:'beige',
         height:'100%',
     },
     header:{
+        padding:'3px',
+        backgroundColor:'silver',
+        border:'2p solid darkgray',
     },
     frame:{
         position:'relative',
@@ -21,19 +24,28 @@ const styles = {
         backgroundColor:'beige',
         flex:'1',
     },
+    item:{
+        padding:'3px',
+        border:'1px solid green',
+        backgroundColor:'white',
+        height:'100%',
+        boxSizing:'border-box',
+    }
 }
 
 const getListItem = (index) => {
-    return <div> Item {index + 1} of this list </div>
+
+    return <div style = { styles.item as React.CSSProperties }> Item {index + 1} of this list </div>
+
 }
 
 const settings = {
 
     orientation:'vertical',
     gap:2,
-    padding:3,
+    padding:6,
     cellHeight:40,
-    cellWidth:300,
+    cellWidth:296,
     runway:5,
     offset:0,
     listsize:100,
@@ -46,6 +58,8 @@ const TestListBox = (props) => {
     let { index, setlistsize } = props
 
     let {orientation, gap, padding, cellHeight, cellWidth, runway, offset, listsize, getListItem} = settings
+
+    // console.log('test listbox settings',settings)
 
     return <div style = {styles.container as React.CSSProperties} >
         <div style = {styles.header as React.CSSProperties} >
