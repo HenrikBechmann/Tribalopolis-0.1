@@ -46,7 +46,7 @@ const settings = {
     padding:6,
     cellHeight:40,
     cellWidth:288,
-    runway:5,
+    runway:2,
     offset:0,
     listsize:100,
     getListItem: getListItem,
@@ -55,11 +55,9 @@ const settings = {
 
 const TestListBox = (props) => {
 
-    let { index, setlistsize } = props
+    let { index, setlistsize, childorientation } = props
 
     let {orientation, gap, padding, cellHeight, cellWidth, runway, offset, listsize, getListItem} = settings
-
-    // console.log('test listbox settings',settings)
 
     return <div style = {styles.container as React.CSSProperties} >
         <div style = {styles.header as React.CSSProperties} >
@@ -68,7 +66,7 @@ const TestListBox = (props) => {
         <div style = {styles.frame as React.CSSProperties}>
 
             <Scroller 
-                orientation = { orientation } 
+                orientation = { childorientation } 
                 gap = {gap}
                 padding = {padding}
                 cellHeight = {cellHeight}

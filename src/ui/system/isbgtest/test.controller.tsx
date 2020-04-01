@@ -13,9 +13,8 @@ import NestedBox from './testlistbox'
 
     review resize (nested)
     test promises for items
-    try different module type compare with size
-    off by a pixel in vertical lists interferes with horizontal scrolling
     check nested element structure; one block has a height of 0
+
     2 add examples 1, 2 to control page: 
         - generic, scroll, resize and pivot
         - nested lists, rapid reposition
@@ -36,7 +35,7 @@ const getGenericItem = (index) => {
 
 const getNestedItem = (index) => {
 
-    return <NestedBox index = {index} setlistsize = {demos.nested.listsize}/>
+    return <NestedBox index = {index} childorientation = {demos.nested.childorientation} setlistsize = {demos.nested.listsize}/>
 
 }
 
@@ -110,11 +109,12 @@ const demos = {
         }
     },
     nested: {
+        childorientation:'horizontal',
         gap:5,
         padding:5,
         cellHeight:400,
         cellWidth:300,
-        runway:3,
+        runway:2,
         offset:0,
         listsize:6000,
         getItem:getNestedItem,
@@ -141,6 +141,7 @@ const Test = (props) => {
 
     const handleOrientation = (orientation) => {
         setOrientation(orientation)
+        demos.nested.childorientation = (orientation == 'vertical')?'horizontal':'vertical'
     }
 
     const handleDemo = (demo) => {
