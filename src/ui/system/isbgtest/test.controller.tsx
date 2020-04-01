@@ -11,9 +11,16 @@ import NestedBox from './testlistbox'
 
 /*
 
-    review resize (nested)
-    test promises for items
-    check nested element structure; one block has a height of 0
+    BUGS
+    - going from large to small leaves blue box in one of the list cells --
+        - the one that had generated a cradle displacement bug
+        - that bug results in cradle top position setting that is
+            out of sync with cradle position. That leaves dead space
+            at top or botton, or orphans one of the lead item
+    - rapid scroll of nested list (small item size)
+    - review resize (nested)
+    - test promises for items
+    - check nested element structure; one block has a height of 0
 
     2 add examples 1, 2 to control page: 
         - generic, scroll, resize and pivot
