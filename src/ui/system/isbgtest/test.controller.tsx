@@ -20,6 +20,7 @@ import NestedBox from './testlistbox'
         - it all seems related to timing (onScroll?) as it relates to inaccurate setting
             of cradle offset. Solution is explexit calc of cradle position?
     - rapid scroll of nested list (small item size)
+    - sometimes grid disapears in favour of cradle, but still seems to be in placer
 
     - check nested element structure; one block has a height of 0
     - test promises for items
