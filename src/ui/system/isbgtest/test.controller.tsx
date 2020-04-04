@@ -10,20 +10,11 @@ import TestOptions from './testoptions'
 import NestedBox from './testlistbox'
 
 /*
-    BUG: ** resolved **
-    - going from large to small leaves blue box in one of the list cells --
-        - the one that had generated a cradle displacement bug
-        - that bug results in cradle top position setting that is
-            out of sync with cradle position. That leaves dead space
-            at top or botton, or orphans one of the lead item
-        - it all seems related to timing (onScroll?) as it relates to inaccurate setting
-            of cradle offset. Solution is explexit calc of cradle position?
-    - rapid scroll of nested list (small item size)
-    - sometimes grid disapears in favour of cradle, but still seems to be in placer
-    - check nested element structure; one block has a height of 0
 
-    - BUG: fix shift by padding length on resize
-
+    - BUG:
+        rapid repositioning of nested vertical list causes loss of bearings at tail
+        collect base info but don't make calculation until after scroll stops
+        - it resets correctly so must be in offset calculation
     - test promises for items
 
     - review resize (nested)
@@ -32,11 +23,7 @@ import NestedBox from './testlistbox'
 
     - create list of backlog candidates
 
-    2 add examples 1, 2 to control page: 
-        - generic, scroll, resize and pivot
-        - nested lists, rapid reposition
-
-    1 qa
+    - qa
 
 */
 
