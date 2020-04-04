@@ -10,8 +10,7 @@ import TestOptions from './testoptions'
 import NestedBox from './testlistbox'
 
 /*
-
-    BUGS
+    BUG: ** resolved **
     - going from large to small leaves blue box in one of the list cells --
         - the one that had generated a cradle displacement bug
         - that bug results in cradle top position setting that is
@@ -21,15 +20,15 @@ import NestedBox from './testlistbox'
             of cradle offset. Solution is explexit calc of cradle position?
     - rapid scroll of nested list (small item size)
     - sometimes grid disapears in favour of cradle, but still seems to be in placer
-
     - check nested element structure; one block has a height of 0
+
+    - BUG: fix shift by padding length on resize
+
     - test promises for items
 
     - review resize (nested)
     - test https://www.npmjs.com/package/react-virtualized-auto-sizer
         add generator parameter to reset for contextual changes
-
-    - change opacity as content comes into view?
 
     - create list of backlog candidates
 
