@@ -11,6 +11,8 @@ import NestedBox from './testlistbox'
 
 /*
 
+    BUG: cradle shriinkage (# of items) problem
+
     - test promises for items
 
     - review resize (nested)
