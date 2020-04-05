@@ -11,10 +11,6 @@ import NestedBox from './testlistbox'
 
 /*
 
-    - BUG:
-        rapid repositioning of nested vertical list causes loss of bearings at tail
-        collect base info but don't make calculation until after scroll stops
-        - it resets correctly so must be in offset calculation
     - test promises for items
 
     - review resize (nested)
@@ -96,11 +92,11 @@ const demos = {
     generic: {
         gap:5,
         padding:5,
-        cellHeight:200,
+        cellHeight:50,
         cellWidth:150,
-        runway:3,
+        runway:0,
         offset:0,
-        listsize:10000,
+        listsize:100,
         getItem:getGenericItem,
         placeholder:null,
         styles: genericcomponentstyles,
@@ -118,7 +114,7 @@ const demos = {
         padding:5,
         cellHeight:400,
         cellWidth:300,
-        runway:2,
+        runway:3,
         offset:0,
         listsize:6000,
         getItem:getNestedItem,
