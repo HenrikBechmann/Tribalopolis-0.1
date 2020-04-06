@@ -72,6 +72,8 @@ const uistyles = {
     },
     optionswrapper: {
         padding:'8px',
+        height:'160px',
+        overflow:'auto',
     },
 }
 

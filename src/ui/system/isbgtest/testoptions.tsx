@@ -21,6 +21,9 @@ const useStyles = makeStyles((theme: Theme) =>
     formControl: {
       margin: theme.spacing(3),
     },
+    wrapper:{
+      width:'1000px'
+    }
   }),
 )
 
@@ -44,7 +47,7 @@ export default function OrientationOptions({callbacks}) {
   }
 
   return (
-    <div>
+    <div className = {classes.wrapper}>
       <FormControl component="fieldset" className={classes.formControl}>
           <FormLabel component="legend">Orientation</FormLabel>
           <RadioGroup aria-label="orientation" name="orientation" value={orientationvalue} onChange={handleOrientationChange}>
