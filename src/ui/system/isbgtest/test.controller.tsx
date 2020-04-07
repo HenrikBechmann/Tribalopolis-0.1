@@ -13,11 +13,8 @@ import NestedBox from './testlistbox'
 
     - test promises for items
 
-    - review resize (nested)
-    - test https://www.npmjs.com/package/react-virtualized-auto-sizer
-        add generator parameter to reset for contextual changes
-
     - create list of backlog candidates
+        - some form of viewport resize event
         - scroll snap
         - cache
         - dense
