@@ -87,6 +87,12 @@ const genericcomponentstyles = {
         backgroundColor:'cyan'
     }
 }
+
+const reportReferenceIndex = index => {
+
+    console.log('reporting reference index', index)
+
+}
  
 const demos = {
     generic: {
@@ -105,7 +111,7 @@ const demos = {
             getContentList:null,
             getVisibleList:null,
             reload:null,
-            reportReferenceIndex:null,
+            reportReferenceIndex:null
         }
     },
     nested: {
