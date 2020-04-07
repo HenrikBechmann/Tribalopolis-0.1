@@ -18,6 +18,9 @@ import NestedBox from './testlistbox'
         add generator parameter to reset for contextual changes
 
     - create list of backlog candidates
+        - scroll snap
+        - cache
+        - dense
 
     - qa
 
