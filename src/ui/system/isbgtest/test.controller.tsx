@@ -139,6 +139,20 @@ const Test = (props) => {
 
     // console.log('demo selection',demoselection)
 
+    let {
+        gap,
+        padding,
+        cellHeight,
+        cellWidth,
+        runway,
+        offset,
+        listsize,
+        getItem,
+        placeholder,
+        styles,
+        component,
+    } = demoselection
+
     const handleOrientation = (orientation) => {
         setOrientation(orientation)
         demos.nested.childorientation = (orientation == 'vertical')?'horizontal':'vertical'
@@ -149,7 +163,7 @@ const Test = (props) => {
     }
     
     const handleScrollToPos = (pos) => {
-
+        component.scrollToItem(pos)
     }
 
     const handleScrollGo = () => {
@@ -166,20 +180,6 @@ const Test = (props) => {
         scrolltogocallback:handleScrollGo,
         alignmentcallback:handleAlignment,
     }
-
-    let {
-        gap,
-        padding,
-        cellHeight,
-        cellWidth,
-        runway,
-        offset,
-        listsize,
-        getItem,
-        placeholder,
-        styles,
-        component,
-    } = demoselection
 
     return <>
         <div style = {uistyles.optionswrapper as React.CSSProperties} >

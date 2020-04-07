@@ -46,6 +46,20 @@ export default function OrientationOptions({callbacks}) {
     democallback(demovalue)    
   }
 
+  let gotovalue:any = 0
+
+  const updateGotoValue = (event:React.ChangeEvent<HTMLInputElement>) => {
+
+    gotovalue = (event.target as HTMLInputElement).value
+
+  }
+
+  const handleGoto = () => {
+
+    scrolltoposcallback(gotovalue)
+
+  }
+
   return (
     <div className = {classes.wrapper}>
       <FormControl component="fieldset" className={classes.formControl}>
@@ -66,28 +80,27 @@ export default function OrientationOptions({callbacks}) {
           <FormLabel component="legend">Scroll To</FormLabel>
           <TextField
             id="scrolltonumber"
-            label="Enter item number"
+            label="Enter index number"
             defaultValue={0}
             variant="filled"
+            onChange = {updateGotoValue}
           />
-          <Button variant="contained">Go</Button>
+          <Button onClick = {handleGoto} variant="contained">Go</Button>
       </FormControl>
-      <FormControl component="fieldset" className={classes.formControl}>
+      {false?<FormControl component="fieldset" className={classes.formControl}>
         <FormLabel component="legend">Scroll To Alignment</FormLabel>
         <NativeSelect
           defaultValue={'nearest'}
-          // onChange={handleChange('age')}
           inputProps={{
             name: 'alignment',
             id: 'alignment',
           }}
         >
-          <option value={'nearest'}>nearest</option>
           <option value={'start'}>start</option>
           <option value={'center'}>center</option>
           <option value={'end'}>end</option>
         </NativeSelect>
-      </FormControl>
+      </FormControl>:null}
 
     </div>
   )
