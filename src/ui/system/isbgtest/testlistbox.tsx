@@ -35,6 +35,12 @@ const styles = {
 
 const getListItem = (index) => {
 
+    // let promise = new Promise((resolve, reject) => {
+    //     resolve(<div style = { styles.item as React.CSSProperties }> Item {index + 1} of this list </div>)
+    // })
+
+    // return promise
+
     return <div style = { styles.item as React.CSSProperties }> Item {index + 1} of this list </div>
 
 }

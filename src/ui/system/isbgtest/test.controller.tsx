@@ -11,8 +11,6 @@ import NestedBox from './testlistbox'
 
 /*
 
-    - test promises for items
-
     - create list of backlog candidates
         - some form of viewport resize event
         - scroll snap
