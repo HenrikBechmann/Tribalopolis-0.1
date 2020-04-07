@@ -17,8 +17,6 @@ import NestedBox from './testlistbox'
         - cache
         - dense
 
-    - qa
-
 */
 
 const Placeholder = (props) => {
@@ -172,19 +170,27 @@ const Test = (props) => {
         component.scrollToItem(pos)
     }
 
-    const handleScrollGo = () => {
-
+    const handleGetVisible = () => {
+        console.log('VISIBLE',component.getVisibleList())
     }
 
-    const handleAlignment = () => {
-
+    const handleGetContent = () => {
+        console.log('CONTENT',component.getContentList())
     }
+
+    const handleReload = () => {
+        component.reload()
+    }
+
     let democallbacks = {
         orientationcallback:handleOrientation,
         democallback:handleDemo,
         scrolltoposcallback:handleScrollToPos,
-        scrolltogocallback:handleScrollGo,
-        alignmentcallback:handleAlignment,
+        // scrolltogocallback:handleScrollGo,
+        // alignmentcallback:handleAlignment,
+        getvisiblecallback:handleGetVisible,
+        getcontentcallback:handleGetContent,
+        reloadcallback:handleReload
     }
 
     return <>

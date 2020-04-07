@@ -27,8 +27,8 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 )
 
-export default function OrientationOptions({callbacks}) {
-  let { orientationcallback, democallback, scrolltoposcallback, scrolltogocallback,alignmentcallback } = callbacks
+export default function TestOptions({callbacks}) {
+  let { orientationcallback, democallback, scrolltoposcallback, getvisiblecallback,getcontentcallback, reloadcallback } = callbacks
   const styleprops = {}
   const classes = useStyles(styleprops)
   const [orientationvalue, setOrientationValue] = React.useState('vertical')
@@ -58,6 +58,18 @@ export default function OrientationOptions({callbacks}) {
 
     scrolltoposcallback(gotovalue)
 
+  }
+
+  const dogetVisibleList = () => {
+    getvisiblecallback()
+  }
+
+  const dogetContentList = () => {
+    getcontentcallback()
+  }
+
+  const doreload = () => {
+    reloadcallback()
   }
 
   return (
@@ -101,7 +113,12 @@ export default function OrientationOptions({callbacks}) {
           <option value={'end'}>end</option>
         </NativeSelect>
       </FormControl>:null}
-
+      <FormControl component="fieldset" className={classes.formControl}>
+          <FormLabel component="legend">component functions</FormLabel>
+          <Button onClick = {dogetVisibleList} variant="contained">get Visible List</Button>
+          <Button onClick = {dogetContentList} variant="contained">get Content List</Button>
+          <Button onClick = {doreload} variant="contained">Reload</Button>
+      </FormControl>
     </div>
   )
 }
