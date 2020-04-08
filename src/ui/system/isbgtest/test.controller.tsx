@@ -76,9 +76,9 @@ const genericcomponentstyles = {
     }
 }
 
-const reportReferenceIndex = (index,reason) => {
+const reportReferenceIndex = (index,reason, cradlestate) => {
 
-    console.log('reporting reference index', index, reason)
+    console.log('reporting reference index', index, reason, cradlestate)
 
 }
  
