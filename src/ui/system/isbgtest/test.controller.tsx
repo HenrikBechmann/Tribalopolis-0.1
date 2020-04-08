@@ -9,6 +9,11 @@ import TestOptions from './testoptions'
 
 import NestedBox from './testlistbox'
 
+/*
+    BUG: reload breaks scrolling (repositions instead) row carryforward is off by one
+
+*/
+
 const Placeholder = (props) => {
     return <div>SOMETHING</div>
 } 
@@ -94,7 +99,7 @@ const demos = {
         getItem:getGenericItem,
         placeholder:null,
         styles: genericcomponentstyles,
-        component: {
+        functions: {
             scrollToItem:null,
             getContentList:null,
             getVisibleList:null,
@@ -114,7 +119,7 @@ const demos = {
         getItem:getNestedItem,
         placeholder:null,
         styles: genericcomponentstyles,
-        component: {
+        functions: {
             scrollToItem:null,
             getContentList:null,
             getVisibleList:null,
@@ -144,7 +149,7 @@ const Test = (props) => {
         getItem,
         placeholder,
         styles,
-        component,
+        functions,
     } = demoselection
 
     const handleOrientation = (orientation) => {
@@ -157,19 +162,19 @@ const Test = (props) => {
     }
     
     const handleScrollToPos = (pos) => {
-        component.scrollToItem(pos)
+        functions.scrollToItem(pos)
     }
 
     const handleGetVisible = () => {
-        console.log('VISIBLE',component.getVisibleList())
+        console.log('VISIBLE',functions.getVisibleList())
     }
 
     const handleGetContent = () => {
-        console.log('CONTENT',component.getContentList())
+        console.log('CONTENT',functions.getContentList())
     }
 
     const handleReload = () => {
-        component.reload()
+        functions.reload()
     }
 
     let democallbacks = {
@@ -205,7 +210,7 @@ const Test = (props) => {
                     getItem = { getItem }
                     placeholder = { placeholder }
                     styles = { styles }
-                    component = { component }
+                    functions = { functions }
                 />
             </div>
         </div>
