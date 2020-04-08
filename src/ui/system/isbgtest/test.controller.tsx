@@ -9,13 +9,6 @@ import TestOptions from './testoptions'
 
 import NestedBox from './testlistbox'
 
-/*
-    BUG: reload breaks scrolling (repositions instead) row carryforward is off by one
-
-    - replace assign with spread
-
-*/
-
 const Placeholder = (props) => {
     return <div>SOMETHING</div>
 } 
