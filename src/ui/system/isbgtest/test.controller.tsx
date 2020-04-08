@@ -9,16 +9,6 @@ import TestOptions from './testoptions'
 
 import NestedBox from './testlistbox'
 
-/*
-
-    - create list of backlog candidates
-        - some form of viewport resize event
-        - scroll snap
-        - cache
-        - dense
-
-*/
-
 const Placeholder = (props) => {
     return <div>SOMETHING</div>
 } 
