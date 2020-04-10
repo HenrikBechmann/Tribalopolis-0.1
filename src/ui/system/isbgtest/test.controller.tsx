@@ -9,6 +9,14 @@ import TestOptions from './testoptions'
 
 import NestedBox from './testlistbox'
 
+import TestScroller from './testscrolling'
+
+/*
+    Add scrollblockview as strategy to deal with variable cells.
+    possibly scrollblockreference as scrollbase with even dimension values per list item reference
+
+*/
+
 const Placeholder = (props) => {
     return <div>SOMETHING</div>
 } 
@@ -208,6 +216,15 @@ const Test = (props) => {
                     functions = { functions }
                 />
             </div>
+        </div>
+        <div style = {
+            {
+                margin:'10px',
+                position:'relative',
+                height:'300px',
+            }
+        }>
+            <TestScroller />
         </div>
     </>
 }
