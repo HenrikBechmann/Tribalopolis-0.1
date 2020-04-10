@@ -15,6 +15,7 @@ import TestScroller from './testscrolling'
     Add scrollblockview as strategy to deal with variable cells.
     possibly scrollblockreference as scrollbase with even dimension values per list item reference
     add pausescrollresponses control variable
+    layout:'uniform' and 'dynamic'
 
 */
 
