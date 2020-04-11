@@ -64,7 +64,7 @@ const VariableItem = (props) => {
     return <div style = {{position:'relative',height:'100%', width:'100%',backgroundColor:'white'}}>
         <div style = {
             {
-                position:'absolute',
+                position:'relative',
                 top:0,
                 left:0,
                 padding:'3px',
@@ -73,7 +73,7 @@ const VariableItem = (props) => {
                 backgroundColor:'white', 
                 margin:'3px'
             }
-        }>{props.index + 1}: {teststring}</div>
+        }>{props.index + 1}: {'test string ' + teststring.substr(0,Math.random() * teststring.length)}</div>
     </div>
 }
 
@@ -135,7 +135,10 @@ const demos = {
             getVisibleList:null,
             reload:null,
             reportReferenceIndex:null,
-        }
+        },
+        layout:{
+            name:'uniform'
+        },
     },
     nested: {
         childorientation:'horizontal',
@@ -155,12 +158,15 @@ const demos = {
             getVisibleList:null,
             reload:null,
             reportReferenceIndex:null,
-        }
+        },
+        layout:{
+            name:'uniform'
+        },
     },
     variable: {
-        gap:5,
+        gap:10,
         padding:5,
-        cellHeight:100,
+        cellHeight:200,
         cellWidth:300,
         runway:4,
         offset:0,
@@ -174,7 +180,10 @@ const demos = {
             getVisibleList:null,
             reload:null,
             reportReferenceIndex:null,
-        }
+        },
+        layout:{
+            name:'variable'
+        },
     },
 }
 
@@ -184,8 +193,6 @@ const Test = (props) => {
     let [demo, setDemo] = useState('generic')
 
     let demoselection = demos[demo]
-
-    // console.log('demo selection',demoselection)
 
     let {
         gap,
@@ -199,6 +206,7 @@ const Test = (props) => {
         placeholder,
         styles,
         functions,
+        layout,
     } = demoselection
 
     const handleOrientation = (orientation) => {
@@ -260,6 +268,8 @@ const Test = (props) => {
                     placeholder = { placeholder }
                     styles = { styles }
                     functions = { functions }
+                    layout = { layout }
+
                 />
             </div>
         </div>
