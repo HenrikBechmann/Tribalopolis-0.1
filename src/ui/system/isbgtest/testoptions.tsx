@@ -86,6 +86,7 @@ export default function TestOptions({callbacks}) {
           <RadioGroup aria-label="demo" name="demo" value={demovalue} onChange={handleDemoChange}>
             <FormControlLabel value="generic" control={<Radio />} label="Generic (simple)" />
             <FormControlLabel value="nested" control={<Radio />} label="Nested lists (complex)" />
+            <FormControlLabel value="variable" control={<Radio />} label="Variable (dynamic)" />
           </RadioGroup>
       </FormControl>
       <FormControl component="fieldset" className={classes.formControl}>

@@ -11,6 +11,8 @@ import NestedBox from './testlistbox'
 
 import TestScroller from './testscrolling'
 
+const teststring = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Urna id volutpat lacus laoreet non curabitur gravida arcu. Arcu odio ut sem nulla pharetra diam. Amet facilisis magna etiam tempor orci eu. Consequat mauris nunc congue nisi vitae suscipit. Est ultricies integer quis auctor elit. Tellus in hac habitasse platea dictumst vestibulum rhoncus est. Purus non enim praesent elementum facilisis leo. At volutpat diam ut venenatis. Porttitor leo a diam sollicitudin tempor id eu nisl nunc. Sed elementum tempus egestas sed sed risus pretium quam. Tristique risus nec feugiat in fermentum. Sem fringilla ut morbi tincidunt. Malesuada nunc vel risus commodo. Nulla pellentesque dignissim enim sit amet venenatis urna cursus. In egestas erat imperdiet sed euismod nisi porta.'
+
 /*
     Add scrollblockview as strategy to deal with variable cells.
     possibly scrollblockreference as scrollbase with even dimension values per list item reference
@@ -35,6 +37,12 @@ const getNestedItem = (index) => {
 
 }
 
+const getVariableItem = (index) => {
+
+     return <VariableItem index = {index} />    
+
+}
+
 const GenericItem = (props) => {
     return <div style = {{position:'relative',height:'100%', width:'100%',backgroundColor:'white'}}>
         <div style = {
@@ -49,6 +57,23 @@ const GenericItem = (props) => {
                 margin:'3px'
             }
         }>{props.index + 1}</div>
+    </div>
+}
+
+const VariableItem = (props) => {
+    return <div style = {{position:'relative',height:'100%', width:'100%',backgroundColor:'white'}}>
+        <div style = {
+            {
+                position:'absolute',
+                top:0,
+                left:0,
+                padding:'3px',
+                opacity:.5,
+                borderRadius:'8px',
+                backgroundColor:'white', 
+                margin:'3px'
+            }
+        }>{props.index + 1}: {teststring}</div>
     </div>
 }
 
@@ -109,7 +134,7 @@ const demos = {
             getContentList:null,
             getVisibleList:null,
             reload:null,
-            reportReferenceIndex:null
+            reportReferenceIndex:null,
         }
     },
     nested: {
@@ -131,7 +156,26 @@ const demos = {
             reload:null,
             reportReferenceIndex:null,
         }
-    }
+    },
+    variable: {
+        gap:5,
+        padding:5,
+        cellHeight:100,
+        cellWidth:300,
+        runway:4,
+        offset:0,
+        listsize:300,
+        getItem:getVariableItem,
+        placeholder:null,
+        styles: genericcomponentstyles,
+        functions: {
+            scrollToItem:null,
+            getContentList:null,
+            getVisibleList:null,
+            reload:null,
+            reportReferenceIndex:null,
+        }
+    },
 }
 
 const Test = (props) => {
@@ -218,16 +262,6 @@ const Test = (props) => {
                     functions = { functions }
                 />
             </div>
-        </div>
-        <div style = {
-            {
-                margin:'10px',
-                position:'relative',
-                height:'300px',
-                width:'300px'
-            }
-        }>
-            <TestScroller />
         </div>
     </>
 }
