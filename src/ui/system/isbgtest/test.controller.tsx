@@ -64,7 +64,7 @@ const VariableItem = (props) => {
     return <div style = {{position:'relative',height:'100%', width:'100%',backgroundColor:'white'}}>
         <div style = {
             {
-                position:'relative',
+                position:'absolute',
                 top:0,
                 left:0,
                 padding:'3px',
@@ -166,9 +166,9 @@ const demos = {
     variable: {
         gap:10,
         padding:5,
-        cellHeight:200,
+        cellHeight:100,
         cellWidth:300,
-        runway:4,
+        runway:6,
         offset:0,
         listsize:300,
         getItem:getVariableItem,
