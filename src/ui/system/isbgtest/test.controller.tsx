@@ -19,7 +19,8 @@ const teststring = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
     add pausescrollresponses control variable
     layout:'uniform' and 'dynamic'
 
-    create displaycradle as the ui - maps to cradle through parallax
+    create displayblock and displaycradle as the ui 
+        - maps to scrollblock and cradle through referenceIndex
 
 */
 
