@@ -168,7 +168,7 @@ const demos = {
     },
     variable: {
         gap:10,
-        padding:5,
+        padding:10,
         cellHeight:100,
         cellWidth:300,
         runway:6,
