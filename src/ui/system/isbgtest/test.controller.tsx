@@ -182,7 +182,7 @@ const demos = {
             getContentList:null,
             getVisibleList:null,
             reload:null,
-            reportReferenceIndex:null,
+            referenceIndexCallback:null,
         },
         layout:{
             name:'variable'
