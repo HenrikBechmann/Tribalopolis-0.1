@@ -569,7 +569,6 @@ class Quadrant extends React.Component<any,any>  {
                             </div>
                         }
                     </div>
-                }
                 </div>
             </div>
         )

@@ -579,7 +579,7 @@ class Main extends React.Component<any,any> {
             <SystemDataContext.Provider value = { systemdata }>
                 <UserDataContext.Provider value = { userdata }>
                 <DndProvider backend = {DnDBackend as any}>
-                    <ToastContainer position = {toast.POSITION.BOTTOM_CENTER} autoClose = {3000} 
+                    <ToastContainer position = 'bottom-center' autoClose = {3000} 
                     hideProgressBar />
 
                     <MainView 
