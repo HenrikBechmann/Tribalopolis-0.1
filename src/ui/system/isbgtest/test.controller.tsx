@@ -123,7 +123,7 @@ const reportReferenceIndex = (index,reason, cradlestate) => {
 const demos = {
     generic: {
         gap:5,
-        padding:5,
+        padding:10,
         cellHeight:40,
         cellWidth:150,
         runway:4,
