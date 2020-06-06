@@ -33,10 +33,10 @@ let fontFamily = coredata.theme.typography.fontFamily
 
 import { DndProvider } from 'react-dnd'
 
-// import DnDHTMLBackend from 'react-dnd-html5-backend'
-import DnDTouchBackend from 'react-dnd-touch-backend'
+import {HTML5Backend as DnDHtml5Backend} from 'react-dnd-html5-backend'
+import {TouchBackend as DnDTouchBackend} from 'react-dnd-touch-backend'
 
-import DnDHtml5Backend from 'react-dnd-html5-backend'
+// import DnDHtml5Backend from 'react-dnd-html5-backend'
 
 // import DnDManager from 'react-dnd'
 
