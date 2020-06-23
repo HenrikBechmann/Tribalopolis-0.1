@@ -44,7 +44,7 @@ const QuadBasket = props => {
             className = {classes.quadbasket}
         >
             <div className = {classes.transfermoniker}>
-                TRANSFER BIN
+                HOLD FOR TRANSFER
             </div>
             <div className = {classes.contents}>
                 {props.children}
