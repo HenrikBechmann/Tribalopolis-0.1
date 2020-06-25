@@ -1292,7 +1292,7 @@ let lists = {
         },
         properties:{
             version:0,
-            name:'Item Types',
+            name:'Link Types',
             linkedlist:false,
         },
         references:{
