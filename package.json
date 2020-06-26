@@ -18,7 +18,7 @@
     "chart.js": "^2.9.3",
     "deep-diff": "^1.0.2",
     "deepmerge": "^4.2.2",
-    "firebase": "^7.15.4",
+    "firebase": "^7.15.5",
     "firebaseui": "^4.5.1",
     "format-number": "^3.0.0",
     "isomorphic-fetch": "^2.2.1",
