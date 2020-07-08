@@ -175,6 +175,10 @@ class DirectoryBar extends React.Component<any,any> {
                         this.props.callDataDrawer( e, 'info' ) }
                     }
                   >
+                    <Icon >label</Icon> 
+                    <div className = {classes.namestyle} >
+                    Labels
+                    </div>
                     <Icon >folder</Icon> 
                     {listDocument.properties.icon?<img className = {classes.iconstyle} src={listDocument.properties.icon as any} />:null}
                     <div className = {classes.namestyle} >
@@ -187,6 +191,10 @@ class DirectoryBar extends React.Component<any,any> {
                             {listDocument.counts.lists + listDocument.counts.links}
                         </span>}
                         {false && <Icon>chevron_right</Icon>}
+                    </div>
+                    <Icon >link</Icon> 
+                    <div className = {classes.namestyle} >
+                    Links
                     </div>
                     {!contextitem && <ActionButton 
                         buttonStyle = {
