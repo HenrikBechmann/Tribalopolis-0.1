@@ -126,7 +126,7 @@ const demos = {
         padding:10,
         cellHeight:40,
         cellWidth:150,
-        runway:10,
+        runway:4,
         offset:0,
         listsize:1000,
         getItem:getGenericItem,
