@@ -128,7 +128,7 @@ const demos = {
         cellWidth:150,
         runway:4,
         offset:0,
-        listsize:1000,
+        listsize:300,
         getItem:getGenericItem,
         placeholder:null,
         styles: genericcomponentstyles,
