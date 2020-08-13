@@ -127,7 +127,7 @@ const demos = {
         cellHeight:40,
         cellWidth:150,
         runway:4,
-        offset:0,
+        indexoffset:0,
         listsize:400,
         getItem:getGenericItem,
         placeholder:null,
@@ -150,7 +150,7 @@ const demos = {
         cellHeight:400,
         cellWidth:300,
         runway:3,
-        offset:0,
+        indexoffset:0,
         listsize:6000,
         getItem:getNestedItem,
         placeholder:null,
@@ -172,7 +172,7 @@ const demos = {
         cellHeight:100,
         cellWidth:300,
         runway:6,
-        offset:0,
+        indexoffset:0,
         listsize:300,
         getItem:getVariableItem,
         placeholder:null,
@@ -203,7 +203,7 @@ const Test = (props) => {
         cellHeight,
         cellWidth,
         runway,
-        offset,
+        indexoffset,
         listsize,
         getItem,
         placeholder,
@@ -265,7 +265,7 @@ const Test = (props) => {
                     cellHeight = { cellHeight }
                     cellWidth = { cellWidth }
                     runway = { runway }
-                    offset = { offset }
+                    indexoffset = { indexoffset }
                     listsize = { listsize }
                     getItem = { getItem }
                     placeholder = { placeholder }
