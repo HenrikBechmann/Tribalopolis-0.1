@@ -34,7 +34,7 @@
     "react-dom": "^16.13.1",
     "react-draggable": "^4.4.3",
     "react-ga": "^3.1.2",
-    "react-hook-form": "^6.4.0",
+    "react-hook-form": "^6.4.1",
     "react-infinite-grid-scroller": "file:../react-infinite-grid-scroller",
     "react-is-mounted-hook": "^1.0.3",
     "react-json-view": "^1.19.1",
