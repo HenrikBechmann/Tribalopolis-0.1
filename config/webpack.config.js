@@ -21,7 +21,10 @@ module.exports = {
     // Look for modules in .ts(x) files first, then .js(x)
     extensions: ['.ts', '.tsx', '.js', '.jsx'],
     // Add 'src' to our modulesDirectories, as all our app code will live in there, so Webpack should look in there for modules
-    modules: ['src', 'node_modules'],
+    modules: ['src', 'node_modules']
+    // alias:{
+    //   'ReactDOM':'react-dom'
+    // }
   },
   module: {
     rules: [
@@ -53,9 +56,12 @@ module.exports = {
        chunks: 'all'
      }
    },
-
   plugins: [
     // Set up the notifier plugin - you can remove this (or set alwaysNotify false) if desired
     // new WebpackNotifierPlugin({ alwaysNotify: true }),
-  ]
+  ],
+  // externals: {
+  //     "React": "react",
+  //     "ReactDOM": "react-dom"
+  // },
 };
