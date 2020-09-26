@@ -142,6 +142,7 @@ const demos = {
         layout:{
             name:'uniform'
         },
+        scrollerName:'GENERIC',
     },
     nested: {
         childorientation:'horizontal',
@@ -165,6 +166,7 @@ const demos = {
         layout:{
             name:'uniform'
         },
+        scrollerName:'NESTED OUTER',
     },
     variable: {
         gap:10,
@@ -187,6 +189,7 @@ const demos = {
         layout:{
             name:'variable'
         },
+        scrollerName: 'VARIABLE',
     },
 }
 
@@ -210,6 +213,8 @@ const Test = (props) => {
         styles,
         functions,
         layout,
+        scrollerName,
+        
     } = demoselection
 
     const handleOrientation = (orientation) => {
@@ -272,6 +277,7 @@ const Test = (props) => {
                     styles = { styles }
                     functions = { functions }
                     layout = { layout }
+                    scrollerName = { scrollerName }
 
                 />
             </div>

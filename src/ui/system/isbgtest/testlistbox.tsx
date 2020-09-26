@@ -56,6 +56,7 @@ const settings = {
     offset:0,
     listsize:100,
     getListItem: getListItem,
+    scrollerName: 'NESTED INNER'
 
 }
 
@@ -63,7 +64,7 @@ const TestListBox = (props) => {
 
     let { index, setlistsize, childorientation } = props
 
-    let {orientation, gap, padding, cellHeight, cellWidth, runway, offset, listsize, getListItem} = settings
+    let {orientation, gap, padding, cellHeight, cellWidth, runway, offset, listsize, getListItem, scrollerName} = settings
 
     return <div style = {styles.container as React.CSSProperties} >
         <div style = {styles.header as React.CSSProperties} >
@@ -84,6 +85,7 @@ const TestListBox = (props) => {
                 placeholder = {null}
                 styles = { null }
                 component = { null }
+                scrollerName = { scrollerName }
             />
 
         </div>
