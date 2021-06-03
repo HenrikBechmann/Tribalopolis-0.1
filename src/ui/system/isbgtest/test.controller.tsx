@@ -262,7 +262,9 @@ const Test = (props) => {
         }>
             <div style = {
                 uistyles.viewportframe as React.CSSProperties
-            }>
+            }                     
+                data-type = 'viewportframe'
+>
                 <Scroller 
                     orientation = { orientation } 
                     gap = { gap }
