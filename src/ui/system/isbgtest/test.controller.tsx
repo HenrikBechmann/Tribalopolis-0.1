@@ -63,10 +63,9 @@ const GenericItem = (props) => {
     </div>
 }
 
-const VariableItem = (props) => {
-    return <div style = {{position:'relative',height:'100%', width:'100%',backgroundColor:'white'}}>
-        <div style = {
-            {
+const variablestyles = {
+    outer:{position:'relative',height:'100%', width:'100%',backgroundColor:'white'},
+    inner:{
                 position:'absolute',
                 top:0,
                 left:0,
@@ -76,7 +75,21 @@ const VariableItem = (props) => {
                 backgroundColor:'white', 
                 margin:'3px'
             }
-        }>{props.index + 1}: {'test string ' + teststring.substr(0,Math.random() * teststring.length)}</div>
+}
+
+let teststrings = []
+
+let getTestString = (index) => {
+    // console.log('getTestString',index)
+    if (!teststrings[index]) {
+        teststrings[index] =`${index + 1}: 'test string ' + ${teststring.substr(0,Math.random() * teststring.length)}`
+    }
+    return teststrings[index]
+}
+
+const VariableItem = (props) => {
+    return <div style = {variablestyles.outer as React.CSSProperties}>
+        <div style = {variablestyles.inner as React.CSSProperties}>{getTestString(props.index)}</div>
     </div>
 }
 
