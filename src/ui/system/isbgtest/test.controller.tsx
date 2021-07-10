@@ -59,7 +59,7 @@ const GenericItem = (props) => {
                 backgroundColor:'white', 
                 margin:'3px'
             }
-        }>{props.index + 1}</div>
+        }>{props.index + 1}{false && <img style= {{height:'100%'}} src={props.image}/>}</div>
     </div>
 }
 
@@ -137,7 +137,7 @@ const demos = {
     generic: {
         gap:5,
         padding:10,
-        cellHeight:40,
+        cellHeight:150,
         cellWidth:150,
         runway:4,
         indexOffset:0,
@@ -163,7 +163,7 @@ const demos = {
         padding:5,
         cellHeight:400,
         cellWidth:250,
-        runway:3,
+        runway:10,
         indexOffset:0,
         listsize:6000,
         getItem:getNestedItem,
