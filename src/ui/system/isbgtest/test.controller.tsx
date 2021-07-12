@@ -163,7 +163,7 @@ const demos = {
         padding:5,
         cellHeight:400,
         cellWidth:250,
-        runway:10,
+        runway:3,
         indexOffset:0,
         listsize:6000,
         getItem:getNestedItem,
