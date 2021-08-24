@@ -51,7 +51,7 @@ const settings = {
     gap:2,
     padding:6,
     cellHeight:40,
-    cellWidth:290,
+    cellWidth:230,
     runway:4,
     offset:0,
     listsize:100,
