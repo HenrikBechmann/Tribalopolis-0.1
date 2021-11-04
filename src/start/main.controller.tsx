@@ -20,6 +20,7 @@
         sentinel for state, user, account updates
     - handle network failure - system data
     - add general error catch lifecycle method
+    - consider using victory-chart
 */
 
 'use strict'

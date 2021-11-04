@@ -11,10 +11,10 @@
 
 // let budgetdata = {} // require('../../explorerprototypedata/2015budgetA.json')
 
-import { createMuiTheme } from '@material-ui/core/styles';
+import { createTheme } from '@material-ui/core/styles';
 import * as colors from '@material-ui/core/colors';
 
-let theme = createMuiTheme(
+let theme = createTheme(
 //     { // per https://material-ui.com/style/typography/#migration-to-typography-v2
 //   typography: {
 //     useNextVariants: true,
