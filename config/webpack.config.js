@@ -11,7 +11,7 @@ module.exports = {
   // Output the bundled JS to dist/app.js
   output: {
     filename: '[name].bundle.js',
-    chunkFilename: '[name].bundle.js',
+    // chunkFilename: 'vendors.bundle.js',
     path: path.resolve(__dirname,'../dist')
   },
   resolve: {
