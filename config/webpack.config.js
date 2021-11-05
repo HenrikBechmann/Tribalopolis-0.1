@@ -5,17 +5,14 @@ var path = require('path');
 // var WebpackNotifierPlugin = require('webpack-notifier');
 
 module.exports = {
-  devtool: 'eval-source-map',
+  devtool: false,// 'eval-source-map',
   // This will be our app's entry point (webpack will look for it in the 'src' directory due to the modulesDirectory setting below). Feel free to change as desired.
-  entry: [
-    // '@babel/polyfill',
-    'index.tsx'
-  ],
+  entry:'./src/index.tsx',
   // Output the bundled JS to dist/app.js
   output: {
     filename: '[name].bundle.js',
     chunkFilename: '[name].bundle.js',
-    // path: path.resolve('dist')
+    path: path.resolve(__dirname,'../dist')
   },
   resolve: {
     // Look for modules in .ts(x) files first, then .js(x)
@@ -43,7 +40,7 @@ module.exports = {
       },
       { 
           test: /\.txt$/, 
-          use:'raw-loader'
+          type:'asset/source'
       },
       { 
           test: /\.html$/, 
