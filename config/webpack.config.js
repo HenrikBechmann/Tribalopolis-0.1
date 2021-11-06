@@ -41,6 +41,7 @@ module.exports = {
       { 
           test: /\.txt$/, 
           type:'asset/source'
+          // use:'raw-loader'
       },
       { 
           test: /\.html$/, 
@@ -48,11 +49,11 @@ module.exports = {
       }
     ]
   },
-   optimization: {
-     splitChunks: {
-       chunks: 'all'
-     }
-   },
+  optimization: {
+    splitChunks: {
+      chunks: 'all'
+    }
+  },
   plugins: [
     // Set up the notifier plugin - you can remove this (or set alwaysNotify false) if desired
     // new WebpackNotifierPlugin({ alwaysNotify: true }),
