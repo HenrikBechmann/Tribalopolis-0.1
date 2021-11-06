@@ -5,7 +5,8 @@ var path = require('path');
 // var WebpackNotifierPlugin = require('webpack-notifier');
 
 module.exports = {
-  devtool: false,// 'eval-source-map',
+  // devtool: false,// 'eval-source-map',
+  devtool: 'source-map',
   // This will be our app's entry point (webpack will look for it in the 'src' directory due to the modulesDirectory setting below). Feel free to change as desired.
   entry:'./src/index.tsx',
   // Output the bundled JS to dist/app.js
