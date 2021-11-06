@@ -4,8 +4,8 @@
   "description": "",
   "private": true,
   "scripts": {
-    "dev": "webpack --mode development --config config/webpack.config.js",
-    "build": "webpack --mode production --config config/webpack.config.js",
+    "dev": "webpack --mode development --config webpack.config.js",
+    "build": "webpack --mode production --config webpack.config.js",
     "start": "pushstate-server -d ./ -p 9002"
   },
   "keywords": [],

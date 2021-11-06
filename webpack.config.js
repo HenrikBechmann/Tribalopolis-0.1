@@ -12,7 +12,7 @@ module.exports = {
   output: {
     filename: '[name].bundle.js',
     // chunkFilename: 'vendors.bundle.js',
-    path: path.resolve(__dirname,'../dist')
+    path: path.resolve(__dirname,'./dist')
   },
   resolve: {
     // Look for modules in .ts(x) files first, then .js(x)
