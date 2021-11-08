@@ -61,8 +61,4 @@ module.exports = {
     // Set up the notifier plugin - you can remove this (or set alwaysNotify false) if desired
     // new WebpackNotifierPlugin({ alwaysNotify: true }),
   ],
-  // externals: {
-  //     "React": "react",
-  //     "ReactDOM": "react-dom"
-  // },
 };
