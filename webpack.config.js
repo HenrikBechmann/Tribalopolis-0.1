@@ -20,10 +20,11 @@ module.exports = {
     // Look for modules in .ts(x) files first, then .js(x)
     extensions: ['.ts', '.tsx', '.js', '.jsx'],
     // Add 'src' to our modulesDirectories, as all our app code will live in there, so Webpack should look in there for modules
-    modules: ['src', 'node_modules']
-    // alias:{
-    //   'ReactDOM':'react-dom'
-    // }
+    modules: ['src', 'node_modules'],
+    alias:{
+      react: path.resolve(__dirname,'node_modules/react'),
+      'react-dom': path.resolve(__dirname,'node_modules/react-dom')
+    }
   },
   module: {
     rules: [
