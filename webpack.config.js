@@ -6,14 +6,15 @@ var path = require('path');
 
 module.exports = {
   // devtool: false,// 'eval-source-map',
-  devtool: 'source-map',
+  // devtool: 'eval-source-map',
   // This will be our app's entry point (webpack will look for it in the 'src' directory due to the modulesDirectory setting below). Feel free to change as desired.
   entry:'./src/index.tsx',
   // Output the bundled JS to dist/app.js
   output: {
     filename: '[name].bundle.js',
     // chunkFilename: 'vendors.bundle.js',
-    path: path.resolve(__dirname,'./dist')
+    path: path.resolve(__dirname,'./dist'),
+    clean: true
   },
   resolve: {
     // Look for modules in .ts(x) files first, then .js(x)
