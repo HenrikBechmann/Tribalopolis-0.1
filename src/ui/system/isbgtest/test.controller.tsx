@@ -36,7 +36,7 @@ const getGenericItem = (index) => {
 
 const getNestedItem = (index) => {
 
-    return <NestedBox index = {index} childorientation = {demos.nested.childorientation} setlistsize = {demos.nested.listsize}/>
+    return <NestedBox index = {index} childorientation = {demos.nested.childorientation} setlistsize = {demos.nested.listSize}/>
 
 }
 
@@ -139,9 +139,9 @@ const demos = {
         padding:10,
         cellHeight:150,
         cellWidth:150,
-        runwaysize:4,
+        runwaySize:4,
         indexOffset:0,
-        listsize:400,
+        listSize:400,
         getItem:getGenericItem,
         placeholder:null,
         styles: genericcomponentstyles,
@@ -163,9 +163,9 @@ const demos = {
         padding:5,
         cellHeight:400,
         cellWidth:250,
-        runway:3,
+        runwaySize:3,
         indexOffset:0,
-        listsize:6000,
+        listSize:6000,
         getItem:getNestedItem,
         placeholder:null,
         styles: genericcomponentstyles,
@@ -186,9 +186,9 @@ const demos = {
         padding:10,
         cellHeight:100,
         cellWidth:250,
-        runway:6,
+        runwaySize:6,
         indexOffset:0,
-        listsize:300,
+        listSize:300,
         getItem:getVariableItem,
         placeholder:null,
         styles: genericcomponentstyles,
@@ -218,9 +218,9 @@ const Test = (props) => {
         padding,
         cellHeight,
         cellWidth,
-        runway,
+        runwaySize,
         indexOffset,
-        listsize,
+        listSize,
         getItem,
         placeholder,
         styles,
@@ -284,9 +284,9 @@ const Test = (props) => {
                     padding = { padding }
                     cellHeight = { cellHeight }
                     cellWidth = { cellWidth }
-                    runway = { runway }
+                    runwaySize = { runwaySize }
                     indexOffset = { indexOffset }
-                    listsize = { listsize }
+                    listSize = { listSize }
                     getItem = { getItem }
                     placeholder = { placeholder }
                     styles = { styles }
