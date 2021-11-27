@@ -1,7 +1,7 @@
 // test .controller.tsx
 // copyright (c) 2019 Henrik Bechmann, Toronto, Licence: MIT
 
-import React, {useState, useRef} from 'react'
+import React, {useState, useEffect, useRef} from 'react'
 
 import Scroller from 'react-infinite-grid-scroller'
 
@@ -29,8 +29,9 @@ const Placeholder = (props) => {
 } 
 
 const getGenericItem = (index) => {
-     
-     return <GenericItem index = {index} image = {'https://loremflickr.com/200/300?random='+index}/>
+
+     // return <GenericItem index = {index} image = {'https://loremflickr.com/200/300?random='+index}/>
+     return <GenericItem index = {index} />
 
 }
 
@@ -46,10 +47,7 @@ const getVariableItem = (index) => {
 
 }
 
-const GenericItem = (props) => {
-    return <div style = {{position:'relative',height:'100%', width:'100%',backgroundColor:'white'}}>
-        <div style = {
-            {
+const genericstyle = {
                 position:'absolute',
                 top:0,
                 left:0,
@@ -58,8 +56,20 @@ const GenericItem = (props) => {
                 borderRadius:'8px',
                 backgroundColor:'white', 
                 margin:'3px'
-            }
-        }>{props.index + 1}{false && <img style= {{height:'100%'}} src={props.image}/>}</div>
+            } as React.CSSProperties
+
+const GenericItem = (props) => {
+    const [genericstate, setGenericState] = useState('setup')
+    useEffect(()=>{
+        if (genericstate == 'setup') {
+            setGenericState('final')
+        } 
+    },[genericstate])
+    console.log('rendering generic item index, genericstate',props.index,genericstate)
+    return <div style = {{position:'relative',height:'100%', width:'100%',backgroundColor:'white'}}>
+        <div style = {genericstyle}>
+            {props.index + 1}{false && <img style= {{height:'100%'}} src={props.image}/>}
+        </div>
     </div>
 }
 
