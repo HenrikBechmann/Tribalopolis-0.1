@@ -59,13 +59,13 @@ const genericstyle = {
             } as React.CSSProperties
 
 const GenericItem = (props) => {
-    const [genericstate, setGenericState] = useState('setup')
-    useEffect(()=>{
-        if (genericstate == 'setup') {
-            setGenericState('final')
-        } 
-    },[genericstate])
-    console.log('rendering generic item index, genericstate',props.index,genericstate)
+    // const [genericstate, setGenericState] = useState('setup')
+    // useEffect(()=>{
+    //     if (genericstate == 'setup') {
+    //         setGenericState('final')
+    //     } 
+    // },[genericstate])
+    // console.log('rendering generic item index, genericstate',props.index,genericstate)
     return <div style = {{position:'relative',height:'100%', width:'100%',backgroundColor:'white'}}>
         <div style = {genericstyle}>
             {props.index + 1}{false && <img style= {{height:'100%'}} src={props.image}/>}
