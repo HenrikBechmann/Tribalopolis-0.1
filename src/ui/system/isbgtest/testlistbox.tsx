@@ -78,13 +78,14 @@ const TestListBox = (props) => {
                 padding = {padding}
                 cellHeight = {cellHeight}
                 cellWidth = {cellWidth}
-                runway = {runway}
-                offset = {offset}
-                listsize = {listsize}
+                runwaySize = {runway}
+                listSize = {listsize}
+                indexOffset = {offset}
                 getItem = {getListItem}
+                functions = {null}
                 placeholder = {null}
                 styles = { null }
-                component = { null }
+                layout = { null }
                 scrollerName = { scrollerName }
             />
 
