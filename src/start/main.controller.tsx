@@ -13,6 +13,7 @@
 
 /*
     TODO:
+    - replace use of navigator.userAgent and navigator.vendor with navigator.userAgentData per Chrome warning
     - switch to setDocumentListener from getDocument
     - use setDocumentListener for user/account to sync with type
     - upgrade getDocument to getAsyncDocument == 'documentSubscribe'
