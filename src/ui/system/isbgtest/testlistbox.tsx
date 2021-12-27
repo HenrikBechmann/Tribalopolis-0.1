@@ -54,7 +54,7 @@ const settings = {
     cellWidth:230,
     runway:4,
     offset:0,
-    listsize:104,
+    listsize:100,
     getListItem: getListItem,
     scrollerName: 'NESTED INNER'
 
