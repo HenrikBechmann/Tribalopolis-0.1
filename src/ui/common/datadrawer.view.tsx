@@ -132,11 +132,12 @@ class DataDrawer extends React.Component<DataDrawerProps,any>  {
             >
                 <Icon>close</Icon>
             </IconButton>
-            { this.props.children }
         </div>
         )
    }
 
 }
+
+            // { this.props.children } // TODO: resolve new constraint against children
 
 export default withStyles(styles)(DataDrawer)
