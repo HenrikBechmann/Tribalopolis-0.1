@@ -1,7 +1,7 @@
 // test .controller.tsx
 // copyright (c) 2019 Henrik Bechmann, Toronto, Licence: MIT
 
-import React, {useState, useEffect, useRef} from 'react'
+import React, {useState, useEffect, useRef, useCallback} from 'react'
 
 import Scroller from 'react-infinite-grid-scroller'
 
@@ -216,9 +216,9 @@ const Test = (props) => {
 
     const callbacksRef = useRef(null)
 
-    const getCallbacks = callbacks => {
+    const getCallbacks = useCallback(callbacks => {
         callbacksRef.current = callbacks
-    }
+    },[])
 
     let {
         gap,
