@@ -208,6 +208,8 @@ const demos = {
 }
 
 const Test = (props) => {
+
+    console.log('running Test Component')
     let [orientation, setOrientation] = useState('vertical')
 
     let [demo, setDemo] = useState('generic')
