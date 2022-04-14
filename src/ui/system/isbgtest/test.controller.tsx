@@ -156,10 +156,7 @@ const demos = {
         placeholder:null,
         styles: genericcomponentstyles,
         functions: {
-            scrollToItem:null,
-            getContentList:null,
-            getVisibleList:null,
-            reload:null,
+            getCallbacks:null,
             reportReferenceIndex:null,
         },
         layout:{
@@ -180,10 +177,7 @@ const demos = {
         placeholder:null,
         styles: genericcomponentstyles,
         functions: {
-            scrollToItem:null,
-            getContentList:null,
-            getVisibleList:null,
-            reload:null,
+            getCallbacks:null,
             reportReferenceIndex:null,
         },
         layout:{
@@ -203,10 +197,7 @@ const demos = {
         placeholder:null,
         styles: genericcomponentstyles,
         functions: {
-            scrollToItem:null,
-            getContentList:null,
-            getVisibleList:null,
-            reload:null,
+            getCallbacks:null,
             referenceIndexCallback:null,
         },
         layout:{
@@ -223,6 +214,12 @@ const Test = (props) => {
 
     let demoselection = demos[demo]
 
+    const callbacksRef = useRef(null)
+
+    const getCallbacks = callbacks => {
+        callbacksRef.current = callbacks
+    }
+
     let {
         gap,
         padding,
@@ -234,11 +231,15 @@ const Test = (props) => {
         getItem,
         placeholder,
         styles,
-        functions,
+        functions:inheritedfunctions,
         layout,
         scrollerName,
         
     } = demoselection
+
+    const functions = Object.assign({},inheritedfunctions)
+
+    functions.getCallbacks = getCallbacks
 
     const handleOrientation = (orientation) => {
         setOrientation(orientation)
@@ -250,19 +251,19 @@ const Test = (props) => {
     }
     
     const handleScrollToPos = (pos) => {
-        functions.scrollToItem(pos)
+        callbacksRef.current?.scrollToItem(pos)
     }
 
     const handleGetVisible = () => {
-        console.log('VISIBLE',functions.getVisibleList())
+        console.log('VISIBLE',callbacksRef.current,callbacksRef.current?.getVisibleList())
     }
 
     const handleGetContent = () => {
-        console.log('CONTENT',functions.getContentList())
+        console.log('CONTENT',callbacksRef.current?.getContentList())
     }
 
     const handleReload = () => {
-        functions.reload()
+        callbacksRef.current?.reload()
     }
 
     let democallbacks = {
