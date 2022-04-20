@@ -177,7 +177,7 @@ class DirectoryBar extends React.Component<any,any> {
                   >
                     <Icon >label</Icon> 
                     <div className = {classes.namestyle} >
-                    Labels
+                    Tags
                     </div>
                     <Icon >folder</Icon> 
                     {listDocument.properties.icon?<img className = {classes.iconstyle} src={listDocument.properties.icon as any} />:null}
