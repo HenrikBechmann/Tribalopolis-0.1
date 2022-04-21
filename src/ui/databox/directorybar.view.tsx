@@ -10,7 +10,9 @@
 
 import React from 'react'
 
+// import Something from '@mui/icons-material/LabelOutlined'
 import Icon from '@material-ui/core/Icon'
+// import TypeIcon from '@material-ui/icons/LabelOutlined'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import MenuItem from '@material-ui/core/MenuItem';
 import Divider from '@material-ui/core/Divider'
@@ -179,7 +181,7 @@ class DirectoryBar extends React.Component<any,any> {
                     <div className = {classes.namestyle} >
                     Folders
                     </div>
-                    <Icon >sell</Icon> 
+                    <Icon>label</Icon>
                     {listDocument.properties.icon?<img className = {classes.iconstyle} src={listDocument.properties.icon as any} />:null}
                     <div className = {classes.namestyle} >
                         <span>{ listDocument.properties.name } </span>
