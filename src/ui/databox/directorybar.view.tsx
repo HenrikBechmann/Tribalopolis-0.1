@@ -175,11 +175,11 @@ class DirectoryBar extends React.Component<any,any> {
                         this.props.callDataDrawer( e, 'info' ) }
                     }
                   >
-                    <Icon >label</Icon> 
-                    <div className = {classes.namestyle} >
-                    Tags
-                    </div>
                     <Icon >folder</Icon> 
+                    <div className = {classes.namestyle} >
+                    Folders
+                    </div>
+                    <Icon >sell</Icon> 
                     {listDocument.properties.icon?<img className = {classes.iconstyle} src={listDocument.properties.icon as any} />:null}
                     <div className = {classes.namestyle} >
                         <span>{ listDocument.properties.name } </span>
