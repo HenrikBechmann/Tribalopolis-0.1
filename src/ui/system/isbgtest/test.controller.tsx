@@ -137,7 +137,7 @@ const genericcomponentstyles = {
     }
 }
 
-const reportReferenceIndex = (index,reason, cradlestate) => {
+const reportReferenceIndex = (index, reason, cradlestate) => {
 
     console.log('reporting reference index', index, reason, cradlestate)
 
@@ -209,7 +209,8 @@ const demos = {
 
 const Test = (props) => {
 
-    console.log('running Test Component')
+    console.log('running Test Component', props)
+
     let [orientation, setOrientation] = useState('vertical')
 
     let [demo, setDemo] = useState('generic')
