@@ -178,7 +178,7 @@ const demos = {
         layout:{
             name:'uniform'
         },
-        scrollerName:'NESTED OUTER',
+        scrollerName:'OUTER',
     },
     variable: {
         gap:10,
