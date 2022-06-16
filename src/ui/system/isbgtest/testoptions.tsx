@@ -116,10 +116,11 @@ export default function TestOptions({callbacks}) {
       </FormControl>:null}
       <FormControl component="fieldset" className={classes.formControl}>
           <FormLabel component="legend">component functions</FormLabel>
-          <Button onClick = {dogetVisibleList} variant="contained">get Visible List</Button>
-          <Button onClick = {dogetContentList} variant="contained">get Content List</Button>
           <Button onClick = {doreload} variant="contained">Reload</Button>
       </FormControl>
     </div>
   )
 }
+
+          // <Button onClick = {dogetVisibleList} variant="contained">get Visible List</Button>
+          // <Button onClick = {dogetContentList} variant="contained">get Content List</Button>

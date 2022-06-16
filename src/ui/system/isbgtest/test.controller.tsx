@@ -252,13 +252,13 @@ const Test = (props) => {
         callbacksRef.current?.scrollToItem(pos)
     }
 
-    const handleGetVisible = () => {
-        console.log('VISIBLE',callbacksRef.current,callbacksRef.current?.getVisibleList())
-    }
+    // const handleGetVisible = () => {
+    //     console.log('VISIBLE',callbacksRef.current,callbacksRef.current?.getVisibleList())
+    // }
 
-    const handleGetContent = () => {
-        console.log('CONTENT',callbacksRef.current?.getContentList())
-    }
+    // const handleGetContent = () => {
+    //     console.log('CONTENT',callbacksRef.current?.getContentList())
+    // }
 
     const handleReload = () => {
         callbacksRef.current?.reload()
@@ -270,8 +270,8 @@ const Test = (props) => {
         scrolltoposcallback:handleScrollToPos,
         // scrolltogocallback:handleScrollGo,
         // alignmentcallback:handleAlignment,
-        getvisiblecallback:handleGetVisible,
-        getcontentcallback:handleGetContent,
+        // getvisiblecallback:handleGetVisible,
+        // getcontentcallback:handleGetContent,
         reloadcallback:handleReload
     }
 
