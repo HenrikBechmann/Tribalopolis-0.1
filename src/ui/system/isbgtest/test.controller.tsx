@@ -261,6 +261,7 @@ const Test = (props) => {
     // }
 
     const handleReload = () => {
+        console.log('calling reload callback from test controller', callbacksRef)
         callbacksRef.current?.reload()
     }
 

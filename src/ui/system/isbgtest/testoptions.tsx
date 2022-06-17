@@ -69,6 +69,7 @@ export default function TestOptions({callbacks}) {
   }
 
   const doreload = () => {
+    console.log('reloadcallback from testoptions')
     reloadcallback()
   }
 
