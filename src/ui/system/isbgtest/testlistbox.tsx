@@ -66,7 +66,7 @@ const TestListBox = (props) => {
 
     const {orientation, gap, padding, cellHeight, cellWidth, runway, offset, listsize, getListItem, scrollerName} = settings
 
-    console.log('TestListBox index, #', index, index + 1)
+    // console.log('TestListBox index, #', index, index + 1)
 
     return <div data-type = "list-frame" style = {styles.container as React.CSSProperties} >
         <div data-type = "list-header" style = {styles.header as React.CSSProperties} >
