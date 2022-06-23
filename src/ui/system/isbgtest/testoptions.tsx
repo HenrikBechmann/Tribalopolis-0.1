@@ -121,8 +121,8 @@ export default function TestOptions({callbacks}) {
       </FormControl>:null}
       <FormControl component="fieldset" className={classes.formControl}>
           <FormLabel component="legend">component functions</FormLabel>
-          <Button onClick = {doclearcache} variant="contained">Reload</Button>
-          <Button onClick = {doreload} variant="contained">Clear cache</Button>
+          <Button onClick = {doreload} variant="contained">Reload</Button>
+          <Button onClick = {doclearcache} variant="contained">Clear cache</Button>
       </FormControl>
     </div>
   )
