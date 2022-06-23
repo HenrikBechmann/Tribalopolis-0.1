@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme: Theme) =>
 )
 
 export default function TestOptions({callbacks}) {
-  let { orientationcallback, democallback, scrolltoposcallback, getvisiblecallback,getcontentcallback, reloadcallback } = callbacks
+  let { orientationcallback, democallback, scrolltoposcallback, getvisiblecallback,getcontentcallback, reloadcallback, clearcachecallback } = callbacks
   const styleprops = {}
   const classes = useStyles(styleprops)
   const [orientationvalue, setOrientationValue] = React.useState('vertical')
@@ -71,6 +71,10 @@ export default function TestOptions({callbacks}) {
   const doreload = () => {
     // console.log('reloadcallback from testoptions')
     reloadcallback()
+  }
+
+  const doclearcache = () => {
+    clearcachecallback()
   }
 
   return (
@@ -117,7 +121,8 @@ export default function TestOptions({callbacks}) {
       </FormControl>:null}
       <FormControl component="fieldset" className={classes.formControl}>
           <FormLabel component="legend">component functions</FormLabel>
-          <Button onClick = {doreload} variant="contained">Reload</Button>
+          <Button onClick = {doclearcache} variant="contained">Reload</Button>
+          <Button onClick = {doreload} variant="contained">Clear cache</Button>
       </FormControl>
     </div>
   )

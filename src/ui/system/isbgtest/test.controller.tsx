@@ -247,6 +247,11 @@ const Test = (props) => {
     const handleDemo = (demo) => {
         setDemo(demo)
     }
+
+    const handleClearCache = () => {
+
+        callbacksRef.current?.clearCache()        
+    }
     
     const handleScrollToPos = (pos) => {
         callbacksRef.current?.scrollToItem(pos)
@@ -269,6 +274,7 @@ const Test = (props) => {
         orientationcallback:handleOrientation,
         democallback:handleDemo,
         scrolltoposcallback:handleScrollToPos,
+        clearcachecallback:handleClearCache,
         // scrolltogocallback:handleScrollGo,
         // alignmentcallback:handleAlignment,
         // getvisiblecallback:handleGetVisible,
