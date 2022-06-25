@@ -37,7 +37,12 @@ const getGenericItem = (index) => {
 
 const getNestedItem = (index) => {
 
-    return <NestedBox index = {index} childorientation = {demos.nested.childorientation} setlistsize = {demos.nested.listSize}/>
+    return <NestedBox 
+        index = {index} 
+        childorientation = {demos.nested.childorientation} 
+        setlistsize = {demos.nested.listSize}
+        portalDataRef = {null}
+    />
 
 }
 
