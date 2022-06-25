@@ -62,7 +62,7 @@ const settings = {
 
 const TestListBox = (props) => {
 
-    const { index, setlistsize, childorientation } = props
+    const { index, setlistsize, childorientation, portalDataRef } = props
 
     const {orientation, gap, padding, cellHeight, cellWidth, runway, offset, listsize, getListItem, scrollerName} = settings
 
@@ -89,6 +89,7 @@ const TestListBox = (props) => {
                 styles = { null }
                 layout = { null }
                 scrollerName = { scrollerName }
+                portalDataRef = { portalDataRef }
             />
 
         </div>
