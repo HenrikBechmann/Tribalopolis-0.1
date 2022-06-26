@@ -41,7 +41,7 @@ const getNestedItem = (index) => {
         index = {index} 
         childorientation = {demos.nested.childorientation} 
         setlistsize = {demos.nested.listSize}
-        portalDataRef = {null}
+        scrollerData = {null}
     />
 
 }
