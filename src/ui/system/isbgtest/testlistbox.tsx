@@ -1,7 +1,7 @@
 // test .controller.tsx
 // copyright (c) 2019 Henrik Bechmann, Toronto, Licence: MIT
 
-import React, {useState, useRef} from 'react'
+import React, {useState, useRef, useEffect} from 'react'
 
 import Scroller from 'react-infinite-grid-scroller'
 
@@ -56,15 +56,61 @@ const settings = {
     offset:0,
     listsize:100,
     getListItem: getListItem,
-    scrollerName: 'NESTED INNER'
 
 }
 
 const TestListBox = (props) => {
 
-    const { index, setlistsize, childorientation, scrollerData } = props
+    const [testState, setTestState] = useState('setup')
+    const testStateRef = useRef(null)
+    testStateRef.current = testState
 
-    const {orientation, gap, padding, cellHeight, cellWidth, runway, offset, listsize, getListItem, scrollerName} = settings
+    const { 
+        index, 
+        setlistsize, 
+        childorientation, 
+        scrollerData 
+    } = props
+
+    const {
+        orientation, 
+        gap, 
+        padding, 
+        cellHeight, 
+        cellWidth, 
+        runway, 
+        offset, 
+        listsize, 
+        getListItem, 
+    } = settings
+
+    const {cradlePassthroughPropertiesRef} = scrollerData
+
+    const dynamicorientationRef = useRef(childorientation)
+
+    useEffect(() =>{
+        if (testStateRef.current == 'setup') return
+        const orientation = cradlePassthroughPropertiesRef.current.orientation
+        if (orientation == 'vertical') {
+            dynamicorientationRef.current = 'horizontal'
+        } else {
+            dynamicorientationRef.current = 'vertical'
+        }
+        setTestState('revised')
+
+    },[cradlePassthroughPropertiesRef.current.orientation])
+
+    useEffect(()=>{
+
+        switch (testState) {
+            case 'setup':
+            case 'revised': {
+                setTestState('ready')
+                break
+            }
+        }
+
+    },[testState])
 
     // console.log('TestListBox index, #', index, index + 1)
 
@@ -75,7 +121,7 @@ const TestListBox = (props) => {
         <div data-type = "list-content" style = {styles.frame as React.CSSProperties}>
 
             <Scroller 
-                orientation = { childorientation } 
+                orientation = { dynamicorientationRef.current } 
                 gap = {gap}
                 padding = {padding}
                 cellHeight = {cellHeight}
@@ -88,7 +134,6 @@ const TestListBox = (props) => {
                 placeholder = {null}
                 styles = { null }
                 layout = { null }
-                scrollerName = { scrollerName }
                 scrollerData = { scrollerData }
             />
 

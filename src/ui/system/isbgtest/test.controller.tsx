@@ -159,9 +159,10 @@ const demos = {
             getCallbacks:null,
             reportReferenceIndex:null,
         },
-        layout:{
-            name:'uniform'
-        },
+        // layout: {
+        //     name:'uniform'
+        // },
+        layout: 'uniform',
         scrollerName:'GENERIC',
     },
     nested: {
@@ -180,9 +181,10 @@ const demos = {
             getCallbacks:null,
             reportReferenceIndex:null,
         },
-        layout:{
-            name:'uniform'
-        },
+        // layout:{
+        //     name:'uniform'
+        // },
+        layout:'uniform',
         scrollerName:'OUTER',
     },
     variable: {
@@ -200,9 +202,10 @@ const demos = {
             getCallbacks:null,
             referenceIndexCallback:null,
         },
-        layout:{
-            name:'variable'
-        },
+        // layout:{
+        //     name:'variable'
+        // },
+        layout:'uniform',
         scrollerName: 'VARIABLE',
     },
 }
