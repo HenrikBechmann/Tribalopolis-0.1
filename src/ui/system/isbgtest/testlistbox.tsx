@@ -112,8 +112,6 @@ const TestListBox = (props) => {
 
     },[testState])
 
-    // console.log('TestListBox index, #', index, index + 1)
-
     return <div data-type = "list-frame" style = {styles.container as React.CSSProperties} >
         <div data-type = "list-header" style = {styles.header as React.CSSProperties} >
             List #{index + 1} of {setlistsize}

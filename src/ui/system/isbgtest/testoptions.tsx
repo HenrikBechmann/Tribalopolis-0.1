@@ -28,7 +28,13 @@ const useStyles = makeStyles((theme: Theme) =>
 )
 
 export default function TestOptions({callbacks}) {
-  let { orientationcallback, democallback, scrolltoposcallback, getvisiblecallback,getcontentcallback, reloadcallback, clearcachecallback } = callbacks
+  let { 
+    orientationcallback, 
+    democallback, 
+    scrolltoposcallback, 
+    reloadcallback, 
+    clearcachecallback 
+  } = callbacks
   const styleprops = {}
   const classes = useStyles(styleprops)
   const [orientationvalue, setOrientationValue] = React.useState('vertical')
@@ -42,6 +48,7 @@ export default function TestOptions({callbacks}) {
 
   const handleDemoChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     let demovalue = (event.target as HTMLInputElement).value
+    clearcachecallback()
     setDemovalue(demovalue)
     democallback(demovalue)    
   }
@@ -58,14 +65,6 @@ export default function TestOptions({callbacks}) {
 
     scrolltoposcallback(gotovalue)
 
-  }
-
-  const dogetVisibleList = () => {
-    getvisiblecallback()
-  }
-
-  const dogetContentList = () => {
-    getcontentcallback()
   }
 
   const doreload = () => {
