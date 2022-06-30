@@ -173,7 +173,7 @@ const demos = {
         cellWidth:250,
         runwaySize:3,
         indexOffset:0,
-        listSize:6000,
+        listSize:400,
         getItem:getNestedItem,
         placeholder:null,
         styles: genericcomponentstyles,
@@ -278,6 +278,11 @@ const Test = (props) => {
         callbacksRef.current?.reload()
     }
 
+    const handlePreload = () => {
+
+        callbacksRef.current?.preload()
+    }
+
     let democallbacks = {
         orientationcallback:handleOrientation,
         democallback:handleDemo,
@@ -287,7 +292,8 @@ const Test = (props) => {
         // alignmentcallback:handleAlignment,
         // getvisiblecallback:handleGetVisible,
         // getcontentcallback:handleGetContent,
-        reloadcallback:handleReload
+        reloadcallback:handleReload,
+        preloadcallback:handlePreload,
     }
 
     return <>
