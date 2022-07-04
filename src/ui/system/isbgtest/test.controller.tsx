@@ -157,11 +157,9 @@ const demos = {
         styles: genericcomponentstyles,
         functions: {
             getCallbacks:null,
-            reportReferenceIndex:null,
+            referenceIndexCallback:null,
+            preloadIndexCallback:null,
         },
-        // layout: {
-        //     name:'uniform'
-        // },
         layout: 'uniform',
         scrollerName:'GENERIC',
     },
@@ -179,11 +177,9 @@ const demos = {
         styles: genericcomponentstyles,
         functions: {
             getCallbacks:null,
-            reportReferenceIndex:null,
+            referenceIndexCallback:null,
+            preloadIndexCallback:null,
         },
-        // layout:{
-        //     name:'uniform'
-        // },
         layout:'uniform',
         scrollerName:'OUTER',
     },
@@ -202,9 +198,6 @@ const demos = {
             getCallbacks:null,
             referenceIndexCallback:null,
         },
-        // layout:{
-        //     name:'variable'
-        // },
         layout:'uniform',
         scrollerName: 'VARIABLE',
     },
@@ -264,14 +257,6 @@ const Test = (props) => {
     const handleScrollToPos = (pos) => {
         callbacksRef.current?.scrollToItem(pos)
     }
-
-    // const handleGetVisible = () => {
-    //     console.log('VISIBLE',callbacksRef.current,callbacksRef.current?.getVisibleList())
-    // }
-
-    // const handleGetContent = () => {
-    //     console.log('CONTENT',callbacksRef.current?.getContentList())
-    // }
 
     const handleReload = () => {
         // console.log('calling reload callback from test controller', callbacksRef)
