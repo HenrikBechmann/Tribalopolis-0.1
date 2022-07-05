@@ -33,7 +33,6 @@ export default function TestOptions({callbacks}) {
     democallback, 
     scrolltoposcallback, 
     reloadcallback, 
-    preloadcallback,
     clearcachecallback 
   } = callbacks
   const styleprops = {}
@@ -71,10 +70,6 @@ export default function TestOptions({callbacks}) {
   const doreload = () => {
     // console.log('reloadcallback from testoptions')
     reloadcallback()
-  }
-
-  const dopreload = () => {
-    preloadcallback()
   }
 
   const doclearcache = () => {
@@ -126,7 +121,6 @@ export default function TestOptions({callbacks}) {
       <FormControl component="fieldset" className={classes.formControl}>
           <FormLabel component="legend">component functions</FormLabel>
           <Button onClick = {doreload} variant="contained">Reload</Button>
-          <Button onClick = {dopreload} variant="contained">Preload</Button>
           <Button onClick = {doclearcache} variant="contained">Clear cache</Button>
       </FormControl>
     </div>

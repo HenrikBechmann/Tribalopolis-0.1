@@ -158,7 +158,7 @@ const demos = {
         functions: {
             getCallbacks:null,
             referenceIndexCallback:null,
-            preloadIndexCallback:null,
+            // preloadIndexCallback:null,
         },
         layout: 'uniform',
         scrollerName:'GENERIC',
@@ -178,7 +178,7 @@ const demos = {
         functions: {
             getCallbacks:null,
             referenceIndexCallback:null,
-            preloadIndexCallback:null,
+            // preloadIndexCallback:null,
         },
         layout:'uniform',
         scrollerName:'OUTER',
@@ -263,11 +263,6 @@ const Test = (props) => {
         callbacksRef.current?.reload()
     }
 
-    const handlePreload = () => {
-
-        callbacksRef.current?.preload()
-    }
-
     let democallbacks = {
         orientationcallback:handleOrientation,
         democallback:handleDemo,
@@ -278,7 +273,7 @@ const Test = (props) => {
         // getvisiblecallback:handleGetVisible,
         // getcontentcallback:handleGetContent,
         reloadcallback:handleReload,
-        preloadcallback:handlePreload,
+        // preloadcallback:handlePreload,
     }
 
     return <>
