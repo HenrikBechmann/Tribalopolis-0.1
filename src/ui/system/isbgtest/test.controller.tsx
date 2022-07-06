@@ -276,6 +276,22 @@ const Test = (props) => {
         callbacksRef.current?.setListsize(listsize)
     }
 
+    const handleGetCacheMap = () => {
+
+    }
+
+    const handleGetCacheList = () => {
+
+    }
+
+    const handleGetCradleMap = () => {
+
+    }
+
+    const handleReverseList = () => {
+        
+    }
+
     let democallbacks = {
         orientationcallback:handleOrientation,
         democallback:handleDemo,
@@ -287,6 +303,10 @@ const Test = (props) => {
         // getcontentcallback:handleGetContent,
         reloadcallback:handleReload,
         setlistsizecallback:handleSetListsize,
+        getcachemapcallback:handleGetCacheMap,
+        getcachelistcallback:handleGetCacheList,
+        getcradlemapcallback:handleGetCradleMap,
+        reverselistcallback:handleReverseList,
         // preloadcallback:handlePreload,
     }
 

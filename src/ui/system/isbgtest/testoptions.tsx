@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme: Theme) =>
       margin: theme.spacing(3),
     },
     wrapper:{
-      width:'2500px'
+      width:'3000px'
     }
   }),
 )
@@ -35,6 +35,10 @@ export default function TestOptions({callbacks}) {
     reloadcallback, 
     clearcachecallback,
     setlistsizecallback,
+    getcachemapcallback,
+    getcachelistcallback,
+    getcradlemapcallback,
+    reverselistcallback,
   } = callbacks
   const styleprops = {}
   const classes = useStyles(styleprops)
@@ -145,6 +149,22 @@ export default function TestOptions({callbacks}) {
 
   const doclearcache = () => {
     clearcachecallback()
+  }
+
+  const doreverselist = () => {
+    reverselistcallback()
+  }
+
+  const dogetcachemap = () => {
+    getcachemapcallback()
+  }
+
+  const dogetcachelist = () => {
+    getcachelistcallback()
+  }
+
+  const dogetcradlemap = () => {
+    getcradlemapcallback()
   }
 
   return (
@@ -294,6 +314,13 @@ export default function TestOptions({callbacks}) {
           <FormLabel component="legend">component functions</FormLabel>
           <Button onClick = {doreload} variant="contained">Reload</Button>
           <Button onClick = {doclearcache} variant="contained">Clear cache</Button>
+          <Button onClick = {doreverselist} variant="contained">Reverse list</Button>
+      </FormControl>
+      <FormControl component="fieldset" className={classes.formControl}>
+          <FormLabel component="legend">component functions</FormLabel>
+          <Button onClick = {dogetcachemap} variant="contained">Get Cache Map</Button>
+          <Button onClick = {dogetcachelist} variant="contained">Get Cache List</Button>
+          <Button onClick = {dogetcradlemap} variant="contained">Get Cradle Map</Button>
       </FormControl>
     </div>
   )
