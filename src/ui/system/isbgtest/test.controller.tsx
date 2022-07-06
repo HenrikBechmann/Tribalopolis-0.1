@@ -7,6 +7,7 @@
     - gap, padding, cellheight, cellwidth, runwaysize, listsize, startingIndex
     - layout, cache, cacheMax, triggerlineOffset
     - save data button, using localStorage setItem and getItem
+    - set inner or outer scroller option
 */
 
 import React, {useState, useEffect, useRef, useCallback} from 'react'
