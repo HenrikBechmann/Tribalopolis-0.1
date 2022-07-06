@@ -33,7 +33,8 @@ export default function TestOptions({callbacks}) {
     democallback, 
     scrolltoposcallback, 
     reloadcallback, 
-    clearcachecallback 
+    clearcachecallback,
+    setlistsizecallback,
   } = callbacks
   const styleprops = {}
   const classes = useStyles(styleprops)
@@ -60,13 +61,14 @@ export default function TestOptions({callbacks}) {
   let paddingvalue:any = 0
   let cellwidthvalue:any = 0
   let cellheightvalue:any = 0
-  let listsizevalue:any = 0
+  let estimatedlistsizevalue:any = 0
   let runwaysizevalue:any = 0
   let startingindexvalue:any = 0
+  let setlistsizevalue:any = 0
 
-  const updateListsizeValue = (event:React.ChangeEvent<HTMLInputElement>) => {
+  const updateEstimatedListsizeValue = (event:React.ChangeEvent<HTMLInputElement>) => {
 
-    listsizevalue = (event.target as HTMLInputElement).value
+    estimatedlistsizevalue = (event.target as HTMLInputElement).value
 
   }
   const updateRunwaysizeValue = (event:React.ChangeEvent<HTMLInputElement>) => {
@@ -107,6 +109,12 @@ export default function TestOptions({callbacks}) {
 
   }
 
+  const updateSetListsizeValue = (event:React.ChangeEvent<HTMLInputElement>) => {
+
+    setlistsizevalue = (event.target as HTMLInputElement).value
+
+  }
+
   const updateCacheMaxValue = (event:React.ChangeEvent<HTMLInputElement>) => {
 
     cachemaxvalue = (event.target as HTMLInputElement).value
@@ -123,6 +131,11 @@ export default function TestOptions({callbacks}) {
 
     scrolltoposcallback(gotovalue)
 
+  }
+
+  const handleSetListsize = () => {
+
+    setlistsizecallback(setlistsizevalue)
   }
 
   const doreload = () => {
@@ -161,6 +174,17 @@ export default function TestOptions({callbacks}) {
             onChange = {updateGotoValue}
           />
           <Button onClick = {handleGoto} variant="contained">Go</Button>
+      </FormControl>
+      <FormControl component="fieldset" className={classes.formControl}>
+          <FormLabel component="legend">Set listsize</FormLabel>
+          <TextField
+            id="setlistsize"
+            label="Enter new listsize number"
+            defaultValue={0}
+            variant="filled"
+            onChange = {updateSetListsizeValue}
+          />
+          <Button onClick = {handleSetListsize} variant="contained">Go</Button>
       </FormControl>
       <FormControl component="fieldset" className={classes.formControl}>
         <FormLabel component="legend">Layout</FormLabel>
@@ -242,11 +266,11 @@ export default function TestOptions({callbacks}) {
       <FormControl component="fieldset" className={classes.formControl}>
           <FormLabel component="legend">Scroller config</FormLabel>
           <TextField
-            id="listsize"
-            label="Enter list size"
+            id="estimatedlistsize"
+            label="Enter estimated list size"
             defaultValue={0}
             variant="filled"
-            onChange = {updateListsizeValue}
+            onChange = {updateEstimatedListsizeValue}
           />
           <TextField
             id="runwaysize"

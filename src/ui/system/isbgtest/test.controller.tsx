@@ -272,6 +272,10 @@ const Test = (props) => {
         callbacksRef.current?.reload()
     }
 
+    const handleSetListsize = (listsize) => {
+        callbacksRef.current?.setListsize(listsize)
+    }
+
     let democallbacks = {
         orientationcallback:handleOrientation,
         democallback:handleDemo,
@@ -282,6 +286,7 @@ const Test = (props) => {
         // getvisiblecallback:handleGetVisible,
         // getcontentcallback:handleGetContent,
         reloadcallback:handleReload,
+        setlistsizecallback:handleSetListsize,
         // preloadcallback:handlePreload,
     }
 
