@@ -125,7 +125,7 @@ const TestListBox = (props) => {
                 cellHeight = {cellHeight}
                 cellWidth = {cellWidth}
                 runwaySize = {runway}
-                listSize = {listsize}
+                estimatedListSize = {listsize}
                 startingIndex = {offset}
                 getItem = {getListItem}
                 functions = {null}

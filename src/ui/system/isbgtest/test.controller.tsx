@@ -49,7 +49,7 @@ const getNestedItem = (index) => {
     return <NestedBox 
         index = {index} 
         childorientation = {demos.nested.childorientation} 
-        setlistsize = {demos.nested.listSize}
+        setlistsize = {demos.nested.estimatedListSize}
         scrollerData = {null}
     />
 
@@ -160,7 +160,7 @@ const demos = {
         cellWidth:150,
         runwaySize:4,
         startingIndex:0,
-        listSize:400,
+        estimatedListSize:400,
         getItem:getGenericItem,
         placeholder:null,
         styles: genericcomponentstyles,
@@ -180,7 +180,7 @@ const demos = {
         cellWidth:250,
         runwaySize:3,
         startingIndex:0,
-        listSize:400,
+        estimatedListSize:400,
         getItem:getNestedItem,
         placeholder:null,
         styles: genericcomponentstyles,
@@ -199,7 +199,7 @@ const demos = {
         cellWidth:250,
         runwaySize:6,
         startingIndex:0,
-        listSize:300,
+        estimatedListSize:300,
         getItem:getVariableItem,
         placeholder:null,
         styles: genericcomponentstyles,
@@ -235,7 +235,7 @@ const Test = (props) => {
         cellWidth,
         runwaySize,
         startingIndex,
-        listSize,
+        estimatedListSize,
         getItem,
         placeholder,
         styles,
@@ -305,7 +305,7 @@ const Test = (props) => {
                     cellWidth = { cellWidth }
                     runwaySize = { runwaySize }
                     startingIndex = { startingIndex }
-                    listSize = { listSize }
+                    estimatedListSize = { estimatedListSize }
                     getItem = { getItem }
                     placeholder = { placeholder }
                     styles = { styles }
