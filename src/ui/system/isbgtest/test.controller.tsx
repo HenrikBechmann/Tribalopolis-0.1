@@ -6,6 +6,7 @@
     add control fields for 
     - gap, padding, cellheight, cellwidth, runwaysize, listsize, startingIndex
     - layout, cache, cacheMax, triggerlineOffset
+    - save data button, using localStorage setItem and getItem
 */
 
 import React, {useState, useEffect, useRef, useCallback} from 'react'
