@@ -39,6 +39,9 @@ export default function TestOptions({callbacks}) {
     getcachelistcallback,
     getcradlemapcallback,
     reverselistcallback,
+    insertindexbeforecallback,
+    insertindexaftercallback,
+    removeindexcallback,
   } = callbacks
   const styleprops = {}
   const classes = useStyles(styleprops)
@@ -69,6 +72,7 @@ export default function TestOptions({callbacks}) {
   let runwaysizevalue:any = 0
   let startingindexvalue:any = 0
   let setlistsizevalue:any = 0
+  let addremoveindexvalue:any = 0
 
   const updateEstimatedListsizeValue = (event:React.ChangeEvent<HTMLInputElement>) => {
 
@@ -131,6 +135,12 @@ export default function TestOptions({callbacks}) {
 
   }
 
+  const updateAddRemoveIndexValue = (event:React.ChangeEvent<HTMLInputElement>) => {
+
+    addremoveindexvalue = (event.target as HTMLInputElement).value
+
+  }
+
   const handleGoto = () => {
 
     scrolltoposcallback(gotovalue)
@@ -140,6 +150,19 @@ export default function TestOptions({callbacks}) {
   const handleSetListsize = () => {
 
     setlistsizecallback(setlistsizevalue)
+
+  }
+
+  const handleInsertBeforeIndex = () => {
+    insertindexbeforecallback(addremoveindexvalue)
+  }
+
+  const handleInsertAfterIndex = () => {
+    insertindexaftercallback(addremoveindexvalue)
+  }
+
+  const handleRemoveIndex = () => {
+    removeindexcallback(addremoveindexvalue)
   }
 
   const doreload = () => {
@@ -321,6 +344,19 @@ export default function TestOptions({callbacks}) {
           <Button onClick = {dogetcachemap} variant="contained">Get Cache Map</Button>
           <Button onClick = {dogetcachelist} variant="contained">Get Cache List</Button>
           <Button onClick = {dogetcradlemap} variant="contained">Get Cradle Map</Button>
+      </FormControl>
+      <FormControl component="fieldset" className={classes.formControl}>
+          <FormLabel component="legend">Add/remove index</FormLabel>
+          <TextField
+            id="addremoveindex"
+            label="Enter index number"
+            defaultValue={0}
+            variant="filled"
+            onChange = {updateAddRemoveIndexValue}
+          />
+          <Button onClick = {handleInsertBeforeIndex} variant="contained">Insert Before</Button>
+          <Button onClick = {handleInsertAfterIndex} variant="contained">Insert After</Button>
+          <Button onClick = {handleRemoveIndex} variant="contained">Remove</Button>
       </FormControl>
     </div>
   )

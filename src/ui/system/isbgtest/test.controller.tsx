@@ -289,6 +289,18 @@ const Test = (props) => {
     }
 
     const handleReverseList = () => {
+
+    }
+
+    const handleInsertBeforeIndex = (indexnumber) => {
+
+    }
+
+    const handleInsertAfterIndex = (indexnumber) => {
+
+    }
+
+    const handleRemoveIndex = (indexnumber) => {
         
     }
 
@@ -307,6 +319,9 @@ const Test = (props) => {
         getcachelistcallback:handleGetCacheList,
         getcradlemapcallback:handleGetCradleMap,
         reverselistcallback:handleReverseList,
+        insertindexbeforecallback:handleInsertBeforeIndex,
+        insertindexaftercallback:handleInsertAfterIndex,
+        removeindexcallback:handleRemoveIndex,
         // preloadcallback:handlePreload,
     }
 
