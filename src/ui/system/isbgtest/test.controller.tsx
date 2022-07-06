@@ -7,7 +7,7 @@
     - gap, padding, cellheight, cellwidth, runwaysize, listsize, startingIndex
     - layout, cache, cacheMax, triggerlineOffset
     - save data button, using localStorage setItem and getItem
-    - set inner or outer scroller option
+    - reverse listing button, get cachelist, get cache map buttons
 */
 
 import React, {useState, useEffect, useRef, useCallback} from 'react'
