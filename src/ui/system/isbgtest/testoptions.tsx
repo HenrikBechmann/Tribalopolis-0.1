@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme: Theme) =>
       margin: theme.spacing(3),
     },
     wrapper:{
-      width:'1000px'
+      width:'2500px'
     }
   }),
 )
@@ -54,10 +54,68 @@ export default function TestOptions({callbacks}) {
   }
 
   let gotovalue:any = 0
+  let cachemaxvalue:any = 0
+  let triggerlinevalue:any = 10
+  let gapvalue:any = 0
+  let paddingvalue:any = 0
+  let cellwidthvalue:any = 0
+  let cellheightvalue:any = 0
+  let listsizevalue:any = 0
+  let runwaysizevalue:any = 0
+  let startingindexvalue:any = 0
+
+  const updateListsizeValue = (event:React.ChangeEvent<HTMLInputElement>) => {
+
+    listsizevalue = (event.target as HTMLInputElement).value
+
+  }
+  const updateRunwaysizeValue = (event:React.ChangeEvent<HTMLInputElement>) => {
+
+    runwaysizevalue = (event.target as HTMLInputElement).value
+
+  }
+  const updateStartingindexValue = (event:React.ChangeEvent<HTMLInputElement>) => {
+
+    startingindexvalue = (event.target as HTMLInputElement).value
+
+  }
+
+  const updateGapValue = (event:React.ChangeEvent<HTMLInputElement>) => {
+
+    gapvalue = (event.target as HTMLInputElement).value
+
+  }
+  const updatePaddingValue = (event:React.ChangeEvent<HTMLInputElement>) => {
+
+    paddingvalue = (event.target as HTMLInputElement).value
+
+  }
+  const updateCellwidthValue = (event:React.ChangeEvent<HTMLInputElement>) => {
+
+    cellwidthvalue = (event.target as HTMLInputElement).value
+
+  }
+  const updateCellheightValue = (event:React.ChangeEvent<HTMLInputElement>) => {
+
+    cellheightvalue = (event.target as HTMLInputElement).value
+
+  }
 
   const updateGotoValue = (event:React.ChangeEvent<HTMLInputElement>) => {
 
     gotovalue = (event.target as HTMLInputElement).value
+
+  }
+
+  const updateCacheMaxValue = (event:React.ChangeEvent<HTMLInputElement>) => {
+
+    cachemaxvalue = (event.target as HTMLInputElement).value
+
+  }
+
+  const updateTriggerlineValue = (event:React.ChangeEvent<HTMLInputElement>) => {
+
+    triggerlinevalue = (event.target as HTMLInputElement).value
 
   }
 
@@ -104,20 +162,110 @@ export default function TestOptions({callbacks}) {
           />
           <Button onClick = {handleGoto} variant="contained">Go</Button>
       </FormControl>
-      {false?<FormControl component="fieldset" className={classes.formControl}>
-        <FormLabel component="legend">Scroll To Alignment</FormLabel>
+      <FormControl component="fieldset" className={classes.formControl}>
+        <FormLabel component="legend">Layout</FormLabel>
         <NativeSelect
-          defaultValue={'nearest'}
+          defaultValue={'uniform'}
           inputProps={{
-            name: 'alignment',
-            id: 'alignment',
+            name: 'layout',
+            id: 'layout',
           }}
         >
-          <option value={'start'}>start</option>
-          <option value={'center'}>center</option>
-          <option value={'end'}>end</option>
+          <option value={'uniform'}>uniform</option>
+          <option value={'variable'}>variable</option>
+          <option value={'dynamic'}>dynamic</option>
+          <option value={'dense'}>dense</option>
         </NativeSelect>
-      </FormControl>:null}
+        <TextField
+          id="cachemax"
+          label="Enter triggerline offset"
+          defaultValue={10}
+          variant="filled"
+          onChange = {updateTriggerlineValue}
+        />
+      </FormControl>
+      <FormControl component="fieldset" className={classes.formControl}>
+        <FormLabel component="legend">Cache</FormLabel>
+        <NativeSelect
+          defaultValue={'cradle'}
+          inputProps={{
+            name: 'cache',
+            id: 'cache',
+          }}
+        >
+          <option value={'cradle'}>cradle</option>
+          <option value={'keepload'}>keepload</option>
+          <option value={'preload'}>preload</option>
+        </NativeSelect>
+        <TextField
+          id="cachemax"
+          label="Enter max cache items"
+          defaultValue={0}
+          variant="filled"
+          onChange = {updateCacheMaxValue}
+        />
+      </FormControl>
+      <FormControl component="fieldset" className={classes.formControl}>
+          <FormLabel component="legend">Grid config</FormLabel>
+          <TextField
+            id="gap"
+            label="Enter gap number"
+            defaultValue={0}
+            variant="filled"
+            onChange = {updateGapValue}
+          />
+          <TextField
+            id="gap"
+            label="Enter padding number"
+            defaultValue={0}
+            variant="filled"
+            onChange = {updatePaddingValue}
+          />
+      </FormControl>
+      <FormControl component="fieldset" className={classes.formControl}>
+          <FormLabel component="legend">Grid config</FormLabel>
+          <TextField
+            id="cellwidth"
+            label="Enter cell width"
+            defaultValue={0}
+            variant="filled"
+            onChange = {updateCellwidthValue}
+          />
+          <TextField
+            id="cellheight"
+            label="Enter cell height"
+            defaultValue={0}
+            variant="filled"
+            onChange = {updateCellheightValue}
+          />
+      </FormControl>
+      <FormControl component="fieldset" className={classes.formControl}>
+          <FormLabel component="legend">Scroller config</FormLabel>
+          <TextField
+            id="listsize"
+            label="Enter list size"
+            defaultValue={0}
+            variant="filled"
+            onChange = {updateListsizeValue}
+          />
+          <TextField
+            id="runwaysize"
+            label="Enter runway size"
+            defaultValue={0}
+            variant="filled"
+            onChange = {updateRunwaysizeValue}
+          />
+      </FormControl>
+      <FormControl component="fieldset" className={classes.formControl}>
+          <FormLabel component="legend">Scroller config</FormLabel>
+          <TextField
+            id="startingindex"
+            label="Enter starting index"
+            defaultValue={0}
+            variant="filled"
+            onChange = {updateStartingindexValue}
+          />
+      </FormControl>
       <FormControl component="fieldset" className={classes.formControl}>
           <FormLabel component="legend">component functions</FormLabel>
           <Button onClick = {doreload} variant="contained">Reload</Button>

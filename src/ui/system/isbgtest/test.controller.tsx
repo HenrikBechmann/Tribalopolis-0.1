@@ -1,5 +1,12 @@
-// test .controller.tsx
+// test.controller.tsx
 // copyright (c) 2019 Henrik Bechmann, Toronto, Licence: MIT
+
+/*
+
+    add control fields for 
+    - gap, padding, cellheight, cellwidth, runwaysize, listsize, startingIndex
+    - layout, cache, cacheMax, triggerlineOffset
+*/
 
 import React, {useState, useEffect, useRef, useCallback} from 'react'
 
@@ -150,7 +157,7 @@ const demos = {
         cellHeight:150,
         cellWidth:150,
         runwaySize:4,
-        indexOffset:0,
+        startingIndex:0,
         listSize:400,
         getItem:getGenericItem,
         placeholder:null,
@@ -170,7 +177,7 @@ const demos = {
         cellHeight:400,
         cellWidth:250,
         runwaySize:3,
-        indexOffset:0,
+        startingIndex:0,
         listSize:400,
         getItem:getNestedItem,
         placeholder:null,
@@ -189,7 +196,7 @@ const demos = {
         cellHeight:100,
         cellWidth:250,
         runwaySize:6,
-        indexOffset:0,
+        startingIndex:0,
         listSize:300,
         getItem:getVariableItem,
         placeholder:null,
@@ -225,7 +232,7 @@ const Test = (props) => {
         cellHeight,
         cellWidth,
         runwaySize,
-        indexOffset,
+        startingIndex,
         listSize,
         getItem,
         placeholder,
@@ -295,7 +302,7 @@ const Test = (props) => {
                     cellHeight = { cellHeight }
                     cellWidth = { cellWidth }
                     runwaySize = { runwaySize }
-                    indexOffset = { indexOffset }
+                    startingIndex = { startingIndex }
                     listSize = { listSize }
                     getItem = { getItem }
                     placeholder = { placeholder }
