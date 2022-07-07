@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme: Theme) =>
       margin: theme.spacing(3),
     },
     wrapper:{
-      width:'3000px'
+      width:'3200px'
     }
   }),
 )
@@ -354,6 +354,9 @@ export default function TestOptions({callbacks}) {
             variant="filled"
             onChange = {updateAddRemoveIndexValue}
           />
+      </FormControl>
+      <FormControl component="fieldset" className={classes.formControl}>
+          <FormLabel component="legend">Add/remove index</FormLabel>
           <Button onClick = {handleInsertBeforeIndex} variant="contained">Insert Before</Button>
           <Button onClick = {handleInsertAfterIndex} variant="contained">Insert After</Button>
           <Button onClick = {handleRemoveIndex} variant="contained">Remove</Button>
