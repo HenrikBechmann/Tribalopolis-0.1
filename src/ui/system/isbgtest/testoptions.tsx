@@ -193,14 +193,14 @@ export default function TestOptions({callbacks}) {
   return (
     <div className = {classes.wrapper}>
       <FormControl component="fieldset" className={classes.formControl}>
-          <FormLabel component="legend">Orientation</FormLabel>
+          <FormLabel component="legend">1. Orientation</FormLabel>
           <RadioGroup aria-label="orientation" name="orientation" value={orientationvalue} onChange={handleOrientationChange}>
             <FormControlLabel value="vertical" control={<Radio />} label="Vertical" />
             <FormControlLabel value="horizontal" control={<Radio />} label="Horizontal" />
           </RadioGroup>
       </FormControl>
       <FormControl component="fieldset" className={classes.formControl}>
-          <FormLabel component="legend">Demos</FormLabel>
+          <FormLabel component="legend">2. Demos</FormLabel>
           <RadioGroup aria-label="demo" name="demo" value={demovalue} onChange={handleDemoChange}>
             <FormControlLabel value="generic" control={<Radio />} label="Generic (simple)" />
             <FormControlLabel value="nested" control={<Radio />} label="Nested lists (complex)" />
@@ -208,7 +208,7 @@ export default function TestOptions({callbacks}) {
           </RadioGroup>
       </FormControl>
       <FormControl component="fieldset" className={classes.formControl}>
-          <FormLabel component="legend">Scroll To</FormLabel>
+          <FormLabel component="legend">3. Scroll To</FormLabel>
           <TextField
             id="scrolltonumber"
             label="Enter index number"
@@ -219,7 +219,7 @@ export default function TestOptions({callbacks}) {
           <Button onClick = {handleGoto} variant="contained">Go</Button>
       </FormControl>
       <FormControl component="fieldset" className={classes.formControl}>
-          <FormLabel component="legend">Set listsize</FormLabel>
+          <FormLabel component="legend">4. Set listsize</FormLabel>
           <TextField
             id="setlistsize"
             label="Enter new listsize number"
@@ -230,7 +230,7 @@ export default function TestOptions({callbacks}) {
           <Button onClick = {handleSetListsize} variant="contained">Go</Button>
       </FormControl>
       <FormControl component="fieldset" className={classes.formControl}>
-        <FormLabel component="legend">Layout</FormLabel>
+        <FormLabel component="legend">5. Layout</FormLabel>
         <NativeSelect
           defaultValue={'uniform'}
           inputProps={{
@@ -252,7 +252,7 @@ export default function TestOptions({callbacks}) {
         />
       </FormControl>
       <FormControl component="fieldset" className={classes.formControl}>
-        <FormLabel component="legend">Cache</FormLabel>
+        <FormLabel component="legend">6. Cache</FormLabel>
         <NativeSelect
           defaultValue={'cradle'}
           inputProps={{
@@ -273,7 +273,7 @@ export default function TestOptions({callbacks}) {
         />
       </FormControl>
       <FormControl component="fieldset" className={classes.formControl}>
-          <FormLabel component="legend">Grid config</FormLabel>
+          <FormLabel component="legend">7. Grid config</FormLabel>
           <TextField
             id="gap"
             label="Enter gap number"
@@ -307,7 +307,7 @@ export default function TestOptions({callbacks}) {
           />
       </FormControl>
       <FormControl component="fieldset" className={classes.formControl}>
-          <FormLabel component="legend">Scroller config</FormLabel>
+          <FormLabel component="legend">8. Scroller config</FormLabel>
           <TextField
             id="estimatedlistsize"
             label="Enter estimated list size"
@@ -334,13 +334,13 @@ export default function TestOptions({callbacks}) {
           />
       </FormControl>
       <FormControl component="fieldset" className={classes.formControl}>
-          <FormLabel component="legend">component functions</FormLabel>
+          <FormLabel component="legend">9. Component functions</FormLabel>
           <Button onClick = {doreload} variant="contained">Reload</Button>
           <Button onClick = {doclearcache} variant="contained">Clear cache</Button>
           <Button onClick = {doreverselist} variant="contained">Reverse list</Button>
       </FormControl>
       <FormControl component="fieldset" className={classes.formControl}>
-          <FormLabel component="legend">component functions</FormLabel>
+          <FormLabel component="legend">Component functions</FormLabel>
           <Button onClick = {dogetcachemap} variant="contained">Get Cache Map</Button>
           <Button onClick = {dogetcachelist} variant="contained">Get Cache List</Button>
           <Button onClick = {dogetcradlemap} variant="contained">Get Cradle Map</Button>
