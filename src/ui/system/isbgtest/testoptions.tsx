@@ -346,7 +346,7 @@ export default function TestOptions({callbacks}) {
           <Button onClick = {dogetcradlemap} variant="contained">Get Cradle Map</Button>
       </FormControl>
       <FormControl component="fieldset" className={classes.formControl}>
-          <FormLabel component="legend">Add/remove index</FormLabel>
+          <FormLabel component="legend">10. Add/remove index</FormLabel>
           <TextField
             id="addremoveindex"
             label="Enter index number"
