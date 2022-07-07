@@ -276,14 +276,14 @@ export default function TestOptions({callbacks}) {
           <FormLabel component="legend">7. Grid config</FormLabel>
           <TextField
             id="gap"
-            label="Enter gap number"
+            label="Enter gap size"
             defaultValue={0}
             variant="filled"
             onChange = {updateGapValue}
           />
           <TextField
             id="gap"
-            label="Enter padding number"
+            label="Enter padding size"
             defaultValue={0}
             variant="filled"
             onChange = {updatePaddingValue}
