@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme: Theme) =>
       margin: theme.spacing(3),
     },
     wrapper:{
-      width:'3200px'
+      width:'3400px'
     }
   }),
 )
@@ -42,6 +42,11 @@ export default function TestOptions({callbacks}) {
     insertindexbeforecallback,
     insertindexaftercallback,
     removeindexcallback,
+    applylayoutcallback,
+    applycachecallback,
+    gridconfigcallback,
+    scrollerconfigcallback,
+
   } = callbacks
   const styleprops = {}
   const classes = useStyles(styleprops)
@@ -141,6 +146,26 @@ export default function TestOptions({callbacks}) {
 
   }
 
+  const handleLayout = () => {
+
+    applylayoutcallback(gotovalue)
+
+  }
+  const handleCache = () => {
+
+    applycachecallback(gotovalue)
+
+  }
+  const handleGridConfig = () => {
+
+    gridconfigcallback(gotovalue)
+
+  }
+  const handleScrollerConfig = () => {
+
+    scrollerconfigcallback(gotovalue)
+
+  }
   const handleGoto = () => {
 
     scrolltoposcallback(gotovalue)
@@ -208,7 +233,7 @@ export default function TestOptions({callbacks}) {
           </RadioGroup>
       </FormControl>
       <FormControl component="fieldset" className={classes.formControl}>
-          <FormLabel component="legend">3. Scroll To</FormLabel>
+          <FormLabel component="legend">3. Scroll to</FormLabel>
           <TextField
             id="scrolltonumber"
             label="Enter index number"
@@ -216,7 +241,7 @@ export default function TestOptions({callbacks}) {
             variant="filled"
             onChange = {updateGotoValue}
           />
-          <Button onClick = {handleGoto} variant="contained">Go</Button>
+          <Button onClick = {handleGoto} variant="contained">Apply</Button>
       </FormControl>
       <FormControl component="fieldset" className={classes.formControl}>
           <FormLabel component="legend">4. Set listsize</FormLabel>
@@ -227,7 +252,7 @@ export default function TestOptions({callbacks}) {
             variant="filled"
             onChange = {updateSetListsizeValue}
           />
-          <Button onClick = {handleSetListsize} variant="contained">Go</Button>
+          <Button onClick = {handleSetListsize} variant="contained">Apply</Button>
       </FormControl>
       <FormControl component="fieldset" className={classes.formControl}>
         <FormLabel component="legend">5. Layout</FormLabel>
@@ -250,6 +275,7 @@ export default function TestOptions({callbacks}) {
           variant="filled"
           onChange = {updateTriggerlineValue}
         />
+        <Button onClick = {handleLayout} variant="contained">Apply</Button>
       </FormControl>
       <FormControl component="fieldset" className={classes.formControl}>
         <FormLabel component="legend">6. Cache</FormLabel>
@@ -271,6 +297,7 @@ export default function TestOptions({callbacks}) {
           variant="filled"
           onChange = {updateCacheMaxValue}
         />
+        <Button onClick = {handleCache} variant="contained">Apply</Button>
       </FormControl>
       <FormControl component="fieldset" className={classes.formControl}>
           <FormLabel component="legend">7. Grid config</FormLabel>
@@ -307,6 +334,10 @@ export default function TestOptions({callbacks}) {
           />
       </FormControl>
       <FormControl component="fieldset" className={classes.formControl}>
+        <FormLabel component="legend">Grid config</FormLabel>
+        <Button onClick = {handleGridConfig} variant="contained">Apply</Button>
+      </FormControl>
+      <FormControl component="fieldset" className={classes.formControl}>
           <FormLabel component="legend">8. Scroller config</FormLabel>
           <TextField
             id="estimatedlistsize"
@@ -332,6 +363,7 @@ export default function TestOptions({callbacks}) {
             variant="filled"
             onChange = {updateStartingindexValue}
           />
+          <Button onClick = {handleScrollerConfig} variant="contained">Apply</Button>
       </FormControl>
       <FormControl component="fieldset" className={classes.formControl}>
           <FormLabel component="legend">9. Component functions</FormLabel>

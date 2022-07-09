@@ -304,6 +304,19 @@ const Test = (props) => {
         
     }
 
+    const handleApplyLayout = () => {
+
+    }
+    const handleApplyCache = () => {
+        
+    }
+    const handleGridConfig = () => {
+        
+    }
+    const handleScrollerConfig = () => {
+        
+    }
+
     let democallbacks = {
         orientationcallback:handleOrientation,
         democallback:handleDemo,
@@ -322,6 +335,11 @@ const Test = (props) => {
         insertindexbeforecallback:handleInsertBeforeIndex,
         insertindexaftercallback:handleInsertAfterIndex,
         removeindexcallback:handleRemoveIndex,
+        applylayoutcallback:handleApplyLayout,
+        applycachecallback:handleApplyCache,
+        gridconfigcallback:handleGridConfig,
+        scrollerconfigcallback:handleScrollerConfig,
+
         // preloadcallback:handlePreload,
     }
 
