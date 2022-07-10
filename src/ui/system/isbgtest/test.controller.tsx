@@ -163,6 +163,8 @@ const demos = {
         estimatedListSize:400,
         getItem:getGenericItem,
         placeholder:null,
+        cache:'cradle',
+        cacheMax:200,
         styles: genericcomponentstyles,
         functions: {
             getCallbacks:null,
@@ -183,6 +185,8 @@ const demos = {
         estimatedListSize:400,
         getItem:getNestedItem,
         placeholder:null,
+        cache:'cradle',
+        cacheMax:200,
         styles: genericcomponentstyles,
         functions: {
             getCallbacks:null,
@@ -202,6 +206,8 @@ const demos = {
         estimatedListSize:300,
         getItem:getVariableItem,
         placeholder:null,
+        cache:'cradle',
+        cacheMax:200,
         styles: genericcomponentstyles,
         functions: {
             getCallbacks:null,
@@ -216,11 +222,15 @@ const Test = (props) => {
 
     // console.log('running Test Component', props)
 
-    let [orientation, setOrientation] = useState('vertical')
+    const [orientation, setOrientation] = useState('vertical')
 
-    let [demo, setDemo] = useState('generic')
+    const [demo, setDemo] = useState('generic')
+    const demoRef = useRef(null)
+    demoRef.current = demo
 
-    let demoselection = demos[demo]
+    const [testState, setTestState] = useState('ready')
+
+    const demoselection = demos[demo]
 
     const callbacksRef = useRef(null)
 
@@ -238,6 +248,8 @@ const Test = (props) => {
         estimatedListSize,
         getItem,
         placeholder,
+        cache,
+        cacheMax,
         styles,
         functions:inheritedfunctions,
         layout,
@@ -253,6 +265,16 @@ const Test = (props) => {
         setOrientation(orientation)
         demos.nested.childorientation = (orientation == 'vertical')?'horizontal':'vertical'
     }
+
+    useEffect (()=>{
+
+        switch (testState) {
+            case 'setcache': {
+                setTestState('ready')
+                break
+            }
+        }
+    },[testState])
 
     const handleDemo = (demo) => {
         setDemo(demo)
@@ -307,8 +329,11 @@ const Test = (props) => {
     const handleApplyLayout = () => {
 
     }
-    const handleApplyCache = () => {
-        
+    const handleApplyCache = (cache, cacheMax) => {
+        const demo = demoRef.current
+        demos[demo].cache = cache
+        demos[demo].cacheMax = cacheMax
+        setTestState('setcache')
     }
     const handleGridConfig = () => {
         
@@ -317,7 +342,7 @@ const Test = (props) => {
         
     }
 
-    let democallbacks = {
+    const democallbacks = {
         orientationcallback:handleOrientation,
         democallback:handleDemo,
         scrolltoposcallback:handleScrollToPos,
@@ -366,6 +391,8 @@ const Test = (props) => {
                     estimatedListSize = { estimatedListSize }
                     getItem = { getItem }
                     placeholder = { placeholder }
+                    cache = { cache }
+                    cacheMax = { cacheMax }
                     styles = { styles }
                     functions = { functions }
                     layout = { layout }

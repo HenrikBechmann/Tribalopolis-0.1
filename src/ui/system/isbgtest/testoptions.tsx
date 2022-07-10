@@ -54,7 +54,7 @@ export default function TestOptions({callbacks}) {
   const [demovalue, setDemovalue] = React.useState('generic')
 
   const handleOrientationChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    let orientationvalue = (event.target as HTMLInputElement).value
+    const orientationvalue = (event.target as HTMLInputElement).value
     setOrientationValue(orientationvalue)
     orientationcallback(orientationvalue)
   }
@@ -78,6 +78,7 @@ export default function TestOptions({callbacks}) {
   let startingindexvalue:any = 0
   let setlistsizevalue:any = 0
   let addremoveindexvalue:any = 0
+  let cachevalue:any = ''
 
   const updateEstimatedListsizeValue = (event:React.ChangeEvent<HTMLInputElement>) => {
 
@@ -146,24 +147,30 @@ export default function TestOptions({callbacks}) {
 
   }
 
+  const updateCacheValue  = (event:React.ChangeEvent<HTMLSelectElement>) => {
+
+    cachevalue = (event.target as HTMLSelectElement).value
+
+  }
+
   const handleLayout = () => {
 
-    applylayoutcallback(gotovalue)
+    // applylayoutcallback(gotovalue)
 
   }
   const handleCache = () => {
 
-    applycachecallback(gotovalue)
+    applycachecallback(cachevalue, cachemaxvalue)
 
   }
   const handleGridConfig = () => {
 
-    gridconfigcallback(gotovalue)
+    // gridconfigcallback(gotovalue)
 
   }
   const handleScrollerConfig = () => {
 
-    scrollerconfigcallback(gotovalue)
+    // scrollerconfigcallback(gotovalue)
 
   }
   const handleGoto = () => {
@@ -219,7 +226,8 @@ export default function TestOptions({callbacks}) {
     <div className = {classes.wrapper}>
       <FormControl component="fieldset" className={classes.formControl}>
           <FormLabel component="legend">1. Orientation</FormLabel>
-          <RadioGroup aria-label="orientation" name="orientation" value={orientationvalue} onChange={handleOrientationChange}>
+          <RadioGroup aria-label="orientation" name="orientation" value={orientationvalue} 
+            onChange={handleOrientationChange}>
             <FormControlLabel value="vertical" control={<Radio />} label="Vertical" />
             <FormControlLabel value="horizontal" control={<Radio />} label="Horizontal" />
           </RadioGroup>
@@ -285,6 +293,7 @@ export default function TestOptions({callbacks}) {
             name: 'cache',
             id: 'cache',
           }}
+          onChange = {updateCacheValue}
         >
           <option value={'cradle'}>cradle</option>
           <option value={'keepload'}>keepload</option>
