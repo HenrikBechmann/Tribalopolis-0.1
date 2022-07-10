@@ -53,14 +53,14 @@ export default function TestOptions({callbacks}) {
   const [orientationvalue, setOrientationValue] = React.useState('vertical')
   const [demovalue, setDemovalue] = React.useState('generic')
 
-  const handleOrientationChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const orientationvalue = (event.target as HTMLInputElement).value
+  const handleOrientationChange = (event) => {
+    const orientationvalue = event.target.value
     setOrientationValue(orientationvalue)
     orientationcallback(orientationvalue)
   }
 
-  const handleDemoChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    let demovalue = (event.target as HTMLInputElement).value
+  const handleDemoChange = (event) => {
+    let demovalue = event.target.value
     clearcachecallback()
     setDemovalue(demovalue)
     democallback(demovalue)    
@@ -80,77 +80,78 @@ export default function TestOptions({callbacks}) {
   let addremoveindexvalue:any = 0
   let cachevalue:any = ''
 
-  const updateEstimatedListsizeValue = (event:React.ChangeEvent<HTMLInputElement>) => {
+  // const updateEstimatedListsizeValue = (event:React.ChangeEvent<HTMLInputElement>) => {
+  const updateEstimatedListsizeValue = (event) => {
 
-    estimatedlistsizevalue = (event.target as HTMLInputElement).value
-
-  }
-  const updateRunwaysizeValue = (event:React.ChangeEvent<HTMLInputElement>) => {
-
-    runwaysizevalue = (event.target as HTMLInputElement).value
+    // estimatedlistsizevalue = (event.target as HTMLInputElement).value
+    estimatedlistsizevalue = event.target.value
 
   }
-  const updateStartingindexValue = (event:React.ChangeEvent<HTMLInputElement>) => {
+  const updateRunwaysizeValue = (event) => {
 
-    startingindexvalue = (event.target as HTMLInputElement).value
-
-  }
-
-  const updateGapValue = (event:React.ChangeEvent<HTMLInputElement>) => {
-
-    gapvalue = (event.target as HTMLInputElement).value
+    runwaysizevalue = event.target.value
 
   }
-  const updatePaddingValue = (event:React.ChangeEvent<HTMLInputElement>) => {
+  const updateStartingindexValue = (event) => {
 
-    paddingvalue = (event.target as HTMLInputElement).value
-
-  }
-  const updateCellwidthValue = (event:React.ChangeEvent<HTMLInputElement>) => {
-
-    cellwidthvalue = (event.target as HTMLInputElement).value
-
-  }
-  const updateCellheightValue = (event:React.ChangeEvent<HTMLInputElement>) => {
-
-    cellheightvalue = (event.target as HTMLInputElement).value
+    startingindexvalue = event.target.value
 
   }
 
-  const updateGotoValue = (event:React.ChangeEvent<HTMLInputElement>) => {
+  const updateGapValue = (event) => {
 
-    gotovalue = (event.target as HTMLInputElement).value
+    gapvalue = event.target.value
+
+  }
+  const updatePaddingValue = (event) => {
+
+    paddingvalue = event.target.value
+
+  }
+  const updateCellwidthValue = (event) => {
+
+    cellwidthvalue = event.target.value
+
+  }
+  const updateCellheightValue = (event) => {
+
+    cellheightvalue = event.target.value
 
   }
 
-  const updateSetListsizeValue = (event:React.ChangeEvent<HTMLInputElement>) => {
+  const updateGotoValue = (event) => {
 
-    setlistsizevalue = (event.target as HTMLInputElement).value
-
-  }
-
-  const updateCacheMaxValue = (event:React.ChangeEvent<HTMLInputElement>) => {
-
-    cachemaxvalue = (event.target as HTMLInputElement).value
+    gotovalue = event.target.value
 
   }
 
-  const updateTriggerlineValue = (event:React.ChangeEvent<HTMLInputElement>) => {
+  const updateSetListsizeValue = (event) => {
 
-    triggerlinevalue = (event.target as HTMLInputElement).value
-
-  }
-
-  const updateAddRemoveIndexValue = (event:React.ChangeEvent<HTMLInputElement>) => {
-
-    addremoveindexvalue = (event.target as HTMLInputElement).value
+    setlistsizevalue = event.target.value
 
   }
 
-  const updateCacheValue  = (event:React.ChangeEvent<HTMLSelectElement>) => {
+  const updateCacheMaxValue = (event) => {
 
-    cachevalue = (event.target as HTMLSelectElement).value
+    cachemaxvalue = event.target.value
 
+  }
+
+  const updateTriggerlineValue = (event) => {
+
+    triggerlinevalue = event.target.value
+
+  }
+
+  const updateAddRemoveIndexValue = (event) => {
+
+    addremoveindexvalue = event.target.value
+
+  }
+
+  const updateCacheValue  = (event) => {
+
+    cachevalue = event.target.value
   }
 
   const handleLayout = () => {
