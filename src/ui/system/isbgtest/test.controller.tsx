@@ -299,15 +299,15 @@ const Test = (props) => {
     }
 
     const handleGetCacheMap = () => {
-
+        console.log(callbacksRef.current?.getCacheMap())
     }
 
     const handleGetCacheList = () => {
-
+        console.log(callbacksRef.current?.getCacheList())
     }
 
     const handleGetCradleMap = () => {
-
+        console.log(callbacksRef.current?.getCradleMap())
     }
 
     const handleReverseList = () => {
