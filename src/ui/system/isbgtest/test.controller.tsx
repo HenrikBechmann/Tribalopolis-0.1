@@ -276,7 +276,7 @@ const Test = (props) => {
         }
     },[testState])
 
-    const handleReverseList = () => {
+    const handleChangeMapping = () => {
 
     }
 
@@ -359,7 +359,7 @@ const Test = (props) => {
         getcachemapcallback:handleGetCacheMap,
         getcachelistcallback:handleGetCacheList,
         getcradlemapcallback:handleGetCradleMap,
-        reverselistcallback:handleReverseList,
+        changemappingcallback:handleChangeMapping,
         insertindexbeforecallback:handleInsertBeforeIndex,
         insertindexaftercallback:handleInsertAfterIndex,
         removeindexcallback:handleRemoveIndex,

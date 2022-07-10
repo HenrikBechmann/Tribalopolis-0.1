@@ -38,7 +38,7 @@ export default function TestOptions({callbacks}) {
     getcachemapcallback,
     getcachelistcallback,
     getcradlemapcallback,
-    reverselistcallback,
+    changemappingcallback,
     insertindexbeforecallback,
     insertindexaftercallback,
     removeindexcallback,
@@ -215,8 +215,8 @@ export default function TestOptions({callbacks}) {
     clearcachecallback()
   }
 
-  const doreverselist = () => {
-    reverselistcallback()
+  const dochangemapping = () => {
+    changemappingcallback()
   }
 
   const dogetcachemap = () => {
@@ -391,7 +391,7 @@ export default function TestOptions({callbacks}) {
           <FormLabel component="legend">9. Component functions</FormLabel>
           <Button onClick = {doreload} variant="contained">Reload</Button>
           <Button onClick = {doclearcache} variant="contained">Clear cache</Button>
-          <Button onClick = {doreverselist} variant="contained">Reverse list</Button>
+          <Button onClick = {dochangemapping} variant="contained">Change mapping</Button>
       </FormControl>
       <FormControl component="fieldset" className={classes.formControl}>
           <FormLabel component="legend">Component functions</FormLabel>
