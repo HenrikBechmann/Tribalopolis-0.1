@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme: Theme) =>
       margin: theme.spacing(3),
     },
     wrapper:{
-      width:'3400px'
+      width:'3700px'
     }
   }),
 )
@@ -44,7 +44,8 @@ export default function TestOptions({callbacks}) {
     removeindexcallback,
     applylayoutcallback,
     applycachecallback,
-    gridconfigcallback,
+    gridconfigcellscallback,
+    gridconfigborderscallback,
     scrollerconfigcallback,
 
   } = callbacks
@@ -164,11 +165,18 @@ export default function TestOptions({callbacks}) {
     applycachecallback(cachevalue, cachemaxvalue)
 
   }
-  const handleGridConfig = () => {
+  const handleGridConfigCells = () => {
 
-    // gridconfigcallback(gotovalue)
+    // gridconfigcellscallback(gotovalue)
 
   }
+
+  const handleGridConfigBorders = () => {
+
+    // gridconfigborderscallback(gotovalue)
+
+  }
+
   const handleScrollerConfig = () => {
 
     // scrollerconfigcallback(gotovalue)
@@ -310,7 +318,7 @@ export default function TestOptions({callbacks}) {
         <Button onClick = {handleCache} variant="contained">Apply</Button>
       </FormControl>
       <FormControl component="fieldset" className={classes.formControl}>
-          <FormLabel component="legend">7. Grid config</FormLabel>
+          <FormLabel component="legend">7. Grid config (borders)</FormLabel>
           <TextField
             id="gap"
             label="Enter gap size"
@@ -327,7 +335,11 @@ export default function TestOptions({callbacks}) {
           />
       </FormControl>
       <FormControl component="fieldset" className={classes.formControl}>
-          <FormLabel component="legend">Grid config</FormLabel>
+        <FormLabel component="legend">Grid config (borders)</FormLabel>
+        <Button onClick = {handleGridConfigBorders} variant="contained">Apply</Button>
+      </FormControl>
+      <FormControl component="fieldset" className={classes.formControl}>
+          <FormLabel component="legend">Grid config (cells)</FormLabel>
           <TextField
             id="cellwidth"
             label="Enter cell width"
@@ -344,8 +356,8 @@ export default function TestOptions({callbacks}) {
           />
       </FormControl>
       <FormControl component="fieldset" className={classes.formControl}>
-        <FormLabel component="legend">Grid config</FormLabel>
-        <Button onClick = {handleGridConfig} variant="contained">Apply</Button>
+        <FormLabel component="legend">Grid config (cells)</FormLabel>
+        <Button onClick = {handleGridConfigCells} variant="contained">Apply</Button>
       </FormControl>
       <FormControl component="fieldset" className={classes.formControl}>
           <FormLabel component="legend">8. Scroller config</FormLabel>

@@ -335,7 +335,10 @@ const Test = (props) => {
         demos[demo].cacheMax = cacheMax
         setTestState('setcache')
     }
-    const handleGridConfig = () => {
+    const handleGridConfigCells = () => {
+        
+    }
+    const handleGridConfigBorders = () => {
         
     }
     const handleScrollerConfig = () => {
@@ -362,7 +365,8 @@ const Test = (props) => {
         removeindexcallback:handleRemoveIndex,
         applylayoutcallback:handleApplyLayout,
         applycachecallback:handleApplyCache,
-        gridconfigcallback:handleGridConfig,
+        gridconfigcellscallback:handleGridConfigCells,
+        gridconfigborderscallback:handleGridConfigBorders,
         scrollerconfigcallback:handleScrollerConfig,
 
         // preloadcallback:handlePreload,
