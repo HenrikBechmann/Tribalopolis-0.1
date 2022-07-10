@@ -276,6 +276,35 @@ const Test = (props) => {
         }
     },[testState])
 
+    const handleReverseList = () => {
+
+    }
+
+    const handleInsertBeforeIndex = (indexnumber) => {
+
+    }
+
+    const handleInsertAfterIndex = (indexnumber) => {
+
+    }
+
+    const handleRemoveIndex = (indexnumber) => {
+        
+    }
+
+    const handleApplyLayout = () => {
+
+    }
+    const handleGridConfigCells = () => {
+        
+    }
+    const handleGridConfigBorders = () => {
+        
+    }
+    const handleScrollerConfig = () => {
+        
+    }
+
     const handleDemo = (demo) => {
         setDemo(demo)
     }
@@ -310,41 +339,12 @@ const Test = (props) => {
         console.log(callbacksRef.current?.getCradleMap())
     }
 
-    const handleReverseList = () => {
-
-    }
-
-    const handleInsertBeforeIndex = (indexnumber) => {
-
-    }
-
-    const handleInsertAfterIndex = (indexnumber) => {
-
-    }
-
-    const handleRemoveIndex = (indexnumber) => {
-        
-    }
-
-    const handleApplyLayout = () => {
-
-    }
     const handleApplyCache = (cache, cacheMax) => {
         const demo = demoRef.current
         demos[demo].cache = cache
         demos[demo].cacheMax = cacheMax
         setTestState('setcache')
     }
-    const handleGridConfigCells = () => {
-        
-    }
-    const handleGridConfigBorders = () => {
-        
-    }
-    const handleScrollerConfig = () => {
-        
-    }
-
     const democallbacks = {
         orientationcallback:handleOrientation,
         democallback:handleDemo,
