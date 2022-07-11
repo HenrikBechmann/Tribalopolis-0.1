@@ -314,6 +314,10 @@ const Test = (props) => {
         
     }
 
+    const handleSwapIndexes = (firstindex, secondindex) => {
+        
+    }
+
     const handleGridConfigCells = () => {
         
     }
@@ -390,6 +394,7 @@ const Test = (props) => {
         gridconfigcellscallback:handleGridConfigCells,
         gridconfigborderscallback:handleGridConfigBorders,
         scrollerconfigcallback:handleScrollerConfig,
+        swapindexescallback:handleSwapIndexes,
 
         // preloadcallback:handlePreload,
     }

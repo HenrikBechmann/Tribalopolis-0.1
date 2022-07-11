@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme: Theme) =>
       margin: theme.spacing(3),
     },
     wrapper:{
-      width:'3700px'
+      width:'4100px'
     }
   }),
 )
@@ -47,6 +47,7 @@ export default function TestOptions({callbacks}) {
     gridconfigcellscallback,
     gridconfigborderscallback,
     scrollerconfigcallback,
+    swapindexescallback,
 
   } = callbacks
   const styleprops = {}
@@ -80,8 +81,17 @@ export default function TestOptions({callbacks}) {
   let setlistsizevalue:any = 0
   let addremoveindexvalue:any = 0
   let cachevalue:any = ''
+  let firstswapindexvalue:any = 0
+  let secondswapindexvalue:any = 0
 
-  // const updateEstimatedListsizeValue = (event:React.ChangeEvent<HTMLInputElement>) => {
+  const updateFirstSwapIndexValue = (event) => {
+    firstswapindexvalue = event.target.value
+  }
+
+  const updateSecondSwapIndexValue = (event) => {
+    secondswapindexvalue = event.target.value
+  }
+
   const updateEstimatedListsizeValue = (event) => {
 
     // estimatedlistsizevalue = (event.target as HTMLInputElement).value
@@ -204,6 +214,12 @@ export default function TestOptions({callbacks}) {
 
   const handleRemoveIndex = () => {
     removeindexcallback(addremoveindexvalue)
+  }
+
+  const handleSwapIndexes = () => {
+
+    swapindexescallback(firstswapindexvalue, secondswapindexvalue)
+
   }
 
   const doreload = () => {
@@ -414,6 +430,27 @@ export default function TestOptions({callbacks}) {
           <Button onClick = {handleInsertBeforeIndex} variant="contained">Insert Before</Button>
           <Button onClick = {handleInsertAfterIndex} variant="contained">Insert After</Button>
           <Button onClick = {handleRemoveIndex} variant="contained">Remove</Button>
+      </FormControl>
+      <FormControl component="fieldset" className={classes.formControl}>
+          <FormLabel component="legend">11. Swap indexes</FormLabel>
+          <TextField
+            id="swapindexes"
+            label="First index number"
+            defaultValue={0}
+            variant="filled"
+            onChange = {updateFirstSwapIndexValue}
+          />
+          <TextField
+            id="swapindexes"
+            label="Second index number"
+            defaultValue={0}
+            variant="filled"
+            onChange = {updateSecondSwapIndexValue}
+          />
+      </FormControl>
+      <FormControl component="fieldset" className={classes.formControl}>
+          <FormLabel component="legend">Swap indexes</FormLabel>
+          <Button onClick = {handleSwapIndexes} variant="contained">Apply</Button>
       </FormControl>
     </div>
   )
