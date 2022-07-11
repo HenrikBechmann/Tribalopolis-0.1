@@ -74,9 +74,11 @@ const genericstyle = {
 
 const GenericItem = (props) => {
 
+    const originalindexRef = useRef(props.index)
+
     return <div style = {{position:'relative',height:'100%', width:'100%',backgroundColor:'white'}}>
         <div style = {genericstyle}>
-            {props.index + 1}{false && <img style= {{height:'100%'}} src={props.image}/>}
+            {originalindexRef.current + 1}{false && <img style= {{height:'100%'}} src={props.image}/>}
         </div>
     </div>
 

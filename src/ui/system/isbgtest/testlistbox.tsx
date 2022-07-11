@@ -88,6 +88,8 @@ const TestListBox = (props) => {
 
     const dynamicorientationRef = useRef(childorientation)
 
+    const printedNumberRef = useRef(index)
+
     useEffect(() =>{
         if (testStateRef.current == 'setup') return
         const orientation = cradlePassthroughPropertiesRef.current.orientation
@@ -114,7 +116,7 @@ const TestListBox = (props) => {
 
     return <div data-type = "list-frame" style = {styles.container as React.CSSProperties} >
         <div data-type = "list-header" style = {styles.header as React.CSSProperties} >
-            List #{index + 1} of {setlistsize}
+            List #{printedNumberRef.current + 1} of {setlistsize}
         </div>
         <div data-type = "list-content" style = {styles.frame as React.CSSProperties}>
 
