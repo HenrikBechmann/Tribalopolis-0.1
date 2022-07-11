@@ -277,6 +277,26 @@ const Test = (props) => {
     },[testState])
 
     const handleChangeMapping = () => {
+        const cradlemap = callbacksRef.current?.getCradleMap()
+        if (!cradlemap) return
+        const cradlearray = Array.from(cradlemap)
+        cradlearray.sort((a,b) => {
+            const aval = a[0], bval = b[0]
+            return aval - bval
+        })
+        const indexarray = cradlearray.map(item => item[0])
+        const cacheItemIDarray = cradlearray.map(item => item[1])
+        cacheItemIDarray.reverse()
+
+        const changemap = new Map()
+
+        for (const i in indexarray) {
+            changemap.set(indexarray[i],cacheItemIDarray[i])
+        }
+
+        callbacksRef.current?.modifyCacheMap(changemap)
+
+        // console.log(indexarray, cacheItemIDarray, changemap)
 
     }
 
@@ -292,9 +312,6 @@ const Test = (props) => {
         
     }
 
-    const handleApplyLayout = () => {
-
-    }
     const handleGridConfigCells = () => {
         
     }
@@ -303,6 +320,9 @@ const Test = (props) => {
     }
     const handleScrollerConfig = () => {
         
+    }
+    const handleApplyLayout = () => {
+
     }
 
     const handleDemo = (demo) => {
