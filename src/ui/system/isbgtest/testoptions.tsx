@@ -355,7 +355,7 @@ export default function TestOptions({callbacks}) {
         <Button onClick = {handleGridConfigBorders} variant="contained">Apply</Button>
       </FormControl>
       <FormControl component="fieldset" className={classes.formControl}>
-          <FormLabel component="legend">Grid config (cells)</FormLabel>
+          <FormLabel component="legend">8. Grid config (cells)</FormLabel>
           <TextField
             id="cellwidth"
             label="Enter cell width"
@@ -376,7 +376,7 @@ export default function TestOptions({callbacks}) {
         <Button onClick = {handleGridConfigCells} variant="contained">Apply</Button>
       </FormControl>
       <FormControl component="fieldset" className={classes.formControl}>
-          <FormLabel component="legend">8. Scroller config</FormLabel>
+          <FormLabel component="legend">9. Scroller config</FormLabel>
           <TextField
             id="estimatedlistsize"
             label="Enter estimated list size"
@@ -404,7 +404,7 @@ export default function TestOptions({callbacks}) {
           <Button onClick = {handleScrollerConfig} variant="contained">Apply</Button>
       </FormControl>
       <FormControl component="fieldset" className={classes.formControl}>
-          <FormLabel component="legend">9. Component functions</FormLabel>
+          <FormLabel component="legend">10. Component functions</FormLabel>
           <Button onClick = {doreload} variant="contained">Reload</Button>
           <Button onClick = {doclearcache} variant="contained">Clear cache</Button>
           <Button onClick = {dochangemapping} variant="contained">Change mapping</Button>
@@ -416,7 +416,7 @@ export default function TestOptions({callbacks}) {
           <Button onClick = {dogetcradlemap} variant="contained">Get Cradle Map</Button>
       </FormControl>
       <FormControl component="fieldset" className={classes.formControl}>
-          <FormLabel component="legend">10. Add/remove index</FormLabel>
+          <FormLabel component="legend">11. Add/remove index</FormLabel>
           <TextField
             id="addremoveindex"
             label="Enter index number"
@@ -432,7 +432,7 @@ export default function TestOptions({callbacks}) {
           <Button onClick = {handleRemoveIndex} variant="contained">Remove</Button>
       </FormControl>
       <FormControl component="fieldset" className={classes.formControl}>
-          <FormLabel component="legend">11. Swap indexes</FormLabel>
+          <FormLabel component="legend">12. Swap indexes</FormLabel>
           <TextField
             id="swapindexes"
             label="First index number"
