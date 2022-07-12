@@ -302,20 +302,28 @@ const Test = (props) => {
 
     }
 
+    const handleSwapIndexes = (firstindex, secondindex) => {
+        
+        callbacksRef.current?.swapIndexes(firstindex, secondindex)
+
+    }
+
     const handleInsertBeforeIndex = (indexnumber) => {
+
+        callbacksRef.current?.insertIndex(indexnumber, true)
 
     }
 
     const handleInsertAfterIndex = (indexnumber) => {
 
+        callbacksRef.current?.insertIndex(indexnumber, false)
+
     }
 
     const handleRemoveIndex = (indexnumber) => {
         
-    }
+        callbacksRef.current?.removeIndex(indexnumber)
 
-    const handleSwapIndexes = (firstindex, secondindex) => {
-        
     }
 
     const handleGridConfigCells = () => {
