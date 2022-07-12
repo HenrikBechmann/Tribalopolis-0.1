@@ -380,14 +380,11 @@ const Test = (props) => {
         setTestState('setcache')
     }
     const democallbacks = {
+        
         orientationcallback:handleOrientation,
         democallback:handleDemo,
         scrolltoposcallback:handleScrollToPos,
         clearcachecallback:handleClearCache,
-        // scrolltogocallback:handleScrollGo,
-        // alignmentcallback:handleAlignment,
-        // getvisiblecallback:handleGetVisible,
-        // getcontentcallback:handleGetContent,
         reloadcallback:handleReload,
         setlistsizecallback:handleSetListsize,
         getcachemapcallback:handleGetCacheMap,
@@ -404,7 +401,6 @@ const Test = (props) => {
         scrollerconfigcallback:handleScrollerConfig,
         swapindexescallback:handleSwapIndexes,
 
-        // preloadcallback:handlePreload,
     }
 
     return <>
