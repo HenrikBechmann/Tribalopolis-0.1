@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme: Theme) =>
       margin: theme.spacing(3),
     },
     wrapper:{
-      width:'4100px'
+      width:'4200px'
     }
   }),
 )
@@ -48,6 +48,9 @@ export default function TestOptions({callbacks}) {
     gridconfigborderscallback,
     scrollerconfigcallback,
     swapindexescallback,
+    savecallback,
+    restorecallback,
+    resetcallback,
 
   } = callbacks
   const styleprops = {}
@@ -220,6 +223,18 @@ export default function TestOptions({callbacks}) {
 
     swapindexescallback(firstswapindexvalue, secondswapindexvalue)
 
+  }
+
+  const handleSave = () => {
+    savecallback()
+  }
+
+  const handleRestore = () => {
+    restorecallback()
+  }
+
+  const handleReset = () => {
+    resetcallback()
   }
 
   const doreload = () => {
@@ -451,6 +466,12 @@ export default function TestOptions({callbacks}) {
       <FormControl component="fieldset" className={classes.formControl}>
           <FormLabel component="legend">Swap indexes</FormLabel>
           <Button onClick = {handleSwapIndexes} variant="contained">Apply</Button>
+      </FormControl>
+      <FormControl component="fieldset" className={classes.formControl}>
+          <FormLabel component="legend">13. Test data</FormLabel>
+          <Button onClick = {handleSave} variant="contained">Save</Button>
+          <Button onClick = {handleRestore} variant="contained">Restore</Button>
+          <Button onClick = {handleReset} variant="contained">Reset</Button>
       </FormControl>
     </div>
   )

@@ -339,6 +339,16 @@ const Test = (props) => {
 
     }
 
+    const handleSave = () => {
+
+    }
+
+    const handleRestore = () => {
+        
+    }
+    const handleReset = () => {
+        
+    }
     const handleDemo = (demo) => {
         setDemo(demo)
     }
@@ -400,6 +410,9 @@ const Test = (props) => {
         gridconfigborderscallback:handleGridConfigBorders,
         scrollerconfigcallback:handleScrollerConfig,
         swapindexescallback:handleSwapIndexes,
+        savecallback: handleSave,
+        restorecallback: handleRestore,
+        resetcallback: handleReset,
 
     }
 
