@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme: Theme) =>
       margin: theme.spacing(3),
     },
     wrapper:{
-      width:'4200px'
+      width:'4400px'
     }
   }),
 )
@@ -264,8 +264,9 @@ export default function TestOptions({callbacks}) {
 
   return (
     <div className = {classes.wrapper}>
+      <div style = {{backgroundColor:'paleturquoise', display:'inline-block'}}>
       <FormControl component="fieldset" className={classes.formControl}>
-          <FormLabel component="legend">1. Orientation</FormLabel>
+          <FormLabel component="legend">1. Orientation (API)</FormLabel>
           <RadioGroup aria-label="orientation" name="orientation" value={orientationvalue} 
             onChange={handleOrientationChange}>
             <FormControlLabel value="vertical" control={<Radio />} label="Vertical" />
@@ -273,7 +274,7 @@ export default function TestOptions({callbacks}) {
           </RadioGroup>
       </FormControl>
       <FormControl component="fieldset" className={classes.formControl}>
-          <FormLabel component="legend">2. Demos</FormLabel>
+          <FormLabel component="legend">2. Demos (API)</FormLabel>
           <RadioGroup aria-label="demo" name="demo" value={demovalue} onChange={handleDemoChange}>
             <FormControlLabel value="generic" control={<Radio />} label="Generic (simple)" />
             <FormControlLabel value="nested" control={<Radio />} label="Nested lists (complex)" />
@@ -281,29 +282,7 @@ export default function TestOptions({callbacks}) {
           </RadioGroup>
       </FormControl>
       <FormControl component="fieldset" className={classes.formControl}>
-          <FormLabel component="legend">3. Scroll to</FormLabel>
-          <TextField
-            id="scrolltonumber"
-            label="Enter index number"
-            defaultValue={0}
-            variant="filled"
-            onChange = {updateGotoValue}
-          />
-          <Button onClick = {handleGoto} variant="contained">Apply</Button>
-      </FormControl>
-      <FormControl component="fieldset" className={classes.formControl}>
-          <FormLabel component="legend">4. Set listsize</FormLabel>
-          <TextField
-            id="setlistsize"
-            label="Enter new listsize number"
-            defaultValue={0}
-            variant="filled"
-            onChange = {updateSetListsizeValue}
-          />
-          <Button onClick = {handleSetListsize} variant="contained">Apply</Button>
-      </FormControl>
-      <FormControl component="fieldset" className={classes.formControl}>
-        <FormLabel component="legend">5. Layout</FormLabel>
+        <FormLabel component="legend">3. Layout (API)</FormLabel>
         <NativeSelect
           defaultValue={'uniform'}
           inputProps={{
@@ -326,7 +305,7 @@ export default function TestOptions({callbacks}) {
         <Button onClick = {handleLayout} variant="contained">Apply</Button>
       </FormControl>
       <FormControl component="fieldset" className={classes.formControl}>
-        <FormLabel component="legend">6. Cache</FormLabel>
+        <FormLabel component="legend">4. Cache (API)</FormLabel>
         <NativeSelect
           defaultValue={'cradle'}
           inputProps={{
@@ -349,7 +328,7 @@ export default function TestOptions({callbacks}) {
         <Button onClick = {handleCache} variant="contained">Apply</Button>
       </FormControl>
       <FormControl component="fieldset" className={classes.formControl}>
-          <FormLabel component="legend">7. Grid config (borders)</FormLabel>
+          <FormLabel component="legend">5. Grid config (borders) (API)</FormLabel>
           <TextField
             id="gap"
             label="Enter gap size"
@@ -370,7 +349,7 @@ export default function TestOptions({callbacks}) {
         <Button onClick = {handleGridConfigBorders} variant="contained">Apply</Button>
       </FormControl>
       <FormControl component="fieldset" className={classes.formControl}>
-          <FormLabel component="legend">8. Grid config (cells)</FormLabel>
+          <FormLabel component="legend">6. Grid config (cells) (API)</FormLabel>
           <TextField
             id="cellwidth"
             label="Enter cell width"
@@ -391,7 +370,7 @@ export default function TestOptions({callbacks}) {
         <Button onClick = {handleGridConfigCells} variant="contained">Apply</Button>
       </FormControl>
       <FormControl component="fieldset" className={classes.formControl}>
-          <FormLabel component="legend">9. Scroller config</FormLabel>
+          <FormLabel component="legend">7. Scroller config (API)</FormLabel>
           <TextField
             id="estimatedlistsize"
             label="Enter estimated list size"
@@ -418,8 +397,32 @@ export default function TestOptions({callbacks}) {
           />
           <Button onClick = {handleScrollerConfig} variant="contained">Apply</Button>
       </FormControl>
+      </div>
+      <div style = {{backgroundColor:'palegoldenrod', display:'inline-block'}}>
       <FormControl component="fieldset" className={classes.formControl}>
-          <FormLabel component="legend">10. Component functions</FormLabel>
+          <FormLabel component="legend">8. Scroll to (Call)</FormLabel>
+          <TextField
+            id="scrolltonumber"
+            label="Enter index number"
+            defaultValue={0}
+            variant="filled"
+            onChange = {updateGotoValue}
+          />
+          <Button onClick = {handleGoto} variant="contained">Apply</Button>
+      </FormControl>
+      <FormControl component="fieldset" className={classes.formControl}>
+          <FormLabel component="legend">9. Set listsize (Call)</FormLabel>
+          <TextField
+            id="setlistsize"
+            label="Enter new listsize number"
+            defaultValue={0}
+            variant="filled"
+            onChange = {updateSetListsizeValue}
+          />
+          <Button onClick = {handleSetListsize} variant="contained">Apply</Button>
+      </FormControl>
+      <FormControl component="fieldset" className={classes.formControl}>
+          <FormLabel component="legend">10. Component functions (Call)</FormLabel>
           <Button onClick = {doreload} variant="contained">Reload</Button>
           <Button onClick = {doclearcache} variant="contained">Clear cache</Button>
           <Button onClick = {dochangemapping} variant="contained">Change mapping</Button>
@@ -431,7 +434,7 @@ export default function TestOptions({callbacks}) {
           <Button onClick = {dogetcradlemap} variant="contained">Get Cradle Map</Button>
       </FormControl>
       <FormControl component="fieldset" className={classes.formControl}>
-          <FormLabel component="legend">11. Add/remove index</FormLabel>
+          <FormLabel component="legend">11. Add/remove index (Call)</FormLabel>
           <TextField
             id="addremoveindex"
             label="Enter index number"
@@ -447,7 +450,7 @@ export default function TestOptions({callbacks}) {
           <Button onClick = {handleRemoveIndex} variant="contained">Remove</Button>
       </FormControl>
       <FormControl component="fieldset" className={classes.formControl}>
-          <FormLabel component="legend">12. Swap indexes</FormLabel>
+          <FormLabel component="legend">12. Swap indexes (Call)</FormLabel>
           <TextField
             id="swapindexes"
             label="First index number"
@@ -464,15 +467,18 @@ export default function TestOptions({callbacks}) {
           />
       </FormControl>
       <FormControl component="fieldset" className={classes.formControl}>
-          <FormLabel component="legend">Swap indexes</FormLabel>
+          <FormLabel component="legend">Swap indexes (Call)</FormLabel>
           <Button onClick = {handleSwapIndexes} variant="contained">Apply</Button>
       </FormControl>
+      </div>
+      <div style = {{backgroundColor:'palegreen', display:'inline-block'}}>
       <FormControl component="fieldset" className={classes.formControl}>
-          <FormLabel component="legend">13. Test data</FormLabel>
+          <FormLabel component="legend">13. Test data (App)</FormLabel>
           <Button onClick = {handleSave} variant="contained">Save</Button>
           <Button onClick = {handleRestore} variant="contained">Restore</Button>
           <Button onClick = {handleReset} variant="contained">Reset</Button>
       </FormControl>
+      </div>
     </div>
   )
 }
