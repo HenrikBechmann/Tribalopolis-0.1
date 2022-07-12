@@ -3,11 +3,8 @@
 
 /*
 
-    add control fields for 
-    - gap, padding, cellheight, cellwidth, runwaysize, listsize, startingIndex
-    - layout, cache, cacheMax, triggerlineOffset
-    - save data button, using localStorage setItem and getItem
-    - reverse listing button, get cachelist, get cache map buttons
+    create checkbox for display user callbacks to console.
+
 */
 
 import React, {useState, useEffect, useRef, useCallback} from 'react'
