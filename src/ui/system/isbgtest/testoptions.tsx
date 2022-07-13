@@ -84,15 +84,15 @@ export default function TestOptions({callbacks}) {
   let setlistsizevalue:any = 0
   let addremoveindexvalue:any = 0
   let cachevalue:any = ''
-  let firstswapindexvalue:any = 0
-  let secondswapindexvalue:any = 0
+  let firstswapindexvalue:number = 0
+  let secondswapindexvalue:number = 0
 
   const updateFirstSwapIndexValue = (event) => {
-    firstswapindexvalue = event.target.value
+    firstswapindexvalue = parseInt(event.target.value)
   }
 
   const updateSecondSwapIndexValue = (event) => {
-    secondswapindexvalue = event.target.value
+    secondswapindexvalue = parseInt(event.target.value)
   }
 
   const updateEstimatedListsizeValue = (event) => {
@@ -403,6 +403,7 @@ export default function TestOptions({callbacks}) {
           <FormLabel component="legend">8. Scroll to (Call)</FormLabel>
           <TextField
             id="scrolltonumber"
+            type = "number"
             label="Enter index number"
             defaultValue={0}
             variant="filled"
@@ -414,6 +415,7 @@ export default function TestOptions({callbacks}) {
           <FormLabel component="legend">9. Set listsize (Call)</FormLabel>
           <TextField
             id="setlistsize"
+            type = "number"
             label="Enter new listsize number"
             defaultValue={0}
             variant="filled"
@@ -437,6 +439,7 @@ export default function TestOptions({callbacks}) {
           <FormLabel component="legend">11. Add/remove index (Call)</FormLabel>
           <TextField
             id="addremoveindex"
+            type = "number"
             label="Enter index number"
             defaultValue={0}
             variant="filled"
@@ -452,14 +455,16 @@ export default function TestOptions({callbacks}) {
       <FormControl component="fieldset" className={classes.formControl}>
           <FormLabel component="legend">12. Swap indexes (Call)</FormLabel>
           <TextField
-            id="swapindexes"
+            id="firstindex"
+            type = "number"
             label="First index number"
             defaultValue={0}
             variant="filled"
             onChange = {updateFirstSwapIndexValue}
           />
           <TextField
-            id="swapindexes"
+            id="secondindex"
+            type = "number"
             label="Second index number"
             defaultValue={0}
             variant="filled"
