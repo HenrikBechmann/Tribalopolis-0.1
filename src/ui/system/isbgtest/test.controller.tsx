@@ -299,15 +299,9 @@ const Test = (props) => {
 
     }
 
-    const handleMoveBeforeIndex = (firstindex, secondindex) => {
+    const handleMoveIndex = (firstindex, secondindex) => {
         
-        callbacksRef.current?.moveIndex(firstindex, secondindex, true)
-
-    }
-
-    const handleMoveAfterIndex = (firstindex, secondindex) => {
-        
-        callbacksRef.current?.moveIndex(firstindex, secondindex, false)
+        callbacksRef.current?.moveIndex(firstindex, secondindex)
 
     }
 
@@ -412,8 +406,7 @@ const Test = (props) => {
         gridconfigcellscallback:handleGridConfigCells,
         gridconfigborderscallback:handleGridConfigBorders,
         scrollerconfigcallback:handleScrollerConfig,
-        movebeforeindexcallback:handleMoveBeforeIndex,
-        moveafterindexcallback:handleMoveAfterIndex,
+        moveindexcallback:handleMoveIndex,
         savecallback: handleSave,
         restorecallback: handleRestore,
         resetcallback: handleReset,

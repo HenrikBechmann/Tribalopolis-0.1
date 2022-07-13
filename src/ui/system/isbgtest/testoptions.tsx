@@ -47,8 +47,7 @@ export default function TestOptions({callbacks}) {
     gridconfigcellscallback,
     gridconfigborderscallback,
     scrollerconfigcallback,
-    movebeforeindexcallback,
-    moveafterindexcallback,
+    moveindexcallback,
     savecallback,
     restorecallback,
     resetcallback,
@@ -220,15 +219,9 @@ export default function TestOptions({callbacks}) {
     removeindexcallback(addremoveindexvalue)
   }
 
-  const handleMoveBeforeIndex = () => {
+  const handleMoveIndex = () => {
 
-    movebeforeindexcallback(movefromindexvalue, movetoindexvalue)
-
-  }
-
-  const handleMoveAfterIndex = () => {
-
-    moveafterindexcallback(movefromindexvalue, movetoindexvalue)
+    moveindexcallback(movefromindexvalue, movetoindexvalue)
 
   }
 
@@ -462,7 +455,7 @@ export default function TestOptions({callbacks}) {
       <FormControl component="fieldset" className={classes.formControl}>
           <FormLabel component="legend">12. Move index (Call)</FormLabel>
           <TextField
-            id="firstindex"
+            id="movefromindex"
             type = "number"
             label="Move from index"
             defaultValue={0}
@@ -470,7 +463,7 @@ export default function TestOptions({callbacks}) {
             onChange = {updateMoveFromIndexValue}
           />
           <TextField
-            id="secondindex"
+            id="movetoindex"
             type = "number"
             label="Move to index"
             defaultValue={0}
@@ -480,8 +473,7 @@ export default function TestOptions({callbacks}) {
       </FormControl>
       <FormControl component="fieldset" className={classes.formControl}>
           <FormLabel component="legend">Move index (Call)</FormLabel>
-          <Button onClick = {handleMoveBeforeIndex} variant="contained">Move before</Button>
-          <Button onClick = {handleMoveAfterIndex} variant="contained">Move after</Button>
+          <Button onClick = {handleMoveIndex} variant="contained">Move index</Button>
       </FormControl>
       </div>
       <div style = {{backgroundColor:'palegreen', display:'inline-block'}}>
