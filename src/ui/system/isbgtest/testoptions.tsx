@@ -47,7 +47,8 @@ export default function TestOptions({callbacks}) {
     gridconfigcellscallback,
     gridconfigborderscallback,
     scrollerconfigcallback,
-    swapindexescallback,
+    movebeforeindexcallback,
+    moveafterindexcallback,
     savecallback,
     restorecallback,
     resetcallback,
@@ -84,15 +85,15 @@ export default function TestOptions({callbacks}) {
   let setlistsizevalue:any = 0
   let addremoveindexvalue:any = 0
   let cachevalue:any = ''
-  let firstswapindexvalue:number = 0
-  let secondswapindexvalue:number = 0
+  let movefromindexvalue:number = 0
+  let movetoindexvalue:number = 0
 
-  const updateFirstSwapIndexValue = (event) => {
-    firstswapindexvalue = parseInt(event.target.value)
+  const updateMoveFromIndexValue = (event) => {
+    movefromindexvalue = parseInt(event.target.value)
   }
 
-  const updateSecondSwapIndexValue = (event) => {
-    secondswapindexvalue = parseInt(event.target.value)
+  const updateMoveToIndexValue = (event) => {
+    movetoindexvalue = parseInt(event.target.value)
   }
 
   const updateEstimatedListsizeValue = (event) => {
@@ -219,9 +220,15 @@ export default function TestOptions({callbacks}) {
     removeindexcallback(addremoveindexvalue)
   }
 
-  const handleSwapIndexes = () => {
+  const handleMoveBeforeIndex = () => {
 
-    swapindexescallback(firstswapindexvalue, secondswapindexvalue)
+    movebeforeindexcallback(movefromindexvalue, movetoindexvalue)
+
+  }
+
+  const handleMoveAfterIndex = () => {
+
+    moveafterindexcallback(movefromindexvalue, movetoindexvalue)
 
   }
 
@@ -453,27 +460,28 @@ export default function TestOptions({callbacks}) {
           <Button onClick = {handleRemoveIndex} variant="contained">Remove</Button>
       </FormControl>
       <FormControl component="fieldset" className={classes.formControl}>
-          <FormLabel component="legend">12. Swap indexes (Call)</FormLabel>
+          <FormLabel component="legend">12. Move index (Call)</FormLabel>
           <TextField
             id="firstindex"
             type = "number"
-            label="First index number"
+            label="Move from index"
             defaultValue={0}
             variant="filled"
-            onChange = {updateFirstSwapIndexValue}
+            onChange = {updateMoveFromIndexValue}
           />
           <TextField
             id="secondindex"
             type = "number"
-            label="Second index number"
+            label="Move to index"
             defaultValue={0}
             variant="filled"
-            onChange = {updateSecondSwapIndexValue}
+            onChange = {updateMoveToIndexValue}
           />
       </FormControl>
       <FormControl component="fieldset" className={classes.formControl}>
-          <FormLabel component="legend">Swap indexes (Call)</FormLabel>
-          <Button onClick = {handleSwapIndexes} variant="contained">Apply</Button>
+          <FormLabel component="legend">Move index (Call)</FormLabel>
+          <Button onClick = {handleMoveBeforeIndex} variant="contained">Move before</Button>
+          <Button onClick = {handleMoveAfterIndex} variant="contained">Move after</Button>
       </FormControl>
       </div>
       <div style = {{backgroundColor:'palegreen', display:'inline-block'}}>

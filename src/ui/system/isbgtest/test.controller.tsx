@@ -299,9 +299,15 @@ const Test = (props) => {
 
     }
 
-    const handleSwapIndexes = (firstindex, secondindex) => {
+    const handleMoveBeforeIndex = (firstindex, secondindex) => {
         
-        callbacksRef.current?.swapIndexes(firstindex, secondindex)
+        callbacksRef.current?.moveIndex(firstindex, secondindex, true)
+
+    }
+
+    const handleMoveAfterIndex = (firstindex, secondindex) => {
+        
+        callbacksRef.current?.moveIndex(firstindex, secondindex, false)
 
     }
 
@@ -406,7 +412,8 @@ const Test = (props) => {
         gridconfigcellscallback:handleGridConfigCells,
         gridconfigborderscallback:handleGridConfigBorders,
         scrollerconfigcallback:handleScrollerConfig,
-        swapindexescallback:handleSwapIndexes,
+        movebeforeindexcallback:handleMoveBeforeIndex,
+        moveafterindexcallback:handleMoveAfterIndex,
         savecallback: handleSave,
         restorecallback: handleRestore,
         resetcallback: handleReset,
