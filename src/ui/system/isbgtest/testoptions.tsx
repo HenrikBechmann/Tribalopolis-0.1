@@ -39,8 +39,7 @@ export default function TestOptions({callbacks}) {
     getcachelistcallback,
     getcradlemapcallback,
     changemappingcallback,
-    insertindexbeforecallback,
-    insertindexaftercallback,
+    insertindexcallback,
     removeindexcallback,
     applylayoutcallback,
     applycachecallback,
@@ -83,6 +82,7 @@ export default function TestOptions({callbacks}) {
   let startingindexvalue:any = 0
   let setlistsizevalue:any = 0
   let addremoveindexvalue:any = 0
+  let addremoverangehighvalue:any = 0
   let cachevalue:any = ''
   let movefromindexvalue:number = 0
   let movetoindexvalue:number = 0
@@ -163,6 +163,12 @@ export default function TestOptions({callbacks}) {
 
   }
 
+  const updateAddRemoveRangeHighValue = (event) => {
+
+    addremoverangehighvalue = parseInt(event.target.value)
+
+  }
+
   const updateCacheValue  = (event) => {
 
     cachevalue = event.target.value
@@ -207,16 +213,12 @@ export default function TestOptions({callbacks}) {
 
   }
 
-  const handleInsertBeforeIndex = () => {
-    insertindexbeforecallback(addremoveindexvalue)
-  }
-
-  const handleInsertAfterIndex = () => {
-    insertindexaftercallback(addremoveindexvalue)
+  const handleInsertIndex = () => {
+    insertindexcallback(addremoveindexvalue, addremoverangehighvalue)
   }
 
   const handleRemoveIndex = () => {
-    removeindexcallback(addremoveindexvalue)
+    removeindexcallback(addremoveindexvalue, addremoverangehighvalue)
   }
 
   const handleMoveIndex = () => {
@@ -445,11 +447,18 @@ export default function TestOptions({callbacks}) {
             variant="filled"
             onChange = {updateAddRemoveIndexValue}
           />
+          <TextField
+            id="addremoveindexrange"
+            type = "number"
+            label="Enter high range (optional)"
+            defaultValue={null}
+            variant="filled"
+            onChange = {updateAddRemoveRangeHighValue}
+          />
       </FormControl>
       <FormControl component="fieldset" className={classes.formControl}>
           <FormLabel component="legend">Add/remove index</FormLabel>
-          <Button onClick = {handleInsertBeforeIndex} variant="contained">Insert Before</Button>
-          <Button onClick = {handleInsertAfterIndex} variant="contained">Insert After</Button>
+          <Button onClick = {handleInsertIndex} variant="contained">Insert</Button>
           <Button onClick = {handleRemoveIndex} variant="contained">Remove</Button>
       </FormControl>
       <FormControl component="fieldset" className={classes.formControl}>

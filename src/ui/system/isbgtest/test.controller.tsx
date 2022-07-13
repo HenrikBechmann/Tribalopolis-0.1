@@ -305,21 +305,15 @@ const Test = (props) => {
 
     }
 
-    const handleInsertBeforeIndex = (indexnumber) => {
+    const handleInsertIndex = (indexnumber, highrangenumber) => {
 
-        callbacksRef.current?.insertIndex(indexnumber, true)
-
-    }
-
-    const handleInsertAfterIndex = (indexnumber) => {
-
-        callbacksRef.current?.insertIndex(indexnumber, false)
+        callbacksRef.current?.insertIndex(indexnumber, highrangenumber)
 
     }
 
-    const handleRemoveIndex = (indexnumber) => {
+    const handleRemoveIndex = (indexnumber, highrangenumber) => {
         
-        callbacksRef.current?.removeIndex(indexnumber)
+        callbacksRef.current?.removeIndex(indexnumber, highrangenumber)
 
     }
 
@@ -398,8 +392,7 @@ const Test = (props) => {
         getcachelistcallback:handleGetCacheList,
         getcradlemapcallback:handleGetCradleMap,
         changemappingcallback:handleChangeMapping,
-        insertindexbeforecallback:handleInsertBeforeIndex,
-        insertindexaftercallback:handleInsertAfterIndex,
+        insertindexcallback:handleInsertIndex,
         removeindexcallback:handleRemoveIndex,
         applylayoutcallback:handleApplyLayout,
         applycachecallback:handleApplyCache,
