@@ -98,68 +98,68 @@ export default function TestOptions({callbacks}) {
   const updateEstimatedListsizeValue = (event) => {
 
     // estimatedlistsizevalue = (event.target as HTMLInputElement).value
-    estimatedlistsizevalue = event.target.value
+    estimatedlistsizevalue = parseInt(event.target.value)
 
   }
   const updateRunwaysizeValue = (event) => {
 
-    runwaysizevalue = event.target.value
+    runwaysizevalue = parseInt(event.target.value)
 
   }
   const updateStartingindexValue = (event) => {
 
-    startingindexvalue = event.target.value
+    startingindexvalue = parseInt(event.target.value)
 
   }
 
   const updateGapValue = (event) => {
 
-    gapvalue = event.target.value
+    gapvalue = parseInt(event.target.value)
 
   }
   const updatePaddingValue = (event) => {
 
-    paddingvalue = event.target.value
+    paddingvalue = parseInt(event.target.value)
 
   }
   const updateCellwidthValue = (event) => {
 
-    cellwidthvalue = event.target.value
+    cellwidthvalue = parseInt(event.target.value)
 
   }
   const updateCellheightValue = (event) => {
 
-    cellheightvalue = event.target.value
+    cellheightvalue = parseInt(event.target.value)
 
   }
 
   const updateGotoValue = (event) => {
 
-    gotovalue = event.target.value
+    gotovalue = parseInt(event.target.value)
 
   }
 
   const updateSetListsizeValue = (event) => {
 
-    setlistsizevalue = event.target.value
+    setlistsizevalue = parseInt(event.target.value)
 
   }
 
   const updateCacheMaxValue = (event) => {
 
-    cachemaxvalue = event.target.value
+    cachemaxvalue = parseInt(event.target.value)
 
   }
 
   const updateTriggerlineValue = (event) => {
 
-    triggerlinevalue = event.target.value
+    triggerlinevalue = parseInt(event.target.value)
 
   }
 
   const updateAddRemoveIndexValue = (event) => {
 
-    addremoveindexvalue = event.target.value
+    addremoveindexvalue = parseInt(event.target.value)
 
   }
 
@@ -487,6 +487,3 @@ export default function TestOptions({callbacks}) {
     </div>
   )
 }
-
-          // <Button onClick = {dogetVisibleList} variant="contained">get Visible List</Button>
-          // <Button onClick = {dogetContentList} variant="contained">get Content List</Button>
