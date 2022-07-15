@@ -301,7 +301,7 @@ const Test = (props) => {
 
     const handleMoveIndex = (firstindex, secondindex) => {
         
-        callbacksRef.current?.moveIndex(firstindex, secondindex)
+        callbacksRef.current?.moveIndex(secondindex, firstindex)
 
     }
 
