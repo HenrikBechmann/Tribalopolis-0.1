@@ -299,9 +299,9 @@ const Test = (props) => {
 
     }
 
-    const handleMoveIndex = (firstindex, secondindex) => {
+    const handleMoveIndex = (toindex, fromindex, fromhighrange) => {
         
-        callbacksRef.current?.moveIndex(secondindex, firstindex)
+        callbacksRef.current?.moveIndex(toindex, fromindex, fromhighrange)
 
     }
 

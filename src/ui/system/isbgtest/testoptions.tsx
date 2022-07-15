@@ -85,87 +85,94 @@ export default function TestOptions({callbacks}) {
   let addremoverangehighvalue:any = 0
   let cachevalue:any = ''
   let movefromindexvalue:number = 0
+  let movefromhighrangevalue:number = 0
   let movetoindexvalue:number = 0
 
+  const updateMoveFromHighRangeValue = (event) => {
+
+    movefromhighrangevalue = event.target.value
+
+  }
+
   const updateMoveFromIndexValue = (event) => {
-    movefromindexvalue = parseInt(event.target.value)
+    movefromindexvalue = event.target.value
   }
 
   const updateMoveToIndexValue = (event) => {
-    movetoindexvalue = parseInt(event.target.value)
+    movetoindexvalue = event.target.value
   }
 
   const updateEstimatedListsizeValue = (event) => {
 
     // estimatedlistsizevalue = (event.target as HTMLInputElement).value
-    estimatedlistsizevalue = parseInt(event.target.value)
+    estimatedlistsizevalue = event.target.value
 
   }
   const updateRunwaysizeValue = (event) => {
 
-    runwaysizevalue = parseInt(event.target.value)
+    runwaysizevalue = event.target.value
 
   }
   const updateStartingindexValue = (event) => {
 
-    startingindexvalue = parseInt(event.target.value)
+    startingindexvalue = event.target.value
 
   }
 
   const updateGapValue = (event) => {
 
-    gapvalue = parseInt(event.target.value)
+    gapvalue = event.target.value
 
   }
   const updatePaddingValue = (event) => {
 
-    paddingvalue = parseInt(event.target.value)
+    paddingvalue = event.target.value
 
   }
   const updateCellwidthValue = (event) => {
 
-    cellwidthvalue = parseInt(event.target.value)
+    cellwidthvalue = event.target.value
 
   }
   const updateCellheightValue = (event) => {
 
-    cellheightvalue = parseInt(event.target.value)
+    cellheightvalue = event.target.value
 
   }
 
   const updateGotoValue = (event) => {
 
-    gotovalue = parseInt(event.target.value)
+    gotovalue = event.target.value
 
   }
 
   const updateSetListsizeValue = (event) => {
 
-    setlistsizevalue = parseInt(event.target.value)
+    setlistsizevalue = event.target.value
 
   }
 
   const updateCacheMaxValue = (event) => {
 
-    cachemaxvalue = parseInt(event.target.value)
+    cachemaxvalue = event.target.value
 
   }
 
   const updateTriggerlineValue = (event) => {
 
-    triggerlinevalue = parseInt(event.target.value)
+    triggerlinevalue = event.target.value
 
   }
 
   const updateAddRemoveIndexValue = (event) => {
 
-    addremoveindexvalue = parseInt(event.target.value)
+    addremoveindexvalue = event.target.value
 
   }
 
   const updateAddRemoveRangeHighValue = (event) => {
 
-    addremoverangehighvalue = parseInt(event.target.value)
+    addremoverangehighvalue = event.target.value
 
   }
 
@@ -223,7 +230,7 @@ export default function TestOptions({callbacks}) {
 
   const handleMoveIndex = () => {
 
-    moveindexcallback(movefromindexvalue, movetoindexvalue)
+    moveindexcallback(movetoindexvalue, movefromindexvalue, movefromhighrangevalue)
 
   }
 
@@ -333,6 +340,7 @@ export default function TestOptions({callbacks}) {
           <FormLabel component="legend">5. Grid config (borders) (API)</FormLabel>
           <TextField
             id="gap"
+            type = "number"
             label="Enter gap size"
             defaultValue={0}
             variant="filled"
@@ -340,6 +348,7 @@ export default function TestOptions({callbacks}) {
           />
           <TextField
             id="gap"
+            type = "number"
             label="Enter padding size"
             defaultValue={0}
             variant="filled"
@@ -354,6 +363,7 @@ export default function TestOptions({callbacks}) {
           <FormLabel component="legend">6. Grid config (cells) (API)</FormLabel>
           <TextField
             id="cellwidth"
+            type = "number"
             label="Enter cell width"
             defaultValue={0}
             variant="filled"
@@ -361,6 +371,7 @@ export default function TestOptions({callbacks}) {
           />
           <TextField
             id="cellheight"
+            type = "number"
             label="Enter cell height"
             defaultValue={0}
             variant="filled"
@@ -375,6 +386,7 @@ export default function TestOptions({callbacks}) {
           <FormLabel component="legend">7. Scroller config (API)</FormLabel>
           <TextField
             id="estimatedlistsize"
+            type = "number"
             label="Enter estimated list size"
             defaultValue={0}
             variant="filled"
@@ -382,6 +394,7 @@ export default function TestOptions({callbacks}) {
           />
           <TextField
             id="runwaysize"
+            type = "number"
             label="Enter runway size"
             defaultValue={0}
             variant="filled"
@@ -392,6 +405,7 @@ export default function TestOptions({callbacks}) {
           <FormLabel component="legend">Scroller config</FormLabel>
           <TextField
             id="startingindex"
+            type = "number"
             label="Enter starting index"
             defaultValue={0}
             variant="filled"
@@ -472,6 +486,16 @@ export default function TestOptions({callbacks}) {
             onChange = {updateMoveFromIndexValue}
           />
           <TextField
+            id="movefromhighrange"
+            type = "number"
+            label="from high-range (optional)"
+            defaultValue={null}
+            variant="filled"
+            onChange = {updateMoveFromHighRangeValue}
+          />
+      </FormControl>
+      <FormControl component="fieldset" className={classes.formControl}>
+          <TextField
             id="movetoindex"
             type = "number"
             label="Move to index"
@@ -479,8 +503,6 @@ export default function TestOptions({callbacks}) {
             variant="filled"
             onChange = {updateMoveToIndexValue}
           />
-      </FormControl>
-      <FormControl component="fieldset" className={classes.formControl}>
           <FormLabel component="legend">Move index (Call)</FormLabel>
           <Button onClick = {handleMoveIndex} variant="contained">Move index</Button>
       </FormControl>
