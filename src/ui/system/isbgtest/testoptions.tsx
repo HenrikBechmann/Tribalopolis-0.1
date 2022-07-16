@@ -416,7 +416,7 @@ export default function TestOptions({callbacks}) {
       </div>
       <div style = {{backgroundColor:'palegoldenrod', display:'inline-block'}}>
       <FormControl component="fieldset" className={classes.formControl}>
-          <FormLabel component="legend">8. Scroll to (Call)</FormLabel>
+          <FormLabel component="legend">8. Scroll to</FormLabel>
           <TextField
             id="scrolltonumber"
             type = "number"
@@ -428,7 +428,7 @@ export default function TestOptions({callbacks}) {
           <Button onClick = {handleGoto} variant="contained">Apply</Button>
       </FormControl>
       <FormControl component="fieldset" className={classes.formControl}>
-          <FormLabel component="legend">9. Set listsize (Call)</FormLabel>
+          <FormLabel component="legend">9. Set listsize</FormLabel>
           <TextField
             id="setlistsize"
             type = "number"
@@ -440,7 +440,7 @@ export default function TestOptions({callbacks}) {
           <Button onClick = {handleSetListsize} variant="contained">Apply</Button>
       </FormControl>
       <FormControl component="fieldset" className={classes.formControl}>
-          <FormLabel component="legend">10. General operations (Call)</FormLabel>
+          <FormLabel component="legend">10. General operations</FormLabel>
           <Button onClick = {doreload} variant="contained">Reload</Button>
           <Button onClick = {doclearcache} variant="contained">Clear cache</Button>
           <Button onClick = {dochangemapping} variant="contained">Change mapping</Button>
@@ -452,7 +452,7 @@ export default function TestOptions({callbacks}) {
           <Button onClick = {dogetcradlemap} variant="contained">Get Cradle Map</Button>
       </FormControl>
       <FormControl component="fieldset" className={classes.formControl}>
-          <FormLabel component="legend">12. Add/remove index (Call)</FormLabel>
+          <FormLabel component="legend">12. Add/remove index</FormLabel>
           <TextField
             id="addremoveindex"
             type = "number"
@@ -476,7 +476,7 @@ export default function TestOptions({callbacks}) {
           <Button onClick = {handleRemoveIndex} variant="contained">Remove</Button>
       </FormControl>
       <FormControl component="fieldset" className={classes.formControl}>
-          <FormLabel component="legend">13. Move index (Call)</FormLabel>
+          <FormLabel component="legend">13. Move index</FormLabel>
           <TextField
             id="movefromindex"
             type = "number"
@@ -503,7 +503,7 @@ export default function TestOptions({callbacks}) {
             variant="filled"
             onChange = {updateMoveToIndexValue}
           />
-          <FormLabel component="legend">Move index (Call)</FormLabel>
+          <FormLabel component="legend">Move index</FormLabel>
           <Button onClick = {handleMoveIndex} variant="contained">Move index</Button>
       </FormControl>
       </div>
