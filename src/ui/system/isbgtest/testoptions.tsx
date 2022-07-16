@@ -440,19 +440,19 @@ export default function TestOptions({callbacks}) {
           <Button onClick = {handleSetListsize} variant="contained">Apply</Button>
       </FormControl>
       <FormControl component="fieldset" className={classes.formControl}>
-          <FormLabel component="legend">10. Component functions (Call)</FormLabel>
+          <FormLabel component="legend">10. General operations (Call)</FormLabel>
           <Button onClick = {doreload} variant="contained">Reload</Button>
           <Button onClick = {doclearcache} variant="contained">Clear cache</Button>
           <Button onClick = {dochangemapping} variant="contained">Change mapping</Button>
       </FormControl>
       <FormControl component="fieldset" className={classes.formControl}>
-          <FormLabel component="legend">Component functions</FormLabel>
+          <FormLabel component="legend">11. Snapshots</FormLabel>
           <Button onClick = {dogetcachemap} variant="contained">Get Cache Map</Button>
           <Button onClick = {dogetcachelist} variant="contained">Get Cache List</Button>
           <Button onClick = {dogetcradlemap} variant="contained">Get Cradle Map</Button>
       </FormControl>
       <FormControl component="fieldset" className={classes.formControl}>
-          <FormLabel component="legend">11. Add/remove index (Call)</FormLabel>
+          <FormLabel component="legend">12. Add/remove index (Call)</FormLabel>
           <TextField
             id="addremoveindex"
             type = "number"
@@ -476,7 +476,7 @@ export default function TestOptions({callbacks}) {
           <Button onClick = {handleRemoveIndex} variant="contained">Remove</Button>
       </FormControl>
       <FormControl component="fieldset" className={classes.formControl}>
-          <FormLabel component="legend">12. Move index (Call)</FormLabel>
+          <FormLabel component="legend">13. Move index (Call)</FormLabel>
           <TextField
             id="movefromindex"
             type = "number"
