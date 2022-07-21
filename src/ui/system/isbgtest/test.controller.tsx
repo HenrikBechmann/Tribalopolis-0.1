@@ -293,7 +293,7 @@ const Test = (props) => {
             changemap.set(indexarray[i],cacheItemIDarray[i])
         }
 
-        callbacksRef.current?.modifyIndexMap(changemap)
+        callbacksRef.current?.changeIndexMap(changemap)
 
         // console.log(indexarray, cacheItemIDarray, changemap)
 
