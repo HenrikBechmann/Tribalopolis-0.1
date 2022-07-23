@@ -362,16 +362,16 @@ const Test = (props) => {
         callbacksRef.current?.setListsize(listsize)
     }
 
-    const handleGetCacheMap = () => {
-        console.log(callbacksRef.current?.getCacheMap())
+    const handleGetCacheIndexMap = () => {
+        console.log(callbacksRef.current?.getCacheIndexMap())
     }
 
-    const handleGetCacheList = () => {
-        console.log(callbacksRef.current?.getCacheList())
+    const handleGetCacheItemMap = () => {
+        console.log(callbacksRef.current?.getCacheItemMap())
     }
 
-    const handleGetCradleMap = () => {
-        console.log(callbacksRef.current?.getCradleMap())
+    const handleGetCradleIndexMap = () => {
+        console.log(callbacksRef.current?.getCradleIndexMap())
     }
 
     const handleApplyCache = (cache, cacheMax) => {
@@ -388,9 +388,9 @@ const Test = (props) => {
         clearcachecallback:handleClearCache,
         reloadcallback:handleReload,
         setlistsizecallback:handleSetListsize,
-        getcachemapcallback:handleGetCacheMap,
-        getcachelistcallback:handleGetCacheList,
-        getcradlemapcallback:handleGetCradleMap,
+        getcachemapcallback:handleGetCacheIndexMap,
+        getcachelistcallback:handleGetCacheItemMap,
+        getcradlemapcallback:handleGetCradleIndexMap,
         changemappingcallback:handleChangeMapping,
         insertindexcallback:handleInsertIndex,
         removeindexcallback:handleRemoveIndex,

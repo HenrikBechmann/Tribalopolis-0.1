@@ -447,9 +447,9 @@ export default function TestOptions({callbacks}) {
       </FormControl>
       <FormControl component="fieldset" className={classes.formControl}>
           <FormLabel component="legend">11. Snapshots</FormLabel>
-          <Button onClick = {dogetcachemap} variant="contained">Get Cache Map</Button>
-          <Button onClick = {dogetcachelist} variant="contained">Get Cache List</Button>
-          <Button onClick = {dogetcradlemap} variant="contained">Get Cradle Map</Button>
+          <Button onClick = {dogetcachemap} variant="contained">Get Cache Index Map</Button>
+          <Button onClick = {dogetcachelist} variant="contained">Get Cache Item Map</Button>
+          <Button onClick = {dogetcradlemap} variant="contained">Get Cradle Index Map</Button>
       </FormControl>
       <FormControl component="fieldset" className={classes.formControl}>
           <FormLabel component="legend">12. Add/remove index</FormLabel>
