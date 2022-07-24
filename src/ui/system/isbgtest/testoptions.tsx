@@ -36,7 +36,7 @@ export default function TestOptions({callbacks}) {
     getcachemapcallback,
     getcachelistcallback,
     getcradlemapcallback,
-    changemappingcallback,
+    reversecradlecallback,
     insertindexcallback,
     removeindexcallback,
     applylayoutcallback,
@@ -269,9 +269,9 @@ export default function TestOptions({callbacks}) {
 
   }
 
-  const dochangemapping = () => {
+  const doreversecradle = () => {
 
-    changemappingcallback()
+    reversecradlecallback()
 
   }
 
@@ -462,19 +462,22 @@ export default function TestOptions({callbacks}) {
           <Button onClick = {handleSetListsize} variant="contained">Apply</Button>
       </FormControl>
       <FormControl component="fieldset" className={classes.formControl}>
-          <FormLabel component="legend">10. General operations</FormLabel>
-          <Button onClick = {doreload} variant="contained">Reload</Button>
-          <Button onClick = {doclearcache} variant="contained">Clear cache</Button>
-          <Button onClick = {dochangemapping} variant="contained">Change mapping</Button>
-      </FormControl>
-      <FormControl component="fieldset" className={classes.formControl}>
-          <FormLabel component="legend">11. Snapshots</FormLabel>
+          <FormLabel component="legend">10. Get snapshots</FormLabel>
           <Button onClick = {dogetcachemap} variant="contained">Get Cache Index Map</Button>
           <Button onClick = {dogetcachelist} variant="contained">Get Cache Item Map</Button>
           <Button onClick = {dogetcradlemap} variant="contained">Get Cradle Index Map</Button>
       </FormControl>
       <FormControl component="fieldset" className={classes.formControl}>
-          <FormLabel component="legend">12. Add/remove index</FormLabel>
+          <FormLabel component="legend">11. General operations</FormLabel>
+          <Button onClick = {doreload} variant="contained">Reload</Button>
+          <Button onClick = {doclearcache} variant="contained">Clear cache</Button>
+      </FormControl>
+      <FormControl component="fieldset" className={classes.formControl}>
+          <FormLabel component="legend">12. Change mapping</FormLabel>
+          <Button onClick = {doreversecradle} variant="contained">Reverse cradle items</Button>
+      </FormControl>
+      <FormControl component="fieldset" className={classes.formControl}>
+          <FormLabel component="legend">13. Add/remove index</FormLabel>
           <TextField
             id="addremoveindex"
             type = "number"

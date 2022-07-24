@@ -275,7 +275,7 @@ const Test = (props) => {
         }
     },[testState])
 
-    const handleChangeMapping = () => {
+    const handleReverseCradle = () => {
         const cradlemap = callbacksRef.current?.getCradleIndexMap()
         if (!cradlemap) return
         const cradlearray = Array.from(cradlemap)
@@ -391,7 +391,7 @@ const Test = (props) => {
         getcachemapcallback:handleGetCacheIndexMap,
         getcachelistcallback:handleGetCacheItemMap,
         getcradlemapcallback:handleGetCradleIndexMap,
-        changemappingcallback:handleChangeMapping,
+        reversecradlecallback:handleReverseCradle,
         insertindexcallback:handleInsertIndex,
         removeindexcallback:handleRemoveIndex,
         applylayoutcallback:handleApplyLayout,
