@@ -276,7 +276,7 @@ const Test = (props) => {
     },[testState])
 
     const handleChangeMapping = () => {
-        const cradlemap = callbacksRef.current?.getCradleMap()
+        const cradlemap = callbacksRef.current?.getCradleIndexMap()
         if (!cradlemap) return
         const cradlearray = Array.from(cradlemap)
         cradlearray.sort((a,b) => {
