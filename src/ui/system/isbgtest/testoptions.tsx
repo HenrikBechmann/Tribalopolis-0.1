@@ -90,95 +90,95 @@ export default function TestOptions({callbacks}) {
 
   const updateMoveFromHighRangeValue = (event) => {
 
-    movefromhighrangevalue = event.target.value
+    movefromhighrangevalue = parseInt(event.target.value)
 
   }
 
   const updateMoveFromIndexValue = (event) => {
-    movefromindexvalue = event.target.value
+    movefromindexvalue = parseInt(event.target.value)
   }
 
   const updateMoveToIndexValue = (event) => {
-    movetoindexvalue = event.target.value
+    movetoindexvalue = parseInt(event.target.value)
   }
 
   const updateEstimatedListsizeValue = (event) => {
 
     // estimatedlistsizevalue = (event.target as HTMLInputElement).value
-    estimatedlistsizevalue = event.target.value
+    estimatedlistsizevalue = parseInt(event.target.value)
 
   }
   const updateRunwaysizeValue = (event) => {
 
-    runwaysizevalue = event.target.value
+    runwaysizevalue = parseInt(event.target.value)
 
   }
   const updateStartingindexValue = (event) => {
 
-    startingindexvalue = event.target.value
+    startingindexvalue = parseInt(event.target.value)
 
   }
 
   const updateGapValue = (event) => {
 
-    gapvalue = event.target.value
+    gapvalue = parseInt(event.target.value)
 
   }
   const updatePaddingValue = (event) => {
 
-    paddingvalue = event.target.value
+    paddingvalue = parseInt(event.target.value)
 
   }
   const updateCellwidthValue = (event) => {
 
-    cellwidthvalue = event.target.value
+    cellwidthvalue = parseInt(event.target.value)
 
   }
   const updateCellheightValue = (event) => {
 
-    cellheightvalue = event.target.value
+    cellheightvalue = parseInt(event.target.value)
 
   }
 
   const updateGotoValue = (event) => {
 
-    gotovalue = event.target.value
+    gotovalue = parseInt(event.target.value)
 
   }
 
   const updateSetListsizeValue = (event) => {
 
-    setlistsizevalue = event.target.value
+    setlistsizevalue = parseInt(event.target.value)
 
   }
 
   const updateCacheMaxValue = (event) => {
 
-    cachemaxvalue = event.target.value
+    cachemaxvalue = parseInt(event.target.value)
 
   }
 
   const updateTriggerlineValue = (event) => {
 
-    triggerlinevalue = event.target.value
+    triggerlinevalue = parseInt(event.target.value)
 
   }
 
   const updateAddRemoveIndexValue = (event) => {
 
-    addremoveindexvalue = event.target.value
+    addremoveindexvalue = parseInt(event.target.value)
 
   }
 
   const updateAddRemoveRangeHighValue = (event) => {
 
-    addremoverangehighvalue = event.target.value
+    addremoverangehighvalue = parseInt(event.target.value)
 
   }
 
   const updateCacheValue  = (event) => {
 
-    cachevalue = event.target.value
+    cachevalue = parseInt(event.target.value)
   }
 
   const handleLayout = () => {
