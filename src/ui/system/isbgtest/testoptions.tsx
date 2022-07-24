@@ -1,8 +1,6 @@
 // build.controller.tsx
 // copyright (c) 2019 Henrik Bechmann, Toronto, Licence: GPL-3.0-or-later
 
-'use strict'
-
 import React from 'react'
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles'
 import Radio from '@material-ui/core/Radio'
@@ -95,16 +93,19 @@ export default function TestOptions({callbacks}) {
   }
 
   const updateMoveFromIndexValue = (event) => {
+
     movefromindexvalue = parseInt(event.target.value)
+  
   }
 
   const updateMoveToIndexValue = (event) => {
+
     movetoindexvalue = parseInt(event.target.value)
+
   }
 
   const updateEstimatedListsizeValue = (event) => {
 
-    // estimatedlistsizevalue = (event.target as HTMLInputElement).value
     estimatedlistsizevalue = parseInt(event.target.value)
 
   }
@@ -221,11 +222,15 @@ export default function TestOptions({callbacks}) {
   }
 
   const handleInsertIndex = () => {
+
     insertindexcallback(addremoveindexvalue, addremoverangehighvalue)
+
   }
 
   const handleRemoveIndex = () => {
+
     removeindexcallback(addremoveindexvalue, addremoverangehighvalue)
+
   }
 
   const handleMoveIndex = () => {
@@ -235,40 +240,57 @@ export default function TestOptions({callbacks}) {
   }
 
   const handleSave = () => {
+
     savecallback()
+
   }
 
   const handleRestore = () => {
+
     restorecallback()
+
   }
 
   const handleReset = () => {
+
     resetcallback()
+
   }
 
   const doreload = () => {
-    // console.log('reloadcallback from testoptions')
+
     reloadcallback()
+
   }
 
   const doclearcache = () => {
+
     clearcachecallback()
+
   }
 
   const dochangemapping = () => {
+
     changemappingcallback()
+
   }
 
   const dogetcachemap = () => {
+
     getcachemapcallback()
+
   }
 
   const dogetcachelist = () => {
+
     getcachelistcallback()
+
   }
 
   const dogetcradlemap = () => {
+
     getcradlemapcallback()
+    
   }
 
   return (
