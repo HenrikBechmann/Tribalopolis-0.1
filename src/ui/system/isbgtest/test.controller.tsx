@@ -323,7 +323,13 @@ const Test = (props) => {
     const handleGridConfigBorders = () => {
         
     }
-    const handleScrollerConfig = () => {
+    const handleScrollerConfigEstimatedListsize = () => {
+        
+    }
+    const handleScrollerConfigRunwaySize = () => {
+        
+    }
+    const handleScrollerConfigStartingIndex = () => {
         
     }
     const handleApplyLayout = () => {
@@ -398,7 +404,9 @@ const Test = (props) => {
         applycachecallback:handleApplyCache,
         gridconfigcellscallback:handleGridConfigCells,
         gridconfigborderscallback:handleGridConfigBorders,
-        scrollerconfigcallback:handleScrollerConfig,
+        scrollerconfigestimatedlistsizecallback:handleScrollerConfigEstimatedListsize,
+        scrollerconfigrunwaysizecallback:handleScrollerConfigRunwaySize,
+        scrollerconfigstartingindexcallback:handleScrollerConfigStartingIndex,
         moveindexcallback:handleMoveIndex,
         savecallback: handleSave,
         restorecallback: handleRestore,

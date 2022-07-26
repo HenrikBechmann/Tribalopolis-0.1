@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme: Theme) =>
       margin: theme.spacing(3),
     },
     wrapper:{
-      width:'4400px'
+      width:'4800px'
     }
   }),
 )
@@ -43,7 +43,9 @@ export default function TestOptions({callbacks}) {
     applycachecallback,
     gridconfigcellscallback,
     gridconfigborderscallback,
-    scrollerconfigcallback,
+    scrollerconfigestimatedlistsizecallback,
+    scrollerconfigrunwaysizecallback,
+    scrollerconfigstartingindexcallback,
     moveindexcallback,
     savecallback,
     restorecallback,
@@ -204,9 +206,19 @@ export default function TestOptions({callbacks}) {
 
   }
 
-  const handleScrollerConfig = () => {
+  const handleScrollerConfigEstimatedListsize = () => {
 
-    // scrollerconfigcallback(gotovalue)
+    // scrollerconfigestimatedlistsizecallback
+
+  }
+  const handleScrollerConfigRunwaySize = () => {
+
+    // scrollerconfigrunwaysizecallback,
+
+  }
+  const handleScrollerConfigStartingIndex = () => {
+
+    // scrollerconfigstartingindexcallback,
 
   }
   const handleGoto = () => {
@@ -297,7 +309,7 @@ export default function TestOptions({callbacks}) {
     <div className = {classes.wrapper}>
       <div style = {{backgroundColor:'paleturquoise', display:'inline-block'}}>
       <FormControl component="fieldset" className={classes.formControl}>
-          <FormLabel component="legend">1. Orientation (API)</FormLabel>
+          <FormLabel component="legend">1. Orientation</FormLabel>
           <RadioGroup aria-label="orientation" name="orientation" value={orientationvalue} 
             onChange={handleOrientationChange}>
             <FormControlLabel value="vertical" control={<Radio />} label="Vertical" />
@@ -305,7 +317,7 @@ export default function TestOptions({callbacks}) {
           </RadioGroup>
       </FormControl>
       <FormControl component="fieldset" className={classes.formControl}>
-          <FormLabel component="legend">2. Demos (API)</FormLabel>
+          <FormLabel component="legend">2. Demos</FormLabel>
           <RadioGroup aria-label="demo" name="demo" value={demovalue} onChange={handleDemoChange}>
             <FormControlLabel value="generic" control={<Radio />} label="Generic (simple)" />
             <FormControlLabel value="nested" control={<Radio />} label="Nested lists (complex)" />
@@ -313,7 +325,7 @@ export default function TestOptions({callbacks}) {
           </RadioGroup>
       </FormControl>
       <FormControl component="fieldset" className={classes.formControl}>
-        <FormLabel component="legend">3. Layout (API)</FormLabel>
+        <FormLabel component="legend">[3. Layout]</FormLabel>
         <NativeSelect
           defaultValue={'uniform'}
           inputProps={{
@@ -336,7 +348,7 @@ export default function TestOptions({callbacks}) {
         <Button onClick = {handleLayout} variant="contained">Apply</Button>
       </FormControl>
       <FormControl component="fieldset" className={classes.formControl}>
-        <FormLabel component="legend">4. Cache (API)</FormLabel>
+        <FormLabel component="legend">4. Cache</FormLabel>
         <NativeSelect
           defaultValue={'cradle'}
           inputProps={{
@@ -359,7 +371,7 @@ export default function TestOptions({callbacks}) {
         <Button onClick = {handleCache} variant="contained">Apply</Button>
       </FormControl>
       <FormControl component="fieldset" className={classes.formControl}>
-          <FormLabel component="legend">5. Grid config (borders) (API)</FormLabel>
+          <FormLabel component="legend">[5. Grid config (borders)]</FormLabel>
           <TextField
             id="gap"
             type = "number"
@@ -378,11 +390,11 @@ export default function TestOptions({callbacks}) {
           />
       </FormControl>
       <FormControl component="fieldset" className={classes.formControl}>
-        <FormLabel component="legend">Grid config (borders)</FormLabel>
+        <FormLabel component="legend">[Grid config (borders)]</FormLabel>
         <Button onClick = {handleGridConfigBorders} variant="contained">Apply</Button>
       </FormControl>
       <FormControl component="fieldset" className={classes.formControl}>
-          <FormLabel component="legend">6. Grid config (cells) (API)</FormLabel>
+          <FormLabel component="legend">[6. Grid config (cells)]</FormLabel>
           <TextField
             id="cellwidth"
             type = "number"
@@ -401,11 +413,11 @@ export default function TestOptions({callbacks}) {
           />
       </FormControl>
       <FormControl component="fieldset" className={classes.formControl}>
-        <FormLabel component="legend">Grid config (cells)</FormLabel>
+        <FormLabel component="legend">[Grid config (cells)]</FormLabel>
         <Button onClick = {handleGridConfigCells} variant="contained">Apply</Button>
       </FormControl>
       <FormControl component="fieldset" className={classes.formControl}>
-          <FormLabel component="legend">7. Scroller config (API)</FormLabel>
+          <FormLabel component="legend">[7. Config Estimated listsize]</FormLabel>
           <TextField
             id="estimatedlistsize"
             type = "number"
@@ -414,6 +426,10 @@ export default function TestOptions({callbacks}) {
             variant="filled"
             onChange = {updateEstimatedListsizeValue}
           />
+          <Button onClick = {handleScrollerConfigEstimatedListsize} variant="contained">Apply</Button>
+      </FormControl>
+      <FormControl component="fieldset" className={classes.formControl}>
+          <FormLabel component="legend">[8. Config Runwaysize]</FormLabel>
           <TextField
             id="runwaysize"
             type = "number"
@@ -422,9 +438,10 @@ export default function TestOptions({callbacks}) {
             variant="filled"
             onChange = {updateRunwaysizeValue}
           />
+          <Button onClick = {handleScrollerConfigRunwaySize} variant="contained">Apply</Button>
       </FormControl>
       <FormControl component="fieldset" className={classes.formControl}>
-          <FormLabel component="legend">Scroller config</FormLabel>
+          <FormLabel component="legend">[9. Config starting index]</FormLabel>
           <TextField
             id="startingindex"
             type = "number"
@@ -433,12 +450,12 @@ export default function TestOptions({callbacks}) {
             variant="filled"
             onChange = {updateStartingindexValue}
           />
-          <Button onClick = {handleScrollerConfig} variant="contained">Apply</Button>
+          <Button onClick = {handleScrollerConfigStartingIndex} variant="contained">Apply</Button>
       </FormControl>
       </div>
       <div style = {{backgroundColor:'palegoldenrod', display:'inline-block'}}>
       <FormControl component="fieldset" className={classes.formControl}>
-          <FormLabel component="legend">8. Scroll to</FormLabel>
+          <FormLabel component="legend">10. Scroll to</FormLabel>
           <TextField
             id="scrolltonumber"
             type = "number"
@@ -450,7 +467,7 @@ export default function TestOptions({callbacks}) {
           <Button onClick = {handleGoto} variant="contained">Apply</Button>
       </FormControl>
       <FormControl component="fieldset" className={classes.formControl}>
-          <FormLabel component="legend">9. Set listsize</FormLabel>
+          <FormLabel component="legend">11. Set listsize</FormLabel>
           <TextField
             id="setlistsize"
             type = "number"
@@ -462,22 +479,22 @@ export default function TestOptions({callbacks}) {
           <Button onClick = {handleSetListsize} variant="contained">Apply</Button>
       </FormControl>
       <FormControl component="fieldset" className={classes.formControl}>
-          <FormLabel component="legend">10. Get snapshots</FormLabel>
+          <FormLabel component="legend">12. Get snapshots</FormLabel>
           <Button onClick = {dogetcachemap} variant="contained">Get Cache Index Map</Button>
           <Button onClick = {dogetcachelist} variant="contained">Get Cache Item Map</Button>
           <Button onClick = {dogetcradlemap} variant="contained">Get Cradle Index Map</Button>
       </FormControl>
       <FormControl component="fieldset" className={classes.formControl}>
-          <FormLabel component="legend">11. General operations</FormLabel>
+          <FormLabel component="legend">13. General operations</FormLabel>
           <Button onClick = {doreload} variant="contained">Reload</Button>
           <Button onClick = {doclearcache} variant="contained">Clear cache</Button>
       </FormControl>
       <FormControl component="fieldset" className={classes.formControl}>
-          <FormLabel component="legend">12. Change mapping</FormLabel>
+          <FormLabel component="legend">14. Change mapping</FormLabel>
           <Button onClick = {doreversecradle} variant="contained">Reverse cradle items</Button>
       </FormControl>
       <FormControl component="fieldset" className={classes.formControl}>
-          <FormLabel component="legend">13. Add/remove index</FormLabel>
+          <FormLabel component="legend">15. Add/remove index</FormLabel>
           <TextField
             id="addremoveindex"
             type = "number"
@@ -501,7 +518,7 @@ export default function TestOptions({callbacks}) {
           <Button onClick = {handleRemoveIndex} variant="contained">Remove</Button>
       </FormControl>
       <FormControl component="fieldset" className={classes.formControl}>
-          <FormLabel component="legend">13. Move index</FormLabel>
+          <FormLabel component="legend">16. Move index</FormLabel>
           <TextField
             id="movefromindex"
             type = "number"
@@ -534,7 +551,7 @@ export default function TestOptions({callbacks}) {
       </div>
       <div style = {{backgroundColor:'palegreen', display:'inline-block'}}>
       <FormControl component="fieldset" className={classes.formControl}>
-          <FormLabel component="legend">13. Test data (App)</FormLabel>
+          <FormLabel component="legend">[17. Test data]</FormLabel>
           <Button onClick = {handleSave} variant="contained">Save</Button>
           <Button onClick = {handleRestore} variant="contained">Restore</Button>
           <Button onClick = {handleReset} variant="contained">Reset</Button>
