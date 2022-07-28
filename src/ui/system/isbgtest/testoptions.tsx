@@ -43,9 +43,7 @@ export default function TestOptions({callbacks}) {
     applycachecallback,
     gridconfigcellscallback,
     gridconfigborderscallback,
-    scrollerconfigestimatedlistsizecallback,
     scrollerconfigrunwaysizecallback,
-    scrollerconfigstartingindexcallback,
     moveindexcallback,
     savecallback,
     restorecallback,
@@ -77,9 +75,7 @@ export default function TestOptions({callbacks}) {
   let paddingvalue:any = 0
   let cellwidthvalue:any = 0
   let cellheightvalue:any = 0
-  let estimatedlistsizevalue:any = 0
   let runwaysizevalue:any = 0
-  let startingindexvalue:any = 0
   let setlistsizevalue:any = 0
   let addremoveindexvalue:any = 0
   let addremoverangehighvalue:any = 0
@@ -106,19 +102,9 @@ export default function TestOptions({callbacks}) {
 
   }
 
-  const updateEstimatedListsizeValue = (event) => {
-
-    estimatedlistsizevalue = parseInt(event.target.value)
-
-  }
   const updateRunwaysizeValue = (event) => {
 
     runwaysizevalue = parseInt(event.target.value)
-
-  }
-  const updateStartingindexValue = (event) => {
-
-    startingindexvalue = parseInt(event.target.value)
 
   }
 
@@ -206,21 +192,12 @@ export default function TestOptions({callbacks}) {
 
   }
 
-  const handleScrollerConfigEstimatedListsize = () => {
-
-    // scrollerconfigestimatedlistsizecallback
-
-  }
   const handleScrollerConfigRunwaySize = () => {
 
     // scrollerconfigrunwaysizecallback,
 
   }
-  const handleScrollerConfigStartingIndex = () => {
 
-    // scrollerconfigstartingindexcallback,
-
-  }
   const handleGoto = () => {
 
     scrolltoposcallback(gotovalue)
@@ -417,19 +394,7 @@ export default function TestOptions({callbacks}) {
         <Button onClick = {handleGridConfigCells} variant="contained">Apply</Button>
       </FormControl>
       <FormControl component="fieldset" className={classes.formControl}>
-          <FormLabel component="legend">[7. Config Estimated listsize]</FormLabel>
-          <TextField
-            id="estimatedlistsize"
-            type = "number"
-            label="Enter estimated list size"
-            defaultValue={0}
-            variant="filled"
-            onChange = {updateEstimatedListsizeValue}
-          />
-          <Button onClick = {handleScrollerConfigEstimatedListsize} variant="contained">Apply</Button>
-      </FormControl>
-      <FormControl component="fieldset" className={classes.formControl}>
-          <FormLabel component="legend">[8. Config Runwaysize]</FormLabel>
+          <FormLabel component="legend">[7. Config Runwaysize]</FormLabel>
           <TextField
             id="runwaysize"
             type = "number"
@@ -440,22 +405,10 @@ export default function TestOptions({callbacks}) {
           />
           <Button onClick = {handleScrollerConfigRunwaySize} variant="contained">Apply</Button>
       </FormControl>
-      <FormControl component="fieldset" className={classes.formControl}>
-          <FormLabel component="legend">[9. Config starting index]</FormLabel>
-          <TextField
-            id="startingindex"
-            type = "number"
-            label="Enter starting index"
-            defaultValue={0}
-            variant="filled"
-            onChange = {updateStartingindexValue}
-          />
-          <Button onClick = {handleScrollerConfigStartingIndex} variant="contained">Apply</Button>
-      </FormControl>
       </div>
       <div style = {{backgroundColor:'palegoldenrod', display:'inline-block'}}>
       <FormControl component="fieldset" className={classes.formControl}>
-          <FormLabel component="legend">10. Scroll to</FormLabel>
+          <FormLabel component="legend">8. Scroll to</FormLabel>
           <TextField
             id="scrolltonumber"
             type = "number"
@@ -467,7 +420,7 @@ export default function TestOptions({callbacks}) {
           <Button onClick = {handleGoto} variant="contained">Apply</Button>
       </FormControl>
       <FormControl component="fieldset" className={classes.formControl}>
-          <FormLabel component="legend">11. Set listsize</FormLabel>
+          <FormLabel component="legend">9. Set listsize</FormLabel>
           <TextField
             id="setlistsize"
             type = "number"
@@ -479,22 +432,22 @@ export default function TestOptions({callbacks}) {
           <Button onClick = {handleSetListsize} variant="contained">Apply</Button>
       </FormControl>
       <FormControl component="fieldset" className={classes.formControl}>
-          <FormLabel component="legend">12. Get snapshots</FormLabel>
+          <FormLabel component="legend">10. Get snapshots</FormLabel>
           <Button onClick = {dogetcachemap} variant="contained">Get Cache Index Map</Button>
           <Button onClick = {dogetcachelist} variant="contained">Get Cache Item Map</Button>
           <Button onClick = {dogetcradlemap} variant="contained">Get Cradle Index Map</Button>
       </FormControl>
       <FormControl component="fieldset" className={classes.formControl}>
-          <FormLabel component="legend">13. General operations</FormLabel>
+          <FormLabel component="legend">11. General operations</FormLabel>
           <Button onClick = {doreload} variant="contained">Reload</Button>
           <Button onClick = {doclearcache} variant="contained">Clear cache</Button>
       </FormControl>
       <FormControl component="fieldset" className={classes.formControl}>
-          <FormLabel component="legend">14. Change mapping</FormLabel>
+          <FormLabel component="legend">12. Change mapping</FormLabel>
           <Button onClick = {doreversecradle} variant="contained">Reverse cradle items</Button>
       </FormControl>
       <FormControl component="fieldset" className={classes.formControl}>
-          <FormLabel component="legend">15. Add/remove index</FormLabel>
+          <FormLabel component="legend">13. Add/remove index</FormLabel>
           <TextField
             id="addremoveindex"
             type = "number"
