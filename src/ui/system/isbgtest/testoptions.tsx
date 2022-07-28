@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme: Theme) =>
       margin: theme.spacing(3),
     },
     wrapper:{
-      width:'4400px'
+      width:'4200px'
     }
   }),
 )
@@ -45,9 +45,6 @@ export default function TestOptions({callbacks}) {
     gridconfigborderscallback,
     scrollerconfigrunwaysizecallback,
     moveindexcallback,
-    savecallback,
-    restorecallback,
-    resetcallback,
 
   } = callbacks
   const styleprops = {}
@@ -225,24 +222,6 @@ export default function TestOptions({callbacks}) {
   const handleMoveIndex = () => {
 
     moveindexcallback(movetoindexvalue, movefromindexvalue, movefromhighrangevalue)
-
-  }
-
-  const handleSave = () => {
-
-    savecallback()
-
-  }
-
-  const handleRestore = () => {
-
-    restorecallback()
-
-  }
-
-  const handleReset = () => {
-
-    resetcallback()
 
   }
 
@@ -471,7 +450,7 @@ export default function TestOptions({callbacks}) {
           <Button onClick = {handleRemoveIndex} variant="contained">Remove</Button>
       </FormControl>
       <FormControl component="fieldset" className={classes.formControl}>
-          <FormLabel component="legend">16. Move index</FormLabel>
+          <FormLabel component="legend">14. Move index</FormLabel>
           <TextField
             id="movefromindex"
             type = "number"
@@ -500,14 +479,6 @@ export default function TestOptions({callbacks}) {
           />
           <FormLabel component="legend">Move index</FormLabel>
           <Button onClick = {handleMoveIndex} variant="contained">Move index</Button>
-      </FormControl>
-      </div>
-      <div style = {{backgroundColor:'palegreen', display:'inline-block'}}>
-      <FormControl component="fieldset" className={classes.formControl}>
-          <FormLabel component="legend">[17. Test data]</FormLabel>
-          <Button onClick = {handleSave} variant="contained">Save</Button>
-          <Button onClick = {handleRestore} variant="contained">Restore</Button>
-          <Button onClick = {handleReset} variant="contained">Reset</Button>
       </FormControl>
       </div>
     </div>
