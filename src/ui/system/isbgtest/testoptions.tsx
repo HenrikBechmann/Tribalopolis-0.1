@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme: Theme) =>
       margin: theme.spacing(3),
     },
     wrapper:{
-      width:'4800px'
+      width:'4400px'
     }
   }),
 )
