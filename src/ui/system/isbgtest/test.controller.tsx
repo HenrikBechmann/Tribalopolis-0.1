@@ -368,6 +368,7 @@ const Test = (props) => {
 
     const handleApplyCache = (cache, cacheMax) => {
         const demo = demoRef.current
+        // console.log('setting cache of demo', cache, demo, demos[demo])
         demos[demo].cache = cache
         demos[demo].cacheMax = cacheMax
         setTestState('setcache')
