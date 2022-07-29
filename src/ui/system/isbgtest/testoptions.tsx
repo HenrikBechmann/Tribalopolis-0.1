@@ -164,7 +164,7 @@ export default function TestOptions({callbacks}) {
 
   const updateCacheValue  = (event) => {
 
-    cachevalue = parseInt(event.target.value)
+    cachevalue = event.target.value
   }
 
   const handleLayout = () => {
