@@ -37,6 +37,9 @@ const Placeholder = (props) => {
 const getGenericItem = (index) => {
 
      // return <GenericItem index = {index} image = {'https://loremflickr.com/200/300?random='+index}/>
+     // if ((index == 30) || (index == 45)) console.log('getGenericItem returning index', index)
+     // if (index == 30) return Promise.reject(new Error('fail'))
+     // if (index == 45) return null
      return <GenericItem index = {index} />
 
 }
