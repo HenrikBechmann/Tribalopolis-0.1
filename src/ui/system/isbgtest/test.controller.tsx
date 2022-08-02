@@ -162,7 +162,7 @@ const demos = {
         cellWidth:150,
         runwaySize:4,
         startingIndex:0,
-        estimatedListSize:200,
+        estimatedListSize:60,
         getItem:getGenericItem,
         placeholder:null,
         cache:'cradle',
@@ -234,7 +234,7 @@ const Test = (props) => {
 
     const demoselection = demos[demo]
 
-    console.log('inside Test: demo, demoselection',demo,demoselection)
+    // console.log('inside Test: demo, demoselection',demo,demoselection)
 
     const callbacksRef = useRef(null)
 
@@ -376,11 +376,11 @@ const Test = (props) => {
     }
 
     const handleApplyCache = (cache, cacheMax) => {
-        console.log('inside handleApplyCache:cache, cacheMax',cache, cacheMax)
+        // console.log('inside handleApplyCache:cache, cacheMax',cache, cacheMax)
         const demo = demoRef.current
         demos[demo].cache = cache
         demos[demo].cacheMax = cacheMax
-        console.log('setting cache of demo', cache, demo, demos[demo])
+        // console.log('setting cache of demo', cache, demo, demos[demo])
         setTestState('setcache')
     }
     const democallbacks = {

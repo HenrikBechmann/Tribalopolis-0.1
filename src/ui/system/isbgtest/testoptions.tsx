@@ -25,6 +25,22 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 )
 
+let gotovalue:any = 0
+let cachemaxvalue:any = 0
+let triggerlinevalue:any = 10
+let gapvalue:any = 0
+let paddingvalue:any = 0
+let cellwidthvalue:any = 0
+let cellheightvalue:any = 0
+let runwaysizevalue:any = 0
+let setlistsizevalue:any = 0
+let addremoveindexvalue:any = 0
+let addremoverangehighvalue:any = 0
+let cachevalue:any = ''
+let movefromindexvalue:number = 0
+let movefromhighrangevalue:number = 0
+let movetoindexvalue:number = 0
+
 export default function TestOptions({callbacks}) {
   let { 
     orientationcallback, 
@@ -65,22 +81,6 @@ export default function TestOptions({callbacks}) {
     setDemovalue(demovalue)
     democallback(demovalue)    
   }
-
-  let gotovalue:any = 0
-  let cachemaxvalue:any = 0
-  let triggerlinevalue:any = 10
-  let gapvalue:any = 0
-  let paddingvalue:any = 0
-  let cellwidthvalue:any = 0
-  let cellheightvalue:any = 0
-  let runwaysizevalue:any = 0
-  let setlistsizevalue:any = 0
-  let addremoveindexvalue:any = 0
-  let addremoverangehighvalue:any = 0
-  let cachevalue:any = ''
-  let movefromindexvalue:number = 0
-  let movefromhighrangevalue:number = 0
-  let movetoindexvalue:number = 0
 
   const updateMoveFromHighRangeValue = (event) => {
 
