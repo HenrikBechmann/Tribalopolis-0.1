@@ -10,7 +10,7 @@
 
 import React from 'react'
 
-// import Something from '@mui/icons-material/LabelOutlined'
+// import Filter from '@mui/icons-material/FilterAltOutlined'
 import Icon from '@material-ui/core/Icon'
 // import TypeIcon from '@material-ui/icons/LabelOutlined'
 import CircularProgress from '@material-ui/core/CircularProgress'
@@ -211,7 +211,7 @@ class DirectoryBar extends React.Component<any,any> {
                             e.stopPropagation()
                         )}
                     />}
-                    {false && !contextitem && <ActionButton 
+                    {!contextitem && <ActionButton 
                         buttonStyle = {
                             {
                                 float:'none',
@@ -222,7 +222,7 @@ class DirectoryBar extends React.Component<any,any> {
                         action = {e => (
                             e.stopPropagation()
                         )}
-                        icon = 'unfold_more' />}
+                        icon = 'filter_alt_outlined' />}
                     {false && !contextitem && <ActionButton 
                         buttonStyle = {
                             {
