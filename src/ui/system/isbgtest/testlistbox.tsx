@@ -130,7 +130,7 @@ const TestListBox = (props) => {
                 estimatedListSize = {listsize}
                 startingIndex = {offset}
                 getItem = {getListItem}
-                functions = {null}
+                callbacks = {null}
                 placeholder = {null}
                 styles = { null }
                 layout = { null }

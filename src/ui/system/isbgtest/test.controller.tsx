@@ -168,8 +168,8 @@ const demos = {
         cache:'cradle',
         cacheMax:200,
         styles: genericcomponentstyles,
-        functions: {
-            getCallbacks:null,
+        callbacks: {
+            getFunctions:null,
             referenceIndexCallback:null,
             // preloadIndexCallback:null,
         },
@@ -190,8 +190,8 @@ const demos = {
         cache:'cradle',
         cacheMax:200,
         styles: genericcomponentstyles,
-        functions: {
-            getCallbacks:null,
+        callbacks: {
+            getFunctions:null,
             referenceIndexCallback:null,
             // preloadIndexCallback:null,
         },
@@ -211,8 +211,8 @@ const demos = {
         cache:'cradle',
         cacheMax:200,
         styles: genericcomponentstyles,
-        functions: {
-            getCallbacks:null,
+        callbacks: {
+            getFunctions:null,
             referenceIndexCallback:null,
         },
         layout:'uniform',
@@ -238,7 +238,7 @@ const Test = (props) => {
 
     const callbacksRef = useRef(null)
 
-    const getCallbacks = useCallback(callbacks => {
+    const getFunctions = useCallback(callbacks => {
         callbacksRef.current = callbacks
     },[])
 
@@ -255,15 +255,15 @@ const Test = (props) => {
         cache,
         cacheMax,
         styles,
-        functions:inheritedfunctions,
+        callbacks:inheritedcallbacks,
         layout,
         scrollerName,
         
     } = demoselection
 
-    const functions = Object.assign({},inheritedfunctions)
+    const callbacks = Object.assign({},inheritedcallbacks)
 
-    functions.getCallbacks = getCallbacks
+    callbacks.getFunctions = getFunctions
 
     const handleOrientation = (orientation) => {
         setOrientation(orientation)
@@ -433,7 +433,7 @@ const Test = (props) => {
                     cache = { cache }
                     cacheMax = { cacheMax }
                     styles = { styles }
-                    functions = { functions }
+                    callbacks = { callbacks }
                     layout = { layout }
                     scrollerName = { scrollerName }
 
