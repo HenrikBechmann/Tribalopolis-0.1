@@ -502,7 +502,7 @@ let lists = {
         },
         properties:{
             version:0,
-            name:'Storylines',
+            name:'Stories',
         },
         references:{
             subscriptions:[],
@@ -1292,7 +1292,7 @@ let lists = {
         },
         properties:{
             version:0,
-            name:'Labels',
+            name:'Jackets',
             linkedlist:false,
         },
         references:{

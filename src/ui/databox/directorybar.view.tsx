@@ -211,7 +211,7 @@ class DirectoryBar extends React.Component<any,any> {
                             e.stopPropagation()
                         )}
                     />}
-                    {!contextitem && <ActionButton 
+                    {false && !contextitem && <ActionButton 
                         buttonStyle = {
                             {
                                 float:'none',
