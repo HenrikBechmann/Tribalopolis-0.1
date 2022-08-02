@@ -37,9 +37,9 @@ const Placeholder = (props) => {
 const getGenericItem = (index) => {
 
      // return <GenericItem index = {index} image = {'https://loremflickr.com/200/300?random='+index}/>
-     // if ((index == 30) || (index == 45)) console.log('getGenericItem returning index', index)
-     // if (index == 30) return 4050
-     // if (index == 45) return "This is string"
+     // if ((index == 130) || (index == 145)) console.log('getGenericItem returning index', index)
+     // if (index == 130) return Promise.reject(new Error('not found'))
+     // if (index == 145) return null
      return <GenericItem index = {index} />
 
 }
@@ -162,7 +162,7 @@ const demos = {
         cellWidth:150,
         runwaySize:4,
         startingIndex:0,
-        estimatedListSize:60,
+        estimatedListSize:200,
         getItem:getGenericItem,
         placeholder:null,
         cache:'cradle',
