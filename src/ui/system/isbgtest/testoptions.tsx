@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme: Theme) =>
       margin: theme.spacing(3),
     },
     wrapper:{
-      width:'4200px'
+      width:'4400px'
     }
   }),
 )
@@ -45,6 +45,7 @@ export default function TestOptions({callbacks}) {
     gridconfigborderscallback,
     scrollerconfigrunwaysizecallback,
     moveindexcallback,
+    gettestdatacallback,
 
   } = callbacks
   const styleprops = {}
@@ -223,6 +224,10 @@ export default function TestOptions({callbacks}) {
 
     moveindexcallback(movetoindexvalue, movefromindexvalue, movefromhighrangevalue)
 
+  }
+
+  const handleGetTestData = () => {
+    gettestdatacallback()
   }
 
   const doreload = () => {
@@ -479,6 +484,12 @@ export default function TestOptions({callbacks}) {
           />
           <FormLabel component="legend">Move index</FormLabel>
           <Button onClick = {handleMoveIndex} variant="contained">Move index</Button>
+      </FormControl>
+      </div>
+      <div style = {{backgroundColor:'lightgreen', display:'inline-block'}}>
+      <FormControl component="fieldset" className={classes.formControl}>
+          <FormLabel component="legend">Get test data</FormLabel>
+          <Button onClick = {handleGetTestData} variant="contained">Get test data</Button>
       </FormControl>
       </div>
     </div>

@@ -234,6 +234,8 @@ const Test = (props) => {
 
     const demoselection = demos[demo]
 
+    console.log('inside Test: demo, demoselection',demo,demoselection)
+
     const callbacksRef = useRef(null)
 
     const getCallbacks = useCallback(callbacks => {
@@ -300,6 +302,10 @@ const Test = (props) => {
 
         // console.log(indexarray, cacheItemIDarray, changemap)
 
+    }
+
+    const handleGetTestData = () => {
+        console.log('test data', demos, demoselection)
     }
 
     const handleMoveIndex = (toindex, fromindex, fromhighrange) => {
@@ -370,10 +376,11 @@ const Test = (props) => {
     }
 
     const handleApplyCache = (cache, cacheMax) => {
+        console.log('inside handleApplyCache:cache, cacheMax',cache, cacheMax)
         const demo = demoRef.current
-        // console.log('setting cache of demo', cache, demo, demos[demo])
         demos[demo].cache = cache
         demos[demo].cacheMax = cacheMax
+        console.log('setting cache of demo', cache, demo, demos[demo])
         setTestState('setcache')
     }
     const democallbacks = {
@@ -396,6 +403,7 @@ const Test = (props) => {
         gridconfigborderscallback:handleGridConfigBorders,
         scrollerconfigrunwaysizecallback:handleScrollerConfigRunwaySize,
         moveindexcallback:handleMoveIndex,
+        gettestdatacallback:handleGetTestData,
 
     }
 
