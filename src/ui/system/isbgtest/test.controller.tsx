@@ -315,14 +315,14 @@ const Test = (props) => {
     const handleInsertIndex = (indexnumber, highrangenumber) => {
 
         callbacksRef.current?.insertIndex && 
-            console.log('insertIndex:',callbacksRef.current.insertIndex(indexnumber, highrangenumber))
+            console.log('insertIndex: [changelist, replaceList]',callbacksRef.current.insertIndex(indexnumber, highrangenumber))
 
     }
 
     const handleRemoveIndex = (indexnumber, highrangenumber) => {
         
         callbacksRef.current?.removeIndex && 
-            console.log('removeIndex:',callbacksRef.current.removeIndex(indexnumber, highrangenumber))
+            console.log('removeIndex: [changeList, replaceList]',callbacksRef.current.removeIndex(indexnumber, highrangenumber))
 
     }
 
