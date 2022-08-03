@@ -171,7 +171,6 @@ const demos = {
         callbacks: {
             getFunctions:null,
             referenceIndexCallback:null,
-            // preloadIndexCallback:null,
         },
         layout: 'uniform',
         scrollerName:'GENERIC',
@@ -193,7 +192,6 @@ const demos = {
         callbacks: {
             getFunctions:null,
             referenceIndexCallback:null,
-            // preloadIndexCallback:null,
         },
         layout:'uniform',
         scrollerName:'OUTER',
@@ -233,8 +231,6 @@ const Test = (props) => {
     const [testState, setTestState] = useState('ready')
 
     const demoselection = demos[demo]
-
-    // console.log('inside Test: demo, demoselection',demo,demoselection)
 
     const callbacksRef = useRef(null)
 
@@ -298,7 +294,8 @@ const Test = (props) => {
             changemap.set(indexarray[i],cacheItemIDarray[i])
         }
 
-        callbacksRef.current?.changeIndexMap(changemap)
+        callbacksRef.current?.changeIndexMap && 
+            console.log('changeIndexMap:',callbacksRef.current.changeIndexMap(changemap))
 
         // console.log(indexarray, cacheItemIDarray, changemap)
 
@@ -310,19 +307,22 @@ const Test = (props) => {
 
     const handleMoveIndex = (toindex, fromindex, fromhighrange) => {
         
-        callbacksRef.current?.moveIndex(toindex, fromindex, fromhighrange)
+        callbacksRef.current?.moveIndex && 
+            console.log('moveIndex:',callbacksRef.current.moveIndex(toindex, fromindex, fromhighrange))
 
     }
 
     const handleInsertIndex = (indexnumber, highrangenumber) => {
 
-        callbacksRef.current?.insertIndex(indexnumber, highrangenumber)
+        callbacksRef.current?.insertIndex && 
+            console.log('insertIndex:',callbacksRef.current.insertIndex(indexnumber, highrangenumber))
 
     }
 
     const handleRemoveIndex = (indexnumber, highrangenumber) => {
         
-        callbacksRef.current?.removeIndex(indexnumber, highrangenumber)
+        callbacksRef.current?.removeIndex && 
+            console.log('removeIndex:',callbacksRef.current.removeIndex(indexnumber, highrangenumber))
 
     }
 
