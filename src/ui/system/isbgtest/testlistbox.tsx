@@ -61,6 +61,8 @@ const settings = {
 
 const TestListBox = (props) => {
 
+    // console.log('TestListBox props',props)
+
     const [testState, setTestState] = useState('setup')
     const testStateRef = useRef(null)
     testStateRef.current = testState
@@ -84,7 +86,9 @@ const TestListBox = (props) => {
         getListItem, 
     } = settings
 
-    const {cradlePassthroughPropertiesRef} = scrollerData
+    const {scrollerPassthroughPropertiesRef} = scrollerData
+
+    // console.log('testlist box scrollerPassthroughPropertiesRef',scrollerPassthroughPropertiesRef, scrollerData)
 
     const dynamicorientationRef = useRef(childorientation)
 
@@ -92,7 +96,7 @@ const TestListBox = (props) => {
 
     useEffect(() =>{
         if (testStateRef.current == 'setup') return
-        const orientation = cradlePassthroughPropertiesRef.current.orientation
+        const orientation = scrollerPassthroughPropertiesRef.current.orientation
         if (orientation == 'vertical') {
             dynamicorientationRef.current = 'horizontal'
         } else {
@@ -100,7 +104,7 @@ const TestListBox = (props) => {
         }
         setTestState('revised')
 
-    },[cradlePassthroughPropertiesRef.current.orientation])
+    },[scrollerPassthroughPropertiesRef.current.orientation])
 
     useEffect(()=>{
 
