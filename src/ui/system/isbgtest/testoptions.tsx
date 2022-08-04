@@ -13,6 +13,7 @@ import InputLabel from '@material-ui/core/InputLabel'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
 import NativeSelect from '@material-ui/core/NativeSelect'
+import Checkbox from '@material-ui/core/Checkbox'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -40,6 +41,7 @@ let cachevalue:any = ''
 let movefromindexvalue:number = 0
 let movefromhighrangevalue:number = 0
 let movetoindexvalue:number = 0
+let checked:boolean = false
 
 export default function TestOptions({callbacks}) {
   let { 
@@ -62,6 +64,7 @@ export default function TestOptions({callbacks}) {
     scrollerconfigrunwaysizecallback,
     moveindexcallback,
     gettestdatacallback,
+    streamtoconsolecallback,
 
   } = callbacks
   const styleprops = {}
@@ -166,6 +169,7 @@ export default function TestOptions({callbacks}) {
   const updateCacheValue  = (event) => {
 
     cachevalue = event.target.value
+
   }
 
   const handleLayout = () => {
@@ -217,6 +221,13 @@ export default function TestOptions({callbacks}) {
   const handleRemoveIndex = () => {
 
     removeindexcallback(addremoveindexvalue, addremoverangehighvalue)
+
+  }
+
+  const handleStreamChange = (event) => {
+
+    checked = event.target.checked
+    streamtoconsolecallback(checked)
 
   }
 
@@ -490,6 +501,10 @@ export default function TestOptions({callbacks}) {
       <FormControl component="fieldset" className={classes.formControl}>
           <FormLabel component="legend">Get test data</FormLabel>
           <Button onClick = {handleGetTestData} variant="contained">Get test data</Button>
+          <FormLabel component="legend">Stream feedback to console</FormLabel>
+          <Checkbox onChange={handleStreamChange} inputProps={{ 'aria-label': 'primary checkbox' }}
+      />
+   
       </FormControl>
       </div>
     </div>

@@ -19,6 +19,8 @@ import TestScroller from './testscrolling'
 
 const teststring = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Urna id volutpat lacus laoreet non curabitur gravida arcu. Arcu odio ut sem nulla pharetra diam. Amet facilisis magna etiam tempor orci eu. Consequat mauris nunc congue nisi vitae suscipit. Est ultricies integer quis auctor elit. Tellus in hac habitasse platea dictumst vestibulum rhoncus est. Purus non enim praesent elementum facilisis leo. At volutpat diam ut venenatis. Porttitor leo a diam sollicitudin tempor id eu nisl nunc. Sed elementum tempus egestas sed sed risus pretium quam. Tristique risus nec feugiat in fermentum. Sem fringilla ut morbi tincidunt. Malesuada nunc vel risus commodo. Nulla pellentesque dignissim enim sit amet venenatis urna cursus. In egestas erat imperdiet sed euismod nisi porta.'
 
+let dostreaming = false
+
 /*
     Add scrollblockview as strategy to deal with variable cells.
     possibly scrollblockreference as scrollbase with even dimension values per list item reference
@@ -33,6 +35,34 @@ const teststring = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
 const Placeholder = (props) => {
     return <div>SOMETHING</div>
 } 
+
+const referenceIndexCallback = (index, location, cradleState) => {
+
+    dostreaming && console.log('referenceIndexCallback: index, location, cradleState',
+        index, location, cradleState)
+   
+}
+const preloadIndexCallback = (index) => {
+    
+    dostreaming && console.log('preloadIndexCallback: index', index)
+
+}
+const deleteListCallback = (deleteList) => {
+    
+    dostreaming && console.log('deleteListCallback: deleteList',deleteList)
+
+}
+const changeListsizeCallback = (newlistsize) => {
+    
+    dostreaming && console.log('changeListsizeCallback: newlistsize', newlistsize)
+
+}
+const itemExceptionsCallback = (index, itemID, returnvalue, error, location) => {
+    
+    dostreaming && console.log('itemExceptionsCallback: index, itemID, returnvalue, error, location',
+        index, itemID, returnvalue, error, location)
+
+}
 
 const getGenericItem = (index) => {
 
@@ -232,10 +262,10 @@ const Test = (props) => {
 
     const demoselection = demos[demo]
 
-    const callbacksRef = useRef(null)
+    const scrollerFunctionsRef = useRef(null)
 
     const getFunctions = useCallback(callbacks => {
-        callbacksRef.current = callbacks
+        scrollerFunctionsRef.current = callbacks
     },[])
 
     let {
@@ -257,9 +287,16 @@ const Test = (props) => {
         
     } = demoselection
 
-    const callbacks = Object.assign({},inheritedcallbacks)
+    // const callbacks = Object.assign({},inheritedcallbacks)
 
-    callbacks.getFunctions = getFunctions
+    const callbacks = {
+        getFunctions,
+        referenceIndexCallback,
+        preloadIndexCallback,
+        deleteListCallback,
+        changeListsizeCallback,
+        itemExceptionsCallback,
+    }
 
     const handleOrientation = (orientation) => {
         setOrientation(orientation)
@@ -277,7 +314,7 @@ const Test = (props) => {
     },[testState])
 
     const handleReverseCradle = () => {
-        const cradlemap = callbacksRef.current?.getCradleIndexMap()
+        const cradlemap = scrollerFunctionsRef.current?.getCradleIndexMap()
         if (!cradlemap) return
         const cradlearray = Array.from(cradlemap)
         cradlearray.sort((a,b) => {
@@ -294,11 +331,15 @@ const Test = (props) => {
             changemap.set(indexarray[i],cacheItemIDarray[i])
         }
 
-        callbacksRef.current?.changeIndexMap && 
-            console.log('changeIndexMap:',callbacksRef.current.changeIndexMap(changemap))
+        scrollerFunctionsRef.current?.changeIndexMap && 
+            console.log('changeIndexMap:',scrollerFunctionsRef.current.changeIndexMap(changemap))
 
         // console.log(indexarray, cacheItemIDarray, changemap)
 
+    }
+
+    const handleStreamFeedback = (streaming) => {
+        dostreaming = streaming
     }
 
     const handleGetTestData = () => {
@@ -307,22 +348,22 @@ const Test = (props) => {
 
     const handleMoveIndex = (toindex, fromindex, fromhighrange) => {
         
-        callbacksRef.current?.moveIndex && 
-            console.log('moveIndex:',callbacksRef.current.moveIndex(toindex, fromindex, fromhighrange))
+        scrollerFunctionsRef.current?.moveIndex && 
+            console.log('moveIndex:',scrollerFunctionsRef.current.moveIndex(toindex, fromindex, fromhighrange))
 
     }
 
     const handleInsertIndex = (indexnumber, highrangenumber) => {
 
-        callbacksRef.current?.insertIndex && 
-            console.log('insertIndex: [changelist, replaceList]',callbacksRef.current.insertIndex(indexnumber, highrangenumber))
+        scrollerFunctionsRef.current?.insertIndex && 
+            console.log('insertIndex: [changelist, replaceList]',scrollerFunctionsRef.current.insertIndex(indexnumber, highrangenumber))
 
     }
 
     const handleRemoveIndex = (indexnumber, highrangenumber) => {
         
-        callbacksRef.current?.removeIndex && 
-            console.log('removeIndex: [changeList, replaceList]',callbacksRef.current.removeIndex(indexnumber, highrangenumber))
+        scrollerFunctionsRef.current?.removeIndex && 
+            console.log('removeIndex: [changeList, replaceList]',scrollerFunctionsRef.current.removeIndex(indexnumber, highrangenumber))
 
     }
 
@@ -347,32 +388,32 @@ const Test = (props) => {
 
     const handleClearCache = () => {
 
-        callbacksRef.current?.clearCache()        
+        scrollerFunctionsRef.current?.clearCache()        
     }
     
     const handleScrollToPos = (pos) => {
-        callbacksRef.current?.scrollToItem(pos)
+        scrollerFunctionsRef.current?.scrollToItem(pos)
     }
 
     const handleReload = () => {
-        // console.log('calling reload callback from test controller', callbacksRef)
-        callbacksRef.current?.reload()
+        // console.log('calling reload callback from test controller', scrollerFunctionsRef)
+        scrollerFunctionsRef.current?.reload()
     }
 
     const handleSetListsize = (listsize) => {
-        callbacksRef.current?.setListsize(listsize)
+        scrollerFunctionsRef.current?.setListsize(listsize)
     }
 
     const handleGetCacheIndexMap = () => {
-        console.log(callbacksRef.current?.getCacheIndexMap())
+        console.log(scrollerFunctionsRef.current?.getCacheIndexMap())
     }
 
     const handleGetCacheItemMap = () => {
-        console.log(callbacksRef.current?.getCacheItemMap())
+        console.log(scrollerFunctionsRef.current?.getCacheItemMap())
     }
 
     const handleGetCradleIndexMap = () => {
-        console.log(callbacksRef.current?.getCradleIndexMap())
+        console.log(scrollerFunctionsRef.current?.getCradleIndexMap())
     }
 
     const handleApplyCache = (cache, cacheMax) => {
@@ -404,6 +445,7 @@ const Test = (props) => {
         scrollerconfigrunwaysizecallback:handleScrollerConfigRunwaySize,
         moveindexcallback:handleMoveIndex,
         gettestdatacallback:handleGetTestData,
+        streamtoconsolecallback:handleStreamFeedback,
 
     }
 
