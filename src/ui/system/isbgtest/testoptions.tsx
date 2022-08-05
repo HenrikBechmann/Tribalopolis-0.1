@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme: Theme) =>
       margin: theme.spacing(3),
     },
     wrapper:{
-      width:'4600px'
+      width:'4800px'
     }
   }),
 )
@@ -41,7 +41,11 @@ let cachevalue:any = ''
 let movefromindexvalue:number = 0
 let movefromhighrangevalue:number = 0
 let movetoindexvalue:number = 0
-let checked:boolean = false
+let listsizechecked:boolean = false
+let itemchecked:boolean = false
+let indexchecked:boolean = false
+let deletechecked:boolean = false
+let preloadchecked:boolean = false
 
 export default function TestOptions({callbacks}) {
   let { 
@@ -64,7 +68,11 @@ export default function TestOptions({callbacks}) {
     scrollerconfigrunwaysizecallback,
     moveindexcallback,
     gettestdatacallback,
-    streamtoconsolecallback,
+    listsizestreamcallback,
+    itemstreamcallback,
+    indexstreamcallback,
+    preloadstreamcallback,
+    deletestreamcallback,
 
   } = callbacks
   const styleprops = {}
@@ -224,10 +232,36 @@ export default function TestOptions({callbacks}) {
 
   }
 
-  const handleStreamChange = (event) => {
+  const handleItemStreamChange = (event) => {
 
-    checked = event.target.checked
-    streamtoconsolecallback(checked)
+    itemchecked = event.target.checked
+    itemstreamcallback(itemchecked)
+
+  }
+
+  const handleDeleteStreamChange = (event) => {
+
+    deletechecked = event.target.checked
+    deletestreamcallback(deletechecked)
+
+  }
+  const handlePreloadStreamChange = (event) => {
+
+    preloadchecked = event.target.checked
+    preloadstreamcallback(preloadchecked)
+
+  }
+  const handleIndexStreamChange = (event) => {
+
+    indexchecked = event.target.checked
+    indexstreamcallback(indexchecked)
+
+  }
+
+  const handleListsizeStreamChange = (event) => {
+
+    listsizechecked = event.target.checked
+    indexstreamcallback(listsizechecked)
 
   }
 
@@ -503,7 +537,7 @@ export default function TestOptions({callbacks}) {
           <FormControlLabel
             control={
               <Checkbox
-                onChange={handleStreamChange}
+                onChange={handleIndexStreamChange}
                 name="checkedA"
               />
             }
@@ -513,7 +547,7 @@ export default function TestOptions({callbacks}) {
           <FormControlLabel
             control={
               <Checkbox
-                onChange={handleStreamChange}
+                onChange={handlePreloadStreamChange}
                 name="checkedB"
               />
             }
@@ -522,20 +556,32 @@ export default function TestOptions({callbacks}) {
           <FormControlLabel
             control={
               <Checkbox
-                onChange={handleStreamChange}
+                onChange={handleDeleteStreamChange}
                 name="checkedC"
               />
             }
             label="Delete List"
           />
+      </FormControl>
+      <FormControl component="fieldset" className={classes.formControl}>
+          <FormLabel component="legend">Stream feedback to console</FormLabel>
           <FormControlLabel
             control={
               <Checkbox
-                onChange={handleStreamChange}
+                onChange={handleItemStreamChange}
                 name="checkedD"
               />
             }
             label="Item Exceptions"
+          />
+          <FormControlLabel
+            control={
+              <Checkbox
+                onChange={handleListsizeStreamChange}
+                name="checkedE"
+              />
+            }
+            label="Listsize"
           />
       </FormControl>
       <FormControl component="fieldset" className={classes.formControl}>

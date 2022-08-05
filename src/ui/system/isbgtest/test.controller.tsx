@@ -19,7 +19,11 @@ import TestScroller from './testscrolling'
 
 const teststring = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Urna id volutpat lacus laoreet non curabitur gravida arcu. Arcu odio ut sem nulla pharetra diam. Amet facilisis magna etiam tempor orci eu. Consequat mauris nunc congue nisi vitae suscipit. Est ultricies integer quis auctor elit. Tellus in hac habitasse platea dictumst vestibulum rhoncus est. Purus non enim praesent elementum facilisis leo. At volutpat diam ut venenatis. Porttitor leo a diam sollicitudin tempor id eu nisl nunc. Sed elementum tempus egestas sed sed risus pretium quam. Tristique risus nec feugiat in fermentum. Sem fringilla ut morbi tincidunt. Malesuada nunc vel risus commodo. Nulla pellentesque dignissim enim sit amet venenatis urna cursus. In egestas erat imperdiet sed euismod nisi porta.'
 
-let dostreaming = false
+let doitemstreaming = false
+let doindexstreaming = false
+let dopreloadstreaming = false
+let dolistsizestreaming = false
+let dodeletestreaming = false
 
 /*
     Add scrollblockview as strategy to deal with variable cells.
@@ -38,28 +42,28 @@ const Placeholder = (props) => {
 
 const referenceIndexCallback = (index, location, cradleState) => {
 
-    dostreaming && console.log('referenceIndexCallback: index, location, cradleState',
+    doindexstreaming && console.log('referenceIndexCallback: index, location, cradleState',
         index, location, cradleState)
    
 }
 const preloadIndexCallback = (index) => {
     
-    dostreaming && console.log('preloadIndexCallback: index', index)
+    dopreloadstreaming && console.log('preloadIndexCallback: index', index)
 
 }
 const deleteListCallback = (deleteList) => {
     
-    dostreaming && console.log('deleteListCallback: deleteList',deleteList)
+    dodeletestreaming && console.log('deleteListCallback: deleteList',deleteList)
 
 }
 const changeListsizeCallback = (newlistsize) => {
     
-    dostreaming && console.log('changeListsizeCallback: newlistsize', newlistsize)
+    dolistsizestreaming && console.log('changeListsizeCallback: newlistsize', newlistsize)
 
 }
 const itemExceptionsCallback = (index, itemID, returnvalue, error, location) => {
     
-    dostreaming && console.log('itemExceptionsCallback: index, itemID, returnvalue, error, location',
+    doitemstreaming && console.log('itemExceptionsCallback: index, itemID, returnvalue, error, location',
         index, itemID, returnvalue, error, location)
 
 }
@@ -338,8 +342,22 @@ const Test = (props) => {
 
     }
 
-    const handleStreamFeedback = (streaming) => {
-        dostreaming = streaming
+    const handleListsizeStreamFeedback = (streaming) => {
+        dolistsizestreaming = streaming
+    }
+
+    const handleItemStreamFeedback = (streaming) => {
+        doitemstreaming = streaming
+    }
+
+    const handleIndexStreamFeedback = (streaming) => {
+        doindexstreaming = streaming
+    }
+    const handlePreloadStreamFeedback = (streaming) => {
+        dopreloadstreaming = streaming
+    }
+    const handleDeleteStreamFeedback = (streaming) => {
+        dodeletestreaming = streaming
     }
 
     const handleGetTestData = () => {
@@ -445,7 +463,11 @@ const Test = (props) => {
         scrollerconfigrunwaysizecallback:handleScrollerConfigRunwaySize,
         moveindexcallback:handleMoveIndex,
         gettestdatacallback:handleGetTestData,
-        streamtoconsolecallback:handleStreamFeedback,
+        listsizestreamcallback:handleListsizeStreamFeedback,
+        itemstreamcallback:handleItemStreamFeedback,
+        indexstreamcallback:handleIndexStreamFeedback,
+        preloadstreamcallback:handlePreloadStreamFeedback,
+        deletestreamcallback:handleDeleteStreamFeedback,
 
     }
 
