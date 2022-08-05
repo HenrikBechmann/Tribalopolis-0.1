@@ -53,9 +53,9 @@ const preloadIndexCallback = (index) => {
     dopreloadstreaming && console.log('preloadIndexCallback: index', index)
 
 }
-const deleteListCallback = (deleteList) => {
+const deleteListCallback = (reason, deleteList) => {
     
-    dodeletestreaming && console.log('deleteListCallback: deleteList',deleteList)
+    dodeletestreaming && console.log('deleteListCallback: reason, deleteList',reason, deleteList)
 
 }
 const repositioningIndexCallback = (index) => {
