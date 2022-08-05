@@ -71,7 +71,7 @@ const TestListBox = (props) => {
         index, 
         setlistsize, 
         childorientation, 
-        scrollerData 
+        scrollerProperties 
     } = props
 
     const {
@@ -86,9 +86,9 @@ const TestListBox = (props) => {
         getListItem, 
     } = settings
 
-    const {scrollerPassthroughPropertiesRef} = scrollerData
+    const {scrollerPassthroughPropertiesRef} = scrollerProperties
 
-    // console.log('testlist box scrollerPassthroughPropertiesRef',scrollerPassthroughPropertiesRef, scrollerData)
+    // console.log('testlist box scrollerPassthroughPropertiesRef',scrollerPassthroughPropertiesRef, scrollerProperties)
 
     const dynamicorientationRef = useRef(childorientation)
 
@@ -138,7 +138,7 @@ const TestListBox = (props) => {
                 placeholder = {null}
                 styles = { null }
                 layout = { null }
-                scrollerData = { scrollerData }
+                scrollerProperties = { scrollerProperties }
             />
 
         </div>

@@ -80,7 +80,7 @@ const getNestedItem = (index) => {
         index = {index} 
         childorientation = {demos.nested.childorientation} 
         setlistsize = {demos.nested.estimatedListSize}
-        scrollerData = {null}
+        scrollerProperties = {null}
     />
 
 }
