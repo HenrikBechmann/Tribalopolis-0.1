@@ -44,6 +44,7 @@ let movetoindexvalue:number = 0
 let listsizechecked:boolean = false
 let itemchecked:boolean = false
 let indexchecked:boolean = false
+let repositioningchecked:boolean = false
 let deletechecked:boolean = false
 let preloadchecked:boolean = false
 
@@ -73,6 +74,7 @@ export default function TestOptions({callbacks}) {
     indexstreamcallback,
     preloadstreamcallback,
     deletestreamcallback,
+    repositioningstreamcallback,
 
   } = callbacks
   const styleprops = {}
@@ -258,10 +260,17 @@ export default function TestOptions({callbacks}) {
 
   }
 
+  const handleRepositioningStreamChange = (event) => {
+
+    repositioningchecked = event.target.checked
+    repositioningstreamcallback(repositioningchecked)
+
+  }
+
   const handleListsizeStreamChange = (event) => {
 
     listsizechecked = event.target.checked
-    indexstreamcallback(listsizechecked)
+    listsizestreamcallback(listsizechecked)
 
   }
 
@@ -547,24 +556,16 @@ export default function TestOptions({callbacks}) {
           <FormControlLabel
             control={
               <Checkbox
-                onChange={handlePreloadStreamChange}
-                name="checkedB"
+                onChange={handleRepositioningStreamChange}
+                name="checkedA"
               />
             }
-            label="Preload Index"
+            label="Repositioning Index"
+            style = {{fontSize:'7px'}}
           />
-          <FormControlLabel
-            control={
-              <Checkbox
-                onChange={handleDeleteStreamChange}
-                name="checkedC"
-              />
-            }
-            label="Delete List"
-          />
-      </FormControl>
-      <FormControl component="fieldset" className={classes.formControl}>
-          <FormLabel component="legend">Stream feedback to console</FormLabel>
+    </FormControl>
+    <FormControl component="fieldset" className={classes.formControl}>
+        <FormLabel component="legend">Stream feedback to console</FormLabel>
           <FormControlLabel
             control={
               <Checkbox
@@ -577,20 +578,37 @@ export default function TestOptions({callbacks}) {
           <FormControlLabel
             control={
               <Checkbox
+                onChange={handlePreloadStreamChange}
+                name="checkedB"
+              />
+            }
+            label="Preload Index"
+          />
+          <FormControlLabel
+            control={
+              <Checkbox
                 onChange={handleListsizeStreamChange}
                 name="checkedE"
               />
             }
             label="Listsize"
           />
-      </FormControl>
-      <FormControl component="fieldset" className={classes.formControl}>
+          <FormControlLabel
+            control={
+              <Checkbox
+                onChange={handleDeleteStreamChange}
+                name="checkedC"
+              />
+            }
+            label="Delete List"
+          />
+    </FormControl>
+    <FormControl component="fieldset" className={classes.formControl}>
           <FormLabel component="legend">Get test data</FormLabel>
           <Button onClick = {handleGetTestData} variant="contained">Get test data</Button>
-      </FormControl>
+    </FormControl>
       </div>
     </div>
   )
 }
 
-          // <Checkbox onChange={handleStreamChange} inputProps={{ 'aria-label': 'primary checkbox' }}

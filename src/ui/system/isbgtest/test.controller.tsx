@@ -24,6 +24,7 @@ let doindexstreaming = false
 let dopreloadstreaming = false
 let dolistsizestreaming = false
 let dodeletestreaming = false
+let dorepositioningstreaming = false
 
 /*
     Add scrollblockview as strategy to deal with variable cells.
@@ -54,6 +55,11 @@ const preloadIndexCallback = (index) => {
 const deleteListCallback = (deleteList) => {
     
     dodeletestreaming && console.log('deleteListCallback: deleteList',deleteList)
+
+}
+const repositioningIndexCallback = (index) => {
+    
+    dorepositioningstreaming && console.log('repositioningIndexCallback: index',index)
 
 }
 const changeListsizeCallback = (newlistsize) => {
@@ -298,6 +304,7 @@ const Test = (props) => {
         referenceIndexCallback,
         preloadIndexCallback,
         deleteListCallback,
+        repositioningIndexCallback,
         changeListsizeCallback,
         itemExceptionsCallback,
     }
@@ -360,6 +367,9 @@ const Test = (props) => {
         dodeletestreaming = streaming
     }
 
+    const handleRepositioningStreamFeedback = (streaming) => {
+        dorepositioningstreaming = streaming
+    }
     const handleGetTestData = () => {
         console.log('test data', demos, demoselection)
     }
@@ -468,6 +478,7 @@ const Test = (props) => {
         indexstreamcallback:handleIndexStreamFeedback,
         preloadstreamcallback:handlePreloadStreamFeedback,
         deletestreamcallback:handleDeleteStreamFeedback,
+        repositioningstreamcallback:handleRepositioningStreamFeedback,
 
     }
 
