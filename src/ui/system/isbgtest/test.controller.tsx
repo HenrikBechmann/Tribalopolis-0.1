@@ -25,6 +25,7 @@ let dopreloadstreaming = false
 let dolistsizestreaming = false
 let dodeletestreaming = false
 let dorepositioningstreaming = false
+let dorepositioningflagstreaming = false
 
 /*
     Add scrollblockview as strategy to deal with variable cells.
@@ -62,6 +63,13 @@ const repositioningIndexCallback = (index) => {
     dorepositioningstreaming && console.log('repositioningIndexCallback: index',index)
 
 }
+
+const repositioningFlagCallback = (flag) => {
+    
+    dorepositioningflagstreaming && console.log('repositioningFlagCallback: index',flag)
+
+}
+
 const changeListsizeCallback = (newlistsize) => {
     
     dolistsizestreaming && console.log('changeListsizeCallback: newlistsize', newlistsize)
@@ -78,9 +86,9 @@ const getGenericItem = (index) => {
 
      // return <GenericItem index = {index} image = {'https://loremflickr.com/200/300?random='+index}/>
      // if ((index == 130) || (index == 145)) console.log('getGenericItem returning index', index)
-     if (index == 30) return Promise.reject(new Error('not found'))
-     if (index == 40) return 5
-     if (index == 45) return null
+     // if (index == 30) return Promise.reject(new Error('not found'))
+     // if (index == 40) return 5
+     // if (index == 45) return null
      return <GenericItem index = {index} />
 
 }
@@ -306,6 +314,7 @@ const Test = (props) => {
         preloadIndexCallback,
         deleteListCallback,
         repositioningIndexCallback,
+        repositioningFlagCallback,
         changeListsizeCallback,
         itemExceptionsCallback,
     }
@@ -370,6 +379,9 @@ const Test = (props) => {
 
     const handleRepositioningStreamFeedback = (streaming) => {
         dorepositioningstreaming = streaming
+    }
+    const handleRepositioningFlagFeedback = (streaming) => {
+        dorepositioningflagstreaming = streaming
     }
     const handleGetTestData = () => {
         console.log('test data', demos, demoselection)
@@ -480,7 +492,7 @@ const Test = (props) => {
         preloadstreamcallback:handlePreloadStreamFeedback,
         deletestreamcallback:handleDeleteStreamFeedback,
         repositioningstreamcallback:handleRepositioningStreamFeedback,
-
+        repositioningflagcallback: handleRepositioningFlagFeedback
     }
 
     return <>

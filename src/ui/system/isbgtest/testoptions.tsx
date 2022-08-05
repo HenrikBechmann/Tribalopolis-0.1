@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme: Theme) =>
       margin: theme.spacing(3),
     },
     wrapper:{
-      width:'4800px'
+      width:'5100px'
     }
   }),
 )
@@ -45,6 +45,7 @@ let listsizechecked:boolean = false
 let itemchecked:boolean = false
 let indexchecked:boolean = false
 let repositioningchecked:boolean = false
+let repositioningflagchecked:boolean = false
 let deletechecked:boolean = false
 let preloadchecked:boolean = false
 
@@ -75,6 +76,7 @@ export default function TestOptions({callbacks}) {
     preloadstreamcallback,
     deletestreamcallback,
     repositioningstreamcallback,
+    repositioningflagcallback,
 
   } = callbacks
   const styleprops = {}
@@ -253,7 +255,7 @@ export default function TestOptions({callbacks}) {
     preloadstreamcallback(preloadchecked)
 
   }
-  const handleIndexStreamChange = (event) => {
+  const handleRefIndexStreamChange = (event) => {
 
     indexchecked = event.target.checked
     indexstreamcallback(indexchecked)
@@ -264,6 +266,13 @@ export default function TestOptions({callbacks}) {
 
     repositioningchecked = event.target.checked
     repositioningstreamcallback(repositioningchecked)
+
+  }
+
+  const handleRepositioningFlagChange = (event) => {
+
+    repositioningflagchecked = event.target.checked
+    repositioningflagcallback(repositioningflagchecked)
 
   }
 
@@ -546,7 +555,7 @@ export default function TestOptions({callbacks}) {
           <FormControlLabel
             control={
               <Checkbox
-                onChange={handleIndexStreamChange}
+                onChange={handleRefIndexStreamChange}
                 name="checkedA"
               />
             }
@@ -556,25 +565,12 @@ export default function TestOptions({callbacks}) {
           <FormControlLabel
             control={
               <Checkbox
-                onChange={handleRepositioningStreamChange}
-                name="checkedA"
-              />
-            }
-            label="Repositioning Index"
-            style = {{fontSize:'7px'}}
-          />
-          <FormControlLabel
-            control={
-              <Checkbox
                 onChange={handlePreloadStreamChange}
-                name="checkedB"
+                name="checkedC"
               />
             }
             label="Preload Index"
           />
-    </FormControl>
-    <FormControl component="fieldset" className={classes.formControl}>
-        <FormLabel component="legend">Stream feedback to console</FormLabel>
           <FormControlLabel
             control={
               <Checkbox
@@ -584,6 +580,32 @@ export default function TestOptions({callbacks}) {
             }
             label="Item Exceptions"
           />
+    </FormControl>
+    <FormControl component="fieldset" className={classes.formControl}>
+        <FormLabel component="legend">Stream feedback to console</FormLabel>
+          <FormControlLabel
+            control={
+              <Checkbox
+                onChange={handleRepositioningFlagChange}
+                name="checkedB"
+              />
+            }
+            label="isRepositioning Notification"
+            style = {{fontSize:'7px'}}
+          />
+          <FormControlLabel
+            control={
+              <Checkbox
+                onChange={handleRepositioningStreamChange}
+                name="checkedB"
+              />
+            }
+            label="Repositioning Index"
+            style = {{fontSize:'7px'}}
+          />
+    </FormControl>
+    <FormControl component="fieldset" className={classes.formControl}>
+        <FormLabel component="legend">Stream feedback to console</FormLabel>
           <FormControlLabel
             control={
               <Checkbox
@@ -597,10 +619,10 @@ export default function TestOptions({callbacks}) {
             control={
               <Checkbox
                 onChange={handleDeleteStreamChange}
-                name="checkedC"
+                name="checkedF"
               />
             }
-            label="Delete List"
+            label="Deleted List"
           />
     </FormControl>
     <FormControl component="fieldset" className={classes.formControl}>
