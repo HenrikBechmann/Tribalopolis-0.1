@@ -563,6 +563,15 @@ export default function TestOptions({callbacks}) {
             label="Repositioning Index"
             style = {{fontSize:'7px'}}
           />
+          <FormControlLabel
+            control={
+              <Checkbox
+                onChange={handlePreloadStreamChange}
+                name="checkedB"
+              />
+            }
+            label="Preload Index"
+          />
     </FormControl>
     <FormControl component="fieldset" className={classes.formControl}>
         <FormLabel component="legend">Stream feedback to console</FormLabel>
@@ -574,15 +583,6 @@ export default function TestOptions({callbacks}) {
               />
             }
             label="Item Exceptions"
-          />
-          <FormControlLabel
-            control={
-              <Checkbox
-                onChange={handlePreloadStreamChange}
-                name="checkedB"
-              />
-            }
-            label="Preload Index"
           />
           <FormControlLabel
             control={
