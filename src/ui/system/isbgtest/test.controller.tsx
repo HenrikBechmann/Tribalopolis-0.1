@@ -67,10 +67,10 @@ const changeListsizeCallback = (newlistsize) => {
     dolistsizestreaming && console.log('changeListsizeCallback: newlistsize', newlistsize)
 
 }
-const itemExceptionsCallback = (index, itemID, returnvalue, error, location) => {
+const itemExceptionsCallback = (index, itemID, returnvalue, location, error) => {
     
-    doitemstreaming && console.log('itemExceptionsCallback: index, itemID, returnvalue, error, location',
-        index, itemID, returnvalue, error, location)
+    doitemstreaming && console.log('itemExceptionsCallback: index, itemID, returnvalue, location, error',
+        index, itemID, returnvalue, location, error)
 
 }
 
