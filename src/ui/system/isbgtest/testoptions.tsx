@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme: Theme) =>
       margin: theme.spacing(3),
     },
     wrapper:{
-      width:'4400px'
+      width:'4600px'
     }
   }),
 )
@@ -499,14 +499,52 @@ export default function TestOptions({callbacks}) {
       </div>
       <div style = {{backgroundColor:'lightgreen', display:'inline-block'}}>
       <FormControl component="fieldset" className={classes.formControl}>
+          <FormLabel component="legend">Stream feedback to console</FormLabel>
+          <FormControlLabel
+            control={
+              <Checkbox
+                onChange={handleStreamChange}
+                name="checkedA"
+              />
+            }
+            label="Reference Index"
+            style = {{fontSize:'7px'}}
+          />
+          <FormControlLabel
+            control={
+              <Checkbox
+                onChange={handleStreamChange}
+                name="checkedB"
+              />
+            }
+            label="Preload Index"
+          />
+          <FormControlLabel
+            control={
+              <Checkbox
+                onChange={handleStreamChange}
+                name="checkedC"
+              />
+            }
+            label="Delete List"
+          />
+          <FormControlLabel
+            control={
+              <Checkbox
+                onChange={handleStreamChange}
+                name="checkedD"
+              />
+            }
+            label="Item Exceptions"
+          />
+      </FormControl>
+      <FormControl component="fieldset" className={classes.formControl}>
           <FormLabel component="legend">Get test data</FormLabel>
           <Button onClick = {handleGetTestData} variant="contained">Get test data</Button>
-          <FormLabel component="legend">Stream feedback to console</FormLabel>
-          <Checkbox onChange={handleStreamChange} inputProps={{ 'aria-label': 'primary checkbox' }}
-      />
-   
       </FormControl>
       </div>
     </div>
   )
 }
+
+          // <Checkbox onChange={handleStreamChange} inputProps={{ 'aria-label': 'primary checkbox' }}
