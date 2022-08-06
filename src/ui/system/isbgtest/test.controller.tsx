@@ -346,19 +346,19 @@ const Test = (props) => {
 
         const indexarray = cradleindexarray.map(item => item[0])
         const cacheItemIDarray = cradleindexarray.map(item => item[1])
-        console.log('indexarray, cacheItemIDarray',indexarray, cacheItemIDarray)
+        // console.log('test.controller indexarray, cacheItemIDarray',indexarray, cacheItemIDarray)
         cacheItemIDarray.reverse()
 
-        const changemap = new Map()
+        const changeMap = new Map()
 
         for (const i in indexarray) {
-            if (cacheItemIDarray[i]) {
-                changemap.set(indexarray[i],cacheItemIDarray[i])
-            }
+            // if (cacheItemIDarray[i]) {
+                changeMap.set(indexarray[i],cacheItemIDarray[i])
+            // }
         }
-
+        // console.log('testcontroller.changeMap', changeMap)
         if (scrollerFunctionsRef.current?.changeIndexMap) {
-            const returnarray = scrollerFunctionsRef.current.changeIndexMap(changemap)
+            const returnarray = scrollerFunctionsRef.current.changeIndexMap(changeMap)
             if (!returnarray[1]) {
                 console.log('changeIndexMap failed for duplicate entries:', returnarray)
             } else {
