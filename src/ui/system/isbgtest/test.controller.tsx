@@ -217,10 +217,10 @@ const demos = {
         cache:'cradle',
         cacheMax:200,
         styles: genericcomponentstyles,
-        callbacks: {
-            getFunctions:null,
-            referenceIndexCallback:null,
-        },
+        // callbacks: {
+        //     getFunctions:null,
+        //     referenceIndexCallback:null,
+        // },
         layout: 'uniform',
         scrollerName:'GENERIC',
     },
@@ -238,10 +238,10 @@ const demos = {
         cache:'cradle',
         cacheMax:200,
         styles: genericcomponentstyles,
-        callbacks: {
-            getFunctions:null,
-            referenceIndexCallback:null,
-        },
+        // callbacks: {
+        //     getFunctions:null,
+        //     referenceIndexCallback:null,
+        // },
         layout:'uniform',
         scrollerName:'OUTER',
     },
@@ -258,10 +258,10 @@ const demos = {
         cache:'cradle',
         cacheMax:200,
         styles: genericcomponentstyles,
-        callbacks: {
-            getFunctions:null,
-            referenceIndexCallback:null,
-        },
+        // callbacks: {
+        //     getFunctions:null,
+        //     referenceIndexCallback:null,
+        // },
         layout:'uniform',
         scrollerName: 'VARIABLE',
     },
@@ -495,6 +495,8 @@ const Test = (props) => {
         repositioningflagcallback: handleRepositioningFlagFeedback
     }
 
+    const advancedRef = useRef({showAxis:false})
+
     return <>
         <div style = {uistyles.optionswrapper as React.CSSProperties} >
             <TestOptions callbacks = { democallbacks }/>
@@ -523,6 +525,7 @@ const Test = (props) => {
                     styles = { styles }
                     callbacks = { callbacks }
                     layout = { layout }
+                    advanced = { advancedRef.current }
                     scrollerName = { scrollerName }
 
                 />
