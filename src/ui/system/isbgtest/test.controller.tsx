@@ -335,25 +335,36 @@ const Test = (props) => {
     },[testState])
 
     const handleReverseCradle = () => {
-        const cradlemap = scrollerFunctionsRef.current?.getCradleIndexMap()
-        if (!cradlemap) return
-        const cradlearray = Array.from(cradlemap)
-        cradlearray.sort((a,b) => {
+        const cradleindexmap = scrollerFunctionsRef.current?.getCradleIndexMap()
+        if (!cradleindexmap) return
+
+        const cradleindexarray = Array.from(cradleindexmap)
+        cradleindexarray.sort((a,b) => {
             const aval = a[0], bval = b[0]
             return aval - bval
         })
-        const indexarray = cradlearray.map(item => item[0])
-        const cacheItemIDarray = cradlearray.map(item => item[1])
+
+        const indexarray = cradleindexarray.map(item => item[0])
+        const cacheItemIDarray = cradleindexarray.map(item => item[1])
+        console.log('indexarray, cacheItemIDarray',indexarray, cacheItemIDarray)
         cacheItemIDarray.reverse()
 
         const changemap = new Map()
 
         for (const i in indexarray) {
-            changemap.set(indexarray[i],cacheItemIDarray[i])
+            if (cacheItemIDarray[i]) {
+                changemap.set(indexarray[i],cacheItemIDarray[i])
+            }
         }
 
-        scrollerFunctionsRef.current?.changeIndexMap && 
-            console.log('changeIndexMap:',scrollerFunctionsRef.current.changeIndexMap(changemap))
+        if (scrollerFunctionsRef.current?.changeIndexMap) {
+            const returnarray = scrollerFunctionsRef.current.changeIndexMap(changemap)
+            if (!returnarray[1]) {
+                console.log('changeIndexMap failed for duplicate entries:', returnarray)
+            } else {
+                console.log('changeIndexMap:',returnarray[0])
+            }
+        }
 
         // console.log(indexarray, cacheItemIDarray, changemap)
 
