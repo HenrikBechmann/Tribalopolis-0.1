@@ -363,7 +363,7 @@ const Test = (props) => {
             console.log('remapIndexes: [modifiedIndexesList, \
             processedList, \
             indexesToDeleteList, \
-            orphanedIndexesList, \
+            orphanedItemsIDMap, \
             errorEntriesMap, \
             changeMap]', returnarray)
 
