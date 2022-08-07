@@ -60,7 +60,7 @@ export default function TestOptions({callbacks}) {
     getcachemapcallback,
     getcachelistcallback,
     getcradlemapcallback,
-    reversecradlecallback,
+    remapindexescallback,
     insertindexcallback,
     removeindexcallback,
     applylayoutcallback,
@@ -305,9 +305,9 @@ export default function TestOptions({callbacks}) {
 
   }
 
-  const doreversecradle = () => {
+  const doremapindexes = () => {
 
-    reversecradlecallback()
+    remapindexescallback()
 
   }
 
@@ -491,7 +491,7 @@ export default function TestOptions({callbacks}) {
       </FormControl>
       <FormControl component="fieldset" className={classes.formControl}>
           <FormLabel component="legend">12. Change mapping</FormLabel>
-          <Button onClick = {doreversecradle} variant="contained">Reverse cradle items</Button>
+          <Button onClick = {doremapindexes} variant="contained">Test remap indexes</Button>
       </FormControl>
       <FormControl component="fieldset" className={classes.formControl}>
           <FormLabel component="legend">13. Add/remove index</FormLabel>

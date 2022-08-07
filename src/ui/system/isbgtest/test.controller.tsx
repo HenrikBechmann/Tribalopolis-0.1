@@ -334,38 +334,47 @@ const Test = (props) => {
         }
     },[testState])
 
-    const handleReverseCradle = () => {
-        const cradleindexmap = scrollerFunctionsRef.current?.getCradleIndexMap()
-        if (!cradleindexmap) return
+    const handleRemapIndexes = () => {
+        // const cradleindexmap = scrollerFunctionsRef.current?.getCradleIndexMap()
+        // if (!cradleindexmap) return
 
-        const cradleindexarray = Array.from(cradleindexmap)
-        cradleindexarray.sort((a,b) => {
-            const aval = a[0], bval = b[0]
-            return aval - bval
-        })
+        // const cradleindexarray = Array.from(cradleindexmap)
+        // cradleindexarray.sort((a,b) => {
+        //     const aval = a[0], bval = b[0]
+        //     return aval - bval
+        // })
 
-        const indexarray = cradleindexarray.map(item => item[0])
-        const cacheItemIDarray = cradleindexarray.map(item => item[1])
-        // console.log('test.controller indexarray, cacheItemIDarray',indexarray, cacheItemIDarray)
-        cacheItemIDarray.reverse()
+        // const indexarray = cradleindexarray.map(item => item[0])
+        // const cacheItemIDarray = cradleindexarray.map(item => item[1])
+        // // console.log('test.controller indexarray, cacheItemIDarray',indexarray, cacheItemIDarray)
+        // cacheItemIDarray.reverse()
 
         const changeMap = new Map()
 
-        for (const i in indexarray) {
-            // if (cacheItemIDarray[i]) {
-                changeMap.set(indexarray[i],cacheItemIDarray[i])
-            // }
-        }
+        changeMap.set(3,10)
+        changeMap.set(5, undefined)
+        changeMap.set(6,2)
+        changeMap.set(11,2)
+        changeMap.set(20,15)
+        // changeMap.set(300,8)
+        // changeMap.set(20,400)
+        // changeMap.set(22,"text")
+
+        // for (const i in indexarray) {
+        //     // if (cacheItemIDarray[i]) {
+        //         changeMap.set(indexarray[i],cacheItemIDarray[i])
+        //     // }
+        // }
         // console.log('testcontroller.changeMap', changeMap)
         if (scrollerFunctionsRef.current?.remapIndexes) {
             const returnarray = scrollerFunctionsRef.current.remapIndexes(changeMap)
 
             console.log('remapIndexes: [modifiedIndexesList, \
-            processedList, \
-            indexesToDeleteList, \
-            orphanedItemsIDMap, \
-            errorEntriesMap, \
-            changeMap]', returnarray)
+remappedIndexesList, \
+deletedIndexesList, \
+orphanedItemsIDList, \
+errorEntriesMap, \
+changeMap]', returnarray)
 
         }
 
@@ -488,7 +497,7 @@ const Test = (props) => {
         getcachemapcallback:handleGetCacheIndexMap,
         getcachelistcallback:handleGetCacheItemMap,
         getcradlemapcallback:handleGetCradleIndexMap,
-        reversecradlecallback:handleReverseCradle,
+        remapindexescallback:handleRemapIndexes,
         insertindexcallback:handleInsertIndex,
         removeindexcallback:handleRemoveIndex,
         applylayoutcallback:handleApplyLayout,
