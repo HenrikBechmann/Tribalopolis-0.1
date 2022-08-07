@@ -357,16 +357,17 @@ const Test = (props) => {
             // }
         }
         // console.log('testcontroller.changeMap', changeMap)
-        if (scrollerFunctionsRef.current?.changeIndexMap) {
-            const returnarray = scrollerFunctionsRef.current.changeIndexMap(changeMap)
-            if (!returnarray[1]) {
-                console.log('changeIndexMap failed for duplicate entries:', returnarray)
-            } else {
-                console.log('changeIndexMap:',returnarray[0])
-            }
-        }
+        if (scrollerFunctionsRef.current?.remapIndexes) {
+            const returnarray = scrollerFunctionsRef.current.remapIndexes(changeMap)
 
-        // console.log(indexarray, cacheItemIDarray, changemap)
+            console.log('remapIndexes: [modifiedIndexesList, \
+            processedList, \
+            indexesToDeleteList, \
+            orphanedIndexesList, \
+            errorEntriesMap, \
+            changeMap]', returnarray)
+
+        }
 
     }
 
