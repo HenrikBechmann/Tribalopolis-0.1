@@ -86,8 +86,8 @@ const getGenericItem = (index) => {
 
      // return <GenericItem index = {index} image = {'https://loremflickr.com/200/300?random='+index}/>
      // if ((index == 130) || (index == 145)) console.log('getGenericItem returning index', index)
-     if (index == 30) return Promise.reject(new Error('not found'))
-     if (index == 40) return 5
+     // if (index == 30) return Promise.reject(new Error('not found'))
+     // if (index == 40) return 5
      // if (index == 45) return null
      return <GenericItem index = {index} />
 
@@ -353,8 +353,8 @@ const Test = (props) => {
 
         changeMap.set(3,10)
         changeMap.set(5, undefined)
-        changeMap.set(6,2)
-        changeMap.set(11,2)
+        // changeMap.set(6,2)
+        // changeMap.set(11,2)
         changeMap.set(20,15)
         // changeMap.set(300,8)
         // changeMap.set(20,400)
@@ -369,12 +369,15 @@ const Test = (props) => {
         if (scrollerFunctionsRef.current?.remapIndexes) {
             const returnarray = scrollerFunctionsRef.current.remapIndexes(changeMap)
 
-            console.log('remapIndexes: [modifiedIndexesList, \
+            console.log('remapIndexes: \
+[modifiedIndexesList, \
 remappedIndexesList, \
 deletedIndexesList, \
 orphanedItemsIDList, \
+orphanedIndexesList\
 errorEntriesMap, \
-changeMap]', returnarray)
+changeMap]', 
+returnarray)
 
         }
 
