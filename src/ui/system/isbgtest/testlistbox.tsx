@@ -96,7 +96,7 @@ const TestListBox = (props) => {
 
     useEffect(() =>{
         if (testStateRef.current == 'setup') return
-        const orientation = scrollerPassthroughPropertiesRef.current.orientation
+        const { orientation } = scrollerPassthroughPropertiesRef.current
         if (orientation == 'vertical') {
             dynamicorientationRef.current = 'horizontal'
         } else {
@@ -105,6 +105,8 @@ const TestListBox = (props) => {
         setTestState('revised')
 
     },[scrollerPassthroughPropertiesRef.current.orientation])
+
+    const { cache } = scrollerPassthroughPropertiesRef.current
 
     useEffect(()=>{
 
@@ -126,6 +128,7 @@ const TestListBox = (props) => {
 
             <Scroller 
                 orientation = { dynamicorientationRef.current } 
+                cache = { cache }
                 gap = {gap}
                 padding = {padding}
                 cellHeight = {cellHeight}
