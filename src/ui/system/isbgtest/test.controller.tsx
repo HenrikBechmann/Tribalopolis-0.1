@@ -440,7 +440,7 @@ returnarray)
 
         const demo = demoRef.current
         demos[demo].cellWidth = cellwidth
-        demos[demo].cellHeight = cellHeight
+        demos[demo].cellHeight = cellheight
         setTestState('setcellsizes')
         
     }
