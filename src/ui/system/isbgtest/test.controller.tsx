@@ -75,6 +75,7 @@ const changeListsizeCallback = (newlistsize) => {
     dolistsizestreaming && console.log('changeListsizeCallback: newlistsize', newlistsize)
 
 }
+
 const itemExceptionsCallback = (index, itemID, returnvalue, location, error) => {
     
     doitemstreaming && console.log('itemExceptionsCallback: index, itemID, returnvalue, location, error',
@@ -327,6 +328,9 @@ const Test = (props) => {
     useEffect (()=>{
 
         switch (testState) {
+            case 'setborders':
+            case 'setcellsizes':
+            case 'setrunwaysize':
             case 'setcache': {
                 setTestState('ready')
                 break
@@ -432,15 +436,29 @@ returnarray)
 
     }
 
-    const handleGridConfigCells = () => {
+    const handleGridConfigCells = (cellwidth, cellheight) => {
+
+        const demo = demoRef.current
+        demos[demo].cellWidth = cellwidth
+        demos[demo].cellHeight = cellHeight
+        setTestState('setcellsizes')
         
     }
-    const handleGridConfigBorders = () => {
-        
+    const handleGridConfigBorders = (padding, gap) => {
+
+        const demo = demoRef.current
+        demos[demo].padding = padding
+        demos[demo].gap = gap
+        setTestState('setborders')
+
     }
 
-    const handleScrollerConfigRunwaySize = () => {
+    const handleScrollerConfigRunwaySize = (runwaysize) => {
         
+        const demo = demoRef.current
+        demos[demo].runwaySize = runwaysize
+        setTestState('setrunwaysize')
+
     }
 
     const handleApplyLayout = () => {

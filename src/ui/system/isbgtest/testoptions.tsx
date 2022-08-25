@@ -196,19 +196,19 @@ export default function TestOptions({callbacks}) {
   }
   const handleGridConfigCells = () => {
 
-    // gridconfigcellscallback(gotovalue)
+    gridconfigcellscallback(cellwidthvalue, cellheightvalue)
 
   }
 
   const handleGridConfigBorders = () => {
 
-    // gridconfigborderscallback(gotovalue)
+    gridconfigborderscallback(paddingvalue, gapvalue)
 
   }
 
   const handleScrollerConfigRunwaySize = () => {
 
-    // scrollerconfigrunwaysizecallback,
+    scrollerconfigrunwaysizecallback(runwaysizevalue)
 
   }
 
