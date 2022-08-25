@@ -331,6 +331,7 @@ const Test = (props) => {
             case 'setborders':
             case 'setcellsizes':
             case 'setrunwaysize':
+            case 'setlayout':
             case 'setcache': {
                 setTestState('ready')
                 break
@@ -461,7 +462,12 @@ returnarray)
 
     }
 
-    const handleApplyLayout = () => {
+    const handleApplyLayout = (layout, triggerlineOffset) => {
+
+        const demo = demoRef.current
+        demos[demo].layout = layout
+        demos[demo].triggerlineOffset = triggerlineOffset
+        setTestState('setlayout')
 
     }
 

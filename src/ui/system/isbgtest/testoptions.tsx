@@ -38,6 +38,7 @@ let setlistsizevalue:any = 0
 let addremoveindexvalue:any = 0
 let addremoverangehighvalue:any = 0
 let cachevalue:any = ''
+let layoutvalue:any = ''
 let movefromindexvalue:number = 0
 let movefromhighrangevalue:number = 0
 let movetoindexvalue:number = 0
@@ -184,9 +185,15 @@ export default function TestOptions({callbacks}) {
 
   }
 
+  const updateLayoutValue = (event) => {
+
+      layoutvalue = event.target.value
+
+  }
+
   const handleLayout = () => {
 
-    // applylayoutcallback(gotovalue)
+    applylayoutcallback(layoutvalue, triggerlinevalue)
 
   }
   const handleCache = () => {
@@ -356,6 +363,7 @@ export default function TestOptions({callbacks}) {
             name: 'layout',
             id: 'layout',
           }}
+          onChange = {updateLayoutValue}
         >
           <option value={'uniform'}>uniform</option>
           <option value={'variable'}>variable</option>
