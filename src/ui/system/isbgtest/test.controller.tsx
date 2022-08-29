@@ -304,6 +304,7 @@ const Test = (props) => {
         callbacks:inheritedcallbacks,
         layout,
         scrollerName,
+        triggerlineOffset
         
     } = demoselection
 
@@ -566,6 +567,7 @@ returnarray)
                     runwaySize = { runwaySize }
                     startingIndex = { startingIndex }
                     estimatedListSize = { estimatedListSize }
+                    triggerlineOffset = { triggerlineOffset }
                     getItem = { getItem }
                     placeholder = { placeholder }
                     cache = { cache }
