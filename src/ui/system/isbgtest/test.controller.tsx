@@ -186,7 +186,9 @@ const uistyles = {
 }
 
 const genericcomponentstyles = {
-    viewport:null,
+    viewport:{
+        backgroundColor:'green',
+    },
     scrollblock:{
         backgroundColor:'brown',
     },
@@ -194,7 +196,7 @@ const genericcomponentstyles = {
         backgroundColor:'black',
     },
     scrolltracker:{
-        backgroundColor:'cyan'
+        backgroundColor:'cyan',
     }
 }
 
