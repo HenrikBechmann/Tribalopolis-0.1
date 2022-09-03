@@ -71,7 +71,7 @@ const TestListBox = (props) => {
         index, 
         setlistsize, 
         childorientation, 
-        scrollerProperties 
+        scrollerProperties,
     } = props
 
     const {
