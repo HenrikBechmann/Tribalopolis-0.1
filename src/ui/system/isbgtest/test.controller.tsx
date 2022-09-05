@@ -135,16 +135,17 @@ const GenericItem = (props) => {
 }
 
 const variablestyles = {
-    outer:{position:'relative',height:'100%', width:'100%',backgroundColor:'white'},
+    // outer:{position:'relative',height:'100%', width:'100%',backgroundColor:'white'},
+    outer:{backgroundColor:'white'},
     inner:{
-                position:'absolute',
-                top:0,
-                left:0,
+                // position:'absolute',
+                // top:0,
+                // left:0,
                 padding:'3px',
                 opacity:.5,
                 borderRadius:'8px',
                 backgroundColor:'white', 
-                margin:'3px'
+                // margin:'3px'
             }
 }
 
@@ -265,7 +266,7 @@ const demos = {
         //     getFunctions:null,
         //     referenceIndexCallback:null,
         // },
-        layout:'uniform',
+        layout:'variable',
         scrollerName: 'VARIABLE',
     },
 }
