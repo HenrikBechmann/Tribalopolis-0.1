@@ -215,7 +215,7 @@ const demos = {
         cellWidth:150,
         runwaySize:4,
         startingIndex:0,
-        estimatedListSize:60,
+        estimatedListSize:200,
         getItem:getGenericItem,
         placeholder:null,
         cache:'cradle',
