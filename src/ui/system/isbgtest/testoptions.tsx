@@ -367,8 +367,6 @@ export default function TestOptions({callbacks}) {
         >
           <option value={'uniform'}>uniform</option>
           <option value={'variable'}>variable</option>
-          <option value={'dynamic'}>dynamic</option>
-          <option value={'dense'}>dense</option>
         </NativeSelect>
         <TextField
           id="cachemax"
