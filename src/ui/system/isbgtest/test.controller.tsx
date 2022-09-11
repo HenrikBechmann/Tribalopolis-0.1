@@ -138,15 +138,18 @@ const variablestyles = {
     // outer:{position:'relative',height:'100%', width:'100%',backgroundColor:'white'},
     outer:{backgroundColor:'white'},
     inner:{
-                // position:'absolute',
-                // top:0,
-                // left:0,
-                padding:'3px',
-                opacity:.5,
-                borderRadius:'8px',
-                backgroundColor:'white', 
-                // margin:'3px'
-            }
+        // position:'absolute',
+        // top:0,
+        // left:0,
+        overflow:'hidden',
+        padding:'3px',
+        opacity:.5,
+        borderRadius:'8px',
+        backgroundColor:'white', 
+        // minHeight:'80px',
+        // maxHeight:'320px'
+        // margin:'3px'
+    }
 }
 
 let teststrings = []
@@ -254,7 +257,7 @@ const demos = {
         padding:10,
         cellHeight:100,
         cellWidth:250,
-        runwaySize:1,
+        runwaySize:4,
         startingIndex:0,
         estimatedListSize:300,
         getItem:getVariableItem,
@@ -324,10 +327,24 @@ const Test = (props) => {
         itemExceptionsCallback,
     }
 
-    const handleOrientation = (orientation) => {
+    const handleOrientation = useCallback((demo) => {
         setOrientation(orientation)
+        if (demo == 'variable') {
+            const styles:React.CSSProperties = variablestyles.inner
+            if (orientation == 'vertical') {
+                styles.minHeight = '80px'
+                styles.maxHeight = '320px'
+                styles.minWidth = '0'
+                styles.maxWidth = 'none'
+            } else {
+                styles.minWidth = '80px'
+                styles.maxWidth = '320px'
+                styles.minHeight = '0'
+                styles.maxHeight = 'none'
+            }
+        }
         demos.nested.childorientation = (orientation == 'vertical')?'horizontal':'vertical'
-    }
+    },[orientation])
 
     useEffect (()=>{
 
@@ -476,6 +493,7 @@ returnarray)
     }
 
     const handleDemo = (demo) => {
+        handleOrientation(demo)
         setDemo(demo)
     }
 
