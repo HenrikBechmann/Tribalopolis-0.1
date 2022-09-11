@@ -112,15 +112,15 @@ const getVariableItem = (index) => {
 }
 
 const genericstyle = {
-                position:'absolute',
-                top:0,
-                left:0,
-                padding:'3px',
-                opacity:.5,
-                borderRadius:'8px',
-                backgroundColor:'white', 
-                margin:'3px'
-            } as React.CSSProperties
+    position:'absolute',
+    top:0,
+    left:0,
+    padding:'3px',
+    opacity:.5,
+    borderRadius:'8px',
+    backgroundColor:'white', 
+    margin:'3px'
+} as React.CSSProperties
 
 const GenericItem = (props) => {
 
@@ -237,7 +237,7 @@ const demos = {
         padding:5,
         cellHeight:400,
         cellWidth:250,
-        runwaySize:3,
+        runwaySize:2,
         startingIndex:0,
         estimatedListSize:400,
         getItem:getNestedItem,
