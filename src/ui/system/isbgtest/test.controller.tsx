@@ -255,9 +255,9 @@ const demos = {
     variable: {
         gap:10,
         padding:10,
-        cellHeight:100,
+        cellHeight:320,
         cellWidth:250,
-        runwaySize:4,
+        runwaySize:6,
         startingIndex:0,
         estimatedListSize:300,
         getItem:getVariableItem,
