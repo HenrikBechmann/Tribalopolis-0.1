@@ -259,7 +259,7 @@ const demos = {
         cellWidth:250,
         runwaySize:6,
         startingIndex:0,
-        estimatedListSize:300,
+        estimatedListSize:10,
         getItem:getVariableItem,
         placeholder:null,
         cache:'cradle',
