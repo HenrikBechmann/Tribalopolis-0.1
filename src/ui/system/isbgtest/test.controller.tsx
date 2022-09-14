@@ -134,7 +134,7 @@ const GenericItem = (props) => {
 
 }
 
-const variablestyles = {
+let variablestyles = {
     // outer:{position:'relative',height:'100%', width:'100%',backgroundColor:'white'},
     outer:{backgroundColor:'white'},
     inner:{
@@ -146,8 +146,10 @@ const variablestyles = {
         opacity:.5,
         borderRadius:'8px',
         backgroundColor:'white', 
-        // minHeight:'80px',
-        // maxHeight:'320px'
+        minHeight:'0px',
+        maxHeight:'none',
+        minWidth:'0px',
+        maxWidth:'none',
         // margin:'3px'
     }
 }
@@ -330,7 +332,7 @@ const Test = (props) => {
     const handleOrientation = useCallback((demo) => {
         setOrientation(orientation)
         if (demo == 'variable') {
-            const styles:React.CSSProperties = variablestyles.inner
+            let styles = {...variablestyles.inner}
             if (orientation == 'vertical') {
                 styles.minHeight = '80px'
                 styles.maxHeight = '320px'
@@ -342,6 +344,7 @@ const Test = (props) => {
                 styles.minHeight = '0'
                 styles.maxHeight = 'none'
             }
+            variablestyles.inner = styles
         }
         demos.nested.childorientation = (orientation == 'vertical')?'horizontal':'vertical'
     },[orientation])
