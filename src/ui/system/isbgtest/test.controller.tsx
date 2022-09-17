@@ -136,20 +136,23 @@ const GenericItem = (props) => {
 
 let variablestyles = {
     // outer:{position:'relative',height:'100%', width:'100%',backgroundColor:'white'},
-    outer:{backgroundColor:'white'},
+    outer:{
+        backgroundColor:'white',
+        overflow:'scroll',
+        maxHeight: '320px'
+    },
     inner:{
         // position:'absolute',
         // top:0,
         // left:0,
-        overflow:'hidden',
         padding:'3px',
         opacity:.5,
         borderRadius:'8px',
         backgroundColor:'white', 
-        minHeight:'0px',
-        maxHeight:'none',
-        minWidth:'0px',
-        maxWidth:'none',
+        // minHeight:'0px',
+        // maxHeight:'none',
+        // minWidth:'0px',
+        // maxWidth:'none',
         // margin:'3px'
     }
 }
@@ -331,21 +334,21 @@ const Test = (props) => {
 
     const handleOrientation = useCallback((demo) => {
         setOrientation(orientation)
-        if (demo == 'variable') {
-            let styles = {...variablestyles.inner}
-            if (orientation == 'vertical') {
-                styles.minHeight = '80px'
-                styles.maxHeight = '320px'
-                styles.minWidth = '0'
-                styles.maxWidth = 'none'
-            } else {
-                styles.minWidth = '80px'
-                styles.maxWidth = '320px'
-                styles.minHeight = '0'
-                styles.maxHeight = 'none'
-            }
-            variablestyles.inner = styles
-        }
+        // if (demo == 'variable') {
+        //     let styles = {...variablestyles.inner}
+        //     if (orientation == 'vertical') {
+        //         styles.minHeight = '80px'
+        //         styles.maxHeight = '320px'
+        //         styles.minWidth = '0'
+        //         styles.maxWidth = 'none'
+        //     } else {
+        //         styles.minWidth = '80px'
+        //         styles.maxWidth = '320px'
+        //         styles.minHeight = '0'
+        //         styles.maxHeight = 'none'
+        //     }
+        //     variablestyles.inner = styles
+        // }
         demos.nested.childorientation = (orientation == 'vertical')?'horizontal':'vertical'
     },[orientation])
 
