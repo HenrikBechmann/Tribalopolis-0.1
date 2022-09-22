@@ -162,7 +162,11 @@ let teststrings = []
 let getTestString = (index) => {
     // console.log('getTestString',index)
     if (!teststrings[index]) {
-        teststrings[index] =`${index + 1}: 'test string ' + ${teststring.substr(0,Math.random() * teststring.length)}`
+        if (index == 51 || index == 52) {
+            teststrings[index] = 'TEST STRING' + index
+        } else {
+            teststrings[index] =`${index + 1}: 'test string ' + ${teststring.substr(0,Math.random() * teststring.length)}`
+        }
     }
     return teststrings[index]
 }
