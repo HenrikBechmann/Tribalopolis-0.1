@@ -164,6 +164,8 @@ let getTestString = (index) => {
     if (!teststrings[index]) {
         if (index == 51 || index == 52) {
             teststrings[index] = 'TEST STRING' + index
+        } else if (index == 0) {
+            teststrings[index] =`${index + 1}: 'test string ' + ${teststring.substr(0,.5 * teststring.length)}`
         } else {
             teststrings[index] =`${index + 1}: 'test string ' + ${teststring.substr(0,Math.random() * teststring.length)}`
         }
@@ -262,7 +264,7 @@ const demos = {
         scrollerName:'OUTER',
     },
     variable: {
-        gap:10,
+        gap:5,
         padding:10,
         cellHeight:320,
         cellWidth:250,
