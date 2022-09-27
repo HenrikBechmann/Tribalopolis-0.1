@@ -268,6 +268,7 @@ const demos = {
         padding:10,
         cellHeight:320,
         cellWidth:250,
+        cellHeightMin:20,
         runwaySize:6,
         startingIndex:0,
         estimatedListSize:10,
@@ -310,6 +311,8 @@ const Test = (props) => {
         padding,
         cellHeight,
         cellWidth,
+        cellHeightMin,
+        cellWidthMin,
         runwaySize,
         startingIndex,
         estimatedListSize,
@@ -597,6 +600,8 @@ returnarray)
                     padding = { padding }
                     cellHeight = { cellHeight }
                     cellWidth = { cellWidth }
+                    cellHeightMin = { cellHeightMin }
+                    cellWidthMin = { cellWidthMin }
                     runwaySize = { runwaySize }
                     startingIndex = { startingIndex }
                     estimatedListSize = { estimatedListSize }
