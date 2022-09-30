@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme: Theme) =>
       margin: theme.spacing(3),
     },
     wrapper:{
-      width:'5100px'
+      width:'5550px'
     }
   }),
 )
@@ -33,6 +33,8 @@ let gapvalue:any = 0
 let paddingvalue:any = 0
 let cellwidthvalue:any = 0
 let cellheightvalue:any = 0
+let cellminwidthvalue:any = 0
+let cellminheightvalue:any = 0
 let runwaysizevalue:any = 0
 let setlistsizevalue:any = 0
 let addremoveindexvalue:any = 0
@@ -67,6 +69,7 @@ export default function TestOptions({callbacks}) {
     applylayoutcallback,
     applycachecallback,
     gridconfigcellscallback,
+    gridconfigminmaxcellscallback,
     gridconfigborderscallback,
     scrollerconfigrunwaysizecallback,
     moveindexcallback,
@@ -143,6 +146,17 @@ export default function TestOptions({callbacks}) {
 
   }
 
+  const updateCellminwidthValue = (event) => {
+
+    cellminwidthvalue = parseInt(event.target.value)
+
+  }
+  const updateCellminheightValue = (event) => {
+
+    cellminheightvalue = parseInt(event.target.value)
+
+  }
+
   const updateGotoValue = (event) => {
 
     gotovalue = parseInt(event.target.value)
@@ -204,6 +218,12 @@ export default function TestOptions({callbacks}) {
   const handleGridConfigCells = () => {
 
     gridconfigcellscallback(cellwidthvalue, cellheightvalue)
+
+  }
+
+  const handleGridConfigMinMaxCells = () => {
+
+    gridconfigminmaxcellscallback(cellminwidthvalue, cellminheightvalue)
 
   }
 
@@ -447,7 +467,30 @@ export default function TestOptions({callbacks}) {
         <Button onClick = {handleGridConfigCells} variant="contained">Apply</Button>
       </FormControl>
       <FormControl component="fieldset" className={classes.formControl}>
-          <FormLabel component="legend">[7. Config Runwaysize]</FormLabel>
+          <FormLabel component="legend">[7. Grid min/max (cells)]</FormLabel>
+          <TextField
+            id="cellwidth"
+            type = "number"
+            label="Enter cell min-width"
+            defaultValue={0}
+            variant="filled"
+            onChange = {updateCellminwidthValue}
+          />
+          <TextField
+            id="cellheight"
+            type = "number"
+            label="Enter cell min-height"
+            defaultValue={0}
+            variant="filled"
+            onChange = {updateCellminheightValue}
+          />
+      </FormControl>
+      <FormControl component="fieldset" className={classes.formControl}>
+        <FormLabel component="legend">[Grid min/max (cells)]</FormLabel>
+        <Button onClick = {handleGridConfigMinMaxCells} variant="contained">Apply</Button>
+      </FormControl>
+      <FormControl component="fieldset" className={classes.formControl}>
+          <FormLabel component="legend">[8. Config Runwaysize]</FormLabel>
           <TextField
             id="runwaysize"
             type = "number"
@@ -461,7 +504,7 @@ export default function TestOptions({callbacks}) {
       </div>
       <div style = {{backgroundColor:'palegoldenrod', display:'inline-block'}}>
       <FormControl component="fieldset" className={classes.formControl}>
-          <FormLabel component="legend">8. Scroll to</FormLabel>
+          <FormLabel component="legend">9. Scroll to</FormLabel>
           <TextField
             id="scrolltonumber"
             type = "number"
@@ -473,7 +516,7 @@ export default function TestOptions({callbacks}) {
           <Button onClick = {handleGoto} variant="contained">Apply</Button>
       </FormControl>
       <FormControl component="fieldset" className={classes.formControl}>
-          <FormLabel component="legend">9. Set listsize</FormLabel>
+          <FormLabel component="legend">10. Set listsize</FormLabel>
           <TextField
             id="setlistsize"
             type = "number"
@@ -485,22 +528,22 @@ export default function TestOptions({callbacks}) {
           <Button onClick = {handleSetListsize} variant="contained">Apply</Button>
       </FormControl>
       <FormControl component="fieldset" className={classes.formControl}>
-          <FormLabel component="legend">10. Get snapshots</FormLabel>
+          <FormLabel component="legend">11. Get snapshots</FormLabel>
           <Button onClick = {dogetcachemap} variant="contained">Get Cache Index Map</Button>
           <Button onClick = {dogetcachelist} variant="contained">Get Cache Item Map</Button>
           <Button onClick = {dogetcradlemap} variant="contained">Get Cradle Index Map</Button>
       </FormControl>
       <FormControl component="fieldset" className={classes.formControl}>
-          <FormLabel component="legend">11. General operations</FormLabel>
+          <FormLabel component="legend">12. General operations</FormLabel>
           <Button onClick = {doreload} variant="contained">Reload</Button>
           <Button onClick = {doclearcache} variant="contained">Clear cache</Button>
       </FormControl>
       <FormControl component="fieldset" className={classes.formControl}>
-          <FormLabel component="legend">12. Change mapping</FormLabel>
+          <FormLabel component="legend">13. Change mapping</FormLabel>
           <Button onClick = {doremapindexes} variant="contained">Test remap indexes</Button>
       </FormControl>
       <FormControl component="fieldset" className={classes.formControl}>
-          <FormLabel component="legend">13. Add/remove index</FormLabel>
+          <FormLabel component="legend">14. Add/remove index</FormLabel>
           <TextField
             id="addremoveindex"
             type = "number"
@@ -524,7 +567,7 @@ export default function TestOptions({callbacks}) {
           <Button onClick = {handleRemoveIndex} variant="contained">Remove</Button>
       </FormControl>
       <FormControl component="fieldset" className={classes.formControl}>
-          <FormLabel component="legend">14. Move index</FormLabel>
+          <FormLabel component="legend">15. Move index</FormLabel>
           <TextField
             id="movefromindex"
             type = "number"

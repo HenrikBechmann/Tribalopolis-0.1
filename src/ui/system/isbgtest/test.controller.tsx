@@ -351,6 +351,7 @@ const Test = (props) => {
         switch (testState) {
             case 'setborders':
             case 'setcellsizes':
+            case 'setminmaxcellsizes':
             case 'setrunwaysize':
             case 'setlayout':
             case 'setcache': {
@@ -466,6 +467,14 @@ returnarray)
         setTestState('setcellsizes')
         
     }
+    const handleGridConfigMinMaxCells = (cellminwidth, cellminheight) => {
+
+        const demo = demoRef.current
+        demos[demo].cellMinWidth = cellminwidth
+        demos[demo].cellMinHeight = cellminheight
+        setTestState('setminmaxcellsizes')
+        
+    }
     const handleGridConfigBorders = (padding, gap) => {
 
         const demo = demoRef.current
@@ -552,6 +561,7 @@ returnarray)
         applylayoutcallback:handleApplyLayout,
         applycachecallback:handleApplyCache,
         gridconfigcellscallback:handleGridConfigCells,
+        gridconfigminmaxcellscallback:handleGridConfigMinMaxCells,
         gridconfigborderscallback:handleGridConfigBorders,
         scrollerconfigrunwaysizecallback:handleScrollerConfigRunwaySize,
         moveindexcallback:handleMoveIndex,
