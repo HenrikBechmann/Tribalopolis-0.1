@@ -341,23 +341,8 @@ const Test = (props) => {
         itemExceptionsCallback,
     }
 
-    const handleOrientation = useCallback((demo) => {
+    const handleOrientation = useCallback((orientation) => {
         setOrientation(orientation)
-        // if (demo == 'variable') {
-        //     let styles = {...variablestyles.inner}
-        //     if (orientation == 'vertical') {
-        //         styles.minHeight = '80px'
-        //         styles.maxHeight = '320px'
-        //         styles.minWidth = '0'
-        //         styles.maxWidth = 'none'
-        //     } else {
-        //         styles.minWidth = '80px'
-        //         styles.maxWidth = '320px'
-        //         styles.minHeight = '0'
-        //         styles.maxHeight = 'none'
-        //     }
-        //     variablestyles.inner = styles
-        // }
         demos.nested.childorientation = (orientation == 'vertical')?'horizontal':'vertical'
     },[orientation])
 
