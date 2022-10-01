@@ -163,7 +163,7 @@ let teststrings = []
 let getTestString = (index) => {
     // console.log('getTestString',index)
     if (!teststrings[index]) {
-        if ([51,52,196,197,198,199].includes(index)) {
+        if ([0,1,51,52,196,197,198,199].includes(index)) {
             teststrings[index] = 'TEST STRING' + index
         } else if (index == 0) {
             teststrings[index] =`${index + 1}: 'test string ' + ${teststring.substr(0,.5 * teststring.length)}`
