@@ -139,7 +139,8 @@ let variablestyles = {
     outer:{
         backgroundColor:'white',
         overflow:'scroll',
-        maxHeight: '320px'
+        height: '100%',
+        width:'100%',
     },
     inner:{
         // position:'absolute',
