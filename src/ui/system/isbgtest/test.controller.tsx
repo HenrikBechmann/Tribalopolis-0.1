@@ -184,7 +184,7 @@ const VariableItem = (props) => {
         cellWidth,
         cellHeight
 
-    } = props.scrollerProperties.scrollerPassthroughPropertiesRef.current
+    } = props.scrollerProperties.scrollerPropertiesRef.current
 
     const outerstyles = {...variablestyles.outer}
 

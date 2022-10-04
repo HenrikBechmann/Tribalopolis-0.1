@@ -86,9 +86,9 @@ const TestListBox = (props) => {
         getListItem, 
     } = settings
 
-    const {scrollerPassthroughPropertiesRef} = scrollerProperties
+    const { scrollerPropertiesRef } = scrollerProperties
 
-    // console.log('testlist box scrollerPassthroughPropertiesRef',scrollerPassthroughPropertiesRef, scrollerProperties)
+    // console.log('testlist box scrollerPropertiesRef',scrollerPropertiesRef, scrollerProperties)
 
     const dynamicorientationRef = useRef(childorientation)
 
@@ -96,7 +96,7 @@ const TestListBox = (props) => {
 
     useEffect(() =>{
         if (testStateRef.current == 'setup') return
-        const { orientation } = scrollerPassthroughPropertiesRef.current
+        const { orientation } = scrollerPropertiesRef.current
         if (orientation == 'vertical') {
             dynamicorientationRef.current = 'horizontal'
         } else {
@@ -104,9 +104,9 @@ const TestListBox = (props) => {
         }
         setTestState('revised')
 
-    },[scrollerPassthroughPropertiesRef.current.orientation])
+    },[scrollerPropertiesRef.current.orientation])
 
-    const { cache } = scrollerPassthroughPropertiesRef.current
+    const { cache } = scrollerPropertiesRef.current
 
     useEffect(()=>{
 
