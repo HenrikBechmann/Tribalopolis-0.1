@@ -107,7 +107,7 @@ const getNestedItem = (index) => {
 
 const getVariableItem = (index) => {
 
-     return <VariableItem index = {index} />    
+     return <VariableItem index = {index} scrollerProperties = {null}/>    
 
 }
 
@@ -141,6 +141,8 @@ let variablestyles = {
         overflow:'scroll',
         height: '100%',
         width:'100%',
+        maxHeight:null,
+        maxWidth: null
     },
     inner:{
         // position:'absolute',
@@ -175,7 +177,30 @@ let getTestString = (index) => {
 }
 
 const VariableItem = (props) => {
-    return <div style = {variablestyles.outer as React.CSSProperties}>
+
+    const {
+
+        orientation,
+        cellWidth,
+        cellHeight
+
+    } = props.scrollerProperties.scrollerPassthroughPropertiesRef.current
+
+    const outerstyles = {...variablestyles.outer}
+
+    if (orientation == 'vertical') {
+        outerstyles.maxHeight = cellHeight
+        outerstyles.height = null
+        outerstyles.maxWidth = null
+        outerstyles.width = '100%'
+    } else {
+        outerstyles.maxHeight = null
+        outerstyles.height = '100%'
+        outerstyles.maxWidth = cellWidth
+        outerstyles.width = null
+    }
+
+    return <div style = {outerstyles}>
         <div style = {variablestyles.inner as React.CSSProperties}>{getTestString(props.index)}</div>
     </div>
 }
