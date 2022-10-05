@@ -601,7 +601,7 @@ returnarray)
         repositioningflagcallback: handleRepositioningFlagFeedback
     }
 
-    const advancedRef = useRef({showAxis:true})
+    const advancedRef = useRef({showAxis:false})
 
     return <>
         <div style = {uistyles.optionswrapper as React.CSSProperties} >
