@@ -262,7 +262,7 @@ const demos = {
         cacheMax:200,
         styles: genericcomponentstyles,
         // callbacks: {
-        //     getFunctions:null,
+        //     functionsCallback:null,
         //     referenceIndexCallback:null,
         // },
         layout: 'uniform',
@@ -283,7 +283,7 @@ const demos = {
         cacheMax:200,
         styles: genericcomponentstyles,
         // callbacks: {
-        //     getFunctions:null,
+        //     functionsCallback:null,
         //     referenceIndexCallback:null,
         // },
         layout:'uniform',
@@ -304,7 +304,7 @@ const demos = {
         cacheMax:200,
         styles: genericcomponentstyles,
         // callbacks: {
-        //     getFunctions:null,
+        //     functionsCallback:null,
         //     referenceIndexCallback:null,
         // },
         layout:'variable',
@@ -328,7 +328,7 @@ const Test = (props) => {
 
     const scrollerFunctionsRef = useRef(null)
 
-    const getFunctions = useCallback(callbacks => {
+    const functionsCallback = useCallback(callbacks => {
         scrollerFunctionsRef.current = callbacks
     },[])
 
@@ -357,7 +357,7 @@ const Test = (props) => {
     // const callbacks = Object.assign({},inheritedcallbacks)
 
     const callbacks = {
-        getFunctions,
+        functionsCallback,
         referenceIndexCallback,
         preloadIndexCallback,
         deleteListCallback,
@@ -538,7 +538,7 @@ returnarray)
     }
     
     const handleScrollToPos = (pos) => {
-        scrollerFunctionsRef.current?.scrollToItem(pos)
+        scrollerFunctionsRef.current?.scrollToIndex(pos)
     }
 
     const handleReload = () => {
