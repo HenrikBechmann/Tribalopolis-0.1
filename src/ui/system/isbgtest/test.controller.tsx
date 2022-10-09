@@ -379,7 +379,6 @@ const Test = (props) => {
             case 'setcellsizes':
             case 'setminmaxcellsizes':
             case 'setrunwaysize':
-            case 'setlayout':
             case 'setcache': {
                 setTestState('ready')
                 break
@@ -518,15 +517,6 @@ returnarray)
 
     }
 
-    const handleApplyLayout = (layout, triggerlineOffset) => {
-
-        const demo = demoRef.current
-        demos[demo].layout = layout
-        demos[demo].triggerlineOffset = triggerlineOffset
-        setTestState('setlayout')
-
-    }
-
     const handleDemo = (demo) => {
         handleOrientation(demo)
         setDemo(demo)
@@ -584,7 +574,6 @@ returnarray)
         remapindexescallback:handleRemapIndexes,
         insertindexcallback:handleInsertIndex,
         removeindexcallback:handleRemoveIndex,
-        applylayoutcallback:handleApplyLayout,
         applycachecallback:handleApplyCache,
         gridconfigcellscallback:handleGridConfigCells,
         gridconfigminmaxcellscallback:handleGridConfigMinMaxCells,

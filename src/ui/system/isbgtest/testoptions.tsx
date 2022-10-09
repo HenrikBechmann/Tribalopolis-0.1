@@ -28,7 +28,6 @@ const useStyles = makeStyles((theme: Theme) =>
 
 let gotovalue:any = 0
 let cachemaxvalue:any = 0
-let triggerlinevalue:any = 10
 let gapvalue:any = 0
 let paddingvalue:any = 0
 let cellwidthvalue:any = 0
@@ -40,7 +39,6 @@ let setlistsizevalue:any = 0
 let addremoveindexvalue:any = 0
 let addremoverangehighvalue:any = 0
 let cachevalue:any = ''
-let layoutvalue:any = ''
 let movefromindexvalue:number = 0
 let movefromhighrangevalue:number = 0
 let movetoindexvalue:number = 0
@@ -66,7 +64,6 @@ export default function TestOptions({callbacks}) {
     remapindexescallback,
     insertindexcallback,
     removeindexcallback,
-    applylayoutcallback,
     applycachecallback,
     gridconfigcellscallback,
     gridconfigminmaxcellscallback,
@@ -175,12 +172,6 @@ export default function TestOptions({callbacks}) {
 
   }
 
-  const updateTriggerlineValue = (event) => {
-
-    triggerlinevalue = parseInt(event.target.value)
-
-  }
-
   const updateAddRemoveIndexValue = (event) => {
 
     addremoveindexvalue = parseInt(event.target.value)
@@ -199,17 +190,6 @@ export default function TestOptions({callbacks}) {
 
   }
 
-  const updateLayoutValue = (event) => {
-
-      layoutvalue = event.target.value
-
-  }
-
-  const handleLayout = () => {
-
-    applylayoutcallback(layoutvalue, triggerlinevalue)
-
-  }
   const handleCache = () => {
 
     applycachecallback(cachevalue, cachemaxvalue)
@@ -376,29 +356,7 @@ export default function TestOptions({callbacks}) {
           </RadioGroup>
       </FormControl>
       <FormControl component="fieldset" className={classes.formControl}>
-        <FormLabel component="legend">[3. Layout]</FormLabel>
-        <NativeSelect
-          defaultValue={'uniform'}
-          inputProps={{
-            name: 'layout',
-            id: 'layout',
-          }}
-          onChange = {updateLayoutValue}
-        >
-          <option value={'uniform'}>uniform</option>
-          <option value={'variable'}>variable</option>
-        </NativeSelect>
-        <TextField
-          id="cachemax"
-          label="Enter triggerline offset"
-          defaultValue={10}
-          variant="filled"
-          onChange = {updateTriggerlineValue}
-        />
-        <Button onClick = {handleLayout} variant="contained">Apply</Button>
-      </FormControl>
-      <FormControl component="fieldset" className={classes.formControl}>
-        <FormLabel component="legend">4. Cache</FormLabel>
+        <FormLabel component="legend">3. Cache</FormLabel>
         <NativeSelect
           defaultValue={'cradle'}
           inputProps={{
@@ -421,7 +379,7 @@ export default function TestOptions({callbacks}) {
         <Button onClick = {handleCache} variant="contained">Apply</Button>
       </FormControl>
       <FormControl component="fieldset" className={classes.formControl}>
-          <FormLabel component="legend">[5. Grid config (borders)]</FormLabel>
+          <FormLabel component="legend">4. Grid config (borders)</FormLabel>
           <TextField
             id="gap"
             type = "number"
@@ -440,11 +398,11 @@ export default function TestOptions({callbacks}) {
           />
       </FormControl>
       <FormControl component="fieldset" className={classes.formControl}>
-        <FormLabel component="legend">[Grid config (borders)]</FormLabel>
+        <FormLabel component="legend">Grid config (borders)</FormLabel>
         <Button onClick = {handleGridConfigBorders} variant="contained">Apply</Button>
       </FormControl>
       <FormControl component="fieldset" className={classes.formControl}>
-          <FormLabel component="legend">[6. Grid config (cells)]</FormLabel>
+          <FormLabel component="legend">5. Grid config (cells)</FormLabel>
           <TextField
             id="cellwidth"
             type = "number"
@@ -463,11 +421,11 @@ export default function TestOptions({callbacks}) {
           />
       </FormControl>
       <FormControl component="fieldset" className={classes.formControl}>
-        <FormLabel component="legend">[Grid config (cells)]</FormLabel>
+        <FormLabel component="legend">Grid config (cells)</FormLabel>
         <Button onClick = {handleGridConfigCells} variant="contained">Apply</Button>
       </FormControl>
       <FormControl component="fieldset" className={classes.formControl}>
-          <FormLabel component="legend">[7. Grid min/max (cells)]</FormLabel>
+          <FormLabel component="legend">6. Grid min/max (cells)</FormLabel>
           <TextField
             id="cellwidth"
             type = "number"
@@ -486,11 +444,11 @@ export default function TestOptions({callbacks}) {
           />
       </FormControl>
       <FormControl component="fieldset" className={classes.formControl}>
-        <FormLabel component="legend">[Grid min/max (cells)]</FormLabel>
+        <FormLabel component="legend">Grid min/max (cells)</FormLabel>
         <Button onClick = {handleGridConfigMinMaxCells} variant="contained">Apply</Button>
       </FormControl>
       <FormControl component="fieldset" className={classes.formControl}>
-          <FormLabel component="legend">[8. Config Runwaysize]</FormLabel>
+          <FormLabel component="legend">7. Config Runwaysize</FormLabel>
           <TextField
             id="runwaysize"
             type = "number"
@@ -504,7 +462,7 @@ export default function TestOptions({callbacks}) {
       </div>
       <div style = {{backgroundColor:'palegoldenrod', display:'inline-block'}}>
       <FormControl component="fieldset" className={classes.formControl}>
-          <FormLabel component="legend">9. Scroll to</FormLabel>
+          <FormLabel component="legend">8. Scroll to</FormLabel>
           <TextField
             id="scrolltonumber"
             type = "number"
@@ -516,7 +474,7 @@ export default function TestOptions({callbacks}) {
           <Button onClick = {handleGoto} variant="contained">Apply</Button>
       </FormControl>
       <FormControl component="fieldset" className={classes.formControl}>
-          <FormLabel component="legend">10. Set listsize</FormLabel>
+          <FormLabel component="legend">9. Set listsize</FormLabel>
           <TextField
             id="setlistsize"
             type = "number"
@@ -528,22 +486,22 @@ export default function TestOptions({callbacks}) {
           <Button onClick = {handleSetListsize} variant="contained">Apply</Button>
       </FormControl>
       <FormControl component="fieldset" className={classes.formControl}>
-          <FormLabel component="legend">11. Get snapshots</FormLabel>
+          <FormLabel component="legend">10. Get snapshots</FormLabel>
           <Button onClick = {dogetcachemap} variant="contained">Get Cache Index Map</Button>
           <Button onClick = {dogetcachelist} variant="contained">Get Cache Item Map</Button>
           <Button onClick = {dogetcradlemap} variant="contained">Get Cradle Index Map</Button>
       </FormControl>
       <FormControl component="fieldset" className={classes.formControl}>
-          <FormLabel component="legend">12. General operations</FormLabel>
+          <FormLabel component="legend">11. General operations</FormLabel>
           <Button onClick = {doreload} variant="contained">Reload</Button>
           <Button onClick = {doclearcache} variant="contained">Clear cache</Button>
       </FormControl>
       <FormControl component="fieldset" className={classes.formControl}>
-          <FormLabel component="legend">13. Change mapping</FormLabel>
+          <FormLabel component="legend">12. Change mapping</FormLabel>
           <Button onClick = {doremapindexes} variant="contained">Test remap indexes</Button>
       </FormControl>
       <FormControl component="fieldset" className={classes.formControl}>
-          <FormLabel component="legend">14. Add/remove index</FormLabel>
+          <FormLabel component="legend">13. Add/remove index</FormLabel>
           <TextField
             id="addremoveindex"
             type = "number"
@@ -567,7 +525,7 @@ export default function TestOptions({callbacks}) {
           <Button onClick = {handleRemoveIndex} variant="contained">Remove</Button>
       </FormControl>
       <FormControl component="fieldset" className={classes.formControl}>
-          <FormLabel component="legend">15. Move index</FormLabel>
+          <FormLabel component="legend">14. Move index</FormLabel>
           <TextField
             id="movefromindex"
             type = "number"
@@ -676,7 +634,7 @@ export default function TestOptions({callbacks}) {
     </FormControl>
     <FormControl component="fieldset" className={classes.formControl}>
           <FormLabel component="legend">Get test data</FormLabel>
-          <Button onClick = {handleGetTestData} variant="contained">Get test data</Button>
+          <Button onClick = {handleGetTestData} variant="contained">Get test settings</Button>
     </FormControl>
       </div>
     </div>
