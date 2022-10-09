@@ -93,9 +93,8 @@ export default function TestOptions({callbacks}) {
 
   const handleDemoChange = (event) => {
     let demovalue = event.target.value
-    clearcachecallback()
     setDemovalue(demovalue)
-    democallback(demovalue)    
+    democallback(demovalue)
   }
 
   const updateMoveFromHighRangeValue = (event) => {

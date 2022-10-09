@@ -94,6 +94,26 @@ const getGenericItem = (index) => {
 
 }
 
+const getGenericItemPromises = (index) => {
+
+     // return <GenericItem index = {index} image = {'https://loremflickr.com/200/300?random='+index}/>
+     // if ((index == 130) || (index == 145)) console.log('getGenericItem returning index', index)
+     if (index == 30) return Promise.reject(new Error('not found'))
+     if (index == 40) return 5
+     // if (index == 45) return null
+     return <GenericItem index = {index} />
+
+}
+const getGenericItemDynamic = (index) => {
+
+     // return <GenericItem index = {index} image = {'https://loremflickr.com/200/300?random='+index}/>
+     // if ((index == 130) || (index == 145)) console.log('getGenericItem returning index', index)
+     if (index == 30) return Promise.reject(new Error('not found'))
+     if (index == 40) return 5
+     // if (index == 45) return null
+     return <GenericItem index = {index} />
+
+}
 const getNestedItem = (index) => {
 
     return <NestedBox 
@@ -105,12 +125,42 @@ const getNestedItem = (index) => {
 
 }
 
+const getNestedItemPromises = (index) => {
+
+    return <NestedBox 
+        index = {index} 
+        childorientation = {demos.nested.childorientation} 
+        setlistsize = {demos.nested.estimatedListSize}
+        scrollerProperties = {null}
+    />
+
+}
+const getNestedItemDynamic = (index) => {
+
+    return <NestedBox 
+        index = {index} 
+        childorientation = {demos.nested.childorientation} 
+        setlistsize = {demos.nested.estimatedListSize}
+        scrollerProperties = {null}
+    />
+
+}
 const getVariableItem = (index) => {
 
      return <VariableItem index = {index} scrollerProperties = {null}/>    
 
 }
 
+const getVariableItemPromises = (index) => {
+
+     return <VariableItem index = {index} scrollerProperties = {null}/>    
+
+}
+const getVariableItemDynamic = (index) => {
+
+     return <VariableItem index = {index} scrollerProperties = {null}/>    
+
+}
 const genericstyle = {
     position:'absolute',
     top:0,
@@ -276,7 +326,7 @@ const demos = {
         runwaySize:4,
         startingIndex:0,
         estimatedListSize:200,
-        getItem:getGenericItem,
+        getItem:getGenericItemPromises,
         placeholder:null,
         cache:'cradle',
         cacheMax:200,
@@ -286,7 +336,7 @@ const demos = {
         //     referenceIndexCallback:null,
         // },
         layout: 'uniform',
-        scrollerName:'GENERIC',
+        scrollerName:'GENERICPROMISES',
     },
     genericdynamic: {
         gap:5,
@@ -296,7 +346,7 @@ const demos = {
         runwaySize:4,
         startingIndex:0,
         estimatedListSize:200,
-        getItem:getGenericItem,
+        getItem:getGenericItemDynamic,
         placeholder:null,
         cache:'cradle',
         cacheMax:200,
@@ -306,7 +356,7 @@ const demos = {
         //     referenceIndexCallback:null,
         // },
         layout: 'uniform',
-        scrollerName:'GENERIC',
+        scrollerName:'GENERICDYNAMIC',
     },
     nested: {
         childorientation:'horizontal',
@@ -327,7 +377,7 @@ const demos = {
         //     referenceIndexCallback:null,
         // },
         layout:'uniform',
-        scrollerName:'OUTER',
+        scrollerName:'NESTED',
     },
     nestedpromises: {
         childorientation:'horizontal',
@@ -338,7 +388,7 @@ const demos = {
         runwaySize:2,
         startingIndex:0,
         estimatedListSize:400,
-        getItem:getNestedItem,
+        getItem:getNestedItemPromises,
         placeholder:null,
         cache:'cradle',
         cacheMax:200,
@@ -348,7 +398,7 @@ const demos = {
         //     referenceIndexCallback:null,
         // },
         layout:'uniform',
-        scrollerName:'OUTER',
+        scrollerName:'NESTEDPROMISES',
     },
     nesteddynamic: {
         childorientation:'horizontal',
@@ -359,7 +409,7 @@ const demos = {
         runwaySize:2,
         startingIndex:0,
         estimatedListSize:400,
-        getItem:getNestedItem,
+        getItem:getNestedItemDynamic,
         placeholder:null,
         cache:'cradle',
         cacheMax:200,
@@ -369,7 +419,7 @@ const demos = {
         //     referenceIndexCallback:null,
         // },
         layout:'uniform',
-        scrollerName:'OUTER',
+        scrollerName:'NESTEDDYNAMIC',
     },
     variable: {
         gap:5,
@@ -401,7 +451,7 @@ const demos = {
         runwaySize:5,
         startingIndex:0,
         estimatedListSize:10,
-        getItem:getVariableItem,
+        getItem:getVariableItemPromises,
         placeholder:null,
         cache:'cradle',
         cacheMax:200,
@@ -411,7 +461,7 @@ const demos = {
         //     referenceIndexCallback:null,
         // },
         layout:'variable',
-        scrollerName: 'VARIABLE',
+        scrollerName: 'VARIABLEPROMISES',
     },
     variabledynamic: {
         gap:5,
@@ -422,7 +472,7 @@ const demos = {
         runwaySize:5,
         startingIndex:0,
         estimatedListSize:10,
-        getItem:getVariableItem,
+        getItem:getVariableItemDynamic,
         placeholder:null,
         cache:'cradle',
         cacheMax:200,
@@ -432,7 +482,7 @@ const demos = {
         //     referenceIndexCallback:null,
         // },
         layout:'variable',
-        scrollerName: 'VARIABLE',
+        scrollerName: 'VARIABLEDYNAMIC',
     },
 }
 
@@ -441,12 +491,11 @@ const Test = (props) => {
     // console.log('running Test Component', props)
 
     const [orientation, setOrientation] = useState('vertical')
-
     const [demo, setDemo] = useState('generic')
+    const [testState, setTestState] = useState('ready')
+
     const demoRef = useRef(null)
     demoRef.current = demo
-
-    const [testState, setTestState] = useState('ready')
 
     const demoselection = demos[demo]
 
@@ -642,7 +691,7 @@ returnarray)
     }
 
     const handleDemo = (demo) => {
-        handleOrientation(demo)
+        handleOrientation(orientation)
         setDemo(demo)
     }
 
@@ -714,6 +763,8 @@ returnarray)
         repositioningflagcallback: handleRepositioningFlagFeedback
     }
 
+    // console.log('testcontroller demo',demo, demos[demo], demoselection)
+
     const advancedRef = useRef({showAxis:false})
 
     return <>
@@ -748,8 +799,6 @@ returnarray)
                     callbacks = { callbacks }
                     layout = { layout }
                     advanced = { advancedRef.current }
-                    scrollerName = { scrollerName }
-
                 />
             </div>
         </div>
