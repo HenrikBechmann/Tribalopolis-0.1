@@ -195,6 +195,11 @@ export default function TestOptions({callbacks}) {
     applycachecallback(cachevalue, cachemaxvalue)
 
   }
+  // const handleDemo = () => {
+
+  //   applydemocallback(demovalue)
+
+  // }
   const handleGridConfigCells = () => {
 
     gridconfigcellscallback(cellwidthvalue, cellheightvalue)
@@ -336,9 +341,19 @@ export default function TestOptions({callbacks}) {
     
   }
 
+      // <FormControl component="fieldset" className={classes.formControl}>
+      //     <FormLabel component="legend">2. Demos</FormLabel>
+      //     <RadioGroup aria-label="demo" name="demo" value={demovalue} onChange={handleDemoChange}>
+      //       <FormControlLabel value="generic" control={<Radio />} label="Generic (simple)" />
+      //       <FormControlLabel value="nested" control={<Radio />} label="Nested lists (complex)" />
+      //       <FormControlLabel value="variable" control={<Radio />} label="Variable (dynamic)" />
+      //     </RadioGroup>
+      // </FormControl>
+
   return (
     <div className = {classes.wrapper}>
       <div style = {{backgroundColor:'paleturquoise', display:'inline-block'}}>
+
       <FormControl component="fieldset" className={classes.formControl}>
           <FormLabel component="legend">1. Orientation</FormLabel>
           <RadioGroup aria-label="orientation" name="orientation" value={orientationvalue} 
@@ -347,14 +362,29 @@ export default function TestOptions({callbacks}) {
             <FormControlLabel value="horizontal" control={<Radio />} label="Horizontal" />
           </RadioGroup>
       </FormControl>
+
       <FormControl component="fieldset" className={classes.formControl}>
           <FormLabel component="legend">2. Demos</FormLabel>
-          <RadioGroup aria-label="demo" name="demo" value={demovalue} onChange={handleDemoChange}>
-            <FormControlLabel value="generic" control={<Radio />} label="Generic (simple)" />
-            <FormControlLabel value="nested" control={<Radio />} label="Nested lists (complex)" />
-            <FormControlLabel value="variable" control={<Radio />} label="Variable (dynamic)" />
-          </RadioGroup>
+          <NativeSelect
+              defaultValue={'generic'}
+              inputProps={{
+                name: 'demo',
+                id: 'demo',
+              }}
+              onChange = {handleDemoChange}
+          >
+            <option value="generic">generic</option>
+            <option value="genericpromises">generic promises</option>
+            <option value="genericdynamic">generic dynamic</option>
+            <option value="nested">nested</option>
+            <option value="nestedpromises">nested promises</option>
+            <option value="nesteddynamic">nested dynamic</option>
+            <option value="variable">variable</option>
+            <option value="variablepromises">variable promises</option>
+            <option value="variabledynamic">variable dynamic</option>
+          </NativeSelect>
       </FormControl>
+
       <FormControl component="fieldset" className={classes.formControl}>
         <FormLabel component="legend">3. Cache</FormLabel>
         <NativeSelect
@@ -378,6 +408,7 @@ export default function TestOptions({callbacks}) {
         />
         <Button onClick = {handleCache} variant="contained">Apply</Button>
       </FormControl>
+
       <FormControl component="fieldset" className={classes.formControl}>
           <FormLabel component="legend">4. Grid config (borders)</FormLabel>
           <TextField
@@ -497,11 +528,7 @@ export default function TestOptions({callbacks}) {
           <Button onClick = {doclearcache} variant="contained">Clear cache</Button>
       </FormControl>
       <FormControl component="fieldset" className={classes.formControl}>
-          <FormLabel component="legend">12. Change mapping</FormLabel>
-          <Button onClick = {doremapindexes} variant="contained">Test remap indexes</Button>
-      </FormControl>
-      <FormControl component="fieldset" className={classes.formControl}>
-          <FormLabel component="legend">13. Add/remove index</FormLabel>
+          <FormLabel component="legend">12. Add/remove index</FormLabel>
           <TextField
             id="addremoveindex"
             type = "number"
@@ -525,7 +552,7 @@ export default function TestOptions({callbacks}) {
           <Button onClick = {handleRemoveIndex} variant="contained">Remove</Button>
       </FormControl>
       <FormControl component="fieldset" className={classes.formControl}>
-          <FormLabel component="legend">14. Move index</FormLabel>
+          <FormLabel component="legend">13. Move index</FormLabel>
           <TextField
             id="movefromindex"
             type = "number"
@@ -554,6 +581,10 @@ export default function TestOptions({callbacks}) {
           />
           <FormLabel component="legend">Move index</FormLabel>
           <Button onClick = {handleMoveIndex} variant="contained">Move index</Button>
+      </FormControl>
+      <FormControl component="fieldset" className={classes.formControl}>
+          <FormLabel component="legend">14. Change mapping</FormLabel>
+          <Button onClick = {doremapindexes} variant="contained">Test remap indexes</Button>
       </FormControl>
       </div>
       <div style = {{backgroundColor:'lightgreen', display:'inline-block'}}>
