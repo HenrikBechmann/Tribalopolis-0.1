@@ -76,9 +76,9 @@ const changeListsizeCallback = (newlistsize) => {
 
 }
 
-const itemExceptionsCallback = (index, itemID, returnvalue, location, error) => {
+const itemExceptionCallback = (index, itemID, returnvalue, location, error) => {
     
-    doitemstreaming && console.log('itemExceptionsCallback: index, itemID, returnvalue, location, error',
+    doitemstreaming && console.log('itemExceptionCallback: index, itemID, returnvalue, location, error',
         index, itemID, returnvalue, location, error)
 
 }
@@ -364,7 +364,7 @@ const Test = (props) => {
         repositioningIndexCallback,
         repositioningFlagCallback,
         changeListsizeCallback,
-        itemExceptionsCallback,
+        itemExceptionCallback,
     }
 
     const handleOrientation = useCallback((orientation) => {
