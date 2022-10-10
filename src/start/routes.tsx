@@ -13,7 +13,7 @@ import { Route, Redirect } from 'react-router-dom'
 import Quadspace from '../ui/quadspace.controller'
 import Build from '../ui/system/build.controller'
 import Home from '../ui/system/home.controller'
-import Test from '../ui/system/isbgtest/test.controller'
+import Test from '../ui/system/rigstest/test.controller'
 import Register from '../ui/system/register.controller'
 
 // console.log('TEST',Test)
