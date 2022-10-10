@@ -279,6 +279,7 @@ const uistyles = {
 const genericcomponentstyles = {
     viewport:{
         backgroundColor:'green',
+        overscrollBehavior:'none',
     },
     scrollblock:{
         backgroundColor:'brown',
