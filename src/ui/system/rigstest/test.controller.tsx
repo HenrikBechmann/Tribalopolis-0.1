@@ -541,11 +541,6 @@ const Test = (props) => {
         itemExceptionCallback,
     }
 
-    const handleOrientation = useCallback((orientation) => {
-        setOrientation(orientation)
-        demos.nested.childorientation = (orientation == 'vertical')?'horizontal':'vertical'
-    },[orientation])
-
     useEffect (()=>{
 
         switch (testState) {
@@ -560,6 +555,131 @@ const Test = (props) => {
         }
     },[testState])
 
+    // -----------------------------[ define option callbacks ]------------------------
+
+    // 1.
+    const handleOrientation = (orientation) => {
+        demos.nested.childorientation = (orientation == 'vertical')?'horizontal':'vertical'
+        setOrientation(orientation)
+    }
+
+    // 2.
+    const handleDemo = (demo) => {
+        handleOrientation(orientation)
+        setDemo(demo)
+    }
+
+    // 3.
+    const handleApplyCache = (cache, cacheMax) => {
+        // console.log('inside handleApplyCache:cache, cacheMax',cache, cacheMax)
+        const demo = demoRef.current
+        demos[demo].cache = cache
+        demos[demo].cacheMax = cacheMax
+        // console.log('setting cache of demo', cache, demo, demos[demo])
+        setTestState('setcache')
+    }
+
+    // 4.
+    const handleGridConfigBorders = (padding, gap) => {
+
+        const demo = demoRef.current
+        demos[demo].padding = padding
+        demos[demo].gap = gap
+        setTestState('setborders')
+
+    }
+
+    // 5.
+    const handleGridConfigCells = (cellwidth, cellheight) => {
+
+        const demo = demoRef.current
+        demos[demo].cellWidth = cellwidth
+        demos[demo].cellHeight = cellheight
+        setTestState('setcellsizes')
+        
+    }
+
+    // 6.
+    const handleGridConfigMinMaxCells = (cellminwidth, cellminheight) => {
+
+        const demo = demoRef.current
+        demos[demo].cellMinWidth = cellminwidth
+        demos[demo].cellMinHeight = cellminheight
+        setTestState('setminmaxcellsizes')
+        
+    }
+
+    // 7.
+    const handleScrollerConfigRunwaySize = (runwaysize) => {
+        
+        const demo = demoRef.current
+        demos[demo].runwaySize = runwaysize
+        setTestState('setrunwaysize')
+
+    }
+
+    // 8. 
+    const handleScrollToPos = (pos) => {
+        scrollerFunctionsRef.current?.scrollToIndex(pos)
+    }
+
+    // 9.
+    const handleSetListsize = (listsize) => {
+        scrollerFunctionsRef.current?.setListsize(listsize)
+    }
+
+    // 10. a
+    const handleGetCacheIndexMap = () => {
+        console.log(scrollerFunctionsRef.current?.getCacheIndexMap())
+    }
+
+    // 10. b
+    const handleGetCacheItemMap = () => {
+        console.log(scrollerFunctionsRef.current?.getCacheItemMap())
+    }
+
+    // 10. c
+    const handleGetCradleIndexMap = () => {
+        console.log(scrollerFunctionsRef.current?.getCradleIndexMap())
+    }
+
+    // 11. a
+    const handleReload = () => {
+        // console.log('calling reload callback from test controller', scrollerFunctionsRef)
+        scrollerFunctionsRef.current?.reload()
+    }
+
+    // 11. b
+    const handleClearCache = () => {
+
+        scrollerFunctionsRef.current?.clearCache()        
+    }
+    
+    // 12. a
+    const handleInsertIndex = (indexnumber, highrangenumber) => {
+
+        scrollerFunctionsRef.current?.insertIndex && 
+            console.log('insertIndex: [changelist, replaceList]',scrollerFunctionsRef.current.insertIndex(indexnumber, highrangenumber))
+
+    }
+
+    // 12. b
+    const handleRemoveIndex = (indexnumber, highrangenumber) => {
+        
+        scrollerFunctionsRef.current?.removeIndex && 
+            console.log('removeIndex: [changeList, replaceList]',scrollerFunctionsRef.current.removeIndex(indexnumber, highrangenumber))
+
+    }
+
+    // 13
+    const handleMoveIndex = (toindex, fromindex, fromhighrange) => {
+        
+        scrollerFunctionsRef.current?.moveIndex && 
+            console.log('moveIndex:',scrollerFunctionsRef.current.moveIndex(toindex, fromindex, fromhighrange))
+
+    }
+
+    // 14
     const handleRemapIndexes = () => {
         const cradleindexmap = scrollerFunctionsRef.current?.getCradleIndexMap()
         if (!cradleindexmap) return
@@ -609,160 +729,67 @@ returnarray)
 
     }
 
-    const handleListsizeStreamFeedback = (streaming) => {
-        dolistsizestreaming = streaming
-    }
-
-    const handleItemStreamFeedback = (streaming) => {
-        doitemstreaming = streaming
-    }
-
+    // Stream feedback to console
     const handleIndexStreamFeedback = (streaming) => {
         doindexstreaming = streaming
     }
     const handlePreloadStreamFeedback = (streaming) => {
         dopreloadstreaming = streaming
     }
-    const handleDeleteStreamFeedback = (streaming) => {
-        dodeletestreaming = streaming
-    }
-
-    const handleRepositioningStreamFeedback = (streaming) => {
-        dorepositioningstreaming = streaming
+    const handleItemStreamFeedback = (streaming) => {
+        doitemstreaming = streaming
     }
     const handleRepositioningFlagFeedback = (streaming) => {
         dorepositioningflagstreaming = streaming
     }
+    const handleRepositioningStreamFeedback = (streaming) => {
+        dorepositioningstreaming = streaming
+    }
+    const handleListsizeStreamFeedback = (streaming) => {
+        dolistsizestreaming = streaming
+    }
+    const handleDeleteStreamFeedback = (streaming) => {
+        dodeletestreaming = streaming
+    }
+    // Get test data
     const handleGetTestData = () => {
         console.log('test data', demos, demoselection)
     }
 
-    const handleMoveIndex = (toindex, fromindex, fromhighrange) => {
+    // -----------------[ package option callbacks for testoptions ]--------------
+
+    const optioncallbacks = {
         
-        scrollerFunctionsRef.current?.moveIndex && 
-            console.log('moveIndex:',scrollerFunctionsRef.current.moveIndex(toindex, fromindex, fromhighrange))
+        orientationcallback:handleOrientation, // 1.
+        democallback:handleDemo, // 2.
+        applycachecallback:handleApplyCache, // 3.
+        gridconfigborderscallback:handleGridConfigBorders, // 4.
+        gridconfigcellscallback:handleGridConfigCells, // 5.
+        gridconfigminmaxcellscallback:handleGridConfigMinMaxCells, // 6.
+        scrollerconfigrunwaysizecallback:handleScrollerConfigRunwaySize, // 7.
+        scrolltoposcallback:handleScrollToPos, // 8.
+        setlistsizecallback:handleSetListsize, // 9.
+        getc1achemapcallback:handleGetCacheIndexMap, // 10.a
+        getcachelistcallback:handleGetCacheItemMap, // 10. b
+        getcradlemapcallback:handleGetCradleIndexMap, // 10.c 
+        reloadcallback:handleReload, // 11. a
+        clearcachecallback:handleClearCache, // 11. b
+        insertindexcallback:handleInsertIndex, // 12. a
+        removeindexcallback:handleRemoveIndex, // 12. b
+        moveindexcallback:handleMoveIndex, // 13
+        remapindexescallback:handleRemapIndexes, // 14
 
-    }
-    
-
-    const handleInsertIndex = (indexnumber, highrangenumber) => {
-
-        scrollerFunctionsRef.current?.insertIndex && 
-            console.log('insertIndex: [changelist, replaceList]',scrollerFunctionsRef.current.insertIndex(indexnumber, highrangenumber))
-
-    }
-
-    const handleRemoveIndex = (indexnumber, highrangenumber) => {
-        
-        scrollerFunctionsRef.current?.removeIndex && 
-            console.log('removeIndex: [changeList, replaceList]',scrollerFunctionsRef.current.removeIndex(indexnumber, highrangenumber))
-
-    }
-
-    const handleGridConfigCells = (cellwidth, cellheight) => {
-
-        const demo = demoRef.current
-        demos[demo].cellWidth = cellwidth
-        demos[demo].cellHeight = cellheight
-        setTestState('setcellsizes')
-        
-    }
-    const handleGridConfigMinMaxCells = (cellminwidth, cellminheight) => {
-
-        const demo = demoRef.current
-        demos[demo].cellMinWidth = cellminwidth
-        demos[demo].cellMinHeight = cellminheight
-        setTestState('setminmaxcellsizes')
-        
-    }
-    const handleGridConfigBorders = (padding, gap) => {
-
-        const demo = demoRef.current
-        demos[demo].padding = padding
-        demos[demo].gap = gap
-        setTestState('setborders')
-
-    }
-
-    const handleScrollerConfigRunwaySize = (runwaysize) => {
-        
-        const demo = demoRef.current
-        demos[demo].runwaySize = runwaysize
-        setTestState('setrunwaysize')
-
-    }
-
-    const handleDemo = (demo) => {
-        handleOrientation(orientation)
-        setDemo(demo)
-    }
-
-    const handleClearCache = () => {
-
-        scrollerFunctionsRef.current?.clearCache()        
-    }
-    
-    const handleScrollToPos = (pos) => {
-        scrollerFunctionsRef.current?.scrollToIndex(pos)
-    }
-
-    const handleReload = () => {
-        // console.log('calling reload callback from test controller', scrollerFunctionsRef)
-        scrollerFunctionsRef.current?.reload()
-    }
-
-    const handleSetListsize = (listsize) => {
-        scrollerFunctionsRef.current?.setListsize(listsize)
-    }
-
-    const handleGetCacheIndexMap = () => {
-        console.log(scrollerFunctionsRef.current?.getCacheIndexMap())
-    }
-
-    const handleGetCacheItemMap = () => {
-        console.log(scrollerFunctionsRef.current?.getCacheItemMap())
-    }
-
-    const handleGetCradleIndexMap = () => {
-        console.log(scrollerFunctionsRef.current?.getCradleIndexMap())
-    }
-
-    const handleApplyCache = (cache, cacheMax) => {
-        // console.log('inside handleApplyCache:cache, cacheMax',cache, cacheMax)
-        const demo = demoRef.current
-        demos[demo].cache = cache
-        demos[demo].cacheMax = cacheMax
-        // console.log('setting cache of demo', cache, demo, demos[demo])
-        setTestState('setcache')
-    }
-    const democallbacks = {
-        
-        orientationcallback:handleOrientation,
-        democallback:handleDemo,
-        scrolltoposcallback:handleScrollToPos,
-        clearcachecallback:handleClearCache,
-        reloadcallback:handleReload,
-        setlistsizecallback:handleSetListsize,
-        getcachemapcallback:handleGetCacheIndexMap,
-        getcachelistcallback:handleGetCacheItemMap,
-        getcradlemapcallback:handleGetCradleIndexMap,
-        remapindexescallback:handleRemapIndexes,
-        insertindexcallback:handleInsertIndex,
-        removeindexcallback:handleRemoveIndex,
-        applycachecallback:handleApplyCache,
-        gridconfigcellscallback:handleGridConfigCells,
-        gridconfigminmaxcellscallback:handleGridConfigMinMaxCells,
-        gridconfigborderscallback:handleGridConfigBorders,
-        scrollerconfigrunwaysizecallback:handleScrollerConfigRunwaySize,
-        moveindexcallback:handleMoveIndex,
-        gettestdatacallback:handleGetTestData,
-        listsizestreamcallback:handleListsizeStreamFeedback,
-        itemstreamcallback:handleItemStreamFeedback,
+        // Stream feedback to console
         indexstreamcallback:handleIndexStreamFeedback,
         preloadstreamcallback:handlePreloadStreamFeedback,
-        deletestreamcallback:handleDeleteStreamFeedback,
+        itemstreamcallback:handleItemStreamFeedback,
+        repositioningflagcallback: handleRepositioningFlagFeedback,
         repositioningstreamcallback:handleRepositioningStreamFeedback,
-        repositioningflagcallback: handleRepositioningFlagFeedback
+        listsizestreamcallback:handleListsizeStreamFeedback,
+        deletestreamcallback:handleDeleteStreamFeedback,
+        
+        // Get test data
+        gettestdatacallback:handleGetTestData,
     }
 
     // console.log('testcontroller demo',demo, demos[demo], demoselection)
@@ -771,7 +798,7 @@ returnarray)
 
     return <>
         <div style = {uistyles.optionswrapper as React.CSSProperties} >
-            <TestOptions callbacks = { democallbacks }/>
+            <TestOptions callbacks = { optioncallbacks }/>
         </div>
         <div style = {
             uistyles.framewrapper as React.CSSProperties
