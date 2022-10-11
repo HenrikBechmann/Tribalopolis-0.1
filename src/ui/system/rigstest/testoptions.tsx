@@ -636,7 +636,7 @@ const TestOptions = ({callbacks}) => {
           <Button onClick = {handleremapindexes} variant="contained">Test remap indexes</Button>
       </FormControl> 
       { 
-{/*       <FormControl component="fieldset" className={classes.formControl}>
+/*       <FormControl component="fieldset" className={classes.formControl}>
           <FormLabel component="legend">2. Demos</FormLabel>
           <NativeSelect
               defaultValue={'generic'}
@@ -657,7 +657,7 @@ const TestOptions = ({callbacks}) => {
             <option value="variabledynamic">variable dynamic</option>
           </NativeSelect>
       </FormControl> 
-*/}      }
+*/      }
       </div>
       <div style = {{backgroundColor:'lightgreen', display:'inline-block'}}>
       <FormControl component="fieldset" className={classes.formControl}>
