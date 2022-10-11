@@ -680,7 +680,19 @@ const Test = (props) => {
     }
 
     // 14
-    const handleRemapIndexes = () => {
+    const handleRemapIndexes = (remapindextest) => {
+
+        switch (remapindextest) {
+            case 'test1': {
+                remapindextest1()
+            }
+        }
+
+
+    }
+
+    const remapindextest1 = () => {
+
         const cradleindexmap = scrollerFunctionsRef.current?.getCradleIndexMap()
         if (!cradleindexmap) return
 
@@ -726,7 +738,6 @@ changeMap]',
 returnarray)
 
         }
-
     }
 
     // Stream feedback to console

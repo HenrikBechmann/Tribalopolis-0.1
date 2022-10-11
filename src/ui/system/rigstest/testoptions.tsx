@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme: Theme) =>
 // -------------------------[ options values ]-------------------
 
 // 3.
-let cachevalue = ''
+let cachevalue = 'cradle'
 let cachemaxvalue = 0
 
 // 4.
@@ -61,6 +61,9 @@ let addremoverangehighvalue = 0
 let movefromindexvalue = 0
 let movefromhighrangevalue = 0
 let movetoindexvalue = 0
+
+// 14.
+let remapindextest = 'test1'
 
 // callbacks selected
 let indexchecked = false
@@ -147,6 +150,14 @@ const updateSetListsizeValue = (event) => {
 const updateAddRemoveIndexValue = (event) => {
 
   addremoveindexvalue = parseInt(event.target.value)
+
+}
+
+// 14.
+
+const updateremapindexes = (event) => {
+
+  remapindextest = event.target.value 
 
 }
 
@@ -340,7 +351,7 @@ const TestOptions = ({callbacks}) => {
   // 14. 
   const handleremapindexes = () => {
 
-    remapindexescallback()
+    remapindexescallback(remapindextest)
 
   }
 
@@ -633,31 +644,21 @@ const TestOptions = ({callbacks}) => {
       </FormControl>
       <FormControl component="fieldset" className={classes.formControl}>
           <FormLabel component="legend">14. Change mapping</FormLabel>
+          <NativeSelect
+              defaultValue={'test1'}
+              inputProps={{
+                name: 'mapping',
+                id: 'mapping',
+              }}
+              onChange = {updateremapindexes}
+          >
+            <option value="test1">test 1</option>
+            <option value="test2">test 2</option>
+            <option value="test3">test 3</option>
+            <option value="test4">test 4</option>
+          </NativeSelect>
           <Button onClick = {handleremapindexes} variant="contained">Test remap indexes</Button>
       </FormControl> 
-      { 
-/*       <FormControl component="fieldset" className={classes.formControl}>
-          <FormLabel component="legend">2. Demos</FormLabel>
-          <NativeSelect
-              defaultValue={'generic'}
-              inputProps={{
-                name: 'demo',
-                id: 'demo',
-              }}
-              onChange = {handleDemoChange}
-          >
-            <option value="generic">generic</option>
-            <option value="genericpromises">generic promises</option>
-            <option value="genericdynamic">generic dynamic</option>
-            <option value="nested">nested</option>
-            <option value="nestedpromises">nested promises</option>
-            <option value="nesteddynamic">nested dynamic</option>
-            <option value="variable">variable</option>
-            <option value="variablepromises">variable promises</option>
-            <option value="variabledynamic">variable dynamic</option>
-          </NativeSelect>
-      </FormControl> 
-*/      }
       </div>
       <div style = {{backgroundColor:'lightgreen', display:'inline-block'}}>
       <FormControl component="fieldset" className={classes.formControl}>
