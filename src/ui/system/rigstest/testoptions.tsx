@@ -62,7 +62,7 @@ let movefromindexvalue = 0
 let movefromhighrangevalue = 0
 let movetoindexvalue = 0
 
-// type boolean
+// callbacks selected
 let indexchecked = false
 let preloadchecked = false
 let itemchecked = false
@@ -174,6 +174,8 @@ const updateMoveToIndexValue = (event) => {
   movetoindexvalue = parseInt(event.target.value)
 
 }
+
+// =================[ TEST OPTIONS COMPONENT ]=================
 
 const TestOptions = ({callbacks}) => {
   const { 
@@ -632,7 +634,30 @@ const TestOptions = ({callbacks}) => {
       <FormControl component="fieldset" className={classes.formControl}>
           <FormLabel component="legend">14. Change mapping</FormLabel>
           <Button onClick = {handleremapindexes} variant="contained">Test remap indexes</Button>
-      </FormControl>
+      </FormControl> 
+      { 
+{/*       <FormControl component="fieldset" className={classes.formControl}>
+          <FormLabel component="legend">2. Demos</FormLabel>
+          <NativeSelect
+              defaultValue={'generic'}
+              inputProps={{
+                name: 'demo',
+                id: 'demo',
+              }}
+              onChange = {handleDemoChange}
+          >
+            <option value="generic">generic</option>
+            <option value="genericpromises">generic promises</option>
+            <option value="genericdynamic">generic dynamic</option>
+            <option value="nested">nested</option>
+            <option value="nestedpromises">nested promises</option>
+            <option value="nesteddynamic">nested dynamic</option>
+            <option value="variable">variable</option>
+            <option value="variablepromises">variable promises</option>
+            <option value="variabledynamic">variable dynamic</option>
+          </NativeSelect>
+      </FormControl> 
+*/}      }
       </div>
       <div style = {{backgroundColor:'lightgreen', display:'inline-block'}}>
       <FormControl component="fieldset" className={classes.formControl}>
