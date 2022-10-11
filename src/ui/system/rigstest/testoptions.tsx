@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme: Theme) =>
       margin: theme.spacing(3),
     },
     wrapper:{
-      width:'5550px'
+      width:'5250px'
     }
   }),
 )
@@ -724,7 +724,7 @@ const TestOptions = ({callbacks}) => {
                 name="checkedE"
               />
             }
-            label="Listsize"
+            label="Listsize change"
           />
           <FormControlLabel
             control={
