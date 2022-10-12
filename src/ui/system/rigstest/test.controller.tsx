@@ -97,7 +97,42 @@ const GenericItem = (props) => {
 
 }
 
+const GenericItemDynamic = (props) => {
+
+    const originalindexRef = useRef(props.index)
+
+    const intervalRef = useRef(null)
+
+    const [iteration, setIteration] = useState(0)
+    const iterationRef = useRef(null)
+    iterationRef.current = iteration
+
+    console.log('running dynamic', iteration)
+    useEffect(()=>{
+        intervalRef.current = setInterval(() => {
+
+            console.log('iteration:', iterationRef.current )
+            setIteration(iterationRef.current + 1)
+
+        },1000)
+
+        return () => {
+            clearInterval(intervalRef.current)
+        }
+
+    },[])
+    return <div style = {{position:'relative',height:'100%', width:'100%',backgroundColor:'white'}}>
+        <div style = {genericstyle}>
+            {originalindexRef.current + 1}{false && <img style= {{height:'100%'}} src={props.image}/>}
+            Iteration: {iteration}
+        </div>
+    </div>
+
+}
+
 const getGenericItem = (index) => {
+
+    // if (index == 0) return <GenericItemDynamic index = {index}/>
 
      // return <GenericItem index = {index} image = {'https://loremflickr.com/200/300?random='+index}/>
      // if ((index == 130) || (index == 145)) console.log('getGenericItem returning index', index)
