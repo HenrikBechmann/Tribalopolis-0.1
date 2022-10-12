@@ -107,11 +107,11 @@ const GenericItemDynamic = (props) => {
     const iterationRef = useRef(null)
     iterationRef.current = iteration
 
-    console.log('running dynamic', iteration)
+    // console.log('running dynamic', iteration)
     useEffect(()=>{
         intervalRef.current = setInterval(() => {
 
-            console.log('iteration:', iterationRef.current )
+            // console.log('iteration:', iterationRef.current )
             setIteration(iterationRef.current + 1)
 
         },1000)
@@ -145,12 +145,20 @@ const getGenericItem = (index) => {
 
 const getGenericItemPromises = (index) => {
 
+    return new Promise((resolve, reject) => {
+        setTimeout(()=> {
+
+            resolve(<GenericItem index = {index} />)
+
+        },400 + (Math.random() * 2000))
+    })
+
      // return <GenericItem index = {index} image = {'https://loremflickr.com/200/300?random='+index}/>
      // if ((index == 130) || (index == 145)) console.log('getGenericItem returning index', index)
-     if (index == 30) return Promise.reject(new Error('not found'))
-     if (index == 40) return 5
+     // if (index == 30) return Promise.reject(new Error('not found'))
+     // if (index == 40) return 5
      // if (index == 45) return null
-     return <GenericItem index = {index} />
+     // return <GenericItem index = {index} />
 
 }
 const getGenericItemDynamic = (index) => {
@@ -160,7 +168,7 @@ const getGenericItemDynamic = (index) => {
      if (index == 30) return Promise.reject(new Error('not found'))
      if (index == 40) return 5
      // if (index == 45) return null
-     return <GenericItem index = {index} />
+     return <GenericItemDynamic index = {index} />
 
 }
 
