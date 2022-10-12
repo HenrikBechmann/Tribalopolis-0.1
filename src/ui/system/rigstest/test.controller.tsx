@@ -351,7 +351,7 @@ const getVariableItemPromises = (index) => {
     return new Promise((resolve, reject) => {
         setTimeout(()=> {
 
-            resolve(<VariableItem index = {index} scrollerProperties = {null}/>)
+            resolve(<VariableItemDynamic index = {index} scrollerProperties = {null}/>)
 
         },400 + (Math.random() * 2000))
     })
@@ -558,7 +558,7 @@ const demos = {
         cellWidth:250,
         cellMinHeight:20,
         runwaySize:5,
-        startingIndex:0,
+        startingIndex:50,
         estimatedListSize:10,
         getItem:getVariableItemPromises,
         placeholder:null,
