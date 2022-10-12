@@ -236,9 +236,9 @@ let variablestyles = {
     }
 }
 
-let teststrings = []
+const teststrings = []
 
-let getTestString = (index) => {
+const getTestString = (index) => {
     // console.log('getTestString',index)
     if (!teststrings[index]) {
         if ([0,1,51,52,196,197,198,199].includes(index)) {
@@ -250,6 +250,11 @@ let getTestString = (index) => {
         }
     }
     return teststrings[index]
+}
+
+const getTestStringDynamic = (index) => {
+    // console.log('getTestString',index)
+    return `${index + 1}: 'test string ' + ${teststring.substr(0,Math.random() * teststring.length)}`
 }
 
 const VariableItem = (props) => {
@@ -281,6 +286,60 @@ const VariableItem = (props) => {
     </div>
 }
 
+
+const VariableItemDynamic = (props) => {
+
+    const {
+
+        orientation,
+        cellWidth,
+        cellHeight
+
+    } = props.scrollerProperties.scrollerPropertiesRef.current
+
+    const outerstyles = {...variablestyles.outer}
+
+    if (orientation == 'vertical') {
+        outerstyles.maxHeight = cellHeight
+        outerstyles.height = null
+        outerstyles.maxWidth = null
+        outerstyles.width = '100%'
+    } else {
+        outerstyles.maxHeight = null
+        outerstyles.height = '100%'
+        outerstyles.maxWidth = cellWidth
+        outerstyles.width = null
+    }
+
+    const originalindexRef = useRef(props.index)
+
+    const intervalRef = useRef(null)
+
+    const [teststring, setTeststring] = useState('test string')
+    const teststringRef = useRef(null)
+    teststringRef.current = teststring
+    const iterationRef = useRef(0)
+    // console.log('running dynamic', iteration)
+    useEffect(()=>{
+        intervalRef.current = setInterval(() => {
+            iterationRef.current ++
+            const teststringinstance = getTestStringDynamic(props.index)
+            // console.log('iteration:', iterationRef.current )
+            setTeststring(teststringinstance)
+
+        },200 + (Math.random() * 2000))
+
+        return () => {
+            clearInterval(intervalRef.current)
+        }
+
+    },[])
+
+    return <div style = {outerstyles}>
+        <div style = {variablestyles.inner as React.CSSProperties}>{teststringRef.current}</div>
+    </div>
+}
+
 const getVariableItem = (index) => {
 
      return <VariableItem index = {index} scrollerProperties = {null}/>    
@@ -289,12 +348,20 @@ const getVariableItem = (index) => {
 
 const getVariableItemPromises = (index) => {
 
-     return <VariableItem index = {index} scrollerProperties = {null}/>    
+    return new Promise((resolve, reject) => {
+        setTimeout(()=> {
+
+            resolve(<VariableItem index = {index} scrollerProperties = {null}/>)
+
+        },400 + (Math.random() * 2000))
+    })
+
+     // return <VariableItem index = {index} scrollerProperties = {null}/>    
 
 }
 const getVariableItemDynamic = (index) => {
 
-     return <VariableItem index = {index} scrollerProperties = {null}/>    
+     return <VariableItemDynamic index = {index} scrollerProperties = {null}/>    
 
 }
 
